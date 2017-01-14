@@ -1,0 +1,33 @@
+/**
+ * React BabylonJS - originally cloned from:
+ * Babel Starter Kit (https://www.kriasoft.com/babel-starter-kit)
+ * 
+ * Copyright © 2015-2016 Kriasoft, LLC. All rights reserved.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE.txt file in the root directory of this source tree.
+ */
+
+.stats {
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.stats__link {
+  color: rgba(255, 255, 255, .8);
+  text-decoration: none;
+  margin-right: 10px;
+}
+
+.stats__link:hover {
+  color: rgba(255, 255, 255, 1);
+}
+
+.stats__link:hover .stats__icon {
+  fill: rgba(255, 255, 255, 1);
+}
+
+.stats__icon {
+  padding-right: 6px;
+  fill: rgba(255, 255, 255, .8);
+}

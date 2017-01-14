@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        "target": "ES6",
+        // allow ES6 imports for the typings that do not yet use ES6 style exports.
+        "allowSyntheticDefaultImports": true
+    },
+    "files": [
+        "src/",
+        "tests/"
+    ]
+}

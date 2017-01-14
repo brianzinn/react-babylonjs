@@ -1,0 +1,8 @@
+{
+  "name": "react-babylonJS",
+  "dependencies": {
+    // redux already has typings in their source.
+    "react": "registry:npm/react#15.0.1+20170104200836",
+    "react-redux": "registry:npm/react-redux#4.4.0+20160614222153"
+  }
+}
