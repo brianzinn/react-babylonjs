@@ -10,7 +10,7 @@ Install the npm module into your project.
 
 ```sh
 $ cd <your-project-dir>
-$ npm install react-babylonJS --save
+$ npm install react-babylonjs --save
 ```
 
 ### Setting up a React component in your project..
