@@ -7,8 +7,8 @@
 
 import React, {Component, PropTypes} from 'react'
 
-import BABYLON, { PointerEventTypes } from 'babylonjs'
-import { registerHandler, removeHandler, DEBUG_ON, DEBUG_OFF } from './reactBabylonJsMiddleware'
+import { PointerEventTypes, Engine, Scene as BabylonScene } from 'babylonjs'
+import { registerHandler, removeHandler, DEBUG_ON, DEBUG_OFF } from './middleware'
 
 export default class Scene extends Component {
 
@@ -17,8 +17,6 @@ export default class Scene extends Component {
 
     this.scene = undefined
     this.engine = undefined
-    
-    this.sfx = this.loadSounds()
 
     this.onCanvas3d = this.onCanvas3d.bind(this) // engine is bound to canvas here.
     // this.focus = this.focus.bind(this)
@@ -33,21 +31,16 @@ export default class Scene extends Component {
     }
   }
 
-  loadSounds() {
-    var sound = new Howl({
-        urls: ['sfx/boom1.wav']
-    });
-    return sound
-  };
-
   componentDidMount () {
-    this.engine = new BABYLON.Engine(this.canvas3d, true);
+    this.engine = new Engine(this.canvas3d, true);
 
     // must set shaderRepository before creating engine?  need to pass in as props.
     if (this.props.shadersRepository !== undefined) {
-        BABYLON.Engine.ShadersRepository = this.props.shadersRepository;
+        Engine.ShadersRepository = this.props.shadersRepository;
     }
-    let scene = new BABYLON.Scene(this.engine);
+
+    // we aliased BABYLON.Scene to BabylonScene
+    let scene = new BabylonScene(this.engine);
     
     if (typeof this.props.onSceneMount === 'function') {
         console.log('calling onSceneMount')

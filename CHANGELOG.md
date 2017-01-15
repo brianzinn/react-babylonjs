@@ -1,7 +1,7 @@
 ## react-babylonJS Change Log
 
-No notable changes.
+No releases.
 
 ### [v0.0.1] - 2017-01-13
 
-- Basic component and middleware for sample project.
+- Basic React component and redux middleware for sample project.

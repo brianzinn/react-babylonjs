@@ -7,4 +7,4 @@
 
 export Scene from './Scene.js'
 
-export babylonJSmiddleware, {registerHandler, removeHandler, DEBUG_ON, DEBUG_OFF } from './reactBabylonJsMiddleware'
+export babylonJSMiddleware, {registerHandler, removeHandler, debugOn, debugOff } from './middleware'
