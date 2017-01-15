@@ -13,7 +13,7 @@ $ cd <your-project-dir>
 $ npm install react-babylonJS --save
 ```
 
-### Sample code to use in your project.
+### Setting up a React component in your project..
 
 ```javascript
 // If you import Scene from BabylonJS then make sure to alias one of them.
@@ -111,5 +111,31 @@ export default class Quarto extends Component {
       </div>
     )
   }
+}
+```
+
+### Setting up middleware in your project...
+
+You need to apply the 'react-babylonjs' middleware to intercept the events, including turning off debug in scene (built-in).
+
+```javascript
+import { applyMiddleware, compose, createStore } from 'redux'
+import thunk from 'redux-thunk'
+import { babylonJSMiddleware } from 'react-babylonjs'
+
+export default (initialState = {}) => {
+  // ======================================================
+  // Middleware Configuration
+  // ======================================================
+  const middleware = [thunk, babylonJSMiddleware]
+
+  return createStore(
+    ...,
+    initialState,
+    compose(
+      applyMiddleware(...middleware),
+      ...enhancers
+    )
+  )
 }
 ```
