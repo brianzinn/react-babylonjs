@@ -5,90 +5,94 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React, {Component, PropTypes} from 'react'
+import React, { Component, PropTypes } from 'react'
 
 import { PointerEventTypes, Engine, Scene as BabylonScene } from 'babylonjs'
 import { registerHandler, removeHandler, DEBUG_ON, DEBUG_OFF } from './middleware'
 
 export default class Scene extends Component {
 
-  constructor(props) {
+  constructor (props) {
     super(props)
 
     this.scene = undefined
     this.engine = undefined
 
     this.onCanvas3d = this.onCanvas3d.bind(this) // engine is bound to canvas here.
-    // this.focus = this.focus.bind(this)
-    // this.blur = this.blur.bind(this)
-    
+    this.focus = this.focus.bind(this)
+    this.blur = this.blur.bind(this)
     this.onResizeWindow = this.onResizeWindow.bind(this)
+    this.keyPressHandler = this.keyPressHandler.bind(this)
+
+    this.height = props.height || 600
+    this.width = props.width || 900
   }
 
-  onResizeWindow() {
+  onResizeWindow () {
     if (this.engine) {
-        this.engine.resize();
+      this.engine.resize()
     }
   }
 
   componentDidMount () {
-    this.engine = new Engine(this.canvas3d, true);
+    this.engine = new Engine(this.canvas3d, true)
 
     // must set shaderRepository before creating engine?  need to pass in as props.
     if (this.props.shadersRepository !== undefined) {
-        Engine.ShadersRepository = this.props.shadersRepository;
+      Engine.ShadersRepository = this.props.shadersRepository
     }
 
     // we aliased BABYLON.Scene to BabylonScene
-    let scene = new BabylonScene(this.engine);
-    
+    let scene = new BabylonScene(this.engine)
+    this.scene = scene
+
     if (typeof this.props.onSceneMount === 'function') {
-        console.log('calling onSceneMount')
-        this.props.onSceneMount({
-            scene,
-            engine: this.engine,
-            canvas: this.canvas3d
-        })
+      console.log('calling onSceneMount')
+      this.props.onSceneMount({
+        scene,
+        engine: this.engine,
+        canvas: this.canvas3d
+      })
     } else {
-        console.error('onSceneMount function not available')
+      console.error('onSceneMount function not available')
     }
 
     // Hide the login screen when the scene is ready
-    scene.executeWhenReady(function() {
+    scene.executeWhenReady(() => {
         // TODO: add a method callback for when Scene is ready.
-        //console.error('missing action to create state when scene is first ready')
-    });
+        // console.error('missing action to create state when scene is first ready')
+    })
 
     // TODO: Add other PointerEventTypes and keyDown.
-    scene.onPointerObservable.add ((evt) => {
-        if (evt.pickInfo.hit && evt.pickInfo.pickedMesh !== undefined) {
-            var mesh = evt.pickInfo.pickedMesh
-        
-            if (typeof this.props.onMeshPicked === 'function') {
-                this.props.onMeshPicked(mesh, scene)
-            } else {
-                console.log('onMeshPicked not being called')
-            }
-        }        
+    scene.onPointerObservable.add((evt) => {
+      if (evt.pickInfo.hit && evt.pickInfo.pickedMesh !== undefined) {
+        let mesh = evt.pickInfo.pickedMesh
+
+        if (typeof this.props.onMeshPicked === 'function') {
+          this.props.onMeshPicked(mesh, scene)
+        } else {
+          console.log('onMeshPicked not being called')
+        }
+      }
     }, PointerEventTypes.POINTERDOWN)
 
     // here we are binding to middleware to receive Redux actions.
     let handlers = {
-        [DEBUG_ON]: (action) => {
-            scene.debugLayer.show();
-            return true
-        },
-        [DEBUG_OFF]: (action) => {
-            scene.debugLayer.hide();
-            return true
-        }
+      [DEBUG_ON]: (action) => {
+        scene.debugLayer.show()
+        return true
+      },
+      [DEBUG_OFF]: (action) => {
+        scene.debugLayer.hide()
+        return true
+      }
     }
 
     this.actionHandler = (action) => {
-        let handler = handlers[action.type]
-        if (handler !== undefined) {
-            return handler(action)
-        }
+      let handler = handlers[action.type]
+      if (handler !== undefined) {
+        return handler(action)
+      }
     }
 
     registerHandler(this.actionHandler)
@@ -97,47 +101,84 @@ export default class Scene extends Component {
     window.addEventListener('resize', this.onResizeWindow)
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     // unregister from window and babylonJS events
     // TODO: mouse on/out must be registered and deregestered also.
     removeHandler(this.actionHandler)
     window.removeEventListener('resize', this.onResizeWindow)
+
+    if (this.canvas3d !== null) {
+      this.canvas3d.removeEventListener('mouseover', this.focus)
+
+      this.canvas3d.removeEventListener('mouseout', this.blur)
+    }
   }
 
   onCanvas3d (c) {
     if (c !== null) { // null when called from unmountComponent()
-      // c.addEventListener('mouseover', (e) => {
-      //   this.focus()
-      // })
-      // c.addEventListener('mouseout', (e) => {
-      //   this.blur()
-      // })
+      // TODO: see if a polyfill should be added here.
+      c.addEventListener('mouseover', this.focus)
+      c.addEventListener('mouseout', this.blur)
 
-      //console.log('setting canvas3d', c)
-
+      // console.log('setting canvas3d', c)
       this.canvas3d = c
     }
   }
 
-//   focus: function () {
-//     document.body.addEventListener('keydown', this.keyPressHandler)
-//   },
-//   blur: function () {
-//     document.body.removeEventListener('keydown', this.keyPressHandler)
-//   },
+  /**
+   * When canvas receives the active focus (ie: mouse over)
+   */
+  focus = () => {
+    document.body.addEventListener('keydown', this.keyPressHandler)
 
-  render() {
+    if (typeof this.props.onFocus === 'function') {
+      // console.log('calling onFocus')
+      this.props.onFocus({
+        scene: this.scene,
+        engine: this.engine,
+        canvas: this.canvas3d
+      })
+    }
+  }
+
+  /**
+   * When canvas loses focus.
+   */
+  blur = () => {
+    if (typeof this.props.onBlur === 'function') {
+      // console.log('calling onBlur')
+      this.props.onBlur({
+        scene: this.scene,
+        engine: this.engine,
+        canvas: this.canvas3d
+      })
+    }
+    document.body.removeEventListener('keydown', this.keyPressHandler)
+  }
+
+  keyPressHandler = (e) => {
+    console.log('keyPressHandler', e)
+  }
+
+  render () {
     // this.appState = this.props.state
     let { visible } = this.props
-            
+
+    // TODO: consider full screen
     return (
-        <canvas width={900} height={600} style={{visibility: (visible) ? 'visible' : 'hidden'}} ref={this.onCanvas3d} />
+      <canvas width={this.width} height={this.height} style={{ visibility: (visible) ? 'visible' : 'hidden' }} ref={this.onCanvas3d} />
     )
   }
 }
 
 Scene.propTypes = {
     // TODO: add onBlur, onFocus, on KeyDown, onMeshHover, etc.
-    onSceneMount: React.PropTypes.func.isRequired,
-    onMeshPicked: React.PropTypes.func
+  onSceneMount: PropTypes.func.isRequired,
+  width: PropTypes.number,
+  height: PropTypes.number,
+  onBlur: PropTypes.func,
+  onFocus: PropTypes.func,
+  onMeshPicked: PropTypes.func,
+  shadersRepository: PropTypes.string,
+  visible: PropTypes.bool
 }

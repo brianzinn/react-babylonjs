@@ -2,4 +2,5 @@ blueprints/**/files/**
 coverage/**
 node_modules/**
 dist/**
+tools/**
 src/index.html
