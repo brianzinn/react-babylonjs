@@ -5,18 +5,45 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React, { Component, PropTypes } from 'react'
+import * as React from 'react'
 
-import { PointerEventTypes, Engine, Scene as BabylonScene } from 'babylonjs'
+import { PointerEventTypes, Engine, EngineOptions, Scene as BabylonScene, AbstractMesh } from 'babylonjs'
 import { registerHandler, removeHandler, DEBUG_ON, DEBUG_OFF } from './middleware'
 
-export default class Scene extends Component {
+export type SceneEventArgs = {
+  engine: Engine,
+  scene: BabylonScene,
+  canvas: HTMLElement
+}
 
-  constructor (props) {
+export type SceneProps = {
+  // TODO: add onKeyDown, onMeshHover, etc.
+  onSceneMount?: (args: SceneEventArgs) => void,
+  width?: number,
+  height?: number,
+  onBlur?: (args: SceneEventArgs) => void,
+  onFocus?: (args: SceneEventArgs) => void,
+  onMeshPicked?: (mesh: AbstractMesh, scene: BabylonScene) => void,
+  shadersRepository?: string,
+  visible?: boolean,
+  engineOptions?: EngineOptions,
+  adaptToDeviceRatio?: boolean
+}
+
+export default class Scene extends React.Component<SceneProps, {}> {
+
+  private scene: BabylonScene
+  private engine: Engine
+
+  private height: number
+  private width: number
+
+  private canvas3d: HTMLCanvasElement // | WebGLRenderingContext
+
+  private actionHandler: any // TODO: make a strongly typed list.
+
+  constructor (props : SceneProps) {
     super(props)
-
-    this.scene = undefined
-    this.engine = undefined
 
     this.onCanvas3d = this.onCanvas3d.bind(this) // engine is bound to canvas here.
     this.focus = this.focus.bind(this)
@@ -35,7 +62,7 @@ export default class Scene extends Component {
   }
 
   componentDidMount () {
-    this.engine = new Engine(this.canvas3d, true)
+    this.engine = new Engine(this.canvas3d, true, this.props.engineOptions, this.props.adaptToDeviceRatio)
 
     // must set shaderRepository before creating engine?  need to pass in as props.
     if (this.props.shadersRepository !== undefined) {
@@ -78,17 +105,18 @@ export default class Scene extends Component {
 
     // here we are binding to middleware to receive Redux actions.
     let handlers = {
-      [DEBUG_ON]: (action) => {
+      [DEBUG_ON]: (action: any) => {
         scene.debugLayer.show()
         return true
       },
-      [DEBUG_OFF]: (action) => {
+      [DEBUG_OFF]: (action: any) => {
         scene.debugLayer.hide()
         return true
       }
     }
 
-    this.actionHandler = (action) => {
+    // TODO: 
+    this.actionHandler = (action: any) => {
       let handler = handlers[action.type]
       if (handler !== undefined) {
         return handler(action)
@@ -114,7 +142,7 @@ export default class Scene extends Component {
     }
   }
 
-  onCanvas3d (c) {
+  onCanvas3d (c : HTMLCanvasElement) {
     if (c !== null) { // null when called from unmountComponent()
       // TODO: see if a polyfill should be added here.
       c.addEventListener('mouseover', this.focus)
@@ -156,29 +184,21 @@ export default class Scene extends Component {
     document.body.removeEventListener('keydown', this.keyPressHandler)
   }
 
-  keyPressHandler = (e) => {
-    console.log('keyPressHandler', e)
+  keyPressHandler = (ev: KeyboardEvent) => {
+    console.log('keyPressHandler', ev)
   }
 
   render () {
     // this.appState = this.props.state
     let { visible } = this.props
 
-    // TODO: consider full screen
+    // TODO: full screen?
     return (
-      <canvas width={this.width} height={this.height} style={{ visibility: (visible) ? 'visible' : 'hidden' }} ref={this.onCanvas3d} />
+      <canvas
+        width={this.width}
+        height={this.height}
+        style={{ visibility: (visible) ? 'visible' : 'hidden' }}
+        ref={this.onCanvas3d} />
     )
   }
-}
-
-Scene.propTypes = {
-    // TODO: add onBlur, onFocus, on KeyDown, onMeshHover, etc.
-  onSceneMount: PropTypes.func.isRequired,
-  width: PropTypes.number,
-  height: PropTypes.number,
-  onBlur: PropTypes.func,
-  onFocus: PropTypes.func,
-  onMeshPicked: PropTypes.func,
-  shadersRepository: PropTypes.string,
-  visible: PropTypes.bool
 }

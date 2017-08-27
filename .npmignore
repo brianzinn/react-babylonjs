@@ -1,9 +1,12 @@
+node_modules
 src
 test
 tools
 .editorconfig
 .eslintignore
 .eslintrc
+rollup.config.js
 .gitattributes
-jsconfig.json
-typings.json
+tsconfig.json
+tslint.json
+yarn.lock

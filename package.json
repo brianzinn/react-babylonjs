@@ -1,73 +1,110 @@
 {
-  "private": false,
   "name": "react-babylonjs",
-  "version": "0.0.7",
+  "version": "0.0.9",
   "description": "Integration component and middleware for BabylonJS with React/Redux",
-  "homepage": "https://github.com/brianzinn/react-babylonJS/",
-  "repository": "brianzinn/react-babylonJS",
-  "author": "Brian Zinn",
-  "contributors": [],
-  "license": "MIT",
+  "homepage": "https://brianzinn.github.io/react-babylonJS/",
   "keywords": [],
-  "main": "dist/index.js",
-  "jsnext:main": "index.es.js",
-  "babel": {
-    "presets": [
-      "latest",
-      "stage-0"
-    ],
-    "plugins": [
-      "transform-runtime",
-      "transform-react-jsx"
-    ]
+  "main": "dist/react-babylonjs.umd.js",
+  "module": "dist/react-babylonjs.es5.js",
+  "typings": "dist/types/react-babylonjs.d.ts",
+  "files": [
+    "dist"
+  ],
+  "author": "Brian Zinn <github@wakeskate.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/brianzinn/react-babylonJS/"
   },
-  "eslintConfig": {
-    "parser": "babel-eslint",
-    "extends": "airbnb-base"
-  },
-  "dependencies": {
-    "babel-preset-react": "^6.16.0",
-    "babel-runtime": "^6.11.6",
-    "babylonjs": "^2.5.0",
-    "react": "^15.4.2",
-    "react-redux": "^5.0.2",
-    "redux": "^3.6.0"
-  },
-  "devDependencies": {
-    "babel-cli": "^6.16.0",
-    "babel-core": "^6.17.0",
-    "babel-eslint": "^7.0.0",
-    "babel-plugin-transform-runtime": "^6.15.0",
-    "babel-preset-latest": "^6.16.0",
-    "babel-preset-stage-0": "^6.16.0",
-    "babel-register": "^6.16.3",
-    "chai": "^4.0.0-canary.1",
-    "coveralls": "^2.11.14",
-    "del": "^2.2.2",
-    "eslint": "^3.8.0",
-    "eslint-config-airbnb-base": "^10.0.1",
-    "eslint-config-standard": "^6.2.1",
-    "eslint-config-standard-react": "^4.2.0",
-    "eslint-plugin-babel": "^4.0.1",
-    "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-promise": "^3.4.0",
-    "eslint-plugin-react": "^6.9.0",
-    "eslint-plugin-standard": "^2.0.1",
-    "istanbul": "^1.1.0-alpha.1",
-    "mocha": "^3.1.2",
-    "rollup": "^0.36.3",
-    "rollup-plugin-babel": "^2.6.1",
-    "sinon": "^2.0.0-pre.3"
+  "license": "MIT",
+  "engines": {
+    "node": ">=6.0.0"
   },
   "scripts": {
-    "lint": "eslint src test tools",
-    "test": "mocha --compilers js:babel-register",
-    "test:watch": "mocha --compilers js:babel-register --reporter min --watch",
-    "test:cover": "babel-node ./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha",
-    "coveralls": "cat ./coverage/lcov.info | coveralls",
-    "build": "node tools/build",
-    "prepublish": "npm run build",
-    "publish:docs": "easystatic deploy docs --repo brianzinn/react-babylonJS",
-    "start": "easystatic start docs"
+    "lint": "tslint -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
+    "prebuild": "rimraf dist",
+    "build": "tsc --jsx react && rollup -c && rimraf compiled && typedoc --out dist/docs --target es6 --theme minimal src",
+    "start": "tsc-watch --onSuccess \"rollup -c\"",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:prod": "npm run lint && npm run test -- --coverage --no-cache",
+    "deploy-docs": "ts-node tools/gh-pages-publish",
+    "report-coverage": "cat ./coverage/lcov.info | coveralls",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "{src,test}/**/*.ts": [
+      "prettier --write --no-semi",
+      "git add"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    },
+    "validate-commit-msg": {
+      "types": "conventional-commit-types",
+      "helpMessage": "Use \"npm run commit\" instead, we use conventional-changelog format :) (https://github.com/commitizen/cz-cli)"
+    }
+  },
+  "jest": {
+    "transform": {
+      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/test/"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 90,
+        "functions": 95,
+        "lines": 95,
+        "statements": 95
+      }
+    }
+  },
+  "devDependencies": {
+    "@types/jest": "^20.0.0",
+    "@types/node": "^8.0.0",
+    "@types/react": "^16.0.5",
+    "@types/react-redux": "^5.0.5",
+    "colors": "^1.1.2",
+    "commitizen": "^2.9.6",
+    "coveralls": "^2.13.1",
+    "cross-env": "^5.0.1",
+    "cz-conventional-changelog": "^2.0.0",
+    "husky": "^0.14.0",
+    "jest": "^20.0.4",
+    "lint-staged": "^4.0.0",
+    "lodash.camelcase": "^4.3.0",
+    "prettier": "^1.4.4",
+    "prompt": "^1.0.0",
+    "replace-in-file": "^2.5.0",
+    "rimraf": "^2.6.1",
+    "rollup": "^0.46.0",
+    "rollup-plugin-commonjs": "^8.0.2",
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-plugin-sourcemaps": "^0.4.2",
+    "semantic-release": "^6.3.6",
+    "ts-jest": "^20.0.6",
+    "ts-node": "^3.0.6",
+    "tsc-watch": "^1.0.5",
+    "tslint": "^5.4.3",
+    "tslint-config-prettier": "^1.1.0",
+    "tslint-config-standard": "^6.0.0",
+    "typedoc": "^0.7.1",
+    "typescript": "^2.3.4",
+    "validate-commit-msg": "^2.12.2"
+  },
+  "dependencies": {
+    "babylonjs": "^3.1.0-alpha1",
+    "react": "^15.6.1",
+    "react-redux": "^5.0.5"
   }
 }
