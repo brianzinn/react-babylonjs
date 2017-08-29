@@ -29,6 +29,10 @@ export const actions = {
   debugOff
 }
 
+/**
+ * Register a handler to intercept events.
+ * @param handler 
+ */
 export const registerHandler = (handler: (action: any) => boolean) => {
   if (typeof handler !== "function") {
     console.error("parameter handler is not a function", handler)
@@ -38,6 +42,11 @@ export const registerHandler = (handler: (action: any) => boolean) => {
   }
 }
 
+/**
+ * Remove registration of handler.
+ * 
+ * @param handler
+ */
 export const removeHandler = (handler: (action: any) => boolean) => {
   if (typeof handler !== "function") {
     console.error("cannot unregister a handler that's not a function", handler)

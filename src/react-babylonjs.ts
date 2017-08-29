@@ -6,7 +6,9 @@ export {
   actions /* action creators for Connect */,
   DEBUG_ON,
   DEBUG_OFF /* action type constants */,
-  HandledResult
+  HandledResult,
+  registerHandler,
+  removeHandler
 } from "./middleware"
 
 export { default as Scene, SceneProps, SceneEventArgs } from "./Scene"
