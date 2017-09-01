@@ -13,7 +13,7 @@ import { registerHandler, removeHandler, DEBUG_ON, DEBUG_OFF } from './middlewar
 export type SceneEventArgs = {
   engine: Engine,
   scene: BabylonScene,
-  canvas: HTMLElement
+  canvas: HTMLCanvasElement // | WebGLRenderingContext
 }
 
 export type SceneProps = {
@@ -74,7 +74,7 @@ export default class Scene extends React.Component<SceneProps, {}> {
     this.scene = scene
 
     if (typeof this.props.onSceneMount === 'function') {
-      console.log('calling onSceneMount')
+      // console.log('calling onSceneMount')
       this.props.onSceneMount({
         scene,
         engine: this.engine,
