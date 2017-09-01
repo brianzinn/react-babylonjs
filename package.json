@@ -1,6 +1,6 @@
 {
   "name": "react-babylonjs",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Integration component and middleware for BabylonJS with React/Redux",
   "homepage": "https://brianzinn.github.io/react-babylonJS/",
   "keywords": [],
