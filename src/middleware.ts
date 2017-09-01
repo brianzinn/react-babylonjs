@@ -52,7 +52,7 @@ export const removeHandler = (handler: (action: any) => boolean) => {
     console.error("cannot unregister a handler that's not a function", handler)
   } else if (handlers.find(handler) !== undefined) {
     console.log("babylonJS handler found and removed", handler)
-    handlers.filter(x => x !== handler)
+    handlers = handlers.filter(x => x !== handler)
   } else {
     console.log("handler not removed (was not registered)..")
   }
