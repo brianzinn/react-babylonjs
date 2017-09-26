@@ -1,6 +1,6 @@
 {
   "name": "react-babylonjs",
-  "version": "0.1.1",
+  "version": "0.1.3",
   "description": "Integration component and middleware for BabylonJS with React/Redux",
   "homepage": "https://brianzinn.github.io/react-babylonJS/",
   "keywords": [],
@@ -102,9 +102,9 @@
     "typescript": "^2.3.4",
     "validate-commit-msg": "^2.12.2"
   },
-  "dependencies": {
-    "babylonjs": "^3.1.0-alpha1",
-    "react": "^15.6.1",
-    "react-redux": "^5.0.5"
+  "peerDependencies": {
+    "babylonjs": "3.x",
+    "react": "15.x",
+    "react-redux": "5.x"
   }
 }
