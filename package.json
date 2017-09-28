@@ -103,8 +103,8 @@
     "validate-commit-msg": "^2.12.2"
   },
   "peerDependencies": {
-    "babylonjs": "3.x",
-    "react": "15.x",
+    "babylonjs": "^2.5 || 3.x",
+    "react": "^15.0.0-0 || ^16.0.0-0",
     "react-redux": "5.x"
   }
 }
