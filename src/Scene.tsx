@@ -16,46 +16,42 @@ export type SceneEventArgs = {
   canvas: HTMLCanvasElement // | WebGLRenderingContext
 }
 
+/**
+ * Note that the height and width are the logical canvas dimensions used for drawing and are different from 
+ * the style.height and style.width CSS attributes. If you don't set the CSS attributes, the intrinsic size of the canvas 
+ * will be used as its display size; if you do set the CSS attributes, and they differ from the canvas dimensions, your content 
+ * will be scaled in the browser. 
+ */
 export type SceneProps = {
   // TODO: add onKeyDown, onMeshHover, etc.
   onSceneMount?: (args: SceneEventArgs) => void,
-  width?: number,
-  height?: number,
-  onBlur?: (args: SceneEventArgs) => void,
-  onFocus?: (args: SceneEventArgs) => void,
+  onSceneBlur?: (args: SceneEventArgs) => void,
+  onSceneFocus?: (args: SceneEventArgs) => void,
   onMeshPicked?: (mesh: AbstractMesh, scene: BabylonScene) => void,
   shadersRepository?: string,
   visible?: boolean,
   engineOptions?: EngineOptions,
-  adaptToDeviceRatio?: boolean
+  adaptToDeviceRatio?: boolean,
+  width?: number,
+  height?: number,
+  touchActionNone?: boolean,
+  id?: string
 }
 
-export default class Scene extends React.Component<SceneProps, {}> {
+export default class Scene extends React.Component<SceneProps & React.HTMLAttributes<HTMLCanvasElement>, {}> {
 
   private scene: BabylonScene
   private engine: Engine
 
-  private height: number
-  private width: number
+  private height: number | string
+  private width: number | string
 
   private canvas3d: HTMLCanvasElement // | WebGLRenderingContext
 
-  private actionHandler: any // TODO: make a strongly typed list.
+  // TODO: make a strongly typed Map<string, (action: {type: string}) => boolean>. Init with ([[a],[b]]);
+  private actionHandler: any
 
-  constructor (props : SceneProps) {
-    super(props)
-
-    this.onCanvas3d = this.onCanvas3d.bind(this) // engine is bound to canvas here.
-    this.focus = this.focus.bind(this)
-    this.blur = this.blur.bind(this)
-    this.onResizeWindow = this.onResizeWindow.bind(this)
-    this.keyPressHandler = this.keyPressHandler.bind(this)
-
-    this.height = props.height || 600
-    this.width = props.width || 900
-  }
-
-  onResizeWindow () {
+  onResizeWindow = () => {
     if (this.engine) {
       this.engine.resize()
     }
@@ -142,7 +138,7 @@ export default class Scene extends React.Component<SceneProps, {}> {
     }
   }
 
-  onCanvas3d (c : HTMLCanvasElement) {
+  onCanvas3d = (c : HTMLCanvasElement) => {
     if (c !== null) { // null when called from unmountComponent()
       // TODO: see if a polyfill should be added here.
       c.addEventListener('mouseover', this.focus)
@@ -159,9 +155,9 @@ export default class Scene extends React.Component<SceneProps, {}> {
   focus = () => {
     document.body.addEventListener('keydown', this.keyPressHandler)
 
-    if (typeof this.props.onFocus === 'function') {
+    if (typeof this.props.onSceneFocus === 'function') {
       // console.log('calling onFocus')
-      this.props.onFocus({
+      this.props.onSceneFocus({
         scene: this.scene,
         engine: this.engine,
         canvas: this.canvas3d
@@ -173,9 +169,9 @@ export default class Scene extends React.Component<SceneProps, {}> {
    * When canvas loses focus.
    */
   blur = () => {
-    if (typeof this.props.onBlur === 'function') {
+    if (typeof this.props.onSceneBlur === 'function') {
       // console.log('calling onBlur')
-      this.props.onBlur({
+      this.props.onSceneBlur({
         scene: this.scene,
         engine: this.engine,
         canvas: this.canvas3d
@@ -188,17 +184,36 @@ export default class Scene extends React.Component<SceneProps, {}> {
     console.log('keyPressHandler', ev)
   }
 
+  // NOTE: canvas width is in pixels, use style to set % using ID, if needed.
   render () {
-    // this.appState = this.props.state
-    let { visible } = this.props
+    let { visible, touchActionNone, id, width, height, ...rest } = this.props
 
-    // TODO: full screen?
+    let opts: any = {}
+
+    if (touchActionNone === true) {
+      opts['touch-action'] = 'none';
+    }
+
+    if (width !== undefined && height !== undefined) {
+      opts.width = width
+      opts.height = height
+    }
+
+    if (id) {
+      opts.id = id;
+    }
+
+    // TODO: passing height/width/style explicitly now will not be predictable.
     return (
       <canvas
-        width={this.width}
-        height={this.height}
-        style={{ visibility: (visible) ? 'visible' : 'hidden' }}
-        ref={this.onCanvas3d} />
+        {...opts}
+        style={
+          {
+            visibility: (visible) ? 'visible' : 'hidden'
+          }
+        }
+        ref={this.onCanvas3d}
+      />
     )
   }
 }
