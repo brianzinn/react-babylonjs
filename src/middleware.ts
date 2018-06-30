@@ -50,9 +50,13 @@ export const registerHandler = (handler: (action: any) => boolean) => {
 export const removeHandler = (handler: (action: any) => boolean) => {
   if (typeof handler !== "function") {
     console.error("cannot unregister a handler that's not a function", handler)
-  } else if (handlers.find(handler) !== undefined) {
-    console.log("babylonJS handler found and removed", handler)
-    handlers = handlers.filter(x => x !== handler)
+    return
+  }
+
+  var idx = handlers.indexOf(handler)
+  if (idx != -1) {
+    // console.log("babylonJS handler found and removed", handler)
+    handlers.splice(idx, 1)
   } else {
     console.log("handler not removed (was not registered)..")
   }
@@ -77,7 +81,8 @@ const callBabylonJs = (action: any): HandledResult => {
   return result
 }
 
-let skipActions = new Set(["LOCATION_CHANGE"])
+// for different versions of redux router
+let skipActions = new Set(["LOCATION_CHANGE", "@@router/LOCATION_CHANGE"])
 
 export default (store: any) => (next: any) => (action: any) => {
   // intercept all actions and pass-through.
