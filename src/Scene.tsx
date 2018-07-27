@@ -7,14 +7,13 @@
 
 import * as React from 'react'
 
-import { PointerEventTypes, Engine, EngineOptions, Scene as BabylonScene, AbstractMesh } from 'babylonjs'
+import { PointerEventTypes, Engine, EngineOptions, Scene as BabylonScene, AbstractMesh, Camera, FreeCamera, Vector3 } from 'babylonjs'
 import { registerHandler, removeHandler, DEBUG_ON, DEBUG_OFF } from './middleware'
 
 export type SceneEventArgs = {
-  engine: Engine,
   scene: BabylonScene,
   canvas: HTMLCanvasElement // | WebGLRenderingContext
-}
+};
 
 /**
  * Note that the height and width are the logical canvas dimensions used for drawing and are different from 
@@ -24,71 +23,91 @@ export type SceneEventArgs = {
  */
 export type SceneProps = {
   // TODO: add onKeyDown, onMeshHover, etc.
-  onSceneMount?: (args: SceneEventArgs) => void,
+  onSceneMount?: (args: SceneEventArgs) => Camera,
   onSceneBlur?: (args: SceneEventArgs) => void,
   onSceneFocus?: (args: SceneEventArgs) => void,
   onMeshPicked?: (mesh: AbstractMesh, scene: BabylonScene) => void,
   shadersRepository?: string,
-  visible?: boolean,
   engineOptions?: EngineOptions,
   adaptToDeviceRatio?: boolean,
   width?: number,
   height?: number,
   touchActionNone?: boolean,
   id?: string
-}
+};
 
 export default class Scene extends React.Component<SceneProps & React.HTMLAttributes<HTMLCanvasElement>, {}> {
 
-  private scene: BabylonScene
-  private engine: Engine
+  private scene?: BabylonScene;
+  private engine?: Engine;
 
-  private height: number | string
-  private width: number | string
+  private height?: number | string;
+  private width?: number | string;
 
-  private canvas3d: HTMLCanvasElement // | WebGLRenderingContext
+  private canvas3d?: HTMLCanvasElement ;// | WebGLRenderingContext
 
-  // TODO: make a strongly typed Map<string, (action: {type: string}) => boolean>. Init with ([[a],[b]]);
-  private actionHandler: any
+  private actionHandler: any;
+
+  constructor(props: SceneProps) {
+    super(props);
+
+    this.onRegisterChild = this.onRegisterChild.bind(this);
+  }
 
   onResizeWindow = () => {
     if (this.engine) {
-      this.engine.resize()
+      this.engine.resize();
     }
   }
 
   componentDidMount () {
-    this.engine = new Engine(this.canvas3d, true, this.props.engineOptions, this.props.adaptToDeviceRatio)
+    this.engine = new Engine(this.canvas3d!, true, this.props.engineOptions, this.props.adaptToDeviceRatio);
 
     // must set shaderRepository before creating engine?  need to pass in as props.
     if (this.props.shadersRepository !== undefined) {
-      Engine.ShadersRepository = this.props.shadersRepository
+      Engine.ShadersRepository = this.props.shadersRepository;
     }
 
-    // we aliased BABYLON.Scene to BabylonScene
-    let scene = new BabylonScene(this.engine)
-    this.scene = scene
+    let scene = new BabylonScene(this.engine);
+    this.scene = scene;
+    console.log('execute when ready set')
+    scene.executeWhenReady(() => {
+      console.log('ready children', this.props.children)
+      if (this.props.children) {
+        this.props.children
+      }
+    });
+
+    let camera: Camera | undefined = undefined;
 
     if (typeof this.props.onSceneMount === 'function') {
       // console.log('calling onSceneMount')
-      this.props.onSceneMount({
+      camera = this.props.onSceneMount({
         scene,
-        engine: this.engine,
-        canvas: this.canvas3d
-      })
-    } else {
-      console.error('onSceneMount function not available')
+        canvas: this.canvas3d!
+      });
     }
 
-    // Hide the login screen when the scene is ready
-    scene.executeWhenReady(() => {
-        // TODO: add a method callback for when Scene is ready.
-        // console.error('missing action to create state when scene is first ready')
-    })
+    let engine = this.engine;
+    engine.runRenderLoop(() => {
+      if (engine.scenes.length === 0) {
+        return;
+      }
+
+      if (this.canvas3d!.width !== this.canvas3d!.clientWidth) {
+          engine.resize();
+      }
+
+      var scene = engine.scenes[0];
+
+      if (scene.activeCamera || scene.activeCameras.length > 0) {
+          scene.render();
+      }
+    });
 
     // TODO: Add other PointerEventTypes and keyDown.
-    scene.onPointerObservable.add((evt) => {
-      if (evt.pickInfo.hit && evt.pickInfo.pickedMesh !== undefined) {
+    scene.onPointerObservable.add((evt: BABYLON.PointerInfo) => {
+      if (evt && evt.pickInfo && evt.pickInfo.hit && evt.pickInfo.pickedMesh) {
         let mesh = evt.pickInfo.pickedMesh
 
         if (typeof this.props.onMeshPicked === 'function') {
@@ -97,60 +116,61 @@ export default class Scene extends React.Component<SceneProps & React.HTMLAttrib
           console.log('onMeshPicked not being called')
         }
       }
-    }, PointerEventTypes.POINTERDOWN)
+    }, PointerEventTypes.POINTERDOWN);
 
-    // here we are binding to middleware to receive Redux actions.
-    let handlers = {
-      [DEBUG_ON]: (action: any) => {
-        scene.debugLayer.show()
-        return true
-      },
-      [DEBUG_OFF]: (action: any) => {
-        scene.debugLayer.hide()
-        return true
+    let handlers = new Map<String, (action: { type: String }) => boolean>([
+      [DEBUG_ON, (action: { type: String }) => {
+        scene.debugLayer.show();
+        return true;
+      }],
+      [DEBUG_OFF, (action: { type: String }) => {
+        scene.debugLayer.hide();
+        return true;
+      }]
+    ]);
+
+    this.actionHandler = (action: {type: string}) => {
+      if (handlers.has(action.type)) {
+        let handler: ((action: {type: string}) => boolean) | undefined = handlers.get(action.type)
+        if (handler !== undefined) {
+          return handler(action)
+        }
       }
-    }
+    };
 
-    // TODO: 
-    this.actionHandler = (action: any) => {
-      let handler = handlers[action.type]
-      if (handler !== undefined) {
-        return handler(action)
-      }
-    }
+    registerHandler(this.actionHandler);
 
-    registerHandler(this.actionHandler)
+    this.forceUpdate(() => {
+      // console.log('force update completed.')
+    });
 
     // Resize the babylon engine when the window is resized
-    window.addEventListener('resize', this.onResizeWindow)
+    window.addEventListener('resize', this.onResizeWindow);
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     // unregister from window and babylonJS events
-    // TODO: mouse on/out must be registered and deregestered also.
-    removeHandler(this.actionHandler)
-    window.removeEventListener('resize', this.onResizeWindow)
+    removeHandler(this.actionHandler);
+    window.removeEventListener('resize', this.onResizeWindow);
 
-    if (this.canvas3d !== null) {
-      this.canvas3d.removeEventListener('mouseover', this.focus)
-
-      this.canvas3d.removeEventListener('mouseout', this.blur)
+    if (this.canvas3d) {
+      this.canvas3d.removeEventListener('mouseover', this.focus);
+      this.canvas3d.removeEventListener('mouseout', this.blur);
     }
   }
 
   onCanvas3d = (c : HTMLCanvasElement) => {
     if (c !== null) { // null when called from unmountComponent()
-      // TODO: see if a polyfill should be added here.
       c.addEventListener('mouseover', this.focus)
       c.addEventListener('mouseout', this.blur)
 
-      // console.log('setting canvas3d', c)
       this.canvas3d = c
     }
+    // console.log('onCanvas3d', c)
   }
 
   /**
-   * When canvas receives the active focus (ie: mouse over)
+   * When canvas receives the active focus (ie: mouse over) intercept keypresses (should be optional behaviour)
    */
   focus = () => {
     document.body.addEventListener('keydown', this.keyPressHandler)
@@ -158,35 +178,45 @@ export default class Scene extends React.Component<SceneProps & React.HTMLAttrib
     if (typeof this.props.onSceneFocus === 'function') {
       // console.log('calling onFocus')
       this.props.onSceneFocus({
-        scene: this.scene,
-        engine: this.engine,
-        canvas: this.canvas3d
+        scene: this.scene!,
+        canvas: this.canvas3d!
       })
     }
   }
 
   /**
-   * When canvas loses focus.
+   * When canvas loses focus (ie: mouse out) intercept keypresses (should be optional behaviour)
    */
   blur = () => {
     if (typeof this.props.onSceneBlur === 'function') {
       // console.log('calling onBlur')
       this.props.onSceneBlur({
-        scene: this.scene,
-        engine: this.engine,
-        canvas: this.canvas3d
+        scene: this.scene!,
+        canvas: this.canvas3d!
       })
     }
     document.body.removeEventListener('keydown', this.keyPressHandler)
   }
 
+  // The scene itself already has a keypress handler.
+  // TODO: attach an external handler to Scene handler instead.
   keyPressHandler = (ev: KeyboardEvent) => {
     console.log('keyPressHandler', ev)
   }
 
+  onRegisterChild(child: any) {
+    if(child instanceof FreeCamera) {
+      console.log('Camera registered.  Attaching to canvas:')
+      // TODO: ensure this is only done once?
+      child.attachControl(this.canvas3d!, true);
+    } else {
+      console.log(`Attached child to scene: ${child.name}. Not a known camera??`)
+    }
+  }
+
   // NOTE: canvas width is in pixels, use style to set % using ID, if needed.
   render () {
-    let { visible, touchActionNone, id, width, height, ...rest } = this.props
+    let { touchActionNone, id, width, height, ...rest } = this.props
 
     let opts: any = {}
 
@@ -203,17 +233,17 @@ export default class Scene extends React.Component<SceneProps & React.HTMLAttrib
       opts.id = id;
     }
 
+    const children = React.Children.map(this.props.children,
+      (child: any, index) => React.cloneElement(child, {
+        scene: this.scene, index, container: this, registerChild: this.onRegisterChild
+      })
+     );
+
     // TODO: passing height/width/style explicitly now will not be predictable.
     return (
-      <canvas
-        {...opts}
-        style={
-          {
-            visibility: (visible) ? 'visible' : 'hidden'
-          }
-        }
-        ref={this.onCanvas3d}
-      />
+        <canvas {...opts} ref={this.onCanvas3d}>
+          {children}
+        </canvas>
     )
   }
 }

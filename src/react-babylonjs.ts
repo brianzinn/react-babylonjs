@@ -11,4 +11,11 @@ export {
   removeHandler
 } from "./middleware"
 
+export {
+  default as HemisphericLight,
+  HemisphericLightProps
+} from "./HemisphericLight"
+export { default as Sphere, SphereProps } from "./Sphere"
+export { default as FreeCamera, FreeCameraProps } from "./FreeCamera"
+
 export { default as Scene, SceneProps, SceneEventArgs } from "./Scene"

@@ -5,8 +5,8 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-export const DEBUG_ON = "reactBabylonJs/debugOn"
-export const DEBUG_OFF = "reactBabylonJs/debugOff"
+export const DEBUG_ON: string = "reactBabylonJs/debugOn"
+export const DEBUG_OFF: string = "reactBabylonJs/debugOff"
 
 export type HandledResult = {
   handled: boolean
@@ -33,7 +33,9 @@ export const actions = {
  * Register a handler to intercept events.
  * @param handler 
  */
-export const registerHandler = (handler: (action: any) => boolean) => {
+export const registerHandler = (
+  handler: (action: { type: string }) => boolean
+) => {
   if (typeof handler !== "function") {
     console.error("parameter handler is not a function", handler)
   } else {
@@ -47,7 +49,9 @@ export const registerHandler = (handler: (action: any) => boolean) => {
  * 
  * @param handler
  */
-export const removeHandler = (handler: (action: any) => boolean) => {
+export const removeHandler = (
+  handler: (action: { type: string }) => boolean
+) => {
   if (typeof handler !== "function") {
     console.error("cannot unregister a handler that's not a function", handler)
     return
@@ -62,7 +66,7 @@ export const removeHandler = (handler: (action: any) => boolean) => {
   }
 }
 
-const callBabylonJs = (action: any): HandledResult => {
+const callBabylonJs = (action: { type: string }): HandledResult => {
   let result = {
     handled: false,
     handlers: 0,
