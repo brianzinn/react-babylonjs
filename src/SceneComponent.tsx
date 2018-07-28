@@ -1,17 +1,22 @@
 import React, { Component } from 'react'
-import { Scene, Vector3 } from 'babylonjs'
+import { Scene, Vector3, Nullable } from 'babylonjs'
+import { ComponentContainer } from './Scene';
 
-export interface Behavior<T> {
-    attach(target: T): void;
+export interface Behaviour<T> {
+    apply(target: T, scene: Scene): void;
 }
 
-export type SceneComponentProps<T> = {
+export type ComponentContainerProps = {
     scene: Scene,
     name: string,
     container: any,
-    onCreated: (child: T) => void,
-    registerChild: (child: T) => void
+    addBehaviour: (behaviour: any) => void // TODO: add another type here?
 }
+
+export type SceneComponentProps<T> = {
+    onCreated: (child: Nullable<T>) => void,
+    registerChild: (child: Nullable<T>) => void, 
+} & ComponentContainerProps
 
 export type NodeProps = {
     position: Vector3
@@ -21,24 +26,22 @@ export interface PropsInitialiser<T, U> {
     init(target: T, props: U) : void;
 }
 
-export interface Behaviour<T> {
-    attach(target: T): void;
-}
-
 /**
- * Base implemention of SceneComponent.  Not using it right now, but maybe later with mixins:
- * https://www.typescriptlang.org/docs/handbook/mixins.html
+ * Base implemention of SceneComponent.  Currently all classes are inheriting from this.
+ *
  */
-export default abstract class SceneComponent<T extends U, U, V extends SceneComponentProps<T>> extends Component<V, {}> {
+export default abstract class SceneComponent<T extends U, U, V extends SceneComponentProps<T>> extends Component<V, {}> implements ComponentContainer {
     
     protected name?: string;
     private hasRendered: boolean = false;
+    private behaviours: Behaviour<U>[] = [];
 
-    constructor(props?: V, context?: any) {
+    constructor(props: V, context?: any) {
         super(props, context);
         this.name = props ? props.name : undefined;
 
         this.create = this.create.bind(this);
+        this.addBehaviour = this.addBehaviour.bind(this);
     }
 
     /**
@@ -49,6 +52,10 @@ export default abstract class SceneComponent<T extends U, U, V extends SceneComp
     abstract create(scene: Scene) : T;
     
     abstract get propsInitialisers(): PropsInitialiser<U, V>[];
+
+    public addBehaviour(behaviour: Behaviour<U>) : void {
+        this.behaviours.push(behaviour);
+    }
 
     /**
      * 
@@ -63,6 +70,7 @@ export default abstract class SceneComponent<T extends U, U, V extends SceneComp
                 index,
                 container: this,
                 registerChild: this.onRegisterChild,
+                addBehaviour: this.addBehaviour,
                 name: this.props.name
             })
         );
@@ -72,7 +80,6 @@ export default abstract class SceneComponent<T extends U, U, V extends SceneComp
             let child: T = this.create(this.props.scene);
 
             if (typeof this.propsInitialisers !== undefined && Array.isArray(this.propsInitialisers)) {
-                console.log(`Calling '${this.props.name}' props initialisers.`)
                 this.propsInitialisers.forEach(propsInitialiser => {
                     propsInitialiser.init(child, this.props);
                 })
@@ -89,8 +96,15 @@ export default abstract class SceneComponent<T extends U, U, V extends SceneComp
             if (this.props.registerChild) {
                 this.props.registerChild!(child)
             }
+
+            if (this.behaviours.length !== 0) {
+                this.behaviours.forEach(behaviour => {
+                    behaviour.apply(child, this.props.scene); // double dispatch
+                })
+            }
         }
 
+        // we are rendering DOM.  partially for testing, but may be useful. Cannot retur [{children}], need JSX.Element.
         return (<div style={{visibility: 'hidden'}} title={this.props.name}>{children}</div>);
     }
 }

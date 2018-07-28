@@ -3,9 +3,9 @@
 [![NPM version](http://img.shields.io/npm/v/react-babylonjs.svg?style=flat-square)](https://www.npmjs.com/package/react-babylonjs)
 [![NPM downloads](http://img.shields.io/npm/dm/react-babylonjs.svg?style=flat-square)](https://www.npmjs.com/package/react-babylonjs)
 
-> React BabylonJS is for integration of BabylonJS into a React or Redux project.
+> React BabylonJS is for integration of BabylonJS into a ReactJS and/or Redux project.
 
-At this point more of a proof of concept, but I will be expanding and fixing as I have just started on a project for fun that integrates the technologies React, Redux and BabylonJs.  Will happily accept any pull requests as there is lots of room for extra functionality.
+ I will be expanding and fixing this project.  I started as a fun project to integrate the technologies ReactJS, Redux and BabylonJS.  Will happily accept any pull requests as there is lots of room for extra functionality, especially with the new declarative model :)
 
 ### Features
 
@@ -26,8 +26,28 @@ $ cd <your-project-dir>
 $ npm install react-babylonjs --save
 ```
 
-### Setting up a React component in your project..
+### Adding BabylonJS to your project declaratively
+For now to use a different camera (ie: ArcRotate), you can pass in a createCamera() method.
+```xml
+import { Scene, FreeCamera, HemisphericLight, Sphere, Ground } from 'react-babylonjs'
+import { Vector3 } from 'babylonjs';
 
+import './Sample1.css'
+
+const Sample1 = () => (
+  <Scene id="sample-canvas" debug={true}>
+    <FreeCamera name="camera1" position={new Vector3(0, 5, -10)} target={Vector3.Zero()} />
+    <HemisphericLight name="light1" intensity={0.7} direction={Vector3.Up()} />
+    <Sphere name="sphere1" diameter={2} segments={16} position={new Vector3(0, 1, 0)} />
+    <Ground name="ground1" width={6} height={6} subdivisions={2}  />
+  </Scene>
+)
+
+export default Sample1
+```
+
+### Setting up a React component in your project using onSceneMount().
+This is a more advanced scanario.  You will need to call engine.runRenderLoop(() => {...}).
 ```javascript
 // If you import Scene from BabylonJS then make sure to alias one of them.
 import { Scene, registerHandler, removeHandler } from 'react-babylonjs'
@@ -40,20 +60,6 @@ export default class Quarto extends Component {
     // methods used by Scene (more will be added soon and documentation)
     this.onSceneMount = this.onSceneMount.bind(this)
     this.onMeshPicked = this.onMeshPicked.bind(this)
-
-    // these action creators are exported from
-    this.debugOn = props.debugOn
-    this.debugOff = props.debugOff
-    this.debugEnabled = false;
-  }
-
-  toggleDebug() {
-      if (this.debugEnabled) {
-          this.debugOff()
-      } else {
-          this.debugOn()
-      }
-      this.debugEnabled = !this.debugEnabled
   }
 
   onMeshPicked(mesh, scene) {
@@ -78,23 +84,22 @@ export default class Quarto extends Component {
   }
 
   componentDidMount () {
-
     // you can add listeners to redux actions - they are intercepted by the middleware
     let handlers = {
         ['YOUR_ACTION_TYPE']: (action) => {
-            // run any code here - ie: set state that you monitor in your scene.registerBeforeRender(()=> { ... })
             // change properties or animate meshes.
             return true
         },
         ['YOUR_ACTION_TYPE2']: (action) => {
-            return true // indicates to middleware that it was handled
+            // indicates to middleware that it was handled
+            return true
         }
     }
 
     this.actionHandler = (action) => {
         let handler = handlers[action.type]
         if (handler == undefined) {
-            console.log(`no handler defined in babylonJS scene for ${action.type}`)
+            // console.console.log(`no handler defined in babylonJS scene for ${action.type}`)
         } else {
             return handler(action)
         }
@@ -117,18 +122,16 @@ export default class Quarto extends Component {
             onSceneMount={this.onSceneMount} 
             onMeshPicked={this.onMeshPicked}
             shadersRepository={'/shaders/'}
-            visible={appState.show3D} />
-     
-        <Button onClick={this.toggleDebug}>show/hide BabylonJS debug window</Button>
+        />
       </div>
     )
   }
 }
 ```
 
-### Setting up middleware in your project...
+### Setting up middleware in your project (optional)...
 
-You need to apply the 'react-babylonjs' middleware to intercept the events, including turning off debug in scene (built-in).
+You need to apply the 'react-babylonjs' middleware to intercept the events.  Use this if you want to synchronise your BabylonJS Scene with ReactJS.
 
 ```javascript
 import { applyMiddleware, compose, createStore } from 'redux'
@@ -153,16 +156,9 @@ export default (initialState = {}) => {
 ```
 
 ### Related Projects
-
-* [React Redux BabylonJS Starter Kit](https://github.com/brianzinn/react-redux-babylonjs-starter-kit) — Fork of davesuko starter kit that uses the NPM from this project.  The starter kit uses HMR, ES6, React, Redux and BabylonJS together with a modified Quarto game from http://www.pixelcodr.com/.
+* [Create React App (JavaScript)](https://github.com/brianzinn/create-react-app-babylonjs) CRA JavaScript implementation.  GH Pages has examples of typical and declarative usage.
+* [Create React App (TypeScript)](https://github.com/brianzinn/create-react-app-typescript-babylonjs) CRA TypeScript.  GH Pages has demo.
 * [dotnet new + babylonJS](https://github.com/brianzinn/dotnet-new-babylonjs-starter) — "dotnet new react-redux (now included in .NET Core 2.0)" SPA project updated to include BabylonJS and using this project.
-
-### License
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 Made with ♥ by Brian Zinn

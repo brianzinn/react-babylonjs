@@ -7,13 +7,17 @@
 
 import * as React from 'react'
 
-import { PointerEventTypes, Engine, EngineOptions, Scene as BabylonScene, AbstractMesh, Camera, FreeCamera, Vector3 } from 'babylonjs'
-import { registerHandler, removeHandler, DEBUG_ON, DEBUG_OFF } from './middleware'
+import { PointerEventTypes, Engine, EngineOptions, Scene as BabylonScene, AbstractMesh, Camera, FreeCamera } from 'babylonjs'
+import { registerHandler, removeHandler } from './middleware'
 
 export type SceneEventArgs = {
   scene: BabylonScene,
   canvas: HTMLCanvasElement // | WebGLRenderingContext
 };
+
+export interface ComponentContainer {
+  onRegisterChild: (child: any) => void
+}
 
 /**
  * Note that the height and width are the logical canvas dimensions used for drawing and are different from 
@@ -23,7 +27,14 @@ export type SceneEventArgs = {
  */
 export type SceneProps = {
   // TODO: add onKeyDown, onMeshHover, etc.
-  onSceneMount?: (args: SceneEventArgs) => Camera,
+  /**
+   * Called after createCamera(...), if exists.  This must attach a camera to a canvas, if you did not implement a createCamera().
+   */
+  onSceneMount?: (args: SceneEventArgs) => void,
+  /**
+   * By implementing this, the camera is attached to the canvas automatically.
+   */
+  createCamera?: (args: SceneEventArgs) => Camera,
   onSceneBlur?: (args: SceneEventArgs) => void,
   onSceneFocus?: (args: SceneEventArgs) => void,
   onMeshPicked?: (mesh: AbstractMesh, scene: BabylonScene) => void,
@@ -33,10 +44,11 @@ export type SceneProps = {
   width?: number,
   height?: number,
   touchActionNone?: boolean,
-  id?: string
+  id?: string,
+  debug?: boolean
 };
 
-export default class Scene extends React.Component<SceneProps & React.HTMLAttributes<HTMLCanvasElement>, {}> {
+export default class Scene extends React.Component<SceneProps & React.HTMLAttributes<HTMLCanvasElement>, {}> implements ComponentContainer {
 
   private scene?: BabylonScene;
   private engine?: Engine;
@@ -70,40 +82,46 @@ export default class Scene extends React.Component<SceneProps & React.HTMLAttrib
 
     let scene = new BabylonScene(this.engine);
     this.scene = scene;
-    console.log('execute when ready set')
-    scene.executeWhenReady(() => {
-      console.log('ready children', this.props.children)
-      if (this.props.children) {
-        this.props.children
-      }
-    });
-
-    let camera: Camera | undefined = undefined;
-
-    if (typeof this.props.onSceneMount === 'function') {
-      // console.log('calling onSceneMount')
-      camera = this.props.onSceneMount({
-        scene,
-        canvas: this.canvas3d!
-      });
+    
+    if (this.props.debug === true) {
+      this.scene.debugLayer.show();
     }
 
-    let engine = this.engine;
-    engine.runRenderLoop(() => {
-      if (engine.scenes.length === 0) {
-        return;
+    //scene.executeWhenReady(() => {
+    //});
+    if (typeof this.props.onSceneMount === 'function') {
+      this.props.onSceneMount({
+        scene,
+        canvas: this.canvas3d!
+      })
+      // TODO: console.error if canvas is not attached. runRenderLoop() is expected to be part of onSceneMount().
+    } else {
+      if (typeof this.props.createCamera === 'function') {
+        let camera = this.props.createCamera({
+          scene,
+          canvas: this.canvas3d!
+        });
+      } else {
+        console.warn('no onSceneMount() or createCamera() defined.  Require camera declaration.')
       }
+  
+      let engine = this.engine;
+      engine.runRenderLoop(() => {
+        if (engine.scenes.length === 0) {
+          return;
+        }
 
-      if (this.canvas3d!.width !== this.canvas3d!.clientWidth) {
-          engine.resize();
-      }
+        if (this.canvas3d!.width !== this.canvas3d!.clientWidth) {
+            engine.resize();
+        }
 
-      var scene = engine.scenes[0];
+        var scene = engine.scenes[0];
 
-      if (scene.activeCamera || scene.activeCameras.length > 0) {
-          scene.render();
-      }
-    });
+        if (scene.activeCamera || scene.activeCameras.length > 0) {
+            scene.render();
+        }
+      });
+    }
 
     // TODO: Add other PointerEventTypes and keyDown.
     scene.onPointerObservable.add((evt: BABYLON.PointerInfo) => {
@@ -113,21 +131,13 @@ export default class Scene extends React.Component<SceneProps & React.HTMLAttrib
         if (typeof this.props.onMeshPicked === 'function') {
           this.props.onMeshPicked(mesh, scene)
         } else {
-          console.log('onMeshPicked not being called')
+          // console.log('onMeshPicked not being called')
         }
       }
     }, PointerEventTypes.POINTERDOWN);
 
-    let handlers = new Map<String, (action: { type: String }) => boolean>([
-      [DEBUG_ON, (action: { type: String }) => {
-        scene.debugLayer.show();
-        return true;
-      }],
-      [DEBUG_OFF, (action: { type: String }) => {
-        scene.debugLayer.hide();
-        return true;
-      }]
-    ]);
+    // not having any default handlers anymore in 'react-babylonjs'
+    let handlers = new Map<String, (action: { type: String }) => boolean>([]);
 
     this.actionHandler = (action: {type: string}) => {
       if (handlers.has(action.type)) {
@@ -201,16 +211,16 @@ export default class Scene extends React.Component<SceneProps & React.HTMLAttrib
   // The scene itself already has a keypress handler.
   // TODO: attach an external handler to Scene handler instead.
   keyPressHandler = (ev: KeyboardEvent) => {
-    console.log('keyPressHandler', ev)
+    // console.log('keyPressHandler', ev)
   }
 
   onRegisterChild(child: any) {
     if(child instanceof FreeCamera) {
-      console.log('Camera registered.  Attaching to canvas:')
+      console.log('react-babylonjs: Camera registered.  Attaching to canvas:')
       // TODO: ensure this is only done once?
       child.attachControl(this.canvas3d!, true);
     } else {
-      console.log(`Attached child to scene: ${child.name}. Not a known camera??`)
+      // console.log(`Attached child to scene: ${child.name}. Not a known camera??`)
     }
   }
 

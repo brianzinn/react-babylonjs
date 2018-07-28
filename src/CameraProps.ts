@@ -5,10 +5,8 @@ export type CameraProps = {
   target?: Vector3
 } & NodeProps
 
-export default class CameraPropsInitialiser
-  implements PropsInitialiser<Camera, CameraProps> {
+export default class CameraPropsInitialiser implements PropsInitialiser<Camera, CameraProps> {
   init(target: Camera, props: CameraProps): void {
-    console.log("camera props init props:", props)
     if (props.target) {
       if (target instanceof FreeCamera) {
         // TODO: add other TargetCamera types
