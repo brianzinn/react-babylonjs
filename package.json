@@ -13,7 +13,7 @@
   "author": "Brian Zinn <github@wakeskate.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/brianzinn/react-babylonJS/"
+    "url": "https://github.com/brianzinn/react-babylonjs/"
   },
   "license": "MIT",
   "engines": {

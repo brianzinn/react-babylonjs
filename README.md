@@ -14,7 +14,7 @@
 
 ### Documentation
 
-* [This page plus class documentation](https://brianzinn.github.io/react-babylonJS/).
+* [This page plus class documentation](https://brianzinn.github.io/react-babylonjs/).
 
 # Getting Started
 Install the npm module into your project.
