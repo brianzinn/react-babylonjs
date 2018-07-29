@@ -1,16 +1,9 @@
 import React, { Component } from "react"
 
-import {
-  Scene,
-  Engine,
-  Mesh,
-  MeshBuilder,
-  HemisphericLight as BabylonHemisphericLight,
-  Light
-} from "babylonjs"
+import { Scene, HemisphericLight as BabylonHemisphericLight, Light } from "babylonjs"
 
 import SceneComponent, { SceneComponentProps } from "./SceneComponent"
-import LightPropsInitialiser, { LightProps } from "./LightProps"
+import LightPropsHandler, { LightProps } from "./LightProps"
 
 export type HemisphericLightProps = {
   direction?: BABYLON.Vector3
@@ -42,14 +35,10 @@ export default class HemisphericLight extends SceneComponent<
 
     this.light = new BabylonHemisphericLight(this.props.name, direction, scene)
 
-    if (this.props.intensity) {
-      this.light.intensity = this.props.intensity
-    }
-
     return this.light
   }
 
-  public get propsInitialisers() {
-    return [new LightPropsInitialiser()]
+  public get propsHandlers() {
+    return [new LightPropsHandler()]
   }
 }

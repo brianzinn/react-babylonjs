@@ -1,7 +1,7 @@
 import { Scene, Node, Mesh, MeshBuilder } from "babylonjs"
 
 import SceneComponent, { SceneComponentProps } from "./SceneComponent"
-import MeshPropsInitialiser, { MeshProps } from "./MeshProps"
+import MeshPropsHandler, { MeshProps } from "./MeshProps"
 
 export type GroundProps = {
   height?: number
@@ -34,7 +34,7 @@ export default class Ground extends SceneComponent<Mesh, Node, GroundProps> {
     return this.ground
   }
 
-  public get propsInitialisers() {
-    return [new MeshPropsInitialiser()]
+  public get propsHandlers() {
+    return [new MeshPropsHandler()]
   }
 }

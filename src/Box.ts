@@ -1,7 +1,7 @@
 import { Scene, Node, Mesh, MeshBuilder, Vector4, Color4 } from "babylonjs"
 
 import SceneComponent, { SceneComponentProps } from "./SceneComponent"
-import MeshPropsInitialiser, { MeshProps } from "./MeshProps"
+import MeshPropsHandler, { MeshProps } from "./MeshProps"
 
 export type BoxProps = {
   backUVs?: Vector4
@@ -36,7 +36,7 @@ export default class Box extends SceneComponent<Mesh, Node, BoxProps> {
     return this.box
   }
 
-  public get propsInitialisers() {
-    return [new MeshPropsInitialiser()]
+  public get propsHandlers() {
+    return [new MeshPropsHandler()]
   }
 }

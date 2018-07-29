@@ -1,7 +1,7 @@
 import { Scene, Node, Mesh, MeshBuilder } from "babylonjs"
 
 import SceneComponent, { SceneComponentProps } from "./SceneComponent"
-import MeshPropsInitialiser, { MeshProps } from "./MeshProps"
+import MeshPropsHandler, { MeshProps } from "./MeshProps"
 
 export type SphereProps = {
   diameterX?: number
@@ -31,7 +31,7 @@ export default class Sphere extends SceneComponent<Mesh, Node, SphereProps> {
     return this.sphere
   }
 
-  public get propsInitialisers() {
-    return [new MeshPropsInitialiser()]
+  public get propsHandlers() {
+    return [new MeshPropsHandler()]
   }
 }

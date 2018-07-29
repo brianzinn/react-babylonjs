@@ -22,8 +22,8 @@ export type NodeProps = {
     position: Vector3
 }
 
-export interface PropsInitialiser<T, U> {
-    init(target: T, props: U) : void;
+export interface PropsHandler<T, U> {
+    handle(target: T, props: U) : void;
 }
 
 /**
@@ -33,6 +33,7 @@ export interface PropsInitialiser<T, U> {
 export default abstract class SceneComponent<T extends U, U, V extends SceneComponentProps<T>> extends Component<V, {}> implements ComponentContainer {
     
     protected name?: string;
+    private babylonObject?: T;
     private hasRendered: boolean = false;
     private behaviours: Behaviour<U>[] = [];
 
@@ -51,7 +52,7 @@ export default abstract class SceneComponent<T extends U, U, V extends SceneComp
      */
     abstract create(scene: Scene) : T;
     
-    abstract get propsInitialisers(): PropsInitialiser<U, V>[];
+    abstract get propsHandlers(): PropsHandler<U, V>[];
 
     public addBehaviour(behaviour: Behaviour<U>) : void {
         this.behaviours.push(behaviour);
@@ -78,13 +79,15 @@ export default abstract class SceneComponent<T extends U, U, V extends SceneComp
         if (this.hasRendered === false && this.props.scene) {
             this.hasRendered = true;
             let child: T = this.create(this.props.scene);
+            this.babylonObject = child
 
-            if (typeof this.propsInitialisers !== undefined && Array.isArray(this.propsInitialisers)) {
-                this.propsInitialisers.forEach(propsInitialiser => {
-                    propsInitialiser.init(child, this.props);
+            // we want to set these before onCreated() is fired.
+            if (typeof this.propsHandlers !== undefined && Array.isArray(this.propsHandlers)) {
+                this.propsHandlers.forEach(propsHandlers => {
+                    propsHandlers.handle(child, this.props);
                 })
             } else {
-                console.error('Scene component missing propsInitialisers', this);
+                console.error('Scene component missing propsHandlers', this);
             }
 
             // allow access to lifecycle phase.  ie: access propery/method exposed in props.
@@ -100,6 +103,12 @@ export default abstract class SceneComponent<T extends U, U, V extends SceneComp
             if (this.behaviours.length !== 0) {
                 this.behaviours.forEach(behaviour => {
                     behaviour.apply(child, this.props.scene); // double dispatch
+                })
+            }
+        } else if (this.props.scene) {
+            if (typeof this.propsHandlers !== undefined && Array.isArray(this.propsHandlers)) {
+                this.propsHandlers.forEach(propsHandlers => {
+                    propsHandlers.handle(this.babylonObject!, this.props);
                 })
             }
         }

@@ -25,16 +25,24 @@ Install the npm module into your project.
 $ cd <your-project-dir>
 $ npm install react-babylonjs --save
 ```
+OR
+```sh
+$ cd <your-project-dir>
+$ yarn add react-babylonjs --save
+```
 
-### Adding BabylonJS to your project declaratively
-For now to use a different camera (ie: ArcRotate), you can pass in a createCamera() method.
+# Usage Styles
+'react-babylonjs' tries to remain unopinionated about how you integrate BabylonJS with ReactJS.  This module provides a 100% declarative option or you can customise by adding code.
+## 100% Declarative add BabylonJS to your project with **zero** code!
+live demo: [default playground declarative](https://brianzinn.github.io/create-react-app-babylonjs/defaultPlayground)
+
 ```xml
 import { Scene, FreeCamera, HemisphericLight, Sphere, Ground } from 'react-babylonjs'
 import { Vector3 } from 'babylonjs';
 
 import './Sample1.css'
 
-const Sample1 = () => (
+const DefaultPlayground = () => (
   <Scene id="sample-canvas" debug={true}>
     <FreeCamera name="camera1" position={new Vector3(0, 5, -10)} target={Vector3.Zero()} />
     <HemisphericLight name="light1" intensity={0.7} direction={Vector3.Up()} />
@@ -43,16 +51,36 @@ const Sample1 = () => (
   </Scene>
 )
 
-export default Sample1
+export default DefaultPlayground
+```
+## 100% declarative with state/props flow.  Code to manage props (or state).
+You can easily control BabylonJS properties with state or (redux) props.  This sample uses state to control the light intensity and direction of rotation.
+live demo: [with props](https://brianzinn.github.io/create-react-app-babylonjs/withProps)
+```xml
+class WithProps extends React.Component 
+{
+  ...
+  render() {
+    return (
+      <Scene id="sample-canvas">
+        <FreeCamera name="camera1" position={new Vector3(0, 5, -10)} target={Vector3.Zero()} />
+        <HemisphericLight name="light1" intensity={this.state.intensity} direction={Vector3.Up()} />
+        <Box name="box" size={4} position={new Vector3(0, 1, 0)}>
+          <RotateMeshBehaviour radians={this.state.clockwiseChecked ? 0.01 : -0.01} axis={Axis.Y} />
+        </Box>
+      </Scene>
+    )
+  }
+}
 ```
 
-### Setting up a React component in your project using onSceneMount().
-This is a more advanced scanario.  You will need to call engine.runRenderLoop(() => {...}).
+## Setting up a React component in your project using onSceneMount().
+This is a more advanced scanario and allows more control.  You will need to call engine.runRenderLoop(() => {...}).  I will include an example later using the new createCamera() method that makes this even easier (auto attach to canvas) and also creates a typical runRenderLoop() on the engine for you.
 ```javascript
 // If you import Scene from BabylonJS then make sure to alias one of them.
 import { Scene, registerHandler, removeHandler } from 'react-babylonjs'
 
-export default class Quarto extends Component {
+export default class AdvancedExample extends Component {
     
   constructor(props) {
     super(props)
@@ -73,9 +101,10 @@ export default class Quarto extends Component {
         var camera = new ArcRotateCamera("Camera", 0, 1.05, 280, Vector3.Zero(), scene)
         camera.attachControl(canvas)
 
-        // if you want to use a shader, pass in the directory to the component.
+        // if you want to set the shader directory, use the "shadersRepository" prop.
         var shader = new BABYLON.ShaderMaterial("gradient", scene, "gradient", {})
 
+        // TODO: setup your scene here
         engine.runRenderLoop(() => {
             if (scene) {
                 scene.render();
@@ -83,55 +112,23 @@ export default class Quarto extends Component {
         });
   }
 
-  componentDidMount () {
-    // you can add listeners to redux actions - they are intercepted by the middleware
-    let handlers = {
-        ['YOUR_ACTION_TYPE']: (action) => {
-            // change properties or animate meshes.
-            return true
-        },
-        ['YOUR_ACTION_TYPE2']: (action) => {
-            // indicates to middleware that it was handled
-            return true
-        }
-    }
-
-    this.actionHandler = (action) => {
-        let handler = handlers[action.type]
-        if (handler == undefined) {
-            // console.console.log(`no handler defined in babylonJS scene for ${action.type}`)
-        } else {
-            return handler(action)
-        }
-    }
-
-    registerHandler(this.actionHandler)
-  }
-
-  componentWillUnmount() {
-    removeHandler(this.actionHandler)
-  }
-
   render() {
- 
-    const { appState } = this.props
-
     return (
-      <div>
-        <Scene
-            onSceneMount={this.onSceneMount} 
-            onMeshPicked={this.onMeshPicked}
-            shadersRepository={'/shaders/'}
-        />
-      </div>
+      <Scene
+          onSceneMount={this.onSceneMount} 
+          onMeshPicked={this.onMeshPicked}
+          shadersRepository={'/shaders/'}
+      />
     )
   }
 }
 ```
 
-### Setting up middleware in your project (optional)...
+# Setting up middleware in your project (optional)...
 
-You need to apply the 'react-babylonjs' middleware to intercept the events.  Use this if you want to synchronise your BabylonJS Scene with ReactJS.
+You can optionally apply the 'react-babylonjs' middleware to monitor redux events.  Use this if you want to synchronise your BabylonJS Scene with ReactJS.
+
+In your top-level component mount/unmount you need to register and deregister your middleware handlers.  The middleware is currently included with babylonjs-react NPM, but I will be splitting to another project.  Will post a full-example here then.
 
 ```javascript
 import { applyMiddleware, compose, createStore } from 'redux'
