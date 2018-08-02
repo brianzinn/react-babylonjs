@@ -8,6 +8,7 @@ export type FreeCameraProps = {
   x?: number
   y?: number
   z?: number
+  target?: Vector3
   setActiveOnSceneIfNoneActive?: boolean
 } & CameraProps &
   SceneComponentProps<BabylonFreeCamera>

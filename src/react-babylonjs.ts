@@ -19,6 +19,11 @@ export { default as Ground, GroundProps } from "./Ground"
 
 // missing a few cameras :)
 export { default as FreeCamera, FreeCameraProps } from "./FreeCamera"
+export { default as ArcRotateCamera, ArcRotateCameraProps } from "./ArcRotateCamera"
 
 // behaviours
-export { default as RotateMeshBehaviour } from "./RotateMeshBehaviour"
+export { default as RotateMeshBehaviour, RotateMeshBehaviourProps } from "./RotateMeshBehaviour"
+
+// models/sceneloader
+export { default as Model, LoadedModel, LoaderStatus } from "./Model"
+export { ModelProps } from "./ModelProps"

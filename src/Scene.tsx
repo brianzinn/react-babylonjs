@@ -7,7 +7,7 @@
 
 import * as React from 'react'
 
-import { PointerEventTypes, Engine, EngineOptions, Scene as BabylonScene, AbstractMesh, Camera, FreeCamera } from 'babylonjs'
+import { PointerEventTypes, Engine, EngineOptions, Scene as BabylonScene, AbstractMesh, Camera, FreeCamera, ArcRotateCamera } from 'babylonjs'
 import { registerHandler, removeHandler } from './middleware'
 
 export type SceneEventArgs = {
@@ -215,9 +215,9 @@ export default class Scene extends React.Component<SceneProps & React.HTMLAttrib
   }
 
   onRegisterChild(child: any) {
-    if(child instanceof FreeCamera) {
+    if(child instanceof FreeCamera || child instanceof ArcRotateCamera) {
       console.log('react-babylonjs: Camera registered.  Attaching to canvas:')
-      // TODO: ensure this is only done once?
+      // TODO: ensure this is only done once - and not using 'instanceof', which is brittle...
       child.attachControl(this.canvas3d!, true);
     } else {
       // console.log(`Attached child to scene: ${child.name}. Not a known camera??`)

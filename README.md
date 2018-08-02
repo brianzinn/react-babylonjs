@@ -74,6 +74,31 @@ class WithProps extends React.Component
 }
 ```
 
+## 100% declarative - Loading 3D models with zero code (optional state/props flow).
+You can easily control BabylonJS models as well.  This sample loads 3D models and controls them with buttons.
+live demo: [with props](https://brianzinn.github.io/create-react-app-babylonjs/withModel)
+```xml
+class WithProps extends React.Component 
+{
+  ...
+  render() {
+    return (
+      <Scene id="sample-canvas">
+        <ArcRotateCamera name="camera1" alpha={Math.PI / 2} beta={Math.PI / 2} radius={0.075} target={Vector3.Zero()} minZ={0.001} />
+        <HemisphericLight name="light1" intensity={0.7} direction={Vector3.Up()} />
+        <Model
+          position={ new Vector3(0.02, 0, 0)}
+          rootUrl = {`${baseUrl}BoomBox/glTF/`}
+          sceneFilename="BoomBox.gltf"
+          onModelError={this.onModelError}
+          onModelLoaded={this.onModelLoaded}
+        />
+      </Scene>
+    )
+  }
+}
+```
+
 ## Setting up a React component in your project using onSceneMount().
 This is a more advanced scanario and allows more control.  You will need to call engine.runRenderLoop(() => {...}).  I will include an example later using the new createCamera() method that makes this even easier (auto attach to canvas) and also creates a typical runRenderLoop() on the engine for you.
 ```javascript
