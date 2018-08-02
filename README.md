@@ -76,9 +76,9 @@ class WithProps extends React.Component
 
 ## 100% declarative - Loading 3D models with zero code (optional state/props flow).
 You can easily control BabylonJS models as well.  This sample loads 3D models and controls them with buttons.
-live demo: [with props](https://brianzinn.github.io/create-react-app-babylonjs/withModel)
+live demo: [with model](https://brianzinn.github.io/create-react-app-babylonjs/withModel)
 ```xml
-class WithProps extends React.Component 
+class WithModel extends React.Component 
 {
   ...
   render() {
@@ -90,8 +90,6 @@ class WithProps extends React.Component
           position={ new Vector3(0.02, 0, 0)}
           rootUrl = {`${baseUrl}BoomBox/glTF/`}
           sceneFilename="BoomBox.gltf"
-          onModelError={this.onModelError}
-          onModelLoaded={this.onModelLoaded}
         />
       </Scene>
     )
