@@ -10,6 +10,7 @@ export type ModelProps = {
   pluginExtension?: string // currently not used
   position?: Vector3
   scaling?: Vector3
+  rotation?: Vector3
   onModelLoaded?: (model: LoadedModel) => void
   onModelError?: (model: LoadedModel) => void
 } & SceneComponentProps<LoadedModel>
@@ -22,9 +23,9 @@ export default class ModelPropsHandler implements PropsHandler<LoadedModel, Mode
       !loadedModel.rootMesh.position.equals(props.position)
     ) {
       console.log("model props handler moving model:", props.sceneFilename)
-      loadedModel.rootMesh.position = props.position
+      loadedModel.rootMesh.position.copyFrom(props.position)
     } else {
-      console.log("model props handler (position) doing nothing:", loadedModel.rootMesh, props)
+      // console.log("model props handler (position) doing nothing:", loadedModel.rootMesh, props)
     }
 
     if (
@@ -35,7 +36,16 @@ export default class ModelPropsHandler implements PropsHandler<LoadedModel, Mode
       console.log("model props handler scaling model:", props.sceneFilename)
       loadedModel.rootMesh.scaling.copyFrom(props.scaling)
     } else {
-      console.log("model props handler (scaling) doing nothing:", loadedModel.rootMesh, props)
+      // console.log("model props handler (scaling) doing nothing:", loadedModel.rootMesh, props)
+    }
+
+    if (
+      props.rotation &&
+      loadedModel.rootMesh &&
+      !loadedModel.rootMesh.rotation.equals(props.rotation)
+    ) {
+      console.log("model props handler rotating model:", props.sceneFilename)
+      loadedModel.rootMesh.rotation.copyFrom(props.rotation)
     }
   }
 }

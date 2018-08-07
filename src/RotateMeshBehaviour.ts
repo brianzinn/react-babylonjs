@@ -1,7 +1,6 @@
 import { Component } from "react"
 import { Behaviour, ComponentContainerProps } from "./SceneComponent"
 import { Scene, Vector3, AbstractMesh, Axis, Space } from "babylonjs"
-import { SceneProps } from "./Scene"
 
 export type RotateMeshBehaviourProps = {
   axis: string | Vector3 // i.e.: Axis.X is a Vector3

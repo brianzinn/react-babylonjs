@@ -1,8 +1,14 @@
 import React, { Component } from 'react'
-import { Scene, Vector3, Nullable } from 'babylonjs'
+import { Scene, Vector3, Nullable, AbstractMesh, Material as BabylonMaterial } from 'babylonjs'
 import { ComponentContainer } from './Scene';
 
 export interface Behaviour<T> {
+    apply(target: T, scene: Scene): void;
+}
+
+// NOTE: probably does not need to be generic.  Only applying it to AbstractMesh anyway so far.
+export interface Material<T> {
+    material?: BabylonMaterial;
     apply(target: T, scene: Scene): void;
 }
 
@@ -10,7 +16,8 @@ export type ComponentContainerProps = {
     scene: Scene,
     name: string,
     container: any,
-    addBehaviour: (behaviour: any) => void // TODO: add another type here?
+    addBehaviour: (behaviour: any) => void, // TODO: add more types
+    setMaterial: (material: Material<AbstractMesh>) => void
 }
 
 export type SceneComponentProps<T> = {
@@ -36,6 +43,7 @@ export default abstract class SceneComponent<T extends U, U, V extends SceneComp
     private babylonObject?: T;
     private hasRendered: boolean = false;
     private behaviours: Behaviour<U>[] = [];
+    private materialComponent?: Material<AbstractMesh>;
 
     constructor(props: V, context?: any) {
         super(props, context);
@@ -43,6 +51,7 @@ export default abstract class SceneComponent<T extends U, U, V extends SceneComp
 
         this.create = this.create.bind(this);
         this.addBehaviour = this.addBehaviour.bind(this);
+        this.setMaterial = this.setMaterial.bind(this);
     }
 
     /**
@@ -56,6 +65,10 @@ export default abstract class SceneComponent<T extends U, U, V extends SceneComp
 
     public addBehaviour(behaviour: Behaviour<U>) : void {
         this.behaviours.push(behaviour);
+    }
+
+    public setMaterial(material: Material<AbstractMesh>) : void {
+        this.materialComponent = material;
     }
 
     /**
@@ -72,6 +85,7 @@ export default abstract class SceneComponent<T extends U, U, V extends SceneComp
                 container: this,
                 registerChild: this.onRegisterChild,
                 addBehaviour: this.addBehaviour,
+                setMaterial: this.setMaterial,
                 name: this.props.name
             })
         );
@@ -104,6 +118,11 @@ export default abstract class SceneComponent<T extends U, U, V extends SceneComp
                 this.behaviours.forEach(behaviour => {
                     behaviour.apply(child, this.props.scene); // double dispatch
                 })
+            }
+
+            if (this.materialComponent !== undefined) {
+                // if 'child' is not abstract mesh - will apply mesh to anything:
+                this.materialComponent.apply(child as any, this.props.scene);
             }
         } else if (this.props.scene) {
             if (typeof this.propsHandlers !== undefined && Array.isArray(this.propsHandlers)) {

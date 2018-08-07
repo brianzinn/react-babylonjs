@@ -21,18 +21,7 @@ export default class ArcRotateCamera extends SceneComponent<
   private camera?: BabylonArcRotateCamera
 
   create(scene: Scene): BabylonArcRotateCamera {
-    console.log(
-      "creating camera",
-      this.props.name,
-      this.props.alpha,
-      this.props.beta,
-      this.props.radius,
-      this.props.target,
-      scene,
-      this.props.setActiveOnSceneIfNoneActive
-    )
     // defaults copied from scene.createDefaultCamera()
-
     var worldExtends = scene.getWorldExtends()
     var worldSize = worldExtends.max.subtract(worldExtends.min)
     var worldCenter = worldExtends.min.add(worldSize.scale(0.5))
