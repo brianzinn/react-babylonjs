@@ -43,7 +43,7 @@ import { Vector3 } from 'babylonjs';
 import './Sample1.css'
 
 const DefaultPlayground = () => (
-  <Scene id="sample-canvas" debug={true}>
+  <Scene id="sample-canvas">
     <FreeCamera name="camera1" position={new Vector3(0, 5, -10)} target={Vector3.Zero()} />
     <HemisphericLight name="light1" intensity={0.7} direction={Vector3.Up()} />
     <Sphere name="sphere1" diameter={2} segments={16} position={new Vector3(0, 1, 0)} />
@@ -96,6 +96,21 @@ class WithModel extends React.Component
   }
 }
 ```
+## Enabling WebVR
+To allow your scene to be viewable in VR headsets, you only need to use the **&lt;VRExperience /&gt;** tag
+```jsx
+const WithVR = () => (
+  <Scene id="sample-canvas">
+    <FreeCamera name="camera1" position={new Vector3(0, 5, -10)} target={Vector3.Zero()} />
+    <HemisphericLight name="light1" intensity={0.7} direction={Vector3.Up()} />
+    <Box name="box" size={4} position={Vector3.Zero()}>
+      <RotateMeshBehaviour radians={0.01} axis={Axis.Y} />
+    </Box>
+    <VRExperience />
+  </Scene>
+)
+```
+
 
 ## Setting up a React component in your project using onSceneMount().
 This is a more advanced scanario and allows more control.  You will need to call engine.runRenderLoop(() => {...}).  I will include an example later using the new createCamera() method that makes this even easier (auto attach to canvas) and also creates a typical runRenderLoop() on the engine for you.

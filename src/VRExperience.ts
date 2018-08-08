@@ -13,6 +13,13 @@ export default class VRExperience extends SceneComponent<
 > {
   private experienceHelper?: VRExperienceHelper
 
+  componentWillUnmount() {
+    if (this.experienceHelper) {
+      // clean up resources, but importantly also to remove the button attached to document.body:
+      this.experienceHelper.dispose()
+    }
+  }
+
   create(createdScene: Scene): VRExperienceHelper {
     console.log("creating VR experience helper", createdScene, this.props)
 
