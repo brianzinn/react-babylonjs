@@ -16,6 +16,10 @@ export type FreeCameraProps = {
 export default class FreeCamera extends SceneComponent<BabylonFreeCamera, Camera, FreeCameraProps> {
   private camera?: BabylonFreeCamera
 
+  componentsCreated(): void {
+    /* ignored */
+  }
+
   create(scene: Scene): BabylonFreeCamera {
     let position
     if (this.props.position !== undefined) {

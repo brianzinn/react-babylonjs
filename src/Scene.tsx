@@ -7,7 +7,7 @@
 
 import * as React from 'react'
 
-import { PointerEventTypes, Engine, EngineOptions, Scene as BabylonScene, AbstractMesh, Camera, FreeCamera, ArcRotateCamera } from 'babylonjs'
+import { PointerEventTypes, Engine, EngineOptions, Scene as BabylonScene, AbstractMesh, Camera, FreeCamera, ArcRotateCamera, Light } from 'babylonjs'
 import { registerHandler, removeHandler } from './middleware'
 
 export type SceneEventArgs = {
@@ -48,10 +48,18 @@ export type SceneProps = {
   debug?: boolean
 };
 
+export type ComponentRegistry = {
+  meshes: AbstractMesh[],
+  lights: Light[],
+  registeredComponents: any[]
+}
+
 export default class Scene extends React.Component<SceneProps & React.HTMLAttributes<HTMLCanvasElement>, {}> implements ComponentContainer {
 
   private scene?: BabylonScene;
   private engine?: Engine;
+
+  private componentRegistry: ComponentRegistry;
 
   private height?: number | string;
   private width?: number | string;
@@ -60,8 +68,16 @@ export default class Scene extends React.Component<SceneProps & React.HTMLAttrib
 
   private actionHandler: any;
 
+  private firstDidUpdate: boolean = false;
+
   constructor(props: SceneProps) {
     super(props);
+
+    this.componentRegistry = {
+      meshes: [],
+      lights: [],
+      registeredComponents: []
+    };
 
     this.onRegisterChild = this.onRegisterChild.bind(this);
   }
@@ -69,6 +85,13 @@ export default class Scene extends React.Component<SceneProps & React.HTMLAttrib
   onResizeWindow = () => {
     if (this.engine) {
       this.engine.resize();
+    }
+  }
+
+  componentDidUpdate () {
+    if (this.firstDidUpdate === false) {
+      this.firstDidUpdate = true;
+      console.log('from Scene:', this.componentRegistry)
     }
   }
 
@@ -222,6 +245,7 @@ export default class Scene extends React.Component<SceneProps & React.HTMLAttrib
     } else {
       // console.log(`Attached child to scene: ${child.name}. Not a known camera??`)
     }
+    this.componentRegistry.registeredComponents.push(child)
   }
 
   // NOTE: canvas width is in pixels, use style to set % using ID, if needed.
@@ -245,7 +269,11 @@ export default class Scene extends React.Component<SceneProps & React.HTMLAttrib
 
     const children = React.Children.map(this.props.children,
       (child: any, index) => React.cloneElement(child, {
-        scene: this.scene, index, container: this, registerChild: this.onRegisterChild
+        scene: this.scene,
+        index,
+        container: this,
+        componentRegistry: this.componentRegistry,
+        registerChild: this.onRegisterChild
       })
      );
 

@@ -31,7 +31,12 @@ export default class Ground extends SceneComponent<Mesh, Node, GroundProps> {
 
   create(scene: Scene): Mesh {
     this.ground = MeshBuilder.CreateGround(this.props.name, this.options, scene)
+    this.props.componentRegistry.meshes.push(this.ground)
     return this.ground
+  }
+
+  componentsCreated(): void {
+    /* ignore */
   }
 
   public get propsHandlers() {

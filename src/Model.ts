@@ -49,7 +49,7 @@ export default class Model extends SceneComponent<LoadedModel, LoadedModel, Mode
       this.props.sceneFilename,
       scene,
       (meshes, particleSystems, skeletons, animationGroups) => {
-        loadedModel.rootMesh = new AbstractMesh("importer-root")
+        loadedModel.rootMesh = new AbstractMesh(this.props.sceneFilename + "-model")
         loadedModel.rootMesh.alwaysSelectAsActiveMesh = true
 
         loadedModel.meshes = []
@@ -101,6 +101,10 @@ export default class Model extends SceneComponent<LoadedModel, LoadedModel, Mode
     }
 
     return loadedModel
+  }
+
+  componentsCreated(): void {
+    /* ignore */
   }
 
   public get propsHandlers() {

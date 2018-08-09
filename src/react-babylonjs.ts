@@ -6,14 +6,18 @@ export {
   removeHandler
 } from "./middleware"
 
-export { default as Scene, SceneProps, SceneEventArgs } from "./Scene"
+export { default as Scene, SceneProps, SceneEventArgs, ComponentRegistry } from "./Scene"
 
 // missing a few lights (ie: spot) - add shadows when you add more lights!
 export { default as HemisphericLight, HemisphericLightProps } from "./HemisphericLight"
+export { default as DirectionalLight, DirectionalLightProps } from "./DirectionalLight"
+// currently only works with directional light:
+export { default as ShadowGenerator, ShadowGeneratorProps } from "./ShadowGenerator"
 
 // here is a start on the shapes - missing lots (cylinder, cone, torus, etc)!
 export { default as Box, BoxProps } from "./Box"
 export { default as Sphere, SphereProps } from "./Sphere"
+export { default as IcoSphere, IcoSphereProps } from "./IcoSphere"
 
 export { default as Ground, GroundProps } from "./Ground"
 
@@ -28,8 +32,9 @@ export { default as RotateMeshBehaviour, RotateMeshBehaviourProps } from "./Rota
 export { default as Model, LoadedModel, LoaderStatus } from "./Model"
 export { ModelProps } from "./ModelProps"
 
-// VR
+// Helpers: VR,Environment
 export { default as VRExperience, VRExperienceProps } from "./VRExperience"
+export { default as Environment, EnvironmentProps } from "./Environment"
 
 // materials
 export { default as StandardMaterial, StandardMaterialProps } from "./StandardMaterial"

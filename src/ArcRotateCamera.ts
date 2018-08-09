@@ -20,6 +20,10 @@ export default class ArcRotateCamera extends SceneComponent<
 > {
   private camera?: BabylonArcRotateCamera
 
+  componentsCreated(): void {
+    /* ignored */
+  }
+
   create(scene: Scene): BabylonArcRotateCamera {
     // defaults copied from scene.createDefaultCamera()
     var worldExtends = scene.getWorldExtends()

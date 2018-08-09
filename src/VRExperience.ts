@@ -1,8 +1,16 @@
-import { Scene, VRExperienceHelper, VRExperienceHelperOptions } from "babylonjs"
+import {
+  Scene,
+  VRExperienceHelper,
+  VRExperienceHelperOptions,
+  EnvironmentHelper,
+  AbstractMesh,
+  Mesh
+} from "babylonjs"
 import SceneComponent, { SceneComponentProps } from "./SceneComponent"
 
 export type VRExperienceProps = {
-  // just using VRExperienceHelperOptions for now.
+  teleportEnvironmentGround?: boolean
+  teleportationMeshes?: Mesh[]
 } & VRExperienceHelperOptions &
   SceneComponentProps<VRExperienceHelper>
 
@@ -20,13 +28,48 @@ export default class VRExperience extends SceneComponent<
     }
   }
 
-  create(createdScene: Scene): VRExperienceHelper {
-    console.log("creating VR experience helper", createdScene, this.props)
+  componentsCreated(): void {
+    if (
+      this.props.teleportEnvironmentGround !== true &&
+      this.props.teleportationMeshes === undefined
+    ) {
+      console.log("environment not set to teleport.")
+    }
 
+    let environmentGround: Mesh | undefined = undefined
+
+    const registeredComponents = this.props.componentRegistry.registeredComponents.slice(0)
+    registeredComponents.forEach(registeredComponent => {
+      if (registeredComponent instanceof EnvironmentHelper) {
+        if (this.props.teleportEnvironmentGround !== true) {
+          console.log("found environment, but not set for teleportation.")
+          return
+        }
+
+        if (!registeredComponent.ground) {
+          console.error("found environment, but no ground to teleport")
+          return
+        }
+
+        environmentGround = registeredComponent.ground
+      }
+    })
+
+    if (environmentGround !== undefined || this.props.teleportationMeshes !== undefined) {
+      let floorMeshes: Mesh[] = environmentGround === undefined ? [] : [environmentGround]
+      if (this.props.teleportationMeshes !== undefined) {
+        floorMeshes.concat(this.props.teleportationMeshes!)
+      }
+      console.log("teleportation enabled on:", floorMeshes.slice(0))
+      this.experienceHelper!.enableTeleportation({ floorMeshes })
+    }
+  }
+
+  create(createdScene: Scene): VRExperienceHelper {
     let { scene, container, registerChild, ...options } = this.props
 
     this.experienceHelper = new VRExperienceHelper(createdScene, options)
-    console.log("created experience helper", this.experienceHelper)
+    console.log("created experience helper.  options:", options)
     return this.experienceHelper
   }
 

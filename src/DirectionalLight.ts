@@ -1,29 +1,29 @@
-import { Scene, HemisphericLight as BabylonHemisphericLight, Light } from "babylonjs"
+import { Scene, DirectionalLight as BabylonDirectionalLight, Light } from "babylonjs"
 
 import SceneComponent, { SceneComponentProps } from "./SceneComponent"
 import LightPropsHandler, { LightProps } from "./LightProps"
 
-export type HemisphericLightProps = {
+export type DirectionalLightProps = {
   direction?: BABYLON.Vector3
   x?: number
   y?: number
   z?: number
   setActiveOnSceneIfNoneActive?: boolean
 } & LightProps &
-  SceneComponentProps<BabylonHemisphericLight>
+  SceneComponentProps<BabylonDirectionalLight>
 
-export default class HemisphericLight extends SceneComponent<
-  BabylonHemisphericLight,
+export default class DirectionalLight extends SceneComponent<
+  BabylonDirectionalLight,
   Light,
-  HemisphericLightProps
+  DirectionalLightProps
 > {
-  private light?: BabylonHemisphericLight
+  private _light?: BabylonDirectionalLight
 
-  componentsCreated(): void {
-    /* ignored */
+  public get light(): BabylonDirectionalLight | undefined {
+    return this._light
   }
 
-  create(scene: Scene): BabylonHemisphericLight {
+  create(scene: Scene): BabylonDirectionalLight {
     let direction
     if (this.props.direction !== undefined) {
       direction = this.props.direction
@@ -35,9 +35,13 @@ export default class HemisphericLight extends SceneComponent<
       )
     }
 
-    this.light = new BabylonHemisphericLight(this.props.name, direction, scene)
+    this._light = new BabylonDirectionalLight(this.props.name, direction, scene)
 
-    return this.light
+    return this._light
+  }
+
+  componentsCreated(): void {
+    /* ignore */
   }
 
   public get propsHandlers() {

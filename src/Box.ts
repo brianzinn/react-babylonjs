@@ -22,18 +22,19 @@ export default class Box extends SceneComponent<Mesh, Node, BoxProps> {
   constructor(props: BoxProps) {
     super(props)
 
-    let { scene, name, ...rest } = props
+    let { scene, name, onCreated, ...rest } = props
 
     this.options = { ...rest }
   }
 
-  componentWillReceiveProps() {
-    // TODO: implement state with size and update vertex data.
-  }
-
   create(scene: Scene): Mesh {
     this.box = MeshBuilder.CreateBox(this.props.name, this.options, scene)
+    this.props.componentRegistry.meshes.push(this.box)
     return this.box
+  }
+
+  componentsCreated(): void {
+    /* ignore */
   }
 
   public get propsHandlers() {

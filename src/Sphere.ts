@@ -22,13 +22,14 @@ export default class Sphere extends SceneComponent<Mesh, Node, SphereProps> {
     this.options = { ...rest }
   }
 
-  componentWillReceiveProps() {
-    // not implemented for Sphere
-  }
-
   create(scene: Scene): Mesh {
     this.sphere = MeshBuilder.CreateSphere(this.props.name, this.options, scene)
+    this.props.componentRegistry.meshes.push(this.sphere)
     return this.sphere
+  }
+
+  componentsCreated(): void {
+    /* ignore */
   }
 
   public get propsHandlers() {
