@@ -35,6 +35,7 @@ export { ModelProps } from "./ModelProps"
 // Helpers: VR,Environment
 export { default as VRExperience, VRExperienceProps } from "./VRExperience"
 export { default as Environment, EnvironmentProps } from "./Environment"
+export { default as Skybox, SkyboxProps } from "./Skybox"
 
 // materials
 export { default as StandardMaterial, StandardMaterialProps } from "./StandardMaterial"
