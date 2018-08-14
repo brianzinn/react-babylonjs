@@ -5,9 +5,11 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import * as React from 'react'
+import React, { Component, HTMLAttributes } from 'react'
 
-import { PointerEventTypes, Engine, EngineOptions, Scene as BabylonScene, AbstractMesh, Camera, FreeCamera, ArcRotateCamera, Light } from 'babylonjs'
+import { PointerEventTypes, Engine, EngineOptions, Scene as BabylonScene, AbstractMesh, Camera, Light } from 'babylonjs'
+import FreeCamera from "./FreeCamera"
+import ArcRotateCamera from "./ArcRotateCamera"
 import { registerHandler, removeHandler } from './middleware'
 
 export type SceneEventArgs = {
@@ -54,7 +56,7 @@ export type ComponentRegistry = {
   registeredComponents: any[]
 }
 
-export default class Scene extends React.Component<SceneProps & React.HTMLAttributes<HTMLCanvasElement>, {}> implements ComponentContainer {
+export default class Scene extends Component<SceneProps & HTMLAttributes<HTMLCanvasElement>, {}> implements ComponentContainer {
 
   private scene?: BabylonScene;
   private engine?: Engine;
@@ -91,7 +93,6 @@ export default class Scene extends React.Component<SceneProps & React.HTMLAttrib
   componentDidUpdate () {
     if (this.firstDidUpdate === false) {
       this.firstDidUpdate = true;
-      console.log('from Scene:', this.componentRegistry)
     }
   }
 
@@ -203,7 +204,7 @@ export default class Scene extends React.Component<SceneProps & React.HTMLAttrib
   }
 
   /**
-   * When canvas receives the active focus (ie: mouse over) intercept keypresses (should be optional behaviour)
+   * When canvas receives the active focus (ie: mouse over) intercept keypresses (should be optional behavior)
    */
   focus = () => {
     document.body.addEventListener('keydown', this.keyPressHandler)
@@ -218,7 +219,7 @@ export default class Scene extends React.Component<SceneProps & React.HTMLAttrib
   }
 
   /**
-   * When canvas loses focus (ie: mouse out) intercept keypresses (should be optional behaviour)
+   * When canvas loses focus (ie: mouse out) intercept keypresses (should be optional behavior)
    */
   blur = () => {
     if (typeof this.props.onSceneBlur === 'function') {
@@ -241,9 +242,7 @@ export default class Scene extends React.Component<SceneProps & React.HTMLAttrib
     if(child instanceof FreeCamera || child instanceof ArcRotateCamera) {
       console.log('react-babylonjs: Camera registered.  Attaching to canvas:')
       // TODO: ensure this is only done once - and not using 'instanceof', which is brittle...
-      child.attachControl(this.canvas3d!, true);
-    } else {
-      // console.log(`Attached child to scene: ${child.name}. Not a known camera??`)
+      child.camera.attachControl(this.canvas3d!, true);
     }
     this.componentRegistry.registeredComponents.push(child)
   }

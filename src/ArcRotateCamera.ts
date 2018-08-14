@@ -1,7 +1,7 @@
 import { Scene, ArcRotateCamera as BabylonArcRotateCamera, Camera, Vector3 } from "babylonjs"
 
 import SceneComponent, { SceneComponentProps } from "./SceneComponent"
-import CameraPropsHandler, { CameraProps } from "./CameraProps"
+import { CameraPropsHandler, CameraProps, CameraComponent } from "./Camera"
 
 export type ArcRotateCameraProps = {
   alpha?: number
@@ -13,12 +13,14 @@ export type ArcRotateCameraProps = {
 } & CameraProps &
   SceneComponentProps<BabylonArcRotateCamera>
 
-export default class ArcRotateCamera extends SceneComponent<
-  BabylonArcRotateCamera,
-  Camera,
-  ArcRotateCameraProps
-> {
-  private camera?: BabylonArcRotateCamera
+export default class ArcRotateCamera
+  extends SceneComponent<BabylonArcRotateCamera, Camera, ArcRotateCameraProps>
+  implements CameraComponent {
+  private _camera?: BabylonArcRotateCamera
+
+  public get camera() {
+    return this._camera!
+  }
 
   componentsCreated(): void {
     /* ignored */
@@ -33,22 +35,20 @@ export default class ArcRotateCamera extends SceneComponent<
     let radius
     if (this.props.radius) {
       radius = this.props.radius
-      console.log("radius from props:", radius)
     } else {
       radius = worldSize.length() * 1.5
-      console.log("radius not props:", radius)
+      console.log("radius not from props:", radius)
     }
 
     let target
     if (this.props.target) {
       target = this.props.target
-      console.log("props target:", target)
     } else {
       target = worldCenter
       console.log("no props target:", target)
     }
 
-    this.camera = new BabylonArcRotateCamera(
+    this._camera = new BabylonArcRotateCamera(
       this.props.name,
       this.props.alpha || -(Math.PI / 2),
       this.props.beta || Math.PI / 2,
@@ -60,18 +60,18 @@ export default class ArcRotateCamera extends SceneComponent<
 
     // TODO: add a propsHandler for Arc Rotate:
     if (this.props.lowerRadiusLimit) {
-      this.camera.lowerRadiusLimit = this.props.lowerRadiusLimit
+      this._camera.lowerRadiusLimit = this.props.lowerRadiusLimit
     } else {
-      this.camera.lowerRadiusLimit = radius * 0.01
+      this._camera.lowerRadiusLimit = radius * 0.01
     }
 
     if (this.props.wheelPrecision) {
-      this.camera.wheelPrecision = this.props.wheelPrecision
+      this._camera.wheelPrecision = this.props.wheelPrecision
     } else {
-      this.camera.wheelPrecision = 100 / radius
+      this._camera.wheelPrecision = 100 / radius
     }
 
-    return this.camera
+    return this._camera
   }
 
   public get propsHandlers() {

@@ -33,10 +33,8 @@ export default class ModelPropsHandler implements PropsHandler<LoadedModel, Mode
       loadedModel.rootMesh &&
       !loadedModel.rootMesh.scaling.equals(props.scaling)
     ) {
-      console.log("model props handler scaling model:", props.sceneFilename)
+      // console.log("model props handler scaling model:", props.sceneFilename)
       loadedModel.rootMesh.scaling.copyFrom(props.scaling)
-    } else {
-      // console.log("model props handler (scaling) doing nothing:", loadedModel.rootMesh, props)
     }
 
     if (
@@ -44,7 +42,7 @@ export default class ModelPropsHandler implements PropsHandler<LoadedModel, Mode
       loadedModel.rootMesh &&
       !loadedModel.rootMesh.rotation.equals(props.rotation)
     ) {
-      console.log("model props handler rotating model:", props.sceneFilename)
+      // console.log("model props handler rotating model:", props.sceneFilename)
       loadedModel.rootMesh.rotation.copyFrom(props.rotation)
     }
   }

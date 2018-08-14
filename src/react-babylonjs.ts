@@ -21,12 +21,21 @@ export { default as IcoSphere, IcoSphereProps } from "./IcoSphere"
 
 export { default as Ground, GroundProps } from "./Ground"
 
-// missing a few cameras :)
+// 3D GUI
+export { default as GUI3DManager, GUI3DManagerProps } from "./GUI3DManager"
+export { default as CylinderPanel, CylinderPanelProps } from "./CylinderPanel"
+export { default as HolographicButton, HolographicButtonProps } from "./HolographicButton"
+
+// 2D GUI - Do not use with 3D!
+export { default as Text, TextProps } from "./Text"
+
+// Only Arc Rotate and Free cam are available:
 export { default as FreeCamera, FreeCameraProps } from "./FreeCamera"
 export { default as ArcRotateCamera, ArcRotateCameraProps } from "./ArcRotateCamera"
+export { CameraProps, CameraPropsHandler } from "./Camera"
 
-// behaviours
-export { default as RotateMeshBehaviour, RotateMeshBehaviourProps } from "./RotateMeshBehaviour"
+// behaviors
+export { default as RotateMeshBehavior, RotateMeshBehaviorProps } from "./RotateMeshBehavior"
 
 // models/sceneloader
 export { default as Model, LoadedModel, LoaderStatus } from "./Model"

@@ -66,7 +66,7 @@ class WithProps extends React.Component
         <FreeCamera name="camera1" position={new Vector3(0, 5, -10)} target={Vector3.Zero()} />
         <HemisphericLight name="light1" intensity={this.state.intensity} direction={Vector3.Up()} />
         <Box name="box" size={4} position={new Vector3(0, 1, 0)}>
-          <RotateMeshBehaviour radians={this.state.clockwiseChecked ? 0.01 : -0.01} axis={Axis.Y} />
+          <RotateMeshBehavior radians={this.state.clockwiseChecked ? 0.01 : -0.01} axis={Axis.Y} />
         </Box>
       </Scene>
     )
@@ -103,7 +103,7 @@ class WithVR extends React.Component
             diffuseColor={Color3.Yellow()}
             specularColor={Color3.Black()}
           />
-          <RotateMeshBehaviour radians={0.01} axis={Axis.Y} />
+          <RotateMeshBehavior radians={0.01} axis={Axis.Y} />
         </IcoSphere>
         <Model
           rotation= {new Vector3(0, this.state.modelRotationY, 0)}
@@ -117,7 +117,7 @@ class WithVR extends React.Component
             diffuseColor={Color3.FromInts(255, 165, 0)}
             specularColor={Color3.Black()}
           />
-          <RotateMeshBehaviour radians={-0.01} axis={Axis.Y} />
+          <RotateMeshBehavior radians={-0.01} axis={Axis.Y} />
         </IcoSphere>
         <VRExperience createDeviceOrientationCamera={false} teleportEnvironmentGround={true} />
         <Environment enableGroundShadow= {true} groundYBias={1} mainColor={Color3.FromHexString("#74b9ff")} />
@@ -157,7 +157,7 @@ const WithVR = () => (
     <FreeCamera name="camera1" position={new Vector3(0, 5, -10)} target={Vector3.Zero()} />
     <HemisphericLight name="light1" intensity={0.7} direction={Vector3.Up()} />
     <Box name="box" size={4} position={Vector3.Zero()}>
-      <RotateMeshBehaviour radians={0.01} axis={Axis.Y} />
+      <RotateMeshBehavior radians={0.01} axis={Axis.Y} />
     </Box>
     <VRExperience />
   </Scene>

@@ -20,7 +20,7 @@ export default class ShadowGenerator extends SceneComponent<
   create(scene: Scene): BabylonShadowGenerator {
     const { container } = this.props
     if (container instanceof DirectionalLight) {
-      console.log("Creating a shadow generater for directional light:", container.light)
+      // console.log("Creating a shadow generater for directional light:", container.light)
       if (container.light) {
         this.shadowGenerator = new BabylonShadowGenerator(this.props.mapSize, container.light)
       }

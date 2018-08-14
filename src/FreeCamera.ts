@@ -1,7 +1,7 @@
 import { Scene, FreeCamera as BabylonFreeCamera, Camera, Vector3 } from "babylonjs"
 
 import SceneComponent, { SceneComponentProps } from "./SceneComponent"
-import CameraPropsHandler, { CameraProps } from "./CameraProps"
+import { CameraPropsHandler, CameraProps, CameraComponent } from "./Camera"
 
 export type FreeCameraProps = {
   position?: BABYLON.Vector3
@@ -13,11 +13,16 @@ export type FreeCameraProps = {
 } & CameraProps &
   SceneComponentProps<BabylonFreeCamera>
 
-export default class FreeCamera extends SceneComponent<BabylonFreeCamera, Camera, FreeCameraProps> {
-  private camera?: BabylonFreeCamera
+export default class FreeCamera extends SceneComponent<BabylonFreeCamera, Camera, FreeCameraProps>
+  implements CameraComponent {
+  private _camera?: BabylonFreeCamera
 
   componentsCreated(): void {
     /* ignored */
+  }
+
+  public get camera() {
+    return this._camera!
   }
 
   create(scene: Scene): BabylonFreeCamera {
@@ -32,14 +37,14 @@ export default class FreeCamera extends SceneComponent<BabylonFreeCamera, Camera
       )
     }
 
-    this.camera = new BabylonFreeCamera(
+    this._camera = new BabylonFreeCamera(
       this.props.name,
       position,
       this.props.scene,
       this.props.setActiveOnSceneIfNoneActive
     )
 
-    return this.camera
+    return this._camera
   }
 
   public get propsHandlers() {

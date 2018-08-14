@@ -31,27 +31,22 @@ export const actions = {
 
 /**
  * Register a handler to intercept events.
- * @param handler 
+ * @param handler
  */
-export const registerHandler = (
-  handler: (action: { type: string }) => boolean
-) => {
+export const registerHandler = (handler: (action: { type: string }) => boolean) => {
   if (typeof handler !== "function") {
     console.error("parameter handler is not a function", handler)
   } else {
-    // console.log('babylonJS handler added')
     handlers.push(handler)
   }
 }
 
 /**
  * Remove registration of handler.
- * 
+ *
  * @param handler
  */
-export const removeHandler = (
-  handler: (action: { type: string }) => boolean
-) => {
+export const removeHandler = (handler: (action: { type: string }) => boolean) => {
   if (typeof handler !== "function") {
     console.error("cannot unregister a handler that's not a function", handler)
     return
@@ -97,10 +92,7 @@ export default (store: any) => (next: any) => (action: any) => {
       // console.log(`babylonJS type: ${action.type} handled: ${handledResult.handled} w/o errors by ${handledResult.handlers}`)
     } else {
       handledResult.errors.forEach(error => {
-        console.error(
-          `error occured in React BabylonJS middleware with type ${action.type}`,
-          error
-        )
+        console.error(`error occured in React BabylonJS middleware with type ${action.type}`, error)
       })
     }
 

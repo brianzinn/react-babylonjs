@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Scene, Vector3, Nullable, AbstractMesh, Material as BabylonMaterial, Light } from 'babylonjs'
 import { ComponentContainer, ComponentRegistry } from './Scene';
 
-export interface Behaviour<T> {
+export interface Behavior<T> {
     apply(target: T, scene: Scene): void;
 }
 
@@ -17,7 +17,7 @@ export type ComponentContainerProps = {
     name: string,
     container: any,
     componentRegistry: ComponentRegistry,
-    addBehaviour: (behaviour: any) => void, // TODO: add more types
+    addBehavior: (behavior: any) => void, // TODO: add more types
     setMaterial: (material: Material<AbstractMesh>) => void
 }
 
@@ -39,12 +39,13 @@ export interface PropsHandler<T, U> {
  * Base implemention of SceneComponent.  Currently all classes are inheriting from this.
  *
  */
-export default abstract class SceneComponent<T extends U, U, V extends SceneComponentProps<T>> extends Component<V, {}> implements ComponentContainer {
+export default abstract class SceneComponent<T extends U, U /* extends {name?: string} (not on GUI3DManager )*/, V extends SceneComponentProps<T>> extends Component<V, {}> implements ComponentContainer {
     
     protected name?: string;
-    private babylonObject?: T;
-    private hasRendered: boolean = false;
-    private behaviours: Behaviour<U>[] = [];
+    protected babylonObject?: T;
+    protected hasRendered: boolean = false;
+    protected children: any[] = [];
+    private behaviors: Behavior<U>[] = [];
     private materialComponent?: Material<AbstractMesh>;
     
     constructor(props: V, context?: any) {
@@ -52,8 +53,9 @@ export default abstract class SceneComponent<T extends U, U, V extends SceneComp
         this.name = props ? props.name : undefined;
 
         this.create = this.create.bind(this);
-        this.addBehaviour = this.addBehaviour.bind(this);
+        this.addBehavior = this.addBehavior.bind(this);
         this.setMaterial = this.setMaterial.bind(this);
+        this.onRegisterChild = this.onRegisterChild.bind(this);
     }
 
     /**
@@ -67,23 +69,24 @@ export default abstract class SceneComponent<T extends U, U, V extends SceneComp
      * Just a lifecycle hook called once after all components have had a chance to be created.
      */
     abstract componentsCreated() : void;
+
+    /**
+     * Opportunity for component to do any setup, since this will be called before componentsCreated()
+     * 
+     * @param child 
+     */
+    onRegisterChild(child: any): void {
+        this.children.push(child);
+    }
     
     abstract get propsHandlers(): PropsHandler<U, V>[];
 
-    public addBehaviour(behaviour: Behaviour<U>) : void {
-        this.behaviours.push(behaviour);
+    public addBehavior(behavior: Behavior<U>) : void {
+        this.behaviors.push(behavior);
     }
 
     public setMaterial(material: Material<AbstractMesh>) : void {
         this.materialComponent = material;
-    }
-
-    /**
-     * 
-     * @param child called by child passing in they're created <T>
-     */
-    onRegisterChild(child: T) : void {
-        console.log('child registered', child, this);
     }
 
     /**
@@ -92,7 +95,6 @@ export default abstract class SceneComponent<T extends U, U, V extends SceneComp
      */
     componentDidUpdate() {
         if (this.hasRendered) {
-            console.log('component did update', this);
             this.componentsCreated();
         }
     }
@@ -104,10 +106,8 @@ export default abstract class SceneComponent<T extends U, U, V extends SceneComp
                 index,
                 componentRegistry: this.props.componentRegistry,
                 container: this,
-                registerChild: this.onRegisterChild,
-                addBehaviour: this.addBehaviour,
-                setMaterial: this.setMaterial,
-                name: this.props.name
+                addBehavior: this.addBehavior,
+                setMaterial: this.setMaterial
             })
         );
 
@@ -131,14 +131,14 @@ export default abstract class SceneComponent<T extends U, U, V extends SceneComp
                 this.props.onCreated!(child);
             }
 
-            // notify parent
-            if (this.props.registerChild) {
-                this.props.registerChild!(child)
+            // notify parent - using parent as 'this' context.
+            if (this.props.container && this.props.container.onRegisterChild) {
+                this.props.container.onRegisterChild(this);
             }
 
-            if (this.behaviours.length !== 0) {
-                this.behaviours.forEach(behaviour => {
-                    behaviour.apply(child, this.props.scene); // double dispatch
+            if (this.behaviors.length !== 0) {
+                this.behaviors.forEach(behavior => {
+                    behavior.apply(child, this.props.scene);
                 })
             }
 
@@ -154,8 +154,8 @@ export default abstract class SceneComponent<T extends U, U, V extends SceneComp
             }
         }
 
-        // we are rendering DOM.  partially for testing, but may be useful. Cannot return [{children}], need JSX.Element.
-        // TODO: update with React.createElement()
+        // we are rendering DOM.  just for testing, but may be useful for other purposes in the future. Cannot return [{children}], need JSX.Element.
+        // TODO: update with React.createElement('component-name', ''');
         return (
             <div style={{visibility: 'hidden'}} title={this.props.name}>{children}</div>
         );

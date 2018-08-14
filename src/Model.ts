@@ -1,15 +1,13 @@
 import {
   Scene,
-  ParticleSystem,
+  IParticleSystem,
   Skeleton,
   AnimationGroup,
   AbstractMesh,
   SceneLoader,
   Nullable,
   ISceneLoaderPlugin,
-  ISceneLoaderPluginAsync,
-  Vector3,
-  TransformNode
+  ISceneLoaderPluginAsync
 } from "babylonjs"
 import "babylonjs-loaders"
 
@@ -28,7 +26,7 @@ export class LoadedModel {
   public errorMessage?: string
   public loaderName?: string
   public meshes?: AbstractMesh[]
-  public particleSystems?: ParticleSystem[]
+  public particleSystems?: IParticleSystem[]
   public skeletons?: Skeleton[]
   public animationGroups?: AnimationGroup[]
 }

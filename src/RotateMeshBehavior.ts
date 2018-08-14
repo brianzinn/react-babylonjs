@@ -1,18 +1,18 @@
 import { Component } from "react"
-import { Behaviour, ComponentContainerProps } from "./SceneComponent"
+import { Behavior, ComponentContainerProps } from "./SceneComponent"
 import { Scene, Vector3, AbstractMesh, Axis, Space } from "babylonjs"
 
-export type RotateMeshBehaviourProps = {
+export type RotateMeshBehaviorProps = {
   axis: string | Vector3 // i.e.: Axis.X is a Vector3
   radians: number
 } & ComponentContainerProps
 
-export default class RotateMeshBehaviour extends Component<RotateMeshBehaviourProps, {}>
-  implements Behaviour<AbstractMesh> {
+export default class RotateMeshBehaviour extends Component<RotateMeshBehaviorProps, {}>
+  implements Behavior<AbstractMesh> {
   behaviourAdded: boolean = false
   options: any
 
-  constructor(props: RotateMeshBehaviourProps) {
+  constructor(props: RotateMeshBehaviorProps) {
     super(props)
 
     let { scene, name, ...rest } = props
@@ -49,8 +49,8 @@ export default class RotateMeshBehaviour extends Component<RotateMeshBehaviourPr
   render() {
     if (this.behaviourAdded === false) {
       this.behaviourAdded = true
-      if (this.props.addBehaviour) {
-        this.props.addBehaviour(this)
+      if (this.props.addBehavior) {
+        this.props.addBehavior(this)
       } else {
         console.error("cannot attach behaviour", this.props)
       }
