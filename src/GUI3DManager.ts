@@ -28,11 +28,7 @@ export default class GUI3DManager extends GUISceneComponent<
     return this.gui3dManager
   }
 
-  onGuiComponentsCreated(): void {
-    this.children.forEach(child => {
-      console.log(" > gui manager child:", this, child)
-    })
-  }
+  onGuiComponentsCreated(): void {}
 
   addControl(control: Control3D): void {
     this.gui3dManager.addControl(control)

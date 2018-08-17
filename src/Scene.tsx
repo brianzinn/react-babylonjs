@@ -175,7 +175,7 @@ export default class Scene extends Component<SceneProps & HTMLAttributes<HTMLCan
     registerHandler(this.actionHandler);
 
     this.forceUpdate(() => {
-      // console.log('force update completed.')
+      
     });
 
     // Resize the babylon engine when the window is resized

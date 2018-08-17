@@ -100,17 +100,6 @@ export default abstract class SceneComponent<T extends U, U /* extends {name?: s
     }
 
     render() {
-        const children = React.Children.map(this.props.children,
-            (child: any, index) => React.cloneElement(child, {
-                scene: this.props.scene,
-                index,
-                componentRegistry: this.props.componentRegistry,
-                container: this,
-                addBehavior: this.addBehavior,
-                setMaterial: this.setMaterial
-            })
-        );
-
         if (this.hasRendered === false && this.props.scene) {
             this.hasRendered = true;
             let child: T = this.create(this.props.scene);
@@ -153,6 +142,17 @@ export default abstract class SceneComponent<T extends U, U /* extends {name?: s
                 })
             }
         }
+
+        const children = React.Children.map(this.props.children,
+            (child: any, index) => React.cloneElement(child, {
+                scene: this.props.scene,
+                index,
+                componentRegistry: this.props.componentRegistry,
+                container: this,
+                addBehavior: this.addBehavior,
+                setMaterial: this.setMaterial
+            })
+        );
 
         // we are rendering DOM.  just for testing, but may be useful for other purposes in the future. Cannot return [{children}], need JSX.Element.
         // TODO: update with React.createElement('component-name', ''');

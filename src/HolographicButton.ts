@@ -6,6 +6,7 @@ import GUISceneComponent from "./GUISceneComponent"
 
 export type HolographicButtonProps = {
   text: string
+  imageUrl: string
   onClick: (button: BabylonHolographicButton) => void
 } & SceneComponentProps<BabylonHolographicButton>
 
@@ -46,6 +47,10 @@ export default class HolographicButton extends GUISceneComponent<
   create(scene: Scene): BabylonHolographicButton {
     this.holographicButton = new BabylonHolographicButton(this.props.name)
     this.holographicButton.text = this.props.text
+
+    if (this.props.imageUrl) {
+      this.holographicButton.imageUrl = this.props.imageUrl
+    }
 
     if (this.props.onClick) {
       // onPointerClickObservable has some issues...

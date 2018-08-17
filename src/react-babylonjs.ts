@@ -25,8 +25,9 @@ export { default as Ground, GroundProps } from "./Ground"
 export { default as GUI3DManager, GUI3DManagerProps } from "./GUI3DManager"
 export { default as CylinderPanel, CylinderPanelProps } from "./CylinderPanel"
 export { default as HolographicButton, HolographicButtonProps } from "./HolographicButton"
+export { default as Button3D, Button3DProps } from "./Button3D"
 
-// 2D GUI - Do not use with 3D!
+// 2D GUI - Do not use with 3D, except as content.  ie: do not add to a 3D panel.
 export { default as Text, TextProps } from "./Text"
 
 // Only Arc Rotate and Free cam are available:
