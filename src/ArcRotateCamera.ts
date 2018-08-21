@@ -28,9 +28,9 @@ export default class ArcRotateCamera
 
   create(scene: Scene): BabylonArcRotateCamera {
     // defaults copied from scene.createDefaultCamera()
-    var worldExtends = scene.getWorldExtends()
-    var worldSize = worldExtends.max.subtract(worldExtends.min)
-    var worldCenter = worldExtends.min.add(worldSize.scale(0.5))
+    let worldExtends = scene.getWorldExtends()
+    let worldSize = worldExtends.max.subtract(worldExtends.min)
+    let worldCenter = worldExtends.min.add(worldSize.scale(0.5))
 
     let radius
     if (this.props.radius) {

@@ -28,8 +28,6 @@ export default class GUI3DManager extends GUISceneComponent<
     return this.gui3dManager
   }
 
-  onGuiComponentsCreated(): void {}
-
   addControl(control: Control3D): void {
     this.gui3dManager.addControl(control)
   }
@@ -39,7 +37,7 @@ export default class GUI3DManager extends GUISceneComponent<
   }
 
   componentsCreated(): void {
-    this.onBeforeGuiComponentsCreated()
+    // not used
   }
 
   public get propsHandlers() {

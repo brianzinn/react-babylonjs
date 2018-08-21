@@ -19,7 +19,6 @@ export default class HolographicButton extends GUISceneComponent<
   HolographicButtonProps
 > {
   protected holographicButton?: BabylonHolographicButton
-  private added: boolean = false
 
   addControl(control: Control3D): void {
     console.log("not implemented adding controls to holographic button")
@@ -29,15 +28,8 @@ export default class HolographicButton extends GUISceneComponent<
     throw new Error("Method not implemented.")
   }
 
-  onGuiComponentsCreated(): void {
-    if (this.added === false) {
-      this.added = true
-      this.props.container.addControl(this.holographicButton)
-    }
-  }
-
   componentsCreated(): void {
-    this.onBeforeGuiComponentsCreated()
+    // not used
   }
 
   componentWillUnmount() {

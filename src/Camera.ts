@@ -1,7 +1,5 @@
 import { PropsHandler, NodeProps } from "./SceneComponent"
 import { Camera, FreeCamera, ArcRotateCamera } from "babylonjs"
-//import FreeCamera from "./FreeCamera"
-//import ArcRotateCamera from "./ArcRotateCamera"
 
 export interface CameraComponent {
   camera: Camera

@@ -56,6 +56,9 @@ export default abstract class SceneComponent<T extends U, U /* extends {name?: s
         this.addBehavior = this.addBehavior.bind(this);
         this.setMaterial = this.setMaterial.bind(this);
         this.onRegisterChild = this.onRegisterChild.bind(this);
+        this.init = this.init.bind(this);
+        this.initComplete = this.initComplete.bind(this);
+
     }
 
     /**
@@ -89,6 +92,9 @@ export default abstract class SceneComponent<T extends U, U /* extends {name?: s
         this.materialComponent = material;
     }
 
+    protected init(child: T) : void {}
+    protected initComplete(child: T) : void {}
+
     /**
      * Called after every prop and state change after render().
      * Not called after first render(), that is only componentDidMount
@@ -119,6 +125,10 @@ export default abstract class SceneComponent<T extends U, U /* extends {name?: s
             if (typeof this.props.onCreated === 'function') {
                 this.props.onCreated!(child);
             }
+
+            // give inherited components extra life-cycle events opportunities for initialisation
+            this.init(child);
+            this.initComplete(child);
 
             // notify parent - using parent as 'this' context.
             if (this.props.container && this.props.container.onRegisterChild) {
@@ -156,8 +166,9 @@ export default abstract class SceneComponent<T extends U, U /* extends {name?: s
 
         // we are rendering DOM.  just for testing, but may be useful for other purposes in the future. Cannot return [{children}], need JSX.Element.
         // TODO: update with React.createElement('component-name', ''');
-        return (
-            <div style={{visibility: 'hidden'}} title={this.props.name}>{children}</div>
-        );
+        return React.createElement('span', {
+            type: this.constructor.name.replace(/\$/g, '').toLowerCase(),
+            title: this.props.name
+        }, children);
     }
 }

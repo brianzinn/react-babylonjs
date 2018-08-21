@@ -52,8 +52,8 @@ export const removeHandler = (handler: (action: { type: string }) => boolean) =>
     return
   }
 
-  var idx = handlers.indexOf(handler)
-  if (idx != -1) {
+  const idx = handlers.indexOf(handler)
+  if (idx !== -1) {
     // console.log("babylonJS handler found and removed", handler)
     handlers.splice(idx, 1)
   } else {
@@ -62,7 +62,7 @@ export const removeHandler = (handler: (action: { type: string }) => boolean) =>
 }
 
 const callBabylonJs = (action: { type: string }): HandledResult => {
-  let result = {
+  const result = {
     handled: false,
     handlers: 0,
     errors: []

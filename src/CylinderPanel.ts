@@ -30,7 +30,6 @@ export default class CylinderPanel extends GUISceneComponent<
   CylinderPanelProps
 > {
   protected cylinderPanel?: BabylonCylinderPanel
-  private added: boolean = false
 
   addControl(control: Control3D): void {
     // console.log("adding control to cylinder panel:", control)
@@ -42,17 +41,8 @@ export default class CylinderPanel extends GUISceneComponent<
     this.cylinderPanel!.removeControl(control)
   }
 
-  onGuiComponentsCreated(): void {
-    if (this.added === false) {
-      this.added = true
-      this.props.container.addControl(this.cylinderPanel)
-    } else {
-      console.warn("CylingerPanel has already been added.")
-    }
-  }
-
   componentsCreated(): void {
-    this.onBeforeGuiComponentsCreated()
+    // not used
   }
 
   componentWillUnmount() {
@@ -62,13 +52,8 @@ export default class CylinderPanel extends GUISceneComponent<
   create(scene: Scene): BabylonCylinderPanel {
     this.cylinderPanel = new BabylonCylinderPanel()
 
-    if (typeof this.props.container.addControl === "function") {
-      this.added = true
-      this.props.container.addControl(this.cylinderPanel)
-    }
-
     // just for now - will be adding Anchor as a dynamic element:
-    var anchor = new TransformNode("")
+    let anchor = new TransformNode("")
     this.cylinderPanel.linkToTransformNode(anchor)
 
     if (this.props.position) {

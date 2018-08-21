@@ -18,7 +18,7 @@ export default class Skybox extends SceneComponent<Mesh, Mesh, SkyboxProps> {
   }
 
   componentDidUpdate() {
-    if (this.skyboxMaterial && this.props.texture != this.lastTexture) {
+    if (this.skyboxMaterial && this.props.texture !== this.lastTexture) {
       this.lastTexture = this.props.texture
 
       // need to re-assign coordinates mode to keep skybox displaying correctly
@@ -28,9 +28,9 @@ export default class Skybox extends SceneComponent<Mesh, Mesh, SkyboxProps> {
   }
 
   create(scene: Scene): Mesh {
-    var skybox = Mesh.CreateBox("skyBox", 100.0, scene)
+    const skybox = Mesh.CreateBox("skyBox", 100.0, scene)
     this.skybox = skybox
-    var skyboxMaterial = new StandardMaterial("skyBox", scene)
+    const skyboxMaterial = new StandardMaterial("skyBox", scene)
 
     // assign to local var to recreate cube-textures
     this.skyboxMaterial = skyboxMaterial

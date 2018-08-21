@@ -1,4 +1,11 @@
 {
+  "max-line-length": [
+    true,
+    {
+      "limit": 120,
+      "ignore-pattern": "^import |^export {(.*?)}"
+    }
+  ],
   "extends": [
     "tslint-config-standard",
     "tslint-config-prettier"

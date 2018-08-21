@@ -13,16 +13,15 @@ export type TextProps = {
  * Not usable in current form - need a plan and texture.  Cannot be used in 3D.
  */
 export default class Text extends SceneComponent<TextBlock, TextBlock, TextProps> {
-  addControl(control: Control3D): void {
-    console.warn("text does not control")
-  }
-  removeControl(control: Control3D): void {
-    console.warn("text does not remove control")
-  }
-  onGuiComponentsCreated(): void {
-    console.warn("text onGuiComponentsCreated() is no-op")
-  }
   protected textBlock?: TextBlock
+
+  addControl(control: Control3D): void {
+    console.warn("text does not add control, should delegate?")
+  }
+
+  componentsCreated(): void {
+    // not used
+  }
 
   create(scene: Scene): TextBlock {
     this.textBlock = new TextBlock(this.props.name, this.props.text)
@@ -36,7 +35,9 @@ export default class Text extends SceneComponent<TextBlock, TextBlock, TextProps
     return this.textBlock
   }
 
-  componentsCreated(): void {}
+  removeControl(control: Control3D): void {
+    console.warn("text does not remove control")
+  }
 
   public get propsHandlers() {
     return []

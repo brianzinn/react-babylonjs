@@ -5,8 +5,7 @@ import {
   Image as BabylonImage,
   TextBlock,
   StackPanel,
-  Control,
-  Rectangle
+  Control
 } from "babylonjs-gui"
 
 import { SceneComponentProps } from "./SceneComponent"
@@ -40,7 +39,6 @@ export default class Button3D extends GUISceneComponent<
   Button3DProps
 > {
   protected button3D?: BabylonButton3D
-  private added: boolean = false
 
   addControl(control: Control3D): void {
     console.log("not implemented adding controls to holographic button")
@@ -50,31 +48,52 @@ export default class Button3D extends GUISceneComponent<
     throw new Error("Method not implemented.")
   }
 
-  onGuiComponentsCreated(): void {
-    if (this.added === false) {
-      this.added = true
-      this.props.container.addControl(this.button3D)
-    }
-  }
-
   componentsCreated(): void {
-    this.onBeforeGuiComponentsCreated()
+    // not used
   }
 
   componentWillUnmount() {
     this.props.container.removeControl(this.button3D)
   }
 
+  /**
+   * The mesh that we would like to set properties on, is created only once the
+   *
+   * @param button3D button to further initialise
+   */
+  initComplete(button3D: BabylonButton3D): void {
+    if (this.props.diffuseColor) {
+      if (button3D.mesh) {
+        let material: BabylonStandardMaterial = button3D.mesh.material as BabylonStandardMaterial
+
+        if (material) {
+          console.log("applying diffuse:", this.props.diffuseColor)
+          material.diffuseColor = this.props.diffuseColor
+        } else {
+          console.log("no material to apply diffuse on:", button3D)
+        }
+      }
+    }
+
+    if (this.props.hoverEmmissiveColor) {
+      if (button3D.mesh) {
+        let material: BabylonStandardMaterial = button3D.mesh.material as BabylonStandardMaterial
+
+        button3D.pointerEnterAnimation = () => {
+          material.emissiveColor = this.props.hoverEmmissiveColor!
+        }
+
+        button3D.pointerOutAnimation = () => {
+          material.emissiveColor = BABYLON.Color3.Black()
+        }
+      }
+    }
+  }
+
   create(scene: Scene): BabylonButton3D {
     this.button3D = new BabylonButton3D(this.props.name)
 
-    // attach now, if we can.  if we aren't attached then linkToTransformNode() won't work as expected, material is not available, etc.
-    if (typeof this.props.container.addControl === "function") {
-      this.added = true
-      this.props.container.addControl(this.button3D)
-    }
-
-    console.log("created button", this.props.name)
+    // console.log("created button", this.props.name)
 
     let text: TextBlock | undefined = undefined
     let image: BabylonImage | undefined = undefined
@@ -134,33 +153,6 @@ export default class Button3D extends GUISceneComponent<
       image.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER
       this.button3D.contentScaleRatio = 1
       this.button3D.content = image
-    }
-
-    if (this.props.diffuseColor) {
-      if (this.button3D.mesh) {
-        let material: BabylonStandardMaterial = this.button3D.mesh
-          .material as BabylonStandardMaterial
-        if (material) {
-          console.log("applying diffuse:", this.props.diffuseColor)
-          material.diffuseColor = this.props.diffuseColor
-        } else {
-          console.log("no material to apply diffuse?", (this.button3D as any).material)
-        }
-      }
-    }
-
-    if (this.props.hoverEmmissiveColor) {
-      if (this.button3D.mesh) {
-        let material: BabylonStandardMaterial = this.button3D.mesh
-          .material as BabylonStandardMaterial
-        this.button3D.pointerEnterAnimation = () => {
-          material.emissiveColor = this.props.hoverEmmissiveColor!
-        }
-
-        this.button3D.pointerOutAnimation = () => {
-          material.emissiveColor = BABYLON.Color3.Black()
-        }
-      }
     }
 
     if (this.props.onClick) {
