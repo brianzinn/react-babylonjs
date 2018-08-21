@@ -33,8 +33,7 @@
   },
   "lint-staged": {
     "{src,test}/**/*.ts": [
-      "prettier --write --no-semi",
-      "git add"
+      "prettier --write --no-semi --print-width 120"
     ]
   },
   "config": {
