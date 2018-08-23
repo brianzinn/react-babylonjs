@@ -35,8 +35,6 @@ export default class Plane extends SceneComponent<Mesh, Node, PlaneProps> {
     // TODO: remove on unmount
     this.props.componentRegistry.meshes.push(this.plane)
 
-    console.log('plane created with options:', this.options);
-
     return this.plane
   }
 

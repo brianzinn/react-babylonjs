@@ -35,11 +35,11 @@ export class CameraPropsHandler implements PropsHandler<Camera, CameraProps> {
         camera.setTarget(cameraProps.target)
       } else if (camera instanceof ArcRotateCamera) {
         if (!camera.target || !camera.target.equals(cameraProps.target)) {
-          console.log("Changing Arc Rotate target (does on init in ctor, but change detected).")
+          // console.log("Changing Arc Rotate target (does on init in ctor, but change detected).")
           camera.setTarget(cameraProps.target)
         }
       } else {
-        console.warn("attached camera - no implementation for targeting", camera, cameraProps)
+        // console.warn("attached camera - no implementation for targeting", camera, cameraProps)
       }
     }
 

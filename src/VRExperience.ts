@@ -33,7 +33,7 @@ export default class VRExperience extends SceneComponent<
       this.props.teleportEnvironmentGround !== true &&
       this.props.teleportationMeshes === undefined
     ) {
-      console.log("environment not set to teleport.")
+      // console.log("environment not set to teleport.")
     }
 
     let environmentGround: Mesh | undefined = undefined
@@ -42,12 +42,12 @@ export default class VRExperience extends SceneComponent<
     registeredComponents.forEach(registeredComponent => {
       if (registeredComponent instanceof EnvironmentHelper) {
         if (this.props.teleportEnvironmentGround !== true) {
-          console.log("found environment, but not set for teleportation.")
+          // console.log("found environment, but not set for teleportation.")
           return
         }
 
         if (!registeredComponent.ground) {
-          console.error("found environment, but no ground to teleport")
+          // console.error("found environment, but no ground to teleport")
           return
         }
 
@@ -60,7 +60,7 @@ export default class VRExperience extends SceneComponent<
       if (this.props.teleportationMeshes !== undefined) {
         floorMeshes.concat(this.props.teleportationMeshes!)
       }
-      console.log("teleportation enabled on:", floorMeshes.slice(0))
+      // console.log("teleportation enabled on:", floorMeshes.slice(0))
       this.experienceHelper!.enableTeleportation({ floorMeshes })
     }
   }
@@ -69,7 +69,7 @@ export default class VRExperience extends SceneComponent<
     let { scene, container, registerChild, ...options } = this.props
 
     this.experienceHelper = new VRExperienceHelper(createdScene, options)
-    console.log("created experience helper.  options:", options)
+    // console.log("created experience helper.  options:", options)
     return this.experienceHelper
   }
 

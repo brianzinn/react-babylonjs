@@ -2,46 +2,41 @@ import { Scene } from "babylonjs"
 import { Control, StackPanel as BabylonStackPanel } from "babylonjs-gui"
 
 import { SceneComponentProps } from "./SceneComponent"
-import GUI2DSceneComponent from "./GUI2DSceneComponent";
-import ContainerPropsHandler, { ContainerProps } from "./ContainerProps";
-import ControlPropsHandler from "./2DControlProps";
+import GUI2DSceneComponent from "./GUI2DSceneComponent"
+import ContainerPropsHandler, { ContainerProps } from "./ContainerProps"
+import ControlPropsHandler from "./2DControlProps"
 
 export type StackPanelProps = {
-    isVertical?: boolean
+  isVertical?: boolean
 } & ContainerProps &
-    SceneComponentProps<BabylonStackPanel>
+  SceneComponentProps<BabylonStackPanel>
 
 export default class StackPanel extends GUI2DSceneComponent<BabylonStackPanel, BabylonStackPanel, StackPanelProps> {
+  private stackPanel?: BabylonStackPanel
 
-    private stackPanel?: BabylonStackPanel
+  create(scene: Scene): BabylonStackPanel {
+    this.stackPanel = new BabylonStackPanel(this.props.name)
 
-    create(scene: Scene): BabylonStackPanel {
-        this.stackPanel = new BabylonStackPanel(this.props.name);
-
-        if (this.props.isVertical !== undefined) {
-            this.stackPanel.isVertical = this.props.isVertical
-        }
-
-        return this.stackPanel
+    if (this.props.isVertical !== undefined) {
+      this.stackPanel.isVertical = this.props.isVertical
     }
 
-    addControl(control: Control): void {
-        this.stackPanel!.addControl(control)
-        console.log('stack panel added:', control, control.name, this.children.length, this.children)
-    }
+    return this.stackPanel
+  }
 
-    removeControl(control: Control): void {
-        this.stackPanel!.removeControl(control)
-    }
+  addControl(control: Control): void {
+    this.stackPanel!.addControl(control)
+  }
 
-    componentsCreated(): void {
-        /* ignore */
-    }
+  removeControl(control: Control): void {
+    this.stackPanel!.removeControl(control)
+  }
 
-    public get propsHandlers() {
-        return [
-            new ContainerPropsHandler(),
-            new ControlPropsHandler()
-        ]
-    }
+  componentsCreated(): void {
+    /* ignore */
+  }
+
+  public get propsHandlers() {
+    return [new ContainerPropsHandler(), new ControlPropsHandler()]
+  }
 }

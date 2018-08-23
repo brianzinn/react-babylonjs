@@ -22,7 +22,7 @@ export default class ModelPropsHandler implements PropsHandler<LoadedModel, Mode
       loadedModel.rootMesh &&
       !loadedModel.rootMesh.position.equals(props.position)
     ) {
-      console.log("model props handler moving model:", props.sceneFilename)
+      // console.log("model props handler moving model:", props.sceneFilename)
       loadedModel.rootMesh.position.copyFrom(props.position)
     } else {
       // console.log("model props handler (position) doing nothing:", loadedModel.rootMesh, props)

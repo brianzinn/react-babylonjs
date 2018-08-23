@@ -64,19 +64,19 @@ export default class CylinderPanel extends GUI3DSceneComponent<
     }
 
     if (this.props.margin) {
-      console.log("setting cylinder panel margin")
+      // console.log("setting cylinder panel margin")
       this.cylinderPanel.margin = this.props.margin
     }
     if (this.props.rows) {
-      console.log("setting cylinder panel rows")
+      // console.log("setting cylinder panel rows")
       this.cylinderPanel.rows = this.props.rows
     }
     if (this.props.columns) {
-      console.log("setting cylinder panel columns")
+      // console.log("setting cylinder panel columns")
       this.cylinderPanel.columns = this.props.columns
     }
     if (this.props.orientation) {
-      console.log("setting cylinder panel orientation")
+      // console.log("setting cylinder panel orientation")
       this.cylinderPanel.orientation = this.props.orientation
     }
 

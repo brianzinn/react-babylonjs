@@ -37,7 +37,7 @@ export default class ArcRotateCamera
       radius = this.props.radius
     } else {
       radius = worldSize.length() * 1.5
-      console.log("radius not from props:", radius)
+      // console.log("radius not from props:", radius)
     }
 
     let target
@@ -45,7 +45,6 @@ export default class ArcRotateCamera
       target = this.props.target
     } else {
       target = worldCenter
-      console.log("no props target:", target)
     }
 
     this._camera = new BabylonArcRotateCamera(

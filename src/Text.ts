@@ -2,8 +2,8 @@ import { Scene } from "babylonjs"
 import { TextBlock, Control } from "babylonjs-gui"
 
 import { SceneComponentProps } from "./SceneComponent"
-import GUI2DSceneComponent from "./GUI2DSceneComponent";
-import ControlPropsHandler from "./2DControlProps";
+import GUI2DSceneComponent from "./GUI2DSceneComponent"
+import ControlPropsHandler from "./2DControlProps"
 
 export type TextProps = {
   text: string
@@ -20,7 +20,6 @@ export type TextProps = {
  * Cannot be attached directly to a 3D panel.
  */
 export default class Text extends GUI2DSceneComponent<TextBlock, TextBlock, TextProps> {
-
   protected textBlock?: TextBlock
 
   componentsCreated(): void {
@@ -28,14 +27,15 @@ export default class Text extends GUI2DSceneComponent<TextBlock, TextBlock, Text
   }
 
   addControl(control: Control): void {
-    throw new Error("Method not implemented.");
+    throw new Error("Method not implemented.")
   }
 
   removeControl(control: Control): void {
-    throw new Error("Method not implemented.");
+    throw new Error("Method not implemented.")
   }
 
   create(scene: Scene): TextBlock {
+    // allow newline and unicode chars:
     let text = this.props.text.replace(/(\\n)+/g, '\n')
     this.textBlock = new TextBlock(this.props.name, text)
 
@@ -75,8 +75,6 @@ export default class Text extends GUI2DSceneComponent<TextBlock, TextBlock, Text
   }
 
   public get propsHandlers() {
-    return [
-      new ControlPropsHandler()
-    ]
+    return [new ControlPropsHandler()]
   }
 }

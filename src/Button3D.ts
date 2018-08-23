@@ -33,15 +33,11 @@ export type Button3DProps = {
 /**
  *
  */
-export default class Button3D extends GUI3DSceneComponent<
-  BabylonButton3D,
-  BabylonButton3D,
-  Button3DProps
-> {
+export default class Button3D extends GUI3DSceneComponent<BabylonButton3D, BabylonButton3D, Button3DProps> {
   protected button3D?: BabylonButton3D
 
   addControl(control: Control3D): void {
-    console.log("not implemented adding controls to holographic button")
+    console.warn("not implemented adding controls to holographic button")
   }
 
   removeControl(control: Control3D): void {
@@ -67,10 +63,10 @@ export default class Button3D extends GUI3DSceneComponent<
         let material: BabylonStandardMaterial = button3D.mesh.material as BabylonStandardMaterial
 
         if (material) {
-          console.log("applying diffuse:", this.props.diffuseColor)
+          // console.log("applying diffuse:", this.props.diffuseColor)
           material.diffuseColor = this.props.diffuseColor
         } else {
-          console.log("no material to apply diffuse on:", button3D)
+          // console.log("no material to apply diffuse on:", button3D)
         }
       }
     }

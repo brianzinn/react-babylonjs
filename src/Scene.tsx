@@ -240,7 +240,7 @@ export default class Scene extends Component<SceneProps & HTMLAttributes<HTMLCan
 
   onRegisterChild(child: any) {
     if(child instanceof FreeCamera || child instanceof ArcRotateCamera) {
-      console.log('react-babylonjs: Camera registered.  Attaching to canvas:')
+      console.log('react-babylonjs: Camera registered.  Attaching to canvas.')
       // TODO: ensure this is only done once - and not using 'instanceof', which is brittle...
       child.camera.attachControl(this.canvas3d!, true);
     }

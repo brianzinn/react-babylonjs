@@ -57,7 +57,7 @@ export const removeHandler = (handler: (action: { type: string }) => boolean) =>
     // console.log("babylonJS handler found and removed", handler)
     handlers.splice(idx, 1)
   } else {
-    console.log("handler not removed (was not registered)..")
+    console.warn("handler not removed (was not registered)..")
   }
 }
 
