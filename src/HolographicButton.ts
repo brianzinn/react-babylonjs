@@ -2,7 +2,7 @@ import { Scene } from "babylonjs"
 import { HolographicButton as BabylonHolographicButton, Control3D } from "babylonjs-gui"
 
 import { SceneComponentProps } from "./SceneComponent"
-import GUISceneComponent from "./GUISceneComponent"
+import GUI3DSceneComponent from "./GUI3DSceneComponent"
 
 export type HolographicButtonProps = {
   text: string
@@ -13,7 +13,7 @@ export type HolographicButtonProps = {
 /**
  *
  */
-export default class HolographicButton extends GUISceneComponent<
+export default class HolographicButton extends GUI3DSceneComponent<
   BabylonHolographicButton,
   BabylonHolographicButton,
   HolographicButtonProps

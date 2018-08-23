@@ -1,45 +1,82 @@
 import { Scene } from "babylonjs"
-import { TextBlock, Control3D } from "babylonjs-gui"
+import { TextBlock, Control } from "babylonjs-gui"
 
-import SceneComponent, { SceneComponentProps } from "./SceneComponent"
+import { SceneComponentProps } from "./SceneComponent"
+import GUI2DSceneComponent from "./GUI2DSceneComponent";
+import ControlPropsHandler from "./2DControlProps";
 
 export type TextProps = {
   text: string
-  color: string
-  fontSize: number
+  textWrapping?: boolean
+  color?: string
+  fontSize?: number
+  fontStyle?: string
+  fontFamily?: string
+  textHorizontalAlignment?: number
+  textVerticalAlignment?: number
 } & SceneComponentProps<TextBlock>
 
 /**
- * Not usable in current form - need a plan and texture.  Cannot be used in 3D.
+ * Cannot be attached directly to a 3D panel.
  */
-export default class Text extends SceneComponent<TextBlock, TextBlock, TextProps> {
-  protected textBlock?: TextBlock
+export default class Text extends GUI2DSceneComponent<TextBlock, TextBlock, TextProps> {
 
-  addControl(control: Control3D): void {
-    console.warn("text does not add control, should delegate?")
-  }
+  protected textBlock?: TextBlock
 
   componentsCreated(): void {
     // not used
   }
 
-  create(scene: Scene): TextBlock {
-    this.textBlock = new TextBlock(this.props.name, this.props.text)
+  addControl(control: Control): void {
+    throw new Error("Method not implemented.");
+  }
 
+  removeControl(control: Control): void {
+    throw new Error("Method not implemented.");
+  }
+
+  create(scene: Scene): TextBlock {
+    let text = this.props.text.replace(/(\\n)+/g, '\n')
+    this.textBlock = new TextBlock(this.props.name, text)
+
+    // this belongs in control props handler
     if (this.props.color) {
       this.textBlock.color = this.props.color
     }
+
+    // TODO: move all of these to props handler
     if (this.props.fontSize) {
       this.textBlock.fontSize = this.props.fontSize
     }
+
+    if (this.props.fontStyle) {
+      this.textBlock.fontStyle = this.props.fontStyle
+    }
+
+    if (this.props.fontFamily) {
+      this.textBlock.fontFamily = this.props.fontFamily
+    }
+
+    if (this.props.textWrapping !== undefined) {
+      this.textBlock.textWrapping = this.props.textWrapping
+    }
+
+    // 0 is falsey
+    if (this.props.textHorizontalAlignment !== undefined) {
+      this.textBlock.textHorizontalAlignment = this.props.textHorizontalAlignment
+    }
+
+    // 0 is falsey
+    if (this.props.textVerticalAlignment !== undefined) {
+      this.textBlock.textVerticalAlignment = this.props.textVerticalAlignment
+    }
+
     return this.textBlock
   }
 
-  removeControl(control: Control3D): void {
-    console.warn("text does not remove control")
-  }
-
   public get propsHandlers() {
-    return []
+    return [
+      new ControlPropsHandler()
+    ]
   }
 }

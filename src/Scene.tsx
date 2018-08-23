@@ -267,13 +267,19 @@ export default class Scene extends Component<SceneProps & HTMLAttributes<HTMLCan
     }
 
     const children = React.Children.map(this.props.children,
-      (child: any, index) => React.cloneElement(child, {
-        scene: this.scene,
-        index,
-        container: this,
-        componentRegistry: this.componentRegistry,
-        registerChild: this.onRegisterChild
-      })
+      (child: any, index) => {
+        if (child === null) {
+          return null;
+        }
+
+        return React.cloneElement(child, {
+          scene: this.scene,
+          index,
+          container: this,
+          componentRegistry: this.componentRegistry,
+          registerChild: this.onRegisterChild
+        })
+      }
      );
 
     // TODO: passing height/width/style explicitly now will not be predictable.

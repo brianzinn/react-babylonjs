@@ -24,6 +24,7 @@ export default class Sphere extends SceneComponent<Mesh, Node, SphereProps> {
 
   create(scene: Scene): Mesh {
     this.sphere = MeshBuilder.CreateSphere(this.props.name, this.options, scene)
+    // TODO: remove on unmount
     this.props.componentRegistry.meshes.push(this.sphere)
     return this.sphere
   }

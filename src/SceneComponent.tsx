@@ -40,9 +40,9 @@ export interface PropsHandler<T, U> {
  *
  */
 export default abstract class SceneComponent<T extends U, U /* extends {name?: string} (not on GUI3DManager )*/, V extends SceneComponentProps<T>> extends Component<V, {}> implements ComponentContainer {
-    
-    protected name?: string;
+
     protected babylonObject?: T;
+    protected name?: string;
     protected hasRendered: boolean = false;
     protected children: any[] = [];
     private behaviors: Behavior<U>[] = [];

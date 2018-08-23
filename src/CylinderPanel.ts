@@ -2,7 +2,7 @@ import { Scene, Vector3, TransformNode } from "babylonjs"
 import { CylinderPanel as BabylonCylinderPanel, Control3D } from "babylonjs-gui"
 
 import { SceneComponentProps } from "./SceneComponent"
-import GUISceneComponent from "./GUISceneComponent"
+import GUI3DSceneComponent from "./GUI3DSceneComponent"
 
 export type CylinderPanelProps = {
   margin: number
@@ -24,7 +24,7 @@ export type CylinderPanelProps = {
 /**
  *
  */
-export default class CylinderPanel extends GUISceneComponent<
+export default class CylinderPanel extends GUI3DSceneComponent<
   BabylonCylinderPanel,
   BabylonCylinderPanel,
   CylinderPanelProps

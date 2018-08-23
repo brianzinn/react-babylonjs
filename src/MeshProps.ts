@@ -18,6 +18,21 @@ export default class MeshPropsHandler implements PropsHandler<Mesh, MeshProps> {
       // console.log("no position or target:", props.position, target === undefined)
     }
 
-    // TODO: handle rotation changes
+    // NOTE: no accounting for rotationQuaternion, so this will have no effect when rotationQuaternion is set, obviously.
+    if (props.rotation && target) {
+      if (!target.rotation || !target.rotation.equals(props.rotation)) {
+        console.log(`rotating ${target.name} to:`, props.rotation)
+        target.rotation.copyFrom(props.rotation)
+      }
+    } else {
+      // console.log("no position or target:", props.position, target === undefined)
+    }
+
+    if (props.showBoundingBox !== undefined && target) {
+      if (target.showBoundingBox !== props.showBoundingBox) {
+        console.log(`${(props.showBoundingBox === true) ? 'showing' : 'hiding'} bounding box on '${target.name}'`)
+        target.showBoundingBox = props.showBoundingBox;
+      }
+    }
   }
 }

@@ -9,7 +9,7 @@ import {
 } from "babylonjs-gui"
 
 import { SceneComponentProps } from "./SceneComponent"
-import GUISceneComponent from "./GUISceneComponent"
+import GUI3DSceneComponent from "./GUI3DSceneComponent"
 
 export type Button3DProps = {
   text?: string
@@ -33,7 +33,7 @@ export type Button3DProps = {
 /**
  *
  */
-export default class Button3D extends GUISceneComponent<
+export default class Button3D extends GUI3DSceneComponent<
   BabylonButton3D,
   BabylonButton3D,
   Button3DProps

@@ -1,23 +1,24 @@
-import { Scene, Node, Mesh, MeshBuilder } from "babylonjs"
+import { Scene, Node, Mesh, MeshBuilder, Vector4 } from "babylonjs"
 
 import SceneComponent, { SceneComponentProps } from "./SceneComponent"
 import MeshPropsHandler, { MeshProps } from "./MeshProps"
 
-export type GroundProps = {
+export type PlaneProps = {
   height?: number
-  subdivisions?: number
-  subdivisionsX?: number
-  subdivisionsY?: number
+  size?: number
+  sideOrientation?: number
   updatable?: boolean
+  frontUVs?: Vector4
+  backUVs?: Vector4
   width?: number
 } & MeshProps &
   SceneComponentProps<Mesh>
 
-export default class Ground extends SceneComponent<Mesh, Node, GroundProps> {
+export default class Plane extends SceneComponent<Mesh, Node, PlaneProps> {
   protected options: any
-  private ground?: Mesh
+  private plane?: Mesh
 
-  constructor(props: GroundProps) {
+  constructor(props: PlaneProps) {
     super(props)
 
     let { scene, name, ...rest } = props
@@ -26,14 +27,17 @@ export default class Ground extends SceneComponent<Mesh, Node, GroundProps> {
   }
 
   componentWillReceiveProps() {
-    // not implemented for Ground
+    // not implemented for Plane
   }
 
   create(scene: Scene): Mesh {
-    this.ground = MeshBuilder.CreateGround(this.props.name, this.options, scene)
+    this.plane = MeshBuilder.CreatePlane(this.props.name, this.options, scene)
     // TODO: remove on unmount
-    this.props.componentRegistry.meshes.push(this.ground)
-    return this.ground
+    this.props.componentRegistry.meshes.push(this.plane)
+
+    console.log('plane created with options:', this.options);
+
+    return this.plane
   }
 
   componentsCreated(): void {

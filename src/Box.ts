@@ -29,6 +29,7 @@ export default class Box extends SceneComponent<Mesh, Node, BoxProps> {
 
   create(scene: Scene): Mesh {
     this.box = MeshBuilder.CreateBox(this.props.name, this.options, scene)
+    // TODO: remove on unmount
     this.props.componentRegistry.meshes.push(this.box)
     return this.box
   }

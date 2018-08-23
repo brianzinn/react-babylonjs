@@ -1,20 +1,17 @@
-import { Control3D } from "babylonjs-gui";
+import { Control } from "babylonjs-gui";
 import SceneComponent, { SceneComponentProps } from "./SceneComponent";
 
 /**
  * This allows us also to flow addControl() through other controls like Anchors.
  */
-export interface GuiControl {
-    addControl(control: Control3D) : void
-
-    // canAddControl() : boolean
-    // getControl(): Control3D | undefined
+export interface GUI2DControl {
+    addControl(control: Control) : void
 
     // TODO: call parent removeControl() on component Unmount as default implementation?
-    removeControl(control: Control3D) : void
+    removeControl(control: Control) : void
 }
 
-export default abstract class GUISceneComponent<T extends U, U , V extends SceneComponentProps<T>> extends SceneComponent<T, U, V> implements GuiControl {
+export default abstract class GUI2DSceneComponent<T extends U, U , V extends SceneComponentProps<T>> extends SceneComponent<T, U, V> implements GUI2DControl {
 
     protected added : boolean = false;
 
@@ -30,10 +27,12 @@ export default abstract class GUISceneComponent<T extends U, U , V extends Scene
         if (typeof this.props.container.addControl === "function") {
             this.added = true
             this.props.container.addControl(child)
+        } else {
+            console.log('from 2D no addControl on:', this.props.container)
         }
     }
 
-    abstract addControl(control: Control3D): void;
+    abstract addControl(control: Control): void;
 
-    abstract removeControl(control: Control3D): void;
+    abstract removeControl(control: Control): void;
 }

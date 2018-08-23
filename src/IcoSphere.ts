@@ -24,6 +24,7 @@ export default class Box extends SceneComponent<Mesh, Node, IcoSphereProps> {
 
   create(scene: Scene): Mesh {
     this.icoSphere = MeshBuilder.CreateIcoSphere(this.props.name, this.options, scene)
+    // TODO: remove on unmount
     this.props.componentRegistry.meshes.push(this.icoSphere)
 
     return this.icoSphere

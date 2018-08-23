@@ -2,7 +2,7 @@ import { Scene } from "babylonjs"
 import { GUI3DManager as BabylonGUI3DManager, Control3D } from "babylonjs-gui"
 
 import { SceneComponentProps } from "./SceneComponent"
-import GUISceneComponent from "./GUISceneComponent"
+import GUI3DSceneComponent from "./GUI3DSceneComponent"
 
 export type GUI3DManagerProps = {} & SceneComponentProps<BabylonGUI3DManager>
 
@@ -15,7 +15,7 @@ export type GUI3DManagerProps = {} & SceneComponentProps<BabylonGUI3DManager>
  *
  * Once you have a manager, you can start adding controls with manager.addControl(control). All controls will be added to the manager.rootContainer container.
  */
-export default class GUI3DManager extends GUISceneComponent<
+export default class GUI3DManager extends GUI3DSceneComponent<
   BabylonGUI3DManager,
   BabylonGUI3DManager,
   GUI3DManagerProps
