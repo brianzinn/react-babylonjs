@@ -11,8 +11,9 @@ export type ButtonProps = {
   /**
    * Only assignable on creation. No props listeners.
    */
-  onPointerDown: (vector2WithInfo: Vector2WithInfo ,state: EventState) => void
-} & RectangleProps & SceneComponentProps<BabylonButton>
+  onPointerDown: (vector2WithInfo: Vector2WithInfo, state: EventState) => void
+} & RectangleProps &
+  SceneComponentProps<BabylonButton>
 
 /**
  * 2D Button
@@ -36,8 +37,8 @@ export default class Button extends GUI2DSceneComponent<BabylonButton, BabylonBu
     this.button = new BabylonButton(this.props.name)
 
     // Missing click/enter/move/out/etc.
-    if (typeof this.props.onPointerDown === 'function') {
-      this.button.onPointerDownObservable.add(this.props.onPointerDown);
+    if (typeof this.props.onPointerDown === "function") {
+      this.button.onPointerDownObservable.add(this.props.onPointerDown)
     }
 
     return this.button

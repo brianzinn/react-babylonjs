@@ -35,8 +35,8 @@ export default class Text extends GUI2DSceneComponent<TextBlock, TextBlock, Text
   }
 
   create(scene: Scene): TextBlock {
-    // allow newline and unicode chars:
-    let text = this.props.text.replace(/(\\n)+/g, '\n')
+    // allow newline char, but should force users to use text={'line1.\nline2.'} to override.
+    let text = this.props.text.replace(/(\\n)+/g, "\n")
     this.textBlock = new TextBlock(this.props.name, text)
 
     // this belongs in control props handler

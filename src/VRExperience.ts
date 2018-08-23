@@ -1,11 +1,4 @@
-import {
-  Scene,
-  VRExperienceHelper,
-  VRExperienceHelperOptions,
-  EnvironmentHelper,
-  AbstractMesh,
-  Mesh
-} from "babylonjs"
+import { Scene, VRExperienceHelper, VRExperienceHelperOptions, EnvironmentHelper, AbstractMesh, Mesh } from "babylonjs"
 import SceneComponent, { SceneComponentProps } from "./SceneComponent"
 
 export type VRExperienceProps = {
@@ -14,11 +7,7 @@ export type VRExperienceProps = {
 } & VRExperienceHelperOptions &
   SceneComponentProps<VRExperienceHelper>
 
-export default class VRExperience extends SceneComponent<
-  VRExperienceHelper,
-  VRExperienceHelper,
-  VRExperienceProps
-> {
+export default class VRExperience extends SceneComponent<VRExperienceHelper, VRExperienceHelper, VRExperienceProps> {
   private experienceHelper?: VRExperienceHelper
 
   componentWillUnmount() {
@@ -29,10 +18,7 @@ export default class VRExperience extends SceneComponent<
   }
 
   componentsCreated(): void {
-    if (
-      this.props.teleportEnvironmentGround !== true &&
-      this.props.teleportationMeshes === undefined
-    ) {
+    if (this.props.teleportEnvironmentGround !== true && this.props.teleportationMeshes === undefined) {
       // console.log("environment not set to teleport.")
     }
 

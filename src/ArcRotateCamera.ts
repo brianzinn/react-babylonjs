@@ -13,8 +13,7 @@ export type ArcRotateCameraProps = {
 } & CameraProps &
   SceneComponentProps<BabylonArcRotateCamera>
 
-export default class ArcRotateCamera
-  extends SceneComponent<BabylonArcRotateCamera, Camera, ArcRotateCameraProps>
+export default class ArcRotateCamera extends SceneComponent<BabylonArcRotateCamera, Camera, ArcRotateCameraProps>
   implements CameraComponent {
   private _camera?: BabylonArcRotateCamera
 
