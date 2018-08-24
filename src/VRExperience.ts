@@ -1,9 +1,14 @@
 import { Scene, VRExperienceHelper, VRExperienceHelperOptions, EnvironmentHelper, AbstractMesh, Mesh } from "babylonjs"
 import SceneComponent, { SceneComponentProps } from "./SceneComponent"
 
+/**
+ * Missing lots of available options, but it's a start and works for common scenarios.
+ */
 export type VRExperienceProps = {
   teleportEnvironmentGround?: boolean
   teleportationMeshes?: Mesh[]
+  enableInteractions: boolean // missing rayLength, etc.
+  raySelectionPredicate: (mesh: AbstractMesh) => boolean
 } & VRExperienceHelperOptions &
   SceneComponentProps<VRExperienceHelper>
 
@@ -56,6 +61,15 @@ export default class VRExperience extends SceneComponent<VRExperienceHelper, VRE
 
     this.experienceHelper = new VRExperienceHelper(createdScene, options)
     // console.log("created experience helper.  options:", options)
+
+    if (options.enableInteractions) {
+      this.experienceHelper.enableInteractions()
+    }
+
+    if (options.raySelectionPredicate) {
+      this.experienceHelper.raySelectionPredicate = options.raySelectionPredicate
+    }
+
     return this.experienceHelper
   }
 

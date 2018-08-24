@@ -34,4 +34,10 @@ export default abstract class GUI2DSceneComponent<T extends U, U, V extends Scen
   abstract addControl(control: Control): void
 
   abstract removeControl(control: Control): void
+
+  componentWillUnmount() {
+    if (typeof this.props.container.removeControl === 'function') {
+      this.props.container.removeControl(this.babylonObject)
+    }
+  }
 }

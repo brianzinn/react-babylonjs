@@ -40,10 +40,6 @@ export default class Rectangle extends GUI2DSceneComponent<BabylonRectangle, Bab
     this.rectangle!.removeControl(control)
   }
 
-  componentWillReceiveProps() {
-    // not implemented for StackPanel
-  }
-
   create(scene: Scene): BabylonRectangle {
     this.rectangle = new BabylonRectangle(this.props.name)
 

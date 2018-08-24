@@ -1,7 +1,7 @@
 import { Scene } from "babylonjs"
 import { TextBlock, Control } from "babylonjs-gui"
 
-import { SceneComponentProps } from "./SceneComponent"
+import { SceneComponentProps, PropsHandler } from "./SceneComponent"
 import GUI2DSceneComponent from "./GUI2DSceneComponent"
 import ControlPropsHandler from "./2DControlProps"
 
@@ -15,6 +15,16 @@ export type TextProps = {
   textHorizontalAlignment?: number
   textVerticalAlignment?: number
 } & SceneComponentProps<TextBlock>
+
+export class TextPropsHandler implements PropsHandler<TextBlock, TextProps> {
+  handle(target: TextBlock, props: TextProps): void {
+    if (props.text && target) {
+      if (!target.text || target.text !== props.text) {
+        target.text = props.text
+      }
+    }
+  }
+}
 
 /**
  * Cannot be attached directly to a 3D panel.
@@ -75,6 +85,9 @@ export default class Text extends GUI2DSceneComponent<TextBlock, TextBlock, Text
   }
 
   public get propsHandlers() {
-    return [new ControlPropsHandler()]
+    return [
+      new ControlPropsHandler(),
+      new TextPropsHandler()
+    ]
   }
 }
