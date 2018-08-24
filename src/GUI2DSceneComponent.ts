@@ -24,7 +24,11 @@ export default abstract class GUI2DSceneComponent<T extends U, U, V extends Scen
   }
 
   protected init(child: T): void {
-    // only GUISceneComponent inherite
+    // best to have the control have properties set before adding.
+    this.propsHandlers.forEach(propsHandlers => {
+      propsHandlers.handle(child, this.props);
+    })
+
     if (typeof this.props.container.addControl === "function") {
       this.added = true
       this.props.container.addControl(child)
@@ -36,7 +40,7 @@ export default abstract class GUI2DSceneComponent<T extends U, U, V extends Scen
   abstract removeControl(control: Control): void
 
   componentWillUnmount() {
-    if (typeof this.props.container.removeControl === 'function') {
+    if (typeof this.props.container.removeControl === "function") {
       this.props.container.removeControl(this.babylonObject)
     }
   }

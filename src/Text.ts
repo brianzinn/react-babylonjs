@@ -85,9 +85,6 @@ export default class Text extends GUI2DSceneComponent<TextBlock, TextBlock, Text
   }
 
   public get propsHandlers() {
-    return [
-      new ControlPropsHandler(),
-      new TextPropsHandler()
-    ]
+    return [new ControlPropsHandler(), new TextPropsHandler()]
   }
 }

@@ -9,7 +9,9 @@ export type ControlProps = {
   width?: string | number
   height?: string | number
   horizontalAlignment?: number
-  verticalAlignment?: number
+  verticalAlignment?: number,
+  scaleX?: number
+  scaleY?: number
 }
 
 export default class ControlPropsHandler implements PropsHandler<Control, ControlProps> {
@@ -79,6 +81,20 @@ export default class ControlPropsHandler implements PropsHandler<Control, Contro
           // console.log(`setting verticalAlignment on ${target.name} to:`, props.verticalAlignment)
           target.verticalAlignment = props.verticalAlignment
         }
+      }
+    }
+
+    if (props.scaleX !== undefined && target) {
+      if (target.scaleX !== undefined || target.scaleX !== props.scaleX) {
+        // console.log(`setting paddingLeft on ${target.name} to:`, props.paddingLeft)
+        target.scaleX = props.scaleX
+      }
+    }
+
+    if (props.scaleY !== undefined && target) {
+      if (target.scaleY !== undefined || target.scaleY !== props.scaleY) {
+        // console.log(`setting paddingLeft on ${target.name} to:`, props.paddingLeft)
+        target.scaleY = props.scaleY
       }
     }
   }
