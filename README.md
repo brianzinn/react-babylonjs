@@ -151,6 +151,7 @@ class WithModel extends React.Component
 ```
 ## Enabling WebVR
 To allow your scene to be viewable in VR headsets, you only need to use the **&lt;VRExperience /&gt;** tag
+Full example: [With VR](https://brianzinn.github.io/create-react-app-babylonjs/withVR)
 ```jsx
 const WithVR = () => (
   <Scene id="sample-canvas">
@@ -164,6 +165,23 @@ const WithVR = () => (
 )
 ```
 
+## 2D UI
+Write declaratively your UI structure and let 'react-babylonjs' take care of addControl(), removeControl() and updating based on props/state.
+Full example: [with 2D UI](https://brianzinn.github.io/create-react-app-babylonjs/defaultPlayground)
+```jsx
+<Plane>
+    <AdvancedDynamicTexture createForParentMesh={true}>
+      <Rectangle height="60%" thickness={2} color="#EEEEEE">
+        <StackPanel>
+          <Text text={`You have clicked on '${this.state.clickedMeshName}' ...`} />
+          {this.state.allowedMeshes.map(allowedMesh => (
+            <Text key={...} text={'• ' + allowedMesh} color="black" fontSize={28} height="20%" />
+          ))}
+        </StackPanel>
+      </Rectangle>
+    </AdvancedDynamicTexture>
+  </Plane>
+```
 
 ## Setting up a React component in your project using onSceneMount().
 This is a more advanced scanario and allows more control.  You will need to call engine.runRenderLoop(() => {...}).  I will include an example later using the new createCamera() method that makes this even easier (auto attach to canvas) and also creates a typical runRenderLoop() on the engine for you.
