@@ -23,6 +23,11 @@ export type CameraProps = {
    * FOV is set in Radians (default is 0.8)
    */
   fov: number
+
+  /**
+   * fovMode sets the camera frustum bounds to the viewport bounds. (default is FOVMODE_VERTICAL_FIXED)
+   */
+  fovMode: number
 } & NodeProps
 
 export class CameraPropsHandler implements PropsHandler<Camera, CameraProps> {
@@ -53,6 +58,11 @@ export class CameraPropsHandler implements PropsHandler<Camera, CameraProps> {
 
     if (props.fov && camera.fov !== props.fov) {
       camera.fov = props.fov
+    }
+
+    // fovMode has falsey value
+    if (props.fovMode !== undefined && camera.fovMode !== props.fovMode) {
+      camera.fovMode = props.fovMode
     }
   }
 }

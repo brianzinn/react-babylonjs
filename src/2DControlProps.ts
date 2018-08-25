@@ -9,7 +9,7 @@ export type ControlProps = {
   width?: string | number
   height?: string | number
   horizontalAlignment?: number
-  verticalAlignment?: number,
+  verticalAlignment?: number
   scaleX?: number
   scaleY?: number
 }

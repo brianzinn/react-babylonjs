@@ -26,7 +26,7 @@ export default abstract class GUI2DSceneComponent<T extends U, U, V extends Scen
   protected init(child: T): void {
     // best to have the control have properties set before adding.
     this.propsHandlers.forEach(propsHandlers => {
-      propsHandlers.handle(child, this.props);
+      propsHandlers.handle(child, this.props)
     })
 
     if (typeof this.props.container.addControl === "function") {

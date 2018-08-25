@@ -3568,6 +3568,10 @@ randomatic@^1.1.3:
     is-number "^2.0.2"
     kind-of "^3.0.2"
 
+react-babylonjs@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/react-babylonjs/-/react-babylonjs-0.4.0.tgz#9c899203fa8c66194c460271739fddf2d22fd2b7"
+
 react@^16.4.1:
   version "16.4.1"
   resolved "https://registry.yarnpkg.com/react/-/react-16.4.1.tgz#de51ba5764b5dbcd1f9079037b862bd26b82fe32"

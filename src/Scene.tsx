@@ -106,7 +106,7 @@ export default class Scene extends Component<SceneProps & HTMLAttributes<HTMLCan
 
     let scene = new BabylonScene(this.engine);
     this.scene = scene;
-    
+   
     if (this.props.debug === true) {
       this.scene.debugLayer.show();
     }
@@ -135,7 +135,7 @@ export default class Scene extends Component<SceneProps & HTMLAttributes<HTMLCan
           return;
         }
 
-        if (this.canvas3d!.width !== this.canvas3d!.clientWidth) {
+        if (this.canvas3d!.width !== this.canvas3d!.clientWidth || this.canvas3d!.height !== this.canvas3d!.clientWidth) {
             engine.resize();
         }
 
@@ -175,8 +175,14 @@ export default class Scene extends Component<SceneProps & HTMLAttributes<HTMLCan
     registerHandler(this.actionHandler);
 
     this.forceUpdate(() => {
-      
     });
+
+    // nested callbacks are needed for how React batches updates and canvas size can change.
+    setTimeout(() => {
+      window.requestAnimationFrame(() => {
+        this.engine!.resize();
+      })
+    }, 0)
 
     // Resize the babylon engine when the window is resized
     window.addEventListener('resize', this.onResizeWindow);
@@ -200,17 +206,13 @@ export default class Scene extends Component<SceneProps & HTMLAttributes<HTMLCan
 
       this.canvas3d = c
     }
-    // console.log('onCanvas3d', c)
   }
 
   /**
-   * When canvas receives the active focus (ie: mouse over) intercept keypresses (should be optional behavior)
+   * When canvas receives the active focus (ie: mouse over) you can add ie: (event listener to intercept keypresses)
    */
   focus = () => {
-    document.body.addEventListener('keydown', this.keyPressHandler)
-
     if (typeof this.props.onSceneFocus === 'function') {
-      // console.log('calling onFocus')
       this.props.onSceneFocus({
         scene: this.scene!,
         canvas: this.canvas3d!
@@ -219,7 +221,9 @@ export default class Scene extends Component<SceneProps & HTMLAttributes<HTMLCan
   }
 
   /**
-   * When canvas loses focus (ie: mouse out) intercept keypresses (should be optional behavior)
+   * When canvas loses focus (ie: mouse out).
+   * 
+   * Ensure you remove any event handler, if you use onSceneFocus(...) and any are added there.
    */
   blur = () => {
     if (typeof this.props.onSceneBlur === 'function') {
@@ -229,13 +233,6 @@ export default class Scene extends Component<SceneProps & HTMLAttributes<HTMLCan
         canvas: this.canvas3d!
       })
     }
-    document.body.removeEventListener('keydown', this.keyPressHandler)
-  }
-
-  // The scene itself already has a keypress handler.
-  // TODO: attach an external handler to Scene handler instead.
-  keyPressHandler = (ev: KeyboardEvent) => {
-    // console.log('keyPressHandler', ev)
   }
 
   onRegisterChild(child: any) {
