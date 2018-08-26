@@ -2,7 +2,8 @@ import { PropsHandler, NodeProps } from "./SceneComponent"
 import { Camera, FreeCamera, ArcRotateCamera } from "babylonjs"
 
 export interface CameraComponent {
-  camera: Camera
+  camera: Camera,
+  noPreventDefault: boolean
 }
 
 export type CameraProps = {
@@ -13,21 +14,26 @@ export type CameraProps = {
   /**
    * Defaults to 1 meter (defines the clip plane for projection matrix)
    */
-  minZ: number
+  minZ?: number
   /**
    * Defaults to 10,000 meters
    */
-  maxZ: number
+  maxZ?: number
 
   /**
    * FOV is set in Radians (default is 0.8)
    */
-  fov: number
+  fov?: number
 
   /**
    * fovMode sets the camera frustum bounds to the viewport bounds. (default is FOVMODE_VERTICAL_FIXED)
    */
-  fovMode: number
+  fovMode?: number
+
+  /**
+   * By default noPreventDefault is set to false, meaning that preventDefault() is automatically called on all canvas mouse clicks and touch events.
+   */
+  noPreventDefault?: boolean
 } & NodeProps
 
 export class CameraPropsHandler implements PropsHandler<Camera, CameraProps> {
