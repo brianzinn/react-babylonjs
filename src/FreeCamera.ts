@@ -13,7 +13,8 @@ export type FreeCameraProps = {
 } & CameraProps &
   SceneComponentProps<BabylonFreeCamera>
 
-export default class FreeCamera extends SceneComponent<BabylonFreeCamera, Camera, FreeCameraProps> implements CameraComponent {
+export default class FreeCamera extends SceneComponent<BabylonFreeCamera, Camera, FreeCameraProps>
+  implements CameraComponent {
   private _camera?: BabylonFreeCamera
 
   componentsCreated(): void {
@@ -24,8 +25,8 @@ export default class FreeCamera extends SceneComponent<BabylonFreeCamera, Camera
     return this._camera!
   }
 
-  public get noPreventDefault() : boolean {
-    return (this.props.noPreventDefault === true)
+  public get noPreventDefault(): boolean {
+    return this.props.noPreventDefault === true
   }
 
   create(scene: Scene): BabylonFreeCamera {

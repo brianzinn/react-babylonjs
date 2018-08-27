@@ -14,7 +14,7 @@ export default {
   ],
   sourcemap: true,
   // Indicate here external modules you don't wanna include in your bundle (i.e.: 'lodash')
-  external: [ 'react', 'react-redux', 'babylonjs', 'babylonjs-gui', 'babylonjs-loaders'],
+  external: [ 'react', 'babylonjs', 'babylonjs-gui', 'babylonjs-loaders'],
   plugins: [
     // Allow bundling cjs modules (unlike webpack, rollup doesn't understand cjs)
     commonjs(),

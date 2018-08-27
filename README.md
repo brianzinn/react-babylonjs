@@ -3,14 +3,19 @@
 [![NPM version](http://img.shields.io/npm/v/react-babylonjs.svg?style=flat-square)](https://www.npmjs.com/package/react-babylonjs)
 [![NPM downloads](http://img.shields.io/npm/dm/react-babylonjs.svg?style=flat-square)](https://www.npmjs.com/package/react-babylonjs)
 
-> React BabylonJS is for integration of BabylonJS into a ReactJS and/or Redux project.
+> 'react-babylonjs' is for integration of BabylonJS into a ReactJS project.
 
- I will be expanding and fixing this project.  I started as a fun project to integrate the technologies ReactJS, Redux and BabylonJS.  Will happily accept any pull requests as there is lots of room for extra functionality, especially with the new declarative model :)
+ What started as a fun project to integrate ReactJS and BabylonJS keeps on evolving.  Will happily accept any pull requests as there is lots of room for extra functionality, especially with the new declarative model :)
 
 ### Features
 
 &nbsp; &nbsp; ✓ React Scene component to wrap a BabylonJS canvas.<br/>
-&nbsp; &nbsp; ✓ Redux middleware to intercept events.<br/>
+&nbsp; &nbsp; ✓ Camera (ArcRotate, Free) / Lights (Hemispheric/Directional) components.<br/>
+&nbsp; &nbsp; ✓ Skybox, Ground, Plane, Sphere, Box, IcoSphere & StandardMatrial components.<br/>
+&nbsp; &nbsp; ✓ 3D: GUIManager, CylinderPanel, Button3D & HolographicButton components.<br/>
+&nbsp; &nbsp; ✓ 2D: Rectangle, StackPanel, Button, Text & AdvancedDynamicTexture.<br/>
+&nbsp; &nbsp; ✓ VRExperience, Environment.<br/>
+
 
 ### Documentation
 
@@ -233,33 +238,9 @@ export default class AdvancedExample extends Component {
 }
 ```
 
-# Setting up middleware in your project (optional)...
+# Redux middleware (removed in 0.4.3)
 
-You can optionally apply the 'react-babylonjs' middleware to monitor redux events.  Use this if you want to synchronise your BabylonJS Scene with ReactJS.
-
-In your top-level component mount/unmount you need to register and deregister your middleware handlers.  The middleware is currently included with babylonjs-react NPM, but I will be splitting to another project.  Will post a full-example here then.
-
-```javascript
-import { applyMiddleware, compose, createStore } from 'redux'
-import thunk from 'redux-thunk'
-import { babylonJSMiddleware } from 'react-babylonjs'
-
-export default (initialState = {}) => {
-  // ======================================================
-  // Middleware Configuration
-  // ======================================================
-  const middleware = [thunk, babylonJSMiddleware]
-
-  return createStore(
-    ...,
-    initialState,
-    compose(
-      applyMiddleware(...middleware),
-      ...enhancers
-    )
-  )
-}
-```
+To remove dependency on redux have moved the middlware for monitoring redux actions to 'redux-wiretap'.  Useful for synchronizing your BabylonJS Scene with ReactJS outside of props, which do not flow cleanly into your custom code.  Note that the declarative samples above do not generally require this synchronisation mechanism, as the components themselves are aware of the prop/state changes and update their BabylonJS objects automatically.
 
 ### Related Projects
 * [Create React App (JavaScript)](https://github.com/brianzinn/create-react-app-babylonjs) CRA JavaScript implementation.  GH Pages has examples of typical and declarative usage.

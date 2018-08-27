@@ -21,8 +21,8 @@ export default class ArcRotateCamera extends SceneComponent<BabylonArcRotateCame
     return this._camera!
   }
 
-  public get noPreventDefault() : boolean {
-    return (this.props.noPreventDefault === true)
+  public get noPreventDefault(): boolean {
+    return this.props.noPreventDefault === true
   }
 
   componentsCreated(): void {

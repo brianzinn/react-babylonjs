@@ -1,11 +1,3 @@
-export {
-  default as babylonJSMiddleware,
-  actions /* action creators for Connect */,
-  HandledResult,
-  registerHandler,
-  removeHandler
-} from "./middleware"
-
 export { default as Scene, SceneProps, SceneEventArgs, ComponentRegistry } from "./Scene"
 
 // missing a few lights (ie: spot) - add shadows when you add more lights!
