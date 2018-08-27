@@ -10,7 +10,6 @@ import React, { Component, HTMLAttributes } from 'react'
 import { PointerEventTypes, Engine, EngineOptions, Scene as BabylonScene, AbstractMesh, Camera, Light } from 'babylonjs'
 import FreeCamera from "./FreeCamera"
 import ArcRotateCamera from "./ArcRotateCamera"
-import { registerHandler, removeHandler } from './middleware'
 
 export type SceneEventArgs = {
   scene: BabylonScene,
@@ -160,20 +159,6 @@ export default class Scene extends Component<SceneProps & HTMLAttributes<HTMLCan
       }
     }, PointerEventTypes.POINTERDOWN);
 
-    // not having any default handlers anymore in 'react-babylonjs'
-    let handlers = new Map<String, (action: { type: String }) => boolean>([]);
-
-    this.actionHandler = (action: {type: string}) => {
-      if (handlers.has(action.type)) {
-        let handler: ((action: {type: string}) => boolean) | undefined = handlers.get(action.type)
-        if (handler !== undefined) {
-          return handler(action)
-        }
-      }
-    };
-
-    registerHandler(this.actionHandler);
-
     this.forceUpdate(() => {
     });
 
@@ -189,8 +174,7 @@ export default class Scene extends Component<SceneProps & HTMLAttributes<HTMLCan
   }
 
   componentWillUnmount() {
-    // unregister from window and babylonJS events
-    removeHandler(this.actionHandler);
+    // unregister from window and canvas events
     window.removeEventListener('resize', this.onResizeWindow);
 
     if (this.canvas3d) {
