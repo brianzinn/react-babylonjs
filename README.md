@@ -14,6 +14,7 @@
 &nbsp; &nbsp; ✓ Skybox, Ground, Plane, Sphere, Box, IcoSphere & StandardMatrial components.<br/>
 &nbsp; &nbsp; ✓ 3D: GUIManager, CylinderPanel, Button3D & HolographicButton components.<br/>
 &nbsp; &nbsp; ✓ 2D: Rectangle, StackPanel, Button, Text & AdvancedDynamicTexture.<br/>
+&nbsp; &nbsp; ✓ 3D Models: ie: .glTF, .obj & .stl.<br/>
 &nbsp; &nbsp; ✓ VRExperience, Environment.<br/>
 
 
