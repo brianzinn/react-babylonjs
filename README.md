@@ -191,50 +191,44 @@ Full example: [with 2D UI](https://brianzinn.github.io/create-react-app-babylonj
 
 ## Setting up a React component in your project using onSceneMount().
 This is a more advanced scanario and allows more control.  You will need to call engine.runRenderLoop(() => {...}).  I will include an example later using the new createCamera() method that makes this even easier (auto attach to canvas) and also creates a typical runRenderLoop() on the engine for you.
+
+**Breaking Change**: Older versions passed the Engine in the onSceneMount(e) parameter, in the newer versions, you will need to use scene.getEngine().
 ```javascript
 // If you import Scene from BabylonJS then make sure to alias one of them.
-import { Scene, registerHandler, removeHandler } from 'react-babylonjs'
+import React, { Component } from 'react'
+import { Scene } from 'react-babylonjs'
+import { Vector3, ArcRotateCamera, MeshBuilder, HemisphericLight } from 'babylonjs';
 
-export default class AdvancedExample extends Component {
-    
-  constructor(props) {
-    super(props)
-
-    // methods used by Scene (more will be added soon and documentation)
-    this.onSceneMount = this.onSceneMount.bind(this)
-    this.onMeshPicked = this.onMeshPicked.bind(this)
-  }
-
-  onMeshPicked(mesh, scene) {
-    // This will be called when a mesh is picked in the canvas
+export default class NonDeclarative extends Component 
+{
+  onMeshPicked(mesh) {
+    console.log('mesh picked:', mesh)
   }
 
   onSceneMount(e) {
-        const { canvas, scene, engine} = e
+    const { canvas, scene } = e
 
-        // Scene to build your environment, Canvas you need to attach your camera.       
-        var camera = new ArcRotateCamera("Camera", 0, 1.05, 280, Vector3.Zero(), scene)
-        camera.attachControl(canvas)
+    // Scene to build your environment, Canvas you need to attach your camera.       
+    var camera = new ArcRotateCamera("Camera", 0, 1.05, 6, Vector3.Zero(), scene)
+    camera.attachControl(canvas)
 
-        // if you want to set the shader directory, use the "shadersRepository" prop.
-        var shader = new BABYLON.ShaderMaterial("gradient", scene, "gradient", {})
+    MeshBuilder.CreateBox('box', { size: 3}, scene)
 
-        // TODO: setup your scene here
-        engine.runRenderLoop(() => {
-            if (scene) {
-                scene.render();
-            }
-        });
-  }
+    new HemisphericLight('light', Vector3.Up(), scene);
 
-  render() {
-    return (
-      <Scene
-          onSceneMount={this.onSceneMount} 
-          onMeshPicked={this.onMeshPicked}
-          shadersRepository={'/shaders/'}
-      />
-    )
+    scene.getEngine().runRenderLoop(() => {
+        if (scene) {
+            scene.render();
+        }
+    });
+}
+
+render() {
+  return (
+    <Scene
+      onMeshPicked={this.onMeshPicked}
+      onSceneMount={this.onSceneMount}
+    />)
   }
 }
 ```
