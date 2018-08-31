@@ -5,6 +5,7 @@ export type MeshProps = {
   rotation?: Vector3
   position?: Vector3
   showBoundingBox?: boolean
+  renderingGroupId?: number
 }
 
 export default class MeshPropsHandler implements PropsHandler<Mesh, MeshProps> {
@@ -33,6 +34,10 @@ export default class MeshPropsHandler implements PropsHandler<Mesh, MeshProps> {
         // console.log(`${props.showBoundingBox === true ? "showing" : "hiding"} bounding box on '${target.name}'`)
         target.showBoundingBox = props.showBoundingBox
       }
+    }
+
+    if (props.renderingGroupId !== undefined) {
+      target.renderingGroupId = props.renderingGroupId
     }
   }
 }

@@ -23,10 +23,12 @@ export { default as Button3D, Button3DProps } from "./Button3D"
 // 2D GUI - Do not use with 3D, except as content.  ie: do not add to a 3D panel.
 export { default as GUI2DSceneComponent } from "./GUI2DSceneComponent"
 export { default as Text, TextProps } from "./Text"
+export { default as InputText, InputTextProps } from "./InputText"
 export { default as StackPanel, StackPanelProps } from "./StackPanel"
 export { default as Rectangle, RectangleProps } from "./Rectangle"
 export { default as AdvancedDynamicTexture, AdvancedDynamicTextureProps } from "./AdvancedDynamicTexture"
 export { default as Button, ButtonProps } from "./Button"
+export { default as VirtualKeyboard, VirtualKeyboardProps } from "./VirtualKeyboard"
 
 // Only Arc Rotate and Free cam are available:
 export { default as FreeCamera, FreeCameraProps } from "./FreeCamera"

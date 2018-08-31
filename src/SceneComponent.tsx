@@ -80,6 +80,8 @@ export default abstract class SceneComponent<T extends U, U /* extends {name?: s
      */
     onRegisterChild(child: any): void {
         this.children.push(child);
+        // entire hierarchy is added here and not maintained, so it's a memory leak.  just part of proof of concept:
+        this.props.componentRegistry.registeredComponents.push(child)
     }
     
     abstract get propsHandlers(): PropsHandler<U, V>[];
