@@ -71,9 +71,6 @@ export default class InputText extends GUI2DSceneComponent<BabylonInputText, Bab
   }
 
   public get propsHandlers() {
-    return [
-        new ControlPropsHandler(),
-        new InputTextPropsHandler()
-    ]
+    return [new ControlPropsHandler(), new InputTextPropsHandler()]
   }
 }
