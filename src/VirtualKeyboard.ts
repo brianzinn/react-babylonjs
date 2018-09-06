@@ -1,13 +1,14 @@
 import { Scene } from "babylonjs"
-import { VirtualKeyboard as BabylonVirtualKeyboard, Control } from "babylonjs-gui"
-
-import { SceneComponentProps, PropsHandler } from "./SceneComponent"
+import { VirtualKeyboard as BabylonVirtualKeyboard, Control, InputText as BabylonInputText } from "babylonjs-gui"
+import ContainerPropsHandler, { ContainerProps } from "./ContainerProps"
+import ControlPropsHandler from "./2DControlProps"
+import { SceneComponentProps } from "./SceneComponent"
 import GUI2DSceneComponent from "./GUI2DSceneComponent"
 import InputText from "./InputText"
 
 export type VirtualKeyboardProps = {
-  controlNames: string[]
-} & SceneComponentProps<BabylonVirtualKeyboard>
+  controlNames?: string[],
+} & ContainerProps & SceneComponentProps<BabylonVirtualKeyboard>
 
 /**
  * Cannot be attached directly to a 3D panel.
@@ -30,7 +31,8 @@ export default class VirtualKeyboard extends GUI2DSceneComponent<
             console.log("Virtual Keyboard cannot locate:", controlName)
           } else {
             if (control instanceof InputText) {
-              this.virtualKeyboard!.connect((control as any).babylonObject)
+              let inputText: BabylonInputText = (control as any).babylonObject
+              this.virtualKeyboard!.connect(inputText)
             } else {
               console.error(`Can only connect to input text..  Not: '${controlName}'`)
             }
@@ -60,6 +62,6 @@ export default class VirtualKeyboard extends GUI2DSceneComponent<
   }
 
   public get propsHandlers() {
-    return []
+    return [new ContainerPropsHandler(), new ControlPropsHandler()]
   }
 }

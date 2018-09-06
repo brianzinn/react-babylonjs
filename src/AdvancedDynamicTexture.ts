@@ -2,7 +2,7 @@ import { Scene } from "babylonjs"
 import { Control, AdvancedDynamicTexture as BabylonAdvancedDynamicTexture } from "babylonjs-gui"
 
 import { SceneComponentProps } from "./SceneComponent"
-import { MeshProps } from "./MeshProps"
+
 import GUI2DSceneComponent from "./GUI2DSceneComponent"
 
 // extends DynamicTexture, not control.
@@ -57,7 +57,7 @@ export default class AdvancedDynamicTexture extends GUI2DSceneComponent<
 
   public get propsHandlers() {
     return [
-      /* TODO: create a GUI Container props handler */
+      /* TODO: create a texture props handler */
     ]
   }
 }

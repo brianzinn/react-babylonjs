@@ -80,6 +80,10 @@ export default class CylinderPanel extends GUI3DSceneComponent<
       this.cylinderPanel.orientation = this.props.orientation
     }
 
+    if (this.props.radius) {
+      this.cylinderPanel.radius = this.props.radius
+    }
+
     return this.cylinderPanel
   }
 

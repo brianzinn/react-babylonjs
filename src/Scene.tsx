@@ -41,6 +41,7 @@ export type SceneProps = {
   onMeshPicked?: (mesh: AbstractMesh, scene: BabylonScene) => void,
   shadersRepository?: string,
   engineOptions?: EngineOptions,
+  enableOfflineSupport?: boolean,
   adaptToDeviceRatio?: boolean,
   width?: number,
   height?: number,
@@ -97,6 +98,10 @@ export default class Scene extends Component<SceneProps & HTMLAttributes<HTMLCan
 
   componentDidMount () {
     this.engine = new Engine(this.canvas3d!, true, this.props.engineOptions, this.props.adaptToDeviceRatio);
+
+    if (this.props.enableOfflineSupport !== undefined) {
+      this.engine.enableOfflineSupport = this.props.enableOfflineSupport
+    }
 
     // must set shaderRepository before creating engine?  need to pass in as props.
     if (this.props.shadersRepository !== undefined) {

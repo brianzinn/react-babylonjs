@@ -29,6 +29,40 @@ export class LoadedModel {
   public particleSystems?: IParticleSystem[]
   public skeletons?: Skeleton[]
   public animationGroups?: AnimationGroup[]
+
+  /**
+   * Clean up all resources.
+   */
+  public dispose() {
+    if (this.meshes) {
+      this.meshes.forEach(mesh => {
+        mesh.dispose(false /* not recursive */, true /* materials + textures */);
+      })
+      this.meshes = []
+    }
+
+    if (this.particleSystems) {
+      this.particleSystems.forEach(ps => {
+        // ps.stop();
+        ps.dispose()
+      })
+      this.particleSystems = []
+    }
+
+    if(this.skeletons) {
+      this.skeletons.forEach(skeleton =>
+        skeleton.dispose()
+      )
+      this.skeletons = []
+    }
+
+    if (this.animationGroups) {
+      this.animationGroups.forEach(animationGroup =>
+        animationGroup.dispose()
+      )
+      this.animationGroups = []
+    }
+  }
 }
 
 export default class Model extends SceneComponent<LoadedModel, LoadedModel, ModelProps> {
@@ -103,6 +137,12 @@ export default class Model extends SceneComponent<LoadedModel, LoadedModel, Mode
 
   componentsCreated(): void {
     /* ignore */
+  }
+
+  componentWillUnmount(): void {
+    if (this.loadedModel) {
+      this.loadedModel.dispose();
+    }
   }
 
   public get propsHandlers() {
