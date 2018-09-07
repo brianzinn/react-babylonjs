@@ -6,8 +6,11 @@ import {
   AbstractMesh,
   SceneLoader,
   Nullable,
+  Vector3,
   ISceneLoaderPlugin,
-  ISceneLoaderPluginAsync
+  ISceneLoaderPluginAsync,
+  SceneLoaderProgressEvent,
+  BoundingInfo
 } from "babylonjs"
 import "babylonjs-loaders"
 
@@ -29,6 +32,41 @@ export class LoadedModel {
   public particleSystems?: IParticleSystem[]
   public skeletons?: Skeleton[]
   public animationGroups?: AnimationGroup[]
+  public scaleToDimension?: number
+
+  public get boundingInfo() : Nullable<BoundingInfo> {
+
+    if (!this.rootMesh) {
+      return null;
+    }
+
+    // meshes are already parented to root mesh, so we do not need to look further.
+    let min: Nullable<Vector3> = null;
+    let max: Nullable<Vector3> = null;
+
+    this.rootMesh.getChildMeshes().forEach(childMesh =>
+      {
+        const { minimumWorld, maximumWorld } = childMesh.getBoundingInfo().boundingBox
+        if (min === null) {
+          min = minimumWorld
+        } else {
+          min = Vector3.Minimize(min, minimumWorld)
+        }
+
+        if (max === null) {
+          max = maximumWorld
+        } else {
+          max = Vector3.Maximize(max, maximumWorld)
+        }
+      }
+    )
+
+    if (min !== null && max != null) {
+      return new BoundingInfo(min, max);
+    }
+
+    return null;
+  }
 
   /**
    * Clean up all resources.
@@ -36,7 +74,7 @@ export class LoadedModel {
   public dispose() {
     if (this.meshes) {
       this.meshes.forEach(mesh => {
-        mesh.dispose(false /* not recursive */, true /* materials + textures */);
+        mesh.dispose(false /* not recursive */, true /* materials + textures */)
       })
       this.meshes = []
     }
@@ -49,17 +87,13 @@ export class LoadedModel {
       this.particleSystems = []
     }
 
-    if(this.skeletons) {
-      this.skeletons.forEach(skeleton =>
-        skeleton.dispose()
-      )
+    if (this.skeletons) {
+      this.skeletons.forEach(skeleton => skeleton.dispose())
       this.skeletons = []
     }
 
     if (this.animationGroups) {
-      this.animationGroups.forEach(animationGroup =>
-        animationGroup.dispose()
-      )
+      this.animationGroups.forEach(animationGroup => animationGroup.dispose())
       this.animationGroups = []
     }
   }
@@ -80,7 +114,7 @@ export default class Model extends SceneComponent<LoadedModel, LoadedModel, Mode
       this.props.rootUrl,
       this.props.sceneFilename,
       scene,
-      (meshes, particleSystems, skeletons, animationGroups) => {
+      (meshes: AbstractMesh[], particleSystems: IParticleSystem[], skeletons: Skeleton[], animationGroups: AnimationGroup[]) : void => {
         loadedModel.rootMesh = new AbstractMesh(this.props.sceneFilename + "-model")
         loadedModel.rootMesh.alwaysSelectAsActiveMesh = true
 
@@ -112,18 +146,19 @@ export default class Model extends SceneComponent<LoadedModel, LoadedModel, Mode
           })
         }
       },
-      progressEvent => {
-        // not implemented
+      (event: SceneLoaderProgressEvent) : void => {
+        if (this.props.onLoadProgress) {
+          this.props.onLoadProgress(event);
+        }
       },
-      (scene, message, exception) => {
+      (scene: Scene, message: string, exception?: any) : void => {
         loadedModel.status = LoaderStatus.Error
-        loadedModel.errorMessage = `error: ${message} -> ${
-          exception ? exception.message : "no exception"
-        }`
+        loadedModel.errorMessage = `error: ${message} -> ${exception ? exception.message : "no exception"}`
         if (this.props.onModelError) {
           this.props.onModelError(loadedModel)
         }
-      } // , this.props.pluginExtension
+      },
+      this.props.pluginExtension
     )
 
     if (loader) {
@@ -141,7 +176,7 @@ export default class Model extends SceneComponent<LoadedModel, LoadedModel, Mode
 
   componentWillUnmount(): void {
     if (this.loadedModel) {
-      this.loadedModel.dispose();
+      this.loadedModel.dispose()
     }
   }
 

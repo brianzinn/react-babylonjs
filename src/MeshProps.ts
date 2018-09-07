@@ -1,14 +1,27 @@
 import { PropsHandler } from "./SceneComponent"
-import { Mesh, Vector3 } from "babylonjs"
+import { Mesh, Vector3, Matrix } from "babylonjs"
 
 export type MeshProps = {
   rotation?: Vector3
   position?: Vector3
+  scaling?: Vector3
+  visibility?: number
   showBoundingBox?: boolean
   renderingGroupId?: number
+  /**
+   * Not dynamically updateable - order specific with preTransformMatrix.
+   */
+  pivotMatrix: Matrix
+  /**
+   * Not dynamically updateable (has no 'getter')
+   */
+  preTransformMatrix: Matrix
 }
 
 export default class MeshPropsHandler implements PropsHandler<Mesh, MeshProps> {
+
+  private hasRunOnce : boolean = false;
+
   handle(target: Mesh, props: MeshProps): void {
     if (props.position && target) {
       if (!target.position || !target.position.equals(props.position)) {
@@ -38,6 +51,27 @@ export default class MeshPropsHandler implements PropsHandler<Mesh, MeshProps> {
 
     if (props.renderingGroupId !== undefined) {
       target.renderingGroupId = props.renderingGroupId
+    }
+
+    if (props.scaling && target && !target.scaling.equals(props.scaling)) {
+      target.scaling.copyFrom(props.scaling)
+    }
+
+    if (props.visibility !== undefined && target) {
+      target.visibility = props.visibility
+    }
+
+    if (this.hasRunOnce === false && target && (props.pivotMatrix !== undefined || props.preTransformMatrix !== undefined)) {
+      this.hasRunOnce = true
+
+      if (props.pivotMatrix) {
+        target.setPivotMatrix(props.pivotMatrix)
+      }
+
+      // order is important, as this calls setPivotMatrix(matrix, false) and doesn't set the inverse matrix:
+      if (props.preTransformMatrix) {
+        target.setPreTransformMatrix(props.preTransformMatrix)
+      }
     }
   }
 }

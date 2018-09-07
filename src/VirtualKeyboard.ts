@@ -7,8 +7,9 @@ import GUI2DSceneComponent from "./GUI2DSceneComponent"
 import InputText from "./InputText"
 
 export type VirtualKeyboardProps = {
-  controlNames?: string[],
-} & ContainerProps & SceneComponentProps<BabylonVirtualKeyboard>
+  controlNames?: string[]
+} & ContainerProps &
+  SceneComponentProps<BabylonVirtualKeyboard>
 
 /**
  * Cannot be attached directly to a 3D panel.
