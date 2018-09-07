@@ -35,7 +35,7 @@ export default class Box extends SceneComponent<Mesh, Node, IcoSphereProps> {
   }
 
   componentWillUnmount() {
-    this.icoSphere!.dispose();
+    this.icoSphere!.dispose()
   }
 
   public get propsHandlers() {

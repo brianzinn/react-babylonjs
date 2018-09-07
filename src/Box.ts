@@ -39,7 +39,7 @@ export default class Box extends SceneComponent<Mesh, Node, BoxProps> {
   }
 
   componentWillUnmount() {
-    this.box!.dispose();
+    this.box!.dispose()
   }
 
   public get propsHandlers() {

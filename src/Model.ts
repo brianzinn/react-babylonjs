@@ -34,38 +34,35 @@ export class LoadedModel {
   public animationGroups?: AnimationGroup[]
   public scaleToDimension?: number
 
-  public get boundingInfo() : Nullable<BoundingInfo> {
-
+  public get boundingInfo(): Nullable<BoundingInfo> {
     if (!this.rootMesh) {
-      return null;
+      return null
     }
 
     // meshes are already parented to root mesh, so we do not need to look further.
-    let min: Nullable<Vector3> = null;
-    let max: Nullable<Vector3> = null;
+    let min: Nullable<Vector3> = null
+    let max: Nullable<Vector3> = null
 
-    this.rootMesh.getChildMeshes().forEach(childMesh =>
-      {
-        const { minimumWorld, maximumWorld } = childMesh.getBoundingInfo().boundingBox
-        if (min === null) {
-          min = minimumWorld
-        } else {
-          min = Vector3.Minimize(min, minimumWorld)
-        }
-
-        if (max === null) {
-          max = maximumWorld
-        } else {
-          max = Vector3.Maximize(max, maximumWorld)
-        }
+    this.rootMesh.getChildMeshes().forEach(childMesh => {
+      const { minimumWorld, maximumWorld } = childMesh.getBoundingInfo().boundingBox
+      if (min === null) {
+        min = minimumWorld
+      } else {
+        min = Vector3.Minimize(min, minimumWorld)
       }
-    )
+
+      if (max === null) {
+        max = maximumWorld
+      } else {
+        max = Vector3.Maximize(max, maximumWorld)
+      }
+    })
 
     if (min !== null && max != null) {
-      return new BoundingInfo(min, max);
+      return new BoundingInfo(min, max)
     }
 
-    return null;
+    return null
   }
 
   /**
@@ -114,7 +111,12 @@ export default class Model extends SceneComponent<LoadedModel, LoadedModel, Mode
       this.props.rootUrl,
       this.props.sceneFilename,
       scene,
-      (meshes: AbstractMesh[], particleSystems: IParticleSystem[], skeletons: Skeleton[], animationGroups: AnimationGroup[]) : void => {
+      (
+        meshes: AbstractMesh[],
+        particleSystems: IParticleSystem[],
+        skeletons: Skeleton[],
+        animationGroups: AnimationGroup[]
+      ): void => {
         loadedModel.rootMesh = new AbstractMesh(this.props.sceneFilename + "-model")
         loadedModel.rootMesh.alwaysSelectAsActiveMesh = true
 
@@ -146,12 +148,12 @@ export default class Model extends SceneComponent<LoadedModel, LoadedModel, Mode
           })
         }
       },
-      (event: SceneLoaderProgressEvent) : void => {
+      (event: SceneLoaderProgressEvent): void => {
         if (this.props.onLoadProgress) {
-          this.props.onLoadProgress(event);
+          this.props.onLoadProgress(event)
         }
       },
-      (scene: Scene, message: string, exception?: any) : void => {
+      (scene: Scene, message: string, exception?: any): void => {
         loadedModel.status = LoaderStatus.Error
         loadedModel.errorMessage = `error: ${message} -> ${exception ? exception.message : "no exception"}`
         if (this.props.onModelError) {

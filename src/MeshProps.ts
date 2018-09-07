@@ -19,8 +19,7 @@ export type MeshProps = {
 }
 
 export default class MeshPropsHandler implements PropsHandler<Mesh, MeshProps> {
-
-  private hasRunOnce : boolean = false;
+  private hasRunOnce: boolean = false
 
   handle(target: Mesh, props: MeshProps): void {
     if (props.position && target) {
@@ -61,7 +60,11 @@ export default class MeshPropsHandler implements PropsHandler<Mesh, MeshProps> {
       target.visibility = props.visibility
     }
 
-    if (this.hasRunOnce === false && target && (props.pivotMatrix !== undefined || props.preTransformMatrix !== undefined)) {
+    if (
+      this.hasRunOnce === false &&
+      target &&
+      (props.pivotMatrix !== undefined || props.preTransformMatrix !== undefined)
+    ) {
       this.hasRunOnce = true
 
       if (props.pivotMatrix) {

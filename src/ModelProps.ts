@@ -12,7 +12,7 @@ export type ModelProps = {
   scaling?: Vector3
   rotation?: Vector3
   showBoundingBox: boolean
-  
+
   /**
    * Only used on init.  Will not update dynamically (scaling will update dynamically and override this)
    */
@@ -23,14 +23,19 @@ export type ModelProps = {
 } & SceneComponentProps<LoadedModel>
 
 export default class ModelPropsHandler implements PropsHandler<LoadedModel, ModelProps> {
-  handle(loadedModel: LoadedModel, props: ModelProps): void {   
+  handle(loadedModel: LoadedModel, props: ModelProps): void {
     if (props.position && loadedModel.rootMesh && !loadedModel.rootMesh.position.equals(props.position)) {
       loadedModel.rootMesh.position.copyFrom(props.position)
     }
 
-    if (props.showBoundingBox !== undefined && loadedModel.rootMesh && loadedModel.rootMesh.showBoundingBox !== props.showBoundingBox) {
-      const boundingInfo = loadedModel.boundingInfo;
-      if (boundingInfo) { // should always have a bounding info, once meshes are loaded
+    if (
+      props.showBoundingBox !== undefined &&
+      loadedModel.rootMesh &&
+      loadedModel.rootMesh.showBoundingBox !== props.showBoundingBox
+    ) {
+      const boundingInfo = loadedModel.boundingInfo
+      if (boundingInfo) {
+        // should always have a bounding info, once meshes are loaded
         loadedModel.rootMesh!.setBoundingInfo(boundingInfo)
       }
       loadedModel.rootMesh.showBoundingBox = props.showBoundingBox
@@ -41,18 +46,17 @@ export default class ModelPropsHandler implements PropsHandler<LoadedModel, Mode
     }
 
     if (props.scaleToDimension && loadedModel && loadedModel.scaleToDimension !== props.scaleToDimension) {
-
-      const boundingInfo = loadedModel.boundingInfo; // will be null when no meshes are loaded
+      const boundingInfo = loadedModel.boundingInfo // will be null when no meshes are loaded
       if (boundingInfo) {
         const longestDimension = Math.max(
           Math.abs(boundingInfo.minimum.x - boundingInfo.maximum.x),
           Math.abs(boundingInfo.minimum.y - boundingInfo.maximum.y),
           Math.abs(boundingInfo.minimum.z - boundingInfo.maximum.z)
-        );
-        
+        )
+
         const dimension = props.scaleToDimension / longestDimension
-        
-        loadedModel.rootMesh!.scaling.scaleInPlace(dimension);
+
+        loadedModel.rootMesh!.scaling.scaleInPlace(dimension)
         loadedModel.scaleToDimension = props.scaleToDimension
       }
     }
