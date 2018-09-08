@@ -1,4 +1,4 @@
-import { Scene, EnvironmentHelper, IEnvironmentHelperOptions, Color3 } from "babylonjs"
+import { Scene, EnvironmentHelper, IEnvironmentHelperOptions, Color3, Mesh, Nullable } from "babylonjs"
 import SceneComponent, { SceneComponentProps } from "./SceneComponent"
 
 export type EnvironmentProps = {
@@ -15,6 +15,10 @@ export default class Environment extends SceneComponent<
 
   componentWillUnmount() {
     this.environmentHelper!.dispose()
+  }
+
+  public get ground() : Nullable<Mesh> {
+    return this.environmentHelper ? this.environmentHelper.ground : null;
   }
 
   componentsCreated(): void {
