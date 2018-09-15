@@ -12,11 +12,7 @@ export type HemisphericLightProps = {
 } & LightProps &
   SceneComponentProps<BabylonHemisphericLight>
 
-export default class HemisphericLight extends SceneComponent<
-  BabylonHemisphericLight,
-  Light,
-  HemisphericLightProps
-> {
+export default class HemisphericLight extends SceneComponent<BabylonHemisphericLight, Light, HemisphericLightProps> {
   private light?: BabylonHemisphericLight
 
   componentsCreated(): void {

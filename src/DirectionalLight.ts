@@ -12,11 +12,7 @@ export type DirectionalLightProps = {
 } & LightProps &
   SceneComponentProps<BabylonDirectionalLight>
 
-export default class DirectionalLight extends SceneComponent<
-  BabylonDirectionalLight,
-  Light,
-  DirectionalLightProps
-> {
+export default class DirectionalLight extends SceneComponent<BabylonDirectionalLight, Light, DirectionalLightProps> {
   private _light?: BabylonDirectionalLight
 
   public get light(): BabylonDirectionalLight | undefined {
