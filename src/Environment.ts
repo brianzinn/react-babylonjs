@@ -6,19 +6,15 @@ export type EnvironmentProps = {
 } & IEnvironmentHelperOptions &
   SceneComponentProps<EnvironmentHelper>
 
-export default class Environment extends SceneComponent<
-  EnvironmentHelper,
-  EnvironmentHelper,
-  EnvironmentProps
-> {
+export default class Environment extends SceneComponent<EnvironmentHelper, EnvironmentHelper, EnvironmentProps> {
   private environmentHelper?: EnvironmentHelper | null
 
   componentWillUnmount() {
     this.environmentHelper!.dispose()
   }
 
-  public get ground() : Nullable<Mesh> {
-    return this.environmentHelper ? this.environmentHelper.ground : null;
+  public get ground(): Nullable<Mesh> {
+    return this.environmentHelper ? this.environmentHelper.ground : null
   }
 
   componentsCreated(): void {

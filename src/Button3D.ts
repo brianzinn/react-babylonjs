@@ -37,7 +37,7 @@ export default class Button3D extends GUI3DSceneComponent<BabylonButton3D, Babyl
   protected button3D?: BabylonButton3D
 
   addControl(control: Control3D): void {
-    console.warn("not implemented adding controls to holographic button")
+    console.warn("not implemented adding controls to Button3D (it uses content)")
   }
 
   removeControl(control: Control3D): void {
@@ -80,7 +80,7 @@ export default class Button3D extends GUI3DSceneComponent<BabylonButton3D, Babyl
         }
 
         button3D.pointerOutAnimation = () => {
-          material.emissiveColor = BABYLON.Color3.Black()
+          material.emissiveColor = Color3.Black()
         }
       }
     }

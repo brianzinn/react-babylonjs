@@ -4,7 +4,7 @@ import SceneComponent, { SceneComponentProps } from "./SceneComponent"
 import { CameraPropsHandler, CameraProps, CameraComponent } from "./Camera"
 
 export type FreeCameraProps = {
-  position?: BABYLON.Vector3
+  position?: Vector3
   x?: number
   y?: number
   z?: number
@@ -34,7 +34,7 @@ export default class FreeCamera extends SceneComponent<BabylonFreeCamera, Camera
     if (this.props.position !== undefined) {
       position = this.props.position
     } else {
-      position = new BABYLON.Vector3(
+      position = new Vector3(
         this.props.x ? this.props.x : 0,
         this.props.y ? this.props.y : 0,
         this.props.z ? this.props.z : 0

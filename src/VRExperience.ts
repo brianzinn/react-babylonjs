@@ -1,6 +1,6 @@
 import { Scene, VRExperienceHelper, VRExperienceHelperOptions, AbstractMesh, Mesh } from "babylonjs"
 import SceneComponent, { SceneComponentProps } from "./SceneComponent"
-import Environment from "./Environment";
+import Environment from "./Environment"
 
 /**
  * Missing lots of available options, but it's a start and works for common scenarios.
@@ -53,7 +53,7 @@ export default class VRExperience extends SceneComponent<VRExperienceHelper, VRE
       if (this.props.teleportationMeshes !== undefined) {
         floorMeshes.concat(this.props.teleportationMeshes!)
       }
-      
+
       // console.log("teleportation enabled on:", floorMeshes.slice(0))
       this.experienceHelper!.enableTeleportation({ floorMeshes })
     }

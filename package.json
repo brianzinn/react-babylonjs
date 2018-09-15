@@ -73,9 +73,9 @@
     "@types/lodash": "^4.14.114",
     "@types/node": "^8.0.0",
     "@types/react": "^16.0.5",
-    "babylonjs": "3.3.0-beta.1",
-    "babylonjs-gui": "3.3.0-beta.1",
-    "babylonjs-loaders": "3.3.0-beta.1",
+    "babylonjs": "^3.3.0-beta.6",
+    "babylonjs-gui": "^3.3.0-beta.6",
+    "babylonjs-loaders": "^3.3.0-beta.6",
     "colors": "^1.1.2",
     "commitizen": "^2.9.6",
     "coveralls": "^2.13.1",
@@ -87,7 +87,7 @@
     "lodash.camelcase": "^4.3.0",
     "prettier": "^1.4.4",
     "prompt": "^1.0.0",
-    "react": "^16.4.1",
+    "react": "^16.5.1",
     "replace-in-file": "^2.5.0",
     "rimraf": "^2.6.1",
     "rollup": "^0.64.1",
@@ -102,13 +102,12 @@
     "tslint-config-prettier": "^1.1.0",
     "tslint-config-standard": "^6.0.0",
     "typedoc": "^0.11.1",
-    "typescript": "2.9.2",
+    "typescript": "^3.0.3",
     "validate-commit-msg": "^2.12.2"
   },
   "peerDependencies": {
-    "babylonjs": ">= 3.3.0-beta.1",
-    "babylonjs-gui": ">= 3.3.0-beta.1",
-    "babylonjs-loaders": ">= 3.3.0-beta.1",
+    "babylonjs": "^2.5 || 3.x || >= 3.3.0-beta",
+    "babylonjs-gui": ">=3.3 || >= 3.3.0-beta",
     "react": "15.x || 16.x"
   }
 }

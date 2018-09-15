@@ -7,7 +7,7 @@
 
 import React, { Component, HTMLAttributes } from 'react'
 
-import { PointerEventTypes, Engine, EngineOptions, Scene as BabylonScene, AbstractMesh, Camera, Light } from 'babylonjs'
+import { PointerEventTypes, PointerInfo, Engine, EngineOptions, Scene as BabylonScene, AbstractMesh, Camera, Light } from 'babylonjs'
 import FreeCamera from "./FreeCamera"
 import ArcRotateCamera from "./ArcRotateCamera"
 
@@ -39,6 +39,7 @@ export type SceneProps = {
   onSceneBlur?: (args: SceneEventArgs) => void,
   onSceneFocus?: (args: SceneEventArgs) => void,
   onMeshPicked?: (mesh: AbstractMesh, scene: BabylonScene) => void,
+  noSSR?: boolean | React.ReactChild,
   shadersRepository?: string,
   engineOptions?: EngineOptions,
   enableOfflineSupport?: boolean,
@@ -56,7 +57,11 @@ export type ComponentRegistry = {
   registeredComponents: any[]
 }
 
-export default class Scene extends Component<SceneProps & HTMLAttributes<HTMLCanvasElement>, {}> implements ComponentContainer {
+export type SceneState = {
+  canRender: boolean
+}
+
+export default class Scene extends Component<SceneProps & HTMLAttributes<HTMLCanvasElement>, SceneState> implements ComponentContainer {
 
   private scene?: BabylonScene;
   private engine?: Engine;
@@ -67,9 +72,6 @@ export default class Scene extends Component<SceneProps & HTMLAttributes<HTMLCan
   private width?: number | string;
 
   private canvas3d?: HTMLCanvasElement ;// | WebGLRenderingContext
-
-  private actionHandler: any;
-
   private firstDidUpdate: boolean = false;
 
   constructor(props: SceneProps) {
@@ -82,6 +84,10 @@ export default class Scene extends Component<SceneProps & HTMLAttributes<HTMLCan
     };
 
     this.onRegisterChild = this.onRegisterChild.bind(this);
+
+    this.state = {
+      canRender: false
+    };
   }
 
   onResizeWindow = () => {
@@ -152,7 +158,7 @@ export default class Scene extends Component<SceneProps & HTMLAttributes<HTMLCan
     }
 
     // TODO: Add other PointerEventTypes and keyDown.
-    scene.onPointerObservable.add((evt: BABYLON.PointerInfo) => {
+    scene.onPointerObservable.add((evt: PointerInfo) => {
       if (evt && evt.pickInfo && evt.pickInfo.hit && evt.pickInfo.pickedMesh) {
         let mesh = evt.pickInfo.pickedMesh
 
@@ -173,6 +179,8 @@ export default class Scene extends Component<SceneProps & HTMLAttributes<HTMLCan
         this.engine!.resize();
       })
     }, 0)
+
+    this.setState({canRender: true});
 
     // Resize the babylon engine when the window is resized
     window.addEventListener('resize', this.onResizeWindow);
@@ -235,6 +243,13 @@ export default class Scene extends Component<SceneProps & HTMLAttributes<HTMLCan
 
   // NOTE: canvas width is in pixels, use style to set % using ID, if needed.
   render () {
+    if (this.state.canRender === false && (this.props.noSSR !== undefined && this.props.noSSR !== false)) {
+      if (typeof this.props.noSSR === 'boolean') {
+        return null;
+      }
+      return this.props.noSSR;
+    }
+
     let { touchActionNone, id, width, height, ...rest } = this.props
 
     let opts: any = {}

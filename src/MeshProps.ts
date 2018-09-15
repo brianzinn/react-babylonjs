@@ -16,6 +16,7 @@ export type MeshProps = {
    * Not dynamically updateable (has no 'getter')
    */
   preTransformMatrix: Matrix
+  name: string
 }
 
 export default class MeshPropsHandler implements PropsHandler<Mesh, MeshProps> {

@@ -9,6 +9,14 @@ import GUI2DSceneComponent from "./GUI2DSceneComponent"
 export type AdvancedDynamicTextureProps = {
   height?: number
   width?: number
+  /**
+   * if the texture must capture move events (true by default)
+   */
+  supportPointerMove?: boolean,
+  /**
+   * alpha blending will not be used (only alpha testing) (false by default)
+   */
+  onlyAlphaTesting?: boolean,
   createForParentMesh: boolean
   generateMipMaps: boolean
   samplingMode: number
@@ -38,15 +46,21 @@ export default class AdvancedDynamicTexture extends GUI2DSceneComponent<
   create(scene: Scene): BabylonAdvancedDynamicTexture {
     this.advancedDynamicTexture =
       this.props.createForParentMesh === true
-        ? BabylonAdvancedDynamicTexture.CreateForMesh(this.props.container.babylonObject)
+        ? BabylonAdvancedDynamicTexture.CreateForMesh(
+          this.props.container.babylonObject,
+          this.props.width,
+          this.props.height,
+          this.props.supportPointerMove,
+          this.props.onlyAlphaTesting
+        )
         : new BabylonAdvancedDynamicTexture(
-            this.props.name,
-            this.props.width,
-            this.props.height,
-            scene,
-            this.props.generateMipMaps,
-            this.props.samplingMode
-          )
+          this.props.name,
+          this.props.width,
+          this.props.height,
+          scene,
+          this.props.generateMipMaps,
+          this.props.samplingMode
+        )
 
     return this.advancedDynamicTexture
   }
