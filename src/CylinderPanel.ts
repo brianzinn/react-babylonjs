@@ -1,7 +1,7 @@
 import { Scene, Vector3, TransformNode } from "babylonjs"
 import { CylinderPanel as BabylonCylinderPanel, Control3D } from "babylonjs-gui"
 
-import { SceneComponentProps } from "./SceneComponent"
+import { SceneComponentProps, PropsHandler } from "./SceneComponent"
 import GUI3DSceneComponent from "./GUI3DSceneComponent"
 
 export type CylinderPanelProps = {
@@ -20,6 +20,25 @@ export type CylinderPanelProps = {
   orientation: number
   position: Vector3
 } & SceneComponentProps<BabylonCylinderPanel>
+
+class CylinderPanelPropsHandler implements PropsHandler<BabylonCylinderPanel, CylinderPanelProps> {
+  handle(target: BabylonCylinderPanel, props: CylinderPanelProps): void {
+    if (props.columns && target) {
+      if (!target.columns || target.columns !== props.columns) {
+        target.columns = props.columns
+      }
+    }
+
+    if (props.rows && target) {
+      if (!target.rows || target.rows !== props.rows) {
+        target.rows = props.rows
+      }
+    }
+
+    // TODO: radius, orientation, position, margin
+  }
+}
+
 
 /**
  *
@@ -52,31 +71,12 @@ export default class CylinderPanel extends GUI3DSceneComponent<
   create(scene: Scene): BabylonCylinderPanel {
     this.cylinderPanel = new BabylonCylinderPanel()
 
-    // just for now - will be adding Anchor as a dynamic element:
-    let anchor = new TransformNode("")
-    this.cylinderPanel.linkToTransformNode(anchor)
-
-    if (this.props.position) {
-      this.cylinderPanel.position = this.props.position
-    } else {
-      console.log("targeting 1.5 meters in front of camera as default position")
-      this.cylinderPanel.position.z = -1.5
-    }
-
     if (this.props.margin) {
       // console.log("setting cylinder panel margin")
       this.cylinderPanel.margin = this.props.margin
     }
-    if (this.props.rows) {
-      // console.log("setting cylinder panel rows")
-      this.cylinderPanel.rows = this.props.rows
-    }
-    if (this.props.columns) {
-      // console.log("setting cylinder panel columns")
-      this.cylinderPanel.columns = this.props.columns
-    }
+
     if (this.props.orientation) {
-      // console.log("setting cylinder panel orientation")
       this.cylinderPanel.orientation = this.props.orientation
     }
 
@@ -87,7 +87,28 @@ export default class CylinderPanel extends GUI3DSceneComponent<
     return this.cylinderPanel
   }
 
+  /**
+   * We don't want to linkToTransformNode(anchor) until after the panel has been added to 3DManager.
+   * 
+   * From docs: When linking a control to a transform node, please make sure that the control was first added to a container or to the root manager.
+   *
+   * @param cylinderPanel panel to further initialise
+   */
+  initComplete(cylinderPanel: BabylonCylinderPanel): void {
+    // just for now - will be adding Anchor as a dynamic element:
+    let anchor = new TransformNode("")
+
+    if (this.props.position) {
+      anchor.position = this.props.position
+    } else {
+      console.log("targeting 1.5 meters in front of camera as default position")
+      anchor.position.z = -1.5
+    }
+
+    cylinderPanel!.linkToTransformNode(anchor)
+  }
+
   public get propsHandlers() {
-    return []
+    return [new CylinderPanelPropsHandler()]
   }
 }
