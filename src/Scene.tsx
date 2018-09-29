@@ -36,9 +36,21 @@ export type SceneProps = {
    * By implementing this, the camera is attached to the canvas automatically.
    */
   createCamera?: (args: SceneEventArgs) => Camera,
+  /**
+   * Triggered when the mouse leaves the canvas (no mobile equivalent)
+   */
   onSceneBlur?: (args: SceneEventArgs) => void,
+  /**
+   * Triggered when the mouse enters the canvas (no mobile equivalent)
+   */
   onSceneFocus?: (args: SceneEventArgs) => void,
+  /**
+   * Triggered whenever a mesh is picked in the scene.
+   */
   onMeshPicked?: (mesh: AbstractMesh, scene: BabylonScene) => void,
+  /**
+   * true to disable Server Side Rendering
+   */
   noSSR?: boolean | React.ReactChild,
   shadersRepository?: string,
   engineOptions?: EngineOptions,
@@ -46,7 +58,13 @@ export type SceneProps = {
   adaptToDeviceRatio?: boolean,
   width?: number,
   height?: number,
+  /**
+   * By default touch-action: 'none' will be on the canvas.  Use this to disable.
+   */
   touchActionNone?: boolean,
+  /**
+   * Useful if you want to attach CSS to the canvas by css #id selector.
+   */
   id?: string,
   debug?: boolean
 };
@@ -254,7 +272,7 @@ export default class Scene extends Component<SceneProps & HTMLAttributes<HTMLCan
 
     let opts: any = {}
 
-    if (touchActionNone === true) {
+    if (touchActionNone !== false) {
       opts['touch-action'] = 'none';
     }
 
