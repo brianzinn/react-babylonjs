@@ -42,7 +42,7 @@ $ yarn add react-babylonjs --save
 ## 100% Declarative add BabylonJS to your project with **zero** code!
 
 If you go with the declarative model, you can use HMR to get the same workflow experience you are used to.  Note when the light is dimmed, that the state changes persist even **after** HMR updates;
-![BabylonJS HMR](https://raw.githubusercontent.com/brianzinn/react-babylonjs/blob/master/media/react-babylonjs-hmr.gif)
+![BabylonJS HMR](https://raw.githubusercontent.com/brianzinn/react-babylonjs/master/media/react-babylonjs-hmr.gif)
 
 live demo: [default playground declarative](https://brianzinn.github.io/create-react-app-babylonjs/defaultPlayground)
 
