@@ -39,7 +39,6 @@ class CylinderPanelPropsHandler implements PropsHandler<BabylonCylinderPanel, Cy
   }
 }
 
-
 /**
  *
  */
@@ -89,7 +88,7 @@ export default class CylinderPanel extends GUI3DSceneComponent<
 
   /**
    * We don't want to linkToTransformNode(anchor) until after the panel has been added to 3DManager.
-   * 
+   *
    * From docs: When linking a control to a transform node, please make sure that the control was first added to a container or to the root manager.
    *
    * @param cylinderPanel panel to further initialise

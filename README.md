@@ -40,6 +40,10 @@ $ yarn add react-babylonjs --save
 # Usage Styles
 'react-babylonjs' tries to remain unopinionated about how you integrate BabylonJS with ReactJS.  This module provides a 100% declarative option or you can customise by adding code.
 ## 100% Declarative add BabylonJS to your project with **zero** code!
+
+If you go with the declarative model, you can use HMR to get the same workflow experience you are used to.  Note when the light is dimmed, that the state changes persist even **after** HMR updates;
+![BabylonJS HMR](https://brianzinn.github.com/react-babylonjs/media/react-babylonjs-hmr.gif)
+
 live demo: [default playground declarative](https://brianzinn.github.io/create-react-app-babylonjs/defaultPlayground)
 
 ```jsx
