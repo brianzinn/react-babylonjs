@@ -177,7 +177,7 @@ const WithVR = () => (
 
 ## 2D UI
 Write declaratively your UI structure and let 'react-babylonjs' take care of addControl(), removeControl() and updating based on props/state.
-Full example: [with 2D UI](https://brianzinn.github.io/create-react-app-babylonjs/defaultPlayground)
+Full example: [with 2D UI](https://brianzinn.github.io/create-react-app-babylonjs/with2DUI)
 ```jsx
 <Plane>
     <AdvancedDynamicTexture createForParentMesh={true}>
