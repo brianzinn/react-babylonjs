@@ -3,46 +3,43 @@ import BABYLON from 'babylonjs'
 
 import { render, unmount } from './render'
 
-// TODO: copy engine and canvas options from original Scene.tsx
-
-export type EngineContextType = {
-  engine: BABYLON.Engine | null
-}
-
+// TODO: copy engineOptions/antialias/etc and canvas options from original Scene.tsx
 export interface WithEngineContext {
-  engine: BABYLON.Engine | null
+  engine: BABYLON.Nullable<BABYLON.Engine>
+  canvas: BABYLON.Nullable<HTMLCanvasElement | WebGLRenderingContext>
 }
 
 // TODO: build a fallback mechanism when typeof React.createContext !== 'function'
-export const EngineContext = createContext<EngineContextType>({
-  engine: null
+// this will allow React 16.0 to < 16.3 to work.  < 16 will need to use old version w/o reconciler.
+export const EngineContext = createContext<WithEngineContext>({
+  engine: null,
+  canvas: null
 })
 
 export const EngineProvider = EngineContext.Provider
 export const EngineConsumer = EngineContext.Consumer
 
-
-
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
 export function withEngine<
-  P extends { engineCtx: WithEngineContext },
-  R = Omit<P, 'engineCtx'>
+  P extends { engineContext: WithEngineContext },
+  R = Omit<P, 'engineContext'>
   >(
-  Component: React.ComponentClass<P> | React.StatelessComponent<P>
+  Component: React.ComponentClass<P, any> | React.StatelessComponent<P>
   ): React.SFC<R> {
   return function BoundComponent(props: R) {
     return (
       <EngineConsumer>
-        {ctx => <Component {...props} engineCtx={ctx} />}
+        {engineCtx => <Component {...props} engineContext={engineCtx} />}
       </EngineConsumer>
     );
   };
 }
 
-export default class Engine extends React.Component<HTMLAttributes<HTMLCanvasElement>, {}> {
+// Component<HTMLAttributes<HTMLCanvasElement>, {}>
+export default class Engine extends React.Component<any, any> {
 
-  private _engine?: BABYLON.Engine;
+  private _engine?: BABYLON.Nullable<BABYLON.Engine>;
   private _canvas: BABYLON.Nullable<HTMLCanvasElement | WebGLRenderingContext> = null;
 
   componentDidMount () {
@@ -61,7 +58,7 @@ export default class Engine extends React.Component<HTMLAttributes<HTMLCanvasEle
     const { props, state } = this
     console.log('Engine', { props, state })
     render(
-      <EngineProvider value={{ engine: this._engine! }}>
+      <EngineProvider value={{ engine: this._engine!, canvas: this._canvas }}>
         {this.props.children}
       </EngineProvider>,
       { engine: this._engine!, canvas: this._canvas! },
@@ -84,7 +81,7 @@ export default class Engine extends React.Component<HTMLAttributes<HTMLCanvasEle
     const { props, state } = this
     console.log('Engine did update:', { props, state, prevProps, prevState })
     render(
-      <EngineProvider value={{ engine: this._engine! }}>
+      <EngineProvider value={{ engine: this._engine!, canvas: this._canvas }}>
         {this.props.children}
       </EngineProvider>,
       { engine: this._engine!, canvas: this._canvas! },

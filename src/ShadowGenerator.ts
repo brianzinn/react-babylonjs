@@ -2,7 +2,6 @@ import { Scene, ShadowGenerator as BabylonShadowGenerator, Light } from "babylon
 
 import SceneComponent, { SceneComponentProps } from "./SceneComponent"
 
-
 export type ShadowGeneratorProps = {
   mapSize: number
   useBlurExponentialShadowMap: boolean
@@ -31,9 +30,7 @@ export default class ShadowGenerator extends SceneComponent<
     return this.shadowGenerator!
   }
 
-  componentsCreated(): void {
-    
-  }
+  componentsCreated(): void {}
 
   public get propsHandlers() {
     return []

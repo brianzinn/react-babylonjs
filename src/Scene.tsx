@@ -8,24 +8,19 @@
 import React, { createContext } from 'react'
 import { WithEngineContext, withEngine } from './Engine'
 
-type SceneContextType = {
-  scene: BABYLON.Scene | null,
+interface WithSceneContext {
+  scene: BABYLON.Nullable<BABYLON.Scene>,
   onBeforeRender: (deltaTime: number) => void
 }
 
 // TODO: build a fallback mechanism when typeof React.createContext !== 'function'
-export const SceneContext = createContext({
+export const SceneContext = createContext<WithSceneContext>({
   scene: null,
   onBeforeRender: () => {}
-} as SceneContextType)
+})
 
 export const SceneProvider = SceneContext.Provider
 export const SceneConsumer = SceneContext.Consumer
-
-interface WithSceneContext {
-  scene: BABYLON.Scene | null;
-  onBeforeRender?: (deltaTime: number) => void
-}
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
@@ -44,22 +39,26 @@ export function withScene<
   };
 }
 
-type SceneProps = SceneContextType & WithEngineContext // EngineContextType is assumed by declaration or HOC composition
+interface SceneProps extends WithSceneContext {
+  engineContext: WithEngineContext
+}
 
-class Scene extends React.Component<SceneProps, {}> {
-    private _scene: BABYLON.Scene | null = null;
+class Scene extends React.Component<SceneProps, any, any> {
+  private _scene: BABYLON.Nullable<BABYLON.Scene> = null;
 
-    constructor(props: SceneProps) {
-      super(props)
-      console.log('creating a scene with props:', props);
-    }
+  constructor(props: SceneProps, context?: any) {
+    super(props)
+    console.log('creating a scene with props:', props, context);
+  }
 
-    componentDidMount () {
-      const { engine, scene, onBeforeRender, ...options } = this.props
-      
-      if (!engine) {
-        console.error('You have a scene without an Engine.  \'SceneOnly\' will only work as a child of Engine, use \'Scene\' otherwise.')
-      }
+  componentDidMount () {
+    const { scene, engineContext, onBeforeRender, ...options } = this.props
+    
+    if (!engineContext) {
+      // we could try to create one here with existing props (ie: backwards compat?)
+      console.error('You have created a scene without an Engine.  \'SceneOnly\' will only work as a child of Engine, use \'Scene\' otherwise.')
+    } else {
+      const { engine /*, canvas */ } = engineContext;
 
       this._scene = new BABYLON.Scene(engine!)
       console.log('Scene', { ...this.props, scene: this._scene })
@@ -67,30 +66,31 @@ class Scene extends React.Component<SceneProps, {}> {
         (this._scene as any)[o] = (options as any)[o]
       })
     }
-  
-    componentWillUnmount () {
-      this._scene!.dispose()
-    }
-  
-    render () {return (
-        <SceneProvider value={{ scene: this._scene, onBeforeRender: () => { } }}>
-          {React.Children.map(this.props.children,
-            (child: any) => {
-              if (!child) {
-                return null;
-              }
-      
-              return React.cloneElement(child, {
-                scene: this._scene
-              })
-            }
-          )}
-        </SceneProvider>
-      )
-    }
   }
-  
-  export default Scene;
-  // for backwards compatibility we export a scene with an Engine.  Engine is only needed with multi-scene.
-  // TODO: this should be the default export!
-  //export default withEngine(Scene)  
+
+  componentWillUnmount () {
+    this._scene!.dispose()
+  }
+
+  render () {return (
+      <SceneProvider value={{ scene: this._scene, onBeforeRender: () => { } }}>
+        {React.Children.map(this.props.children,
+          (child: any) => {
+            if (!child) {
+              return null;
+            }
+    
+            return React.cloneElement(child, {
+              scene: this._scene
+            })
+          }
+        )}
+      </SceneProvider>
+    )
+  }
+}
+
+// TODO: export a SceneOnly without engine and have this class create a default engine when not present.
+
+// for backwards compatibility we export a scene with an Engine.  Engine is only needed with multi-scene.
+export default withEngine(Scene)  

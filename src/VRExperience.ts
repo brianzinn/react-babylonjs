@@ -29,7 +29,6 @@ export default class VRExperience extends SceneComponent<VRExperienceHelper, VRE
 
     let environmentGround: Mesh | undefined = undefined
 
-
     if (environmentGround !== undefined || this.props.teleportationMeshes !== undefined) {
       let floorMeshes: Mesh[] = environmentGround === undefined ? [] : [environmentGround]
       if (this.props.teleportationMeshes !== undefined) {

@@ -1,11 +1,11 @@
- // hack to test exports -- import React from 'react'
+// hack to test exports -- import React from 'react'
 
 export { default as Scene } from "./Scene"
 export { default as Engine, withEngine } from "./Engine"
 
 // auto-generated type-info
 // TODO: eventually add more here
-export { default as components } from './components.json'
+export { default as components } from "./components.json"
 
 // these were just to test loading NPM module worked in another project.
 
@@ -56,7 +56,7 @@ export { default as components } from './components.json'
 // export class Box{};
 // export class Button{};
 // export class Environment{};
-// export class VirtualKeyboard{};  
+// export class VirtualKeyboard{};
 // export class HolographicButton{};
 // export class IcoSphere{};
 // export class DirectionalLight{};
