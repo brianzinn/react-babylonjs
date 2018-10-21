@@ -47,28 +47,28 @@ class Scene extends React.Component<SceneProps, any, any> {
   private _scene: BABYLON.Nullable<BABYLON.Scene> = null;
 
   constructor(props: SceneProps, context?: any) {
-    super(props)
+    super(props, context)
     console.log('creating a scene with props:', props, context);
-  }
 
-  componentDidMount () {
     const { scene, engineContext, onBeforeRender, ...options } = this.props
     
     if (!engineContext) {
       // we could try to create one here with existing props (ie: backwards compat?)
-      console.error('You have created a scene without an Engine.  \'SceneOnly\' will only work as a child of Engine, use \'Scene\' otherwise.')
+      console.error('You are creating a scene without an Engine.  \'SceneOnly\' will only work as a child of Engine, use \'Scene\' otherwise.')
     } else {
       const { engine /*, canvas */ } = engineContext;
-
+      console.log('creating a babylonJS scene with engine:', engine);
       this._scene = new BABYLON.Scene(engine!)
-      console.log('Scene', { ...this.props, scene: this._scene })
+      console.log('Scene created', { ...this.props, scene: this._scene })
       Object.keys(options).forEach(o => {
+        console.log('setting scene:', o);
         (this._scene as any)[o] = (options as any)[o]
       })
     }
   }
 
   componentWillUnmount () {
+    console.log("scene will Unmount (disposing babylon scene)")
     this._scene!.dispose()
   }
 
@@ -93,4 +93,4 @@ class Scene extends React.Component<SceneProps, any, any> {
 // TODO: export a SceneOnly without engine and have this class create a default engine when not present.
 
 // for backwards compatibility we export a scene with an Engine.  Engine is only needed with multi-scene.
-export default withEngine(Scene)  
+export default withEngine(Scene)

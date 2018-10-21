@@ -1,4 +1,24 @@
-{
+export const Ground = "Ground"
+
+export const Sphere = "Sphere"
+
+export const FreeCamera = "FreeCamera"
+
+export const DirectionalLight = "DirectionalLight"
+
+export const IcoSphere = "IcoSphere"
+
+export const Plane = "Plane"
+
+export const HemisphericLight = "HemisphericLight";
+
+export const StandardMaterial = "StandardMaterial"
+
+export const ArcRotateCamera = "ArcRotateCamera"
+
+export const Box = "Box"
+
+export default {
     "AnaglyphArcRotateCamera": {
       "args": [
         "name",

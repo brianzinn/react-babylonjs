@@ -2,7 +2,7 @@ import ReactReconciler, { HostConfig } from "react-reconciler"
 import BABYLON from "babylonjs"
 import { shallowEqual } from "shallow-equal-object"
 
-import components from "./components.json"
+import components from "./components"
 
 export enum ComponentFamilyType {
   Meshes,
@@ -77,7 +77,7 @@ export const getFamilyFromComponentDefinition = (
   if (componentDefinition) {
     // TODO: this should not be a switch statement:
     switch (componentDefinition.family) {
-      case "camera":
+      case "cameras":
         return ComponentFamilyType.Camera
       case "lights":
         return ComponentFamilyType.Lights
@@ -113,9 +113,9 @@ export const getBabylon = (definition: ComponentDefinition, options: any) => {
 type HostContext = {}
 
 type TimeoutHandler = number | undefined
-type NoTimeout = undefined
+type NoTimeout = number
 
-export const hostConfig: HostConfig<
+export const hostConfig : HostConfig <
   string,
   Props,
   Container,
@@ -129,21 +129,39 @@ export const hostConfig: HostConfig<
   TimeoutHandler,
   NoTimeout
 > = {
-  supportsMutation: true,
+  get supportsMutation(): boolean {
+    console.log('request supports mutation - return true;')
+    return true;
+  },
 
-  now: Date.now,
+  now: () => {
+    console.log('property now called')
+    return Date.now()
+  },
 
   // multiple renderers concurrently render using the same context objects. E.g. React DOM and React ART on the
   // same page. DOM is the primary renderer; ART is the secondary renderer.
   // TODO: see if this should be configurable.
-  isPrimaryRenderer: true,
-  supportsPersistence: false,
-  supportsHydration: false, // TODO: see if this will allow ie: improved HMR support.
+  get isPrimaryRenderer(): boolean{
+    console.log('property isPrimaryRenderer returning true')
+    return true;
+  },
+
+  get supportsPersistence(): boolean {
+    console.log('property supportsPersistence() return false;')
+    return false
+  },
+
+  // TODO: see if this will allow ie: improved HMR support.  Need to implement a lot of currently optional methods.
+  get supportsHydration(): boolean {
+    console.log('property supportsHydration() return false;')
+    return false;
+  },
 
   // this enables refs
-  getPublicInstance: (element: any) => {
-    console.log("getting public instance:", element)
-    return element
+  getPublicInstance: (instance: any) => {
+    console.log("getting public instance:", instance)
+    return instance
   },
 
   getRootHostContext: (rootContainerInstance: Container): HostContext => {
@@ -162,7 +180,7 @@ export const hostConfig: HostConfig<
 
   prepareUpdate(element: any, oldProps: any, newProps: any) {
     console.log("prepareUpdate", element)
-    return true
+    return [ null ] // look for changes - these are passed to commitUpdate() as udpatePayload
   },
 
   // type, { scene, ...props }, { canvas, engine, ...other }, ...more
@@ -177,17 +195,14 @@ export const hostConfig: HostConfig<
 
     const family = getFamilyFromComponentDefinition(type, definition)
     if (!family) {
-      console.warn('unsupported tag (no "family" found): ', type)
+      console.warn('unsupported tag (no "family" found): ', definition, type)
+      console.log('components:', components)
     }
 
-    console.log("creating:", family, type, definition)
-
+    console.log("creating:", type, props)
+    
     const { scene } = props
     const { canvas, engine } = rootContainerInstance
-
-    console.log("from", scene, canvas, engine)
-
-    // console.log(type, { definition, props, scene, canvas, engine })
 
     // TODO: check props based on pre-computed static code-analysis of babylonjs
     // these could also use other prop-helpers to make the components nicer to work with
@@ -258,6 +273,7 @@ export const hostConfig: HostConfig<
   },
 
   shouldDeprioritizeSubtree: (type: string, props: Props): boolean => {
+    console.log('should deprioritizeSubtree', type, props);
     return false
   },
 
@@ -267,25 +283,43 @@ export const hostConfig: HostConfig<
     hostContext: HostContext,
     internalInstanceHandle: any
   ): any => {
+    console.log('create text instance.')
     return undefined
   },
 
-  scheduleDeferredCallback: window.requestIdleCallback,
-  cancelDeferredCallback: window.cancelIdleCallback,
-  setTimeout: window.setTimeout,
-  clearTimeout: window.clearTimeout,
-  noTimeout: undefined,
+  // ReactDOMHostConfig has: unstable_scheduleCallback as scheduleDeferredCallback
+  scheduleDeferredCallback(callback:(deadline: RequestIdleCallbackDeadline) => void, opts?: RequestIdleCallbackOptions | undefined): any{
+    console.log('reconciler: scheduleDeferredCallback (obsolete?)');
+    return window.requestIdleCallback(callback, opts);
+  },
+
+  cancelDeferredCallback(handle: any) : void {
+    console.log('reconciler: cancelDeferredCallback (obsolete?)');
+    return window.cancelIdleCallback(handle);
+  },
+
+  setTimeout(handler: (...args: any[]) => void, timeout: number): TimeoutHandler {
+    console.log('reconciler: calling setTimeout')
+    return window.setTimeout(handler);
+  },
+
+  clearTimeout(handle?: number | undefined): void {
+    console.log('reconciler: calling clearTimeout'); 
+    window.clearTimeout(handle);
+  },
+  // https://github.com/facebook/react/blob/master/packages/react-dom/src/client/ReactDOMHostConfig.js#L288
+  noTimeout: -1,
 
   prepareForCommit: () => {
-    console.log("prepareForCommit")
+    console.log("reconciler: prepareForCommit")
   },
 
   resetAfterCommit: () => {
-    console.log("resetAfterCommit")
+    console.log("reconciler: resetAfterCommit")
   },
 
   appendInitialChild: (parent: CreatedInstance, child: CreatedInstance) => {
-    console.log("appentInitialChild", parent, child)
+    console.log("reconciler: appentInitialChild", parent, child)
     if (
       parent &&
       child &&
@@ -353,19 +387,19 @@ export const hostConfig: HostConfig<
 }
 
 const ReactReconcilerInst = ReactReconciler(hostConfig)
-
-export function render(reactElement: React.ReactNode, element: Container, callback: () => void) {
+//let internalContainerStructure : Container | ReactReconciler.FiberRoot | BaseFiberRootProperties | ProfilingOnlyFiberRootProperties;
+export function render(reactElements: React.ReactNode, container: Container, callback: () => void) {
   // Create a root Container if it doesnt exist
-  if (!element._rootContainer) {
-    console.log("creatingContainer", element)
+  if (!container._rootContainer) {
+    console.log("creatingContainer onto:", container)
     // createContainer(containerInfo: Container, isAsync: boolean, hydrate: boolean): OpaqueRoot;
-    element._rootContainer = ReactReconcilerInst.createContainer(element, false, false /* HMR?? */)
-    console.log("created container:", element._rootContainer)
+    container._rootContainer = ReactReconcilerInst.createContainer(container, false, false /* HMR?? */)
+    console.log("created container:", container._rootContainer)
   }
 
   // update the root Container
-  console.log("updating rootContainer, reactElement:", reactElement)
-  return ReactReconcilerInst.updateContainer(reactElement, element._rootContainer, null, callback)
+  console.log("updating rootContainer, reactElement:", reactElements)
+  return ReactReconcilerInst.updateContainer(reactElements, container._rootContainer, null, callback)
 }
 
 export function unmount(args: any) {

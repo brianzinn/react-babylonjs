@@ -43,7 +43,6 @@ export default class Engine extends React.Component<any, any> {
   private _canvas: BABYLON.Nullable<HTMLCanvasElement | WebGLRenderingContext> = null;
 
   componentDidMount () {
-    console.log('creating engine on canvas:', this._canvas);
     this._engine = new BABYLON.Engine(
       this._canvas,
       true
@@ -72,7 +71,6 @@ export default class Engine extends React.Component<any, any> {
     if (c !== null) { // null when called from unmountComponent()
       //c.addEventListener('mouseover', this.focus)
       //c.addEventListener('mouseout', this.blur)
-      console.log('canvas set to:', c);
       this._canvas = c
     }
   }
