@@ -1,11 +1,21 @@
 # React BabylonJS
 
+Master branch has <strong>big</strong> updates starting 2018-10-22 that does not match latetst NPM release; we are currently working towards a v1.0.0, which will add:
+1. react-reconciler (fiber) for custom rendering
+2. Much larger BabylonJS API support by code generation `yarn generate-code`
+3. Using High Order Components (HOC) as in [recompose](https://github.com/acdlite/recompose) for adding functionality like animations/listeners
+4. Context API support, also used by HOCs - so, no need for prop drilling :)
+5. Support for multiple scenes
+
+This is largely in part to 2 issues created. #2 which was a request to evaluate react reconciler, but mostly issue #6 created by konsumer, which added Context-API HOC examples and code generation (see the code sandbox playgrounds linked from issue #6!).  All of those changes are now on the master branch.  Future NPMs will start with `1.0.0-alpha.0` and be tagged with `next`.
+
+To use react-babylonjs, please use NPM as usual.  The current NPM is still stable and working with the examples below.
+
 [![NPM version](http://img.shields.io/npm/v/react-babylonjs.svg?style=flat-square)](https://www.npmjs.com/package/react-babylonjs)
 [![NPM downloads](http://img.shields.io/npm/dm/react-babylonjs.svg?style=flat-square)](https://www.npmjs.com/package/react-babylonjs)
 
 > 'react-babylonjs' is for integration of BabylonJS into a ReactJS project.
 
- What started as a fun project to integrate ReactJS and BabylonJS keeps on evolving.  Will happily accept any pull requests as there is lots of room for extra functionality, especially with the new declarative model :)
 
 ### Features
 

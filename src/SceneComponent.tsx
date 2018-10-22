@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Scene, Vector3, Nullable, AbstractMesh, Material as BabylonMaterial, Light } from 'babylonjs'
-import { ComponentContainer, ComponentRegistry } from './Scene';
 
 export interface Behavior<T> {
     apply(target: T, scene: Scene): void;
@@ -16,7 +15,6 @@ export type ComponentContainerProps = {
     scene: Scene,
     name: string,
     container: any,
-    componentRegistry: ComponentRegistry,
     addBehavior: (behavior: any) => void, // TODO: add more types
     setMaterial: (material: Material<AbstractMesh>) => void
 }
@@ -39,7 +37,7 @@ export interface PropsHandler<T, U> {
  * Base implemention of SceneComponent.  Currently all classes are inheriting from this.
  *
  */
-export default abstract class SceneComponent<T extends U, U /* extends {name?: string} (not on GUI3DManager )*/, V extends SceneComponentProps<T>> extends Component<V, {}> implements ComponentContainer {
+export default abstract class SceneComponent<T extends U, U /* extends {name?: string} (not on GUI3DManager )*/, V extends SceneComponentProps<T>> extends Component<V, {}> {
 
     protected babylonObject?: T;
     protected name?: string;
@@ -81,7 +79,6 @@ export default abstract class SceneComponent<T extends U, U /* extends {name?: s
     onRegisterChild(child: any): void {
         this.children.push(child);
         // entire hierarchy is added here and not maintained, so it's a memory leak.  just part of proof of concept:
-        this.props.componentRegistry.registeredComponents.push(child)
     }
     
     abstract get propsHandlers(): PropsHandler<U, V>[];
@@ -159,7 +156,6 @@ export default abstract class SceneComponent<T extends U, U /* extends {name?: s
             (child: any, index) => React.cloneElement(child, {
                 scene: this.props.scene,
                 index,
-                componentRegistry: this.props.componentRegistry,
                 container: this,
                 addBehavior: this.addBehavior,
                 setMaterial: this.setMaterial

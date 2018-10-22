@@ -1,6 +1,5 @@
 import { Scene, VRExperienceHelper, VRExperienceHelperOptions, AbstractMesh, Mesh } from "babylonjs"
 import SceneComponent, { SceneComponentProps } from "./SceneComponent"
-import Environment from "./Environment"
 
 /**
  * Missing lots of available options, but it's a start and works for common scenarios.
@@ -29,24 +28,6 @@ export default class VRExperience extends SceneComponent<VRExperienceHelper, VRE
     }
 
     let environmentGround: Mesh | undefined = undefined
-
-    const registeredComponents = this.props.componentRegistry.registeredComponents.slice(0)
-
-    registeredComponents.forEach(registeredComponent => {
-      if (registeredComponent instanceof Environment) {
-        if (this.props.teleportEnvironmentGround !== true) {
-          // console.log("found environment, but not set for teleportation.")
-          return
-        }
-
-        if (!registeredComponent.ground) {
-          // console.error("found environment, but no ground to teleport")
-          return
-        }
-
-        environmentGround = registeredComponent.ground
-      }
-    })
 
     if (environmentGround !== undefined || this.props.teleportationMeshes !== undefined) {
       let floorMeshes: Mesh[] = environmentGround === undefined ? [] : [environmentGround]
