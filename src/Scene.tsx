@@ -48,18 +48,16 @@ class Scene extends React.Component<SceneProps, any, any> {
 
   constructor(props: SceneProps, context?: any) {
     super(props, context)
-    console.log('creating a scene with props:', props, context);
 
-    const { scene, engineContext, onBeforeRender, ...options } = this.props
+    const { engineContext, children, ...options } = this.props
     
     if (!engineContext) {
       // we could try to create one here with existing props (ie: backwards compat?)
       console.error('You are creating a scene without an Engine.  \'SceneOnly\' will only work as a child of Engine, use \'Scene\' otherwise.')
     } else {
       const { engine /*, canvas */ } = engineContext;
-      console.log('creating a babylonJS scene with engine:', engine);
+      
       this._scene = new BABYLON.Scene(engine!)
-      console.log('Scene created', { ...this.props, scene: this._scene })
       Object.keys(options).forEach(o => {
         console.log('setting scene:', o);
         (this._scene as any)[o] = (options as any)[o]

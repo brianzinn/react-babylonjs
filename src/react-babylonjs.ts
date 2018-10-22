@@ -1,28 +1,26 @@
-// hack to test exports -- import React from 'react'
+import components  from './components.json'
+export * from './tags'
 
 export { default as Scene } from "./Scene"
 export { default as Engine, withEngine } from "./Engine"
 
-// auto-generated type-info
-// TODO: eventually add more here
-export {
-    HemisphericLight, ArcRotateCamera, DirectionalLight, IcoSphere, Plane, StandardMaterial, FreeCamera, Sphere, Ground
-} from "./components"
+export { components }
 
-export class Skybox {};
-export class GUI3DManager{};
-export class CylinderPanel{};
-export class Button3D{};
-export class AdvancedDynamicTexture{};
-export class Rectangle{};
-export class StackPanel{};
-export class InputText{};
-export class Text{};
-export class Box{};
-export class Button{};
-export class Environment{};
-export class VirtualKeyboard{};
-export class HolographicButton{};
+// These need to be included for backwards compatibility:
+export class Skybox {}
+export class GUI3DManager {}
+export class CylinderPanel {}
+export class Button3D {}
+export class AdvancedDynamicTexture {}
+export class Rectangle {}
+export class StackPanel {}
+export class InputText {}
+export class Text {}
+export class Box {}
+export class Button {}
+export class Environment {}
+export class VirtualKeyboard {}
+export class HolographicButton {}
 
 // currently only works with directional light:
 export { default as ShadowGenerator, ShadowGeneratorProps } from "./ShadowGenerator"

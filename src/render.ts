@@ -2,7 +2,7 @@ import ReactReconciler, { HostConfig } from "react-reconciler"
 import BABYLON from "babylonjs"
 import { shallowEqual } from "shallow-equal-object"
 
-import components from "./components"
+import components from "./components.json"
 
 export enum ComponentFamilyType {
   Meshes,
@@ -86,7 +86,7 @@ export const getFamilyFromComponentDefinition = (
       case "meshes":
         return ComponentFamilyType.Meshes
       default:
-        console.error(`unknown family (found tag ${tag})`)
+        console.error(`unknown family '${componentDefinition.family}' (found tag ${tag})`)
         return undefined
     }
   }
@@ -115,7 +115,7 @@ type HostContext = {}
 type TimeoutHandler = number | undefined
 type NoTimeout = number
 
-export const hostConfig : HostConfig <
+export const hostConfig: HostConfig<
   string,
   Props,
   Container,
@@ -130,32 +130,32 @@ export const hostConfig : HostConfig <
   NoTimeout
 > = {
   get supportsMutation(): boolean {
-    console.log('request supports mutation - return true;')
-    return true;
+    console.log("request supports mutation - return true;")
+    return true
   },
 
   now: () => {
-    console.log('property now called')
+    console.log("property now called")
     return Date.now()
   },
 
   // multiple renderers concurrently render using the same context objects. E.g. React DOM and React ART on the
   // same page. DOM is the primary renderer; ART is the secondary renderer.
   // TODO: see if this should be configurable.
-  get isPrimaryRenderer(): boolean{
-    console.log('property isPrimaryRenderer returning true')
-    return true;
+  get isPrimaryRenderer(): boolean {
+    console.log("property isPrimaryRenderer returning true")
+    return true
   },
 
   get supportsPersistence(): boolean {
-    console.log('property supportsPersistence() return false;')
+    console.log("property supportsPersistence() return false;")
     return false
   },
 
   // TODO: see if this will allow ie: improved HMR support.  Need to implement a lot of currently optional methods.
   get supportsHydration(): boolean {
-    console.log('property supportsHydration() return false;')
-    return false;
+    console.log("property supportsHydration() return false;")
+    return false
   },
 
   // this enables refs
@@ -180,7 +180,7 @@ export const hostConfig : HostConfig <
 
   prepareUpdate(element: any, oldProps: any, newProps: any) {
     console.log("prepareUpdate", element)
-    return [ null ] // look for changes - these are passed to commitUpdate() as udpatePayload
+    return [null] // look for changes - these are passed to commitUpdate() as udpatePayload
   },
 
   // type, { scene, ...props }, { canvas, engine, ...other }, ...more
@@ -196,11 +196,11 @@ export const hostConfig : HostConfig <
     const family = getFamilyFromComponentDefinition(type, definition)
     if (!family) {
       console.warn('unsupported tag (no "family" found): ', definition, type)
-      console.log('components:', components)
+      console.log("components:", components)
     }
 
     console.log("creating:", type, props)
-    
+
     const { scene } = props
     const { canvas, engine } = rootContainerInstance
 
@@ -273,7 +273,7 @@ export const hostConfig : HostConfig <
   },
 
   shouldDeprioritizeSubtree: (type: string, props: Props): boolean => {
-    console.log('should deprioritizeSubtree', type, props);
+    console.log("should deprioritizeSubtree", type, props)
     return false
   },
 
@@ -283,29 +283,32 @@ export const hostConfig : HostConfig <
     hostContext: HostContext,
     internalInstanceHandle: any
   ): any => {
-    console.log('create text instance.')
+    console.log("create text instance.")
     return undefined
   },
 
   // ReactDOMHostConfig has: unstable_scheduleCallback as scheduleDeferredCallback
-  scheduleDeferredCallback(callback:(deadline: RequestIdleCallbackDeadline) => void, opts?: RequestIdleCallbackOptions | undefined): any{
-    console.log('reconciler: scheduleDeferredCallback (obsolete?)');
-    return window.requestIdleCallback(callback, opts);
+  scheduleDeferredCallback(
+    callback: (deadline: RequestIdleCallbackDeadline) => void,
+    opts?: RequestIdleCallbackOptions | undefined
+  ): any {
+    console.log("reconciler: scheduleDeferredCallback (obsolete?)")
+    return window.requestIdleCallback(callback, opts)
   },
 
-  cancelDeferredCallback(handle: any) : void {
-    console.log('reconciler: cancelDeferredCallback (obsolete?)');
-    return window.cancelIdleCallback(handle);
+  cancelDeferredCallback(handle: any): void {
+    console.log("reconciler: cancelDeferredCallback (obsolete?)")
+    return window.cancelIdleCallback(handle)
   },
 
   setTimeout(handler: (...args: any[]) => void, timeout: number): TimeoutHandler {
-    console.log('reconciler: calling setTimeout')
-    return window.setTimeout(handler);
+    console.log("reconciler: calling setTimeout")
+    return window.setTimeout(handler)
   },
 
   clearTimeout(handle?: number | undefined): void {
-    console.log('reconciler: calling clearTimeout'); 
-    window.clearTimeout(handle);
+    console.log("reconciler: calling clearTimeout")
+    window.clearTimeout(handle)
   },
   // https://github.com/facebook/react/blob/master/packages/react-dom/src/client/ReactDOMHostConfig.js#L288
   noTimeout: -1,
