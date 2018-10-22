@@ -1,3 +1,4 @@
+// NOTE: if you rename this to .ts then you will need to cast everything as any, because ts-simple-ast
 const { Project, VariableDeclarationKind } = require('ts-simple-ast')
 const BABYLON = require('babylonjs')
 const sortJson = require('sort-json')

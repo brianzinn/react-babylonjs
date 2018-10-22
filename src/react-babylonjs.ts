@@ -1,5 +1,5 @@
-import components  from './components.json'
-export * from './tags'
+import components from "./components.json"
+export * from "./tags"
 
 export { default as Scene } from "./Scene"
 export { default as Engine, withEngine } from "./Engine"
