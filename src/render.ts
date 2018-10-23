@@ -3,6 +3,7 @@ import BABYLON from "babylonjs"
 import { shallowEqual } from "shallow-equal-object"
 
 import components from "./components.json"
+import { PropsHandler, MeshPropsHandler, MeshProps } from './generatedCode'
 
 export enum ComponentFamilyType {
   Meshes,
@@ -52,16 +53,29 @@ const directions: Map<String, () => BABYLON.Vector3> = new Map<String, () => BAB
 ])
 
 // to not collide with other props.  will add additional meta data type after { family: string, prop2: number }.
-const RENDER_PROP_FAMILY_NAME: string = "__react_fiber_metadata"
-interface CreatedInstance {
-  __react_fiber_metadata: ComponentFamilyType
+const RENDER_PROP_REFERENCE: string = "__react_babylonjs_createdInstance"
+
+type CreatedInstanceMetadata = {
+  className: string
+  shadowCamera: boolean
+  // TODO: more metadata to follow
 }
 
-type HostCreatedInstance = CreatedInstance | undefined
+export interface CreatedInstance<T> {
+  className: string,
+  familyType: ComponentFamilyType,
+  babylonJsObject: T,
+  metadata: CreatedInstanceMetadata | null
+  parent: CreatedInstance<any> | null, // Not the same as parent in BabylonJS, this is for internal reconciler structure. ie: graph walking
+  children: CreatedInstance<any>[],
+  propsHandlers: PropsHandler<T, any>[]
+}
+
+type HostCreatedInstance = CreatedInstance<any> | undefined
 
 type Props = {
   scene: BABYLON.Scene
-}
+} & any;
 
 type Container = {
   canvas: HTMLCanvasElement | WebGLRenderingContext | null
@@ -114,6 +128,18 @@ type HostContext = {}
 
 type TimeoutHandler = number | undefined
 type NoTimeout = number
+
+function createCreatedInstance<T>(familyType: ComponentFamilyType, className: string, babylonJsObject: T, propsHandlers: PropsHandler<T, any>[], metadata: CreatedInstanceMetadata | null): CreatedInstance<T> {
+  return {
+    familyType,
+    babylonJsObject,
+    className,
+    metadata: null,
+    parent: null, // set later in lifecycle
+    children: [], // set later in lifecycle
+    propsHandlers
+  } as CreatedInstance<T>
+}
 
 export const hostConfig: HostConfig<
   string,
@@ -178,10 +204,21 @@ export const hostConfig: HostConfig<
     return {}
   },
 
-  prepareUpdate(element: any, oldProps: any, newProps: any) {
-    console.log("prepareUpdate", element)
-    return [null] // look for changes - these are passed to commitUpdate() as udpatePayload
-  },
+  prepareUpdate(instance: HostCreatedInstance, type: String, oldProps: Props, newProps: Props, rootContainerInstance: Container, hostContext: HostContext) : {} | null {
+    if (!instance) {
+      return null;
+    }
+    
+    console.log("prepareUpdate", instance, oldProps, newProps);
+    let updates : any[] = [];
+    instance.propsHandlers.forEach(propHandler => {
+      let handlerUpdates = propHandler.getPropertyUpdates(instance as CreatedInstance<any>, oldProps, newProps);
+      if (Array.isArray(handlerUpdates)) {
+        updates.push(handlerUpdates as any[]);
+      }
+    })
+    return updates;
+    },
 
   // type, { scene, ...props }, { canvas, engine, ...other }, ...more
   createInstance: (
@@ -190,7 +227,7 @@ export const hostConfig: HostConfig<
     rootContainerInstance: Container,
     hostContext: HostContext,
     internalInstanceHandle: Object
-  ): CreatedInstance | undefined => {
+  ): CreatedInstance<any> | undefined => {
     const definition: ComponentDefinition | undefined = (components as any)[type]
 
     const family = getFamilyFromComponentDefinition(type, definition)
@@ -211,8 +248,10 @@ export const hostConfig: HostConfig<
       // does not work for 2 types: Decal and GroundFromHeightMap
       const mesh = (BABYLON.MeshBuilder as any)[`Create${type}`](name, options, scene)
       mesh.position = position || new BABYLON.Vector3(x, y, z)
-      mesh[RENDER_PROP_FAMILY_NAME] = family
-      return mesh
+
+      let createdInstance = createCreatedInstance(family, definition!.name, mesh, [new MeshPropsHandler()], null);
+      mesh[RENDER_PROP_REFERENCE] = createdInstance // TODO: this is hopefully not needed.
+      return createdInstance;
     }
 
     if (family === ComponentFamilyType.Camera) {
@@ -237,8 +276,10 @@ export const hostConfig: HostConfig<
 
       const camera = getBabylon(definition!, { ...options, scene, canvas, engine })
       camera.attachControl(canvas)
-      camera[RENDER_PROP_FAMILY_NAME] = family
-      return camera
+
+      let createdReference = createCreatedInstance(family, definition!.name, camera, [], null);
+      camera[RENDER_PROP_REFERENCE] = createdReference; // TODO: this is hopefully not needed.
+      return createdReference;
     }
 
     if (family === ComponentFamilyType.Lights) {
@@ -259,17 +300,22 @@ export const hostConfig: HostConfig<
 
       // TODO: implement other lights dynamically.  ie: PointLight, etc.
       const light = new BABYLON.HemisphericLight(name as string, dir, scene) as any
-      light[RENDER_PROP_FAMILY_NAME] = family
-      return light
+      
+      let createdInstance = createCreatedInstance(family, definition!.name, light, [], null);
+      light[RENDER_PROP_REFERENCE] = createdInstance // TODO: this is hopefully not needed.
+      return createdInstance;
     }
 
     if (family === ComponentFamilyType.Materials) {
       const material = getBabylon(definition!, { ...props, scene, canvas, engine })
-      material[RENDER_PROP_FAMILY_NAME] = family
-      return material
+      
+      let createdInstance = createCreatedInstance(family, definition!.name, material, [], null);
+      material[RENDER_PROP_REFERENCE] = createdInstance // TODO: this is hopefully not needed.
+      return createdInstance;
     }
 
     console.error(`TODO: ${type} needs to be turned into a BABYLON instantiater in renderer.`)
+    return undefined;
   },
 
   shouldDeprioritizeSubtree: (type: string, props: Props): boolean => {
@@ -321,23 +367,16 @@ export const hostConfig: HostConfig<
     console.log("reconciler: resetAfterCommit")
   },
 
-  appendInitialChild: (parent: CreatedInstance, child: CreatedInstance) => {
+  appendInitialChild: (parent: CreatedInstance<any>, child: CreatedInstance<any>) => {
     console.log("reconciler: appentInitialChild", parent, child)
-    if (
-      parent &&
-      child &&
-      parent.__react_fiber_metadata === ComponentFamilyType.Meshes &&
-      child.__react_fiber_metadata === ComponentFamilyType.Materials
-    ) {
-      ;(parent as any).material = child
-    }
+    // TODO: if parent is mesh and child is material.  parent.material = child
   },
 
-  appendChild: (parent: CreatedInstance, child: CreatedInstance): void => {
+  appendChild: (parent: CreatedInstance<any>, child: CreatedInstance<any>): void => {
     console.log("appended", child, " to", parent)
   },
 
-  canHydrateInstance: (instance: any, type: string, props: Props): null | CreatedInstance => {
+  canHydrateInstance: (instance: any, type: string, props: Props): null | CreatedInstance<any> => {
     console.log("canHydrateInstance", instance, type, props)
     return null
   },
@@ -376,7 +415,7 @@ export const hostConfig: HostConfig<
     }
   },
 
-  removeChild(parentInstance: CreatedInstance, child: CreatedInstance) {
+  removeChild(parentInstance: CreatedInstance<any>, child: CreatedInstance<any>) {
     console.log("remove child", parentInstance, child)
   },
 
