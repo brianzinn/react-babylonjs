@@ -43,7 +43,7 @@ info.meshes = Object.keys(BABYLON.MeshBuilder)
 info.meshes.push('Mesh')
 
 // get info about classes that have been found
-const classInfo = {}
+const componentsJson = {}
 const project = new Project({})
 project.addExistingSourceFiles(`${__dirname}/../node_modules/babylonjs/**/*.ts`)
 const sourceFile = project.getSourceFileOrThrow('babylon.d.ts')
@@ -51,29 +51,39 @@ const babylonNamespaces = sourceFile
   .getNamespaces()
   .filter(n => n.getName() === 'BABYLON')
 
+
+const meshClasses = []
 let MeshBuilder
-babylonNamespaces
-  .forEach(n => n.getClasses().forEach(c => {
-    // all classes here
-    const name = c.getName()
-    const family = getFamily(name)
-    if (family) {
-      const constructor = c.getConstructors()[0]
-      // here you know it's a class we already found
-      classInfo[name] = {
-        name,
-        family,
-        props: c.getInstanceProperties().map(m => m.getName()).filter(p => p[0] !== '_'),
-        args: []
+babylonNamespaces.forEach(n =>
+  n.getClasses().forEach(
+    c => {
+      // all classes here
+      const name = c.getName()
+      const family = getFamily(name)
+      if (family) {
+        const constructor = c.getConstructors()[0]
+        // here you know it's a class we already found
+        componentsJson[name] = {
+          name,
+          family,
+          props: c.getInstanceProperties().map(m => m.getName()).filter(p => p[0] !== '_'),
+          args: []
+        }
+        if (constructor) {
+          componentsJson[name].args = c.getConstructors()[0].getParameters().map(p => p.getName())
+        }
       }
-      if (constructor) {
-        classInfo[name].args = c.getConstructors()[0].getParameters().map(p => p.getName())
+      if (name === 'MeshBuilder') {
+        MeshBuilder = c
+      }
+
+      // we can get this also from navigating the namespaces parent/child.  ie: mesh -> parent -> parent ... Node
+      if (name === 'Node' || name === 'TransformNode' || name === 'AbstractMesh' || name === 'Mesh') {
+        meshClasses.push(c);
       }
     }
-    if (name === 'MeshBuilder') {
-      MeshBuilder = c
-    }
-  }))
+  )
+)
 
 if (MeshBuilder) {
   info.meshes.forEach(name => {
@@ -90,25 +100,159 @@ if (MeshBuilder) {
         meshInfo.options = p.getType().getProperties().map(f => f.getName())
       }
     })
-    classInfo[name] = meshInfo
+    componentsJson[name] = meshInfo
   })
 }
 
-const saveStuff = async () => {
+const saveComponents = async () => {
   // save info in JSON files
-  await save(`${__dirname}/../src/components.json`, classInfo)
+  await save(`${__dirname}/../src/components.json`, componentsJson)
+}
 
+const generateCode = async () => {
   const exportsProject = new Project()
-  const sourceFile = exportsProject.createSourceFile(
-    `${__dirname}/../src/tags.ts`,
+  const generatedSourceFile = exportsProject.createSourceFile(
+    `${__dirname}/../src/generatedCode.ts`,
     "",
     { overwrite: true }
   );
 
-  let tags = Object.keys(classInfo)
+  const ReactReconcilerCreatedInstanceClassName = "CreatedInstance";
+
+  generatedSourceFile.addImportDeclaration({
+    moduleSpecifier: "./render",
+    namedImports: [ReactReconcilerCreatedInstanceClassName]
+  })
+
+  generatedSourceFile.addImportDeclaration({
+    moduleSpecifier: "babylonjs",
+    defaultImport: "BABYLON"
+  })
+
+  const interfaceDeclaration = generatedSourceFile.addInterface({
+    name: "PropsHandler",
+    isExported: true
+  });
+  interfaceDeclaration.addTypeParameters([{
+    name: 'T'
+  }, {
+    name: 'U'
+  }]);
+  let getPropertyUpdatesMethod = interfaceDeclaration.addMethod({
+    name: "getPropertyUpdates",
+    returnType: "any | null"
+  });
+  getPropertyUpdatesMethod.addParameters([{
+    name: "createdInstance",
+    type: `${ReactReconcilerCreatedInstanceClassName}<T>`
+  }, {
+    name: "oldProps",
+    type: "U"
+  }, {
+    name: "newProps",
+    type: "U"
+  }])
+
+  const classDeclarationMeshProps = generatedSourceFile.addClass({
+    name: "MeshProps",
+    isExported: true
+  });
+
+  let meshPropertiesToAdd = []
+  meshClasses.forEach(meshClass => {
+    // const className = meshClass.getName();
+    meshClass.getProperties().forEach(property => {
+      let propertyName = property.getName()
+      if (propertyName[0] === '_' || propertyName.startsWith('on')) {
+        // console.log(` > skipping ${className}.${propertyName} (hidden/observable)`)
+        return;
+      }
+
+      if (property.isStatic()) {
+        // console.log(` > skipping ${className}.${propertyName} (static)`)
+        return;
+      }
+
+      if (property.isReadonly()) {
+        // console.log(` > skipping ${className}.${propertyName} (read-only)`)
+        return;
+      }
+
+      meshPropertiesToAdd.push(property);
+    })
+  })
+
+  const classDeclarationMeshPropsHandler = generatedSourceFile.addClass({
+    name: "MeshPropsHandler",
+    isExported: true
+  });
+  classDeclarationMeshPropsHandler.addImplements("PropsHandler<BABYLON.Mesh, MeshProps>")
+  let getPropertyUpdatesMethodMesh = classDeclarationMeshPropsHandler.addMethod({
+    name: "getPropertyUpdates",
+    returnType: "any | null"
+  });
+  getPropertyUpdatesMethodMesh.addParameters([{
+    name: "createdInstance",
+    type: `${ReactReconcilerCreatedInstanceClassName}<BABYLON.Mesh>`
+  }, {
+    name: "oldProps",
+    type: "MeshProps"
+  }, {
+    name: "newProps",
+    type: "MeshProps"
+  }])
+
+  getPropertyUpdatesMethodMesh.setBodyText(writer => {
+    writer.writeLine("// generated code")
+    writer.writeLine("let mesh: BABYLON.Mesh = createdInstance.babylonJsObject;")
+    writer.writeLine("let updates: any[] = [];")
+
+    let addedProperties = new Set();
+    meshPropertiesToAdd.sort((a, b) => a.getName().localeCompare(b.getName())).forEach(property => {
+      const type = property.getType().getText();
+      const propertyName = property.getName();
+      // doesn't really matter if it's 'optional', as nothing is forcing JavaScript users to follow your conventions.
+      // const isOptional = property.getQuestionTokenNode();
+
+      if (addedProperties.has(propertyName)) {
+        console.log(' >> skipping already existing property (ie: was overridden like Mesh.scaling): ', propertyName);
+        return;
+      }
+      addedProperties.add(propertyName);
+      // console.log(` >> including Mesh.${propertyName} (${type}))`)
+
+      const meshProperty = classDeclarationMeshProps.addProperty({
+        name: propertyName,
+        type: type,
+      })
+      meshProperty.setHasQuestionToken(true);
+
+      switch(type) {
+        case "boolean":
+        case "number":
+        case "string":
+          writer.write(`if (oldProps.${propertyName} !== newProps.${propertyName})`).block(() => {
+            writer.writeLine(`updates.push({name: '${propertyName}', value: newProps.${propertyName}, type: '${type}'});`);
+          });
+        break;
+        case "BABYLON.Vector3":
+          writer.write(`if (newProps.${propertyName} && (!oldProps.${propertyName} || !oldProps.${propertyName}.equals(newProps.${propertyName})))`).block(() => {
+            writer.writeLine(`updates.push({name: '${propertyName}', value: newProps.${propertyName}, type: '${type}'});`);
+          });
+        break;
+        default:
+          writer.writeLine(`// TODO: type: ${type} property (not coded) BABYLON.Mesh.${propertyName}.`);
+        break;
+      }
+    })
+    return writer.writeLine("return updates;");;
+  })
+
+  let tags = Object.keys(componentsJson)
   tags.sort(/* use default ASCII sorter */)
-  
-  sourceFile.addVariableStatement({
+
+  // These are the string imports needed by react-reconciler
+  generatedSourceFile.addVariableStatement({
     declarationKind: VariableDeclarationKind.Const,
     isExported: true,
     declarations: tags.map(tag => ({
@@ -117,10 +261,10 @@ const saveStuff = async () => {
       initializer: `'${tag}'`
     }))
   });
-  
-  sourceFile.formatText();
-  await sourceFile.save();
+
+  generatedSourceFile.formatText();
+  await generatedSourceFile.save();
 }
 
-
-saveStuff()
+saveComponents();
+generateCode();
