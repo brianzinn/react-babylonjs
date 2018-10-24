@@ -21,7 +21,7 @@
   },
   "scripts": {
     "lint": "tslint -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
-    "prebuild": "rimraf dist",
+    "prebuild": "rimraf dist && ts-node tools/generate-code",
     "build": "tsc --jsx react && rollup -c && rimraf compiled",
     "start": "tsc-watch --onSuccess \"rollup -c\"",
     "test": "jest",
