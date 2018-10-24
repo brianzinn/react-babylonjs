@@ -1,15 +1,21 @@
-import ReactReconciler, { HostConfig } from "react-reconciler"
+import ReactReconciler, { HostConfig, Update } from "react-reconciler"
 import BABYLON from "babylonjs"
 import { shallowEqual } from "shallow-equal-object"
 
 import components from "./components.json"
-import { PropsHandler, MeshPropsHandler, MeshProps } from './generatedCode'
+import { PropsHandler, MeshPropsHandler, MeshProps } from "./generatedCode"
 
 export enum ComponentFamilyType {
   Meshes,
   Lights,
   Materials,
   Camera
+}
+
+export type PropertyUpdate = {
+  type: string
+  value: any
+  propertyName: string
 }
 
 // TODO: see if it's a 'shape' with oneOf() for props/options
@@ -62,20 +68,20 @@ type CreatedInstanceMetadata = {
 }
 
 export interface CreatedInstance<T> {
-  className: string,
-  familyType: ComponentFamilyType,
-  babylonJsObject: T,
+  className: string
+  familyType: ComponentFamilyType
+  babylonJsObject: T
   metadata: CreatedInstanceMetadata | null
-  parent: CreatedInstance<any> | null, // Not the same as parent in BabylonJS, this is for internal reconciler structure. ie: graph walking
-  children: CreatedInstance<any>[],
+  parent: CreatedInstance<any> | null // Not the same as parent in BabylonJS, this is for internal reconciler structure. ie: graph walking
+  children: CreatedInstance<any>[]
   propsHandlers: PropsHandler<T, any>[]
 }
 
-type HostCreatedInstance = CreatedInstance<any> | undefined
+type HostCreatedInstance<T> = CreatedInstance<T> | undefined
 
 type Props = {
   scene: BABYLON.Scene
-} & any;
+} & any
 
 type Container = {
   canvas: HTMLCanvasElement | WebGLRenderingContext | null
@@ -129,7 +135,13 @@ type HostContext = {}
 type TimeoutHandler = number | undefined
 type NoTimeout = number
 
-function createCreatedInstance<T>(familyType: ComponentFamilyType, className: string, babylonJsObject: T, propsHandlers: PropsHandler<T, any>[], metadata: CreatedInstanceMetadata | null): CreatedInstance<T> {
+function createCreatedInstance<T>(
+  familyType: ComponentFamilyType,
+  className: string,
+  babylonJsObject: T,
+  propsHandlers: PropsHandler<T, any>[],
+  metadata: CreatedInstanceMetadata | null
+): CreatedInstance<T> {
   return {
     familyType,
     babylonJsObject,
@@ -145,7 +157,7 @@ export const hostConfig: HostConfig<
   string,
   Props,
   Container,
-  HostCreatedInstance,
+  HostCreatedInstance<any>,
   {},
   {},
   {},
@@ -191,7 +203,8 @@ export const hostConfig: HostConfig<
   },
 
   getRootHostContext: (rootContainerInstance: Container): HostContext => {
-    console.log("getting RootHostContext:", rootContainerInstance)
+     // this is the context you pass to your chilren, as parameter 'parentHostContext' from "root".
+     // So, opportunity to share context here via HostConfig further up tree.
     return {}
   },
 
@@ -201,24 +214,37 @@ export const hostConfig: HostConfig<
     rootContainerInstance: Container
   ): HostContext => {
     console.log("gettingChildHostContext:", parentHostContext, type, rootContainerInstance)
+    // this is the context you pass down to children.
     return {}
   },
 
-  prepareUpdate(instance: HostCreatedInstance, type: String, oldProps: Props, newProps: Props, rootContainerInstance: Container, hostContext: HostContext) : {} | null {
+  prepareUpdate(
+    instance: HostCreatedInstance<any>,
+    type: String,
+    oldProps: Props,
+    newProps: Props,
+    rootContainerInstance: Container,
+    hostContext: HostContext
+  ): {} | null {
     if (!instance) {
-      return null;
+      return null
     }
-    
-    console.log("prepareUpdate", instance, oldProps, newProps);
-    let updates : any[] = [];
+
+    console.log("prepareUpdate", instance, oldProps, newProps)
+    let updatePayload: PropertyUpdate[] = []
     instance.propsHandlers.forEach(propHandler => {
-      let handlerUpdates = propHandler.getPropertyUpdates(instance as CreatedInstance<any>, oldProps, newProps);
-      if (Array.isArray(handlerUpdates)) {
-        updates.push(handlerUpdates as any[]);
+      let handlerUpdates : PropertyUpdate[] | null = propHandler.getPropertyUpdates(instance as CreatedInstance<any>, oldProps, newProps)
+      if (handlerUpdates !== null) {
+        updatePayload.push(...handlerUpdates)
       }
     })
-    return updates;
-    },
+
+    if (updatePayload.length > 0) {
+      console.log(` > updated payload for '${instance.className}':`, updatePayload);  
+    }
+
+    return updatePayload.length == 0 ? null : updatePayload;
+  },
 
   // type, { scene, ...props }, { canvas, engine, ...other }, ...more
   createInstance: (
@@ -249,9 +275,9 @@ export const hostConfig: HostConfig<
       const mesh = (BABYLON.MeshBuilder as any)[`Create${type}`](name, options, scene)
       mesh.position = position || new BABYLON.Vector3(x, y, z)
 
-      let createdInstance = createCreatedInstance(family, definition!.name, mesh, [new MeshPropsHandler()], null);
+      let createdInstance = createCreatedInstance(family, definition!.name, mesh, [new MeshPropsHandler()], null)
       mesh[RENDER_PROP_REFERENCE] = createdInstance // TODO: this is hopefully not needed.
-      return createdInstance;
+      return createdInstance
     }
 
     if (family === ComponentFamilyType.Camera) {
@@ -277,9 +303,9 @@ export const hostConfig: HostConfig<
       const camera = getBabylon(definition!, { ...options, scene, canvas, engine })
       camera.attachControl(canvas)
 
-      let createdReference = createCreatedInstance(family, definition!.name, camera, [], null);
-      camera[RENDER_PROP_REFERENCE] = createdReference; // TODO: this is hopefully not needed.
-      return createdReference;
+      let createdReference = createCreatedInstance(family, definition!.name, camera, [], null)
+      camera[RENDER_PROP_REFERENCE] = createdReference // TODO: this is hopefully not needed.
+      return createdReference
     }
 
     if (family === ComponentFamilyType.Lights) {
@@ -300,22 +326,22 @@ export const hostConfig: HostConfig<
 
       // TODO: implement other lights dynamically.  ie: PointLight, etc.
       const light = new BABYLON.HemisphericLight(name as string, dir, scene) as any
-      
-      let createdInstance = createCreatedInstance(family, definition!.name, light, [], null);
+
+      let createdInstance = createCreatedInstance(family, definition!.name, light, [], null)
       light[RENDER_PROP_REFERENCE] = createdInstance // TODO: this is hopefully not needed.
-      return createdInstance;
+      return createdInstance
     }
 
     if (family === ComponentFamilyType.Materials) {
       const material = getBabylon(definition!, { ...props, scene, canvas, engine })
-      
-      let createdInstance = createCreatedInstance(family, definition!.name, material, [], null);
+
+      let createdInstance = createCreatedInstance(family, definition!.name, material, [], null)
       material[RENDER_PROP_REFERENCE] = createdInstance // TODO: this is hopefully not needed.
-      return createdInstance;
+      return createdInstance
     }
 
     console.error(`TODO: ${type} needs to be turned into a BABYLON instantiater in renderer.`)
-    return undefined;
+    return undefined
   },
 
   shouldDeprioritizeSubtree: (type: string, props: Props): boolean => {
@@ -359,15 +385,18 @@ export const hostConfig: HostConfig<
   // https://github.com/facebook/react/blob/master/packages/react-dom/src/client/ReactDOMHostConfig.js#L288
   noTimeout: -1,
 
-  prepareForCommit: () => {
-    console.log("reconciler: prepareForCommit")
+  prepareForCommit: (containerInfo: Container) : void => {
+    // Called based on return value of: finalizeInitialChildren.  in-memory render tree created, but not yet attached.
+    console.log("reconciler: prepareForCommit", containerInfo)
   },
 
-  resetAfterCommit: () => {
-    console.log("reconciler: resetAfterCommit")
+  resetAfterCommit: (containerInfo: Container) : void => {
+    // Called after the in-memory tree has been committed (ie: after attaching again to root element)
+    console.log("reconciler: resetAfterCommit", containerInfo)
   },
 
-  appendInitialChild: (parent: CreatedInstance<any>, child: CreatedInstance<any>) => {
+  appendInitialChild: (parent: HostCreatedInstance<any>, child: CreatedInstance<any>) => {
+    // Here we are traversing downwards.  The parent has not been initialized, but all children have been.
     console.log("reconciler: appentInitialChild", parent, child)
     // TODO: if parent is mesh and child is material.  parent.material = child
   },
@@ -382,37 +411,58 @@ export const hostConfig: HostConfig<
   },
 
   finalizeInitialChildren: (
-    parentInstance: HostCreatedInstance,
+    parentInstance: HostCreatedInstance<any>,
     type: string,
     props: Props,
     rootContainerInstance: Container,
     hostContext: HostContext
   ): boolean => {
     console.log("finalizeInitialChildren", parentInstance, type, props, rootContainerInstance, hostContext)
-    return false
+    // The parent of this node has not yet been instantiated.  The reconciler will continue by calling:
+    // createInstance → appendInitialChild → finalizeInitialChildren on the parent.
+    // When that has reached the top of the recursion tree (root), then prepareForCommit() will be called.
+    const callCommitMountForThisInstance: boolean = true;
+    return callCommitMountForThisInstance;
   },
 
-  appendChildToContainer: (container: Container, child: HostCreatedInstance): void => {
+  commitMount: (instance: HostCreatedInstance<any>, type: string, newProps: any, internalInstanceHandle: ReactReconciler.Fiber) : void => {
+    console.log('everything has beenn instantiated for instance: ', instance, newProps);
+  },
+
+  appendChildToContainer: (container: Container, child: HostCreatedInstance<any>): void => {
+    // NOTE: only called if supportsMutation = true;
+    // This is used for attaching child notes to the root DOM, but for us that does not apply.
     console.log("append child", child, "to container", container)
   },
 
-  commitUpdate(element: any, updatePayload: any, type: string, oldProps: any, newProps: any) {
-    console.log("commitUpdate", element, updatePayload, type, oldProps, newProps)
-    const definition: ComponentDefinition | undefined = (components as any)[type]
-    const family = getFamilyFromComponentDefinition(type, definition)
+  commitUpdate(instance: HostCreatedInstance<any>, updatePayload: any, type: string, oldProps: any, newProps: any) {
+    console.log("commitUpdate", instance, updatePayload, type, oldProps, newProps)
+    console.error('apply updates', instance, updatePayload);
+    
+    if (updatePayload != null) {
+      (updatePayload as PropertyUpdate[]).forEach(update => {
 
-    // TODO: check props based on pre-computed static code-analysis of babylonjs
-
-    if (family === ComponentFamilyType.Meshes) {
-      if (!shallowEqual(oldProps, newProps)) {
-        const { x = 0, y = 0, z = 0, ...props } = newProps
-        element.position = new BABYLON.Vector3(x, y, z)
-
-        Object.keys(props).forEach(k => {
-          element[k] = props[k]
-        })
-      }
+        switch(update.type) {
+          case "string":
+          case "number":
+            console.log(`updating ${type} on ${update.propertyName} to ${update.value}`)
+            instance!.babylonJsObject[update.propertyName] = update.value;
+            break;
+          case "BABYLON.Vector3":
+            console.log(`updating vector3 on:${update.propertyName} to ${update.value}`);
+            (instance!.babylonJsObject[update.propertyName] as BABYLON.Vector3).copyFrom(update.value);
+            break;
+          default:
+            console.error(`unhandled property update of type ${update.type}`);
+            break;
+        
+        }
+      });
     }
+  },
+
+  removeChildFromContainer(containe: Container, child: {} | CreatedInstance<any> | undefined) : void {
+    console.log('removing child from container', child);
   },
 
   removeChild(parentInstance: CreatedInstance<any>, child: CreatedInstance<any>) {
@@ -422,6 +472,8 @@ export const hostConfig: HostConfig<
   // text-content nodes are not used
   shouldSetTextContent: (type: string, props: any) => {
     console.log("shouldSetTextContent", type, props)
+    // returning true stops traversal at this node - indicating a leaf node.
+    // When returning true will not traverse children and different methods of reconciler are called.
     return false
   }
   //createTextInstance: (text: => {},
@@ -429,19 +481,20 @@ export const hostConfig: HostConfig<
 }
 
 const ReactReconcilerInst = ReactReconciler(hostConfig)
+let root : ReactReconciler.FiberRoot;
 //let internalContainerStructure : Container | ReactReconciler.FiberRoot | BaseFiberRootProperties | ProfilingOnlyFiberRootProperties;
 export function render(reactElements: React.ReactNode, container: Container, callback: () => void) {
   // Create a root Container if it doesnt exist
-  if (!container._rootContainer) {
-    console.log("creatingContainer onto:", container)
+  if (!root) {
+    const isAsync = false // Disables async rendering (experimental anyway)
+
     // createContainer(containerInfo: Container, isAsync: boolean, hydrate: boolean): OpaqueRoot;
-    container._rootContainer = ReactReconcilerInst.createContainer(container, false, false /* HMR?? */)
-    console.log("created container:", container._rootContainer)
+    root = ReactReconcilerInst.createContainer(container, isAsync, false /* hydrate true == better HMR? */)
   }
 
   // update the root Container
   console.log("updating rootContainer, reactElement:", reactElements)
-  return ReactReconcilerInst.updateContainer(reactElements, container._rootContainer, null, callback)
+  return ReactReconcilerInst.updateContainer(reactElements, root, null, callback)
 }
 
 export function unmount(args: any) {
