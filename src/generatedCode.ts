@@ -1,8 +1,8 @@
-import { CreatedInstance } from "./render";
+import { CreatedInstance, PropertyUpdate } from "./render";
 import BABYLON from "babylonjs";
 
 export interface PropsHandler<T, U> {
-    getPropertyUpdates(createdInstance: CreatedInstance<T>, oldProps: U, newProps: U): any | null;
+    getPropertyUpdates(createdInstance: CreatedInstance<T>, oldProps: U, newProps: U): PropertyUpdate[] | null;
 }
 
 export class MeshProps {
@@ -77,187 +77,457 @@ export class MeshProps {
 }
 
 export class MeshPropsHandler implements PropsHandler<BABYLON.Mesh, MeshProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.Mesh>, oldProps: MeshProps, newProps: MeshProps): any | null {
+    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.Mesh>, oldProps: MeshProps, newProps: MeshProps): PropertyUpdate[] | null {
         // generated code
         let mesh: BABYLON.Mesh = createdInstance.babylonJsObject;
-        let updates: any[] = [];
+        let updates: PropertyUpdate[] = [];
         // TODO: type: BABYLON.ActionManager property (not coded) BABYLON.Mesh.actionManager.
+        // Mesh.alphaIndex of type 'number':
         if (oldProps.alphaIndex !== newProps.alphaIndex) {
-            updates.push({ name: 'alphaIndex', value: newProps.alphaIndex, type: 'number' });
+            updates.push({
+                propertyName: 'alphaIndex',
+                value: newProps.alphaIndex,
+                type: 'number'
+            });
         }
+        // Mesh.alwaysSelectAsActiveMesh of type 'boolean':
         if (oldProps.alwaysSelectAsActiveMesh !== newProps.alwaysSelectAsActiveMesh) {
-            updates.push({ name: 'alwaysSelectAsActiveMesh', value: newProps.alwaysSelectAsActiveMesh, type: 'boolean' });
+            updates.push({
+                propertyName: 'alwaysSelectAsActiveMesh',
+                value: newProps.alwaysSelectAsActiveMesh,
+                type: 'boolean'
+            });
         }
         // TODO: type: BABYLON.AnimationPropertiesOverride property (not coded) BABYLON.Mesh.animationPropertiesOverride.
         // TODO: type: BABYLON.Animation[] property (not coded) BABYLON.Mesh.animations.
+        // Mesh.applyFog of type 'boolean':
         if (oldProps.applyFog !== newProps.applyFog) {
-            updates.push({ name: 'applyFog', value: newProps.applyFog, type: 'boolean' });
+            updates.push({
+                propertyName: 'applyFog',
+                value: newProps.applyFog,
+                type: 'boolean'
+            });
         }
+        // Mesh.billboardMode of type 'number':
         if (oldProps.billboardMode !== newProps.billboardMode) {
-            updates.push({ name: 'billboardMode', value: newProps.billboardMode, type: 'number' });
+            updates.push({
+                propertyName: 'billboardMode',
+                value: newProps.billboardMode,
+                type: 'number'
+            });
         }
+        // Mesh.checkCollisions of type 'boolean':
         if (oldProps.checkCollisions !== newProps.checkCollisions) {
-            updates.push({ name: 'checkCollisions', value: newProps.checkCollisions, type: 'boolean' });
+            updates.push({
+                propertyName: 'checkCollisions',
+                value: newProps.checkCollisions,
+                type: 'boolean'
+            });
         }
+        // Mesh.collisionGroup of type 'number':
         if (oldProps.collisionGroup !== newProps.collisionGroup) {
-            updates.push({ name: 'collisionGroup', value: newProps.collisionGroup, type: 'number' });
+            updates.push({
+                propertyName: 'collisionGroup',
+                value: newProps.collisionGroup,
+                type: 'number'
+            });
         }
+        // Mesh.collisionMask of type 'number':
         if (oldProps.collisionMask !== newProps.collisionMask) {
-            updates.push({ name: 'collisionMask', value: newProps.collisionMask, type: 'number' });
+            updates.push({
+                propertyName: 'collisionMask',
+                value: newProps.collisionMask,
+                type: 'number'
+            });
         }
+        // Mesh.computeBonesUsingShaders of type 'boolean':
         if (oldProps.computeBonesUsingShaders !== newProps.computeBonesUsingShaders) {
-            updates.push({ name: 'computeBonesUsingShaders', value: newProps.computeBonesUsingShaders, type: 'boolean' });
+            updates.push({
+                propertyName: 'computeBonesUsingShaders',
+                value: newProps.computeBonesUsingShaders,
+                type: 'boolean'
+            });
         }
+        // Mesh.cullingStrategy of type 'number':
         if (oldProps.cullingStrategy !== newProps.cullingStrategy) {
-            updates.push({ name: 'cullingStrategy', value: newProps.cullingStrategy, type: 'number' });
+            updates.push({
+                propertyName: 'cullingStrategy',
+                value: newProps.cullingStrategy,
+                type: 'number'
+            });
         }
+        // Mesh.definedFacingForward of type 'boolean':
         if (oldProps.definedFacingForward !== newProps.definedFacingForward) {
-            updates.push({ name: 'definedFacingForward', value: newProps.definedFacingForward, type: 'boolean' });
+            updates.push({
+                propertyName: 'definedFacingForward',
+                value: newProps.definedFacingForward,
+                type: 'boolean'
+            });
         }
+        // Mesh.delayLoadingFile of type 'string':
         if (oldProps.delayLoadingFile !== newProps.delayLoadingFile) {
-            updates.push({ name: 'delayLoadingFile', value: newProps.delayLoadingFile, type: 'string' });
+            updates.push({
+                propertyName: 'delayLoadingFile',
+                value: newProps.delayLoadingFile,
+                type: 'string'
+            });
         }
+        // Mesh.delayLoadState of type 'number':
         if (oldProps.delayLoadState !== newProps.delayLoadState) {
-            updates.push({ name: 'delayLoadState', value: newProps.delayLoadState, type: 'number' });
+            updates.push({
+                propertyName: 'delayLoadState',
+                value: newProps.delayLoadState,
+                type: 'number'
+            });
         }
+        // Mesh.doNotSerialize of type 'boolean':
         if (oldProps.doNotSerialize !== newProps.doNotSerialize) {
-            updates.push({ name: 'doNotSerialize', value: newProps.doNotSerialize, type: 'boolean' });
+            updates.push({
+                propertyName: 'doNotSerialize',
+                value: newProps.doNotSerialize,
+                type: 'boolean'
+            });
         }
         // TODO: type: BABYLON.Color4 property (not coded) BABYLON.Mesh.edgesColor.
+        // Mesh.edgesWidth of type 'number':
         if (oldProps.edgesWidth !== newProps.edgesWidth) {
-            updates.push({ name: 'edgesWidth', value: newProps.edgesWidth, type: 'number' });
+            updates.push({
+                propertyName: 'edgesWidth',
+                value: newProps.edgesWidth,
+                type: 'number'
+            });
         }
+        // Mesh.ellipsoid of Vector3 uses object equals to find diffs:
         if (newProps.ellipsoid && (!oldProps.ellipsoid || !oldProps.ellipsoid.equals(newProps.ellipsoid))) {
-            updates.push({ name: 'ellipsoid', value: newProps.ellipsoid, type: 'BABYLON.Vector3' });
+            updates.push({
+                propertyName: 'ellipsoid',
+                value: newProps.ellipsoid,
+                type: 'BABYLON.Vector3'
+            });
         }
+        // Mesh.ellipsoidOffset of Vector3 uses object equals to find diffs:
         if (newProps.ellipsoidOffset && (!oldProps.ellipsoidOffset || !oldProps.ellipsoidOffset.equals(newProps.ellipsoidOffset))) {
-            updates.push({ name: 'ellipsoidOffset', value: newProps.ellipsoidOffset, type: 'BABYLON.Vector3' });
+            updates.push({
+                propertyName: 'ellipsoidOffset',
+                value: newProps.ellipsoidOffset,
+                type: 'BABYLON.Vector3'
+            });
         }
+        // Mesh.enablePointerMoveEvents of type 'boolean':
         if (oldProps.enablePointerMoveEvents !== newProps.enablePointerMoveEvents) {
-            updates.push({ name: 'enablePointerMoveEvents', value: newProps.enablePointerMoveEvents, type: 'boolean' });
+            updates.push({
+                propertyName: 'enablePointerMoveEvents',
+                value: newProps.enablePointerMoveEvents,
+                type: 'boolean'
+            });
         }
+        // Mesh.facetDepthSortFrom of Vector3 uses object equals to find diffs:
         if (newProps.facetDepthSortFrom && (!oldProps.facetDepthSortFrom || !oldProps.facetDepthSortFrom.equals(newProps.facetDepthSortFrom))) {
-            updates.push({ name: 'facetDepthSortFrom', value: newProps.facetDepthSortFrom, type: 'BABYLON.Vector3' });
+            updates.push({
+                propertyName: 'facetDepthSortFrom',
+                value: newProps.facetDepthSortFrom,
+                type: 'BABYLON.Vector3'
+            });
         }
+        // Mesh.hasVertexAlpha of type 'boolean':
         if (oldProps.hasVertexAlpha !== newProps.hasVertexAlpha) {
-            updates.push({ name: 'hasVertexAlpha', value: newProps.hasVertexAlpha, type: 'boolean' });
+            updates.push({
+                propertyName: 'hasVertexAlpha',
+                value: newProps.hasVertexAlpha,
+                type: 'boolean'
+            });
         }
+        // Mesh.id of type 'string':
         if (oldProps.id !== newProps.id) {
-            updates.push({ name: 'id', value: newProps.id, type: 'string' });
+            updates.push({
+                propertyName: 'id',
+                value: newProps.id,
+                type: 'string'
+            });
         }
+        // Mesh.ignoreNonUniformScaling of type 'boolean':
         if (oldProps.ignoreNonUniformScaling !== newProps.ignoreNonUniformScaling) {
-            updates.push({ name: 'ignoreNonUniformScaling', value: newProps.ignoreNonUniformScaling, type: 'boolean' });
+            updates.push({
+                propertyName: 'ignoreNonUniformScaling',
+                value: newProps.ignoreNonUniformScaling,
+                type: 'boolean'
+            });
         }
+        // Mesh.infiniteDistance of type 'boolean':
         if (oldProps.infiniteDistance !== newProps.infiniteDistance) {
-            updates.push({ name: 'infiniteDistance', value: newProps.infiniteDistance, type: 'boolean' });
+            updates.push({
+                propertyName: 'infiniteDistance',
+                value: newProps.infiniteDistance,
+                type: 'boolean'
+            });
         }
         // TODO: type: BABYLON.InstancedMesh[] property (not coded) BABYLON.Mesh.instances.
+        // Mesh.isBlocker of type 'boolean':
         if (oldProps.isBlocker !== newProps.isBlocker) {
-            updates.push({ name: 'isBlocker', value: newProps.isBlocker, type: 'boolean' });
+            updates.push({
+                propertyName: 'isBlocker',
+                value: newProps.isBlocker,
+                type: 'boolean'
+            });
         }
+        // Mesh.isOccluded of type 'boolean':
         if (oldProps.isOccluded !== newProps.isOccluded) {
-            updates.push({ name: 'isOccluded', value: newProps.isOccluded, type: 'boolean' });
+            updates.push({
+                propertyName: 'isOccluded',
+                value: newProps.isOccluded,
+                type: 'boolean'
+            });
         }
+        // Mesh.isPickable of type 'boolean':
         if (oldProps.isPickable !== newProps.isPickable) {
-            updates.push({ name: 'isPickable', value: newProps.isPickable, type: 'boolean' });
+            updates.push({
+                propertyName: 'isPickable',
+                value: newProps.isPickable,
+                type: 'boolean'
+            });
         }
+        // Mesh.isUnIndexed of type 'boolean':
         if (oldProps.isUnIndexed !== newProps.isUnIndexed) {
-            updates.push({ name: 'isUnIndexed', value: newProps.isUnIndexed, type: 'boolean' });
+            updates.push({
+                propertyName: 'isUnIndexed',
+                value: newProps.isUnIndexed,
+                type: 'boolean'
+            });
         }
+        // Mesh.isVisible of type 'boolean':
         if (oldProps.isVisible !== newProps.isVisible) {
-            updates.push({ name: 'isVisible', value: newProps.isVisible, type: 'boolean' });
+            updates.push({
+                propertyName: 'isVisible',
+                value: newProps.isVisible,
+                type: 'boolean'
+            });
         }
+        // Mesh.layerMask of type 'number':
         if (oldProps.layerMask !== newProps.layerMask) {
-            updates.push({ name: 'layerMask', value: newProps.layerMask, type: 'number' });
+            updates.push({
+                propertyName: 'layerMask',
+                value: newProps.layerMask,
+                type: 'number'
+            });
         }
         // TODO: type: BABYLON.Material property (not coded) BABYLON.Mesh.material.
         // TODO: type: any property (not coded) BABYLON.Mesh.metadata.
         // TODO: type: BABYLON.MorphTargetManager property (not coded) BABYLON.Mesh.morphTargetManager.
+        // Mesh.mustDepthSortFacets of type 'boolean':
         if (oldProps.mustDepthSortFacets !== newProps.mustDepthSortFacets) {
-            updates.push({ name: 'mustDepthSortFacets', value: newProps.mustDepthSortFacets, type: 'boolean' });
+            updates.push({
+                propertyName: 'mustDepthSortFacets',
+                value: newProps.mustDepthSortFacets,
+                type: 'boolean'
+            });
         }
+        // Mesh.name of type 'string':
         if (oldProps.name !== newProps.name) {
-            updates.push({ name: 'name', value: newProps.name, type: 'string' });
+            updates.push({
+                propertyName: 'name',
+                value: newProps.name,
+                type: 'string'
+            });
         }
+        // Mesh.numBoneInfluencers of type 'number':
         if (oldProps.numBoneInfluencers !== newProps.numBoneInfluencers) {
-            updates.push({ name: 'numBoneInfluencers', value: newProps.numBoneInfluencers, type: 'number' });
+            updates.push({
+                propertyName: 'numBoneInfluencers',
+                value: newProps.numBoneInfluencers,
+                type: 'number'
+            });
         }
+        // Mesh.occlusionQueryAlgorithmType of type 'number':
         if (oldProps.occlusionQueryAlgorithmType !== newProps.occlusionQueryAlgorithmType) {
-            updates.push({ name: 'occlusionQueryAlgorithmType', value: newProps.occlusionQueryAlgorithmType, type: 'number' });
+            updates.push({
+                propertyName: 'occlusionQueryAlgorithmType',
+                value: newProps.occlusionQueryAlgorithmType,
+                type: 'number'
+            });
         }
+        // Mesh.occlusionRetryCount of type 'number':
         if (oldProps.occlusionRetryCount !== newProps.occlusionRetryCount) {
-            updates.push({ name: 'occlusionRetryCount', value: newProps.occlusionRetryCount, type: 'number' });
+            updates.push({
+                propertyName: 'occlusionRetryCount',
+                value: newProps.occlusionRetryCount,
+                type: 'number'
+            });
         }
+        // Mesh.occlusionType of type 'number':
         if (oldProps.occlusionType !== newProps.occlusionType) {
-            updates.push({ name: 'occlusionType', value: newProps.occlusionType, type: 'number' });
+            updates.push({
+                propertyName: 'occlusionType',
+                value: newProps.occlusionType,
+                type: 'number'
+            });
         }
         // TODO: type: BABYLON.Color3 property (not coded) BABYLON.Mesh.outlineColor.
+        // Mesh.outlineWidth of type 'number':
         if (oldProps.outlineWidth !== newProps.outlineWidth) {
-            updates.push({ name: 'outlineWidth', value: newProps.outlineWidth, type: 'number' });
+            updates.push({
+                propertyName: 'outlineWidth',
+                value: newProps.outlineWidth,
+                type: 'number'
+            });
         }
+        // Mesh.overlayAlpha of type 'number':
         if (oldProps.overlayAlpha !== newProps.overlayAlpha) {
-            updates.push({ name: 'overlayAlpha', value: newProps.overlayAlpha, type: 'number' });
+            updates.push({
+                propertyName: 'overlayAlpha',
+                value: newProps.overlayAlpha,
+                type: 'number'
+            });
         }
         // TODO: type: BABYLON.Color3 property (not coded) BABYLON.Mesh.overlayColor.
+        // Mesh.overrideMaterialSideOrientation of type 'number':
         if (oldProps.overrideMaterialSideOrientation !== newProps.overrideMaterialSideOrientation) {
-            updates.push({ name: 'overrideMaterialSideOrientation', value: newProps.overrideMaterialSideOrientation, type: 'number' });
+            updates.push({
+                propertyName: 'overrideMaterialSideOrientation',
+                value: newProps.overrideMaterialSideOrientation,
+                type: 'number'
+            });
         }
+        // Mesh.overridenInstanceCount of type 'number':
         if (oldProps.overridenInstanceCount !== newProps.overridenInstanceCount) {
-            updates.push({ name: 'overridenInstanceCount', value: newProps.overridenInstanceCount, type: 'number' });
+            updates.push({
+                propertyName: 'overridenInstanceCount',
+                value: newProps.overridenInstanceCount,
+                type: 'number'
+            });
         }
         // TODO: type: BABYLON.Node property (not coded) BABYLON.Mesh.parent.
+        // Mesh.partitioningBBoxRatio of type 'number':
         if (oldProps.partitioningBBoxRatio !== newProps.partitioningBBoxRatio) {
-            updates.push({ name: 'partitioningBBoxRatio', value: newProps.partitioningBBoxRatio, type: 'number' });
+            updates.push({
+                propertyName: 'partitioningBBoxRatio',
+                value: newProps.partitioningBBoxRatio,
+                type: 'number'
+            });
         }
+        // Mesh.partitioningSubdivisions of type 'number':
         if (oldProps.partitioningSubdivisions !== newProps.partitioningSubdivisions) {
-            updates.push({ name: 'partitioningSubdivisions', value: newProps.partitioningSubdivisions, type: 'number' });
+            updates.push({
+                propertyName: 'partitioningSubdivisions',
+                value: newProps.partitioningSubdivisions,
+                type: 'number'
+            });
         }
+        // Mesh.position of Vector3 uses object equals to find diffs:
         if (newProps.position && (!oldProps.position || !oldProps.position.equals(newProps.position))) {
-            updates.push({ name: 'position', value: newProps.position, type: 'BABYLON.Vector3' });
+            updates.push({
+                propertyName: 'position',
+                value: newProps.position,
+                type: 'BABYLON.Vector3'
+            });
         }
+        // Mesh.receiveShadows of type 'boolean':
         if (oldProps.receiveShadows !== newProps.receiveShadows) {
-            updates.push({ name: 'receiveShadows', value: newProps.receiveShadows, type: 'boolean' });
+            updates.push({
+                propertyName: 'receiveShadows',
+                value: newProps.receiveShadows,
+                type: 'boolean'
+            });
         }
+        // Mesh.renderingGroupId of type 'number':
         if (oldProps.renderingGroupId !== newProps.renderingGroupId) {
-            updates.push({ name: 'renderingGroupId', value: newProps.renderingGroupId, type: 'number' });
+            updates.push({
+                propertyName: 'renderingGroupId',
+                value: newProps.renderingGroupId,
+                type: 'number'
+            });
         }
+        // Mesh.rotation of Vector3 uses object equals to find diffs:
         if (newProps.rotation && (!oldProps.rotation || !oldProps.rotation.equals(newProps.rotation))) {
-            updates.push({ name: 'rotation', value: newProps.rotation, type: 'BABYLON.Vector3' });
+            updates.push({
+                propertyName: 'rotation',
+                value: newProps.rotation,
+                type: 'BABYLON.Vector3'
+            });
         }
         // TODO: type: BABYLON.Quaternion property (not coded) BABYLON.Mesh.rotationQuaternion.
+        // Mesh.scaling of Vector3 uses object equals to find diffs:
         if (newProps.scaling && (!oldProps.scaling || !oldProps.scaling.equals(newProps.scaling))) {
-            updates.push({ name: 'scaling', value: newProps.scaling, type: 'BABYLON.Vector3' });
+            updates.push({
+                propertyName: 'scaling',
+                value: newProps.scaling,
+                type: 'BABYLON.Vector3'
+            });
         }
+        // Mesh.scalingDeterminant of type 'number':
         if (oldProps.scalingDeterminant !== newProps.scalingDeterminant) {
-            updates.push({ name: 'scalingDeterminant', value: newProps.scalingDeterminant, type: 'number' });
+            updates.push({
+                propertyName: 'scalingDeterminant',
+                value: newProps.scalingDeterminant,
+                type: 'number'
+            });
         }
+        // Mesh.showSubMeshesBoundingBox of type 'boolean':
         if (oldProps.showSubMeshesBoundingBox !== newProps.showSubMeshesBoundingBox) {
-            updates.push({ name: 'showSubMeshesBoundingBox', value: newProps.showSubMeshesBoundingBox, type: 'boolean' });
+            updates.push({
+                propertyName: 'showSubMeshesBoundingBox',
+                value: newProps.showSubMeshesBoundingBox,
+                type: 'boolean'
+            });
         }
         // TODO: type: BABYLON.Skeleton property (not coded) BABYLON.Mesh.skeleton.
+        // Mesh.state of type 'string':
         if (oldProps.state !== newProps.state) {
-            updates.push({ name: 'state', value: newProps.state, type: 'string' });
+            updates.push({
+                propertyName: 'state',
+                value: newProps.state,
+                type: 'string'
+            });
         }
         // TODO: type: BABYLON.SubMesh[] property (not coded) BABYLON.Mesh.subMeshes.
+        // Mesh.uniqueId of type 'number':
         if (oldProps.uniqueId !== newProps.uniqueId) {
-            updates.push({ name: 'uniqueId', value: newProps.uniqueId, type: 'number' });
+            updates.push({
+                propertyName: 'uniqueId',
+                value: newProps.uniqueId,
+                type: 'number'
+            });
         }
+        // Mesh.useOctreeForCollisions of type 'boolean':
         if (oldProps.useOctreeForCollisions !== newProps.useOctreeForCollisions) {
-            updates.push({ name: 'useOctreeForCollisions', value: newProps.useOctreeForCollisions, type: 'boolean' });
+            updates.push({
+                propertyName: 'useOctreeForCollisions',
+                value: newProps.useOctreeForCollisions,
+                type: 'boolean'
+            });
         }
+        // Mesh.useOctreeForPicking of type 'boolean':
         if (oldProps.useOctreeForPicking !== newProps.useOctreeForPicking) {
-            updates.push({ name: 'useOctreeForPicking', value: newProps.useOctreeForPicking, type: 'boolean' });
+            updates.push({
+                propertyName: 'useOctreeForPicking',
+                value: newProps.useOctreeForPicking,
+                type: 'boolean'
+            });
         }
+        // Mesh.useOctreeForRenderingSelection of type 'boolean':
         if (oldProps.useOctreeForRenderingSelection !== newProps.useOctreeForRenderingSelection) {
-            updates.push({ name: 'useOctreeForRenderingSelection', value: newProps.useOctreeForRenderingSelection, type: 'boolean' });
+            updates.push({
+                propertyName: 'useOctreeForRenderingSelection',
+                value: newProps.useOctreeForRenderingSelection,
+                type: 'boolean'
+            });
         }
+        // Mesh.useVertexColors of type 'boolean':
         if (oldProps.useVertexColors !== newProps.useVertexColors) {
-            updates.push({ name: 'useVertexColors', value: newProps.useVertexColors, type: 'boolean' });
+            updates.push({
+                propertyName: 'useVertexColors',
+                value: newProps.useVertexColors,
+                type: 'boolean'
+            });
         }
+        // Mesh.visibility of type 'number':
         if (oldProps.visibility !== newProps.visibility) {
-            updates.push({ name: 'visibility', value: newProps.visibility, type: 'number' });
+            updates.push({
+                propertyName: 'visibility',
+                value: newProps.visibility,
+                type: 'number'
+            });
         }
-        return updates;
+        return updates.length == 0 ? null : updates;
     }
 }
 

@@ -118,10 +118,11 @@ const generateCode = async () => {
   );
 
   const ReactReconcilerCreatedInstanceClassName = "CreatedInstance";
+  const PropertyUpdateType = "PropertyUpdate";
 
   generatedSourceFile.addImportDeclaration({
     moduleSpecifier: "./render",
-    namedImports: [ReactReconcilerCreatedInstanceClassName]
+    namedImports: [ReactReconcilerCreatedInstanceClassName, PropertyUpdateType]
   })
 
   generatedSourceFile.addImportDeclaration({
@@ -140,7 +141,7 @@ const generateCode = async () => {
   }]);
   let getPropertyUpdatesMethod = interfaceDeclaration.addMethod({
     name: "getPropertyUpdates",
-    returnType: "any | null"
+    returnType: `${PropertyUpdateType}[] | null`
   });
   getPropertyUpdatesMethod.addParameters([{
     name: "createdInstance",
@@ -189,7 +190,7 @@ const generateCode = async () => {
   classDeclarationMeshPropsHandler.addImplements("PropsHandler<BABYLON.Mesh, MeshProps>")
   let getPropertyUpdatesMethodMesh = classDeclarationMeshPropsHandler.addMethod({
     name: "getPropertyUpdates",
-    returnType: "any | null"
+    returnType: `${PropertyUpdateType}[] | null`
   });
   getPropertyUpdatesMethodMesh.addParameters([{
     name: "createdInstance",
@@ -205,7 +206,7 @@ const generateCode = async () => {
   getPropertyUpdatesMethodMesh.setBodyText(writer => {
     writer.writeLine("// generated code")
     writer.writeLine("let mesh: BABYLON.Mesh = createdInstance.babylonJsObject;")
-    writer.writeLine("let updates: any[] = [];")
+    writer.writeLine(`let updates: ${PropertyUpdateType}[] = [];`)
 
     let addedProperties = new Set();
     meshPropertiesToAdd.sort((a, b) => a.getName().localeCompare(b.getName())).forEach(property => {
@@ -231,13 +232,15 @@ const generateCode = async () => {
         case "boolean":
         case "number":
         case "string":
+          writer.writeLine(`// Mesh.${propertyName} of type '${type}':`)
           writer.write(`if (oldProps.${propertyName} !== newProps.${propertyName})`).block(() => {
-            writer.writeLine(`updates.push({name: '${propertyName}', value: newProps.${propertyName}, type: '${type}'});`);
+            writer.writeLine(`updates.push({\npropertyName: '${propertyName}',\nvalue: newProps.${propertyName},\ntype: '${type}'\n});`);
           });
         break;
         case "BABYLON.Vector3":
+          writer.writeLine(`// Mesh.${propertyName} of Vector3 uses object equals to find diffs:`)
           writer.write(`if (newProps.${propertyName} && (!oldProps.${propertyName} || !oldProps.${propertyName}.equals(newProps.${propertyName})))`).block(() => {
-            writer.writeLine(`updates.push({name: '${propertyName}', value: newProps.${propertyName}, type: '${type}'});`);
+            writer.writeLine(`updates.push({\npropertyName: '${propertyName}',\nvalue: newProps.${propertyName},\ntype: '${type}'\n});`);
           });
         break;
         default:
@@ -245,7 +248,7 @@ const generateCode = async () => {
         break;
       }
     })
-    return writer.writeLine("return updates;");;
+    return writer.writeLine("return updates.length == 0 ? null : updates;");;
   })
 
   let tags = Object.keys(componentsJson)
