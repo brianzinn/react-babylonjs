@@ -1,9 +1,8 @@
 import ReactReconciler, { HostConfig, Update } from "react-reconciler"
 import BABYLON from "babylonjs"
-import { shallowEqual } from "shallow-equal-object"
 
 import components from "./components.json"
-import { PropsHandler, MeshPropsHandler, MeshProps } from "./generatedCode"
+import { PropsHandler, MeshPropsHandler } from "./generatedCode"
 
 export enum ComponentFamilyType {
   Meshes,
@@ -131,7 +130,7 @@ export const getBabylon = (definition: ComponentDefinition, options: any) => {
 // TODO: add developer-tools stuff so it looks better in React panel
 
 type HostContext = {}
-
+type UpdatePayload = PropertyUpdate[] | null
 type TimeoutHandler = number | undefined
 type NoTimeout = number
 
@@ -162,7 +161,7 @@ export const hostConfig: HostConfig<
   {},
   {},
   HostContext,
-  {},
+  UpdatePayload,
   {},
   TimeoutHandler,
   NoTimeout
@@ -203,8 +202,8 @@ export const hostConfig: HostConfig<
   },
 
   getRootHostContext: (rootContainerInstance: Container): HostContext => {
-     // this is the context you pass to your chilren, as parameter 'parentHostContext' from "root".
-     // So, opportunity to share context here via HostConfig further up tree.
+    // this is the context you pass to your chilren, as parameter 'parentHostContext' from "root".
+    // So, opportunity to share context here via HostConfig further up tree.
     return {}
   },
 
@@ -225,7 +224,7 @@ export const hostConfig: HostConfig<
     newProps: Props,
     rootContainerInstance: Container,
     hostContext: HostContext
-  ): {} | null {
+  ): UpdatePayload {
     if (!instance) {
       return null
     }
@@ -233,17 +232,21 @@ export const hostConfig: HostConfig<
     console.log("prepareUpdate", instance, oldProps, newProps)
     let updatePayload: PropertyUpdate[] = []
     instance.propsHandlers.forEach(propHandler => {
-      let handlerUpdates : PropertyUpdate[] | null = propHandler.getPropertyUpdates(instance as CreatedInstance<any>, oldProps, newProps)
+      let handlerUpdates: PropertyUpdate[] | null = propHandler.getPropertyUpdates(
+        instance as CreatedInstance<any>,
+        oldProps,
+        newProps
+      )
       if (handlerUpdates !== null) {
         updatePayload.push(...handlerUpdates)
       }
     })
 
     if (updatePayload.length > 0) {
-      console.log(` > updated payload for '${instance.className}':`, updatePayload);  
+      console.log(` > updated payload for '${instance.className}':`, updatePayload)
     }
 
-    return updatePayload.length == 0 ? null : updatePayload;
+    return updatePayload.length == 0 ? null : updatePayload
   },
 
   // type, { scene, ...props }, { canvas, engine, ...other }, ...more
@@ -385,12 +388,12 @@ export const hostConfig: HostConfig<
   // https://github.com/facebook/react/blob/master/packages/react-dom/src/client/ReactDOMHostConfig.js#L288
   noTimeout: -1,
 
-  prepareForCommit: (containerInfo: Container) : void => {
+  prepareForCommit: (containerInfo: Container): void => {
     // Called based on return value of: finalizeInitialChildren.  in-memory render tree created, but not yet attached.
     console.log("reconciler: prepareForCommit", containerInfo)
   },
 
-  resetAfterCommit: (containerInfo: Container) : void => {
+  resetAfterCommit: (containerInfo: Container): void => {
     // Called after the in-memory tree has been committed (ie: after attaching again to root element)
     console.log("reconciler: resetAfterCommit", containerInfo)
   },
@@ -421,12 +424,17 @@ export const hostConfig: HostConfig<
     // The parent of this node has not yet been instantiated.  The reconciler will continue by calling:
     // createInstance → appendInitialChild → finalizeInitialChildren on the parent.
     // When that has reached the top of the recursion tree (root), then prepareForCommit() will be called.
-    const callCommitMountForThisInstance: boolean = true;
-    return callCommitMountForThisInstance;
+    const callCommitMountForThisInstance: boolean = true
+    return callCommitMountForThisInstance
   },
 
-  commitMount: (instance: HostCreatedInstance<any>, type: string, newProps: any, internalInstanceHandle: ReactReconciler.Fiber) : void => {
-    console.log('everything has beenn instantiated for instance: ', instance, newProps);
+  commitMount: (
+    instance: HostCreatedInstance<any>,
+    type: string,
+    newProps: any,
+    internalInstanceHandle: ReactReconciler.Fiber
+  ): void => {
+    console.log("everything has beenn instantiated for instance: ", instance, newProps)
   },
 
   appendChildToContainer: (container: Container, child: HostCreatedInstance<any>): void => {
@@ -437,32 +445,30 @@ export const hostConfig: HostConfig<
 
   commitUpdate(instance: HostCreatedInstance<any>, updatePayload: any, type: string, oldProps: any, newProps: any) {
     console.log("commitUpdate", instance, updatePayload, type, oldProps, newProps)
-    console.error('apply updates', instance, updatePayload);
-    
-    if (updatePayload != null) {
-      (updatePayload as PropertyUpdate[]).forEach(update => {
+    console.error("apply updates", instance, updatePayload)
 
-        switch(update.type) {
+    if (updatePayload != null) {
+      ;(updatePayload as PropertyUpdate[]).forEach(update => {
+        switch (update.type) {
           case "string":
           case "number":
             console.log(`updating ${type} on ${update.propertyName} to ${update.value}`)
-            instance!.babylonJsObject[update.propertyName] = update.value;
-            break;
+            instance!.babylonJsObject[update.propertyName] = update.value
+            break
           case "BABYLON.Vector3":
-            console.log(`updating vector3 on:${update.propertyName} to ${update.value}`);
-            (instance!.babylonJsObject[update.propertyName] as BABYLON.Vector3).copyFrom(update.value);
-            break;
+            console.log(`updating vector3 on:${update.propertyName} to ${update.value}`)
+            ;(instance!.babylonJsObject[update.propertyName] as BABYLON.Vector3).copyFrom(update.value)
+            break
           default:
-            console.error(`unhandled property update of type ${update.type}`);
-            break;
-        
+            console.error(`unhandled property update of type ${update.type}`)
+            break
         }
-      });
+      })
     }
   },
 
-  removeChildFromContainer(containe: Container, child: {} | CreatedInstance<any> | undefined) : void {
-    console.log('removing child from container', child);
+  removeChildFromContainer(containe: Container, child: {} | CreatedInstance<any> | undefined): void {
+    console.log("removing child from container", child)
   },
 
   removeChild(parentInstance: CreatedInstance<any>, child: CreatedInstance<any>) {
@@ -481,7 +487,7 @@ export const hostConfig: HostConfig<
 }
 
 const ReactReconcilerInst = ReactReconciler(hostConfig)
-let root : ReactReconciler.FiberRoot;
+let root: ReactReconciler.FiberRoot
 //let internalContainerStructure : Container | ReactReconciler.FiberRoot | BaseFiberRootProperties | ProfilingOnlyFiberRootProperties;
 export function render(reactElements: React.ReactNode, container: Container, callback: () => void) {
   // Create a root Container if it doesnt exist
