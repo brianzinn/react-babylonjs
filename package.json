@@ -21,7 +21,7 @@
   },
   "scripts": {
     "lint": "tslint -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
-    "prebuild": "rimraf dist && ts-node tools/generate-code",
+    "prebuild": "rimraf dist",
     "build": "tsc --jsx react && rollup -c && rimraf compiled",
     "start": "tsc-watch --onSuccess \"rollup -c\"",
     "test": "jest",
@@ -30,7 +30,7 @@
     "deploy-docs": "ts-node tools/gh-pages-publish",
     "report-coverage": "cat ./coverage/lcov.info | coveralls",
     "precommit": "lint-staged",
-    "generate-code": "ts-node tools/generate-code"
+    "generate-code": "ts-node -P tsconfig.generate.json tools/generate-code"
   },
   "lint-staged": {
     "{src,test}/**/*.ts": [
