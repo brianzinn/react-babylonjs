@@ -1,4 +1,4 @@
-import ReactReconciler, { HostConfig, Update } from "react-reconciler"
+import ReactReconciler, { HostConfig } from "react-reconciler"
 import BABYLON from "babylonjs"
 
 import components from "./components.json"
