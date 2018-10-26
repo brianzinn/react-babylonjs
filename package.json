@@ -116,7 +116,8 @@
     "babylonjs": "^2.5 || 3.x || >= 4.0.0-beta",
     "babylonjs-gui": "3.x || >= 4.0.0-beta",
     "react": "16.x",
-    "react-reconciler": "^0.15 || ^0.16"
+    "react-reconciler": "^0.13 || ^0.14 || ^0.15 || ^0.16"
   },
-  "dependencies": {}
+  "dependencies": {
+  }
 }

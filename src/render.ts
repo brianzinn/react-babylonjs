@@ -2,7 +2,7 @@ import ReactReconciler, { HostConfig } from "react-reconciler"
 import BABYLON from "babylonjs"
 
 import components from "./components.json"
-import { PropsHandler, MeshPropsHandler } from "./generatedCode"
+import { PropsHandler, FiberMeshPropsHandler } from "./generatedCode"
 
 export enum ComponentFamilyType {
   Meshes,
@@ -278,7 +278,7 @@ export const hostConfig: HostConfig<
       const mesh = (BABYLON.MeshBuilder as any)[`Create${type}`](name, options, scene)
       mesh.position = position || new BABYLON.Vector3(x, y, z)
 
-      let createdInstance = createCreatedInstance(family, definition!.name, mesh, [new MeshPropsHandler()], null)
+      let createdInstance = createCreatedInstance(family, definition!.name, mesh, [new FiberMeshPropsHandler()], null)
       mesh[RENDER_PROP_REFERENCE] = createdInstance // TODO: this is hopefully not needed.
       return createdInstance
     }

@@ -1,4 +1,4 @@
-import { Project, VariableDeclarationKind, NamespaceDeclaration, ClassDeclaration, PropertyDeclaration, Node, Symbol, SyntaxKind, Type, ExpressionWithTypeArguments } from 'ts-simple-ast'
+import { Project, VariableDeclarationKind, NamespaceDeclaration, ClassDeclaration, PropertyDeclaration, Node, Symbol, SyntaxKind, Type, ExpressionWithTypeArguments, CodeBlockWriter, SourceFile } from 'ts-simple-ast'
 import BABYLON from 'babylonjs'
 const sortJson = require('sort-json')
 import { promisify } from 'util'
@@ -25,6 +25,11 @@ const info : infoType = {
   materials: [],
   meshes: []
 }
+
+const ReactReconcilerCreatedInstanceClassName = "CreatedInstance";
+const PropertyUpdateType = "PropertyUpdate";
+const ImportedNamespace = "BABYLON";
+
 
 // get family of className, if defined
 const getFamily = (name: string | undefined) : string | undefined => {
@@ -81,7 +86,7 @@ project.addExistingSourceFiles(`${__dirname}/../node_modules/babylonjs/**/*.ts`)
 const sourceFile = project.getSourceFileOrThrow('babylon.d.ts')
 const babylonNamespaces: NamespaceDeclaration[] = sourceFile
   .getNamespaces()
-  .filter(n => n.getName() === 'BABYLON')
+  .filter(n => n.getName() === ImportedNamespace)
 
 let cameraDeclarationsMap: Map<String, ClassDeclaration> = new Map<String, ClassDeclaration>();
 
@@ -186,6 +191,47 @@ const getMethodInstanceProperties = (classDeclaration: ClassDeclaration) : Prope
   return result;
 }
 
+const writePropertyAsUpdateFunction = (classDeclaration: ClassDeclaration, writer: CodeBlockWriter, property: PropertyDeclaration, addedProperties: Set<String>, importedNamespace: string, classNameBabylon: string) => {
+  const type = property.getType().getText();
+      const propertyName: string = property.getName();
+      // doesn't really matter if it's 'optional', as nothing is forcing JavaScript users to follow your conventions.
+      // const isOptional = property.getQuestionTokenNode();
+
+      if (addedProperties.has(propertyName)) {
+        console.log(' >> skipping already existing property (ie: was overridden like Mesh.scaling): ', propertyName);
+        return;
+      }
+      addedProperties.add(propertyName);
+      // console.log(` >> including Mesh.${propertyName} (${type}))`)
+
+      const meshProperty = classDeclaration.addProperty({
+        name: propertyName,
+        type: type,
+      })
+      meshProperty.setHasQuestionToken(true);
+
+      switch(type) {
+        case "boolean":
+        case "number":
+        case "string":
+          writer.writeLine(`// ${importedNamespace}${classNameBabylon}.${propertyName} of type '${type}':`)
+          writer.write(`if (oldProps.${propertyName} !== newProps.${propertyName})`).block(() => {
+            writer.writeLine(`updates.push({\npropertyName: '${propertyName}',\nvalue: newProps.${propertyName},\ntype: '${type}'\n});`);
+          });
+        break;
+        case `${importedNamespace}.Vector3`:
+        case `${importedNamespace}.Color3`:
+          writer.writeLine(`// ${importedNamespace}${classNameBabylon}.${propertyName} of ${importedNamespace}${type} uses object equals to find diffs:`)
+          writer.write(`if (newProps.${propertyName} && (!oldProps.${propertyName} || !oldProps.${propertyName}.equals(newProps.${propertyName})))`).block(() => {
+            writer.writeLine(`updates.push({\npropertyName: '${propertyName}',\nvalue: newProps.${propertyName},\ntype: '${type}'\n});`);
+          });
+        break;
+        default:
+          writer.writeLine(`// TODO: type: ${type} property (not coded) ${importedNamespace}.${classNameBabylon}.${propertyName}.`);
+        break;
+      }
+}
+
 /**
  * This is used to write classes in inherited order, which is required by compiler.
  */
@@ -201,27 +247,61 @@ class OrderedListCreator {
   }
 }
 
+const addPropsAndHandlerClasses = (sourceFile: SourceFile, classNameToGenerate: string, classNameBabylon: string, propertiesToAdd: PropertyDeclaration[], importedNamespace: string) => {
+  const classDeclarationMeshPropsHandler = sourceFile.addClass({
+    name: `${classNameToGenerate}PropsHandler`,
+    isExported: true
+  });
+  classDeclarationMeshPropsHandler.addImplements(`PropsHandler<${importedNamespace}.${classNameBabylon}, ${classNameToGenerate}Props>`)
+  let getPropertyUpdatesMethodMesh = classDeclarationMeshPropsHandler.addMethod({
+    name: "getPropertyUpdates",
+    returnType: `${PropertyUpdateType}[] | null`
+  });
+  getPropertyUpdatesMethodMesh.addParameters([{
+    name: "createdInstance",
+    type: `${ReactReconcilerCreatedInstanceClassName}<${importedNamespace}.${classNameBabylon}>`
+  }, {
+    name: "oldProps",
+    type: `${classNameToGenerate}Props`
+  }, {
+    name: "newProps",
+    type: `${classNameToGenerate}Props`
+  }])
+
+  getPropertyUpdatesMethodMesh.setBodyText(writer => {
+    writer.writeLine("// generated code")
+    writer.writeLine(`let babylonObject: ${importedNamespace}.${classNameBabylon} = createdInstance.babylonJsObject;`)
+    writer.writeLine(`let updates: ${PropertyUpdateType}[] = [];`)
+
+    const classDeclarationMeshProps = sourceFile.addClass({
+      name: `${classNameToGenerate}Props`,
+      isExported: true
+    });
+
+    let addedMeshProperties = new Set();
+    propertiesToAdd.sort((a, b) => a.getName().localeCompare(b.getName())).forEach((property: PropertyDeclaration) => {
+      writePropertyAsUpdateFunction(classDeclarationMeshProps, writer, property, addedMeshProperties, importedNamespace, classNameBabylon);      
+    })
+    return writer.writeLine("return updates.length == 0 ? null : updates;");;
+  })
+}
+
 const generateCode = async () => {
   const exportsProject = new Project()
   const generatedSourceFile = exportsProject.createSourceFile(
     `${__dirname}/../src/generatedCode.ts`,
     "",
     { overwrite: true }
-  );
-
-  const ReactReconcilerCreatedInstanceClassName = "CreatedInstance";
-  const PropertyUpdateType = "PropertyUpdate";
+  );  
 
   generatedSourceFile.addImportDeclaration({
     moduleSpecifier: "./render",
     namedImports: [ReactReconcilerCreatedInstanceClassName, PropertyUpdateType]
   })
 
-  const importedNamespace = "BABYLON";
-
   generatedSourceFile.addImportDeclaration({
     moduleSpecifier: "babylonjs",
-    defaultImport: importedNamespace
+    defaultImport: ImportedNamespace
   })
 
   const interfaceDeclaration = generatedSourceFile.addInterface({
@@ -248,102 +328,12 @@ const generateCode = async () => {
     type: "U"
   }])
 
-  const classDeclarationMeshProps = generatedSourceFile.addClass({
-    name: "MeshProps",
-    isExported: true
-  });
-
   let meshPropertiesToAdd: PropertyDeclaration[] = []
   meshClasses.forEach(meshClass => {
     meshPropertiesToAdd.push(...getMethodInstanceProperties(meshClass))
   })
 
-  const classDeclarationMeshPropsHandler = generatedSourceFile.addClass({
-    name: "MeshPropsHandler",
-    isExported: true
-  });
-  classDeclarationMeshPropsHandler.addImplements(`PropsHandler<${importedNamespace}.Mesh, MeshProps>`)
-  let getPropertyUpdatesMethodMesh = classDeclarationMeshPropsHandler.addMethod({
-    name: "getPropertyUpdates",
-    returnType: `${PropertyUpdateType}[] | null`
-  });
-  getPropertyUpdatesMethodMesh.addParameters([{
-    name: "createdInstance",
-    type: `${ReactReconcilerCreatedInstanceClassName}<${importedNamespace}.Mesh>`
-  }, {
-    name: "oldProps",
-    type: "MeshProps"
-  }, {
-    name: "newProps",
-    type: "MeshProps"
-  }])
-
-  getPropertyUpdatesMethodMesh.setBodyText(writer => {
-    writer.writeLine("// generated code")
-    writer.writeLine(`let mesh: ${importedNamespace}.Mesh = createdInstance.babylonJsObject;`)
-    writer.writeLine(`let updates: ${PropertyUpdateType}[] = [];`)
-
-    let addedProperties = new Set();
-    meshPropertiesToAdd.sort((a, b) => a.getName().localeCompare(b.getName())).forEach(property => {
-      const type = property.getType().getText();
-      const propertyName = property.getName();
-      // doesn't really matter if it's 'optional', as nothing is forcing JavaScript users to follow your conventions.
-      // const isOptional = property.getQuestionTokenNode();
-
-      if (addedProperties.has(propertyName)) {
-        console.log(' >> skipping already existing property (ie: was overridden like Mesh.scaling): ', propertyName);
-        return;
-      }
-      addedProperties.add(propertyName);
-      // console.log(` >> including Mesh.${propertyName} (${type}))`)
-
-      const meshProperty = classDeclarationMeshProps.addProperty({
-        name: propertyName,
-        type: type,
-      })
-      meshProperty.setHasQuestionToken(true);
-
-      switch(type) {
-        case "boolean":
-        case "number":
-        case "string":
-          writer.writeLine(`// Mesh.${propertyName} of type '${type}':`)
-          writer.write(`if (oldProps.${propertyName} !== newProps.${propertyName})`).block(() => {
-            writer.writeLine(`updates.push({\npropertyName: '${propertyName}',\nvalue: newProps.${propertyName},\ntype: '${type}'\n});`);
-          });
-        break;
-        case `${importedNamespace}.Vector3`:
-        case `${importedNamespace}.Color3`:
-          writer.writeLine(`// Mesh.${propertyName} of Vector3 uses object equals to find diffs:`)
-          writer.write(`if (newProps.${propertyName} && (!oldProps.${propertyName} || !oldProps.${propertyName}.equals(newProps.${propertyName})))`).block(() => {
-            writer.writeLine(`updates.push({\npropertyName: '${propertyName}',\nvalue: newProps.${propertyName},\ntype: '${type}'\n});`);
-          });
-        break;
-        default:
-          writer.writeLine(`// TODO: type: ${type} property (not coded) ${importedNamespace}.Mesh.${propertyName}.`);
-        break;
-      }
-    })
-    return writer.writeLine("return updates.length == 0 ? null : updates;");;
-  })
-
-  class cameraVisitor implements Visitor {
-    visit(node: Node): void {
-      if (node.getKind() === SyntaxKind.HeritageClause) {
-        
-        const nodeType: Type = node.getType()
-        
-        console.log('Found heritage clause:', node.getKindName(), node.compilerNode)
-        
-        // const extendsType = this.checker.getTypeAtLocation(firstHeritageClauseType.expression)
-
-      }
-    }
-  }
-
-  const myVisitors: Visitor[] = [
-    new cameraVisitor()
-  ]
+  addPropsAndHandlerClasses(generatedSourceFile, "FiberMesh", "Mesh", meshPropertiesToAdd, ImportedNamespace)
 
   const cameraDeclaration : ClassDeclaration = cameraDeclarationsMap.get("Camera")!;
    
@@ -362,12 +352,16 @@ const generateCode = async () => {
 
     const baseClass: ClassDeclaration | undefined = classDeclaration.getBaseClass(); // no mix-ins in BabylonJS AFAIK, but would otherwise use baseTypes()
 
+    const cameraName: string = "Fiber" + classDeclaration.getName()
+    addPropsAndHandlerClasses(generatedSourceFile, cameraName, classDeclaration.getName()!, getMethodInstanceProperties(classDeclaration), ImportedNamespace)
+
     const classDeclarationMeshPropsHandler = generatedSourceFile.addClass({
-      name: "Fiber" + classDeclaration.getName(),
+      name: cameraName,
       isExported: true
     });
     classDeclarationMeshPropsHandler.setExtends(`Fiber${baseClass!.getName()}`)
 
+    console.log('built a camera: ', classDeclaration.getName())
     // build a dynamic getPropsHandler with while(x.getBaseClass() !== undefined)
   });
 
