@@ -5,6 +5,140 @@ export interface PropsHandler<T, U> {
     getPropertyUpdates(createdInstance: CreatedInstance<T>, oldProps: U, newProps: U): PropertyUpdate[] | null;
 }
 
+export interface HasPropsHandlers<T, U> {
+    getPropsHandlers(): PropsHandler<T, U>[];
+}
+
+export class FiberNode {
+}
+
+export class FiberNodeProps {
+    animationPropertiesOverride?: BABYLON.AnimationPropertiesOverride;
+    animations?: BABYLON.Animation[];
+    doNotSerialize?: boolean;
+    id?: string;
+    metadata?: any;
+    name?: string;
+    parent?: BABYLON.Node;
+    state?: string;
+    uniqueId?: number;
+}
+
+export class FiberNodePropsHandler implements PropsHandler<BABYLON.Node, FiberNodeProps> {
+    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.Node>, oldProps: FiberNodeProps, newProps: FiberNodeProps): PropertyUpdate[] | null {
+        // generated code
+        let babylonObject: BABYLON.Node = createdInstance.babylonJsObject;
+        let updates: PropertyUpdate[] = [];
+        // TODO: type: BABYLON.AnimationPropertiesOverride property (not coded) BABYLON.Node.animationPropertiesOverride.
+        // TODO: type: BABYLON.Animation[] property (not coded) BABYLON.Node.animations.
+        // BABYLONNode.doNotSerialize of type 'boolean':
+        if (oldProps.doNotSerialize !== newProps.doNotSerialize) {
+            updates.push({
+                propertyName: 'doNotSerialize',
+                value: newProps.doNotSerialize,
+                type: 'boolean'
+            });
+        }
+        // BABYLONNode.id of type 'string':
+        if (oldProps.id !== newProps.id) {
+            updates.push({
+                propertyName: 'id',
+                value: newProps.id,
+                type: 'string'
+            });
+        }
+        // TODO: type: any property (not coded) BABYLON.Node.metadata.
+        // BABYLONNode.name of type 'string':
+        if (oldProps.name !== newProps.name) {
+            updates.push({
+                propertyName: 'name',
+                value: newProps.name,
+                type: 'string'
+            });
+        }
+        // TODO: type: BABYLON.Node property (not coded) BABYLON.Node.parent.
+        // BABYLONNode.state of type 'string':
+        if (oldProps.state !== newProps.state) {
+            updates.push({
+                propertyName: 'state',
+                value: newProps.state,
+                type: 'string'
+            });
+        }
+        // BABYLONNode.uniqueId of type 'number':
+        if (oldProps.uniqueId !== newProps.uniqueId) {
+            updates.push({
+                propertyName: 'uniqueId',
+                value: newProps.uniqueId,
+                type: 'number'
+            });
+        }
+        return updates.length == 0 ? null : updates;
+    }
+}
+
+export class FiberMeshProps extends FiberNodeProps {
+    actionManager?: BABYLON.ActionManager;
+    alphaIndex?: number;
+    alwaysSelectAsActiveMesh?: boolean;
+    applyFog?: boolean;
+    billboardMode?: number;
+    checkCollisions?: boolean;
+    collisionGroup?: number;
+    collisionMask?: number;
+    computeBonesUsingShaders?: boolean;
+    cullingStrategy?: number;
+    definedFacingForward?: boolean;
+    delayLoadingFile?: string;
+    delayLoadState?: number;
+    edgesColor?: BABYLON.Color4;
+    edgesWidth?: number;
+    ellipsoid?: BABYLON.Vector3;
+    ellipsoidOffset?: BABYLON.Vector3;
+    enablePointerMoveEvents?: boolean;
+    facetDepthSortFrom?: BABYLON.Vector3;
+    hasVertexAlpha?: boolean;
+    ignoreNonUniformScaling?: boolean;
+    infiniteDistance?: boolean;
+    instances?: BABYLON.InstancedMesh[];
+    isBlocker?: boolean;
+    isOccluded?: boolean;
+    isPickable?: boolean;
+    isUnIndexed?: boolean;
+    isVisible?: boolean;
+    layerMask?: number;
+    material?: BABYLON.Material;
+    morphTargetManager?: BABYLON.MorphTargetManager;
+    mustDepthSortFacets?: boolean;
+    numBoneInfluencers?: number;
+    occlusionQueryAlgorithmType?: number;
+    occlusionRetryCount?: number;
+    occlusionType?: number;
+    outlineColor?: BABYLON.Color3;
+    outlineWidth?: number;
+    overlayAlpha?: number;
+    overlayColor?: BABYLON.Color3;
+    overrideMaterialSideOrientation?: number;
+    overridenInstanceCount?: number;
+    partitioningBBoxRatio?: number;
+    partitioningSubdivisions?: number;
+    position?: BABYLON.Vector3;
+    receiveShadows?: boolean;
+    renderingGroupId?: number;
+    rotation?: BABYLON.Vector3;
+    rotationQuaternion?: BABYLON.Quaternion;
+    scaling?: BABYLON.Vector3;
+    scalingDeterminant?: number;
+    showSubMeshesBoundingBox?: boolean;
+    skeleton?: BABYLON.Skeleton;
+    subMeshes?: BABYLON.SubMesh[];
+    useOctreeForCollisions?: boolean;
+    useOctreeForPicking?: boolean;
+    useOctreeForRenderingSelection?: boolean;
+    useVertexColors?: boolean;
+    visibility?: number;
+}
+
 export class FiberMeshPropsHandler implements PropsHandler<BABYLON.Mesh, FiberMeshProps> {
     getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.Mesh>, oldProps: FiberMeshProps, newProps: FiberMeshProps): PropertyUpdate[] | null {
         // generated code
@@ -27,8 +161,6 @@ export class FiberMeshPropsHandler implements PropsHandler<BABYLON.Mesh, FiberMe
                 type: 'boolean'
             });
         }
-        // TODO: type: BABYLON.AnimationPropertiesOverride property (not coded) BABYLON.Mesh.animationPropertiesOverride.
-        // TODO: type: BABYLON.Animation[] property (not coded) BABYLON.Mesh.animations.
         // BABYLONMesh.applyFog of type 'boolean':
         if (oldProps.applyFog !== newProps.applyFog) {
             updates.push({
@@ -109,14 +241,6 @@ export class FiberMeshPropsHandler implements PropsHandler<BABYLON.Mesh, FiberMe
                 type: 'number'
             });
         }
-        // BABYLONMesh.doNotSerialize of type 'boolean':
-        if (oldProps.doNotSerialize !== newProps.doNotSerialize) {
-            updates.push({
-                propertyName: 'doNotSerialize',
-                value: newProps.doNotSerialize,
-                type: 'boolean'
-            });
-        }
         // TODO: type: BABYLON.Color4 property (not coded) BABYLON.Mesh.edgesColor.
         // BABYLONMesh.edgesWidth of type 'number':
         if (oldProps.edgesWidth !== newProps.edgesWidth) {
@@ -164,14 +288,6 @@ export class FiberMeshPropsHandler implements PropsHandler<BABYLON.Mesh, FiberMe
                 propertyName: 'hasVertexAlpha',
                 value: newProps.hasVertexAlpha,
                 type: 'boolean'
-            });
-        }
-        // BABYLONMesh.id of type 'string':
-        if (oldProps.id !== newProps.id) {
-            updates.push({
-                propertyName: 'id',
-                value: newProps.id,
-                type: 'string'
             });
         }
         // BABYLONMesh.ignoreNonUniformScaling of type 'boolean':
@@ -240,7 +356,6 @@ export class FiberMeshPropsHandler implements PropsHandler<BABYLON.Mesh, FiberMe
             });
         }
         // TODO: type: BABYLON.Material property (not coded) BABYLON.Mesh.material.
-        // TODO: type: any property (not coded) BABYLON.Mesh.metadata.
         // TODO: type: BABYLON.MorphTargetManager property (not coded) BABYLON.Mesh.morphTargetManager.
         // BABYLONMesh.mustDepthSortFacets of type 'boolean':
         if (oldProps.mustDepthSortFacets !== newProps.mustDepthSortFacets) {
@@ -248,14 +363,6 @@ export class FiberMeshPropsHandler implements PropsHandler<BABYLON.Mesh, FiberMe
                 propertyName: 'mustDepthSortFacets',
                 value: newProps.mustDepthSortFacets,
                 type: 'boolean'
-            });
-        }
-        // BABYLONMesh.name of type 'string':
-        if (oldProps.name !== newProps.name) {
-            updates.push({
-                propertyName: 'name',
-                value: newProps.name,
-                type: 'string'
             });
         }
         // BABYLONMesh.numBoneInfluencers of type 'number':
@@ -338,7 +445,6 @@ export class FiberMeshPropsHandler implements PropsHandler<BABYLON.Mesh, FiberMe
                 type: 'number'
             });
         }
-        // TODO: type: BABYLON.Node property (not coded) BABYLON.Mesh.parent.
         // BABYLONMesh.partitioningBBoxRatio of type 'number':
         if (oldProps.partitioningBBoxRatio !== newProps.partitioningBBoxRatio) {
             updates.push({
@@ -413,23 +519,7 @@ export class FiberMeshPropsHandler implements PropsHandler<BABYLON.Mesh, FiberMe
             });
         }
         // TODO: type: BABYLON.Skeleton property (not coded) BABYLON.Mesh.skeleton.
-        // BABYLONMesh.state of type 'string':
-        if (oldProps.state !== newProps.state) {
-            updates.push({
-                propertyName: 'state',
-                value: newProps.state,
-                type: 'string'
-            });
-        }
         // TODO: type: BABYLON.SubMesh[] property (not coded) BABYLON.Mesh.subMeshes.
-        // BABYLONMesh.uniqueId of type 'number':
-        if (oldProps.uniqueId !== newProps.uniqueId) {
-            updates.push({
-                propertyName: 'uniqueId',
-                value: newProps.uniqueId,
-                type: 'number'
-            });
-        }
         // BABYLONMesh.useOctreeForCollisions of type 'boolean':
         if (oldProps.useOctreeForCollisions !== newProps.useOctreeForCollisions) {
             updates.push({
@@ -474,78 +564,27 @@ export class FiberMeshPropsHandler implements PropsHandler<BABYLON.Mesh, FiberMe
     }
 }
 
-export class FiberMeshProps {
-    actionManager?: BABYLON.ActionManager;
-    alphaIndex?: number;
-    alwaysSelectAsActiveMesh?: boolean;
-    animationPropertiesOverride?: BABYLON.AnimationPropertiesOverride;
-    animations?: BABYLON.Animation[];
-    applyFog?: boolean;
-    billboardMode?: number;
-    checkCollisions?: boolean;
-    collisionGroup?: number;
-    collisionMask?: number;
-    computeBonesUsingShaders?: boolean;
-    cullingStrategy?: number;
-    definedFacingForward?: boolean;
-    delayLoadingFile?: string;
-    delayLoadState?: number;
-    doNotSerialize?: boolean;
-    edgesColor?: BABYLON.Color4;
-    edgesWidth?: number;
-    ellipsoid?: BABYLON.Vector3;
-    ellipsoidOffset?: BABYLON.Vector3;
-    enablePointerMoveEvents?: boolean;
-    facetDepthSortFrom?: BABYLON.Vector3;
-    hasVertexAlpha?: boolean;
-    id?: string;
-    ignoreNonUniformScaling?: boolean;
-    infiniteDistance?: boolean;
-    instances?: BABYLON.InstancedMesh[];
-    isBlocker?: boolean;
-    isOccluded?: boolean;
-    isPickable?: boolean;
-    isUnIndexed?: boolean;
-    isVisible?: boolean;
+export class FiberCameraProps extends FiberNodeProps {
+    cameraRigMode?: number;
+    customRenderTargets?: BABYLON.RenderTargetTexture[];
+    fov?: number;
+    fovMode?: number;
+    inertia?: number;
+    inputs?: BABYLON.CameraInputsManager<BABYLON.Camera>;
+    interaxialDistance?: number;
+    isIntermediate?: boolean;
+    isStereoscopicSideBySide?: boolean;
     layerMask?: number;
-    material?: BABYLON.Material;
-    metadata?: any;
-    morphTargetManager?: BABYLON.MorphTargetManager;
-    mustDepthSortFacets?: boolean;
-    name?: string;
-    numBoneInfluencers?: number;
-    occlusionQueryAlgorithmType?: number;
-    occlusionRetryCount?: number;
-    occlusionType?: number;
-    outlineColor?: BABYLON.Color3;
-    outlineWidth?: number;
-    overlayAlpha?: number;
-    overlayColor?: BABYLON.Color3;
-    overrideMaterialSideOrientation?: number;
-    overridenInstanceCount?: number;
-    parent?: BABYLON.Node;
-    partitioningBBoxRatio?: number;
-    partitioningSubdivisions?: number;
+    maxZ?: number;
+    minZ?: number;
+    mode?: number;
+    orthoBottom?: number;
+    orthoLeft?: number;
+    orthoRight?: number;
+    orthoTop?: number;
     position?: BABYLON.Vector3;
-    receiveShadows?: boolean;
-    renderingGroupId?: number;
-    rotation?: BABYLON.Vector3;
-    rotationQuaternion?: BABYLON.Quaternion;
-    scaling?: BABYLON.Vector3;
-    scalingDeterminant?: number;
-    showSubMeshesBoundingBox?: boolean;
-    skeleton?: BABYLON.Skeleton;
-    state?: string;
-    subMeshes?: BABYLON.SubMesh[];
-    uniqueId?: number;
-    useOctreeForCollisions?: boolean;
-    useOctreeForPicking?: boolean;
-    useOctreeForRenderingSelection?: boolean;
-    useVertexColors?: boolean;
-    visibility?: number;
-}
-
-export class FiberNode {
+    upVector?: BABYLON.Vector3;
+    viewport?: BABYLON.Viewport;
 }
 
 export class FiberCameraPropsHandler implements PropsHandler<BABYLON.Camera, FiberCameraProps> {
@@ -696,30 +735,27 @@ export class FiberCameraPropsHandler implements PropsHandler<BABYLON.Camera, Fib
     }
 }
 
-export class FiberCameraProps {
-    cameraRigMode?: number;
-    customRenderTargets?: BABYLON.RenderTargetTexture[];
-    fov?: number;
-    fovMode?: number;
-    inertia?: number;
-    inputs?: BABYLON.CameraInputsManager<BABYLON.Camera>;
-    interaxialDistance?: number;
-    isIntermediate?: boolean;
-    isStereoscopicSideBySide?: boolean;
-    layerMask?: number;
-    maxZ?: number;
-    minZ?: number;
-    mode?: number;
-    orthoBottom?: number;
-    orthoLeft?: number;
-    orthoRight?: number;
-    orthoTop?: number;
-    position?: BABYLON.Vector3;
-    upVector?: BABYLON.Vector3;
-    viewport?: BABYLON.Viewport;
+/**
+ * This is the base class of all the camera used in the application.
+ */
+export class FiberCamera extends FiberNode implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
+    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
+        // generated code
+        return [
+            new FiberCameraPropsHandler(),
+            new FiberNodePropsHandler()
+        ];
+    }
 }
 
-export class FiberCamera extends FiberNode {
+export class FiberTargetCameraProps extends FiberCameraProps {
+    cameraDirection?: BABYLON.Vector3;
+    cameraRotation?: BABYLON.Vector2;
+    lockedTarget?: any;
+    noRotationConstraint?: boolean;
+    rotation?: BABYLON.Vector3;
+    rotationQuaternion?: BABYLON.Quaternion;
+    speed?: number;
 }
 
 export class FiberTargetCameraPropsHandler implements PropsHandler<BABYLON.TargetCamera, FiberTargetCameraProps> {
@@ -766,17 +802,62 @@ export class FiberTargetCameraPropsHandler implements PropsHandler<BABYLON.Targe
     }
 }
 
-export class FiberTargetCameraProps {
-    cameraDirection?: BABYLON.Vector3;
-    cameraRotation?: BABYLON.Vector2;
-    lockedTarget?: any;
-    noRotationConstraint?: boolean;
-    rotation?: BABYLON.Vector3;
-    rotationQuaternion?: BABYLON.Quaternion;
-    speed?: number;
+/**
+ * A target camera takes a mesh or position as a target and continues to look at it while it moves.
+ * This is the base of the follow, arc rotate cameras and Free camera
+ */
+export class FiberTargetCamera extends FiberCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
+    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
+        // generated code
+        return [
+            new FiberTargetCameraPropsHandler(),
+            new FiberCameraPropsHandler(),
+            new FiberNodePropsHandler()
+        ];
+    }
 }
 
-export class FiberTargetCamera extends FiberCamera {
+export class FiberArcRotateCameraProps extends FiberTargetCameraProps {
+    allowUpsideDown?: boolean;
+    alpha?: number;
+    angularSensibilityX?: number;
+    angularSensibilityY?: number;
+    beta?: number;
+    checkCollisions?: boolean;
+    collisionRadius?: BABYLON.Vector3;
+    inertialAlphaOffset?: number;
+    inertialBetaOffset?: number;
+    inertialPanningX?: number;
+    inertialPanningY?: number;
+    inertialRadiusOffset?: number;
+    inputs?: BABYLON.ArcRotateCameraInputsManager;
+    keysDown?: number[];
+    keysLeft?: number[];
+    keysRight?: number[];
+    keysUp?: number[];
+    lowerAlphaLimit?: number;
+    lowerBetaLimit?: number;
+    lowerRadiusLimit?: number;
+    panningAxis?: BABYLON.Vector3;
+    panningDistanceLimit?: number;
+    panningInertia?: number;
+    panningOriginTarget?: BABYLON.Vector3;
+    panningSensibility?: number;
+    pinchDeltaPercentage?: number;
+    pinchPrecision?: number;
+    pinchToPanMaxDistance?: number;
+    radius?: number;
+    target?: BABYLON.Vector3;
+    targetScreenOffset?: BABYLON.Vector2;
+    upperAlphaLimit?: number;
+    upperBetaLimit?: number;
+    upperRadiusLimit?: number;
+    useAutoRotationBehavior?: boolean;
+    useBouncingBehavior?: boolean;
+    useFramingBehavior?: boolean;
+    wheelDeltaPercentage?: number;
+    wheelPrecision?: number;
+    zoomOnFactor?: number;
 }
 
 export class FiberArcRotateCameraPropsHandler implements PropsHandler<BABYLON.ArcRotateCamera, FiberArcRotateCameraProps> {
@@ -1066,50 +1147,25 @@ export class FiberArcRotateCameraPropsHandler implements PropsHandler<BABYLON.Ar
     }
 }
 
-export class FiberArcRotateCameraProps {
-    allowUpsideDown?: boolean;
-    alpha?: number;
-    angularSensibilityX?: number;
-    angularSensibilityY?: number;
-    beta?: number;
-    checkCollisions?: boolean;
-    collisionRadius?: BABYLON.Vector3;
-    inertialAlphaOffset?: number;
-    inertialBetaOffset?: number;
-    inertialPanningX?: number;
-    inertialPanningY?: number;
-    inertialRadiusOffset?: number;
-    inputs?: BABYLON.ArcRotateCameraInputsManager;
-    keysDown?: number[];
-    keysLeft?: number[];
-    keysRight?: number[];
-    keysUp?: number[];
-    lowerAlphaLimit?: number;
-    lowerBetaLimit?: number;
-    lowerRadiusLimit?: number;
-    panningAxis?: BABYLON.Vector3;
-    panningDistanceLimit?: number;
-    panningInertia?: number;
-    panningOriginTarget?: BABYLON.Vector3;
-    panningSensibility?: number;
-    pinchDeltaPercentage?: number;
-    pinchPrecision?: number;
-    pinchToPanMaxDistance?: number;
-    radius?: number;
-    target?: BABYLON.Vector3;
-    targetScreenOffset?: BABYLON.Vector2;
-    upperAlphaLimit?: number;
-    upperBetaLimit?: number;
-    upperRadiusLimit?: number;
-    useAutoRotationBehavior?: boolean;
-    useBouncingBehavior?: boolean;
-    useFramingBehavior?: boolean;
-    wheelDeltaPercentage?: number;
-    wheelPrecision?: number;
-    zoomOnFactor?: number;
+/**
+ * This represents an orbital type of camera.
+ * 
+ * This camera always points towards a given target position and can be rotated around that target with the target as the centre of rotation. It can be controlled with cursors and mouse, or with touch events.
+ * Think of this camera as one orbiting its target position, or more imaginatively as a spy satellite orbiting the earth. Its position relative to the target (earth) can be set by three parameters, alpha (radians) the longitudinal rotation, beta (radians) the latitudinal rotation and radius the distance from the target position.
+ */
+export class FiberArcRotateCamera extends FiberTargetCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
+    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
+        // generated code
+        return [
+            new FiberArcRotateCameraPropsHandler(),
+            new FiberTargetCameraPropsHandler(),
+            new FiberCameraPropsHandler(),
+            new FiberNodePropsHandler()
+        ];
+    }
 }
 
-export class FiberArcRotateCamera extends FiberTargetCamera {
+export class FiberVRDeviceOrientationArcRotateCameraProps extends FiberArcRotateCameraProps {
 }
 
 export class FiberVRDeviceOrientationArcRotateCameraPropsHandler implements PropsHandler<BABYLON.VRDeviceOrientationArcRotateCamera, FiberVRDeviceOrientationArcRotateCameraProps> {
@@ -1121,10 +1177,23 @@ export class FiberVRDeviceOrientationArcRotateCameraPropsHandler implements Prop
     }
 }
 
-export class FiberVRDeviceOrientationArcRotateCameraProps {
+/**
+ * Camera used to simulate VR rendering (based on ArcRotateCamera)
+ */
+export class FiberVRDeviceOrientationArcRotateCamera extends FiberArcRotateCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
+    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
+        // generated code
+        return [
+            new FiberVRDeviceOrientationArcRotateCameraPropsHandler(),
+            new FiberArcRotateCameraPropsHandler(),
+            new FiberTargetCameraPropsHandler(),
+            new FiberCameraPropsHandler(),
+            new FiberNodePropsHandler()
+        ];
+    }
 }
 
-export class FiberVRDeviceOrientationArcRotateCamera extends FiberArcRotateCamera {
+export class FiberAnaglyphArcRotateCameraProps extends FiberArcRotateCameraProps {
 }
 
 export class FiberAnaglyphArcRotateCameraPropsHandler implements PropsHandler<BABYLON.AnaglyphArcRotateCamera, FiberAnaglyphArcRotateCameraProps> {
@@ -1136,10 +1205,23 @@ export class FiberAnaglyphArcRotateCameraPropsHandler implements PropsHandler<BA
     }
 }
 
-export class FiberAnaglyphArcRotateCameraProps {
+/**
+ * Camera used to simulate anaglyphic rendering (based on ArcRotateCamera)
+ */
+export class FiberAnaglyphArcRotateCamera extends FiberArcRotateCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
+    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
+        // generated code
+        return [
+            new FiberAnaglyphArcRotateCameraPropsHandler(),
+            new FiberArcRotateCameraPropsHandler(),
+            new FiberTargetCameraPropsHandler(),
+            new FiberCameraPropsHandler(),
+            new FiberNodePropsHandler()
+        ];
+    }
 }
 
-export class FiberAnaglyphArcRotateCamera extends FiberArcRotateCamera {
+export class FiberStereoscopicArcRotateCameraProps extends FiberArcRotateCameraProps {
 }
 
 export class FiberStereoscopicArcRotateCameraPropsHandler implements PropsHandler<BABYLON.StereoscopicArcRotateCamera, FiberStereoscopicArcRotateCameraProps> {
@@ -1151,10 +1233,29 @@ export class FiberStereoscopicArcRotateCameraPropsHandler implements PropsHandle
     }
 }
 
-export class FiberStereoscopicArcRotateCameraProps {
+/**
+ * Camera used to simulate stereoscopic rendering (based on ArcRotateCamera)
+ */
+export class FiberStereoscopicArcRotateCamera extends FiberArcRotateCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
+    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
+        // generated code
+        return [
+            new FiberStereoscopicArcRotateCameraPropsHandler(),
+            new FiberArcRotateCameraPropsHandler(),
+            new FiberTargetCameraPropsHandler(),
+            new FiberCameraPropsHandler(),
+            new FiberNodePropsHandler()
+        ];
+    }
 }
 
-export class FiberStereoscopicArcRotateCamera extends FiberArcRotateCamera {
+export class FiberFollowCameraProps extends FiberTargetCameraProps {
+    cameraAcceleration?: number;
+    heightOffset?: number;
+    lockedTarget?: BABYLON.AbstractMesh;
+    maxCameraSpeed?: number;
+    radius?: number;
+    rotationOffset?: number;
 }
 
 export class FiberFollowCameraPropsHandler implements PropsHandler<BABYLON.FollowCamera, FiberFollowCameraProps> {
@@ -1207,16 +1308,27 @@ export class FiberFollowCameraPropsHandler implements PropsHandler<BABYLON.Follo
     }
 }
 
-export class FiberFollowCameraProps {
-    cameraAcceleration?: number;
-    heightOffset?: number;
-    lockedTarget?: BABYLON.AbstractMesh;
-    maxCameraSpeed?: number;
-    radius?: number;
-    rotationOffset?: number;
+/**
+ * A follow camera takes a mesh as a target and follows it as it moves. Both a free camera version followCamera and
+ * an arc rotate version arcFollowCamera are available.
+ */
+export class FiberFollowCamera extends FiberTargetCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
+    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
+        // generated code
+        return [
+            new FiberFollowCameraPropsHandler(),
+            new FiberTargetCameraPropsHandler(),
+            new FiberCameraPropsHandler(),
+            new FiberNodePropsHandler()
+        ];
+    }
 }
 
-export class FiberFollowCamera extends FiberTargetCamera {
+export class FiberArcFollowCameraProps extends FiberTargetCameraProps {
+    alpha?: number;
+    beta?: number;
+    radius?: number;
+    target?: BABYLON.AbstractMesh;
 }
 
 export class FiberArcFollowCameraPropsHandler implements PropsHandler<BABYLON.ArcFollowCamera, FiberArcFollowCameraProps> {
@@ -1253,14 +1365,34 @@ export class FiberArcFollowCameraPropsHandler implements PropsHandler<BABYLON.Ar
     }
 }
 
-export class FiberArcFollowCameraProps {
-    alpha?: number;
-    beta?: number;
-    radius?: number;
-    target?: BABYLON.AbstractMesh;
+/**
+ * Arc Rotate version of the follow camera.
+ * It still follows a Defined mesh but in an Arc Rotate Camera fashion.
+ */
+export class FiberArcFollowCamera extends FiberTargetCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
+    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
+        // generated code
+        return [
+            new FiberArcFollowCameraPropsHandler(),
+            new FiberTargetCameraPropsHandler(),
+            new FiberCameraPropsHandler(),
+            new FiberNodePropsHandler()
+        ];
+    }
 }
 
-export class FiberArcFollowCamera extends FiberTargetCamera {
+export class FiberFreeCameraProps extends FiberTargetCameraProps {
+    angularSensibility?: number;
+    applyGravity?: boolean;
+    checkCollisions?: boolean;
+    collisionMask?: number;
+    ellipsoid?: BABYLON.Vector3;
+    ellipsoidOffset?: BABYLON.Vector3;
+    inputs?: BABYLON.FreeCameraInputsManager;
+    keysDown?: number[];
+    keysLeft?: number[];
+    keysRight?: number[];
+    keysUp?: number[];
 }
 
 export class FiberFreeCameraPropsHandler implements PropsHandler<BABYLON.FreeCamera, FiberFreeCameraProps> {
@@ -1325,21 +1457,23 @@ export class FiberFreeCameraPropsHandler implements PropsHandler<BABYLON.FreeCam
     }
 }
 
-export class FiberFreeCameraProps {
-    angularSensibility?: number;
-    applyGravity?: boolean;
-    checkCollisions?: boolean;
-    collisionMask?: number;
-    ellipsoid?: BABYLON.Vector3;
-    ellipsoidOffset?: BABYLON.Vector3;
-    inputs?: BABYLON.FreeCameraInputsManager;
-    keysDown?: number[];
-    keysLeft?: number[];
-    keysRight?: number[];
-    keysUp?: number[];
+/**
+ * This represents a free type of camera. It can be usefull in First Person Shooter game for instance.
+ * Please consider using the new UniversalCamera instead as it adds more functionality like the gamepad.
+ */
+export class FiberFreeCamera extends FiberTargetCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
+    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
+        // generated code
+        return [
+            new FiberFreeCameraPropsHandler(),
+            new FiberTargetCameraPropsHandler(),
+            new FiberCameraPropsHandler(),
+            new FiberNodePropsHandler()
+        ];
+    }
 }
 
-export class FiberFreeCamera extends FiberTargetCamera {
+export class FiberDeviceOrientationCameraProps extends FiberFreeCameraProps {
 }
 
 export class FiberDeviceOrientationCameraPropsHandler implements PropsHandler<BABYLON.DeviceOrientationCamera, FiberDeviceOrientationCameraProps> {
@@ -1351,10 +1485,24 @@ export class FiberDeviceOrientationCameraPropsHandler implements PropsHandler<BA
     }
 }
 
-export class FiberDeviceOrientationCameraProps {
+/**
+ * This is a camera specifically designed to react to device orientation events such as a modern mobile device
+ * being tilted forward or back and left or right.
+ */
+export class FiberDeviceOrientationCamera extends FiberFreeCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
+    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
+        // generated code
+        return [
+            new FiberDeviceOrientationCameraPropsHandler(),
+            new FiberFreeCameraPropsHandler(),
+            new FiberTargetCameraPropsHandler(),
+            new FiberCameraPropsHandler(),
+            new FiberNodePropsHandler()
+        ];
+    }
 }
 
-export class FiberDeviceOrientationCamera extends FiberFreeCamera {
+export class FiberVRDeviceOrientationFreeCameraProps extends FiberDeviceOrientationCameraProps {
 }
 
 export class FiberVRDeviceOrientationFreeCameraPropsHandler implements PropsHandler<BABYLON.VRDeviceOrientationFreeCamera, FiberVRDeviceOrientationFreeCameraProps> {
@@ -1366,10 +1514,24 @@ export class FiberVRDeviceOrientationFreeCameraPropsHandler implements PropsHand
     }
 }
 
-export class FiberVRDeviceOrientationFreeCameraProps {
+/**
+ * Camera used to simulate VR rendering (based on FreeCamera)
+ */
+export class FiberVRDeviceOrientationFreeCamera extends FiberDeviceOrientationCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
+    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
+        // generated code
+        return [
+            new FiberVRDeviceOrientationFreeCameraPropsHandler(),
+            new FiberDeviceOrientationCameraPropsHandler(),
+            new FiberFreeCameraPropsHandler(),
+            new FiberTargetCameraPropsHandler(),
+            new FiberCameraPropsHandler(),
+            new FiberNodePropsHandler()
+        ];
+    }
 }
 
-export class FiberVRDeviceOrientationFreeCamera extends FiberDeviceOrientationCamera {
+export class FiberVRDeviceOrientationGamepadCameraProps extends FiberVRDeviceOrientationFreeCameraProps {
 }
 
 export class FiberVRDeviceOrientationGamepadCameraPropsHandler implements PropsHandler<BABYLON.VRDeviceOrientationGamepadCamera, FiberVRDeviceOrientationGamepadCameraProps> {
@@ -1381,10 +1543,27 @@ export class FiberVRDeviceOrientationGamepadCameraPropsHandler implements PropsH
     }
 }
 
-export class FiberVRDeviceOrientationGamepadCameraProps {
+/**
+ * Camera used to simulate VR rendering (based on VRDeviceOrientationFreeCamera)
+ */
+export class FiberVRDeviceOrientationGamepadCamera extends FiberVRDeviceOrientationFreeCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
+    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
+        // generated code
+        return [
+            new FiberVRDeviceOrientationGamepadCameraPropsHandler(),
+            new FiberVRDeviceOrientationFreeCameraPropsHandler(),
+            new FiberDeviceOrientationCameraPropsHandler(),
+            new FiberFreeCameraPropsHandler(),
+            new FiberTargetCameraPropsHandler(),
+            new FiberCameraPropsHandler(),
+            new FiberNodePropsHandler()
+        ];
+    }
 }
 
-export class FiberVRDeviceOrientationGamepadCamera extends FiberVRDeviceOrientationFreeCamera {
+export class FiberTouchCameraProps extends FiberFreeCameraProps {
+    touchAngularSensibility?: number;
+    touchMoveSensibility?: number;
 }
 
 export class FiberTouchCameraPropsHandler implements PropsHandler<BABYLON.TouchCamera, FiberTouchCameraProps> {
@@ -1412,12 +1591,26 @@ export class FiberTouchCameraPropsHandler implements PropsHandler<BABYLON.TouchC
     }
 }
 
-export class FiberTouchCameraProps {
-    touchAngularSensibility?: number;
-    touchMoveSensibility?: number;
+/**
+ * This represents a FPS type of camera controlled by touch.
+ * This is like a universal camera minus the Gamepad controls.
+ */
+export class FiberTouchCamera extends FiberFreeCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
+    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
+        // generated code
+        return [
+            new FiberTouchCameraPropsHandler(),
+            new FiberFreeCameraPropsHandler(),
+            new FiberTargetCameraPropsHandler(),
+            new FiberCameraPropsHandler(),
+            new FiberNodePropsHandler()
+        ];
+    }
 }
 
-export class FiberTouchCamera extends FiberFreeCamera {
+export class FiberUniversalCameraProps extends FiberTouchCameraProps {
+    gamepadAngularSensibility?: number;
+    gamepadMoveSensibility?: number;
 }
 
 export class FiberUniversalCameraPropsHandler implements PropsHandler<BABYLON.UniversalCamera, FiberUniversalCameraProps> {
@@ -1445,12 +1638,25 @@ export class FiberUniversalCameraPropsHandler implements PropsHandler<BABYLON.Un
     }
 }
 
-export class FiberUniversalCameraProps {
-    gamepadAngularSensibility?: number;
-    gamepadMoveSensibility?: number;
+/**
+ * The Universal Camera is the one to choose for first person shooter type games, and works with all the keyboard, mouse, touch and gamepads. This replaces the earlier Free Camera,
+ * which still works and will still be found in many Playgrounds.
+ */
+export class FiberUniversalCamera extends FiberTouchCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
+    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
+        // generated code
+        return [
+            new FiberUniversalCameraPropsHandler(),
+            new FiberTouchCameraPropsHandler(),
+            new FiberFreeCameraPropsHandler(),
+            new FiberTargetCameraPropsHandler(),
+            new FiberCameraPropsHandler(),
+            new FiberNodePropsHandler()
+        ];
+    }
 }
 
-export class FiberUniversalCamera extends FiberTouchCamera {
+export class FiberGamepadCameraProps extends FiberUniversalCameraProps {
 }
 
 export class FiberGamepadCameraPropsHandler implements PropsHandler<BABYLON.GamepadCamera, FiberGamepadCameraProps> {
@@ -1462,10 +1668,26 @@ export class FiberGamepadCameraPropsHandler implements PropsHandler<BABYLON.Game
     }
 }
 
-export class FiberGamepadCameraProps {
+/**
+ * This represents a FPS type of camera. This is only here for back compat purpose.
+ * Please use the UniversalCamera instead as both are identical.
+ */
+export class FiberGamepadCamera extends FiberUniversalCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
+    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
+        // generated code
+        return [
+            new FiberGamepadCameraPropsHandler(),
+            new FiberUniversalCameraPropsHandler(),
+            new FiberTouchCameraPropsHandler(),
+            new FiberFreeCameraPropsHandler(),
+            new FiberTargetCameraPropsHandler(),
+            new FiberCameraPropsHandler(),
+            new FiberNodePropsHandler()
+        ];
+    }
 }
 
-export class FiberGamepadCamera extends FiberUniversalCamera {
+export class FiberAnaglyphGamepadCameraProps extends FiberGamepadCameraProps {
 }
 
 export class FiberAnaglyphGamepadCameraPropsHandler implements PropsHandler<BABYLON.AnaglyphGamepadCamera, FiberAnaglyphGamepadCameraProps> {
@@ -1477,10 +1699,26 @@ export class FiberAnaglyphGamepadCameraPropsHandler implements PropsHandler<BABY
     }
 }
 
-export class FiberAnaglyphGamepadCameraProps {
+/**
+ * Camera used to simulate anaglyphic rendering (based on GamepadCamera)
+ */
+export class FiberAnaglyphGamepadCamera extends FiberGamepadCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
+    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
+        // generated code
+        return [
+            new FiberAnaglyphGamepadCameraPropsHandler(),
+            new FiberGamepadCameraPropsHandler(),
+            new FiberUniversalCameraPropsHandler(),
+            new FiberTouchCameraPropsHandler(),
+            new FiberFreeCameraPropsHandler(),
+            new FiberTargetCameraPropsHandler(),
+            new FiberCameraPropsHandler(),
+            new FiberNodePropsHandler()
+        ];
+    }
 }
 
-export class FiberAnaglyphGamepadCamera extends FiberGamepadCamera {
+export class FiberStereoscopicGamepadCameraProps extends FiberGamepadCameraProps {
 }
 
 export class FiberStereoscopicGamepadCameraPropsHandler implements PropsHandler<BABYLON.StereoscopicGamepadCamera, FiberStereoscopicGamepadCameraProps> {
@@ -1492,10 +1730,26 @@ export class FiberStereoscopicGamepadCameraPropsHandler implements PropsHandler<
     }
 }
 
-export class FiberStereoscopicGamepadCameraProps {
+/**
+ * Camera used to simulate stereoscopic rendering (based on GamepadCamera)
+ */
+export class FiberStereoscopicGamepadCamera extends FiberGamepadCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
+    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
+        // generated code
+        return [
+            new FiberStereoscopicGamepadCameraPropsHandler(),
+            new FiberGamepadCameraPropsHandler(),
+            new FiberUniversalCameraPropsHandler(),
+            new FiberTouchCameraPropsHandler(),
+            new FiberFreeCameraPropsHandler(),
+            new FiberTargetCameraPropsHandler(),
+            new FiberCameraPropsHandler(),
+            new FiberNodePropsHandler()
+        ];
+    }
 }
 
-export class FiberStereoscopicGamepadCamera extends FiberGamepadCamera {
+export class FiberAnaglyphUniversalCameraProps extends FiberUniversalCameraProps {
 }
 
 export class FiberAnaglyphUniversalCameraPropsHandler implements PropsHandler<BABYLON.AnaglyphUniversalCamera, FiberAnaglyphUniversalCameraProps> {
@@ -1507,10 +1761,25 @@ export class FiberAnaglyphUniversalCameraPropsHandler implements PropsHandler<BA
     }
 }
 
-export class FiberAnaglyphUniversalCameraProps {
+/**
+ * Camera used to simulate anaglyphic rendering (based on UniversalCamera)
+ */
+export class FiberAnaglyphUniversalCamera extends FiberUniversalCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
+    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
+        // generated code
+        return [
+            new FiberAnaglyphUniversalCameraPropsHandler(),
+            new FiberUniversalCameraPropsHandler(),
+            new FiberTouchCameraPropsHandler(),
+            new FiberFreeCameraPropsHandler(),
+            new FiberTargetCameraPropsHandler(),
+            new FiberCameraPropsHandler(),
+            new FiberNodePropsHandler()
+        ];
+    }
 }
 
-export class FiberAnaglyphUniversalCamera extends FiberUniversalCamera {
+export class FiberStereoscopicUniversalCameraProps extends FiberUniversalCameraProps {
 }
 
 export class FiberStereoscopicUniversalCameraPropsHandler implements PropsHandler<BABYLON.StereoscopicUniversalCamera, FiberStereoscopicUniversalCameraProps> {
@@ -1522,10 +1791,25 @@ export class FiberStereoscopicUniversalCameraPropsHandler implements PropsHandle
     }
 }
 
-export class FiberStereoscopicUniversalCameraProps {
+/**
+ * Camera used to simulate stereoscopic rendering (based on UniversalCamera)
+ */
+export class FiberStereoscopicUniversalCamera extends FiberUniversalCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
+    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
+        // generated code
+        return [
+            new FiberStereoscopicUniversalCameraPropsHandler(),
+            new FiberUniversalCameraPropsHandler(),
+            new FiberTouchCameraPropsHandler(),
+            new FiberFreeCameraPropsHandler(),
+            new FiberTargetCameraPropsHandler(),
+            new FiberCameraPropsHandler(),
+            new FiberNodePropsHandler()
+        ];
+    }
 }
 
-export class FiberStereoscopicUniversalCamera extends FiberUniversalCamera {
+export class FiberVirtualJoysticksCameraProps extends FiberFreeCameraProps {
 }
 
 export class FiberVirtualJoysticksCameraPropsHandler implements PropsHandler<BABYLON.VirtualJoysticksCamera, FiberVirtualJoysticksCameraProps> {
@@ -1537,10 +1821,33 @@ export class FiberVirtualJoysticksCameraPropsHandler implements PropsHandler<BAB
     }
 }
 
-export class FiberVirtualJoysticksCameraProps {
+/**
+ * This represents a free type of camera. It can be usefull in First Person Shooter game for instance.
+ * It is identical to the Free Camera and simply adds by default a virtual joystick.
+ * Virtual Joysticks are on-screen 2D graphics that are used to control the camera or other scene items.
+ */
+export class FiberVirtualJoysticksCamera extends FiberFreeCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
+    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
+        // generated code
+        return [
+            new FiberVirtualJoysticksCameraPropsHandler(),
+            new FiberFreeCameraPropsHandler(),
+            new FiberTargetCameraPropsHandler(),
+            new FiberCameraPropsHandler(),
+            new FiberNodePropsHandler()
+        ];
+    }
 }
 
-export class FiberVirtualJoysticksCamera extends FiberFreeCamera {
+export class FiberWebVRFreeCameraProps extends FiberFreeCameraProps {
+    controllers?: BABYLON.WebVRController[];
+    devicePosition?: BABYLON.Vector3;
+    deviceRotationQuaternion?: BABYLON.Quaternion;
+    deviceScaleFactor?: number;
+    rawPose?: BABYLON.DevicePose;
+    rigParenting?: boolean;
+    updateCacheCalled?: any;
+    webVROptions?: any;
 }
 
 export class FiberWebVRFreeCameraPropsHandler implements PropsHandler<BABYLON.WebVRFreeCamera, FiberWebVRFreeCameraProps> {
@@ -1581,18 +1888,24 @@ export class FiberWebVRFreeCameraPropsHandler implements PropsHandler<BABYLON.We
     }
 }
 
-export class FiberWebVRFreeCameraProps {
-    controllers?: BABYLON.WebVRController[];
-    devicePosition?: BABYLON.Vector3;
-    deviceRotationQuaternion?: BABYLON.Quaternion;
-    deviceScaleFactor?: number;
-    rawPose?: BABYLON.DevicePose;
-    rigParenting?: boolean;
-    updateCacheCalled?: any;
-    webVROptions?: any;
+/**
+ * This represents a WebVR camera.
+ * The WebVR camera is Babylon's simple interface to interaction with Windows Mixed Reality, HTC Vive and Oculus Rift.
+ */
+export class FiberWebVRFreeCamera extends FiberFreeCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
+    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
+        // generated code
+        return [
+            new FiberWebVRFreeCameraPropsHandler(),
+            new FiberFreeCameraPropsHandler(),
+            new FiberTargetCameraPropsHandler(),
+            new FiberCameraPropsHandler(),
+            new FiberNodePropsHandler()
+        ];
+    }
 }
 
-export class FiberWebVRFreeCamera extends FiberFreeCamera {
+export class FiberAnaglyphFreeCameraProps extends FiberFreeCameraProps {
 }
 
 export class FiberAnaglyphFreeCameraPropsHandler implements PropsHandler<BABYLON.AnaglyphFreeCamera, FiberAnaglyphFreeCameraProps> {
@@ -1604,10 +1917,23 @@ export class FiberAnaglyphFreeCameraPropsHandler implements PropsHandler<BABYLON
     }
 }
 
-export class FiberAnaglyphFreeCameraProps {
+/**
+ * Camera used to simulate anaglyphic rendering (based on FreeCamera)
+ */
+export class FiberAnaglyphFreeCamera extends FiberFreeCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
+    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
+        // generated code
+        return [
+            new FiberAnaglyphFreeCameraPropsHandler(),
+            new FiberFreeCameraPropsHandler(),
+            new FiberTargetCameraPropsHandler(),
+            new FiberCameraPropsHandler(),
+            new FiberNodePropsHandler()
+        ];
+    }
 }
 
-export class FiberAnaglyphFreeCamera extends FiberFreeCamera {
+export class FiberStereoscopicFreeCameraProps extends FiberFreeCameraProps {
 }
 
 export class FiberStereoscopicFreeCameraPropsHandler implements PropsHandler<BABYLON.StereoscopicFreeCamera, FiberStereoscopicFreeCameraProps> {
@@ -1619,10 +1945,20 @@ export class FiberStereoscopicFreeCameraPropsHandler implements PropsHandler<BAB
     }
 }
 
-export class FiberStereoscopicFreeCameraProps {
-}
-
-export class FiberStereoscopicFreeCamera extends FiberFreeCamera {
+/**
+ * Camera used to simulate stereoscopic rendering (based on FreeCamera)
+ */
+export class FiberStereoscopicFreeCamera extends FiberFreeCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
+    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
+        // generated code
+        return [
+            new FiberStereoscopicFreeCameraPropsHandler(),
+            new FiberFreeCameraPropsHandler(),
+            new FiberTargetCameraPropsHandler(),
+            new FiberCameraPropsHandler(),
+            new FiberNodePropsHandler()
+        ];
+    }
 }
 
 export const AnaglyphArcRotateCamera: string = 'AnaglyphArcRotateCamera', AnaglyphFreeCamera: string = 'AnaglyphFreeCamera', AnaglyphGamepadCamera: string = 'AnaglyphGamepadCamera', AnaglyphUniversalCamera: string = 'AnaglyphUniversalCamera', ArcFollowCamera: string = 'ArcFollowCamera', ArcRotateCamera: string = 'ArcRotateCamera', BackgroundMaterial: string = 'BackgroundMaterial', BaseTexture: string = 'BaseTexture', Box: string = 'Box', Camera: string = 'Camera', ColorGradingTexture: string = 'ColorGradingTexture', CubeTexture: string = 'CubeTexture', CubeTextureAssetTask: string = 'CubeTextureAssetTask', CustomProceduralTexture: string = 'CustomProceduralTexture', Cylinder: string = 'Cylinder', DashedLines: string = 'DashedLines', Decal: string = 'Decal', DepthTextureCreationOptions: string = 'DepthTextureCreationOptions', DeviceOrientationCamera: string = 'DeviceOrientationCamera', DirectionalLight: string = 'DirectionalLight', Disc: string = 'Disc', DummyInternalTextureTracker: string = 'DummyInternalTextureTracker', DynamicTexture: string = 'DynamicTexture', EnvironmentTextureTools: string = 'EnvironmentTextureTools', FollowCamera: string = 'FollowCamera', FreeCamera: string = 'FreeCamera', GamepadCamera: string = 'GamepadCamera', Ground: string = 'Ground', GroundFromHeightMap: string = 'GroundFromHeightMap', HDRCubeTexture: string = 'HDRCubeTexture', HDRCubeTextureAssetTask: string = 'HDRCubeTextureAssetTask', HemisphericLight: string = 'HemisphericLight', IcoSphere: string = 'IcoSphere', InternalTexture: string = 'InternalTexture', KhronosTextureContainer: string = 'KhronosTextureContainer', Lathe: string = 'Lathe', Light: string = 'Light', LineSystem: string = 'LineSystem', Lines: string = 'Lines', Material: string = 'Material', MaterialHelper: string = 'MaterialHelper', Mesh: string = 'Mesh', MirrorTexture: string = 'MirrorTexture', MultiMaterial: string = 'MultiMaterial', NoiseProceduralTexture: string = 'NoiseProceduralTexture', PBRBaseMaterial: string = 'PBRBaseMaterial', PBRBaseSimpleMaterial: string = 'PBRBaseSimpleMaterial', PBRMaterial: string = 'PBRMaterial', PBRMetallicRoughnessMaterial: string = 'PBRMetallicRoughnessMaterial', PBRSpecularGlossinessMaterial: string = 'PBRSpecularGlossinessMaterial', Plane: string = 'Plane', PointLight: string = 'PointLight', Polygon: string = 'Polygon', Polyhedron: string = 'Polyhedron', PositionNormalTextureVertex: string = 'PositionNormalTextureVertex', ProceduralTexture: string = 'ProceduralTexture', ProceduralTextureSceneComponent: string = 'ProceduralTextureSceneComponent', PushMaterial: string = 'PushMaterial', RawCubeTexture: string = 'RawCubeTexture', RawTexture: string = 'RawTexture', RawTexture3D: string = 'RawTexture3D', RefractionTexture: string = 'RefractionTexture', RenderTargetTexture: string = 'RenderTargetTexture', Ribbon: string = 'Ribbon', ShaderMaterial: string = 'ShaderMaterial', ShadowLight: string = 'ShadowLight', Sphere: string = 'Sphere', SpotLight: string = 'SpotLight', Sprite: string = 'Sprite', SpriteManager: string = 'SpriteManager', SpriteSceneComponent: string = 'SpriteSceneComponent', StandardMaterial: string = 'StandardMaterial', StereoscopicArcRotateCamera: string = 'StereoscopicArcRotateCamera', StereoscopicFreeCamera: string = 'StereoscopicFreeCamera', StereoscopicGamepadCamera: string = 'StereoscopicGamepadCamera', StereoscopicUniversalCamera: string = 'StereoscopicUniversalCamera', TargetCamera: string = 'TargetCamera', Texture: string = 'Texture', TextureAssetTask: string = 'TextureAssetTask', TextureOptimization: string = 'TextureOptimization', TextureTools: string = 'TextureTools', TiledGround: string = 'TiledGround', Torus: string = 'Torus', TorusKnot: string = 'TorusKnot', TouchCamera: string = 'TouchCamera', Tube: string = 'Tube', UniversalCamera: string = 'UniversalCamera', VRDeviceOrientationArcRotateCamera: string = 'VRDeviceOrientationArcRotateCamera', VRDeviceOrientationFreeCamera: string = 'VRDeviceOrientationFreeCamera', VRDeviceOrientationGamepadCamera: string = 'VRDeviceOrientationGamepadCamera', VideoTexture: string = 'VideoTexture', VirtualJoysticksCamera: string = 'VirtualJoysticksCamera', WebVRFreeCamera: string = 'WebVRFreeCamera';

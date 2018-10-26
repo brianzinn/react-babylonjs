@@ -2,7 +2,7 @@ import ReactReconciler, { HostConfig } from "react-reconciler"
 import BABYLON from "babylonjs"
 
 import components from "./components.json"
-import { PropsHandler, FiberMeshPropsHandler } from "./generatedCode"
+import * as GENERATED from "./generatedCode"
 
 export enum ComponentFamilyType {
   Meshes,
@@ -57,9 +57,6 @@ const directions: Map<String, () => BABYLON.Vector3> = new Map<String, () => BAB
   ["backward", BABYLON.Vector3.Backward]
 ])
 
-// to not collide with other props.  will add additional meta data type after { family: string, prop2: number }.
-const RENDER_PROP_REFERENCE: string = "__react_babylonjs_createdInstance"
-
 type CreatedInstanceMetadata = {
   className: string
   shadowCamera: boolean
@@ -73,7 +70,7 @@ export interface CreatedInstance<T> {
   metadata: CreatedInstanceMetadata | null
   parent: CreatedInstance<any> | null // Not the same as parent in BabylonJS, this is for internal reconciler structure. ie: graph walking
   children: CreatedInstance<any>[]
-  propsHandlers: PropsHandler<T, any>[]
+  propsHandlers: GENERATED.PropsHandler<T, any>[]
 }
 
 type HostCreatedInstance<T> = CreatedInstance<T> | undefined
@@ -138,7 +135,7 @@ function createCreatedInstance<T>(
   familyType: ComponentFamilyType,
   className: string,
   babylonJsObject: T,
-  propsHandlers: PropsHandler<T, any>[],
+  propsHandlers: GENERATED.PropsHandler<T, any>[],
   metadata: CreatedInstanceMetadata | null
 ): CreatedInstance<T> {
   return {
@@ -278,8 +275,8 @@ export const hostConfig: HostConfig<
       const mesh = (BABYLON.MeshBuilder as any)[`Create${type}`](name, options, scene)
       mesh.position = position || new BABYLON.Vector3(x, y, z)
 
-      let createdInstance = createCreatedInstance(family, definition!.name, mesh, [new FiberMeshPropsHandler()], null)
-      mesh[RENDER_PROP_REFERENCE] = createdInstance // TODO: this is hopefully not needed.
+      let createdInstance = createCreatedInstance(family, definition!.name, mesh, [new GENERATED.FiberMeshPropsHandler()], null)
+     
       return createdInstance
     }
 
@@ -307,7 +304,7 @@ export const hostConfig: HostConfig<
       camera.attachControl(canvas)
 
       let createdReference = createCreatedInstance(family, definition!.name, camera, [], null)
-      camera[RENDER_PROP_REFERENCE] = createdReference // TODO: this is hopefully not needed.
+      
       return createdReference
     }
 
@@ -331,7 +328,6 @@ export const hostConfig: HostConfig<
       const light = new BABYLON.HemisphericLight(name as string, dir, scene) as any
 
       let createdInstance = createCreatedInstance(family, definition!.name, light, [], null)
-      light[RENDER_PROP_REFERENCE] = createdInstance // TODO: this is hopefully not needed.
       return createdInstance
     }
 
@@ -339,7 +335,6 @@ export const hostConfig: HostConfig<
       const material = getBabylon(definition!, { ...props, scene, canvas, engine })
 
       let createdInstance = createCreatedInstance(family, definition!.name, material, [], null)
-      material[RENDER_PROP_REFERENCE] = createdInstance // TODO: this is hopefully not needed.
       return createdInstance
     }
 
