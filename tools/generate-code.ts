@@ -1,4 +1,4 @@
-import { Project, VariableDeclarationKind, NamespaceDeclaration, ClassDeclaration, PropertyDeclaration, CodeBlockWriter, SourceFile, JSDoc } from 'ts-simple-ast'
+import { Project, VariableDeclarationKind, NamespaceDeclaration, ClassDeclaration, PropertyDeclaration, CodeBlockWriter, SourceFile, JSDoc, ConstructorDeclaration, Scope } from 'ts-simple-ast'
 import BABYLON from 'babylonjs'
 const sortJson = require('sort-json')
 import { promisify } from 'util'
@@ -232,8 +232,112 @@ const writePropertyAsUpdateFunction = (classDeclaration: ClassDeclaration, write
       }
 }
 
+type ConstructorArgument = {
+  name: string,
+  type: string
+}
+
+const addClassDeclaration = (classDeclaration: ClassDeclaration, rootBaseClassName: string, sourceFile: SourceFile, extra: (classDeclaration: ClassDeclaration) => void) => {
+  const baseClass: ClassDeclaration | undefined = classDeclaration.getBaseClass(); // no mix-ins in BabylonJS AFAIK, but would otherwise use baseTypes()
+  const baseClassName : string | undefined = (baseClass === undefined) ? undefined : baseClass.getName();
+
+  const className = classDeclaration.getName()!
+  addPropsAndHandlerClasses(sourceFile, className, className, getMethodInstanceProperties(classDeclaration), ImportedNamespace, baseClassName);
+
+  const newClassDeclaration = sourceFile.addClass({
+    name: `${ClassNamesPrefix}${className}`,
+    isExported: true
+  });
+  
+  extra(newClassDeclaration)
+
+  // this will allow us to do reflection to create the BabylonJS object from application props.
+  const ctorArgsProperty = newClassDeclaration.addProperty({
+    name: 'ConstructorArgs',
+    scope: Scope.Public,
+    isStatic: true,
+    isReadonly : true
+  })
+
+  const constructorDeclarations : ConstructorDeclaration[] = classDeclaration.getConstructors();
+
+  let constructorArguments: ConstructorArgument[] = [];
+  if (constructorDeclarations.length > 1) {
+    console.warn('found multiple constructors:', className);
+  }
+  if (constructorDeclarations.length > 0) {
+    constructorDeclarations[0].getParameters().forEach(parameterDeclaration => {
+      constructorArguments.push({
+        name: parameterDeclaration.getName()!,
+        type: parameterDeclaration.getType().getText()
+      })
+    })
+  }
+  ctorArgsProperty.setInitializer(JSON.stringify(constructorArguments))
+
+  // We don't need to inherit anything, also collides with property declarations
+  //cameraClassDeclaration.setExtends(`${ClassNamesPrefix}${baseClass!.getName()}`)
+
+  let jsDocs: JSDoc[] = classDeclaration.getJsDocs();
+  const generatedComment = 'This code has been generated'
+  if (jsDocs.length > 0) {
+    newClassDeclaration.addJsDoc(jsDocs[0].getComment()! + '\n\n' + generatedComment)
+  } else {
+    newClassDeclaration.addJsDoc(generatedComment)
+  }
+
+  const propsHandlersPropertyName = 'propsHandlers';
+
+  newClassDeclaration.addProperty({
+    name: propsHandlersPropertyName,
+    type: `PropsHandler<${ImportedNamespace}.${rootBaseClassName}, ${ClassNamesPrefix}${rootBaseClassName}Props>[]`, // xxx
+    scope: Scope.Private
+  })
+
+  newClassDeclaration.addImplements(`HasPropsHandlers<${ImportedNamespace}.${rootBaseClassName}, ${ClassNamesPrefix}${rootBaseClassName}Props>`)
+
+  const cameraConstructor : ConstructorDeclaration = newClassDeclaration.addConstructor();
+  cameraConstructor.setBodyText((writer : CodeBlockWriter) => {
+    writer.writeLine(`this.${propsHandlersPropertyName} = [`)
+    let propsHandlers: string[] = [];
+
+    let baseDeclaration : ClassDeclaration | undefined = classDeclaration
+    while(baseDeclaration !== undefined) {
+      propsHandlers.push(`new ${ClassNamesPrefix}${baseDeclaration.getName()}PropsHandler()`)
+      
+      baseDeclaration = baseDeclaration.getBaseClass()
+    }
+
+    writer.writeLine(propsHandlers.join(',\n'))
+    writer.writeLine("];")
+  })
+
+  let getPropertyUpdatesMethod = newClassDeclaration.addMethod({
+    name: "getPropsHandlers",
+    returnType: `PropsHandler<${ImportedNamespace}.${rootBaseClassName}, ${ClassNamesPrefix}${rootBaseClassName}Props>[]`
+  });
+
+  getPropertyUpdatesMethod.setBodyText(writer => {
+    writer.writeLine("return this.propsHandlers;")
+  })
+
+  let addPropertyHandlerMethod = newClassDeclaration.addMethod({
+    name: "addPropsHandler",
+    returnType: "void"
+  });
+  addPropertyHandlerMethod.addParameter({
+    name: 'propHandler',
+    type: `PropsHandler<${ImportedNamespace}.${rootBaseClassName}, ${ClassNamesPrefix}${rootBaseClassName}Props>`
+  })
+
+  addPropertyHandlerMethod.setBodyText(writer => {
+    writer.writeLine("this.propsHandlers.push(propHandler);")
+  })
+}
+
 /**
  * This is used to write classes in inherited order, which is required by compiler.
+ * We will probably put all classes in separate files, so this won't be needed.
  */
 class OrderedListCreator {
   addDescendantsOrdered = (classDeclarations: ClassDeclaration[], list: string[]): void => {
@@ -284,7 +388,7 @@ const addPropsAndHandlerClasses = (sourceFile: SourceFile, classNameToGenerate: 
     type: `${ClassNamesPrefix}${classNameToGenerate}Props`
   }])
 
-  getPropertyUpdatesMethod.setBodyText(writer => {
+  getPropertyUpdatesMethod.setBodyText((writer : CodeBlockWriter) => {
     writer.writeLine("// generated code")
     writer.writeLine(`let babylonObject: ${importedNamespace}.${classNameBabylon} = createdInstance.babylonJsObject;`)
     writer.writeLine(`let updates: ${PropertyUpdateType}[] = [];`)
@@ -353,6 +457,15 @@ const generateCode = async () => {
     returnType: "PropsHandler<T, U>[]"
   });
 
+  const addProsHandlerMethod = interfaceDeclaration.addMethod({
+    name: "addPropsHandler",
+    returnType: "void"
+  });
+  addProsHandlerMethod.addParameter({
+    name: "propHandler",
+    type: "PropsHandler<T, U>"
+  })
+
   // This is the base class for many things (camera, meshes, etc.)
   generatedSourceFile.addClass({
     name: `${ClassNamesPrefix}Node`,
@@ -375,49 +488,34 @@ const generateCode = async () => {
   orderedListCreator.addDescendantsOrdered([cameraDeclaration], camerasOrdered)
 
   camerasOrdered.forEach(camera => {    
+    
     const classDeclaration = cameraDeclarationsMap.get(camera)!;
 
-    const baseClass: ClassDeclaration | undefined = classDeclaration.getBaseClass(); // no mix-ins in BabylonJS AFAIK, but would otherwise use baseTypes()
-    const baseClassName : string | undefined = (baseClass === undefined) ? undefined : baseClass.getName();
+    const targetableCameraName = "TargetCamera";
 
-    const cameraName = classDeclaration.getName()!
-    addPropsAndHandlerClasses(generatedSourceFile, cameraName, cameraName, getMethodInstanceProperties(classDeclaration), ImportedNamespace, baseClassName)
-
-    const cameraClassDeclaration = generatedSourceFile.addClass({
-      name: `${ClassNamesPrefix}${cameraName}`,
-      isExported: true
-    });
-    cameraClassDeclaration.setExtends(`${ClassNamesPrefix}${baseClass!.getName()}`)
-
-    let jsDocs: JSDoc[] = classDeclaration.getJsDocs();
-    if (jsDocs.length > 0) {
-      cameraClassDeclaration.addJsDoc(jsDocs[0].getComment()!)
-    }
-
-    cameraClassDeclaration.addImplements(`HasPropsHandlers<${ImportedNamespace}.Camera, ${ClassNamesPrefix}CameraProps>`)
-
-
-    let getPropertyUpdatesMethod = cameraClassDeclaration.addMethod({
-      name: "getPropsHandlers",
-      returnType: `PropsHandler<${ImportedNamespace}.Camera, ${ClassNamesPrefix}CameraProps>[]`
-    });
-  
-    getPropertyUpdatesMethod.setBodyText(writer => {
-      writer.writeLine("// generated code")
-      writer.writeLine("return [")
-      let propsHandlers: string[] = [];
-
+    addClassDeclaration(classDeclaration, 'Camera', generatedSourceFile, (cd) => {
       let baseDeclaration : ClassDeclaration | undefined = classDeclaration
+      let isTargetable : boolean = false;
       while(baseDeclaration !== undefined) {
-        propsHandlers.push(`new ${ClassNamesPrefix}${baseDeclaration.getName()}PropsHandler()`)
+        if (baseDeclaration.getName() === targetableCameraName) {
+          isTargetable = true;
+          break;
+        }
         
         baseDeclaration = baseDeclaration.getBaseClass()
       }
-      // build a dynamic getPropsHandler with while(x.getBaseClass() !== undefined)
-      writer.writeLine(propsHandlers.join(',\n'))
 
-      writer.writeLine("];")
-    })
+      console.log(' > isTargetable:', isTargetable)
+
+      cd.addProperty({
+        name: 'isTargetable',
+        type: Boolean,
+        scope: Scope.Public,
+        isReadonly: true,
+        initializer: `${isTargetable}`
+      })
+
+    });
 
     console.log('built a camera: ', classDeclaration.getName())
     
