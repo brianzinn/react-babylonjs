@@ -7,6 +7,7 @@ export interface PropsHandler<T, U> {
 
 export interface HasPropsHandlers<T, U> {
     getPropsHandlers(): PropsHandler<T, U>[];
+    addPropsHandler(propHandler: PropsHandler<T, U>): void;
 }
 
 export class FiberNode {
@@ -737,14 +738,27 @@ export class FiberCameraPropsHandler implements PropsHandler<BABYLON.Camera, Fib
 
 /**
  * This is the base class of all the camera used in the application.
+ * 
+ * This code has been generated
  */
-export class FiberCamera extends FiberNode implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
-    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
-        // generated code
-        return [
+export class FiberCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
+    public readonly isTargetable = false;
+    public static readonly ConstructorArgs = [{ "name": "name", "type": "string" }, { "name": "position", "type": "BABYLON.Vector3" }, { "name": "scene", "type": "BABYLON.Scene" }, { "name": "setActiveOnSceneIfNoneActive", "type": "boolean" }];
+    private propsHandlers: PropsHandler<BABYLON.Camera, FiberCameraProps>[];
+
+    constructor() {
+        this.propsHandlers = [
             new FiberCameraPropsHandler(),
             new FiberNodePropsHandler()
         ];
+    }
+
+    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void {
+        this.propsHandlers.push(propHandler);
     }
 }
 
@@ -805,15 +819,28 @@ export class FiberTargetCameraPropsHandler implements PropsHandler<BABYLON.Targe
 /**
  * A target camera takes a mesh or position as a target and continues to look at it while it moves.
  * This is the base of the follow, arc rotate cameras and Free camera
+ * 
+ * This code has been generated
  */
-export class FiberTargetCamera extends FiberCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
-    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
-        // generated code
-        return [
+export class FiberTargetCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
+    public readonly isTargetable = true;
+    public static readonly ConstructorArgs = [{ "name": "name", "type": "string" }, { "name": "position", "type": "BABYLON.Vector3" }, { "name": "scene", "type": "BABYLON.Scene" }, { "name": "setActiveOnSceneIfNoneActive", "type": "boolean" }];
+    private propsHandlers: PropsHandler<BABYLON.Camera, FiberCameraProps>[];
+
+    constructor() {
+        this.propsHandlers = [
             new FiberTargetCameraPropsHandler(),
             new FiberCameraPropsHandler(),
             new FiberNodePropsHandler()
         ];
+    }
+
+    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void {
+        this.propsHandlers.push(propHandler);
     }
 }
 
@@ -1152,16 +1179,29 @@ export class FiberArcRotateCameraPropsHandler implements PropsHandler<BABYLON.Ar
  * 
  * This camera always points towards a given target position and can be rotated around that target with the target as the centre of rotation. It can be controlled with cursors and mouse, or with touch events.
  * Think of this camera as one orbiting its target position, or more imaginatively as a spy satellite orbiting the earth. Its position relative to the target (earth) can be set by three parameters, alpha (radians) the longitudinal rotation, beta (radians) the latitudinal rotation and radius the distance from the target position.
+ * 
+ * This code has been generated
  */
-export class FiberArcRotateCamera extends FiberTargetCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
-    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
-        // generated code
-        return [
+export class FiberArcRotateCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
+    public readonly isTargetable = true;
+    public static readonly ConstructorArgs = [{ "name": "name", "type": "string" }, { "name": "alpha", "type": "number" }, { "name": "beta", "type": "number" }, { "name": "radius", "type": "number" }, { "name": "target", "type": "BABYLON.Vector3" }, { "name": "scene", "type": "BABYLON.Scene" }, { "name": "setActiveOnSceneIfNoneActive", "type": "boolean" }];
+    private propsHandlers: PropsHandler<BABYLON.Camera, FiberCameraProps>[];
+
+    constructor() {
+        this.propsHandlers = [
             new FiberArcRotateCameraPropsHandler(),
             new FiberTargetCameraPropsHandler(),
             new FiberCameraPropsHandler(),
             new FiberNodePropsHandler()
         ];
+    }
+
+    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void {
+        this.propsHandlers.push(propHandler);
     }
 }
 
@@ -1179,17 +1219,30 @@ export class FiberVRDeviceOrientationArcRotateCameraPropsHandler implements Prop
 
 /**
  * Camera used to simulate VR rendering (based on ArcRotateCamera)
+ * 
+ * This code has been generated
  */
-export class FiberVRDeviceOrientationArcRotateCamera extends FiberArcRotateCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
-    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
-        // generated code
-        return [
+export class FiberVRDeviceOrientationArcRotateCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
+    public readonly isTargetable = true;
+    public static readonly ConstructorArgs = [{ "name": "name", "type": "string" }, { "name": "alpha", "type": "number" }, { "name": "beta", "type": "number" }, { "name": "radius", "type": "number" }, { "name": "target", "type": "BABYLON.Vector3" }, { "name": "scene", "type": "BABYLON.Scene" }, { "name": "compensateDistortion", "type": "boolean" }, { "name": "vrCameraMetrics", "type": "BABYLON.VRCameraMetrics" }];
+    private propsHandlers: PropsHandler<BABYLON.Camera, FiberCameraProps>[];
+
+    constructor() {
+        this.propsHandlers = [
             new FiberVRDeviceOrientationArcRotateCameraPropsHandler(),
             new FiberArcRotateCameraPropsHandler(),
             new FiberTargetCameraPropsHandler(),
             new FiberCameraPropsHandler(),
             new FiberNodePropsHandler()
         ];
+    }
+
+    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void {
+        this.propsHandlers.push(propHandler);
     }
 }
 
@@ -1207,17 +1260,30 @@ export class FiberAnaglyphArcRotateCameraPropsHandler implements PropsHandler<BA
 
 /**
  * Camera used to simulate anaglyphic rendering (based on ArcRotateCamera)
+ * 
+ * This code has been generated
  */
-export class FiberAnaglyphArcRotateCamera extends FiberArcRotateCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
-    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
-        // generated code
-        return [
+export class FiberAnaglyphArcRotateCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
+    public readonly isTargetable = true;
+    public static readonly ConstructorArgs = [{ "name": "name", "type": "string" }, { "name": "alpha", "type": "number" }, { "name": "beta", "type": "number" }, { "name": "radius", "type": "number" }, { "name": "target", "type": "BABYLON.Vector3" }, { "name": "interaxialDistance", "type": "number" }, { "name": "scene", "type": "BABYLON.Scene" }];
+    private propsHandlers: PropsHandler<BABYLON.Camera, FiberCameraProps>[];
+
+    constructor() {
+        this.propsHandlers = [
             new FiberAnaglyphArcRotateCameraPropsHandler(),
             new FiberArcRotateCameraPropsHandler(),
             new FiberTargetCameraPropsHandler(),
             new FiberCameraPropsHandler(),
             new FiberNodePropsHandler()
         ];
+    }
+
+    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void {
+        this.propsHandlers.push(propHandler);
     }
 }
 
@@ -1235,17 +1301,30 @@ export class FiberStereoscopicArcRotateCameraPropsHandler implements PropsHandle
 
 /**
  * Camera used to simulate stereoscopic rendering (based on ArcRotateCamera)
+ * 
+ * This code has been generated
  */
-export class FiberStereoscopicArcRotateCamera extends FiberArcRotateCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
-    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
-        // generated code
-        return [
+export class FiberStereoscopicArcRotateCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
+    public readonly isTargetable = true;
+    public static readonly ConstructorArgs = [{ "name": "name", "type": "string" }, { "name": "alpha", "type": "number" }, { "name": "beta", "type": "number" }, { "name": "radius", "type": "number" }, { "name": "target", "type": "BABYLON.Vector3" }, { "name": "interaxialDistance", "type": "number" }, { "name": "isStereoscopicSideBySide", "type": "boolean" }, { "name": "scene", "type": "BABYLON.Scene" }];
+    private propsHandlers: PropsHandler<BABYLON.Camera, FiberCameraProps>[];
+
+    constructor() {
+        this.propsHandlers = [
             new FiberStereoscopicArcRotateCameraPropsHandler(),
             new FiberArcRotateCameraPropsHandler(),
             new FiberTargetCameraPropsHandler(),
             new FiberCameraPropsHandler(),
             new FiberNodePropsHandler()
         ];
+    }
+
+    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void {
+        this.propsHandlers.push(propHandler);
     }
 }
 
@@ -1311,16 +1390,29 @@ export class FiberFollowCameraPropsHandler implements PropsHandler<BABYLON.Follo
 /**
  * A follow camera takes a mesh as a target and follows it as it moves. Both a free camera version followCamera and
  * an arc rotate version arcFollowCamera are available.
+ * 
+ * This code has been generated
  */
-export class FiberFollowCamera extends FiberTargetCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
-    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
-        // generated code
-        return [
+export class FiberFollowCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
+    public readonly isTargetable = true;
+    public static readonly ConstructorArgs = [{ "name": "name", "type": "string" }, { "name": "position", "type": "BABYLON.Vector3" }, { "name": "scene", "type": "BABYLON.Scene" }, { "name": "lockedTarget", "type": "BABYLON.AbstractMesh" }];
+    private propsHandlers: PropsHandler<BABYLON.Camera, FiberCameraProps>[];
+
+    constructor() {
+        this.propsHandlers = [
             new FiberFollowCameraPropsHandler(),
             new FiberTargetCameraPropsHandler(),
             new FiberCameraPropsHandler(),
             new FiberNodePropsHandler()
         ];
+    }
+
+    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void {
+        this.propsHandlers.push(propHandler);
     }
 }
 
@@ -1368,16 +1460,29 @@ export class FiberArcFollowCameraPropsHandler implements PropsHandler<BABYLON.Ar
 /**
  * Arc Rotate version of the follow camera.
  * It still follows a Defined mesh but in an Arc Rotate Camera fashion.
+ * 
+ * This code has been generated
  */
-export class FiberArcFollowCamera extends FiberTargetCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
-    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
-        // generated code
-        return [
+export class FiberArcFollowCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
+    public readonly isTargetable = true;
+    public static readonly ConstructorArgs = [{ "name": "name", "type": "string" }, { "name": "alpha", "type": "number" }, { "name": "beta", "type": "number" }, { "name": "radius", "type": "number" }, { "name": "target", "type": "BABYLON.AbstractMesh" }, { "name": "scene", "type": "BABYLON.Scene" }];
+    private propsHandlers: PropsHandler<BABYLON.Camera, FiberCameraProps>[];
+
+    constructor() {
+        this.propsHandlers = [
             new FiberArcFollowCameraPropsHandler(),
             new FiberTargetCameraPropsHandler(),
             new FiberCameraPropsHandler(),
             new FiberNodePropsHandler()
         ];
+    }
+
+    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void {
+        this.propsHandlers.push(propHandler);
     }
 }
 
@@ -1460,16 +1565,29 @@ export class FiberFreeCameraPropsHandler implements PropsHandler<BABYLON.FreeCam
 /**
  * This represents a free type of camera. It can be usefull in First Person Shooter game for instance.
  * Please consider using the new UniversalCamera instead as it adds more functionality like the gamepad.
+ * 
+ * This code has been generated
  */
-export class FiberFreeCamera extends FiberTargetCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
-    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
-        // generated code
-        return [
+export class FiberFreeCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
+    public readonly isTargetable = true;
+    public static readonly ConstructorArgs = [{ "name": "name", "type": "string" }, { "name": "position", "type": "BABYLON.Vector3" }, { "name": "scene", "type": "BABYLON.Scene" }, { "name": "setActiveOnSceneIfNoneActive", "type": "boolean" }];
+    private propsHandlers: PropsHandler<BABYLON.Camera, FiberCameraProps>[];
+
+    constructor() {
+        this.propsHandlers = [
             new FiberFreeCameraPropsHandler(),
             new FiberTargetCameraPropsHandler(),
             new FiberCameraPropsHandler(),
             new FiberNodePropsHandler()
         ];
+    }
+
+    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void {
+        this.propsHandlers.push(propHandler);
     }
 }
 
@@ -1488,17 +1606,30 @@ export class FiberDeviceOrientationCameraPropsHandler implements PropsHandler<BA
 /**
  * This is a camera specifically designed to react to device orientation events such as a modern mobile device
  * being tilted forward or back and left or right.
+ * 
+ * This code has been generated
  */
-export class FiberDeviceOrientationCamera extends FiberFreeCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
-    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
-        // generated code
-        return [
+export class FiberDeviceOrientationCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
+    public readonly isTargetable = true;
+    public static readonly ConstructorArgs = [{ "name": "name", "type": "string" }, { "name": "position", "type": "BABYLON.Vector3" }, { "name": "scene", "type": "BABYLON.Scene" }];
+    private propsHandlers: PropsHandler<BABYLON.Camera, FiberCameraProps>[];
+
+    constructor() {
+        this.propsHandlers = [
             new FiberDeviceOrientationCameraPropsHandler(),
             new FiberFreeCameraPropsHandler(),
             new FiberTargetCameraPropsHandler(),
             new FiberCameraPropsHandler(),
             new FiberNodePropsHandler()
         ];
+    }
+
+    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void {
+        this.propsHandlers.push(propHandler);
     }
 }
 
@@ -1516,11 +1647,16 @@ export class FiberVRDeviceOrientationFreeCameraPropsHandler implements PropsHand
 
 /**
  * Camera used to simulate VR rendering (based on FreeCamera)
+ * 
+ * This code has been generated
  */
-export class FiberVRDeviceOrientationFreeCamera extends FiberDeviceOrientationCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
-    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
-        // generated code
-        return [
+export class FiberVRDeviceOrientationFreeCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
+    public readonly isTargetable = true;
+    public static readonly ConstructorArgs = [{ "name": "name", "type": "string" }, { "name": "position", "type": "BABYLON.Vector3" }, { "name": "scene", "type": "BABYLON.Scene" }, { "name": "compensateDistortion", "type": "boolean" }, { "name": "vrCameraMetrics", "type": "BABYLON.VRCameraMetrics" }];
+    private propsHandlers: PropsHandler<BABYLON.Camera, FiberCameraProps>[];
+
+    constructor() {
+        this.propsHandlers = [
             new FiberVRDeviceOrientationFreeCameraPropsHandler(),
             new FiberDeviceOrientationCameraPropsHandler(),
             new FiberFreeCameraPropsHandler(),
@@ -1528,6 +1664,14 @@ export class FiberVRDeviceOrientationFreeCamera extends FiberDeviceOrientationCa
             new FiberCameraPropsHandler(),
             new FiberNodePropsHandler()
         ];
+    }
+
+    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void {
+        this.propsHandlers.push(propHandler);
     }
 }
 
@@ -1545,11 +1689,16 @@ export class FiberVRDeviceOrientationGamepadCameraPropsHandler implements PropsH
 
 /**
  * Camera used to simulate VR rendering (based on VRDeviceOrientationFreeCamera)
+ * 
+ * This code has been generated
  */
-export class FiberVRDeviceOrientationGamepadCamera extends FiberVRDeviceOrientationFreeCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
-    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
-        // generated code
-        return [
+export class FiberVRDeviceOrientationGamepadCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
+    public readonly isTargetable = true;
+    public static readonly ConstructorArgs = [{ "name": "name", "type": "string" }, { "name": "position", "type": "BABYLON.Vector3" }, { "name": "scene", "type": "BABYLON.Scene" }, { "name": "compensateDistortion", "type": "boolean" }, { "name": "vrCameraMetrics", "type": "BABYLON.VRCameraMetrics" }];
+    private propsHandlers: PropsHandler<BABYLON.Camera, FiberCameraProps>[];
+
+    constructor() {
+        this.propsHandlers = [
             new FiberVRDeviceOrientationGamepadCameraPropsHandler(),
             new FiberVRDeviceOrientationFreeCameraPropsHandler(),
             new FiberDeviceOrientationCameraPropsHandler(),
@@ -1558,6 +1707,14 @@ export class FiberVRDeviceOrientationGamepadCamera extends FiberVRDeviceOrientat
             new FiberCameraPropsHandler(),
             new FiberNodePropsHandler()
         ];
+    }
+
+    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void {
+        this.propsHandlers.push(propHandler);
     }
 }
 
@@ -1594,17 +1751,30 @@ export class FiberTouchCameraPropsHandler implements PropsHandler<BABYLON.TouchC
 /**
  * This represents a FPS type of camera controlled by touch.
  * This is like a universal camera minus the Gamepad controls.
+ * 
+ * This code has been generated
  */
-export class FiberTouchCamera extends FiberFreeCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
-    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
-        // generated code
-        return [
+export class FiberTouchCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
+    public readonly isTargetable = true;
+    public static readonly ConstructorArgs = [{ "name": "name", "type": "string" }, { "name": "position", "type": "BABYLON.Vector3" }, { "name": "scene", "type": "BABYLON.Scene" }];
+    private propsHandlers: PropsHandler<BABYLON.Camera, FiberCameraProps>[];
+
+    constructor() {
+        this.propsHandlers = [
             new FiberTouchCameraPropsHandler(),
             new FiberFreeCameraPropsHandler(),
             new FiberTargetCameraPropsHandler(),
             new FiberCameraPropsHandler(),
             new FiberNodePropsHandler()
         ];
+    }
+
+    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void {
+        this.propsHandlers.push(propHandler);
     }
 }
 
@@ -1641,11 +1811,16 @@ export class FiberUniversalCameraPropsHandler implements PropsHandler<BABYLON.Un
 /**
  * The Universal Camera is the one to choose for first person shooter type games, and works with all the keyboard, mouse, touch and gamepads. This replaces the earlier Free Camera,
  * which still works and will still be found in many Playgrounds.
+ * 
+ * This code has been generated
  */
-export class FiberUniversalCamera extends FiberTouchCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
-    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
-        // generated code
-        return [
+export class FiberUniversalCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
+    public readonly isTargetable = true;
+    public static readonly ConstructorArgs = [{ "name": "name", "type": "string" }, { "name": "position", "type": "BABYLON.Vector3" }, { "name": "scene", "type": "BABYLON.Scene" }];
+    private propsHandlers: PropsHandler<BABYLON.Camera, FiberCameraProps>[];
+
+    constructor() {
+        this.propsHandlers = [
             new FiberUniversalCameraPropsHandler(),
             new FiberTouchCameraPropsHandler(),
             new FiberFreeCameraPropsHandler(),
@@ -1653,6 +1828,14 @@ export class FiberUniversalCamera extends FiberTouchCamera implements HasPropsHa
             new FiberCameraPropsHandler(),
             new FiberNodePropsHandler()
         ];
+    }
+
+    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void {
+        this.propsHandlers.push(propHandler);
     }
 }
 
@@ -1671,11 +1854,16 @@ export class FiberGamepadCameraPropsHandler implements PropsHandler<BABYLON.Game
 /**
  * This represents a FPS type of camera. This is only here for back compat purpose.
  * Please use the UniversalCamera instead as both are identical.
+ * 
+ * This code has been generated
  */
-export class FiberGamepadCamera extends FiberUniversalCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
-    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
-        // generated code
-        return [
+export class FiberGamepadCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
+    public readonly isTargetable = true;
+    public static readonly ConstructorArgs = [{ "name": "name", "type": "string" }, { "name": "position", "type": "BABYLON.Vector3" }, { "name": "scene", "type": "BABYLON.Scene" }];
+    private propsHandlers: PropsHandler<BABYLON.Camera, FiberCameraProps>[];
+
+    constructor() {
+        this.propsHandlers = [
             new FiberGamepadCameraPropsHandler(),
             new FiberUniversalCameraPropsHandler(),
             new FiberTouchCameraPropsHandler(),
@@ -1684,6 +1872,14 @@ export class FiberGamepadCamera extends FiberUniversalCamera implements HasProps
             new FiberCameraPropsHandler(),
             new FiberNodePropsHandler()
         ];
+    }
+
+    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void {
+        this.propsHandlers.push(propHandler);
     }
 }
 
@@ -1701,11 +1897,16 @@ export class FiberAnaglyphGamepadCameraPropsHandler implements PropsHandler<BABY
 
 /**
  * Camera used to simulate anaglyphic rendering (based on GamepadCamera)
+ * 
+ * This code has been generated
  */
-export class FiberAnaglyphGamepadCamera extends FiberGamepadCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
-    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
-        // generated code
-        return [
+export class FiberAnaglyphGamepadCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
+    public readonly isTargetable = true;
+    public static readonly ConstructorArgs = [{ "name": "name", "type": "string" }, { "name": "position", "type": "BABYLON.Vector3" }, { "name": "interaxialDistance", "type": "number" }, { "name": "scene", "type": "BABYLON.Scene" }];
+    private propsHandlers: PropsHandler<BABYLON.Camera, FiberCameraProps>[];
+
+    constructor() {
+        this.propsHandlers = [
             new FiberAnaglyphGamepadCameraPropsHandler(),
             new FiberGamepadCameraPropsHandler(),
             new FiberUniversalCameraPropsHandler(),
@@ -1715,6 +1916,14 @@ export class FiberAnaglyphGamepadCamera extends FiberGamepadCamera implements Ha
             new FiberCameraPropsHandler(),
             new FiberNodePropsHandler()
         ];
+    }
+
+    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void {
+        this.propsHandlers.push(propHandler);
     }
 }
 
@@ -1732,11 +1941,16 @@ export class FiberStereoscopicGamepadCameraPropsHandler implements PropsHandler<
 
 /**
  * Camera used to simulate stereoscopic rendering (based on GamepadCamera)
+ * 
+ * This code has been generated
  */
-export class FiberStereoscopicGamepadCamera extends FiberGamepadCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
-    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
-        // generated code
-        return [
+export class FiberStereoscopicGamepadCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
+    public readonly isTargetable = true;
+    public static readonly ConstructorArgs = [{ "name": "name", "type": "string" }, { "name": "position", "type": "BABYLON.Vector3" }, { "name": "interaxialDistance", "type": "number" }, { "name": "isStereoscopicSideBySide", "type": "boolean" }, { "name": "scene", "type": "BABYLON.Scene" }];
+    private propsHandlers: PropsHandler<BABYLON.Camera, FiberCameraProps>[];
+
+    constructor() {
+        this.propsHandlers = [
             new FiberStereoscopicGamepadCameraPropsHandler(),
             new FiberGamepadCameraPropsHandler(),
             new FiberUniversalCameraPropsHandler(),
@@ -1746,6 +1960,14 @@ export class FiberStereoscopicGamepadCamera extends FiberGamepadCamera implement
             new FiberCameraPropsHandler(),
             new FiberNodePropsHandler()
         ];
+    }
+
+    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void {
+        this.propsHandlers.push(propHandler);
     }
 }
 
@@ -1763,11 +1985,16 @@ export class FiberAnaglyphUniversalCameraPropsHandler implements PropsHandler<BA
 
 /**
  * Camera used to simulate anaglyphic rendering (based on UniversalCamera)
+ * 
+ * This code has been generated
  */
-export class FiberAnaglyphUniversalCamera extends FiberUniversalCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
-    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
-        // generated code
-        return [
+export class FiberAnaglyphUniversalCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
+    public readonly isTargetable = true;
+    public static readonly ConstructorArgs = [{ "name": "name", "type": "string" }, { "name": "position", "type": "BABYLON.Vector3" }, { "name": "interaxialDistance", "type": "number" }, { "name": "scene", "type": "BABYLON.Scene" }];
+    private propsHandlers: PropsHandler<BABYLON.Camera, FiberCameraProps>[];
+
+    constructor() {
+        this.propsHandlers = [
             new FiberAnaglyphUniversalCameraPropsHandler(),
             new FiberUniversalCameraPropsHandler(),
             new FiberTouchCameraPropsHandler(),
@@ -1776,6 +2003,14 @@ export class FiberAnaglyphUniversalCamera extends FiberUniversalCamera implement
             new FiberCameraPropsHandler(),
             new FiberNodePropsHandler()
         ];
+    }
+
+    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void {
+        this.propsHandlers.push(propHandler);
     }
 }
 
@@ -1793,11 +2028,16 @@ export class FiberStereoscopicUniversalCameraPropsHandler implements PropsHandle
 
 /**
  * Camera used to simulate stereoscopic rendering (based on UniversalCamera)
+ * 
+ * This code has been generated
  */
-export class FiberStereoscopicUniversalCamera extends FiberUniversalCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
-    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
-        // generated code
-        return [
+export class FiberStereoscopicUniversalCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
+    public readonly isTargetable = true;
+    public static readonly ConstructorArgs = [{ "name": "name", "type": "string" }, { "name": "position", "type": "BABYLON.Vector3" }, { "name": "interaxialDistance", "type": "number" }, { "name": "isStereoscopicSideBySide", "type": "boolean" }, { "name": "scene", "type": "BABYLON.Scene" }];
+    private propsHandlers: PropsHandler<BABYLON.Camera, FiberCameraProps>[];
+
+    constructor() {
+        this.propsHandlers = [
             new FiberStereoscopicUniversalCameraPropsHandler(),
             new FiberUniversalCameraPropsHandler(),
             new FiberTouchCameraPropsHandler(),
@@ -1806,6 +2046,14 @@ export class FiberStereoscopicUniversalCamera extends FiberUniversalCamera imple
             new FiberCameraPropsHandler(),
             new FiberNodePropsHandler()
         ];
+    }
+
+    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void {
+        this.propsHandlers.push(propHandler);
     }
 }
 
@@ -1825,17 +2073,30 @@ export class FiberVirtualJoysticksCameraPropsHandler implements PropsHandler<BAB
  * This represents a free type of camera. It can be usefull in First Person Shooter game for instance.
  * It is identical to the Free Camera and simply adds by default a virtual joystick.
  * Virtual Joysticks are on-screen 2D graphics that are used to control the camera or other scene items.
+ * 
+ * This code has been generated
  */
-export class FiberVirtualJoysticksCamera extends FiberFreeCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
-    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
-        // generated code
-        return [
+export class FiberVirtualJoysticksCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
+    public readonly isTargetable = true;
+    public static readonly ConstructorArgs = [{ "name": "name", "type": "string" }, { "name": "position", "type": "BABYLON.Vector3" }, { "name": "scene", "type": "BABYLON.Scene" }];
+    private propsHandlers: PropsHandler<BABYLON.Camera, FiberCameraProps>[];
+
+    constructor() {
+        this.propsHandlers = [
             new FiberVirtualJoysticksCameraPropsHandler(),
             new FiberFreeCameraPropsHandler(),
             new FiberTargetCameraPropsHandler(),
             new FiberCameraPropsHandler(),
             new FiberNodePropsHandler()
         ];
+    }
+
+    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void {
+        this.propsHandlers.push(propHandler);
     }
 }
 
@@ -1891,17 +2152,30 @@ export class FiberWebVRFreeCameraPropsHandler implements PropsHandler<BABYLON.We
 /**
  * This represents a WebVR camera.
  * The WebVR camera is Babylon's simple interface to interaction with Windows Mixed Reality, HTC Vive and Oculus Rift.
+ * 
+ * This code has been generated
  */
-export class FiberWebVRFreeCamera extends FiberFreeCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
-    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
-        // generated code
-        return [
+export class FiberWebVRFreeCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
+    public readonly isTargetable = true;
+    public static readonly ConstructorArgs = [{ "name": "name", "type": "string" }, { "name": "position", "type": "BABYLON.Vector3" }, { "name": "scene", "type": "BABYLON.Scene" }, { "name": "webVROptions", "type": "BABYLON.WebVROptions" }];
+    private propsHandlers: PropsHandler<BABYLON.Camera, FiberCameraProps>[];
+
+    constructor() {
+        this.propsHandlers = [
             new FiberWebVRFreeCameraPropsHandler(),
             new FiberFreeCameraPropsHandler(),
             new FiberTargetCameraPropsHandler(),
             new FiberCameraPropsHandler(),
             new FiberNodePropsHandler()
         ];
+    }
+
+    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void {
+        this.propsHandlers.push(propHandler);
     }
 }
 
@@ -1919,17 +2193,30 @@ export class FiberAnaglyphFreeCameraPropsHandler implements PropsHandler<BABYLON
 
 /**
  * Camera used to simulate anaglyphic rendering (based on FreeCamera)
+ * 
+ * This code has been generated
  */
-export class FiberAnaglyphFreeCamera extends FiberFreeCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
-    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
-        // generated code
-        return [
+export class FiberAnaglyphFreeCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
+    public readonly isTargetable = true;
+    public static readonly ConstructorArgs = [{ "name": "name", "type": "string" }, { "name": "position", "type": "BABYLON.Vector3" }, { "name": "interaxialDistance", "type": "number" }, { "name": "scene", "type": "BABYLON.Scene" }];
+    private propsHandlers: PropsHandler<BABYLON.Camera, FiberCameraProps>[];
+
+    constructor() {
+        this.propsHandlers = [
             new FiberAnaglyphFreeCameraPropsHandler(),
             new FiberFreeCameraPropsHandler(),
             new FiberTargetCameraPropsHandler(),
             new FiberCameraPropsHandler(),
             new FiberNodePropsHandler()
         ];
+    }
+
+    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void {
+        this.propsHandlers.push(propHandler);
     }
 }
 
@@ -1947,17 +2234,30 @@ export class FiberStereoscopicFreeCameraPropsHandler implements PropsHandler<BAB
 
 /**
  * Camera used to simulate stereoscopic rendering (based on FreeCamera)
+ * 
+ * This code has been generated
  */
-export class FiberStereoscopicFreeCamera extends FiberFreeCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
-    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
-        // generated code
-        return [
+export class FiberStereoscopicFreeCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
+    public readonly isTargetable = true;
+    public static readonly ConstructorArgs = [{ "name": "name", "type": "string" }, { "name": "position", "type": "BABYLON.Vector3" }, { "name": "interaxialDistance", "type": "number" }, { "name": "isStereoscopicSideBySide", "type": "boolean" }, { "name": "scene", "type": "BABYLON.Scene" }];
+    private propsHandlers: PropsHandler<BABYLON.Camera, FiberCameraProps>[];
+
+    constructor() {
+        this.propsHandlers = [
             new FiberStereoscopicFreeCameraPropsHandler(),
             new FiberFreeCameraPropsHandler(),
             new FiberTargetCameraPropsHandler(),
             new FiberCameraPropsHandler(),
             new FiberNodePropsHandler()
         ];
+    }
+
+    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void {
+        this.propsHandlers.push(propHandler);
     }
 }
 

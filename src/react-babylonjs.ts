@@ -1,10 +1,7 @@
-import components from "./components.json"
 export * from "./generatedCode"
 
 export { default as Scene } from "./Scene"
 export { default as Engine, withEngine } from "./Engine"
-
-export { components }
 
 // These need to be included for backwards compatibility:
 export class Skybox {}
