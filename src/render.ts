@@ -3,7 +3,7 @@ import BABYLON from "babylonjs"
 
 import * as GENERATED from "./generatedCode"
 
-/** Next 3 classes are duplicated in generate-code.ts */
+/** Following classes are duplicated in generate-code.ts for noww */
 type GeneratedParameter = {
   name: string
   type: string | GeneratedParameter[]
@@ -20,6 +20,14 @@ type CreateInfo = {
   factoryMethod?: string // required for 'Factory' creation type.
   creationType: string
   parameters: GeneratedParameter[]
+}
+
+type CreatedInstanceMetadata = {
+  className: string // for inspection/debugging
+  shadowGenerator?: boolean // children will auto-cast shadows
+  acceptsMaterials?: boolean
+  isTargetable?: boolean // will attach a target props handler
+  // TODO: more metadata to follow
 }
 /** end of duplicated code */
 
@@ -68,14 +76,6 @@ const directions: Map<String, () => BABYLON.Vector3> = new Map<String, () => BAB
   ["forward", BABYLON.Vector3.Forward],
   ["backward", BABYLON.Vector3.Backward]
 ])
-
-type CreatedInstanceMetadata = {
-  className: string // for inspection/debugging
-  shadowGenerator?: boolean // children will aut-cast shadows
-  isTargetable?: boolean // will attach a target props handler
-  family?: string
-  // TODO: more metadata to follow
-}
 
 /**
  * CreatedInstance simply contains a Babylon object and a fiber object able to detect and process updates via props to the BabylonObject.
@@ -127,6 +127,28 @@ type UpdatePayload = PropertyUpdate[] | null
 type TimeoutHandler = number | undefined
 type NoTimeout = number
 
+function applyUpdateToInstance(babylonObject: any, update: PropertyUpdate, type: string | undefined) : void {
+  switch (update.type) {
+    case "string":
+    case "number":
+    case "boolean":
+      console.log(` > ${type}: updating ${update.type} on ${update.propertyName} to ${update.value}`);
+      babylonObject[update.propertyName] = update.value
+      break
+    case "BABYLON.Vector3":
+      console.log(` > ${type}: updating Vector3 on:${update.propertyName} to ${update.value}`);
+      (babylonObject[update.propertyName] as BABYLON.Vector3).copyFrom(update.value)
+      break
+    case "BABYLON.Color3":
+    console.log(` > ${type}: updating Color3 on:${update.propertyName} to ${update.value}`);
+      (babylonObject[update.propertyName] as BABYLON.Color3).copyFrom(update.value)
+      break
+    default:
+      console.error(`unhandled property update of type ${update.type}`)
+      break
+  }
+}
+
 function createCreatedInstance<T, U extends GENERATED.HasPropsHandlers<T, any>>(
   className: string,
   babylonJsObject: T,
@@ -140,6 +162,7 @@ function createCreatedInstance<T, U extends GENERATED.HasPropsHandlers<T, any>>(
       className
     }
   } else {
+    // TODO: warn when different if already assigned.
     createdMetadata.className = className
   }
 
@@ -285,7 +308,6 @@ export const hostConfig: HostConfig<
     return updatePayload.length == 0 ? null : updatePayload
   },
 
-  // type, { scene, ...props }, { canvas, engine, ...other }, ...more
   createInstance: (
     type: string,
     props: Props,
@@ -295,10 +317,10 @@ export const hostConfig: HostConfig<
   ): CreatedInstance<any> | undefined => {
     console.log("creating:", type)
 
-    const { children, name, scene, ...options } = props as any
+    const { scene } = props as any
     const { canvas, engine } = rootContainerInstance
 
-    // TODO: generate Fiber versions of all lights
+    // TODO: generate Fiber versions of all lightsj waiting on a PR in AST dependency (interface extends class)
     if (type === "HemisphericLight") {
       const { name, direction = BABYLON.Vector3.Up() } = props as any
 
@@ -313,27 +335,8 @@ export const hostConfig: HostConfig<
       )
     }
 
-    // TODO: generate Fiber versions of all materials
-    
-  // dynamically get a Babylon object with args & props setup
-  // export const getBabylon = (babylonJsClassName: string, constructorArgs: string[], options: any) => {
-  //   const args = constructorArgs.map(a => options[a])
-  //   const babylonjsObject = new (BABYLON as any)[babylonJsClassName](...args)
-
-  //   return babylonjsObject
-  // }
-  //   if (type === "StandardMaterial") {
-  //     // using default materials so far, but this is broken.
-  //     const material = getBabylon(type, ["scene", "options"], { ...props, scene, canvas, engine })
-
-  //     return new CreatedInstanceImpl(
-  //       material,
-  //       null,
-  //       new FiberMesh() // WRONG!!
-  //     )
-  //   }
-
     const createInfoArgs: CreateInfo | undefined = (GENERATED as any)[`Fiber${type}`].CreateInfo
+    const metadata: CreatedInstanceMetadata | undefined = (GENERATED as any)[`Fiber${type}`].Metadata
 
     let generatedParameters: GeneratedParameter[] = createInfoArgs!.parameters
 
@@ -374,9 +377,29 @@ export const hostConfig: HostConfig<
       babylonObject.attachControl(canvas)
     }
 
-    const fiberObject = new (GENERATED as any)[`Fiber${type}`]()
+    const fiberObject : GENERATED.HasPropsHandlers<any, any> = new (GENERATED as any)[`Fiber${type}`]()
 
-    let createdReference = createCreatedInstance(type, babylonObject, fiberObject, null)
+    // TODO: PropsHandler needs to prepare an update and apply immediately here, otherwise it won't appear until prepareUpdate() is called.
+    let initPayload : PropertyUpdate[] = []
+    fiberObject.getPropsHandlers().forEach(propHandler => {
+      // NOTE: this is actually WRONG, because here we want to compare the props with the object.
+      let handlerUpdates: PropertyUpdate[] | null = propHandler.getPropertyUpdates(
+        babylonObject,
+        {}, // Here we will reapply things like 'name', so perhaps should get default props from 'babylonObject'.
+        props
+      )
+      if (handlerUpdates !== null) {
+        initPayload.push(...handlerUpdates)
+      }
+    })
+
+    let createdReference = createCreatedInstance(type, babylonObject, fiberObject, metadata === undefined ? null : metadata)
+
+    if (initPayload.length > 0) {
+      initPayload.forEach(update => {
+        applyUpdateToInstance(babylonObject, update, type);
+      })
+    }
 
     return createdReference
   },
@@ -446,7 +469,16 @@ export const hostConfig: HostConfig<
   appendInitialChild: (parent: HostCreatedInstance<any>, child: CreatedInstance<any>) => {
     // Here we are traversing downwards.  The parent has not been initialized, but all children have been.
     console.log("reconciler: appentInitialChild", parent, child)
-    // TODO: if parent is mesh and child is material.  parent.material = child
+    
+    if (parent && parent!.metadata) {
+      if (parent.metadata && parent.metadata.acceptsMaterials) {
+        // TODO: for dynamically adding behaviour add a accept/visit(node, type). ie: visit(child.fiberObject, TYPE.ParentAcceptsMaterials)
+        // Needs to return if it was "attached", otherwise can re-attempt as I think only immediate parent is available here in the life cycle.
+        console.error(' > setting material: ', parent.babylonJsObject, ' material to ' , child.babylonJsObject)
+        parent.babylonJsObject.material = child.babylonJsObject;
+
+      }
+    }
   },
 
   appendChild: (parent: CreatedInstance<any>, child: CreatedInstance<any>): void => {
@@ -490,24 +522,10 @@ export const hostConfig: HostConfig<
 
   commitUpdate(instance: HostCreatedInstance<any>, updatePayload: any, type: string, oldProps: any, newProps: any) {
     console.log("commitUpdate", instance, updatePayload, type, oldProps, newProps)
-    console.error("apply updates", instance, updatePayload)
 
     if (updatePayload != null) {
-      ;(updatePayload as PropertyUpdate[]).forEach(update => {
-        switch (update.type) {
-          case "string":
-          case "number":
-            console.log(`updating ${type} on ${update.propertyName} to ${update.value}`)
-            instance!.babylonJsObject[update.propertyName] = update.value
-            break
-          case "BABYLON.Vector3":
-            console.log(`updating vector3 on:${update.propertyName} to ${update.value}`)
-            ;(instance!.babylonJsObject[update.propertyName] as BABYLON.Vector3).copyFrom(update.value)
-            break
-          default:
-            console.error(`unhandled property update of type ${update.type}`)
-            break
-        }
+      (updatePayload as PropertyUpdate[]).forEach(update => {
+        applyUpdateToInstance(instance!.babylonJsObject, update, type);
       })
     }
   },
