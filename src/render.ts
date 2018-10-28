@@ -5,30 +5,23 @@ import * as GENERATED from "./generatedCode"
 
 /** Next 3 classes are duplicated in generate-code.ts */
 type GeneratedParameter = {
-  name: string,
-  type: string | GeneratedParameter[],
+  name: string
+  type: string | GeneratedParameter[]
   optional: boolean
 }
 
 class CreationType {
-  public static readonly FactoryMethod : string = 'FactoryMethod'
-  public static readonly Constructor : string = 'Constructor'
+  public static readonly FactoryMethod: string = "FactoryMethod"
+  public static readonly Constructor: string = "Constructor"
 }
 
 type CreateInfo = {
-  libraryLocation: string, // ie: `BABYLON.${libraryLocation}`
-  factoryMethod?: string, // required for 'Factory' creation type.
-  creationType: string,
+  libraryLocation: string // ie: `BABYLON.${libraryLocation}`
+  factoryMethod?: string // required for 'Factory' creation type.
+  creationType: string
   parameters: GeneratedParameter[]
 }
 /** end of duplicated code */
-
-export enum ComponentFamilyType {
-  Meshes,
-  Lights,
-  Materials,
-  Camera
-}
 
 export type PropertyUpdate = {
   type: string
@@ -125,37 +118,6 @@ type Container = {
   canvas: HTMLCanvasElement | WebGLRenderingContext | null
   engine: BABYLON.Engine
   _rootContainer?: ReactReconciler.FiberRoot
-}
-
-// check if tag is known, get family
-export const getFamilyFromComponentDefinition = (
-  tag: string,
-  componentDefinition: ComponentDefinition | undefined
-): ComponentFamilyType | undefined => {
-  if (componentDefinition) {
-    // TODO: this should not be a switch statement:
-    switch (componentDefinition.family) {
-      case "cameras":
-        return ComponentFamilyType.Camera
-      case "lights":
-        return ComponentFamilyType.Lights
-      case "materials":
-        return ComponentFamilyType.Materials
-      case "meshes":
-        return ComponentFamilyType.Meshes
-      default:
-        console.error(`unknown family '${componentDefinition.family}' (found tag ${tag})`)
-        return undefined
-    }
-  }
-}
-
-// dynamically get a Babylon object with args & props setup
-export const getBabylon = (babylonJsClassName: string, constructorArgs: string[], options: any) => {
-  const args = constructorArgs.map(a => options[a])
-  const babylonjsObject = new (BABYLON as any)[babylonJsClassName](...args)
-
-  return babylonjsObject
 }
 
 // TODO: add developer-tools stuff so it looks better in React panel
@@ -352,37 +314,45 @@ export const hostConfig: HostConfig<
     }
 
     // TODO: generate Fiber versions of all materials
-    if (type === "StandardMaterial") {
-      // using default materials so far, but this is broken.
-      const material = getBabylon(type, ["scene", "options"], { ...props, scene, canvas, engine })
-
-      return new CreatedInstanceImpl(
-        material,
-        null,
-        new FiberMesh() // WRONG!!
-      )
-    }
     
+  // dynamically get a Babylon object with args & props setup
+  // export const getBabylon = (babylonJsClassName: string, constructorArgs: string[], options: any) => {
+  //   const args = constructorArgs.map(a => options[a])
+  //   const babylonjsObject = new (BABYLON as any)[babylonJsClassName](...args)
+
+  //   return babylonjsObject
+  // }
+  //   if (type === "StandardMaterial") {
+  //     // using default materials so far, but this is broken.
+  //     const material = getBabylon(type, ["scene", "options"], { ...props, scene, canvas, engine })
+
+  //     return new CreatedInstanceImpl(
+  //       material,
+  //       null,
+  //       new FiberMesh() // WRONG!!
+  //     )
+  //   }
+
     const createInfoArgs: CreateInfo | undefined = (GENERATED as any)[`Fiber${type}`].CreateInfo
 
-    let generatedParameters: GeneratedParameter[] = createInfoArgs!.parameters;
+    let generatedParameters: GeneratedParameter[] = createInfoArgs!.parameters
 
     let args = generatedParameters.map(generatedParameter => {
-      if(Array.isArray(generatedParameter.type)) {
+      if (Array.isArray(generatedParameter.type)) {
         console.log(`working from array for ${generatedParameter.name}`)
         // TODO: if all props are missing, warn if main prop (ie: options) is required.
-        let newParameter = {} as any;
+        let newParameter = {} as any
         generatedParameter.type.forEach(subParameter => {
-          let subPropValue = props[subParameter.name];
+          let subPropValue = props[subParameter.name]
           if (subPropValue === undefined && subParameter.optional === false && generatedParameter.optional === false) {
-            console.warn('Missing a required secondary property:', subParameter.name)
+            console.warn("Missing a required secondary property:", subParameter.name)
           } else {
-            newParameter[subParameter.name] = subPropValue;
+            newParameter[subParameter.name] = subPropValue
           }
         })
-        return newParameter;
+        return newParameter
       } else {
-        const value = props[generatedParameter.name];
+        const value = props[generatedParameter.name]
         if (value === undefined && generatedParameter.optional === false) {
           console.warn(`On ${type} you are missing a non-optional parameter ${generatedParameter.name}`)
         }
@@ -390,16 +360,16 @@ export const hostConfig: HostConfig<
       }
     })
 
-    let babylonObject: any | undefined = undefined;
-    
+    let babylonObject: any | undefined = undefined
+
     if (createInfoArgs!.creationType === CreationType.FactoryMethod) {
-      babylonObject = (BABYLON.MeshBuilder as any)[createInfoArgs!.factoryMethod!](...args);
+      babylonObject = (BABYLON.MeshBuilder as any)[createInfoArgs!.factoryMethod!](...args)
     } else {
-      babylonObject = new (BABYLON as any)[type](...args);
+      babylonObject = new (BABYLON as any)[type](...args)
     }
 
     // TODO: add a post-init method to be called after instantiation.
-    if (type.indexOf('Camera') !== -1) {
+    if (type.indexOf("Camera") !== -1) {
       // TODO: this needs to be dynamic part of camera:
       babylonObject.attachControl(canvas)
     }
@@ -462,14 +432,14 @@ export const hostConfig: HostConfig<
 
     // This here is indicating that root element should absolutely not be the canvas!!
     // Here we are testing HMR. re-attaching??
-    console.log("reconciler: resetAfterCommit", containerInfo);
+    console.log("reconciler: resetAfterCommit", containerInfo)
 
-    let scene : BABYLON.Scene = containerInfo.engine.scenes[0];
-    let camera : BABYLON.Nullable<BABYLON.Camera> = scene.activeCamera
+    let scene: BABYLON.Scene = containerInfo.engine.scenes[0]
+    let camera: BABYLON.Nullable<BABYLON.Camera> = scene.activeCamera
     if (camera === null) {
-      console.warn('looks like camera is null??')
+      console.warn("looks like camera is null??")
     } else {
-      camera.attachControl(containerInfo.canvas as HTMLCanvasElement);
+      camera.attachControl(containerInfo.canvas as HTMLCanvasElement)
     }
   },
 

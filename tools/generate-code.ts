@@ -25,13 +25,22 @@ type CreateInfo = {
 }
 /** end of duplicated code */
 
-// NOTE: this is crucial.  All strings here are what are available for NPM import.
+// NOTE: this is important as 'strings' are what are available for NPM import and trigger react reconciler.
 const REACT_EXPORTS : Set<string> = new Set<string>();
 
-//TODO: generate lights and materials.  Only Hemi is hard-coded now in renderer:
-REACT_EXPORTS.add('HemisphericLight')
-REACT_EXPORTS.add('DirectionalLight')
-REACT_EXPORTS.add('StandardMaterial')
+// These are the base/factory classes we used to generate everything.  Comment them out to skip generation (you must keep "Node", though)
+let classesOfInterest : Map<String, ClassDeclaration | undefined> = new Map<String, ClassDeclaration | undefined>();
+classesOfInterest.set("Camera", undefined);
+classesOfInterest.set("Material", undefined)
+classesOfInterest.set("MeshBuilder", undefined)
+classesOfInterest.set("Node", undefined)
+
+/** waiting on https://github.com/dsherret/ts-simple-ast/pull/483.  export interface IShadowLight extends Light
+classesOfInterest.set("Light", undefined);
+*/
+REACT_EXPORTS.add("HemisphericLight")
+REACT_EXPORTS.add("DirectionalLight")
+
 
 const project: Project = new Project({})
 project.addExistingSourceFiles(`${__dirname}/../node_modules/babylonjs/**/*.ts`)
@@ -40,40 +49,22 @@ const sourceFile = project.getSourceFileOrThrow('babylon.d.ts')
 // There are 314!
 const babylonNamespaces: NamespaceDeclaration[] = sourceFile.getNamespaces().filter(n => n.getName() === ImportedNamespace)!
 
-// These are the base/factory classes we used to generate everything.
-let MeshBuilder: ClassDeclaration | undefined = undefined;
-let NodeClass: ClassDeclaration | undefined = undefined;
-let Camera: ClassDeclaration | undefined = undefined;
-let Mesh: ClassDeclaration | undefined = undefined;
-
 babylonNamespaces.forEach(namespaceDeclaration => {
-
   namespaceDeclaration.getClasses().forEach(babylonClass => {
-      // all classes here
       const className = babylonClass.getName()
-
-      switch (className) {
-        case 'MeshBuilder':
-          MeshBuilder = babylonClass;
-          break;
-        case 'Mesh':
-          Mesh = babylonClass;
-          break;
-        case 'Camera':
-          Camera = babylonClass;
-          break;
-        case 'Node':
-          NodeClass = babylonClass;
-          break;
+      if (className !== undefined && classesOfInterest.has(className)) {
+        classesOfInterest.set(className, babylonClass);
       }
     })
 });
 
 const createMeshClasses = (sourceFile: SourceFile) => {
 
+  let meshBuilderClassDeclaration: ClassDeclaration = classesOfInterest.get("MeshBuilder")!;
+
   let meshPropertiesToAdd: PropertyDeclaration[] = []
 
-  let meshClassDeclaration : ClassDeclaration | undefined = Mesh;
+  let meshClassDeclaration : ClassDeclaration | undefined = classesOfInterest.get("Mesh");
   while(meshClassDeclaration !== undefined) {
       meshPropertiesToAdd.push(...getMethodInstanceProperties(meshClassDeclaration))
       meshClassDeclaration = meshClassDeclaration.getBaseClass();
@@ -81,9 +72,9 @@ const createMeshClasses = (sourceFile: SourceFile) => {
 
   addPropsAndHandlerClasses(sourceFile, "Mesh", "Mesh", meshPropertiesToAdd, ImportedNamespace, "Node")
 
-  let factoryMethods: MethodDeclaration[] = MeshBuilder!.getStaticMethods();
+  let factoryMethods: MethodDeclaration[] = meshBuilderClassDeclaration!.getStaticMethods();
 
-  console.log(`Creating ~${factoryMethods.length} Mesh objects:`)
+  console.log(`Creating ${factoryMethods.length} Mesh objects:`)
 
   factoryMethods.forEach((method: MethodDeclaration) => {
     const methodName: string = method.getName();
@@ -95,9 +86,9 @@ const createMeshClasses = (sourceFile: SourceFile) => {
 
       REACT_EXPORTS.add(factoryType);
 
-      console.log(`> Created: ${factoryType}:`)
+      console.log(` > ${factoryType}`)
       let newClassDeclaration: ClassDeclaration = addClassDeclarationFromFactoryMethod(sourceFile, factoryType, "Mesh", method);
-      addCreateInfoFromFactoryMethod(method, MeshBuilder!.getName()!, methodName, newClassDeclaration)
+      addCreateInfoFromFactoryMethod(method, meshBuilderClassDeclaration.getName()!, methodName, newClassDeclaration)
     }
   });
 }
@@ -133,8 +124,8 @@ const addClassDeclarationFromFactoryMethod = (sourceFile: SourceFile, className:
 
   newClassDeclaration.addImplements(`HasPropsHandlers<${ImportedNamespace}.${propsHandlerBaseName}, ${ClassNamesPrefix}${propsHandlerBaseName}Props>`)
 
-  const cameraConstructor : ConstructorDeclaration = newClassDeclaration.addConstructor();
-  cameraConstructor.setBodyText((writer : CodeBlockWriter) => {
+  const newConstructor : ConstructorDeclaration = newClassDeclaration.addConstructor();
+  newConstructor.setBodyText((writer : CodeBlockWriter) => {
     writer.writeLine(`this.${propsHandlersPropertyName} = [`)
     writer.writeLine(`new ${ClassNamesPrefix}${propsHandlerBaseName}PropsHandler()`)
     writer.writeLine("];")
@@ -196,14 +187,17 @@ const addCreateInfoFromFactoryMethod = (method: MethodDeclaration, factoryClass:
           let internalType = member.getTypeAtLocation(member.getValueDeclaration()!);
           let propertyType = internalType.getText()
 
-          let questionToken = (member.getValueDeclaration()!.compilerNode as any).questionToken;
-          // let questionToken2 = (member.compilerSymbol.valueDeclaration as any).questionToken;
+          
+          //let questionToken2 = (member.getValueDeclaration()!.compilerNode as any).questionToken;
+          let questionToken = (member.compilerSymbol.valueDeclaration as any).questionToken;
           
           let generatedSubParameter : GeneratedParameter = {
             name: propertyName,
             type: propertyType,
-            optional: questionToken === undefined
+            optional: questionToken !== undefined
           }
+
+          // conditional breakpoint for inspecting in IDE: factoryMethod === 'CreateSphere'
           specialProperties.push(generatedSubParameter)
         })            
       }
@@ -247,6 +241,7 @@ const getMethodInstanceProperties = (classDeclaration: ClassDeclaration) : Prope
       return;
     }
 
+    // add conditinal breakpoint to inspect properties.  ie: propertyName==='customShaderNameResolve'
     result.push(property);
   })
 
@@ -276,14 +271,14 @@ const writePropertyAsUpdateFunction = (classDeclaration: ClassDeclaration, write
         case "boolean":
         case "number":
         case "string":
-          writer.writeLine(`// ${importedNamespace}${classNameBabylon}.${propertyName} of type '${type}':`)
+          writer.writeLine(`// ${importedNamespace}.${classNameBabylon}.${propertyName} of type '${type}':`)
           writer.write(`if (oldProps.${propertyName} !== newProps.${propertyName})`).block(() => {
             writer.writeLine(`updates.push({\npropertyName: '${propertyName}',\nvalue: newProps.${propertyName},\ntype: '${type}'\n});`);
           });
         break;
         case `${importedNamespace}.Vector3`:
         case `${importedNamespace}.Color3`:
-          writer.writeLine(`// ${importedNamespace}${classNameBabylon}.${propertyName} of ${importedNamespace}${type} uses object equals to find diffs:`)
+          writer.writeLine(`// ${importedNamespace}.${classNameBabylon}.${propertyName} of ${importedNamespace}${type} uses object equals to find diffs:`)
           writer.write(`if (newProps.${propertyName} && (!oldProps.${propertyName} || !oldProps.${propertyName}.equals(newProps.${propertyName})))`).block(() => {
             writer.writeLine(`updates.push({\npropertyName: '${propertyName}',\nvalue: newProps.${propertyName},\ntype: '${type}'\n});`);
           });
@@ -294,7 +289,7 @@ const writePropertyAsUpdateFunction = (classDeclaration: ClassDeclaration, write
       }
 }
 
-const createClassDeclaration = (classDeclaration: ClassDeclaration, rootBaseClassName: string, sourceFile: SourceFile, extra: (classDeclaration: ClassDeclaration) => void) : ClassDeclaration =>  {
+const createClassDeclaration = (classDeclaration: ClassDeclaration, rootBaseClassName: string, sourceFile: SourceFile, extra?: (newClassDeclaration: ClassDeclaration, originalClassDeclaration: ClassDeclaration) => void) : ClassDeclaration =>  {
   const baseClass: ClassDeclaration | undefined = classDeclaration.getBaseClass(); // no mix-ins in BabylonJS AFAIK, but would otherwise use baseTypes()
   const baseClassName : string | undefined = (baseClass === undefined) ? undefined : baseClass.getName();
 
@@ -306,10 +301,12 @@ const createClassDeclaration = (classDeclaration: ClassDeclaration, rootBaseClas
     isExported: true
   });
   
-  extra(newClassDeclaration)
+  if (extra !== undefined) {
+    extra(newClassDeclaration, classDeclaration)
+  }
 
   // We don't need to inherit anything, also collides with property declarations
-  //cameraClassDeclaration.setExtends(`${ClassNamesPrefix}${baseClass!.getName()}`)
+  //newClassDeclaration.setExtends(`${ClassNamesPrefix}${baseClass!.getName()}`)
 
   let jsDocs: JSDoc[] = classDeclaration.getJsDocs();
   const generatedComment = 'This code has been generated'
@@ -329,8 +326,8 @@ const createClassDeclaration = (classDeclaration: ClassDeclaration, rootBaseClas
 
   newClassDeclaration.addImplements(`HasPropsHandlers<${ImportedNamespace}.${rootBaseClassName}, ${ClassNamesPrefix}${rootBaseClassName}Props>`)
 
-  const cameraConstructor : ConstructorDeclaration = newClassDeclaration.addConstructor();
-  cameraConstructor.setBodyText((writer : CodeBlockWriter) => {
+  const newConstructor : ConstructorDeclaration = newClassDeclaration.addConstructor();
+  newConstructor.setBodyText((writer : CodeBlockWriter) => {
     writer.writeLine(`this.${propsHandlersPropertyName} = [`)
     let propsHandlers: string[] = [];
 
@@ -377,10 +374,11 @@ const createClassDeclaration = (classDeclaration: ClassDeclaration, rootBaseClas
 class OrderedListCreator {
   addDescendantsOrdered = (classDeclarations: ClassDeclaration[], map: Map<string, ClassDeclaration>): void => {
     classDeclarations.forEach(x => {
+
       if (x.getName() !== undefined && !map.has(x.getName()!)) {
         map.set(x.getName()!, x);
       }
-      
+
       this.addDescendantsOrdered(x.getDerivedClasses(), map)
     })
   }
@@ -470,6 +468,45 @@ const addCreateInfoFromOriginalConstructor = (originalClass: ClassDeclaration, t
     ctorArgsProperty.setInitializer(JSON.stringify(value, null, 2))
 }
 
+/**
+ * TODO: We should not be generating abstract classes.
+ */
+const createClassesInheritedFrom = (sourceFile: SourceFile, classDeclaration: ClassDeclaration, extra?: (newClassDeclaration: ClassDeclaration, originalClassDeclaration: ClassDeclaration) => void) : void => {
+  const orderedListCreator = new OrderedListCreator();
+  
+  const baseClassName: string = classDeclaration.getName()!;
+
+  const derivedClassesOrdered : Map<string, ClassDeclaration> = new Map<string, ClassDeclaration>();
+
+  orderedListCreator.addDescendantsOrdered([classDeclaration], derivedClassesOrdered)
+
+  console.log(`Building ${derivedClassesOrdered.size} ${baseClassName}s: `)
+
+  derivedClassesOrdered.forEach((derivedClassDeclaration: ClassDeclaration) => {    
+    
+    REACT_EXPORTS.add(baseClassName)
+
+    const newClassDeclaration = createClassDeclaration(derivedClassDeclaration, baseClassName, sourceFile, extra);
+    addCreateInfoFromOriginalConstructor(classDeclaration, newClassDeclaration);
+    console.log(` > ${derivedClassDeclaration.getName()}`)
+  });
+}
+
+const addReactExports = (sourceFile: SourceFile) => {
+  let tags: string[] = Array.from(REACT_EXPORTS.keys()) as string[];
+  tags.sort( /* use default ASCII sorter */);
+  // These are the string imports needed by react-reconciler
+  sourceFile.addVariableStatement({
+    declarationKind: VariableDeclarationKind.Const,
+    isExported: true,
+    declarations: tags.map(tag => ({
+      name: tag,
+      type: "string",
+      initializer: `'${tag}'`
+    }))
+  });
+}
+
 const generateCode = async () => {
   const exportsProject = new Project()
   const generatedSourceFile = exportsProject.createSourceFile(
@@ -541,62 +578,50 @@ const generateCode = async () => {
     isExported: true
   });
   
-  addPropsAndHandlerClasses(generatedSourceFile, "Node", "Node", getMethodInstanceProperties(NodeClass!), ImportedNamespace);
+  let nodeClassDeclaration = classesOfInterest.get("Node");
+  addPropsAndHandlerClasses(generatedSourceFile, "Node", "Node", getMethodInstanceProperties(nodeClassDeclaration!), ImportedNamespace);
    
-  const orderedListCreator = new OrderedListCreator();
-  const camerasOrdered : Map<string, ClassDeclaration> = new Map<string, ClassDeclaration>();
+  const extra = (newClassDeclaration: ClassDeclaration, originalClassDeclaration: ClassDeclaration) => {
 
-  orderedListCreator.addDescendantsOrdered([Camera!], camerasOrdered)
-
-  console.log(`Building ${camerasOrdered.size} cameras: `)
-
-  camerasOrdered.forEach((classDeclaration: ClassDeclaration) => {    
-    
     const targetableCameraName = "TargetCamera";
 
-    REACT_EXPORTS.add(classDeclaration.getName()!)
-
-    const extra = (newClassDeclaration: ClassDeclaration) => {
-      let baseDeclaration : ClassDeclaration | undefined = classDeclaration
-      let isTargetable : boolean = false;
-      while(baseDeclaration !== undefined) {
-        if (baseDeclaration.getName() === targetableCameraName) {
-          isTargetable = true;
-          break;
-        }
-        
-        baseDeclaration = baseDeclaration.getBaseClass()
+    let baseDeclaration : ClassDeclaration | undefined = originalClassDeclaration
+    let isTargetable : boolean = false;
+    while(baseDeclaration !== undefined) {
+      if (baseDeclaration.getName() === targetableCameraName) {
+        isTargetable = true;
+        break;
       }
+      
+      baseDeclaration = baseDeclaration.getBaseClass()
+    }
 
-      newClassDeclaration.addProperty({
-        name: 'isTargetable',
-        type: Boolean,
-        scope: Scope.Public,
-        isReadonly: true,
-        initializer: `${isTargetable}`
-      })
-    };
+    newClassDeclaration.addProperty({
+      name: 'isTargetable',
+      type: Boolean,
+      scope: Scope.Public,
+      isReadonly: true,
+      initializer: `${isTargetable}`
+    })
+  };
 
-    const newDeclaration = createClassDeclaration(classDeclaration, 'Camera', generatedSourceFile, extra);
-    addCreateInfoFromOriginalConstructor(classDeclaration, newDeclaration);
-    console.log(' > ', classDeclaration.getName())    
-  });
+  if (classesOfInterest.get("Camera") !== undefined) {
+    createClassesInheritedFrom(generatedSourceFile, classesOfInterest.get("Camera")!, extra);
+  }
 
-  createMeshClasses(generatedSourceFile);
+  if (classesOfInterest.get("MeshBuilder") !== undefined) {
+    createMeshClasses(generatedSourceFile);
+  }
 
-  let tags : string[] = Array.from(REACT_EXPORTS.keys()) as string[]
-  tags.sort(/* use default ASCII sorter */)
+  if (classesOfInterest.get("Material")) {
+    createClassesInheritedFrom(generatedSourceFile, classesOfInterest.get("Material")!);
+  }
 
-  // These are the string imports needed by react-reconciler
-  generatedSourceFile.addVariableStatement({
-    declarationKind: VariableDeclarationKind.Const,
-    isExported: true,
-    declarations: tags.map(tag => ({
-      name: tag,
-      type: "string",
-      initializer: `'${tag}'`
-    }))
-  });
+  if (classesOfInterest.get("Light")) {
+    createClassesInheritedFrom(generatedSourceFile, classesOfInterest.get("Light")!);
+  }
+
+  addReactExports(generatedSourceFile);
 
   generatedSourceFile.formatText();
   await generatedSourceFile.save();
@@ -605,3 +630,5 @@ const generateCode = async () => {
 generateCode();
 
 console.log('done');
+
+
