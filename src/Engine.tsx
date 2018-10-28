@@ -73,6 +73,8 @@ export default class Engine extends React.Component<any, any> {
       //c.addEventListener('mouseout', this.blur)
       this._canvas = c
     }
+
+    console.error('onCanvas:', c); // trying to diagnose HMR failing
   }
 
   componentDidUpdate (prevProps: any, prevState: any) {
