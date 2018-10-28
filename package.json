@@ -100,7 +100,6 @@
     "rollup-plugin-sourcemaps": "^0.4.2",
     "semantic-release": "^6.3.6",
     "shallow-equal-object": "^1.1.1",
-    "sort-json": "^2.0.0",
     "ts-jest": "^20.0.6",
     "ts-node": "^3.0.6",
     "ts-simple-ast": "^17.1.1",

@@ -1,8 +1,27 @@
 import ReactReconciler, { HostConfig } from "react-reconciler"
 import BABYLON from "babylonjs"
 
-import components from "./components.json"
 import * as GENERATED from "./generatedCode"
+
+/** Next 3 classes are duplicated in generate-code.ts */
+type GeneratedParameter = {
+  name: string,
+  type: string | GeneratedParameter[],
+  optional: boolean
+}
+
+class CreationType {
+  public static readonly FactoryMethod : string = 'FactoryMethod'
+  public static readonly Constructor : string = 'Constructor'
+}
+
+type CreateInfo = {
+  libraryLocation: string, // ie: `BABYLON.${libraryLocation}`
+  factoryMethod?: string, // required for 'Factory' creation type.
+  creationType: string,
+  parameters: GeneratedParameter[]
+}
+/** end of duplicated code */
 
 export enum ComponentFamilyType {
   Meshes,
@@ -59,15 +78,15 @@ const directions: Map<String, () => BABYLON.Vector3> = new Map<String, () => BAB
 
 type CreatedInstanceMetadata = {
   className: string // for inspection/debugging
-  shadowGenerator?: boolean, // children will aut-cast shadows
-  isTargetable?: boolean, // will attach a target props handler
+  shadowGenerator?: boolean // children will aut-cast shadows
+  isTargetable?: boolean // will attach a target props handler
   family?: string
   // TODO: more metadata to follow
 }
 
 /**
  * CreatedInstance simply contains a Babylon object and a fiber object able to detect and process updates via props to the BabylonObject.
- * 
+ *
  * The parent/child is part of the Fiber Reconciler and helps attach materials/parenting/cameras/shadows/etc.
  */
 export interface CreatedInstance<T> {
@@ -79,15 +98,19 @@ export interface CreatedInstance<T> {
 }
 
 export class CreatedInstanceImpl<T> implements CreatedInstance<T> {
-  public readonly babylonJsObject: T;
-  public readonly metadata:CreatedInstanceMetadata | null
+  public readonly babylonJsObject: T
+  public readonly metadata: CreatedInstanceMetadata | null
   public parent: CreatedInstance<any> | null = null // Not the same as parent in BabylonJS, this is for internal reconciler structure. ie: graph walking
   public children: CreatedInstance<any>[] = []
   public fiberObject: GENERATED.HasPropsHandlers<T, any>
 
-  constructor(babylonJSObject: T, metadata: CreatedInstanceMetadata | null, fiberObject: GENERATED.HasPropsHandlers<T, any>) {
-    this.babylonJsObject = babylonJSObject;
-    this.metadata = metadata;
+  constructor(
+    babylonJSObject: T,
+    metadata: CreatedInstanceMetadata | null,
+    fiberObject: GENERATED.HasPropsHandlers<T, any>
+  ) {
+    this.babylonJsObject = babylonJSObject
+    this.metadata = metadata
     this.fiberObject = fiberObject
   }
 }
@@ -148,19 +171,18 @@ function createCreatedInstance<T, U extends GENERATED.HasPropsHandlers<T, any>>(
   fiberObject: U,
   metadata: CreatedInstanceMetadata | null
 ): CreatedInstance<T> {
-
-  let createdMetadata = metadata;
+  let createdMetadata = metadata
 
   if (createdMetadata === null) {
     createdMetadata = {
       className
     }
   } else {
-    createdMetadata.className = className;
+    createdMetadata.className = className
   }
 
   if ((fiberObject as any).isTargetable === true) {
-    createdMetadata.isTargetable = true;
+    createdMetadata.isTargetable = true
   }
 
   return {
@@ -174,26 +196,24 @@ function createCreatedInstance<T, U extends GENERATED.HasPropsHandlers<T, any>>(
 
 // TODO: this needs to be generated as well...
 class FiberMesh implements GENERATED.HasPropsHandlers<BABYLON.Mesh, GENERATED.FiberMeshProps> {
-  public readonly isTargetable = false;
-  private propsHandlers: GENERATED.PropsHandler<BABYLON.Mesh, GENERATED.FiberMeshProps>[];
+  public readonly isTargetable = false
+  private propsHandlers: GENERATED.PropsHandler<BABYLON.Mesh, GENERATED.FiberMeshProps>[]
 
   constructor() {
-      this.propsHandlers = [
-          new GENERATED.FiberMeshPropsHandler()
-      ];
+    this.propsHandlers = [new GENERATED.FiberMeshPropsHandler()]
   }
 
   getPropsHandlers(): GENERATED.PropsHandler<BABYLON.Mesh, GENERATED.FiberMeshProps>[] {
-      return this.propsHandlers;
+    return this.propsHandlers
   }
 
   addPropsHandler(propHandler: GENERATED.PropsHandler<BABYLON.Mesh, GENERATED.FiberMeshProps>): void {
-      this.propsHandlers.push(propHandler);
+    this.propsHandlers.push(propHandler)
   }
 }
 
 type ConstructorArgument = {
-  name: string,
+  name: string
   type: string
 }
 
@@ -275,8 +295,8 @@ export const hostConfig: HostConfig<
     }
 
     console.log("prepareUpdate", instance, oldProps, newProps)
-    let updatePayload: PropertyUpdate[] = [];
-    
+    let updatePayload: PropertyUpdate[] = []
+
     instance.fiberObject.getPropsHandlers().forEach(propHandler => {
       let handlerUpdates: PropertyUpdate[] | null = propHandler.getPropertyUpdates(
         instance as CreatedInstance<any>,
@@ -290,14 +310,13 @@ export const hostConfig: HostConfig<
 
     if (updatePayload.length > 0) {
       if (instance.metadata) {
-
         if (instance.babylonJsObject) {
-          console.log(' > created update for:', instance.babylonJsObject.name);
+          console.log(" > created update for:", instance.babylonJsObject.name)
         }
 
         console.log(` > updated payload for '${instance.metadata.className}':`, updatePayload)
       } else {
-        console.log(' > pushing props updates for an instance with no metadata:', instance)
+        console.log(" > pushing props updates for an instance with no metadata:", instance)
       }
     }
 
@@ -312,31 +331,12 @@ export const hostConfig: HostConfig<
     hostContext: HostContext,
     internalInstanceHandle: Object
   ): CreatedInstance<any> | undefined => {
-
     console.log("creating:", type)
 
-    const { scene } = props
+    const { children, name, scene, ...options } = props as any
     const { canvas, engine } = rootContainerInstance
 
-    // TODO: check props based on pre-computed static code-analysis of babylonjs
-    // these could also use other prop-helpers to make the components nicer to work with
-    if (type === "Sphere" || type === "Ground" || type === "Box") {
-      const { name, scene, ...options } = props as any // not type-safe - dynamically generate MeshProps
-      // does not work for 2 types: Decal and GroundFromHeightMap
-      // ConstructorArgs will come from this method and we need to gen classes...
-      const mesh = (BABYLON.MeshBuilder as any)[`Create${type}`](name, options, scene)
-      
-      // TODO: dynamically new() from Generated, so this should not be needed.
-      let createdInstance = createCreatedInstance(
-        type,
-        mesh,
-        new FiberMesh, // this is still to be generated
-        null
-      )
-
-      return createdInstance
-    }
-
+    // TODO: generate Fiber versions of all lights
     if (type === "HemisphericLight") {
       const { name, direction = BABYLON.Vector3.Up() } = props as any
 
@@ -351,10 +351,10 @@ export const hostConfig: HostConfig<
       )
     }
 
+    // TODO: generate Fiber versions of all materials
     if (type === "StandardMaterial") {
       // using default materials so far, but this is broken.
       const material = getBabylon(type, ["scene", "options"], { ...props, scene, canvas, engine })
-
 
       return new CreatedInstanceImpl(
         material,
@@ -362,24 +362,51 @@ export const hostConfig: HostConfig<
         new FiberMesh() // WRONG!!
       )
     }
-
-    console.warn('trying to dynamiclaly generate', type);
-    const { children, ...options } = props as any
-  
-    const generatedClassType = (GENERATED as any)[`Fiber${type}`]
-    console.log('generated class found', generatedClassType)
-    const constructorArgs : ConstructorArgument[] | undefined = (GENERATED as any)[`Fiber${type}`].ConstructorArgs
     
-    console.log('found constructor arguments:', constructorArgs)
+    const createInfoArgs: CreateInfo | undefined = (GENERATED as any)[`Fiber${type}`].CreateInfo
 
-    let ctorArgs = constructorArgs!.map(a => options[a.name])
-    const babylonjsObject = new (BABYLON as any)[type](...ctorArgs)
+    let generatedParameters: GeneratedParameter[] = createInfoArgs!.parameters;
 
-    const fiberObject = new (GENERATED as any)[`Fiber${type}`]();
+    let args = generatedParameters.map(generatedParameter => {
+      if(Array.isArray(generatedParameter.type)) {
+        console.log(`working from array for ${generatedParameter.name}`)
+        // TODO: if all props are missing, warn if main prop (ie: options) is required.
+        let newParameter = {} as any;
+        generatedParameter.type.forEach(subParameter => {
+          let subPropValue = props[subParameter.name];
+          if (subPropValue === undefined && subParameter.optional === false && generatedParameter.optional === false) {
+            console.warn('Missing a required secondary property:', subParameter.name)
+          } else {
+            newParameter[subParameter.name] = subPropValue;
+          }
+        })
+        return newParameter;
+      } else {
+        const value = props[generatedParameter.name];
+        if (value === undefined && generatedParameter.optional === false) {
+          console.warn(`On ${type} you are missing a non-optional parameter ${generatedParameter.name}`)
+        }
+        return value
+      }
+    })
 
-    babylonjsObject.attachControl(canvas)
+    let babylonObject: any | undefined = undefined;
+    
+    if (createInfoArgs!.creationType === CreationType.FactoryMethod) {
+      babylonObject = (BABYLON.MeshBuilder as any)[createInfoArgs!.factoryMethod!](...args);
+    } else {
+      babylonObject = new (BABYLON as any)[type](...args);
+    }
 
-    let createdReference = createCreatedInstance(type, babylonjsObject, fiberObject, null);
+    // TODO: add a post-init method to be called after instantiation.
+    if (type.indexOf('Camera') !== -1) {
+      // TODO: this needs to be dynamic part of camera:
+      babylonObject.attachControl(canvas)
+    }
+
+    const fiberObject = new (GENERATED as any)[`Fiber${type}`]()
+
+    let createdReference = createCreatedInstance(type, babylonObject, fiberObject, null)
 
     return createdReference
   },
@@ -432,7 +459,18 @@ export const hostConfig: HostConfig<
 
   resetAfterCommit: (containerInfo: Container): void => {
     // Called after the in-memory tree has been committed (ie: after attaching again to root element)
-    console.log("reconciler: resetAfterCommit", containerInfo)
+
+    // This here is indicating that root element should absolutely not be the canvas!!
+    // Here we are testing HMR. re-attaching??
+    console.log("reconciler: resetAfterCommit", containerInfo);
+
+    let scene : BABYLON.Scene = containerInfo.engine.scenes[0];
+    let camera : BABYLON.Nullable<BABYLON.Camera> = scene.activeCamera
+    if (camera === null) {
+      console.warn('looks like camera is null??')
+    } else {
+      camera.attachControl(containerInfo.canvas as HTMLCanvasElement);
+    }
   },
 
   appendInitialChild: (parent: HostCreatedInstance<any>, child: CreatedInstance<any>) => {
