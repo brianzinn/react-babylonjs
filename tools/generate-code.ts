@@ -5,7 +5,7 @@ const PropertyUpdateType = "PropertyUpdate";
 const ImportedNamespace = "BABYLON";
 const ClassNamesPrefix = 'Fiber';
 
-/** Next 3 classes are duplicated in render.ts */
+/** Following classes are duplicated in render.ts for now */
 type GeneratedParameter = {
   name: string,
   type: string | GeneratedParameter[],
@@ -23,6 +23,14 @@ type CreateInfo = {
   creationType: string,
   parameters: GeneratedParameter[]
 }
+
+type CreatedInstanceMetadata = {
+  className: string // for inspection/debugging
+  shadowGenerator?: boolean // children will auto-cast shadows
+  acceptsMaterials?: boolean
+  isTargetable?: boolean // will attach a target props handler
+  // TODO: more metadata to follow
+}
 /** end of duplicated code */
 
 // NOTE: this is important as 'strings' are what are available for NPM import and trigger react reconciler.
@@ -30,8 +38,10 @@ const REACT_EXPORTS : Set<string> = new Set<string>();
 
 // These are the base/factory classes we used to generate everything.  Comment them out to skip generation (you must keep "Node", though)
 let classesOfInterest : Map<String, ClassDeclaration | undefined> = new Map<String, ClassDeclaration | undefined>();
+
 classesOfInterest.set("Camera", undefined);
-classesOfInterest.set("Material", undefined)
+classesOfInterest.set("Material", undefined);
+classesOfInterest.set("Mesh", undefined);
 classesOfInterest.set("MeshBuilder", undefined)
 classesOfInterest.set("Node", undefined)
 
@@ -58,6 +68,17 @@ babylonNamespaces.forEach(namespaceDeclaration => {
     })
 });
 
+const addMetadata = (classDeclaration: ClassDeclaration, metadata: CreatedInstanceMetadata) => {
+  const createInfoProperty = classDeclaration.addProperty({
+    name: 'Metadata',
+    scope: Scope.Public,
+    isStatic: true,
+    isReadonly : true
+  })
+
+  createInfoProperty.setInitializer(JSON.stringify(metadata, null, 2))
+}
+
 const createMeshClasses = (sourceFile: SourceFile) => {
 
   let meshBuilderClassDeclaration: ClassDeclaration = classesOfInterest.get("MeshBuilder")!;
@@ -68,6 +89,10 @@ const createMeshClasses = (sourceFile: SourceFile) => {
   while(meshClassDeclaration !== undefined) {
       meshPropertiesToAdd.push(...getMethodInstanceProperties(meshClassDeclaration))
       meshClassDeclaration = meshClassDeclaration.getBaseClass();
+  }
+
+  if (meshPropertiesToAdd.length == 0) {
+    console.error("'Mesh' is a required class of interest to generate from MeshBuilder.")
   }
 
   addPropsAndHandlerClasses(sourceFile, "Mesh", "Mesh", meshPropertiesToAdd, ImportedNamespace, "Node")
@@ -89,6 +114,10 @@ const createMeshClasses = (sourceFile: SourceFile) => {
       console.log(` > ${factoryType}`)
       let newClassDeclaration: ClassDeclaration = addClassDeclarationFromFactoryMethod(sourceFile, factoryType, "Mesh", method);
       addCreateInfoFromFactoryMethod(method, meshBuilderClassDeclaration.getName()!, methodName, newClassDeclaration)
+      addMetadata(newClassDeclaration, {
+        className: factoryType,
+        acceptsMaterials: true
+      })
     }
   });
 }
@@ -475,6 +504,7 @@ const createClassesInheritedFrom = (sourceFile: SourceFile, classDeclaration: Cl
   const orderedListCreator = new OrderedListCreator();
   
   const baseClassName: string = classDeclaration.getName()!;
+  REACT_EXPORTS.add(baseClassName)
 
   const derivedClassesOrdered : Map<string, ClassDeclaration> = new Map<string, ClassDeclaration>();
 
@@ -484,7 +514,7 @@ const createClassesInheritedFrom = (sourceFile: SourceFile, classDeclaration: Cl
 
   derivedClassesOrdered.forEach((derivedClassDeclaration: ClassDeclaration) => {    
     
-    REACT_EXPORTS.add(baseClassName)
+    REACT_EXPORTS.add(derivedClassDeclaration.getName()!)
 
     const newClassDeclaration = createClassDeclaration(derivedClassDeclaration, baseClassName, sourceFile, extra);
     addCreateInfoFromOriginalConstructor(classDeclaration, newClassDeclaration);
