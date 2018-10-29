@@ -102,7 +102,7 @@
     "shallow-equal-object": "^1.1.1",
     "ts-jest": "^20.0.6",
     "ts-node": "^3.0.6",
-    "ts-simple-ast": "^17.1.1",
+    "ts-simple-ast": "^18.0.0",
     "tsc-watch": "^1.0.5",
     "tslint": "^5.4.3",
     "tslint-config-prettier": "^1.1.0",
@@ -117,6 +117,5 @@
     "react": "16.x",
     "react-reconciler": "^0.13 || ^0.14 || ^0.15 || ^0.16"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }

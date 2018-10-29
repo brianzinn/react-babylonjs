@@ -44,13 +44,7 @@ classesOfInterest.set("Material", undefined);
 classesOfInterest.set("Mesh", undefined);
 classesOfInterest.set("MeshBuilder", undefined)
 classesOfInterest.set("Node", undefined)
-
-/** waiting on https://github.com/dsherret/ts-simple-ast/pull/483.  export interface IShadowLight extends Light
 classesOfInterest.set("Light", undefined);
-*/
-REACT_EXPORTS.add("HemisphericLight")
-REACT_EXPORTS.add("DirectionalLight")
-
 
 const project: Project = new Project({})
 project.addExistingSourceFiles(`${__dirname}/../node_modules/babylonjs/**/*.ts`)
@@ -660,5 +654,3 @@ const generateCode = async () => {
 generateCode();
 
 console.log('done');
-
-
