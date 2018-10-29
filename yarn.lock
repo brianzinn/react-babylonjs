@@ -1093,14 +1093,6 @@ detect-indent@4.0.0, detect-indent@^4.0.0:
   dependencies:
     repeating "^2.0.0"
 
-detect-indent@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/detect-indent/-/detect-indent-5.0.0.tgz#3871cc0a6a002e8c3e5b3cf7f336264675f06b9d"
-
-detect-newline@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/detect-newline/-/detect-newline-2.1.0.tgz#f41f1c10be4b00e87b5f13da680759f2c5bfd3e2"
-
 dezalgo@^1.0.1:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/dezalgo/-/dezalgo-1.0.3.tgz#7f742de066fc748bc8db820569dddce49bf0d456"
@@ -4228,14 +4220,6 @@ sntp@1.x.x:
   dependencies:
     hoek "2.x.x"
 
-sort-json@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/sort-json/-/sort-json-2.0.0.tgz#a7030d8875adbd4a5ea39a000567ed94c1aa3c50"
-  dependencies:
-    detect-indent "^5.0.0"
-    detect-newline "^2.1.0"
-    minimist "^1.2.0"
-
 source-map-resolve@^0.5.0:
   version "0.5.2"
   resolved "https://registry.yarnpkg.com/source-map-resolve/-/source-map-resolve-0.5.2.tgz#72e2cc34095543e43b2c62b2c4c10d4a9054f259"
@@ -4595,9 +4579,9 @@ ts-node@^3.0.6:
     v8flags "^3.0.0"
     yn "^2.0.0"
 
-ts-simple-ast@^17.1.1:
-  version "17.1.1"
-  resolved "https://registry.yarnpkg.com/ts-simple-ast/-/ts-simple-ast-17.1.1.tgz#ecd6d00cc31d30eb9fba8fa9149d72d9fa1da2bf"
+ts-simple-ast@^18.0.0:
+  version "18.0.0"
+  resolved "https://registry.yarnpkg.com/ts-simple-ast/-/ts-simple-ast-18.0.0.tgz#8f7b41c8c1e8c81de94cc32d0348202b4fc5657f"
   dependencies:
     "@dsherret/to-absolute-glob" "^2.0.2"
     code-block-writer "^7.2.2"

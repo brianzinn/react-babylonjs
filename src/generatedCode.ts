@@ -7463,4 +7463,640 @@ export class FiberShaderMaterial implements HasPropsHandlers<BABYLON.Material, F
     };
 }
 
-export const AnaglyphArcRotateCamera: string = 'AnaglyphArcRotateCamera', AnaglyphFreeCamera: string = 'AnaglyphFreeCamera', AnaglyphGamepadCamera: string = 'AnaglyphGamepadCamera', AnaglyphUniversalCamera: string = 'AnaglyphUniversalCamera', ArcFollowCamera: string = 'ArcFollowCamera', ArcRotateCamera: string = 'ArcRotateCamera', BackgroundMaterial: string = 'BackgroundMaterial', Box: string = 'Box', Camera: string = 'Camera', Cylinder: string = 'Cylinder', DashedLines: string = 'DashedLines', Decal: string = 'Decal', DeviceOrientationCamera: string = 'DeviceOrientationCamera', DirectionalLight: string = 'DirectionalLight', Disc: string = 'Disc', ExtrudePolygon: string = 'ExtrudePolygon', ExtrudeShape: string = 'ExtrudeShape', ExtrudeShapeCustom: string = 'ExtrudeShapeCustom', FollowCamera: string = 'FollowCamera', FreeCamera: string = 'FreeCamera', GamepadCamera: string = 'GamepadCamera', Ground: string = 'Ground', GroundFromHeightMap: string = 'GroundFromHeightMap', HemisphericLight: string = 'HemisphericLight', IcoSphere: string = 'IcoSphere', Lathe: string = 'Lathe', LineSystem: string = 'LineSystem', Lines: string = 'Lines', Material: string = 'Material', MultiMaterial: string = 'MultiMaterial', PBRBaseMaterial: string = 'PBRBaseMaterial', PBRBaseSimpleMaterial: string = 'PBRBaseSimpleMaterial', PBRMaterial: string = 'PBRMaterial', PBRMetallicRoughnessMaterial: string = 'PBRMetallicRoughnessMaterial', PBRSpecularGlossinessMaterial: string = 'PBRSpecularGlossinessMaterial', Plane: string = 'Plane', Polygon: string = 'Polygon', Polyhedron: string = 'Polyhedron', PushMaterial: string = 'PushMaterial', Ribbon: string = 'Ribbon', ShaderMaterial: string = 'ShaderMaterial', Sphere: string = 'Sphere', StandardMaterial: string = 'StandardMaterial', StereoscopicArcRotateCamera: string = 'StereoscopicArcRotateCamera', StereoscopicFreeCamera: string = 'StereoscopicFreeCamera', StereoscopicGamepadCamera: string = 'StereoscopicGamepadCamera', StereoscopicUniversalCamera: string = 'StereoscopicUniversalCamera', TargetCamera: string = 'TargetCamera', TiledGround: string = 'TiledGround', Torus: string = 'Torus', TorusKnot: string = 'TorusKnot', TouchCamera: string = 'TouchCamera', Tube: string = 'Tube', UniversalCamera: string = 'UniversalCamera', VRDeviceOrientationArcRotateCamera: string = 'VRDeviceOrientationArcRotateCamera', VRDeviceOrientationFreeCamera: string = 'VRDeviceOrientationFreeCamera', VRDeviceOrientationGamepadCamera: string = 'VRDeviceOrientationGamepadCamera', VirtualJoysticksCamera: string = 'VirtualJoysticksCamera', WebVRFreeCamera: string = 'WebVRFreeCamera';
+export class FiberLightProps extends FiberNodeProps {
+    diffuse?: BABYLON.Color3;
+    excludedMeshes?: BABYLON.AbstractMesh[];
+    excludeWithLayerMask?: number;
+    falloffType?: number;
+    includedOnlyMeshes?: BABYLON.AbstractMesh[];
+    includeOnlyWithLayerMask?: number;
+    intensity?: number;
+    intensityMode?: number;
+    lightmapMode?: number;
+    radius?: number;
+    range?: number;
+    renderPriority?: number;
+    shadowEnabled?: boolean;
+    specular?: BABYLON.Color3;
+}
+
+export class FiberLightPropsHandler implements PropsHandler<BABYLON.Light, FiberLightProps> {
+    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.Light>, oldProps: FiberLightProps, newProps: FiberLightProps): PropertyUpdate[] | null {
+        // generated code
+        let babylonObject: BABYLON.Light = createdInstance.babylonJsObject;
+        let updates: PropertyUpdate[] = [];
+        // BABYLON.Light.diffuse of BABYLONBABYLON.Color3 uses object equals to find diffs:
+        if (newProps.diffuse && (!oldProps.diffuse || !oldProps.diffuse.equals(newProps.diffuse))) {
+            updates.push({
+                propertyName: 'diffuse',
+                value: newProps.diffuse,
+                type: 'BABYLON.Color3'
+            });
+        }
+        // TODO: type: BABYLON.AbstractMesh[] property (not coded) BABYLON.Light.excludedMeshes.
+        // BABYLON.Light.excludeWithLayerMask of type 'number':
+        if (oldProps.excludeWithLayerMask !== newProps.excludeWithLayerMask) {
+            updates.push({
+                propertyName: 'excludeWithLayerMask',
+                value: newProps.excludeWithLayerMask,
+                type: 'number'
+            });
+        }
+        // BABYLON.Light.falloffType of type 'number':
+        if (oldProps.falloffType !== newProps.falloffType) {
+            updates.push({
+                propertyName: 'falloffType',
+                value: newProps.falloffType,
+                type: 'number'
+            });
+        }
+        // TODO: type: BABYLON.AbstractMesh[] property (not coded) BABYLON.Light.includedOnlyMeshes.
+        // BABYLON.Light.includeOnlyWithLayerMask of type 'number':
+        if (oldProps.includeOnlyWithLayerMask !== newProps.includeOnlyWithLayerMask) {
+            updates.push({
+                propertyName: 'includeOnlyWithLayerMask',
+                value: newProps.includeOnlyWithLayerMask,
+                type: 'number'
+            });
+        }
+        // BABYLON.Light.intensity of type 'number':
+        if (oldProps.intensity !== newProps.intensity) {
+            updates.push({
+                propertyName: 'intensity',
+                value: newProps.intensity,
+                type: 'number'
+            });
+        }
+        // BABYLON.Light.intensityMode of type 'number':
+        if (oldProps.intensityMode !== newProps.intensityMode) {
+            updates.push({
+                propertyName: 'intensityMode',
+                value: newProps.intensityMode,
+                type: 'number'
+            });
+        }
+        // BABYLON.Light.lightmapMode of type 'number':
+        if (oldProps.lightmapMode !== newProps.lightmapMode) {
+            updates.push({
+                propertyName: 'lightmapMode',
+                value: newProps.lightmapMode,
+                type: 'number'
+            });
+        }
+        // BABYLON.Light.radius of type 'number':
+        if (oldProps.radius !== newProps.radius) {
+            updates.push({
+                propertyName: 'radius',
+                value: newProps.radius,
+                type: 'number'
+            });
+        }
+        // BABYLON.Light.range of type 'number':
+        if (oldProps.range !== newProps.range) {
+            updates.push({
+                propertyName: 'range',
+                value: newProps.range,
+                type: 'number'
+            });
+        }
+        // BABYLON.Light.renderPriority of type 'number':
+        if (oldProps.renderPriority !== newProps.renderPriority) {
+            updates.push({
+                propertyName: 'renderPriority',
+                value: newProps.renderPriority,
+                type: 'number'
+            });
+        }
+        // BABYLON.Light.shadowEnabled of type 'boolean':
+        if (oldProps.shadowEnabled !== newProps.shadowEnabled) {
+            updates.push({
+                propertyName: 'shadowEnabled',
+                value: newProps.shadowEnabled,
+                type: 'boolean'
+            });
+        }
+        // BABYLON.Light.specular of BABYLONBABYLON.Color3 uses object equals to find diffs:
+        if (newProps.specular && (!oldProps.specular || !oldProps.specular.equals(newProps.specular))) {
+            updates.push({
+                propertyName: 'specular',
+                value: newProps.specular,
+                type: 'BABYLON.Color3'
+            });
+        }
+        return updates.length == 0 ? null : updates;
+    }
+}
+
+/**
+ * Base class of all the lights in Babylon. It groups all the generic information about lights.
+ * Lights are used, as you would expect, to affect how meshes are seen, in terms of both illumination and colour.
+ * All meshes allow light to pass through them unless shadow generation is activated. The default number of lights allowed is four but this can be increased.
+ * 
+ * This code has been generated
+ */
+export class FiberLight implements HasPropsHandlers<BABYLON.Light, FiberLightProps> {
+    private propsHandlers: PropsHandler<BABYLON.Light, FiberLightProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberLightPropsHandler(),
+            new FiberNodePropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<BABYLON.Light, FiberLightProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<BABYLON.Light, FiberLightProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "Light",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "scene",
+                "type": "BABYLON.Scene",
+                "optional": false
+            }
+        ]
+    };
+}
+
+export class FiberHemisphericLightProps extends FiberLightProps {
+    direction?: BABYLON.Vector3;
+    groundColor?: BABYLON.Color3;
+}
+
+export class FiberHemisphericLightPropsHandler implements PropsHandler<BABYLON.HemisphericLight, FiberHemisphericLightProps> {
+    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.HemisphericLight>, oldProps: FiberHemisphericLightProps, newProps: FiberHemisphericLightProps): PropertyUpdate[] | null {
+        // generated code
+        let babylonObject: BABYLON.HemisphericLight = createdInstance.babylonJsObject;
+        let updates: PropertyUpdate[] = [];
+        // BABYLON.HemisphericLight.direction of BABYLONBABYLON.Vector3 uses object equals to find diffs:
+        if (newProps.direction && (!oldProps.direction || !oldProps.direction.equals(newProps.direction))) {
+            updates.push({
+                propertyName: 'direction',
+                value: newProps.direction,
+                type: 'BABYLON.Vector3'
+            });
+        }
+        // BABYLON.HemisphericLight.groundColor of BABYLONBABYLON.Color3 uses object equals to find diffs:
+        if (newProps.groundColor && (!oldProps.groundColor || !oldProps.groundColor.equals(newProps.groundColor))) {
+            updates.push({
+                propertyName: 'groundColor',
+                value: newProps.groundColor,
+                type: 'BABYLON.Color3'
+            });
+        }
+        return updates.length == 0 ? null : updates;
+    }
+}
+
+/**
+ * The HemisphericLight simulates the ambient environment light,
+ * so the passed direction is the light reflection direction, not the incoming direction.
+ * 
+ * This code has been generated
+ */
+export class FiberHemisphericLight implements HasPropsHandlers<BABYLON.Light, FiberLightProps> {
+    private propsHandlers: PropsHandler<BABYLON.Light, FiberLightProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberHemisphericLightPropsHandler(),
+            new FiberLightPropsHandler(),
+            new FiberNodePropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<BABYLON.Light, FiberLightProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<BABYLON.Light, FiberLightProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "Light",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "scene",
+                "type": "BABYLON.Scene",
+                "optional": false
+            }
+        ]
+    };
+}
+
+export class FiberShadowLightProps extends FiberLightProps {
+    customProjectionMatrixBuilder?: (viewMatrix: BABYLON.Matrix, renderList: BABYLON.AbstractMesh[], result: BABYLON.Matrix) => void;
+    direction?: BABYLON.Vector3;
+    position?: BABYLON.Vector3;
+    shadowMaxZ?: number;
+    shadowMinZ?: number;
+    transformedDirection?: BABYLON.Vector3;
+    transformedPosition?: BABYLON.Vector3;
+}
+
+export class FiberShadowLightPropsHandler implements PropsHandler<BABYLON.ShadowLight, FiberShadowLightProps> {
+    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.ShadowLight>, oldProps: FiberShadowLightProps, newProps: FiberShadowLightProps): PropertyUpdate[] | null {
+        // generated code
+        let babylonObject: BABYLON.ShadowLight = createdInstance.babylonJsObject;
+        let updates: PropertyUpdate[] = [];
+        // TODO: type: (viewMatrix: BABYLON.Matrix, renderList: BABYLON.AbstractMesh[], result: BABYLON.Matrix) => void property (not coded) BABYLON.ShadowLight.customProjectionMatrixBuilder.
+        // BABYLON.ShadowLight.direction of BABYLONBABYLON.Vector3 uses object equals to find diffs:
+        if (newProps.direction && (!oldProps.direction || !oldProps.direction.equals(newProps.direction))) {
+            updates.push({
+                propertyName: 'direction',
+                value: newProps.direction,
+                type: 'BABYLON.Vector3'
+            });
+        }
+        // BABYLON.ShadowLight.position of BABYLONBABYLON.Vector3 uses object equals to find diffs:
+        if (newProps.position && (!oldProps.position || !oldProps.position.equals(newProps.position))) {
+            updates.push({
+                propertyName: 'position',
+                value: newProps.position,
+                type: 'BABYLON.Vector3'
+            });
+        }
+        // BABYLON.ShadowLight.shadowMaxZ of type 'number':
+        if (oldProps.shadowMaxZ !== newProps.shadowMaxZ) {
+            updates.push({
+                propertyName: 'shadowMaxZ',
+                value: newProps.shadowMaxZ,
+                type: 'number'
+            });
+        }
+        // BABYLON.ShadowLight.shadowMinZ of type 'number':
+        if (oldProps.shadowMinZ !== newProps.shadowMinZ) {
+            updates.push({
+                propertyName: 'shadowMinZ',
+                value: newProps.shadowMinZ,
+                type: 'number'
+            });
+        }
+        // BABYLON.ShadowLight.transformedDirection of BABYLONBABYLON.Vector3 uses object equals to find diffs:
+        if (newProps.transformedDirection && (!oldProps.transformedDirection || !oldProps.transformedDirection.equals(newProps.transformedDirection))) {
+            updates.push({
+                propertyName: 'transformedDirection',
+                value: newProps.transformedDirection,
+                type: 'BABYLON.Vector3'
+            });
+        }
+        // BABYLON.ShadowLight.transformedPosition of BABYLONBABYLON.Vector3 uses object equals to find diffs:
+        if (newProps.transformedPosition && (!oldProps.transformedPosition || !oldProps.transformedPosition.equals(newProps.transformedPosition))) {
+            updates.push({
+                propertyName: 'transformedPosition',
+                value: newProps.transformedPosition,
+                type: 'BABYLON.Vector3'
+            });
+        }
+        return updates.length == 0 ? null : updates;
+    }
+}
+
+/**
+ * Base implementation IShadowLight
+ * It groups all the common behaviour in order to reduce dupplication and better follow the DRY pattern.
+ * 
+ * This code has been generated
+ */
+export class FiberShadowLight implements HasPropsHandlers<BABYLON.Light, FiberLightProps> {
+    private propsHandlers: PropsHandler<BABYLON.Light, FiberLightProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberShadowLightPropsHandler(),
+            new FiberLightPropsHandler(),
+            new FiberNodePropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<BABYLON.Light, FiberLightProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<BABYLON.Light, FiberLightProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "Light",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "scene",
+                "type": "BABYLON.Scene",
+                "optional": false
+            }
+        ]
+    };
+}
+
+export class FiberDirectionalLightProps extends FiberShadowLightProps {
+    autoUpdateExtends?: boolean;
+    shadowFrustumSize?: number;
+    shadowOrthoScale?: number;
+}
+
+export class FiberDirectionalLightPropsHandler implements PropsHandler<BABYLON.DirectionalLight, FiberDirectionalLightProps> {
+    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.DirectionalLight>, oldProps: FiberDirectionalLightProps, newProps: FiberDirectionalLightProps): PropertyUpdate[] | null {
+        // generated code
+        let babylonObject: BABYLON.DirectionalLight = createdInstance.babylonJsObject;
+        let updates: PropertyUpdate[] = [];
+        // BABYLON.DirectionalLight.autoUpdateExtends of type 'boolean':
+        if (oldProps.autoUpdateExtends !== newProps.autoUpdateExtends) {
+            updates.push({
+                propertyName: 'autoUpdateExtends',
+                value: newProps.autoUpdateExtends,
+                type: 'boolean'
+            });
+        }
+        // BABYLON.DirectionalLight.shadowFrustumSize of type 'number':
+        if (oldProps.shadowFrustumSize !== newProps.shadowFrustumSize) {
+            updates.push({
+                propertyName: 'shadowFrustumSize',
+                value: newProps.shadowFrustumSize,
+                type: 'number'
+            });
+        }
+        // BABYLON.DirectionalLight.shadowOrthoScale of type 'number':
+        if (oldProps.shadowOrthoScale !== newProps.shadowOrthoScale) {
+            updates.push({
+                propertyName: 'shadowOrthoScale',
+                value: newProps.shadowOrthoScale,
+                type: 'number'
+            });
+        }
+        return updates.length == 0 ? null : updates;
+    }
+}
+
+/**
+ * A directional light is defined by a direction (what a surprise!).
+ * The light is emitted from everywhere in the specified direction, and has an infinite range.
+ * An example of a directional light is when a distance planet is lit by the apparently parallel lines of light from its sun. Light in a downward direction will light the top of an object.
+ * Documentation: https://doc.babylonjs.com/babylon101/lights
+ * 
+ * This code has been generated
+ */
+export class FiberDirectionalLight implements HasPropsHandlers<BABYLON.Light, FiberLightProps> {
+    private propsHandlers: PropsHandler<BABYLON.Light, FiberLightProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberDirectionalLightPropsHandler(),
+            new FiberShadowLightPropsHandler(),
+            new FiberLightPropsHandler(),
+            new FiberNodePropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<BABYLON.Light, FiberLightProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<BABYLON.Light, FiberLightProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "Light",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "scene",
+                "type": "BABYLON.Scene",
+                "optional": false
+            }
+        ]
+    };
+}
+
+export class FiberPointLightProps extends FiberShadowLightProps {
+    direction?: BABYLON.Vector3;
+    shadowAngle?: number;
+}
+
+export class FiberPointLightPropsHandler implements PropsHandler<BABYLON.PointLight, FiberPointLightProps> {
+    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.PointLight>, oldProps: FiberPointLightProps, newProps: FiberPointLightProps): PropertyUpdate[] | null {
+        // generated code
+        let babylonObject: BABYLON.PointLight = createdInstance.babylonJsObject;
+        let updates: PropertyUpdate[] = [];
+        // BABYLON.PointLight.direction of BABYLONBABYLON.Vector3 uses object equals to find diffs:
+        if (newProps.direction && (!oldProps.direction || !oldProps.direction.equals(newProps.direction))) {
+            updates.push({
+                propertyName: 'direction',
+                value: newProps.direction,
+                type: 'BABYLON.Vector3'
+            });
+        }
+        // BABYLON.PointLight.shadowAngle of type 'number':
+        if (oldProps.shadowAngle !== newProps.shadowAngle) {
+            updates.push({
+                propertyName: 'shadowAngle',
+                value: newProps.shadowAngle,
+                type: 'number'
+            });
+        }
+        return updates.length == 0 ? null : updates;
+    }
+}
+
+/**
+ * A point light is a light defined by an unique point in world space.
+ * The light is emitted in every direction from this point.
+ * A good example of a point light is a standard light bulb.
+ * Documentation: https://doc.babylonjs.com/babylon101/lights
+ * 
+ * This code has been generated
+ */
+export class FiberPointLight implements HasPropsHandlers<BABYLON.Light, FiberLightProps> {
+    private propsHandlers: PropsHandler<BABYLON.Light, FiberLightProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberPointLightPropsHandler(),
+            new FiberShadowLightPropsHandler(),
+            new FiberLightPropsHandler(),
+            new FiberNodePropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<BABYLON.Light, FiberLightProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<BABYLON.Light, FiberLightProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "Light",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "scene",
+                "type": "BABYLON.Scene",
+                "optional": false
+            }
+        ]
+    };
+}
+
+export class FiberSpotLightProps extends FiberShadowLightProps {
+    angle?: number;
+    exponent?: number;
+    innerAngle?: number;
+    projectionTexture?: BABYLON.BaseTexture;
+    projectionTextureLightFar?: number;
+    projectionTextureLightNear?: number;
+    projectionTextureUpDirection?: BABYLON.Vector3;
+    shadowAngleScale?: number;
+}
+
+export class FiberSpotLightPropsHandler implements PropsHandler<BABYLON.SpotLight, FiberSpotLightProps> {
+    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.SpotLight>, oldProps: FiberSpotLightProps, newProps: FiberSpotLightProps): PropertyUpdate[] | null {
+        // generated code
+        let babylonObject: BABYLON.SpotLight = createdInstance.babylonJsObject;
+        let updates: PropertyUpdate[] = [];
+        // BABYLON.SpotLight.angle of type 'number':
+        if (oldProps.angle !== newProps.angle) {
+            updates.push({
+                propertyName: 'angle',
+                value: newProps.angle,
+                type: 'number'
+            });
+        }
+        // BABYLON.SpotLight.exponent of type 'number':
+        if (oldProps.exponent !== newProps.exponent) {
+            updates.push({
+                propertyName: 'exponent',
+                value: newProps.exponent,
+                type: 'number'
+            });
+        }
+        // BABYLON.SpotLight.innerAngle of type 'number':
+        if (oldProps.innerAngle !== newProps.innerAngle) {
+            updates.push({
+                propertyName: 'innerAngle',
+                value: newProps.innerAngle,
+                type: 'number'
+            });
+        }
+        // TODO: type: BABYLON.BaseTexture property (not coded) BABYLON.SpotLight.projectionTexture.
+        // BABYLON.SpotLight.projectionTextureLightFar of type 'number':
+        if (oldProps.projectionTextureLightFar !== newProps.projectionTextureLightFar) {
+            updates.push({
+                propertyName: 'projectionTextureLightFar',
+                value: newProps.projectionTextureLightFar,
+                type: 'number'
+            });
+        }
+        // BABYLON.SpotLight.projectionTextureLightNear of type 'number':
+        if (oldProps.projectionTextureLightNear !== newProps.projectionTextureLightNear) {
+            updates.push({
+                propertyName: 'projectionTextureLightNear',
+                value: newProps.projectionTextureLightNear,
+                type: 'number'
+            });
+        }
+        // BABYLON.SpotLight.projectionTextureUpDirection of BABYLONBABYLON.Vector3 uses object equals to find diffs:
+        if (newProps.projectionTextureUpDirection && (!oldProps.projectionTextureUpDirection || !oldProps.projectionTextureUpDirection.equals(newProps.projectionTextureUpDirection))) {
+            updates.push({
+                propertyName: 'projectionTextureUpDirection',
+                value: newProps.projectionTextureUpDirection,
+                type: 'BABYLON.Vector3'
+            });
+        }
+        // BABYLON.SpotLight.shadowAngleScale of type 'number':
+        if (oldProps.shadowAngleScale !== newProps.shadowAngleScale) {
+            updates.push({
+                propertyName: 'shadowAngleScale',
+                value: newProps.shadowAngleScale,
+                type: 'number'
+            });
+        }
+        return updates.length == 0 ? null : updates;
+    }
+}
+
+/**
+ * A spot light is defined by a position, a direction, an angle, and an exponent.
+ * These values define a cone of light starting from the position, emitting toward the direction.
+ * The angle, in radians, defines the size (field of illumination) of the spotlight's conical beam,
+ * and the exponent defines the speed of the decay of the light with distance (reach).
+ * Documentation: https://doc.babylonjs.com/babylon101/lights
+ * 
+ * This code has been generated
+ */
+export class FiberSpotLight implements HasPropsHandlers<BABYLON.Light, FiberLightProps> {
+    private propsHandlers: PropsHandler<BABYLON.Light, FiberLightProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberSpotLightPropsHandler(),
+            new FiberShadowLightPropsHandler(),
+            new FiberLightPropsHandler(),
+            new FiberNodePropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<BABYLON.Light, FiberLightProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<BABYLON.Light, FiberLightProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "Light",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "scene",
+                "type": "BABYLON.Scene",
+                "optional": false
+            }
+        ]
+    };
+}
+
+export const AnaglyphArcRotateCamera: string = 'AnaglyphArcRotateCamera', AnaglyphFreeCamera: string = 'AnaglyphFreeCamera', AnaglyphGamepadCamera: string = 'AnaglyphGamepadCamera', AnaglyphUniversalCamera: string = 'AnaglyphUniversalCamera', ArcFollowCamera: string = 'ArcFollowCamera', ArcRotateCamera: string = 'ArcRotateCamera', BackgroundMaterial: string = 'BackgroundMaterial', Box: string = 'Box', Camera: string = 'Camera', Cylinder: string = 'Cylinder', DashedLines: string = 'DashedLines', Decal: string = 'Decal', DeviceOrientationCamera: string = 'DeviceOrientationCamera', DirectionalLight: string = 'DirectionalLight', Disc: string = 'Disc', ExtrudePolygon: string = 'ExtrudePolygon', ExtrudeShape: string = 'ExtrudeShape', ExtrudeShapeCustom: string = 'ExtrudeShapeCustom', FollowCamera: string = 'FollowCamera', FreeCamera: string = 'FreeCamera', GamepadCamera: string = 'GamepadCamera', Ground: string = 'Ground', GroundFromHeightMap: string = 'GroundFromHeightMap', HemisphericLight: string = 'HemisphericLight', IcoSphere: string = 'IcoSphere', Lathe: string = 'Lathe', Light: string = 'Light', LineSystem: string = 'LineSystem', Lines: string = 'Lines', Material: string = 'Material', MultiMaterial: string = 'MultiMaterial', PBRBaseMaterial: string = 'PBRBaseMaterial', PBRBaseSimpleMaterial: string = 'PBRBaseSimpleMaterial', PBRMaterial: string = 'PBRMaterial', PBRMetallicRoughnessMaterial: string = 'PBRMetallicRoughnessMaterial', PBRSpecularGlossinessMaterial: string = 'PBRSpecularGlossinessMaterial', Plane: string = 'Plane', PointLight: string = 'PointLight', Polygon: string = 'Polygon', Polyhedron: string = 'Polyhedron', PushMaterial: string = 'PushMaterial', Ribbon: string = 'Ribbon', ShaderMaterial: string = 'ShaderMaterial', ShadowLight: string = 'ShadowLight', Sphere: string = 'Sphere', SpotLight: string = 'SpotLight', StandardMaterial: string = 'StandardMaterial', StereoscopicArcRotateCamera: string = 'StereoscopicArcRotateCamera', StereoscopicFreeCamera: string = 'StereoscopicFreeCamera', StereoscopicGamepadCamera: string = 'StereoscopicGamepadCamera', StereoscopicUniversalCamera: string = 'StereoscopicUniversalCamera', TargetCamera: string = 'TargetCamera', TiledGround: string = 'TiledGround', Torus: string = 'Torus', TorusKnot: string = 'TorusKnot', TouchCamera: string = 'TouchCamera', Tube: string = 'Tube', UniversalCamera: string = 'UniversalCamera', VRDeviceOrientationArcRotateCamera: string = 'VRDeviceOrientationArcRotateCamera', VRDeviceOrientationFreeCamera: string = 'VRDeviceOrientationFreeCamera', VRDeviceOrientationGamepadCamera: string = 'VRDeviceOrientationGamepadCamera', VirtualJoysticksCamera: string = 'VirtualJoysticksCamera', WebVRFreeCamera: string = 'WebVRFreeCamera';

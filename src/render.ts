@@ -127,21 +127,21 @@ type UpdatePayload = PropertyUpdate[] | null
 type TimeoutHandler = number | undefined
 type NoTimeout = number
 
-function applyUpdateToInstance(babylonObject: any, update: PropertyUpdate, type: string | undefined) : void {
+function applyUpdateToInstance(babylonObject: any, update: PropertyUpdate, type: string | undefined): void {
   switch (update.type) {
     case "string":
     case "number":
     case "boolean":
-      console.log(` > ${type}: updating ${update.type} on ${update.propertyName} to ${update.value}`);
+      console.log(` > ${type}: updating ${update.type} on ${update.propertyName} to ${update.value}`)
       babylonObject[update.propertyName] = update.value
       break
     case "BABYLON.Vector3":
-      console.log(` > ${type}: updating Vector3 on:${update.propertyName} to ${update.value}`);
-      (babylonObject[update.propertyName] as BABYLON.Vector3).copyFrom(update.value)
+      console.log(` > ${type}: updating Vector3 on:${update.propertyName} to ${update.value}`)
+      ;(babylonObject[update.propertyName] as BABYLON.Vector3).copyFrom(update.value)
       break
     case "BABYLON.Color3":
-    console.log(` > ${type}: updating Color3 on:${update.propertyName} to ${update.value}`);
-      (babylonObject[update.propertyName] as BABYLON.Color3).copyFrom(update.value)
+      console.log(` > ${type}: updating Color3 on:${update.propertyName} to ${update.value}`)
+      ;(babylonObject[update.propertyName] as BABYLON.Color3).copyFrom(update.value)
       break
     default:
       console.error(`unhandled property update of type ${update.type}`)
@@ -377,10 +377,10 @@ export const hostConfig: HostConfig<
       babylonObject.attachControl(canvas)
     }
 
-    const fiberObject : GENERATED.HasPropsHandlers<any, any> = new (GENERATED as any)[`Fiber${type}`]()
+    const fiberObject: GENERATED.HasPropsHandlers<any, any> = new (GENERATED as any)[`Fiber${type}`]()
 
     // TODO: PropsHandler needs to prepare an update and apply immediately here, otherwise it won't appear until prepareUpdate() is called.
-    let initPayload : PropertyUpdate[] = []
+    let initPayload: PropertyUpdate[] = []
     fiberObject.getPropsHandlers().forEach(propHandler => {
       // NOTE: this is actually WRONG, because here we want to compare the props with the object.
       let handlerUpdates: PropertyUpdate[] | null = propHandler.getPropertyUpdates(
@@ -393,11 +393,16 @@ export const hostConfig: HostConfig<
       }
     })
 
-    let createdReference = createCreatedInstance(type, babylonObject, fiberObject, metadata === undefined ? null : metadata)
+    let createdReference = createCreatedInstance(
+      type,
+      babylonObject,
+      fiberObject,
+      metadata === undefined ? null : metadata
+    )
 
     if (initPayload.length > 0) {
       initPayload.forEach(update => {
-        applyUpdateToInstance(babylonObject, update, type);
+        applyUpdateToInstance(babylonObject, update, type)
       })
     }
 
@@ -462,6 +467,8 @@ export const hostConfig: HostConfig<
     if (camera === null) {
       console.warn("looks like camera is null??")
     } else {
+      console.warn("re-attaching camera??")
+      
       camera.attachControl(containerInfo.canvas as HTMLCanvasElement)
     }
   },
@@ -469,14 +476,13 @@ export const hostConfig: HostConfig<
   appendInitialChild: (parent: HostCreatedInstance<any>, child: CreatedInstance<any>) => {
     // Here we are traversing downwards.  The parent has not been initialized, but all children have been.
     console.log("reconciler: appentInitialChild", parent, child)
-    
+
     if (parent && parent!.metadata) {
       if (parent.metadata && parent.metadata.acceptsMaterials) {
         // TODO: for dynamically adding behaviour add a accept/visit(node, type). ie: visit(child.fiberObject, TYPE.ParentAcceptsMaterials)
         // Needs to return if it was "attached", otherwise can re-attempt as I think only immediate parent is available here in the life cycle.
-        console.error(' > setting material: ', parent.babylonJsObject, ' material to ' , child.babylonJsObject)
-        parent.babylonJsObject.material = child.babylonJsObject;
-
+        console.error(" > setting material: ", parent.babylonJsObject, " material to ", child.babylonJsObject)
+        parent.babylonJsObject.material = child.babylonJsObject
       }
     }
   },
@@ -524,8 +530,8 @@ export const hostConfig: HostConfig<
     console.log("commitUpdate", instance, updatePayload, type, oldProps, newProps)
 
     if (updatePayload != null) {
-      (updatePayload as PropertyUpdate[]).forEach(update => {
-        applyUpdateToInstance(instance!.babylonJsObject, update, type);
+      ;(updatePayload as PropertyUpdate[]).forEach(update => {
+        applyUpdateToInstance(instance!.babylonJsObject, update, type)
       })
     }
   },
