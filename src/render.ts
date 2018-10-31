@@ -114,10 +114,10 @@ type Props = {
   scene: BABYLON.Scene
 } & any
 
-type Container = {
+
+export type Container = {
   canvas: HTMLCanvasElement | WebGLRenderingContext | null
   engine: BABYLON.Engine
-  _rootContainer?: ReactReconciler.FiberRoot
 }
 
 // TODO: add developer-tools stuff so it looks better in React panel
@@ -195,11 +195,6 @@ class FiberMesh implements GENERATED.HasPropsHandlers<BABYLON.Mesh, GENERATED.Fi
   addPropsHandler(propHandler: GENERATED.PropsHandler<BABYLON.Mesh, GENERATED.FiberMeshProps>): void {
     this.propsHandlers.push(propHandler)
   }
-}
-
-type ConstructorArgument = {
-  name: string
-  type: string
 }
 
 export const hostConfig: HostConfig<
@@ -553,25 +548,4 @@ export const hostConfig: HostConfig<
   }
   //createTextInstance: (text: => {},
   //commitTextUpdate (textInstance, oldText, newText) {}
-}
-
-const ReactReconcilerInst = ReactReconciler(hostConfig)
-let root: ReactReconciler.FiberRoot
-//let internalContainerStructure : Container | ReactReconciler.FiberRoot | BaseFiberRootProperties | ProfilingOnlyFiberRootProperties;
-export function render(reactElements: React.ReactNode, container: Container, callback: () => void) {
-  // Create a root Container if it doesnt exist
-  if (!root) {
-    const isAsync = false // Disables async rendering (experimental anyway)
-
-    // createContainer(containerInfo: Container, isAsync: boolean, hydrate: boolean): OpaqueRoot;
-    root = ReactReconcilerInst.createContainer(container, isAsync, false /* hydrate true == better HMR? */)
-  }
-
-  // update the root Container
-  console.log("updating rootContainer, reactElement:", reactElements)
-  return ReactReconcilerInst.updateContainer(reactElements, root, null, callback)
-}
-
-export function unmount(args: any) {
-  console.log("UNMOUNT", ...args)
 }

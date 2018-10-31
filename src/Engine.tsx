@@ -1,7 +1,8 @@
-import React, { createContext, HTMLAttributes } from 'react'
+import React, { createContext } from 'react'
+import ReactReconciler from "react-reconciler"
 import BABYLON from 'babylonjs'
 
-import { render, unmount } from './render'
+import { hostConfig, Container } from './render'
 
 // TODO: copy engineOptions/antialias/etc and canvas options from original Scene.tsx
 export interface WithEngineContext {
@@ -36,11 +37,12 @@ export function withEngine<
   };
 }
 
-// Component<HTMLAttributes<HTMLCanvasElement>, {}>
 export default class Engine extends React.Component<any, any> {
 
   private _engine?: BABYLON.Nullable<BABYLON.Engine>;
   private _canvas: BABYLON.Nullable<HTMLCanvasElement | WebGLRenderingContext> = null;
+  private _fiberRoot?: ReactReconciler.FiberRoot;
+  private _reactReconcilerBabylonJs = ReactReconciler(hostConfig)
 
   componentDidMount () {
     this._engine = new BABYLON.Engine(
@@ -53,18 +55,29 @@ export default class Engine extends React.Component<any, any> {
       })
     })
 
+    this._engine.onContextLostObservable.add((eventData: BABYLON.Engine) => {
+      console.log('context loss observable from Engine: ', eventData);
+    })
+
     window.addEventListener('resize', this.onResizeWindow)
     const { props, state } = this
-    console.log('Engine', { props, state })
-    render(
-      <EngineProvider value={{ engine: this._engine!, canvas: this._canvas }}>
-        {this.props.children}
-      </EngineProvider>,
-      { engine: this._engine!, canvas: this._canvas! },
-      () => {
-        console.log('render callback in engine provider.')
-      }
-    )
+        
+    const isAsync = false // Disables async rendering (experimental anyway)
+    
+    this._fiberRoot = this._reactReconcilerBabylonJs.createContainer({ engine: this._engine!, canvas: this._canvas! } as Container, isAsync, false /* hydrate true == better HMR? */)
+  
+    this._reactReconcilerBabylonJs.injectIntoDevTools({
+      bundleType: process.env.NODE_ENV === 'production' ? 0 : 1,
+      version: '1.0.0',
+      rendererPackageName: 'react-babylonjs'
+      // findFiberByHostInstance: this._reactReconcilerBabylonJs.findHostInstance
+    })
+
+    // update the root Container
+    console.log("updating rootContainer (1) reactElement")
+    return this._reactReconcilerBabylonJs.updateContainer(<EngineProvider value={{ engine: this._engine!, canvas: this._canvas }}>
+           {this.props.children}
+         </EngineProvider>, this._fiberRoot, undefined, () => { console.log("Updated Container - first time."); })
   }
 
   onCanvasRef = (c : HTMLCanvasElement) => {
@@ -80,20 +93,18 @@ export default class Engine extends React.Component<any, any> {
   componentDidUpdate (prevProps: any, prevState: any) {
     const { props, state } = this
     console.log('Engine did update:', { props, state, prevProps, prevState })
-    render(
-      <EngineProvider value={{ engine: this._engine!, canvas: this._canvas }}>
-        {this.props.children}
-      </EngineProvider>,
-      { engine: this._engine!, canvas: this._canvas! },
-      () => {
-        console.log('render did update in engine provider.')
-      }
-    )
+
+    // update the root Container
+    console.log("updating rootContainer (1) reactElement")
+    return this._reactReconcilerBabylonJs.updateContainer(<EngineProvider value={{ engine: this._engine!, canvas: this._canvas }}>
+           {this.props.children}
+         </EngineProvider>, this._fiberRoot!, undefined, () => { console.log("Updated Container - additional time."); })
+    
   }
 
   componentWillUnmount () {
-    window.removeEventListener('resize', this.onResizeWindow)
-    unmount('unmounting Engine')
+    window.removeEventListener('resize', this.onResizeWindow);
+    console.log('unmounting Enginek Component.')
   }
 
   render () {
