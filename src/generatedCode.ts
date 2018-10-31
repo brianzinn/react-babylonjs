@@ -1,5 +1,6 @@
 import { CreatedInstance, PropertyUpdate } from "./render";
 import BABYLON from "babylonjs";
+import GUI from "babylonjs-gui";
 
 export interface PropsHandler<T, U> {
     getPropertyUpdates(createdInstance: CreatedInstance<T>, oldProps: U, newProps: U): PropertyUpdate[] | null;
@@ -14,6 +15,7 @@ export class FiberNode {
 }
 
 export class FiberNodeProps {
+    addToSceneRootNodes?: any;
     animationPropertiesOverride?: BABYLON.AnimationPropertiesOverride;
     animations?: BABYLON.Animation[];
     doNotSerialize?: boolean;
@@ -21,6 +23,7 @@ export class FiberNodeProps {
     metadata?: any;
     name?: string;
     parent?: BABYLON.Node;
+    removeFromSceneRootNodes?: any;
     state?: string;
     uniqueId?: number;
 }
@@ -30,6 +33,7 @@ export class FiberNodePropsHandler implements PropsHandler<BABYLON.Node, FiberNo
         // generated code
         let babylonObject: BABYLON.Node = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
+        // TODO: type: any property (not coded) BABYLON.Node.addToSceneRootNodes.
         // TODO: type: BABYLON.AnimationPropertiesOverride property (not coded) BABYLON.Node.animationPropertiesOverride.
         // TODO: type: BABYLON.Animation[] property (not coded) BABYLON.Node.animations.
         // BABYLON.Node.doNotSerialize of type 'boolean':
@@ -58,6 +62,7 @@ export class FiberNodePropsHandler implements PropsHandler<BABYLON.Node, FiberNo
             });
         }
         // TODO: type: BABYLON.Node property (not coded) BABYLON.Node.parent.
+        // TODO: type: any property (not coded) BABYLON.Node.removeFromSceneRootNodes.
         // BABYLON.Node.state of type 'string':
         if (oldProps.state !== newProps.state) {
             updates.push({
@@ -447,6 +452,7 @@ export class FiberArcRotateCameraProps extends FiberTargetCameraProps {
     useAutoRotationBehavior?: boolean;
     useBouncingBehavior?: boolean;
     useFramingBehavior?: boolean;
+    useInputToRestoreState?: boolean;
     wheelDeltaPercentage?: number;
     wheelPrecision?: number;
     zoomOnFactor?: number;
@@ -711,6 +717,14 @@ export class FiberArcRotateCameraPropsHandler implements PropsHandler<BABYLON.Ar
                 type: 'boolean'
             });
         }
+        // BABYLON.ArcRotateCamera.useInputToRestoreState of type 'boolean':
+        if (oldProps.useInputToRestoreState !== newProps.useInputToRestoreState) {
+            updates.push({
+                propertyName: 'useInputToRestoreState',
+                value: newProps.useInputToRestoreState,
+                type: 'boolean'
+            });
+        }
         // BABYLON.ArcRotateCamera.wheelDeltaPercentage of type 'number':
         if (oldProps.wheelDeltaPercentage !== newProps.wheelDeltaPercentage) {
             updates.push({
@@ -753,73 +767,6 @@ export class FiberArcRotateCamera implements HasPropsHandlers<BABYLON.Camera, Fi
 
     constructor() {
         this.propsHandlers = [
-            new FiberArcRotateCameraPropsHandler(),
-            new FiberTargetCameraPropsHandler(),
-            new FiberCameraPropsHandler(),
-            new FiberNodePropsHandler()
-        ];
-    }
-
-    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
-        return this.propsHandlers;
-    }
-
-    addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void {
-        this.propsHandlers.push(propHandler);
-    }
-
-    public static readonly CreateInfo = {
-        "creationType": "Constructor",
-        "libraryLocation": "Camera",
-        "parameters": [
-            {
-                "name": "name",
-                "type": "string",
-                "optional": false
-            },
-            {
-                "name": "position",
-                "type": "BABYLON.Vector3",
-                "optional": false
-            },
-            {
-                "name": "scene",
-                "type": "BABYLON.Scene",
-                "optional": false
-            },
-            {
-                "name": "setActiveOnSceneIfNoneActive",
-                "type": "boolean",
-                "optional": true
-            }
-        ]
-    };
-}
-
-export class FiberVRDeviceOrientationArcRotateCameraProps extends FiberArcRotateCameraProps {
-}
-
-export class FiberVRDeviceOrientationArcRotateCameraPropsHandler implements PropsHandler<BABYLON.VRDeviceOrientationArcRotateCamera, FiberVRDeviceOrientationArcRotateCameraProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.VRDeviceOrientationArcRotateCamera>, oldProps: FiberVRDeviceOrientationArcRotateCameraProps, newProps: FiberVRDeviceOrientationArcRotateCameraProps): PropertyUpdate[] | null {
-        // generated code
-        let babylonObject: BABYLON.VRDeviceOrientationArcRotateCamera = createdInstance.babylonJsObject;
-        let updates: PropertyUpdate[] = [];
-        return updates.length == 0 ? null : updates;
-    }
-}
-
-/**
- * Camera used to simulate VR rendering (based on ArcRotateCamera)
- * 
- * This code has been generated
- */
-export class FiberVRDeviceOrientationArcRotateCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
-    public readonly isTargetable = true;
-    private propsHandlers: PropsHandler<BABYLON.Camera, FiberCameraProps>[];
-
-    constructor() {
-        this.propsHandlers = [
-            new FiberVRDeviceOrientationArcRotateCameraPropsHandler(),
             new FiberArcRotateCameraPropsHandler(),
             new FiberTargetCameraPropsHandler(),
             new FiberCameraPropsHandler(),
@@ -954,6 +901,73 @@ export class FiberStereoscopicArcRotateCamera implements HasPropsHandlers<BABYLO
     constructor() {
         this.propsHandlers = [
             new FiberStereoscopicArcRotateCameraPropsHandler(),
+            new FiberArcRotateCameraPropsHandler(),
+            new FiberTargetCameraPropsHandler(),
+            new FiberCameraPropsHandler(),
+            new FiberNodePropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "Camera",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "position",
+                "type": "BABYLON.Vector3",
+                "optional": false
+            },
+            {
+                "name": "scene",
+                "type": "BABYLON.Scene",
+                "optional": false
+            },
+            {
+                "name": "setActiveOnSceneIfNoneActive",
+                "type": "boolean",
+                "optional": true
+            }
+        ]
+    };
+}
+
+export class FiberVRDeviceOrientationArcRotateCameraProps extends FiberArcRotateCameraProps {
+}
+
+export class FiberVRDeviceOrientationArcRotateCameraPropsHandler implements PropsHandler<BABYLON.VRDeviceOrientationArcRotateCamera, FiberVRDeviceOrientationArcRotateCameraProps> {
+    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.VRDeviceOrientationArcRotateCamera>, oldProps: FiberVRDeviceOrientationArcRotateCameraProps, newProps: FiberVRDeviceOrientationArcRotateCameraProps): PropertyUpdate[] | null {
+        // generated code
+        let babylonObject: BABYLON.VRDeviceOrientationArcRotateCamera = createdInstance.babylonJsObject;
+        let updates: PropertyUpdate[] = [];
+        return updates.length == 0 ? null : updates;
+    }
+}
+
+/**
+ * Camera used to simulate VR rendering (based on ArcRotateCamera)
+ * 
+ * This code has been generated
+ */
+export class FiberVRDeviceOrientationArcRotateCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
+    public readonly isTargetable = true;
+    private propsHandlers: PropsHandler<BABYLON.Camera, FiberCameraProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberVRDeviceOrientationArcRotateCameraPropsHandler(),
             new FiberArcRotateCameraPropsHandler(),
             new FiberTargetCameraPropsHandler(),
             new FiberCameraPropsHandler(),
@@ -2133,111 +2147,6 @@ export class FiberVirtualJoysticksCamera implements HasPropsHandlers<BABYLON.Cam
     };
 }
 
-export class FiberWebVRFreeCameraProps extends FiberFreeCameraProps {
-    controllers?: BABYLON.WebVRController[];
-    devicePosition?: BABYLON.Vector3;
-    deviceRotationQuaternion?: BABYLON.Quaternion;
-    deviceScaleFactor?: number;
-    rawPose?: BABYLON.DevicePose;
-    rigParenting?: boolean;
-    updateCacheCalled?: any;
-    webVROptions?: any;
-}
-
-export class FiberWebVRFreeCameraPropsHandler implements PropsHandler<BABYLON.WebVRFreeCamera, FiberWebVRFreeCameraProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.WebVRFreeCamera>, oldProps: FiberWebVRFreeCameraProps, newProps: FiberWebVRFreeCameraProps): PropertyUpdate[] | null {
-        // generated code
-        let babylonObject: BABYLON.WebVRFreeCamera = createdInstance.babylonJsObject;
-        let updates: PropertyUpdate[] = [];
-        // TODO: type: BABYLON.WebVRController[] property (not coded) BABYLON.WebVRFreeCamera.controllers.
-        // BABYLON.WebVRFreeCamera.devicePosition of BABYLONBABYLON.Vector3 uses object equals to find diffs:
-        if (newProps.devicePosition && (!oldProps.devicePosition || !oldProps.devicePosition.equals(newProps.devicePosition))) {
-            updates.push({
-                propertyName: 'devicePosition',
-                value: newProps.devicePosition,
-                type: 'BABYLON.Vector3'
-            });
-        }
-        // TODO: type: BABYLON.Quaternion property (not coded) BABYLON.WebVRFreeCamera.deviceRotationQuaternion.
-        // BABYLON.WebVRFreeCamera.deviceScaleFactor of type 'number':
-        if (oldProps.deviceScaleFactor !== newProps.deviceScaleFactor) {
-            updates.push({
-                propertyName: 'deviceScaleFactor',
-                value: newProps.deviceScaleFactor,
-                type: 'number'
-            });
-        }
-        // TODO: type: BABYLON.DevicePose property (not coded) BABYLON.WebVRFreeCamera.rawPose.
-        // BABYLON.WebVRFreeCamera.rigParenting of type 'boolean':
-        if (oldProps.rigParenting !== newProps.rigParenting) {
-            updates.push({
-                propertyName: 'rigParenting',
-                value: newProps.rigParenting,
-                type: 'boolean'
-            });
-        }
-        // TODO: type: any property (not coded) BABYLON.WebVRFreeCamera.updateCacheCalled.
-        // TODO: type: any property (not coded) BABYLON.WebVRFreeCamera.webVROptions.
-        return updates.length == 0 ? null : updates;
-    }
-}
-
-/**
- * This represents a WebVR camera.
- * The WebVR camera is Babylon's simple interface to interaction with Windows Mixed Reality, HTC Vive and Oculus Rift.
- * 
- * This code has been generated
- */
-export class FiberWebVRFreeCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
-    public readonly isTargetable = true;
-    private propsHandlers: PropsHandler<BABYLON.Camera, FiberCameraProps>[];
-
-    constructor() {
-        this.propsHandlers = [
-            new FiberWebVRFreeCameraPropsHandler(),
-            new FiberFreeCameraPropsHandler(),
-            new FiberTargetCameraPropsHandler(),
-            new FiberCameraPropsHandler(),
-            new FiberNodePropsHandler()
-        ];
-    }
-
-    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
-        return this.propsHandlers;
-    }
-
-    addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void {
-        this.propsHandlers.push(propHandler);
-    }
-
-    public static readonly CreateInfo = {
-        "creationType": "Constructor",
-        "libraryLocation": "Camera",
-        "parameters": [
-            {
-                "name": "name",
-                "type": "string",
-                "optional": false
-            },
-            {
-                "name": "position",
-                "type": "BABYLON.Vector3",
-                "optional": false
-            },
-            {
-                "name": "scene",
-                "type": "BABYLON.Scene",
-                "optional": false
-            },
-            {
-                "name": "setActiveOnSceneIfNoneActive",
-                "type": "boolean",
-                "optional": true
-            }
-        ]
-    };
-}
-
 export class FiberAnaglyphFreeCameraProps extends FiberFreeCameraProps {
 }
 
@@ -2372,8 +2281,114 @@ export class FiberStereoscopicFreeCamera implements HasPropsHandlers<BABYLON.Cam
     };
 }
 
+export class FiberWebVRFreeCameraProps extends FiberFreeCameraProps {
+    controllers?: BABYLON.WebVRController[];
+    devicePosition?: BABYLON.Vector3;
+    deviceRotationQuaternion?: BABYLON.Quaternion;
+    deviceScaleFactor?: number;
+    rawPose?: BABYLON.DevicePose;
+    rigParenting?: boolean;
+    updateCacheCalled?: any;
+    webVROptions?: any;
+}
+
+export class FiberWebVRFreeCameraPropsHandler implements PropsHandler<BABYLON.WebVRFreeCamera, FiberWebVRFreeCameraProps> {
+    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.WebVRFreeCamera>, oldProps: FiberWebVRFreeCameraProps, newProps: FiberWebVRFreeCameraProps): PropertyUpdate[] | null {
+        // generated code
+        let babylonObject: BABYLON.WebVRFreeCamera = createdInstance.babylonJsObject;
+        let updates: PropertyUpdate[] = [];
+        // TODO: type: BABYLON.WebVRController[] property (not coded) BABYLON.WebVRFreeCamera.controllers.
+        // BABYLON.WebVRFreeCamera.devicePosition of BABYLONBABYLON.Vector3 uses object equals to find diffs:
+        if (newProps.devicePosition && (!oldProps.devicePosition || !oldProps.devicePosition.equals(newProps.devicePosition))) {
+            updates.push({
+                propertyName: 'devicePosition',
+                value: newProps.devicePosition,
+                type: 'BABYLON.Vector3'
+            });
+        }
+        // TODO: type: BABYLON.Quaternion property (not coded) BABYLON.WebVRFreeCamera.deviceRotationQuaternion.
+        // BABYLON.WebVRFreeCamera.deviceScaleFactor of type 'number':
+        if (oldProps.deviceScaleFactor !== newProps.deviceScaleFactor) {
+            updates.push({
+                propertyName: 'deviceScaleFactor',
+                value: newProps.deviceScaleFactor,
+                type: 'number'
+            });
+        }
+        // TODO: type: BABYLON.DevicePose property (not coded) BABYLON.WebVRFreeCamera.rawPose.
+        // BABYLON.WebVRFreeCamera.rigParenting of type 'boolean':
+        if (oldProps.rigParenting !== newProps.rigParenting) {
+            updates.push({
+                propertyName: 'rigParenting',
+                value: newProps.rigParenting,
+                type: 'boolean'
+            });
+        }
+        // TODO: type: any property (not coded) BABYLON.WebVRFreeCamera.updateCacheCalled.
+        // TODO: type: any property (not coded) BABYLON.WebVRFreeCamera.webVROptions.
+        return updates.length == 0 ? null : updates;
+    }
+}
+
+/**
+ * This represents a WebVR camera.
+ * The WebVR camera is Babylon's simple interface to interaction with Windows Mixed Reality, HTC Vive and Oculus Rift.
+ * 
+ * This code has been generated
+ */
+export class FiberWebVRFreeCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
+    public readonly isTargetable = true;
+    private propsHandlers: PropsHandler<BABYLON.Camera, FiberCameraProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberWebVRFreeCameraPropsHandler(),
+            new FiberFreeCameraPropsHandler(),
+            new FiberTargetCameraPropsHandler(),
+            new FiberCameraPropsHandler(),
+            new FiberNodePropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "Camera",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "position",
+                "type": "BABYLON.Vector3",
+                "optional": false
+            },
+            {
+                "name": "scene",
+                "type": "BABYLON.Scene",
+                "optional": false
+            },
+            {
+                "name": "setActiveOnSceneIfNoneActive",
+                "type": "boolean",
+                "optional": true
+            }
+        ]
+    };
+}
+
 export class FiberMeshProps extends FiberNodeProps {
     actionManager?: BABYLON.ActionManager;
+    addToSceneRootNodes?: any;
     alphaIndex?: number;
     alwaysSelectAsActiveMesh?: boolean;
     animationPropertiesOverride?: BABYLON.AnimationPropertiesOverride;
@@ -2401,7 +2416,6 @@ export class FiberMeshProps extends FiberNodeProps {
     infiniteDistance?: boolean;
     instances?: BABYLON.InstancedMesh[];
     isBlocker?: boolean;
-    isOccluded?: boolean;
     isPickable?: boolean;
     isUnIndexed?: boolean;
     isVisible?: boolean;
@@ -2411,10 +2425,9 @@ export class FiberMeshProps extends FiberNodeProps {
     morphTargetManager?: BABYLON.MorphTargetManager;
     mustDepthSortFacets?: boolean;
     name?: string;
+    normalizeSkinFourWeights?: any;
+    normalizeSkinWeightsAndExtra?: any;
     numBoneInfluencers?: number;
-    occlusionQueryAlgorithmType?: number;
-    occlusionRetryCount?: number;
-    occlusionType?: number;
     outlineColor?: BABYLON.Color3;
     outlineWidth?: number;
     overlayAlpha?: number;
@@ -2426,6 +2439,7 @@ export class FiberMeshProps extends FiberNodeProps {
     partitioningSubdivisions?: number;
     position?: BABYLON.Vector3;
     receiveShadows?: boolean;
+    removeFromSceneRootNodes?: any;
     renderingGroupId?: number;
     rotation?: BABYLON.Vector3;
     rotationQuaternion?: BABYLON.Quaternion;
@@ -2449,6 +2463,7 @@ export class FiberMeshPropsHandler implements PropsHandler<BABYLON.Mesh, FiberMe
         let babylonObject: BABYLON.Mesh = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // TODO: type: BABYLON.ActionManager property (not coded) BABYLON.Mesh.actionManager.
+        // TODO: type: any property (not coded) BABYLON.Mesh.addToSceneRootNodes.
         // BABYLON.Mesh.alphaIndex of type 'number':
         if (oldProps.alphaIndex !== newProps.alphaIndex) {
             updates.push({
@@ -2637,14 +2652,6 @@ export class FiberMeshPropsHandler implements PropsHandler<BABYLON.Mesh, FiberMe
                 type: 'boolean'
             });
         }
-        // BABYLON.Mesh.isOccluded of type 'boolean':
-        if (oldProps.isOccluded !== newProps.isOccluded) {
-            updates.push({
-                propertyName: 'isOccluded',
-                value: newProps.isOccluded,
-                type: 'boolean'
-            });
-        }
         // BABYLON.Mesh.isPickable of type 'boolean':
         if (oldProps.isPickable !== newProps.isPickable) {
             updates.push({
@@ -2696,35 +2703,13 @@ export class FiberMeshPropsHandler implements PropsHandler<BABYLON.Mesh, FiberMe
                 type: 'string'
             });
         }
+        // TODO: type: any property (not coded) BABYLON.Mesh.normalizeSkinFourWeights.
+        // TODO: type: any property (not coded) BABYLON.Mesh.normalizeSkinWeightsAndExtra.
         // BABYLON.Mesh.numBoneInfluencers of type 'number':
         if (oldProps.numBoneInfluencers !== newProps.numBoneInfluencers) {
             updates.push({
                 propertyName: 'numBoneInfluencers',
                 value: newProps.numBoneInfluencers,
-                type: 'number'
-            });
-        }
-        // BABYLON.Mesh.occlusionQueryAlgorithmType of type 'number':
-        if (oldProps.occlusionQueryAlgorithmType !== newProps.occlusionQueryAlgorithmType) {
-            updates.push({
-                propertyName: 'occlusionQueryAlgorithmType',
-                value: newProps.occlusionQueryAlgorithmType,
-                type: 'number'
-            });
-        }
-        // BABYLON.Mesh.occlusionRetryCount of type 'number':
-        if (oldProps.occlusionRetryCount !== newProps.occlusionRetryCount) {
-            updates.push({
-                propertyName: 'occlusionRetryCount',
-                value: newProps.occlusionRetryCount,
-                type: 'number'
-            });
-        }
-        // BABYLON.Mesh.occlusionType of type 'number':
-        if (oldProps.occlusionType !== newProps.occlusionType) {
-            updates.push({
-                propertyName: 'occlusionType',
-                value: newProps.occlusionType,
                 type: 'number'
             });
         }
@@ -2809,6 +2794,7 @@ export class FiberMeshPropsHandler implements PropsHandler<BABYLON.Mesh, FiberMe
                 type: 'boolean'
             });
         }
+        // TODO: type: any property (not coded) BABYLON.Mesh.removeFromSceneRootNodes.
         // BABYLON.Mesh.renderingGroupId of type 'number':
         if (oldProps.renderingGroupId !== newProps.renderingGroupId) {
             updates.push({
@@ -2915,7 +2901,7 @@ export class FiberMeshPropsHandler implements PropsHandler<BABYLON.Mesh, FiberMe
 /**
  * Creates a box mesh
  * * The parameter `size` sets the size (float) of each box side (default 1)
- * * You can set some different box dimensions by using the parameters `width`, `height` and `depth` (all by default have the same value than `size`)
+ * * You can set some different box dimensions by using the parameters `width`, `height` and `depth` (all by default have the same value of `size`)
  * * You can set different colors and different images to each box side by using the parameters `faceColors` (an array of 6 Color3 elements) and `faceUV` (an array of 6 Vector4 elements)
  * * Please read this tutorial : http://doc.babylonjs.com/tutorials/CreateBox_Per_Face_Textures_And_Colors
  * * You can also set the mesh side orientation with the values : BABYLON.Mesh.FRONTSIDE (default), BABYLON.Mesh.BACKSIDE or BABYLON.Mesh.DOUBLESIDE
@@ -3023,7 +3009,7 @@ export class FiberBox implements HasPropsHandlers<BABYLON.Mesh, FiberMeshProps> 
 /**
  * Creates a sphere mesh
  * * The parameter `diameter` sets the diameter size (float) of the sphere (default 1)
- * * You can set some different sphere dimensions, for instance to build an ellipsoid, by using the parameters `diameterX`, `diameterY` and `diameterZ` (all by default have the same value than `diameter`)
+ * * You can set some different sphere dimensions, for instance to build an ellipsoid, by using the parameters `diameterX`, `diameterY` and `diameterZ` (all by default have the same value of `diameter`)
  * * The parameter `segments` sets the sphere number of horizontal stripes (positive integer, default 32)
  * * You can create an unclosed sphere with the parameter `arc` (positive float, default 1), valued between 0 and 1, what is the ratio of the circumference (latitude) : 2 x PI x ratio
  * * You can create an unclosed sphere on its height with the parameter `slice` (positive float, default1), valued between 0 and 1, what is the height ratio (longitude)
@@ -3229,7 +3215,7 @@ export class FiberDisc implements HasPropsHandlers<BABYLON.Mesh, FiberMeshProps>
 /**
  * Creates a sphere based upon an icosahedron with 20 triangular faces which can be subdivided
  * * The parameter `radius` sets the radius size (float) of the icosphere (default 1)
- * * You can set some different icosphere dimensions, for instance to build an ellipsoid, by using the parameters `radiusX`, `radiusY` and `radiusZ` (all by default have the same value than `radius`)
+ * * You can set some different icosphere dimensions, for instance to build an ellipsoid, by using the parameters `radiusX`, `radiusY` and `radiusZ` (all by default have the same value of `radius`)
  * * The parameter `subdivisions` sets the number of subdivisions (postive integer, default 4). The more subdivisions, the more faces on the icosphere whatever its size
  * * The parameter `flat` (boolean, default true) gives each side its own normals. Set it to false to get a smooth continuous light reflection on the surface
  * * You can also set the mesh side orientation with the values : BABYLON.Mesh.FRONTSIDE (default), BABYLON.Mesh.BACKSIDE or BABYLON.Mesh.DOUBLESIDE
@@ -4438,7 +4424,7 @@ export class FiberLathe implements HasPropsHandlers<BABYLON.Mesh, FiberMeshProps
 /**
  * Creates a plane mesh
  * * The parameter `size` sets the size (float) of both sides of the plane at once (default 1)
- * * You can set some different plane dimensions by using the parameters `width` and `height` (both by default have the same value than `size`)
+ * * You can set some different plane dimensions by using the parameters `width` and `height` (both by default have the same value of `size`)
  * * The parameter `sourcePlane` is a Plane instance. It builds a mesh plane from a Math plane
  * * You can also set the mesh side orientation with the values : BABYLON.Mesh.FRONTSIDE (default), BABYLON.Mesh.BACKSIDE or BABYLON.Mesh.DOUBLESIDE
  * * If you create a double-sided mesh, you can choose what parts of the texture image to crop and stick respectively on the front and the back sides with the parameters `frontUVs` and `backUVs` (Vector4). Detail here : http://doc.babylonjs.com/babylon101/discover_basic_elements#side-orientation
@@ -5356,7 +5342,6 @@ export class FiberMaterialProps {
     fogEnabled?: boolean;
     forceDepthWrite?: boolean;
     getRenderTargetTextures?: () => BABYLON.SmartArray<BABYLON.RenderTargetTexture>;
-    hasRenderTargetTextures?: boolean;
     id?: string;
     name?: string;
     needDepthPrePass?: boolean;
@@ -5458,14 +5443,6 @@ export class FiberMaterialPropsHandler implements PropsHandler<BABYLON.Material,
             });
         }
         // TODO: type: () => BABYLON.SmartArray<BABYLON.RenderTargetTexture> property (not coded) BABYLON.Material.getRenderTargetTextures.
-        // BABYLON.Material.hasRenderTargetTextures of type 'boolean':
-        if (oldProps.hasRenderTargetTextures !== newProps.hasRenderTargetTextures) {
-            updates.push({
-                propertyName: 'hasRenderTargetTextures',
-                value: newProps.hasRenderTargetTextures,
-                type: 'boolean'
-            });
-        }
         // BABYLON.Material.id of type 'string':
         if (oldProps.id !== newProps.id) {
             updates.push({
@@ -5626,6 +5603,9 @@ export class FiberMultiMaterialPropsHandler implements PropsHandler<BABYLON.Mult
 }
 
 /**
+ * A multi-material is used to apply different materials to different parts of the same object without the need of
+ * separate meshes. This can be use to improve performances.
+ * 
  * This code has been generated
  */
 export class FiberMultiMaterial implements HasPropsHandlers<BABYLON.Material, FiberMaterialProps> {
@@ -5682,6 +5662,8 @@ export class FiberPushMaterialPropsHandler implements PropsHandler<BABYLON.PushM
 }
 
 /**
+ * Base class of materials working in push mode in babylon JS
+ * 
  * This code has been generated
  */
 export class FiberPushMaterial implements HasPropsHandlers<BABYLON.Material, FiberMaterialProps> {
@@ -6062,6 +6044,9 @@ export class FiberStandardMaterialPropsHandler implements PropsHandler<BABYLON.S
 }
 
 /**
+ * This is the default material used in Babylon. It is the best trade off between quality
+ * and performances.
+ * 
  * This code has been generated
  */
 export class FiberStandardMaterial implements HasPropsHandlers<BABYLON.Material, FiberMaterialProps> {
@@ -7420,6 +7405,10 @@ export class FiberShaderMaterialPropsHandler implements PropsHandler<BABYLON.Sha
 }
 
 /**
+ * The ShaderMaterial object has the necessary methods to pass data from your scene to the Vertex and Fragment Shaders and returns a material that can be applied to any mesh.
+ * 
+ * This returned material effects how the mesh will look based on the code in the shaders.
+ * 
  * This code has been generated
  */
 export class FiberShaderMaterial implements HasPropsHandlers<BABYLON.Material, FiberMaterialProps> {
@@ -8099,4 +8088,2972 @@ export class FiberSpotLight implements HasPropsHandlers<BABYLON.Light, FiberLigh
     };
 }
 
-export const AnaglyphArcRotateCamera: string = 'AnaglyphArcRotateCamera', AnaglyphFreeCamera: string = 'AnaglyphFreeCamera', AnaglyphGamepadCamera: string = 'AnaglyphGamepadCamera', AnaglyphUniversalCamera: string = 'AnaglyphUniversalCamera', ArcFollowCamera: string = 'ArcFollowCamera', ArcRotateCamera: string = 'ArcRotateCamera', BackgroundMaterial: string = 'BackgroundMaterial', Box: string = 'Box', Camera: string = 'Camera', Cylinder: string = 'Cylinder', DashedLines: string = 'DashedLines', Decal: string = 'Decal', DeviceOrientationCamera: string = 'DeviceOrientationCamera', DirectionalLight: string = 'DirectionalLight', Disc: string = 'Disc', ExtrudePolygon: string = 'ExtrudePolygon', ExtrudeShape: string = 'ExtrudeShape', ExtrudeShapeCustom: string = 'ExtrudeShapeCustom', FollowCamera: string = 'FollowCamera', FreeCamera: string = 'FreeCamera', GamepadCamera: string = 'GamepadCamera', Ground: string = 'Ground', GroundFromHeightMap: string = 'GroundFromHeightMap', HemisphericLight: string = 'HemisphericLight', IcoSphere: string = 'IcoSphere', Lathe: string = 'Lathe', Light: string = 'Light', LineSystem: string = 'LineSystem', Lines: string = 'Lines', Material: string = 'Material', MultiMaterial: string = 'MultiMaterial', PBRBaseMaterial: string = 'PBRBaseMaterial', PBRBaseSimpleMaterial: string = 'PBRBaseSimpleMaterial', PBRMaterial: string = 'PBRMaterial', PBRMetallicRoughnessMaterial: string = 'PBRMetallicRoughnessMaterial', PBRSpecularGlossinessMaterial: string = 'PBRSpecularGlossinessMaterial', Plane: string = 'Plane', PointLight: string = 'PointLight', Polygon: string = 'Polygon', Polyhedron: string = 'Polyhedron', PushMaterial: string = 'PushMaterial', Ribbon: string = 'Ribbon', ShaderMaterial: string = 'ShaderMaterial', ShadowLight: string = 'ShadowLight', Sphere: string = 'Sphere', SpotLight: string = 'SpotLight', StandardMaterial: string = 'StandardMaterial', StereoscopicArcRotateCamera: string = 'StereoscopicArcRotateCamera', StereoscopicFreeCamera: string = 'StereoscopicFreeCamera', StereoscopicGamepadCamera: string = 'StereoscopicGamepadCamera', StereoscopicUniversalCamera: string = 'StereoscopicUniversalCamera', TargetCamera: string = 'TargetCamera', TiledGround: string = 'TiledGround', Torus: string = 'Torus', TorusKnot: string = 'TorusKnot', TouchCamera: string = 'TouchCamera', Tube: string = 'Tube', UniversalCamera: string = 'UniversalCamera', VRDeviceOrientationArcRotateCamera: string = 'VRDeviceOrientationArcRotateCamera', VRDeviceOrientationFreeCamera: string = 'VRDeviceOrientationFreeCamera', VRDeviceOrientationGamepadCamera: string = 'VRDeviceOrientationGamepadCamera', VirtualJoysticksCamera: string = 'VirtualJoysticksCamera', WebVRFreeCamera: string = 'WebVRFreeCamera';
+export class FiberControlProps {
+    alpha?: number;
+    color?: string;
+    disabledColor?: string;
+    fontFamily?: string;
+    fontOffset?: { ascent: number; height: number; descent: number; };
+    fontSize?: string | number;
+    fontStyle?: string;
+    fontWeight?: string;
+    height?: string | number;
+    horizontalAlignment?: number;
+    hoverCursor?: string;
+    isEnabled?: boolean;
+    isFocusInvisible?: boolean;
+    isHitTestVisible?: boolean;
+    isPointerBlocker?: boolean;
+    isVisible?: boolean;
+    left?: string | number;
+    linkOffsetX?: string | number;
+    linkOffsetY?: string | number;
+    name?: string;
+    notRenderable?: boolean;
+    paddingBottom?: string | number;
+    paddingLeft?: string | number;
+    paddingRight?: string | number;
+    paddingTop?: string | number;
+    parent?: BABYLON.GUI.Container;
+    rotation?: number;
+    scaleX?: number;
+    scaleY?: number;
+    shadowBlur?: number;
+    shadowColor?: string;
+    shadowOffsetX?: number;
+    shadowOffsetY?: number;
+    style?: BABYLON.GUI.Style;
+    top?: string | number;
+    transformCenterX?: number;
+    transformCenterY?: number;
+    verticalAlignment?: number;
+    width?: string | number;
+    zIndex?: number;
+}
+
+export class FiberControlPropsHandler implements PropsHandler<GUI.Control, FiberControlProps> {
+    getPropertyUpdates(createdInstance: CreatedInstance<GUI.Control>, oldProps: FiberControlProps, newProps: FiberControlProps): PropertyUpdate[] | null {
+        // generated code
+        let babylonObject: GUI.Control = createdInstance.babylonJsObject;
+        let updates: PropertyUpdate[] = [];
+        // GUI.Control.alpha of type 'number':
+        if (oldProps.alpha !== newProps.alpha) {
+            updates.push({
+                propertyName: 'alpha',
+                value: newProps.alpha,
+                type: 'number'
+            });
+        }
+        // GUI.Control.color of type 'string':
+        if (oldProps.color !== newProps.color) {
+            updates.push({
+                propertyName: 'color',
+                value: newProps.color,
+                type: 'string'
+            });
+        }
+        // GUI.Control.disabledColor of type 'string':
+        if (oldProps.disabledColor !== newProps.disabledColor) {
+            updates.push({
+                propertyName: 'disabledColor',
+                value: newProps.disabledColor,
+                type: 'string'
+            });
+        }
+        // GUI.Control.fontFamily of type 'string':
+        if (oldProps.fontFamily !== newProps.fontFamily) {
+            updates.push({
+                propertyName: 'fontFamily',
+                value: newProps.fontFamily,
+                type: 'string'
+            });
+        }
+        // TODO: type: { ascent: number; height: number; descent: number; } property (not coded) GUI.Control.fontOffset.
+        // TODO: type: string | number property (not coded) GUI.Control.fontSize.
+        // GUI.Control.fontStyle of type 'string':
+        if (oldProps.fontStyle !== newProps.fontStyle) {
+            updates.push({
+                propertyName: 'fontStyle',
+                value: newProps.fontStyle,
+                type: 'string'
+            });
+        }
+        // GUI.Control.fontWeight of type 'string':
+        if (oldProps.fontWeight !== newProps.fontWeight) {
+            updates.push({
+                propertyName: 'fontWeight',
+                value: newProps.fontWeight,
+                type: 'string'
+            });
+        }
+        // TODO: type: string | number property (not coded) GUI.Control.height.
+        // GUI.Control.horizontalAlignment of type 'number':
+        if (oldProps.horizontalAlignment !== newProps.horizontalAlignment) {
+            updates.push({
+                propertyName: 'horizontalAlignment',
+                value: newProps.horizontalAlignment,
+                type: 'number'
+            });
+        }
+        // GUI.Control.hoverCursor of type 'string':
+        if (oldProps.hoverCursor !== newProps.hoverCursor) {
+            updates.push({
+                propertyName: 'hoverCursor',
+                value: newProps.hoverCursor,
+                type: 'string'
+            });
+        }
+        // GUI.Control.isEnabled of type 'boolean':
+        if (oldProps.isEnabled !== newProps.isEnabled) {
+            updates.push({
+                propertyName: 'isEnabled',
+                value: newProps.isEnabled,
+                type: 'boolean'
+            });
+        }
+        // GUI.Control.isFocusInvisible of type 'boolean':
+        if (oldProps.isFocusInvisible !== newProps.isFocusInvisible) {
+            updates.push({
+                propertyName: 'isFocusInvisible',
+                value: newProps.isFocusInvisible,
+                type: 'boolean'
+            });
+        }
+        // GUI.Control.isHitTestVisible of type 'boolean':
+        if (oldProps.isHitTestVisible !== newProps.isHitTestVisible) {
+            updates.push({
+                propertyName: 'isHitTestVisible',
+                value: newProps.isHitTestVisible,
+                type: 'boolean'
+            });
+        }
+        // GUI.Control.isPointerBlocker of type 'boolean':
+        if (oldProps.isPointerBlocker !== newProps.isPointerBlocker) {
+            updates.push({
+                propertyName: 'isPointerBlocker',
+                value: newProps.isPointerBlocker,
+                type: 'boolean'
+            });
+        }
+        // GUI.Control.isVisible of type 'boolean':
+        if (oldProps.isVisible !== newProps.isVisible) {
+            updates.push({
+                propertyName: 'isVisible',
+                value: newProps.isVisible,
+                type: 'boolean'
+            });
+        }
+        // TODO: type: string | number property (not coded) GUI.Control.left.
+        // TODO: type: string | number property (not coded) GUI.Control.linkOffsetX.
+        // TODO: type: string | number property (not coded) GUI.Control.linkOffsetY.
+        // GUI.Control.name of type 'string':
+        if (oldProps.name !== newProps.name) {
+            updates.push({
+                propertyName: 'name',
+                value: newProps.name,
+                type: 'string'
+            });
+        }
+        // GUI.Control.notRenderable of type 'boolean':
+        if (oldProps.notRenderable !== newProps.notRenderable) {
+            updates.push({
+                propertyName: 'notRenderable',
+                value: newProps.notRenderable,
+                type: 'boolean'
+            });
+        }
+        // TODO: type: string | number property (not coded) GUI.Control.paddingBottom.
+        // TODO: type: string | number property (not coded) GUI.Control.paddingLeft.
+        // TODO: type: string | number property (not coded) GUI.Control.paddingRight.
+        // TODO: type: string | number property (not coded) GUI.Control.paddingTop.
+        // TODO: type: BABYLON.GUI.Container property (not coded) GUI.Control.parent.
+        // GUI.Control.rotation of type 'number':
+        if (oldProps.rotation !== newProps.rotation) {
+            updates.push({
+                propertyName: 'rotation',
+                value: newProps.rotation,
+                type: 'number'
+            });
+        }
+        // GUI.Control.scaleX of type 'number':
+        if (oldProps.scaleX !== newProps.scaleX) {
+            updates.push({
+                propertyName: 'scaleX',
+                value: newProps.scaleX,
+                type: 'number'
+            });
+        }
+        // GUI.Control.scaleY of type 'number':
+        if (oldProps.scaleY !== newProps.scaleY) {
+            updates.push({
+                propertyName: 'scaleY',
+                value: newProps.scaleY,
+                type: 'number'
+            });
+        }
+        // GUI.Control.shadowBlur of type 'number':
+        if (oldProps.shadowBlur !== newProps.shadowBlur) {
+            updates.push({
+                propertyName: 'shadowBlur',
+                value: newProps.shadowBlur,
+                type: 'number'
+            });
+        }
+        // GUI.Control.shadowColor of type 'string':
+        if (oldProps.shadowColor !== newProps.shadowColor) {
+            updates.push({
+                propertyName: 'shadowColor',
+                value: newProps.shadowColor,
+                type: 'string'
+            });
+        }
+        // GUI.Control.shadowOffsetX of type 'number':
+        if (oldProps.shadowOffsetX !== newProps.shadowOffsetX) {
+            updates.push({
+                propertyName: 'shadowOffsetX',
+                value: newProps.shadowOffsetX,
+                type: 'number'
+            });
+        }
+        // GUI.Control.shadowOffsetY of type 'number':
+        if (oldProps.shadowOffsetY !== newProps.shadowOffsetY) {
+            updates.push({
+                propertyName: 'shadowOffsetY',
+                value: newProps.shadowOffsetY,
+                type: 'number'
+            });
+        }
+        // TODO: type: BABYLON.GUI.Style property (not coded) GUI.Control.style.
+        // TODO: type: string | number property (not coded) GUI.Control.top.
+        // GUI.Control.transformCenterX of type 'number':
+        if (oldProps.transformCenterX !== newProps.transformCenterX) {
+            updates.push({
+                propertyName: 'transformCenterX',
+                value: newProps.transformCenterX,
+                type: 'number'
+            });
+        }
+        // GUI.Control.transformCenterY of type 'number':
+        if (oldProps.transformCenterY !== newProps.transformCenterY) {
+            updates.push({
+                propertyName: 'transformCenterY',
+                value: newProps.transformCenterY,
+                type: 'number'
+            });
+        }
+        // GUI.Control.verticalAlignment of type 'number':
+        if (oldProps.verticalAlignment !== newProps.verticalAlignment) {
+            updates.push({
+                propertyName: 'verticalAlignment',
+                value: newProps.verticalAlignment,
+                type: 'number'
+            });
+        }
+        // TODO: type: string | number property (not coded) GUI.Control.width.
+        // GUI.Control.zIndex of type 'number':
+        if (oldProps.zIndex !== newProps.zIndex) {
+            updates.push({
+                propertyName: 'zIndex',
+                value: newProps.zIndex,
+                type: 'number'
+            });
+        }
+        return updates.length == 0 ? null : updates;
+    }
+}
+
+/**
+ * Root class used for all 2D controls
+ * 
+ * This code has been generated
+ */
+export class FiberControl implements HasPropsHandlers<GUI.Control, FiberControlProps> {
+    private propsHandlers: PropsHandler<GUI.Control, FiberControlProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberControlPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<GUI.Control, FiberControlProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<GUI.Control, FiberControlProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "Control",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": true
+            }
+        ]
+    };
+}
+
+export class FiberCheckboxProps extends FiberControlProps {
+    background?: string;
+    checkSizeRatio?: number;
+    isChecked?: boolean;
+    name?: string;
+    thickness?: number;
+}
+
+export class FiberCheckboxPropsHandler implements PropsHandler<GUI.Checkbox, FiberCheckboxProps> {
+    getPropertyUpdates(createdInstance: CreatedInstance<GUI.Checkbox>, oldProps: FiberCheckboxProps, newProps: FiberCheckboxProps): PropertyUpdate[] | null {
+        // generated code
+        let babylonObject: GUI.Checkbox = createdInstance.babylonJsObject;
+        let updates: PropertyUpdate[] = [];
+        // GUI.Checkbox.background of type 'string':
+        if (oldProps.background !== newProps.background) {
+            updates.push({
+                propertyName: 'background',
+                value: newProps.background,
+                type: 'string'
+            });
+        }
+        // GUI.Checkbox.checkSizeRatio of type 'number':
+        if (oldProps.checkSizeRatio !== newProps.checkSizeRatio) {
+            updates.push({
+                propertyName: 'checkSizeRatio',
+                value: newProps.checkSizeRatio,
+                type: 'number'
+            });
+        }
+        // GUI.Checkbox.isChecked of type 'boolean':
+        if (oldProps.isChecked !== newProps.isChecked) {
+            updates.push({
+                propertyName: 'isChecked',
+                value: newProps.isChecked,
+                type: 'boolean'
+            });
+        }
+        // GUI.Checkbox.name of type 'string':
+        if (oldProps.name !== newProps.name) {
+            updates.push({
+                propertyName: 'name',
+                value: newProps.name,
+                type: 'string'
+            });
+        }
+        // GUI.Checkbox.thickness of type 'number':
+        if (oldProps.thickness !== newProps.thickness) {
+            updates.push({
+                propertyName: 'thickness',
+                value: newProps.thickness,
+                type: 'number'
+            });
+        }
+        return updates.length == 0 ? null : updates;
+    }
+}
+
+/**
+ * Class used to represent a 2D checkbox
+ * 
+ * This code has been generated
+ */
+export class FiberCheckbox implements HasPropsHandlers<GUI.Control, FiberControlProps> {
+    private propsHandlers: PropsHandler<GUI.Control, FiberControlProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberCheckboxPropsHandler(),
+            new FiberControlPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<GUI.Control, FiberControlProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<GUI.Control, FiberControlProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "Control",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": true
+            }
+        ]
+    };
+}
+
+export class FiberColorPickerProps extends FiberControlProps {
+    height?: string | number;
+    name?: string;
+    size?: string | number;
+    value?: BABYLON.Color3;
+    width?: string | number;
+}
+
+export class FiberColorPickerPropsHandler implements PropsHandler<GUI.ColorPicker, FiberColorPickerProps> {
+    getPropertyUpdates(createdInstance: CreatedInstance<GUI.ColorPicker>, oldProps: FiberColorPickerProps, newProps: FiberColorPickerProps): PropertyUpdate[] | null {
+        // generated code
+        let babylonObject: GUI.ColorPicker = createdInstance.babylonJsObject;
+        let updates: PropertyUpdate[] = [];
+        // TODO: type: string | number property (not coded) GUI.ColorPicker.height.
+        // GUI.ColorPicker.name of type 'string':
+        if (oldProps.name !== newProps.name) {
+            updates.push({
+                propertyName: 'name',
+                value: newProps.name,
+                type: 'string'
+            });
+        }
+        // TODO: type: string | number property (not coded) GUI.ColorPicker.size.
+        // TODO: type: BABYLON.Color3 property (not coded) GUI.ColorPicker.value.
+        // TODO: type: string | number property (not coded) GUI.ColorPicker.width.
+        return updates.length == 0 ? null : updates;
+    }
+}
+
+/**
+ * Class used to create color pickers
+ * 
+ * This code has been generated
+ */
+export class FiberColorPicker implements HasPropsHandlers<GUI.Control, FiberControlProps> {
+    private propsHandlers: PropsHandler<GUI.Control, FiberControlProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberColorPickerPropsHandler(),
+            new FiberControlPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<GUI.Control, FiberControlProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<GUI.Control, FiberControlProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "Control",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": true
+            }
+        ]
+    };
+}
+
+export class FiberContainerProps extends FiberControlProps {
+    adaptHeightToChildren?: boolean;
+    adaptWidthToChildren?: boolean;
+    background?: string;
+    name?: string;
+}
+
+export class FiberContainerPropsHandler implements PropsHandler<GUI.Container, FiberContainerProps> {
+    getPropertyUpdates(createdInstance: CreatedInstance<GUI.Container>, oldProps: FiberContainerProps, newProps: FiberContainerProps): PropertyUpdate[] | null {
+        // generated code
+        let babylonObject: GUI.Container = createdInstance.babylonJsObject;
+        let updates: PropertyUpdate[] = [];
+        // GUI.Container.adaptHeightToChildren of type 'boolean':
+        if (oldProps.adaptHeightToChildren !== newProps.adaptHeightToChildren) {
+            updates.push({
+                propertyName: 'adaptHeightToChildren',
+                value: newProps.adaptHeightToChildren,
+                type: 'boolean'
+            });
+        }
+        // GUI.Container.adaptWidthToChildren of type 'boolean':
+        if (oldProps.adaptWidthToChildren !== newProps.adaptWidthToChildren) {
+            updates.push({
+                propertyName: 'adaptWidthToChildren',
+                value: newProps.adaptWidthToChildren,
+                type: 'boolean'
+            });
+        }
+        // GUI.Container.background of type 'string':
+        if (oldProps.background !== newProps.background) {
+            updates.push({
+                propertyName: 'background',
+                value: newProps.background,
+                type: 'string'
+            });
+        }
+        // GUI.Container.name of type 'string':
+        if (oldProps.name !== newProps.name) {
+            updates.push({
+                propertyName: 'name',
+                value: newProps.name,
+                type: 'string'
+            });
+        }
+        return updates.length == 0 ? null : updates;
+    }
+}
+
+/**
+ * Root class for 2D containers
+ * 
+ * This code has been generated
+ */
+export class FiberContainer implements HasPropsHandlers<GUI.Control, FiberControlProps> {
+    private propsHandlers: PropsHandler<GUI.Control, FiberControlProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberContainerPropsHandler(),
+            new FiberControlPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<GUI.Control, FiberControlProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<GUI.Control, FiberControlProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "Control",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": true
+            }
+        ]
+    };
+}
+
+export class FiberEllipseProps extends FiberContainerProps {
+    name?: string;
+    thickness?: number;
+}
+
+export class FiberEllipsePropsHandler implements PropsHandler<GUI.Ellipse, FiberEllipseProps> {
+    getPropertyUpdates(createdInstance: CreatedInstance<GUI.Ellipse>, oldProps: FiberEllipseProps, newProps: FiberEllipseProps): PropertyUpdate[] | null {
+        // generated code
+        let babylonObject: GUI.Ellipse = createdInstance.babylonJsObject;
+        let updates: PropertyUpdate[] = [];
+        // GUI.Ellipse.name of type 'string':
+        if (oldProps.name !== newProps.name) {
+            updates.push({
+                propertyName: 'name',
+                value: newProps.name,
+                type: 'string'
+            });
+        }
+        // GUI.Ellipse.thickness of type 'number':
+        if (oldProps.thickness !== newProps.thickness) {
+            updates.push({
+                propertyName: 'thickness',
+                value: newProps.thickness,
+                type: 'number'
+            });
+        }
+        return updates.length == 0 ? null : updates;
+    }
+}
+
+/**
+ * Class used to create 2D ellipse containers
+ * 
+ * This code has been generated
+ */
+export class FiberEllipse implements HasPropsHandlers<GUI.Control, FiberControlProps> {
+    private propsHandlers: PropsHandler<GUI.Control, FiberControlProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberEllipsePropsHandler(),
+            new FiberContainerPropsHandler(),
+            new FiberControlPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<GUI.Control, FiberControlProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<GUI.Control, FiberControlProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "Control",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": true
+            }
+        ]
+    };
+}
+
+export class FiberGridProps extends FiberContainerProps {
+    name?: string;
+}
+
+export class FiberGridPropsHandler implements PropsHandler<GUI.Grid, FiberGridProps> {
+    getPropertyUpdates(createdInstance: CreatedInstance<GUI.Grid>, oldProps: FiberGridProps, newProps: FiberGridProps): PropertyUpdate[] | null {
+        // generated code
+        let babylonObject: GUI.Grid = createdInstance.babylonJsObject;
+        let updates: PropertyUpdate[] = [];
+        // GUI.Grid.name of type 'string':
+        if (oldProps.name !== newProps.name) {
+            updates.push({
+                propertyName: 'name',
+                value: newProps.name,
+                type: 'string'
+            });
+        }
+        return updates.length == 0 ? null : updates;
+    }
+}
+
+/**
+ * Class used to create a 2D grid container
+ * 
+ * This code has been generated
+ */
+export class FiberGrid implements HasPropsHandlers<GUI.Control, FiberControlProps> {
+    private propsHandlers: PropsHandler<GUI.Control, FiberControlProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberGridPropsHandler(),
+            new FiberContainerPropsHandler(),
+            new FiberControlPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<GUI.Control, FiberControlProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<GUI.Control, FiberControlProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "Control",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": true
+            }
+        ]
+    };
+}
+
+export class FiberStackPanelProps extends FiberContainerProps {
+    height?: string | number;
+    isVertical?: boolean;
+    name?: string;
+    width?: string | number;
+}
+
+export class FiberStackPanelPropsHandler implements PropsHandler<GUI.StackPanel, FiberStackPanelProps> {
+    getPropertyUpdates(createdInstance: CreatedInstance<GUI.StackPanel>, oldProps: FiberStackPanelProps, newProps: FiberStackPanelProps): PropertyUpdate[] | null {
+        // generated code
+        let babylonObject: GUI.StackPanel = createdInstance.babylonJsObject;
+        let updates: PropertyUpdate[] = [];
+        // TODO: type: string | number property (not coded) GUI.StackPanel.height.
+        // GUI.StackPanel.isVertical of type 'boolean':
+        if (oldProps.isVertical !== newProps.isVertical) {
+            updates.push({
+                propertyName: 'isVertical',
+                value: newProps.isVertical,
+                type: 'boolean'
+            });
+        }
+        // GUI.StackPanel.name of type 'string':
+        if (oldProps.name !== newProps.name) {
+            updates.push({
+                propertyName: 'name',
+                value: newProps.name,
+                type: 'string'
+            });
+        }
+        // TODO: type: string | number property (not coded) GUI.StackPanel.width.
+        return updates.length == 0 ? null : updates;
+    }
+}
+
+/**
+ * Class used to create a 2D stack panel container
+ * 
+ * This code has been generated
+ */
+export class FiberStackPanel implements HasPropsHandlers<GUI.Control, FiberControlProps> {
+    private propsHandlers: PropsHandler<GUI.Control, FiberControlProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberStackPanelPropsHandler(),
+            new FiberContainerPropsHandler(),
+            new FiberControlPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<GUI.Control, FiberControlProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<GUI.Control, FiberControlProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "Control",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": true
+            }
+        ]
+    };
+}
+
+export class FiberVirtualKeyboardProps extends FiberStackPanelProps {
+    defaultButtonBackground?: string;
+    defaultButtonColor?: string;
+    defaultButtonHeight?: string;
+    defaultButtonPaddingBottom?: string;
+    defaultButtonPaddingLeft?: string;
+    defaultButtonPaddingRight?: string;
+    defaultButtonPaddingTop?: string;
+    defaultButtonWidth?: string;
+    selectedShiftThickness?: number;
+    shiftButtonColor?: string;
+    shiftState?: number;
+}
+
+export class FiberVirtualKeyboardPropsHandler implements PropsHandler<GUI.VirtualKeyboard, FiberVirtualKeyboardProps> {
+    getPropertyUpdates(createdInstance: CreatedInstance<GUI.VirtualKeyboard>, oldProps: FiberVirtualKeyboardProps, newProps: FiberVirtualKeyboardProps): PropertyUpdate[] | null {
+        // generated code
+        let babylonObject: GUI.VirtualKeyboard = createdInstance.babylonJsObject;
+        let updates: PropertyUpdate[] = [];
+        // GUI.VirtualKeyboard.defaultButtonBackground of type 'string':
+        if (oldProps.defaultButtonBackground !== newProps.defaultButtonBackground) {
+            updates.push({
+                propertyName: 'defaultButtonBackground',
+                value: newProps.defaultButtonBackground,
+                type: 'string'
+            });
+        }
+        // GUI.VirtualKeyboard.defaultButtonColor of type 'string':
+        if (oldProps.defaultButtonColor !== newProps.defaultButtonColor) {
+            updates.push({
+                propertyName: 'defaultButtonColor',
+                value: newProps.defaultButtonColor,
+                type: 'string'
+            });
+        }
+        // GUI.VirtualKeyboard.defaultButtonHeight of type 'string':
+        if (oldProps.defaultButtonHeight !== newProps.defaultButtonHeight) {
+            updates.push({
+                propertyName: 'defaultButtonHeight',
+                value: newProps.defaultButtonHeight,
+                type: 'string'
+            });
+        }
+        // GUI.VirtualKeyboard.defaultButtonPaddingBottom of type 'string':
+        if (oldProps.defaultButtonPaddingBottom !== newProps.defaultButtonPaddingBottom) {
+            updates.push({
+                propertyName: 'defaultButtonPaddingBottom',
+                value: newProps.defaultButtonPaddingBottom,
+                type: 'string'
+            });
+        }
+        // GUI.VirtualKeyboard.defaultButtonPaddingLeft of type 'string':
+        if (oldProps.defaultButtonPaddingLeft !== newProps.defaultButtonPaddingLeft) {
+            updates.push({
+                propertyName: 'defaultButtonPaddingLeft',
+                value: newProps.defaultButtonPaddingLeft,
+                type: 'string'
+            });
+        }
+        // GUI.VirtualKeyboard.defaultButtonPaddingRight of type 'string':
+        if (oldProps.defaultButtonPaddingRight !== newProps.defaultButtonPaddingRight) {
+            updates.push({
+                propertyName: 'defaultButtonPaddingRight',
+                value: newProps.defaultButtonPaddingRight,
+                type: 'string'
+            });
+        }
+        // GUI.VirtualKeyboard.defaultButtonPaddingTop of type 'string':
+        if (oldProps.defaultButtonPaddingTop !== newProps.defaultButtonPaddingTop) {
+            updates.push({
+                propertyName: 'defaultButtonPaddingTop',
+                value: newProps.defaultButtonPaddingTop,
+                type: 'string'
+            });
+        }
+        // GUI.VirtualKeyboard.defaultButtonWidth of type 'string':
+        if (oldProps.defaultButtonWidth !== newProps.defaultButtonWidth) {
+            updates.push({
+                propertyName: 'defaultButtonWidth',
+                value: newProps.defaultButtonWidth,
+                type: 'string'
+            });
+        }
+        // GUI.VirtualKeyboard.selectedShiftThickness of type 'number':
+        if (oldProps.selectedShiftThickness !== newProps.selectedShiftThickness) {
+            updates.push({
+                propertyName: 'selectedShiftThickness',
+                value: newProps.selectedShiftThickness,
+                type: 'number'
+            });
+        }
+        // GUI.VirtualKeyboard.shiftButtonColor of type 'string':
+        if (oldProps.shiftButtonColor !== newProps.shiftButtonColor) {
+            updates.push({
+                propertyName: 'shiftButtonColor',
+                value: newProps.shiftButtonColor,
+                type: 'string'
+            });
+        }
+        // GUI.VirtualKeyboard.shiftState of type 'number':
+        if (oldProps.shiftState !== newProps.shiftState) {
+            updates.push({
+                propertyName: 'shiftState',
+                value: newProps.shiftState,
+                type: 'number'
+            });
+        }
+        return updates.length == 0 ? null : updates;
+    }
+}
+
+/**
+ * Class used to create virtual keyboard
+ * 
+ * This code has been generated
+ */
+export class FiberVirtualKeyboard implements HasPropsHandlers<GUI.Control, FiberControlProps> {
+    private propsHandlers: PropsHandler<GUI.Control, FiberControlProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberVirtualKeyboardPropsHandler(),
+            new FiberStackPanelPropsHandler(),
+            new FiberContainerPropsHandler(),
+            new FiberControlPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<GUI.Control, FiberControlProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<GUI.Control, FiberControlProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "Control",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": true
+            }
+        ]
+    };
+}
+
+export class FiberRectangleProps extends FiberContainerProps {
+    cornerRadius?: number;
+    name?: string;
+    thickness?: number;
+}
+
+export class FiberRectanglePropsHandler implements PropsHandler<GUI.Rectangle, FiberRectangleProps> {
+    getPropertyUpdates(createdInstance: CreatedInstance<GUI.Rectangle>, oldProps: FiberRectangleProps, newProps: FiberRectangleProps): PropertyUpdate[] | null {
+        // generated code
+        let babylonObject: GUI.Rectangle = createdInstance.babylonJsObject;
+        let updates: PropertyUpdate[] = [];
+        // GUI.Rectangle.cornerRadius of type 'number':
+        if (oldProps.cornerRadius !== newProps.cornerRadius) {
+            updates.push({
+                propertyName: 'cornerRadius',
+                value: newProps.cornerRadius,
+                type: 'number'
+            });
+        }
+        // GUI.Rectangle.name of type 'string':
+        if (oldProps.name !== newProps.name) {
+            updates.push({
+                propertyName: 'name',
+                value: newProps.name,
+                type: 'string'
+            });
+        }
+        // GUI.Rectangle.thickness of type 'number':
+        if (oldProps.thickness !== newProps.thickness) {
+            updates.push({
+                propertyName: 'thickness',
+                value: newProps.thickness,
+                type: 'number'
+            });
+        }
+        return updates.length == 0 ? null : updates;
+    }
+}
+
+/**
+ * Class used to create rectangle container
+ * 
+ * This code has been generated
+ */
+export class FiberRectangle implements HasPropsHandlers<GUI.Control, FiberControlProps> {
+    private propsHandlers: PropsHandler<GUI.Control, FiberControlProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberRectanglePropsHandler(),
+            new FiberContainerPropsHandler(),
+            new FiberControlPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<GUI.Control, FiberControlProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<GUI.Control, FiberControlProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "Control",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": true
+            }
+        ]
+    };
+}
+
+export class FiberButtonProps extends FiberRectangleProps {
+    name?: string;
+    pointerDownAnimation?: () => void;
+    pointerEnterAnimation?: () => void;
+    pointerOutAnimation?: () => void;
+    pointerUpAnimation?: () => void;
+}
+
+export class FiberButtonPropsHandler implements PropsHandler<GUI.Button, FiberButtonProps> {
+    getPropertyUpdates(createdInstance: CreatedInstance<GUI.Button>, oldProps: FiberButtonProps, newProps: FiberButtonProps): PropertyUpdate[] | null {
+        // generated code
+        let babylonObject: GUI.Button = createdInstance.babylonJsObject;
+        let updates: PropertyUpdate[] = [];
+        // GUI.Button.name of type 'string':
+        if (oldProps.name !== newProps.name) {
+            updates.push({
+                propertyName: 'name',
+                value: newProps.name,
+                type: 'string'
+            });
+        }
+        // TODO: type: () => void property (not coded) GUI.Button.pointerDownAnimation.
+        // TODO: type: () => void property (not coded) GUI.Button.pointerEnterAnimation.
+        // TODO: type: () => void property (not coded) GUI.Button.pointerOutAnimation.
+        // TODO: type: () => void property (not coded) GUI.Button.pointerUpAnimation.
+        return updates.length == 0 ? null : updates;
+    }
+}
+
+/**
+ * Class used to create 2D buttons
+ * 
+ * This code has been generated
+ */
+export class FiberButton implements HasPropsHandlers<GUI.Control, FiberControlProps> {
+    private propsHandlers: PropsHandler<GUI.Control, FiberControlProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberButtonPropsHandler(),
+            new FiberRectanglePropsHandler(),
+            new FiberContainerPropsHandler(),
+            new FiberControlPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<GUI.Control, FiberControlProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<GUI.Control, FiberControlProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "Control",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": true
+            }
+        ]
+    };
+}
+
+export class FiberSelectionPanelProps extends FiberRectangleProps {
+    barColor?: string;
+    barHeight?: string;
+    buttonBackground?: string;
+    buttonColor?: string;
+    groups?: BABYLON.GUI.SelectorGroup[];
+    headerColor?: string;
+    labelColor?: string;
+    name?: string;
+    spacerHeight?: string;
+}
+
+export class FiberSelectionPanelPropsHandler implements PropsHandler<GUI.SelectionPanel, FiberSelectionPanelProps> {
+    getPropertyUpdates(createdInstance: CreatedInstance<GUI.SelectionPanel>, oldProps: FiberSelectionPanelProps, newProps: FiberSelectionPanelProps): PropertyUpdate[] | null {
+        // generated code
+        let babylonObject: GUI.SelectionPanel = createdInstance.babylonJsObject;
+        let updates: PropertyUpdate[] = [];
+        // GUI.SelectionPanel.barColor of type 'string':
+        if (oldProps.barColor !== newProps.barColor) {
+            updates.push({
+                propertyName: 'barColor',
+                value: newProps.barColor,
+                type: 'string'
+            });
+        }
+        // GUI.SelectionPanel.barHeight of type 'string':
+        if (oldProps.barHeight !== newProps.barHeight) {
+            updates.push({
+                propertyName: 'barHeight',
+                value: newProps.barHeight,
+                type: 'string'
+            });
+        }
+        // GUI.SelectionPanel.buttonBackground of type 'string':
+        if (oldProps.buttonBackground !== newProps.buttonBackground) {
+            updates.push({
+                propertyName: 'buttonBackground',
+                value: newProps.buttonBackground,
+                type: 'string'
+            });
+        }
+        // GUI.SelectionPanel.buttonColor of type 'string':
+        if (oldProps.buttonColor !== newProps.buttonColor) {
+            updates.push({
+                propertyName: 'buttonColor',
+                value: newProps.buttonColor,
+                type: 'string'
+            });
+        }
+        // TODO: type: BABYLON.GUI.SelectorGroup[] property (not coded) GUI.SelectionPanel.groups.
+        // GUI.SelectionPanel.headerColor of type 'string':
+        if (oldProps.headerColor !== newProps.headerColor) {
+            updates.push({
+                propertyName: 'headerColor',
+                value: newProps.headerColor,
+                type: 'string'
+            });
+        }
+        // GUI.SelectionPanel.labelColor of type 'string':
+        if (oldProps.labelColor !== newProps.labelColor) {
+            updates.push({
+                propertyName: 'labelColor',
+                value: newProps.labelColor,
+                type: 'string'
+            });
+        }
+        // GUI.SelectionPanel.name of type 'string':
+        if (oldProps.name !== newProps.name) {
+            updates.push({
+                propertyName: 'name',
+                value: newProps.name,
+                type: 'string'
+            });
+        }
+        // GUI.SelectionPanel.spacerHeight of type 'string':
+        if (oldProps.spacerHeight !== newProps.spacerHeight) {
+            updates.push({
+                propertyName: 'spacerHeight',
+                value: newProps.spacerHeight,
+                type: 'string'
+            });
+        }
+        return updates.length == 0 ? null : updates;
+    }
+}
+
+/**
+ * Class used to hold the controls for the checkboxes, radio buttons and sliders
+ * 
+ * This code has been generated
+ */
+export class FiberSelectionPanel implements HasPropsHandlers<GUI.Control, FiberControlProps> {
+    private propsHandlers: PropsHandler<GUI.Control, FiberControlProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberSelectionPanelPropsHandler(),
+            new FiberRectanglePropsHandler(),
+            new FiberContainerPropsHandler(),
+            new FiberControlPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<GUI.Control, FiberControlProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<GUI.Control, FiberControlProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "Control",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": true
+            }
+        ]
+    };
+}
+
+export class FiberImageProps extends FiberControlProps {
+    autoScale?: boolean;
+    cellHeight?: number;
+    cellId?: number;
+    cellWidth?: number;
+    domImage?: HTMLImageElement;
+    name?: string;
+    source?: string;
+    sourceHeight?: number;
+    sourceLeft?: number;
+    sourceTop?: number;
+    sourceWidth?: number;
+    stretch?: number;
+}
+
+export class FiberImagePropsHandler implements PropsHandler<GUI.Image, FiberImageProps> {
+    getPropertyUpdates(createdInstance: CreatedInstance<GUI.Image>, oldProps: FiberImageProps, newProps: FiberImageProps): PropertyUpdate[] | null {
+        // generated code
+        let babylonObject: GUI.Image = createdInstance.babylonJsObject;
+        let updates: PropertyUpdate[] = [];
+        // GUI.Image.autoScale of type 'boolean':
+        if (oldProps.autoScale !== newProps.autoScale) {
+            updates.push({
+                propertyName: 'autoScale',
+                value: newProps.autoScale,
+                type: 'boolean'
+            });
+        }
+        // GUI.Image.cellHeight of type 'number':
+        if (oldProps.cellHeight !== newProps.cellHeight) {
+            updates.push({
+                propertyName: 'cellHeight',
+                value: newProps.cellHeight,
+                type: 'number'
+            });
+        }
+        // GUI.Image.cellId of type 'number':
+        if (oldProps.cellId !== newProps.cellId) {
+            updates.push({
+                propertyName: 'cellId',
+                value: newProps.cellId,
+                type: 'number'
+            });
+        }
+        // GUI.Image.cellWidth of type 'number':
+        if (oldProps.cellWidth !== newProps.cellWidth) {
+            updates.push({
+                propertyName: 'cellWidth',
+                value: newProps.cellWidth,
+                type: 'number'
+            });
+        }
+        // TODO: type: HTMLImageElement property (not coded) GUI.Image.domImage.
+        // GUI.Image.name of type 'string':
+        if (oldProps.name !== newProps.name) {
+            updates.push({
+                propertyName: 'name',
+                value: newProps.name,
+                type: 'string'
+            });
+        }
+        // GUI.Image.source of type 'string':
+        if (oldProps.source !== newProps.source) {
+            updates.push({
+                propertyName: 'source',
+                value: newProps.source,
+                type: 'string'
+            });
+        }
+        // GUI.Image.sourceHeight of type 'number':
+        if (oldProps.sourceHeight !== newProps.sourceHeight) {
+            updates.push({
+                propertyName: 'sourceHeight',
+                value: newProps.sourceHeight,
+                type: 'number'
+            });
+        }
+        // GUI.Image.sourceLeft of type 'number':
+        if (oldProps.sourceLeft !== newProps.sourceLeft) {
+            updates.push({
+                propertyName: 'sourceLeft',
+                value: newProps.sourceLeft,
+                type: 'number'
+            });
+        }
+        // GUI.Image.sourceTop of type 'number':
+        if (oldProps.sourceTop !== newProps.sourceTop) {
+            updates.push({
+                propertyName: 'sourceTop',
+                value: newProps.sourceTop,
+                type: 'number'
+            });
+        }
+        // GUI.Image.sourceWidth of type 'number':
+        if (oldProps.sourceWidth !== newProps.sourceWidth) {
+            updates.push({
+                propertyName: 'sourceWidth',
+                value: newProps.sourceWidth,
+                type: 'number'
+            });
+        }
+        // GUI.Image.stretch of type 'number':
+        if (oldProps.stretch !== newProps.stretch) {
+            updates.push({
+                propertyName: 'stretch',
+                value: newProps.stretch,
+                type: 'number'
+            });
+        }
+        return updates.length == 0 ? null : updates;
+    }
+}
+
+/**
+ * Class used to create 2D images
+ * 
+ * This code has been generated
+ */
+export class FiberImage implements HasPropsHandlers<GUI.Control, FiberControlProps> {
+    private propsHandlers: PropsHandler<GUI.Control, FiberControlProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberImagePropsHandler(),
+            new FiberControlPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<GUI.Control, FiberControlProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<GUI.Control, FiberControlProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "Control",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": true
+            }
+        ]
+    };
+}
+
+export class FiberInputTextProps extends FiberControlProps {
+    addKey?: boolean;
+    autoStretchWidth?: boolean;
+    background?: string;
+    currentKey?: string;
+    deadKey?: boolean;
+    focusedBackground?: string;
+    margin?: string;
+    maxWidth?: string | number;
+    name?: string;
+    placeholderColor?: string;
+    placeholderText?: string;
+    promptMessage?: string;
+    text?: string;
+    thickness?: number;
+    width?: string | number;
+}
+
+export class FiberInputTextPropsHandler implements PropsHandler<GUI.InputText, FiberInputTextProps> {
+    getPropertyUpdates(createdInstance: CreatedInstance<GUI.InputText>, oldProps: FiberInputTextProps, newProps: FiberInputTextProps): PropertyUpdate[] | null {
+        // generated code
+        let babylonObject: GUI.InputText = createdInstance.babylonJsObject;
+        let updates: PropertyUpdate[] = [];
+        // GUI.InputText.addKey of type 'boolean':
+        if (oldProps.addKey !== newProps.addKey) {
+            updates.push({
+                propertyName: 'addKey',
+                value: newProps.addKey,
+                type: 'boolean'
+            });
+        }
+        // GUI.InputText.autoStretchWidth of type 'boolean':
+        if (oldProps.autoStretchWidth !== newProps.autoStretchWidth) {
+            updates.push({
+                propertyName: 'autoStretchWidth',
+                value: newProps.autoStretchWidth,
+                type: 'boolean'
+            });
+        }
+        // GUI.InputText.background of type 'string':
+        if (oldProps.background !== newProps.background) {
+            updates.push({
+                propertyName: 'background',
+                value: newProps.background,
+                type: 'string'
+            });
+        }
+        // GUI.InputText.currentKey of type 'string':
+        if (oldProps.currentKey !== newProps.currentKey) {
+            updates.push({
+                propertyName: 'currentKey',
+                value: newProps.currentKey,
+                type: 'string'
+            });
+        }
+        // GUI.InputText.deadKey of type 'boolean':
+        if (oldProps.deadKey !== newProps.deadKey) {
+            updates.push({
+                propertyName: 'deadKey',
+                value: newProps.deadKey,
+                type: 'boolean'
+            });
+        }
+        // GUI.InputText.focusedBackground of type 'string':
+        if (oldProps.focusedBackground !== newProps.focusedBackground) {
+            updates.push({
+                propertyName: 'focusedBackground',
+                value: newProps.focusedBackground,
+                type: 'string'
+            });
+        }
+        // GUI.InputText.margin of type 'string':
+        if (oldProps.margin !== newProps.margin) {
+            updates.push({
+                propertyName: 'margin',
+                value: newProps.margin,
+                type: 'string'
+            });
+        }
+        // TODO: type: string | number property (not coded) GUI.InputText.maxWidth.
+        // GUI.InputText.name of type 'string':
+        if (oldProps.name !== newProps.name) {
+            updates.push({
+                propertyName: 'name',
+                value: newProps.name,
+                type: 'string'
+            });
+        }
+        // GUI.InputText.placeholderColor of type 'string':
+        if (oldProps.placeholderColor !== newProps.placeholderColor) {
+            updates.push({
+                propertyName: 'placeholderColor',
+                value: newProps.placeholderColor,
+                type: 'string'
+            });
+        }
+        // GUI.InputText.placeholderText of type 'string':
+        if (oldProps.placeholderText !== newProps.placeholderText) {
+            updates.push({
+                propertyName: 'placeholderText',
+                value: newProps.placeholderText,
+                type: 'string'
+            });
+        }
+        // GUI.InputText.promptMessage of type 'string':
+        if (oldProps.promptMessage !== newProps.promptMessage) {
+            updates.push({
+                propertyName: 'promptMessage',
+                value: newProps.promptMessage,
+                type: 'string'
+            });
+        }
+        // GUI.InputText.text of type 'string':
+        if (oldProps.text !== newProps.text) {
+            updates.push({
+                propertyName: 'text',
+                value: newProps.text,
+                type: 'string'
+            });
+        }
+        // GUI.InputText.thickness of type 'number':
+        if (oldProps.thickness !== newProps.thickness) {
+            updates.push({
+                propertyName: 'thickness',
+                value: newProps.thickness,
+                type: 'number'
+            });
+        }
+        // TODO: type: string | number property (not coded) GUI.InputText.width.
+        return updates.length == 0 ? null : updates;
+    }
+}
+
+/**
+ * Class used to create input text control
+ * 
+ * This code has been generated
+ */
+export class FiberInputText implements HasPropsHandlers<GUI.Control, FiberControlProps> {
+    private propsHandlers: PropsHandler<GUI.Control, FiberControlProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberInputTextPropsHandler(),
+            new FiberControlPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<GUI.Control, FiberControlProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<GUI.Control, FiberControlProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "Control",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": true
+            }
+        ]
+    };
+}
+
+export class FiberInputPasswordProps extends FiberInputTextProps {
+}
+
+export class FiberInputPasswordPropsHandler implements PropsHandler<GUI.InputPassword, FiberInputPasswordProps> {
+    getPropertyUpdates(createdInstance: CreatedInstance<GUI.InputPassword>, oldProps: FiberInputPasswordProps, newProps: FiberInputPasswordProps): PropertyUpdate[] | null {
+        // generated code
+        let babylonObject: GUI.InputPassword = createdInstance.babylonJsObject;
+        let updates: PropertyUpdate[] = [];
+        return updates.length == 0 ? null : updates;
+    }
+}
+
+/**
+ * Class used to create a password control
+ * 
+ * This code has been generated
+ */
+export class FiberInputPassword implements HasPropsHandlers<GUI.Control, FiberControlProps> {
+    private propsHandlers: PropsHandler<GUI.Control, FiberControlProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberInputPasswordPropsHandler(),
+            new FiberInputTextPropsHandler(),
+            new FiberControlPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<GUI.Control, FiberControlProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<GUI.Control, FiberControlProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "Control",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": true
+            }
+        ]
+    };
+}
+
+export class FiberLineProps extends FiberControlProps {
+    connectedControl?: BABYLON.GUI.Control;
+    dash?: number[];
+    horizontalAlignment?: number;
+    lineWidth?: number;
+    name?: string;
+    verticalAlignment?: number;
+    x1?: string | number;
+    x2?: string | number;
+    y1?: string | number;
+    y2?: string | number;
+}
+
+export class FiberLinePropsHandler implements PropsHandler<GUI.Line, FiberLineProps> {
+    getPropertyUpdates(createdInstance: CreatedInstance<GUI.Line>, oldProps: FiberLineProps, newProps: FiberLineProps): PropertyUpdate[] | null {
+        // generated code
+        let babylonObject: GUI.Line = createdInstance.babylonJsObject;
+        let updates: PropertyUpdate[] = [];
+        // TODO: type: BABYLON.GUI.Control property (not coded) GUI.Line.connectedControl.
+        // TODO: type: number[] property (not coded) GUI.Line.dash.
+        // GUI.Line.horizontalAlignment of type 'number':
+        if (oldProps.horizontalAlignment !== newProps.horizontalAlignment) {
+            updates.push({
+                propertyName: 'horizontalAlignment',
+                value: newProps.horizontalAlignment,
+                type: 'number'
+            });
+        }
+        // GUI.Line.lineWidth of type 'number':
+        if (oldProps.lineWidth !== newProps.lineWidth) {
+            updates.push({
+                propertyName: 'lineWidth',
+                value: newProps.lineWidth,
+                type: 'number'
+            });
+        }
+        // GUI.Line.name of type 'string':
+        if (oldProps.name !== newProps.name) {
+            updates.push({
+                propertyName: 'name',
+                value: newProps.name,
+                type: 'string'
+            });
+        }
+        // GUI.Line.verticalAlignment of type 'number':
+        if (oldProps.verticalAlignment !== newProps.verticalAlignment) {
+            updates.push({
+                propertyName: 'verticalAlignment',
+                value: newProps.verticalAlignment,
+                type: 'number'
+            });
+        }
+        // TODO: type: string | number property (not coded) GUI.Line.x1.
+        // TODO: type: string | number property (not coded) GUI.Line.x2.
+        // TODO: type: string | number property (not coded) GUI.Line.y1.
+        // TODO: type: string | number property (not coded) GUI.Line.y2.
+        return updates.length == 0 ? null : updates;
+    }
+}
+
+/**
+ * Class used to render 2D lines
+ * 
+ * This code has been generated
+ */
+export class FiberLine implements HasPropsHandlers<GUI.Control, FiberControlProps> {
+    private propsHandlers: PropsHandler<GUI.Control, FiberControlProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberLinePropsHandler(),
+            new FiberControlPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<GUI.Control, FiberControlProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<GUI.Control, FiberControlProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "Control",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": true
+            }
+        ]
+    };
+}
+
+export class FiberMultiLineProps extends FiberControlProps {
+    dash?: number[];
+    horizontalAlignment?: number;
+    lineWidth?: number;
+    name?: string;
+    verticalAlignment?: number;
+}
+
+export class FiberMultiLinePropsHandler implements PropsHandler<GUI.MultiLine, FiberMultiLineProps> {
+    getPropertyUpdates(createdInstance: CreatedInstance<GUI.MultiLine>, oldProps: FiberMultiLineProps, newProps: FiberMultiLineProps): PropertyUpdate[] | null {
+        // generated code
+        let babylonObject: GUI.MultiLine = createdInstance.babylonJsObject;
+        let updates: PropertyUpdate[] = [];
+        // TODO: type: number[] property (not coded) GUI.MultiLine.dash.
+        // GUI.MultiLine.horizontalAlignment of type 'number':
+        if (oldProps.horizontalAlignment !== newProps.horizontalAlignment) {
+            updates.push({
+                propertyName: 'horizontalAlignment',
+                value: newProps.horizontalAlignment,
+                type: 'number'
+            });
+        }
+        // GUI.MultiLine.lineWidth of type 'number':
+        if (oldProps.lineWidth !== newProps.lineWidth) {
+            updates.push({
+                propertyName: 'lineWidth',
+                value: newProps.lineWidth,
+                type: 'number'
+            });
+        }
+        // GUI.MultiLine.name of type 'string':
+        if (oldProps.name !== newProps.name) {
+            updates.push({
+                propertyName: 'name',
+                value: newProps.name,
+                type: 'string'
+            });
+        }
+        // GUI.MultiLine.verticalAlignment of type 'number':
+        if (oldProps.verticalAlignment !== newProps.verticalAlignment) {
+            updates.push({
+                propertyName: 'verticalAlignment',
+                value: newProps.verticalAlignment,
+                type: 'number'
+            });
+        }
+        return updates.length == 0 ? null : updates;
+    }
+}
+
+/**
+ * Class used to create multi line control
+ * 
+ * This code has been generated
+ */
+export class FiberMultiLine implements HasPropsHandlers<GUI.Control, FiberControlProps> {
+    private propsHandlers: PropsHandler<GUI.Control, FiberControlProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberMultiLinePropsHandler(),
+            new FiberControlPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<GUI.Control, FiberControlProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<GUI.Control, FiberControlProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "Control",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": true
+            }
+        ]
+    };
+}
+
+export class FiberRadioButtonProps extends FiberControlProps {
+    background?: string;
+    checkSizeRatio?: number;
+    group?: string;
+    isChecked?: boolean;
+    name?: string;
+    thickness?: number;
+}
+
+export class FiberRadioButtonPropsHandler implements PropsHandler<GUI.RadioButton, FiberRadioButtonProps> {
+    getPropertyUpdates(createdInstance: CreatedInstance<GUI.RadioButton>, oldProps: FiberRadioButtonProps, newProps: FiberRadioButtonProps): PropertyUpdate[] | null {
+        // generated code
+        let babylonObject: GUI.RadioButton = createdInstance.babylonJsObject;
+        let updates: PropertyUpdate[] = [];
+        // GUI.RadioButton.background of type 'string':
+        if (oldProps.background !== newProps.background) {
+            updates.push({
+                propertyName: 'background',
+                value: newProps.background,
+                type: 'string'
+            });
+        }
+        // GUI.RadioButton.checkSizeRatio of type 'number':
+        if (oldProps.checkSizeRatio !== newProps.checkSizeRatio) {
+            updates.push({
+                propertyName: 'checkSizeRatio',
+                value: newProps.checkSizeRatio,
+                type: 'number'
+            });
+        }
+        // GUI.RadioButton.group of type 'string':
+        if (oldProps.group !== newProps.group) {
+            updates.push({
+                propertyName: 'group',
+                value: newProps.group,
+                type: 'string'
+            });
+        }
+        // GUI.RadioButton.isChecked of type 'boolean':
+        if (oldProps.isChecked !== newProps.isChecked) {
+            updates.push({
+                propertyName: 'isChecked',
+                value: newProps.isChecked,
+                type: 'boolean'
+            });
+        }
+        // GUI.RadioButton.name of type 'string':
+        if (oldProps.name !== newProps.name) {
+            updates.push({
+                propertyName: 'name',
+                value: newProps.name,
+                type: 'string'
+            });
+        }
+        // GUI.RadioButton.thickness of type 'number':
+        if (oldProps.thickness !== newProps.thickness) {
+            updates.push({
+                propertyName: 'thickness',
+                value: newProps.thickness,
+                type: 'number'
+            });
+        }
+        return updates.length == 0 ? null : updates;
+    }
+}
+
+/**
+ * Class used to create radio button controls
+ * 
+ * This code has been generated
+ */
+export class FiberRadioButton implements HasPropsHandlers<GUI.Control, FiberControlProps> {
+    private propsHandlers: PropsHandler<GUI.Control, FiberControlProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberRadioButtonPropsHandler(),
+            new FiberControlPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<GUI.Control, FiberControlProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<GUI.Control, FiberControlProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "Control",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": true
+            }
+        ]
+    };
+}
+
+export class FiberTextBlockProps extends FiberControlProps {
+    lineSpacing?: string | number;
+    name?: string;
+    outlineColor?: string;
+    outlineWidth?: number;
+    resizeToFit?: boolean;
+    text?: string;
+    textHorizontalAlignment?: number;
+    textVerticalAlignment?: number;
+    textWrapping?: boolean | BABYLON.GUI.TextWrapping;
+}
+
+export class FiberTextBlockPropsHandler implements PropsHandler<GUI.TextBlock, FiberTextBlockProps> {
+    getPropertyUpdates(createdInstance: CreatedInstance<GUI.TextBlock>, oldProps: FiberTextBlockProps, newProps: FiberTextBlockProps): PropertyUpdate[] | null {
+        // generated code
+        let babylonObject: GUI.TextBlock = createdInstance.babylonJsObject;
+        let updates: PropertyUpdate[] = [];
+        // TODO: type: string | number property (not coded) GUI.TextBlock.lineSpacing.
+        // GUI.TextBlock.name of type 'string':
+        if (oldProps.name !== newProps.name) {
+            updates.push({
+                propertyName: 'name',
+                value: newProps.name,
+                type: 'string'
+            });
+        }
+        // GUI.TextBlock.outlineColor of type 'string':
+        if (oldProps.outlineColor !== newProps.outlineColor) {
+            updates.push({
+                propertyName: 'outlineColor',
+                value: newProps.outlineColor,
+                type: 'string'
+            });
+        }
+        // GUI.TextBlock.outlineWidth of type 'number':
+        if (oldProps.outlineWidth !== newProps.outlineWidth) {
+            updates.push({
+                propertyName: 'outlineWidth',
+                value: newProps.outlineWidth,
+                type: 'number'
+            });
+        }
+        // GUI.TextBlock.resizeToFit of type 'boolean':
+        if (oldProps.resizeToFit !== newProps.resizeToFit) {
+            updates.push({
+                propertyName: 'resizeToFit',
+                value: newProps.resizeToFit,
+                type: 'boolean'
+            });
+        }
+        // GUI.TextBlock.text of type 'string':
+        if (oldProps.text !== newProps.text) {
+            updates.push({
+                propertyName: 'text',
+                value: newProps.text,
+                type: 'string'
+            });
+        }
+        // GUI.TextBlock.textHorizontalAlignment of type 'number':
+        if (oldProps.textHorizontalAlignment !== newProps.textHorizontalAlignment) {
+            updates.push({
+                propertyName: 'textHorizontalAlignment',
+                value: newProps.textHorizontalAlignment,
+                type: 'number'
+            });
+        }
+        // GUI.TextBlock.textVerticalAlignment of type 'number':
+        if (oldProps.textVerticalAlignment !== newProps.textVerticalAlignment) {
+            updates.push({
+                propertyName: 'textVerticalAlignment',
+                value: newProps.textVerticalAlignment,
+                type: 'number'
+            });
+        }
+        // TODO: type: boolean | BABYLON.GUI.TextWrapping property (not coded) GUI.TextBlock.textWrapping.
+        return updates.length == 0 ? null : updates;
+    }
+}
+
+/**
+ * Class used to create text block control
+ * 
+ * This code has been generated
+ */
+export class FiberTextBlock implements HasPropsHandlers<GUI.Control, FiberControlProps> {
+    private propsHandlers: PropsHandler<GUI.Control, FiberControlProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberTextBlockPropsHandler(),
+            new FiberControlPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<GUI.Control, FiberControlProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<GUI.Control, FiberControlProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "Control",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": true
+            }
+        ]
+    };
+}
+
+export class FiberSliderProps extends FiberControlProps {
+    background?: string;
+    barOffset?: string | number;
+    borderColor?: string;
+    isThumbCircle?: boolean;
+    isThumbClamped?: boolean;
+    isVertical?: boolean;
+    maximum?: number;
+    minimum?: number;
+    name?: string;
+    thumbWidth?: string | number;
+    value?: number;
+}
+
+export class FiberSliderPropsHandler implements PropsHandler<GUI.Slider, FiberSliderProps> {
+    getPropertyUpdates(createdInstance: CreatedInstance<GUI.Slider>, oldProps: FiberSliderProps, newProps: FiberSliderProps): PropertyUpdate[] | null {
+        // generated code
+        let babylonObject: GUI.Slider = createdInstance.babylonJsObject;
+        let updates: PropertyUpdate[] = [];
+        // GUI.Slider.background of type 'string':
+        if (oldProps.background !== newProps.background) {
+            updates.push({
+                propertyName: 'background',
+                value: newProps.background,
+                type: 'string'
+            });
+        }
+        // TODO: type: string | number property (not coded) GUI.Slider.barOffset.
+        // GUI.Slider.borderColor of type 'string':
+        if (oldProps.borderColor !== newProps.borderColor) {
+            updates.push({
+                propertyName: 'borderColor',
+                value: newProps.borderColor,
+                type: 'string'
+            });
+        }
+        // GUI.Slider.isThumbCircle of type 'boolean':
+        if (oldProps.isThumbCircle !== newProps.isThumbCircle) {
+            updates.push({
+                propertyName: 'isThumbCircle',
+                value: newProps.isThumbCircle,
+                type: 'boolean'
+            });
+        }
+        // GUI.Slider.isThumbClamped of type 'boolean':
+        if (oldProps.isThumbClamped !== newProps.isThumbClamped) {
+            updates.push({
+                propertyName: 'isThumbClamped',
+                value: newProps.isThumbClamped,
+                type: 'boolean'
+            });
+        }
+        // GUI.Slider.isVertical of type 'boolean':
+        if (oldProps.isVertical !== newProps.isVertical) {
+            updates.push({
+                propertyName: 'isVertical',
+                value: newProps.isVertical,
+                type: 'boolean'
+            });
+        }
+        // GUI.Slider.maximum of type 'number':
+        if (oldProps.maximum !== newProps.maximum) {
+            updates.push({
+                propertyName: 'maximum',
+                value: newProps.maximum,
+                type: 'number'
+            });
+        }
+        // GUI.Slider.minimum of type 'number':
+        if (oldProps.minimum !== newProps.minimum) {
+            updates.push({
+                propertyName: 'minimum',
+                value: newProps.minimum,
+                type: 'number'
+            });
+        }
+        // GUI.Slider.name of type 'string':
+        if (oldProps.name !== newProps.name) {
+            updates.push({
+                propertyName: 'name',
+                value: newProps.name,
+                type: 'string'
+            });
+        }
+        // TODO: type: string | number property (not coded) GUI.Slider.thumbWidth.
+        // GUI.Slider.value of type 'number':
+        if (oldProps.value !== newProps.value) {
+            updates.push({
+                propertyName: 'value',
+                value: newProps.value,
+                type: 'number'
+            });
+        }
+        return updates.length == 0 ? null : updates;
+    }
+}
+
+/**
+ * Class used to create slider controls
+ * 
+ * This code has been generated
+ */
+export class FiberSlider implements HasPropsHandlers<GUI.Control, FiberControlProps> {
+    private propsHandlers: PropsHandler<GUI.Control, FiberControlProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberSliderPropsHandler(),
+            new FiberControlPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<GUI.Control, FiberControlProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<GUI.Control, FiberControlProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "Control",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": true
+            }
+        ]
+    };
+}
+
+export class FiberDisplayGridProps extends FiberControlProps {
+    background?: string;
+    cellHeight?: number;
+    cellWidth?: number;
+    displayMajorLines?: boolean;
+    displayMinorLines?: boolean;
+    majorLineColor?: string;
+    majorLineFrequency?: number;
+    majorLineTickness?: number;
+    minorLineColor?: string;
+    minorLineTickness?: number;
+    name?: string;
+}
+
+export class FiberDisplayGridPropsHandler implements PropsHandler<GUI.DisplayGrid, FiberDisplayGridProps> {
+    getPropertyUpdates(createdInstance: CreatedInstance<GUI.DisplayGrid>, oldProps: FiberDisplayGridProps, newProps: FiberDisplayGridProps): PropertyUpdate[] | null {
+        // generated code
+        let babylonObject: GUI.DisplayGrid = createdInstance.babylonJsObject;
+        let updates: PropertyUpdate[] = [];
+        // GUI.DisplayGrid.background of type 'string':
+        if (oldProps.background !== newProps.background) {
+            updates.push({
+                propertyName: 'background',
+                value: newProps.background,
+                type: 'string'
+            });
+        }
+        // GUI.DisplayGrid.cellHeight of type 'number':
+        if (oldProps.cellHeight !== newProps.cellHeight) {
+            updates.push({
+                propertyName: 'cellHeight',
+                value: newProps.cellHeight,
+                type: 'number'
+            });
+        }
+        // GUI.DisplayGrid.cellWidth of type 'number':
+        if (oldProps.cellWidth !== newProps.cellWidth) {
+            updates.push({
+                propertyName: 'cellWidth',
+                value: newProps.cellWidth,
+                type: 'number'
+            });
+        }
+        // GUI.DisplayGrid.displayMajorLines of type 'boolean':
+        if (oldProps.displayMajorLines !== newProps.displayMajorLines) {
+            updates.push({
+                propertyName: 'displayMajorLines',
+                value: newProps.displayMajorLines,
+                type: 'boolean'
+            });
+        }
+        // GUI.DisplayGrid.displayMinorLines of type 'boolean':
+        if (oldProps.displayMinorLines !== newProps.displayMinorLines) {
+            updates.push({
+                propertyName: 'displayMinorLines',
+                value: newProps.displayMinorLines,
+                type: 'boolean'
+            });
+        }
+        // GUI.DisplayGrid.majorLineColor of type 'string':
+        if (oldProps.majorLineColor !== newProps.majorLineColor) {
+            updates.push({
+                propertyName: 'majorLineColor',
+                value: newProps.majorLineColor,
+                type: 'string'
+            });
+        }
+        // GUI.DisplayGrid.majorLineFrequency of type 'number':
+        if (oldProps.majorLineFrequency !== newProps.majorLineFrequency) {
+            updates.push({
+                propertyName: 'majorLineFrequency',
+                value: newProps.majorLineFrequency,
+                type: 'number'
+            });
+        }
+        // GUI.DisplayGrid.majorLineTickness of type 'number':
+        if (oldProps.majorLineTickness !== newProps.majorLineTickness) {
+            updates.push({
+                propertyName: 'majorLineTickness',
+                value: newProps.majorLineTickness,
+                type: 'number'
+            });
+        }
+        // GUI.DisplayGrid.minorLineColor of type 'string':
+        if (oldProps.minorLineColor !== newProps.minorLineColor) {
+            updates.push({
+                propertyName: 'minorLineColor',
+                value: newProps.minorLineColor,
+                type: 'string'
+            });
+        }
+        // GUI.DisplayGrid.minorLineTickness of type 'number':
+        if (oldProps.minorLineTickness !== newProps.minorLineTickness) {
+            updates.push({
+                propertyName: 'minorLineTickness',
+                value: newProps.minorLineTickness,
+                type: 'number'
+            });
+        }
+        // GUI.DisplayGrid.name of type 'string':
+        if (oldProps.name !== newProps.name) {
+            updates.push({
+                propertyName: 'name',
+                value: newProps.name,
+                type: 'string'
+            });
+        }
+        return updates.length == 0 ? null : updates;
+    }
+}
+
+/**
+ * Class used to render a grid
+ * 
+ * This code has been generated
+ */
+export class FiberDisplayGrid implements HasPropsHandlers<GUI.Control, FiberControlProps> {
+    private propsHandlers: PropsHandler<GUI.Control, FiberControlProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberDisplayGridPropsHandler(),
+            new FiberControlPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<GUI.Control, FiberControlProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<GUI.Control, FiberControlProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "Control",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": true
+            }
+        ]
+    };
+}
+
+export class FiberControl3DProps {
+    isVisible?: boolean;
+    name?: string;
+    parent?: BABYLON.GUI.Container3D;
+    pointerDownAnimation?: () => void;
+    pointerEnterAnimation?: () => void;
+    pointerOutAnimation?: () => void;
+    pointerUpAnimation?: () => void;
+    position?: BABYLON.Vector3;
+    scaling?: BABYLON.Vector3;
+}
+
+export class FiberControl3DPropsHandler implements PropsHandler<GUI.Control3D, FiberControl3DProps> {
+    getPropertyUpdates(createdInstance: CreatedInstance<GUI.Control3D>, oldProps: FiberControl3DProps, newProps: FiberControl3DProps): PropertyUpdate[] | null {
+        // generated code
+        let babylonObject: GUI.Control3D = createdInstance.babylonJsObject;
+        let updates: PropertyUpdate[] = [];
+        // GUI.Control3D.isVisible of type 'boolean':
+        if (oldProps.isVisible !== newProps.isVisible) {
+            updates.push({
+                propertyName: 'isVisible',
+                value: newProps.isVisible,
+                type: 'boolean'
+            });
+        }
+        // GUI.Control3D.name of type 'string':
+        if (oldProps.name !== newProps.name) {
+            updates.push({
+                propertyName: 'name',
+                value: newProps.name,
+                type: 'string'
+            });
+        }
+        // TODO: type: BABYLON.GUI.Container3D property (not coded) GUI.Control3D.parent.
+        // TODO: type: () => void property (not coded) GUI.Control3D.pointerDownAnimation.
+        // TODO: type: () => void property (not coded) GUI.Control3D.pointerEnterAnimation.
+        // TODO: type: () => void property (not coded) GUI.Control3D.pointerOutAnimation.
+        // TODO: type: () => void property (not coded) GUI.Control3D.pointerUpAnimation.
+        // TODO: type: BABYLON.Vector3 property (not coded) GUI.Control3D.position.
+        // TODO: type: BABYLON.Vector3 property (not coded) GUI.Control3D.scaling.
+        return updates.length == 0 ? null : updates;
+    }
+}
+
+/**
+ * Class used as base class for controls
+ * 
+ * This code has been generated
+ */
+export class FiberControl3D implements HasPropsHandlers<GUI.Control3D, FiberControl3DProps> {
+    private propsHandlers: PropsHandler<GUI.Control3D, FiberControl3DProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberControl3DPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<GUI.Control3D, FiberControl3DProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<GUI.Control3D, FiberControl3DProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "Control3D",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": true
+            }
+        ]
+    };
+}
+
+export class FiberAbstractButton3DProps extends FiberControl3DProps {
+}
+
+export class FiberAbstractButton3DPropsHandler implements PropsHandler<GUI.AbstractButton3D, FiberAbstractButton3DProps> {
+    getPropertyUpdates(createdInstance: CreatedInstance<GUI.AbstractButton3D>, oldProps: FiberAbstractButton3DProps, newProps: FiberAbstractButton3DProps): PropertyUpdate[] | null {
+        // generated code
+        let babylonObject: GUI.AbstractButton3D = createdInstance.babylonJsObject;
+        let updates: PropertyUpdate[] = [];
+        return updates.length == 0 ? null : updates;
+    }
+}
+
+/**
+ * Class used as a root to all buttons
+ * 
+ * This code has been generated
+ */
+export class FiberAbstractButton3D implements HasPropsHandlers<GUI.Control3D, FiberControl3DProps> {
+    private propsHandlers: PropsHandler<GUI.Control3D, FiberControl3DProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberAbstractButton3DPropsHandler(),
+            new FiberControl3DPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<GUI.Control3D, FiberControl3DProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<GUI.Control3D, FiberControl3DProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "Control3D",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": true
+            }
+        ]
+    };
+}
+
+export class FiberButton3DProps extends FiberAbstractButton3DProps {
+    content?: BABYLON.GUI.Control;
+    contentResolution?: number;
+    contentScaleRatio?: number;
+}
+
+export class FiberButton3DPropsHandler implements PropsHandler<GUI.Button3D, FiberButton3DProps> {
+    getPropertyUpdates(createdInstance: CreatedInstance<GUI.Button3D>, oldProps: FiberButton3DProps, newProps: FiberButton3DProps): PropertyUpdate[] | null {
+        // generated code
+        let babylonObject: GUI.Button3D = createdInstance.babylonJsObject;
+        let updates: PropertyUpdate[] = [];
+        // TODO: type: BABYLON.GUI.Control property (not coded) GUI.Button3D.content.
+        // GUI.Button3D.contentResolution of type 'number':
+        if (oldProps.contentResolution !== newProps.contentResolution) {
+            updates.push({
+                propertyName: 'contentResolution',
+                value: newProps.contentResolution,
+                type: 'number'
+            });
+        }
+        // GUI.Button3D.contentScaleRatio of type 'number':
+        if (oldProps.contentScaleRatio !== newProps.contentScaleRatio) {
+            updates.push({
+                propertyName: 'contentScaleRatio',
+                value: newProps.contentScaleRatio,
+                type: 'number'
+            });
+        }
+        return updates.length == 0 ? null : updates;
+    }
+}
+
+/**
+ * Class used to create a button in 3D
+ * 
+ * This code has been generated
+ */
+export class FiberButton3D implements HasPropsHandlers<GUI.Control3D, FiberControl3DProps> {
+    private propsHandlers: PropsHandler<GUI.Control3D, FiberControl3DProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberButton3DPropsHandler(),
+            new FiberAbstractButton3DPropsHandler(),
+            new FiberControl3DPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<GUI.Control3D, FiberControl3DProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<GUI.Control3D, FiberControl3DProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "Control3D",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": true
+            }
+        ]
+    };
+}
+
+export class FiberHolographicButtonProps extends FiberButton3DProps {
+    imageUrl?: string;
+    text?: string;
+    tooltipText?: string;
+}
+
+export class FiberHolographicButtonPropsHandler implements PropsHandler<GUI.HolographicButton, FiberHolographicButtonProps> {
+    getPropertyUpdates(createdInstance: CreatedInstance<GUI.HolographicButton>, oldProps: FiberHolographicButtonProps, newProps: FiberHolographicButtonProps): PropertyUpdate[] | null {
+        // generated code
+        let babylonObject: GUI.HolographicButton = createdInstance.babylonJsObject;
+        let updates: PropertyUpdate[] = [];
+        // GUI.HolographicButton.imageUrl of type 'string':
+        if (oldProps.imageUrl !== newProps.imageUrl) {
+            updates.push({
+                propertyName: 'imageUrl',
+                value: newProps.imageUrl,
+                type: 'string'
+            });
+        }
+        // GUI.HolographicButton.text of type 'string':
+        if (oldProps.text !== newProps.text) {
+            updates.push({
+                propertyName: 'text',
+                value: newProps.text,
+                type: 'string'
+            });
+        }
+        // GUI.HolographicButton.tooltipText of type 'string':
+        if (oldProps.tooltipText !== newProps.tooltipText) {
+            updates.push({
+                propertyName: 'tooltipText',
+                value: newProps.tooltipText,
+                type: 'string'
+            });
+        }
+        return updates.length == 0 ? null : updates;
+    }
+}
+
+/**
+ * Class used to create a holographic button in 3D
+ * 
+ * This code has been generated
+ */
+export class FiberHolographicButton implements HasPropsHandlers<GUI.Control3D, FiberControl3DProps> {
+    private propsHandlers: PropsHandler<GUI.Control3D, FiberControl3DProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberHolographicButtonPropsHandler(),
+            new FiberButton3DPropsHandler(),
+            new FiberAbstractButton3DPropsHandler(),
+            new FiberControl3DPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<GUI.Control3D, FiberControl3DProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<GUI.Control3D, FiberControl3DProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "Control3D",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": true
+            }
+        ]
+    };
+}
+
+export class FiberMeshButton3DProps extends FiberButton3DProps {
+}
+
+export class FiberMeshButton3DPropsHandler implements PropsHandler<GUI.MeshButton3D, FiberMeshButton3DProps> {
+    getPropertyUpdates(createdInstance: CreatedInstance<GUI.MeshButton3D>, oldProps: FiberMeshButton3DProps, newProps: FiberMeshButton3DProps): PropertyUpdate[] | null {
+        // generated code
+        let babylonObject: GUI.MeshButton3D = createdInstance.babylonJsObject;
+        let updates: PropertyUpdate[] = [];
+        return updates.length == 0 ? null : updates;
+    }
+}
+
+/**
+ * Class used to create an interactable object. It's a 3D button using a mesh coming from the current scene
+ * 
+ * This code has been generated
+ */
+export class FiberMeshButton3D implements HasPropsHandlers<GUI.Control3D, FiberControl3DProps> {
+    private propsHandlers: PropsHandler<GUI.Control3D, FiberControl3DProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberMeshButton3DPropsHandler(),
+            new FiberButton3DPropsHandler(),
+            new FiberAbstractButton3DPropsHandler(),
+            new FiberControl3DPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<GUI.Control3D, FiberControl3DProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<GUI.Control3D, FiberControl3DProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "Control3D",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": true
+            }
+        ]
+    };
+}
+
+export class FiberContainer3DProps extends FiberControl3DProps {
+    blockLayout?: boolean;
+}
+
+export class FiberContainer3DPropsHandler implements PropsHandler<GUI.Container3D, FiberContainer3DProps> {
+    getPropertyUpdates(createdInstance: CreatedInstance<GUI.Container3D>, oldProps: FiberContainer3DProps, newProps: FiberContainer3DProps): PropertyUpdate[] | null {
+        // generated code
+        let babylonObject: GUI.Container3D = createdInstance.babylonJsObject;
+        let updates: PropertyUpdate[] = [];
+        // GUI.Container3D.blockLayout of type 'boolean':
+        if (oldProps.blockLayout !== newProps.blockLayout) {
+            updates.push({
+                propertyName: 'blockLayout',
+                value: newProps.blockLayout,
+                type: 'boolean'
+            });
+        }
+        return updates.length == 0 ? null : updates;
+    }
+}
+
+/**
+ * Class used to create containers for controls
+ * 
+ * This code has been generated
+ */
+export class FiberContainer3D implements HasPropsHandlers<GUI.Control3D, FiberControl3DProps> {
+    private propsHandlers: PropsHandler<GUI.Control3D, FiberControl3DProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberContainer3DPropsHandler(),
+            new FiberControl3DPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<GUI.Control3D, FiberControl3DProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<GUI.Control3D, FiberControl3DProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "Control3D",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": true
+            }
+        ]
+    };
+}
+
+export class FiberStackPanel3DProps extends FiberContainer3DProps {
+    isVertical?: boolean;
+    margin?: number;
+}
+
+export class FiberStackPanel3DPropsHandler implements PropsHandler<GUI.StackPanel3D, FiberStackPanel3DProps> {
+    getPropertyUpdates(createdInstance: CreatedInstance<GUI.StackPanel3D>, oldProps: FiberStackPanel3DProps, newProps: FiberStackPanel3DProps): PropertyUpdate[] | null {
+        // generated code
+        let babylonObject: GUI.StackPanel3D = createdInstance.babylonJsObject;
+        let updates: PropertyUpdate[] = [];
+        // GUI.StackPanel3D.isVertical of type 'boolean':
+        if (oldProps.isVertical !== newProps.isVertical) {
+            updates.push({
+                propertyName: 'isVertical',
+                value: newProps.isVertical,
+                type: 'boolean'
+            });
+        }
+        // GUI.StackPanel3D.margin of type 'number':
+        if (oldProps.margin !== newProps.margin) {
+            updates.push({
+                propertyName: 'margin',
+                value: newProps.margin,
+                type: 'number'
+            });
+        }
+        return updates.length == 0 ? null : updates;
+    }
+}
+
+/**
+ * Class used to create a stack panel in 3D on XY plane
+ * 
+ * This code has been generated
+ */
+export class FiberStackPanel3D implements HasPropsHandlers<GUI.Control3D, FiberControl3DProps> {
+    private propsHandlers: PropsHandler<GUI.Control3D, FiberControl3DProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberStackPanel3DPropsHandler(),
+            new FiberContainer3DPropsHandler(),
+            new FiberControl3DPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<GUI.Control3D, FiberControl3DProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<GUI.Control3D, FiberControl3DProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "Control3D",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": true
+            }
+        ]
+    };
+}
+
+export class FiberVolumeBasedPanelProps extends FiberContainer3DProps {
+    columns?: number;
+    margin?: number;
+    orientation?: number;
+    rows?: number;
+}
+
+export class FiberVolumeBasedPanelPropsHandler implements PropsHandler<GUI.VolumeBasedPanel, FiberVolumeBasedPanelProps> {
+    getPropertyUpdates(createdInstance: CreatedInstance<GUI.VolumeBasedPanel>, oldProps: FiberVolumeBasedPanelProps, newProps: FiberVolumeBasedPanelProps): PropertyUpdate[] | null {
+        // generated code
+        let babylonObject: GUI.VolumeBasedPanel = createdInstance.babylonJsObject;
+        let updates: PropertyUpdate[] = [];
+        // GUI.VolumeBasedPanel.columns of type 'number':
+        if (oldProps.columns !== newProps.columns) {
+            updates.push({
+                propertyName: 'columns',
+                value: newProps.columns,
+                type: 'number'
+            });
+        }
+        // GUI.VolumeBasedPanel.margin of type 'number':
+        if (oldProps.margin !== newProps.margin) {
+            updates.push({
+                propertyName: 'margin',
+                value: newProps.margin,
+                type: 'number'
+            });
+        }
+        // GUI.VolumeBasedPanel.orientation of type 'number':
+        if (oldProps.orientation !== newProps.orientation) {
+            updates.push({
+                propertyName: 'orientation',
+                value: newProps.orientation,
+                type: 'number'
+            });
+        }
+        // GUI.VolumeBasedPanel.rows of type 'number':
+        if (oldProps.rows !== newProps.rows) {
+            updates.push({
+                propertyName: 'rows',
+                value: newProps.rows,
+                type: 'number'
+            });
+        }
+        return updates.length == 0 ? null : updates;
+    }
+}
+
+/**
+ * Abstract class used to create a container panel deployed on the surface of a volume
+ * 
+ * This code has been generated
+ */
+export class FiberVolumeBasedPanel implements HasPropsHandlers<GUI.Control3D, FiberControl3DProps> {
+    private propsHandlers: PropsHandler<GUI.Control3D, FiberControl3DProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberVolumeBasedPanelPropsHandler(),
+            new FiberContainer3DPropsHandler(),
+            new FiberControl3DPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<GUI.Control3D, FiberControl3DProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<GUI.Control3D, FiberControl3DProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "Control3D",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": true
+            }
+        ]
+    };
+}
+
+export class FiberCylinderPanelProps extends FiberVolumeBasedPanelProps {
+    radius?: number;
+}
+
+export class FiberCylinderPanelPropsHandler implements PropsHandler<GUI.CylinderPanel, FiberCylinderPanelProps> {
+    getPropertyUpdates(createdInstance: CreatedInstance<GUI.CylinderPanel>, oldProps: FiberCylinderPanelProps, newProps: FiberCylinderPanelProps): PropertyUpdate[] | null {
+        // generated code
+        let babylonObject: GUI.CylinderPanel = createdInstance.babylonJsObject;
+        let updates: PropertyUpdate[] = [];
+        // GUI.CylinderPanel.radius of type 'number':
+        if (oldProps.radius !== newProps.radius) {
+            updates.push({
+                propertyName: 'radius',
+                value: newProps.radius,
+                type: 'number'
+            });
+        }
+        return updates.length == 0 ? null : updates;
+    }
+}
+
+/**
+ * Class used to create a container panel deployed on the surface of a cylinder
+ * 
+ * This code has been generated
+ */
+export class FiberCylinderPanel implements HasPropsHandlers<GUI.Control3D, FiberControl3DProps> {
+    private propsHandlers: PropsHandler<GUI.Control3D, FiberControl3DProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberCylinderPanelPropsHandler(),
+            new FiberVolumeBasedPanelPropsHandler(),
+            new FiberContainer3DPropsHandler(),
+            new FiberControl3DPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<GUI.Control3D, FiberControl3DProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<GUI.Control3D, FiberControl3DProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "Control3D",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": true
+            }
+        ]
+    };
+}
+
+export class FiberPlanePanelProps extends FiberVolumeBasedPanelProps {
+}
+
+export class FiberPlanePanelPropsHandler implements PropsHandler<GUI.PlanePanel, FiberPlanePanelProps> {
+    getPropertyUpdates(createdInstance: CreatedInstance<GUI.PlanePanel>, oldProps: FiberPlanePanelProps, newProps: FiberPlanePanelProps): PropertyUpdate[] | null {
+        // generated code
+        let babylonObject: GUI.PlanePanel = createdInstance.babylonJsObject;
+        let updates: PropertyUpdate[] = [];
+        return updates.length == 0 ? null : updates;
+    }
+}
+
+/**
+ * Class used to create a container panel deployed on the surface of a plane
+ * 
+ * This code has been generated
+ */
+export class FiberPlanePanel implements HasPropsHandlers<GUI.Control3D, FiberControl3DProps> {
+    private propsHandlers: PropsHandler<GUI.Control3D, FiberControl3DProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberPlanePanelPropsHandler(),
+            new FiberVolumeBasedPanelPropsHandler(),
+            new FiberContainer3DPropsHandler(),
+            new FiberControl3DPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<GUI.Control3D, FiberControl3DProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<GUI.Control3D, FiberControl3DProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "Control3D",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": true
+            }
+        ]
+    };
+}
+
+export class FiberScatterPanelProps extends FiberVolumeBasedPanelProps {
+    iteration?: number;
+}
+
+export class FiberScatterPanelPropsHandler implements PropsHandler<GUI.ScatterPanel, FiberScatterPanelProps> {
+    getPropertyUpdates(createdInstance: CreatedInstance<GUI.ScatterPanel>, oldProps: FiberScatterPanelProps, newProps: FiberScatterPanelProps): PropertyUpdate[] | null {
+        // generated code
+        let babylonObject: GUI.ScatterPanel = createdInstance.babylonJsObject;
+        let updates: PropertyUpdate[] = [];
+        // GUI.ScatterPanel.iteration of type 'number':
+        if (oldProps.iteration !== newProps.iteration) {
+            updates.push({
+                propertyName: 'iteration',
+                value: newProps.iteration,
+                type: 'number'
+            });
+        }
+        return updates.length == 0 ? null : updates;
+    }
+}
+
+/**
+ * Class used to create a container panel where items get randomized planar mapping
+ * 
+ * This code has been generated
+ */
+export class FiberScatterPanel implements HasPropsHandlers<GUI.Control3D, FiberControl3DProps> {
+    private propsHandlers: PropsHandler<GUI.Control3D, FiberControl3DProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberScatterPanelPropsHandler(),
+            new FiberVolumeBasedPanelPropsHandler(),
+            new FiberContainer3DPropsHandler(),
+            new FiberControl3DPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<GUI.Control3D, FiberControl3DProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<GUI.Control3D, FiberControl3DProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "Control3D",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": true
+            }
+        ]
+    };
+}
+
+export class FiberSpherePanelProps extends FiberVolumeBasedPanelProps {
+    radius?: number;
+}
+
+export class FiberSpherePanelPropsHandler implements PropsHandler<GUI.SpherePanel, FiberSpherePanelProps> {
+    getPropertyUpdates(createdInstance: CreatedInstance<GUI.SpherePanel>, oldProps: FiberSpherePanelProps, newProps: FiberSpherePanelProps): PropertyUpdate[] | null {
+        // generated code
+        let babylonObject: GUI.SpherePanel = createdInstance.babylonJsObject;
+        let updates: PropertyUpdate[] = [];
+        // GUI.SpherePanel.radius of type 'number':
+        if (oldProps.radius !== newProps.radius) {
+            updates.push({
+                propertyName: 'radius',
+                value: newProps.radius,
+                type: 'number'
+            });
+        }
+        return updates.length == 0 ? null : updates;
+    }
+}
+
+/**
+ * Class used to create a container panel deployed on the surface of a sphere
+ * 
+ * This code has been generated
+ */
+export class FiberSpherePanel implements HasPropsHandlers<GUI.Control3D, FiberControl3DProps> {
+    private propsHandlers: PropsHandler<GUI.Control3D, FiberControl3DProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberSpherePanelPropsHandler(),
+            new FiberVolumeBasedPanelPropsHandler(),
+            new FiberContainer3DPropsHandler(),
+            new FiberControl3DPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<GUI.Control3D, FiberControl3DProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<GUI.Control3D, FiberControl3DProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "Control3D",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": true
+            }
+        ]
+    };
+}
+
+export const AbstractButton3D: string = 'AbstractButton3D', AnaglyphArcRotateCamera: string = 'AnaglyphArcRotateCamera', AnaglyphFreeCamera: string = 'AnaglyphFreeCamera', AnaglyphGamepadCamera: string = 'AnaglyphGamepadCamera', AnaglyphUniversalCamera: string = 'AnaglyphUniversalCamera', ArcFollowCamera: string = 'ArcFollowCamera', ArcRotateCamera: string = 'ArcRotateCamera', BackgroundMaterial: string = 'BackgroundMaterial', Box: string = 'Box', Button: string = 'Button', Button3D: string = 'Button3D', Camera: string = 'Camera', Checkbox: string = 'Checkbox', ColorPicker: string = 'ColorPicker', Container: string = 'Container', Container3D: string = 'Container3D', Control: string = 'Control', Control3D: string = 'Control3D', Cylinder: string = 'Cylinder', CylinderPanel: string = 'CylinderPanel', DashedLines: string = 'DashedLines', Decal: string = 'Decal', DeviceOrientationCamera: string = 'DeviceOrientationCamera', DirectionalLight: string = 'DirectionalLight', Disc: string = 'Disc', DisplayGrid: string = 'DisplayGrid', Ellipse: string = 'Ellipse', ExtrudePolygon: string = 'ExtrudePolygon', ExtrudeShape: string = 'ExtrudeShape', ExtrudeShapeCustom: string = 'ExtrudeShapeCustom', FollowCamera: string = 'FollowCamera', FreeCamera: string = 'FreeCamera', GamepadCamera: string = 'GamepadCamera', Grid: string = 'Grid', Ground: string = 'Ground', GroundFromHeightMap: string = 'GroundFromHeightMap', HemisphericLight: string = 'HemisphericLight', HolographicButton: string = 'HolographicButton', IcoSphere: string = 'IcoSphere', Image: string = 'Image', InputPassword: string = 'InputPassword', InputText: string = 'InputText', Lathe: string = 'Lathe', Light: string = 'Light', Line: string = 'Line', LineSystem: string = 'LineSystem', Lines: string = 'Lines', Material: string = 'Material', MeshButton3D: string = 'MeshButton3D', MultiLine: string = 'MultiLine', MultiMaterial: string = 'MultiMaterial', PBRBaseMaterial: string = 'PBRBaseMaterial', PBRBaseSimpleMaterial: string = 'PBRBaseSimpleMaterial', PBRMaterial: string = 'PBRMaterial', PBRMetallicRoughnessMaterial: string = 'PBRMetallicRoughnessMaterial', PBRSpecularGlossinessMaterial: string = 'PBRSpecularGlossinessMaterial', Plane: string = 'Plane', PlanePanel: string = 'PlanePanel', PointLight: string = 'PointLight', Polygon: string = 'Polygon', Polyhedron: string = 'Polyhedron', PushMaterial: string = 'PushMaterial', RadioButton: string = 'RadioButton', Rectangle: string = 'Rectangle', Ribbon: string = 'Ribbon', ScatterPanel: string = 'ScatterPanel', SelectionPanel: string = 'SelectionPanel', ShaderMaterial: string = 'ShaderMaterial', ShadowLight: string = 'ShadowLight', Slider: string = 'Slider', Sphere: string = 'Sphere', SpherePanel: string = 'SpherePanel', SpotLight: string = 'SpotLight', StackPanel: string = 'StackPanel', StackPanel3D: string = 'StackPanel3D', StandardMaterial: string = 'StandardMaterial', StereoscopicArcRotateCamera: string = 'StereoscopicArcRotateCamera', StereoscopicFreeCamera: string = 'StereoscopicFreeCamera', StereoscopicGamepadCamera: string = 'StereoscopicGamepadCamera', StereoscopicUniversalCamera: string = 'StereoscopicUniversalCamera', TargetCamera: string = 'TargetCamera', TextBlock: string = 'TextBlock', TiledGround: string = 'TiledGround', Torus: string = 'Torus', TorusKnot: string = 'TorusKnot', TouchCamera: string = 'TouchCamera', Tube: string = 'Tube', UniversalCamera: string = 'UniversalCamera', VRDeviceOrientationArcRotateCamera: string = 'VRDeviceOrientationArcRotateCamera', VRDeviceOrientationFreeCamera: string = 'VRDeviceOrientationFreeCamera', VRDeviceOrientationGamepadCamera: string = 'VRDeviceOrientationGamepadCamera', VirtualJoysticksCamera: string = 'VirtualJoysticksCamera', VirtualKeyboard: string = 'VirtualKeyboard', VolumeBasedPanel: string = 'VolumeBasedPanel', WebVRFreeCamera: string = 'WebVRFreeCamera';
