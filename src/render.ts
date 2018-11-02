@@ -125,13 +125,31 @@ function applyUpdateToInstance(babylonObject: any, update: PropertyUpdate, type:
       babylonObject[update.propertyName] = update.value
       break
     case "BABYLON.Vector3":
-      console.log(` > ${type}: updating Vector3 on:${update.propertyName} to ${update.value}`, babylonObject);
-      (babylonObject[update.propertyName] as BABYLON.Vector3).copyFrom(update.value)
+      console.log(` > ${type}: updating Vector3 on:${update.propertyName} to ${update.value} from ${babylonObject[update.propertyName]}`, babylonObject);
+      if (babylonObject[update.propertyName]) {
+        (babylonObject[update.propertyName] as BABYLON.Vector3).copyFrom(update.value)
+      } else {
+        babylonObject[update.propertyName] = update.value
+      }
       break
-    case "BABYLON.Color3":
+    case "BABYLON.Color3": // merge this switch with BABYLON.Vector3, Color4, etc.  The copyFrom BABYLON types.
       console.log(` > ${type}: updating Color3 on:${update.propertyName} to ${update.value}`)
-      ;(babylonObject[update.propertyName] as BABYLON.Color3).copyFrom(update.value)
+      if (babylonObject[update.propertyName]) {
+        (babylonObject[update.propertyName] as BABYLON.Color3).copyFrom(update.value)
+      } else {
+        babylonObject[update.propertyName] = update.value
+      }
       break
+    case "BABYLON.Mesh":
+    console.log(` > ${type}: updating Mesh on:${update.propertyName} to ${update.value}`)
+      if (babylonObject[update.propertyName] && update.value) {
+        if((babylonObject[update.propertyName] as BABYLON.Mesh).uniqueId != update.value.uniqueId) {
+          babylonObject[update.propertyName] = update.value;
+        }
+      } else {
+        babylonObject[update.propertyName] = update.value
+      }
+      break;
     default:
       console.error(`unhandled property update of type ${update.type}`)
       break
@@ -172,22 +190,30 @@ function createCreatedInstance<T, U extends GENERATED.HasPropsHandlers<T, any>>(
 // 1. We need Scene as an argument
 // 2. We need to associate a handler with a 'type'.  Maybe it is hacky to have "__react-babylonjs-set-target"?
 class TargetFunctionPropsHandler implements GENERATED.PropsHandler<any, any> {
-  getPropertyUpdates(createdInstance: CreatedInstance<any>, oldProps: any, newProps: any, scene: BABYLON.Scene): UpdatePayload {
-    if (!oldProps.target || !oldProps.target.equals(newProps.target)) {
-      console.error('adding target property:', newProps.target);
+  getPropertyUpdates(
+    createdInstance: CreatedInstance<any>,
+    oldProps: any,
+    newProps: any,
+    scene: BABYLON.Scene
+  ): UpdatePayload {
+    if (!oldProps.target || oldProps.target !== newProps.target) {
       let target = newProps.target
+      let targetType: string = "BABYLON.Vector3";
       if (typeof newProps.target == "string") {
-        target = scene.getMeshByName(newProps.target);
+        targetType = "BABYLON.Mesh";
+        target = scene.getMeshByName(newProps.target)
       }
 
-      return [{
-        type: "SetTargetFunction",
-        value: target,
-        propertyName: "setTarget"
-      }]
+      return [
+        {
+          type: targetType,
+          value: target,
+          propertyName: "lockedTarget"
+        }
+      ]
     }
 
-    return [];
+    return []
   }
 }
 
@@ -289,7 +315,7 @@ export const hostConfig: HostConfig<
     let updatePayload: PropertyUpdate[] = []
 
     // TODO: This will not work for multiple scenes, which V1 will support.
-    let scene = rootContainerInstance.engine.scenes[0];
+    let scene = rootContainerInstance.engine.scenes[0]
 
     instance.fiberObject.getPropsHandlers().forEach(propHandler => {
       let handlerUpdates: PropertyUpdate[] | null = propHandler.getPropertyUpdates(
@@ -383,10 +409,10 @@ export const hostConfig: HostConfig<
 
     // Here we dynamically attach known props handlers.  Will be adding more in code generation for GUI - also for lifecycle mgmt.
     if (createdReference.metadata && createdReference.metadata.isTargetable === true) {
-      fiberObject.addPropsHandler(new TargetFunctionPropsHandler());
+      fiberObject.addPropsHandler(new TargetFunctionPropsHandler())
     }
 
-   // TODO: PropsHandler needs to prepare an update and apply immediately here, otherwise it won't appear until prepareUpdate() is called.
+    // TODO: PropsHandler needs to prepare an update and apply immediately here, otherwise it won't appear until prepareUpdate() is called.
     let initPayload: PropertyUpdate[] = []
     fiberObject.getPropsHandlers().forEach(propHandler => {
       // NOTE: this is actually WRONG, because here we want to compare the props with the object.
@@ -519,7 +545,7 @@ export const hostConfig: HostConfig<
     newProps: any,
     internalInstanceHandle: ReactReconciler.Fiber
   ): void => {
-    console.log("everything has beenn instantiated for instance: ", instance, newProps)
+    console.log("everything has been instantiated for instance: ", instance, newProps)
   },
 
   appendChildToContainer: (container: Container, child: HostCreatedInstance<any>): void => {
