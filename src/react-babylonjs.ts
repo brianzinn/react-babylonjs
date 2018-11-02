@@ -13,7 +13,6 @@ export class Rectangle {}
 export class StackPanel {}
 export class InputText {}
 export class Text {}
-export class Box {}
 export class Button {}
 export class Environment {}
 export class VirtualKeyboard {}
