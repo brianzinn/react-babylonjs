@@ -67,16 +67,6 @@ declare global {
 }
 //** END WINDOW
 
-// string to () => Vector3 mapping for directions
-const directions: Map<String, () => BABYLON.Vector3> = new Map<String, () => BABYLON.Vector3>([
-  ["up", BABYLON.Vector3.Up],
-  ["down", BABYLON.Vector3.Down],
-  ["left", BABYLON.Vector3.Left],
-  ["right", BABYLON.Vector3.Right],
-  ["forward", BABYLON.Vector3.Forward],
-  ["backward", BABYLON.Vector3.Backward]
-])
-
 /**
  * CreatedInstance simply contains a Babylon object and a fiber object able to detect and process updates via props to the BabylonObject.
  *
@@ -114,7 +104,6 @@ type Props = {
   scene: BABYLON.Scene
 } & any
 
-
 export type Container = {
   canvas: HTMLCanvasElement | WebGLRenderingContext | null
   engine: BABYLON.Engine
@@ -136,8 +125,8 @@ function applyUpdateToInstance(babylonObject: any, update: PropertyUpdate, type:
       babylonObject[update.propertyName] = update.value
       break
     case "BABYLON.Vector3":
-      console.log(` > ${type}: updating Vector3 on:${update.propertyName} to ${update.value}`)
-      ;(babylonObject[update.propertyName] as BABYLON.Vector3).copyFrom(update.value)
+      console.log(` > ${type}: updating Vector3 on:${update.propertyName} to ${update.value}`, babylonObject);
+      (babylonObject[update.propertyName] as BABYLON.Vector3).copyFrom(update.value)
       break
     case "BABYLON.Color3":
       console.log(` > ${type}: updating Color3 on:${update.propertyName} to ${update.value}`)
@@ -179,6 +168,29 @@ function createCreatedInstance<T, U extends GENERATED.HasPropsHandlers<T, any>>(
   } as CreatedInstance<T>
 }
 
+// Couple of things.
+// 1. We need Scene as an argument
+// 2. We need to associate a handler with a 'type'.  Maybe it is hacky to have "__react-babylonjs-set-target"?
+class TargetFunctionPropsHandler implements GENERATED.PropsHandler<any, any> {
+  getPropertyUpdates(createdInstance: CreatedInstance<any>, oldProps: any, newProps: any, scene: BABYLON.Scene): UpdatePayload {
+    if (!oldProps.target || !oldProps.target.equals(newProps.target)) {
+      console.error('adding target property:', newProps.target);
+      let target = newProps.target
+      if (typeof newProps.target == "string") {
+        target = scene.getMeshByName(newProps.target);
+      }
+
+      return [{
+        type: "SetTargetFunction",
+        value: target,
+        propertyName: "setTarget"
+      }]
+    }
+
+    return [];
+  }
+}
+
 // TODO: this needs to be generated as well...
 class FiberMesh implements GENERATED.HasPropsHandlers<BABYLON.Mesh, GENERATED.FiberMeshProps> {
   public readonly isTargetable = false
@@ -217,7 +229,6 @@ export const hostConfig: HostConfig<
   },
 
   now: () => {
-    console.log("property now called")
     return Date.now()
   },
 
@@ -277,11 +288,15 @@ export const hostConfig: HostConfig<
     console.log("prepareUpdate", instance, oldProps, newProps)
     let updatePayload: PropertyUpdate[] = []
 
+    // TODO: This will not work for multiple scenes, which V1 will support.
+    let scene = rootContainerInstance.engine.scenes[0];
+
     instance.fiberObject.getPropsHandlers().forEach(propHandler => {
       let handlerUpdates: PropertyUpdate[] | null = propHandler.getPropertyUpdates(
         instance as CreatedInstance<any>,
         oldProps,
-        newProps
+        newProps,
+        scene
       )
       if (handlerUpdates !== null) {
         updatePayload.push(...handlerUpdates)
@@ -314,21 +329,6 @@ export const hostConfig: HostConfig<
 
     const { scene } = props as any
     const { canvas, engine } = rootContainerInstance
-
-    // TODO: generate Fiber versions of all lightsj waiting on a PR in AST dependency (interface extends class)
-    if (type === "HemisphericLight") {
-      const { name, direction = BABYLON.Vector3.Up() } = props as any
-
-      // TODO: implement other lights dynamically.  ie: PointLight, etc.
-      const light = new BABYLON.HemisphericLight(name as string, direction, scene) as any
-
-      //let createdInstance = createCreatedInstance(family, definition!.name, light, [], null)
-      return new CreatedInstanceImpl(
-        light,
-        null,
-        new FiberMesh() // WRONG!!
-      )
-    }
 
     const createInfoArgs: CreateInfo | undefined = (GENERATED as any)[`Fiber${type}`].CreateInfo
     const metadata: CreatedInstanceMetadata | undefined = (GENERATED as any)[`Fiber${type}`].Metadata
@@ -374,26 +374,32 @@ export const hostConfig: HostConfig<
 
     const fiberObject: GENERATED.HasPropsHandlers<any, any> = new (GENERATED as any)[`Fiber${type}`]()
 
-    // TODO: PropsHandler needs to prepare an update and apply immediately here, otherwise it won't appear until prepareUpdate() is called.
-    let initPayload: PropertyUpdate[] = []
-    fiberObject.getPropsHandlers().forEach(propHandler => {
-      // NOTE: this is actually WRONG, because here we want to compare the props with the object.
-      let handlerUpdates: PropertyUpdate[] | null = propHandler.getPropertyUpdates(
-        babylonObject,
-        {}, // Here we will reapply things like 'name', so perhaps should get default props from 'babylonObject'.
-        props
-      )
-      if (handlerUpdates !== null) {
-        initPayload.push(...handlerUpdates)
-      }
-    })
-
     let createdReference = createCreatedInstance(
       type,
       babylonObject,
       fiberObject,
       metadata === undefined ? null : metadata
     )
+
+    // Here we dynamically attach known props handlers.  Will be adding more in code generation for GUI - also for lifecycle mgmt.
+    if (createdReference.metadata && createdReference.metadata.isTargetable === true) {
+      fiberObject.addPropsHandler(new TargetFunctionPropsHandler());
+    }
+
+   // TODO: PropsHandler needs to prepare an update and apply immediately here, otherwise it won't appear until prepareUpdate() is called.
+    let initPayload: PropertyUpdate[] = []
+    fiberObject.getPropsHandlers().forEach(propHandler => {
+      // NOTE: this is actually WRONG, because here we want to compare the props with the object.
+      let handlerUpdates: PropertyUpdate[] | null = propHandler.getPropertyUpdates(
+        babylonObject,
+        {}, // Here we will reapply things like 'name', so perhaps should get default props from 'babylonObject'.
+        props,
+        scene
+      )
+      if (handlerUpdates !== null) {
+        initPayload.push(...handlerUpdates)
+      }
+    })
 
     if (initPayload.length > 0) {
       initPayload.forEach(update => {
@@ -463,7 +469,7 @@ export const hostConfig: HostConfig<
       console.warn("looks like camera is null??")
     } else {
       console.warn("re-attaching camera??")
-      
+
       camera.attachControl(containerInfo.canvas as HTMLCanvasElement)
     }
   },
@@ -502,6 +508,7 @@ export const hostConfig: HostConfig<
     // The parent of this node has not yet been instantiated.  The reconciler will continue by calling:
     // createInstance → appendInitialChild → finalizeInitialChildren on the parent.
     // When that has reached the top of the recursion tree (root), then prepareForCommit() will be called.
+    // NOTE: All children of this component, however, HAVE been initialized.
     const callCommitMountForThisInstance: boolean = true
     return callCommitMountForThisInstance
   },

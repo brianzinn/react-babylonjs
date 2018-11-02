@@ -1,3 +1,9 @@
+/**
+ * To debug this file using the launch config (Current TS File) need to make 2 changes in tsconfig.json
+ * 1. add to include.src "Tools"
+ * 2. change compilerOptions.module to "commonjs".
+ * I have not investigated a way to do this automatically, but the debugging is extremely helpful with conditional breakpoints.
+ */
 import { Project, VariableDeclarationKind, NamespaceDeclaration, ClassDeclaration, PropertyDeclaration, CodeBlockWriter, SourceFile, JSDoc, ConstructorDeclaration, Scope, MethodDeclaration, ParameterDeclaration, SyntaxKind } from 'ts-simple-ast'
 
 const ReactReconcilerCreatedInstanceClassName = "CreatedInstance";
@@ -5,6 +11,7 @@ const PropertyUpdateType = "PropertyUpdate";
 const BABYLON_NAMESPACE = "BABYLON";
 const BABYLON_GUI_NAMESPACE = "GUI"
 const ClassNamesPrefix = 'Fiber';
+
 
 /** Following classes are duplicated in render.ts for now */
 type GeneratedParameter = {
@@ -325,17 +332,17 @@ const writePropertyAsUpdateFunction = (classDeclaration: ClassDeclaration, write
           writer.write(`if (oldProps.${propertyName} !== newProps.${propertyName})`).block(() => {
             writer.writeLine(`updates.push({\npropertyName: '${propertyName}',\nvalue: newProps.${propertyName},\ntype: '${type}'\n});`);
           });
-        break;
+          break;
         case `${importedNamespace}.Vector3`:
         case `${importedNamespace}.Color3`:
           writer.writeLine(`// ${importedNamespace}.${classNameBabylon}.${propertyName} of ${importedNamespace}${type} uses object equals to find diffs:`)
           writer.write(`if (newProps.${propertyName} && (!oldProps.${propertyName} || !oldProps.${propertyName}.equals(newProps.${propertyName})))`).block(() => {
             writer.writeLine(`updates.push({\npropertyName: '${propertyName}',\nvalue: newProps.${propertyName},\ntype: '${type}'\n});`);
           });
-        break;
+          break;
         default:
           writer.writeLine(`// TODO: type: ${type} property (not coded) ${importedNamespace}.${classNameBabylon}.${propertyName}.`);
-        break;
+          break;
       }
 }
 
@@ -469,6 +476,9 @@ const addPropsAndHandlerClasses = (sourceFile: SourceFile, classNameToGenerate: 
   }, {
     name: "newProps",
     type: `${ClassNamesPrefix}${classNameToGenerate}Props`
+  }, {
+    name: "scene",
+    type: `${BABYLON_NAMESPACE}.Scene`
   }])
 
   getPropertyUpdatesMethod.setBodyText((writer : CodeBlockWriter) => {
@@ -484,7 +494,7 @@ const addPropsAndHandlerClasses = (sourceFile: SourceFile, classNameToGenerate: 
   })
 }
 
-const addCreateInfoFromOriginalConstructor = (originalClass: ClassDeclaration, targetClass: ClassDeclaration) : void => {
+const addCreateInfoFromConstructor = (sourceClass: ClassDeclaration, targetClass: ClassDeclaration) : void => {
     // this will allow us to do reflection to create the BabylonJS object from application props.
     const ctorArgsProperty = targetClass.addProperty({
       name: 'CreateInfo',
@@ -493,12 +503,13 @@ const addCreateInfoFromOriginalConstructor = (originalClass: ClassDeclaration, t
       isReadonly : true
     })
   
-    const constructorDeclarations : ConstructorDeclaration[] = originalClass.getConstructors();
+    const constructorDeclarations : ConstructorDeclaration[] = sourceClass.getConstructors();
   
     let constructorArguments: GeneratedParameter[] = [];
     if (constructorDeclarations.length > 1) {
-      console.warn('found multiple constructors:', originalClass.getName());
+      console.error('found multiple constructors (using first):', sourceClass.getName());
     }
+
     if (constructorDeclarations.length > 0) {
       constructorDeclarations[0].getParameters().forEach(parameterDeclaration => {
         constructorArguments.push({
@@ -511,7 +522,7 @@ const addCreateInfoFromOriginalConstructor = (originalClass: ClassDeclaration, t
 
     let value : CreateInfo = {
       creationType: CreationType.Constructor,
-      libraryLocation: originalClass.getName()!,
+      libraryLocation: sourceClass.getName()!,
       parameters: constructorArguments
     }
 
@@ -540,7 +551,7 @@ const createClassesInheritedFrom = (sourceFile: SourceFile, classNamespaceTuple:
     REACT_EXPORTS.add(derivedClassDeclaration.getName()!)
 
     const newClassDeclaration = createClassDeclaration(derivedClassDeclaration, baseClassName, classNamespaceTuple.namespace, sourceFile, extra);
-    addCreateInfoFromOriginalConstructor(classDeclaration, newClassDeclaration);
+    addCreateInfoFromConstructor(derivedClassDeclaration, newClassDeclaration);
     console.log(` > ${derivedClassDeclaration.getName()}`)
   });
 }
@@ -605,6 +616,9 @@ const generateCode = async () => {
   }, {
     name: "newProps",
     type: "U"
+  }, {
+    name: "scene",
+    type: `${BABYLON_NAMESPACE}.Scene`
   }])
 
   const interfaceDeclaration = generatedSourceFile.addInterface({
