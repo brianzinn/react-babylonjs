@@ -2,6 +2,8 @@ import ReactReconciler, { HostConfig } from "react-reconciler"
 import BABYLON from "babylonjs"
 
 import * as GENERATED from "./generatedCode"
+import { AttachesToParentFiber } from "./customComponentFibers";
+import { WithSceneContext } from "./Scene";
 
 /** Following classes are duplicated in generate-code.ts for noww */
 type GeneratedParameter = {
@@ -26,7 +28,8 @@ type CreatedInstanceMetadata = {
   className: string // for inspection/debugging
   shadowGenerator?: boolean // children will auto-cast shadows
   acceptsMaterials?: boolean
-  isTargetable?: boolean // will attach a target props handler
+  isTargetable?: boolean, // will attach a target props handler
+  customType?: boolean // indicates a custom component created by end-user has been created
   // TODO: more metadata to follow
 }
 /** end of duplicated code */
@@ -67,6 +70,10 @@ declare global {
 }
 //** END WINDOW
 
+export interface LifecycleListeners {
+  onParented: (parent: any) => void
+}
+
 /**
  * CreatedInstance simply contains a Babylon object and a fiber object able to detect and process updates via props to the BabylonObject.
  *
@@ -77,7 +84,10 @@ export interface CreatedInstance<T> {
   metadata: CreatedInstanceMetadata | null
   parent: CreatedInstance<any> | null // Not the same as parent in BabylonJS, this is for internal reconciler structure. ie: graph walking
   children: CreatedInstance<any>[]
-  fiberObject: GENERATED.HasPropsHandlers<T, any>
+
+  // TODO: Consider mergine these last 2 into a single class/container.  Right now working as composition over inheritance
+  propsHandlers?: GENERATED.HasPropsHandlers<T, any> // Only custom types will not declare props handlers, as their declaring class will handle
+  lifecycleListeners?: LifecycleListeners // Only custom types currently support LifecycleListeners (ie: AttachesToParent)
 }
 
 export class CreatedInstanceImpl<T> implements CreatedInstance<T> {
@@ -85,7 +95,7 @@ export class CreatedInstanceImpl<T> implements CreatedInstance<T> {
   public readonly metadata: CreatedInstanceMetadata | null
   public parent: CreatedInstance<any> | null = null // Not the same as parent in BabylonJS, this is for internal reconciler structure. ie: graph walking
   public children: CreatedInstance<any>[] = []
-  public fiberObject: GENERATED.HasPropsHandlers<T, any>
+  public propsHandlers: GENERATED.HasPropsHandlers<T, any>
 
   constructor(
     babylonJSObject: T,
@@ -94,7 +104,7 @@ export class CreatedInstanceImpl<T> implements CreatedInstance<T> {
   ) {
     this.babylonJsObject = babylonJSObject
     this.metadata = metadata
-    this.fiberObject = fiberObject
+    this.propsHandlers = fiberObject
   }
 }
 
@@ -125,9 +135,14 @@ function applyUpdateToInstance(babylonObject: any, update: PropertyUpdate, type:
       babylonObject[update.propertyName] = update.value
       break
     case "BABYLON.Vector3":
-      console.log(` > ${type}: updating Vector3 on:${update.propertyName} to ${update.value} from ${babylonObject[update.propertyName]}`, babylonObject);
+      console.log(
+        ` > ${type}: updating Vector3 on:${update.propertyName} to ${update.value} from ${
+          babylonObject[update.propertyName]
+        }`,
+        babylonObject
+      )
       if (babylonObject[update.propertyName]) {
-        (babylonObject[update.propertyName] as BABYLON.Vector3).copyFrom(update.value)
+        ;(babylonObject[update.propertyName] as BABYLON.Vector3).copyFrom(update.value)
       } else {
         babylonObject[update.propertyName] = update.value
       }
@@ -135,21 +150,21 @@ function applyUpdateToInstance(babylonObject: any, update: PropertyUpdate, type:
     case "BABYLON.Color3": // merge this switch with BABYLON.Vector3, Color4, etc.  The copyFrom BABYLON types.
       console.log(` > ${type}: updating Color3 on:${update.propertyName} to ${update.value}`)
       if (babylonObject[update.propertyName]) {
-        (babylonObject[update.propertyName] as BABYLON.Color3).copyFrom(update.value)
+        ;(babylonObject[update.propertyName] as BABYLON.Color3).copyFrom(update.value)
       } else {
         babylonObject[update.propertyName] = update.value
       }
       break
     case "BABYLON.Mesh":
-    console.log(` > ${type}: updating Mesh on:${update.propertyName} to ${update.value}`)
+      console.log(` > ${type}: updating Mesh on:${update.propertyName} to ${update.value}`)
       if (babylonObject[update.propertyName] && update.value) {
-        if((babylonObject[update.propertyName] as BABYLON.Mesh).uniqueId != update.value.uniqueId) {
-          babylonObject[update.propertyName] = update.value;
+        if ((babylonObject[update.propertyName] as BABYLON.Mesh).uniqueId != update.value.uniqueId) {
+          babylonObject[update.propertyName] = update.value
         }
       } else {
         babylonObject[update.propertyName] = update.value
       }
-      break;
+      break
     default:
       console.error(`unhandled property update of type ${update.type}`)
       break
@@ -159,7 +174,7 @@ function applyUpdateToInstance(babylonObject: any, update: PropertyUpdate, type:
 function createCreatedInstance<T, U extends GENERATED.HasPropsHandlers<T, any>>(
   className: string,
   babylonJsObject: T,
-  fiberObject: U,
+  propsHandlers: U,
   metadata: CreatedInstanceMetadata | null
 ): CreatedInstance<T> {
   let createdMetadata = metadata
@@ -173,7 +188,8 @@ function createCreatedInstance<T, U extends GENERATED.HasPropsHandlers<T, any>>(
     createdMetadata.className = className
   }
 
-  if ((fiberObject as any).isTargetable === true) {
+  // TODO: move how this is generated as a boolean to a metadata on objects themselves (and the next 3 lines!).
+  if ((propsHandlers as any).isTargetable === true) {
     createdMetadata.isTargetable = true
   }
 
@@ -182,13 +198,12 @@ function createCreatedInstance<T, U extends GENERATED.HasPropsHandlers<T, any>>(
     metadata: createdMetadata,
     parent: null, // set later in lifecycle
     children: [], // set later in lifecycle
-    fiberObject
+    propsHandlers,
+    lifecycleListeners: undefined
   } as CreatedInstance<T>
 }
 
-// Couple of things.
-// 1. We need Scene as an argument
-// 2. We need to associate a handler with a 'type'.  Maybe it is hacky to have "__react-babylonjs-set-target"?
+// This does not work when declared component with "target" is before the mesh with that name.  Need to wait for full commit mount of entire tree.
 class TargetFunctionPropsHandler implements GENERATED.PropsHandler<any, any> {
   getPropertyUpdates(
     createdInstance: CreatedInstance<any>,
@@ -198,9 +213,9 @@ class TargetFunctionPropsHandler implements GENERATED.PropsHandler<any, any> {
   ): UpdatePayload {
     if (!oldProps.target || oldProps.target !== newProps.target) {
       let target = newProps.target
-      let targetType: string = "BABYLON.Vector3";
+      let targetType: string = "BABYLON.Vector3"
       if (typeof newProps.target == "string") {
-        targetType = "BABYLON.Mesh";
+        targetType = "BABYLON.Mesh"
         target = scene.getMeshByName(newProps.target)
       }
 
@@ -235,7 +250,7 @@ class FiberMesh implements GENERATED.HasPropsHandlers<BABYLON.Mesh, GENERATED.Fi
   }
 }
 
-export const hostConfig: HostConfig<
+const ReactBabylonJSHostConfig: HostConfig<
   string,
   Props,
   Container,
@@ -251,6 +266,7 @@ export const hostConfig: HostConfig<
 > = {
   get supportsMutation(): boolean {
     console.log("request supports mutation - return true;")
+    // This has the reconciler include in call chain ie: appendChild, removeChild 
     return true
   },
 
@@ -262,8 +278,8 @@ export const hostConfig: HostConfig<
   // same page. DOM is the primary renderer; ART is the secondary renderer.
   // TODO: see if this should be configurable.
   get isPrimaryRenderer(): boolean {
-    console.log("property isPrimaryRenderer returning true")
-    return true
+    console.log("property isPrimaryRenderer returning false")
+    return false
   },
 
   get supportsPersistence(): boolean {
@@ -307,7 +323,7 @@ export const hostConfig: HostConfig<
     rootContainerInstance: Container,
     hostContext: HostContext
   ): UpdatePayload {
-    if (!instance) {
+    if (!instance || (instance.metadata && instance.metadata.customType === true)) {
       return null
     }
 
@@ -317,7 +333,8 @@ export const hostConfig: HostConfig<
     // TODO: This will not work for multiple scenes, which V1 will support.
     let scene = rootContainerInstance.engine.scenes[0]
 
-    instance.fiberObject.getPropsHandlers().forEach(propHandler => {
+    // Only custom types will not have a fiber object to handle props changes
+    instance.propsHandlers!.getPropsHandlers().forEach(propHandler => {
       let handlerUpdates: PropertyUpdate[] | null = propHandler.getPropertyUpdates(
         instance as CreatedInstance<any>,
         oldProps,
@@ -353,11 +370,42 @@ export const hostConfig: HostConfig<
   ): CreatedInstance<any> | undefined => {
     console.log("creating:", type)
 
+    // TODO: Make a registry like React Native host config or a single LifecycleListener.
+    // we already need another listener when full tree has been built, so we can go past parent in composite hierarchy.
+    const customTypes : string[] = [
+      "AttachesToParent"
+    ];
+
     const { scene } = props as any
     const { canvas, engine } = rootContainerInstance
 
-    const createInfoArgs: CreateInfo | undefined = (GENERATED as any)[`Fiber${type}`].CreateInfo
-    const metadata: CreatedInstanceMetadata | undefined = (GENERATED as any)[`Fiber${type}`].Metadata
+    let createInfoArgs: CreateInfo | undefined
+    let metadata: CreatedInstanceMetadata | undefined
+
+    if (customTypes.indexOf(type) !== -1) {
+
+      let sceneContext : WithSceneContext = props.sceneContext
+
+      if (!sceneContext || !sceneContext.scene) {
+        console.error('Custom Types must use the scene HOC (and pass sceneContext prop through to component!) or add a prop.sceneContext.scene', props)
+      }
+
+      let createdInstance : CreatedInstance<null> = {
+        babylonJsObject: null,
+        metadata: {
+          className: type,
+          customType: true
+        },
+        parent: null,
+        children: [],
+        propsHandlers: undefined,
+        lifecycleListeners: new AttachesToParentFiber(sceneContext.scene!, engine, props)
+      }
+      return createdInstance;
+    } else {
+      createInfoArgs = (GENERATED as any)[`Fiber${type}`].CreateInfo
+      metadata = (GENERATED as any)[`Fiber${type}`].Metadata
+    }
 
     let generatedParameters: GeneratedParameter[] = createInfoArgs!.parameters
 
@@ -376,9 +424,13 @@ export const hostConfig: HostConfig<
         })
         return newParameter
       } else {
-        const value = props[generatedParameter.name]
+        let value = props[generatedParameter.name]
         if (value === undefined && generatedParameter.optional === false) {
-          console.warn(`On ${type} you are missing a non-optional parameter ${generatedParameter.name}`)
+          if (generatedParameter.type === "BABYLON.Scene") {
+            value = scene;
+          } else {
+            console.warn(`On ${type} you are missing a non-optional parameter ${generatedParameter.name} of type ${generatedParameter.type}`)
+          }
         }
         return value
       }
@@ -420,7 +472,7 @@ export const hostConfig: HostConfig<
         babylonObject,
         {}, // Here we will reapply things like 'name', so perhaps should get default props from 'babylonObject'.
         props,
-        scene
+        scene // custom handlers may require scene access
       )
       if (handlerUpdates !== null) {
         initPayload.push(...handlerUpdates)
@@ -503,7 +555,17 @@ export const hostConfig: HostConfig<
   appendInitialChild: (parent: HostCreatedInstance<any>, child: CreatedInstance<any>) => {
     // Here we are traversing downwards.  The parent has not been initialized, but all children have been.
     console.log("reconciler: appentInitialChild", parent, child)
+    if (parent) {
+      parent.children.push(child); // TODO: need to remove from children as well when removing.
+    }
 
+    if (child && child.lifecycleListeners && child.lifecycleListeners.onParented) {
+      child.lifecycleListeners.onParented(parent);
+    } else {
+      console.warn('no lifecycle listeners on:', child);
+    }
+
+    // TODO: move this to commit
     if (parent && parent!.metadata) {
       if (parent.metadata && parent.metadata.acceptsMaterials) {
         // TODO: for dynamically adding behaviour add a accept/visit(node, type). ie: visit(child.fiberObject, TYPE.ParentAcceptsMaterials)
@@ -545,7 +607,7 @@ export const hostConfig: HostConfig<
     newProps: any,
     internalInstanceHandle: ReactReconciler.Fiber
   ): void => {
-    console.log("everything has been instantiated for instance: ", instance, newProps)
+    console.log("commitMount(): ", type, instance, newProps, internalInstanceHandle)
   },
 
   appendChildToContainer: (container: Container, child: HostCreatedInstance<any>): void => {
@@ -582,3 +644,5 @@ export const hostConfig: HostConfig<
   //createTextInstance: (text: => {},
   //commitTextUpdate (textInstance, oldText, newText) {}
 }
+
+export default ReactBabylonJSHostConfig;

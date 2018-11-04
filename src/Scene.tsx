@@ -8,7 +8,7 @@
 import React, { createContext } from 'react'
 import { WithEngineContext, withEngine } from './Engine'
 
-interface WithSceneContext {
+export interface WithSceneContext {
   scene: BABYLON.Nullable<BABYLON.Scene>,
   onBeforeRender: (deltaTime: number) => void
 }

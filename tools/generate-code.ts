@@ -580,7 +580,7 @@ const generateCode = async () => {
   );  
 
   generatedSourceFile.addImportDeclaration({
-    moduleSpecifier: "./render",
+    moduleSpecifier: "./ReactBabylonJSHostConfig",
     namedImports: [ReactReconcilerCreatedInstanceClassName, PropertyUpdateType]
   })
 

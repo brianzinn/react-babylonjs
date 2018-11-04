@@ -1,4 +1,4 @@
-import { CreatedInstance, PropertyUpdate } from "./render";
+import { CreatedInstance, PropertyUpdate } from "./ReactBabylonJSHostConfig";
 import BABYLON from "babylonjs";
 import GUI from "babylonjs-gui";
 
