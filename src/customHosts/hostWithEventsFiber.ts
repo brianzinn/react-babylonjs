@@ -1,6 +1,9 @@
 import BABYLON from "babylonjs"
 import { CreatedInstance, LifecycleListeners } from "../ReactBabylonJSHostConfig"
 
+/**
+ * This is a host component.  Much like a span or div for ReactDOM.render();
+ */
 export default class HostWithEventsFiber implements LifecycleListeners {
   private _scene: BABYLON.Scene
   private _engine: BABYLON.Engine

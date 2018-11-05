@@ -1,6 +1,8 @@
+// TODO: This is used by 'Model', but need to ensure rewrite model and perhaps GUI3DManager to work properly.
+// They are both composite objects (Model has "root" mesh and GUI3DManager has an "anchor" mesh).
 import React, { Component } from 'react'
-import { Scene, Vector3, Nullable, AbstractMesh, Material as BabylonMaterial, Light } from 'babylonjs'
-
+import { Scene, Vector3, Nullable, AbstractMesh, Material as BabylonMaterial } from 'babylonjs'
+import { HostWithEventsFiber } from './customHosts'
 export interface Behavior<T> {
     apply(target: T, scene: Scene): void;
 }
@@ -104,7 +106,7 @@ export default abstract class SceneComponent<T extends U, U /* extends {name?: s
         }
     }
 
-    render() {
+    render(){
         if (this.hasRendered === false && this.props.scene) {
             this.hasRendered = true;
             let child: T = this.create(this.props.scene);
@@ -164,9 +166,6 @@ export default abstract class SceneComponent<T extends U, U /* extends {name?: s
 
         // we are rendering DOM.  just for testing, but may be useful for other purposes in the future. Cannot return [{children}], need JSX.Element.
         // TODO: update with React.createElement('component-name', ''');
-        return React.createElement('span', {
-            type: this.constructor.name.replace(/\$/g, '').toLowerCase(),
-            title: this.props.name
-        }, children);
+        return null; // TODO: we need to render the children still.  ie: rotating a mesh
     }
 }

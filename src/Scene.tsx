@@ -7,6 +7,7 @@
 
 import React, { createContext } from 'react'
 import { WithEngineContext, withEngine } from './Engine'
+import { Scene as BabylonScene, AbstractMesh, PointerInfo, PointerEventTypes } from 'babylonjs'
 
 export interface WithSceneContext {
   scene: BABYLON.Nullable<BABYLON.Scene>,
@@ -41,10 +42,12 @@ export function withScene<
 
 interface SceneProps extends WithSceneContext {
   engineContext: WithEngineContext
+  onMeshPicked?: (mesh: AbstractMesh, scene: BabylonScene) => void
 }
 
 class Scene extends React.Component<SceneProps, any, any> {
   private _scene: BABYLON.Nullable<BABYLON.Scene> = null;
+  private _pointerDownObservable: BABYLON.Nullable<BABYLON.Observer<BABYLON.PointerInfo>> = null;
 
   constructor(props: SceneProps, context?: any) {
     super(props, context)
@@ -65,9 +68,28 @@ class Scene extends React.Component<SceneProps, any, any> {
     }
   }
 
+  componentDidMount() {
+    // TODO: Add keypress and other PointerEventTypes:
+    this._pointerDownObservable = this._scene!.onPointerObservable.add((evt: PointerInfo) => {
+      if (evt && evt.pickInfo && evt.pickInfo.hit && evt.pickInfo.pickedMesh) {
+        let mesh = evt.pickInfo.pickedMesh
+
+        if (typeof this.props.onMeshPicked === 'function') {
+          this.props.onMeshPicked(mesh, this._scene!)
+        } else {
+          // console.log('onMeshPicked not being called')
+        }
+      }
+    }, PointerEventTypes.POINTERDOWN);
+  }
+
   componentWillUnmount () {
     console.log("scene will Unmount (disposing babylon scene)")
     this._scene!.dispose()
+
+    if (this._pointerDownObservable != null) {
+      this._scene!.onPointerObservable.remove(this._pointerDownObservable);
+    }
   }
 
   render () {return (

@@ -281,6 +281,7 @@ export class FiberCamera implements HasPropsHandlers<BABYLON.Camera, FiberCamera
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "Camera",
+        "namespace": "BABYLON",
         "parameters": [
             {
                 "name": "name",
@@ -392,6 +393,7 @@ export class FiberTargetCamera implements HasPropsHandlers<BABYLON.Camera, Fiber
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "TargetCamera",
+        "namespace": "BABYLON",
         "parameters": [
             {
                 "name": "name",
@@ -791,6 +793,7 @@ export class FiberArcRotateCamera implements HasPropsHandlers<BABYLON.Camera, Fi
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "ArcRotateCamera",
+        "namespace": "BABYLON",
         "parameters": [
             {
                 "name": "name",
@@ -876,6 +879,7 @@ export class FiberAnaglyphArcRotateCamera implements HasPropsHandlers<BABYLON.Ca
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "AnaglyphArcRotateCamera",
+        "namespace": "BABYLON",
         "parameters": [
             {
                 "name": "name",
@@ -961,6 +965,7 @@ export class FiberStereoscopicArcRotateCamera implements HasPropsHandlers<BABYLO
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "StereoscopicArcRotateCamera",
+        "namespace": "BABYLON",
         "parameters": [
             {
                 "name": "name",
@@ -1051,6 +1056,7 @@ export class FiberVRDeviceOrientationArcRotateCamera implements HasPropsHandlers
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "VRDeviceOrientationArcRotateCamera",
+        "namespace": "BABYLON",
         "parameters": [
             {
                 "name": "name",
@@ -1188,6 +1194,7 @@ export class FiberFollowCamera implements HasPropsHandlers<BABYLON.Camera, Fiber
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "FollowCamera",
+        "namespace": "BABYLON",
         "parameters": [
             {
                 "name": "name",
@@ -1287,6 +1294,7 @@ export class FiberArcFollowCamera implements HasPropsHandlers<BABYLON.Camera, Fi
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "ArcFollowCamera",
+        "namespace": "BABYLON",
         "parameters": [
             {
                 "name": "name",
@@ -1431,6 +1439,7 @@ export class FiberFreeCamera implements HasPropsHandlers<BABYLON.Camera, FiberCa
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "FreeCamera",
+        "namespace": "BABYLON",
         "parameters": [
             {
                 "name": "name",
@@ -1502,6 +1511,7 @@ export class FiberDeviceOrientationCamera implements HasPropsHandlers<BABYLON.Ca
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "DeviceOrientationCamera",
+        "namespace": "BABYLON",
         "parameters": [
             {
                 "name": "name",
@@ -1568,6 +1578,7 @@ export class FiberVRDeviceOrientationFreeCamera implements HasPropsHandlers<BABY
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "VRDeviceOrientationFreeCamera",
+        "namespace": "BABYLON",
         "parameters": [
             {
                 "name": "name",
@@ -1645,6 +1656,7 @@ export class FiberVRDeviceOrientationGamepadCamera implements HasPropsHandlers<B
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "VRDeviceOrientationGamepadCamera",
+        "namespace": "BABYLON",
         "parameters": [
             {
                 "name": "name",
@@ -1739,6 +1751,7 @@ export class FiberTouchCamera implements HasPropsHandlers<BABYLON.Camera, FiberC
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "TouchCamera",
+        "namespace": "BABYLON",
         "parameters": [
             {
                 "name": "name",
@@ -1824,6 +1837,7 @@ export class FiberUniversalCamera implements HasPropsHandlers<BABYLON.Camera, Fi
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "UniversalCamera",
+        "namespace": "BABYLON",
         "parameters": [
             {
                 "name": "name",
@@ -1892,6 +1906,7 @@ export class FiberGamepadCamera implements HasPropsHandlers<BABYLON.Camera, Fibe
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "GamepadCamera",
+        "namespace": "BABYLON",
         "parameters": [
             {
                 "name": "name",
@@ -1960,6 +1975,7 @@ export class FiberAnaglyphGamepadCamera implements HasPropsHandlers<BABYLON.Came
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "AnaglyphGamepadCamera",
+        "namespace": "BABYLON",
         "parameters": [
             {
                 "name": "name",
@@ -2033,6 +2049,7 @@ export class FiberStereoscopicGamepadCamera implements HasPropsHandlers<BABYLON.
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "StereoscopicGamepadCamera",
+        "namespace": "BABYLON",
         "parameters": [
             {
                 "name": "name",
@@ -2110,6 +2127,7 @@ export class FiberAnaglyphUniversalCamera implements HasPropsHandlers<BABYLON.Ca
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "AnaglyphUniversalCamera",
+        "namespace": "BABYLON",
         "parameters": [
             {
                 "name": "name",
@@ -2182,6 +2200,7 @@ export class FiberStereoscopicUniversalCamera implements HasPropsHandlers<BABYLO
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "StereoscopicUniversalCamera",
+        "namespace": "BABYLON",
         "parameters": [
             {
                 "name": "name",
@@ -2259,6 +2278,7 @@ export class FiberVirtualJoysticksCamera implements HasPropsHandlers<BABYLON.Cam
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "VirtualJoysticksCamera",
+        "namespace": "BABYLON",
         "parameters": [
             {
                 "name": "name",
@@ -2324,6 +2344,7 @@ export class FiberAnaglyphFreeCamera implements HasPropsHandlers<BABYLON.Camera,
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "AnaglyphFreeCamera",
+        "namespace": "BABYLON",
         "parameters": [
             {
                 "name": "name",
@@ -2394,6 +2415,7 @@ export class FiberStereoscopicFreeCamera implements HasPropsHandlers<BABYLON.Cam
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "StereoscopicFreeCamera",
+        "namespace": "BABYLON",
         "parameters": [
             {
                 "name": "name",
@@ -2507,6 +2529,7 @@ export class FiberWebVRFreeCamera implements HasPropsHandlers<BABYLON.Camera, Fi
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "WebVRFreeCamera",
+        "namespace": "BABYLON",
         "parameters": [
             {
                 "name": "name",
@@ -3079,6 +3102,7 @@ export class FiberBox implements HasPropsHandlers<BABYLON.Mesh, FiberMeshProps> 
     public static readonly CreateInfo = {
         "creationType": "FactoryMethod",
         "libraryLocation": "MeshBuilder",
+        "namespace": "BABYLON",
         "factoryMethod": "CreateBox",
         "parameters": [
             {
@@ -3188,6 +3212,7 @@ export class FiberSphere implements HasPropsHandlers<BABYLON.Mesh, FiberMeshProp
     public static readonly CreateInfo = {
         "creationType": "FactoryMethod",
         "libraryLocation": "MeshBuilder",
+        "namespace": "BABYLON",
         "factoryMethod": "CreateSphere",
         "parameters": [
             {
@@ -3300,6 +3325,7 @@ export class FiberDisc implements HasPropsHandlers<BABYLON.Mesh, FiberMeshProps>
     public static readonly CreateInfo = {
         "creationType": "FactoryMethod",
         "libraryLocation": "MeshBuilder",
+        "namespace": "BABYLON",
         "factoryMethod": "CreateDisc",
         "parameters": [
             {
@@ -3393,6 +3419,7 @@ export class FiberIcoSphere implements HasPropsHandlers<BABYLON.Mesh, FiberMeshP
     public static readonly CreateInfo = {
         "creationType": "FactoryMethod",
         "libraryLocation": "MeshBuilder",
+        "namespace": "BABYLON",
         "factoryMethod": "CreateIcoSphere",
         "parameters": [
             {
@@ -3508,6 +3535,7 @@ export class FiberRibbon implements HasPropsHandlers<BABYLON.Mesh, FiberMeshProp
     public static readonly CreateInfo = {
         "creationType": "FactoryMethod",
         "libraryLocation": "MeshBuilder",
+        "namespace": "BABYLON",
         "factoryMethod": "CreateRibbon",
         "parameters": [
             {
@@ -3638,6 +3666,7 @@ export class FiberCylinder implements HasPropsHandlers<BABYLON.Mesh, FiberMeshPr
     public static readonly CreateInfo = {
         "creationType": "FactoryMethod",
         "libraryLocation": "MeshBuilder",
+        "namespace": "BABYLON",
         "factoryMethod": "CreateCylinder",
         "parameters": [
             {
@@ -3770,6 +3799,7 @@ export class FiberTorus implements HasPropsHandlers<BABYLON.Mesh, FiberMeshProps
     public static readonly CreateInfo = {
         "creationType": "FactoryMethod",
         "libraryLocation": "MeshBuilder",
+        "namespace": "BABYLON",
         "factoryMethod": "CreateTorus",
         "parameters": [
             {
@@ -3863,6 +3893,7 @@ export class FiberTorusKnot implements HasPropsHandlers<BABYLON.Mesh, FiberMeshP
     public static readonly CreateInfo = {
         "creationType": "FactoryMethod",
         "libraryLocation": "MeshBuilder",
+        "namespace": "BABYLON",
         "factoryMethod": "CreateTorusKnot",
         "parameters": [
             {
@@ -3973,6 +4004,7 @@ export class FiberLineSystem implements HasPropsHandlers<BABYLON.Mesh, FiberMesh
     public static readonly CreateInfo = {
         "creationType": "FactoryMethod",
         "libraryLocation": "MeshBuilder",
+        "namespace": "BABYLON",
         "factoryMethod": "CreateLineSystem",
         "parameters": [
             {
@@ -4057,6 +4089,7 @@ export class FiberLines implements HasPropsHandlers<BABYLON.Mesh, FiberMeshProps
     public static readonly CreateInfo = {
         "creationType": "FactoryMethod",
         "libraryLocation": "MeshBuilder",
+        "namespace": "BABYLON",
         "factoryMethod": "CreateLines",
         "parameters": [
             {
@@ -4142,6 +4175,7 @@ export class FiberDashedLines implements HasPropsHandlers<BABYLON.Mesh, FiberMes
     public static readonly CreateInfo = {
         "creationType": "FactoryMethod",
         "libraryLocation": "MeshBuilder",
+        "namespace": "BABYLON",
         "factoryMethod": "CreateDashedLines",
         "parameters": [
             {
@@ -4234,6 +4268,7 @@ export class FiberExtrudeShape implements HasPropsHandlers<BABYLON.Mesh, FiberMe
     public static readonly CreateInfo = {
         "creationType": "FactoryMethod",
         "libraryLocation": "MeshBuilder",
+        "namespace": "BABYLON",
         "factoryMethod": "ExtrudeShape",
         "parameters": [
             {
@@ -4356,6 +4391,7 @@ export class FiberExtrudeShapeCustom implements HasPropsHandlers<BABYLON.Mesh, F
     public static readonly CreateInfo = {
         "creationType": "FactoryMethod",
         "libraryLocation": "MeshBuilder",
+        "namespace": "BABYLON",
         "factoryMethod": "ExtrudeShapeCustom",
         "parameters": [
             {
@@ -4484,6 +4520,7 @@ export class FiberLathe implements HasPropsHandlers<BABYLON.Mesh, FiberMeshProps
     public static readonly CreateInfo = {
         "creationType": "FactoryMethod",
         "libraryLocation": "MeshBuilder",
+        "namespace": "BABYLON",
         "factoryMethod": "CreateLathe",
         "parameters": [
             {
@@ -4601,6 +4638,7 @@ export class FiberPlane implements HasPropsHandlers<BABYLON.Mesh, FiberMeshProps
     public static readonly CreateInfo = {
         "creationType": "FactoryMethod",
         "libraryLocation": "MeshBuilder",
+        "namespace": "BABYLON",
         "factoryMethod": "CreatePlane",
         "parameters": [
             {
@@ -4695,6 +4733,7 @@ export class FiberGround implements HasPropsHandlers<BABYLON.Mesh, FiberMeshProp
     public static readonly CreateInfo = {
         "creationType": "FactoryMethod",
         "libraryLocation": "MeshBuilder",
+        "namespace": "BABYLON",
         "factoryMethod": "CreateGround",
         "parameters": [
             {
@@ -4781,6 +4820,7 @@ export class FiberTiledGround implements HasPropsHandlers<BABYLON.Mesh, FiberMes
     public static readonly CreateInfo = {
         "creationType": "FactoryMethod",
         "libraryLocation": "MeshBuilder",
+        "namespace": "BABYLON",
         "factoryMethod": "CreateTiledGround",
         "parameters": [
             {
@@ -4876,6 +4916,7 @@ export class FiberGroundFromHeightMap implements HasPropsHandlers<BABYLON.Mesh, 
     public static readonly CreateInfo = {
         "creationType": "FactoryMethod",
         "libraryLocation": "MeshBuilder",
+        "namespace": "BABYLON",
         "factoryMethod": "CreateGroundFromHeightMap",
         "parameters": [
             {
@@ -4983,6 +5024,7 @@ export class FiberPolygon implements HasPropsHandlers<BABYLON.Mesh, FiberMeshPro
     public static readonly CreateInfo = {
         "creationType": "FactoryMethod",
         "libraryLocation": "MeshBuilder",
+        "namespace": "BABYLON",
         "factoryMethod": "CreatePolygon",
         "parameters": [
             {
@@ -5080,6 +5122,7 @@ export class FiberExtrudePolygon implements HasPropsHandlers<BABYLON.Mesh, Fiber
     public static readonly CreateInfo = {
         "creationType": "FactoryMethod",
         "libraryLocation": "MeshBuilder",
+        "namespace": "BABYLON",
         "factoryMethod": "ExtrudePolygon",
         "parameters": [
             {
@@ -5189,6 +5232,7 @@ export class FiberTube implements HasPropsHandlers<BABYLON.Mesh, FiberMeshProps>
     public static readonly CreateInfo = {
         "creationType": "FactoryMethod",
         "libraryLocation": "MeshBuilder",
+        "namespace": "BABYLON",
         "factoryMethod": "CreateTube",
         "parameters": [
             {
@@ -5311,6 +5355,7 @@ export class FiberPolyhedron implements HasPropsHandlers<BABYLON.Mesh, FiberMesh
     public static readonly CreateInfo = {
         "creationType": "FactoryMethod",
         "libraryLocation": "MeshBuilder",
+        "namespace": "BABYLON",
         "factoryMethod": "CreatePolyhedron",
         "parameters": [
             {
@@ -5432,6 +5477,7 @@ export class FiberDecal implements HasPropsHandlers<BABYLON.Mesh, FiberMeshProps
     public static readonly CreateInfo = {
         "creationType": "FactoryMethod",
         "libraryLocation": "MeshBuilder",
+        "namespace": "BABYLON",
         "factoryMethod": "CreateDecal",
         "parameters": [
             {
@@ -5717,6 +5763,7 @@ export class FiberMaterial implements HasPropsHandlers<BABYLON.Material, FiberMa
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "Material",
+        "namespace": "BABYLON",
         "parameters": [
             {
                 "name": "name",
@@ -5782,6 +5829,7 @@ export class FiberMultiMaterial implements HasPropsHandlers<BABYLON.Material, Fi
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "MultiMaterial",
+        "namespace": "BABYLON",
         "parameters": [
             {
                 "name": "name",
@@ -5839,6 +5887,7 @@ export class FiberPushMaterial implements HasPropsHandlers<BABYLON.Material, Fib
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "PushMaterial",
+        "namespace": "BABYLON",
         "parameters": [
             {
                 "name": "name",
@@ -6222,6 +6271,7 @@ export class FiberStandardMaterial implements HasPropsHandlers<BABYLON.Material,
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "StandardMaterial",
+        "namespace": "BABYLON",
         "parameters": [
             {
                 "name": "name",
@@ -6508,6 +6558,7 @@ export class FiberBackgroundMaterial implements HasPropsHandlers<BABYLON.Materia
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "BackgroundMaterial",
+        "namespace": "BABYLON",
         "parameters": [
             {
                 "name": "name",
@@ -6588,6 +6639,7 @@ export class FiberPBRBaseMaterial implements HasPropsHandlers<BABYLON.Material, 
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "PBRBaseMaterial",
+        "namespace": "BABYLON",
         "parameters": [
             {
                 "name": "name",
@@ -6741,6 +6793,7 @@ export class FiberPBRBaseSimpleMaterial implements HasPropsHandlers<BABYLON.Mate
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "PBRBaseSimpleMaterial",
+        "namespace": "BABYLON",
         "parameters": [
             {
                 "name": "name",
@@ -6835,6 +6888,7 @@ export class FiberPBRMetallicRoughnessMaterial implements HasPropsHandlers<BABYL
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "PBRMetallicRoughnessMaterial",
+        "namespace": "BABYLON",
         "parameters": [
             {
                 "name": "name",
@@ -6929,6 +6983,7 @@ export class FiberPBRSpecularGlossinessMaterial implements HasPropsHandlers<BABY
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "PBRSpecularGlossinessMaterial",
+        "namespace": "BABYLON",
         "parameters": [
             {
                 "name": "name",
@@ -7517,6 +7572,7 @@ export class FiberPBRMaterial implements HasPropsHandlers<BABYLON.Material, Fibe
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "PBRMaterial",
+        "namespace": "BABYLON",
         "parameters": [
             {
                 "name": "name",
@@ -7576,6 +7632,7 @@ export class FiberShaderMaterial implements HasPropsHandlers<BABYLON.Material, F
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "ShaderMaterial",
+        "namespace": "BABYLON",
         "parameters": [
             {
                 "name": "name",
@@ -7757,6 +7814,7 @@ export class FiberLight implements HasPropsHandlers<BABYLON.Light, FiberLightPro
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "Light",
+        "namespace": "BABYLON",
         "parameters": [
             {
                 "name": "name",
@@ -7833,6 +7891,7 @@ export class FiberHemisphericLight implements HasPropsHandlers<BABYLON.Light, Fi
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "HemisphericLight",
+        "namespace": "BABYLON",
         "parameters": [
             {
                 "name": "name",
@@ -7952,6 +8011,7 @@ export class FiberShadowLight implements HasPropsHandlers<BABYLON.Light, FiberLi
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "ShadowLight",
+        "namespace": "BABYLON",
         "parameters": []
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
@@ -8029,6 +8089,7 @@ export class FiberDirectionalLight implements HasPropsHandlers<BABYLON.Light, Fi
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "DirectionalLight",
+        "namespace": "BABYLON",
         "parameters": [
             {
                 "name": "name",
@@ -8113,6 +8174,7 @@ export class FiberPointLight implements HasPropsHandlers<BABYLON.Light, FiberLig
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "PointLight",
+        "namespace": "BABYLON",
         "parameters": [
             {
                 "name": "name",
@@ -8245,6 +8307,7 @@ export class FiberSpotLight implements HasPropsHandlers<BABYLON.Light, FiberLigh
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "SpotLight",
+        "namespace": "BABYLON",
         "parameters": [
             {
                 "name": "name",
@@ -8582,6 +8645,7 @@ export class FiberControl implements HasPropsHandlers<GUI.Control, FiberControlP
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "Control",
+        "namespace": "GUI",
         "parameters": [
             {
                 "name": "name",
@@ -8678,6 +8742,7 @@ export class FiberCheckbox implements HasPropsHandlers<GUI.Control, FiberControl
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "Checkbox",
+        "namespace": "GUI",
         "parameters": [
             {
                 "name": "name",
@@ -8746,6 +8811,7 @@ export class FiberColorPicker implements HasPropsHandlers<GUI.Control, FiberCont
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "ColorPicker",
+        "namespace": "GUI",
         "parameters": [
             {
                 "name": "name",
@@ -8833,6 +8899,7 @@ export class FiberContainer implements HasPropsHandlers<GUI.Control, FiberContro
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "Container",
+        "namespace": "GUI",
         "parameters": [
             {
                 "name": "name",
@@ -8903,6 +8970,7 @@ export class FiberEllipse implements HasPropsHandlers<GUI.Control, FiberControlP
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "Ellipse",
+        "namespace": "GUI",
         "parameters": [
             {
                 "name": "name",
@@ -8964,6 +9032,7 @@ export class FiberGrid implements HasPropsHandlers<GUI.Control, FiberControlProp
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "Grid",
+        "namespace": "GUI",
         "parameters": [
             {
                 "name": "name",
@@ -9038,6 +9107,7 @@ export class FiberStackPanel implements HasPropsHandlers<GUI.Control, FiberContr
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "StackPanel",
+        "namespace": "GUI",
         "parameters": [
             {
                 "name": "name",
@@ -9190,6 +9260,7 @@ export class FiberVirtualKeyboard implements HasPropsHandlers<GUI.Control, Fiber
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "VirtualKeyboard",
+        "namespace": "GUI",
         "parameters": []
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
@@ -9263,6 +9334,7 @@ export class FiberRectangle implements HasPropsHandlers<GUI.Control, FiberContro
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "Rectangle",
+        "namespace": "GUI",
         "parameters": [
             {
                 "name": "name",
@@ -9333,6 +9405,7 @@ export class FiberButton implements HasPropsHandlers<GUI.Control, FiberControlPr
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "Button",
+        "namespace": "GUI",
         "parameters": [
             {
                 "name": "name",
@@ -9460,6 +9533,7 @@ export class FiberSelectionPanel implements HasPropsHandlers<GUI.Control, FiberC
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "SelectionPanel",
+        "namespace": "GUI",
         "parameters": [
             {
                 "name": "name",
@@ -9617,6 +9691,7 @@ export class FiberImage implements HasPropsHandlers<GUI.Control, FiberControlPro
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "Image",
+        "namespace": "GUI",
         "parameters": [
             {
                 "name": "name",
@@ -9794,6 +9869,7 @@ export class FiberInputText implements HasPropsHandlers<GUI.Control, FiberContro
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "InputText",
+        "namespace": "GUI",
         "parameters": [
             {
                 "name": "name",
@@ -9851,6 +9927,7 @@ export class FiberInputPassword implements HasPropsHandlers<GUI.Control, FiberCo
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "InputPassword",
+        "namespace": "GUI",
         "parameters": []
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
@@ -9944,6 +10021,7 @@ export class FiberLine implements HasPropsHandlers<GUI.Control, FiberControlProp
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "Line",
+        "namespace": "GUI",
         "parameters": [
             {
                 "name": "name",
@@ -10033,6 +10111,7 @@ export class FiberMultiLine implements HasPropsHandlers<GUI.Control, FiberContro
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "MultiLine",
+        "namespace": "GUI",
         "parameters": [
             {
                 "name": "name",
@@ -10138,6 +10217,7 @@ export class FiberRadioButton implements HasPropsHandlers<GUI.Control, FiberCont
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "RadioButton",
+        "namespace": "GUI",
         "parameters": [
             {
                 "name": "name",
@@ -10256,6 +10336,7 @@ export class FiberTextBlock implements HasPropsHandlers<GUI.Control, FiberContro
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "TextBlock",
+        "namespace": "GUI",
         "parameters": [
             {
                 "name": "name",
@@ -10397,6 +10478,7 @@ export class FiberSlider implements HasPropsHandlers<GUI.Control, FiberControlPr
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "Slider",
+        "namespace": "GUI",
         "parameters": [
             {
                 "name": "name",
@@ -10547,6 +10629,7 @@ export class FiberDisplayGrid implements HasPropsHandlers<GUI.Control, FiberCont
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "DisplayGrid",
+        "namespace": "GUI",
         "parameters": [
             {
                 "name": "name",
@@ -10629,6 +10712,7 @@ export class FiberControl3D implements HasPropsHandlers<GUI.Control3D, FiberCont
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "Control3D",
+        "namespace": "GUI",
         "parameters": [
             {
                 "name": "name",
@@ -10680,6 +10764,7 @@ export class FiberAbstractButton3D implements HasPropsHandlers<GUI.Control3D, Fi
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "AbstractButton3D",
+        "namespace": "GUI",
         "parameters": [
             {
                 "name": "name",
@@ -10752,6 +10837,7 @@ export class FiberButton3D implements HasPropsHandlers<GUI.Control3D, FiberContr
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "Button3D",
+        "namespace": "GUI",
         "parameters": [
             {
                 "name": "name",
@@ -10832,6 +10918,7 @@ export class FiberHolographicButton implements HasPropsHandlers<GUI.Control3D, F
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "HolographicButton",
+        "namespace": "GUI",
         "parameters": [
             {
                 "name": "name",
@@ -10890,6 +10977,7 @@ export class FiberMeshButton3D implements HasPropsHandlers<GUI.Control3D, FiberC
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "MeshButton3D",
+        "namespace": "GUI",
         "parameters": [
             {
                 "name": "mesh",
@@ -10955,6 +11043,7 @@ export class FiberContainer3D implements HasPropsHandlers<GUI.Control3D, FiberCo
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "Container3D",
+        "namespace": "GUI",
         "parameters": [
             {
                 "name": "name",
@@ -11025,6 +11114,7 @@ export class FiberStackPanel3D implements HasPropsHandlers<GUI.Control3D, FiberC
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "StackPanel3D",
+        "namespace": "GUI",
         "parameters": [
             {
                 "name": "isVertical",
@@ -11113,6 +11203,7 @@ export class FiberVolumeBasedPanel implements HasPropsHandlers<GUI.Control3D, Fi
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "VolumeBasedPanel",
+        "namespace": "GUI",
         "parameters": []
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
@@ -11169,6 +11260,7 @@ export class FiberCylinderPanel implements HasPropsHandlers<GUI.Control3D, Fiber
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "CylinderPanel",
+        "namespace": "GUI",
         "parameters": []
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
@@ -11216,6 +11308,7 @@ export class FiberPlanePanel implements HasPropsHandlers<GUI.Control3D, FiberCon
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "PlanePanel",
+        "namespace": "GUI",
         "parameters": []
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
@@ -11272,6 +11365,7 @@ export class FiberScatterPanel implements HasPropsHandlers<GUI.Control3D, FiberC
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "ScatterPanel",
+        "namespace": "GUI",
         "parameters": []
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
@@ -11328,6 +11422,7 @@ export class FiberSpherePanel implements HasPropsHandlers<GUI.Control3D, FiberCo
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "SpherePanel",
+        "namespace": "GUI",
         "parameters": []
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
@@ -11335,4 +11430,55 @@ export class FiberSpherePanel implements HasPropsHandlers<GUI.Control3D, FiberCo
     };
 }
 
-export const AbstractButton3D: string = 'AbstractButton3D', AnaglyphArcRotateCamera: string = 'AnaglyphArcRotateCamera', AnaglyphFreeCamera: string = 'AnaglyphFreeCamera', AnaglyphGamepadCamera: string = 'AnaglyphGamepadCamera', AnaglyphUniversalCamera: string = 'AnaglyphUniversalCamera', ArcFollowCamera: string = 'ArcFollowCamera', ArcRotateCamera: string = 'ArcRotateCamera', BackgroundMaterial: string = 'BackgroundMaterial', Box: string = 'Box', Button: string = 'Button', Button3D: string = 'Button3D', Camera: string = 'Camera', Checkbox: string = 'Checkbox', ColorPicker: string = 'ColorPicker', Container: string = 'Container', Container3D: string = 'Container3D', Control: string = 'Control', Control3D: string = 'Control3D', Cylinder: string = 'Cylinder', CylinderPanel: string = 'CylinderPanel', DashedLines: string = 'DashedLines', Decal: string = 'Decal', DeviceOrientationCamera: string = 'DeviceOrientationCamera', DirectionalLight: string = 'DirectionalLight', Disc: string = 'Disc', DisplayGrid: string = 'DisplayGrid', Ellipse: string = 'Ellipse', ExtrudePolygon: string = 'ExtrudePolygon', ExtrudeShape: string = 'ExtrudeShape', ExtrudeShapeCustom: string = 'ExtrudeShapeCustom', FollowCamera: string = 'FollowCamera', FreeCamera: string = 'FreeCamera', GamepadCamera: string = 'GamepadCamera', Grid: string = 'Grid', Ground: string = 'Ground', GroundFromHeightMap: string = 'GroundFromHeightMap', HemisphericLight: string = 'HemisphericLight', HolographicButton: string = 'HolographicButton', IcoSphere: string = 'IcoSphere', Image: string = 'Image', InputPassword: string = 'InputPassword', InputText: string = 'InputText', Lathe: string = 'Lathe', Light: string = 'Light', Line: string = 'Line', LineSystem: string = 'LineSystem', Lines: string = 'Lines', Material: string = 'Material', MeshButton3D: string = 'MeshButton3D', MultiLine: string = 'MultiLine', MultiMaterial: string = 'MultiMaterial', PBRBaseMaterial: string = 'PBRBaseMaterial', PBRBaseSimpleMaterial: string = 'PBRBaseSimpleMaterial', PBRMaterial: string = 'PBRMaterial', PBRMetallicRoughnessMaterial: string = 'PBRMetallicRoughnessMaterial', PBRSpecularGlossinessMaterial: string = 'PBRSpecularGlossinessMaterial', Plane: string = 'Plane', PlanePanel: string = 'PlanePanel', PointLight: string = 'PointLight', Polygon: string = 'Polygon', Polyhedron: string = 'Polyhedron', PushMaterial: string = 'PushMaterial', RadioButton: string = 'RadioButton', Rectangle: string = 'Rectangle', Ribbon: string = 'Ribbon', ScatterPanel: string = 'ScatterPanel', SelectionPanel: string = 'SelectionPanel', ShaderMaterial: string = 'ShaderMaterial', ShadowLight: string = 'ShadowLight', Slider: string = 'Slider', Sphere: string = 'Sphere', SpherePanel: string = 'SpherePanel', SpotLight: string = 'SpotLight', StackPanel: string = 'StackPanel', StackPanel3D: string = 'StackPanel3D', StandardMaterial: string = 'StandardMaterial', StereoscopicArcRotateCamera: string = 'StereoscopicArcRotateCamera', StereoscopicFreeCamera: string = 'StereoscopicFreeCamera', StereoscopicGamepadCamera: string = 'StereoscopicGamepadCamera', StereoscopicUniversalCamera: string = 'StereoscopicUniversalCamera', TargetCamera: string = 'TargetCamera', TextBlock: string = 'TextBlock', TiledGround: string = 'TiledGround', Torus: string = 'Torus', TorusKnot: string = 'TorusKnot', TouchCamera: string = 'TouchCamera', Tube: string = 'Tube', UniversalCamera: string = 'UniversalCamera', VRDeviceOrientationArcRotateCamera: string = 'VRDeviceOrientationArcRotateCamera', VRDeviceOrientationFreeCamera: string = 'VRDeviceOrientationFreeCamera', VRDeviceOrientationGamepadCamera: string = 'VRDeviceOrientationGamepadCamera', VirtualJoysticksCamera: string = 'VirtualJoysticksCamera', VirtualKeyboard: string = 'VirtualKeyboard', VolumeBasedPanel: string = 'VolumeBasedPanel', WebVRFreeCamera: string = 'WebVRFreeCamera';
+export class FiberGUI3DManagerProps {
+}
+
+export class FiberGUI3DManagerPropsHandler implements PropsHandler<GUI.GUI3DManager, FiberGUI3DManagerProps> {
+    getPropertyUpdates(createdInstance: CreatedInstance<GUI.GUI3DManager>, oldProps: FiberGUI3DManagerProps, newProps: FiberGUI3DManagerProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+        // generated code
+        let babylonObject: GUI.GUI3DManager = createdInstance.babylonJsObject;
+        let updates: PropertyUpdate[] = [];
+        return updates.length == 0 ? null : updates;
+    }
+}
+
+/**
+ * Class used to manage 3D user interface
+ * 
+ * This code has been generated
+ */
+export class FiberGUI3DManager implements HasPropsHandlers<GUI.GUI3DManager, FiberGUI3DManagerProps> {
+    private propsHandlers: PropsHandler<GUI.GUI3DManager, FiberGUI3DManagerProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberGUI3DManagerPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<GUI.GUI3DManager, FiberGUI3DManagerProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<GUI.GUI3DManager, FiberGUI3DManagerProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "GUI3DManager",
+        "namespace": "GUI",
+        "parameters": [
+            {
+                "name": "scene",
+                "type": "BABYLON.Scene",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "className": "FiberGUI3DManager"
+    };
+}
+
+export const AbstractButton3D: string = 'AbstractButton3D', AnaglyphArcRotateCamera: string = 'AnaglyphArcRotateCamera', AnaglyphFreeCamera: string = 'AnaglyphFreeCamera', AnaglyphGamepadCamera: string = 'AnaglyphGamepadCamera', AnaglyphUniversalCamera: string = 'AnaglyphUniversalCamera', ArcFollowCamera: string = 'ArcFollowCamera', ArcRotateCamera: string = 'ArcRotateCamera', BackgroundMaterial: string = 'BackgroundMaterial', Box: string = 'Box', Button: string = 'Button', Button3D: string = 'Button3D', Camera: string = 'Camera', Checkbox: string = 'Checkbox', ColorPicker: string = 'ColorPicker', Container: string = 'Container', Container3D: string = 'Container3D', Control: string = 'Control', Control3D: string = 'Control3D', Cylinder: string = 'Cylinder', CylinderPanel: string = 'CylinderPanel', DashedLines: string = 'DashedLines', Decal: string = 'Decal', DeviceOrientationCamera: string = 'DeviceOrientationCamera', DirectionalLight: string = 'DirectionalLight', Disc: string = 'Disc', DisplayGrid: string = 'DisplayGrid', Ellipse: string = 'Ellipse', ExtrudePolygon: string = 'ExtrudePolygon', ExtrudeShape: string = 'ExtrudeShape', ExtrudeShapeCustom: string = 'ExtrudeShapeCustom', FollowCamera: string = 'FollowCamera', FreeCamera: string = 'FreeCamera', GUI3DManager: string = 'GUI3DManager', GamepadCamera: string = 'GamepadCamera', Grid: string = 'Grid', Ground: string = 'Ground', GroundFromHeightMap: string = 'GroundFromHeightMap', HemisphericLight: string = 'HemisphericLight', HolographicButton: string = 'HolographicButton', IcoSphere: string = 'IcoSphere', Image: string = 'Image', InputPassword: string = 'InputPassword', InputText: string = 'InputText', Lathe: string = 'Lathe', Light: string = 'Light', Line: string = 'Line', LineSystem: string = 'LineSystem', Lines: string = 'Lines', Material: string = 'Material', MeshButton3D: string = 'MeshButton3D', MultiLine: string = 'MultiLine', MultiMaterial: string = 'MultiMaterial', PBRBaseMaterial: string = 'PBRBaseMaterial', PBRBaseSimpleMaterial: string = 'PBRBaseSimpleMaterial', PBRMaterial: string = 'PBRMaterial', PBRMetallicRoughnessMaterial: string = 'PBRMetallicRoughnessMaterial', PBRSpecularGlossinessMaterial: string = 'PBRSpecularGlossinessMaterial', Plane: string = 'Plane', PlanePanel: string = 'PlanePanel', PointLight: string = 'PointLight', Polygon: string = 'Polygon', Polyhedron: string = 'Polyhedron', PushMaterial: string = 'PushMaterial', RadioButton: string = 'RadioButton', Rectangle: string = 'Rectangle', Ribbon: string = 'Ribbon', ScatterPanel: string = 'ScatterPanel', SelectionPanel: string = 'SelectionPanel', ShaderMaterial: string = 'ShaderMaterial', ShadowLight: string = 'ShadowLight', Slider: string = 'Slider', Sphere: string = 'Sphere', SpherePanel: string = 'SpherePanel', SpotLight: string = 'SpotLight', StackPanel: string = 'StackPanel', StackPanel3D: string = 'StackPanel3D', StandardMaterial: string = 'StandardMaterial', StereoscopicArcRotateCamera: string = 'StereoscopicArcRotateCamera', StereoscopicFreeCamera: string = 'StereoscopicFreeCamera', StereoscopicGamepadCamera: string = 'StereoscopicGamepadCamera', StereoscopicUniversalCamera: string = 'StereoscopicUniversalCamera', TargetCamera: string = 'TargetCamera', TextBlock: string = 'TextBlock', TiledGround: string = 'TiledGround', Torus: string = 'Torus', TorusKnot: string = 'TorusKnot', TouchCamera: string = 'TouchCamera', Tube: string = 'Tube', UniversalCamera: string = 'UniversalCamera', VRDeviceOrientationArcRotateCamera: string = 'VRDeviceOrientationArcRotateCamera', VRDeviceOrientationFreeCamera: string = 'VRDeviceOrientationFreeCamera', VRDeviceOrientationGamepadCamera: string = 'VRDeviceOrientationGamepadCamera', VirtualJoysticksCamera: string = 'VirtualJoysticksCamera', VirtualKeyboard: string = 'VirtualKeyboard', VolumeBasedPanel: string = 'VolumeBasedPanel', WebVRFreeCamera: string = 'WebVRFreeCamera';

@@ -1,10 +1,12 @@
 import ReactReconciler, { HostConfig } from "react-reconciler"
 import BABYLON from "babylonjs"
+import * as GUI from "babylonjs-gui"
 
 import * as GENERATED from "./generatedCode"
 import { HostWithEventsFiber } from "./customHosts"
 import { HostWithEvents } from "./exportedCustomComponents"
 import { WithSceneContext } from "./Scene"
+import { GUI3DManagerLifecycleEvents } from "./customComponents";
 
 /** Following classes are duplicated in generate-code.ts for noww */
 type GeneratedParameter = {
@@ -20,6 +22,7 @@ class CreationType {
 
 type CreateInfo = {
   libraryLocation: string // ie: `BABYLON.${libraryLocation}`
+  namespace: string // for 'BABYLON' or 'GUI'
   factoryMethod?: string // required for 'Factory' creation type.
   creationType: string
   parameters: GeneratedParameter[]
@@ -151,17 +154,17 @@ function applyUpdateToInstance(babylonObject: any, update: PropertyUpdate, type:
       } else if (update.value) {
         babylonObject[update.propertyName] = update.value.clone()
       } else {
-        babylonObject[update.propertyName] = update.value; // ie: undefined/null?
+        babylonObject[update.propertyName] = update.value // ie: undefined/null?
       }
       break
     case "BABYLON.Color3": // merge this switch with BABYLON.Vector3, Color4, etc.  The copyFrom BABYLON types.
       console.log(` > ${type}: updating Color3 on:${update.propertyName} to ${update.value}`)
       if (babylonObject[update.propertyName]) {
-        (babylonObject[update.propertyName] as BABYLON.Color3).copyFrom(update.value)
+        ;(babylonObject[update.propertyName] as BABYLON.Color3).copyFrom(update.value)
       } else if (update.value) {
         babylonObject[update.propertyName] = update.value.clone()
       } else {
-        babylonObject[update.propertyName] = update.value;
+        babylonObject[update.propertyName] = update.value
       }
       break
     case "BABYLON.Mesh":
@@ -184,16 +187,10 @@ function createCreatedInstance<T, U extends GENERATED.HasPropsHandlers<T, any>>(
   className: string,
   babylonJsObject: T,
   propsHandlers: U,
-  metadata: CreatedInstanceMetadata | null,
+  metadata: CreatedInstanceMetadata,
   lifecycleListeners?: LifecycleListeners
 ): CreatedInstance<T> {
   let createdMetadata = metadata
-
-  if (createdMetadata === null) {
-    createdMetadata = {
-      className
-    }
-  }
 
   // TODO: move how this is generated as a boolean to a metadata on objects themselves (and the next 3 lines!).
   if ((propsHandlers as any).isTargetable === true) {
@@ -309,7 +306,8 @@ const ReactBabylonJSHostConfig: HostConfig<
       rootInstance: {
         babylonJsObject: undefined,
         metadata: {
-          className: "rootContainer"
+          className: "rootContainer",
+          namespace: "ignore"
         },
         parent: null,
         children: [] // we add root notes here
@@ -380,16 +378,11 @@ const ReactBabylonJSHostConfig: HostConfig<
     hostContext: HostContext,
     internalInstanceHandle: Object
   ): CreatedInstance<any> | undefined => {
-    console.log("creating:", type)
-
     // TODO: Make a registry like React Native host config or perhaps a single "host" type is enough for all use cases.
     const customTypes: string[] = [HostWithEvents]
 
     const { scene } = props as any
     const { canvas, engine } = rootContainerInstance
-
-    let createInfoArgs: CreateInfo | undefined
-    let metadata: CreatedInstanceMetadata | undefined
 
     if (customTypes.indexOf(type) !== -1) {
       let sceneContext: WithSceneContext = props.sceneContext
@@ -415,8 +408,12 @@ const ReactBabylonJSHostConfig: HostConfig<
       return createdInstance
     }
 
-    createInfoArgs = (GENERATED as any)[`Fiber${type}`].CreateInfo
-    metadata = (GENERATED as any)[`Fiber${type}`].Metadata
+    console.log('getting static data for:', type);
+
+    let createInfoArgs: CreateInfo = (GENERATED as any)[`Fiber${type}`].CreateInfo
+    let metadata: CreatedInstanceMetadata = (GENERATED as any)[`Fiber${type}`].Metadata
+
+    console.log(`creating: ${createInfoArgs.namespace}.${type}`)
 
     let generatedParameters: GeneratedParameter[] = createInfoArgs!.parameters
 
@@ -455,7 +452,17 @@ const ReactBabylonJSHostConfig: HostConfig<
     if (createInfoArgs!.creationType === CreationType.FactoryMethod) {
       babylonObject = (BABYLON.MeshBuilder as any)[createInfoArgs!.factoryMethod!](...args)
     } else {
-      babylonObject = new (BABYLON as any)[type](...args)
+      switch(createInfoArgs.namespace) {
+        case "BABYLON":
+          babylonObject = new (BABYLON as any)[type](...args)
+          break;
+        case "GUI":
+          babylonObject = new (GUI as any)[type](...args)
+          break;
+        default:
+          console.error('metadata defines (or does not) an namespace that is known', metadata);
+          break;
+      }
     }
 
     // TODO: Add a lifecycle listener to a camera.  If it has a prop then auto-attach.  Otherwise search for other cameras to elect one to auto-attach.
@@ -468,15 +475,21 @@ const ReactBabylonJSHostConfig: HostConfig<
 
     let lifecycleListeners: LifecycleListeners | undefined = undefined
 
+    // here we dynamically assign listeners for specific types.  Would like to also generate this part of the code, although it's easier to update listeners as-is :)
     if (metadata && metadata.isMaterial === true) {
       lifecycleListeners = new MaterialsLifecycleListener()
+    }
+
+    if (type === "GUI3DManager") {
+      console.log('Attaching specific GUI 3D manager fiber lifecycle listeners.')
+      lifecycleListeners = new GUI3DManagerLifecycleEvents();
     }
 
     let createdReference = createCreatedInstance(
       type,
       babylonObject,
       fiberObject,
-      metadata === undefined ? null : metadata,
+      metadata,
       lifecycleListeners
     )
 
