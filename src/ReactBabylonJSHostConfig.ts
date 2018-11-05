@@ -74,7 +74,7 @@ declare global {
 
 export interface LifecycleListeners {
   onParented: (parent: CreatedInstance<any>) => void
-  onChildAdded:(child: CreatedInstance<any>) => void
+  onChildAdded: (child: CreatedInstance<any>) => void
   onMount: (instance: CreatedInstance<any>) => void
 }
 
@@ -138,25 +138,30 @@ function applyUpdateToInstance(babylonObject: any, update: PropertyUpdate, type:
       console.log(` > ${type}: updating ${update.type} on ${update.propertyName} to ${update.value}`)
       babylonObject[update.propertyName] = update.value
       break
-    case "BABYLON.Vector3":
+    case "BABYLON.Vector3": // TODO: merge with Color3
       console.log(
         ` > ${type}: updating Vector3 on:${update.propertyName} to ${update.value} from ${
           babylonObject[update.propertyName]
         }`,
         babylonObject
       )
+
       if (babylonObject[update.propertyName]) {
-        ;(babylonObject[update.propertyName] as BABYLON.Vector3).copyFrom(update.value)
+        (babylonObject[update.propertyName] as BABYLON.Vector3).copyFrom(update.value)
+      } else if (update.value) {
+        babylonObject[update.propertyName] = update.value.clone()
       } else {
-        babylonObject[update.propertyName] = update.value
+        babylonObject[update.propertyName] = update.value; // ie: undefined/null?
       }
       break
     case "BABYLON.Color3": // merge this switch with BABYLON.Vector3, Color4, etc.  The copyFrom BABYLON types.
       console.log(` > ${type}: updating Color3 on:${update.propertyName} to ${update.value}`)
       if (babylonObject[update.propertyName]) {
-        ;(babylonObject[update.propertyName] as BABYLON.Color3).copyFrom(update.value)
+        (babylonObject[update.propertyName] as BABYLON.Color3).copyFrom(update.value)
+      } else if (update.value) {
+        babylonObject[update.propertyName] = update.value.clone()
       } else {
-        babylonObject[update.propertyName] = update.value
+        babylonObject[update.propertyName] = update.value;
       }
       break
     case "BABYLON.Mesh":
@@ -209,14 +214,14 @@ class MaterialsLifecycleListener implements LifecycleListeners {
   onParented(parent: CreatedInstance<any>) {}
   onChildAdded(child: CreatedInstance<any>) {}
   onMount(instance: CreatedInstance<any>) {
-    let material = instance.babylonJsObject;
-    let tmp : CreatedInstance<any> | null = instance.parent;
+    let material = instance.babylonJsObject
+    let tmp: CreatedInstance<any> | null = instance.parent
     while (tmp != null) {
       if (tmp.metadata && tmp.metadata.acceptsMaterials === true) {
-        tmp.babylonJsObject.material = material;
-        break;
+        tmp.babylonJsObject.material = material
+        break
       }
-      tmp = tmp.parent;
+      tmp = tmp.parent
     }
   }
 }
@@ -409,10 +414,10 @@ const ReactBabylonJSHostConfig: HostConfig<
       }
       return createdInstance
     }
-    
+
     createInfoArgs = (GENERATED as any)[`Fiber${type}`].CreateInfo
     metadata = (GENERATED as any)[`Fiber${type}`].Metadata
-  
+
     let generatedParameters: GeneratedParameter[] = createInfoArgs!.parameters
 
     let args = generatedParameters.map(generatedParameter => {
@@ -461,10 +466,10 @@ const ReactBabylonJSHostConfig: HostConfig<
 
     const fiberObject: GENERATED.HasPropsHandlers<any, any> = new (GENERATED as any)[`Fiber${type}`]()
 
-    let lifecycleListeners: LifecycleListeners | undefined = undefined;
+    let lifecycleListeners: LifecycleListeners | undefined = undefined
 
     if (metadata && metadata.isMaterial === true) {
-      lifecycleListeners = new MaterialsLifecycleListener();
+      lifecycleListeners = new MaterialsLifecycleListener()
     }
 
     let createdReference = createCreatedInstance(
@@ -573,7 +578,7 @@ const ReactBabylonJSHostConfig: HostConfig<
     if (parent) {
       // doubly linking child to parent
       parent.children.push(child) // TODO: need to remove from children as well when removing.
-      child.parent = parent;
+      child.parent = parent
     }
 
     if (child && child.lifecycleListeners && child.lifecycleListeners.onParented) {
@@ -581,7 +586,7 @@ const ReactBabylonJSHostConfig: HostConfig<
     }
 
     if (parent && parent.lifecycleListeners && parent.lifecycleListeners.onChildAdded) {
-      parent.lifecycleListeners.onChildAdded(child);
+      parent.lifecycleListeners.onChildAdded(child)
     }
 
     // // TODO: move this to commit Materials as part of Host event listening.
@@ -628,7 +633,7 @@ const ReactBabylonJSHostConfig: HostConfig<
   ): void => {
     // console.log("commitMount(): ", type, instance, newProps, internalInstanceHandle)
     if (instance && instance.lifecycleListeners && instance.lifecycleListeners.onMount) {
-      instance.lifecycleListeners.onMount(instance);
+      instance.lifecycleListeners.onMount(instance)
     }
   },
 
@@ -637,17 +642,24 @@ const ReactBabylonJSHostConfig: HostConfig<
     // ReactDOM uses this for attaching child nodes to root DOM.  For us we want to link the all parts of tree together for tree crawling.
     if (child) {
       // doubly link child to root
-      container.rootInstance.children.push(child);
-      child.parent = container.rootInstance;
+      container.rootInstance.children.push(child)
+      child.parent = container.rootInstance
     } else {
-      console.error('appendChildToContainer. No child:', child);
+      console.error("appendChildToContainer. No child:", child)
     }
   },
 
-  commitUpdate(instance: HostCreatedInstance<any>, updatePayload: UpdatePayload, type: string, oldProps: any, newProps: any, internalInstanceHandlder: ReactReconciler.Fiber) {
+  commitUpdate(
+    instance: HostCreatedInstance<any>,
+    updatePayload: UpdatePayload,
+    type: string,
+    oldProps: any,
+    newProps: any,
+    internalInstanceHandlder: ReactReconciler.Fiber
+  ) {
     // console.log("commitUpdate", instance, updatePayload, type, oldProps, newProps)
     if (updatePayload != null) {
-      updatePayload.forEach((update : PropertyUpdate) => {
+      updatePayload.forEach((update: PropertyUpdate) => {
         applyUpdateToInstance(instance!.babylonJsObject, update, type)
       })
     }
