@@ -63,7 +63,18 @@ export default class Engine extends React.Component<any, any> {
             
     const isAsync = false // Disables experimental async rendering
     
-    this._fiberRoot = this._reactReconcilerBabylonJs.createContainer({ engine: this._engine!, canvas: this._canvas! } as Container, isAsync, false /* hydrate true == better HMR? */)
+    const container: Container = {
+      engine: this._engine!,
+      canvas: this._canvas!,
+      rootInstance: {
+        babylonJsObject: null,
+        children: [],
+        parent: null,
+        metadata: null
+      }
+    }
+
+    this._fiberRoot = this._reactReconcilerBabylonJs.createContainer(container, isAsync, false /* hydrate true == better HMR? */)
   
     this._reactReconcilerBabylonJs.injectIntoDevTools({
       bundleType: process.env.NODE_ENV === 'production' ? 0 : 1,
@@ -72,10 +83,10 @@ export default class Engine extends React.Component<any, any> {
     })
 
     // update the root Container
-    console.log("updating rootContainer (1) reactElement")
+    // console.log("updating rootContainer (1) reactElement")
     return this._reactReconcilerBabylonJs.updateContainer(<EngineProvider value={{ engine: this._engine!, canvas: this._canvas }}>
            {this.props.children}
-         </EngineProvider>, this._fiberRoot, undefined, () => { console.log("Updated Container - first time."); })
+         </EngineProvider>, this._fiberRoot, undefined, () => {})
   }
 
   onCanvasRef = (c : HTMLCanvasElement) => {
@@ -85,13 +96,13 @@ export default class Engine extends React.Component<any, any> {
       this._canvas = c
     }
 
-    console.error('onCanvas:', c); // trying to diagnose HMR failing
+    // console.error('onCanvas:', c); // trying to diagnose why HMR keep rebuilding entire Scene!  Look at ProxyComponent v4.
   }
 
   shouldComponentUpdate(nextProps: any, nextState: any) : boolean {
     const { props, state } = this
     // TODO: shallow compare engine props that can change.
-    console.log('Engine should update:', { props, state, nextProps, nextState})
+    // console.log('Engine should update:', { props, state, nextProps, nextState})
 
     this._reactReconcilerBabylonJs.updateContainer(<EngineProvider value={{ engine: this._engine!, canvas: this._canvas }}>
       {this.props.children}
@@ -102,9 +113,9 @@ export default class Engine extends React.Component<any, any> {
   }
 
   componentDidUpdate (prevProps: any, prevState: any) {
-    const { props, state } = this
+    // const { props, state } = this
     // In the docs it is mentioned that shouldComponentUpdate() may be treated as a hint one day
-    console.error('Engine did update:', { props, state, prevProps, prevState })
+    // console.error('Engine did update:', { props, state, prevProps, prevState })
   }
 
   componentWillUnmount () {

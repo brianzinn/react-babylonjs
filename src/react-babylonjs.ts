@@ -1,5 +1,5 @@
 export * from "./generatedCode"
-export * from './exportedCustomComponents'
+export * from "./exportedCustomComponents"
 
 export { default as Scene, withScene, WithSceneContext } from "./Scene"
 export { default as Engine, withEngine } from "./Engine"
