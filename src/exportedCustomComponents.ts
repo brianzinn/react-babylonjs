@@ -1,1 +1,1 @@
-export const AttachesToParent: string = "AttachesToParent";
+export const HostWithEvents: string = "HostWithEvents"

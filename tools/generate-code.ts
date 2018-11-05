@@ -7,6 +7,7 @@
 import { Project, VariableDeclarationKind, NamespaceDeclaration, ClassDeclaration, PropertyDeclaration, CodeBlockWriter, SourceFile, JSDoc, ConstructorDeclaration, Scope, MethodDeclaration, ParameterDeclaration, SyntaxKind } from 'ts-simple-ast'
 
 const ReactReconcilerCreatedInstanceClassName = "CreatedInstance";
+const ReactReconcilerCreatedInstanceMetadata = "CreatedInstanceMetadata";
 const PropertyUpdateType = "PropertyUpdate";
 const BABYLON_NAMESPACE = "BABYLON";
 const BABYLON_GUI_NAMESPACE = "GUI"
@@ -32,11 +33,12 @@ type CreateInfo = {
   parameters: GeneratedParameter[]
 }
 
-type CreatedInstanceMetadata = {
+export type CreatedInstanceMetadata = {
   className: string // for inspection/debugging
   shadowGenerator?: boolean // children will auto-cast shadows
   acceptsMaterials?: boolean
   isTargetable?: boolean // will attach a target props handler
+  isMaterial?: boolean // indicates a custom component created by end-user has been created
   // TODO: more metadata to follow
 }
 /** end of duplicated code */
@@ -94,15 +96,21 @@ babylonGuiNamespaces.forEach(namespaceDeclaration => {
     })
 });
 
-const addMetadata = (classDeclaration: ClassDeclaration, metadata: CreatedInstanceMetadata) => {
+const addMetadata = (classDeclaration: ClassDeclaration, metadata?: CreatedInstanceMetadata) => {
   const createInfoProperty = classDeclaration.addProperty({
     name: 'Metadata',
+    type: ReactReconcilerCreatedInstanceMetadata,
     scope: Scope.Public,
     isStatic: true,
     isReadonly : true
   })
 
-  createInfoProperty.setInitializer(JSON.stringify(metadata, null, 2))
+  let propertyInit = {
+    ...(metadata === undefined ? {} : metadata),
+    className: classDeclaration.getName()
+  }
+
+  createInfoProperty.setInitializer(JSON.stringify(propertyInit, null, 2))
 }
 
 const createMeshClasses = (sourceFile: SourceFile) => {
@@ -532,7 +540,7 @@ const addCreateInfoFromConstructor = (sourceClass: ClassDeclaration, targetClass
 /**
  * TODO: We should not be generating abstract classes.
  */
-const createClassesInheritedFrom = (sourceFile: SourceFile, classNamespaceTuple: ClassNameSpaceTuple, extra?: (newClassDeclaration: ClassDeclaration, originalClassDeclaration: ClassDeclaration) => void) : void => {
+const createClassesInheritedFrom = (sourceFile: SourceFile, classNamespaceTuple: ClassNameSpaceTuple, metadata?: CreatedInstanceMetadata, extra?: (newClassDeclaration: ClassDeclaration, originalClassDeclaration: ClassDeclaration) => void) : void => {
   const orderedListCreator = new OrderedListCreator();
   
   const classDeclaration = classNamespaceTuple.classDeclaration;
@@ -552,6 +560,8 @@ const createClassesInheritedFrom = (sourceFile: SourceFile, classNamespaceTuple:
 
     const newClassDeclaration = createClassDeclaration(derivedClassDeclaration, baseClassName, classNamespaceTuple.namespace, sourceFile, extra);
     addCreateInfoFromConstructor(derivedClassDeclaration, newClassDeclaration);
+
+    addMetadata(newClassDeclaration, metadata);
     console.log(` > ${derivedClassDeclaration.getName()}`)
   });
 }
@@ -581,7 +591,7 @@ const generateCode = async () => {
 
   generatedSourceFile.addImportDeclaration({
     moduleSpecifier: "./ReactBabylonJSHostConfig",
-    namedImports: [ReactReconcilerCreatedInstanceClassName, PropertyUpdateType]
+    namedImports: [ReactReconcilerCreatedInstanceClassName, ReactReconcilerCreatedInstanceMetadata, PropertyUpdateType]
   })
 
   generatedSourceFile.addImportDeclaration({
@@ -678,7 +688,7 @@ const generateCode = async () => {
   };
 
   if (classesOfInterest.get("Camera") !== undefined) {
-    createClassesInheritedFrom(generatedSourceFile, classesOfInterest.get("Camera")!, extra);
+    createClassesInheritedFrom(generatedSourceFile, classesOfInterest.get("Camera")!, undefined, extra);
   }
 
   if (classesOfInterest.get("MeshBuilder") !== undefined) {
@@ -686,19 +696,19 @@ const generateCode = async () => {
   }
 
   if (classesOfInterest.get("Material")) {
-    createClassesInheritedFrom(generatedSourceFile, classesOfInterest.get("Material")!);
+    createClassesInheritedFrom(generatedSourceFile, classesOfInterest.get("Material")!, { className: 'overwritten', isMaterial: true });
   }
 
   if (classesOfInterest.get("Light")) {
-    createClassesInheritedFrom(generatedSourceFile, classesOfInterest.get("Light")!);
+    createClassesInheritedFrom(generatedSourceFile, classesOfInterest.get("Light")!, undefined);
   }
 
   if (classesOfInterest.get("Control")) {
-    createClassesInheritedFrom(generatedSourceFile, classesOfInterest.get("Control")!);
+    createClassesInheritedFrom(generatedSourceFile, classesOfInterest.get("Control")!, undefined);
   }
 
   if (classesOfInterest.get("Control3D")) {
-    createClassesInheritedFrom(generatedSourceFile, classesOfInterest.get("Control3D")!);
+    createClassesInheritedFrom(generatedSourceFile, classesOfInterest.get("Control3D")!, undefined);
   }
 
   addReactExports(generatedSourceFile);
