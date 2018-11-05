@@ -6,7 +6,7 @@ import * as GENERATED from "./generatedCode"
 import { HostWithEventsFiber } from "./customHosts"
 import { HostWithEvents } from "./exportedCustomComponents"
 import { WithSceneContext } from "./Scene"
-import { GUI3DManagerLifecycleEvents } from "./customComponents";
+import { GUI3DManagerLifecycleEvents } from "./customComponents"
 
 /** Following classes are duplicated in generate-code.ts for noww */
 type GeneratedParameter = {
@@ -150,7 +150,7 @@ function applyUpdateToInstance(babylonObject: any, update: PropertyUpdate, type:
       )
 
       if (babylonObject[update.propertyName]) {
-        (babylonObject[update.propertyName] as BABYLON.Vector3).copyFrom(update.value)
+        ;(babylonObject[update.propertyName] as BABYLON.Vector3).copyFrom(update.value)
       } else if (update.value) {
         babylonObject[update.propertyName] = update.value.clone()
       } else {
@@ -408,7 +408,7 @@ const ReactBabylonJSHostConfig: HostConfig<
       return createdInstance
     }
 
-    console.log('getting static data for:', type);
+    console.log("getting static data for:", type)
 
     let createInfoArgs: CreateInfo = (GENERATED as any)[`Fiber${type}`].CreateInfo
     let metadata: CreatedInstanceMetadata = (GENERATED as any)[`Fiber${type}`].Metadata
@@ -452,16 +452,16 @@ const ReactBabylonJSHostConfig: HostConfig<
     if (createInfoArgs!.creationType === CreationType.FactoryMethod) {
       babylonObject = (BABYLON.MeshBuilder as any)[createInfoArgs!.factoryMethod!](...args)
     } else {
-      switch(createInfoArgs.namespace) {
+      switch (createInfoArgs.namespace) {
         case "BABYLON":
           babylonObject = new (BABYLON as any)[type](...args)
-          break;
+          break
         case "GUI":
           babylonObject = new (GUI as any)[type](...args)
-          break;
+          break
         default:
-          console.error('metadata defines (or does not) an namespace that is known', metadata);
-          break;
+          console.error("metadata defines (or does not) an namespace that is known", metadata)
+          break
       }
     }
 
@@ -481,17 +481,11 @@ const ReactBabylonJSHostConfig: HostConfig<
     }
 
     if (type === "GUI3DManager") {
-      console.log('Attaching specific GUI 3D manager fiber lifecycle listeners.')
-      lifecycleListeners = new GUI3DManagerLifecycleEvents();
+      console.log("Attaching specific GUI 3D manager fiber lifecycle listeners.")
+      lifecycleListeners = new GUI3DManagerLifecycleEvents()
     }
 
-    let createdReference = createCreatedInstance(
-      type,
-      babylonObject,
-      fiberObject,
-      metadata,
-      lifecycleListeners
-    )
+    let createdReference = createCreatedInstance(type, babylonObject, fiberObject, metadata, lifecycleListeners)
 
     // Here we dynamically attach known props handlers.  Will be adding more in code generation for GUI - also for lifecycle mgmt.
     if (createdReference.metadata && createdReference.metadata.isTargetable === true) {
