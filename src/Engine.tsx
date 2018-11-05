@@ -84,9 +84,11 @@ export default class Engine extends React.Component<any, any> {
 
     // update the root Container
     // console.log("updating rootContainer (1) reactElement")
-    return this._reactReconcilerBabylonJs.updateContainer(<EngineProvider value={{ engine: this._engine!, canvas: this._canvas }}>
-           {this.props.children}
-         </EngineProvider>, this._fiberRoot, undefined, () => {})
+    return this._reactReconcilerBabylonJs.updateContainer(
+      <EngineProvider value={{ engine: this._engine!, canvas: this._canvas }}>
+        {this.props.children}
+      </EngineProvider>, this._fiberRoot, undefined, () => {}
+    )
   }
 
   onCanvasRef = (c : HTMLCanvasElement) => {
@@ -99,23 +101,17 @@ export default class Engine extends React.Component<any, any> {
     // console.error('onCanvas:', c); // trying to diagnose why HMR keep rebuilding entire Scene!  Look at ProxyComponent v4.
   }
 
-  shouldComponentUpdate(nextProps: any, nextState: any) : boolean {
-    const { props, state } = this
-    // TODO: shallow compare engine props that can change.
-    // console.log('Engine should update:', { props, state, nextProps, nextState})
-
-    this._reactReconcilerBabylonJs.updateContainer(<EngineProvider value={{ engine: this._engine!, canvas: this._canvas }}>
-      {this.props.children}
-    </EngineProvider>, this._fiberRoot!, undefined, () => { console.log("Updated Container - additional time."); })
-
-    // we don't want to update :)
-    return false;
-  }
-
   componentDidUpdate (prevProps: any, prevState: any) {
-    // const { props, state } = this
     // In the docs it is mentioned that shouldComponentUpdate() may be treated as a hint one day
-    // console.error('Engine did update:', { props, state, prevProps, prevState })
+    // using shouldComponentUpdate() => false, looks okay, but prop changes will lag behind 1 update.
+    this._reactReconcilerBabylonJs.updateContainer(
+      <EngineProvider value={{ engine: this._engine!, canvas: this._canvas }}>
+        {this.props.children}
+      </EngineProvider>,
+      this._fiberRoot!,
+      undefined,
+      () => { /* called after container is updated.  we may want an external observable here */ }
+    )
   }
 
   componentWillUnmount () {
