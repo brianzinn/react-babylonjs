@@ -3,6 +3,8 @@
  * 1. add to include.src "Tools"
  * 2. change compilerOptions.module to "commonjs".
  * I have not investigated a way to do this automatically, but the debugging is extremely helpful with conditional breakpoints.
+ * 
+ * "could not resolve entry" is the error, if you forget to switch it back as 'src' and 'tool's will be subdirs in compiled.
  */
 import { Project, VariableDeclarationKind, NamespaceDeclaration, ClassDeclaration, PropertyDeclaration, CodeBlockWriter, SourceFile, JSDoc, ConstructorDeclaration, Scope, MethodDeclaration, ParameterDeclaration, SyntaxKind } from 'ts-simple-ast'
 
@@ -27,9 +29,10 @@ class CreationType {
 }
 
 type CreateInfo = {
-  libraryLocation: string, // ie: `BABYLON.${libraryLocation}`
-  factoryMethod?: string, // required for 'Factory' creation type.
-  creationType: string,
+  libraryLocation: string // ie: `BABYLON.${libraryLocation}`
+  namespace: string // so far only 'BABYLON' or 'GUI'
+  factoryMethod?: string // required for 'Factory' creation type.
+  creationType: string
   parameters: GeneratedParameter[]
 }
 
@@ -57,6 +60,7 @@ classesOfInterest.set("Node", undefined)
 classesOfInterest.set("Light", undefined);
 classesOfInterest.set("Control", undefined);
 classesOfInterest.set("Control3D", undefined);
+classesOfInterest.set("GUI3DManager", undefined);
 
 type ClassNameSpaceTuple = {
   classDeclaration: ClassDeclaration,
@@ -147,7 +151,7 @@ const createMeshClasses = (sourceFile: SourceFile) => {
 
       console.log(` > ${factoryType}`)
       let newClassDeclaration: ClassDeclaration = addClassDeclarationFromFactoryMethod(sourceFile, factoryType, "Mesh", method);
-      addCreateInfoFromFactoryMethod(method, meshBuilderTuple.classDeclaration.getName()!, methodName, newClassDeclaration)
+      addCreateInfoFromFactoryMethod(method, meshBuilderTuple.classDeclaration.getName()!, methodName, newClassDeclaration, BABYLON_NAMESPACE)
       addMetadata(newClassDeclaration, {
         className: factoryType,
         acceptsMaterials: true
@@ -222,7 +226,7 @@ const addClassDeclarationFromFactoryMethod = (sourceFile: SourceFile, className:
 }
 
 
-const addCreateInfoFromFactoryMethod = (method: MethodDeclaration, factoryClass: string, factoryMethod : string, targetClass: ClassDeclaration) : void => {
+const addCreateInfoFromFactoryMethod = (method: MethodDeclaration, factoryClass: string, factoryMethod : string, targetClass: ClassDeclaration, namespace: string) : void => {
   let methodParameters : GeneratedParameter[] = []
 
   method.getParameters().forEach((createMethodParameter: ParameterDeclaration) => {
@@ -280,6 +284,7 @@ const addCreateInfoFromFactoryMethod = (method: MethodDeclaration, factoryClass:
   let value : CreateInfo = {
     creationType: CreationType.FactoryMethod,
     libraryLocation: factoryClass,
+    namespace,
     factoryMethod: factoryMethod,
     parameters: methodParameters
   }
@@ -502,7 +507,7 @@ const addPropsAndHandlerClasses = (sourceFile: SourceFile, classNameToGenerate: 
   })
 }
 
-const addCreateInfoFromConstructor = (sourceClass: ClassDeclaration, targetClass: ClassDeclaration) : void => {
+const addCreateInfoFromConstructor = (sourceClass: ClassDeclaration, targetClass: ClassDeclaration, namespace: string) : void => {
     // this will allow us to do reflection to create the BabylonJS object from application props.
     const ctorArgsProperty = targetClass.addProperty({
       name: 'CreateInfo',
@@ -531,6 +536,7 @@ const addCreateInfoFromConstructor = (sourceClass: ClassDeclaration, targetClass
     let value : CreateInfo = {
       creationType: CreationType.Constructor,
       libraryLocation: sourceClass.getName()!,
+      namespace,
       parameters: constructorArguments
     }
 
@@ -559,7 +565,7 @@ const createClassesInheritedFrom = (sourceFile: SourceFile, classNamespaceTuple:
     REACT_EXPORTS.add(derivedClassDeclaration.getName()!)
 
     const newClassDeclaration = createClassDeclaration(derivedClassDeclaration, baseClassName, classNamespaceTuple.namespace, sourceFile, extra);
-    addCreateInfoFromConstructor(derivedClassDeclaration, newClassDeclaration);
+    addCreateInfoFromConstructor(derivedClassDeclaration, newClassDeclaration, classNamespaceTuple.namespace);
 
     addMetadata(newClassDeclaration, metadata);
     console.log(` > ${derivedClassDeclaration.getName()}`)
@@ -696,7 +702,7 @@ const generateCode = async () => {
   }
 
   if (classesOfInterest.get("Material")) {
-    createClassesInheritedFrom(generatedSourceFile, classesOfInterest.get("Material")!, { className: 'overwritten', isMaterial: true });
+    createClassesInheritedFrom(generatedSourceFile, classesOfInterest.get("Material")!, { className: '', isMaterial: true });
   }
 
   if (classesOfInterest.get("Light")) {
@@ -709,6 +715,19 @@ const generateCode = async () => {
 
   if (classesOfInterest.get("Control3D")) {
     createClassesInheritedFrom(generatedSourceFile, classesOfInterest.get("Control3D")!, undefined);
+  }
+
+  if (classesOfInterest.get("GUI3DManager")) {
+    const gui3DManager = classesOfInterest.get("GUI3DManager")!;
+    
+    REACT_EXPORTS.add(gui3DManager.classDeclaration.getName()!)
+
+    const newClassDeclaration = createClassDeclaration(gui3DManager.classDeclaration, gui3DManager.classDeclaration.getName()!, gui3DManager.namespace, generatedSourceFile, () => {});
+    addCreateInfoFromConstructor(gui3DManager.classDeclaration, newClassDeclaration, gui3DManager.namespace);
+
+    addMetadata(newClassDeclaration, undefined);
+    console.log('Single class added')
+    console.log(` > ${gui3DManager.classDeclaration.getName()}`)
   }
 
   addReactExports(generatedSourceFile);
