@@ -5,11 +5,15 @@ export * from "./customComponents"
 export { default as Scene, withScene, WithSceneContext } from "./Scene"
 export { default as Engine, withEngine } from "./Engine"
 
+
 // TODO: Put these back in the project.  These need to be included for backwards compatibility with 0.4.6:
-export class Skybox {}
+
 export class AdvancedDynamicTexture {}
 export class Text {}
 export class Environment {}
+
+// Classes to help build common features
+export { default as Skybox } from "./Skybox"
 
 // currently only works with directional light:
 export { default as ShadowGenerator, ShadowGeneratorProps } from "./ShadowGenerator"

@@ -70,7 +70,9 @@ export default class Engine extends React.Component<any, any> {
         babylonJsObject: null,
         children: [],
         parent: null,
-        metadata: null
+        metadata: {
+          className: "root"
+        }
       }
     }
 

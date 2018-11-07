@@ -36,14 +36,21 @@ type CreateInfo = {
   parameters: GeneratedParameter[]
 }
 
-export type CreatedInstanceMetadata = {
-  className: string // for inspection/debugging
+type InstanceMetadataParameter = {
   shadowGenerator?: boolean // children will auto-cast shadows
   acceptsMaterials?: boolean
   isTargetable?: boolean // will attach a target props handler
   isMaterial?: boolean // indicates a custom component created by end-user has been created
+  isGUI3DControl?: boolean // does not work with 2D
+  isGUI2DControl?: boolean // does not work with 3D
+  isTexture?: boolean
+  customType?: boolean // not used by code-gen
   // TODO: more metadata to follow
 }
+
+export type CreatedInstanceMetadata = {
+  className: string // for inspection/debugging.  Not yet required.
+} & InstanceMetadataParameter
 /** end of duplicated code */
 
 // NOTE: this is important as 'strings' are what are available for NPM import and trigger react reconciler.
@@ -61,6 +68,7 @@ classesOfInterest.set("Light", undefined);
 classesOfInterest.set("Control", undefined);
 classesOfInterest.set("Control3D", undefined);
 classesOfInterest.set("GUI3DManager", undefined);
+classesOfInterest.set("BaseTexture", undefined);
 
 type ClassNameSpaceTuple = {
   classDeclaration: ClassDeclaration,
@@ -100,7 +108,7 @@ babylonGuiNamespaces.forEach(namespaceDeclaration => {
     })
 });
 
-const addMetadata = (classDeclaration: ClassDeclaration, metadata?: CreatedInstanceMetadata) => {
+const addMetadata = (classDeclaration: ClassDeclaration, metadata?: InstanceMetadataParameter) => {
   const createInfoProperty = classDeclaration.addProperty({
     name: 'Metadata',
     type: ReactReconcilerCreatedInstanceMetadata,
@@ -153,7 +161,6 @@ const createMeshClasses = (sourceFile: SourceFile) => {
       let newClassDeclaration: ClassDeclaration = addClassDeclarationFromFactoryMethod(sourceFile, factoryType, "Mesh", method);
       addCreateInfoFromFactoryMethod(method, meshBuilderTuple.classDeclaration.getName()!, methodName, newClassDeclaration, BABYLON_NAMESPACE)
       addMetadata(newClassDeclaration, {
-        className: factoryType,
         acceptsMaterials: true
       })
     }
@@ -546,7 +553,7 @@ const addCreateInfoFromConstructor = (sourceClass: ClassDeclaration, targetClass
 /**
  * TODO: We should not be generating abstract classes.
  */
-const createClassesInheritedFrom = (sourceFile: SourceFile, classNamespaceTuple: ClassNameSpaceTuple, metadata?: CreatedInstanceMetadata, extra?: (newClassDeclaration: ClassDeclaration, originalClassDeclaration: ClassDeclaration) => void) : void => {
+const createClassesInheritedFrom = (sourceFile: SourceFile, classNamespaceTuple: ClassNameSpaceTuple, metadata?: InstanceMetadataParameter, extra?: (newClassDeclaration: ClassDeclaration, originalClassDeclaration: ClassDeclaration) => void) : void => {
   const orderedListCreator = new OrderedListCreator();
   
   const classDeclaration = classNamespaceTuple.classDeclaration;
@@ -702,7 +709,7 @@ const generateCode = async () => {
   }
 
   if (classesOfInterest.get("Material")) {
-    createClassesInheritedFrom(generatedSourceFile, classesOfInterest.get("Material")!, { className: '', isMaterial: true });
+    createClassesInheritedFrom(generatedSourceFile, classesOfInterest.get("Material")!, { isMaterial: true });
   }
 
   if (classesOfInterest.get("Light")) {
@@ -710,12 +717,16 @@ const generateCode = async () => {
   }
 
   if (classesOfInterest.get("Control")) {
-    createClassesInheritedFrom(generatedSourceFile, classesOfInterest.get("Control")!, undefined);
+    createClassesInheritedFrom(generatedSourceFile, classesOfInterest.get("Control")!, { isGUI2DControl: true});
   }
 
   if (classesOfInterest.get("Control3D")) {
-    createClassesInheritedFrom(generatedSourceFile, classesOfInterest.get("Control3D")!, undefined);
+    createClassesInheritedFrom(generatedSourceFile, classesOfInterest.get("Control3D")!, { isGUI3DControl: true});
   }
+
+  if (classesOfInterest.get("BaseTexture")) {
+    createClassesInheritedFrom(generatedSourceFile, classesOfInterest.get("BaseTexture")!, {isTexture: true});
+  } 
 
   if (classesOfInterest.get("GUI3DManager")) {
     const gui3DManager = classesOfInterest.get("GUI3DManager")!;
@@ -725,7 +736,7 @@ const generateCode = async () => {
     const newClassDeclaration = createClassDeclaration(gui3DManager.classDeclaration, gui3DManager.classDeclaration.getName()!, gui3DManager.namespace, generatedSourceFile, () => {});
     addCreateInfoFromConstructor(gui3DManager.classDeclaration, newClassDeclaration, gui3DManager.namespace);
 
-    addMetadata(newClassDeclaration, undefined);
+    addMetadata(newClassDeclaration, { isGUI3DControl: true});
     console.log('Single class added')
     console.log(` > ${gui3DManager.classDeclaration.getName()}`)
   }
