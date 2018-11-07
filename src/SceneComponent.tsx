@@ -2,7 +2,7 @@
 // They are both composite objects (Model has "root" mesh and GUI3DManager has an "anchor" mesh).
 import React, { Component } from 'react'
 import { Scene, Vector3, Nullable, AbstractMesh, Material as BabylonMaterial } from 'babylonjs'
-import { HostWithEventsFiber } from './customHosts'
+
 export interface Behavior<T> {
     apply(target: T, scene: Scene): void;
 }

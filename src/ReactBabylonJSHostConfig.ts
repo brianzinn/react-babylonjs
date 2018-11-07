@@ -7,6 +7,7 @@ import { HostWithEventsFiber } from "./customHosts"
 import { HostWithEvents } from "./exportedCustomComponents"
 import { WithSceneContext } from "./Scene"
 import { GUI3DManagerLifecycleEvents } from "./customComponents"
+import GUI3DControlLifecycleEvents from "./customComponents/GUI3DControlLifecycleEvents";
 
 /** Following classes are duplicated in generate-code.ts for noww */
 type GeneratedParameter = {
@@ -35,6 +36,10 @@ export type CreatedInstanceMetadata = {
   isTargetable?: boolean // will attach a target props handler
   isMaterial?: boolean // indicates a custom component created by end-user has been created
   customType?: boolean
+  isGUI3DControl?: boolean // does not work with 2D
+  isGUI2DControl?: boolean // does not work with 3D
+  isTexture?: boolean
+
   // TODO: more metadata to follow
 }
 /** end of duplicated code */
@@ -76,9 +81,9 @@ declare global {
 //** END WINDOW
 
 export interface LifecycleListeners {
-  onParented: (parent: CreatedInstance<any>) => void
-  onChildAdded: (child: CreatedInstance<any>) => void
-  onMount: (instance: CreatedInstance<any>) => void
+  onParented: (parent: CreatedInstance<any>, child: CreatedInstance<any>) => any
+  onChildAdded: (child: CreatedInstance<any>, parent: CreatedInstance<any>) => any
+  onMount: (instance: CreatedInstance<any>) => any
 }
 
 /**
@@ -88,7 +93,7 @@ export interface LifecycleListeners {
  */
 export interface CreatedInstance<T> {
   babylonJsObject: T
-  metadata: CreatedInstanceMetadata | null
+  metadata: CreatedInstanceMetadata
   parent: CreatedInstance<any> | null // Not the same as parent in BabylonJS, this is for internal reconciler structure. ie: graph walking
   children: CreatedInstance<any>[]
 
@@ -99,14 +104,14 @@ export interface CreatedInstance<T> {
 
 export class CreatedInstanceImpl<T> implements CreatedInstance<T> {
   public readonly babylonJsObject: T
-  public readonly metadata: CreatedInstanceMetadata | null
+  public readonly metadata: CreatedInstanceMetadata
   public parent: CreatedInstance<any> | null = null // Not the same as parent in BabylonJS, this is for internal reconciler structure. ie: graph walking
   public children: CreatedInstance<any>[] = []
   public propsHandlers: GENERATED.HasPropsHandlers<T, any>
 
   constructor(
     babylonJSObject: T,
-    metadata: CreatedInstanceMetadata | null,
+    metadata: CreatedInstanceMetadata,
     fiberObject: GENERATED.HasPropsHandlers<T, any>
   ) {
     this.babylonJsObject = babylonJSObject
@@ -216,6 +221,24 @@ class MaterialsLifecycleListener implements LifecycleListeners {
     while (tmp != null) {
       if (tmp.metadata && tmp.metadata.acceptsMaterials === true) {
         tmp.babylonJsObject.material = material
+        break
+      }
+      tmp = tmp.parent
+    }
+  }
+}
+
+class TexturesLifecycleListener implements LifecycleListeners {
+  onParented(parent: CreatedInstance<any>) {}
+  onChildAdded(child: CreatedInstance<any>) {}
+  onMount(instance: CreatedInstance<any>) {
+    let texture = instance.babylonJsObject
+    let tmp: CreatedInstance<any> | null = instance.parent
+    while (tmp != null) {
+      if (tmp.metadata && tmp.metadata.isMaterial === true) {
+        console.log('assigning diffuse texture', texture, BABYLON.Texture.SKYBOX_MODE)
+        tmp.babylonJsObject.reflectionTexture = texture; // need a way to assign different textures;
+        tmp.babylonJsObject.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE
         break
       }
       tmp = tmp.parent
@@ -417,6 +440,8 @@ const ReactBabylonJSHostConfig: HostConfig<
 
     let generatedParameters: GeneratedParameter[] = createInfoArgs!.parameters
 
+    console.log('generated params:', generatedParameters);
+
     let args = generatedParameters.map(generatedParameter => {
       if (Array.isArray(generatedParameter.type)) {
         // TODO: if all props are missing, warn if main prop (ie: options) is required.
@@ -434,6 +459,7 @@ const ReactBabylonJSHostConfig: HostConfig<
         let value = props[generatedParameter.name]
         if (value === undefined && generatedParameter.optional === false) {
           if (generatedParameter.type === "BABYLON.Scene") {
+            console.log('assigning scene...', scene)
             value = scene
           } else {
             console.warn(
@@ -454,6 +480,7 @@ const ReactBabylonJSHostConfig: HostConfig<
     } else {
       switch (createInfoArgs.namespace) {
         case "BABYLON":
+          console.log('creating', type, ...args)
           babylonObject = new (BABYLON as any)[type](...args)
           break
         case "GUI":
@@ -476,8 +503,12 @@ const ReactBabylonJSHostConfig: HostConfig<
     let lifecycleListeners: LifecycleListeners | undefined = undefined
 
     // here we dynamically assign listeners for specific types.  Would like to also generate this part of the code, although it's easier to update listeners as-is :)
-    if (metadata && metadata.isMaterial === true) {
+    if (metadata.isMaterial === true) {
       lifecycleListeners = new MaterialsLifecycleListener()
+    } else if (metadata.isGUI3DControl === true) {
+      lifecycleListeners = new GUI3DControlLifecycleEvents()
+    } else if (metadata.isTexture === true) {
+      lifecycleListeners = new TexturesLifecycleListener();
     }
 
     if (type === "GUI3DManager") {
@@ -589,11 +620,11 @@ const ReactBabylonJSHostConfig: HostConfig<
     }
 
     if (child && child.lifecycleListeners && child.lifecycleListeners.onParented) {
-      child.lifecycleListeners.onParented(parent!)
+      child.lifecycleListeners.onParented(parent!, child)
     }
 
     if (parent && parent.lifecycleListeners && parent.lifecycleListeners.onChildAdded) {
-      parent.lifecycleListeners.onChildAdded(child)
+      parent.lifecycleListeners.onChildAdded(child, parent)
     }
 
     // // TODO: move this to commit Materials as part of Host event listening.
