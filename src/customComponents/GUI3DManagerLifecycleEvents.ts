@@ -9,7 +9,7 @@ export default class GUI3DManagerLifecycleEvents implements LifecycleListeners {
   }
   onMount(instance: CreatedInstance<any>): void {
     console.log("guid3d mounted", instance)
-    this.addControls(instance);
+    this.addControls(instance)
   }
 
   addControls(instance: CreatedInstance<any>) {
@@ -19,7 +19,7 @@ export default class GUI3DManagerLifecycleEvents implements LifecycleListeners {
       // console.log('adding ', instance.babylonJsObject.name, ' to ', child.babylonJsObject.name)
 
       // Need to add instance.state.isAdded = true, for components added at runtime.
-      instance.babylonJsObject.addControl(child.babylonJsObject);
+      instance.babylonJsObject.addControl(child.babylonJsObject)
       this.addControls(child)
     })
 
