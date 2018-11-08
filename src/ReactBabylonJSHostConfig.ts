@@ -3,11 +3,11 @@ import BABYLON from "babylonjs"
 import * as GUI from "babylonjs-gui"
 
 import * as GENERATED from "./generatedCode"
-import { HostWithEventsFiber } from "./customHosts"
-import { HostWithEvents } from "./exportedCustomComponents"
+import { HostWithEvents, HostWithEventsFiber } from "./customHosts"
+
 import { WithSceneContext } from "./Scene"
 import { GUI3DManagerLifecycleEvents } from "./customComponents"
-import GUI3DControlLifecycleEvents from "./customComponents/GUI3DControlLifecycleEvents";
+import GUI3DControlLifecycleEvents from "./customComponents/GUI3DControlLifecycleEvents"
 
 /** Following classes are duplicated in generate-code.ts for noww */
 type GeneratedParameter = {
@@ -109,11 +109,7 @@ export class CreatedInstanceImpl<T> implements CreatedInstance<T> {
   public children: CreatedInstance<any>[] = []
   public propsHandlers: GENERATED.HasPropsHandlers<T, any>
 
-  constructor(
-    babylonJSObject: T,
-    metadata: CreatedInstanceMetadata,
-    fiberObject: GENERATED.HasPropsHandlers<T, any>
-  ) {
+  constructor(babylonJSObject: T, metadata: CreatedInstanceMetadata, fiberObject: GENERATED.HasPropsHandlers<T, any>) {
     this.babylonJsObject = babylonJSObject
     this.metadata = metadata
     this.propsHandlers = fiberObject
@@ -236,8 +232,8 @@ class TexturesLifecycleListener implements LifecycleListeners {
     let tmp: CreatedInstance<any> | null = instance.parent
     while (tmp != null) {
       if (tmp.metadata && tmp.metadata.isMaterial === true) {
-        console.log('assigning diffuse texture', texture, BABYLON.Texture.SKYBOX_MODE)
-        tmp.babylonJsObject.reflectionTexture = texture; // need a way to assign different textures;
+        console.log("assigning diffuse texture", texture, BABYLON.Texture.SKYBOX_MODE)
+        tmp.babylonJsObject.reflectionTexture = texture // need a way to assign different textures;
         tmp.babylonJsObject.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE
         break
       }
@@ -440,7 +436,7 @@ const ReactBabylonJSHostConfig: HostConfig<
 
     let generatedParameters: GeneratedParameter[] = createInfoArgs!.parameters
 
-    console.log('generated params:', generatedParameters);
+    console.log("generated params:", generatedParameters)
 
     let args = generatedParameters.map(generatedParameter => {
       if (Array.isArray(generatedParameter.type)) {
@@ -459,7 +455,7 @@ const ReactBabylonJSHostConfig: HostConfig<
         let value = props[generatedParameter.name]
         if (value === undefined && generatedParameter.optional === false) {
           if (generatedParameter.type === "BABYLON.Scene") {
-            console.log('assigning scene...', scene)
+            console.log("assigning scene...", scene)
             value = scene
           } else {
             console.warn(
@@ -480,7 +476,7 @@ const ReactBabylonJSHostConfig: HostConfig<
     } else {
       switch (createInfoArgs.namespace) {
         case "BABYLON":
-          console.log('creating', type, ...args)
+          console.log("creating", type, ...args)
           babylonObject = new (BABYLON as any)[type](...args)
           break
         case "GUI":
@@ -508,7 +504,7 @@ const ReactBabylonJSHostConfig: HostConfig<
     } else if (metadata.isGUI3DControl === true) {
       lifecycleListeners = new GUI3DControlLifecycleEvents()
     } else if (metadata.isTexture === true) {
-      lifecycleListeners = new TexturesLifecycleListener();
+      lifecycleListeners = new TexturesLifecycleListener()
     }
 
     if (type === "GUI3DManager") {

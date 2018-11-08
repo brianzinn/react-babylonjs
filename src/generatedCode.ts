@@ -13608,6 +13608,161 @@ export class FiberNoiseProceduralTexture implements HasPropsHandlers<BABYLON.Bas
     };
 }
 
+export class FiberAdvancedDynamicTextureProps extends FiberDynamicTextureProps {
+    background?: string;
+    focusedControl?: BABYLON.GUI.IFocusableControl;
+    idealHeight?: number;
+    idealWidth?: number;
+    isForeground?: boolean;
+    premulAlpha?: boolean;
+    renderAtIdealSize?: boolean;
+    renderScale?: number;
+    useSmallestIdeal?: boolean;
+}
+
+export class FiberAdvancedDynamicTexturePropsHandler implements PropsHandler<GUI.AdvancedDynamicTexture, FiberAdvancedDynamicTextureProps> {
+    getPropertyUpdates(createdInstance: CreatedInstance<GUI.AdvancedDynamicTexture>, oldProps: FiberAdvancedDynamicTextureProps, newProps: FiberAdvancedDynamicTextureProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+        // generated code
+        let babylonObject: GUI.AdvancedDynamicTexture = createdInstance.babylonJsObject;
+        let updates: PropertyUpdate[] = [];
+        // GUI.AdvancedDynamicTexture.background of type 'string':
+        if (oldProps.background !== newProps.background) {
+            updates.push({
+                propertyName: 'background',
+                value: newProps.background,
+                type: 'string'
+            });
+        }
+        // TODO: type: BABYLON.GUI.IFocusableControl property (not coded) GUI.AdvancedDynamicTexture.focusedControl.
+        // GUI.AdvancedDynamicTexture.idealHeight of type 'number':
+        if (oldProps.idealHeight !== newProps.idealHeight) {
+            updates.push({
+                propertyName: 'idealHeight',
+                value: newProps.idealHeight,
+                type: 'number'
+            });
+        }
+        // GUI.AdvancedDynamicTexture.idealWidth of type 'number':
+        if (oldProps.idealWidth !== newProps.idealWidth) {
+            updates.push({
+                propertyName: 'idealWidth',
+                value: newProps.idealWidth,
+                type: 'number'
+            });
+        }
+        // GUI.AdvancedDynamicTexture.isForeground of type 'boolean':
+        if (oldProps.isForeground !== newProps.isForeground) {
+            updates.push({
+                propertyName: 'isForeground',
+                value: newProps.isForeground,
+                type: 'boolean'
+            });
+        }
+        // GUI.AdvancedDynamicTexture.premulAlpha of type 'boolean':
+        if (oldProps.premulAlpha !== newProps.premulAlpha) {
+            updates.push({
+                propertyName: 'premulAlpha',
+                value: newProps.premulAlpha,
+                type: 'boolean'
+            });
+        }
+        // GUI.AdvancedDynamicTexture.renderAtIdealSize of type 'boolean':
+        if (oldProps.renderAtIdealSize !== newProps.renderAtIdealSize) {
+            updates.push({
+                propertyName: 'renderAtIdealSize',
+                value: newProps.renderAtIdealSize,
+                type: 'boolean'
+            });
+        }
+        // GUI.AdvancedDynamicTexture.renderScale of type 'number':
+        if (oldProps.renderScale !== newProps.renderScale) {
+            updates.push({
+                propertyName: 'renderScale',
+                value: newProps.renderScale,
+                type: 'number'
+            });
+        }
+        // GUI.AdvancedDynamicTexture.useSmallestIdeal of type 'boolean':
+        if (oldProps.useSmallestIdeal !== newProps.useSmallestIdeal) {
+            updates.push({
+                propertyName: 'useSmallestIdeal',
+                value: newProps.useSmallestIdeal,
+                type: 'boolean'
+            });
+        }
+        return updates.length == 0 ? null : updates;
+    }
+}
+
+/**
+ * Class used to create texture to support 2D GUI elements
+ * 
+ * This code has been generated
+ */
+export class FiberAdvancedDynamicTexture implements HasPropsHandlers<BABYLON.DynamicTexture, FiberDynamicTextureProps> {
+    public readonly isTargetable = false;
+    private propsHandlers: PropsHandler<BABYLON.DynamicTexture, FiberDynamicTextureProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberAdvancedDynamicTexturePropsHandler(),
+            new FiberDynamicTexturePropsHandler(),
+            new FiberTexturePropsHandler(),
+            new FiberBaseTexturePropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<BABYLON.DynamicTexture, FiberDynamicTextureProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<BABYLON.DynamicTexture, FiberDynamicTextureProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "AdvancedDynamicTexture",
+        "namespace": "GUI",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "width",
+                "type": "number",
+                "optional": false
+            },
+            {
+                "name": "height",
+                "type": "number",
+                "optional": false
+            },
+            {
+                "name": "scene",
+                "type": "BABYLON.Scene",
+                "optional": false
+            },
+            {
+                "name": "generateMipMaps",
+                "type": "boolean",
+                "optional": true
+            },
+            {
+                "name": "samplingMode",
+                "type": "number",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "isGUI2DControl": true,
+        "className": "FiberAdvancedDynamicTexture"
+    };
+}
+
 export class FiberGUI3DManagerProps {
 }
 
@@ -13660,4 +13815,4 @@ export class FiberGUI3DManager implements HasPropsHandlers<GUI.GUI3DManager, Fib
     };
 }
 
-export const AbstractButton3D: string = 'AbstractButton3D', AnaglyphArcRotateCamera: string = 'AnaglyphArcRotateCamera', AnaglyphFreeCamera: string = 'AnaglyphFreeCamera', AnaglyphGamepadCamera: string = 'AnaglyphGamepadCamera', AnaglyphUniversalCamera: string = 'AnaglyphUniversalCamera', ArcFollowCamera: string = 'ArcFollowCamera', ArcRotateCamera: string = 'ArcRotateCamera', BackgroundMaterial: string = 'BackgroundMaterial', BaseTexture: string = 'BaseTexture', Box: string = 'Box', Button: string = 'Button', Button3D: string = 'Button3D', Camera: string = 'Camera', Checkbox: string = 'Checkbox', ColorGradingTexture: string = 'ColorGradingTexture', ColorPicker: string = 'ColorPicker', Container: string = 'Container', Container3D: string = 'Container3D', Control: string = 'Control', Control3D: string = 'Control3D', CubeTexture: string = 'CubeTexture', CustomProceduralTexture: string = 'CustomProceduralTexture', Cylinder: string = 'Cylinder', CylinderPanel: string = 'CylinderPanel', DashedLines: string = 'DashedLines', Decal: string = 'Decal', DeviceOrientationCamera: string = 'DeviceOrientationCamera', DirectionalLight: string = 'DirectionalLight', Disc: string = 'Disc', DisplayGrid: string = 'DisplayGrid', DynamicTexture: string = 'DynamicTexture', Ellipse: string = 'Ellipse', ExtrudePolygon: string = 'ExtrudePolygon', ExtrudeShape: string = 'ExtrudeShape', ExtrudeShapeCustom: string = 'ExtrudeShapeCustom', FollowCamera: string = 'FollowCamera', FreeCamera: string = 'FreeCamera', GUI3DManager: string = 'GUI3DManager', GamepadCamera: string = 'GamepadCamera', Grid: string = 'Grid', Ground: string = 'Ground', GroundFromHeightMap: string = 'GroundFromHeightMap', HDRCubeTexture: string = 'HDRCubeTexture', HemisphericLight: string = 'HemisphericLight', HolographicButton: string = 'HolographicButton', IcoSphere: string = 'IcoSphere', Image: string = 'Image', InputPassword: string = 'InputPassword', InputText: string = 'InputText', Lathe: string = 'Lathe', Light: string = 'Light', Line: string = 'Line', LineSystem: string = 'LineSystem', Lines: string = 'Lines', Material: string = 'Material', MeshButton3D: string = 'MeshButton3D', MirrorTexture: string = 'MirrorTexture', MultiLine: string = 'MultiLine', MultiMaterial: string = 'MultiMaterial', MultiRenderTarget: string = 'MultiRenderTarget', NoiseProceduralTexture: string = 'NoiseProceduralTexture', PBRBaseMaterial: string = 'PBRBaseMaterial', PBRBaseSimpleMaterial: string = 'PBRBaseSimpleMaterial', PBRMaterial: string = 'PBRMaterial', PBRMetallicRoughnessMaterial: string = 'PBRMetallicRoughnessMaterial', PBRSpecularGlossinessMaterial: string = 'PBRSpecularGlossinessMaterial', Plane: string = 'Plane', PlanePanel: string = 'PlanePanel', PointLight: string = 'PointLight', Polygon: string = 'Polygon', Polyhedron: string = 'Polyhedron', ProceduralTexture: string = 'ProceduralTexture', PushMaterial: string = 'PushMaterial', RadioButton: string = 'RadioButton', RawCubeTexture: string = 'RawCubeTexture', RawTexture: string = 'RawTexture', RawTexture3D: string = 'RawTexture3D', Rectangle: string = 'Rectangle', RefractionTexture: string = 'RefractionTexture', RenderTargetTexture: string = 'RenderTargetTexture', Ribbon: string = 'Ribbon', ScatterPanel: string = 'ScatterPanel', SelectionPanel: string = 'SelectionPanel', ShaderMaterial: string = 'ShaderMaterial', ShadowLight: string = 'ShadowLight', Slider: string = 'Slider', Sphere: string = 'Sphere', SpherePanel: string = 'SpherePanel', SpotLight: string = 'SpotLight', StackPanel: string = 'StackPanel', StackPanel3D: string = 'StackPanel3D', StandardMaterial: string = 'StandardMaterial', StereoscopicArcRotateCamera: string = 'StereoscopicArcRotateCamera', StereoscopicFreeCamera: string = 'StereoscopicFreeCamera', StereoscopicGamepadCamera: string = 'StereoscopicGamepadCamera', StereoscopicUniversalCamera: string = 'StereoscopicUniversalCamera', TargetCamera: string = 'TargetCamera', TextBlock: string = 'TextBlock', Texture: string = 'Texture', TiledGround: string = 'TiledGround', Torus: string = 'Torus', TorusKnot: string = 'TorusKnot', TouchCamera: string = 'TouchCamera', Tube: string = 'Tube', UniversalCamera: string = 'UniversalCamera', VRDeviceOrientationArcRotateCamera: string = 'VRDeviceOrientationArcRotateCamera', VRDeviceOrientationFreeCamera: string = 'VRDeviceOrientationFreeCamera', VRDeviceOrientationGamepadCamera: string = 'VRDeviceOrientationGamepadCamera', VideoTexture: string = 'VideoTexture', VirtualJoysticksCamera: string = 'VirtualJoysticksCamera', VirtualKeyboard: string = 'VirtualKeyboard', VolumeBasedPanel: string = 'VolumeBasedPanel', WebVRFreeCamera: string = 'WebVRFreeCamera';
+export const AbstractButton3D: string = 'AbstractButton3D', AdvancedDynamicTexture: string = 'AdvancedDynamicTexture', AnaglyphArcRotateCamera: string = 'AnaglyphArcRotateCamera', AnaglyphFreeCamera: string = 'AnaglyphFreeCamera', AnaglyphGamepadCamera: string = 'AnaglyphGamepadCamera', AnaglyphUniversalCamera: string = 'AnaglyphUniversalCamera', ArcFollowCamera: string = 'ArcFollowCamera', ArcRotateCamera: string = 'ArcRotateCamera', BackgroundMaterial: string = 'BackgroundMaterial', BaseTexture: string = 'BaseTexture', Box: string = 'Box', Button: string = 'Button', Button3D: string = 'Button3D', Camera: string = 'Camera', Checkbox: string = 'Checkbox', ColorGradingTexture: string = 'ColorGradingTexture', ColorPicker: string = 'ColorPicker', Container: string = 'Container', Container3D: string = 'Container3D', Control: string = 'Control', Control3D: string = 'Control3D', CubeTexture: string = 'CubeTexture', CustomProceduralTexture: string = 'CustomProceduralTexture', Cylinder: string = 'Cylinder', CylinderPanel: string = 'CylinderPanel', DashedLines: string = 'DashedLines', Decal: string = 'Decal', DeviceOrientationCamera: string = 'DeviceOrientationCamera', DirectionalLight: string = 'DirectionalLight', Disc: string = 'Disc', DisplayGrid: string = 'DisplayGrid', DynamicTexture: string = 'DynamicTexture', Ellipse: string = 'Ellipse', ExtrudePolygon: string = 'ExtrudePolygon', ExtrudeShape: string = 'ExtrudeShape', ExtrudeShapeCustom: string = 'ExtrudeShapeCustom', FollowCamera: string = 'FollowCamera', FreeCamera: string = 'FreeCamera', GUI3DManager: string = 'GUI3DManager', GamepadCamera: string = 'GamepadCamera', Grid: string = 'Grid', Ground: string = 'Ground', GroundFromHeightMap: string = 'GroundFromHeightMap', HDRCubeTexture: string = 'HDRCubeTexture', HemisphericLight: string = 'HemisphericLight', HolographicButton: string = 'HolographicButton', IcoSphere: string = 'IcoSphere', Image: string = 'Image', InputPassword: string = 'InputPassword', InputText: string = 'InputText', Lathe: string = 'Lathe', Light: string = 'Light', Line: string = 'Line', LineSystem: string = 'LineSystem', Lines: string = 'Lines', Material: string = 'Material', MeshButton3D: string = 'MeshButton3D', MirrorTexture: string = 'MirrorTexture', MultiLine: string = 'MultiLine', MultiMaterial: string = 'MultiMaterial', MultiRenderTarget: string = 'MultiRenderTarget', NoiseProceduralTexture: string = 'NoiseProceduralTexture', PBRBaseMaterial: string = 'PBRBaseMaterial', PBRBaseSimpleMaterial: string = 'PBRBaseSimpleMaterial', PBRMaterial: string = 'PBRMaterial', PBRMetallicRoughnessMaterial: string = 'PBRMetallicRoughnessMaterial', PBRSpecularGlossinessMaterial: string = 'PBRSpecularGlossinessMaterial', Plane: string = 'Plane', PlanePanel: string = 'PlanePanel', PointLight: string = 'PointLight', Polygon: string = 'Polygon', Polyhedron: string = 'Polyhedron', ProceduralTexture: string = 'ProceduralTexture', PushMaterial: string = 'PushMaterial', RadioButton: string = 'RadioButton', RawCubeTexture: string = 'RawCubeTexture', RawTexture: string = 'RawTexture', RawTexture3D: string = 'RawTexture3D', Rectangle: string = 'Rectangle', RefractionTexture: string = 'RefractionTexture', RenderTargetTexture: string = 'RenderTargetTexture', Ribbon: string = 'Ribbon', ScatterPanel: string = 'ScatterPanel', SelectionPanel: string = 'SelectionPanel', ShaderMaterial: string = 'ShaderMaterial', ShadowLight: string = 'ShadowLight', Slider: string = 'Slider', Sphere: string = 'Sphere', SpherePanel: string = 'SpherePanel', SpotLight: string = 'SpotLight', StackPanel: string = 'StackPanel', StackPanel3D: string = 'StackPanel3D', StandardMaterial: string = 'StandardMaterial', StereoscopicArcRotateCamera: string = 'StereoscopicArcRotateCamera', StereoscopicFreeCamera: string = 'StereoscopicFreeCamera', StereoscopicGamepadCamera: string = 'StereoscopicGamepadCamera', StereoscopicUniversalCamera: string = 'StereoscopicUniversalCamera', TargetCamera: string = 'TargetCamera', TextBlock: string = 'TextBlock', Texture: string = 'Texture', TiledGround: string = 'TiledGround', Torus: string = 'Torus', TorusKnot: string = 'TorusKnot', TouchCamera: string = 'TouchCamera', Tube: string = 'Tube', UniversalCamera: string = 'UniversalCamera', VRDeviceOrientationArcRotateCamera: string = 'VRDeviceOrientationArcRotateCamera', VRDeviceOrientationFreeCamera: string = 'VRDeviceOrientationFreeCamera', VRDeviceOrientationGamepadCamera: string = 'VRDeviceOrientationGamepadCamera', VideoTexture: string = 'VideoTexture', VirtualJoysticksCamera: string = 'VirtualJoysticksCamera', VirtualKeyboard: string = 'VirtualKeyboard', VolumeBasedPanel: string = 'VolumeBasedPanel', WebVRFreeCamera: string = 'WebVRFreeCamera';

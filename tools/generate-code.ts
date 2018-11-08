@@ -69,6 +69,12 @@ classesOfInterest.set("Control", undefined);
 classesOfInterest.set("Control3D", undefined);
 classesOfInterest.set("GUI3DManager", undefined);
 classesOfInterest.set("BaseTexture", undefined);
+classesOfInterest.set("AdvancedDynamicTexture", undefined);
+
+const getNamespace = (classDeclaration : ClassDeclaration) : string => {
+  let symbol = classDeclaration.getType().compilerType.symbol;
+  return (symbol as any).parent.name
+}
 
 type ClassNameSpaceTuple = {
   classDeclaration: ClassDeclaration,
@@ -366,7 +372,7 @@ const writePropertyAsUpdateFunction = (classDeclaration: ClassDeclaration, write
       }
 }
 
-const createClassDeclaration = (classDeclaration: ClassDeclaration, rootBaseClassName: string, namespace: string, sourceFile: SourceFile, extra?: (newClassDeclaration: ClassDeclaration, originalClassDeclaration: ClassDeclaration) => void) : ClassDeclaration =>  {
+const createClassDeclaration = (classDeclaration: ClassDeclaration, rootBaseClass: ClassDeclaration, namespace: string, sourceFile: SourceFile, extra?: (newClassDeclaration: ClassDeclaration, originalClassDeclaration: ClassDeclaration) => void) : ClassDeclaration =>  {
   const baseClass: ClassDeclaration | undefined = classDeclaration.getBaseClass(); // no mix-ins in BabylonJS AFAIK, but would otherwise use baseTypes()
   const baseClassName : string | undefined = (baseClass === undefined) ? undefined : baseClass.getName();
 
@@ -395,13 +401,17 @@ const createClassDeclaration = (classDeclaration: ClassDeclaration, rootBaseClas
 
   const propsHandlersPropertyName = 'propsHandlers';
 
+  const rootBaseClassName = rootBaseClass.getName();
+  // NOTE: AdvancedDynamicTexture has a different namespace than it's root class.
+  const rootBaseClassNamespace = getNamespace(rootBaseClass)
+
   newClassDeclaration.addProperty({
     name: propsHandlersPropertyName,
-    type: `PropsHandler<${namespace}.${rootBaseClassName}, ${ClassNamesPrefix}${rootBaseClassName}Props>[]`, // xxx
+    type: `PropsHandler<${rootBaseClassNamespace}.${rootBaseClassName}, ${ClassNamesPrefix}${rootBaseClassName}Props>[]`,
     scope: Scope.Private
   })
 
-  newClassDeclaration.addImplements(`HasPropsHandlers<${namespace}.${rootBaseClassName}, ${ClassNamesPrefix}${rootBaseClassName}Props>`)
+  newClassDeclaration.addImplements(`HasPropsHandlers<${rootBaseClassNamespace}.${rootBaseClassName}, ${ClassNamesPrefix}${rootBaseClassName}Props>`)
 
   const newConstructor : ConstructorDeclaration = newClassDeclaration.addConstructor();
   newConstructor.setBodyText((writer : CodeBlockWriter) => {
@@ -421,7 +431,7 @@ const createClassDeclaration = (classDeclaration: ClassDeclaration, rootBaseClas
 
   let getPropertyUpdatesMethod = newClassDeclaration.addMethod({
     name: "getPropsHandlers",
-    returnType: `PropsHandler<${namespace}.${rootBaseClassName}, ${ClassNamesPrefix}${rootBaseClassName}Props>[]`
+    returnType: `PropsHandler<${rootBaseClassNamespace}.${rootBaseClassName}, ${ClassNamesPrefix}${rootBaseClassName}Props>[]`
   });
 
   getPropertyUpdatesMethod.setBodyText(writer => {
@@ -434,7 +444,7 @@ const createClassDeclaration = (classDeclaration: ClassDeclaration, rootBaseClas
   });
   addPropertyHandlerMethod.addParameter({
     name: 'propHandler',
-    type: `PropsHandler<${namespace}.${rootBaseClassName}, ${ClassNamesPrefix}${rootBaseClassName}Props>`
+    type: `PropsHandler<${rootBaseClassNamespace}.${rootBaseClassName}, ${ClassNamesPrefix}${rootBaseClassName}Props>`
   })
 
   addPropertyHandlerMethod.setBodyText(writer => {
@@ -556,14 +566,14 @@ const addCreateInfoFromConstructor = (sourceClass: ClassDeclaration, targetClass
 const createClassesInheritedFrom = (sourceFile: SourceFile, classNamespaceTuple: ClassNameSpaceTuple, metadata?: InstanceMetadataParameter, extra?: (newClassDeclaration: ClassDeclaration, originalClassDeclaration: ClassDeclaration) => void) : void => {
   const orderedListCreator = new OrderedListCreator();
   
-  const classDeclaration = classNamespaceTuple.classDeclaration;
+  const baseClassDeclaration = classNamespaceTuple.classDeclaration;
 
-  const baseClassName: string = classDeclaration.getName()!;
+  const baseClassName: string = baseClassDeclaration.getName()!;
   REACT_EXPORTS.add(baseClassName)
 
   const derivedClassesOrdered : Map<string, ClassDeclaration> = new Map<string, ClassDeclaration>();
 
-  orderedListCreator.addDescendantsOrdered([classDeclaration], derivedClassesOrdered)
+  orderedListCreator.addDescendantsOrdered([baseClassDeclaration], derivedClassesOrdered)
 
   console.log(`Building ${derivedClassesOrdered.size} ${baseClassName}s: `)
 
@@ -571,7 +581,7 @@ const createClassesInheritedFrom = (sourceFile: SourceFile, classNamespaceTuple:
     
     REACT_EXPORTS.add(derivedClassDeclaration.getName()!)
 
-    const newClassDeclaration = createClassDeclaration(derivedClassDeclaration, baseClassName, classNamespaceTuple.namespace, sourceFile, extra);
+    const newClassDeclaration = createClassDeclaration(derivedClassDeclaration, baseClassDeclaration, classNamespaceTuple.namespace, sourceFile, extra);
     addCreateInfoFromConstructor(derivedClassDeclaration, newClassDeclaration, classNamespaceTuple.namespace);
 
     addMetadata(newClassDeclaration, metadata);
@@ -728,12 +738,26 @@ const generateCode = async () => {
     createClassesInheritedFrom(generatedSourceFile, classesOfInterest.get("BaseTexture")!, {isTexture: true});
   } 
 
+  if (classesOfInterest.get("AdvancedDynamicTexture")) {
+    const adt = classesOfInterest.get("AdvancedDynamicTexture")!;
+    REACT_EXPORTS.add(adt.classDeclaration.getName()!)
+    
+    const rootBaseClass = classesOfInterest.get("BaseTexture")!.classDeclaration;
+    
+    const newClassDeclaration = createClassDeclaration(adt.classDeclaration, rootBaseClass, adt.namespace, generatedSourceFile, extra);
+    addCreateInfoFromConstructor(adt.classDeclaration, newClassDeclaration, adt.namespace);
+    addMetadata(newClassDeclaration, { isGUI2DControl: true});
+  
+    console.log('Adding single class:')
+    console.log(` > ${adt.classDeclaration.getName()}`)
+  }
+
   if (classesOfInterest.get("GUI3DManager")) {
     const gui3DManager = classesOfInterest.get("GUI3DManager")!;
     
     REACT_EXPORTS.add(gui3DManager.classDeclaration.getName()!)
 
-    const newClassDeclaration = createClassDeclaration(gui3DManager.classDeclaration, gui3DManager.classDeclaration.getName()!, gui3DManager.namespace, generatedSourceFile, () => {});
+    const newClassDeclaration = createClassDeclaration(gui3DManager.classDeclaration, gui3DManager.classDeclaration, gui3DManager.namespace, generatedSourceFile, () => {});
     addCreateInfoFromConstructor(gui3DManager.classDeclaration, newClassDeclaration, gui3DManager.namespace);
 
     addMetadata(newClassDeclaration, { isGUI3DControl: true});
