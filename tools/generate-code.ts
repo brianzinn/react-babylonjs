@@ -146,8 +146,8 @@ const createMeshClasses = (sourceFile: SourceFile) => {
   if (meshPropertiesToAdd.length == 0) {
     console.error("'Mesh' is a required class of interest to generate from MeshBuilder.")
   }
-
-  addPropsAndHandlerClasses(sourceFile, "Mesh", "Mesh", meshPropertiesToAdd, meshBuilderTuple.namespace, "Node")
+  const nodeClassDeclaration = classesOfInterest.get("Node")!.classDeclaration;
+  addPropsAndHandlerClasses(sourceFile, "Mesh", "Mesh", meshPropertiesToAdd, meshBuilderTuple.namespace, nodeClassDeclaration)
 
   let factoryMethods: MethodDeclaration[] = meshBuilderTuple.classDeclaration.getStaticMethods();
 
@@ -307,6 +307,8 @@ const addCreateInfoFromFactoryMethod = (method: MethodDeclaration, factoryClass:
 
 const getMethodInstanceProperties = (classDeclaration: ClassDeclaration) : PropertyDeclaration[] => {
   let result: PropertyDeclaration[] = [];
+
+  // for conditional breakpoints on class: classDeclaration.getName() === "Control";
   classDeclaration.getProperties().forEach(property => {
     let propertyName = property.getName()
     if (propertyName[0] === '_' || propertyName.startsWith('on')) {
@@ -324,7 +326,7 @@ const getMethodInstanceProperties = (classDeclaration: ClassDeclaration) : Prope
       return;
     }
 
-    // add conditinal breakpoint to inspect properties.  ie: propertyName==='customShaderNameResolve'
+    // add conditional breakpoint to inspect properties.  ie: propertyName==='customShaderNameResolve'
     result.push(property);
   })
 
@@ -354,6 +356,7 @@ const writePropertyAsUpdateFunction = (classDeclaration: ClassDeclaration, write
         case "boolean":
         case "number":
         case "string":
+        case "string | number": // TODO: split the string on | and check for primitive types.  or use "any" with deep/shallow equals.
           writer.writeLine(`// ${importedNamespace}.${classNameBabylon}.${propertyName} of type '${type}':`)
           writer.write(`if (oldProps.${propertyName} !== newProps.${propertyName})`).block(() => {
             writer.writeLine(`updates.push({\npropertyName: '${propertyName}',\nvalue: newProps.${propertyName},\ntype: '${type}'\n});`);
@@ -374,10 +377,9 @@ const writePropertyAsUpdateFunction = (classDeclaration: ClassDeclaration, write
 
 const createClassDeclaration = (classDeclaration: ClassDeclaration, rootBaseClass: ClassDeclaration, namespace: string, sourceFile: SourceFile, extra?: (newClassDeclaration: ClassDeclaration, originalClassDeclaration: ClassDeclaration) => void) : ClassDeclaration =>  {
   const baseClass: ClassDeclaration | undefined = classDeclaration.getBaseClass(); // no mix-ins in BabylonJS AFAIK, but would otherwise use baseTypes()
-  const baseClassName : string | undefined = (baseClass === undefined) ? undefined : baseClass.getName();
-
+  
   const className = classDeclaration.getName()!
-  addPropsAndHandlerClasses(sourceFile, className, className, getMethodInstanceProperties(classDeclaration), namespace, baseClassName);
+  addPropsAndHandlerClasses(sourceFile, className, className, getMethodInstanceProperties(classDeclaration), namespace, baseClass);
 
   const newClassDeclaration = sourceFile.addClass({
     name: `${ClassNamesPrefix}${className}`,
@@ -475,14 +477,15 @@ class OrderedListCreator {
  * The odd parameters here are because we are also inventing classes not based on real BabylonJS objects (ie: Box, Sphere are actually Mesh)
  * It probably looks like we should just pass along the ClassDeclaration... 
  */
-const addPropsAndHandlerClasses = (sourceFile: SourceFile, classNameToGenerate: string, classNameBabylon: string, propertiesToAdd: PropertyDeclaration[], importedNamespace: string, baseClassName?: string) => {
+const addPropsAndHandlerClasses = (sourceFile: SourceFile, classNameToGenerate: string, classNameBabylon: string, propertiesToAdd: PropertyDeclaration[], importedNamespace: string, baseClass?: ClassDeclaration) => {
   
   const classDeclarationProps = sourceFile.addClass({
     name: `${ClassNamesPrefix}${classNameToGenerate}Props`,
     isExported: true
   });
 
-  if (baseClassName) {
+  if (baseClass !== undefined) {
+    let baseClassName = baseClass.getName()
     classDeclarationProps.setExtends(`${ClassNamesPrefix}${baseClassName}Props`)
   }
 
