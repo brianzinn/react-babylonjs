@@ -8427,7 +8427,14 @@ export class FiberControlPropsHandler implements PropsHandler<GUI.Control, Fiber
             });
         }
         // TODO: type: { ascent: number; height: number; descent: number; } property (not coded) GUI.Control.fontOffset.
-        // TODO: type: string | number property (not coded) GUI.Control.fontSize.
+        // GUI.Control.fontSize of type 'string | number':
+        if (oldProps.fontSize !== newProps.fontSize) {
+            updates.push({
+                propertyName: 'fontSize',
+                value: newProps.fontSize,
+                type: 'string | number'
+            });
+        }
         // GUI.Control.fontStyle of type 'string':
         if (oldProps.fontStyle !== newProps.fontStyle) {
             updates.push({
@@ -8444,7 +8451,14 @@ export class FiberControlPropsHandler implements PropsHandler<GUI.Control, Fiber
                 type: 'string'
             });
         }
-        // TODO: type: string | number property (not coded) GUI.Control.height.
+        // GUI.Control.height of type 'string | number':
+        if (oldProps.height !== newProps.height) {
+            updates.push({
+                propertyName: 'height',
+                value: newProps.height,
+                type: 'string | number'
+            });
+        }
         // GUI.Control.horizontalAlignment of type 'number':
         if (oldProps.horizontalAlignment !== newProps.horizontalAlignment) {
             updates.push({
@@ -8501,9 +8515,30 @@ export class FiberControlPropsHandler implements PropsHandler<GUI.Control, Fiber
                 type: 'boolean'
             });
         }
-        // TODO: type: string | number property (not coded) GUI.Control.left.
-        // TODO: type: string | number property (not coded) GUI.Control.linkOffsetX.
-        // TODO: type: string | number property (not coded) GUI.Control.linkOffsetY.
+        // GUI.Control.left of type 'string | number':
+        if (oldProps.left !== newProps.left) {
+            updates.push({
+                propertyName: 'left',
+                value: newProps.left,
+                type: 'string | number'
+            });
+        }
+        // GUI.Control.linkOffsetX of type 'string | number':
+        if (oldProps.linkOffsetX !== newProps.linkOffsetX) {
+            updates.push({
+                propertyName: 'linkOffsetX',
+                value: newProps.linkOffsetX,
+                type: 'string | number'
+            });
+        }
+        // GUI.Control.linkOffsetY of type 'string | number':
+        if (oldProps.linkOffsetY !== newProps.linkOffsetY) {
+            updates.push({
+                propertyName: 'linkOffsetY',
+                value: newProps.linkOffsetY,
+                type: 'string | number'
+            });
+        }
         // GUI.Control.name of type 'string':
         if (oldProps.name !== newProps.name) {
             updates.push({
@@ -8520,10 +8555,38 @@ export class FiberControlPropsHandler implements PropsHandler<GUI.Control, Fiber
                 type: 'boolean'
             });
         }
-        // TODO: type: string | number property (not coded) GUI.Control.paddingBottom.
-        // TODO: type: string | number property (not coded) GUI.Control.paddingLeft.
-        // TODO: type: string | number property (not coded) GUI.Control.paddingRight.
-        // TODO: type: string | number property (not coded) GUI.Control.paddingTop.
+        // GUI.Control.paddingBottom of type 'string | number':
+        if (oldProps.paddingBottom !== newProps.paddingBottom) {
+            updates.push({
+                propertyName: 'paddingBottom',
+                value: newProps.paddingBottom,
+                type: 'string | number'
+            });
+        }
+        // GUI.Control.paddingLeft of type 'string | number':
+        if (oldProps.paddingLeft !== newProps.paddingLeft) {
+            updates.push({
+                propertyName: 'paddingLeft',
+                value: newProps.paddingLeft,
+                type: 'string | number'
+            });
+        }
+        // GUI.Control.paddingRight of type 'string | number':
+        if (oldProps.paddingRight !== newProps.paddingRight) {
+            updates.push({
+                propertyName: 'paddingRight',
+                value: newProps.paddingRight,
+                type: 'string | number'
+            });
+        }
+        // GUI.Control.paddingTop of type 'string | number':
+        if (oldProps.paddingTop !== newProps.paddingTop) {
+            updates.push({
+                propertyName: 'paddingTop',
+                value: newProps.paddingTop,
+                type: 'string | number'
+            });
+        }
         // TODO: type: BABYLON.GUI.Container property (not coded) GUI.Control.parent.
         // GUI.Control.rotation of type 'number':
         if (oldProps.rotation !== newProps.rotation) {
@@ -8582,7 +8645,14 @@ export class FiberControlPropsHandler implements PropsHandler<GUI.Control, Fiber
             });
         }
         // TODO: type: BABYLON.GUI.Style property (not coded) GUI.Control.style.
-        // TODO: type: string | number property (not coded) GUI.Control.top.
+        // GUI.Control.top of type 'string | number':
+        if (oldProps.top !== newProps.top) {
+            updates.push({
+                propertyName: 'top',
+                value: newProps.top,
+                type: 'string | number'
+            });
+        }
         // GUI.Control.transformCenterX of type 'number':
         if (oldProps.transformCenterX !== newProps.transformCenterX) {
             updates.push({
@@ -8607,7 +8677,14 @@ export class FiberControlPropsHandler implements PropsHandler<GUI.Control, Fiber
                 type: 'number'
             });
         }
-        // TODO: type: string | number property (not coded) GUI.Control.width.
+        // GUI.Control.width of type 'string | number':
+        if (oldProps.width !== newProps.width) {
+            updates.push({
+                propertyName: 'width',
+                value: newProps.width,
+                type: 'string | number'
+            });
+        }
         // GUI.Control.zIndex of type 'number':
         if (oldProps.zIndex !== newProps.zIndex) {
             updates.push({
@@ -8771,7 +8848,14 @@ export class FiberColorPickerPropsHandler implements PropsHandler<GUI.ColorPicke
         // generated code
         let babylonObject: GUI.ColorPicker = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
-        // TODO: type: string | number property (not coded) GUI.ColorPicker.height.
+        // GUI.ColorPicker.height of type 'string | number':
+        if (oldProps.height !== newProps.height) {
+            updates.push({
+                propertyName: 'height',
+                value: newProps.height,
+                type: 'string | number'
+            });
+        }
         // GUI.ColorPicker.name of type 'string':
         if (oldProps.name !== newProps.name) {
             updates.push({
@@ -8780,9 +8864,23 @@ export class FiberColorPickerPropsHandler implements PropsHandler<GUI.ColorPicke
                 type: 'string'
             });
         }
-        // TODO: type: string | number property (not coded) GUI.ColorPicker.size.
+        // GUI.ColorPicker.size of type 'string | number':
+        if (oldProps.size !== newProps.size) {
+            updates.push({
+                propertyName: 'size',
+                value: newProps.size,
+                type: 'string | number'
+            });
+        }
         // TODO: type: BABYLON.Color3 property (not coded) GUI.ColorPicker.value.
-        // TODO: type: string | number property (not coded) GUI.ColorPicker.width.
+        // GUI.ColorPicker.width of type 'string | number':
+        if (oldProps.width !== newProps.width) {
+            updates.push({
+                propertyName: 'width',
+                value: newProps.width,
+                type: 'string | number'
+            });
+        }
         return updates.length == 0 ? null : updates;
     }
 }
@@ -9064,7 +9162,14 @@ export class FiberStackPanelPropsHandler implements PropsHandler<GUI.StackPanel,
         // generated code
         let babylonObject: GUI.StackPanel = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
-        // TODO: type: string | number property (not coded) GUI.StackPanel.height.
+        // GUI.StackPanel.height of type 'string | number':
+        if (oldProps.height !== newProps.height) {
+            updates.push({
+                propertyName: 'height',
+                value: newProps.height,
+                type: 'string | number'
+            });
+        }
         // GUI.StackPanel.isVertical of type 'boolean':
         if (oldProps.isVertical !== newProps.isVertical) {
             updates.push({
@@ -9081,7 +9186,14 @@ export class FiberStackPanelPropsHandler implements PropsHandler<GUI.StackPanel,
                 type: 'string'
             });
         }
-        // TODO: type: string | number property (not coded) GUI.StackPanel.width.
+        // GUI.StackPanel.width of type 'string | number':
+        if (oldProps.width !== newProps.width) {
+            updates.push({
+                propertyName: 'width',
+                value: newProps.width,
+                type: 'string | number'
+            });
+        }
         return updates.length == 0 ? null : updates;
     }
 }
@@ -9801,7 +9913,14 @@ export class FiberInputTextPropsHandler implements PropsHandler<GUI.InputText, F
                 type: 'string'
             });
         }
-        // TODO: type: string | number property (not coded) GUI.InputText.maxWidth.
+        // GUI.InputText.maxWidth of type 'string | number':
+        if (oldProps.maxWidth !== newProps.maxWidth) {
+            updates.push({
+                propertyName: 'maxWidth',
+                value: newProps.maxWidth,
+                type: 'string | number'
+            });
+        }
         // GUI.InputText.name of type 'string':
         if (oldProps.name !== newProps.name) {
             updates.push({
@@ -9850,7 +9969,14 @@ export class FiberInputTextPropsHandler implements PropsHandler<GUI.InputText, F
                 type: 'number'
             });
         }
-        // TODO: type: string | number property (not coded) GUI.InputText.width.
+        // GUI.InputText.width of type 'string | number':
+        if (oldProps.width !== newProps.width) {
+            updates.push({
+                propertyName: 'width',
+                value: newProps.width,
+                type: 'string | number'
+            });
+        }
         return updates.length == 0 ? null : updates;
     }
 }
@@ -10001,10 +10127,38 @@ export class FiberLinePropsHandler implements PropsHandler<GUI.Line, FiberLinePr
                 type: 'number'
             });
         }
-        // TODO: type: string | number property (not coded) GUI.Line.x1.
-        // TODO: type: string | number property (not coded) GUI.Line.x2.
-        // TODO: type: string | number property (not coded) GUI.Line.y1.
-        // TODO: type: string | number property (not coded) GUI.Line.y2.
+        // GUI.Line.x1 of type 'string | number':
+        if (oldProps.x1 !== newProps.x1) {
+            updates.push({
+                propertyName: 'x1',
+                value: newProps.x1,
+                type: 'string | number'
+            });
+        }
+        // GUI.Line.x2 of type 'string | number':
+        if (oldProps.x2 !== newProps.x2) {
+            updates.push({
+                propertyName: 'x2',
+                value: newProps.x2,
+                type: 'string | number'
+            });
+        }
+        // GUI.Line.y1 of type 'string | number':
+        if (oldProps.y1 !== newProps.y1) {
+            updates.push({
+                propertyName: 'y1',
+                value: newProps.y1,
+                type: 'string | number'
+            });
+        }
+        // GUI.Line.y2 of type 'string | number':
+        if (oldProps.y2 !== newProps.y2) {
+            updates.push({
+                propertyName: 'y2',
+                value: newProps.y2,
+                type: 'string | number'
+            });
+        }
         return updates.length == 0 ? null : updates;
     }
 }
@@ -10265,7 +10419,14 @@ export class FiberTextBlockPropsHandler implements PropsHandler<GUI.TextBlock, F
         // generated code
         let babylonObject: GUI.TextBlock = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
-        // TODO: type: string | number property (not coded) GUI.TextBlock.lineSpacing.
+        // GUI.TextBlock.lineSpacing of type 'string | number':
+        if (oldProps.lineSpacing !== newProps.lineSpacing) {
+            updates.push({
+                propertyName: 'lineSpacing',
+                value: newProps.lineSpacing,
+                type: 'string | number'
+            });
+        }
         // GUI.TextBlock.name of type 'string':
         if (oldProps.name !== newProps.name) {
             updates.push({
@@ -10400,7 +10561,14 @@ export class FiberSliderPropsHandler implements PropsHandler<GUI.Slider, FiberSl
                 type: 'string'
             });
         }
-        // TODO: type: string | number property (not coded) GUI.Slider.barOffset.
+        // GUI.Slider.barOffset of type 'string | number':
+        if (oldProps.barOffset !== newProps.barOffset) {
+            updates.push({
+                propertyName: 'barOffset',
+                value: newProps.barOffset,
+                type: 'string | number'
+            });
+        }
         // GUI.Slider.borderColor of type 'string':
         if (oldProps.borderColor !== newProps.borderColor) {
             updates.push({
@@ -10457,7 +10625,14 @@ export class FiberSliderPropsHandler implements PropsHandler<GUI.Slider, FiberSl
                 type: 'string'
             });
         }
-        // TODO: type: string | number property (not coded) GUI.Slider.thumbWidth.
+        // GUI.Slider.thumbWidth of type 'string | number':
+        if (oldProps.thumbWidth !== newProps.thumbWidth) {
+            updates.push({
+                propertyName: 'thumbWidth',
+                value: newProps.thumbWidth,
+                type: 'string | number'
+            });
+        }
         // GUI.Slider.value of type 'number':
         if (oldProps.value !== newProps.value) {
             updates.push({
@@ -13699,9 +13874,9 @@ export class FiberAdvancedDynamicTexturePropsHandler implements PropsHandler<GUI
  * 
  * This code has been generated
  */
-export class FiberAdvancedDynamicTexture implements HasPropsHandlers<BABYLON.DynamicTexture, FiberDynamicTextureProps> {
+export class FiberAdvancedDynamicTexture implements HasPropsHandlers<BABYLON.BaseTexture, FiberBaseTextureProps> {
     public readonly isTargetable = false;
-    private propsHandlers: PropsHandler<BABYLON.DynamicTexture, FiberDynamicTextureProps>[];
+    private propsHandlers: PropsHandler<BABYLON.BaseTexture, FiberBaseTextureProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -13712,11 +13887,11 @@ export class FiberAdvancedDynamicTexture implements HasPropsHandlers<BABYLON.Dyn
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BABYLON.DynamicTexture, FiberDynamicTextureProps>[] {
+    getPropsHandlers(): PropsHandler<BABYLON.BaseTexture, FiberBaseTextureProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BABYLON.DynamicTexture, FiberDynamicTextureProps>): void {
+    addPropsHandler(propHandler: PropsHandler<BABYLON.BaseTexture, FiberBaseTextureProps>): void {
         this.propsHandlers.push(propHandler);
     }
 

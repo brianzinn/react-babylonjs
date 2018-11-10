@@ -3,11 +3,14 @@ import BABYLON from "babylonjs"
 import * as GUI from "babylonjs-gui"
 
 import * as GENERATED from "./generatedCode"
-import { HostWithEvents, HostWithEventsFiber } from "./customHosts"
+import * as CUSTOM_HOSTS from "./customHosts"
+import * as CUSTOM_COMPONENTS from "./customComponents"
 
 import { WithSceneContext } from "./Scene"
-import { GUI3DManagerLifecycleEvents } from "./customComponents"
+
 import GUI3DControlLifecycleEvents from "./customComponents/GUI3DControlLifecycleEvents"
+import GUI2DControlLifecycleEvents from "./customComponents/GUI2DControlLifecycleEvents";
+import AdvancedDynamicTextureLifecycleEvents from "./customComponents/AdvancedDynamicTextureLifecycleEvents";
 
 /** Following classes are duplicated in generate-code.ts for noww */
 type GeneratedParameter = {
@@ -139,6 +142,7 @@ function applyUpdateToInstance(babylonObject: any, update: PropertyUpdate, type:
     case "string":
     case "number":
     case "boolean":
+    case "string | number": // TODO: string | number is a deficiency in the code generator.  ie: can test for only primitives | and generate update type in code generator
       console.log(` > ${type}: updating ${update.type} on ${update.propertyName} to ${update.value}`)
       babylonObject[update.propertyName] = update.value
       break
@@ -232,7 +236,7 @@ class TexturesLifecycleListener implements LifecycleListeners {
     let tmp: CreatedInstance<any> | null = instance.parent
     while (tmp != null) {
       if (tmp.metadata && tmp.metadata.isMaterial === true) {
-        console.log("assigning diffuse texture", texture, BABYLON.Texture.SKYBOX_MODE)
+        console.error("assigning diffuse texture.  Need a property to define which texture to apply", texture, BABYLON.Texture.SKYBOX_MODE)
         tmp.babylonJsObject.reflectionTexture = texture // need a way to assign different textures;
         tmp.babylonJsObject.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE
         break
@@ -286,7 +290,7 @@ const ReactBabylonJSHostConfig: HostConfig<
   NoTimeout
 > = {
   get supportsMutation(): boolean {
-    console.log("request supports mutation - return true;")
+    // console.log("request supports mutation - return true;")
     // This has the reconciler include in call chain ie: appendChild, removeChild
     return true
   },
@@ -312,7 +316,7 @@ const ReactBabylonJSHostConfig: HostConfig<
 
   // this enables refs
   getPublicInstance: (instance: any) => {
-    console.log("getting public instance:", instance)
+    // console.log("getting public instance:", instance)
     return instance
   },
 
@@ -356,7 +360,7 @@ const ReactBabylonJSHostConfig: HostConfig<
       return null
     }
 
-    console.log("prepareUpdate", instance, oldProps, newProps)
+    // console.log("prepareUpdate", instance, oldProps, newProps)
     let updatePayload: PropertyUpdate[] = []
 
     // TODO: This will not work for multiple scenes, which V1 will support.
@@ -378,12 +382,12 @@ const ReactBabylonJSHostConfig: HostConfig<
     if (updatePayload.length > 0) {
       if (instance.metadata) {
         if (instance.babylonJsObject) {
-          console.log(" > created update for:", instance.babylonJsObject.name)
+          // console.log(" > created update for:", instance.babylonJsObject.name)
         }
 
-        console.log(` > updated payload for '${instance.metadata.className}':`, updatePayload)
+        // console.log(` > updated payload for '${instance.metadata.className}':`, updatePayload)
       } else {
-        console.log(" > pushing props updates for an instance with no metadata:", instance)
+        // console.log(" > pushing props updates for an instance with no metadata:", instance)
       }
     }
 
@@ -397,8 +401,8 @@ const ReactBabylonJSHostConfig: HostConfig<
     hostContext: HostContext,
     internalInstanceHandle: Object
   ): CreatedInstance<any> | undefined => {
-    // TODO: Make a registry like React Native host config or perhaps a single "host" type is enough for all use cases.
-    const customTypes: string[] = [HostWithEvents]
+    // TODO: Make a registry like React Native host config or just build a map in /customHosts/index.ts.
+    const customTypes: string[] = [CUSTOM_HOSTS.HostWithEvents]
 
     const { scene } = props as any
     const { canvas, engine } = rootContainerInstance
@@ -413,30 +417,33 @@ const ReactBabylonJSHostConfig: HostConfig<
         )
       }
 
+      let metadata = {
+          className: type,
+          customType: true,
+          ...props.metadata
+      }
+
+      // console.warn('trying to new up:', type + 'Fiber with metadata:', metadata);
+
       let createdInstance: CreatedInstance<null> = {
         babylonJsObject: null,
-        metadata: {
-          className: type,
-          customType: true
-        },
+        metadata,
         parent: null,
         children: [],
         propsHandlers: undefined,
-        lifecycleListeners: new HostWithEventsFiber(sceneContext.scene!, engine, props)
+        lifecycleListeners: new (CUSTOM_HOSTS as any)[type + 'Fiber'](sceneContext.scene!, engine, props)
       }
       return createdInstance
     }
 
-    console.log("getting static data for:", type)
-
     let createInfoArgs: CreateInfo = (GENERATED as any)[`Fiber${type}`].CreateInfo
     let metadata: CreatedInstanceMetadata = (GENERATED as any)[`Fiber${type}`].Metadata
 
-    console.log(`creating: ${createInfoArgs.namespace}.${type}`)
+    // console.log(`creating: ${createInfoArgs.namespace}.${type}`)
 
     let generatedParameters: GeneratedParameter[] = createInfoArgs!.parameters
 
-    console.log("generated params:", generatedParameters)
+    // console.log("generated params:", generatedParameters)
 
     let args = generatedParameters.map(generatedParameter => {
       if (Array.isArray(generatedParameter.type)) {
@@ -455,7 +462,7 @@ const ReactBabylonJSHostConfig: HostConfig<
         let value = props[generatedParameter.name]
         if (value === undefined && generatedParameter.optional === false) {
           if (generatedParameter.type === "BABYLON.Scene") {
-            console.log("assigning scene...", scene)
+            // console.log("assigning scene...", scene)
             value = scene
           } else {
             console.warn(
@@ -476,10 +483,11 @@ const ReactBabylonJSHostConfig: HostConfig<
     } else {
       switch (createInfoArgs.namespace) {
         case "BABYLON":
-          console.log("creating", type, ...args)
+          // console.log("creating", type, ...args)
           babylonObject = new (BABYLON as any)[type](...args)
           break
         case "GUI":
+          // console.log("creating GUI", type, ...args)
           babylonObject = new (GUI as any)[type](...args)
           break
         default:
@@ -498,18 +506,27 @@ const ReactBabylonJSHostConfig: HostConfig<
 
     let lifecycleListeners: LifecycleListeners | undefined = undefined
 
-    // here we dynamically assign listeners for specific types.  Would like to also generate this part of the code, although it's easier to update listeners as-is :)
+    // here we dynamically assign listeners for specific types.
+    // Would like to also generate this part of the code, although the generated code would be harder to follow.
+    // Also, consider these being dynamically attached, much like PropsHandlers<T>
     if (metadata.isMaterial === true) {
       lifecycleListeners = new MaterialsLifecycleListener()
     } else if (metadata.isGUI3DControl === true) {
       lifecycleListeners = new GUI3DControlLifecycleEvents()
+    } else if (metadata.isGUI2DControl === true) {
+      if (metadata.className === "FiberAdvancedDynamicTexture") {
+        lifecycleListeners = new AdvancedDynamicTextureLifecycleEvents(props);
+      } else {
+        console.error('regular 2d', metadata.className)
+        lifecycleListeners = new GUI2DControlLifecycleEvents();
+      }
     } else if (metadata.isTexture === true) {
       lifecycleListeners = new TexturesLifecycleListener()
     }
 
     if (type === "GUI3DManager") {
-      console.log("Attaching specific GUI 3D manager fiber lifecycle listeners.")
-      lifecycleListeners = new GUI3DManagerLifecycleEvents()
+      // console.log("Attaching specific GUI 3D manager fiber lifecycle listeners.")
+      lifecycleListeners = new CUSTOM_COMPONENTS.GUI3DManagerLifecycleEvents()
     }
 
     let createdReference = createCreatedInstance(type, babylonObject, fiberObject, metadata, lifecycleListeners)
@@ -593,15 +610,14 @@ const ReactBabylonJSHostConfig: HostConfig<
 
     // This here is indicating that root element should absolutely not be the canvas!!
     // Here we are testing HMR. re-attaching??
-    console.log("reconciler: resetAfterCommit", containerInfo)
+    // console.log("reconciler: resetAfterCommit", containerInfo)
 
     let scene: BABYLON.Scene = containerInfo.engine.scenes[0]
     let camera: BABYLON.Nullable<BABYLON.Camera> = scene.activeCamera
-    if (camera === null) {
-      console.warn("looks like scene.ActiveCamera is null...")
+    if (camera === null || camera === undefined) {
+      console.warn(`scenes[0 of ${containerInfo.engine.scenes.length}].activeCamera cannot be attached it is:`, camera)
     } else {
-      console.warn("re-attaching camera??")
-
+      console.warn("(re)attaching camera", containerInfo)
       camera.attachControl(containerInfo.canvas as HTMLCanvasElement)
     }
   },
@@ -700,12 +716,12 @@ const ReactBabylonJSHostConfig: HostConfig<
   },
 
   removeChildFromContainer(container: Container, child: {} | CreatedInstance<any> | undefined): void {
-    console.log("removing child from container", child)
+    console.error("not implemented. removeChildFromContainer()", child)
   },
 
   removeChild(parentInstance: CreatedInstance<any>, child: CreatedInstance<any>) {
     // TOOD: this is important, especially for GUI, which will be done soon...
-    console.log("remove child", parentInstance, child)
+    console.error("not implemented.  removeChild()", parentInstance, child)
   },
 
   // text-content nodes are not used
