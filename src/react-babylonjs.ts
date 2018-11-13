@@ -7,18 +7,9 @@ export { default as Engine, withEngine } from "./Engine"
 // These are registered host elements we have defined ourselves
 export { HostWithEvents } from "./customHosts"
 
-// TODO: Put these back in the project.  These need to be included for backwards compatibility with 0.4.6:
-export class Environment {}
-
-// Classes to help build common features
+// TODO: Look at the skybox helper in BabylonJS (maybe use the factory methods).  ie: scene.CreateDefaultXX()
 export { default as Skybox } from "./customComponents/Skybox"
 
-// currently only works with directional light:
-export { default as ShadowGenerator, ShadowGeneratorProps } from "./ShadowGenerator"
-
-// models/sceneloader
+// TODO: Delete SceneComponent and make model a 'host' component
 export { default as Model, LoadedModel, LoaderStatus } from "./Model"
 export { ModelProps } from "./ModelProps"
-
-// Helpers: VR,Environment
-export { default as VRExperience, VRExperienceProps } from "./VRExperience"

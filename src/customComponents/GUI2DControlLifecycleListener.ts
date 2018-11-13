@@ -1,7 +1,7 @@
 import { LifecycleListeners, CreatedInstance } from "../ReactBabylonJSHostConfig"
 
-export default class GUI2DControlLifecycleEvents implements LifecycleListeners {
-  private added: boolean = false;
+export default class GUI2DControlLifecycleListener implements LifecycleListeners {
+  private added: boolean = false
 
   onParented(parent: CreatedInstance<any>, child: CreatedInstance<any>): any {
     // if (parent.metadata.isGUI2DControl === true) {
@@ -42,7 +42,6 @@ export default class GUI2DControlLifecycleEvents implements LifecycleListeners {
     //             }
     //             break;
     //         }
-
     //         tmp = tmp.parent
     //     }
     // }

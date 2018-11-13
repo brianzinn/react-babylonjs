@@ -37,9 +37,13 @@ type CreateInfo = {
 }
 
 type InstanceMetadataParameter = {
+  delayCreation?: boolean // if it should not be created automatically, but by LifecycleListener (ie: ShadowGenerator needs an IShadowLight)
   shadowGenerator?: boolean // children will auto-cast shadows
   acceptsMaterials?: boolean
+  isShadowLight?: boolean // capable of being used as a shadow generator source
+  isEnvironment?: boolean // to find ground for Teleportation (not using a registry - one time cost)
   isTargetable?: boolean // will attach a target props handler
+  isMesh?: boolean
   isMaterial?: boolean // indicates a custom component created by end-user has been created
   isGUI3DControl?: boolean // does not work with 2D
   isGUI2DControl?: boolean // does not work with 3D
@@ -70,6 +74,9 @@ classesOfInterest.set("Control3D", undefined);
 classesOfInterest.set("GUI3DManager", undefined);
 classesOfInterest.set("BaseTexture", undefined);
 classesOfInterest.set("AdvancedDynamicTexture", undefined);
+classesOfInterest.set("ShadowGenerator", undefined)
+classesOfInterest.set("EnvironmentHelper", undefined);
+classesOfInterest.set("VRExperienceHelper", undefined);
 
 const getNamespace = (classDeclaration : ClassDeclaration) : string => {
   let symbol = classDeclaration.getType().compilerType.symbol;
@@ -114,7 +121,7 @@ babylonGuiNamespaces.forEach(namespaceDeclaration => {
     })
 });
 
-const addMetadata = (classDeclaration: ClassDeclaration, metadata?: InstanceMetadataParameter) => {
+const addMetadata = (classDeclaration: ClassDeclaration, originalClassDeclaration?: ClassDeclaration, metadata?: InstanceMetadataParameter, extraMetadata? : (newClassDeclaration: ClassDeclaration, metadata: CreatedInstanceMetadata, originalClassDeclaration?: ClassDeclaration) => void) => {
   const createInfoProperty = classDeclaration.addProperty({
     name: 'Metadata',
     type: ReactReconcilerCreatedInstanceMetadata,
@@ -123,9 +130,15 @@ const addMetadata = (classDeclaration: ClassDeclaration, metadata?: InstanceMeta
     isReadonly : true
   })
 
+  let metadataClone = metadata === undefined ? {} : {...metadata};
+
   let propertyInit = {
-    ...(metadata === undefined ? {} : metadata),
-    className: classDeclaration.getName()
+    ...metadataClone,
+    className: classDeclaration.getName()!
+  }
+
+  if (extraMetadata) {
+    extraMetadata(classDeclaration, propertyInit, originalClassDeclaration)
   }
 
   createInfoProperty.setInitializer(JSON.stringify(propertyInit, null, 2))
@@ -166,8 +179,9 @@ const createMeshClasses = (sourceFile: SourceFile) => {
       console.log(` > ${factoryType}`)
       let newClassDeclaration: ClassDeclaration = addClassDeclarationFromFactoryMethod(sourceFile, factoryType, "Mesh", method);
       addCreateInfoFromFactoryMethod(method, meshBuilderTuple.classDeclaration.getName()!, methodName, newClassDeclaration, BABYLON_NAMESPACE)
-      addMetadata(newClassDeclaration, {
-        acceptsMaterials: true
+      addMetadata(newClassDeclaration, undefined /* no original class */, {
+        acceptsMaterials: true,
+        isMesh: true
       })
     }
   });
@@ -311,8 +325,8 @@ const getMethodInstanceProperties = (classDeclaration: ClassDeclaration) : Prope
   // for conditional breakpoints on class: classDeclaration.getName() === "Control";
   classDeclaration.getProperties().forEach(property => {
     let propertyName = property.getName()
-    if (propertyName[0] === '_' || propertyName.startsWith('on')) {
-      // console.log(` > skipping ${className}.${propertyName} (hidden/observable)`)
+    if (propertyName[0] === '_') {
+      // console.log(` > skipping ${className}.${propertyName} (private/hidden)`)
       return;
     }
 
@@ -335,44 +349,55 @@ const getMethodInstanceProperties = (classDeclaration: ClassDeclaration) : Prope
 
 const writePropertyAsUpdateFunction = (classDeclaration: ClassDeclaration, writer: CodeBlockWriter, property: PropertyDeclaration, addedProperties: Set<String>, importedNamespace: string, classNameBabylon: string) => {
   const type = property.getType().getText();
-      const propertyName: string = property.getName();
-      // doesn't really matter if it's 'optional', as nothing is forcing JavaScript users to follow your conventions.
-      // const isOptional = property.getQuestionTokenNode();
+  const propertyName: string = property.getName();
+  // doesn't really matter if it's 'optional', as nothing is forcing JavaScript users to follow your conventions.
+  // const isOptional = property.getQuestionTokenNode();
 
-      if (addedProperties.has(propertyName)) {
-        console.log(' >> skipping already existing property (ie: was overridden like Mesh.scaling): ', propertyName);
-        return;
-      }
-      addedProperties.add(propertyName);
-      // console.log(` >> including Mesh.${propertyName} (${type}))`)
+  // TODO: We need to ensure this is for entire hierarchy. ie: 'name' will be saved multiple times on object creation
+  if (addedProperties.has(propertyName)) {
+    console.log(' >> skipping already existing property (ie: was overridden like Mesh.scaling): ', propertyName);
+    return;
+  }
+  addedProperties.add(propertyName);
+  // console.log(` >> including Mesh.${propertyName} (${type}))`)
 
-      const meshProperty = classDeclaration.addProperty({
-        name: propertyName,
-        type: type,
-      })
-      meshProperty.setHasQuestionToken(true);
+  const meshProperty = classDeclaration.addProperty({
+    name: propertyName,
+    type: type,
+  })
+  meshProperty.setHasQuestionToken(true);
 
-      switch(type) {
-        case "boolean":
-        case "number":
-        case "string":
-        case "string | number": // TODO: split the string on | and check for primitive types.  or use "any" with deep/shallow equals.
-          writer.writeLine(`// ${importedNamespace}.${classNameBabylon}.${propertyName} of type '${type}':`)
-          writer.write(`if (oldProps.${propertyName} !== newProps.${propertyName})`).block(() => {
-            writer.writeLine(`updates.push({\npropertyName: '${propertyName}',\nvalue: newProps.${propertyName},\ntype: '${type}'\n});`);
-          });
-          break;
-        case `${importedNamespace}.Vector3`:
-        case `${importedNamespace}.Color3`:
-          writer.writeLine(`// ${importedNamespace}.${classNameBabylon}.${propertyName} of ${importedNamespace}${type} uses object equals to find diffs:`)
-          writer.write(`if (newProps.${propertyName} && (!oldProps.${propertyName} || !oldProps.${propertyName}.equals(newProps.${propertyName})))`).block(() => {
-            writer.writeLine(`updates.push({\npropertyName: '${propertyName}',\nvalue: newProps.${propertyName},\ntype: '${type}'\n});`);
-          });
-          break;
-        default:
-          writer.writeLine(`// TODO: type: ${type} property (not coded) ${importedNamespace}.${classNameBabylon}.${propertyName}.`);
-          break;
-      }
+  if (propertyName.startsWith('on')) {
+    writer.writeLine(`// ${importedNamespace}.${classNameBabylon}.${propertyName} of type '${type}/fn':`)
+    writer.write(`if (oldProps.${propertyName} === undefined && oldProps.${propertyName} !== newProps.${propertyName})`).block(() => {
+      // We need the oldProps[propertyName] here, since we will want to remove that observable (note they are never equal!)
+      // TODO: Need to research why these functions are never equal and also removing does not work.
+      writer.writeLine(`updates.push({\npropertyName: '${propertyName}',\nvalue: newProps.${propertyName},\ntype: '${type}',\nprevValue: oldProps.${propertyName},\n});`);
+    });
+    return;
+  }
+
+  switch(type) {
+    case "boolean":
+    case "number":
+    case "string":
+    case "string | number": // TODO: split the string on | and check for primitive types.  or use "any" with deep/shallow equals.
+      writer.writeLine(`// ${importedNamespace}.${classNameBabylon}.${propertyName} of type '${type}':`)
+      writer.write(`if (oldProps.${propertyName} !== newProps.${propertyName})`).block(() => {
+        writer.writeLine(`updates.push({\npropertyName: '${propertyName}',\nvalue: newProps.${propertyName},\ntype: '${type}'\n});`);
+      });
+      break;
+    case `${importedNamespace}.Vector3`:
+    case `${importedNamespace}.Color3`:
+      writer.writeLine(`// ${importedNamespace}.${classNameBabylon}.${propertyName} of ${importedNamespace}${type} uses object equals to find diffs:`)
+      writer.write(`if (newProps.${propertyName} && (!oldProps.${propertyName} || !oldProps.${propertyName}.equals(newProps.${propertyName})))`).block(() => {
+        writer.writeLine(`updates.push({\npropertyName: '${propertyName}',\nvalue: newProps.${propertyName},\ntype: '${type}'\n});`);
+      });
+      break;
+    default:
+      writer.writeLine(`// TODO: type: ${type} property (not coded) ${importedNamespace}.${classNameBabylon}.${propertyName}.`);
+      break;
+  }
 }
 
 const createClassDeclaration = (classDeclaration: ClassDeclaration, rootBaseClass: ClassDeclaration, namespace: string, sourceFile: SourceFile, extra?: (newClassDeclaration: ClassDeclaration, originalClassDeclaration: ClassDeclaration) => void) : ClassDeclaration =>  {
@@ -566,7 +591,7 @@ const addCreateInfoFromConstructor = (sourceClass: ClassDeclaration, targetClass
 /**
  * TODO: We should not be generating abstract classes.
  */
-const createClassesInheritedFrom = (sourceFile: SourceFile, classNamespaceTuple: ClassNameSpaceTuple, metadata?: InstanceMetadataParameter, extra?: (newClassDeclaration: ClassDeclaration, originalClassDeclaration: ClassDeclaration) => void) : void => {
+const createClassesInheritedFrom = (sourceFile: SourceFile, classNamespaceTuple: ClassNameSpaceTuple, metadata?: InstanceMetadataParameter, extra?: (newClassDeclaration: ClassDeclaration, originalClassDeclaration: ClassDeclaration) => void, extraMetadata? : (newClassDeclaration: ClassDeclaration, metadata: CreatedInstanceMetadata, originalClassDeclaration?: ClassDeclaration) => void) : void => {
   const orderedListCreator = new OrderedListCreator();
   
   const baseClassDeclaration = classNamespaceTuple.classDeclaration;
@@ -587,7 +612,7 @@ const createClassesInheritedFrom = (sourceFile: SourceFile, classNamespaceTuple:
     const newClassDeclaration = createClassDeclaration(derivedClassDeclaration, baseClassDeclaration, classNamespaceTuple.namespace, sourceFile, extra);
     addCreateInfoFromConstructor(derivedClassDeclaration, newClassDeclaration, classNamespaceTuple.namespace);
 
-    addMetadata(newClassDeclaration, metadata);
+    addMetadata(newClassDeclaration, derivedClassDeclaration, metadata, extraMetadata);
     console.log(` > ${derivedClassDeclaration.getName()}`)
   });
 }
@@ -605,6 +630,27 @@ const addReactExports = (sourceFile: SourceFile) => {
       initializer: `'${tag}'`
     }))
   });
+}
+
+const createSingleClass = (classOfInterest: string, sourceFile: SourceFile, baseClass?: ClassDeclaration, metadata?: InstanceMetadataParameter, extra?: () => void) : void => {
+  const classToGenerate = classesOfInterest.get(classOfInterest)
+
+  if (classToGenerate === undefined) {
+    return; // skipping
+  }
+
+  if (baseClass === undefined) {
+    baseClass = classToGenerate.classDeclaration
+  }
+
+  REACT_EXPORTS.add(classToGenerate.classDeclaration.getName()!)
+
+  const newClassDeclaration = createClassDeclaration(classToGenerate.classDeclaration, baseClass, classToGenerate.namespace, sourceFile, extra);
+  addCreateInfoFromConstructor(classToGenerate.classDeclaration, newClassDeclaration, classToGenerate.namespace);
+
+  addMetadata(newClassDeclaration, classToGenerate.classDeclaration, metadata);
+  console.log('Single class added')
+  console.log(` > ${classToGenerate.classDeclaration.getName()}`)
 }
 
 const generateCode = async () => {
@@ -726,7 +772,19 @@ const generateCode = async () => {
   }
 
   if (classesOfInterest.get("Light")) {
-    createClassesInheritedFrom(generatedSourceFile, classesOfInterest.get("Light")!, undefined);
+    createClassesInheritedFrom(generatedSourceFile, classesOfInterest.get("Light")!, undefined, undefined, (classDeclaration: ClassDeclaration, metadata: CreatedInstanceMetadata, originalClassDeclaration?: ClassDeclaration) => {
+      if (originalClassDeclaration) {
+        // TODO: walk the class hierarchy (or original class) to look for "ShadowLight" instead.
+        switch(originalClassDeclaration.getName()) {
+          case "DirectionalLight":
+          case "PointLight":
+          case "SpotLight":
+          case "ShadowLight": // I think it's abstract.  Anyway, it can still be created.
+            metadata.isShadowLight = true;
+            break;
+        }
+      }
+    });
   }
 
   if (classesOfInterest.get("Control")) {
@@ -740,40 +798,18 @@ const generateCode = async () => {
   if (classesOfInterest.get("BaseTexture")) {
     createClassesInheritedFrom(generatedSourceFile, classesOfInterest.get("BaseTexture")!, {isTexture: true});
   } 
-
-  if (classesOfInterest.get("AdvancedDynamicTexture")) {
-    const adt = classesOfInterest.get("AdvancedDynamicTexture")!;
-    REACT_EXPORTS.add(adt.classDeclaration.getName()!)
-    
-    const rootBaseClass = classesOfInterest.get("BaseTexture")!.classDeclaration;
-    
-    const newClassDeclaration = createClassDeclaration(adt.classDeclaration, rootBaseClass, adt.namespace, generatedSourceFile, extra);
-    addCreateInfoFromConstructor(adt.classDeclaration, newClassDeclaration, adt.namespace);
-    addMetadata(newClassDeclaration, { isGUI2DControl: true});
   
-    console.log('Adding single class:')
-    console.log(` > ${adt.classDeclaration.getName()}`)
-  }
-
-  if (classesOfInterest.get("GUI3DManager")) {
-    const gui3DManager = classesOfInterest.get("GUI3DManager")!;
-    
-    REACT_EXPORTS.add(gui3DManager.classDeclaration.getName()!)
-
-    const newClassDeclaration = createClassDeclaration(gui3DManager.classDeclaration, gui3DManager.classDeclaration, gui3DManager.namespace, generatedSourceFile, () => {});
-    addCreateInfoFromConstructor(gui3DManager.classDeclaration, newClassDeclaration, gui3DManager.namespace);
-
-    addMetadata(newClassDeclaration, { isGUI3DControl: true});
-    console.log('Single class added')
-    console.log(` > ${gui3DManager.classDeclaration.getName()}`)
-  }
+  createSingleClass("AdvancedDynamicTexture", generatedSourceFile, classesOfInterest.get("BaseTexture")!.classDeclaration, { isGUI2DControl: true}, () => {})
+  createSingleClass("GUI3DManager", generatedSourceFile, undefined, { isGUI3DControl: true }, () => {})
+  createSingleClass("ShadowGenerator", generatedSourceFile, undefined, { delayCreation: true }, () => {})
+  createSingleClass("EnvironmentHelper", generatedSourceFile, undefined, { isEnvironment: true })
+  createSingleClass("VRExperienceHelper", generatedSourceFile)
 
   addReactExports(generatedSourceFile);
 
   generatedSourceFile.formatText();
   await generatedSourceFile.save();
 }
-
 generateCode();
 
 console.log('done');
