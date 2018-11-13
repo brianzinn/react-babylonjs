@@ -37,7 +37,11 @@ export function withEngine<
   };
 }
 
-export default class Engine extends React.Component<any, any> {
+type EngineProps = {
+  portalCanvas?: HTMLCanvasElement
+}
+
+export default class Engine extends React.Component<EngineProps, any> {
 
   private _engine?: BABYLON.Nullable<BABYLON.Engine>;
   private _canvas: BABYLON.Nullable<HTMLCanvasElement | WebGLRenderingContext> = null;
@@ -89,17 +93,23 @@ export default class Engine extends React.Component<any, any> {
     return this._reactReconcilerBabylonJs.updateContainer(
       <EngineProvider value={{ engine: this._engine!, canvas: this._canvas }}>
         {this.props.children}
-      </EngineProvider>, this._fiberRoot, undefined, () => {}
+      </EngineProvider>, this._fiberRoot, this /* TODO: try to dual-write for screen readers */, () => {}
     )
   }
 
   onCanvasRef = (c : HTMLCanvasElement) => {
-    if (c !== null) { // null when called from unmountComponent()
-      //c.addEventListener('mouseover', this.focus)
-      //c.addEventListener('mouseout', this.blur)
-      this._canvas = c
+    // We are not using the react.createPortal(...), as it adds a ReactDOM dependency, but also 
+    // it was not flowing the context through to HOCs properly.
+    if (this.props.portalCanvas) {
+      this._canvas = document.getElementById('portal-canvas') as  HTMLCanvasElement
+      console.error('set canvas', this._canvas);
+    } else {
+      if (c !== null) { // null when called from unmountComponent()
+        //c.addEventListener('mouseover', this.focus)
+        //c.addEventListener('mouseout', this.blur)
+        this._canvas = c
+      }
     }
-
     // console.error('onCanvas:', c); // trying to diagnose why HMR keep rebuilding entire Scene!  Look at ProxyComponent v4.
   }
 
@@ -111,7 +121,7 @@ export default class Engine extends React.Component<any, any> {
         {this.props.children}
       </EngineProvider>,
       this._fiberRoot!,
-      undefined,
+      this,
       () => { /* called after container is updated.  we may want an external observable here */ }
     )
   }
@@ -122,7 +132,11 @@ export default class Engine extends React.Component<any, any> {
   }
 
   render () {
-    return <canvas ref={this.onCanvasRef} style={{ height: '100%', width: '100%' }} />
+    if (this.props.portalCanvas) {
+      return <span ref={this.onCanvasRef}></span>;
+    } else {
+      return <canvas ref={this.onCanvasRef} style={{ height: '100%', width: '100%' }} />
+    }
   }
 
   onResizeWindow = () => {

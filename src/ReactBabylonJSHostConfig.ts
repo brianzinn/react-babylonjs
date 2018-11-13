@@ -8,9 +8,8 @@ import * as CUSTOM_COMPONENTS from "./customComponents"
 
 import { WithSceneContext } from "./Scene"
 
-import GUI3DControlLifecycleEvents from "./customComponents/GUI3DControlLifecycleEvents"
-import GUI2DControlLifecycleEvents from "./customComponents/GUI2DControlLifecycleEvents";
-import AdvancedDynamicTextureLifecycleEvents from "./customComponents/AdvancedDynamicTextureLifecycleEvents";
+import GUI3DControlLifecycleListener from "./customComponents/GUI3DControlLifecycleListener"
+import GUI2DControlLifecycleListener from "./customComponents/GUI2DControlLifecycleListener"
 
 /** Following classes are duplicated in generate-code.ts for noww */
 type GeneratedParameter = {
@@ -34,11 +33,15 @@ type CreateInfo = {
 
 export type CreatedInstanceMetadata = {
   className: string // for inspection/debugging
+  delayCreation?: boolean // for objects that will be instantiated in their lifecycle handler (ie: ShadowGenerator needs a light)
   shadowGenerator?: boolean // children will auto-cast shadows
+  isShadowLight?: boolean,
   acceptsMaterials?: boolean
+  isEnvironment?: boolean // used to find ground for VR teleportation (option)
   isTargetable?: boolean // will attach a target props handler
   isMaterial?: boolean // indicates a custom component created by end-user has been created
   customType?: boolean
+  isMesh?: boolean
   isGUI3DControl?: boolean // does not work with 2D
   isGUI2DControl?: boolean // does not work with 3D
   isTexture?: boolean
@@ -50,7 +53,8 @@ export type CreatedInstanceMetadata = {
 export type PropertyUpdate = {
   type: string
   value: any
-  propertyName: string
+  propertyName: string,
+  prevValue?: any
 }
 
 // TODO: see if it's a 'shape' with oneOf() for props/options
@@ -138,21 +142,22 @@ type TimeoutHandler = number | undefined
 type NoTimeout = number
 
 function applyUpdateToInstance(babylonObject: any, update: PropertyUpdate, type: string | undefined): void {
+
   switch (update.type) {
     case "string":
     case "number":
     case "boolean":
     case "string | number": // TODO: string | number is a deficiency in the code generator.  ie: can test for only primitives | and generate update type in code generator
-      console.log(` > ${type}: updating ${update.type} on ${update.propertyName} to ${update.value}`)
+      // console.log(` > ${type}: updating ${update.type} on ${update.propertyName} to ${update.value}`)
       babylonObject[update.propertyName] = update.value
       break
     case "BABYLON.Vector3": // TODO: merge with Color3
-      console.log(
-        ` > ${type}: updating Vector3 on:${update.propertyName} to ${update.value} from ${
-          babylonObject[update.propertyName]
-        }`,
-        babylonObject
-      )
+      // console.log(
+      //   ` > ${type}: updating Vector3 on:${update.propertyName} to ${update.value} from ${
+      //     babylonObject[update.propertyName]
+      //   }`,
+      //   babylonObject
+      // )
 
       if (babylonObject[update.propertyName]) {
         ;(babylonObject[update.propertyName] as BABYLON.Vector3).copyFrom(update.value)
@@ -163,9 +168,9 @@ function applyUpdateToInstance(babylonObject: any, update: PropertyUpdate, type:
       }
       break
     case "BABYLON.Color3": // merge this switch with BABYLON.Vector3, Color4, etc.  The copyFrom BABYLON types.
-      console.log(` > ${type}: updating Color3 on:${update.propertyName} to ${update.value}`)
+      // console.log(` > ${type}: updating Color3 on:${update.propertyName} to ${update.value}`)
       if (babylonObject[update.propertyName]) {
-        ;(babylonObject[update.propertyName] as BABYLON.Color3).copyFrom(update.value)
+        (babylonObject[update.propertyName] as BABYLON.Color3).copyFrom(update.value)
       } else if (update.value) {
         babylonObject[update.propertyName] = update.value.clone()
       } else {
@@ -173,7 +178,7 @@ function applyUpdateToInstance(babylonObject: any, update: PropertyUpdate, type:
       }
       break
     case "BABYLON.Mesh":
-      console.log(` > ${type}: updating Mesh on:${update.propertyName} to ${update.value}`)
+      // console.log(` > ${type}: updating Mesh on:${update.propertyName} to ${update.value}`)
       if (babylonObject[update.propertyName] && update.value) {
         if ((babylonObject[update.propertyName] as BABYLON.Mesh).uniqueId != update.value.uniqueId) {
           babylonObject[update.propertyName] = update.value
@@ -183,7 +188,17 @@ function applyUpdateToInstance(babylonObject: any, update: PropertyUpdate, type:
       }
       break
     default:
-      console.error(`unhandled property update of type ${update.type}`)
+
+      if (update.type.startsWith('BABYLON.Observable')) {
+        // TODO: we want to remove the old prop, so it should be passed along as well.
+        if (update.prevValue) {
+          babylonObject[update.propertyName].remove(update.prevValue)  
+        }
+        
+        babylonObject[update.propertyName].add(update.value)
+      } else {
+        console.error(`unhandled property update of type ${update.type}`)
+      }
       break
   }
 }
@@ -228,24 +243,6 @@ class MaterialsLifecycleListener implements LifecycleListeners {
   }
 }
 
-class TexturesLifecycleListener implements LifecycleListeners {
-  onParented(parent: CreatedInstance<any>) {}
-  onChildAdded(child: CreatedInstance<any>) {}
-  onMount(instance: CreatedInstance<any>) {
-    let texture = instance.babylonJsObject
-    let tmp: CreatedInstance<any> | null = instance.parent
-    while (tmp != null) {
-      if (tmp.metadata && tmp.metadata.isMaterial === true) {
-        console.error("assigning diffuse texture.  Need a property to define which texture to apply", texture, BABYLON.Texture.SKYBOX_MODE)
-        tmp.babylonJsObject.reflectionTexture = texture // need a way to assign different textures;
-        tmp.babylonJsObject.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE
-        break
-      }
-      tmp = tmp.parent
-    }
-  }
-}
-
 // This does not work when declared component with "target" is before the mesh with that name.  Need to wait for full commit mount of entire tree.
 class TargetFunctionPropsHandler implements GENERATED.PropsHandler<any, any> {
   getPropertyUpdates(
@@ -274,6 +271,7 @@ class TargetFunctionPropsHandler implements GENERATED.PropsHandler<any, any> {
     return []
   }
 }
+
 
 const ReactBabylonJSHostConfig: HostConfig<
   string,
@@ -418,12 +416,10 @@ const ReactBabylonJSHostConfig: HostConfig<
       }
 
       let metadata = {
-          className: type,
-          customType: true,
-          ...props.metadata
+        className: type,
+        customType: true,
+        ...props.metadata
       }
-
-      // console.warn('trying to new up:', type + 'Fiber with metadata:', metadata);
 
       let createdInstance: CreatedInstance<null> = {
         babylonJsObject: null,
@@ -431,8 +427,10 @@ const ReactBabylonJSHostConfig: HostConfig<
         parent: null,
         children: [],
         propsHandlers: undefined,
-        lifecycleListeners: new (CUSTOM_HOSTS as any)[type + 'Fiber'](sceneContext.scene!, engine, props)
+        lifecycleListeners: new (CUSTOM_HOSTS as any)[type + "Fiber"](sceneContext.scene!, engine, props)
       }
+
+      // onCreated and other lifecycle hooks are not called for built-in host
       return createdInstance
     }
 
@@ -479,23 +477,32 @@ const ReactBabylonJSHostConfig: HostConfig<
     let babylonObject: any | undefined = undefined
 
     if (createInfoArgs!.creationType === CreationType.FactoryMethod) {
+      // console.log("creating from factory", type, ...args)
+      //yconsole.dir(args)
       babylonObject = (BABYLON.MeshBuilder as any)[createInfoArgs!.factoryMethod!](...args)
     } else {
-      switch (createInfoArgs.namespace) {
-        case "BABYLON":
-          // console.log("creating", type, ...args)
-          babylonObject = new (BABYLON as any)[type](...args)
-          break
-        case "GUI":
-          // console.log("creating GUI", type, ...args)
-          babylonObject = new (GUI as any)[type](...args)
-          break
-        default:
-          console.error("metadata defines (or does not) an namespace that is known", metadata)
-          break
+      if (metadata.delayCreation !== true) {
+        switch (createInfoArgs.namespace) {
+          case "BABYLON":
+            // console.log("creating", type, ...args)
+            babylonObject = new (BABYLON as any)[type](...args)
+            break
+          case "GUI":
+            // console.log("creating GUI", type, ...args)
+            babylonObject = new (GUI as any)[type](...args)
+            break
+          default:
+            console.error("metadata defines (or does not) an namespace that is known", metadata)
+            break
+        }
       }
     }
 
+    // Developer accessible lifecycle phase.  ie: access propery/method exposed in props.
+    if (typeof props.onCreated === 'function') {
+      props.onCreated!(babylonObject);
+    }
+    
     // TODO: Add a lifecycle listener to a camera.  If it has a prop then auto-attach.  Otherwise search for other cameras to elect one to auto-attach.
     if (type.indexOf("Camera") !== -1) {
       // TODO: this needs to be dynamic part of camera:
@@ -512,21 +519,20 @@ const ReactBabylonJSHostConfig: HostConfig<
     if (metadata.isMaterial === true) {
       lifecycleListeners = new MaterialsLifecycleListener()
     } else if (metadata.isGUI3DControl === true) {
-      lifecycleListeners = new GUI3DControlLifecycleEvents()
+      lifecycleListeners = new GUI3DControlLifecycleListener()
     } else if (metadata.isGUI2DControl === true) {
-      if (metadata.className === "FiberAdvancedDynamicTexture") {
-        lifecycleListeners = new AdvancedDynamicTextureLifecycleEvents(props);
-      } else {
-        console.error('regular 2d', metadata.className)
-        lifecycleListeners = new GUI2DControlLifecycleEvents();
-      }
+      lifecycleListeners = new GUI2DControlLifecycleListener()
     } else if (metadata.isTexture === true) {
-      lifecycleListeners = new TexturesLifecycleListener()
+      console.error('adding a textrueslifecycellistener to', babylonObject)
+      lifecycleListeners = new CUSTOM_COMPONENTS.TexturesLifecycleListener()
     }
 
-    if (type === "GUI3DManager") {
-      // console.log("Attaching specific GUI 3D manager fiber lifecycle listeners.")
-      lifecycleListeners = new CUSTOM_COMPONENTS.GUI3DManagerLifecycleEvents()
+    if ((CUSTOM_COMPONENTS as any)[type + "LifecycleListener"] !== undefined) {
+      console.log("Dynamically attaching to type" + type + " lifecycle listener ctor(props):", props, " + scene ", scene)
+      
+      console.log('rootContainerInstance:', rootContainerInstance)
+      console.log('hostContext:', hostContext)
+      lifecycleListeners = new (CUSTOM_COMPONENTS as any)[type + "LifecycleListener"]({...props, scene /* give listeners scene access */ })
     }
 
     let createdReference = createCreatedInstance(type, babylonObject, fiberObject, metadata, lifecycleListeners)
@@ -537,26 +543,28 @@ const ReactBabylonJSHostConfig: HostConfig<
     }
 
     // TODO: PropsHandler needs to prepare an update and apply immediately here, otherwise it won't appear until prepareUpdate() is called.
-    let initPayload: PropertyUpdate[] = []
-    fiberObject.getPropsHandlers().forEach(propHandler => {
-      // NOTE: this is actually WRONG, because here we want to compare the props with the object.
-      let handlerUpdates: PropertyUpdate[] | null = propHandler.getPropertyUpdates(
-        babylonObject,
-        {}, // Here we will reapply things like 'name', so perhaps should get default props from 'babylonObject'.
-        props,
-        scene // custom handlers may require scene access
-      )
-      if (handlerUpdates !== null) {
-        initPayload.push(...handlerUpdates)
-      }
-    })
 
-    if (initPayload.length > 0) {
-      initPayload.forEach(update => {
-        applyUpdateToInstance(babylonObject, update, type)
+    if (metadata.delayCreation !== true) {
+      let initPayload: PropertyUpdate[] = []
+      fiberObject.getPropsHandlers().forEach(propHandler => {
+        // NOTE: this is actually WRONG, because here we want to compare the props with the object.
+        let handlerUpdates: PropertyUpdate[] | null = propHandler.getPropertyUpdates(
+          createdReference,
+          {}, // Here we will reapply things like 'name', so perhaps should get default props from 'babylonObject'.
+          props,
+          scene // custom handlers may require scene access
+        )
+        if (handlerUpdates !== null) {
+          initPayload.push(...handlerUpdates)
+        }
       })
-    }
 
+      if (initPayload.length > 0) {
+        initPayload.forEach(update => {
+          applyUpdateToInstance(babylonObject, update, type)
+        })
+      }
+    }
     return createdReference
   },
 
@@ -716,12 +724,22 @@ const ReactBabylonJSHostConfig: HostConfig<
   },
 
   removeChildFromContainer(container: Container, child: {} | CreatedInstance<any> | undefined): void {
+    // This is called from children that are not in the root.
     console.error("not implemented. removeChildFromContainer()", child)
   },
 
   removeChild(parentInstance: CreatedInstance<any>, child: CreatedInstance<any>) {
     // TOOD: this is important, especially for GUI, which will be done soon...
     console.error("not implemented.  removeChild()", parentInstance, child)
+    if (parentInstance.metadata.isGUI2DControl === true && child.metadata.isGUI2DControl === true) {
+      // NOTE: the if statement should be || and we may need to walk the tree to remove.
+      parentInstance.babylonJsObject.removeControl(child.babylonJsObject)
+    }
+
+    // TODO: Add to metadata "isDisposable", but from AST walker.  ie: method dispose(...) exists.
+    if (typeof child.babylonJsObject.dispose === 'function') {
+      child.babylonJsObject.dispose(); // not able to have parameters this way.
+    }
   },
 
   // text-content nodes are not used

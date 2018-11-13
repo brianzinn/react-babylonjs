@@ -14,6 +14,11 @@ export interface WithSceneContext {
   onBeforeRender: (deltaTime: number) => void
 }
 
+export declare type SceneEventArgs = {
+  scene: BabylonScene;
+  canvas: HTMLCanvasElement;
+};
+
 // TODO: build a fallback mechanism when typeof React.createContext !== 'function'
 export const SceneContext = createContext<WithSceneContext>({
   scene: null,
@@ -42,7 +47,8 @@ export function withScene<
 
 interface SceneProps extends WithSceneContext {
   engineContext: WithEngineContext
-  onMeshPicked?: (mesh: AbstractMesh, scene: BabylonScene) => void
+  onMeshPicked?: (mesh: AbstractMesh, scene: BabylonScene) => void,
+  onSceneMount?: (sceneEventArgs: SceneEventArgs) => void
 }
 
 class Scene extends React.Component<SceneProps, any, any> {
@@ -62,7 +68,7 @@ class Scene extends React.Component<SceneProps, any, any> {
       
       this._scene = new BABYLON.Scene(engine!)
       Object.keys(options).forEach(o => {
-        console.log('setting scene:', o);
+        // console.log('setting scene:', o);
         (this._scene as any)[o] = (options as any)[o]
       })
     }
@@ -81,6 +87,14 @@ class Scene extends React.Component<SceneProps, any, any> {
         }
       }
     }, PointerEventTypes.POINTERDOWN);
+
+    if (typeof this.props.onSceneMount === 'function') {
+      this.props.onSceneMount({
+          scene: this._scene!,
+          canvas: this._scene!.getEngine().getRenderingCanvas()!
+      });
+      // TODO: console.error if canvas is not attached. runRenderLoop() is expected to be part of onSceneMount().
+  }
   }
 
   componentWillUnmount () {

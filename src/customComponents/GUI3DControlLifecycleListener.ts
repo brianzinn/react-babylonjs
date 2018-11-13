@@ -1,6 +1,6 @@
 import { LifecycleListeners, CreatedInstance } from "../ReactBabylonJSHostConfig"
 
-export default class GUI3DControlLifecycleEvents implements LifecycleListeners {
+export default class GUI3DControlLifecycleListener implements LifecycleListeners {
   // private added: boolean = false;
 
   onParented(parent: CreatedInstance<any>, child: CreatedInstance<any>): any {}

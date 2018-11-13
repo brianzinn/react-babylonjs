@@ -15,15 +15,16 @@ export class FiberNode {
 }
 
 export class FiberNodeProps {
-    addToSceneRootNodes?: any;
     animationPropertiesOverride?: BABYLON.AnimationPropertiesOverride;
     animations?: BABYLON.Animation[];
     doNotSerialize?: boolean;
     id?: string;
     metadata?: any;
     name?: string;
+    onDispose?: () => void;
+    onDisposeObservable?: BABYLON.Observable<BABYLON.Node>;
+    onReady?: (node: BABYLON.Node) => void;
     parent?: BABYLON.Node;
-    removeFromSceneRootNodes?: any;
     state?: string;
     uniqueId?: number;
 }
@@ -33,7 +34,6 @@ export class FiberNodePropsHandler implements PropsHandler<BABYLON.Node, FiberNo
         // generated code
         let babylonObject: BABYLON.Node = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
-        // TODO: type: any property (not coded) BABYLON.Node.addToSceneRootNodes.
         // TODO: type: BABYLON.AnimationPropertiesOverride property (not coded) BABYLON.Node.animationPropertiesOverride.
         // TODO: type: BABYLON.Animation[] property (not coded) BABYLON.Node.animations.
         // BABYLON.Node.doNotSerialize of type 'boolean':
@@ -61,8 +61,34 @@ export class FiberNodePropsHandler implements PropsHandler<BABYLON.Node, FiberNo
                 type: 'string'
             });
         }
+        // BABYLON.Node.onDispose of type '() => void/fn':
+        if (oldProps.onDispose === undefined && oldProps.onDispose !== newProps.onDispose) {
+            updates.push({
+                propertyName: 'onDispose',
+                value: newProps.onDispose,
+                type: '() => void',
+                prevValue: oldProps.onDispose,
+            });
+        }
+        // BABYLON.Node.onDisposeObservable of type 'BABYLON.Observable<BABYLON.Node>/fn':
+        if (oldProps.onDisposeObservable === undefined && oldProps.onDisposeObservable !== newProps.onDisposeObservable) {
+            updates.push({
+                propertyName: 'onDisposeObservable',
+                value: newProps.onDisposeObservable,
+                type: 'BABYLON.Observable<BABYLON.Node>',
+                prevValue: oldProps.onDisposeObservable,
+            });
+        }
+        // BABYLON.Node.onReady of type '(node: BABYLON.Node) => void/fn':
+        if (oldProps.onReady === undefined && oldProps.onReady !== newProps.onReady) {
+            updates.push({
+                propertyName: 'onReady',
+                value: newProps.onReady,
+                type: '(node: BABYLON.Node) => void',
+                prevValue: oldProps.onReady,
+            });
+        }
         // TODO: type: BABYLON.Node property (not coded) BABYLON.Node.parent.
-        // TODO: type: any property (not coded) BABYLON.Node.removeFromSceneRootNodes.
         // BABYLON.Node.state of type 'string':
         if (oldProps.state !== newProps.state) {
             updates.push({
@@ -97,6 +123,10 @@ export class FiberCameraProps extends FiberNodeProps {
     maxZ?: number;
     minZ?: number;
     mode?: number;
+    onAfterCheckInputsObservable?: BABYLON.Observable<BABYLON.Camera>;
+    onProjectionMatrixChangedObservable?: BABYLON.Observable<BABYLON.Camera>;
+    onRestoreStateObservable?: BABYLON.Observable<BABYLON.Camera>;
+    onViewMatrixChangedObservable?: BABYLON.Observable<BABYLON.Camera>;
     orthoBottom?: number;
     orthoLeft?: number;
     orthoRight?: number;
@@ -199,6 +229,42 @@ export class FiberCameraPropsHandler implements PropsHandler<BABYLON.Camera, Fib
                 propertyName: 'mode',
                 value: newProps.mode,
                 type: 'number'
+            });
+        }
+        // BABYLON.Camera.onAfterCheckInputsObservable of type 'BABYLON.Observable<BABYLON.Camera>/fn':
+        if (oldProps.onAfterCheckInputsObservable === undefined && oldProps.onAfterCheckInputsObservable !== newProps.onAfterCheckInputsObservable) {
+            updates.push({
+                propertyName: 'onAfterCheckInputsObservable',
+                value: newProps.onAfterCheckInputsObservable,
+                type: 'BABYLON.Observable<BABYLON.Camera>',
+                prevValue: oldProps.onAfterCheckInputsObservable,
+            });
+        }
+        // BABYLON.Camera.onProjectionMatrixChangedObservable of type 'BABYLON.Observable<BABYLON.Camera>/fn':
+        if (oldProps.onProjectionMatrixChangedObservable === undefined && oldProps.onProjectionMatrixChangedObservable !== newProps.onProjectionMatrixChangedObservable) {
+            updates.push({
+                propertyName: 'onProjectionMatrixChangedObservable',
+                value: newProps.onProjectionMatrixChangedObservable,
+                type: 'BABYLON.Observable<BABYLON.Camera>',
+                prevValue: oldProps.onProjectionMatrixChangedObservable,
+            });
+        }
+        // BABYLON.Camera.onRestoreStateObservable of type 'BABYLON.Observable<BABYLON.Camera>/fn':
+        if (oldProps.onRestoreStateObservable === undefined && oldProps.onRestoreStateObservable !== newProps.onRestoreStateObservable) {
+            updates.push({
+                propertyName: 'onRestoreStateObservable',
+                value: newProps.onRestoreStateObservable,
+                type: 'BABYLON.Observable<BABYLON.Camera>',
+                prevValue: oldProps.onRestoreStateObservable,
+            });
+        }
+        // BABYLON.Camera.onViewMatrixChangedObservable of type 'BABYLON.Observable<BABYLON.Camera>/fn':
+        if (oldProps.onViewMatrixChangedObservable === undefined && oldProps.onViewMatrixChangedObservable !== newProps.onViewMatrixChangedObservable) {
+            updates.push({
+                propertyName: 'onViewMatrixChangedObservable',
+                value: newProps.onViewMatrixChangedObservable,
+                type: 'BABYLON.Observable<BABYLON.Camera>',
+                prevValue: oldProps.onViewMatrixChangedObservable,
             });
         }
         // BABYLON.Camera.orthoBottom of type 'number':
@@ -443,6 +509,8 @@ export class FiberArcRotateCameraProps extends FiberTargetCameraProps {
     lowerAlphaLimit?: number;
     lowerBetaLimit?: number;
     lowerRadiusLimit?: number;
+    onCollide?: (collidedMesh: BABYLON.AbstractMesh) => void;
+    onMeshTargetChangedObservable?: BABYLON.Observable<BABYLON.AbstractMesh>;
     panningAxis?: BABYLON.Vector3;
     panningDistanceLimit?: number;
     panningInertia?: number;
@@ -460,7 +528,6 @@ export class FiberArcRotateCameraProps extends FiberTargetCameraProps {
     useAutoRotationBehavior?: boolean;
     useBouncingBehavior?: boolean;
     useFramingBehavior?: boolean;
-    useInputToRestoreState?: boolean;
     wheelDeltaPercentage?: number;
     wheelPrecision?: number;
     zoomOnFactor?: number;
@@ -596,6 +663,24 @@ export class FiberArcRotateCameraPropsHandler implements PropsHandler<BABYLON.Ar
                 type: 'number'
             });
         }
+        // BABYLON.ArcRotateCamera.onCollide of type '(collidedMesh: BABYLON.AbstractMesh) => void/fn':
+        if (oldProps.onCollide === undefined && oldProps.onCollide !== newProps.onCollide) {
+            updates.push({
+                propertyName: 'onCollide',
+                value: newProps.onCollide,
+                type: '(collidedMesh: BABYLON.AbstractMesh) => void',
+                prevValue: oldProps.onCollide,
+            });
+        }
+        // BABYLON.ArcRotateCamera.onMeshTargetChangedObservable of type 'BABYLON.Observable<BABYLON.AbstractMesh>/fn':
+        if (oldProps.onMeshTargetChangedObservable === undefined && oldProps.onMeshTargetChangedObservable !== newProps.onMeshTargetChangedObservable) {
+            updates.push({
+                propertyName: 'onMeshTargetChangedObservable',
+                value: newProps.onMeshTargetChangedObservable,
+                type: 'BABYLON.Observable<BABYLON.AbstractMesh>',
+                prevValue: oldProps.onMeshTargetChangedObservable,
+            });
+        }
         // BABYLON.ArcRotateCamera.panningAxis of BABYLONBABYLON.Vector3 uses object equals to find diffs:
         if (newProps.panningAxis && (!oldProps.panningAxis || !oldProps.panningAxis.equals(newProps.panningAxis))) {
             updates.push({
@@ -725,14 +810,6 @@ export class FiberArcRotateCameraPropsHandler implements PropsHandler<BABYLON.Ar
                 type: 'boolean'
             });
         }
-        // BABYLON.ArcRotateCamera.useInputToRestoreState of type 'boolean':
-        if (oldProps.useInputToRestoreState !== newProps.useInputToRestoreState) {
-            updates.push({
-                propertyName: 'useInputToRestoreState',
-                value: newProps.useInputToRestoreState,
-                type: 'boolean'
-            });
-        }
         // BABYLON.ArcRotateCamera.wheelDeltaPercentage of type 'number':
         if (oldProps.wheelDeltaPercentage !== newProps.wheelDeltaPercentage) {
             updates.push({
@@ -834,6 +911,97 @@ export class FiberArcRotateCamera implements HasPropsHandlers<BABYLON.Camera, Fi
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "className": "FiberArcRotateCamera"
+    };
+}
+
+export class FiberVRDeviceOrientationArcRotateCameraProps extends FiberArcRotateCameraProps {
+}
+
+export class FiberVRDeviceOrientationArcRotateCameraPropsHandler implements PropsHandler<BABYLON.VRDeviceOrientationArcRotateCamera, FiberVRDeviceOrientationArcRotateCameraProps> {
+    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.VRDeviceOrientationArcRotateCamera>, oldProps: FiberVRDeviceOrientationArcRotateCameraProps, newProps: FiberVRDeviceOrientationArcRotateCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+        // generated code
+        let babylonObject: BABYLON.VRDeviceOrientationArcRotateCamera = createdInstance.babylonJsObject;
+        let updates: PropertyUpdate[] = [];
+        return updates.length == 0 ? null : updates;
+    }
+}
+
+/**
+ * Camera used to simulate VR rendering (based on ArcRotateCamera)
+ * 
+ * This code has been generated
+ */
+export class FiberVRDeviceOrientationArcRotateCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
+    public readonly isTargetable = true;
+    private propsHandlers: PropsHandler<BABYLON.Camera, FiberCameraProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberVRDeviceOrientationArcRotateCameraPropsHandler(),
+            new FiberArcRotateCameraPropsHandler(),
+            new FiberTargetCameraPropsHandler(),
+            new FiberCameraPropsHandler(),
+            new FiberNodePropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "VRDeviceOrientationArcRotateCamera",
+        "namespace": "BABYLON",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "alpha",
+                "type": "number",
+                "optional": false
+            },
+            {
+                "name": "beta",
+                "type": "number",
+                "optional": false
+            },
+            {
+                "name": "radius",
+                "type": "number",
+                "optional": false
+            },
+            {
+                "name": "target",
+                "type": "BABYLON.Vector3",
+                "optional": false
+            },
+            {
+                "name": "scene",
+                "type": "BABYLON.Scene",
+                "optional": false
+            },
+            {
+                "name": "compensateDistortion",
+                "type": "boolean",
+                "optional": true
+            },
+            {
+                "name": "vrCameraMetrics",
+                "type": "BABYLON.VRCameraMetrics",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "className": "FiberVRDeviceOrientationArcRotateCamera"
     };
 }
 
@@ -1011,97 +1179,6 @@ export class FiberStereoscopicArcRotateCamera implements HasPropsHandlers<BABYLO
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "className": "FiberStereoscopicArcRotateCamera"
-    };
-}
-
-export class FiberVRDeviceOrientationArcRotateCameraProps extends FiberArcRotateCameraProps {
-}
-
-export class FiberVRDeviceOrientationArcRotateCameraPropsHandler implements PropsHandler<BABYLON.VRDeviceOrientationArcRotateCamera, FiberVRDeviceOrientationArcRotateCameraProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.VRDeviceOrientationArcRotateCamera>, oldProps: FiberVRDeviceOrientationArcRotateCameraProps, newProps: FiberVRDeviceOrientationArcRotateCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
-        // generated code
-        let babylonObject: BABYLON.VRDeviceOrientationArcRotateCamera = createdInstance.babylonJsObject;
-        let updates: PropertyUpdate[] = [];
-        return updates.length == 0 ? null : updates;
-    }
-}
-
-/**
- * Camera used to simulate VR rendering (based on ArcRotateCamera)
- * 
- * This code has been generated
- */
-export class FiberVRDeviceOrientationArcRotateCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
-    public readonly isTargetable = true;
-    private propsHandlers: PropsHandler<BABYLON.Camera, FiberCameraProps>[];
-
-    constructor() {
-        this.propsHandlers = [
-            new FiberVRDeviceOrientationArcRotateCameraPropsHandler(),
-            new FiberArcRotateCameraPropsHandler(),
-            new FiberTargetCameraPropsHandler(),
-            new FiberCameraPropsHandler(),
-            new FiberNodePropsHandler()
-        ];
-    }
-
-    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
-        return this.propsHandlers;
-    }
-
-    addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void {
-        this.propsHandlers.push(propHandler);
-    }
-
-    public static readonly CreateInfo = {
-        "creationType": "Constructor",
-        "libraryLocation": "VRDeviceOrientationArcRotateCamera",
-        "namespace": "BABYLON",
-        "parameters": [
-            {
-                "name": "name",
-                "type": "string",
-                "optional": false
-            },
-            {
-                "name": "alpha",
-                "type": "number",
-                "optional": false
-            },
-            {
-                "name": "beta",
-                "type": "number",
-                "optional": false
-            },
-            {
-                "name": "radius",
-                "type": "number",
-                "optional": false
-            },
-            {
-                "name": "target",
-                "type": "BABYLON.Vector3",
-                "optional": false
-            },
-            {
-                "name": "scene",
-                "type": "BABYLON.Scene",
-                "optional": false
-            },
-            {
-                "name": "compensateDistortion",
-                "type": "boolean",
-                "optional": true
-            },
-            {
-                "name": "vrCameraMetrics",
-                "type": "BABYLON.VRCameraMetrics",
-                "optional": true
-            }
-        ]
-    };
-    public static readonly Metadata: CreatedInstanceMetadata = {
-        "className": "FiberVRDeviceOrientationArcRotateCamera"
     };
 }
 
@@ -1345,6 +1422,7 @@ export class FiberFreeCameraProps extends FiberTargetCameraProps {
     keysLeft?: number[];
     keysRight?: number[];
     keysUp?: number[];
+    onCollide?: (collidedMesh: BABYLON.AbstractMesh) => void;
 }
 
 export class FiberFreeCameraPropsHandler implements PropsHandler<BABYLON.FreeCamera, FiberFreeCameraProps> {
@@ -1405,6 +1483,15 @@ export class FiberFreeCameraPropsHandler implements PropsHandler<BABYLON.FreeCam
         // TODO: type: number[] property (not coded) BABYLON.FreeCamera.keysLeft.
         // TODO: type: number[] property (not coded) BABYLON.FreeCamera.keysRight.
         // TODO: type: number[] property (not coded) BABYLON.FreeCamera.keysUp.
+        // BABYLON.FreeCamera.onCollide of type '(collidedMesh: BABYLON.AbstractMesh) => void/fn':
+        if (oldProps.onCollide === undefined && oldProps.onCollide !== newProps.onCollide) {
+            updates.push({
+                propertyName: 'onCollide',
+                value: newProps.onCollide,
+                type: '(collidedMesh: BABYLON.AbstractMesh) => void',
+                prevValue: oldProps.onCollide,
+            });
+        }
         return updates.length == 0 ? null : updates;
     }
 }
@@ -2302,6 +2389,145 @@ export class FiberVirtualJoysticksCamera implements HasPropsHandlers<BABYLON.Cam
     };
 }
 
+export class FiberWebVRFreeCameraProps extends FiberFreeCameraProps {
+    controllers?: BABYLON.WebVRController[];
+    devicePosition?: BABYLON.Vector3;
+    deviceRotationQuaternion?: BABYLON.Quaternion;
+    deviceScaleFactor?: number;
+    onControllerMeshLoadedObservable?: BABYLON.Observable<BABYLON.WebVRController>;
+    onControllersAttachedObservable?: BABYLON.Observable<BABYLON.WebVRController[]>;
+    onPoseUpdatedFromDeviceObservable?: BABYLON.Observable<any>;
+    rawPose?: BABYLON.DevicePose;
+    rigParenting?: boolean;
+    updateCacheCalled?: any;
+    webVROptions?: any;
+}
+
+export class FiberWebVRFreeCameraPropsHandler implements PropsHandler<BABYLON.WebVRFreeCamera, FiberWebVRFreeCameraProps> {
+    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.WebVRFreeCamera>, oldProps: FiberWebVRFreeCameraProps, newProps: FiberWebVRFreeCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+        // generated code
+        let babylonObject: BABYLON.WebVRFreeCamera = createdInstance.babylonJsObject;
+        let updates: PropertyUpdate[] = [];
+        // TODO: type: BABYLON.WebVRController[] property (not coded) BABYLON.WebVRFreeCamera.controllers.
+        // BABYLON.WebVRFreeCamera.devicePosition of BABYLONBABYLON.Vector3 uses object equals to find diffs:
+        if (newProps.devicePosition && (!oldProps.devicePosition || !oldProps.devicePosition.equals(newProps.devicePosition))) {
+            updates.push({
+                propertyName: 'devicePosition',
+                value: newProps.devicePosition,
+                type: 'BABYLON.Vector3'
+            });
+        }
+        // TODO: type: BABYLON.Quaternion property (not coded) BABYLON.WebVRFreeCamera.deviceRotationQuaternion.
+        // BABYLON.WebVRFreeCamera.deviceScaleFactor of type 'number':
+        if (oldProps.deviceScaleFactor !== newProps.deviceScaleFactor) {
+            updates.push({
+                propertyName: 'deviceScaleFactor',
+                value: newProps.deviceScaleFactor,
+                type: 'number'
+            });
+        }
+        // BABYLON.WebVRFreeCamera.onControllerMeshLoadedObservable of type 'BABYLON.Observable<BABYLON.WebVRController>/fn':
+        if (oldProps.onControllerMeshLoadedObservable === undefined && oldProps.onControllerMeshLoadedObservable !== newProps.onControllerMeshLoadedObservable) {
+            updates.push({
+                propertyName: 'onControllerMeshLoadedObservable',
+                value: newProps.onControllerMeshLoadedObservable,
+                type: 'BABYLON.Observable<BABYLON.WebVRController>',
+                prevValue: oldProps.onControllerMeshLoadedObservable,
+            });
+        }
+        // BABYLON.WebVRFreeCamera.onControllersAttachedObservable of type 'BABYLON.Observable<BABYLON.WebVRController[]>/fn':
+        if (oldProps.onControllersAttachedObservable === undefined && oldProps.onControllersAttachedObservable !== newProps.onControllersAttachedObservable) {
+            updates.push({
+                propertyName: 'onControllersAttachedObservable',
+                value: newProps.onControllersAttachedObservable,
+                type: 'BABYLON.Observable<BABYLON.WebVRController[]>',
+                prevValue: oldProps.onControllersAttachedObservable,
+            });
+        }
+        // BABYLON.WebVRFreeCamera.onPoseUpdatedFromDeviceObservable of type 'BABYLON.Observable<any>/fn':
+        if (oldProps.onPoseUpdatedFromDeviceObservable === undefined && oldProps.onPoseUpdatedFromDeviceObservable !== newProps.onPoseUpdatedFromDeviceObservable) {
+            updates.push({
+                propertyName: 'onPoseUpdatedFromDeviceObservable',
+                value: newProps.onPoseUpdatedFromDeviceObservable,
+                type: 'BABYLON.Observable<any>',
+                prevValue: oldProps.onPoseUpdatedFromDeviceObservable,
+            });
+        }
+        // TODO: type: BABYLON.DevicePose property (not coded) BABYLON.WebVRFreeCamera.rawPose.
+        // BABYLON.WebVRFreeCamera.rigParenting of type 'boolean':
+        if (oldProps.rigParenting !== newProps.rigParenting) {
+            updates.push({
+                propertyName: 'rigParenting',
+                value: newProps.rigParenting,
+                type: 'boolean'
+            });
+        }
+        // TODO: type: any property (not coded) BABYLON.WebVRFreeCamera.updateCacheCalled.
+        // TODO: type: any property (not coded) BABYLON.WebVRFreeCamera.webVROptions.
+        return updates.length == 0 ? null : updates;
+    }
+}
+
+/**
+ * This represents a WebVR camera.
+ * The WebVR camera is Babylon's simple interface to interaction with Windows Mixed Reality, HTC Vive and Oculus Rift.
+ * 
+ * This code has been generated
+ */
+export class FiberWebVRFreeCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
+    public readonly isTargetable = true;
+    private propsHandlers: PropsHandler<BABYLON.Camera, FiberCameraProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberWebVRFreeCameraPropsHandler(),
+            new FiberFreeCameraPropsHandler(),
+            new FiberTargetCameraPropsHandler(),
+            new FiberCameraPropsHandler(),
+            new FiberNodePropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "WebVRFreeCamera",
+        "namespace": "BABYLON",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "position",
+                "type": "BABYLON.Vector3",
+                "optional": false
+            },
+            {
+                "name": "scene",
+                "type": "BABYLON.Scene",
+                "optional": false
+            },
+            {
+                "name": "webVROptions",
+                "type": "BABYLON.WebVROptions",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "className": "FiberWebVRFreeCamera"
+    };
+}
+
 export class FiberAnaglyphFreeCameraProps extends FiberFreeCameraProps {
 }
 
@@ -2449,118 +2675,8 @@ export class FiberStereoscopicFreeCamera implements HasPropsHandlers<BABYLON.Cam
     };
 }
 
-export class FiberWebVRFreeCameraProps extends FiberFreeCameraProps {
-    controllers?: BABYLON.WebVRController[];
-    devicePosition?: BABYLON.Vector3;
-    deviceRotationQuaternion?: BABYLON.Quaternion;
-    deviceScaleFactor?: number;
-    rawPose?: BABYLON.DevicePose;
-    rigParenting?: boolean;
-    updateCacheCalled?: any;
-    webVROptions?: any;
-}
-
-export class FiberWebVRFreeCameraPropsHandler implements PropsHandler<BABYLON.WebVRFreeCamera, FiberWebVRFreeCameraProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.WebVRFreeCamera>, oldProps: FiberWebVRFreeCameraProps, newProps: FiberWebVRFreeCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
-        // generated code
-        let babylonObject: BABYLON.WebVRFreeCamera = createdInstance.babylonJsObject;
-        let updates: PropertyUpdate[] = [];
-        // TODO: type: BABYLON.WebVRController[] property (not coded) BABYLON.WebVRFreeCamera.controllers.
-        // BABYLON.WebVRFreeCamera.devicePosition of BABYLONBABYLON.Vector3 uses object equals to find diffs:
-        if (newProps.devicePosition && (!oldProps.devicePosition || !oldProps.devicePosition.equals(newProps.devicePosition))) {
-            updates.push({
-                propertyName: 'devicePosition',
-                value: newProps.devicePosition,
-                type: 'BABYLON.Vector3'
-            });
-        }
-        // TODO: type: BABYLON.Quaternion property (not coded) BABYLON.WebVRFreeCamera.deviceRotationQuaternion.
-        // BABYLON.WebVRFreeCamera.deviceScaleFactor of type 'number':
-        if (oldProps.deviceScaleFactor !== newProps.deviceScaleFactor) {
-            updates.push({
-                propertyName: 'deviceScaleFactor',
-                value: newProps.deviceScaleFactor,
-                type: 'number'
-            });
-        }
-        // TODO: type: BABYLON.DevicePose property (not coded) BABYLON.WebVRFreeCamera.rawPose.
-        // BABYLON.WebVRFreeCamera.rigParenting of type 'boolean':
-        if (oldProps.rigParenting !== newProps.rigParenting) {
-            updates.push({
-                propertyName: 'rigParenting',
-                value: newProps.rigParenting,
-                type: 'boolean'
-            });
-        }
-        // TODO: type: any property (not coded) BABYLON.WebVRFreeCamera.updateCacheCalled.
-        // TODO: type: any property (not coded) BABYLON.WebVRFreeCamera.webVROptions.
-        return updates.length == 0 ? null : updates;
-    }
-}
-
-/**
- * This represents a WebVR camera.
- * The WebVR camera is Babylon's simple interface to interaction with Windows Mixed Reality, HTC Vive and Oculus Rift.
- * 
- * This code has been generated
- */
-export class FiberWebVRFreeCamera implements HasPropsHandlers<BABYLON.Camera, FiberCameraProps> {
-    public readonly isTargetable = true;
-    private propsHandlers: PropsHandler<BABYLON.Camera, FiberCameraProps>[];
-
-    constructor() {
-        this.propsHandlers = [
-            new FiberWebVRFreeCameraPropsHandler(),
-            new FiberFreeCameraPropsHandler(),
-            new FiberTargetCameraPropsHandler(),
-            new FiberCameraPropsHandler(),
-            new FiberNodePropsHandler()
-        ];
-    }
-
-    getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[] {
-        return this.propsHandlers;
-    }
-
-    addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void {
-        this.propsHandlers.push(propHandler);
-    }
-
-    public static readonly CreateInfo = {
-        "creationType": "Constructor",
-        "libraryLocation": "WebVRFreeCamera",
-        "namespace": "BABYLON",
-        "parameters": [
-            {
-                "name": "name",
-                "type": "string",
-                "optional": false
-            },
-            {
-                "name": "position",
-                "type": "BABYLON.Vector3",
-                "optional": false
-            },
-            {
-                "name": "scene",
-                "type": "BABYLON.Scene",
-                "optional": false
-            },
-            {
-                "name": "webVROptions",
-                "type": "BABYLON.WebVROptions",
-                "optional": true
-            }
-        ]
-    };
-    public static readonly Metadata: CreatedInstanceMetadata = {
-        "className": "FiberWebVRFreeCamera"
-    };
-}
-
 export class FiberMeshProps extends FiberNodeProps {
     actionManager?: BABYLON.ActionManager;
-    addToSceneRootNodes?: any;
     alphaIndex?: number;
     alwaysSelectAsActiveMesh?: boolean;
     animationPropertiesOverride?: BABYLON.AnimationPropertiesOverride;
@@ -2588,6 +2704,7 @@ export class FiberMeshProps extends FiberNodeProps {
     infiniteDistance?: boolean;
     instances?: BABYLON.InstancedMesh[];
     isBlocker?: boolean;
+    isOccluded?: boolean;
     isPickable?: boolean;
     isUnIndexed?: boolean;
     isVisible?: boolean;
@@ -2597,9 +2714,22 @@ export class FiberMeshProps extends FiberNodeProps {
     morphTargetManager?: BABYLON.MorphTargetManager;
     mustDepthSortFacets?: boolean;
     name?: string;
-    normalizeSkinFourWeights?: any;
-    normalizeSkinWeightsAndExtra?: any;
     numBoneInfluencers?: number;
+    occlusionQueryAlgorithmType?: number;
+    occlusionRetryCount?: number;
+    occlusionType?: number;
+    onAfterWorldMatrixUpdateObservable?: BABYLON.Observable<BABYLON.TransformNode>;
+    onBeforeDraw?: () => void;
+    onCollide?: () => void;
+    onCollideObservable?: BABYLON.Observable<BABYLON.AbstractMesh>;
+    onCollisionPositionChange?: () => void;
+    onCollisionPositionChangeObservable?: BABYLON.Observable<BABYLON.Vector3>;
+    onDispose?: () => void;
+    onDisposeObservable?: BABYLON.Observable<BABYLON.Node>;
+    onLODLevelSelection?: (distance: number, mesh: BABYLON.Mesh, selectedLevel: BABYLON.Mesh) => void;
+    onMaterialChangedObservable?: BABYLON.Observable<BABYLON.AbstractMesh>;
+    onReady?: (node: BABYLON.Node) => void;
+    onRebuildObservable?: BABYLON.Observable<BABYLON.AbstractMesh>;
     outlineColor?: BABYLON.Color3;
     outlineWidth?: number;
     overlayAlpha?: number;
@@ -2611,7 +2741,6 @@ export class FiberMeshProps extends FiberNodeProps {
     partitioningSubdivisions?: number;
     position?: BABYLON.Vector3;
     receiveShadows?: boolean;
-    removeFromSceneRootNodes?: any;
     renderingGroupId?: number;
     rotation?: BABYLON.Vector3;
     rotationQuaternion?: BABYLON.Quaternion;
@@ -2635,7 +2764,6 @@ export class FiberMeshPropsHandler implements PropsHandler<BABYLON.Mesh, FiberMe
         let babylonObject: BABYLON.Mesh = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // TODO: type: BABYLON.ActionManager property (not coded) BABYLON.Mesh.actionManager.
-        // TODO: type: any property (not coded) BABYLON.Mesh.addToSceneRootNodes.
         // BABYLON.Mesh.alphaIndex of type 'number':
         if (oldProps.alphaIndex !== newProps.alphaIndex) {
             updates.push({
@@ -2824,6 +2952,14 @@ export class FiberMeshPropsHandler implements PropsHandler<BABYLON.Mesh, FiberMe
                 type: 'boolean'
             });
         }
+        // BABYLON.Mesh.isOccluded of type 'boolean':
+        if (oldProps.isOccluded !== newProps.isOccluded) {
+            updates.push({
+                propertyName: 'isOccluded',
+                value: newProps.isOccluded,
+                type: 'boolean'
+            });
+        }
         // BABYLON.Mesh.isPickable of type 'boolean':
         if (oldProps.isPickable !== newProps.isPickable) {
             updates.push({
@@ -2875,14 +3011,144 @@ export class FiberMeshPropsHandler implements PropsHandler<BABYLON.Mesh, FiberMe
                 type: 'string'
             });
         }
-        // TODO: type: any property (not coded) BABYLON.Mesh.normalizeSkinFourWeights.
-        // TODO: type: any property (not coded) BABYLON.Mesh.normalizeSkinWeightsAndExtra.
         // BABYLON.Mesh.numBoneInfluencers of type 'number':
         if (oldProps.numBoneInfluencers !== newProps.numBoneInfluencers) {
             updates.push({
                 propertyName: 'numBoneInfluencers',
                 value: newProps.numBoneInfluencers,
                 type: 'number'
+            });
+        }
+        // BABYLON.Mesh.occlusionQueryAlgorithmType of type 'number':
+        if (oldProps.occlusionQueryAlgorithmType !== newProps.occlusionQueryAlgorithmType) {
+            updates.push({
+                propertyName: 'occlusionQueryAlgorithmType',
+                value: newProps.occlusionQueryAlgorithmType,
+                type: 'number'
+            });
+        }
+        // BABYLON.Mesh.occlusionRetryCount of type 'number':
+        if (oldProps.occlusionRetryCount !== newProps.occlusionRetryCount) {
+            updates.push({
+                propertyName: 'occlusionRetryCount',
+                value: newProps.occlusionRetryCount,
+                type: 'number'
+            });
+        }
+        // BABYLON.Mesh.occlusionType of type 'number':
+        if (oldProps.occlusionType !== newProps.occlusionType) {
+            updates.push({
+                propertyName: 'occlusionType',
+                value: newProps.occlusionType,
+                type: 'number'
+            });
+        }
+        // BABYLON.Mesh.onAfterWorldMatrixUpdateObservable of type 'BABYLON.Observable<BABYLON.TransformNode>/fn':
+        if (oldProps.onAfterWorldMatrixUpdateObservable === undefined && oldProps.onAfterWorldMatrixUpdateObservable !== newProps.onAfterWorldMatrixUpdateObservable) {
+            updates.push({
+                propertyName: 'onAfterWorldMatrixUpdateObservable',
+                value: newProps.onAfterWorldMatrixUpdateObservable,
+                type: 'BABYLON.Observable<BABYLON.TransformNode>',
+                prevValue: oldProps.onAfterWorldMatrixUpdateObservable,
+            });
+        }
+        // BABYLON.Mesh.onBeforeDraw of type '() => void/fn':
+        if (oldProps.onBeforeDraw === undefined && oldProps.onBeforeDraw !== newProps.onBeforeDraw) {
+            updates.push({
+                propertyName: 'onBeforeDraw',
+                value: newProps.onBeforeDraw,
+                type: '() => void',
+                prevValue: oldProps.onBeforeDraw,
+            });
+        }
+        // BABYLON.Mesh.onCollide of type '() => void/fn':
+        if (oldProps.onCollide === undefined && oldProps.onCollide !== newProps.onCollide) {
+            updates.push({
+                propertyName: 'onCollide',
+                value: newProps.onCollide,
+                type: '() => void',
+                prevValue: oldProps.onCollide,
+            });
+        }
+        // BABYLON.Mesh.onCollideObservable of type 'BABYLON.Observable<BABYLON.AbstractMesh>/fn':
+        if (oldProps.onCollideObservable === undefined && oldProps.onCollideObservable !== newProps.onCollideObservable) {
+            updates.push({
+                propertyName: 'onCollideObservable',
+                value: newProps.onCollideObservable,
+                type: 'BABYLON.Observable<BABYLON.AbstractMesh>',
+                prevValue: oldProps.onCollideObservable,
+            });
+        }
+        // BABYLON.Mesh.onCollisionPositionChange of type '() => void/fn':
+        if (oldProps.onCollisionPositionChange === undefined && oldProps.onCollisionPositionChange !== newProps.onCollisionPositionChange) {
+            updates.push({
+                propertyName: 'onCollisionPositionChange',
+                value: newProps.onCollisionPositionChange,
+                type: '() => void',
+                prevValue: oldProps.onCollisionPositionChange,
+            });
+        }
+        // BABYLON.Mesh.onCollisionPositionChangeObservable of type 'BABYLON.Observable<BABYLON.Vector3>/fn':
+        if (oldProps.onCollisionPositionChangeObservable === undefined && oldProps.onCollisionPositionChangeObservable !== newProps.onCollisionPositionChangeObservable) {
+            updates.push({
+                propertyName: 'onCollisionPositionChangeObservable',
+                value: newProps.onCollisionPositionChangeObservable,
+                type: 'BABYLON.Observable<BABYLON.Vector3>',
+                prevValue: oldProps.onCollisionPositionChangeObservable,
+            });
+        }
+        // BABYLON.Mesh.onDispose of type '() => void/fn':
+        if (oldProps.onDispose === undefined && oldProps.onDispose !== newProps.onDispose) {
+            updates.push({
+                propertyName: 'onDispose',
+                value: newProps.onDispose,
+                type: '() => void',
+                prevValue: oldProps.onDispose,
+            });
+        }
+        // BABYLON.Mesh.onDisposeObservable of type 'BABYLON.Observable<BABYLON.Node>/fn':
+        if (oldProps.onDisposeObservable === undefined && oldProps.onDisposeObservable !== newProps.onDisposeObservable) {
+            updates.push({
+                propertyName: 'onDisposeObservable',
+                value: newProps.onDisposeObservable,
+                type: 'BABYLON.Observable<BABYLON.Node>',
+                prevValue: oldProps.onDisposeObservable,
+            });
+        }
+        // BABYLON.Mesh.onLODLevelSelection of type '(distance: number, mesh: BABYLON.Mesh, selectedLevel: BABYLON.Mesh) => void/fn':
+        if (oldProps.onLODLevelSelection === undefined && oldProps.onLODLevelSelection !== newProps.onLODLevelSelection) {
+            updates.push({
+                propertyName: 'onLODLevelSelection',
+                value: newProps.onLODLevelSelection,
+                type: '(distance: number, mesh: BABYLON.Mesh, selectedLevel: BABYLON.Mesh) => void',
+                prevValue: oldProps.onLODLevelSelection,
+            });
+        }
+        // BABYLON.Mesh.onMaterialChangedObservable of type 'BABYLON.Observable<BABYLON.AbstractMesh>/fn':
+        if (oldProps.onMaterialChangedObservable === undefined && oldProps.onMaterialChangedObservable !== newProps.onMaterialChangedObservable) {
+            updates.push({
+                propertyName: 'onMaterialChangedObservable',
+                value: newProps.onMaterialChangedObservable,
+                type: 'BABYLON.Observable<BABYLON.AbstractMesh>',
+                prevValue: oldProps.onMaterialChangedObservable,
+            });
+        }
+        // BABYLON.Mesh.onReady of type '(node: BABYLON.Node) => void/fn':
+        if (oldProps.onReady === undefined && oldProps.onReady !== newProps.onReady) {
+            updates.push({
+                propertyName: 'onReady',
+                value: newProps.onReady,
+                type: '(node: BABYLON.Node) => void',
+                prevValue: oldProps.onReady,
+            });
+        }
+        // BABYLON.Mesh.onRebuildObservable of type 'BABYLON.Observable<BABYLON.AbstractMesh>/fn':
+        if (oldProps.onRebuildObservable === undefined && oldProps.onRebuildObservable !== newProps.onRebuildObservable) {
+            updates.push({
+                propertyName: 'onRebuildObservable',
+                value: newProps.onRebuildObservable,
+                type: 'BABYLON.Observable<BABYLON.AbstractMesh>',
+                prevValue: oldProps.onRebuildObservable,
             });
         }
         // BABYLON.Mesh.outlineColor of BABYLONBABYLON.Color3 uses object equals to find diffs:
@@ -2966,7 +3232,6 @@ export class FiberMeshPropsHandler implements PropsHandler<BABYLON.Mesh, FiberMe
                 type: 'boolean'
             });
         }
-        // TODO: type: any property (not coded) BABYLON.Mesh.removeFromSceneRootNodes.
         // BABYLON.Mesh.renderingGroupId of type 'number':
         if (oldProps.renderingGroupId !== newProps.renderingGroupId) {
             updates.push({
@@ -3073,7 +3338,7 @@ export class FiberMeshPropsHandler implements PropsHandler<BABYLON.Mesh, FiberMe
 /**
  * Creates a box mesh
  * * The parameter `size` sets the size (float) of each box side (default 1)
- * * You can set some different box dimensions by using the parameters `width`, `height` and `depth` (all by default have the same value of `size`)
+ * * You can set some different box dimensions by using the parameters `width`, `height` and `depth` (all by default have the same value than `size`)
  * * You can set different colors and different images to each box side by using the parameters `faceColors` (an array of 6 Color3 elements) and `faceUV` (an array of 6 Vector4 elements)
  * * Please read this tutorial : http://doc.babylonjs.com/tutorials/CreateBox_Per_Face_Textures_And_Colors
  * * You can also set the mesh side orientation with the values : BABYLON.Mesh.FRONTSIDE (default), BABYLON.Mesh.BACKSIDE or BABYLON.Mesh.DOUBLESIDE
@@ -3175,6 +3440,7 @@ export class FiberBox implements HasPropsHandlers<BABYLON.Mesh, FiberMeshProps> 
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
+        "isMesh": true,
         "className": "FiberBox"
     };
 }
@@ -3182,7 +3448,7 @@ export class FiberBox implements HasPropsHandlers<BABYLON.Mesh, FiberMeshProps> 
 /**
  * Creates a sphere mesh
  * * The parameter `diameter` sets the diameter size (float) of the sphere (default 1)
- * * You can set some different sphere dimensions, for instance to build an ellipsoid, by using the parameters `diameterX`, `diameterY` and `diameterZ` (all by default have the same value of `diameter`)
+ * * You can set some different sphere dimensions, for instance to build an ellipsoid, by using the parameters `diameterX`, `diameterY` and `diameterZ` (all by default have the same value than `diameter`)
  * * The parameter `segments` sets the sphere number of horizontal stripes (positive integer, default 32)
  * * You can create an unclosed sphere with the parameter `arc` (positive float, default 1), valued between 0 and 1, what is the ratio of the circumference (latitude) : 2 x PI x ratio
  * * You can create an unclosed sphere on its height with the parameter `slice` (positive float, default1), valued between 0 and 1, what is the height ratio (longitude)
@@ -3290,6 +3556,7 @@ export class FiberSphere implements HasPropsHandlers<BABYLON.Mesh, FiberMeshProp
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
+        "isMesh": true,
         "className": "FiberSphere"
     };
 }
@@ -3383,6 +3650,7 @@ export class FiberDisc implements HasPropsHandlers<BABYLON.Mesh, FiberMeshProps>
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
+        "isMesh": true,
         "className": "FiberDisc"
     };
 }
@@ -3390,7 +3658,7 @@ export class FiberDisc implements HasPropsHandlers<BABYLON.Mesh, FiberMeshProps>
 /**
  * Creates a sphere based upon an icosahedron with 20 triangular faces which can be subdivided
  * * The parameter `radius` sets the radius size (float) of the icosphere (default 1)
- * * You can set some different icosphere dimensions, for instance to build an ellipsoid, by using the parameters `radiusX`, `radiusY` and `radiusZ` (all by default have the same value of `radius`)
+ * * You can set some different icosphere dimensions, for instance to build an ellipsoid, by using the parameters `radiusX`, `radiusY` and `radiusZ` (all by default have the same value than `radius`)
  * * The parameter `subdivisions` sets the number of subdivisions (postive integer, default 4). The more subdivisions, the more faces on the icosphere whatever its size
  * * The parameter `flat` (boolean, default true) gives each side its own normals. Set it to false to get a smooth continuous light reflection on the surface
  * * You can also set the mesh side orientation with the values : BABYLON.Mesh.FRONTSIDE (default), BABYLON.Mesh.BACKSIDE or BABYLON.Mesh.DOUBLESIDE
@@ -3492,6 +3760,7 @@ export class FiberIcoSphere implements HasPropsHandlers<BABYLON.Mesh, FiberMeshP
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
+        "isMesh": true,
         "className": "FiberIcoSphere"
     };
 }
@@ -3618,6 +3887,7 @@ export class FiberRibbon implements HasPropsHandlers<BABYLON.Mesh, FiberMeshProp
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
+        "isMesh": true,
         "className": "FiberRibbon"
     };
 }
@@ -3764,6 +4034,7 @@ export class FiberCylinder implements HasPropsHandlers<BABYLON.Mesh, FiberMeshPr
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
+        "isMesh": true,
         "className": "FiberCylinder"
     };
 }
@@ -3857,6 +4128,7 @@ export class FiberTorus implements HasPropsHandlers<BABYLON.Mesh, FiberMeshProps
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
+        "isMesh": true,
         "className": "FiberTorus"
     };
 }
@@ -3966,6 +4238,7 @@ export class FiberTorusKnot implements HasPropsHandlers<BABYLON.Mesh, FiberMeshP
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
+        "isMesh": true,
         "className": "FiberTorusKnot"
     };
 }
@@ -4052,6 +4325,7 @@ export class FiberLineSystem implements HasPropsHandlers<BABYLON.Mesh, FiberMesh
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
+        "isMesh": true,
         "className": "FiberLineSystem"
     };
 }
@@ -4137,6 +4411,7 @@ export class FiberLines implements HasPropsHandlers<BABYLON.Mesh, FiberMeshProps
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
+        "isMesh": true,
         "className": "FiberLines"
     };
 }
@@ -4228,6 +4503,7 @@ export class FiberDashedLines implements HasPropsHandlers<BABYLON.Mesh, FiberMes
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
+        "isMesh": true,
         "className": "FiberDashedLines"
     };
 }
@@ -4346,6 +4622,7 @@ export class FiberExtrudeShape implements HasPropsHandlers<BABYLON.Mesh, FiberMe
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
+        "isMesh": true,
         "className": "FiberExtrudeShape"
     };
 }
@@ -4479,6 +4756,7 @@ export class FiberExtrudeShapeCustom implements HasPropsHandlers<BABYLON.Mesh, F
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
+        "isMesh": true,
         "className": "FiberExtrudeShapeCustom"
     };
 }
@@ -4603,6 +4881,7 @@ export class FiberLathe implements HasPropsHandlers<BABYLON.Mesh, FiberMeshProps
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
+        "isMesh": true,
         "className": "FiberLathe"
     };
 }
@@ -4610,7 +4889,7 @@ export class FiberLathe implements HasPropsHandlers<BABYLON.Mesh, FiberMeshProps
 /**
  * Creates a plane mesh
  * * The parameter `size` sets the size (float) of both sides of the plane at once (default 1)
- * * You can set some different plane dimensions by using the parameters `width` and `height` (both by default have the same value of `size`)
+ * * You can set some different plane dimensions by using the parameters `width` and `height` (both by default have the same value than `size`)
  * * The parameter `sourcePlane` is a Plane instance. It builds a mesh plane from a Math plane
  * * You can also set the mesh side orientation with the values : BABYLON.Mesh.FRONTSIDE (default), BABYLON.Mesh.BACKSIDE or BABYLON.Mesh.DOUBLESIDE
  * * If you create a double-sided mesh, you can choose what parts of the texture image to crop and stick respectively on the front and the back sides with the parameters `frontUVs` and `backUVs` (Vector4). Detail here : http://doc.babylonjs.com/babylon101/discover_basic_elements#side-orientation
@@ -4701,6 +4980,7 @@ export class FiberPlane implements HasPropsHandlers<BABYLON.Mesh, FiberMeshProps
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
+        "isMesh": true,
         "className": "FiberPlane"
     };
 }
@@ -4786,6 +5066,7 @@ export class FiberGround implements HasPropsHandlers<BABYLON.Mesh, FiberMeshProp
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
+        "isMesh": true,
         "className": "FiberGround"
     };
 }
@@ -4878,6 +5159,7 @@ export class FiberTiledGround implements HasPropsHandlers<BABYLON.Mesh, FiberMes
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
+        "isMesh": true,
         "className": "FiberTiledGround"
     };
 }
@@ -4989,6 +5271,7 @@ export class FiberGroundFromHeightMap implements HasPropsHandlers<BABYLON.Mesh, 
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
+        "isMesh": true,
         "className": "FiberGroundFromHeightMap"
     };
 }
@@ -5092,6 +5375,7 @@ export class FiberPolygon implements HasPropsHandlers<BABYLON.Mesh, FiberMeshPro
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
+        "isMesh": true,
         "className": "FiberPolygon"
     };
 }
@@ -5190,6 +5474,7 @@ export class FiberExtrudePolygon implements HasPropsHandlers<BABYLON.Mesh, Fiber
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
+        "isMesh": true,
         "className": "FiberExtrudePolygon"
     };
 }
@@ -5315,6 +5600,7 @@ export class FiberTube implements HasPropsHandlers<BABYLON.Mesh, FiberMeshProps>
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
+        "isMesh": true,
         "className": "FiberTube"
     };
 }
@@ -5443,6 +5729,7 @@ export class FiberPolyhedron implements HasPropsHandlers<BABYLON.Mesh, FiberMesh
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
+        "isMesh": true,
         "className": "FiberPolyhedron"
     };
 }
@@ -5520,6 +5807,7 @@ export class FiberDecal implements HasPropsHandlers<BABYLON.Mesh, FiberMeshProps
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
+        "isMesh": true,
         "className": "FiberDecal"
     };
 }
@@ -5537,9 +5825,15 @@ export class FiberMaterialProps {
     fogEnabled?: boolean;
     forceDepthWrite?: boolean;
     getRenderTargetTextures?: () => BABYLON.SmartArray<BABYLON.RenderTargetTexture>;
+    hasRenderTargetTextures?: boolean;
     id?: string;
     name?: string;
     needDepthPrePass?: boolean;
+    onBind?: (Mesh: BABYLON.AbstractMesh) => void;
+    onCompiled?: (effect: BABYLON.Effect) => void;
+    onDispose?: () => void;
+    onDisposeObservable?: BABYLON.Observable<BABYLON.Material>;
+    onError?: (effect: BABYLON.Effect, errors: string) => void;
     pointsCloud?: boolean;
     pointSize?: number;
     separateCullingPass?: boolean;
@@ -5638,6 +5932,14 @@ export class FiberMaterialPropsHandler implements PropsHandler<BABYLON.Material,
             });
         }
         // TODO: type: () => BABYLON.SmartArray<BABYLON.RenderTargetTexture> property (not coded) BABYLON.Material.getRenderTargetTextures.
+        // BABYLON.Material.hasRenderTargetTextures of type 'boolean':
+        if (oldProps.hasRenderTargetTextures !== newProps.hasRenderTargetTextures) {
+            updates.push({
+                propertyName: 'hasRenderTargetTextures',
+                value: newProps.hasRenderTargetTextures,
+                type: 'boolean'
+            });
+        }
         // BABYLON.Material.id of type 'string':
         if (oldProps.id !== newProps.id) {
             updates.push({
@@ -5660,6 +5962,51 @@ export class FiberMaterialPropsHandler implements PropsHandler<BABYLON.Material,
                 propertyName: 'needDepthPrePass',
                 value: newProps.needDepthPrePass,
                 type: 'boolean'
+            });
+        }
+        // BABYLON.Material.onBind of type '(Mesh: BABYLON.AbstractMesh) => void/fn':
+        if (oldProps.onBind === undefined && oldProps.onBind !== newProps.onBind) {
+            updates.push({
+                propertyName: 'onBind',
+                value: newProps.onBind,
+                type: '(Mesh: BABYLON.AbstractMesh) => void',
+                prevValue: oldProps.onBind,
+            });
+        }
+        // BABYLON.Material.onCompiled of type '(effect: BABYLON.Effect) => void/fn':
+        if (oldProps.onCompiled === undefined && oldProps.onCompiled !== newProps.onCompiled) {
+            updates.push({
+                propertyName: 'onCompiled',
+                value: newProps.onCompiled,
+                type: '(effect: BABYLON.Effect) => void',
+                prevValue: oldProps.onCompiled,
+            });
+        }
+        // BABYLON.Material.onDispose of type '() => void/fn':
+        if (oldProps.onDispose === undefined && oldProps.onDispose !== newProps.onDispose) {
+            updates.push({
+                propertyName: 'onDispose',
+                value: newProps.onDispose,
+                type: '() => void',
+                prevValue: oldProps.onDispose,
+            });
+        }
+        // BABYLON.Material.onDisposeObservable of type 'BABYLON.Observable<BABYLON.Material>/fn':
+        if (oldProps.onDisposeObservable === undefined && oldProps.onDisposeObservable !== newProps.onDisposeObservable) {
+            updates.push({
+                propertyName: 'onDisposeObservable',
+                value: newProps.onDisposeObservable,
+                type: 'BABYLON.Observable<BABYLON.Material>',
+                prevValue: oldProps.onDisposeObservable,
+            });
+        }
+        // BABYLON.Material.onError of type '(effect: BABYLON.Effect, errors: string) => void/fn':
+        if (oldProps.onError === undefined && oldProps.onError !== newProps.onError) {
+            updates.push({
+                propertyName: 'onError',
+                value: newProps.onError,
+                type: '(effect: BABYLON.Effect, errors: string) => void',
+                prevValue: oldProps.onError,
             });
         }
         // BABYLON.Material.pointsCloud of type 'boolean':
@@ -5803,9 +6150,6 @@ export class FiberMultiMaterialPropsHandler implements PropsHandler<BABYLON.Mult
 }
 
 /**
- * A multi-material is used to apply different materials to different parts of the same object without the need of
- * separate meshes. This can be use to improve performances.
- * 
  * This code has been generated
  */
 export class FiberMultiMaterial implements HasPropsHandlers<BABYLON.Material, FiberMaterialProps> {
@@ -5862,8 +6206,6 @@ export class FiberPushMaterialPropsHandler implements PropsHandler<BABYLON.PushM
 }
 
 /**
- * Base class of materials working in push mode in babylon JS
- * 
  * This code has been generated
  */
 export class FiberPushMaterial implements HasPropsHandlers<BABYLON.Material, FiberMaterialProps> {
@@ -6244,9 +6586,6 @@ export class FiberStandardMaterialPropsHandler implements PropsHandler<BABYLON.S
 }
 
 /**
- * This is the default material used in Babylon. It is the best trade off between quality
- * and performances.
- * 
  * This code has been generated
  */
 export class FiberStandardMaterial implements HasPropsHandlers<BABYLON.Material, FiberMaterialProps> {
@@ -7605,10 +7944,6 @@ export class FiberShaderMaterialPropsHandler implements PropsHandler<BABYLON.Sha
 }
 
 /**
- * The ShaderMaterial object has the necessary methods to pass data from your scene to the Vertex and Fragment Shaders and returns a material that can be applied to any mesh.
- * 
- * This returned material effects how the mesh will look based on the code in the shaders.
- * 
  * This code has been generated
  */
 export class FiberShaderMaterial implements HasPropsHandlers<BABYLON.Material, FiberMaterialProps> {
@@ -7651,8 +7986,8 @@ export class FiberShaderMaterial implements HasPropsHandlers<BABYLON.Material, F
             },
             {
                 "name": "options",
-                "type": "Partial<BABYLON.IShaderMaterialOptions>",
-                "optional": true
+                "type": "any",
+                "optional": false
             }
         ]
     };
@@ -8015,7 +8350,8 @@ export class FiberShadowLight implements HasPropsHandlers<BABYLON.Light, FiberLi
         "parameters": []
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
-        "className": "FiberShadowLight"
+        "className": "FiberShadowLight",
+        "isShadowLight": true
     };
 }
 
@@ -8109,7 +8445,8 @@ export class FiberDirectionalLight implements HasPropsHandlers<BABYLON.Light, Fi
         ]
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
-        "className": "FiberDirectionalLight"
+        "className": "FiberDirectionalLight",
+        "isShadowLight": true
     };
 }
 
@@ -8194,7 +8531,8 @@ export class FiberPointLight implements HasPropsHandlers<BABYLON.Light, FiberLig
         ]
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
-        "className": "FiberPointLight"
+        "className": "FiberPointLight",
+        "isShadowLight": true
     };
 }
 
@@ -8342,7 +8680,8 @@ export class FiberSpotLight implements HasPropsHandlers<BABYLON.Light, FiberLigh
         ]
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
-        "className": "FiberSpotLight"
+        "className": "FiberSpotLight",
+        "isShadowLight": true
     };
 }
 
@@ -8368,6 +8707,14 @@ export class FiberControlProps {
     linkOffsetY?: string | number;
     name?: string;
     notRenderable?: boolean;
+    onAfterDrawObservable?: BABYLON.Observable<BABYLON.GUI.Control>;
+    onDirtyObservable?: BABYLON.Observable<BABYLON.GUI.Control>;
+    onPointerClickObservable?: BABYLON.Observable<BABYLON.GUI.Vector2WithInfo>;
+    onPointerDownObservable?: BABYLON.Observable<BABYLON.GUI.Vector2WithInfo>;
+    onPointerEnterObservable?: BABYLON.Observable<BABYLON.GUI.Control>;
+    onPointerMoveObservable?: BABYLON.Observable<BABYLON.Vector2>;
+    onPointerOutObservable?: BABYLON.Observable<BABYLON.GUI.Control>;
+    onPointerUpObservable?: BABYLON.Observable<BABYLON.GUI.Vector2WithInfo>;
     paddingBottom?: string | number;
     paddingLeft?: string | number;
     paddingRight?: string | number;
@@ -8553,6 +8900,78 @@ export class FiberControlPropsHandler implements PropsHandler<GUI.Control, Fiber
                 propertyName: 'notRenderable',
                 value: newProps.notRenderable,
                 type: 'boolean'
+            });
+        }
+        // GUI.Control.onAfterDrawObservable of type 'BABYLON.Observable<BABYLON.GUI.Control>/fn':
+        if (oldProps.onAfterDrawObservable === undefined && oldProps.onAfterDrawObservable !== newProps.onAfterDrawObservable) {
+            updates.push({
+                propertyName: 'onAfterDrawObservable',
+                value: newProps.onAfterDrawObservable,
+                type: 'BABYLON.Observable<BABYLON.GUI.Control>',
+                prevValue: oldProps.onAfterDrawObservable,
+            });
+        }
+        // GUI.Control.onDirtyObservable of type 'BABYLON.Observable<BABYLON.GUI.Control>/fn':
+        if (oldProps.onDirtyObservable === undefined && oldProps.onDirtyObservable !== newProps.onDirtyObservable) {
+            updates.push({
+                propertyName: 'onDirtyObservable',
+                value: newProps.onDirtyObservable,
+                type: 'BABYLON.Observable<BABYLON.GUI.Control>',
+                prevValue: oldProps.onDirtyObservable,
+            });
+        }
+        // GUI.Control.onPointerClickObservable of type 'BABYLON.Observable<BABYLON.GUI.Vector2WithInfo>/fn':
+        if (oldProps.onPointerClickObservable === undefined && oldProps.onPointerClickObservable !== newProps.onPointerClickObservable) {
+            updates.push({
+                propertyName: 'onPointerClickObservable',
+                value: newProps.onPointerClickObservable,
+                type: 'BABYLON.Observable<BABYLON.GUI.Vector2WithInfo>',
+                prevValue: oldProps.onPointerClickObservable,
+            });
+        }
+        // GUI.Control.onPointerDownObservable of type 'BABYLON.Observable<BABYLON.GUI.Vector2WithInfo>/fn':
+        if (oldProps.onPointerDownObservable === undefined && oldProps.onPointerDownObservable !== newProps.onPointerDownObservable) {
+            updates.push({
+                propertyName: 'onPointerDownObservable',
+                value: newProps.onPointerDownObservable,
+                type: 'BABYLON.Observable<BABYLON.GUI.Vector2WithInfo>',
+                prevValue: oldProps.onPointerDownObservable,
+            });
+        }
+        // GUI.Control.onPointerEnterObservable of type 'BABYLON.Observable<BABYLON.GUI.Control>/fn':
+        if (oldProps.onPointerEnterObservable === undefined && oldProps.onPointerEnterObservable !== newProps.onPointerEnterObservable) {
+            updates.push({
+                propertyName: 'onPointerEnterObservable',
+                value: newProps.onPointerEnterObservable,
+                type: 'BABYLON.Observable<BABYLON.GUI.Control>',
+                prevValue: oldProps.onPointerEnterObservable,
+            });
+        }
+        // GUI.Control.onPointerMoveObservable of type 'BABYLON.Observable<BABYLON.Vector2>/fn':
+        if (oldProps.onPointerMoveObservable === undefined && oldProps.onPointerMoveObservable !== newProps.onPointerMoveObservable) {
+            updates.push({
+                propertyName: 'onPointerMoveObservable',
+                value: newProps.onPointerMoveObservable,
+                type: 'BABYLON.Observable<BABYLON.Vector2>',
+                prevValue: oldProps.onPointerMoveObservable,
+            });
+        }
+        // GUI.Control.onPointerOutObservable of type 'BABYLON.Observable<BABYLON.GUI.Control>/fn':
+        if (oldProps.onPointerOutObservable === undefined && oldProps.onPointerOutObservable !== newProps.onPointerOutObservable) {
+            updates.push({
+                propertyName: 'onPointerOutObservable',
+                value: newProps.onPointerOutObservable,
+                type: 'BABYLON.Observable<BABYLON.GUI.Control>',
+                prevValue: oldProps.onPointerOutObservable,
+            });
+        }
+        // GUI.Control.onPointerUpObservable of type 'BABYLON.Observable<BABYLON.GUI.Vector2WithInfo>/fn':
+        if (oldProps.onPointerUpObservable === undefined && oldProps.onPointerUpObservable !== newProps.onPointerUpObservable) {
+            updates.push({
+                propertyName: 'onPointerUpObservable',
+                value: newProps.onPointerUpObservable,
+                type: 'BABYLON.Observable<BABYLON.GUI.Vector2WithInfo>',
+                prevValue: oldProps.onPointerUpObservable,
             });
         }
         // GUI.Control.paddingBottom of type 'string | number':
@@ -8742,6 +9161,7 @@ export class FiberCheckboxProps extends FiberControlProps {
     checkSizeRatio?: number;
     isChecked?: boolean;
     name?: string;
+    onIsCheckedChangedObservable?: BABYLON.Observable<boolean>;
     thickness?: number;
 }
 
@@ -8780,6 +9200,15 @@ export class FiberCheckboxPropsHandler implements PropsHandler<GUI.Checkbox, Fib
                 propertyName: 'name',
                 value: newProps.name,
                 type: 'string'
+            });
+        }
+        // GUI.Checkbox.onIsCheckedChangedObservable of type 'BABYLON.Observable<boolean>/fn':
+        if (oldProps.onIsCheckedChangedObservable === undefined && oldProps.onIsCheckedChangedObservable !== newProps.onIsCheckedChangedObservable) {
+            updates.push({
+                propertyName: 'onIsCheckedChangedObservable',
+                value: newProps.onIsCheckedChangedObservable,
+                type: 'BABYLON.Observable<boolean>',
+                prevValue: oldProps.onIsCheckedChangedObservable,
             });
         }
         // GUI.Checkbox.thickness of type 'number':
@@ -8838,6 +9267,7 @@ export class FiberCheckbox implements HasPropsHandlers<GUI.Control, FiberControl
 export class FiberColorPickerProps extends FiberControlProps {
     height?: string | number;
     name?: string;
+    onValueChangedObservable?: BABYLON.Observable<BABYLON.Color3>;
     size?: string | number;
     value?: BABYLON.Color3;
     width?: string | number;
@@ -8862,6 +9292,15 @@ export class FiberColorPickerPropsHandler implements PropsHandler<GUI.ColorPicke
                 propertyName: 'name',
                 value: newProps.name,
                 type: 'string'
+            });
+        }
+        // GUI.ColorPicker.onValueChangedObservable of type 'BABYLON.Observable<BABYLON.Color3>/fn':
+        if (oldProps.onValueChangedObservable === undefined && oldProps.onValueChangedObservable !== newProps.onValueChangedObservable) {
+            updates.push({
+                propertyName: 'onValueChangedObservable',
+                value: newProps.onValueChangedObservable,
+                type: 'BABYLON.Observable<BABYLON.Color3>',
+                prevValue: oldProps.onValueChangedObservable,
             });
         }
         // GUI.ColorPicker.size of type 'string | number':
@@ -9249,6 +9688,7 @@ export class FiberVirtualKeyboardProps extends FiberStackPanelProps {
     defaultButtonPaddingRight?: string;
     defaultButtonPaddingTop?: string;
     defaultButtonWidth?: string;
+    onKeyPressObservable?: BABYLON.Observable<string>;
     selectedShiftThickness?: number;
     shiftButtonColor?: string;
     shiftState?: number;
@@ -9321,6 +9761,15 @@ export class FiberVirtualKeyboardPropsHandler implements PropsHandler<GUI.Virtua
                 propertyName: 'defaultButtonWidth',
                 value: newProps.defaultButtonWidth,
                 type: 'string'
+            });
+        }
+        // GUI.VirtualKeyboard.onKeyPressObservable of type 'BABYLON.Observable<string>/fn':
+        if (oldProps.onKeyPressObservable === undefined && oldProps.onKeyPressObservable !== newProps.onKeyPressObservable) {
+            updates.push({
+                propertyName: 'onKeyPressObservable',
+                value: newProps.onKeyPressObservable,
+                type: 'BABYLON.Observable<string>',
+                prevValue: oldProps.onKeyPressObservable,
             });
         }
         // GUI.VirtualKeyboard.selectedShiftThickness of type 'number':
@@ -9844,6 +10293,10 @@ export class FiberInputTextProps extends FiberControlProps {
     margin?: string;
     maxWidth?: string | number;
     name?: string;
+    onBeforeKeyAddObservable?: BABYLON.Observable<BABYLON.GUI.InputText>;
+    onBlurObservable?: BABYLON.Observable<BABYLON.GUI.InputText>;
+    onFocusObservable?: BABYLON.Observable<BABYLON.GUI.InputText>;
+    onTextChangedObservable?: BABYLON.Observable<BABYLON.GUI.InputText>;
     placeholderColor?: string;
     placeholderText?: string;
     promptMessage?: string;
@@ -9927,6 +10380,42 @@ export class FiberInputTextPropsHandler implements PropsHandler<GUI.InputText, F
                 propertyName: 'name',
                 value: newProps.name,
                 type: 'string'
+            });
+        }
+        // GUI.InputText.onBeforeKeyAddObservable of type 'BABYLON.Observable<BABYLON.GUI.InputText>/fn':
+        if (oldProps.onBeforeKeyAddObservable === undefined && oldProps.onBeforeKeyAddObservable !== newProps.onBeforeKeyAddObservable) {
+            updates.push({
+                propertyName: 'onBeforeKeyAddObservable',
+                value: newProps.onBeforeKeyAddObservable,
+                type: 'BABYLON.Observable<BABYLON.GUI.InputText>',
+                prevValue: oldProps.onBeforeKeyAddObservable,
+            });
+        }
+        // GUI.InputText.onBlurObservable of type 'BABYLON.Observable<BABYLON.GUI.InputText>/fn':
+        if (oldProps.onBlurObservable === undefined && oldProps.onBlurObservable !== newProps.onBlurObservable) {
+            updates.push({
+                propertyName: 'onBlurObservable',
+                value: newProps.onBlurObservable,
+                type: 'BABYLON.Observable<BABYLON.GUI.InputText>',
+                prevValue: oldProps.onBlurObservable,
+            });
+        }
+        // GUI.InputText.onFocusObservable of type 'BABYLON.Observable<BABYLON.GUI.InputText>/fn':
+        if (oldProps.onFocusObservable === undefined && oldProps.onFocusObservable !== newProps.onFocusObservable) {
+            updates.push({
+                propertyName: 'onFocusObservable',
+                value: newProps.onFocusObservable,
+                type: 'BABYLON.Observable<BABYLON.GUI.InputText>',
+                prevValue: oldProps.onFocusObservable,
+            });
+        }
+        // GUI.InputText.onTextChangedObservable of type 'BABYLON.Observable<BABYLON.GUI.InputText>/fn':
+        if (oldProps.onTextChangedObservable === undefined && oldProps.onTextChangedObservable !== newProps.onTextChangedObservable) {
+            updates.push({
+                propertyName: 'onTextChangedObservable',
+                value: newProps.onTextChangedObservable,
+                type: 'BABYLON.Observable<BABYLON.GUI.InputText>',
+                prevValue: oldProps.onTextChangedObservable,
             });
         }
         // GUI.InputText.placeholderColor of type 'string':
@@ -10209,6 +10698,7 @@ export class FiberMultiLineProps extends FiberControlProps {
     horizontalAlignment?: number;
     lineWidth?: number;
     name?: string;
+    onPointUpdate?: () => void;
     verticalAlignment?: number;
 }
 
@@ -10240,6 +10730,15 @@ export class FiberMultiLinePropsHandler implements PropsHandler<GUI.MultiLine, F
                 propertyName: 'name',
                 value: newProps.name,
                 type: 'string'
+            });
+        }
+        // GUI.MultiLine.onPointUpdate of type '() => void/fn':
+        if (oldProps.onPointUpdate === undefined && oldProps.onPointUpdate !== newProps.onPointUpdate) {
+            updates.push({
+                propertyName: 'onPointUpdate',
+                value: newProps.onPointUpdate,
+                type: '() => void',
+                prevValue: oldProps.onPointUpdate,
             });
         }
         // GUI.MultiLine.verticalAlignment of type 'number':
@@ -10301,6 +10800,7 @@ export class FiberRadioButtonProps extends FiberControlProps {
     group?: string;
     isChecked?: boolean;
     name?: string;
+    onIsCheckedChangedObservable?: BABYLON.Observable<boolean>;
     thickness?: number;
 }
 
@@ -10347,6 +10847,15 @@ export class FiberRadioButtonPropsHandler implements PropsHandler<GUI.RadioButto
                 propertyName: 'name',
                 value: newProps.name,
                 type: 'string'
+            });
+        }
+        // GUI.RadioButton.onIsCheckedChangedObservable of type 'BABYLON.Observable<boolean>/fn':
+        if (oldProps.onIsCheckedChangedObservable === undefined && oldProps.onIsCheckedChangedObservable !== newProps.onIsCheckedChangedObservable) {
+            updates.push({
+                propertyName: 'onIsCheckedChangedObservable',
+                value: newProps.onIsCheckedChangedObservable,
+                type: 'BABYLON.Observable<boolean>',
+                prevValue: oldProps.onIsCheckedChangedObservable,
             });
         }
         // GUI.RadioButton.thickness of type 'number':
@@ -10405,6 +10914,8 @@ export class FiberRadioButton implements HasPropsHandlers<GUI.Control, FiberCont
 export class FiberTextBlockProps extends FiberControlProps {
     lineSpacing?: string | number;
     name?: string;
+    onLinesReadyObservable?: BABYLON.Observable<BABYLON.GUI.TextBlock>;
+    onTextChangedObservable?: BABYLON.Observable<BABYLON.GUI.TextBlock>;
     outlineColor?: string;
     outlineWidth?: number;
     resizeToFit?: boolean;
@@ -10433,6 +10944,24 @@ export class FiberTextBlockPropsHandler implements PropsHandler<GUI.TextBlock, F
                 propertyName: 'name',
                 value: newProps.name,
                 type: 'string'
+            });
+        }
+        // GUI.TextBlock.onLinesReadyObservable of type 'BABYLON.Observable<BABYLON.GUI.TextBlock>/fn':
+        if (oldProps.onLinesReadyObservable === undefined && oldProps.onLinesReadyObservable !== newProps.onLinesReadyObservable) {
+            updates.push({
+                propertyName: 'onLinesReadyObservable',
+                value: newProps.onLinesReadyObservable,
+                type: 'BABYLON.Observable<BABYLON.GUI.TextBlock>',
+                prevValue: oldProps.onLinesReadyObservable,
+            });
+        }
+        // GUI.TextBlock.onTextChangedObservable of type 'BABYLON.Observable<BABYLON.GUI.TextBlock>/fn':
+        if (oldProps.onTextChangedObservable === undefined && oldProps.onTextChangedObservable !== newProps.onTextChangedObservable) {
+            updates.push({
+                propertyName: 'onTextChangedObservable',
+                value: newProps.onTextChangedObservable,
+                type: 'BABYLON.Observable<BABYLON.GUI.TextBlock>',
+                prevValue: oldProps.onTextChangedObservable,
             });
         }
         // GUI.TextBlock.outlineColor of type 'string':
@@ -10544,6 +11073,7 @@ export class FiberSliderProps extends FiberControlProps {
     maximum?: number;
     minimum?: number;
     name?: string;
+    onValueChangedObservable?: BABYLON.Observable<number>;
     thumbWidth?: string | number;
     value?: number;
 }
@@ -10623,6 +11153,15 @@ export class FiberSliderPropsHandler implements PropsHandler<GUI.Slider, FiberSl
                 propertyName: 'name',
                 value: newProps.name,
                 type: 'string'
+            });
+        }
+        // GUI.Slider.onValueChangedObservable of type 'BABYLON.Observable<number>/fn':
+        if (oldProps.onValueChangedObservable === undefined && oldProps.onValueChangedObservable !== newProps.onValueChangedObservable) {
+            updates.push({
+                propertyName: 'onValueChangedObservable',
+                value: newProps.onValueChangedObservable,
+                type: 'BABYLON.Observable<number>',
+                prevValue: oldProps.onValueChangedObservable,
             });
         }
         // GUI.Slider.thumbWidth of type 'string | number':
@@ -10841,6 +11380,12 @@ export class FiberDisplayGrid implements HasPropsHandlers<GUI.Control, FiberCont
 export class FiberControl3DProps {
     isVisible?: boolean;
     name?: string;
+    onPointerClickObservable?: BABYLON.Observable<BABYLON.GUI.Vector3WithInfo>;
+    onPointerDownObservable?: BABYLON.Observable<BABYLON.GUI.Vector3WithInfo>;
+    onPointerEnterObservable?: BABYLON.Observable<BABYLON.GUI.Control3D>;
+    onPointerMoveObservable?: BABYLON.Observable<BABYLON.Vector3>;
+    onPointerOutObservable?: BABYLON.Observable<BABYLON.GUI.Control3D>;
+    onPointerUpObservable?: BABYLON.Observable<BABYLON.GUI.Vector3WithInfo>;
     parent?: BABYLON.GUI.Container3D;
     pointerDownAnimation?: () => void;
     pointerEnterAnimation?: () => void;
@@ -10869,6 +11414,60 @@ export class FiberControl3DPropsHandler implements PropsHandler<GUI.Control3D, F
                 propertyName: 'name',
                 value: newProps.name,
                 type: 'string'
+            });
+        }
+        // GUI.Control3D.onPointerClickObservable of type 'BABYLON.Observable<BABYLON.GUI.Vector3WithInfo>/fn':
+        if (oldProps.onPointerClickObservable === undefined && oldProps.onPointerClickObservable !== newProps.onPointerClickObservable) {
+            updates.push({
+                propertyName: 'onPointerClickObservable',
+                value: newProps.onPointerClickObservable,
+                type: 'BABYLON.Observable<BABYLON.GUI.Vector3WithInfo>',
+                prevValue: oldProps.onPointerClickObservable,
+            });
+        }
+        // GUI.Control3D.onPointerDownObservable of type 'BABYLON.Observable<BABYLON.GUI.Vector3WithInfo>/fn':
+        if (oldProps.onPointerDownObservable === undefined && oldProps.onPointerDownObservable !== newProps.onPointerDownObservable) {
+            updates.push({
+                propertyName: 'onPointerDownObservable',
+                value: newProps.onPointerDownObservable,
+                type: 'BABYLON.Observable<BABYLON.GUI.Vector3WithInfo>',
+                prevValue: oldProps.onPointerDownObservable,
+            });
+        }
+        // GUI.Control3D.onPointerEnterObservable of type 'BABYLON.Observable<BABYLON.GUI.Control3D>/fn':
+        if (oldProps.onPointerEnterObservable === undefined && oldProps.onPointerEnterObservable !== newProps.onPointerEnterObservable) {
+            updates.push({
+                propertyName: 'onPointerEnterObservable',
+                value: newProps.onPointerEnterObservable,
+                type: 'BABYLON.Observable<BABYLON.GUI.Control3D>',
+                prevValue: oldProps.onPointerEnterObservable,
+            });
+        }
+        // GUI.Control3D.onPointerMoveObservable of type 'BABYLON.Observable<BABYLON.Vector3>/fn':
+        if (oldProps.onPointerMoveObservable === undefined && oldProps.onPointerMoveObservable !== newProps.onPointerMoveObservable) {
+            updates.push({
+                propertyName: 'onPointerMoveObservable',
+                value: newProps.onPointerMoveObservable,
+                type: 'BABYLON.Observable<BABYLON.Vector3>',
+                prevValue: oldProps.onPointerMoveObservable,
+            });
+        }
+        // GUI.Control3D.onPointerOutObservable of type 'BABYLON.Observable<BABYLON.GUI.Control3D>/fn':
+        if (oldProps.onPointerOutObservable === undefined && oldProps.onPointerOutObservable !== newProps.onPointerOutObservable) {
+            updates.push({
+                propertyName: 'onPointerOutObservable',
+                value: newProps.onPointerOutObservable,
+                type: 'BABYLON.Observable<BABYLON.GUI.Control3D>',
+                prevValue: oldProps.onPointerOutObservable,
+            });
+        }
+        // GUI.Control3D.onPointerUpObservable of type 'BABYLON.Observable<BABYLON.GUI.Vector3WithInfo>/fn':
+        if (oldProps.onPointerUpObservable === undefined && oldProps.onPointerUpObservable !== newProps.onPointerUpObservable) {
+            updates.push({
+                propertyName: 'onPointerUpObservable',
+                value: newProps.onPointerUpObservable,
+                type: 'BABYLON.Observable<BABYLON.GUI.Vector3WithInfo>',
+                prevValue: oldProps.onPointerUpObservable,
             });
         }
         // TODO: type: BABYLON.GUI.Container3D property (not coded) GUI.Control3D.parent.
@@ -11655,6 +12254,8 @@ export class FiberBaseTextureProps {
     lodGenerationScale?: number;
     lodLevelInAlpha?: boolean;
     name?: string;
+    onDispose?: () => void;
+    onDisposeObservable?: BABYLON.Observable<BABYLON.BaseTexture>;
     sphericalPolynomial?: BABYLON.SphericalPolynomial;
     wrapR?: number;
     wrapU?: number;
@@ -11795,6 +12396,24 @@ export class FiberBaseTexturePropsHandler implements PropsHandler<BABYLON.BaseTe
                 type: 'string'
             });
         }
+        // BABYLON.BaseTexture.onDispose of type '() => void/fn':
+        if (oldProps.onDispose === undefined && oldProps.onDispose !== newProps.onDispose) {
+            updates.push({
+                propertyName: 'onDispose',
+                value: newProps.onDispose,
+                type: '() => void',
+                prevValue: oldProps.onDispose,
+            });
+        }
+        // BABYLON.BaseTexture.onDisposeObservable of type 'BABYLON.Observable<BABYLON.BaseTexture>/fn':
+        if (oldProps.onDisposeObservable === undefined && oldProps.onDisposeObservable !== newProps.onDisposeObservable) {
+            updates.push({
+                propertyName: 'onDisposeObservable',
+                value: newProps.onDisposeObservable,
+                type: 'BABYLON.Observable<BABYLON.BaseTexture>',
+                prevValue: oldProps.onDisposeObservable,
+            });
+        }
         // TODO: type: BABYLON.SphericalPolynomial property (not coded) BABYLON.BaseTexture.sphericalPolynomial.
         // BABYLON.BaseTexture.wrapR of type 'number':
         if (oldProps.wrapR !== newProps.wrapR) {
@@ -11825,10 +12444,6 @@ export class FiberBaseTexturePropsHandler implements PropsHandler<BABYLON.BaseTe
 }
 
 /**
- * Base class of all the textures in babylon.
- * It groups all the common properties the materials, post process, lights... might need
- * in order to make a correct use of the texture.
- * 
  * This code has been generated
  */
 export class FiberBaseTexture implements HasPropsHandlers<BABYLON.BaseTexture, FiberBaseTextureProps> {
@@ -11897,7 +12512,7 @@ export class FiberColorGradingTexturePropsHandler implements PropsHandler<BABYLO
  * from sepia, black and white to sixties or futuristic rendering...
  * 
  * The only supported format is currently 3dl.
- * More information on LUT: https://en.wikipedia.org/wiki/3D_lookup_table
+ * More information on LUT: https://en.wikipedia.org/wiki/3D_lookup_table/
  * 
  * This code has been generated
  */
@@ -11991,8 +12606,6 @@ export class FiberCubeTexturePropsHandler implements PropsHandler<BABYLON.CubeTe
 }
 
 /**
- * Class for creating a cube texture
- * 
  * This code has been generated
  */
 export class FiberCubeTexture implements HasPropsHandlers<BABYLON.BaseTexture, FiberBaseTextureProps> {
@@ -12458,8 +13071,6 @@ export class FiberTexturePropsHandler implements PropsHandler<BABYLON.Texture, F
 }
 
 /**
- * This represents a texture in babylon. It can be easily loaded from a network, base64 or html input.
- * 
  * This code has been generated
  */
 export class FiberTexture implements HasPropsHandlers<BABYLON.BaseTexture, FiberBaseTextureProps> {
@@ -12556,7 +13167,7 @@ export class FiberDynamicTexturePropsHandler implements PropsHandler<BABYLON.Dyn
 }
 
 /**
- * A class extending Texture allowing drawing on a texture
+ * A class extending {BABYLON.Texture} allowing drawing on a texture
  * 
  * This code has been generated
  */
@@ -12644,10 +13255,6 @@ export class FiberRawTexturePropsHandler implements PropsHandler<BABYLON.RawText
 }
 
 /**
- * Raw texture can help creating a texture directly from an array of data.
- * This can be super useful if you either get the data from an uncompressed source or
- * if you wish to create your texture pixel by pixel.
- * 
  * This code has been generated
  */
 export class FiberRawTexture implements HasPropsHandlers<BABYLON.BaseTexture, FiberBaseTextureProps> {
@@ -12845,6 +13452,15 @@ export class FiberRenderTargetTextureProps extends FiberTextureProps {
     depthStencilTexture?: BABYLON.InternalTexture;
     ignoreCameraViewport?: boolean;
     isCube?: boolean;
+    onAfterRender?: (faceIndex: number) => void;
+    onAfterRenderObservable?: BABYLON.Observable<number>;
+    onAfterUnbind?: () => void;
+    onAfterUnbindObservable?: BABYLON.Observable<BABYLON.RenderTargetTexture>;
+    onBeforeBindObservable?: BABYLON.Observable<BABYLON.RenderTargetTexture>;
+    onBeforeRender?: (faceIndex: number) => void;
+    onBeforeRenderObservable?: BABYLON.Observable<number>;
+    onClear?: (Engine: BABYLON.Engine) => void;
+    onClearObservable?: BABYLON.Observable<BABYLON.Engine>;
     refreshRate?: number;
     renderList?: BABYLON.AbstractMesh[];
     renderListPredicate?: (AbstractMesh: BABYLON.AbstractMesh) => boolean;
@@ -12904,6 +13520,87 @@ export class FiberRenderTargetTexturePropsHandler implements PropsHandler<BABYLO
                 type: 'boolean'
             });
         }
+        // BABYLON.RenderTargetTexture.onAfterRender of type '(faceIndex: number) => void/fn':
+        if (oldProps.onAfterRender === undefined && oldProps.onAfterRender !== newProps.onAfterRender) {
+            updates.push({
+                propertyName: 'onAfterRender',
+                value: newProps.onAfterRender,
+                type: '(faceIndex: number) => void',
+                prevValue: oldProps.onAfterRender,
+            });
+        }
+        // BABYLON.RenderTargetTexture.onAfterRenderObservable of type 'BABYLON.Observable<number>/fn':
+        if (oldProps.onAfterRenderObservable === undefined && oldProps.onAfterRenderObservable !== newProps.onAfterRenderObservable) {
+            updates.push({
+                propertyName: 'onAfterRenderObservable',
+                value: newProps.onAfterRenderObservable,
+                type: 'BABYLON.Observable<number>',
+                prevValue: oldProps.onAfterRenderObservable,
+            });
+        }
+        // BABYLON.RenderTargetTexture.onAfterUnbind of type '() => void/fn':
+        if (oldProps.onAfterUnbind === undefined && oldProps.onAfterUnbind !== newProps.onAfterUnbind) {
+            updates.push({
+                propertyName: 'onAfterUnbind',
+                value: newProps.onAfterUnbind,
+                type: '() => void',
+                prevValue: oldProps.onAfterUnbind,
+            });
+        }
+        // BABYLON.RenderTargetTexture.onAfterUnbindObservable of type 'BABYLON.Observable<BABYLON.RenderTargetTexture>/fn':
+        if (oldProps.onAfterUnbindObservable === undefined && oldProps.onAfterUnbindObservable !== newProps.onAfterUnbindObservable) {
+            updates.push({
+                propertyName: 'onAfterUnbindObservable',
+                value: newProps.onAfterUnbindObservable,
+                type: 'BABYLON.Observable<BABYLON.RenderTargetTexture>',
+                prevValue: oldProps.onAfterUnbindObservable,
+            });
+        }
+        // BABYLON.RenderTargetTexture.onBeforeBindObservable of type 'BABYLON.Observable<BABYLON.RenderTargetTexture>/fn':
+        if (oldProps.onBeforeBindObservable === undefined && oldProps.onBeforeBindObservable !== newProps.onBeforeBindObservable) {
+            updates.push({
+                propertyName: 'onBeforeBindObservable',
+                value: newProps.onBeforeBindObservable,
+                type: 'BABYLON.Observable<BABYLON.RenderTargetTexture>',
+                prevValue: oldProps.onBeforeBindObservable,
+            });
+        }
+        // BABYLON.RenderTargetTexture.onBeforeRender of type '(faceIndex: number) => void/fn':
+        if (oldProps.onBeforeRender === undefined && oldProps.onBeforeRender !== newProps.onBeforeRender) {
+            updates.push({
+                propertyName: 'onBeforeRender',
+                value: newProps.onBeforeRender,
+                type: '(faceIndex: number) => void',
+                prevValue: oldProps.onBeforeRender,
+            });
+        }
+        // BABYLON.RenderTargetTexture.onBeforeRenderObservable of type 'BABYLON.Observable<number>/fn':
+        if (oldProps.onBeforeRenderObservable === undefined && oldProps.onBeforeRenderObservable !== newProps.onBeforeRenderObservable) {
+            updates.push({
+                propertyName: 'onBeforeRenderObservable',
+                value: newProps.onBeforeRenderObservable,
+                type: 'BABYLON.Observable<number>',
+                prevValue: oldProps.onBeforeRenderObservable,
+            });
+        }
+        // BABYLON.RenderTargetTexture.onClear of type '(Engine: BABYLON.Engine) => void/fn':
+        if (oldProps.onClear === undefined && oldProps.onClear !== newProps.onClear) {
+            updates.push({
+                propertyName: 'onClear',
+                value: newProps.onClear,
+                type: '(Engine: BABYLON.Engine) => void',
+                prevValue: oldProps.onClear,
+            });
+        }
+        // BABYLON.RenderTargetTexture.onClearObservable of type 'BABYLON.Observable<BABYLON.Engine>/fn':
+        if (oldProps.onClearObservable === undefined && oldProps.onClearObservable !== newProps.onClearObservable) {
+            updates.push({
+                propertyName: 'onClearObservable',
+                value: newProps.onClearObservable,
+                type: 'BABYLON.Observable<BABYLON.Engine>',
+                prevValue: oldProps.onClearObservable,
+            });
+        }
         // BABYLON.RenderTargetTexture.refreshRate of type 'number':
         if (oldProps.refreshRate !== newProps.refreshRate) {
             updates.push({
@@ -12952,10 +13649,6 @@ export class FiberRenderTargetTexturePropsHandler implements PropsHandler<BABYLO
 }
 
 /**
- * This Helps creating a texture that will be created from a camera in your scene.
- * It is basically a dynamic texture that could be used to create special effects for instance.
- * Actually, It is the base of lot of effects in the framework like post process, shadows, effect layers and rendering pipelines...
- * 
  * This code has been generated
  */
 export class FiberRenderTargetTexture implements HasPropsHandlers<BABYLON.BaseTexture, FiberBaseTextureProps> {
@@ -13112,11 +13805,6 @@ export class FiberMirrorTexturePropsHandler implements PropsHandler<BABYLON.Mirr
 }
 
 /**
- * Mirror texture can be used to simulate the view from a mirror in a scene.
- * It will dynamically be rendered every frame to adapt to the camera point of view.
- * You can then easily use it as a reflectionTexture on a flat surface.
- * In case the surface is not a plane, please consider relying on reflection probes.
- * 
  * This code has been generated
  */
 export class FiberMirrorTexture implements HasPropsHandlers<BABYLON.BaseTexture, FiberBaseTextureProps> {
@@ -13227,11 +13915,6 @@ export class FiberMultiRenderTargetPropsHandler implements PropsHandler<BABYLON.
 }
 
 /**
- * A multi render target, like a render target provides the ability to render to a texture.
- * Unlike the render target, it can render to several draw buffers in one draw.
- * This is specially interesting in deferred rendering or for any effects requiring more than
- * just one color from a single pass.
- * 
  * This code has been generated
  */
 export class FiberMultiRenderTarget implements HasPropsHandlers<BABYLON.BaseTexture, FiberBaseTextureProps> {
@@ -13317,7 +14000,6 @@ export class FiberRefractionTexturePropsHandler implements PropsHandler<BABYLON.
 
 /**
  * Creates a refraction texture used by refraction channel of the standard material.
- * It is like a mirror but to see through a material.
  * 
  * This code has been generated
  */
@@ -13389,9 +14071,6 @@ export class FiberVideoTexturePropsHandler implements PropsHandler<BABYLON.Video
 }
 
 /**
- * If you want to display a video in your scene, this is the special texture for that.
- * This special texture works similar to other textures, with the exception of a few parameters.
- * 
  * This code has been generated
  */
 export class FiberVideoTexture implements HasPropsHandlers<BABYLON.BaseTexture, FiberBaseTextureProps> {
@@ -13462,9 +14141,10 @@ export class FiberVideoTexture implements HasPropsHandlers<BABYLON.BaseTexture, 
 }
 
 export class FiberProceduralTextureProps extends FiberTextureProps {
-    autoClear?: boolean;
     isCube?: boolean;
     isEnabled?: boolean;
+    onGenerated?: () => void;
+    onGeneratedObservable?: BABYLON.Observable<BABYLON.ProceduralTexture>;
     refreshRate?: number;
 }
 
@@ -13473,14 +14153,6 @@ export class FiberProceduralTexturePropsHandler implements PropsHandler<BABYLON.
         // generated code
         let babylonObject: BABYLON.ProceduralTexture = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
-        // BABYLON.ProceduralTexture.autoClear of type 'boolean':
-        if (oldProps.autoClear !== newProps.autoClear) {
-            updates.push({
-                propertyName: 'autoClear',
-                value: newProps.autoClear,
-                type: 'boolean'
-            });
-        }
         // BABYLON.ProceduralTexture.isCube of type 'boolean':
         if (oldProps.isCube !== newProps.isCube) {
             updates.push({
@@ -13497,6 +14169,24 @@ export class FiberProceduralTexturePropsHandler implements PropsHandler<BABYLON.
                 type: 'boolean'
             });
         }
+        // BABYLON.ProceduralTexture.onGenerated of type '() => void/fn':
+        if (oldProps.onGenerated === undefined && oldProps.onGenerated !== newProps.onGenerated) {
+            updates.push({
+                propertyName: 'onGenerated',
+                value: newProps.onGenerated,
+                type: '() => void',
+                prevValue: oldProps.onGenerated,
+            });
+        }
+        // BABYLON.ProceduralTexture.onGeneratedObservable of type 'BABYLON.Observable<BABYLON.ProceduralTexture>/fn':
+        if (oldProps.onGeneratedObservable === undefined && oldProps.onGeneratedObservable !== newProps.onGeneratedObservable) {
+            updates.push({
+                propertyName: 'onGeneratedObservable',
+                value: newProps.onGeneratedObservable,
+                type: 'BABYLON.Observable<BABYLON.ProceduralTexture>',
+                prevValue: oldProps.onGeneratedObservable,
+            });
+        }
         // BABYLON.ProceduralTexture.refreshRate of type 'number':
         if (oldProps.refreshRate !== newProps.refreshRate) {
             updates.push({
@@ -13510,9 +14200,6 @@ export class FiberProceduralTexturePropsHandler implements PropsHandler<BABYLON.
 }
 
 /**
- * Procedural texturing is a way to programmatically create a texture. There are 2 types of procedural textures: code-only, and code that references some classic 2D images, sometimes called 'refMaps' or 'sampler' images.
- * This is the base class of any Procedural texture and contains most of the shareable code.
- * 
  * This code has been generated
  */
 export class FiberProceduralTexture implements HasPropsHandlers<BABYLON.BaseTexture, FiberBaseTextureProps> {
@@ -13584,6 +14271,7 @@ export class FiberProceduralTexture implements HasPropsHandlers<BABYLON.BaseText
 
 export class FiberCustomProceduralTextureProps extends FiberProceduralTextureProps {
     animate?: boolean;
+    loadJson?: any;
 }
 
 export class FiberCustomProceduralTexturePropsHandler implements PropsHandler<BABYLON.CustomProceduralTexture, FiberCustomProceduralTextureProps> {
@@ -13599,14 +14287,12 @@ export class FiberCustomProceduralTexturePropsHandler implements PropsHandler<BA
                 type: 'boolean'
             });
         }
+        // TODO: type: any property (not coded) BABYLON.CustomProceduralTexture.loadJson.
         return updates.length == 0 ? null : updates;
     }
 }
 
 /**
- * Procedural texturing is a way to programmatically create a texture. There are 2 types of procedural textures: code-only, and code that references some classic 2D images, sometimes called 'refMaps' or 'sampler' images.
- * Custom Procedural textures are the easiest way to create your own procedural in your application.
- * 
  * This code has been generated
  */
 export class FiberCustomProceduralTexture implements HasPropsHandlers<BABYLON.BaseTexture, FiberBaseTextureProps> {
@@ -13641,7 +14327,7 @@ export class FiberCustomProceduralTexture implements HasPropsHandlers<BABYLON.Ba
             },
             {
                 "name": "texturePath",
-                "type": "string",
+                "type": "any",
                 "optional": false
             },
             {
@@ -13875,7 +14561,6 @@ export class FiberAdvancedDynamicTexturePropsHandler implements PropsHandler<GUI
  * This code has been generated
  */
 export class FiberAdvancedDynamicTexture implements HasPropsHandlers<BABYLON.BaseTexture, FiberBaseTextureProps> {
-    public readonly isTargetable = false;
     private propsHandlers: PropsHandler<BABYLON.BaseTexture, FiberBaseTextureProps>[];
 
     constructor() {
@@ -13939,6 +14624,7 @@ export class FiberAdvancedDynamicTexture implements HasPropsHandlers<BABYLON.Bas
 }
 
 export class FiberGUI3DManagerProps {
+    onPickedPointChangedObservable?: BABYLON.Observable<BABYLON.Vector3>;
 }
 
 export class FiberGUI3DManagerPropsHandler implements PropsHandler<GUI.GUI3DManager, FiberGUI3DManagerProps> {
@@ -13946,6 +14632,15 @@ export class FiberGUI3DManagerPropsHandler implements PropsHandler<GUI.GUI3DMana
         // generated code
         let babylonObject: GUI.GUI3DManager = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
+        // GUI.GUI3DManager.onPickedPointChangedObservable of type 'BABYLON.Observable<BABYLON.Vector3>/fn':
+        if (oldProps.onPickedPointChangedObservable === undefined && oldProps.onPickedPointChangedObservable !== newProps.onPickedPointChangedObservable) {
+            updates.push({
+                propertyName: 'onPickedPointChangedObservable',
+                value: newProps.onPickedPointChangedObservable,
+                type: 'BABYLON.Observable<BABYLON.Vector3>',
+                prevValue: oldProps.onPickedPointChangedObservable,
+            });
+        }
         return updates.length == 0 ? null : updates;
     }
 }
@@ -13990,4 +14685,546 @@ export class FiberGUI3DManager implements HasPropsHandlers<GUI.GUI3DManager, Fib
     };
 }
 
-export const AbstractButton3D: string = 'AbstractButton3D', AdvancedDynamicTexture: string = 'AdvancedDynamicTexture', AnaglyphArcRotateCamera: string = 'AnaglyphArcRotateCamera', AnaglyphFreeCamera: string = 'AnaglyphFreeCamera', AnaglyphGamepadCamera: string = 'AnaglyphGamepadCamera', AnaglyphUniversalCamera: string = 'AnaglyphUniversalCamera', ArcFollowCamera: string = 'ArcFollowCamera', ArcRotateCamera: string = 'ArcRotateCamera', BackgroundMaterial: string = 'BackgroundMaterial', BaseTexture: string = 'BaseTexture', Box: string = 'Box', Button: string = 'Button', Button3D: string = 'Button3D', Camera: string = 'Camera', Checkbox: string = 'Checkbox', ColorGradingTexture: string = 'ColorGradingTexture', ColorPicker: string = 'ColorPicker', Container: string = 'Container', Container3D: string = 'Container3D', Control: string = 'Control', Control3D: string = 'Control3D', CubeTexture: string = 'CubeTexture', CustomProceduralTexture: string = 'CustomProceduralTexture', Cylinder: string = 'Cylinder', CylinderPanel: string = 'CylinderPanel', DashedLines: string = 'DashedLines', Decal: string = 'Decal', DeviceOrientationCamera: string = 'DeviceOrientationCamera', DirectionalLight: string = 'DirectionalLight', Disc: string = 'Disc', DisplayGrid: string = 'DisplayGrid', DynamicTexture: string = 'DynamicTexture', Ellipse: string = 'Ellipse', ExtrudePolygon: string = 'ExtrudePolygon', ExtrudeShape: string = 'ExtrudeShape', ExtrudeShapeCustom: string = 'ExtrudeShapeCustom', FollowCamera: string = 'FollowCamera', FreeCamera: string = 'FreeCamera', GUI3DManager: string = 'GUI3DManager', GamepadCamera: string = 'GamepadCamera', Grid: string = 'Grid', Ground: string = 'Ground', GroundFromHeightMap: string = 'GroundFromHeightMap', HDRCubeTexture: string = 'HDRCubeTexture', HemisphericLight: string = 'HemisphericLight', HolographicButton: string = 'HolographicButton', IcoSphere: string = 'IcoSphere', Image: string = 'Image', InputPassword: string = 'InputPassword', InputText: string = 'InputText', Lathe: string = 'Lathe', Light: string = 'Light', Line: string = 'Line', LineSystem: string = 'LineSystem', Lines: string = 'Lines', Material: string = 'Material', MeshButton3D: string = 'MeshButton3D', MirrorTexture: string = 'MirrorTexture', MultiLine: string = 'MultiLine', MultiMaterial: string = 'MultiMaterial', MultiRenderTarget: string = 'MultiRenderTarget', NoiseProceduralTexture: string = 'NoiseProceduralTexture', PBRBaseMaterial: string = 'PBRBaseMaterial', PBRBaseSimpleMaterial: string = 'PBRBaseSimpleMaterial', PBRMaterial: string = 'PBRMaterial', PBRMetallicRoughnessMaterial: string = 'PBRMetallicRoughnessMaterial', PBRSpecularGlossinessMaterial: string = 'PBRSpecularGlossinessMaterial', Plane: string = 'Plane', PlanePanel: string = 'PlanePanel', PointLight: string = 'PointLight', Polygon: string = 'Polygon', Polyhedron: string = 'Polyhedron', ProceduralTexture: string = 'ProceduralTexture', PushMaterial: string = 'PushMaterial', RadioButton: string = 'RadioButton', RawCubeTexture: string = 'RawCubeTexture', RawTexture: string = 'RawTexture', RawTexture3D: string = 'RawTexture3D', Rectangle: string = 'Rectangle', RefractionTexture: string = 'RefractionTexture', RenderTargetTexture: string = 'RenderTargetTexture', Ribbon: string = 'Ribbon', ScatterPanel: string = 'ScatterPanel', SelectionPanel: string = 'SelectionPanel', ShaderMaterial: string = 'ShaderMaterial', ShadowLight: string = 'ShadowLight', Slider: string = 'Slider', Sphere: string = 'Sphere', SpherePanel: string = 'SpherePanel', SpotLight: string = 'SpotLight', StackPanel: string = 'StackPanel', StackPanel3D: string = 'StackPanel3D', StandardMaterial: string = 'StandardMaterial', StereoscopicArcRotateCamera: string = 'StereoscopicArcRotateCamera', StereoscopicFreeCamera: string = 'StereoscopicFreeCamera', StereoscopicGamepadCamera: string = 'StereoscopicGamepadCamera', StereoscopicUniversalCamera: string = 'StereoscopicUniversalCamera', TargetCamera: string = 'TargetCamera', TextBlock: string = 'TextBlock', Texture: string = 'Texture', TiledGround: string = 'TiledGround', Torus: string = 'Torus', TorusKnot: string = 'TorusKnot', TouchCamera: string = 'TouchCamera', Tube: string = 'Tube', UniversalCamera: string = 'UniversalCamera', VRDeviceOrientationArcRotateCamera: string = 'VRDeviceOrientationArcRotateCamera', VRDeviceOrientationFreeCamera: string = 'VRDeviceOrientationFreeCamera', VRDeviceOrientationGamepadCamera: string = 'VRDeviceOrientationGamepadCamera', VideoTexture: string = 'VideoTexture', VirtualJoysticksCamera: string = 'VirtualJoysticksCamera', VirtualKeyboard: string = 'VirtualKeyboard', VolumeBasedPanel: string = 'VolumeBasedPanel', WebVRFreeCamera: string = 'WebVRFreeCamera';
+export class FiberShadowGeneratorProps {
+    bias?: number;
+    blurBoxOffset?: number;
+    blurKernel?: number;
+    blurScale?: number;
+    contactHardeningLightSizeUVRatio?: number;
+    depthScale?: number;
+    filter?: number;
+    filteringQuality?: number;
+    forceBackFacesOnly?: boolean;
+    frustumEdgeFalloff?: number;
+    normalBias?: number;
+    useBlurCloseExponentialShadowMap?: boolean;
+    useBlurExponentialShadowMap?: boolean;
+    useBlurVarianceShadowMap?: boolean;
+    useCloseExponentialShadowMap?: boolean;
+    useContactHardeningShadow?: boolean;
+    useExponentialShadowMap?: boolean;
+    useKernelBlur?: boolean;
+    usePercentageCloserFiltering?: boolean;
+    usePoissonSampling?: boolean;
+    useVarianceShadowMap?: boolean;
+}
+
+export class FiberShadowGeneratorPropsHandler implements PropsHandler<BABYLON.ShadowGenerator, FiberShadowGeneratorProps> {
+    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.ShadowGenerator>, oldProps: FiberShadowGeneratorProps, newProps: FiberShadowGeneratorProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+        // generated code
+        let babylonObject: BABYLON.ShadowGenerator = createdInstance.babylonJsObject;
+        let updates: PropertyUpdate[] = [];
+        // BABYLON.ShadowGenerator.bias of type 'number':
+        if (oldProps.bias !== newProps.bias) {
+            updates.push({
+                propertyName: 'bias',
+                value: newProps.bias,
+                type: 'number'
+            });
+        }
+        // BABYLON.ShadowGenerator.blurBoxOffset of type 'number':
+        if (oldProps.blurBoxOffset !== newProps.blurBoxOffset) {
+            updates.push({
+                propertyName: 'blurBoxOffset',
+                value: newProps.blurBoxOffset,
+                type: 'number'
+            });
+        }
+        // BABYLON.ShadowGenerator.blurKernel of type 'number':
+        if (oldProps.blurKernel !== newProps.blurKernel) {
+            updates.push({
+                propertyName: 'blurKernel',
+                value: newProps.blurKernel,
+                type: 'number'
+            });
+        }
+        // BABYLON.ShadowGenerator.blurScale of type 'number':
+        if (oldProps.blurScale !== newProps.blurScale) {
+            updates.push({
+                propertyName: 'blurScale',
+                value: newProps.blurScale,
+                type: 'number'
+            });
+        }
+        // BABYLON.ShadowGenerator.contactHardeningLightSizeUVRatio of type 'number':
+        if (oldProps.contactHardeningLightSizeUVRatio !== newProps.contactHardeningLightSizeUVRatio) {
+            updates.push({
+                propertyName: 'contactHardeningLightSizeUVRatio',
+                value: newProps.contactHardeningLightSizeUVRatio,
+                type: 'number'
+            });
+        }
+        // BABYLON.ShadowGenerator.depthScale of type 'number':
+        if (oldProps.depthScale !== newProps.depthScale) {
+            updates.push({
+                propertyName: 'depthScale',
+                value: newProps.depthScale,
+                type: 'number'
+            });
+        }
+        // BABYLON.ShadowGenerator.filter of type 'number':
+        if (oldProps.filter !== newProps.filter) {
+            updates.push({
+                propertyName: 'filter',
+                value: newProps.filter,
+                type: 'number'
+            });
+        }
+        // BABYLON.ShadowGenerator.filteringQuality of type 'number':
+        if (oldProps.filteringQuality !== newProps.filteringQuality) {
+            updates.push({
+                propertyName: 'filteringQuality',
+                value: newProps.filteringQuality,
+                type: 'number'
+            });
+        }
+        // BABYLON.ShadowGenerator.forceBackFacesOnly of type 'boolean':
+        if (oldProps.forceBackFacesOnly !== newProps.forceBackFacesOnly) {
+            updates.push({
+                propertyName: 'forceBackFacesOnly',
+                value: newProps.forceBackFacesOnly,
+                type: 'boolean'
+            });
+        }
+        // BABYLON.ShadowGenerator.frustumEdgeFalloff of type 'number':
+        if (oldProps.frustumEdgeFalloff !== newProps.frustumEdgeFalloff) {
+            updates.push({
+                propertyName: 'frustumEdgeFalloff',
+                value: newProps.frustumEdgeFalloff,
+                type: 'number'
+            });
+        }
+        // BABYLON.ShadowGenerator.normalBias of type 'number':
+        if (oldProps.normalBias !== newProps.normalBias) {
+            updates.push({
+                propertyName: 'normalBias',
+                value: newProps.normalBias,
+                type: 'number'
+            });
+        }
+        // BABYLON.ShadowGenerator.useBlurCloseExponentialShadowMap of type 'boolean':
+        if (oldProps.useBlurCloseExponentialShadowMap !== newProps.useBlurCloseExponentialShadowMap) {
+            updates.push({
+                propertyName: 'useBlurCloseExponentialShadowMap',
+                value: newProps.useBlurCloseExponentialShadowMap,
+                type: 'boolean'
+            });
+        }
+        // BABYLON.ShadowGenerator.useBlurExponentialShadowMap of type 'boolean':
+        if (oldProps.useBlurExponentialShadowMap !== newProps.useBlurExponentialShadowMap) {
+            updates.push({
+                propertyName: 'useBlurExponentialShadowMap',
+                value: newProps.useBlurExponentialShadowMap,
+                type: 'boolean'
+            });
+        }
+        // BABYLON.ShadowGenerator.useBlurVarianceShadowMap of type 'boolean':
+        if (oldProps.useBlurVarianceShadowMap !== newProps.useBlurVarianceShadowMap) {
+            updates.push({
+                propertyName: 'useBlurVarianceShadowMap',
+                value: newProps.useBlurVarianceShadowMap,
+                type: 'boolean'
+            });
+        }
+        // BABYLON.ShadowGenerator.useCloseExponentialShadowMap of type 'boolean':
+        if (oldProps.useCloseExponentialShadowMap !== newProps.useCloseExponentialShadowMap) {
+            updates.push({
+                propertyName: 'useCloseExponentialShadowMap',
+                value: newProps.useCloseExponentialShadowMap,
+                type: 'boolean'
+            });
+        }
+        // BABYLON.ShadowGenerator.useContactHardeningShadow of type 'boolean':
+        if (oldProps.useContactHardeningShadow !== newProps.useContactHardeningShadow) {
+            updates.push({
+                propertyName: 'useContactHardeningShadow',
+                value: newProps.useContactHardeningShadow,
+                type: 'boolean'
+            });
+        }
+        // BABYLON.ShadowGenerator.useExponentialShadowMap of type 'boolean':
+        if (oldProps.useExponentialShadowMap !== newProps.useExponentialShadowMap) {
+            updates.push({
+                propertyName: 'useExponentialShadowMap',
+                value: newProps.useExponentialShadowMap,
+                type: 'boolean'
+            });
+        }
+        // BABYLON.ShadowGenerator.useKernelBlur of type 'boolean':
+        if (oldProps.useKernelBlur !== newProps.useKernelBlur) {
+            updates.push({
+                propertyName: 'useKernelBlur',
+                value: newProps.useKernelBlur,
+                type: 'boolean'
+            });
+        }
+        // BABYLON.ShadowGenerator.usePercentageCloserFiltering of type 'boolean':
+        if (oldProps.usePercentageCloserFiltering !== newProps.usePercentageCloserFiltering) {
+            updates.push({
+                propertyName: 'usePercentageCloserFiltering',
+                value: newProps.usePercentageCloserFiltering,
+                type: 'boolean'
+            });
+        }
+        // BABYLON.ShadowGenerator.usePoissonSampling of type 'boolean':
+        if (oldProps.usePoissonSampling !== newProps.usePoissonSampling) {
+            updates.push({
+                propertyName: 'usePoissonSampling',
+                value: newProps.usePoissonSampling,
+                type: 'boolean'
+            });
+        }
+        // BABYLON.ShadowGenerator.useVarianceShadowMap of type 'boolean':
+        if (oldProps.useVarianceShadowMap !== newProps.useVarianceShadowMap) {
+            updates.push({
+                propertyName: 'useVarianceShadowMap',
+                value: newProps.useVarianceShadowMap,
+                type: 'boolean'
+            });
+        }
+        return updates.length == 0 ? null : updates;
+    }
+}
+
+/**
+ * Default implementation IShadowGenerator.
+ * This is the main object responsible of generating shadows in the framework.
+ * Documentation: https://doc.babylonjs.com/babylon101/shadows
+ * 
+ * This code has been generated
+ */
+export class FiberShadowGenerator implements HasPropsHandlers<BABYLON.ShadowGenerator, FiberShadowGeneratorProps> {
+    private propsHandlers: PropsHandler<BABYLON.ShadowGenerator, FiberShadowGeneratorProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberShadowGeneratorPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<BABYLON.ShadowGenerator, FiberShadowGeneratorProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<BABYLON.ShadowGenerator, FiberShadowGeneratorProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "ShadowGenerator",
+        "namespace": "BABYLON",
+        "parameters": [
+            {
+                "name": "mapSize",
+                "type": "number",
+                "optional": false
+            },
+            {
+                "name": "light",
+                "type": "BABYLON.IShadowLight",
+                "optional": false
+            },
+            {
+                "name": "useFullFloatFirst",
+                "type": "boolean",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "delayCreation": true,
+        "className": "FiberShadowGenerator"
+    };
+}
+
+export class FiberEnvironmentHelperProps {
+    onErrorObservable?: BABYLON.Observable<{ message?: string; exception?: any; }>;
+}
+
+export class FiberEnvironmentHelperPropsHandler implements PropsHandler<BABYLON.EnvironmentHelper, FiberEnvironmentHelperProps> {
+    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.EnvironmentHelper>, oldProps: FiberEnvironmentHelperProps, newProps: FiberEnvironmentHelperProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+        // generated code
+        let babylonObject: BABYLON.EnvironmentHelper = createdInstance.babylonJsObject;
+        let updates: PropertyUpdate[] = [];
+        // BABYLON.EnvironmentHelper.onErrorObservable of type 'BABYLON.Observable<{ message?: string; exception?: any; }>/fn':
+        if (oldProps.onErrorObservable === undefined && oldProps.onErrorObservable !== newProps.onErrorObservable) {
+            updates.push({
+                propertyName: 'onErrorObservable',
+                value: newProps.onErrorObservable,
+                type: 'BABYLON.Observable<{ message?: string; exception?: any; }>',
+                prevValue: oldProps.onErrorObservable,
+            });
+        }
+        return updates.length == 0 ? null : updates;
+    }
+}
+
+/**
+ * The Environment helper class can be used to add a fully featuread none expensive background to your scene.
+ * It includes by default a skybox and a ground relying on the BackgroundMaterial.
+ * It also helps with the default setup of your imageProcessing configuration.
+ * 
+ * This code has been generated
+ */
+export class FiberEnvironmentHelper implements HasPropsHandlers<BABYLON.EnvironmentHelper, FiberEnvironmentHelperProps> {
+    private propsHandlers: PropsHandler<BABYLON.EnvironmentHelper, FiberEnvironmentHelperProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberEnvironmentHelperPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<BABYLON.EnvironmentHelper, FiberEnvironmentHelperProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<BABYLON.EnvironmentHelper, FiberEnvironmentHelperProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "EnvironmentHelper",
+        "namespace": "BABYLON",
+        "parameters": [
+            {
+                "name": "options",
+                "type": "Partial<BABYLON.IEnvironmentHelperOptions>",
+                "optional": false
+            },
+            {
+                "name": "scene",
+                "type": "BABYLON.Scene",
+                "optional": false
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "isEnvironment": true,
+        "className": "FiberEnvironmentHelper"
+    };
+}
+
+export class FiberVRExperienceHelperProps {
+    beforeRender?: any;
+    displayGaze?: boolean;
+    displayLaserPointer?: boolean;
+    displayVRButton?: any;
+    gazeTrackerMesh?: BABYLON.Mesh;
+    meshSelectionPredicate?: (mesh: BABYLON.AbstractMesh) => boolean;
+    moveButtonToBottomRight?: any;
+    onAfterCameraTeleport?: BABYLON.Observable<BABYLON.Vector3>;
+    onBeforeCameraTeleport?: BABYLON.Observable<BABYLON.Vector3>;
+    onControllerMeshLoadedObservable?: BABYLON.Observable<BABYLON.WebVRController>;
+    onEnteringVRObservable?: BABYLON.Observable<BABYLON.VRExperienceHelper>;
+    onExitingVRObservable?: BABYLON.Observable<BABYLON.VRExperienceHelper>;
+    onNewMeshPicked?: BABYLON.Observable<BABYLON.PickingInfo>;
+    onNewMeshSelected?: BABYLON.Observable<BABYLON.AbstractMesh>;
+    onSelectedMeshUnselected?: BABYLON.Observable<BABYLON.AbstractMesh>;
+    onVRDisplayChanged?: any;
+    onVrDisplayPresentChange?: any;
+    position?: BABYLON.Vector3;
+    raySelectionPredicate?: (mesh: BABYLON.AbstractMesh) => boolean;
+    teleportationEnabled?: boolean;
+    teleportationTarget?: BABYLON.Mesh;
+    updateButtonVisibility?: any;
+    updateGazeTrackerScale?: boolean;
+    webVROptions?: BABYLON.VRExperienceHelperOptions;
+}
+
+export class FiberVRExperienceHelperPropsHandler implements PropsHandler<BABYLON.VRExperienceHelper, FiberVRExperienceHelperProps> {
+    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.VRExperienceHelper>, oldProps: FiberVRExperienceHelperProps, newProps: FiberVRExperienceHelperProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+        // generated code
+        let babylonObject: BABYLON.VRExperienceHelper = createdInstance.babylonJsObject;
+        let updates: PropertyUpdate[] = [];
+        // TODO: type: any property (not coded) BABYLON.VRExperienceHelper.beforeRender.
+        // BABYLON.VRExperienceHelper.displayGaze of type 'boolean':
+        if (oldProps.displayGaze !== newProps.displayGaze) {
+            updates.push({
+                propertyName: 'displayGaze',
+                value: newProps.displayGaze,
+                type: 'boolean'
+            });
+        }
+        // BABYLON.VRExperienceHelper.displayLaserPointer of type 'boolean':
+        if (oldProps.displayLaserPointer !== newProps.displayLaserPointer) {
+            updates.push({
+                propertyName: 'displayLaserPointer',
+                value: newProps.displayLaserPointer,
+                type: 'boolean'
+            });
+        }
+        // TODO: type: any property (not coded) BABYLON.VRExperienceHelper.displayVRButton.
+        // TODO: type: BABYLON.Mesh property (not coded) BABYLON.VRExperienceHelper.gazeTrackerMesh.
+        // TODO: type: (mesh: BABYLON.AbstractMesh) => boolean property (not coded) BABYLON.VRExperienceHelper.meshSelectionPredicate.
+        // TODO: type: any property (not coded) BABYLON.VRExperienceHelper.moveButtonToBottomRight.
+        // BABYLON.VRExperienceHelper.onAfterCameraTeleport of type 'BABYLON.Observable<BABYLON.Vector3>/fn':
+        if (oldProps.onAfterCameraTeleport === undefined && oldProps.onAfterCameraTeleport !== newProps.onAfterCameraTeleport) {
+            updates.push({
+                propertyName: 'onAfterCameraTeleport',
+                value: newProps.onAfterCameraTeleport,
+                type: 'BABYLON.Observable<BABYLON.Vector3>',
+                prevValue: oldProps.onAfterCameraTeleport,
+            });
+        }
+        // BABYLON.VRExperienceHelper.onBeforeCameraTeleport of type 'BABYLON.Observable<BABYLON.Vector3>/fn':
+        if (oldProps.onBeforeCameraTeleport === undefined && oldProps.onBeforeCameraTeleport !== newProps.onBeforeCameraTeleport) {
+            updates.push({
+                propertyName: 'onBeforeCameraTeleport',
+                value: newProps.onBeforeCameraTeleport,
+                type: 'BABYLON.Observable<BABYLON.Vector3>',
+                prevValue: oldProps.onBeforeCameraTeleport,
+            });
+        }
+        // BABYLON.VRExperienceHelper.onControllerMeshLoadedObservable of type 'BABYLON.Observable<BABYLON.WebVRController>/fn':
+        if (oldProps.onControllerMeshLoadedObservable === undefined && oldProps.onControllerMeshLoadedObservable !== newProps.onControllerMeshLoadedObservable) {
+            updates.push({
+                propertyName: 'onControllerMeshLoadedObservable',
+                value: newProps.onControllerMeshLoadedObservable,
+                type: 'BABYLON.Observable<BABYLON.WebVRController>',
+                prevValue: oldProps.onControllerMeshLoadedObservable,
+            });
+        }
+        // BABYLON.VRExperienceHelper.onEnteringVRObservable of type 'BABYLON.Observable<BABYLON.VRExperienceHelper>/fn':
+        if (oldProps.onEnteringVRObservable === undefined && oldProps.onEnteringVRObservable !== newProps.onEnteringVRObservable) {
+            updates.push({
+                propertyName: 'onEnteringVRObservable',
+                value: newProps.onEnteringVRObservable,
+                type: 'BABYLON.Observable<BABYLON.VRExperienceHelper>',
+                prevValue: oldProps.onEnteringVRObservable,
+            });
+        }
+        // BABYLON.VRExperienceHelper.onExitingVRObservable of type 'BABYLON.Observable<BABYLON.VRExperienceHelper>/fn':
+        if (oldProps.onExitingVRObservable === undefined && oldProps.onExitingVRObservable !== newProps.onExitingVRObservable) {
+            updates.push({
+                propertyName: 'onExitingVRObservable',
+                value: newProps.onExitingVRObservable,
+                type: 'BABYLON.Observable<BABYLON.VRExperienceHelper>',
+                prevValue: oldProps.onExitingVRObservable,
+            });
+        }
+        // BABYLON.VRExperienceHelper.onNewMeshPicked of type 'BABYLON.Observable<BABYLON.PickingInfo>/fn':
+        if (oldProps.onNewMeshPicked === undefined && oldProps.onNewMeshPicked !== newProps.onNewMeshPicked) {
+            updates.push({
+                propertyName: 'onNewMeshPicked',
+                value: newProps.onNewMeshPicked,
+                type: 'BABYLON.Observable<BABYLON.PickingInfo>',
+                prevValue: oldProps.onNewMeshPicked,
+            });
+        }
+        // BABYLON.VRExperienceHelper.onNewMeshSelected of type 'BABYLON.Observable<BABYLON.AbstractMesh>/fn':
+        if (oldProps.onNewMeshSelected === undefined && oldProps.onNewMeshSelected !== newProps.onNewMeshSelected) {
+            updates.push({
+                propertyName: 'onNewMeshSelected',
+                value: newProps.onNewMeshSelected,
+                type: 'BABYLON.Observable<BABYLON.AbstractMesh>',
+                prevValue: oldProps.onNewMeshSelected,
+            });
+        }
+        // BABYLON.VRExperienceHelper.onSelectedMeshUnselected of type 'BABYLON.Observable<BABYLON.AbstractMesh>/fn':
+        if (oldProps.onSelectedMeshUnselected === undefined && oldProps.onSelectedMeshUnselected !== newProps.onSelectedMeshUnselected) {
+            updates.push({
+                propertyName: 'onSelectedMeshUnselected',
+                value: newProps.onSelectedMeshUnselected,
+                type: 'BABYLON.Observable<BABYLON.AbstractMesh>',
+                prevValue: oldProps.onSelectedMeshUnselected,
+            });
+        }
+        // BABYLON.VRExperienceHelper.onVRDisplayChanged of type 'any/fn':
+        if (oldProps.onVRDisplayChanged === undefined && oldProps.onVRDisplayChanged !== newProps.onVRDisplayChanged) {
+            updates.push({
+                propertyName: 'onVRDisplayChanged',
+                value: newProps.onVRDisplayChanged,
+                type: 'any',
+                prevValue: oldProps.onVRDisplayChanged,
+            });
+        }
+        // BABYLON.VRExperienceHelper.onVrDisplayPresentChange of type 'any/fn':
+        if (oldProps.onVrDisplayPresentChange === undefined && oldProps.onVrDisplayPresentChange !== newProps.onVrDisplayPresentChange) {
+            updates.push({
+                propertyName: 'onVrDisplayPresentChange',
+                value: newProps.onVrDisplayPresentChange,
+                type: 'any',
+                prevValue: oldProps.onVrDisplayPresentChange,
+            });
+        }
+        // BABYLON.VRExperienceHelper.position of BABYLONBABYLON.Vector3 uses object equals to find diffs:
+        if (newProps.position && (!oldProps.position || !oldProps.position.equals(newProps.position))) {
+            updates.push({
+                propertyName: 'position',
+                value: newProps.position,
+                type: 'BABYLON.Vector3'
+            });
+        }
+        // TODO: type: (mesh: BABYLON.AbstractMesh) => boolean property (not coded) BABYLON.VRExperienceHelper.raySelectionPredicate.
+        // BABYLON.VRExperienceHelper.teleportationEnabled of type 'boolean':
+        if (oldProps.teleportationEnabled !== newProps.teleportationEnabled) {
+            updates.push({
+                propertyName: 'teleportationEnabled',
+                value: newProps.teleportationEnabled,
+                type: 'boolean'
+            });
+        }
+        // TODO: type: BABYLON.Mesh property (not coded) BABYLON.VRExperienceHelper.teleportationTarget.
+        // TODO: type: any property (not coded) BABYLON.VRExperienceHelper.updateButtonVisibility.
+        // BABYLON.VRExperienceHelper.updateGazeTrackerScale of type 'boolean':
+        if (oldProps.updateGazeTrackerScale !== newProps.updateGazeTrackerScale) {
+            updates.push({
+                propertyName: 'updateGazeTrackerScale',
+                value: newProps.updateGazeTrackerScale,
+                type: 'boolean'
+            });
+        }
+        // TODO: type: BABYLON.VRExperienceHelperOptions property (not coded) BABYLON.VRExperienceHelper.webVROptions.
+        return updates.length == 0 ? null : updates;
+    }
+}
+
+/**
+ * Helps to quickly add VR support to an existing scene.
+ * See http://doc.babylonjs.com/how_to/webvr_helper
+ * 
+ * This code has been generated
+ */
+export class FiberVRExperienceHelper implements HasPropsHandlers<BABYLON.VRExperienceHelper, FiberVRExperienceHelperProps> {
+    private propsHandlers: PropsHandler<BABYLON.VRExperienceHelper, FiberVRExperienceHelperProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberVRExperienceHelperPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<BABYLON.VRExperienceHelper, FiberVRExperienceHelperProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<BABYLON.VRExperienceHelper, FiberVRExperienceHelperProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "VRExperienceHelper",
+        "namespace": "BABYLON",
+        "parameters": [
+            {
+                "name": "scene",
+                "type": "BABYLON.Scene",
+                "optional": false
+            },
+            {
+                "name": "webVROptions",
+                "type": "BABYLON.VRExperienceHelperOptions",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "className": "FiberVRExperienceHelper"
+    };
+}
+
+export const AbstractButton3D: string = 'AbstractButton3D', AdvancedDynamicTexture: string = 'AdvancedDynamicTexture', AnaglyphArcRotateCamera: string = 'AnaglyphArcRotateCamera', AnaglyphFreeCamera: string = 'AnaglyphFreeCamera', AnaglyphGamepadCamera: string = 'AnaglyphGamepadCamera', AnaglyphUniversalCamera: string = 'AnaglyphUniversalCamera', ArcFollowCamera: string = 'ArcFollowCamera', ArcRotateCamera: string = 'ArcRotateCamera', BackgroundMaterial: string = 'BackgroundMaterial', BaseTexture: string = 'BaseTexture', Box: string = 'Box', Button: string = 'Button', Button3D: string = 'Button3D', Camera: string = 'Camera', Checkbox: string = 'Checkbox', ColorGradingTexture: string = 'ColorGradingTexture', ColorPicker: string = 'ColorPicker', Container: string = 'Container', Container3D: string = 'Container3D', Control: string = 'Control', Control3D: string = 'Control3D', CubeTexture: string = 'CubeTexture', CustomProceduralTexture: string = 'CustomProceduralTexture', Cylinder: string = 'Cylinder', CylinderPanel: string = 'CylinderPanel', DashedLines: string = 'DashedLines', Decal: string = 'Decal', DeviceOrientationCamera: string = 'DeviceOrientationCamera', DirectionalLight: string = 'DirectionalLight', Disc: string = 'Disc', DisplayGrid: string = 'DisplayGrid', DynamicTexture: string = 'DynamicTexture', Ellipse: string = 'Ellipse', EnvironmentHelper: string = 'EnvironmentHelper', ExtrudePolygon: string = 'ExtrudePolygon', ExtrudeShape: string = 'ExtrudeShape', ExtrudeShapeCustom: string = 'ExtrudeShapeCustom', FollowCamera: string = 'FollowCamera', FreeCamera: string = 'FreeCamera', GUI3DManager: string = 'GUI3DManager', GamepadCamera: string = 'GamepadCamera', Grid: string = 'Grid', Ground: string = 'Ground', GroundFromHeightMap: string = 'GroundFromHeightMap', HDRCubeTexture: string = 'HDRCubeTexture', HemisphericLight: string = 'HemisphericLight', HolographicButton: string = 'HolographicButton', IcoSphere: string = 'IcoSphere', Image: string = 'Image', InputPassword: string = 'InputPassword', InputText: string = 'InputText', Lathe: string = 'Lathe', Light: string = 'Light', Line: string = 'Line', LineSystem: string = 'LineSystem', Lines: string = 'Lines', Material: string = 'Material', MeshButton3D: string = 'MeshButton3D', MirrorTexture: string = 'MirrorTexture', MultiLine: string = 'MultiLine', MultiMaterial: string = 'MultiMaterial', MultiRenderTarget: string = 'MultiRenderTarget', NoiseProceduralTexture: string = 'NoiseProceduralTexture', PBRBaseMaterial: string = 'PBRBaseMaterial', PBRBaseSimpleMaterial: string = 'PBRBaseSimpleMaterial', PBRMaterial: string = 'PBRMaterial', PBRMetallicRoughnessMaterial: string = 'PBRMetallicRoughnessMaterial', PBRSpecularGlossinessMaterial: string = 'PBRSpecularGlossinessMaterial', Plane: string = 'Plane', PlanePanel: string = 'PlanePanel', PointLight: string = 'PointLight', Polygon: string = 'Polygon', Polyhedron: string = 'Polyhedron', ProceduralTexture: string = 'ProceduralTexture', PushMaterial: string = 'PushMaterial', RadioButton: string = 'RadioButton', RawCubeTexture: string = 'RawCubeTexture', RawTexture: string = 'RawTexture', RawTexture3D: string = 'RawTexture3D', Rectangle: string = 'Rectangle', RefractionTexture: string = 'RefractionTexture', RenderTargetTexture: string = 'RenderTargetTexture', Ribbon: string = 'Ribbon', ScatterPanel: string = 'ScatterPanel', SelectionPanel: string = 'SelectionPanel', ShaderMaterial: string = 'ShaderMaterial', ShadowGenerator: string = 'ShadowGenerator', ShadowLight: string = 'ShadowLight', Slider: string = 'Slider', Sphere: string = 'Sphere', SpherePanel: string = 'SpherePanel', SpotLight: string = 'SpotLight', StackPanel: string = 'StackPanel', StackPanel3D: string = 'StackPanel3D', StandardMaterial: string = 'StandardMaterial', StereoscopicArcRotateCamera: string = 'StereoscopicArcRotateCamera', StereoscopicFreeCamera: string = 'StereoscopicFreeCamera', StereoscopicGamepadCamera: string = 'StereoscopicGamepadCamera', StereoscopicUniversalCamera: string = 'StereoscopicUniversalCamera', TargetCamera: string = 'TargetCamera', TextBlock: string = 'TextBlock', Texture: string = 'Texture', TiledGround: string = 'TiledGround', Torus: string = 'Torus', TorusKnot: string = 'TorusKnot', TouchCamera: string = 'TouchCamera', Tube: string = 'Tube', UniversalCamera: string = 'UniversalCamera', VRDeviceOrientationArcRotateCamera: string = 'VRDeviceOrientationArcRotateCamera', VRDeviceOrientationFreeCamera: string = 'VRDeviceOrientationFreeCamera', VRDeviceOrientationGamepadCamera: string = 'VRDeviceOrientationGamepadCamera', VRExperienceHelper: string = 'VRExperienceHelper', VideoTexture: string = 'VideoTexture', VirtualJoysticksCamera: string = 'VirtualJoysticksCamera', VirtualKeyboard: string = 'VirtualKeyboard', VolumeBasedPanel: string = 'VolumeBasedPanel', WebVRFreeCamera: string = 'WebVRFreeCamera';
