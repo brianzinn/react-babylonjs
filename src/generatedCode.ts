@@ -15227,4 +15227,841 @@ export class FiberVRExperienceHelper implements HasPropsHandlers<BABYLON.VRExper
     };
 }
 
+export class FiberSceneProps {
+    actionManager?: BABYLON.ActionManager;
+    activeCamera?: BABYLON.Camera;
+    activeCameras?: BABYLON.Camera[];
+    afterCameraRender?: () => void;
+    afterRender?: () => void;
+    ambientColor?: BABYLON.Color3;
+    animationPropertiesOverride?: BABYLON.AnimationPropertiesOverride;
+    animationsEnabled?: boolean;
+    animationTimeScale?: number;
+    autoClear?: boolean;
+    autoClearDepthAndStencil?: boolean;
+    beforeCameraRender?: () => void;
+    beforeRender?: () => void;
+    blockMaterialDirtyMechanism?: boolean;
+    cameraToUseForPointers?: BABYLON.Camera;
+    clearColor?: BABYLON.Color4;
+    clipPlane?: BABYLON.Plane;
+    clipPlane2?: BABYLON.Plane;
+    clipPlane3?: BABYLON.Plane;
+    clipPlane4?: BABYLON.Plane;
+    collisionCoordinator?: BABYLON.ICollisionCoordinator;
+    collisionsEnabled?: boolean;
+    constantlyUpdateMeshUnderPointer?: boolean;
+    customRenderTargets?: BABYLON.RenderTargetTexture[];
+    database?: BABYLON.Database;
+    defaultCursor?: string;
+    defaultMaterial?: BABYLON.Material;
+    disableOfflineSupportExceptionRules?: RegExp[];
+    dispatchAllSubMeshesOfActiveMeshes?: boolean;
+    dumpNextRenderTargets?: boolean;
+    environmentTexture?: BABYLON.BaseTexture;
+    fogColor?: BABYLON.Color3;
+    fogDensity?: number;
+    fogEnabled?: boolean;
+    fogEnd?: number;
+    fogMode?: number;
+    fogStart?: number;
+    forcePointsCloud?: boolean;
+    forceWireframe?: boolean;
+    getActiveMeshCandidates?: () => BABYLON.ISmartArrayLike<BABYLON.AbstractMesh>;
+    getActiveSubMeshCandidates?: (mesh: BABYLON.AbstractMesh) => BABYLON.ISmartArrayLike<BABYLON.SubMesh>;
+    getCollidingSubMeshCandidates?: (mesh: BABYLON.AbstractMesh, collider: BABYLON.Collider) => BABYLON.ISmartArrayLike<BABYLON.SubMesh>;
+    getDeterministicFrameTime?: () => number;
+    getIntersectingSubMeshCandidates?: (mesh: BABYLON.AbstractMesh, localRay: BABYLON.Ray) => BABYLON.ISmartArrayLike<BABYLON.SubMesh>;
+    gravity?: BABYLON.Vector3;
+    hoverCursor?: string;
+    importedMeshesFiles?: String[];
+    lensFlaresEnabled?: boolean;
+    lightsEnabled?: boolean;
+    loadingPluginName?: string;
+    metadata?: any;
+    onAfterActiveMeshesEvaluationObservable?: BABYLON.Observable<BABYLON.Scene>;
+    onAfterAnimationsObservable?: BABYLON.Observable<BABYLON.Scene>;
+    onAfterCameraRenderObservable?: BABYLON.Observable<BABYLON.Camera>;
+    onAfterDrawPhaseObservable?: BABYLON.Observable<BABYLON.Scene>;
+    onAfterParticlesRenderingObservable?: BABYLON.Observable<BABYLON.Scene>;
+    onAfterRenderingGroupObservable?: BABYLON.Observable<BABYLON.RenderingGroupInfo>;
+    onAfterRenderObservable?: BABYLON.Observable<BABYLON.Scene>;
+    onAfterRenderTargetsRenderObservable?: BABYLON.Observable<BABYLON.Scene>;
+    onAfterStepObservable?: BABYLON.Observable<BABYLON.Scene>;
+    onBeforeActiveMeshesEvaluationObservable?: BABYLON.Observable<BABYLON.Scene>;
+    onBeforeAnimationsObservable?: BABYLON.Observable<BABYLON.Scene>;
+    onBeforeCameraRenderObservable?: BABYLON.Observable<BABYLON.Camera>;
+    onBeforeDrawPhaseObservable?: BABYLON.Observable<BABYLON.Scene>;
+    onBeforeParticlesRenderingObservable?: BABYLON.Observable<BABYLON.Scene>;
+    onBeforeRenderingGroupObservable?: BABYLON.Observable<BABYLON.RenderingGroupInfo>;
+    onBeforeRenderObservable?: BABYLON.Observable<BABYLON.Scene>;
+    onBeforeRenderTargetsRenderObservable?: BABYLON.Observable<BABYLON.Scene>;
+    onBeforeStepObservable?: BABYLON.Observable<BABYLON.Scene>;
+    onCameraRemovedObservable?: BABYLON.Observable<BABYLON.Camera>;
+    onDataLoadedObservable?: BABYLON.Observable<BABYLON.Scene>;
+    onDispose?: () => void;
+    onDisposeObservable?: BABYLON.Observable<BABYLON.Scene>;
+    onGeometryRemovedObservable?: BABYLON.Observable<BABYLON.Geometry>;
+    onKeyboardObservable?: BABYLON.Observable<BABYLON.KeyboardInfo>;
+    onLightRemovedObservable?: BABYLON.Observable<BABYLON.Light>;
+    onMeshImportedObservable?: BABYLON.Observable<BABYLON.AbstractMesh>;
+    onMeshRemovedObservable?: BABYLON.Observable<BABYLON.AbstractMesh>;
+    onNewCameraAddedObservable?: BABYLON.Observable<BABYLON.Camera>;
+    onNewGeometryAddedObservable?: BABYLON.Observable<BABYLON.Geometry>;
+    onNewLightAddedObservable?: BABYLON.Observable<BABYLON.Light>;
+    onNewMeshAddedObservable?: BABYLON.Observable<BABYLON.AbstractMesh>;
+    onNewTransformNodeAddedObservable?: BABYLON.Observable<BABYLON.TransformNode>;
+    onPointerDown?: (evt: PointerEvent, pickInfo: BABYLON.PickingInfo, type: BABYLON.PointerEventTypes) => void;
+    onPointerMove?: (evt: PointerEvent, pickInfo: BABYLON.PickingInfo, type: BABYLON.PointerEventTypes) => void;
+    onPointerObservable?: BABYLON.Observable<BABYLON.PointerInfo>;
+    onPointerPick?: (evt: PointerEvent, pickInfo: BABYLON.PickingInfo) => void;
+    onPointerUp?: (evt: PointerEvent, pickInfo: BABYLON.PickingInfo, type: BABYLON.PointerEventTypes) => void;
+    onPreKeyboardObservable?: BABYLON.Observable<BABYLON.KeyboardInfoPre>;
+    onPrePointerObservable?: BABYLON.Observable<BABYLON.PointerInfoPre>;
+    onReadyObservable?: BABYLON.Observable<BABYLON.Scene>;
+    onTransformNodeRemovedObservable?: BABYLON.Observable<BABYLON.TransformNode>;
+    particlesEnabled?: boolean;
+    pointerDownPredicate?: (Mesh: BABYLON.AbstractMesh) => boolean;
+    pointerMovePredicate?: (Mesh: BABYLON.AbstractMesh) => boolean;
+    pointerUpPredicate?: (Mesh: BABYLON.AbstractMesh) => boolean;
+    postProcesses?: BABYLON.PostProcess[];
+    postProcessesEnabled?: boolean;
+    postProcessManager?: BABYLON.PostProcessManager;
+    preventDefaultOnPointerDown?: boolean;
+    probesEnabled?: boolean;
+    proceduralTexturesEnabled?: boolean;
+    renderTargetsEnabled?: boolean;
+    requireLightSorting?: boolean;
+    shadowsEnabled?: boolean;
+    skeletonsEnabled?: boolean;
+    spritesEnabled?: boolean;
+    texturesEnabled?: boolean;
+    useConstantAnimationDeltaTime?: boolean;
+    useDelayedTextureLoading?: boolean;
+    useRightHandedSystem?: boolean;
+    workerCollisions?: boolean;
+}
+
+export class FiberScenePropsHandler implements PropsHandler<BABYLON.Scene, FiberSceneProps> {
+    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.Scene>, oldProps: FiberSceneProps, newProps: FiberSceneProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+        // generated code
+        let babylonObject: BABYLON.Scene = createdInstance.babylonJsObject;
+        let updates: PropertyUpdate[] = [];
+        // TODO: type: BABYLON.ActionManager property (not coded) BABYLON.Scene.actionManager.
+        // TODO: type: BABYLON.Camera property (not coded) BABYLON.Scene.activeCamera.
+        // TODO: type: BABYLON.Camera[] property (not coded) BABYLON.Scene.activeCameras.
+        // TODO: type: () => void property (not coded) BABYLON.Scene.afterCameraRender.
+        // TODO: type: () => void property (not coded) BABYLON.Scene.afterRender.
+        // BABYLON.Scene.ambientColor of BABYLONBABYLON.Color3 uses object equals to find diffs:
+        if (newProps.ambientColor && (!oldProps.ambientColor || !oldProps.ambientColor.equals(newProps.ambientColor))) {
+            updates.push({
+                propertyName: 'ambientColor',
+                value: newProps.ambientColor,
+                type: 'BABYLON.Color3'
+            });
+        }
+        // TODO: type: BABYLON.AnimationPropertiesOverride property (not coded) BABYLON.Scene.animationPropertiesOverride.
+        // BABYLON.Scene.animationsEnabled of type 'boolean':
+        if (oldProps.animationsEnabled !== newProps.animationsEnabled) {
+            updates.push({
+                propertyName: 'animationsEnabled',
+                value: newProps.animationsEnabled,
+                type: 'boolean'
+            });
+        }
+        // BABYLON.Scene.animationTimeScale of type 'number':
+        if (oldProps.animationTimeScale !== newProps.animationTimeScale) {
+            updates.push({
+                propertyName: 'animationTimeScale',
+                value: newProps.animationTimeScale,
+                type: 'number'
+            });
+        }
+        // BABYLON.Scene.autoClear of type 'boolean':
+        if (oldProps.autoClear !== newProps.autoClear) {
+            updates.push({
+                propertyName: 'autoClear',
+                value: newProps.autoClear,
+                type: 'boolean'
+            });
+        }
+        // BABYLON.Scene.autoClearDepthAndStencil of type 'boolean':
+        if (oldProps.autoClearDepthAndStencil !== newProps.autoClearDepthAndStencil) {
+            updates.push({
+                propertyName: 'autoClearDepthAndStencil',
+                value: newProps.autoClearDepthAndStencil,
+                type: 'boolean'
+            });
+        }
+        // TODO: type: () => void property (not coded) BABYLON.Scene.beforeCameraRender.
+        // TODO: type: () => void property (not coded) BABYLON.Scene.beforeRender.
+        // BABYLON.Scene.blockMaterialDirtyMechanism of type 'boolean':
+        if (oldProps.blockMaterialDirtyMechanism !== newProps.blockMaterialDirtyMechanism) {
+            updates.push({
+                propertyName: 'blockMaterialDirtyMechanism',
+                value: newProps.blockMaterialDirtyMechanism,
+                type: 'boolean'
+            });
+        }
+        // TODO: type: BABYLON.Camera property (not coded) BABYLON.Scene.cameraToUseForPointers.
+        // TODO: type: BABYLON.Color4 property (not coded) BABYLON.Scene.clearColor.
+        // TODO: type: BABYLON.Plane property (not coded) BABYLON.Scene.clipPlane.
+        // TODO: type: BABYLON.Plane property (not coded) BABYLON.Scene.clipPlane2.
+        // TODO: type: BABYLON.Plane property (not coded) BABYLON.Scene.clipPlane3.
+        // TODO: type: BABYLON.Plane property (not coded) BABYLON.Scene.clipPlane4.
+        // TODO: type: BABYLON.ICollisionCoordinator property (not coded) BABYLON.Scene.collisionCoordinator.
+        // BABYLON.Scene.collisionsEnabled of type 'boolean':
+        if (oldProps.collisionsEnabled !== newProps.collisionsEnabled) {
+            updates.push({
+                propertyName: 'collisionsEnabled',
+                value: newProps.collisionsEnabled,
+                type: 'boolean'
+            });
+        }
+        // BABYLON.Scene.constantlyUpdateMeshUnderPointer of type 'boolean':
+        if (oldProps.constantlyUpdateMeshUnderPointer !== newProps.constantlyUpdateMeshUnderPointer) {
+            updates.push({
+                propertyName: 'constantlyUpdateMeshUnderPointer',
+                value: newProps.constantlyUpdateMeshUnderPointer,
+                type: 'boolean'
+            });
+        }
+        // TODO: type: BABYLON.RenderTargetTexture[] property (not coded) BABYLON.Scene.customRenderTargets.
+        // TODO: type: BABYLON.Database property (not coded) BABYLON.Scene.database.
+        // BABYLON.Scene.defaultCursor of type 'string':
+        if (oldProps.defaultCursor !== newProps.defaultCursor) {
+            updates.push({
+                propertyName: 'defaultCursor',
+                value: newProps.defaultCursor,
+                type: 'string'
+            });
+        }
+        // TODO: type: BABYLON.Material property (not coded) BABYLON.Scene.defaultMaterial.
+        // TODO: type: RegExp[] property (not coded) BABYLON.Scene.disableOfflineSupportExceptionRules.
+        // BABYLON.Scene.dispatchAllSubMeshesOfActiveMeshes of type 'boolean':
+        if (oldProps.dispatchAllSubMeshesOfActiveMeshes !== newProps.dispatchAllSubMeshesOfActiveMeshes) {
+            updates.push({
+                propertyName: 'dispatchAllSubMeshesOfActiveMeshes',
+                value: newProps.dispatchAllSubMeshesOfActiveMeshes,
+                type: 'boolean'
+            });
+        }
+        // BABYLON.Scene.dumpNextRenderTargets of type 'boolean':
+        if (oldProps.dumpNextRenderTargets !== newProps.dumpNextRenderTargets) {
+            updates.push({
+                propertyName: 'dumpNextRenderTargets',
+                value: newProps.dumpNextRenderTargets,
+                type: 'boolean'
+            });
+        }
+        // TODO: type: BABYLON.BaseTexture property (not coded) BABYLON.Scene.environmentTexture.
+        // BABYLON.Scene.fogColor of BABYLONBABYLON.Color3 uses object equals to find diffs:
+        if (newProps.fogColor && (!oldProps.fogColor || !oldProps.fogColor.equals(newProps.fogColor))) {
+            updates.push({
+                propertyName: 'fogColor',
+                value: newProps.fogColor,
+                type: 'BABYLON.Color3'
+            });
+        }
+        // BABYLON.Scene.fogDensity of type 'number':
+        if (oldProps.fogDensity !== newProps.fogDensity) {
+            updates.push({
+                propertyName: 'fogDensity',
+                value: newProps.fogDensity,
+                type: 'number'
+            });
+        }
+        // BABYLON.Scene.fogEnabled of type 'boolean':
+        if (oldProps.fogEnabled !== newProps.fogEnabled) {
+            updates.push({
+                propertyName: 'fogEnabled',
+                value: newProps.fogEnabled,
+                type: 'boolean'
+            });
+        }
+        // BABYLON.Scene.fogEnd of type 'number':
+        if (oldProps.fogEnd !== newProps.fogEnd) {
+            updates.push({
+                propertyName: 'fogEnd',
+                value: newProps.fogEnd,
+                type: 'number'
+            });
+        }
+        // BABYLON.Scene.fogMode of type 'number':
+        if (oldProps.fogMode !== newProps.fogMode) {
+            updates.push({
+                propertyName: 'fogMode',
+                value: newProps.fogMode,
+                type: 'number'
+            });
+        }
+        // BABYLON.Scene.fogStart of type 'number':
+        if (oldProps.fogStart !== newProps.fogStart) {
+            updates.push({
+                propertyName: 'fogStart',
+                value: newProps.fogStart,
+                type: 'number'
+            });
+        }
+        // BABYLON.Scene.forcePointsCloud of type 'boolean':
+        if (oldProps.forcePointsCloud !== newProps.forcePointsCloud) {
+            updates.push({
+                propertyName: 'forcePointsCloud',
+                value: newProps.forcePointsCloud,
+                type: 'boolean'
+            });
+        }
+        // BABYLON.Scene.forceWireframe of type 'boolean':
+        if (oldProps.forceWireframe !== newProps.forceWireframe) {
+            updates.push({
+                propertyName: 'forceWireframe',
+                value: newProps.forceWireframe,
+                type: 'boolean'
+            });
+        }
+        // TODO: type: () => BABYLON.ISmartArrayLike<BABYLON.AbstractMesh> property (not coded) BABYLON.Scene.getActiveMeshCandidates.
+        // TODO: type: (mesh: BABYLON.AbstractMesh) => BABYLON.ISmartArrayLike<BABYLON.SubMesh> property (not coded) BABYLON.Scene.getActiveSubMeshCandidates.
+        // TODO: type: (mesh: BABYLON.AbstractMesh, collider: BABYLON.Collider) => BABYLON.ISmartArrayLike<BABYLON.SubMesh> property (not coded) BABYLON.Scene.getCollidingSubMeshCandidates.
+        // TODO: type: () => number property (not coded) BABYLON.Scene.getDeterministicFrameTime.
+        // TODO: type: (mesh: BABYLON.AbstractMesh, localRay: BABYLON.Ray) => BABYLON.ISmartArrayLike<BABYLON.SubMesh> property (not coded) BABYLON.Scene.getIntersectingSubMeshCandidates.
+        // BABYLON.Scene.gravity of BABYLONBABYLON.Vector3 uses object equals to find diffs:
+        if (newProps.gravity && (!oldProps.gravity || !oldProps.gravity.equals(newProps.gravity))) {
+            updates.push({
+                propertyName: 'gravity',
+                value: newProps.gravity,
+                type: 'BABYLON.Vector3'
+            });
+        }
+        // BABYLON.Scene.hoverCursor of type 'string':
+        if (oldProps.hoverCursor !== newProps.hoverCursor) {
+            updates.push({
+                propertyName: 'hoverCursor',
+                value: newProps.hoverCursor,
+                type: 'string'
+            });
+        }
+        // TODO: type: String[] property (not coded) BABYLON.Scene.importedMeshesFiles.
+        // BABYLON.Scene.lensFlaresEnabled of type 'boolean':
+        if (oldProps.lensFlaresEnabled !== newProps.lensFlaresEnabled) {
+            updates.push({
+                propertyName: 'lensFlaresEnabled',
+                value: newProps.lensFlaresEnabled,
+                type: 'boolean'
+            });
+        }
+        // BABYLON.Scene.lightsEnabled of type 'boolean':
+        if (oldProps.lightsEnabled !== newProps.lightsEnabled) {
+            updates.push({
+                propertyName: 'lightsEnabled',
+                value: newProps.lightsEnabled,
+                type: 'boolean'
+            });
+        }
+        // BABYLON.Scene.loadingPluginName of type 'string':
+        if (oldProps.loadingPluginName !== newProps.loadingPluginName) {
+            updates.push({
+                propertyName: 'loadingPluginName',
+                value: newProps.loadingPluginName,
+                type: 'string'
+            });
+        }
+        // TODO: type: any property (not coded) BABYLON.Scene.metadata.
+        // BABYLON.Scene.onAfterActiveMeshesEvaluationObservable of type 'BABYLON.Observable<BABYLON.Scene>/fn':
+        if (oldProps.onAfterActiveMeshesEvaluationObservable === undefined && oldProps.onAfterActiveMeshesEvaluationObservable !== newProps.onAfterActiveMeshesEvaluationObservable) {
+            updates.push({
+                propertyName: 'onAfterActiveMeshesEvaluationObservable',
+                value: newProps.onAfterActiveMeshesEvaluationObservable,
+                type: 'BABYLON.Observable<BABYLON.Scene>',
+                prevValue: oldProps.onAfterActiveMeshesEvaluationObservable,
+            });
+        }
+        // BABYLON.Scene.onAfterAnimationsObservable of type 'BABYLON.Observable<BABYLON.Scene>/fn':
+        if (oldProps.onAfterAnimationsObservable === undefined && oldProps.onAfterAnimationsObservable !== newProps.onAfterAnimationsObservable) {
+            updates.push({
+                propertyName: 'onAfterAnimationsObservable',
+                value: newProps.onAfterAnimationsObservable,
+                type: 'BABYLON.Observable<BABYLON.Scene>',
+                prevValue: oldProps.onAfterAnimationsObservable,
+            });
+        }
+        // BABYLON.Scene.onAfterCameraRenderObservable of type 'BABYLON.Observable<BABYLON.Camera>/fn':
+        if (oldProps.onAfterCameraRenderObservable === undefined && oldProps.onAfterCameraRenderObservable !== newProps.onAfterCameraRenderObservable) {
+            updates.push({
+                propertyName: 'onAfterCameraRenderObservable',
+                value: newProps.onAfterCameraRenderObservable,
+                type: 'BABYLON.Observable<BABYLON.Camera>',
+                prevValue: oldProps.onAfterCameraRenderObservable,
+            });
+        }
+        // BABYLON.Scene.onAfterDrawPhaseObservable of type 'BABYLON.Observable<BABYLON.Scene>/fn':
+        if (oldProps.onAfterDrawPhaseObservable === undefined && oldProps.onAfterDrawPhaseObservable !== newProps.onAfterDrawPhaseObservable) {
+            updates.push({
+                propertyName: 'onAfterDrawPhaseObservable',
+                value: newProps.onAfterDrawPhaseObservable,
+                type: 'BABYLON.Observable<BABYLON.Scene>',
+                prevValue: oldProps.onAfterDrawPhaseObservable,
+            });
+        }
+        // BABYLON.Scene.onAfterParticlesRenderingObservable of type 'BABYLON.Observable<BABYLON.Scene>/fn':
+        if (oldProps.onAfterParticlesRenderingObservable === undefined && oldProps.onAfterParticlesRenderingObservable !== newProps.onAfterParticlesRenderingObservable) {
+            updates.push({
+                propertyName: 'onAfterParticlesRenderingObservable',
+                value: newProps.onAfterParticlesRenderingObservable,
+                type: 'BABYLON.Observable<BABYLON.Scene>',
+                prevValue: oldProps.onAfterParticlesRenderingObservable,
+            });
+        }
+        // BABYLON.Scene.onAfterRenderingGroupObservable of type 'BABYLON.Observable<BABYLON.RenderingGroupInfo>/fn':
+        if (oldProps.onAfterRenderingGroupObservable === undefined && oldProps.onAfterRenderingGroupObservable !== newProps.onAfterRenderingGroupObservable) {
+            updates.push({
+                propertyName: 'onAfterRenderingGroupObservable',
+                value: newProps.onAfterRenderingGroupObservable,
+                type: 'BABYLON.Observable<BABYLON.RenderingGroupInfo>',
+                prevValue: oldProps.onAfterRenderingGroupObservable,
+            });
+        }
+        // BABYLON.Scene.onAfterRenderObservable of type 'BABYLON.Observable<BABYLON.Scene>/fn':
+        if (oldProps.onAfterRenderObservable === undefined && oldProps.onAfterRenderObservable !== newProps.onAfterRenderObservable) {
+            updates.push({
+                propertyName: 'onAfterRenderObservable',
+                value: newProps.onAfterRenderObservable,
+                type: 'BABYLON.Observable<BABYLON.Scene>',
+                prevValue: oldProps.onAfterRenderObservable,
+            });
+        }
+        // BABYLON.Scene.onAfterRenderTargetsRenderObservable of type 'BABYLON.Observable<BABYLON.Scene>/fn':
+        if (oldProps.onAfterRenderTargetsRenderObservable === undefined && oldProps.onAfterRenderTargetsRenderObservable !== newProps.onAfterRenderTargetsRenderObservable) {
+            updates.push({
+                propertyName: 'onAfterRenderTargetsRenderObservable',
+                value: newProps.onAfterRenderTargetsRenderObservable,
+                type: 'BABYLON.Observable<BABYLON.Scene>',
+                prevValue: oldProps.onAfterRenderTargetsRenderObservable,
+            });
+        }
+        // BABYLON.Scene.onAfterStepObservable of type 'BABYLON.Observable<BABYLON.Scene>/fn':
+        if (oldProps.onAfterStepObservable === undefined && oldProps.onAfterStepObservable !== newProps.onAfterStepObservable) {
+            updates.push({
+                propertyName: 'onAfterStepObservable',
+                value: newProps.onAfterStepObservable,
+                type: 'BABYLON.Observable<BABYLON.Scene>',
+                prevValue: oldProps.onAfterStepObservable,
+            });
+        }
+        // BABYLON.Scene.onBeforeActiveMeshesEvaluationObservable of type 'BABYLON.Observable<BABYLON.Scene>/fn':
+        if (oldProps.onBeforeActiveMeshesEvaluationObservable === undefined && oldProps.onBeforeActiveMeshesEvaluationObservable !== newProps.onBeforeActiveMeshesEvaluationObservable) {
+            updates.push({
+                propertyName: 'onBeforeActiveMeshesEvaluationObservable',
+                value: newProps.onBeforeActiveMeshesEvaluationObservable,
+                type: 'BABYLON.Observable<BABYLON.Scene>',
+                prevValue: oldProps.onBeforeActiveMeshesEvaluationObservable,
+            });
+        }
+        // BABYLON.Scene.onBeforeAnimationsObservable of type 'BABYLON.Observable<BABYLON.Scene>/fn':
+        if (oldProps.onBeforeAnimationsObservable === undefined && oldProps.onBeforeAnimationsObservable !== newProps.onBeforeAnimationsObservable) {
+            updates.push({
+                propertyName: 'onBeforeAnimationsObservable',
+                value: newProps.onBeforeAnimationsObservable,
+                type: 'BABYLON.Observable<BABYLON.Scene>',
+                prevValue: oldProps.onBeforeAnimationsObservable,
+            });
+        }
+        // BABYLON.Scene.onBeforeCameraRenderObservable of type 'BABYLON.Observable<BABYLON.Camera>/fn':
+        if (oldProps.onBeforeCameraRenderObservable === undefined && oldProps.onBeforeCameraRenderObservable !== newProps.onBeforeCameraRenderObservable) {
+            updates.push({
+                propertyName: 'onBeforeCameraRenderObservable',
+                value: newProps.onBeforeCameraRenderObservable,
+                type: 'BABYLON.Observable<BABYLON.Camera>',
+                prevValue: oldProps.onBeforeCameraRenderObservable,
+            });
+        }
+        // BABYLON.Scene.onBeforeDrawPhaseObservable of type 'BABYLON.Observable<BABYLON.Scene>/fn':
+        if (oldProps.onBeforeDrawPhaseObservable === undefined && oldProps.onBeforeDrawPhaseObservable !== newProps.onBeforeDrawPhaseObservable) {
+            updates.push({
+                propertyName: 'onBeforeDrawPhaseObservable',
+                value: newProps.onBeforeDrawPhaseObservable,
+                type: 'BABYLON.Observable<BABYLON.Scene>',
+                prevValue: oldProps.onBeforeDrawPhaseObservable,
+            });
+        }
+        // BABYLON.Scene.onBeforeParticlesRenderingObservable of type 'BABYLON.Observable<BABYLON.Scene>/fn':
+        if (oldProps.onBeforeParticlesRenderingObservable === undefined && oldProps.onBeforeParticlesRenderingObservable !== newProps.onBeforeParticlesRenderingObservable) {
+            updates.push({
+                propertyName: 'onBeforeParticlesRenderingObservable',
+                value: newProps.onBeforeParticlesRenderingObservable,
+                type: 'BABYLON.Observable<BABYLON.Scene>',
+                prevValue: oldProps.onBeforeParticlesRenderingObservable,
+            });
+        }
+        // BABYLON.Scene.onBeforeRenderingGroupObservable of type 'BABYLON.Observable<BABYLON.RenderingGroupInfo>/fn':
+        if (oldProps.onBeforeRenderingGroupObservable === undefined && oldProps.onBeforeRenderingGroupObservable !== newProps.onBeforeRenderingGroupObservable) {
+            updates.push({
+                propertyName: 'onBeforeRenderingGroupObservable',
+                value: newProps.onBeforeRenderingGroupObservable,
+                type: 'BABYLON.Observable<BABYLON.RenderingGroupInfo>',
+                prevValue: oldProps.onBeforeRenderingGroupObservable,
+            });
+        }
+        // BABYLON.Scene.onBeforeRenderObservable of type 'BABYLON.Observable<BABYLON.Scene>/fn':
+        if (oldProps.onBeforeRenderObservable === undefined && oldProps.onBeforeRenderObservable !== newProps.onBeforeRenderObservable) {
+            updates.push({
+                propertyName: 'onBeforeRenderObservable',
+                value: newProps.onBeforeRenderObservable,
+                type: 'BABYLON.Observable<BABYLON.Scene>',
+                prevValue: oldProps.onBeforeRenderObservable,
+            });
+        }
+        // BABYLON.Scene.onBeforeRenderTargetsRenderObservable of type 'BABYLON.Observable<BABYLON.Scene>/fn':
+        if (oldProps.onBeforeRenderTargetsRenderObservable === undefined && oldProps.onBeforeRenderTargetsRenderObservable !== newProps.onBeforeRenderTargetsRenderObservable) {
+            updates.push({
+                propertyName: 'onBeforeRenderTargetsRenderObservable',
+                value: newProps.onBeforeRenderTargetsRenderObservable,
+                type: 'BABYLON.Observable<BABYLON.Scene>',
+                prevValue: oldProps.onBeforeRenderTargetsRenderObservable,
+            });
+        }
+        // BABYLON.Scene.onBeforeStepObservable of type 'BABYLON.Observable<BABYLON.Scene>/fn':
+        if (oldProps.onBeforeStepObservable === undefined && oldProps.onBeforeStepObservable !== newProps.onBeforeStepObservable) {
+            updates.push({
+                propertyName: 'onBeforeStepObservable',
+                value: newProps.onBeforeStepObservable,
+                type: 'BABYLON.Observable<BABYLON.Scene>',
+                prevValue: oldProps.onBeforeStepObservable,
+            });
+        }
+        // BABYLON.Scene.onCameraRemovedObservable of type 'BABYLON.Observable<BABYLON.Camera>/fn':
+        if (oldProps.onCameraRemovedObservable === undefined && oldProps.onCameraRemovedObservable !== newProps.onCameraRemovedObservable) {
+            updates.push({
+                propertyName: 'onCameraRemovedObservable',
+                value: newProps.onCameraRemovedObservable,
+                type: 'BABYLON.Observable<BABYLON.Camera>',
+                prevValue: oldProps.onCameraRemovedObservable,
+            });
+        }
+        // BABYLON.Scene.onDataLoadedObservable of type 'BABYLON.Observable<BABYLON.Scene>/fn':
+        if (oldProps.onDataLoadedObservable === undefined && oldProps.onDataLoadedObservable !== newProps.onDataLoadedObservable) {
+            updates.push({
+                propertyName: 'onDataLoadedObservable',
+                value: newProps.onDataLoadedObservable,
+                type: 'BABYLON.Observable<BABYLON.Scene>',
+                prevValue: oldProps.onDataLoadedObservable,
+            });
+        }
+        // BABYLON.Scene.onDispose of type '() => void/fn':
+        if (oldProps.onDispose === undefined && oldProps.onDispose !== newProps.onDispose) {
+            updates.push({
+                propertyName: 'onDispose',
+                value: newProps.onDispose,
+                type: '() => void',
+                prevValue: oldProps.onDispose,
+            });
+        }
+        // BABYLON.Scene.onDisposeObservable of type 'BABYLON.Observable<BABYLON.Scene>/fn':
+        if (oldProps.onDisposeObservable === undefined && oldProps.onDisposeObservable !== newProps.onDisposeObservable) {
+            updates.push({
+                propertyName: 'onDisposeObservable',
+                value: newProps.onDisposeObservable,
+                type: 'BABYLON.Observable<BABYLON.Scene>',
+                prevValue: oldProps.onDisposeObservable,
+            });
+        }
+        // BABYLON.Scene.onGeometryRemovedObservable of type 'BABYLON.Observable<BABYLON.Geometry>/fn':
+        if (oldProps.onGeometryRemovedObservable === undefined && oldProps.onGeometryRemovedObservable !== newProps.onGeometryRemovedObservable) {
+            updates.push({
+                propertyName: 'onGeometryRemovedObservable',
+                value: newProps.onGeometryRemovedObservable,
+                type: 'BABYLON.Observable<BABYLON.Geometry>',
+                prevValue: oldProps.onGeometryRemovedObservable,
+            });
+        }
+        // BABYLON.Scene.onKeyboardObservable of type 'BABYLON.Observable<BABYLON.KeyboardInfo>/fn':
+        if (oldProps.onKeyboardObservable === undefined && oldProps.onKeyboardObservable !== newProps.onKeyboardObservable) {
+            updates.push({
+                propertyName: 'onKeyboardObservable',
+                value: newProps.onKeyboardObservable,
+                type: 'BABYLON.Observable<BABYLON.KeyboardInfo>',
+                prevValue: oldProps.onKeyboardObservable,
+            });
+        }
+        // BABYLON.Scene.onLightRemovedObservable of type 'BABYLON.Observable<BABYLON.Light>/fn':
+        if (oldProps.onLightRemovedObservable === undefined && oldProps.onLightRemovedObservable !== newProps.onLightRemovedObservable) {
+            updates.push({
+                propertyName: 'onLightRemovedObservable',
+                value: newProps.onLightRemovedObservable,
+                type: 'BABYLON.Observable<BABYLON.Light>',
+                prevValue: oldProps.onLightRemovedObservable,
+            });
+        }
+        // BABYLON.Scene.onMeshImportedObservable of type 'BABYLON.Observable<BABYLON.AbstractMesh>/fn':
+        if (oldProps.onMeshImportedObservable === undefined && oldProps.onMeshImportedObservable !== newProps.onMeshImportedObservable) {
+            updates.push({
+                propertyName: 'onMeshImportedObservable',
+                value: newProps.onMeshImportedObservable,
+                type: 'BABYLON.Observable<BABYLON.AbstractMesh>',
+                prevValue: oldProps.onMeshImportedObservable,
+            });
+        }
+        // BABYLON.Scene.onMeshRemovedObservable of type 'BABYLON.Observable<BABYLON.AbstractMesh>/fn':
+        if (oldProps.onMeshRemovedObservable === undefined && oldProps.onMeshRemovedObservable !== newProps.onMeshRemovedObservable) {
+            updates.push({
+                propertyName: 'onMeshRemovedObservable',
+                value: newProps.onMeshRemovedObservable,
+                type: 'BABYLON.Observable<BABYLON.AbstractMesh>',
+                prevValue: oldProps.onMeshRemovedObservable,
+            });
+        }
+        // BABYLON.Scene.onNewCameraAddedObservable of type 'BABYLON.Observable<BABYLON.Camera>/fn':
+        if (oldProps.onNewCameraAddedObservable === undefined && oldProps.onNewCameraAddedObservable !== newProps.onNewCameraAddedObservable) {
+            updates.push({
+                propertyName: 'onNewCameraAddedObservable',
+                value: newProps.onNewCameraAddedObservable,
+                type: 'BABYLON.Observable<BABYLON.Camera>',
+                prevValue: oldProps.onNewCameraAddedObservable,
+            });
+        }
+        // BABYLON.Scene.onNewGeometryAddedObservable of type 'BABYLON.Observable<BABYLON.Geometry>/fn':
+        if (oldProps.onNewGeometryAddedObservable === undefined && oldProps.onNewGeometryAddedObservable !== newProps.onNewGeometryAddedObservable) {
+            updates.push({
+                propertyName: 'onNewGeometryAddedObservable',
+                value: newProps.onNewGeometryAddedObservable,
+                type: 'BABYLON.Observable<BABYLON.Geometry>',
+                prevValue: oldProps.onNewGeometryAddedObservable,
+            });
+        }
+        // BABYLON.Scene.onNewLightAddedObservable of type 'BABYLON.Observable<BABYLON.Light>/fn':
+        if (oldProps.onNewLightAddedObservable === undefined && oldProps.onNewLightAddedObservable !== newProps.onNewLightAddedObservable) {
+            updates.push({
+                propertyName: 'onNewLightAddedObservable',
+                value: newProps.onNewLightAddedObservable,
+                type: 'BABYLON.Observable<BABYLON.Light>',
+                prevValue: oldProps.onNewLightAddedObservable,
+            });
+        }
+        // BABYLON.Scene.onNewMeshAddedObservable of type 'BABYLON.Observable<BABYLON.AbstractMesh>/fn':
+        if (oldProps.onNewMeshAddedObservable === undefined && oldProps.onNewMeshAddedObservable !== newProps.onNewMeshAddedObservable) {
+            updates.push({
+                propertyName: 'onNewMeshAddedObservable',
+                value: newProps.onNewMeshAddedObservable,
+                type: 'BABYLON.Observable<BABYLON.AbstractMesh>',
+                prevValue: oldProps.onNewMeshAddedObservable,
+            });
+        }
+        // BABYLON.Scene.onNewTransformNodeAddedObservable of type 'BABYLON.Observable<BABYLON.TransformNode>/fn':
+        if (oldProps.onNewTransformNodeAddedObservable === undefined && oldProps.onNewTransformNodeAddedObservable !== newProps.onNewTransformNodeAddedObservable) {
+            updates.push({
+                propertyName: 'onNewTransformNodeAddedObservable',
+                value: newProps.onNewTransformNodeAddedObservable,
+                type: 'BABYLON.Observable<BABYLON.TransformNode>',
+                prevValue: oldProps.onNewTransformNodeAddedObservable,
+            });
+        }
+        // BABYLON.Scene.onPointerDown of type '(evt: PointerEvent, pickInfo: BABYLON.PickingInfo, type: BABYLON.PointerEventTypes) => void/fn':
+        if (oldProps.onPointerDown === undefined && oldProps.onPointerDown !== newProps.onPointerDown) {
+            updates.push({
+                propertyName: 'onPointerDown',
+                value: newProps.onPointerDown,
+                type: '(evt: PointerEvent, pickInfo: BABYLON.PickingInfo, type: BABYLON.PointerEventTypes) => void',
+                prevValue: oldProps.onPointerDown,
+            });
+        }
+        // BABYLON.Scene.onPointerMove of type '(evt: PointerEvent, pickInfo: BABYLON.PickingInfo, type: BABYLON.PointerEventTypes) => void/fn':
+        if (oldProps.onPointerMove === undefined && oldProps.onPointerMove !== newProps.onPointerMove) {
+            updates.push({
+                propertyName: 'onPointerMove',
+                value: newProps.onPointerMove,
+                type: '(evt: PointerEvent, pickInfo: BABYLON.PickingInfo, type: BABYLON.PointerEventTypes) => void',
+                prevValue: oldProps.onPointerMove,
+            });
+        }
+        // BABYLON.Scene.onPointerObservable of type 'BABYLON.Observable<BABYLON.PointerInfo>/fn':
+        if (oldProps.onPointerObservable === undefined && oldProps.onPointerObservable !== newProps.onPointerObservable) {
+            updates.push({
+                propertyName: 'onPointerObservable',
+                value: newProps.onPointerObservable,
+                type: 'BABYLON.Observable<BABYLON.PointerInfo>',
+                prevValue: oldProps.onPointerObservable,
+            });
+        }
+        // BABYLON.Scene.onPointerPick of type '(evt: PointerEvent, pickInfo: BABYLON.PickingInfo) => void/fn':
+        if (oldProps.onPointerPick === undefined && oldProps.onPointerPick !== newProps.onPointerPick) {
+            updates.push({
+                propertyName: 'onPointerPick',
+                value: newProps.onPointerPick,
+                type: '(evt: PointerEvent, pickInfo: BABYLON.PickingInfo) => void',
+                prevValue: oldProps.onPointerPick,
+            });
+        }
+        // BABYLON.Scene.onPointerUp of type '(evt: PointerEvent, pickInfo: BABYLON.PickingInfo, type: BABYLON.PointerEventTypes) => void/fn':
+        if (oldProps.onPointerUp === undefined && oldProps.onPointerUp !== newProps.onPointerUp) {
+            updates.push({
+                propertyName: 'onPointerUp',
+                value: newProps.onPointerUp,
+                type: '(evt: PointerEvent, pickInfo: BABYLON.PickingInfo, type: BABYLON.PointerEventTypes) => void',
+                prevValue: oldProps.onPointerUp,
+            });
+        }
+        // BABYLON.Scene.onPreKeyboardObservable of type 'BABYLON.Observable<BABYLON.KeyboardInfoPre>/fn':
+        if (oldProps.onPreKeyboardObservable === undefined && oldProps.onPreKeyboardObservable !== newProps.onPreKeyboardObservable) {
+            updates.push({
+                propertyName: 'onPreKeyboardObservable',
+                value: newProps.onPreKeyboardObservable,
+                type: 'BABYLON.Observable<BABYLON.KeyboardInfoPre>',
+                prevValue: oldProps.onPreKeyboardObservable,
+            });
+        }
+        // BABYLON.Scene.onPrePointerObservable of type 'BABYLON.Observable<BABYLON.PointerInfoPre>/fn':
+        if (oldProps.onPrePointerObservable === undefined && oldProps.onPrePointerObservable !== newProps.onPrePointerObservable) {
+            updates.push({
+                propertyName: 'onPrePointerObservable',
+                value: newProps.onPrePointerObservable,
+                type: 'BABYLON.Observable<BABYLON.PointerInfoPre>',
+                prevValue: oldProps.onPrePointerObservable,
+            });
+        }
+        // BABYLON.Scene.onReadyObservable of type 'BABYLON.Observable<BABYLON.Scene>/fn':
+        if (oldProps.onReadyObservable === undefined && oldProps.onReadyObservable !== newProps.onReadyObservable) {
+            updates.push({
+                propertyName: 'onReadyObservable',
+                value: newProps.onReadyObservable,
+                type: 'BABYLON.Observable<BABYLON.Scene>',
+                prevValue: oldProps.onReadyObservable,
+            });
+        }
+        // BABYLON.Scene.onTransformNodeRemovedObservable of type 'BABYLON.Observable<BABYLON.TransformNode>/fn':
+        if (oldProps.onTransformNodeRemovedObservable === undefined && oldProps.onTransformNodeRemovedObservable !== newProps.onTransformNodeRemovedObservable) {
+            updates.push({
+                propertyName: 'onTransformNodeRemovedObservable',
+                value: newProps.onTransformNodeRemovedObservable,
+                type: 'BABYLON.Observable<BABYLON.TransformNode>',
+                prevValue: oldProps.onTransformNodeRemovedObservable,
+            });
+        }
+        // BABYLON.Scene.particlesEnabled of type 'boolean':
+        if (oldProps.particlesEnabled !== newProps.particlesEnabled) {
+            updates.push({
+                propertyName: 'particlesEnabled',
+                value: newProps.particlesEnabled,
+                type: 'boolean'
+            });
+        }
+        // TODO: type: (Mesh: BABYLON.AbstractMesh) => boolean property (not coded) BABYLON.Scene.pointerDownPredicate.
+        // TODO: type: (Mesh: BABYLON.AbstractMesh) => boolean property (not coded) BABYLON.Scene.pointerMovePredicate.
+        // TODO: type: (Mesh: BABYLON.AbstractMesh) => boolean property (not coded) BABYLON.Scene.pointerUpPredicate.
+        // TODO: type: BABYLON.PostProcess[] property (not coded) BABYLON.Scene.postProcesses.
+        // BABYLON.Scene.postProcessesEnabled of type 'boolean':
+        if (oldProps.postProcessesEnabled !== newProps.postProcessesEnabled) {
+            updates.push({
+                propertyName: 'postProcessesEnabled',
+                value: newProps.postProcessesEnabled,
+                type: 'boolean'
+            });
+        }
+        // TODO: type: BABYLON.PostProcessManager property (not coded) BABYLON.Scene.postProcessManager.
+        // BABYLON.Scene.preventDefaultOnPointerDown of type 'boolean':
+        if (oldProps.preventDefaultOnPointerDown !== newProps.preventDefaultOnPointerDown) {
+            updates.push({
+                propertyName: 'preventDefaultOnPointerDown',
+                value: newProps.preventDefaultOnPointerDown,
+                type: 'boolean'
+            });
+        }
+        // BABYLON.Scene.probesEnabled of type 'boolean':
+        if (oldProps.probesEnabled !== newProps.probesEnabled) {
+            updates.push({
+                propertyName: 'probesEnabled',
+                value: newProps.probesEnabled,
+                type: 'boolean'
+            });
+        }
+        // BABYLON.Scene.proceduralTexturesEnabled of type 'boolean':
+        if (oldProps.proceduralTexturesEnabled !== newProps.proceduralTexturesEnabled) {
+            updates.push({
+                propertyName: 'proceduralTexturesEnabled',
+                value: newProps.proceduralTexturesEnabled,
+                type: 'boolean'
+            });
+        }
+        // BABYLON.Scene.renderTargetsEnabled of type 'boolean':
+        if (oldProps.renderTargetsEnabled !== newProps.renderTargetsEnabled) {
+            updates.push({
+                propertyName: 'renderTargetsEnabled',
+                value: newProps.renderTargetsEnabled,
+                type: 'boolean'
+            });
+        }
+        // BABYLON.Scene.requireLightSorting of type 'boolean':
+        if (oldProps.requireLightSorting !== newProps.requireLightSorting) {
+            updates.push({
+                propertyName: 'requireLightSorting',
+                value: newProps.requireLightSorting,
+                type: 'boolean'
+            });
+        }
+        // BABYLON.Scene.shadowsEnabled of type 'boolean':
+        if (oldProps.shadowsEnabled !== newProps.shadowsEnabled) {
+            updates.push({
+                propertyName: 'shadowsEnabled',
+                value: newProps.shadowsEnabled,
+                type: 'boolean'
+            });
+        }
+        // BABYLON.Scene.skeletonsEnabled of type 'boolean':
+        if (oldProps.skeletonsEnabled !== newProps.skeletonsEnabled) {
+            updates.push({
+                propertyName: 'skeletonsEnabled',
+                value: newProps.skeletonsEnabled,
+                type: 'boolean'
+            });
+        }
+        // BABYLON.Scene.spritesEnabled of type 'boolean':
+        if (oldProps.spritesEnabled !== newProps.spritesEnabled) {
+            updates.push({
+                propertyName: 'spritesEnabled',
+                value: newProps.spritesEnabled,
+                type: 'boolean'
+            });
+        }
+        // BABYLON.Scene.texturesEnabled of type 'boolean':
+        if (oldProps.texturesEnabled !== newProps.texturesEnabled) {
+            updates.push({
+                propertyName: 'texturesEnabled',
+                value: newProps.texturesEnabled,
+                type: 'boolean'
+            });
+        }
+        // BABYLON.Scene.useConstantAnimationDeltaTime of type 'boolean':
+        if (oldProps.useConstantAnimationDeltaTime !== newProps.useConstantAnimationDeltaTime) {
+            updates.push({
+                propertyName: 'useConstantAnimationDeltaTime',
+                value: newProps.useConstantAnimationDeltaTime,
+                type: 'boolean'
+            });
+        }
+        // BABYLON.Scene.useDelayedTextureLoading of type 'boolean':
+        if (oldProps.useDelayedTextureLoading !== newProps.useDelayedTextureLoading) {
+            updates.push({
+                propertyName: 'useDelayedTextureLoading',
+                value: newProps.useDelayedTextureLoading,
+                type: 'boolean'
+            });
+        }
+        // BABYLON.Scene.useRightHandedSystem of type 'boolean':
+        if (oldProps.useRightHandedSystem !== newProps.useRightHandedSystem) {
+            updates.push({
+                propertyName: 'useRightHandedSystem',
+                value: newProps.useRightHandedSystem,
+                type: 'boolean'
+            });
+        }
+        // BABYLON.Scene.workerCollisions of type 'boolean':
+        if (oldProps.workerCollisions !== newProps.workerCollisions) {
+            updates.push({
+                propertyName: 'workerCollisions',
+                value: newProps.workerCollisions,
+                type: 'boolean'
+            });
+        }
+        return updates.length == 0 ? null : updates;
+    }
+}
+
 export const AbstractButton3D: string = 'AbstractButton3D', AdvancedDynamicTexture: string = 'AdvancedDynamicTexture', AnaglyphArcRotateCamera: string = 'AnaglyphArcRotateCamera', AnaglyphFreeCamera: string = 'AnaglyphFreeCamera', AnaglyphGamepadCamera: string = 'AnaglyphGamepadCamera', AnaglyphUniversalCamera: string = 'AnaglyphUniversalCamera', ArcFollowCamera: string = 'ArcFollowCamera', ArcRotateCamera: string = 'ArcRotateCamera', BackgroundMaterial: string = 'BackgroundMaterial', BaseTexture: string = 'BaseTexture', Box: string = 'Box', Button: string = 'Button', Button3D: string = 'Button3D', Camera: string = 'Camera', Checkbox: string = 'Checkbox', ColorGradingTexture: string = 'ColorGradingTexture', ColorPicker: string = 'ColorPicker', Container: string = 'Container', Container3D: string = 'Container3D', Control: string = 'Control', Control3D: string = 'Control3D', CubeTexture: string = 'CubeTexture', CustomProceduralTexture: string = 'CustomProceduralTexture', Cylinder: string = 'Cylinder', CylinderPanel: string = 'CylinderPanel', DashedLines: string = 'DashedLines', Decal: string = 'Decal', DeviceOrientationCamera: string = 'DeviceOrientationCamera', DirectionalLight: string = 'DirectionalLight', Disc: string = 'Disc', DisplayGrid: string = 'DisplayGrid', DynamicTexture: string = 'DynamicTexture', Ellipse: string = 'Ellipse', EnvironmentHelper: string = 'EnvironmentHelper', ExtrudePolygon: string = 'ExtrudePolygon', ExtrudeShape: string = 'ExtrudeShape', ExtrudeShapeCustom: string = 'ExtrudeShapeCustom', FollowCamera: string = 'FollowCamera', FreeCamera: string = 'FreeCamera', GUI3DManager: string = 'GUI3DManager', GamepadCamera: string = 'GamepadCamera', Grid: string = 'Grid', Ground: string = 'Ground', GroundFromHeightMap: string = 'GroundFromHeightMap', HDRCubeTexture: string = 'HDRCubeTexture', HemisphericLight: string = 'HemisphericLight', HolographicButton: string = 'HolographicButton', IcoSphere: string = 'IcoSphere', Image: string = 'Image', InputPassword: string = 'InputPassword', InputText: string = 'InputText', Lathe: string = 'Lathe', Light: string = 'Light', Line: string = 'Line', LineSystem: string = 'LineSystem', Lines: string = 'Lines', Material: string = 'Material', MeshButton3D: string = 'MeshButton3D', MirrorTexture: string = 'MirrorTexture', MultiLine: string = 'MultiLine', MultiMaterial: string = 'MultiMaterial', MultiRenderTarget: string = 'MultiRenderTarget', NoiseProceduralTexture: string = 'NoiseProceduralTexture', PBRBaseMaterial: string = 'PBRBaseMaterial', PBRBaseSimpleMaterial: string = 'PBRBaseSimpleMaterial', PBRMaterial: string = 'PBRMaterial', PBRMetallicRoughnessMaterial: string = 'PBRMetallicRoughnessMaterial', PBRSpecularGlossinessMaterial: string = 'PBRSpecularGlossinessMaterial', Plane: string = 'Plane', PlanePanel: string = 'PlanePanel', PointLight: string = 'PointLight', Polygon: string = 'Polygon', Polyhedron: string = 'Polyhedron', ProceduralTexture: string = 'ProceduralTexture', PushMaterial: string = 'PushMaterial', RadioButton: string = 'RadioButton', RawCubeTexture: string = 'RawCubeTexture', RawTexture: string = 'RawTexture', RawTexture3D: string = 'RawTexture3D', Rectangle: string = 'Rectangle', RefractionTexture: string = 'RefractionTexture', RenderTargetTexture: string = 'RenderTargetTexture', Ribbon: string = 'Ribbon', ScatterPanel: string = 'ScatterPanel', SelectionPanel: string = 'SelectionPanel', ShaderMaterial: string = 'ShaderMaterial', ShadowGenerator: string = 'ShadowGenerator', ShadowLight: string = 'ShadowLight', Slider: string = 'Slider', Sphere: string = 'Sphere', SpherePanel: string = 'SpherePanel', SpotLight: string = 'SpotLight', StackPanel: string = 'StackPanel', StackPanel3D: string = 'StackPanel3D', StandardMaterial: string = 'StandardMaterial', StereoscopicArcRotateCamera: string = 'StereoscopicArcRotateCamera', StereoscopicFreeCamera: string = 'StereoscopicFreeCamera', StereoscopicGamepadCamera: string = 'StereoscopicGamepadCamera', StereoscopicUniversalCamera: string = 'StereoscopicUniversalCamera', TargetCamera: string = 'TargetCamera', TextBlock: string = 'TextBlock', Texture: string = 'Texture', TiledGround: string = 'TiledGround', Torus: string = 'Torus', TorusKnot: string = 'TorusKnot', TouchCamera: string = 'TouchCamera', Tube: string = 'Tube', UniversalCamera: string = 'UniversalCamera', VRDeviceOrientationArcRotateCamera: string = 'VRDeviceOrientationArcRotateCamera', VRDeviceOrientationFreeCamera: string = 'VRDeviceOrientationFreeCamera', VRDeviceOrientationGamepadCamera: string = 'VRDeviceOrientationGamepadCamera', VRExperienceHelper: string = 'VRExperienceHelper', VideoTexture: string = 'VideoTexture', VirtualJoysticksCamera: string = 'VirtualJoysticksCamera', VirtualKeyboard: string = 'VirtualKeyboard', VolumeBasedPanel: string = 'VolumeBasedPanel', WebVRFreeCamera: string = 'WebVRFreeCamera';

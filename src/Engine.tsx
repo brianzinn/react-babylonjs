@@ -1,54 +1,82 @@
 import React, { createContext } from 'react'
-import ReactReconciler from "react-reconciler"
+
 import BABYLON from 'babylonjs'
 
-import ReactBabylonJSHostConfig, { Container } from './ReactBabylonJSHostConfig'
 
 // TODO: copy engineOptions/antialias/etc and canvas options from original Scene.tsx
-export interface WithEngineContext {
+export interface WithBabylonJSContext {
   engine: BABYLON.Nullable<BABYLON.Engine>
   canvas: BABYLON.Nullable<HTMLCanvasElement | WebGLRenderingContext>
 }
 
 // TODO: build a fallback mechanism when typeof React.createContext !== 'function'
-// this will allow (16.0 < react versions  < 16.3) to work.
-export const EngineContext = createContext<WithEngineContext>({
+// this will allow (16.0 <= react versions < 16.3) to work.
+export const BabylonJSContext = createContext<WithBabylonJSContext>({
   engine: null,
   canvas: null
 })
 
-export const EngineProvider = EngineContext.Provider
-export const EngineConsumer = EngineContext.Consumer
+export const BabylonJSContextConsumer = BabylonJSContext.Consumer
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
-export function withEngine<
-  P extends { engineContext: WithEngineContext },
-  R = Omit<P, 'engineContext'>
+export function withBabylonJS<
+  P extends { babylonJSContext: WithBabylonJSContext },
+  R = Omit<P, 'babylonJSContext'>
   >(
   Component: React.ComponentClass<P, any> | React.StatelessComponent<P>
   ): React.SFC<R> {
   return function BoundComponent(props: R) {
     return (
-      <EngineConsumer>
-        {engineCtx => <Component {...props} engineContext={engineCtx} />}
-      </EngineConsumer>
+      <BabylonJSContext.Consumer>
+        {ctx => <Component {...props} babylonJSContext={ctx} />}
+      </BabylonJSContext.Consumer>
     );
   };
 }
 
 type EngineProps = {
-  portalCanvas?: HTMLCanvasElement
+  babylonJSContext: WithBabylonJSContext,
+  portalCanvas?: HTMLCanvasElement,
+  /**
+   * true to disable Server Side Rendering
+   */
+  noSSR?: boolean | React.ReactChild,
+  shadersRepository?: string,
+  engineOptions?: BABYLON.EngineOptions,
+  enableOfflineSupport?: boolean,
+  adaptToDeviceRatio?: boolean,
+  width?: number,
+  height?: number,
+  /**
+   * By default touch-action: 'none' will be on the canvas.  Use this to disable.
+   */
+  touchActionNone?: boolean,
+  /**
+   * Useful if you want to attach CSS to the canvas by css #id selector.
+   */
+  id?: string,
+  debug?: boolean
 }
 
-export default class Engine extends React.Component<EngineProps, any> {
+export type EngineState = {
+  canRender: boolean
+}
 
-  private _engine?: BABYLON.Nullable<BABYLON.Engine>;
+class Engine extends React.Component<EngineProps, EngineState> {
+
+  private _engine?: BABYLON.Nullable<BABYLON.Engine> = null;
   private _canvas: BABYLON.Nullable<HTMLCanvasElement | WebGLRenderingContext> = null;
-  private _fiberRoot?: ReactReconciler.FiberRoot;
-  private _reactReconcilerBabylonJs = ReactReconciler(ReactBabylonJSHostConfig)
 
-  componentDidMount () {
+  constructor(props: EngineProps) {
+    super(props);
+
+    this.state = {
+      canRender: false
+    };
+  }
+
+  componentDidMount() {
     this._engine = new BABYLON.Engine(
       this._canvas,
       true
@@ -64,37 +92,8 @@ export default class Engine extends React.Component<EngineProps, any> {
     })
 
     window.addEventListener('resize', this.onResizeWindow)
-            
-    const isAsync = false // Disables experimental async rendering
-    
-    const container: Container = {
-      engine: this._engine!,
-      canvas: this._canvas!,
-      rootInstance: {
-        babylonJsObject: null,
-        children: [],
-        parent: null,
-        metadata: {
-          className: "root"
-        }
-      }
-    }
 
-    this._fiberRoot = this._reactReconcilerBabylonJs.createContainer(container, isAsync, false /* hydrate true == better HMR? */)
-  
-    this._reactReconcilerBabylonJs.injectIntoDevTools({
-      bundleType: process.env.NODE_ENV === 'production' ? 0 : 1,
-      version: '1.0.0',
-      rendererPackageName: 'react-babylonjs'
-    })
-
-    // update the root Container
-    // console.log("updating rootContainer (1) reactElement")
-    return this._reactReconcilerBabylonJs.updateContainer(
-      <EngineProvider value={{ engine: this._engine!, canvas: this._canvas }}>
-        {this.props.children}
-      </EngineProvider>, this._fiberRoot, this /* TODO: try to dual-write for screen readers */, () => {}
-    )
+    this.setState({canRender: true});
   }
 
   onCanvasRef = (c : HTMLCanvasElement) => {
@@ -113,30 +112,44 @@ export default class Engine extends React.Component<EngineProps, any> {
     // console.error('onCanvas:', c); // trying to diagnose why HMR keep rebuilding entire Scene!  Look at ProxyComponent v4.
   }
 
-  componentDidUpdate (prevProps: any, prevState: any) {
-    // In the docs it is mentioned that shouldComponentUpdate() may be treated as a hint one day
-    // using shouldComponentUpdate() => false, looks okay, but prop changes will lag behind 1 update.
-    this._reactReconcilerBabylonJs.updateContainer(
-      <EngineProvider value={{ engine: this._engine!, canvas: this._canvas }}>
-        {this.props.children}
-      </EngineProvider>,
-      this._fiberRoot!,
-      this,
-      () => { /* called after container is updated.  we may want an external observable here */ }
-    )
-  }
-
   componentWillUnmount () {
     window.removeEventListener('resize', this.onResizeWindow);
     console.log('unmounting Engine Component.')
   }
 
   render () {
-    if (this.props.portalCanvas) {
-      return <span ref={this.onCanvasRef}></span>;
-    } else {
-      return <canvas ref={this.onCanvasRef} style={{ height: '100%', width: '100%' }} />
+    if (this.state.canRender === false && (this.props.noSSR !== undefined && this.props.noSSR !== false)) {
+      if (typeof this.props.noSSR === 'boolean') {
+        return null;
+      }
+      return this.props.noSSR;
     }
+
+    let { touchActionNone, id, width, height, ...rest } = this.props
+
+    let opts: any = {}
+
+    if (touchActionNone !== false) {
+      opts['touch-action'] = 'none';
+    }
+
+    if (width !== undefined && height !== undefined) {
+      opts.width = width
+      opts.height = height
+    }
+
+    if (id) {
+      opts.id = id;
+    }
+
+    // TODO: this.props.portalCanvas does not need to render a canvas.
+    return <BabylonJSContext.Provider value={{ engine: this._engine!, canvas: this._canvas }}>
+      <canvas {...opts} ref={this.onCanvasRef}>
+      {this._engine !== null &&
+        this.props.children
+      }
+      </canvas>
+    </BabylonJSContext.Provider>
   }
 
   onResizeWindow = () => {
@@ -145,3 +158,5 @@ export default class Engine extends React.Component<EngineProps, any> {
     }
   }
 }
+
+export default withBabylonJS(Engine)

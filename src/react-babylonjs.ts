@@ -1,8 +1,8 @@
 export * from "./generatedCode"
 export * from "./customComponents"
 
-export { default as Scene, withScene, WithSceneContext } from "./Scene"
-export { default as Engine, withEngine } from "./Engine"
+export { default as Engine, withBabylonJS } from "./Engine"
+export { default as Scene, withScene } from "./Scene"
 
 // These are registered host elements we have defined ourselves
 export { HostWithEvents } from "./customHosts"

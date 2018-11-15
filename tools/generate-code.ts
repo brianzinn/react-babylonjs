@@ -40,6 +40,7 @@ type InstanceMetadataParameter = {
   delayCreation?: boolean // if it should not be created automatically, but by LifecycleListener (ie: ShadowGenerator needs an IShadowLight)
   shadowGenerator?: boolean // children will auto-cast shadows
   acceptsMaterials?: boolean
+  isScene?: boolean
   isShadowLight?: boolean // capable of being used as a shadow generator source
   isEnvironment?: boolean // to find ground for Teleportation (not using a registry - one time cost)
   isTargetable?: boolean // will attach a target props handler
@@ -77,6 +78,8 @@ classesOfInterest.set("AdvancedDynamicTexture", undefined);
 classesOfInterest.set("ShadowGenerator", undefined)
 classesOfInterest.set("EnvironmentHelper", undefined);
 classesOfInterest.set("VRExperienceHelper", undefined);
+classesOfInterest.set("AbstractScene", undefined);
+classesOfInterest.set("Scene", undefined);
 
 const getNamespace = (classDeclaration : ClassDeclaration) : string => {
   let symbol = classDeclaration.getType().compilerType.symbol;
@@ -624,11 +627,14 @@ const addReactExports = (sourceFile: SourceFile) => {
   sourceFile.addVariableStatement({
     declarationKind: VariableDeclarationKind.Const,
     isExported: true,
-    declarations: tags.map(tag => ({
-      name: tag,
-      type: "string",
-      initializer: `'${tag}'`
-    }))
+    declarations: tags.map(tag => {
+      // const properTag = tag.charAt(0).toLowerCase() + tag.substr(1);
+      return {
+        name: tag,
+        type: "string",
+        initializer: `'${tag}'`
+      }
+    })
   });
 }
 
@@ -804,7 +810,13 @@ const generateCode = async () => {
   createSingleClass("ShadowGenerator", generatedSourceFile, undefined, { delayCreation: true }, () => {})
   createSingleClass("EnvironmentHelper", generatedSourceFile, undefined, { isEnvironment: true })
   createSingleClass("VRExperienceHelper", generatedSourceFile)
-
+  
+  if (classesOfInterest.get("Scene")) {
+    // Scene we only want to generate the handlers. Constructor is very simple - just an Engine
+    const sceneTuple: ClassNameSpaceTuple = classesOfInterest.get("Scene")!
+    const className: string = sceneTuple.classDeclaration.getName()!
+    addPropsAndHandlerClasses(generatedSourceFile, className, className, getMethodInstanceProperties(sceneTuple.classDeclaration), sceneTuple.namespace, undefined);
+  }
   addReactExports(generatedSourceFile);
 
   generatedSourceFile.formatText();
