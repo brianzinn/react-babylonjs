@@ -1,9 +1,9 @@
 import React, { Component } from "react"
 import BABYLON from "babylonjs"
-import { withScene, WithSceneContext } from "../Scene"
+import { withBabylonJS, WithBabylonJSContext } from "../Engine"
 
 type SkyboxProps = {
-  sceneContext: WithSceneContext
+  babylonJSContext: WithBabylonJSContext
   rootUrl: string
 }
 
@@ -13,7 +13,6 @@ class Skybox extends Component<SkyboxProps | undefined, any> {
       React.createElement("StandardMaterial", { backFaceCulling: false, disableLighting: true }, [
         React.createElement("CubeTexture", {
           rootUrl: this.props.rootUrl,
-          scene: this.props.sceneContext.scene,
           coordinatesMode: BABYLON.Texture.SKYBOX_MODE
         })
       ])
@@ -21,4 +20,4 @@ class Skybox extends Component<SkyboxProps | undefined, any> {
   }
 }
 
-export default withScene(Skybox)
+export default withBabylonJS(Skybox)

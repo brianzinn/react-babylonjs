@@ -6,8 +6,6 @@ import * as GENERATED from "./generatedCode"
 import * as CUSTOM_HOSTS from "./customHosts"
 import * as CUSTOM_COMPONENTS from "./customComponents"
 
-import { WithSceneContext } from "./Scene"
-
 import GUI3DControlLifecycleListener from "./customComponents/GUI3DControlLifecycleListener"
 import GUI2DControlLifecycleListener from "./customComponents/GUI2DControlLifecycleListener"
 
@@ -35,7 +33,8 @@ export type CreatedInstanceMetadata = {
   className: string // for inspection/debugging
   delayCreation?: boolean // for objects that will be instantiated in their lifecycle handler (ie: ShadowGenerator needs a light)
   shadowGenerator?: boolean // children will auto-cast shadows
-  isShadowLight?: boolean,
+  isScene?: boolean
+  isShadowLight?: boolean
   acceptsMaterials?: boolean
   isEnvironment?: boolean // used to find ground for VR teleportation (option)
   isTargetable?: boolean // will attach a target props handler
@@ -53,7 +52,7 @@ export type CreatedInstanceMetadata = {
 export type PropertyUpdate = {
   type: string
   value: any
-  propertyName: string,
+  propertyName: string
   prevValue?: any
 }
 
@@ -130,8 +129,10 @@ type Props = {
 } & any
 
 export type Container = {
-  canvas: HTMLCanvasElement | WebGLRenderingContext | null
-  engine: BABYLON.Engine
+  engine: BABYLON.Nullable<BABYLON.Engine>
+  canvas: BABYLON.Nullable<HTMLCanvasElement | WebGLRenderingContext>
+  scene: BABYLON.Nullable<BABYLON.Scene>  
+  // scenes: BABYLON.Scene[]
   rootInstance: CreatedInstance<any>
 }
 
@@ -141,8 +142,7 @@ type UpdatePayload = PropertyUpdate[] | null
 type TimeoutHandler = number | undefined
 type NoTimeout = number
 
-function applyUpdateToInstance(babylonObject: any, update: PropertyUpdate, type: string | undefined): void {
-
+export const applyUpdateToInstance = (babylonObject: any, update: PropertyUpdate, type: string | undefined): void => {
   switch (update.type) {
     case "string":
     case "number":
@@ -170,7 +170,7 @@ function applyUpdateToInstance(babylonObject: any, update: PropertyUpdate, type:
     case "BABYLON.Color3": // merge this switch with BABYLON.Vector3, Color4, etc.  The copyFrom BABYLON types.
       // console.log(` > ${type}: updating Color3 on:${update.propertyName} to ${update.value}`)
       if (babylonObject[update.propertyName]) {
-        (babylonObject[update.propertyName] as BABYLON.Color3).copyFrom(update.value)
+        ;(babylonObject[update.propertyName] as BABYLON.Color3).copyFrom(update.value)
       } else if (update.value) {
         babylonObject[update.propertyName] = update.value.clone()
       } else {
@@ -188,13 +188,12 @@ function applyUpdateToInstance(babylonObject: any, update: PropertyUpdate, type:
       }
       break
     default:
-
-      if (update.type.startsWith('BABYLON.Observable')) {
+      if (update.type.startsWith("BABYLON.Observable")) {
         // TODO: we want to remove the old prop, so it should be passed along as well.
         if (update.prevValue) {
-          babylonObject[update.propertyName].remove(update.prevValue)  
+          babylonObject[update.propertyName].remove(update.prevValue)
         }
-        
+
         babylonObject[update.propertyName].add(update.value)
       } else {
         console.error(`unhandled property update of type ${update.type}`)
@@ -272,7 +271,6 @@ class TargetFunctionPropsHandler implements GENERATED.PropsHandler<any, any> {
   }
 }
 
-
 const ReactBabylonJSHostConfig: HostConfig<
   string,
   Props,
@@ -324,6 +322,7 @@ const ReactBabylonJSHostConfig: HostConfig<
     return {
       canvas: rootContainerInstance.canvas,
       engine: rootContainerInstance.engine,
+      scene: rootContainerInstance.scene,
       rootInstance: {
         babylonJsObject: undefined,
         metadata: {
@@ -362,7 +361,7 @@ const ReactBabylonJSHostConfig: HostConfig<
     let updatePayload: PropertyUpdate[] = []
 
     // TODO: This will not work for multiple scenes, which V1 will support.
-    let scene = rootContainerInstance.engine.scenes[0]
+    let scene = rootContainerInstance.scene
 
     // Only custom types will not have a fiber object to handle props changes
     instance.propsHandlers!.getPropsHandlers().forEach(propHandler => {
@@ -370,7 +369,7 @@ const ReactBabylonJSHostConfig: HostConfig<
         instance as CreatedInstance<any>,
         oldProps,
         newProps,
-        scene
+        scene!
       )
       if (handlerUpdates !== null) {
         updatePayload.push(...handlerUpdates)
@@ -402,19 +401,10 @@ const ReactBabylonJSHostConfig: HostConfig<
     // TODO: Make a registry like React Native host config or just build a map in /customHosts/index.ts.
     const customTypes: string[] = [CUSTOM_HOSTS.HostWithEvents]
 
-    const { scene } = props as any
-    const { canvas, engine } = rootContainerInstance
+    // TODO: Check source for difference between hostContext and rootContainerInstance.
+    const { canvas, engine, scene } = rootContainerInstance
 
-    if (customTypes.indexOf(type) !== -1) {
-      let sceneContext: WithSceneContext = props.sceneContext
-
-      if (!sceneContext || !sceneContext.scene) {
-        console.error(
-          "Custom Types must use the scene HOC (and pass sceneContext prop through to component!) or add a prop.sceneContext.scene",
-          props
-        )
-      }
-
+    if (customTypes.indexOf(type) !== -1) {     
       let metadata = {
         className: type,
         customType: true,
@@ -427,7 +417,7 @@ const ReactBabylonJSHostConfig: HostConfig<
         parent: null,
         children: [],
         propsHandlers: undefined,
-        lifecycleListeners: new (CUSTOM_HOSTS as any)[type + "Fiber"](sceneContext.scene!, engine, props)
+        lifecycleListeners: new (CUSTOM_HOSTS as any)[type + "Fiber"](scene, engine, props)
       }
 
       // onCreated and other lifecycle hooks are not called for built-in host
@@ -438,7 +428,6 @@ const ReactBabylonJSHostConfig: HostConfig<
     let metadata: CreatedInstanceMetadata = (GENERATED as any)[`Fiber${type}`].Metadata
 
     // console.log(`creating: ${createInfoArgs.namespace}.${type}`)
-
     let generatedParameters: GeneratedParameter[] = createInfoArgs!.parameters
 
     // console.log("generated params:", generatedParameters)
@@ -459,8 +448,9 @@ const ReactBabylonJSHostConfig: HostConfig<
       } else {
         let value = props[generatedParameter.name]
         if (value === undefined && generatedParameter.optional === false) {
-          if (generatedParameter.type === "BABYLON.Scene") {
-            // console.log("assigning scene...", scene)
+          if (generatedParameter.type == "BABYLON.Engine") { // NOTE: we removed the hosted Scene component, but it may be re-added.
+            value = engine
+          } else if (generatedParameter.type === "BABYLON.Scene") {
             value = scene
           } else {
             console.warn(
@@ -499,10 +489,10 @@ const ReactBabylonJSHostConfig: HostConfig<
     }
 
     // Developer accessible lifecycle phase.  ie: access propery/method exposed in props.
-    if (typeof props.onCreated === 'function') {
-      props.onCreated!(babylonObject);
+    if (typeof props.onCreated === "function") {
+      props.onCreated!(babylonObject)
     }
-    
+
     // TODO: Add a lifecycle listener to a camera.  If it has a prop then auto-attach.  Otherwise search for other cameras to elect one to auto-attach.
     if (type.indexOf("Camera") !== -1) {
       // TODO: this needs to be dynamic part of camera:
@@ -523,16 +513,15 @@ const ReactBabylonJSHostConfig: HostConfig<
     } else if (metadata.isGUI2DControl === true) {
       lifecycleListeners = new GUI2DControlLifecycleListener()
     } else if (metadata.isTexture === true) {
-      console.error('adding a textrueslifecycellistener to', babylonObject)
+      console.error("adding a textrueslifecycellistener to", babylonObject)
       lifecycleListeners = new CUSTOM_COMPONENTS.TexturesLifecycleListener()
     }
 
-    if ((CUSTOM_COMPONENTS as any)[type + "LifecycleListener"] !== undefined) {
-      console.log("Dynamically attaching to type" + type + " lifecycle listener ctor(props):", props, " + scene ", scene)
-      
-      console.log('rootContainerInstance:', rootContainerInstance)
-      console.log('hostContext:', hostContext)
-      lifecycleListeners = new (CUSTOM_COMPONENTS as any)[type + "LifecycleListener"]({...props, scene /* give listeners scene access */ })
+    if ((CUSTOM_COMPONENTS as any)[type + "LifecycleListener"] !== undefined) {     
+      lifecycleListeners = new (CUSTOM_COMPONENTS as any)[type + "LifecycleListener"]({
+        ...props,
+        scene /* give listeners scene access */
+      })
     }
 
     let createdReference = createCreatedInstance(type, babylonObject, fiberObject, metadata, lifecycleListeners)
@@ -552,7 +541,7 @@ const ReactBabylonJSHostConfig: HostConfig<
           createdReference,
           {}, // Here we will reapply things like 'name', so perhaps should get default props from 'babylonObject'.
           props,
-          scene // custom handlers may require scene access
+          scene! // custom handlers may require scene access.
         )
         if (handlerUpdates !== null) {
           initPayload.push(...handlerUpdates)
@@ -620,10 +609,16 @@ const ReactBabylonJSHostConfig: HostConfig<
     // Here we are testing HMR. re-attaching??
     // console.log("reconciler: resetAfterCommit", containerInfo)
 
-    let scene: BABYLON.Scene = containerInfo.engine.scenes[0]
-    let camera: BABYLON.Nullable<BABYLON.Camera> = scene.activeCamera
+    let scene: BABYLON.Scene | null = containerInfo.scene
+    if (scene === null) {
+      console.error('scene is not defined', containerInfo.engine);
+      debugger;
+      return;
+    }
+
+    let camera: BABYLON.Nullable<BABYLON.Camera> = scene!.activeCamera
     if (camera === null || camera === undefined) {
-      console.warn(`scenes[0 of ${containerInfo.engine.scenes.length}].activeCamera cannot be attached it is:`, camera)
+      console.warn(`scene.activeCamera not found:`, scene)
     } else {
       console.warn("(re)attaching camera", containerInfo)
       camera.attachControl(containerInfo.canvas as HTMLCanvasElement)
@@ -737,8 +732,8 @@ const ReactBabylonJSHostConfig: HostConfig<
     }
 
     // TODO: Add to metadata "isDisposable", but from AST walker.  ie: method dispose(...) exists.
-    if (typeof child.babylonJsObject.dispose === 'function') {
-      child.babylonJsObject.dispose(); // not able to have parameters this way.
+    if (typeof child.babylonJsObject.dispose === "function") {
+      child.babylonJsObject.dispose() // not able to have parameters this way.
     }
   },
 

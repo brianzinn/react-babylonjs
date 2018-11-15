@@ -1,10 +1,8 @@
 import { LifecycleListeners, CreatedInstance } from "../ReactBabylonJSHostConfig"
 
 export default class GUI3DManagerLifecycleListener implements LifecycleListeners {
-  onParented(parent: CreatedInstance<any>): void {
-  }
-  onChildAdded(child: CreatedInstance<any>): void {
-  }
+  onParented(parent: CreatedInstance<any>): void {}
+  onChildAdded(child: CreatedInstance<any>): void {}
   onMount(instance: CreatedInstance<any>): void {
     this.addControls(instance)
   }

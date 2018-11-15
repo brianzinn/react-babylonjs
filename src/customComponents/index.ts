@@ -5,4 +5,4 @@ export { default as GUI3DControlLifecycleListener } from "./GUI3DControlLifecycl
 export { default as GUI3DManagerLifecycleListener } from "./GUI3DManagerLifecycleListener"
 export { default as ShadowGeneratorLifecycleListener } from "./ShadowGeneratorLifecycleListener"
 export { default as TexturesLifecycleListener } from "./TexturesLifecycleListener"
-export { default as VRExperienceHelperLifecycleListener }  from "./VRExperienceHelperLifecycleListener"
+export { default as VRExperienceHelperLifecycleListener } from "./VRExperienceHelperLifecycleListener"

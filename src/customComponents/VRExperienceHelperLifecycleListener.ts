@@ -1,11 +1,10 @@
 import { LifecycleListeners, CreatedInstance } from "../ReactBabylonJSHostConfig"
 
 export default class VRExperienceHelperLifecycleListener implements LifecycleListeners {
-
-  private props: any;
+  private props: any
 
   constructor(props: any) {
-      this.props = props;
+    this.props = props
   }
 
   onParented(parent: CreatedInstance<any>, child: CreatedInstance<any>): any {}
@@ -14,7 +13,7 @@ export default class VRExperienceHelperLifecycleListener implements LifecycleLis
 
   onMount(instance: CreatedInstance<any>): void {
     if (this.props.enableInteractions) {
-      if (typeof instance.babylonJsObject.enableInteractions === 'function') {
+      if (typeof instance.babylonJsObject.enableInteractions === "function") {
         instance.babylonJsObject.enableInteractions()
       }
     }
