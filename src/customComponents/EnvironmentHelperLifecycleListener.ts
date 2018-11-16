@@ -13,8 +13,8 @@ export default class EnvironmentHelperLifecycleListener implements LifecycleList
 
   onMount(instance: CreatedInstance<any>): void {
     if (this.props.mainColor) {
-      if (typeof instance.babylonJsObject.setMainColor === "function") {
-        instance.babylonJsObject.setMainColor(this.props.mainColor)
+      if (typeof instance.hostInstance.setMainColor === "function") {
+        instance.hostInstance.setMainColor(this.props.mainColor)
       }
     }
 

@@ -16,20 +16,20 @@ export default class AdvancedDynamicTextureLifecycleListener implements Lifecycl
     let tmp: CreatedInstance<any> | null = instance.parent
     while (tmp != null) {
       if (tmp.metadata.isShadowLight) {
-        console.log("Creating ShadowGenerator.  size:", this.props.mapSize, "light", tmp.babylonJsObject)
-        instance.babylonJsObject = new ShadowGenerator(
+        console.log("Creating ShadowGenerator.  size:", this.props.mapSize, "light", tmp.hostInstance)
+        instance.hostInstance = new ShadowGenerator(
           this.props.mapSize,
-          tmp.babylonJsObject,
+          tmp.hostInstance,
           this.props.useFullFloatFirst
         )
         break
       } else {
-        console.log("Not a shadow light source: metadata:", tmp.metadata, "object", tmp.babylonJsObject)
+        console.log("Not a shadow light source: metadata:", tmp.metadata, "object", tmp.hostInstance)
       }
       tmp = tmp.parent
     }
 
-    if (instance.babylonJsObject === undefined) {
+    if (instance.hostInstance === undefined) {
       console.error("ShadowGenerator has no light source.")
     }
 
@@ -47,7 +47,7 @@ export default class AdvancedDynamicTextureLifecycleListener implements Lifecycl
       scene.onNewMeshAddedObservable.add((mesh: AbstractMesh) => {
         if (shadowCasters.indexOf(mesh.name) >= 0) {
           console.log("adding on observable shadow caster:", mesh.name)
-          instance.babylonJsObject!.addShadowCaster(mesh)
+          instance.hostInstance!.addShadowCaster(mesh)
           shadowCasters = shadowCasters.filter((name: string) => name !== mesh.name)
         }
       })
@@ -55,7 +55,7 @@ export default class AdvancedDynamicTextureLifecycleListener implements Lifecycl
       scene.meshes.forEach((mesh: AbstractMesh) => {
         if (shadowCasters.indexOf(mesh.name) >= 0) {
           console.log("adding shadow caster:", mesh.name)
-          instance.babylonJsObject!.addShadowCaster(mesh)
+          instance.hostInstance!.addShadowCaster(mesh)
 
           shadowCasters = shadowCasters.filter((name: string) => name !== mesh.name)
         }

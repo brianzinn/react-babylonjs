@@ -14,7 +14,7 @@ export default class GUI3DManagerLifecycleListener implements LifecycleListeners
       // console.log('adding ', instance.babylonJsObject.name, ' to ', child.babylonJsObject.name)
 
       // Need to add instance.state.isAdded = true, for components added at runtime.
-      instance.babylonJsObject.addControl(child.babylonJsObject)
+      instance.hostInstance.addControl(child.hostInstance)
       this.addControls(child)
     })
 

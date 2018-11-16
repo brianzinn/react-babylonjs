@@ -72,13 +72,7 @@ class Scene extends React.Component<SceneProps, any, any> {
       const { engine /*, canvas */ } = babylonJSContext;
       
       this._scene = new BABYLON.Scene(engine!)
-      let mockInstance : CreatedInstance<BABYLON.Scene> = {
-        babylonJsObject: this._scene,
-        metadata: {className:"scene"},
-        children: [],
-        parent: null
-      }
-      const updates : PropertyUpdate[] | null = new FiberScenePropsHandler().getPropertyUpdates(mockInstance, {}, this.props as any, this._scene)
+      const updates : PropertyUpdate[] | null = new FiberScenePropsHandler().getPropertyUpdates(this._scene, {}, this.props as any, this._scene)
       if (updates != null) {
         updates.forEach(propertyUpdate => {
           applyUpdateToInstance(this._scene, propertyUpdate, 'scene')
@@ -112,7 +106,7 @@ class Scene extends React.Component<SceneProps, any, any> {
       canvas: this.props.babylonJSContext.canvas,
       scene: this._scene,
       rootInstance: {
-        babylonJsObject: null,
+        hostInstance: null,
         children: [],
         parent: null,
         metadata: {

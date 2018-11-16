@@ -21,7 +21,7 @@ export default class AdvancedDynamicTextureLifecycleListener implements Lifecycl
     if (this.props.forParentMesh === true) {
       // console.log('for parent mesh', instance.parent ? instance.parent.babylonJsObject : 'error: no parent object')
 
-      let mesh: BABYLON.Mesh = instance.parent!.babylonJsObject // should crawl for a mesh
+      let mesh: BABYLON.Mesh = instance.parent!.hostInstance // should crawl for a mesh
       // console.error('we will be attaching the mesh:', mesh.name, mesh);
 
       var material = new BABYLON.StandardMaterial("AdvancedDynamicTextureMaterial", mesh.getScene())
@@ -30,19 +30,19 @@ export default class AdvancedDynamicTextureLifecycleListener implements Lifecycl
       material.specularColor = Color3.Black()
 
       if (this.props.onlyAlphaTesting) {
-        material.diffuseTexture = instance.babylonJsObject
-        material.emissiveTexture = instance.babylonJsObject
-        instance.babylonJsObject.hasAlpha = true
+        material.diffuseTexture = instance.hostInstance
+        material.emissiveTexture = instance.hostInstance
+        instance.hostInstance.hasAlpha = true
       } else {
-        material.emissiveTexture = instance.babylonJsObject
-        material.opacityTexture = instance.babylonJsObject
+        material.emissiveTexture = instance.hostInstance
+        material.opacityTexture = instance.hostInstance
       }
 
       mesh.material = material
 
       let supportPointerMove = this.props.supportPointerMove === true ? true : false
 
-      instance.babylonJsObject.attachToMesh(mesh, supportPointerMove)
+      instance.hostInstance.attachToMesh(mesh, supportPointerMove)
     }
   }
 
@@ -50,9 +50,9 @@ export default class AdvancedDynamicTextureLifecycleListener implements Lifecycl
     // When there is a panel, it must be added before the children. Otherwise there is no UtilityLayer to attach to.
     // This project before 'react-reconciler' was added from parent up the tree.  'react-reconciler' wants to do the opposite.
     instance.children.forEach(child => {
-      console.warn("calling ", instance.babylonJsObject.name, ".addControl(", child.babylonJsObject.name, ")")
+      console.warn("calling ", instance.hostInstance.name, ".addControl(", child.hostInstance.name, ")")
       // Need to add instance.state.isAdded = true, for components added at runtime.
-      instance.babylonJsObject.addControl(child.babylonJsObject)
+      instance.hostInstance.addControl(child.hostInstance)
     })
 
     instance.children.forEach(child => {
