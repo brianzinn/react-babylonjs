@@ -48,6 +48,7 @@ type EngineProps = {
   adaptToDeviceRatio?: boolean,
   width?: number,
   height?: number,
+  canvasStyle?: any,
   /**
    * By default touch-action: 'none' will be on the canvas.  Use this to disable.
    */
@@ -55,7 +56,7 @@ type EngineProps = {
   /**
    * Useful if you want to attach CSS to the canvas by css #id selector.
    */
-  id?: string,
+  canvasId?: string,
   debug?: boolean
 }
 
@@ -125,7 +126,7 @@ class Engine extends React.Component<EngineProps, EngineState> {
       return this.props.noSSR;
     }
 
-    let { touchActionNone, id, width, height, ...rest } = this.props
+    let { touchActionNone, width, height, canvasStyle, canvasId, ...rest } = this.props
 
     let opts: any = {}
 
@@ -138,8 +139,12 @@ class Engine extends React.Component<EngineProps, EngineState> {
       opts.height = height
     }
 
-    if (id) {
-      opts.id = id;
+    if (canvasId) {
+      opts.id = canvasId;
+    }
+
+    if (canvasStyle) {
+      opts.style = canvasStyle;
     }
 
     // TODO: this.props.portalCanvas does not need to render a canvas.

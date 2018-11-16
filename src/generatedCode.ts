@@ -1,9 +1,9 @@
-import { CreatedInstance, CreatedInstanceMetadata, PropertyUpdate } from "./ReactBabylonJSHostConfig";
+import { CreatedInstanceMetadata, PropertyUpdate } from "./ReactBabylonJSHostConfig";
 import BABYLON from "babylonjs";
 import GUI from "babylonjs-gui";
 
 export interface PropsHandler<T, U> {
-    getPropertyUpdates(createdInstance: CreatedInstance<T>, oldProps: U, newProps: U, scene: BABYLON.Scene): PropertyUpdate[] | null;
+    getPropertyUpdates(hostInstance: T, oldProps: U, newProps: U, scene: BABYLON.Scene): PropertyUpdate[] | null;
 }
 
 export interface HasPropsHandlers<T, U> {
@@ -30,9 +30,8 @@ export class FiberNodeProps {
 }
 
 export class FiberNodePropsHandler implements PropsHandler<BABYLON.Node, FiberNodeProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.Node>, oldProps: FiberNodeProps, newProps: FiberNodeProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.Node, oldProps: FiberNodeProps, newProps: FiberNodeProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.Node = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // TODO: type: BABYLON.AnimationPropertiesOverride property (not coded) BABYLON.Node.animationPropertiesOverride.
         // TODO: type: BABYLON.Animation[] property (not coded) BABYLON.Node.animations.
@@ -66,8 +65,7 @@ export class FiberNodePropsHandler implements PropsHandler<BABYLON.Node, FiberNo
             updates.push({
                 propertyName: 'onDispose',
                 value: newProps.onDispose,
-                type: '() => void',
-                prevValue: oldProps.onDispose,
+                type: '() => void'
             });
         }
         // BABYLON.Node.onDisposeObservable of type 'BABYLON.Observable<BABYLON.Node>/fn':
@@ -75,8 +73,7 @@ export class FiberNodePropsHandler implements PropsHandler<BABYLON.Node, FiberNo
             updates.push({
                 propertyName: 'onDisposeObservable',
                 value: newProps.onDisposeObservable,
-                type: 'BABYLON.Observable<BABYLON.Node>',
-                prevValue: oldProps.onDisposeObservable,
+                type: 'BABYLON.Observable<BABYLON.Node>'
             });
         }
         // BABYLON.Node.onReady of type '(node: BABYLON.Node) => void/fn':
@@ -84,8 +81,7 @@ export class FiberNodePropsHandler implements PropsHandler<BABYLON.Node, FiberNo
             updates.push({
                 propertyName: 'onReady',
                 value: newProps.onReady,
-                type: '(node: BABYLON.Node) => void',
-                prevValue: oldProps.onReady,
+                type: '(node: BABYLON.Node) => void'
             });
         }
         // TODO: type: BABYLON.Node property (not coded) BABYLON.Node.parent.
@@ -137,9 +133,8 @@ export class FiberCameraProps extends FiberNodeProps {
 }
 
 export class FiberCameraPropsHandler implements PropsHandler<BABYLON.Camera, FiberCameraProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.Camera>, oldProps: FiberCameraProps, newProps: FiberCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.Camera, oldProps: FiberCameraProps, newProps: FiberCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.Camera = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // BABYLON.Camera.cameraRigMode of type 'number':
         if (oldProps.cameraRigMode !== newProps.cameraRigMode) {
@@ -236,8 +231,7 @@ export class FiberCameraPropsHandler implements PropsHandler<BABYLON.Camera, Fib
             updates.push({
                 propertyName: 'onAfterCheckInputsObservable',
                 value: newProps.onAfterCheckInputsObservable,
-                type: 'BABYLON.Observable<BABYLON.Camera>',
-                prevValue: oldProps.onAfterCheckInputsObservable,
+                type: 'BABYLON.Observable<BABYLON.Camera>'
             });
         }
         // BABYLON.Camera.onProjectionMatrixChangedObservable of type 'BABYLON.Observable<BABYLON.Camera>/fn':
@@ -245,8 +239,7 @@ export class FiberCameraPropsHandler implements PropsHandler<BABYLON.Camera, Fib
             updates.push({
                 propertyName: 'onProjectionMatrixChangedObservable',
                 value: newProps.onProjectionMatrixChangedObservable,
-                type: 'BABYLON.Observable<BABYLON.Camera>',
-                prevValue: oldProps.onProjectionMatrixChangedObservable,
+                type: 'BABYLON.Observable<BABYLON.Camera>'
             });
         }
         // BABYLON.Camera.onRestoreStateObservable of type 'BABYLON.Observable<BABYLON.Camera>/fn':
@@ -254,8 +247,7 @@ export class FiberCameraPropsHandler implements PropsHandler<BABYLON.Camera, Fib
             updates.push({
                 propertyName: 'onRestoreStateObservable',
                 value: newProps.onRestoreStateObservable,
-                type: 'BABYLON.Observable<BABYLON.Camera>',
-                prevValue: oldProps.onRestoreStateObservable,
+                type: 'BABYLON.Observable<BABYLON.Camera>'
             });
         }
         // BABYLON.Camera.onViewMatrixChangedObservable of type 'BABYLON.Observable<BABYLON.Camera>/fn':
@@ -263,8 +255,7 @@ export class FiberCameraPropsHandler implements PropsHandler<BABYLON.Camera, Fib
             updates.push({
                 propertyName: 'onViewMatrixChangedObservable',
                 value: newProps.onViewMatrixChangedObservable,
-                type: 'BABYLON.Observable<BABYLON.Camera>',
-                prevValue: oldProps.onViewMatrixChangedObservable,
+                type: 'BABYLON.Observable<BABYLON.Camera>'
             });
         }
         // BABYLON.Camera.orthoBottom of type 'number':
@@ -387,9 +378,8 @@ export class FiberTargetCameraProps extends FiberCameraProps {
 }
 
 export class FiberTargetCameraPropsHandler implements PropsHandler<BABYLON.TargetCamera, FiberTargetCameraProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.TargetCamera>, oldProps: FiberTargetCameraProps, newProps: FiberTargetCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.TargetCamera, oldProps: FiberTargetCameraProps, newProps: FiberTargetCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.TargetCamera = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // BABYLON.TargetCamera.cameraDirection of BABYLONBABYLON.Vector3 uses object equals to find diffs:
         if (newProps.cameraDirection && (!oldProps.cameraDirection || !oldProps.cameraDirection.equals(newProps.cameraDirection))) {
@@ -534,9 +524,8 @@ export class FiberArcRotateCameraProps extends FiberTargetCameraProps {
 }
 
 export class FiberArcRotateCameraPropsHandler implements PropsHandler<BABYLON.ArcRotateCamera, FiberArcRotateCameraProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.ArcRotateCamera>, oldProps: FiberArcRotateCameraProps, newProps: FiberArcRotateCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.ArcRotateCamera, oldProps: FiberArcRotateCameraProps, newProps: FiberArcRotateCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.ArcRotateCamera = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // BABYLON.ArcRotateCamera.allowUpsideDown of type 'boolean':
         if (oldProps.allowUpsideDown !== newProps.allowUpsideDown) {
@@ -668,8 +657,7 @@ export class FiberArcRotateCameraPropsHandler implements PropsHandler<BABYLON.Ar
             updates.push({
                 propertyName: 'onCollide',
                 value: newProps.onCollide,
-                type: '(collidedMesh: BABYLON.AbstractMesh) => void',
-                prevValue: oldProps.onCollide,
+                type: '(collidedMesh: BABYLON.AbstractMesh) => void'
             });
         }
         // BABYLON.ArcRotateCamera.onMeshTargetChangedObservable of type 'BABYLON.Observable<BABYLON.AbstractMesh>/fn':
@@ -677,8 +665,7 @@ export class FiberArcRotateCameraPropsHandler implements PropsHandler<BABYLON.Ar
             updates.push({
                 propertyName: 'onMeshTargetChangedObservable',
                 value: newProps.onMeshTargetChangedObservable,
-                type: 'BABYLON.Observable<BABYLON.AbstractMesh>',
-                prevValue: oldProps.onMeshTargetChangedObservable,
+                type: 'BABYLON.Observable<BABYLON.AbstractMesh>'
             });
         }
         // BABYLON.ArcRotateCamera.panningAxis of BABYLONBABYLON.Vector3 uses object equals to find diffs:
@@ -918,9 +905,8 @@ export class FiberVRDeviceOrientationArcRotateCameraProps extends FiberArcRotate
 }
 
 export class FiberVRDeviceOrientationArcRotateCameraPropsHandler implements PropsHandler<BABYLON.VRDeviceOrientationArcRotateCamera, FiberVRDeviceOrientationArcRotateCameraProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.VRDeviceOrientationArcRotateCamera>, oldProps: FiberVRDeviceOrientationArcRotateCameraProps, newProps: FiberVRDeviceOrientationArcRotateCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.VRDeviceOrientationArcRotateCamera, oldProps: FiberVRDeviceOrientationArcRotateCameraProps, newProps: FiberVRDeviceOrientationArcRotateCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.VRDeviceOrientationArcRotateCamera = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         return updates.length == 0 ? null : updates;
     }
@@ -1009,9 +995,8 @@ export class FiberAnaglyphArcRotateCameraProps extends FiberArcRotateCameraProps
 }
 
 export class FiberAnaglyphArcRotateCameraPropsHandler implements PropsHandler<BABYLON.AnaglyphArcRotateCamera, FiberAnaglyphArcRotateCameraProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.AnaglyphArcRotateCamera>, oldProps: FiberAnaglyphArcRotateCameraProps, newProps: FiberAnaglyphArcRotateCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.AnaglyphArcRotateCamera, oldProps: FiberAnaglyphArcRotateCameraProps, newProps: FiberAnaglyphArcRotateCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.AnaglyphArcRotateCamera = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         return updates.length == 0 ? null : updates;
     }
@@ -1095,9 +1080,8 @@ export class FiberStereoscopicArcRotateCameraProps extends FiberArcRotateCameraP
 }
 
 export class FiberStereoscopicArcRotateCameraPropsHandler implements PropsHandler<BABYLON.StereoscopicArcRotateCamera, FiberStereoscopicArcRotateCameraProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.StereoscopicArcRotateCamera>, oldProps: FiberStereoscopicArcRotateCameraProps, newProps: FiberStereoscopicArcRotateCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.StereoscopicArcRotateCamera, oldProps: FiberStereoscopicArcRotateCameraProps, newProps: FiberStereoscopicArcRotateCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.StereoscopicArcRotateCamera = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         return updates.length == 0 ? null : updates;
     }
@@ -1192,9 +1176,8 @@ export class FiberFollowCameraProps extends FiberTargetCameraProps {
 }
 
 export class FiberFollowCameraPropsHandler implements PropsHandler<BABYLON.FollowCamera, FiberFollowCameraProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.FollowCamera>, oldProps: FiberFollowCameraProps, newProps: FiberFollowCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.FollowCamera, oldProps: FiberFollowCameraProps, newProps: FiberFollowCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.FollowCamera = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // BABYLON.FollowCamera.cameraAcceleration of type 'number':
         if (oldProps.cameraAcceleration !== newProps.cameraAcceleration) {
@@ -1308,9 +1291,8 @@ export class FiberArcFollowCameraProps extends FiberTargetCameraProps {
 }
 
 export class FiberArcFollowCameraPropsHandler implements PropsHandler<BABYLON.ArcFollowCamera, FiberArcFollowCameraProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.ArcFollowCamera>, oldProps: FiberArcFollowCameraProps, newProps: FiberArcFollowCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.ArcFollowCamera, oldProps: FiberArcFollowCameraProps, newProps: FiberArcFollowCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.ArcFollowCamera = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // BABYLON.ArcFollowCamera.alpha of type 'number':
         if (oldProps.alpha !== newProps.alpha) {
@@ -1426,9 +1408,8 @@ export class FiberFreeCameraProps extends FiberTargetCameraProps {
 }
 
 export class FiberFreeCameraPropsHandler implements PropsHandler<BABYLON.FreeCamera, FiberFreeCameraProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.FreeCamera>, oldProps: FiberFreeCameraProps, newProps: FiberFreeCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.FreeCamera, oldProps: FiberFreeCameraProps, newProps: FiberFreeCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.FreeCamera = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // BABYLON.FreeCamera.angularSensibility of type 'number':
         if (oldProps.angularSensibility !== newProps.angularSensibility) {
@@ -1488,8 +1469,7 @@ export class FiberFreeCameraPropsHandler implements PropsHandler<BABYLON.FreeCam
             updates.push({
                 propertyName: 'onCollide',
                 value: newProps.onCollide,
-                type: '(collidedMesh: BABYLON.AbstractMesh) => void',
-                prevValue: oldProps.onCollide,
+                type: '(collidedMesh: BABYLON.AbstractMesh) => void'
             });
         }
         return updates.length == 0 ? null : updates;
@@ -1559,9 +1539,8 @@ export class FiberDeviceOrientationCameraProps extends FiberFreeCameraProps {
 }
 
 export class FiberDeviceOrientationCameraPropsHandler implements PropsHandler<BABYLON.DeviceOrientationCamera, FiberDeviceOrientationCameraProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.DeviceOrientationCamera>, oldProps: FiberDeviceOrientationCameraProps, newProps: FiberDeviceOrientationCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.DeviceOrientationCamera, oldProps: FiberDeviceOrientationCameraProps, newProps: FiberDeviceOrientationCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.DeviceOrientationCamera = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         return updates.length == 0 ? null : updates;
     }
@@ -1626,9 +1605,8 @@ export class FiberVRDeviceOrientationFreeCameraProps extends FiberDeviceOrientat
 }
 
 export class FiberVRDeviceOrientationFreeCameraPropsHandler implements PropsHandler<BABYLON.VRDeviceOrientationFreeCamera, FiberVRDeviceOrientationFreeCameraProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.VRDeviceOrientationFreeCamera>, oldProps: FiberVRDeviceOrientationFreeCameraProps, newProps: FiberVRDeviceOrientationFreeCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.VRDeviceOrientationFreeCamera, oldProps: FiberVRDeviceOrientationFreeCameraProps, newProps: FiberVRDeviceOrientationFreeCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.VRDeviceOrientationFreeCamera = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         return updates.length == 0 ? null : updates;
     }
@@ -1703,9 +1681,8 @@ export class FiberVRDeviceOrientationGamepadCameraProps extends FiberVRDeviceOri
 }
 
 export class FiberVRDeviceOrientationGamepadCameraPropsHandler implements PropsHandler<BABYLON.VRDeviceOrientationGamepadCamera, FiberVRDeviceOrientationGamepadCameraProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.VRDeviceOrientationGamepadCamera>, oldProps: FiberVRDeviceOrientationGamepadCameraProps, newProps: FiberVRDeviceOrientationGamepadCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.VRDeviceOrientationGamepadCamera, oldProps: FiberVRDeviceOrientationGamepadCameraProps, newProps: FiberVRDeviceOrientationGamepadCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.VRDeviceOrientationGamepadCamera = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         return updates.length == 0 ? null : updates;
     }
@@ -1783,9 +1760,8 @@ export class FiberTouchCameraProps extends FiberFreeCameraProps {
 }
 
 export class FiberTouchCameraPropsHandler implements PropsHandler<BABYLON.TouchCamera, FiberTouchCameraProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.TouchCamera>, oldProps: FiberTouchCameraProps, newProps: FiberTouchCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.TouchCamera, oldProps: FiberTouchCameraProps, newProps: FiberTouchCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.TouchCamera = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // BABYLON.TouchCamera.touchAngularSensibility of type 'number':
         if (oldProps.touchAngularSensibility !== newProps.touchAngularSensibility) {
@@ -1868,9 +1844,8 @@ export class FiberUniversalCameraProps extends FiberTouchCameraProps {
 }
 
 export class FiberUniversalCameraPropsHandler implements PropsHandler<BABYLON.UniversalCamera, FiberUniversalCameraProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.UniversalCamera>, oldProps: FiberUniversalCameraProps, newProps: FiberUniversalCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.UniversalCamera, oldProps: FiberUniversalCameraProps, newProps: FiberUniversalCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.UniversalCamera = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // BABYLON.UniversalCamera.gamepadAngularSensibility of type 'number':
         if (oldProps.gamepadAngularSensibility !== newProps.gamepadAngularSensibility) {
@@ -1952,9 +1927,8 @@ export class FiberGamepadCameraProps extends FiberUniversalCameraProps {
 }
 
 export class FiberGamepadCameraPropsHandler implements PropsHandler<BABYLON.GamepadCamera, FiberGamepadCameraProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.GamepadCamera>, oldProps: FiberGamepadCameraProps, newProps: FiberGamepadCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.GamepadCamera, oldProps: FiberGamepadCameraProps, newProps: FiberGamepadCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.GamepadCamera = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         return updates.length == 0 ? null : updates;
     }
@@ -2021,9 +1995,8 @@ export class FiberAnaglyphGamepadCameraProps extends FiberGamepadCameraProps {
 }
 
 export class FiberAnaglyphGamepadCameraPropsHandler implements PropsHandler<BABYLON.AnaglyphGamepadCamera, FiberAnaglyphGamepadCameraProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.AnaglyphGamepadCamera>, oldProps: FiberAnaglyphGamepadCameraProps, newProps: FiberAnaglyphGamepadCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.AnaglyphGamepadCamera, oldProps: FiberAnaglyphGamepadCameraProps, newProps: FiberAnaglyphGamepadCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.AnaglyphGamepadCamera = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         return updates.length == 0 ? null : updates;
     }
@@ -2095,9 +2068,8 @@ export class FiberStereoscopicGamepadCameraProps extends FiberGamepadCameraProps
 }
 
 export class FiberStereoscopicGamepadCameraPropsHandler implements PropsHandler<BABYLON.StereoscopicGamepadCamera, FiberStereoscopicGamepadCameraProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.StereoscopicGamepadCamera>, oldProps: FiberStereoscopicGamepadCameraProps, newProps: FiberStereoscopicGamepadCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.StereoscopicGamepadCamera, oldProps: FiberStereoscopicGamepadCameraProps, newProps: FiberStereoscopicGamepadCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.StereoscopicGamepadCamera = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         return updates.length == 0 ? null : updates;
     }
@@ -2174,9 +2146,8 @@ export class FiberAnaglyphUniversalCameraProps extends FiberUniversalCameraProps
 }
 
 export class FiberAnaglyphUniversalCameraPropsHandler implements PropsHandler<BABYLON.AnaglyphUniversalCamera, FiberAnaglyphUniversalCameraProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.AnaglyphUniversalCamera>, oldProps: FiberAnaglyphUniversalCameraProps, newProps: FiberAnaglyphUniversalCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.AnaglyphUniversalCamera, oldProps: FiberAnaglyphUniversalCameraProps, newProps: FiberAnaglyphUniversalCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.AnaglyphUniversalCamera = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         return updates.length == 0 ? null : updates;
     }
@@ -2247,9 +2218,8 @@ export class FiberStereoscopicUniversalCameraProps extends FiberUniversalCameraP
 }
 
 export class FiberStereoscopicUniversalCameraPropsHandler implements PropsHandler<BABYLON.StereoscopicUniversalCamera, FiberStereoscopicUniversalCameraProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.StereoscopicUniversalCamera>, oldProps: FiberStereoscopicUniversalCameraProps, newProps: FiberStereoscopicUniversalCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.StereoscopicUniversalCamera, oldProps: FiberStereoscopicUniversalCameraProps, newProps: FiberStereoscopicUniversalCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.StereoscopicUniversalCamera = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         return updates.length == 0 ? null : updates;
     }
@@ -2325,9 +2295,8 @@ export class FiberVirtualJoysticksCameraProps extends FiberFreeCameraProps {
 }
 
 export class FiberVirtualJoysticksCameraPropsHandler implements PropsHandler<BABYLON.VirtualJoysticksCamera, FiberVirtualJoysticksCameraProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.VirtualJoysticksCamera>, oldProps: FiberVirtualJoysticksCameraProps, newProps: FiberVirtualJoysticksCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.VirtualJoysticksCamera, oldProps: FiberVirtualJoysticksCameraProps, newProps: FiberVirtualJoysticksCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.VirtualJoysticksCamera = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         return updates.length == 0 ? null : updates;
     }
@@ -2404,9 +2373,8 @@ export class FiberWebVRFreeCameraProps extends FiberFreeCameraProps {
 }
 
 export class FiberWebVRFreeCameraPropsHandler implements PropsHandler<BABYLON.WebVRFreeCamera, FiberWebVRFreeCameraProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.WebVRFreeCamera>, oldProps: FiberWebVRFreeCameraProps, newProps: FiberWebVRFreeCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.WebVRFreeCamera, oldProps: FiberWebVRFreeCameraProps, newProps: FiberWebVRFreeCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.WebVRFreeCamera = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // TODO: type: BABYLON.WebVRController[] property (not coded) BABYLON.WebVRFreeCamera.controllers.
         // BABYLON.WebVRFreeCamera.devicePosition of BABYLONBABYLON.Vector3 uses object equals to find diffs:
@@ -2431,8 +2399,7 @@ export class FiberWebVRFreeCameraPropsHandler implements PropsHandler<BABYLON.We
             updates.push({
                 propertyName: 'onControllerMeshLoadedObservable',
                 value: newProps.onControllerMeshLoadedObservable,
-                type: 'BABYLON.Observable<BABYLON.WebVRController>',
-                prevValue: oldProps.onControllerMeshLoadedObservable,
+                type: 'BABYLON.Observable<BABYLON.WebVRController>'
             });
         }
         // BABYLON.WebVRFreeCamera.onControllersAttachedObservable of type 'BABYLON.Observable<BABYLON.WebVRController[]>/fn':
@@ -2440,8 +2407,7 @@ export class FiberWebVRFreeCameraPropsHandler implements PropsHandler<BABYLON.We
             updates.push({
                 propertyName: 'onControllersAttachedObservable',
                 value: newProps.onControllersAttachedObservable,
-                type: 'BABYLON.Observable<BABYLON.WebVRController[]>',
-                prevValue: oldProps.onControllersAttachedObservable,
+                type: 'BABYLON.Observable<BABYLON.WebVRController[]>'
             });
         }
         // BABYLON.WebVRFreeCamera.onPoseUpdatedFromDeviceObservable of type 'BABYLON.Observable<any>/fn':
@@ -2449,8 +2415,7 @@ export class FiberWebVRFreeCameraPropsHandler implements PropsHandler<BABYLON.We
             updates.push({
                 propertyName: 'onPoseUpdatedFromDeviceObservable',
                 value: newProps.onPoseUpdatedFromDeviceObservable,
-                type: 'BABYLON.Observable<any>',
-                prevValue: oldProps.onPoseUpdatedFromDeviceObservable,
+                type: 'BABYLON.Observable<any>'
             });
         }
         // TODO: type: BABYLON.DevicePose property (not coded) BABYLON.WebVRFreeCamera.rawPose.
@@ -2532,9 +2497,8 @@ export class FiberAnaglyphFreeCameraProps extends FiberFreeCameraProps {
 }
 
 export class FiberAnaglyphFreeCameraPropsHandler implements PropsHandler<BABYLON.AnaglyphFreeCamera, FiberAnaglyphFreeCameraProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.AnaglyphFreeCamera>, oldProps: FiberAnaglyphFreeCameraProps, newProps: FiberAnaglyphFreeCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.AnaglyphFreeCamera, oldProps: FiberAnaglyphFreeCameraProps, newProps: FiberAnaglyphFreeCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.AnaglyphFreeCamera = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         return updates.length == 0 ? null : updates;
     }
@@ -2603,9 +2567,8 @@ export class FiberStereoscopicFreeCameraProps extends FiberFreeCameraProps {
 }
 
 export class FiberStereoscopicFreeCameraPropsHandler implements PropsHandler<BABYLON.StereoscopicFreeCamera, FiberStereoscopicFreeCameraProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.StereoscopicFreeCamera>, oldProps: FiberStereoscopicFreeCameraProps, newProps: FiberStereoscopicFreeCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.StereoscopicFreeCamera, oldProps: FiberStereoscopicFreeCameraProps, newProps: FiberStereoscopicFreeCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.StereoscopicFreeCamera = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         return updates.length == 0 ? null : updates;
     }
@@ -2759,9 +2722,8 @@ export class FiberMeshProps extends FiberNodeProps {
 }
 
 export class FiberMeshPropsHandler implements PropsHandler<BABYLON.Mesh, FiberMeshProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.Mesh>, oldProps: FiberMeshProps, newProps: FiberMeshProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.Mesh, oldProps: FiberMeshProps, newProps: FiberMeshProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.Mesh = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // TODO: type: BABYLON.ActionManager property (not coded) BABYLON.Mesh.actionManager.
         // BABYLON.Mesh.alphaIndex of type 'number':
@@ -3048,8 +3010,7 @@ export class FiberMeshPropsHandler implements PropsHandler<BABYLON.Mesh, FiberMe
             updates.push({
                 propertyName: 'onAfterWorldMatrixUpdateObservable',
                 value: newProps.onAfterWorldMatrixUpdateObservable,
-                type: 'BABYLON.Observable<BABYLON.TransformNode>',
-                prevValue: oldProps.onAfterWorldMatrixUpdateObservable,
+                type: 'BABYLON.Observable<BABYLON.TransformNode>'
             });
         }
         // BABYLON.Mesh.onBeforeDraw of type '() => void/fn':
@@ -3057,8 +3018,7 @@ export class FiberMeshPropsHandler implements PropsHandler<BABYLON.Mesh, FiberMe
             updates.push({
                 propertyName: 'onBeforeDraw',
                 value: newProps.onBeforeDraw,
-                type: '() => void',
-                prevValue: oldProps.onBeforeDraw,
+                type: '() => void'
             });
         }
         // BABYLON.Mesh.onCollide of type '() => void/fn':
@@ -3066,8 +3026,7 @@ export class FiberMeshPropsHandler implements PropsHandler<BABYLON.Mesh, FiberMe
             updates.push({
                 propertyName: 'onCollide',
                 value: newProps.onCollide,
-                type: '() => void',
-                prevValue: oldProps.onCollide,
+                type: '() => void'
             });
         }
         // BABYLON.Mesh.onCollideObservable of type 'BABYLON.Observable<BABYLON.AbstractMesh>/fn':
@@ -3075,8 +3034,7 @@ export class FiberMeshPropsHandler implements PropsHandler<BABYLON.Mesh, FiberMe
             updates.push({
                 propertyName: 'onCollideObservable',
                 value: newProps.onCollideObservable,
-                type: 'BABYLON.Observable<BABYLON.AbstractMesh>',
-                prevValue: oldProps.onCollideObservable,
+                type: 'BABYLON.Observable<BABYLON.AbstractMesh>'
             });
         }
         // BABYLON.Mesh.onCollisionPositionChange of type '() => void/fn':
@@ -3084,8 +3042,7 @@ export class FiberMeshPropsHandler implements PropsHandler<BABYLON.Mesh, FiberMe
             updates.push({
                 propertyName: 'onCollisionPositionChange',
                 value: newProps.onCollisionPositionChange,
-                type: '() => void',
-                prevValue: oldProps.onCollisionPositionChange,
+                type: '() => void'
             });
         }
         // BABYLON.Mesh.onCollisionPositionChangeObservable of type 'BABYLON.Observable<BABYLON.Vector3>/fn':
@@ -3093,8 +3050,7 @@ export class FiberMeshPropsHandler implements PropsHandler<BABYLON.Mesh, FiberMe
             updates.push({
                 propertyName: 'onCollisionPositionChangeObservable',
                 value: newProps.onCollisionPositionChangeObservable,
-                type: 'BABYLON.Observable<BABYLON.Vector3>',
-                prevValue: oldProps.onCollisionPositionChangeObservable,
+                type: 'BABYLON.Observable<BABYLON.Vector3>'
             });
         }
         // BABYLON.Mesh.onDispose of type '() => void/fn':
@@ -3102,8 +3058,7 @@ export class FiberMeshPropsHandler implements PropsHandler<BABYLON.Mesh, FiberMe
             updates.push({
                 propertyName: 'onDispose',
                 value: newProps.onDispose,
-                type: '() => void',
-                prevValue: oldProps.onDispose,
+                type: '() => void'
             });
         }
         // BABYLON.Mesh.onDisposeObservable of type 'BABYLON.Observable<BABYLON.Node>/fn':
@@ -3111,8 +3066,7 @@ export class FiberMeshPropsHandler implements PropsHandler<BABYLON.Mesh, FiberMe
             updates.push({
                 propertyName: 'onDisposeObservable',
                 value: newProps.onDisposeObservable,
-                type: 'BABYLON.Observable<BABYLON.Node>',
-                prevValue: oldProps.onDisposeObservable,
+                type: 'BABYLON.Observable<BABYLON.Node>'
             });
         }
         // BABYLON.Mesh.onLODLevelSelection of type '(distance: number, mesh: BABYLON.Mesh, selectedLevel: BABYLON.Mesh) => void/fn':
@@ -3120,8 +3074,7 @@ export class FiberMeshPropsHandler implements PropsHandler<BABYLON.Mesh, FiberMe
             updates.push({
                 propertyName: 'onLODLevelSelection',
                 value: newProps.onLODLevelSelection,
-                type: '(distance: number, mesh: BABYLON.Mesh, selectedLevel: BABYLON.Mesh) => void',
-                prevValue: oldProps.onLODLevelSelection,
+                type: '(distance: number, mesh: BABYLON.Mesh, selectedLevel: BABYLON.Mesh) => void'
             });
         }
         // BABYLON.Mesh.onMaterialChangedObservable of type 'BABYLON.Observable<BABYLON.AbstractMesh>/fn':
@@ -3129,8 +3082,7 @@ export class FiberMeshPropsHandler implements PropsHandler<BABYLON.Mesh, FiberMe
             updates.push({
                 propertyName: 'onMaterialChangedObservable',
                 value: newProps.onMaterialChangedObservable,
-                type: 'BABYLON.Observable<BABYLON.AbstractMesh>',
-                prevValue: oldProps.onMaterialChangedObservable,
+                type: 'BABYLON.Observable<BABYLON.AbstractMesh>'
             });
         }
         // BABYLON.Mesh.onReady of type '(node: BABYLON.Node) => void/fn':
@@ -3138,8 +3090,7 @@ export class FiberMeshPropsHandler implements PropsHandler<BABYLON.Mesh, FiberMe
             updates.push({
                 propertyName: 'onReady',
                 value: newProps.onReady,
-                type: '(node: BABYLON.Node) => void',
-                prevValue: oldProps.onReady,
+                type: '(node: BABYLON.Node) => void'
             });
         }
         // BABYLON.Mesh.onRebuildObservable of type 'BABYLON.Observable<BABYLON.AbstractMesh>/fn':
@@ -3147,8 +3098,7 @@ export class FiberMeshPropsHandler implements PropsHandler<BABYLON.Mesh, FiberMe
             updates.push({
                 propertyName: 'onRebuildObservable',
                 value: newProps.onRebuildObservable,
-                type: 'BABYLON.Observable<BABYLON.AbstractMesh>',
-                prevValue: oldProps.onRebuildObservable,
+                type: 'BABYLON.Observable<BABYLON.AbstractMesh>'
             });
         }
         // BABYLON.Mesh.outlineColor of BABYLONBABYLON.Color3 uses object equals to find diffs:
@@ -5846,9 +5796,8 @@ export class FiberMaterialProps {
 }
 
 export class FiberMaterialPropsHandler implements PropsHandler<BABYLON.Material, FiberMaterialProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.Material>, oldProps: FiberMaterialProps, newProps: FiberMaterialProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.Material, oldProps: FiberMaterialProps, newProps: FiberMaterialProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.Material = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // BABYLON.Material.alpha of type 'number':
         if (oldProps.alpha !== newProps.alpha) {
@@ -5969,8 +5918,7 @@ export class FiberMaterialPropsHandler implements PropsHandler<BABYLON.Material,
             updates.push({
                 propertyName: 'onBind',
                 value: newProps.onBind,
-                type: '(Mesh: BABYLON.AbstractMesh) => void',
-                prevValue: oldProps.onBind,
+                type: '(Mesh: BABYLON.AbstractMesh) => void'
             });
         }
         // BABYLON.Material.onCompiled of type '(effect: BABYLON.Effect) => void/fn':
@@ -5978,8 +5926,7 @@ export class FiberMaterialPropsHandler implements PropsHandler<BABYLON.Material,
             updates.push({
                 propertyName: 'onCompiled',
                 value: newProps.onCompiled,
-                type: '(effect: BABYLON.Effect) => void',
-                prevValue: oldProps.onCompiled,
+                type: '(effect: BABYLON.Effect) => void'
             });
         }
         // BABYLON.Material.onDispose of type '() => void/fn':
@@ -5987,8 +5934,7 @@ export class FiberMaterialPropsHandler implements PropsHandler<BABYLON.Material,
             updates.push({
                 propertyName: 'onDispose',
                 value: newProps.onDispose,
-                type: '() => void',
-                prevValue: oldProps.onDispose,
+                type: '() => void'
             });
         }
         // BABYLON.Material.onDisposeObservable of type 'BABYLON.Observable<BABYLON.Material>/fn':
@@ -5996,8 +5942,7 @@ export class FiberMaterialPropsHandler implements PropsHandler<BABYLON.Material,
             updates.push({
                 propertyName: 'onDisposeObservable',
                 value: newProps.onDisposeObservable,
-                type: 'BABYLON.Observable<BABYLON.Material>',
-                prevValue: oldProps.onDisposeObservable,
+                type: 'BABYLON.Observable<BABYLON.Material>'
             });
         }
         // BABYLON.Material.onError of type '(effect: BABYLON.Effect, errors: string) => void/fn':
@@ -6005,8 +5950,7 @@ export class FiberMaterialPropsHandler implements PropsHandler<BABYLON.Material,
             updates.push({
                 propertyName: 'onError',
                 value: newProps.onError,
-                type: '(effect: BABYLON.Effect, errors: string) => void',
-                prevValue: oldProps.onError,
+                type: '(effect: BABYLON.Effect, errors: string) => void'
             });
         }
         // BABYLON.Material.pointsCloud of type 'boolean':
@@ -6140,9 +6084,8 @@ export class FiberMultiMaterialProps extends FiberMaterialProps {
 }
 
 export class FiberMultiMaterialPropsHandler implements PropsHandler<BABYLON.MultiMaterial, FiberMultiMaterialProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.MultiMaterial>, oldProps: FiberMultiMaterialProps, newProps: FiberMultiMaterialProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.MultiMaterial, oldProps: FiberMultiMaterialProps, newProps: FiberMultiMaterialProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.MultiMaterial = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // TODO: type: BABYLON.Material[] property (not coded) BABYLON.MultiMaterial.subMaterials.
         return updates.length == 0 ? null : updates;
@@ -6197,9 +6140,8 @@ export class FiberPushMaterialProps extends FiberMaterialProps {
 }
 
 export class FiberPushMaterialPropsHandler implements PropsHandler<BABYLON.PushMaterial, FiberPushMaterialProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.PushMaterial>, oldProps: FiberPushMaterialProps, newProps: FiberPushMaterialProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.PushMaterial, oldProps: FiberPushMaterialProps, newProps: FiberPushMaterialProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.PushMaterial = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         return updates.length == 0 ? null : updates;
     }
@@ -6303,9 +6245,8 @@ export class FiberStandardMaterialProps extends FiberPushMaterialProps {
 }
 
 export class FiberStandardMaterialPropsHandler implements PropsHandler<BABYLON.StandardMaterial, FiberStandardMaterialProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.StandardMaterial>, oldProps: FiberStandardMaterialProps, newProps: FiberStandardMaterialProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.StandardMaterial, oldProps: FiberStandardMaterialProps, newProps: FiberStandardMaterialProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.StandardMaterial = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // BABYLON.StandardMaterial.alphaCutOff of type 'number':
         if (oldProps.alphaCutOff !== newProps.alphaCutOff) {
@@ -6664,9 +6605,8 @@ export class FiberBackgroundMaterialProps extends FiberPushMaterialProps {
 }
 
 export class FiberBackgroundMaterialPropsHandler implements PropsHandler<BABYLON.BackgroundMaterial, FiberBackgroundMaterialProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.BackgroundMaterial>, oldProps: FiberBackgroundMaterialProps, newProps: FiberBackgroundMaterialProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.BackgroundMaterial, oldProps: FiberBackgroundMaterialProps, newProps: FiberBackgroundMaterialProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.BackgroundMaterial = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // TODO: type: BABYLON.ColorCurves property (not coded) BABYLON.BackgroundMaterial.cameraColorCurves.
         // BABYLON.BackgroundMaterial.cameraColorCurvesEnabled of type 'boolean':
@@ -6923,9 +6863,8 @@ export class FiberPBRBaseMaterialProps extends FiberPushMaterialProps {
 }
 
 export class FiberPBRBaseMaterialPropsHandler implements PropsHandler<BABYLON.PBRBaseMaterial, FiberPBRBaseMaterialProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.PBRBaseMaterial>, oldProps: FiberPBRBaseMaterialProps, newProps: FiberPBRBaseMaterialProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.PBRBaseMaterial, oldProps: FiberPBRBaseMaterialProps, newProps: FiberPBRBaseMaterialProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.PBRBaseMaterial = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // BABYLON.PBRBaseMaterial.transparencyMode of type 'number':
         if (oldProps.transparencyMode !== newProps.transparencyMode) {
@@ -7016,9 +6955,8 @@ export class FiberPBRBaseSimpleMaterialProps extends FiberPBRBaseMaterialProps {
 }
 
 export class FiberPBRBaseSimpleMaterialPropsHandler implements PropsHandler<BABYLON.PBRBaseSimpleMaterial, FiberPBRBaseSimpleMaterialProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.PBRBaseSimpleMaterial>, oldProps: FiberPBRBaseSimpleMaterialProps, newProps: FiberPBRBaseSimpleMaterialProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.PBRBaseSimpleMaterial, oldProps: FiberPBRBaseSimpleMaterialProps, newProps: FiberPBRBaseSimpleMaterialProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.PBRBaseSimpleMaterial = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // BABYLON.PBRBaseSimpleMaterial.alphaCutOff of type 'number':
         if (oldProps.alphaCutOff !== newProps.alphaCutOff) {
@@ -7161,9 +7099,8 @@ export class FiberPBRMetallicRoughnessMaterialProps extends FiberPBRBaseSimpleMa
 }
 
 export class FiberPBRMetallicRoughnessMaterialPropsHandler implements PropsHandler<BABYLON.PBRMetallicRoughnessMaterial, FiberPBRMetallicRoughnessMaterialProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.PBRMetallicRoughnessMaterial>, oldProps: FiberPBRMetallicRoughnessMaterialProps, newProps: FiberPBRMetallicRoughnessMaterialProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.PBRMetallicRoughnessMaterial, oldProps: FiberPBRMetallicRoughnessMaterialProps, newProps: FiberPBRMetallicRoughnessMaterialProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.PBRMetallicRoughnessMaterial = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // BABYLON.PBRMetallicRoughnessMaterial.baseColor of BABYLONBABYLON.Color3 uses object equals to find diffs:
         if (newProps.baseColor && (!oldProps.baseColor || !oldProps.baseColor.equals(newProps.baseColor))) {
@@ -7256,9 +7193,8 @@ export class FiberPBRSpecularGlossinessMaterialProps extends FiberPBRBaseSimpleM
 }
 
 export class FiberPBRSpecularGlossinessMaterialPropsHandler implements PropsHandler<BABYLON.PBRSpecularGlossinessMaterial, FiberPBRSpecularGlossinessMaterialProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.PBRSpecularGlossinessMaterial>, oldProps: FiberPBRSpecularGlossinessMaterialProps, newProps: FiberPBRSpecularGlossinessMaterialProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.PBRSpecularGlossinessMaterial, oldProps: FiberPBRSpecularGlossinessMaterialProps, newProps: FiberPBRSpecularGlossinessMaterialProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.PBRSpecularGlossinessMaterial = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // BABYLON.PBRSpecularGlossinessMaterial.diffuseColor of BABYLONBABYLON.Color3 uses object equals to find diffs:
         if (newProps.diffuseColor && (!oldProps.diffuseColor || !oldProps.diffuseColor.equals(newProps.diffuseColor))) {
@@ -7416,9 +7352,8 @@ export class FiberPBRMaterialProps extends FiberPBRBaseMaterialProps {
 }
 
 export class FiberPBRMaterialPropsHandler implements PropsHandler<BABYLON.PBRMaterial, FiberPBRMaterialProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.PBRMaterial>, oldProps: FiberPBRMaterialProps, newProps: FiberPBRMaterialProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.PBRMaterial, oldProps: FiberPBRMaterialProps, newProps: FiberPBRMaterialProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.PBRMaterial = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // BABYLON.PBRMaterial.albedoColor of BABYLONBABYLON.Color3 uses object equals to find diffs:
         if (newProps.albedoColor && (!oldProps.albedoColor || !oldProps.albedoColor.equals(newProps.albedoColor))) {
@@ -7935,9 +7870,8 @@ export class FiberShaderMaterialProps extends FiberMaterialProps {
 }
 
 export class FiberShaderMaterialPropsHandler implements PropsHandler<BABYLON.ShaderMaterial, FiberShaderMaterialProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.ShaderMaterial>, oldProps: FiberShaderMaterialProps, newProps: FiberShaderMaterialProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.ShaderMaterial, oldProps: FiberShaderMaterialProps, newProps: FiberShaderMaterialProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.ShaderMaterial = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         return updates.length == 0 ? null : updates;
     }
@@ -8015,9 +7949,8 @@ export class FiberLightProps extends FiberNodeProps {
 }
 
 export class FiberLightPropsHandler implements PropsHandler<BABYLON.Light, FiberLightProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.Light>, oldProps: FiberLightProps, newProps: FiberLightProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.Light, oldProps: FiberLightProps, newProps: FiberLightProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.Light = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // BABYLON.Light.diffuse of BABYLONBABYLON.Color3 uses object equals to find diffs:
         if (newProps.diffuse && (!oldProps.diffuse || !oldProps.diffuse.equals(newProps.diffuse))) {
@@ -8174,9 +8107,8 @@ export class FiberHemisphericLightProps extends FiberLightProps {
 }
 
 export class FiberHemisphericLightPropsHandler implements PropsHandler<BABYLON.HemisphericLight, FiberHemisphericLightProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.HemisphericLight>, oldProps: FiberHemisphericLightProps, newProps: FiberHemisphericLightProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.HemisphericLight, oldProps: FiberHemisphericLightProps, newProps: FiberHemisphericLightProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.HemisphericLight = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // BABYLON.HemisphericLight.direction of BABYLONBABYLON.Vector3 uses object equals to find diffs:
         if (newProps.direction && (!oldProps.direction || !oldProps.direction.equals(newProps.direction))) {
@@ -8261,9 +8193,8 @@ export class FiberShadowLightProps extends FiberLightProps {
 }
 
 export class FiberShadowLightPropsHandler implements PropsHandler<BABYLON.ShadowLight, FiberShadowLightProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.ShadowLight>, oldProps: FiberShadowLightProps, newProps: FiberShadowLightProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.ShadowLight, oldProps: FiberShadowLightProps, newProps: FiberShadowLightProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.ShadowLight = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // TODO: type: (viewMatrix: BABYLON.Matrix, renderList: BABYLON.AbstractMesh[], result: BABYLON.Matrix) => void property (not coded) BABYLON.ShadowLight.customProjectionMatrixBuilder.
         // BABYLON.ShadowLight.direction of BABYLONBABYLON.Vector3 uses object equals to find diffs:
@@ -8362,9 +8293,8 @@ export class FiberDirectionalLightProps extends FiberShadowLightProps {
 }
 
 export class FiberDirectionalLightPropsHandler implements PropsHandler<BABYLON.DirectionalLight, FiberDirectionalLightProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.DirectionalLight>, oldProps: FiberDirectionalLightProps, newProps: FiberDirectionalLightProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.DirectionalLight, oldProps: FiberDirectionalLightProps, newProps: FiberDirectionalLightProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.DirectionalLight = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // BABYLON.DirectionalLight.autoUpdateExtends of type 'boolean':
         if (oldProps.autoUpdateExtends !== newProps.autoUpdateExtends) {
@@ -8456,9 +8386,8 @@ export class FiberPointLightProps extends FiberShadowLightProps {
 }
 
 export class FiberPointLightPropsHandler implements PropsHandler<BABYLON.PointLight, FiberPointLightProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.PointLight>, oldProps: FiberPointLightProps, newProps: FiberPointLightProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.PointLight, oldProps: FiberPointLightProps, newProps: FiberPointLightProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.PointLight = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // BABYLON.PointLight.direction of BABYLONBABYLON.Vector3 uses object equals to find diffs:
         if (newProps.direction && (!oldProps.direction || !oldProps.direction.equals(newProps.direction))) {
@@ -8548,9 +8477,8 @@ export class FiberSpotLightProps extends FiberShadowLightProps {
 }
 
 export class FiberSpotLightPropsHandler implements PropsHandler<BABYLON.SpotLight, FiberSpotLightProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.SpotLight>, oldProps: FiberSpotLightProps, newProps: FiberSpotLightProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.SpotLight, oldProps: FiberSpotLightProps, newProps: FiberSpotLightProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.SpotLight = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // BABYLON.SpotLight.angle of type 'number':
         if (oldProps.angle !== newProps.angle) {
@@ -8737,9 +8665,8 @@ export class FiberControlProps {
 }
 
 export class FiberControlPropsHandler implements PropsHandler<GUI.Control, FiberControlProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<GUI.Control>, oldProps: FiberControlProps, newProps: FiberControlProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: GUI.Control, oldProps: FiberControlProps, newProps: FiberControlProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: GUI.Control = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // GUI.Control.alpha of type 'number':
         if (oldProps.alpha !== newProps.alpha) {
@@ -8907,8 +8834,7 @@ export class FiberControlPropsHandler implements PropsHandler<GUI.Control, Fiber
             updates.push({
                 propertyName: 'onAfterDrawObservable',
                 value: newProps.onAfterDrawObservable,
-                type: 'BABYLON.Observable<BABYLON.GUI.Control>',
-                prevValue: oldProps.onAfterDrawObservable,
+                type: 'BABYLON.Observable<BABYLON.GUI.Control>'
             });
         }
         // GUI.Control.onDirtyObservable of type 'BABYLON.Observable<BABYLON.GUI.Control>/fn':
@@ -8916,8 +8842,7 @@ export class FiberControlPropsHandler implements PropsHandler<GUI.Control, Fiber
             updates.push({
                 propertyName: 'onDirtyObservable',
                 value: newProps.onDirtyObservable,
-                type: 'BABYLON.Observable<BABYLON.GUI.Control>',
-                prevValue: oldProps.onDirtyObservable,
+                type: 'BABYLON.Observable<BABYLON.GUI.Control>'
             });
         }
         // GUI.Control.onPointerClickObservable of type 'BABYLON.Observable<BABYLON.GUI.Vector2WithInfo>/fn':
@@ -8925,8 +8850,7 @@ export class FiberControlPropsHandler implements PropsHandler<GUI.Control, Fiber
             updates.push({
                 propertyName: 'onPointerClickObservable',
                 value: newProps.onPointerClickObservable,
-                type: 'BABYLON.Observable<BABYLON.GUI.Vector2WithInfo>',
-                prevValue: oldProps.onPointerClickObservable,
+                type: 'BABYLON.Observable<BABYLON.GUI.Vector2WithInfo>'
             });
         }
         // GUI.Control.onPointerDownObservable of type 'BABYLON.Observable<BABYLON.GUI.Vector2WithInfo>/fn':
@@ -8934,8 +8858,7 @@ export class FiberControlPropsHandler implements PropsHandler<GUI.Control, Fiber
             updates.push({
                 propertyName: 'onPointerDownObservable',
                 value: newProps.onPointerDownObservable,
-                type: 'BABYLON.Observable<BABYLON.GUI.Vector2WithInfo>',
-                prevValue: oldProps.onPointerDownObservable,
+                type: 'BABYLON.Observable<BABYLON.GUI.Vector2WithInfo>'
             });
         }
         // GUI.Control.onPointerEnterObservable of type 'BABYLON.Observable<BABYLON.GUI.Control>/fn':
@@ -8943,8 +8866,7 @@ export class FiberControlPropsHandler implements PropsHandler<GUI.Control, Fiber
             updates.push({
                 propertyName: 'onPointerEnterObservable',
                 value: newProps.onPointerEnterObservable,
-                type: 'BABYLON.Observable<BABYLON.GUI.Control>',
-                prevValue: oldProps.onPointerEnterObservable,
+                type: 'BABYLON.Observable<BABYLON.GUI.Control>'
             });
         }
         // GUI.Control.onPointerMoveObservable of type 'BABYLON.Observable<BABYLON.Vector2>/fn':
@@ -8952,8 +8874,7 @@ export class FiberControlPropsHandler implements PropsHandler<GUI.Control, Fiber
             updates.push({
                 propertyName: 'onPointerMoveObservable',
                 value: newProps.onPointerMoveObservable,
-                type: 'BABYLON.Observable<BABYLON.Vector2>',
-                prevValue: oldProps.onPointerMoveObservable,
+                type: 'BABYLON.Observable<BABYLON.Vector2>'
             });
         }
         // GUI.Control.onPointerOutObservable of type 'BABYLON.Observable<BABYLON.GUI.Control>/fn':
@@ -8961,8 +8882,7 @@ export class FiberControlPropsHandler implements PropsHandler<GUI.Control, Fiber
             updates.push({
                 propertyName: 'onPointerOutObservable',
                 value: newProps.onPointerOutObservable,
-                type: 'BABYLON.Observable<BABYLON.GUI.Control>',
-                prevValue: oldProps.onPointerOutObservable,
+                type: 'BABYLON.Observable<BABYLON.GUI.Control>'
             });
         }
         // GUI.Control.onPointerUpObservable of type 'BABYLON.Observable<BABYLON.GUI.Vector2WithInfo>/fn':
@@ -8970,8 +8890,7 @@ export class FiberControlPropsHandler implements PropsHandler<GUI.Control, Fiber
             updates.push({
                 propertyName: 'onPointerUpObservable',
                 value: newProps.onPointerUpObservable,
-                type: 'BABYLON.Observable<BABYLON.GUI.Vector2WithInfo>',
-                prevValue: oldProps.onPointerUpObservable,
+                type: 'BABYLON.Observable<BABYLON.GUI.Vector2WithInfo>'
             });
         }
         // GUI.Control.paddingBottom of type 'string | number':
@@ -9166,9 +9085,8 @@ export class FiberCheckboxProps extends FiberControlProps {
 }
 
 export class FiberCheckboxPropsHandler implements PropsHandler<GUI.Checkbox, FiberCheckboxProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<GUI.Checkbox>, oldProps: FiberCheckboxProps, newProps: FiberCheckboxProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: GUI.Checkbox, oldProps: FiberCheckboxProps, newProps: FiberCheckboxProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: GUI.Checkbox = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // GUI.Checkbox.background of type 'string':
         if (oldProps.background !== newProps.background) {
@@ -9207,8 +9125,7 @@ export class FiberCheckboxPropsHandler implements PropsHandler<GUI.Checkbox, Fib
             updates.push({
                 propertyName: 'onIsCheckedChangedObservable',
                 value: newProps.onIsCheckedChangedObservable,
-                type: 'BABYLON.Observable<boolean>',
-                prevValue: oldProps.onIsCheckedChangedObservable,
+                type: 'BABYLON.Observable<boolean>'
             });
         }
         // GUI.Checkbox.thickness of type 'number':
@@ -9274,9 +9191,8 @@ export class FiberColorPickerProps extends FiberControlProps {
 }
 
 export class FiberColorPickerPropsHandler implements PropsHandler<GUI.ColorPicker, FiberColorPickerProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<GUI.ColorPicker>, oldProps: FiberColorPickerProps, newProps: FiberColorPickerProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: GUI.ColorPicker, oldProps: FiberColorPickerProps, newProps: FiberColorPickerProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: GUI.ColorPicker = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // GUI.ColorPicker.height of type 'string | number':
         if (oldProps.height !== newProps.height) {
@@ -9299,8 +9215,7 @@ export class FiberColorPickerPropsHandler implements PropsHandler<GUI.ColorPicke
             updates.push({
                 propertyName: 'onValueChangedObservable',
                 value: newProps.onValueChangedObservable,
-                type: 'BABYLON.Observable<BABYLON.Color3>',
-                prevValue: oldProps.onValueChangedObservable,
+                type: 'BABYLON.Observable<BABYLON.Color3>'
             });
         }
         // GUI.ColorPicker.size of type 'string | number':
@@ -9373,9 +9288,8 @@ export class FiberContainerProps extends FiberControlProps {
 }
 
 export class FiberContainerPropsHandler implements PropsHandler<GUI.Container, FiberContainerProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<GUI.Container>, oldProps: FiberContainerProps, newProps: FiberContainerProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: GUI.Container, oldProps: FiberContainerProps, newProps: FiberContainerProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: GUI.Container = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // GUI.Container.adaptHeightToChildren of type 'boolean':
         if (oldProps.adaptHeightToChildren !== newProps.adaptHeightToChildren) {
@@ -9460,9 +9374,8 @@ export class FiberEllipseProps extends FiberContainerProps {
 }
 
 export class FiberEllipsePropsHandler implements PropsHandler<GUI.Ellipse, FiberEllipseProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<GUI.Ellipse>, oldProps: FiberEllipseProps, newProps: FiberEllipseProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: GUI.Ellipse, oldProps: FiberEllipseProps, newProps: FiberEllipseProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: GUI.Ellipse = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // GUI.Ellipse.name of type 'string':
         if (oldProps.name !== newProps.name) {
@@ -9531,9 +9444,8 @@ export class FiberGridProps extends FiberContainerProps {
 }
 
 export class FiberGridPropsHandler implements PropsHandler<GUI.Grid, FiberGridProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<GUI.Grid>, oldProps: FiberGridProps, newProps: FiberGridProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: GUI.Grid, oldProps: FiberGridProps, newProps: FiberGridProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: GUI.Grid = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // GUI.Grid.name of type 'string':
         if (oldProps.name !== newProps.name) {
@@ -9597,9 +9509,8 @@ export class FiberStackPanelProps extends FiberContainerProps {
 }
 
 export class FiberStackPanelPropsHandler implements PropsHandler<GUI.StackPanel, FiberStackPanelProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<GUI.StackPanel>, oldProps: FiberStackPanelProps, newProps: FiberStackPanelProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: GUI.StackPanel, oldProps: FiberStackPanelProps, newProps: FiberStackPanelProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: GUI.StackPanel = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // GUI.StackPanel.height of type 'string | number':
         if (oldProps.height !== newProps.height) {
@@ -9695,9 +9606,8 @@ export class FiberVirtualKeyboardProps extends FiberStackPanelProps {
 }
 
 export class FiberVirtualKeyboardPropsHandler implements PropsHandler<GUI.VirtualKeyboard, FiberVirtualKeyboardProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<GUI.VirtualKeyboard>, oldProps: FiberVirtualKeyboardProps, newProps: FiberVirtualKeyboardProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: GUI.VirtualKeyboard, oldProps: FiberVirtualKeyboardProps, newProps: FiberVirtualKeyboardProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: GUI.VirtualKeyboard = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // GUI.VirtualKeyboard.defaultButtonBackground of type 'string':
         if (oldProps.defaultButtonBackground !== newProps.defaultButtonBackground) {
@@ -9768,8 +9678,7 @@ export class FiberVirtualKeyboardPropsHandler implements PropsHandler<GUI.Virtua
             updates.push({
                 propertyName: 'onKeyPressObservable',
                 value: newProps.onKeyPressObservable,
-                type: 'BABYLON.Observable<string>',
-                prevValue: oldProps.onKeyPressObservable,
+                type: 'BABYLON.Observable<string>'
             });
         }
         // GUI.VirtualKeyboard.selectedShiftThickness of type 'number':
@@ -9844,9 +9753,8 @@ export class FiberRectangleProps extends FiberContainerProps {
 }
 
 export class FiberRectanglePropsHandler implements PropsHandler<GUI.Rectangle, FiberRectangleProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<GUI.Rectangle>, oldProps: FiberRectangleProps, newProps: FiberRectangleProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: GUI.Rectangle, oldProps: FiberRectangleProps, newProps: FiberRectangleProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: GUI.Rectangle = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // GUI.Rectangle.cornerRadius of type 'number':
         if (oldProps.cornerRadius !== newProps.cornerRadius) {
@@ -9927,9 +9835,8 @@ export class FiberButtonProps extends FiberRectangleProps {
 }
 
 export class FiberButtonPropsHandler implements PropsHandler<GUI.Button, FiberButtonProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<GUI.Button>, oldProps: FiberButtonProps, newProps: FiberButtonProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: GUI.Button, oldProps: FiberButtonProps, newProps: FiberButtonProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: GUI.Button = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // GUI.Button.name of type 'string':
         if (oldProps.name !== newProps.name) {
@@ -10003,9 +9910,8 @@ export class FiberSelectionPanelProps extends FiberRectangleProps {
 }
 
 export class FiberSelectionPanelPropsHandler implements PropsHandler<GUI.SelectionPanel, FiberSelectionPanelProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<GUI.SelectionPanel>, oldProps: FiberSelectionPanelProps, newProps: FiberSelectionPanelProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: GUI.SelectionPanel, oldProps: FiberSelectionPanelProps, newProps: FiberSelectionPanelProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: GUI.SelectionPanel = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // GUI.SelectionPanel.barColor of type 'string':
         if (oldProps.barColor !== newProps.barColor) {
@@ -10140,9 +10046,8 @@ export class FiberImageProps extends FiberControlProps {
 }
 
 export class FiberImagePropsHandler implements PropsHandler<GUI.Image, FiberImageProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<GUI.Image>, oldProps: FiberImageProps, newProps: FiberImageProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: GUI.Image, oldProps: FiberImageProps, newProps: FiberImageProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: GUI.Image = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // GUI.Image.autoScale of type 'boolean':
         if (oldProps.autoScale !== newProps.autoScale) {
@@ -10306,9 +10211,8 @@ export class FiberInputTextProps extends FiberControlProps {
 }
 
 export class FiberInputTextPropsHandler implements PropsHandler<GUI.InputText, FiberInputTextProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<GUI.InputText>, oldProps: FiberInputTextProps, newProps: FiberInputTextProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: GUI.InputText, oldProps: FiberInputTextProps, newProps: FiberInputTextProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: GUI.InputText = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // GUI.InputText.addKey of type 'boolean':
         if (oldProps.addKey !== newProps.addKey) {
@@ -10387,8 +10291,7 @@ export class FiberInputTextPropsHandler implements PropsHandler<GUI.InputText, F
             updates.push({
                 propertyName: 'onBeforeKeyAddObservable',
                 value: newProps.onBeforeKeyAddObservable,
-                type: 'BABYLON.Observable<BABYLON.GUI.InputText>',
-                prevValue: oldProps.onBeforeKeyAddObservable,
+                type: 'BABYLON.Observable<BABYLON.GUI.InputText>'
             });
         }
         // GUI.InputText.onBlurObservable of type 'BABYLON.Observable<BABYLON.GUI.InputText>/fn':
@@ -10396,8 +10299,7 @@ export class FiberInputTextPropsHandler implements PropsHandler<GUI.InputText, F
             updates.push({
                 propertyName: 'onBlurObservable',
                 value: newProps.onBlurObservable,
-                type: 'BABYLON.Observable<BABYLON.GUI.InputText>',
-                prevValue: oldProps.onBlurObservable,
+                type: 'BABYLON.Observable<BABYLON.GUI.InputText>'
             });
         }
         // GUI.InputText.onFocusObservable of type 'BABYLON.Observable<BABYLON.GUI.InputText>/fn':
@@ -10405,8 +10307,7 @@ export class FiberInputTextPropsHandler implements PropsHandler<GUI.InputText, F
             updates.push({
                 propertyName: 'onFocusObservable',
                 value: newProps.onFocusObservable,
-                type: 'BABYLON.Observable<BABYLON.GUI.InputText>',
-                prevValue: oldProps.onFocusObservable,
+                type: 'BABYLON.Observable<BABYLON.GUI.InputText>'
             });
         }
         // GUI.InputText.onTextChangedObservable of type 'BABYLON.Observable<BABYLON.GUI.InputText>/fn':
@@ -10414,8 +10315,7 @@ export class FiberInputTextPropsHandler implements PropsHandler<GUI.InputText, F
             updates.push({
                 propertyName: 'onTextChangedObservable',
                 value: newProps.onTextChangedObservable,
-                type: 'BABYLON.Observable<BABYLON.GUI.InputText>',
-                prevValue: oldProps.onTextChangedObservable,
+                type: 'BABYLON.Observable<BABYLON.GUI.InputText>'
             });
         }
         // GUI.InputText.placeholderColor of type 'string':
@@ -10520,9 +10420,8 @@ export class FiberInputPasswordProps extends FiberInputTextProps {
 }
 
 export class FiberInputPasswordPropsHandler implements PropsHandler<GUI.InputPassword, FiberInputPasswordProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<GUI.InputPassword>, oldProps: FiberInputPasswordProps, newProps: FiberInputPasswordProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: GUI.InputPassword, oldProps: FiberInputPasswordProps, newProps: FiberInputPasswordProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: GUI.InputPassword = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         return updates.length == 0 ? null : updates;
     }
@@ -10578,9 +10477,8 @@ export class FiberLineProps extends FiberControlProps {
 }
 
 export class FiberLinePropsHandler implements PropsHandler<GUI.Line, FiberLineProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<GUI.Line>, oldProps: FiberLineProps, newProps: FiberLineProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: GUI.Line, oldProps: FiberLineProps, newProps: FiberLineProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: GUI.Line = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // TODO: type: BABYLON.GUI.Control property (not coded) GUI.Line.connectedControl.
         // TODO: type: number[] property (not coded) GUI.Line.dash.
@@ -10703,9 +10601,8 @@ export class FiberMultiLineProps extends FiberControlProps {
 }
 
 export class FiberMultiLinePropsHandler implements PropsHandler<GUI.MultiLine, FiberMultiLineProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<GUI.MultiLine>, oldProps: FiberMultiLineProps, newProps: FiberMultiLineProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: GUI.MultiLine, oldProps: FiberMultiLineProps, newProps: FiberMultiLineProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: GUI.MultiLine = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // TODO: type: number[] property (not coded) GUI.MultiLine.dash.
         // GUI.MultiLine.horizontalAlignment of type 'number':
@@ -10737,8 +10634,7 @@ export class FiberMultiLinePropsHandler implements PropsHandler<GUI.MultiLine, F
             updates.push({
                 propertyName: 'onPointUpdate',
                 value: newProps.onPointUpdate,
-                type: '() => void',
-                prevValue: oldProps.onPointUpdate,
+                type: '() => void'
             });
         }
         // GUI.MultiLine.verticalAlignment of type 'number':
@@ -10805,9 +10701,8 @@ export class FiberRadioButtonProps extends FiberControlProps {
 }
 
 export class FiberRadioButtonPropsHandler implements PropsHandler<GUI.RadioButton, FiberRadioButtonProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<GUI.RadioButton>, oldProps: FiberRadioButtonProps, newProps: FiberRadioButtonProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: GUI.RadioButton, oldProps: FiberRadioButtonProps, newProps: FiberRadioButtonProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: GUI.RadioButton = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // GUI.RadioButton.background of type 'string':
         if (oldProps.background !== newProps.background) {
@@ -10854,8 +10749,7 @@ export class FiberRadioButtonPropsHandler implements PropsHandler<GUI.RadioButto
             updates.push({
                 propertyName: 'onIsCheckedChangedObservable',
                 value: newProps.onIsCheckedChangedObservable,
-                type: 'BABYLON.Observable<boolean>',
-                prevValue: oldProps.onIsCheckedChangedObservable,
+                type: 'BABYLON.Observable<boolean>'
             });
         }
         // GUI.RadioButton.thickness of type 'number':
@@ -10926,9 +10820,8 @@ export class FiberTextBlockProps extends FiberControlProps {
 }
 
 export class FiberTextBlockPropsHandler implements PropsHandler<GUI.TextBlock, FiberTextBlockProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<GUI.TextBlock>, oldProps: FiberTextBlockProps, newProps: FiberTextBlockProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: GUI.TextBlock, oldProps: FiberTextBlockProps, newProps: FiberTextBlockProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: GUI.TextBlock = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // GUI.TextBlock.lineSpacing of type 'string | number':
         if (oldProps.lineSpacing !== newProps.lineSpacing) {
@@ -10951,8 +10844,7 @@ export class FiberTextBlockPropsHandler implements PropsHandler<GUI.TextBlock, F
             updates.push({
                 propertyName: 'onLinesReadyObservable',
                 value: newProps.onLinesReadyObservable,
-                type: 'BABYLON.Observable<BABYLON.GUI.TextBlock>',
-                prevValue: oldProps.onLinesReadyObservable,
+                type: 'BABYLON.Observable<BABYLON.GUI.TextBlock>'
             });
         }
         // GUI.TextBlock.onTextChangedObservable of type 'BABYLON.Observable<BABYLON.GUI.TextBlock>/fn':
@@ -10960,8 +10852,7 @@ export class FiberTextBlockPropsHandler implements PropsHandler<GUI.TextBlock, F
             updates.push({
                 propertyName: 'onTextChangedObservable',
                 value: newProps.onTextChangedObservable,
-                type: 'BABYLON.Observable<BABYLON.GUI.TextBlock>',
-                prevValue: oldProps.onTextChangedObservable,
+                type: 'BABYLON.Observable<BABYLON.GUI.TextBlock>'
             });
         }
         // GUI.TextBlock.outlineColor of type 'string':
@@ -11079,9 +10970,8 @@ export class FiberSliderProps extends FiberControlProps {
 }
 
 export class FiberSliderPropsHandler implements PropsHandler<GUI.Slider, FiberSliderProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<GUI.Slider>, oldProps: FiberSliderProps, newProps: FiberSliderProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: GUI.Slider, oldProps: FiberSliderProps, newProps: FiberSliderProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: GUI.Slider = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // GUI.Slider.background of type 'string':
         if (oldProps.background !== newProps.background) {
@@ -11160,8 +11050,7 @@ export class FiberSliderPropsHandler implements PropsHandler<GUI.Slider, FiberSl
             updates.push({
                 propertyName: 'onValueChangedObservable',
                 value: newProps.onValueChangedObservable,
-                type: 'BABYLON.Observable<number>',
-                prevValue: oldProps.onValueChangedObservable,
+                type: 'BABYLON.Observable<number>'
             });
         }
         // GUI.Slider.thumbWidth of type 'string | number':
@@ -11240,9 +11129,8 @@ export class FiberDisplayGridProps extends FiberControlProps {
 }
 
 export class FiberDisplayGridPropsHandler implements PropsHandler<GUI.DisplayGrid, FiberDisplayGridProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<GUI.DisplayGrid>, oldProps: FiberDisplayGridProps, newProps: FiberDisplayGridProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: GUI.DisplayGrid, oldProps: FiberDisplayGridProps, newProps: FiberDisplayGridProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: GUI.DisplayGrid = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // GUI.DisplayGrid.background of type 'string':
         if (oldProps.background !== newProps.background) {
@@ -11396,9 +11284,8 @@ export class FiberControl3DProps {
 }
 
 export class FiberControl3DPropsHandler implements PropsHandler<GUI.Control3D, FiberControl3DProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<GUI.Control3D>, oldProps: FiberControl3DProps, newProps: FiberControl3DProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: GUI.Control3D, oldProps: FiberControl3DProps, newProps: FiberControl3DProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: GUI.Control3D = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // GUI.Control3D.isVisible of type 'boolean':
         if (oldProps.isVisible !== newProps.isVisible) {
@@ -11421,8 +11308,7 @@ export class FiberControl3DPropsHandler implements PropsHandler<GUI.Control3D, F
             updates.push({
                 propertyName: 'onPointerClickObservable',
                 value: newProps.onPointerClickObservable,
-                type: 'BABYLON.Observable<BABYLON.GUI.Vector3WithInfo>',
-                prevValue: oldProps.onPointerClickObservable,
+                type: 'BABYLON.Observable<BABYLON.GUI.Vector3WithInfo>'
             });
         }
         // GUI.Control3D.onPointerDownObservable of type 'BABYLON.Observable<BABYLON.GUI.Vector3WithInfo>/fn':
@@ -11430,8 +11316,7 @@ export class FiberControl3DPropsHandler implements PropsHandler<GUI.Control3D, F
             updates.push({
                 propertyName: 'onPointerDownObservable',
                 value: newProps.onPointerDownObservable,
-                type: 'BABYLON.Observable<BABYLON.GUI.Vector3WithInfo>',
-                prevValue: oldProps.onPointerDownObservable,
+                type: 'BABYLON.Observable<BABYLON.GUI.Vector3WithInfo>'
             });
         }
         // GUI.Control3D.onPointerEnterObservable of type 'BABYLON.Observable<BABYLON.GUI.Control3D>/fn':
@@ -11439,8 +11324,7 @@ export class FiberControl3DPropsHandler implements PropsHandler<GUI.Control3D, F
             updates.push({
                 propertyName: 'onPointerEnterObservable',
                 value: newProps.onPointerEnterObservable,
-                type: 'BABYLON.Observable<BABYLON.GUI.Control3D>',
-                prevValue: oldProps.onPointerEnterObservable,
+                type: 'BABYLON.Observable<BABYLON.GUI.Control3D>'
             });
         }
         // GUI.Control3D.onPointerMoveObservable of type 'BABYLON.Observable<BABYLON.Vector3>/fn':
@@ -11448,8 +11332,7 @@ export class FiberControl3DPropsHandler implements PropsHandler<GUI.Control3D, F
             updates.push({
                 propertyName: 'onPointerMoveObservable',
                 value: newProps.onPointerMoveObservable,
-                type: 'BABYLON.Observable<BABYLON.Vector3>',
-                prevValue: oldProps.onPointerMoveObservable,
+                type: 'BABYLON.Observable<BABYLON.Vector3>'
             });
         }
         // GUI.Control3D.onPointerOutObservable of type 'BABYLON.Observable<BABYLON.GUI.Control3D>/fn':
@@ -11457,8 +11340,7 @@ export class FiberControl3DPropsHandler implements PropsHandler<GUI.Control3D, F
             updates.push({
                 propertyName: 'onPointerOutObservable',
                 value: newProps.onPointerOutObservable,
-                type: 'BABYLON.Observable<BABYLON.GUI.Control3D>',
-                prevValue: oldProps.onPointerOutObservable,
+                type: 'BABYLON.Observable<BABYLON.GUI.Control3D>'
             });
         }
         // GUI.Control3D.onPointerUpObservable of type 'BABYLON.Observable<BABYLON.GUI.Vector3WithInfo>/fn':
@@ -11466,8 +11348,7 @@ export class FiberControl3DPropsHandler implements PropsHandler<GUI.Control3D, F
             updates.push({
                 propertyName: 'onPointerUpObservable',
                 value: newProps.onPointerUpObservable,
-                type: 'BABYLON.Observable<BABYLON.GUI.Vector3WithInfo>',
-                prevValue: oldProps.onPointerUpObservable,
+                type: 'BABYLON.Observable<BABYLON.GUI.Vector3WithInfo>'
             });
         }
         // TODO: type: BABYLON.GUI.Container3D property (not coded) GUI.Control3D.parent.
@@ -11525,9 +11406,8 @@ export class FiberAbstractButton3DProps extends FiberControl3DProps {
 }
 
 export class FiberAbstractButton3DPropsHandler implements PropsHandler<GUI.AbstractButton3D, FiberAbstractButton3DProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<GUI.AbstractButton3D>, oldProps: FiberAbstractButton3DProps, newProps: FiberAbstractButton3DProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: GUI.AbstractButton3D, oldProps: FiberAbstractButton3DProps, newProps: FiberAbstractButton3DProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: GUI.AbstractButton3D = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         return updates.length == 0 ? null : updates;
     }
@@ -11581,9 +11461,8 @@ export class FiberButton3DProps extends FiberAbstractButton3DProps {
 }
 
 export class FiberButton3DPropsHandler implements PropsHandler<GUI.Button3D, FiberButton3DProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<GUI.Button3D>, oldProps: FiberButton3DProps, newProps: FiberButton3DProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: GUI.Button3D, oldProps: FiberButton3DProps, newProps: FiberButton3DProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: GUI.Button3D = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // TODO: type: BABYLON.GUI.Control property (not coded) GUI.Button3D.content.
         // GUI.Button3D.contentResolution of type 'number':
@@ -11655,9 +11534,8 @@ export class FiberHolographicButtonProps extends FiberButton3DProps {
 }
 
 export class FiberHolographicButtonPropsHandler implements PropsHandler<GUI.HolographicButton, FiberHolographicButtonProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<GUI.HolographicButton>, oldProps: FiberHolographicButtonProps, newProps: FiberHolographicButtonProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: GUI.HolographicButton, oldProps: FiberHolographicButtonProps, newProps: FiberHolographicButtonProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: GUI.HolographicButton = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // GUI.HolographicButton.imageUrl of type 'string':
         if (oldProps.imageUrl !== newProps.imageUrl) {
@@ -11739,9 +11617,8 @@ export class FiberMeshButton3DProps extends FiberButton3DProps {
 }
 
 export class FiberMeshButton3DPropsHandler implements PropsHandler<GUI.MeshButton3D, FiberMeshButton3DProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<GUI.MeshButton3D>, oldProps: FiberMeshButton3DProps, newProps: FiberMeshButton3DProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: GUI.MeshButton3D, oldProps: FiberMeshButton3DProps, newProps: FiberMeshButton3DProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: GUI.MeshButton3D = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         return updates.length == 0 ? null : updates;
     }
@@ -11800,9 +11677,8 @@ export class FiberContainer3DProps extends FiberControl3DProps {
 }
 
 export class FiberContainer3DPropsHandler implements PropsHandler<GUI.Container3D, FiberContainer3DProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<GUI.Container3D>, oldProps: FiberContainer3DProps, newProps: FiberContainer3DProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: GUI.Container3D, oldProps: FiberContainer3DProps, newProps: FiberContainer3DProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: GUI.Container3D = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // GUI.Container3D.blockLayout of type 'boolean':
         if (oldProps.blockLayout !== newProps.blockLayout) {
@@ -11863,9 +11739,8 @@ export class FiberStackPanel3DProps extends FiberContainer3DProps {
 }
 
 export class FiberStackPanel3DPropsHandler implements PropsHandler<GUI.StackPanel3D, FiberStackPanel3DProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<GUI.StackPanel3D>, oldProps: FiberStackPanel3DProps, newProps: FiberStackPanel3DProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: GUI.StackPanel3D, oldProps: FiberStackPanel3DProps, newProps: FiberStackPanel3DProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: GUI.StackPanel3D = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // GUI.StackPanel3D.isVertical of type 'boolean':
         if (oldProps.isVertical !== newProps.isVertical) {
@@ -11937,9 +11812,8 @@ export class FiberVolumeBasedPanelProps extends FiberContainer3DProps {
 }
 
 export class FiberVolumeBasedPanelPropsHandler implements PropsHandler<GUI.VolumeBasedPanel, FiberVolumeBasedPanelProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<GUI.VolumeBasedPanel>, oldProps: FiberVolumeBasedPanelProps, newProps: FiberVolumeBasedPanelProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: GUI.VolumeBasedPanel, oldProps: FiberVolumeBasedPanelProps, newProps: FiberVolumeBasedPanelProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: GUI.VolumeBasedPanel = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // GUI.VolumeBasedPanel.columns of type 'number':
         if (oldProps.columns !== newProps.columns) {
@@ -12018,9 +11892,8 @@ export class FiberCylinderPanelProps extends FiberVolumeBasedPanelProps {
 }
 
 export class FiberCylinderPanelPropsHandler implements PropsHandler<GUI.CylinderPanel, FiberCylinderPanelProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<GUI.CylinderPanel>, oldProps: FiberCylinderPanelProps, newProps: FiberCylinderPanelProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: GUI.CylinderPanel, oldProps: FiberCylinderPanelProps, newProps: FiberCylinderPanelProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: GUI.CylinderPanel = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // GUI.CylinderPanel.radius of type 'number':
         if (oldProps.radius !== newProps.radius) {
@@ -12075,9 +11948,8 @@ export class FiberPlanePanelProps extends FiberVolumeBasedPanelProps {
 }
 
 export class FiberPlanePanelPropsHandler implements PropsHandler<GUI.PlanePanel, FiberPlanePanelProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<GUI.PlanePanel>, oldProps: FiberPlanePanelProps, newProps: FiberPlanePanelProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: GUI.PlanePanel, oldProps: FiberPlanePanelProps, newProps: FiberPlanePanelProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: GUI.PlanePanel = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         return updates.length == 0 ? null : updates;
     }
@@ -12125,9 +11997,8 @@ export class FiberScatterPanelProps extends FiberVolumeBasedPanelProps {
 }
 
 export class FiberScatterPanelPropsHandler implements PropsHandler<GUI.ScatterPanel, FiberScatterPanelProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<GUI.ScatterPanel>, oldProps: FiberScatterPanelProps, newProps: FiberScatterPanelProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: GUI.ScatterPanel, oldProps: FiberScatterPanelProps, newProps: FiberScatterPanelProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: GUI.ScatterPanel = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // GUI.ScatterPanel.iteration of type 'number':
         if (oldProps.iteration !== newProps.iteration) {
@@ -12183,9 +12054,8 @@ export class FiberSpherePanelProps extends FiberVolumeBasedPanelProps {
 }
 
 export class FiberSpherePanelPropsHandler implements PropsHandler<GUI.SpherePanel, FiberSpherePanelProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<GUI.SpherePanel>, oldProps: FiberSpherePanelProps, newProps: FiberSpherePanelProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: GUI.SpherePanel, oldProps: FiberSpherePanelProps, newProps: FiberSpherePanelProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: GUI.SpherePanel = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // GUI.SpherePanel.radius of type 'number':
         if (oldProps.radius !== newProps.radius) {
@@ -12263,9 +12133,8 @@ export class FiberBaseTextureProps {
 }
 
 export class FiberBaseTexturePropsHandler implements PropsHandler<BABYLON.BaseTexture, FiberBaseTextureProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.BaseTexture>, oldProps: FiberBaseTextureProps, newProps: FiberBaseTextureProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.BaseTexture, oldProps: FiberBaseTextureProps, newProps: FiberBaseTextureProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.BaseTexture = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // TODO: type: BABYLON.Animation[] property (not coded) BABYLON.BaseTexture.animations.
         // BABYLON.BaseTexture.anisotropicFilteringLevel of type 'number':
@@ -12401,8 +12270,7 @@ export class FiberBaseTexturePropsHandler implements PropsHandler<BABYLON.BaseTe
             updates.push({
                 propertyName: 'onDispose',
                 value: newProps.onDispose,
-                type: '() => void',
-                prevValue: oldProps.onDispose,
+                type: '() => void'
             });
         }
         // BABYLON.BaseTexture.onDisposeObservable of type 'BABYLON.Observable<BABYLON.BaseTexture>/fn':
@@ -12410,8 +12278,7 @@ export class FiberBaseTexturePropsHandler implements PropsHandler<BABYLON.BaseTe
             updates.push({
                 propertyName: 'onDisposeObservable',
                 value: newProps.onDisposeObservable,
-                type: 'BABYLON.Observable<BABYLON.BaseTexture>',
-                prevValue: oldProps.onDisposeObservable,
+                type: 'BABYLON.Observable<BABYLON.BaseTexture>'
             });
         }
         // TODO: type: BABYLON.SphericalPolynomial property (not coded) BABYLON.BaseTexture.sphericalPolynomial.
@@ -12488,9 +12355,8 @@ export class FiberColorGradingTextureProps extends FiberBaseTextureProps {
 }
 
 export class FiberColorGradingTexturePropsHandler implements PropsHandler<BABYLON.ColorGradingTexture, FiberColorGradingTextureProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.ColorGradingTexture>, oldProps: FiberColorGradingTextureProps, newProps: FiberColorGradingTextureProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.ColorGradingTexture, oldProps: FiberColorGradingTextureProps, newProps: FiberColorGradingTextureProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.ColorGradingTexture = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // TODO: type: any property (not coded) BABYLON.ColorGradingTexture.load3dlTexture.
         // TODO: type: any property (not coded) BABYLON.ColorGradingTexture.loadTexture.
@@ -12565,9 +12431,8 @@ export class FiberCubeTextureProps extends FiberBaseTextureProps {
 }
 
 export class FiberCubeTexturePropsHandler implements PropsHandler<BABYLON.CubeTexture, FiberCubeTextureProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.CubeTexture>, oldProps: FiberCubeTextureProps, newProps: FiberCubeTextureProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.CubeTexture, oldProps: FiberCubeTextureProps, newProps: FiberCubeTextureProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.CubeTexture = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // BABYLON.CubeTexture.boundingBoxPosition of BABYLONBABYLON.Vector3 uses object equals to find diffs:
         if (newProps.boundingBoxPosition && (!oldProps.boundingBoxPosition || !oldProps.boundingBoxPosition.equals(newProps.boundingBoxPosition))) {
@@ -12708,9 +12573,8 @@ export class FiberRawCubeTextureProps extends FiberCubeTextureProps {
 }
 
 export class FiberRawCubeTexturePropsHandler implements PropsHandler<BABYLON.RawCubeTexture, FiberRawCubeTextureProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.RawCubeTexture>, oldProps: FiberRawCubeTextureProps, newProps: FiberRawCubeTextureProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.RawCubeTexture, oldProps: FiberRawCubeTextureProps, newProps: FiberRawCubeTextureProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.RawCubeTexture = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         return updates.length == 0 ? null : updates;
     }
@@ -12809,9 +12673,8 @@ export class FiberHDRCubeTextureProps extends FiberBaseTextureProps {
 }
 
 export class FiberHDRCubeTexturePropsHandler implements PropsHandler<BABYLON.HDRCubeTexture, FiberHDRCubeTextureProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.HDRCubeTexture>, oldProps: FiberHDRCubeTextureProps, newProps: FiberHDRCubeTextureProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.HDRCubeTexture, oldProps: FiberHDRCubeTextureProps, newProps: FiberHDRCubeTextureProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.HDRCubeTexture = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // BABYLON.HDRCubeTexture.boundingBoxPosition of BABYLONBABYLON.Vector3 uses object equals to find diffs:
         if (newProps.boundingBoxPosition && (!oldProps.boundingBoxPosition || !oldProps.boundingBoxPosition.equals(newProps.boundingBoxPosition))) {
@@ -12966,9 +12829,8 @@ export class FiberTextureProps extends FiberBaseTextureProps {
 }
 
 export class FiberTexturePropsHandler implements PropsHandler<BABYLON.Texture, FiberTextureProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.Texture>, oldProps: FiberTextureProps, newProps: FiberTextureProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.Texture, oldProps: FiberTextureProps, newProps: FiberTextureProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.Texture = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // BABYLON.Texture.isBlocking of type 'boolean':
         if (oldProps.isBlocking !== newProps.isBlocking) {
@@ -13158,9 +13020,8 @@ export class FiberDynamicTextureProps extends FiberTextureProps {
 }
 
 export class FiberDynamicTexturePropsHandler implements PropsHandler<BABYLON.DynamicTexture, FiberDynamicTextureProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.DynamicTexture>, oldProps: FiberDynamicTextureProps, newProps: FiberDynamicTextureProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.DynamicTexture, oldProps: FiberDynamicTextureProps, newProps: FiberDynamicTextureProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.DynamicTexture = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         return updates.length == 0 ? null : updates;
     }
@@ -13238,9 +13099,8 @@ export class FiberRawTextureProps extends FiberTextureProps {
 }
 
 export class FiberRawTexturePropsHandler implements PropsHandler<BABYLON.RawTexture, FiberRawTextureProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.RawTexture>, oldProps: FiberRawTextureProps, newProps: FiberRawTextureProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.RawTexture, oldProps: FiberRawTextureProps, newProps: FiberRawTextureProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.RawTexture = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // BABYLON.RawTexture.format of type 'number':
         if (oldProps.format !== newProps.format) {
@@ -13339,9 +13199,8 @@ export class FiberRawTexture3DProps extends FiberTextureProps {
 }
 
 export class FiberRawTexture3DPropsHandler implements PropsHandler<BABYLON.RawTexture3D, FiberRawTexture3DProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.RawTexture3D>, oldProps: FiberRawTexture3DProps, newProps: FiberRawTexture3DProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.RawTexture3D, oldProps: FiberRawTexture3DProps, newProps: FiberRawTexture3DProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.RawTexture3D = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // BABYLON.RawTexture3D.format of type 'number':
         if (oldProps.format !== newProps.format) {
@@ -13472,9 +13331,8 @@ export class FiberRenderTargetTextureProps extends FiberTextureProps {
 }
 
 export class FiberRenderTargetTexturePropsHandler implements PropsHandler<BABYLON.RenderTargetTexture, FiberRenderTargetTextureProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.RenderTargetTexture>, oldProps: FiberRenderTargetTextureProps, newProps: FiberRenderTargetTextureProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.RenderTargetTexture, oldProps: FiberRenderTargetTextureProps, newProps: FiberRenderTargetTextureProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.RenderTargetTexture = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // TODO: type: BABYLON.Camera property (not coded) BABYLON.RenderTargetTexture.activeCamera.
         // BABYLON.RenderTargetTexture.boundingBoxPosition of BABYLONBABYLON.Vector3 uses object equals to find diffs:
@@ -13525,8 +13383,7 @@ export class FiberRenderTargetTexturePropsHandler implements PropsHandler<BABYLO
             updates.push({
                 propertyName: 'onAfterRender',
                 value: newProps.onAfterRender,
-                type: '(faceIndex: number) => void',
-                prevValue: oldProps.onAfterRender,
+                type: '(faceIndex: number) => void'
             });
         }
         // BABYLON.RenderTargetTexture.onAfterRenderObservable of type 'BABYLON.Observable<number>/fn':
@@ -13534,8 +13391,7 @@ export class FiberRenderTargetTexturePropsHandler implements PropsHandler<BABYLO
             updates.push({
                 propertyName: 'onAfterRenderObservable',
                 value: newProps.onAfterRenderObservable,
-                type: 'BABYLON.Observable<number>',
-                prevValue: oldProps.onAfterRenderObservable,
+                type: 'BABYLON.Observable<number>'
             });
         }
         // BABYLON.RenderTargetTexture.onAfterUnbind of type '() => void/fn':
@@ -13543,8 +13399,7 @@ export class FiberRenderTargetTexturePropsHandler implements PropsHandler<BABYLO
             updates.push({
                 propertyName: 'onAfterUnbind',
                 value: newProps.onAfterUnbind,
-                type: '() => void',
-                prevValue: oldProps.onAfterUnbind,
+                type: '() => void'
             });
         }
         // BABYLON.RenderTargetTexture.onAfterUnbindObservable of type 'BABYLON.Observable<BABYLON.RenderTargetTexture>/fn':
@@ -13552,8 +13407,7 @@ export class FiberRenderTargetTexturePropsHandler implements PropsHandler<BABYLO
             updates.push({
                 propertyName: 'onAfterUnbindObservable',
                 value: newProps.onAfterUnbindObservable,
-                type: 'BABYLON.Observable<BABYLON.RenderTargetTexture>',
-                prevValue: oldProps.onAfterUnbindObservable,
+                type: 'BABYLON.Observable<BABYLON.RenderTargetTexture>'
             });
         }
         // BABYLON.RenderTargetTexture.onBeforeBindObservable of type 'BABYLON.Observable<BABYLON.RenderTargetTexture>/fn':
@@ -13561,8 +13415,7 @@ export class FiberRenderTargetTexturePropsHandler implements PropsHandler<BABYLO
             updates.push({
                 propertyName: 'onBeforeBindObservable',
                 value: newProps.onBeforeBindObservable,
-                type: 'BABYLON.Observable<BABYLON.RenderTargetTexture>',
-                prevValue: oldProps.onBeforeBindObservable,
+                type: 'BABYLON.Observable<BABYLON.RenderTargetTexture>'
             });
         }
         // BABYLON.RenderTargetTexture.onBeforeRender of type '(faceIndex: number) => void/fn':
@@ -13570,8 +13423,7 @@ export class FiberRenderTargetTexturePropsHandler implements PropsHandler<BABYLO
             updates.push({
                 propertyName: 'onBeforeRender',
                 value: newProps.onBeforeRender,
-                type: '(faceIndex: number) => void',
-                prevValue: oldProps.onBeforeRender,
+                type: '(faceIndex: number) => void'
             });
         }
         // BABYLON.RenderTargetTexture.onBeforeRenderObservable of type 'BABYLON.Observable<number>/fn':
@@ -13579,8 +13431,7 @@ export class FiberRenderTargetTexturePropsHandler implements PropsHandler<BABYLO
             updates.push({
                 propertyName: 'onBeforeRenderObservable',
                 value: newProps.onBeforeRenderObservable,
-                type: 'BABYLON.Observable<number>',
-                prevValue: oldProps.onBeforeRenderObservable,
+                type: 'BABYLON.Observable<number>'
             });
         }
         // BABYLON.RenderTargetTexture.onClear of type '(Engine: BABYLON.Engine) => void/fn':
@@ -13588,8 +13439,7 @@ export class FiberRenderTargetTexturePropsHandler implements PropsHandler<BABYLO
             updates.push({
                 propertyName: 'onClear',
                 value: newProps.onClear,
-                type: '(Engine: BABYLON.Engine) => void',
-                prevValue: oldProps.onClear,
+                type: '(Engine: BABYLON.Engine) => void'
             });
         }
         // BABYLON.RenderTargetTexture.onClearObservable of type 'BABYLON.Observable<BABYLON.Engine>/fn':
@@ -13597,8 +13447,7 @@ export class FiberRenderTargetTexturePropsHandler implements PropsHandler<BABYLO
             updates.push({
                 propertyName: 'onClearObservable',
                 value: newProps.onClearObservable,
-                type: 'BABYLON.Observable<BABYLON.Engine>',
-                prevValue: oldProps.onClearObservable,
+                type: 'BABYLON.Observable<BABYLON.Engine>'
             });
         }
         // BABYLON.RenderTargetTexture.refreshRate of type 'number':
@@ -13754,9 +13603,8 @@ export class FiberMirrorTextureProps extends FiberRenderTargetTextureProps {
 }
 
 export class FiberMirrorTexturePropsHandler implements PropsHandler<BABYLON.MirrorTexture, FiberMirrorTextureProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.MirrorTexture>, oldProps: FiberMirrorTextureProps, newProps: FiberMirrorTextureProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.MirrorTexture, oldProps: FiberMirrorTextureProps, newProps: FiberMirrorTextureProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.MirrorTexture = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // BABYLON.MirrorTexture.adaptiveBlurKernel of type 'number':
         if (oldProps.adaptiveBlurKernel !== newProps.adaptiveBlurKernel) {
@@ -13882,9 +13730,8 @@ export class FiberMultiRenderTargetProps extends FiberRenderTargetTextureProps {
 }
 
 export class FiberMultiRenderTargetPropsHandler implements PropsHandler<BABYLON.MultiRenderTarget, FiberMultiRenderTargetProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.MultiRenderTarget>, oldProps: FiberMultiRenderTargetProps, newProps: FiberMultiRenderTargetProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.MultiRenderTarget, oldProps: FiberMultiRenderTargetProps, newProps: FiberMultiRenderTargetProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.MultiRenderTarget = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // BABYLON.MultiRenderTarget.samples of type 'number':
         if (oldProps.samples !== newProps.samples) {
@@ -13981,9 +13828,8 @@ export class FiberRefractionTextureProps extends FiberRenderTargetTextureProps {
 }
 
 export class FiberRefractionTexturePropsHandler implements PropsHandler<BABYLON.RefractionTexture, FiberRefractionTextureProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.RefractionTexture>, oldProps: FiberRefractionTextureProps, newProps: FiberRefractionTextureProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.RefractionTexture, oldProps: FiberRefractionTextureProps, newProps: FiberRefractionTextureProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.RefractionTexture = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // BABYLON.RefractionTexture.depth of type 'number':
         if (oldProps.depth !== newProps.depth) {
@@ -14061,9 +13907,8 @@ export class FiberVideoTextureProps extends FiberTextureProps {
 }
 
 export class FiberVideoTexturePropsHandler implements PropsHandler<BABYLON.VideoTexture, FiberVideoTextureProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.VideoTexture>, oldProps: FiberVideoTextureProps, newProps: FiberVideoTextureProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.VideoTexture, oldProps: FiberVideoTextureProps, newProps: FiberVideoTextureProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.VideoTexture = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // TODO: type: any property (not coded) BABYLON.VideoTexture.reset.
         return updates.length == 0 ? null : updates;
@@ -14149,9 +13994,8 @@ export class FiberProceduralTextureProps extends FiberTextureProps {
 }
 
 export class FiberProceduralTexturePropsHandler implements PropsHandler<BABYLON.ProceduralTexture, FiberProceduralTextureProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.ProceduralTexture>, oldProps: FiberProceduralTextureProps, newProps: FiberProceduralTextureProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.ProceduralTexture, oldProps: FiberProceduralTextureProps, newProps: FiberProceduralTextureProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.ProceduralTexture = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // BABYLON.ProceduralTexture.isCube of type 'boolean':
         if (oldProps.isCube !== newProps.isCube) {
@@ -14174,8 +14018,7 @@ export class FiberProceduralTexturePropsHandler implements PropsHandler<BABYLON.
             updates.push({
                 propertyName: 'onGenerated',
                 value: newProps.onGenerated,
-                type: '() => void',
-                prevValue: oldProps.onGenerated,
+                type: '() => void'
             });
         }
         // BABYLON.ProceduralTexture.onGeneratedObservable of type 'BABYLON.Observable<BABYLON.ProceduralTexture>/fn':
@@ -14183,8 +14026,7 @@ export class FiberProceduralTexturePropsHandler implements PropsHandler<BABYLON.
             updates.push({
                 propertyName: 'onGeneratedObservable',
                 value: newProps.onGeneratedObservable,
-                type: 'BABYLON.Observable<BABYLON.ProceduralTexture>',
-                prevValue: oldProps.onGeneratedObservable,
+                type: 'BABYLON.Observable<BABYLON.ProceduralTexture>'
             });
         }
         // BABYLON.ProceduralTexture.refreshRate of type 'number':
@@ -14275,9 +14117,8 @@ export class FiberCustomProceduralTextureProps extends FiberProceduralTexturePro
 }
 
 export class FiberCustomProceduralTexturePropsHandler implements PropsHandler<BABYLON.CustomProceduralTexture, FiberCustomProceduralTextureProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.CustomProceduralTexture>, oldProps: FiberCustomProceduralTextureProps, newProps: FiberCustomProceduralTextureProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.CustomProceduralTexture, oldProps: FiberCustomProceduralTextureProps, newProps: FiberCustomProceduralTextureProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.CustomProceduralTexture = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // BABYLON.CustomProceduralTexture.animate of type 'boolean':
         if (oldProps.animate !== newProps.animate) {
@@ -14366,9 +14207,8 @@ export class FiberNoiseProceduralTextureProps extends FiberProceduralTextureProp
 }
 
 export class FiberNoiseProceduralTexturePropsHandler implements PropsHandler<BABYLON.NoiseProceduralTexture, FiberNoiseProceduralTextureProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.NoiseProceduralTexture>, oldProps: FiberNoiseProceduralTextureProps, newProps: FiberNoiseProceduralTextureProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.NoiseProceduralTexture, oldProps: FiberNoiseProceduralTextureProps, newProps: FiberNoiseProceduralTextureProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.NoiseProceduralTexture = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // BABYLON.NoiseProceduralTexture.animationSpeedFactor of type 'number':
         if (oldProps.animationSpeedFactor !== newProps.animationSpeedFactor) {
@@ -14482,9 +14322,8 @@ export class FiberAdvancedDynamicTextureProps extends FiberDynamicTextureProps {
 }
 
 export class FiberAdvancedDynamicTexturePropsHandler implements PropsHandler<GUI.AdvancedDynamicTexture, FiberAdvancedDynamicTextureProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<GUI.AdvancedDynamicTexture>, oldProps: FiberAdvancedDynamicTextureProps, newProps: FiberAdvancedDynamicTextureProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: GUI.AdvancedDynamicTexture, oldProps: FiberAdvancedDynamicTextureProps, newProps: FiberAdvancedDynamicTextureProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: GUI.AdvancedDynamicTexture = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // GUI.AdvancedDynamicTexture.background of type 'string':
         if (oldProps.background !== newProps.background) {
@@ -14628,17 +14467,15 @@ export class FiberGUI3DManagerProps {
 }
 
 export class FiberGUI3DManagerPropsHandler implements PropsHandler<GUI.GUI3DManager, FiberGUI3DManagerProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<GUI.GUI3DManager>, oldProps: FiberGUI3DManagerProps, newProps: FiberGUI3DManagerProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: GUI.GUI3DManager, oldProps: FiberGUI3DManagerProps, newProps: FiberGUI3DManagerProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: GUI.GUI3DManager = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // GUI.GUI3DManager.onPickedPointChangedObservable of type 'BABYLON.Observable<BABYLON.Vector3>/fn':
         if (oldProps.onPickedPointChangedObservable === undefined && oldProps.onPickedPointChangedObservable !== newProps.onPickedPointChangedObservable) {
             updates.push({
                 propertyName: 'onPickedPointChangedObservable',
                 value: newProps.onPickedPointChangedObservable,
-                type: 'BABYLON.Observable<BABYLON.Vector3>',
-                prevValue: oldProps.onPickedPointChangedObservable,
+                type: 'BABYLON.Observable<BABYLON.Vector3>'
             });
         }
         return updates.length == 0 ? null : updates;
@@ -14710,9 +14547,8 @@ export class FiberShadowGeneratorProps {
 }
 
 export class FiberShadowGeneratorPropsHandler implements PropsHandler<BABYLON.ShadowGenerator, FiberShadowGeneratorProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.ShadowGenerator>, oldProps: FiberShadowGeneratorProps, newProps: FiberShadowGeneratorProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.ShadowGenerator, oldProps: FiberShadowGeneratorProps, newProps: FiberShadowGeneratorProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.ShadowGenerator = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // BABYLON.ShadowGenerator.bias of type 'number':
         if (oldProps.bias !== newProps.bias) {
@@ -14943,17 +14779,15 @@ export class FiberEnvironmentHelperProps {
 }
 
 export class FiberEnvironmentHelperPropsHandler implements PropsHandler<BABYLON.EnvironmentHelper, FiberEnvironmentHelperProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.EnvironmentHelper>, oldProps: FiberEnvironmentHelperProps, newProps: FiberEnvironmentHelperProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.EnvironmentHelper, oldProps: FiberEnvironmentHelperProps, newProps: FiberEnvironmentHelperProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.EnvironmentHelper = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // BABYLON.EnvironmentHelper.onErrorObservable of type 'BABYLON.Observable<{ message?: string; exception?: any; }>/fn':
         if (oldProps.onErrorObservable === undefined && oldProps.onErrorObservable !== newProps.onErrorObservable) {
             updates.push({
                 propertyName: 'onErrorObservable',
                 value: newProps.onErrorObservable,
-                type: 'BABYLON.Observable<{ message?: string; exception?: any; }>',
-                prevValue: oldProps.onErrorObservable,
+                type: 'BABYLON.Observable<{ message?: string; exception?: any; }>'
             });
         }
         return updates.length == 0 ? null : updates;
@@ -15035,9 +14869,8 @@ export class FiberVRExperienceHelperProps {
 }
 
 export class FiberVRExperienceHelperPropsHandler implements PropsHandler<BABYLON.VRExperienceHelper, FiberVRExperienceHelperProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.VRExperienceHelper>, oldProps: FiberVRExperienceHelperProps, newProps: FiberVRExperienceHelperProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.VRExperienceHelper, oldProps: FiberVRExperienceHelperProps, newProps: FiberVRExperienceHelperProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.VRExperienceHelper = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // TODO: type: any property (not coded) BABYLON.VRExperienceHelper.beforeRender.
         // BABYLON.VRExperienceHelper.displayGaze of type 'boolean':
@@ -15065,8 +14898,7 @@ export class FiberVRExperienceHelperPropsHandler implements PropsHandler<BABYLON
             updates.push({
                 propertyName: 'onAfterCameraTeleport',
                 value: newProps.onAfterCameraTeleport,
-                type: 'BABYLON.Observable<BABYLON.Vector3>',
-                prevValue: oldProps.onAfterCameraTeleport,
+                type: 'BABYLON.Observable<BABYLON.Vector3>'
             });
         }
         // BABYLON.VRExperienceHelper.onBeforeCameraTeleport of type 'BABYLON.Observable<BABYLON.Vector3>/fn':
@@ -15074,8 +14906,7 @@ export class FiberVRExperienceHelperPropsHandler implements PropsHandler<BABYLON
             updates.push({
                 propertyName: 'onBeforeCameraTeleport',
                 value: newProps.onBeforeCameraTeleport,
-                type: 'BABYLON.Observable<BABYLON.Vector3>',
-                prevValue: oldProps.onBeforeCameraTeleport,
+                type: 'BABYLON.Observable<BABYLON.Vector3>'
             });
         }
         // BABYLON.VRExperienceHelper.onControllerMeshLoadedObservable of type 'BABYLON.Observable<BABYLON.WebVRController>/fn':
@@ -15083,8 +14914,7 @@ export class FiberVRExperienceHelperPropsHandler implements PropsHandler<BABYLON
             updates.push({
                 propertyName: 'onControllerMeshLoadedObservable',
                 value: newProps.onControllerMeshLoadedObservable,
-                type: 'BABYLON.Observable<BABYLON.WebVRController>',
-                prevValue: oldProps.onControllerMeshLoadedObservable,
+                type: 'BABYLON.Observable<BABYLON.WebVRController>'
             });
         }
         // BABYLON.VRExperienceHelper.onEnteringVRObservable of type 'BABYLON.Observable<BABYLON.VRExperienceHelper>/fn':
@@ -15092,8 +14922,7 @@ export class FiberVRExperienceHelperPropsHandler implements PropsHandler<BABYLON
             updates.push({
                 propertyName: 'onEnteringVRObservable',
                 value: newProps.onEnteringVRObservable,
-                type: 'BABYLON.Observable<BABYLON.VRExperienceHelper>',
-                prevValue: oldProps.onEnteringVRObservable,
+                type: 'BABYLON.Observable<BABYLON.VRExperienceHelper>'
             });
         }
         // BABYLON.VRExperienceHelper.onExitingVRObservable of type 'BABYLON.Observable<BABYLON.VRExperienceHelper>/fn':
@@ -15101,8 +14930,7 @@ export class FiberVRExperienceHelperPropsHandler implements PropsHandler<BABYLON
             updates.push({
                 propertyName: 'onExitingVRObservable',
                 value: newProps.onExitingVRObservable,
-                type: 'BABYLON.Observable<BABYLON.VRExperienceHelper>',
-                prevValue: oldProps.onExitingVRObservable,
+                type: 'BABYLON.Observable<BABYLON.VRExperienceHelper>'
             });
         }
         // BABYLON.VRExperienceHelper.onNewMeshPicked of type 'BABYLON.Observable<BABYLON.PickingInfo>/fn':
@@ -15110,8 +14938,7 @@ export class FiberVRExperienceHelperPropsHandler implements PropsHandler<BABYLON
             updates.push({
                 propertyName: 'onNewMeshPicked',
                 value: newProps.onNewMeshPicked,
-                type: 'BABYLON.Observable<BABYLON.PickingInfo>',
-                prevValue: oldProps.onNewMeshPicked,
+                type: 'BABYLON.Observable<BABYLON.PickingInfo>'
             });
         }
         // BABYLON.VRExperienceHelper.onNewMeshSelected of type 'BABYLON.Observable<BABYLON.AbstractMesh>/fn':
@@ -15119,8 +14946,7 @@ export class FiberVRExperienceHelperPropsHandler implements PropsHandler<BABYLON
             updates.push({
                 propertyName: 'onNewMeshSelected',
                 value: newProps.onNewMeshSelected,
-                type: 'BABYLON.Observable<BABYLON.AbstractMesh>',
-                prevValue: oldProps.onNewMeshSelected,
+                type: 'BABYLON.Observable<BABYLON.AbstractMesh>'
             });
         }
         // BABYLON.VRExperienceHelper.onSelectedMeshUnselected of type 'BABYLON.Observable<BABYLON.AbstractMesh>/fn':
@@ -15128,8 +14954,7 @@ export class FiberVRExperienceHelperPropsHandler implements PropsHandler<BABYLON
             updates.push({
                 propertyName: 'onSelectedMeshUnselected',
                 value: newProps.onSelectedMeshUnselected,
-                type: 'BABYLON.Observable<BABYLON.AbstractMesh>',
-                prevValue: oldProps.onSelectedMeshUnselected,
+                type: 'BABYLON.Observable<BABYLON.AbstractMesh>'
             });
         }
         // BABYLON.VRExperienceHelper.onVRDisplayChanged of type 'any/fn':
@@ -15137,8 +14962,7 @@ export class FiberVRExperienceHelperPropsHandler implements PropsHandler<BABYLON
             updates.push({
                 propertyName: 'onVRDisplayChanged',
                 value: newProps.onVRDisplayChanged,
-                type: 'any',
-                prevValue: oldProps.onVRDisplayChanged,
+                type: 'any'
             });
         }
         // BABYLON.VRExperienceHelper.onVrDisplayPresentChange of type 'any/fn':
@@ -15146,8 +14970,7 @@ export class FiberVRExperienceHelperPropsHandler implements PropsHandler<BABYLON
             updates.push({
                 propertyName: 'onVrDisplayPresentChange',
                 value: newProps.onVrDisplayPresentChange,
-                type: 'any',
-                prevValue: oldProps.onVrDisplayPresentChange,
+                type: 'any'
             });
         }
         // BABYLON.VRExperienceHelper.position of BABYLONBABYLON.Vector3 uses object equals to find diffs:
@@ -15343,9 +15166,8 @@ export class FiberSceneProps {
 }
 
 export class FiberScenePropsHandler implements PropsHandler<BABYLON.Scene, FiberSceneProps> {
-    getPropertyUpdates(createdInstance: CreatedInstance<BABYLON.Scene>, oldProps: FiberSceneProps, newProps: FiberSceneProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
+    getPropertyUpdates(hostInstance: BABYLON.Scene, oldProps: FiberSceneProps, newProps: FiberSceneProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
-        let babylonObject: BABYLON.Scene = createdInstance.babylonJsObject;
         let updates: PropertyUpdate[] = [];
         // TODO: type: BABYLON.ActionManager property (not coded) BABYLON.Scene.actionManager.
         // TODO: type: BABYLON.Camera property (not coded) BABYLON.Scene.activeCamera.
@@ -15571,8 +15393,7 @@ export class FiberScenePropsHandler implements PropsHandler<BABYLON.Scene, Fiber
             updates.push({
                 propertyName: 'onAfterActiveMeshesEvaluationObservable',
                 value: newProps.onAfterActiveMeshesEvaluationObservable,
-                type: 'BABYLON.Observable<BABYLON.Scene>',
-                prevValue: oldProps.onAfterActiveMeshesEvaluationObservable,
+                type: 'BABYLON.Observable<BABYLON.Scene>'
             });
         }
         // BABYLON.Scene.onAfterAnimationsObservable of type 'BABYLON.Observable<BABYLON.Scene>/fn':
@@ -15580,8 +15401,7 @@ export class FiberScenePropsHandler implements PropsHandler<BABYLON.Scene, Fiber
             updates.push({
                 propertyName: 'onAfterAnimationsObservable',
                 value: newProps.onAfterAnimationsObservable,
-                type: 'BABYLON.Observable<BABYLON.Scene>',
-                prevValue: oldProps.onAfterAnimationsObservable,
+                type: 'BABYLON.Observable<BABYLON.Scene>'
             });
         }
         // BABYLON.Scene.onAfterCameraRenderObservable of type 'BABYLON.Observable<BABYLON.Camera>/fn':
@@ -15589,8 +15409,7 @@ export class FiberScenePropsHandler implements PropsHandler<BABYLON.Scene, Fiber
             updates.push({
                 propertyName: 'onAfterCameraRenderObservable',
                 value: newProps.onAfterCameraRenderObservable,
-                type: 'BABYLON.Observable<BABYLON.Camera>',
-                prevValue: oldProps.onAfterCameraRenderObservable,
+                type: 'BABYLON.Observable<BABYLON.Camera>'
             });
         }
         // BABYLON.Scene.onAfterDrawPhaseObservable of type 'BABYLON.Observable<BABYLON.Scene>/fn':
@@ -15598,8 +15417,7 @@ export class FiberScenePropsHandler implements PropsHandler<BABYLON.Scene, Fiber
             updates.push({
                 propertyName: 'onAfterDrawPhaseObservable',
                 value: newProps.onAfterDrawPhaseObservable,
-                type: 'BABYLON.Observable<BABYLON.Scene>',
-                prevValue: oldProps.onAfterDrawPhaseObservable,
+                type: 'BABYLON.Observable<BABYLON.Scene>'
             });
         }
         // BABYLON.Scene.onAfterParticlesRenderingObservable of type 'BABYLON.Observable<BABYLON.Scene>/fn':
@@ -15607,8 +15425,7 @@ export class FiberScenePropsHandler implements PropsHandler<BABYLON.Scene, Fiber
             updates.push({
                 propertyName: 'onAfterParticlesRenderingObservable',
                 value: newProps.onAfterParticlesRenderingObservable,
-                type: 'BABYLON.Observable<BABYLON.Scene>',
-                prevValue: oldProps.onAfterParticlesRenderingObservable,
+                type: 'BABYLON.Observable<BABYLON.Scene>'
             });
         }
         // BABYLON.Scene.onAfterRenderingGroupObservable of type 'BABYLON.Observable<BABYLON.RenderingGroupInfo>/fn':
@@ -15616,8 +15433,7 @@ export class FiberScenePropsHandler implements PropsHandler<BABYLON.Scene, Fiber
             updates.push({
                 propertyName: 'onAfterRenderingGroupObservable',
                 value: newProps.onAfterRenderingGroupObservable,
-                type: 'BABYLON.Observable<BABYLON.RenderingGroupInfo>',
-                prevValue: oldProps.onAfterRenderingGroupObservable,
+                type: 'BABYLON.Observable<BABYLON.RenderingGroupInfo>'
             });
         }
         // BABYLON.Scene.onAfterRenderObservable of type 'BABYLON.Observable<BABYLON.Scene>/fn':
@@ -15625,8 +15441,7 @@ export class FiberScenePropsHandler implements PropsHandler<BABYLON.Scene, Fiber
             updates.push({
                 propertyName: 'onAfterRenderObservable',
                 value: newProps.onAfterRenderObservable,
-                type: 'BABYLON.Observable<BABYLON.Scene>',
-                prevValue: oldProps.onAfterRenderObservable,
+                type: 'BABYLON.Observable<BABYLON.Scene>'
             });
         }
         // BABYLON.Scene.onAfterRenderTargetsRenderObservable of type 'BABYLON.Observable<BABYLON.Scene>/fn':
@@ -15634,8 +15449,7 @@ export class FiberScenePropsHandler implements PropsHandler<BABYLON.Scene, Fiber
             updates.push({
                 propertyName: 'onAfterRenderTargetsRenderObservable',
                 value: newProps.onAfterRenderTargetsRenderObservable,
-                type: 'BABYLON.Observable<BABYLON.Scene>',
-                prevValue: oldProps.onAfterRenderTargetsRenderObservable,
+                type: 'BABYLON.Observable<BABYLON.Scene>'
             });
         }
         // BABYLON.Scene.onAfterStepObservable of type 'BABYLON.Observable<BABYLON.Scene>/fn':
@@ -15643,8 +15457,7 @@ export class FiberScenePropsHandler implements PropsHandler<BABYLON.Scene, Fiber
             updates.push({
                 propertyName: 'onAfterStepObservable',
                 value: newProps.onAfterStepObservable,
-                type: 'BABYLON.Observable<BABYLON.Scene>',
-                prevValue: oldProps.onAfterStepObservable,
+                type: 'BABYLON.Observable<BABYLON.Scene>'
             });
         }
         // BABYLON.Scene.onBeforeActiveMeshesEvaluationObservable of type 'BABYLON.Observable<BABYLON.Scene>/fn':
@@ -15652,8 +15465,7 @@ export class FiberScenePropsHandler implements PropsHandler<BABYLON.Scene, Fiber
             updates.push({
                 propertyName: 'onBeforeActiveMeshesEvaluationObservable',
                 value: newProps.onBeforeActiveMeshesEvaluationObservable,
-                type: 'BABYLON.Observable<BABYLON.Scene>',
-                prevValue: oldProps.onBeforeActiveMeshesEvaluationObservable,
+                type: 'BABYLON.Observable<BABYLON.Scene>'
             });
         }
         // BABYLON.Scene.onBeforeAnimationsObservable of type 'BABYLON.Observable<BABYLON.Scene>/fn':
@@ -15661,8 +15473,7 @@ export class FiberScenePropsHandler implements PropsHandler<BABYLON.Scene, Fiber
             updates.push({
                 propertyName: 'onBeforeAnimationsObservable',
                 value: newProps.onBeforeAnimationsObservable,
-                type: 'BABYLON.Observable<BABYLON.Scene>',
-                prevValue: oldProps.onBeforeAnimationsObservable,
+                type: 'BABYLON.Observable<BABYLON.Scene>'
             });
         }
         // BABYLON.Scene.onBeforeCameraRenderObservable of type 'BABYLON.Observable<BABYLON.Camera>/fn':
@@ -15670,8 +15481,7 @@ export class FiberScenePropsHandler implements PropsHandler<BABYLON.Scene, Fiber
             updates.push({
                 propertyName: 'onBeforeCameraRenderObservable',
                 value: newProps.onBeforeCameraRenderObservable,
-                type: 'BABYLON.Observable<BABYLON.Camera>',
-                prevValue: oldProps.onBeforeCameraRenderObservable,
+                type: 'BABYLON.Observable<BABYLON.Camera>'
             });
         }
         // BABYLON.Scene.onBeforeDrawPhaseObservable of type 'BABYLON.Observable<BABYLON.Scene>/fn':
@@ -15679,8 +15489,7 @@ export class FiberScenePropsHandler implements PropsHandler<BABYLON.Scene, Fiber
             updates.push({
                 propertyName: 'onBeforeDrawPhaseObservable',
                 value: newProps.onBeforeDrawPhaseObservable,
-                type: 'BABYLON.Observable<BABYLON.Scene>',
-                prevValue: oldProps.onBeforeDrawPhaseObservable,
+                type: 'BABYLON.Observable<BABYLON.Scene>'
             });
         }
         // BABYLON.Scene.onBeforeParticlesRenderingObservable of type 'BABYLON.Observable<BABYLON.Scene>/fn':
@@ -15688,8 +15497,7 @@ export class FiberScenePropsHandler implements PropsHandler<BABYLON.Scene, Fiber
             updates.push({
                 propertyName: 'onBeforeParticlesRenderingObservable',
                 value: newProps.onBeforeParticlesRenderingObservable,
-                type: 'BABYLON.Observable<BABYLON.Scene>',
-                prevValue: oldProps.onBeforeParticlesRenderingObservable,
+                type: 'BABYLON.Observable<BABYLON.Scene>'
             });
         }
         // BABYLON.Scene.onBeforeRenderingGroupObservable of type 'BABYLON.Observable<BABYLON.RenderingGroupInfo>/fn':
@@ -15697,8 +15505,7 @@ export class FiberScenePropsHandler implements PropsHandler<BABYLON.Scene, Fiber
             updates.push({
                 propertyName: 'onBeforeRenderingGroupObservable',
                 value: newProps.onBeforeRenderingGroupObservable,
-                type: 'BABYLON.Observable<BABYLON.RenderingGroupInfo>',
-                prevValue: oldProps.onBeforeRenderingGroupObservable,
+                type: 'BABYLON.Observable<BABYLON.RenderingGroupInfo>'
             });
         }
         // BABYLON.Scene.onBeforeRenderObservable of type 'BABYLON.Observable<BABYLON.Scene>/fn':
@@ -15706,8 +15513,7 @@ export class FiberScenePropsHandler implements PropsHandler<BABYLON.Scene, Fiber
             updates.push({
                 propertyName: 'onBeforeRenderObservable',
                 value: newProps.onBeforeRenderObservable,
-                type: 'BABYLON.Observable<BABYLON.Scene>',
-                prevValue: oldProps.onBeforeRenderObservable,
+                type: 'BABYLON.Observable<BABYLON.Scene>'
             });
         }
         // BABYLON.Scene.onBeforeRenderTargetsRenderObservable of type 'BABYLON.Observable<BABYLON.Scene>/fn':
@@ -15715,8 +15521,7 @@ export class FiberScenePropsHandler implements PropsHandler<BABYLON.Scene, Fiber
             updates.push({
                 propertyName: 'onBeforeRenderTargetsRenderObservable',
                 value: newProps.onBeforeRenderTargetsRenderObservable,
-                type: 'BABYLON.Observable<BABYLON.Scene>',
-                prevValue: oldProps.onBeforeRenderTargetsRenderObservable,
+                type: 'BABYLON.Observable<BABYLON.Scene>'
             });
         }
         // BABYLON.Scene.onBeforeStepObservable of type 'BABYLON.Observable<BABYLON.Scene>/fn':
@@ -15724,8 +15529,7 @@ export class FiberScenePropsHandler implements PropsHandler<BABYLON.Scene, Fiber
             updates.push({
                 propertyName: 'onBeforeStepObservable',
                 value: newProps.onBeforeStepObservable,
-                type: 'BABYLON.Observable<BABYLON.Scene>',
-                prevValue: oldProps.onBeforeStepObservable,
+                type: 'BABYLON.Observable<BABYLON.Scene>'
             });
         }
         // BABYLON.Scene.onCameraRemovedObservable of type 'BABYLON.Observable<BABYLON.Camera>/fn':
@@ -15733,8 +15537,7 @@ export class FiberScenePropsHandler implements PropsHandler<BABYLON.Scene, Fiber
             updates.push({
                 propertyName: 'onCameraRemovedObservable',
                 value: newProps.onCameraRemovedObservable,
-                type: 'BABYLON.Observable<BABYLON.Camera>',
-                prevValue: oldProps.onCameraRemovedObservable,
+                type: 'BABYLON.Observable<BABYLON.Camera>'
             });
         }
         // BABYLON.Scene.onDataLoadedObservable of type 'BABYLON.Observable<BABYLON.Scene>/fn':
@@ -15742,8 +15545,7 @@ export class FiberScenePropsHandler implements PropsHandler<BABYLON.Scene, Fiber
             updates.push({
                 propertyName: 'onDataLoadedObservable',
                 value: newProps.onDataLoadedObservable,
-                type: 'BABYLON.Observable<BABYLON.Scene>',
-                prevValue: oldProps.onDataLoadedObservable,
+                type: 'BABYLON.Observable<BABYLON.Scene>'
             });
         }
         // BABYLON.Scene.onDispose of type '() => void/fn':
@@ -15751,8 +15553,7 @@ export class FiberScenePropsHandler implements PropsHandler<BABYLON.Scene, Fiber
             updates.push({
                 propertyName: 'onDispose',
                 value: newProps.onDispose,
-                type: '() => void',
-                prevValue: oldProps.onDispose,
+                type: '() => void'
             });
         }
         // BABYLON.Scene.onDisposeObservable of type 'BABYLON.Observable<BABYLON.Scene>/fn':
@@ -15760,8 +15561,7 @@ export class FiberScenePropsHandler implements PropsHandler<BABYLON.Scene, Fiber
             updates.push({
                 propertyName: 'onDisposeObservable',
                 value: newProps.onDisposeObservable,
-                type: 'BABYLON.Observable<BABYLON.Scene>',
-                prevValue: oldProps.onDisposeObservable,
+                type: 'BABYLON.Observable<BABYLON.Scene>'
             });
         }
         // BABYLON.Scene.onGeometryRemovedObservable of type 'BABYLON.Observable<BABYLON.Geometry>/fn':
@@ -15769,8 +15569,7 @@ export class FiberScenePropsHandler implements PropsHandler<BABYLON.Scene, Fiber
             updates.push({
                 propertyName: 'onGeometryRemovedObservable',
                 value: newProps.onGeometryRemovedObservable,
-                type: 'BABYLON.Observable<BABYLON.Geometry>',
-                prevValue: oldProps.onGeometryRemovedObservable,
+                type: 'BABYLON.Observable<BABYLON.Geometry>'
             });
         }
         // BABYLON.Scene.onKeyboardObservable of type 'BABYLON.Observable<BABYLON.KeyboardInfo>/fn':
@@ -15778,8 +15577,7 @@ export class FiberScenePropsHandler implements PropsHandler<BABYLON.Scene, Fiber
             updates.push({
                 propertyName: 'onKeyboardObservable',
                 value: newProps.onKeyboardObservable,
-                type: 'BABYLON.Observable<BABYLON.KeyboardInfo>',
-                prevValue: oldProps.onKeyboardObservable,
+                type: 'BABYLON.Observable<BABYLON.KeyboardInfo>'
             });
         }
         // BABYLON.Scene.onLightRemovedObservable of type 'BABYLON.Observable<BABYLON.Light>/fn':
@@ -15787,8 +15585,7 @@ export class FiberScenePropsHandler implements PropsHandler<BABYLON.Scene, Fiber
             updates.push({
                 propertyName: 'onLightRemovedObservable',
                 value: newProps.onLightRemovedObservable,
-                type: 'BABYLON.Observable<BABYLON.Light>',
-                prevValue: oldProps.onLightRemovedObservable,
+                type: 'BABYLON.Observable<BABYLON.Light>'
             });
         }
         // BABYLON.Scene.onMeshImportedObservable of type 'BABYLON.Observable<BABYLON.AbstractMesh>/fn':
@@ -15796,8 +15593,7 @@ export class FiberScenePropsHandler implements PropsHandler<BABYLON.Scene, Fiber
             updates.push({
                 propertyName: 'onMeshImportedObservable',
                 value: newProps.onMeshImportedObservable,
-                type: 'BABYLON.Observable<BABYLON.AbstractMesh>',
-                prevValue: oldProps.onMeshImportedObservable,
+                type: 'BABYLON.Observable<BABYLON.AbstractMesh>'
             });
         }
         // BABYLON.Scene.onMeshRemovedObservable of type 'BABYLON.Observable<BABYLON.AbstractMesh>/fn':
@@ -15805,8 +15601,7 @@ export class FiberScenePropsHandler implements PropsHandler<BABYLON.Scene, Fiber
             updates.push({
                 propertyName: 'onMeshRemovedObservable',
                 value: newProps.onMeshRemovedObservable,
-                type: 'BABYLON.Observable<BABYLON.AbstractMesh>',
-                prevValue: oldProps.onMeshRemovedObservable,
+                type: 'BABYLON.Observable<BABYLON.AbstractMesh>'
             });
         }
         // BABYLON.Scene.onNewCameraAddedObservable of type 'BABYLON.Observable<BABYLON.Camera>/fn':
@@ -15814,8 +15609,7 @@ export class FiberScenePropsHandler implements PropsHandler<BABYLON.Scene, Fiber
             updates.push({
                 propertyName: 'onNewCameraAddedObservable',
                 value: newProps.onNewCameraAddedObservable,
-                type: 'BABYLON.Observable<BABYLON.Camera>',
-                prevValue: oldProps.onNewCameraAddedObservable,
+                type: 'BABYLON.Observable<BABYLON.Camera>'
             });
         }
         // BABYLON.Scene.onNewGeometryAddedObservable of type 'BABYLON.Observable<BABYLON.Geometry>/fn':
@@ -15823,8 +15617,7 @@ export class FiberScenePropsHandler implements PropsHandler<BABYLON.Scene, Fiber
             updates.push({
                 propertyName: 'onNewGeometryAddedObservable',
                 value: newProps.onNewGeometryAddedObservable,
-                type: 'BABYLON.Observable<BABYLON.Geometry>',
-                prevValue: oldProps.onNewGeometryAddedObservable,
+                type: 'BABYLON.Observable<BABYLON.Geometry>'
             });
         }
         // BABYLON.Scene.onNewLightAddedObservable of type 'BABYLON.Observable<BABYLON.Light>/fn':
@@ -15832,8 +15625,7 @@ export class FiberScenePropsHandler implements PropsHandler<BABYLON.Scene, Fiber
             updates.push({
                 propertyName: 'onNewLightAddedObservable',
                 value: newProps.onNewLightAddedObservable,
-                type: 'BABYLON.Observable<BABYLON.Light>',
-                prevValue: oldProps.onNewLightAddedObservable,
+                type: 'BABYLON.Observable<BABYLON.Light>'
             });
         }
         // BABYLON.Scene.onNewMeshAddedObservable of type 'BABYLON.Observable<BABYLON.AbstractMesh>/fn':
@@ -15841,8 +15633,7 @@ export class FiberScenePropsHandler implements PropsHandler<BABYLON.Scene, Fiber
             updates.push({
                 propertyName: 'onNewMeshAddedObservable',
                 value: newProps.onNewMeshAddedObservable,
-                type: 'BABYLON.Observable<BABYLON.AbstractMesh>',
-                prevValue: oldProps.onNewMeshAddedObservable,
+                type: 'BABYLON.Observable<BABYLON.AbstractMesh>'
             });
         }
         // BABYLON.Scene.onNewTransformNodeAddedObservable of type 'BABYLON.Observable<BABYLON.TransformNode>/fn':
@@ -15850,8 +15641,7 @@ export class FiberScenePropsHandler implements PropsHandler<BABYLON.Scene, Fiber
             updates.push({
                 propertyName: 'onNewTransformNodeAddedObservable',
                 value: newProps.onNewTransformNodeAddedObservable,
-                type: 'BABYLON.Observable<BABYLON.TransformNode>',
-                prevValue: oldProps.onNewTransformNodeAddedObservable,
+                type: 'BABYLON.Observable<BABYLON.TransformNode>'
             });
         }
         // BABYLON.Scene.onPointerDown of type '(evt: PointerEvent, pickInfo: BABYLON.PickingInfo, type: BABYLON.PointerEventTypes) => void/fn':
@@ -15859,8 +15649,7 @@ export class FiberScenePropsHandler implements PropsHandler<BABYLON.Scene, Fiber
             updates.push({
                 propertyName: 'onPointerDown',
                 value: newProps.onPointerDown,
-                type: '(evt: PointerEvent, pickInfo: BABYLON.PickingInfo, type: BABYLON.PointerEventTypes) => void',
-                prevValue: oldProps.onPointerDown,
+                type: '(evt: PointerEvent, pickInfo: BABYLON.PickingInfo, type: BABYLON.PointerEventTypes) => void'
             });
         }
         // BABYLON.Scene.onPointerMove of type '(evt: PointerEvent, pickInfo: BABYLON.PickingInfo, type: BABYLON.PointerEventTypes) => void/fn':
@@ -15868,8 +15657,7 @@ export class FiberScenePropsHandler implements PropsHandler<BABYLON.Scene, Fiber
             updates.push({
                 propertyName: 'onPointerMove',
                 value: newProps.onPointerMove,
-                type: '(evt: PointerEvent, pickInfo: BABYLON.PickingInfo, type: BABYLON.PointerEventTypes) => void',
-                prevValue: oldProps.onPointerMove,
+                type: '(evt: PointerEvent, pickInfo: BABYLON.PickingInfo, type: BABYLON.PointerEventTypes) => void'
             });
         }
         // BABYLON.Scene.onPointerObservable of type 'BABYLON.Observable<BABYLON.PointerInfo>/fn':
@@ -15877,8 +15665,7 @@ export class FiberScenePropsHandler implements PropsHandler<BABYLON.Scene, Fiber
             updates.push({
                 propertyName: 'onPointerObservable',
                 value: newProps.onPointerObservable,
-                type: 'BABYLON.Observable<BABYLON.PointerInfo>',
-                prevValue: oldProps.onPointerObservable,
+                type: 'BABYLON.Observable<BABYLON.PointerInfo>'
             });
         }
         // BABYLON.Scene.onPointerPick of type '(evt: PointerEvent, pickInfo: BABYLON.PickingInfo) => void/fn':
@@ -15886,8 +15673,7 @@ export class FiberScenePropsHandler implements PropsHandler<BABYLON.Scene, Fiber
             updates.push({
                 propertyName: 'onPointerPick',
                 value: newProps.onPointerPick,
-                type: '(evt: PointerEvent, pickInfo: BABYLON.PickingInfo) => void',
-                prevValue: oldProps.onPointerPick,
+                type: '(evt: PointerEvent, pickInfo: BABYLON.PickingInfo) => void'
             });
         }
         // BABYLON.Scene.onPointerUp of type '(evt: PointerEvent, pickInfo: BABYLON.PickingInfo, type: BABYLON.PointerEventTypes) => void/fn':
@@ -15895,8 +15681,7 @@ export class FiberScenePropsHandler implements PropsHandler<BABYLON.Scene, Fiber
             updates.push({
                 propertyName: 'onPointerUp',
                 value: newProps.onPointerUp,
-                type: '(evt: PointerEvent, pickInfo: BABYLON.PickingInfo, type: BABYLON.PointerEventTypes) => void',
-                prevValue: oldProps.onPointerUp,
+                type: '(evt: PointerEvent, pickInfo: BABYLON.PickingInfo, type: BABYLON.PointerEventTypes) => void'
             });
         }
         // BABYLON.Scene.onPreKeyboardObservable of type 'BABYLON.Observable<BABYLON.KeyboardInfoPre>/fn':
@@ -15904,8 +15689,7 @@ export class FiberScenePropsHandler implements PropsHandler<BABYLON.Scene, Fiber
             updates.push({
                 propertyName: 'onPreKeyboardObservable',
                 value: newProps.onPreKeyboardObservable,
-                type: 'BABYLON.Observable<BABYLON.KeyboardInfoPre>',
-                prevValue: oldProps.onPreKeyboardObservable,
+                type: 'BABYLON.Observable<BABYLON.KeyboardInfoPre>'
             });
         }
         // BABYLON.Scene.onPrePointerObservable of type 'BABYLON.Observable<BABYLON.PointerInfoPre>/fn':
@@ -15913,8 +15697,7 @@ export class FiberScenePropsHandler implements PropsHandler<BABYLON.Scene, Fiber
             updates.push({
                 propertyName: 'onPrePointerObservable',
                 value: newProps.onPrePointerObservable,
-                type: 'BABYLON.Observable<BABYLON.PointerInfoPre>',
-                prevValue: oldProps.onPrePointerObservable,
+                type: 'BABYLON.Observable<BABYLON.PointerInfoPre>'
             });
         }
         // BABYLON.Scene.onReadyObservable of type 'BABYLON.Observable<BABYLON.Scene>/fn':
@@ -15922,8 +15705,7 @@ export class FiberScenePropsHandler implements PropsHandler<BABYLON.Scene, Fiber
             updates.push({
                 propertyName: 'onReadyObservable',
                 value: newProps.onReadyObservable,
-                type: 'BABYLON.Observable<BABYLON.Scene>',
-                prevValue: oldProps.onReadyObservable,
+                type: 'BABYLON.Observable<BABYLON.Scene>'
             });
         }
         // BABYLON.Scene.onTransformNodeRemovedObservable of type 'BABYLON.Observable<BABYLON.TransformNode>/fn':
@@ -15931,8 +15713,7 @@ export class FiberScenePropsHandler implements PropsHandler<BABYLON.Scene, Fiber
             updates.push({
                 propertyName: 'onTransformNodeRemovedObservable',
                 value: newProps.onTransformNodeRemovedObservable,
-                type: 'BABYLON.Observable<BABYLON.TransformNode>',
-                prevValue: oldProps.onTransformNodeRemovedObservable,
+                type: 'BABYLON.Observable<BABYLON.TransformNode>'
             });
         }
         // BABYLON.Scene.particlesEnabled of type 'boolean':

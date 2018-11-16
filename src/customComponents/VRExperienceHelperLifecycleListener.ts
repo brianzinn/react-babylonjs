@@ -13,8 +13,8 @@ export default class VRExperienceHelperLifecycleListener implements LifecycleLis
 
   onMount(instance: CreatedInstance<any>): void {
     if (this.props.enableInteractions) {
-      if (typeof instance.babylonJsObject.enableInteractions === "function") {
-        instance.babylonJsObject.enableInteractions()
+      if (typeof instance.hostInstance.enableInteractions === "function") {
+        instance.hostInstance.enableInteractions()
       }
     }
   }

@@ -9,6 +9,8 @@ import * as CUSTOM_COMPONENTS from "./customComponents"
 import GUI3DControlLifecycleListener from "./customComponents/GUI3DControlLifecycleListener"
 import GUI2DControlLifecycleListener from "./customComponents/GUI2DControlLifecycleListener"
 
+import { FiberModel, LoadedModel } from './model'
+
 /** Following classes are duplicated in generate-code.ts for noww */
 type GeneratedParameter = {
   name: string
@@ -49,11 +51,15 @@ export type CreatedInstanceMetadata = {
 }
 /** end of duplicated code */
 
-export type PropertyUpdate = {
+export interface PropertyUpdate {
   type: string
   value: any
   propertyName: string
-  prevValue?: any
+  // prevValue?: any
+  /**
+   * When provided will dynamically target a property of 'babylonJSobject'.
+   */
+  target?: string
 }
 
 // TODO: see if it's a 'shape' with oneOf() for props/options
@@ -98,7 +104,7 @@ export interface LifecycleListeners {
  * The parent/child is part of the Fiber Reconciler and helps attach materials/parenting/cameras/shadows/etc.
  */
 export interface CreatedInstance<T> {
-  babylonJsObject: T
+  hostInstance: T
   metadata: CreatedInstanceMetadata
   parent: CreatedInstance<any> | null // Not the same as parent in BabylonJS, this is for internal reconciler structure. ie: graph walking
   children: CreatedInstance<any>[]
@@ -109,14 +115,14 @@ export interface CreatedInstance<T> {
 }
 
 export class CreatedInstanceImpl<T> implements CreatedInstance<T> {
-  public readonly babylonJsObject: T
+  public readonly hostInstance: T
   public readonly metadata: CreatedInstanceMetadata
   public parent: CreatedInstance<any> | null = null // Not the same as parent in BabylonJS, this is for internal reconciler structure. ie: graph walking
   public children: CreatedInstance<any>[] = []
   public propsHandlers: GENERATED.HasPropsHandlers<T, any>
 
-  constructor(babylonJSObject: T, metadata: CreatedInstanceMetadata, fiberObject: GENERATED.HasPropsHandlers<T, any>) {
-    this.babylonJsObject = babylonJSObject
+  constructor(hostInstance: T, metadata: CreatedInstanceMetadata, fiberObject: GENERATED.HasPropsHandlers<T, any>) {
+    this.hostInstance = hostInstance
     this.metadata = metadata
     this.propsHandlers = fiberObject
   }
@@ -131,7 +137,7 @@ type Props = {
 export type Container = {
   engine: BABYLON.Nullable<BABYLON.Engine>
   canvas: BABYLON.Nullable<HTMLCanvasElement | WebGLRenderingContext>
-  scene: BABYLON.Nullable<BABYLON.Scene>  
+  scene: BABYLON.Nullable<BABYLON.Scene>
   // scenes: BABYLON.Scene[]
   rootInstance: CreatedInstance<any>
 }
@@ -142,14 +148,17 @@ type UpdatePayload = PropertyUpdate[] | null
 type TimeoutHandler = number | undefined
 type NoTimeout = number
 
-export const applyUpdateToInstance = (babylonObject: any, update: PropertyUpdate, type: string | undefined): void => {
+export const applyUpdateToInstance = (hostInstance: any, update: PropertyUpdate, type: string | undefined): void => {
+
+  let target = update.target !== undefined ? hostInstance[update.target] : hostInstance;
+
   switch (update.type) {
     case "string":
     case "number":
     case "boolean":
     case "string | number": // TODO: string | number is a deficiency in the code generator.  ie: can test for only primitives | and generate update type in code generator
       // console.log(` > ${type}: updating ${update.type} on ${update.propertyName} to ${update.value}`)
-      babylonObject[update.propertyName] = update.value
+      target[update.propertyName] = update.value
       break
     case "BABYLON.Vector3": // TODO: merge with Color3
       // console.log(
@@ -159,42 +168,42 @@ export const applyUpdateToInstance = (babylonObject: any, update: PropertyUpdate
       //   babylonObject
       // )
 
-      if (babylonObject[update.propertyName]) {
-        ;(babylonObject[update.propertyName] as BABYLON.Vector3).copyFrom(update.value)
+      if (target[update.propertyName]) {
+        (target[update.propertyName] as BABYLON.Vector3).copyFrom(update.value)
       } else if (update.value) {
-        babylonObject[update.propertyName] = update.value.clone()
+        target[update.propertyName] = update.value.clone()
       } else {
-        babylonObject[update.propertyName] = update.value // ie: undefined/null?
+        target[update.propertyName] = update.value // ie: undefined/null?
       }
       break
     case "BABYLON.Color3": // merge this switch with BABYLON.Vector3, Color4, etc.  The copyFrom BABYLON types.
       // console.log(` > ${type}: updating Color3 on:${update.propertyName} to ${update.value}`)
-      if (babylonObject[update.propertyName]) {
-        ;(babylonObject[update.propertyName] as BABYLON.Color3).copyFrom(update.value)
+      if (target[update.propertyName]) {
+        (target[update.propertyName] as BABYLON.Color3).copyFrom(update.value)
       } else if (update.value) {
-        babylonObject[update.propertyName] = update.value.clone()
+        target[update.propertyName] = update.value.clone()
       } else {
-        babylonObject[update.propertyName] = update.value
+        target[update.propertyName] = update.value
       }
       break
     case "BABYLON.Mesh":
       // console.log(` > ${type}: updating Mesh on:${update.propertyName} to ${update.value}`)
-      if (babylonObject[update.propertyName] && update.value) {
-        if ((babylonObject[update.propertyName] as BABYLON.Mesh).uniqueId != update.value.uniqueId) {
-          babylonObject[update.propertyName] = update.value
+      if (target[update.propertyName] && update.value) {
+        if ((target[update.propertyName] as BABYLON.Mesh).uniqueId != update.value.uniqueId) {
+          target[update.propertyName] = update.value
         }
       } else {
-        babylonObject[update.propertyName] = update.value
+        target[update.propertyName] = update.value
       }
       break
     default:
       if (update.type.startsWith("BABYLON.Observable")) {
-        // TODO: we want to remove the old prop, so it should be passed along as well.
-        if (update.prevValue) {
-          babylonObject[update.propertyName].remove(update.prevValue)
-        }
+        // TODO: we want to remove the old prop when changed, so it should be passed along as well.
+        //if (update.prevValue) {
+        //  babylonObject[update.propertyName].remove(update.prevValue)
+        //}
 
-        babylonObject[update.propertyName].add(update.value)
+        target[update.propertyName].add(update.value)
       } else {
         console.error(`unhandled property update of type ${update.type}`)
       }
@@ -204,7 +213,7 @@ export const applyUpdateToInstance = (babylonObject: any, update: PropertyUpdate
 
 function createCreatedInstance<T, U extends GENERATED.HasPropsHandlers<T, any>>(
   className: string,
-  babylonJsObject: T,
+  hostInstance: T,
   propsHandlers: U,
   metadata: CreatedInstanceMetadata,
   lifecycleListeners?: LifecycleListeners
@@ -217,7 +226,7 @@ function createCreatedInstance<T, U extends GENERATED.HasPropsHandlers<T, any>>(
   }
 
   return {
-    babylonJsObject,
+    hostInstance,
     metadata: createdMetadata,
     parent: null, // set later in lifecycle
     children: [], // set later in lifecycle
@@ -230,11 +239,11 @@ class MaterialsLifecycleListener implements LifecycleListeners {
   onParented(parent: CreatedInstance<any>) {}
   onChildAdded(child: CreatedInstance<any>) {}
   onMount(instance: CreatedInstance<any>) {
-    let material = instance.babylonJsObject
+    let material = instance.hostInstance
     let tmp: CreatedInstance<any> | null = instance.parent
     while (tmp != null) {
       if (tmp.metadata && tmp.metadata.acceptsMaterials === true) {
-        tmp.babylonJsObject.material = material
+        tmp.hostInstance.material = material
         break
       }
       tmp = tmp.parent
@@ -324,7 +333,7 @@ const ReactBabylonJSHostConfig: HostConfig<
       engine: rootContainerInstance.engine,
       scene: rootContainerInstance.scene,
       rootInstance: {
-        babylonJsObject: undefined,
+        hostInstance: undefined,
         metadata: {
           className: "rootContainer",
           namespace: "ignore"
@@ -378,7 +387,7 @@ const ReactBabylonJSHostConfig: HostConfig<
 
     if (updatePayload.length > 0) {
       if (instance.metadata) {
-        if (instance.babylonJsObject) {
+        if (instance.hostInstance) {
           // console.log(" > created update for:", instance.babylonJsObject.name)
         }
 
@@ -404,7 +413,7 @@ const ReactBabylonJSHostConfig: HostConfig<
     // TODO: Check source for difference between hostContext and rootContainerInstance.
     const { canvas, engine, scene } = rootContainerInstance
 
-    if (customTypes.indexOf(type) !== -1) {     
+    if (customTypes.indexOf(type) !== -1) {
       let metadata = {
         className: type,
         customType: true,
@@ -412,12 +421,29 @@ const ReactBabylonJSHostConfig: HostConfig<
       }
 
       let createdInstance: CreatedInstance<null> = {
-        babylonJsObject: null,
+        hostInstance: null,
         metadata,
         parent: null,
         children: [],
         propsHandlers: undefined,
         lifecycleListeners: new (CUSTOM_HOSTS as any)[type + "Fiber"](scene, engine, props)
+      }
+
+      // onCreated and other lifecycle hooks are not called for built-in host
+      return createdInstance
+    }
+
+    // so far this is the only non-babylonJS host component, but otherwise a more generic solution will be needed:
+    if (type === "Model") {
+      let createdInstance: CreatedInstance<LoadedModel> = {
+        hostInstance: new LoadedModel(), /* this is reassigned in Lifecycle Listener */
+        metadata: {
+          className:"Model"
+        },
+        parent: null,
+        children: [],
+        propsHandlers: new FiberModel(),
+        lifecycleListeners: new CUSTOM_COMPONENTS.ModelLifecycleListener(scene! /* should always be available */, props)
       }
 
       // onCreated and other lifecycle hooks are not called for built-in host
@@ -448,7 +474,8 @@ const ReactBabylonJSHostConfig: HostConfig<
       } else {
         let value = props[generatedParameter.name]
         if (value === undefined && generatedParameter.optional === false) {
-          if (generatedParameter.type == "BABYLON.Engine") { // NOTE: we removed the hosted Scene component, but it may be re-added.
+          if (generatedParameter.type == "BABYLON.Engine") {
+            // NOTE: we removed the hosted Scene component, but it may be re-added.
             value = engine
           } else if (generatedParameter.type === "BABYLON.Scene") {
             value = scene
@@ -517,7 +544,7 @@ const ReactBabylonJSHostConfig: HostConfig<
       lifecycleListeners = new CUSTOM_COMPONENTS.TexturesLifecycleListener()
     }
 
-    if ((CUSTOM_COMPONENTS as any)[type + "LifecycleListener"] !== undefined) {     
+    if ((CUSTOM_COMPONENTS as any)[type + "LifecycleListener"] !== undefined) {
       lifecycleListeners = new (CUSTOM_COMPONENTS as any)[type + "LifecycleListener"]({
         ...props,
         scene /* give listeners scene access */
@@ -609,11 +636,12 @@ const ReactBabylonJSHostConfig: HostConfig<
     // Here we are testing HMR. re-attaching??
     // console.log("reconciler: resetAfterCommit", containerInfo)
 
+    // TODO: None of this code below should be here.
     let scene: BABYLON.Scene | null = containerInfo.scene
     if (scene === null) {
-      console.error('scene is not defined', containerInfo.engine);
-      debugger;
-      return;
+      console.error("scene is not defined", containerInfo.engine)
+      debugger
+      return
     }
 
     let camera: BABYLON.Nullable<BABYLON.Camera> = scene!.activeCamera
@@ -713,28 +741,33 @@ const ReactBabylonJSHostConfig: HostConfig<
     // console.log("commitUpdate", instance, updatePayload, type, oldProps, newProps)
     if (updatePayload != null) {
       updatePayload.forEach((update: PropertyUpdate) => {
-        applyUpdateToInstance(instance!.babylonJsObject, update, type)
+        applyUpdateToInstance(instance!.hostInstance, update, type)
       })
     }
   },
 
-  removeChildFromContainer(container: Container, child: {} | CreatedInstance<any> | undefined): void {
-    // This is called from children that are not in the root.
-    console.error("not implemented. removeChildFromContainer()", child)
+  removeChildFromContainer(container: Container, child: CreatedInstance<any> | undefined): void {
+    // TODO: Consider adding metadata "isDisposable" (to ensure children are disposed, too).
+    if (child && child.hostInstance && typeof child.hostInstance.dispose === "function") {
+      child.hostInstance.dispose() // not able to have parameters this way.
+    }
+    console.log('need to remove child from parent (container)')
   },
 
   removeChild(parentInstance: CreatedInstance<any>, child: CreatedInstance<any>) {
     // TOOD: this is important, especially for GUI, which will be done soon...
-    console.error("not implemented.  removeChild()", parentInstance, child)
+    // console.error("not implemented.  removeChild()", parentInstance, child)
     if (parentInstance.metadata.isGUI2DControl === true && child.metadata.isGUI2DControl === true) {
       // NOTE: the if statement should be || and we may need to walk the tree to remove.
-      parentInstance.babylonJsObject.removeControl(child.babylonJsObject)
+      parentInstance.hostInstance.removeControl(child.hostInstance)
     }
 
-    // TODO: Add to metadata "isDisposable", but from AST walker.  ie: method dispose(...) exists.
-    if (typeof child.babylonJsObject.dispose === "function") {
-      child.babylonJsObject.dispose() // not able to have parameters this way.
+    // TODO: Consider adding metadata "isDisposable" (to ensure children are disposed, too).
+    if (typeof child.hostInstance.dispose === "function") {
+      console.warn('calling dispose on:', child.hostInstance)
+      child.hostInstance.dispose() // not able to have parameters this way.
     }
+    console.error('need to remove child from parentInstance')
   },
 
   // text-content nodes are not used

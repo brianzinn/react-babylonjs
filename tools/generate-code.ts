@@ -374,8 +374,8 @@ const writePropertyAsUpdateFunction = (classDeclaration: ClassDeclaration, write
     writer.writeLine(`// ${importedNamespace}.${classNameBabylon}.${propertyName} of type '${type}/fn':`)
     writer.write(`if (oldProps.${propertyName} === undefined && oldProps.${propertyName} !== newProps.${propertyName})`).block(() => {
       // We need the oldProps[propertyName] here, since we will want to remove that observable (note they are never equal!)
-      // TODO: Need to research why these functions are never equal and also removing does not work.
-      writer.writeLine(`updates.push({\npropertyName: '${propertyName}',\nvalue: newProps.${propertyName},\ntype: '${type}',\nprevValue: oldProps.${propertyName},\n});`);
+      // TODO: search why these functions are never equal and also removing does not work.  ,prevValue: oldProps.${propertyName}
+      writer.writeLine(`updates.push({\npropertyName: '${propertyName}',\nvalue: newProps.${propertyName},\ntype: '${type}'\n});`);
     });
     return;
   }
@@ -529,8 +529,8 @@ const addPropsAndHandlerClasses = (sourceFile: SourceFile, classNameToGenerate: 
     returnType: `${PropertyUpdateType}[] | null`
   });
   getPropertyUpdatesMethod.addParameters([{
-    name: "createdInstance",
-    type: `${ReactReconcilerCreatedInstanceClassName}<${importedNamespace}.${classNameBabylon}>`
+    name: "hostInstance",
+    type: `${importedNamespace}.${classNameBabylon}`
   }, {
     name: "oldProps",
     type: `${ClassNamesPrefix}${classNameToGenerate}Props`
@@ -544,7 +544,7 @@ const addPropsAndHandlerClasses = (sourceFile: SourceFile, classNameToGenerate: 
 
   getPropertyUpdatesMethod.setBodyText((writer : CodeBlockWriter) => {
     writer.writeLine("// generated code")
-    writer.writeLine(`let babylonObject: ${importedNamespace}.${classNameBabylon} = createdInstance.babylonJsObject;`)
+    
     writer.writeLine(`let updates: ${PropertyUpdateType}[] = [];`)
 
     let addedMeshProperties = new Set();
@@ -696,8 +696,8 @@ const generateCode = async () => {
     returnType: `${PropertyUpdateType}[] | null`
   });
   getPropertyUpdatesMethod.addParameters([{
-    name: "createdInstance",
-    type: `${ReactReconcilerCreatedInstanceClassName}<T>`
+    name: "hostInstance",
+    type: 'T' // was `${ReactReconcilerCreatedInstanceClassName}<T>`, but we only need T
   }, {
     name: "oldProps",
     type: "U"
@@ -803,9 +803,9 @@ const generateCode = async () => {
 
   if (classesOfInterest.get("BaseTexture")) {
     createClassesInheritedFrom(generatedSourceFile, classesOfInterest.get("BaseTexture")!, {isTexture: true});
+    createSingleClass("AdvancedDynamicTexture", generatedSourceFile, classesOfInterest.get("BaseTexture")!.classDeclaration, { isGUI2DControl: true}, () => {})
   } 
   
-  createSingleClass("AdvancedDynamicTexture", generatedSourceFile, classesOfInterest.get("BaseTexture")!.classDeclaration, { isGUI2DControl: true}, () => {})
   createSingleClass("GUI3DManager", generatedSourceFile, undefined, { isGUI3DControl: true }, () => {})
   createSingleClass("ShadowGenerator", generatedSourceFile, undefined, { delayCreation: true }, () => {})
   createSingleClass("EnvironmentHelper", generatedSourceFile, undefined, { isEnvironment: true })

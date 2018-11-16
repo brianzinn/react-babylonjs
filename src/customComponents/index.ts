@@ -3,6 +3,7 @@ export { default as EnvironmentHelperLifecycleListener } from "./EnvironmentHelp
 export { default as GUI2DControlLifecycleListener } from "./GUI2DControlLifecycleListener"
 export { default as GUI3DControlLifecycleListener } from "./GUI3DControlLifecycleListener"
 export { default as GUI3DManagerLifecycleListener } from "./GUI3DManagerLifecycleListener"
+export { default as ModelLifecycleListener } from "./ModelLifecycleListener"
 export { default as ShadowGeneratorLifecycleListener } from "./ShadowGeneratorLifecycleListener"
 export { default as TexturesLifecycleListener } from "./TexturesLifecycleListener"
 export { default as VRExperienceHelperLifecycleListener } from "./VRExperienceHelperLifecycleListener"
