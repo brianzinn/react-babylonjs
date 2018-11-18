@@ -34,7 +34,7 @@
   },
   "lint-staged": {
     "{src,test}/**/*.ts": [
-      "prettier --write --no-semi --print-width 120"
+      "prettier --write --no-semi --print-width 160"
     ]
   },
   "config": {

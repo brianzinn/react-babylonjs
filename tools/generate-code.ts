@@ -6,7 +6,7 @@
  * 
  * "could not resolve entry" is the error, if you forget to switch it back as 'src' and 'tool's will be subdirs in compiled.
  */
-import { Project, VariableDeclarationKind, NamespaceDeclaration, ClassDeclaration, PropertyDeclaration, CodeBlockWriter, SourceFile, JSDoc, ConstructorDeclaration, Scope, MethodDeclaration, ParameterDeclaration, SyntaxKind } from 'ts-simple-ast'
+import { Project, VariableDeclarationKind, NamespaceDeclaration, ClassDeclaration, PropertyDeclaration, CodeBlockWriter, SourceFile, JSDoc, ConstructorDeclaration, Scope, MethodDeclaration, ParameterDeclaration, SyntaxKind, ClassMemberTypes } from 'ts-simple-ast'
 
 const ReactReconcilerCreatedInstanceClassName = "CreatedInstance";
 const ReactReconcilerCreatedInstanceMetadata = "CreatedInstanceMetadata";
@@ -49,8 +49,8 @@ type InstanceMetadataParameter = {
   isGUI3DControl?: boolean // does not work with 2D
   isGUI2DControl?: boolean // does not work with 3D
   isTexture?: boolean
-  customType?: boolean // not used by code-gen
-  // TODO: more metadata to follow
+  customType?: boolean, // not used by code-gen
+  isCamera?: boolean
 }
 
 export type CreatedInstanceMetadata = {
@@ -64,11 +64,14 @@ const REACT_EXPORTS : Set<string> = new Set<string>();
 // These are the base/factory classes we used to generate everything.  Comment them out to skip generation (you must keep "Node", though)
 let classesOfInterest : Map<String, ClassNameSpaceTuple | undefined> = new Map<String, ClassNameSpaceTuple | undefined>();
 
+// always needed:
+classesOfInterest.set("Node", undefined)
+
+// decides what is generated
 classesOfInterest.set("Camera", undefined);
 classesOfInterest.set("Material", undefined);
 classesOfInterest.set("Mesh", undefined);
 classesOfInterest.set("MeshBuilder", undefined)
-classesOfInterest.set("Node", undefined)
 classesOfInterest.set("Light", undefined);
 classesOfInterest.set("Control", undefined);
 classesOfInterest.set("Control3D", undefined);
@@ -155,7 +158,7 @@ const createMeshClasses = (sourceFile: SourceFile) => {
 
   let meshClassDeclaration : ClassDeclaration | undefined = (classesOfInterest.get("Mesh") === undefined ? undefined : classesOfInterest.get("Mesh")!.classDeclaration);
   while(meshClassDeclaration !== undefined) {
-      meshPropertiesToAdd.push(...getMethodInstanceProperties(meshClassDeclaration))
+      meshPropertiesToAdd.push(...getInstanceProperties(meshClassDeclaration))
       meshClassDeclaration = meshClassDeclaration.getBaseClass();
   }
 
@@ -163,7 +166,7 @@ const createMeshClasses = (sourceFile: SourceFile) => {
     console.error("'Mesh' is a required class of interest to generate from MeshBuilder.")
   }
   const nodeClassDeclaration = classesOfInterest.get("Node")!.classDeclaration;
-  addPropsAndHandlerClasses(sourceFile, "Mesh", "Mesh", meshPropertiesToAdd, meshBuilderTuple.namespace, nodeClassDeclaration)
+  addPropsAndHandlerClasses(sourceFile, "Mesh", "Mesh", meshPropertiesToAdd, [/* no set methods */], meshBuilderTuple.namespace, nodeClassDeclaration)
 
   let factoryMethods: MethodDeclaration[] = meshBuilderTuple.classDeclaration.getStaticMethods();
 
@@ -322,7 +325,20 @@ const addCreateInfoFromFactoryMethod = (method: MethodDeclaration, factoryClass:
   createInfoProperty.setInitializer(JSON.stringify(value, null, 2))
 }
 
-const getMethodInstanceProperties = (classDeclaration: ClassDeclaration) : PropertyDeclaration[] => {
+const getInstanceSetMethods = (classDeclaration: ClassDeclaration) : MethodDeclaration[] => {
+  let instanceSetMethods: MethodDeclaration[] = []
+  classDeclaration.getInstanceMethods().forEach((methodDeclaration: MethodDeclaration) => {
+    const methodName = methodDeclaration.getName();
+    if (methodName.startsWith("set")) {
+      
+      instanceSetMethods.push(methodDeclaration)
+    }
+  })
+
+  return instanceSetMethods;
+}
+
+const getInstanceProperties = (classDeclaration: ClassDeclaration) : PropertyDeclaration[] => {
   let result: PropertyDeclaration[] = [];
 
   // for conditional breakpoints on class: classDeclaration.getName() === "Control";
@@ -348,6 +364,38 @@ const getMethodInstanceProperties = (classDeclaration: ClassDeclaration) : Prope
   })
 
   return result;
+}
+
+const writeMethodAsUpdateFunction = (classDeclaration: ClassDeclaration, writer: CodeBlockWriter, method: MethodDeclaration, addedMethods: Set<String>, importedNamespace: string, classNameBabylon: string) : void => {
+  
+  const params: ParameterDeclaration[] = method.getParameters();
+  if (params.length === 0) {
+    return;
+  }
+
+  const methodName = method.getName()
+
+  const meshProperty = classDeclaration.addProperty({
+    name: methodName,
+    type: 'any', // it's a function signature
+  })
+  meshProperty.setHasQuestionToken(true);
+
+  let paramTypes: string[] = []
+  params.forEach(param => {
+    const type = param.getType().getText();
+    const questionToken = param.hasQuestionToken ? '?' : ''
+    const paramName: string | undefined = param.getName();
+    paramTypes.push(`${paramName}${questionToken}: ${type}`)
+  })
+  
+  let type=`(${paramTypes.join(', ')})`
+
+  writer.writeLine(`// ${importedNamespace}.${classNameBabylon}.${methodName} of type '${type}':`)
+    writer.write(`if (oldProps.${methodName} !== newProps.${methodName})`).block(() => {
+      writer.writeLine(`updates.push({\npropertyName: '${methodName}',\nvalue: newProps.${methodName},\ntype: '${type}'\n});`);
+    });
+
 }
 
 const writePropertyAsUpdateFunction = (classDeclaration: ClassDeclaration, writer: CodeBlockWriter, property: PropertyDeclaration, addedProperties: Set<String>, importedNamespace: string, classNameBabylon: string) => {
@@ -407,7 +455,8 @@ const createClassDeclaration = (classDeclaration: ClassDeclaration, rootBaseClas
   const baseClass: ClassDeclaration | undefined = classDeclaration.getBaseClass(); // no mix-ins in BabylonJS AFAIK, but would otherwise use baseTypes()
   
   const className = classDeclaration.getName()!
-  addPropsAndHandlerClasses(sourceFile, className, className, getMethodInstanceProperties(classDeclaration), namespace, baseClass);
+
+  addPropsAndHandlerClasses(sourceFile, className, className, getInstanceProperties(classDeclaration), getInstanceSetMethods(classDeclaration), namespace, baseClass);
 
   const newClassDeclaration = sourceFile.addClass({
     name: `${ClassNamesPrefix}${className}`,
@@ -505,7 +554,7 @@ class OrderedListCreator {
  * The odd parameters here are because we are also inventing classes not based on real BabylonJS objects (ie: Box, Sphere are actually Mesh)
  * It probably looks like we should just pass along the ClassDeclaration... 
  */
-const addPropsAndHandlerClasses = (sourceFile: SourceFile, classNameToGenerate: string, classNameBabylon: string, propertiesToAdd: PropertyDeclaration[], importedNamespace: string, baseClass?: ClassDeclaration) => {
+const addPropsAndHandlerClasses = (sourceFile: SourceFile, classNameToGenerate: string, classNameBabylon: string, propertiesToAdd: PropertyDeclaration[], setMethods: MethodDeclaration[], importedNamespace: string, baseClass?: ClassDeclaration) => {
   
   const classDeclarationProps = sourceFile.addClass({
     name: `${ClassNamesPrefix}${classNameToGenerate}Props`,
@@ -550,6 +599,11 @@ const addPropsAndHandlerClasses = (sourceFile: SourceFile, classNameToGenerate: 
     let addedMeshProperties = new Set();
     propertiesToAdd.sort((a, b) => a.getName().localeCompare(b.getName())).forEach((property: PropertyDeclaration) => {
       writePropertyAsUpdateFunction(classDeclarationProps, writer, property, addedMeshProperties, importedNamespace, classNameBabylon);      
+    })
+
+    let addedMeshMethods = new Set();
+    setMethods.sort((a,b) => a.getName().localeCompare(b.getName())).forEach((method: MethodDeclaration) => {
+      writeMethodAsUpdateFunction(classDeclarationProps, writer, method, addedMeshMethods, importedNamespace, classNameBabylon)
     })
     return writer.writeLine("return updates.length == 0 ? null : updates;");;
   })
@@ -739,10 +793,10 @@ const generateCode = async () => {
   });
   
   let nodeTuple = classesOfInterest.get("Node")!;
-  addPropsAndHandlerClasses(generatedSourceFile, "Node", "Node", getMethodInstanceProperties(nodeTuple.classDeclaration!), nodeTuple.namespace);
+  addPropsAndHandlerClasses(generatedSourceFile, "Node", "Node", getInstanceProperties(nodeTuple.classDeclaration!), getInstanceSetMethods(nodeTuple.classDeclaration), nodeTuple.namespace);
    
   const extra = (newClassDeclaration: ClassDeclaration, originalClassDeclaration: ClassDeclaration) => {
-
+    // consider having targetable as metadata.
     const targetableCameraName = "TargetCamera";
 
     let baseDeclaration : ClassDeclaration | undefined = originalClassDeclaration
@@ -766,7 +820,7 @@ const generateCode = async () => {
   };
 
   if (classesOfInterest.get("Camera") !== undefined) {
-    createClassesInheritedFrom(generatedSourceFile, classesOfInterest.get("Camera")!, undefined, extra);
+    createClassesInheritedFrom(generatedSourceFile, classesOfInterest.get("Camera")!, { isCamera: true }, extra);
   }
 
   if (classesOfInterest.get("MeshBuilder") !== undefined) {
@@ -815,7 +869,7 @@ const generateCode = async () => {
     // Scene we only want to generate the handlers. Constructor is very simple - just an Engine
     const sceneTuple: ClassNameSpaceTuple = classesOfInterest.get("Scene")!
     const className: string = sceneTuple.classDeclaration.getName()!
-    addPropsAndHandlerClasses(generatedSourceFile, className, className, getMethodInstanceProperties(sceneTuple.classDeclaration), sceneTuple.namespace, undefined);
+    addPropsAndHandlerClasses(generatedSourceFile, className, className, getInstanceProperties(sceneTuple.classDeclaration), getInstanceSetMethods(sceneTuple.classDeclaration), sceneTuple.namespace, undefined);
   }
   addReactExports(generatedSourceFile);
 

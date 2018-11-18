@@ -1,19 +1,19 @@
 import {
-    Scene,
-    IParticleSystem,
-    Skeleton,
-    AnimationGroup,
-    AbstractMesh,
-    SceneLoader,
-    Nullable,
-    ISceneLoaderPlugin,
-    ISceneLoaderPluginAsync,
-    SceneLoaderProgressEvent
-  } from "babylonjs"
-  import "babylonjs-loaders"
+  Scene,
+  IParticleSystem,
+  Skeleton,
+  AnimationGroup,
+  AbstractMesh,
+  SceneLoader,
+  Nullable,
+  ISceneLoaderPlugin,
+  ISceneLoaderPluginAsync,
+  SceneLoaderProgressEvent
+} from "babylonjs"
+import "babylonjs-loaders"
 import { LifecycleListeners, CreatedInstance, PropertyUpdate, applyUpdateToInstance } from "../ReactBabylonJSHostConfig"
 
-import { LoaderStatus, LoadedModel, ModelPropsHandler } from '../model'
+import { LoaderStatus, LoadedModel, ModelPropsHandler } from "../model"
 
 export default class ModelLifecycleListener implements LifecycleListeners {
   private props: any
@@ -70,13 +70,22 @@ export default class ModelLifecycleListener implements LifecycleListeners {
         loadedModel.status = LoaderStatus.Loaded
 
         // we want to trigger after mesh is loaded (ie: position/rotation)
-        const updates : PropertyUpdate[] | null  = new ModelPropsHandler().getPropertyUpdates(loadedModel, {rootUrl:'',sceneFilename:''}, this.props, this.scene)
-        
+        const updates: PropertyUpdate[] | null = new ModelPropsHandler().getPropertyUpdates(
+          loadedModel,
+          { rootUrl: "", sceneFilename: "" },
+          this.props,
+          this.scene
+        )
+
         if (updates != null) {
-          updates.forEach(update => applyUpdateToInstance(instance!.hostInstance, update, 'model'))
+          updates.forEach(update => applyUpdateToInstance(instance!.hostInstance, update, "model"))
         }
 
-        if (this.props.scaleToDimension && loadedModel && loadedModel.scaleToDimension !== this.props.scaleToDimension) {
+        if (
+          this.props.scaleToDimension &&
+          loadedModel &&
+          loadedModel.scaleToDimension !== this.props.scaleToDimension
+        ) {
           const boundingInfo = loadedModel.boundingInfo // will be null when no meshes are loaded
           if (boundingInfo) {
             const longestDimension = Math.max(
