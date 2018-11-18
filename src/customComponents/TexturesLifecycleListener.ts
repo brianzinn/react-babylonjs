@@ -6,10 +6,11 @@ export default class TexturesLifecycleListener implements LifecycleListeners {
   onMount(instance: CreatedInstance<any>) {
     let texture = instance.hostInstance
     let tmp: CreatedInstance<any> | null = instance.parent
+
     while (tmp != null) {
       if (tmp.metadata && tmp.metadata.isMaterial === true) {
         console.error(
-          "assigning diffuse texture.  Need a property to define which texture/coordinatesMode to apply",
+          "Skybox specific code.  Assigning reflection texture.  Need custom properties to define which texture/coordinatesMode to apply",
           texture,
           BABYLON.Texture.SKYBOX_MODE
         )

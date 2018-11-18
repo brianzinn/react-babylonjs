@@ -17,11 +17,7 @@ export default class AdvancedDynamicTextureLifecycleListener implements Lifecycl
     while (tmp != null) {
       if (tmp.metadata.isShadowLight) {
         console.log("Creating ShadowGenerator.  size:", this.props.mapSize, "light", tmp.hostInstance)
-        instance.hostInstance = new ShadowGenerator(
-          this.props.mapSize,
-          tmp.hostInstance,
-          this.props.useFullFloatFirst
-        )
+        instance.hostInstance = new ShadowGenerator(this.props.mapSize, tmp.hostInstance, this.props.useFullFloatFirst)
         break
       } else {
         console.log("Not a shadow light source: metadata:", tmp.metadata, "object", tmp.hostInstance)

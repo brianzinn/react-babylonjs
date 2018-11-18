@@ -12,6 +12,7 @@ class Skybox extends Component<SkyboxProps | undefined, any> {
     return React.createElement("Box", { size: 100, infiniteDistance: true, renderingGroupId: 0 }, [
       React.createElement("StandardMaterial", { backFaceCulling: false, disableLighting: true }, [
         React.createElement("CubeTexture", {
+          key: `cube-texture-${this.props.rootUrl}`,
           rootUrl: this.props.rootUrl,
           coordinatesMode: BABYLON.Texture.SKYBOX_MODE
         })

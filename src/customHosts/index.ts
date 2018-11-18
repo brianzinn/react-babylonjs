@@ -4,4 +4,3 @@ export { default as HostWithEventsFiber } from "./hostWithEventsFiber"
 
 export const HostWithEvents: string = "HostWithEvents"
 export const Model: string = "Model"
-

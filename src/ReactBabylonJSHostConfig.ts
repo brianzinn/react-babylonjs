@@ -6,10 +6,7 @@ import * as GENERATED from "./generatedCode"
 import * as CUSTOM_HOSTS from "./customHosts"
 import * as CUSTOM_COMPONENTS from "./customComponents"
 
-import GUI3DControlLifecycleListener from "./customComponents/GUI3DControlLifecycleListener"
-import GUI2DControlLifecycleListener from "./customComponents/GUI2DControlLifecycleListener"
-
-import { FiberModel, LoadedModel } from './model'
+import { FiberModel, LoadedModel } from "./model"
 
 /** Following classes are duplicated in generate-code.ts for noww */
 type GeneratedParameter = {
@@ -45,16 +42,16 @@ export type CreatedInstanceMetadata = {
   isMesh?: boolean
   isGUI3DControl?: boolean // does not work with 2D
   isGUI2DControl?: boolean // does not work with 3D
-  isTexture?: boolean
-
-  // TODO: more metadata to follow
+  isTexture?: boolean,
+  isCamera?: boolean
 }
 /** end of duplicated code */
 
+// TODO: type/value need to be joined, as the method will have multiple.
 export interface PropertyUpdate {
   type: string
   value: any
-  propertyName: string
+  propertyName: string // TODO: rename as this can be a propertyName or a methodName
   // prevValue?: any
   /**
    * When provided will dynamically target a property of 'babylonJSobject'.
@@ -71,7 +68,7 @@ export type ComponentDefinition = {
   options?: string[]
 }
 
-//** BEGIN WINDOW (needed only for compile)
+//** BEGIN WINDOW (needed only for compile - add DOM as compile target)
 type RequestIdleCallbackHandle = any
 type RequestIdleCallbackOptions = {
   timeout: number
@@ -138,19 +135,17 @@ export type Container = {
   engine: BABYLON.Nullable<BABYLON.Engine>
   canvas: BABYLON.Nullable<HTMLCanvasElement | WebGLRenderingContext>
   scene: BABYLON.Nullable<BABYLON.Scene>
-  // scenes: BABYLON.Scene[]
   rootInstance: CreatedInstance<any>
 }
 
 type HostContext = {} & Container
 
-type UpdatePayload = PropertyUpdate[] | null
+export type UpdatePayload = PropertyUpdate[] | null
 type TimeoutHandler = number | undefined
 type NoTimeout = number
 
 export const applyUpdateToInstance = (hostInstance: any, update: PropertyUpdate, type: string | undefined): void => {
-
-  let target = update.target !== undefined ? hostInstance[update.target] : hostInstance;
+  let target = update.target !== undefined ? hostInstance[update.target] : hostInstance
 
   switch (update.type) {
     case "string":
@@ -161,13 +156,6 @@ export const applyUpdateToInstance = (hostInstance: any, update: PropertyUpdate,
       target[update.propertyName] = update.value
       break
     case "BABYLON.Vector3": // TODO: merge with Color3
-      // console.log(
-      //   ` > ${type}: updating Vector3 on:${update.propertyName} to ${update.value} from ${
-      //     babylonObject[update.propertyName]
-      //   }`,
-      //   babylonObject
-      // )
-
       if (target[update.propertyName]) {
         (target[update.propertyName] as BABYLON.Vector3).copyFrom(update.value)
       } else if (update.value) {
@@ -177,9 +165,8 @@ export const applyUpdateToInstance = (hostInstance: any, update: PropertyUpdate,
       }
       break
     case "BABYLON.Color3": // merge this switch with BABYLON.Vector3, Color4, etc.  The copyFrom BABYLON types.
-      // console.log(` > ${type}: updating Color3 on:${update.propertyName} to ${update.value}`)
       if (target[update.propertyName]) {
-        (target[update.propertyName] as BABYLON.Color3).copyFrom(update.value)
+        ;(target[update.propertyName] as BABYLON.Color3).copyFrom(update.value)
       } else if (update.value) {
         target[update.propertyName] = update.value.clone()
       } else {
@@ -204,8 +191,18 @@ export const applyUpdateToInstance = (hostInstance: any, update: PropertyUpdate,
         //}
 
         target[update.propertyName].add(update.value)
+      } else if (update.type.startsWith("(")) {
+        if (typeof target[update.propertyName] === 'function') {
+          if (Array.isArray(update.value)) {
+            target[update.propertyName](...update.value)  
+          } else {
+            target[update.propertyName](...Object.values(update.value))
+          }
+        } else {
+          console.error(`Cannot call [not a function] ${update.propertyName}(...) on:`, target)
+        }
       } else {
-        console.error(`unhandled property update of type ${update.type}`)
+        console.error(`Unhandled property update of type ${update.type}`)
       }
       break
   }
@@ -235,51 +232,6 @@ function createCreatedInstance<T, U extends GENERATED.HasPropsHandlers<T, any>>(
   } as CreatedInstance<T>
 }
 
-class MaterialsLifecycleListener implements LifecycleListeners {
-  onParented(parent: CreatedInstance<any>) {}
-  onChildAdded(child: CreatedInstance<any>) {}
-  onMount(instance: CreatedInstance<any>) {
-    let material = instance.hostInstance
-    let tmp: CreatedInstance<any> | null = instance.parent
-    while (tmp != null) {
-      if (tmp.metadata && tmp.metadata.acceptsMaterials === true) {
-        tmp.hostInstance.material = material
-        break
-      }
-      tmp = tmp.parent
-    }
-  }
-}
-
-// This does not work when declared component with "target" is before the mesh with that name.  Need to wait for full commit mount of entire tree.
-class TargetFunctionPropsHandler implements GENERATED.PropsHandler<any, any> {
-  getPropertyUpdates(
-    createdInstance: CreatedInstance<any>,
-    oldProps: any,
-    newProps: any,
-    scene: BABYLON.Scene
-  ): UpdatePayload {
-    if (!oldProps.target || oldProps.target !== newProps.target) {
-      let target = newProps.target
-      let targetType: string = "BABYLON.Vector3"
-      if (typeof newProps.target == "string") {
-        targetType = "BABYLON.Mesh"
-        target = scene.getMeshByName(newProps.target)
-      }
-
-      return [
-        {
-          type: targetType,
-          value: target,
-          propertyName: "lockedTarget"
-        }
-      ]
-    }
-
-    return []
-  }
-}
-
 const ReactBabylonJSHostConfig: HostConfig<
   string,
   Props,
@@ -294,15 +246,10 @@ const ReactBabylonJSHostConfig: HostConfig<
   TimeoutHandler,
   NoTimeout
 > = {
-  get supportsMutation(): boolean {
-    // console.log("request supports mutation - return true;")
-    // This has the reconciler include in call chain ie: appendChild, removeChild
-    return true
-  },
+  // This has the reconciler include in call chain ie: appendChild, removeChild
+  get supportsMutation(): boolean { return true },
 
-  now: () => {
-    return Date.now()
-  },
+  now: () => { return Date.now() },
 
   // multiple renderers concurrently render using the same context objects. E.g. React DOM and React ART on the
   // same page. DOM is the primary renderer; ART is the secondary renderer.
@@ -321,7 +268,6 @@ const ReactBabylonJSHostConfig: HostConfig<
 
   // this enables refs
   getPublicInstance: (instance: any) => {
-    // console.log("getting public instance:", instance)
     return instance
   },
 
@@ -344,13 +290,8 @@ const ReactBabylonJSHostConfig: HostConfig<
     }
   },
 
-  getChildHostContext: (
-    parentHostContext: HostContext,
-    type: string,
-    rootContainerInstance: Container
-  ): HostContext => {
-    // console.log("gettingChildHostContext:", parentHostContext, type, rootContainerInstance)
-    // this is the context you pass down to children.  without this root will not be available to attach to in appendChildToContainer.
+  // this is the context you pass down to children.  without this root will not be available to attach to in appendChildToContainer.
+  getChildHostContext: (parentHostContext: HostContext, type: string, rootContainerInstance: Container): HostContext => {
     return parentHostContext
   },
 
@@ -365,12 +306,7 @@ const ReactBabylonJSHostConfig: HostConfig<
     if (!instance || (instance.metadata && instance.metadata.customType === true)) {
       return null
     }
-
-    // console.log("prepareUpdate", instance, oldProps, newProps)
     let updatePayload: PropertyUpdate[] = []
-
-    // TODO: This will not work for multiple scenes, which V1 will support.
-    let scene = rootContainerInstance.scene
 
     // Only custom types will not have a fiber object to handle props changes
     instance.propsHandlers!.getPropsHandlers().forEach(propHandler => {
@@ -378,26 +314,28 @@ const ReactBabylonJSHostConfig: HostConfig<
         instance as CreatedInstance<any>,
         oldProps,
         newProps,
-        scene!
+        rootContainerInstance.scene!
       )
       if (handlerUpdates !== null) {
         updatePayload.push(...handlerUpdates)
       }
     })
 
-    if (updatePayload.length > 0) {
-      if (instance.metadata) {
-        if (instance.hostInstance) {
-          // console.log(" > created update for:", instance.babylonJsObject.name)
-        }
-
-        // console.log(` > updated payload for '${instance.metadata.className}':`, updatePayload)
-      } else {
-        // console.log(" > pushing props updates for an instance with no metadata:", instance)
-      }
-    }
-
     return updatePayload.length == 0 ? null : updatePayload
+  },
+
+  /**
+   * This is called when something is dynamically added to root (not on initial appendChildToContainer) 
+   */
+  insertInContainerBefore(container: Container, child: CreatedInstance<any>, beforeChild: CreatedInstance<any>) {
+    // same implementation as appendChildToContainer
+    if (child) {
+      // doubly link child to root.  we don't care about order - ie: 'beforeChild'
+      container.rootInstance.children.push(child)
+      child.parent = container.rootInstance
+    } else {
+      console.error("insertInContainerBefore. No child:", child)
+    }
   },
 
   createInstance: (
@@ -436,9 +374,9 @@ const ReactBabylonJSHostConfig: HostConfig<
     // so far this is the only non-babylonJS host component, but otherwise a more generic solution will be needed:
     if (type === "Model") {
       let createdInstance: CreatedInstance<LoadedModel> = {
-        hostInstance: new LoadedModel(), /* this is reassigned in Lifecycle Listener */
+        hostInstance: new LoadedModel() /* this is reassigned in Lifecycle Listener */,
         metadata: {
-          className:"Model"
+          className: "Model"
         },
         parent: null,
         children: [],
@@ -474,17 +412,12 @@ const ReactBabylonJSHostConfig: HostConfig<
       } else {
         let value = props[generatedParameter.name]
         if (value === undefined && generatedParameter.optional === false) {
-          if (generatedParameter.type == "BABYLON.Engine") {
-            // NOTE: we removed the hosted Scene component, but it may be re-added.
-            value = engine
-          } else if (generatedParameter.type === "BABYLON.Scene") {
+          // NOTE: we removed the hosted Scene component, which needs (generatedParameter.type == "BABYLON.Engine")          
+          if (generatedParameter.type === "BABYLON.Scene" || (generatedParameter.type === "any" && generatedParameter.name === "scene")) {
+            // MeshBuild.createSphere(name: string, options: {...}, scene: any)
             value = scene
           } else {
-            console.warn(
-              `On ${type} you are missing a non-optional parameter ${generatedParameter.name} of type ${
-                generatedParameter.type
-              }`
-            )
+            console.warn(`On ${type} you are missing a non-optional parameter '${generatedParameter.name}' of type '${generatedParameter.type}'`)
           }
         }
         return value
@@ -501,7 +434,7 @@ const ReactBabylonJSHostConfig: HostConfig<
       if (metadata.delayCreation !== true) {
         switch (createInfoArgs.namespace) {
           case "BABYLON":
-            // console.log("creating", type, ...args)
+            // console.log("creating:", type, ...args)
             babylonObject = new (BABYLON as any)[type](...args)
             break
           case "GUI":
@@ -520,30 +453,24 @@ const ReactBabylonJSHostConfig: HostConfig<
       props.onCreated!(babylonObject)
     }
 
-    // TODO: Add a lifecycle listener to a camera.  If it has a prop then auto-attach.  Otherwise search for other cameras to elect one to auto-attach.
-    if (type.indexOf("Camera") !== -1) {
-      // TODO: this needs to be dynamic part of camera:
-      babylonObject.attachControl(canvas)
-    }
-
     const fiberObject: GENERATED.HasPropsHandlers<any, any> = new (GENERATED as any)[`Fiber${type}`]()
 
     let lifecycleListeners: LifecycleListeners | undefined = undefined
-
-    // here we dynamically assign listeners for specific types.
-    // Would like to also generate this part of the code, although the generated code would be harder to follow.
-    // Also, consider these being dynamically attached, much like PropsHandlers<T>
+    
+    // Consider these being dynamically attached to a list, much like PropsHandlers<T>
     if (metadata.isMaterial === true) {
-      lifecycleListeners = new MaterialsLifecycleListener()
+      lifecycleListeners = new CUSTOM_COMPONENTS.MaterialsLifecycleListener()
     } else if (metadata.isGUI3DControl === true) {
-      lifecycleListeners = new GUI3DControlLifecycleListener()
+      lifecycleListeners = new CUSTOM_COMPONENTS.GUI3DControlLifecycleListener()
     } else if (metadata.isGUI2DControl === true) {
-      lifecycleListeners = new GUI2DControlLifecycleListener()
+      lifecycleListeners = new CUSTOM_COMPONENTS.GUI2DControlLifecycleListener()
     } else if (metadata.isTexture === true) {
-      console.error("adding a textrueslifecycellistener to", babylonObject)
       lifecycleListeners = new CUSTOM_COMPONENTS.TexturesLifecycleListener()
+    } else if (metadata.isCamera === true) {
+      lifecycleListeners = new CUSTOM_COMPONENTS.CameraLifecycleListener(props, scene, canvas as HTMLCanvasElement)
     }
 
+    // here we dynamically assign listeners for specific types.
     if ((CUSTOM_COMPONENTS as any)[type + "LifecycleListener"] !== undefined) {
       lifecycleListeners = new (CUSTOM_COMPONENTS as any)[type + "LifecycleListener"]({
         ...props,
@@ -555,10 +482,8 @@ const ReactBabylonJSHostConfig: HostConfig<
 
     // Here we dynamically attach known props handlers.  Will be adding more in code generation for GUI - also for lifecycle mgmt.
     if (createdReference.metadata && createdReference.metadata.isTargetable === true) {
-      fiberObject.addPropsHandler(new TargetFunctionPropsHandler())
+      fiberObject.addPropsHandler(new CUSTOM_COMPONENTS.TargetPropsHandler())
     }
-
-    // TODO: PropsHandler needs to prepare an update and apply immediately here, otherwise it won't appear until prepareUpdate() is called.
 
     if (metadata.delayCreation !== true) {
       let initPayload: PropertyUpdate[] = []
@@ -584,78 +509,34 @@ const ReactBabylonJSHostConfig: HostConfig<
     return createdReference
   },
 
-  shouldDeprioritizeSubtree: (type: string, props: Props): boolean => {
-    // console.log("should deprioritizeSubtree", type, props)
-    return false
-  },
+  shouldDeprioritizeSubtree: (type: string, props: Props): boolean => { return false },
 
-  createTextInstance: (
-    text: string,
-    rootContainerInstance: Container,
-    hostContext: HostContext,
-    internalInstanceHandle: any
-  ): any => {
+  createTextInstance: (): any => {
     console.error("Create Text instance not supported to canvas.  If using GUI, use a TextBlock control.")
     return undefined
   },
 
-  // ReactDOMHostConfig has: unstable_scheduleCallback as scheduleDeferredCallback
-  scheduleDeferredCallback(
-    callback: (deadline: RequestIdleCallbackDeadline) => void,
-    opts?: RequestIdleCallbackOptions | undefined
-  ): any {
-    return window.requestIdleCallback(callback, opts)
+  scheduleDeferredCallback(callback: (deadline: RequestIdleCallbackDeadline) => void, opts?: RequestIdleCallbackOptions | undefined): any {
+    return window.requestIdleCallback(callback, opts) // ReactDOMHostConfig has: unstable_scheduleCallback as scheduleDeferredCallback
   },
 
-  cancelDeferredCallback(handle: any): void {
-    // console.log("reconciler: cancelDeferredCallback (obsolete?)")
-    return window.cancelIdleCallback(handle)
-  },
+  cancelDeferredCallback(handle: any): void { return window.cancelIdleCallback(handle) },
 
-  setTimeout(handler: (...args: any[]) => void, timeout: number): TimeoutHandler {
-    // console.log("reconciler: calling setTimeout")
-    return window.setTimeout(handler)
-  },
+  setTimeout(handler: (...args: any[]) => void, timeout: number): TimeoutHandler { return window.setTimeout(handler) },
 
-  clearTimeout(handle?: number | undefined): void {
-    // console.log("reconciler: calling clearTimeout")
-    window.clearTimeout(handle)
-  },
+  clearTimeout(handle?: number | undefined): void { window.clearTimeout(handle) },
+
   // https://github.com/facebook/react/blob/master/packages/react-dom/src/client/ReactDOMHostConfig.js#L288
   noTimeout: -1,
 
-  prepareForCommit: (containerInfo: Container): void => {
-    // Called based on return value of: finalizeInitialChildren.  in-memory render tree created, but not yet attached.
-    // console.log("reconciler: prepareForCommit", containerInfo)
-  },
+  // Called based on return value of: finalizeInitialChildren.  in-memory render tree created, but not yet attached.
+  prepareForCommit: (containerInfo: Container): void => {},
 
-  resetAfterCommit: (containerInfo: Container): void => {
-    // Called after the in-memory tree has been committed (ie: after attaching again to root element)
-
-    // This here is indicating that root element should absolutely not be the canvas!!
-    // Here we are testing HMR. re-attaching??
-    // console.log("reconciler: resetAfterCommit", containerInfo)
-
-    // TODO: None of this code below should be here.
-    let scene: BABYLON.Scene | null = containerInfo.scene
-    if (scene === null) {
-      console.error("scene is not defined", containerInfo.engine)
-      debugger
-      return
-    }
-
-    let camera: BABYLON.Nullable<BABYLON.Camera> = scene!.activeCamera
-    if (camera === null || camera === undefined) {
-      console.warn(`scene.activeCamera not found:`, scene)
-    } else {
-      console.warn("(re)attaching camera", containerInfo)
-      camera.attachControl(containerInfo.canvas as HTMLCanvasElement)
-    }
-  },
+  // Called after the in-memory tree has been committed (ie: after attaching again to root element)
+  resetAfterCommit: (containerInfo: Container): void => {},
 
   appendInitialChild: (parent: HostCreatedInstance<any>, child: CreatedInstance<any>) => {
     // Here we are traversing downwards.  Beyond parent has not been initialized, but all children have been.
-    // console.log("reconciler: appendInitialChild", parent, child)
     if (parent) {
       // doubly linking child to parent
       parent.children.push(child) // TODO: need to remove from children as well when removing.
@@ -669,42 +550,23 @@ const ReactBabylonJSHostConfig: HostConfig<
     if (parent && parent.lifecycleListeners && parent.lifecycleListeners.onChildAdded) {
       parent.lifecycleListeners.onChildAdded(child, parent)
     }
-
-    // // TODO: move this to commit Materials as part of Host event listening.
-    // if (parent && parent!.metadata) {
-    //   if (parent.metadata && parent.metadata.acceptsMaterials) {
-    //     // TODO: for dynamically adding behaviour add a accept/visit(node, type). ie: visit(child.fiberObject, TYPE.ParentAcceptsMaterials)
-    //     // Needs to return if it was "attached", otherwise can re-attempt as I think only immediate parent is available here in the life cycle.
-    //     console.error(" > setting material: ", parent.babylonJsObject, " material to ", child.babylonJsObject)
-    //     parent.babylonJsObject.material = child.babylonJsObject
-    //   }
-    // }
   },
 
   appendChild: (parent: CreatedInstance<any>, child: CreatedInstance<any>): void => {
-    console.log("appendChild(..)", child, " to ", parent)
+    parent.children.push(child)
+    child.parent = parent
   },
 
   canHydrateInstance: (instance: any, type: string, props: Props): null | CreatedInstance<any> => {
-    // console.log("canHydrateInstance", instance, type, props)
+    console.log("canHydrateInstance", instance, type, props)
     return null
   },
 
-  finalizeInitialChildren: (
-    parentInstance: HostCreatedInstance<any>,
-    type: string,
-    props: Props,
-    rootContainerInstance: Container,
-    hostContext: HostContext
-  ): boolean => {
-    // console.log("finalizeInitialChildren", parentInstance, type, props, rootContainerInstance, hostContext)
-    // The parent of this node has not yet been instantiated.  The reconciler will continue by calling:
-    // createInstance → appendInitialChild → finalizeInitialChildren on the parent.
-    // When that has reached the top of the recursion tree (root), then prepareForCommit() will be called.
-    // NOTE: All children of this component, however, HAVE been initialized.
-    const callCommitMountForThisInstance: boolean = true
-    return callCommitMountForThisInstance
-  },
+  // The parent of this node has not yet been instantiated.  The reconciler will continue by calling:
+  // createInstance → appendInitialChild → finalizeInitialChildren on the parent.
+  // When that has reached the top of the recursion tree (root), then prepareForCommit() will be called.
+  // NOTE: All children of this component, however, HAVE been initialized.
+  finalizeInitialChildren: (): boolean => { return true /* callCommitMountForThisInstance */ },
 
   commitMount: (
     instance: HostCreatedInstance<any>,
@@ -712,33 +574,23 @@ const ReactBabylonJSHostConfig: HostConfig<
     newProps: any,
     internalInstanceHandle: ReactReconciler.Fiber
   ): void => {
-    // console.log("commitMount(): ", type, instance, newProps, internalInstanceHandle)
     if (instance && instance.lifecycleListeners && instance.lifecycleListeners.onMount) {
       instance.lifecycleListeners.onMount(instance)
     }
   },
 
+  // NOTE: only called if supportsMutation = true;
+  // ReactDOM uses this for attaching child nodes to root DOM.  For us we want to link the all parts of tree together for tree crawling.
+  // same implementation as insertInContainerBefore
   appendChildToContainer: (container: Container, child: HostCreatedInstance<any>): void => {
-    // NOTE: only called if supportsMutation = true;
-    // ReactDOM uses this for attaching child nodes to root DOM.  For us we want to link the all parts of tree together for tree crawling.
     if (child) {
       // doubly link child to root
       container.rootInstance.children.push(child)
       child.parent = container.rootInstance
-    } else {
-      console.error("appendChildToContainer. No child:", child)
     }
   },
 
-  commitUpdate(
-    instance: HostCreatedInstance<any>,
-    updatePayload: UpdatePayload,
-    type: string,
-    oldProps: any,
-    newProps: any,
-    internalInstanceHandlder: ReactReconciler.Fiber
-  ) {
-    // console.log("commitUpdate", instance, updatePayload, type, oldProps, newProps)
+  commitUpdate(instance: HostCreatedInstance<any>, updatePayload: UpdatePayload, type: string /* old + new props are extra params here */) {
     if (updatePayload != null) {
       updatePayload.forEach((update: PropertyUpdate) => {
         applyUpdateToInstance(instance!.hostInstance, update, type)
@@ -747,38 +599,32 @@ const ReactBabylonJSHostConfig: HostConfig<
   },
 
   removeChildFromContainer(container: Container, child: CreatedInstance<any> | undefined): void {
-    // TODO: Consider adding metadata "isDisposable" (to ensure children are disposed, too).
     if (child && child.hostInstance && typeof child.hostInstance.dispose === "function") {
-      child.hostInstance.dispose() // not able to have parameters this way.
+      child.hostInstance.dispose()
     }
-    console.log('need to remove child from parent (container)')
+    console.error("need to remove child from parent (container)")
   },
 
   removeChild(parentInstance: CreatedInstance<any>, child: CreatedInstance<any>) {
-    // TOOD: this is important, especially for GUI, which will be done soon...
-    // console.error("not implemented.  removeChild()", parentInstance, child)
+    if (child.metadata.isGUI3DControl === true) {
+      console.error('3D remove control not implemented.')
+    }
+
     if (parentInstance.metadata.isGUI2DControl === true && child.metadata.isGUI2DControl === true) {
       // NOTE: the if statement should be || and we may need to walk the tree to remove.
       parentInstance.hostInstance.removeControl(child.hostInstance)
     }
 
-    // TODO: Consider adding metadata "isDisposable" (to ensure children are disposed, too).
     if (typeof child.hostInstance.dispose === "function") {
-      console.warn('calling dispose on:', child.hostInstance)
-      child.hostInstance.dispose() // not able to have parameters this way.
+      child.hostInstance.dispose()  // TODO: Consider adding metadata/descriptors as some dispose methods have optional args.
     }
-    console.error('need to remove child from parentInstance')
+    
+    parentInstance.children = parentInstance.children.filter(ci => ci !== child)
+    child.parent = null
   },
 
-  // text-content nodes are not used
-  shouldSetTextContent: (type: string, props: any) => {
-    // console.log("shouldSetTextContent", type, props)
-    // returning true stops traversal at this node - indicating a leaf node.
-    // When returning true will not traverse children and different methods of reconciler are called.
-    return false
-  }
-  //createTextInstance: (text: => {},
-  //commitTextUpdate (textInstance, oldText, newText) {}
+  // text-content nodes are not used.  treated as a leaf node.  children are not traversed.  calls methods like createTextInstance(...)
+  shouldSetTextContent: (type: string, props: any) => { return false }
 }
 
 export default ReactBabylonJSHostConfig
