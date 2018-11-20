@@ -1,15 +1,7 @@
-import { CreatedInstance, CreatedInstanceMetadata, PropertyUpdate } from "./ReactBabylonJSHostConfig";
+import { PropsHandler, PropertyUpdate, HasPropsHandlers } from "./PropsHandler";
+import { CreatedInstanceMetadata } from "./CreatedInstance";
 import BABYLON from "babylonjs";
 import GUI from "babylonjs-gui";
-
-export interface PropsHandler<T, U> {
-    getPropertyUpdates(hostInstance: T, oldProps: U, newProps: U, scene: BABYLON.Scene): PropertyUpdate[] | null;
-}
-
-export interface HasPropsHandlers<T, U> {
-    getPropsHandlers(): PropsHandler<T, U>[];
-    addPropsHandler(propHandler: PropsHandler<T, U>): void;
-}
 
 export class FiberNode {
 }
@@ -318,20 +310,20 @@ export class FiberCameraPropsHandler implements PropsHandler<BABYLON.Camera, Fib
             });
         }
         // TODO: type: BABYLON.Viewport property (not coded) BABYLON.Camera.viewport.
-        // BABYLON.Camera.setCameraRigMode of type '(mode?: number,rigParams?: any)':
+        // BABYLON.Camera.setCameraRigMode of type '(mode?: number, rigParams?: any)':
         if (oldProps.setCameraRigMode !== newProps.setCameraRigMode) {
             updates.push({
                 propertyName: 'setCameraRigMode',
                 value: newProps.setCameraRigMode,
-                type: '(mode?: number,rigParams?: any)'
+                type: '(mode?: number, rigParams?: any)'
             });
         }
-        // BABYLON.Camera.setCameraRigParameter of type '(name?: string,value?: any)':
+        // BABYLON.Camera.setCameraRigParameter of type '(name?: string, value?: any)':
         if (oldProps.setCameraRigParameter !== newProps.setCameraRigParameter) {
             updates.push({
                 propertyName: 'setCameraRigParameter',
                 value: newProps.setCameraRigParameter,
-                type: '(name?: string,value?: any)'
+                type: '(name?: string, value?: any)'
             });
         }
         return updates.length == 0 ? null : updates;
@@ -869,12 +861,12 @@ export class FiberArcRotateCameraPropsHandler implements PropsHandler<BABYLON.Ar
                 type: '(position?: BABYLON.Vector3)'
             });
         }
-        // BABYLON.ArcRotateCamera.setTarget of type '(target?: BABYLON.Vector3 | BABYLON.AbstractMesh,toBoundingCenter?: boolean,allowSamePosition?: boolean)':
+        // BABYLON.ArcRotateCamera.setTarget of type '(target?: BABYLON.Vector3 | BABYLON.AbstractMesh, toBoundingCenter?: boolean, allowSamePosition?: boolean)':
         if (oldProps.setTarget !== newProps.setTarget) {
             updates.push({
                 propertyName: 'setTarget',
                 value: newProps.setTarget,
-                type: '(target?: BABYLON.Vector3 | BABYLON.AbstractMesh,toBoundingCenter?: boolean,allowSamePosition?: boolean)'
+                type: '(target?: BABYLON.Vector3 | BABYLON.AbstractMesh, toBoundingCenter?: boolean, allowSamePosition?: boolean)'
             });
         }
         return updates.length == 0 ? null : updates;
@@ -7966,132 +7958,132 @@ export class FiberShaderMaterialPropsHandler implements PropsHandler<BABYLON.Sha
     getPropertyUpdates(hostInstance: BABYLON.ShaderMaterial, oldProps: FiberShaderMaterialProps, newProps: FiberShaderMaterialProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
         let updates: PropertyUpdate[] = [];
-        // BABYLON.ShaderMaterial.setArray2 of type '(name?: string,value?: number[])':
+        // BABYLON.ShaderMaterial.setArray2 of type '(name?: string, value?: number[])':
         if (oldProps.setArray2 !== newProps.setArray2) {
             updates.push({
                 propertyName: 'setArray2',
                 value: newProps.setArray2,
-                type: '(name?: string,value?: number[])'
+                type: '(name?: string, value?: number[])'
             });
         }
-        // BABYLON.ShaderMaterial.setArray3 of type '(name?: string,value?: number[])':
+        // BABYLON.ShaderMaterial.setArray3 of type '(name?: string, value?: number[])':
         if (oldProps.setArray3 !== newProps.setArray3) {
             updates.push({
                 propertyName: 'setArray3',
                 value: newProps.setArray3,
-                type: '(name?: string,value?: number[])'
+                type: '(name?: string, value?: number[])'
             });
         }
-        // BABYLON.ShaderMaterial.setColor3 of type '(name?: string,value?: BABYLON.Color3)':
+        // BABYLON.ShaderMaterial.setColor3 of type '(name?: string, value?: BABYLON.Color3)':
         if (oldProps.setColor3 !== newProps.setColor3) {
             updates.push({
                 propertyName: 'setColor3',
                 value: newProps.setColor3,
-                type: '(name?: string,value?: BABYLON.Color3)'
+                type: '(name?: string, value?: BABYLON.Color3)'
             });
         }
-        // BABYLON.ShaderMaterial.setColor3Array of type '(name?: string,value?: BABYLON.Color3[])':
+        // BABYLON.ShaderMaterial.setColor3Array of type '(name?: string, value?: BABYLON.Color3[])':
         if (oldProps.setColor3Array !== newProps.setColor3Array) {
             updates.push({
                 propertyName: 'setColor3Array',
                 value: newProps.setColor3Array,
-                type: '(name?: string,value?: BABYLON.Color3[])'
+                type: '(name?: string, value?: BABYLON.Color3[])'
             });
         }
-        // BABYLON.ShaderMaterial.setColor4 of type '(name?: string,value?: BABYLON.Color4)':
+        // BABYLON.ShaderMaterial.setColor4 of type '(name?: string, value?: BABYLON.Color4)':
         if (oldProps.setColor4 !== newProps.setColor4) {
             updates.push({
                 propertyName: 'setColor4',
                 value: newProps.setColor4,
-                type: '(name?: string,value?: BABYLON.Color4)'
+                type: '(name?: string, value?: BABYLON.Color4)'
             });
         }
-        // BABYLON.ShaderMaterial.setFloat of type '(name?: string,value?: number)':
+        // BABYLON.ShaderMaterial.setFloat of type '(name?: string, value?: number)':
         if (oldProps.setFloat !== newProps.setFloat) {
             updates.push({
                 propertyName: 'setFloat',
                 value: newProps.setFloat,
-                type: '(name?: string,value?: number)'
+                type: '(name?: string, value?: number)'
             });
         }
-        // BABYLON.ShaderMaterial.setFloats of type '(name?: string,value?: number[])':
+        // BABYLON.ShaderMaterial.setFloats of type '(name?: string, value?: number[])':
         if (oldProps.setFloats !== newProps.setFloats) {
             updates.push({
                 propertyName: 'setFloats',
                 value: newProps.setFloats,
-                type: '(name?: string,value?: number[])'
+                type: '(name?: string, value?: number[])'
             });
         }
-        // BABYLON.ShaderMaterial.setInt of type '(name?: string,value?: number)':
+        // BABYLON.ShaderMaterial.setInt of type '(name?: string, value?: number)':
         if (oldProps.setInt !== newProps.setInt) {
             updates.push({
                 propertyName: 'setInt',
                 value: newProps.setInt,
-                type: '(name?: string,value?: number)'
+                type: '(name?: string, value?: number)'
             });
         }
-        // BABYLON.ShaderMaterial.setMatrix of type '(name?: string,value?: BABYLON.Matrix)':
+        // BABYLON.ShaderMaterial.setMatrix of type '(name?: string, value?: BABYLON.Matrix)':
         if (oldProps.setMatrix !== newProps.setMatrix) {
             updates.push({
                 propertyName: 'setMatrix',
                 value: newProps.setMatrix,
-                type: '(name?: string,value?: BABYLON.Matrix)'
+                type: '(name?: string, value?: BABYLON.Matrix)'
             });
         }
-        // BABYLON.ShaderMaterial.setMatrix2x2 of type '(name?: string,value?: Float32Array)':
+        // BABYLON.ShaderMaterial.setMatrix2x2 of type '(name?: string, value?: Float32Array)':
         if (oldProps.setMatrix2x2 !== newProps.setMatrix2x2) {
             updates.push({
                 propertyName: 'setMatrix2x2',
                 value: newProps.setMatrix2x2,
-                type: '(name?: string,value?: Float32Array)'
+                type: '(name?: string, value?: Float32Array)'
             });
         }
-        // BABYLON.ShaderMaterial.setMatrix3x3 of type '(name?: string,value?: Float32Array)':
+        // BABYLON.ShaderMaterial.setMatrix3x3 of type '(name?: string, value?: Float32Array)':
         if (oldProps.setMatrix3x3 !== newProps.setMatrix3x3) {
             updates.push({
                 propertyName: 'setMatrix3x3',
                 value: newProps.setMatrix3x3,
-                type: '(name?: string,value?: Float32Array)'
+                type: '(name?: string, value?: Float32Array)'
             });
         }
-        // BABYLON.ShaderMaterial.setTexture of type '(name?: string,texture?: BABYLON.Texture)':
+        // BABYLON.ShaderMaterial.setTexture of type '(name?: string, texture?: BABYLON.Texture)':
         if (oldProps.setTexture !== newProps.setTexture) {
             updates.push({
                 propertyName: 'setTexture',
                 value: newProps.setTexture,
-                type: '(name?: string,texture?: BABYLON.Texture)'
+                type: '(name?: string, texture?: BABYLON.Texture)'
             });
         }
-        // BABYLON.ShaderMaterial.setTextureArray of type '(name?: string,textures?: BABYLON.Texture[])':
+        // BABYLON.ShaderMaterial.setTextureArray of type '(name?: string, textures?: BABYLON.Texture[])':
         if (oldProps.setTextureArray !== newProps.setTextureArray) {
             updates.push({
                 propertyName: 'setTextureArray',
                 value: newProps.setTextureArray,
-                type: '(name?: string,textures?: BABYLON.Texture[])'
+                type: '(name?: string, textures?: BABYLON.Texture[])'
             });
         }
-        // BABYLON.ShaderMaterial.setVector2 of type '(name?: string,value?: BABYLON.Vector2)':
+        // BABYLON.ShaderMaterial.setVector2 of type '(name?: string, value?: BABYLON.Vector2)':
         if (oldProps.setVector2 !== newProps.setVector2) {
             updates.push({
                 propertyName: 'setVector2',
                 value: newProps.setVector2,
-                type: '(name?: string,value?: BABYLON.Vector2)'
+                type: '(name?: string, value?: BABYLON.Vector2)'
             });
         }
-        // BABYLON.ShaderMaterial.setVector3 of type '(name?: string,value?: BABYLON.Vector3)':
+        // BABYLON.ShaderMaterial.setVector3 of type '(name?: string, value?: BABYLON.Vector3)':
         if (oldProps.setVector3 !== newProps.setVector3) {
             updates.push({
                 propertyName: 'setVector3',
                 value: newProps.setVector3,
-                type: '(name?: string,value?: BABYLON.Vector3)'
+                type: '(name?: string, value?: BABYLON.Vector3)'
             });
         }
-        // BABYLON.ShaderMaterial.setVector4 of type '(name?: string,value?: BABYLON.Vector4)':
+        // BABYLON.ShaderMaterial.setVector4 of type '(name?: string, value?: BABYLON.Vector4)':
         if (oldProps.setVector4 !== newProps.setVector4) {
             updates.push({
                 propertyName: 'setVector4',
                 value: newProps.setVector4,
-                type: '(name?: string,value?: BABYLON.Vector4)'
+                type: '(name?: string, value?: BABYLON.Vector4)'
             });
         }
         return updates.length == 0 ? null : updates;
@@ -8494,12 +8486,12 @@ export class FiberShadowLightPropsHandler implements PropsHandler<BABYLON.Shadow
                 type: '(target?: BABYLON.Vector3)'
             });
         }
-        // BABYLON.ShadowLight.setShadowProjectionMatrix of type '(matrix?: BABYLON.Matrix,viewMatrix?: BABYLON.Matrix,renderList?: BABYLON.AbstractMesh[])':
+        // BABYLON.ShadowLight.setShadowProjectionMatrix of type '(matrix?: BABYLON.Matrix, viewMatrix?: BABYLON.Matrix, renderList?: BABYLON.AbstractMesh[])':
         if (oldProps.setShadowProjectionMatrix !== newProps.setShadowProjectionMatrix) {
             updates.push({
                 propertyName: 'setShadowProjectionMatrix',
                 value: newProps.setShadowProjectionMatrix,
-                type: '(matrix?: BABYLON.Matrix,viewMatrix?: BABYLON.Matrix,renderList?: BABYLON.AbstractMesh[])'
+                type: '(matrix?: BABYLON.Matrix, viewMatrix?: BABYLON.Matrix, renderList?: BABYLON.AbstractMesh[])'
             });
         }
         return updates.length == 0 ? null : updates;
@@ -9714,20 +9706,20 @@ export class FiberGridPropsHandler implements PropsHandler<GUI.Grid, FiberGridPr
                 type: 'string'
             });
         }
-        // GUI.Grid.setColumnDefinition of type '(index?: number,width?: number,isPixel?: boolean)':
+        // GUI.Grid.setColumnDefinition of type '(index?: number, width?: number, isPixel?: boolean)':
         if (oldProps.setColumnDefinition !== newProps.setColumnDefinition) {
             updates.push({
                 propertyName: 'setColumnDefinition',
                 value: newProps.setColumnDefinition,
-                type: '(index?: number,width?: number,isPixel?: boolean)'
+                type: '(index?: number, width?: number, isPixel?: boolean)'
             });
         }
-        // GUI.Grid.setRowDefinition of type '(index?: number,height?: number,isPixel?: boolean)':
+        // GUI.Grid.setRowDefinition of type '(index?: number, height?: number, isPixel?: boolean)':
         if (oldProps.setRowDefinition !== newProps.setRowDefinition) {
             updates.push({
                 propertyName: 'setRowDefinition',
                 value: newProps.setRowDefinition,
-                type: '(index?: number,height?: number,isPixel?: boolean)'
+                type: '(index?: number, height?: number, isPixel?: boolean)'
             });
         }
         return updates.length == 0 ? null : updates;
@@ -10254,12 +10246,12 @@ export class FiberSelectionPanelPropsHandler implements PropsHandler<GUI.Selecti
                 type: 'string'
             });
         }
-        // GUI.SelectionPanel.setHeaderName of type '(label?: string,groupNb?: number)':
+        // GUI.SelectionPanel.setHeaderName of type '(label?: string, groupNb?: number)':
         if (oldProps.setHeaderName !== newProps.setHeaderName) {
             updates.push({
                 propertyName: 'setHeaderName',
                 value: newProps.setHeaderName,
-                type: '(label?: string,groupNb?: number)'
+                type: '(label?: string, groupNb?: number)'
             });
         }
         return updates.length == 0 ? null : updates;
@@ -13797,20 +13789,20 @@ export class FiberRenderTargetTexturePropsHandler implements PropsHandler<BABYLO
                 type: 'boolean'
             });
         }
-        // BABYLON.RenderTargetTexture.setRenderingAutoClearDepthStencil of type '(renderingGroupId?: number,autoClearDepthStencil?: boolean)':
+        // BABYLON.RenderTargetTexture.setRenderingAutoClearDepthStencil of type '(renderingGroupId?: number, autoClearDepthStencil?: boolean)':
         if (oldProps.setRenderingAutoClearDepthStencil !== newProps.setRenderingAutoClearDepthStencil) {
             updates.push({
                 propertyName: 'setRenderingAutoClearDepthStencil',
                 value: newProps.setRenderingAutoClearDepthStencil,
-                type: '(renderingGroupId?: number,autoClearDepthStencil?: boolean)'
+                type: '(renderingGroupId?: number, autoClearDepthStencil?: boolean)'
             });
         }
-        // BABYLON.RenderTargetTexture.setRenderingOrder of type '(renderingGroupId?: number,opaqueSortCompareFn?: (a: BABYLON.SubMesh, b: BABYLON.SubMesh) => number,alphaTestSortCompareFn?: (a: BABYLON.SubMesh, b: BABYLON.SubMesh) => number,transparentSortCompareFn?: (a: BABYLON.SubMesh, b: BABYLON.SubMesh) => number)':
+        // BABYLON.RenderTargetTexture.setRenderingOrder of type '(renderingGroupId?: number, opaqueSortCompareFn?: (a: BABYLON.SubMesh, b: BABYLON.SubMesh) => number, alphaTestSortCompareFn?: (a: BABYLON.SubMesh, b: BABYLON.SubMesh) => number, transparentSortCompareFn?: (a: BABYLON.SubMesh, b: BABYLON.SubMesh) => number)':
         if (oldProps.setRenderingOrder !== newProps.setRenderingOrder) {
             updates.push({
                 propertyName: 'setRenderingOrder',
                 value: newProps.setRenderingOrder,
-                type: '(renderingGroupId?: number,opaqueSortCompareFn?: (a: BABYLON.SubMesh, b: BABYLON.SubMesh) => number,alphaTestSortCompareFn?: (a: BABYLON.SubMesh, b: BABYLON.SubMesh) => number,transparentSortCompareFn?: (a: BABYLON.SubMesh, b: BABYLON.SubMesh) => number)'
+                type: '(renderingGroupId?: number, opaqueSortCompareFn?: (a: BABYLON.SubMesh, b: BABYLON.SubMesh) => number, alphaTestSortCompareFn?: (a: BABYLON.SubMesh, b: BABYLON.SubMesh) => number, transparentSortCompareFn?: (a: BABYLON.SubMesh, b: BABYLON.SubMesh) => number)'
             });
         }
         return updates.length == 0 ? null : updates;
@@ -14367,36 +14359,36 @@ export class FiberProceduralTexturePropsHandler implements PropsHandler<BABYLON.
                 type: 'number'
             });
         }
-        // BABYLON.ProceduralTexture.setColor3 of type '(name?: string,value?: BABYLON.Color3)':
+        // BABYLON.ProceduralTexture.setColor3 of type '(name?: string, value?: BABYLON.Color3)':
         if (oldProps.setColor3 !== newProps.setColor3) {
             updates.push({
                 propertyName: 'setColor3',
                 value: newProps.setColor3,
-                type: '(name?: string,value?: BABYLON.Color3)'
+                type: '(name?: string, value?: BABYLON.Color3)'
             });
         }
-        // BABYLON.ProceduralTexture.setColor4 of type '(name?: string,value?: BABYLON.Color4)':
+        // BABYLON.ProceduralTexture.setColor4 of type '(name?: string, value?: BABYLON.Color4)':
         if (oldProps.setColor4 !== newProps.setColor4) {
             updates.push({
                 propertyName: 'setColor4',
                 value: newProps.setColor4,
-                type: '(name?: string,value?: BABYLON.Color4)'
+                type: '(name?: string, value?: BABYLON.Color4)'
             });
         }
-        // BABYLON.ProceduralTexture.setFloat of type '(name?: string,value?: number)':
+        // BABYLON.ProceduralTexture.setFloat of type '(name?: string, value?: number)':
         if (oldProps.setFloat !== newProps.setFloat) {
             updates.push({
                 propertyName: 'setFloat',
                 value: newProps.setFloat,
-                type: '(name?: string,value?: number)'
+                type: '(name?: string, value?: number)'
             });
         }
-        // BABYLON.ProceduralTexture.setFloats of type '(name?: string,value?: number[])':
+        // BABYLON.ProceduralTexture.setFloats of type '(name?: string, value?: number[])':
         if (oldProps.setFloats !== newProps.setFloats) {
             updates.push({
                 propertyName: 'setFloats',
                 value: newProps.setFloats,
-                type: '(name?: string,value?: number[])'
+                type: '(name?: string, value?: number[])'
             });
         }
         // BABYLON.ProceduralTexture.setFragment of type '(fragment?: any)':
@@ -14407,44 +14399,44 @@ export class FiberProceduralTexturePropsHandler implements PropsHandler<BABYLON.
                 type: '(fragment?: any)'
             });
         }
-        // BABYLON.ProceduralTexture.setInt of type '(name?: string,value?: number)':
+        // BABYLON.ProceduralTexture.setInt of type '(name?: string, value?: number)':
         if (oldProps.setInt !== newProps.setInt) {
             updates.push({
                 propertyName: 'setInt',
                 value: newProps.setInt,
-                type: '(name?: string,value?: number)'
+                type: '(name?: string, value?: number)'
             });
         }
-        // BABYLON.ProceduralTexture.setMatrix of type '(name?: string,value?: BABYLON.Matrix)':
+        // BABYLON.ProceduralTexture.setMatrix of type '(name?: string, value?: BABYLON.Matrix)':
         if (oldProps.setMatrix !== newProps.setMatrix) {
             updates.push({
                 propertyName: 'setMatrix',
                 value: newProps.setMatrix,
-                type: '(name?: string,value?: BABYLON.Matrix)'
+                type: '(name?: string, value?: BABYLON.Matrix)'
             });
         }
-        // BABYLON.ProceduralTexture.setTexture of type '(name?: string,texture?: BABYLON.Texture)':
+        // BABYLON.ProceduralTexture.setTexture of type '(name?: string, texture?: BABYLON.Texture)':
         if (oldProps.setTexture !== newProps.setTexture) {
             updates.push({
                 propertyName: 'setTexture',
                 value: newProps.setTexture,
-                type: '(name?: string,texture?: BABYLON.Texture)'
+                type: '(name?: string, texture?: BABYLON.Texture)'
             });
         }
-        // BABYLON.ProceduralTexture.setVector2 of type '(name?: string,value?: BABYLON.Vector2)':
+        // BABYLON.ProceduralTexture.setVector2 of type '(name?: string, value?: BABYLON.Vector2)':
         if (oldProps.setVector2 !== newProps.setVector2) {
             updates.push({
                 propertyName: 'setVector2',
                 value: newProps.setVector2,
-                type: '(name?: string,value?: BABYLON.Vector2)'
+                type: '(name?: string, value?: BABYLON.Vector2)'
             });
         }
-        // BABYLON.ProceduralTexture.setVector3 of type '(name?: string,value?: BABYLON.Vector3)':
+        // BABYLON.ProceduralTexture.setVector3 of type '(name?: string, value?: BABYLON.Vector3)':
         if (oldProps.setVector3 !== newProps.setVector3) {
             updates.push({
                 propertyName: 'setVector3',
                 value: newProps.setVector3,
-                type: '(name?: string,value?: BABYLON.Vector3)'
+                type: '(name?: string, value?: BABYLON.Vector3)'
             });
         }
         return updates.length == 0 ? null : updates;
@@ -16309,20 +16301,20 @@ export class FiberScenePropsHandler implements PropsHandler<BABYLON.Scene, Fiber
                 type: '(mesh?: BABYLON.AbstractMesh)'
             });
         }
-        // BABYLON.Scene.setRenderingAutoClearDepthStencil of type '(renderingGroupId?: number,autoClearDepthStencil?: boolean,depth?: boolean,stencil?: boolean)':
+        // BABYLON.Scene.setRenderingAutoClearDepthStencil of type '(renderingGroupId?: number, autoClearDepthStencil?: boolean, depth?: boolean, stencil?: boolean)':
         if (oldProps.setRenderingAutoClearDepthStencil !== newProps.setRenderingAutoClearDepthStencil) {
             updates.push({
                 propertyName: 'setRenderingAutoClearDepthStencil',
                 value: newProps.setRenderingAutoClearDepthStencil,
-                type: '(renderingGroupId?: number,autoClearDepthStencil?: boolean,depth?: boolean,stencil?: boolean)'
+                type: '(renderingGroupId?: number, autoClearDepthStencil?: boolean, depth?: boolean, stencil?: boolean)'
             });
         }
-        // BABYLON.Scene.setRenderingOrder of type '(renderingGroupId?: number,opaqueSortCompareFn?: (a: BABYLON.SubMesh, b: BABYLON.SubMesh) => number,alphaTestSortCompareFn?: (a: BABYLON.SubMesh, b: BABYLON.SubMesh) => number,transparentSortCompareFn?: (a: BABYLON.SubMesh, b: BABYLON.SubMesh) => number)':
+        // BABYLON.Scene.setRenderingOrder of type '(renderingGroupId?: number, opaqueSortCompareFn?: (a: BABYLON.SubMesh, b: BABYLON.SubMesh) => number, alphaTestSortCompareFn?: (a: BABYLON.SubMesh, b: BABYLON.SubMesh) => number, transparentSortCompareFn?: (a: BABYLON.SubMesh, b: BABYLON.SubMesh) => number)':
         if (oldProps.setRenderingOrder !== newProps.setRenderingOrder) {
             updates.push({
                 propertyName: 'setRenderingOrder',
                 value: newProps.setRenderingOrder,
-                type: '(renderingGroupId?: number,opaqueSortCompareFn?: (a: BABYLON.SubMesh, b: BABYLON.SubMesh) => number,alphaTestSortCompareFn?: (a: BABYLON.SubMesh, b: BABYLON.SubMesh) => number,transparentSortCompareFn?: (a: BABYLON.SubMesh, b: BABYLON.SubMesh) => number)'
+                type: '(renderingGroupId?: number, opaqueSortCompareFn?: (a: BABYLON.SubMesh, b: BABYLON.SubMesh) => number, alphaTestSortCompareFn?: (a: BABYLON.SubMesh, b: BABYLON.SubMesh) => number, transparentSortCompareFn?: (a: BABYLON.SubMesh, b: BABYLON.SubMesh) => number)'
             });
         }
         // BABYLON.Scene.setStepId of type '(newStepId?: number)':
@@ -16333,12 +16325,12 @@ export class FiberScenePropsHandler implements PropsHandler<BABYLON.Scene, Fiber
                 type: '(newStepId?: number)'
             });
         }
-        // BABYLON.Scene.setTransformMatrix of type '(view?: BABYLON.Matrix,projection?: BABYLON.Matrix)':
+        // BABYLON.Scene.setTransformMatrix of type '(view?: BABYLON.Matrix, projection?: BABYLON.Matrix)':
         if (oldProps.setTransformMatrix !== newProps.setTransformMatrix) {
             updates.push({
                 propertyName: 'setTransformMatrix',
                 value: newProps.setTransformMatrix,
-                type: '(view?: BABYLON.Matrix,projection?: BABYLON.Matrix)'
+                type: '(view?: BABYLON.Matrix, projection?: BABYLON.Matrix)'
             });
         }
         return updates.length == 0 ? null : updates;

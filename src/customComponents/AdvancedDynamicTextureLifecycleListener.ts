@@ -1,9 +1,9 @@
-import { LifecycleListeners, CreatedInstance } from "../ReactBabylonJSHostConfig"
+import { CreatedInstance } from "../CreatedInstance";
+import { LifecycleListener } from "../LifecycleListener";
 import { Color3 } from "babylonjs"
 import * as BABYLON from "babylonjs"
 
-export default class AdvancedDynamicTextureLifecycleListener implements LifecycleListeners {
-  // private added: boolean = false;
+export default class AdvancedDynamicTextureLifecycleListener implements LifecycleListener {
 
   private props: any
 
@@ -50,9 +50,14 @@ export default class AdvancedDynamicTextureLifecycleListener implements Lifecycl
     // When there is a panel, it must be added before the children. Otherwise there is no UtilityLayer to attach to.
     // This project before 'react-reconciler' was added from parent up the tree.  'react-reconciler' wants to do the opposite.
     instance.children.forEach(child => {
-      console.warn("calling ", instance.hostInstance.name, ".addControl(", child.hostInstance.name, ")")
-      // Need to add instance.state.isAdded = true, for components added at runtime.
-      instance.hostInstance.addControl(child.hostInstance)
+      if (child.metadata.isGUI2DControl === true) {
+        console.warn("calling ", instance.hostInstance.name, ".addControl(", child.hostInstance.name, ")")
+        // Need to add instance.state.isAdded = true, for components added at runtime.
+        instance.hostInstance.addControl(child.hostInstance)
+        child.state = { added: true }
+      } else {
+        console.warn('skipping addControl().  not gui2d:', child)
+      }
     })
 
     instance.children.forEach(child => {

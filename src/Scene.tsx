@@ -11,8 +11,9 @@ import ReactReconciler from "react-reconciler"
 import { WithBabylonJSContext, withBabylonJS } from './Engine'
 import { Scene as BabylonScene, AbstractMesh, PointerInfo, PointerEventTypes } from 'babylonjs'
 
-import ReactBabylonJSHostConfig, { Container, CreatedInstance, PropertyUpdate, applyUpdateToInstance } from './ReactBabylonJSHostConfig'
+import ReactBabylonJSHostConfig, { Container, applyUpdateToInstance } from './ReactBabylonJSHostConfig'
 import { FiberScenePropsHandler } from './generatedCode'
+import { UpdatePayload } from './PropsHandler';
 
 export interface WithSceneContext {
   engine: BABYLON.Nullable<BABYLON.Engine>,
@@ -72,7 +73,7 @@ class Scene extends React.Component<SceneProps, any, any> {
       const { engine /*, canvas */ } = babylonJSContext;
       
       this._scene = new BABYLON.Scene(engine!)
-      const updates : PropertyUpdate[] | null = new FiberScenePropsHandler().getPropertyUpdates(this._scene, {}, this.props as any, this._scene)
+      const updates : UpdatePayload = new FiberScenePropsHandler().getPropertyUpdates(this._scene, {}, this.props as any, this._scene)
       if (updates != null) {
         updates.forEach(propertyUpdate => {
           applyUpdateToInstance(this._scene, propertyUpdate, 'scene')

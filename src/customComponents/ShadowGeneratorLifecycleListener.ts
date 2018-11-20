@@ -1,7 +1,8 @@
-import { LifecycleListeners, CreatedInstance } from "../ReactBabylonJSHostConfig"
+import { CreatedInstance } from "../CreatedInstance";
+import { LifecycleListener } from "../LifecycleListener";
 import { ShadowGenerator, Scene, AbstractMesh } from "babylonjs"
 
-export default class AdvancedDynamicTextureLifecycleListener implements LifecycleListeners {
+export default class AdvancedDynamicTextureLifecycleListener implements LifecycleListener {
   private props: any
 
   constructor(props: any) {

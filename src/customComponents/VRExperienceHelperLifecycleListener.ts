@@ -1,6 +1,7 @@
-import { LifecycleListeners, CreatedInstance } from "../ReactBabylonJSHostConfig"
+import { LifecycleListener } from "../LifecycleListener";
+import { CreatedInstance } from "../CreatedInstance";
 
-export default class VRExperienceHelperLifecycleListener implements LifecycleListeners {
+export default class VRExperienceHelperLifecycleListener implements LifecycleListener {
   private props: any
 
   constructor(props: any) {

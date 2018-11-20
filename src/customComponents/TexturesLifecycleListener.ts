@@ -1,6 +1,7 @@
-import { LifecycleListeners, CreatedInstance } from "../ReactBabylonJSHostConfig"
+import { LifecycleListener } from "../LifecycleListener";
+import { CreatedInstance } from "../CreatedInstance";
 
-export default class TexturesLifecycleListener implements LifecycleListeners {
+export default class TexturesLifecycleListener implements LifecycleListener {
   onParented(parent: CreatedInstance<any>) {}
   onChildAdded(child: CreatedInstance<any>) {}
   onMount(instance: CreatedInstance<any>) {
