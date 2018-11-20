@@ -11,11 +11,14 @@ import {
   SceneLoaderProgressEvent
 } from "babylonjs"
 import "babylonjs-loaders"
-import { LifecycleListeners, CreatedInstance, PropertyUpdate, applyUpdateToInstance } from "../ReactBabylonJSHostConfig"
+import { applyUpdateToInstance } from "../ReactBabylonJSHostConfig"
+import { CreatedInstance } from "../CreatedInstance";
+import { LifecycleListener } from "../LifecycleListener";
 
 import { LoaderStatus, LoadedModel, ModelPropsHandler } from "../model"
+import { PropertyUpdate, UpdatePayload } from "../PropsHandler";
 
-export default class ModelLifecycleListener implements LifecycleListeners {
+export default class ModelLifecycleListener implements LifecycleListener {
   private props: any
   private scene: Scene
 
@@ -39,12 +42,7 @@ export default class ModelLifecycleListener implements LifecycleListeners {
       this.props.rootUrl,
       this.props.sceneFilename,
       this.scene,
-      (
-        meshes: AbstractMesh[],
-        particleSystems: IParticleSystem[],
-        skeletons: Skeleton[],
-        animationGroups: AnimationGroup[]
-      ): void => {
+      (meshes: AbstractMesh[], particleSystems: IParticleSystem[], skeletons: Skeleton[], animationGroups: AnimationGroup[]): void => {
         loadedModel.rootMesh = new AbstractMesh(this.props.sceneFilename + "-model")
         loadedModel.rootMesh.alwaysSelectAsActiveMesh = true
 
@@ -70,7 +68,7 @@ export default class ModelLifecycleListener implements LifecycleListeners {
         loadedModel.status = LoaderStatus.Loaded
 
         // we want to trigger after mesh is loaded (ie: position/rotation)
-        const updates: PropertyUpdate[] | null = new ModelPropsHandler().getPropertyUpdates(
+        const updates: UpdatePayload = new ModelPropsHandler().getPropertyUpdates(
           loadedModel,
           { rootUrl: "", sceneFilename: "" },
           this.props,
@@ -81,11 +79,7 @@ export default class ModelLifecycleListener implements LifecycleListeners {
           updates.forEach(update => applyUpdateToInstance(instance!.hostInstance, update, "model"))
         }
 
-        if (
-          this.props.scaleToDimension &&
-          loadedModel &&
-          loadedModel.scaleToDimension !== this.props.scaleToDimension
-        ) {
+        if (this.props.scaleToDimension && loadedModel && loadedModel.scaleToDimension !== this.props.scaleToDimension) {
           const boundingInfo = loadedModel.boundingInfo // will be null when no meshes are loaded
           if (boundingInfo) {
             const longestDimension = Math.max(

@@ -7,56 +7,14 @@
  * "could not resolve entry" is the error, if you forget to switch it back as 'src' and 'tool's will be subdirs in compiled.
  */
 import { Project, VariableDeclarationKind, NamespaceDeclaration, ClassDeclaration, PropertyDeclaration, CodeBlockWriter, SourceFile, JSDoc, ConstructorDeclaration, Scope, MethodDeclaration, ParameterDeclaration, SyntaxKind, ClassMemberTypes } from 'ts-simple-ast'
+import { GeneratedParameter, CreateInfo, CreationType } from "../src/codeGenerationDescriptors";
+import { InstanceMetadataParameter, CreatedInstanceMetadata } from "../src/CreatedInstance"
 
-const ReactReconcilerCreatedInstanceClassName = "CreatedInstance";
 const ReactReconcilerCreatedInstanceMetadata = "CreatedInstanceMetadata";
-const PropertyUpdateType = "PropertyUpdate";
+const PropertyUpdateInterface = "PropertyUpdate";
 const BABYLON_NAMESPACE = "BABYLON";
 const BABYLON_GUI_NAMESPACE = "GUI"
 const ClassNamesPrefix = 'Fiber';
-
-
-/** Following classes are duplicated in render.ts for now */
-type GeneratedParameter = {
-  name: string,
-  type: string | GeneratedParameter[],
-  optional: boolean
-}
-
-class CreationType {
-  public static readonly FactoryMethod : string = 'FactoryMethod'
-  public static readonly Constructor : string = 'Constructor'
-}
-
-type CreateInfo = {
-  libraryLocation: string // ie: `BABYLON.${libraryLocation}`
-  namespace: string // so far only 'BABYLON' or 'GUI'
-  factoryMethod?: string // required for 'Factory' creation type.
-  creationType: string
-  parameters: GeneratedParameter[]
-}
-
-type InstanceMetadataParameter = {
-  delayCreation?: boolean // if it should not be created automatically, but by LifecycleListener (ie: ShadowGenerator needs an IShadowLight)
-  shadowGenerator?: boolean // children will auto-cast shadows
-  acceptsMaterials?: boolean
-  isScene?: boolean
-  isShadowLight?: boolean // capable of being used as a shadow generator source
-  isEnvironment?: boolean // to find ground for Teleportation (not using a registry - one time cost)
-  isTargetable?: boolean // will attach a target props handler
-  isMesh?: boolean
-  isMaterial?: boolean // indicates a custom component created by end-user has been created
-  isGUI3DControl?: boolean // does not work with 2D
-  isGUI2DControl?: boolean // does not work with 3D
-  isTexture?: boolean
-  customType?: boolean, // not used by code-gen
-  isCamera?: boolean
-}
-
-export type CreatedInstanceMetadata = {
-  className: string // for inspection/debugging.  Not yet required.
-} & InstanceMetadataParameter
-/** end of duplicated code */
 
 // NOTE: this is important as 'strings' are what are available for NPM import and trigger react reconciler.
 const REACT_EXPORTS : Set<string> = new Set<string>();
@@ -575,7 +533,7 @@ const addPropsAndHandlerClasses = (sourceFile: SourceFile, classNameToGenerate: 
 
   let getPropertyUpdatesMethod = classDeclarationPropsHandler.addMethod({
     name: "getPropertyUpdates",
-    returnType: `${PropertyUpdateType}[] | null`
+    returnType: `${PropertyUpdateInterface}[] | null`
   });
   getPropertyUpdatesMethod.addParameters([{
     name: "hostInstance",
@@ -594,7 +552,7 @@ const addPropsAndHandlerClasses = (sourceFile: SourceFile, classNameToGenerate: 
   getPropertyUpdatesMethod.setBodyText((writer : CodeBlockWriter) => {
     writer.writeLine("// generated code")
     
-    writer.writeLine(`let updates: ${PropertyUpdateType}[] = [];`)
+    writer.writeLine(`let updates: ${PropertyUpdateInterface}[] = [];`)
 
     let addedMeshProperties = new Set();
     propertiesToAdd.sort((a, b) => a.getName().localeCompare(b.getName())).forEach((property: PropertyDeclaration) => {
@@ -722,8 +680,13 @@ const generateCode = async () => {
   );  
 
   generatedSourceFile.addImportDeclaration({
-    moduleSpecifier: "./ReactBabylonJSHostConfig",
-    namedImports: [ReactReconcilerCreatedInstanceClassName, ReactReconcilerCreatedInstanceMetadata, PropertyUpdateType]
+    moduleSpecifier: "./PropsHandler",
+    namedImports: ["PropsHandler", PropertyUpdateInterface, "HasPropsHandlers"]
+  })
+
+  generatedSourceFile.addImportDeclaration({
+    moduleSpecifier: "./CreatedInstance",
+    namedImports: [ReactReconcilerCreatedInstanceMetadata]
   })
 
   generatedSourceFile.addImportDeclaration({
@@ -734,56 +697,6 @@ const generateCode = async () => {
   generatedSourceFile.addImportDeclaration({
     moduleSpecifier: "babylonjs-gui",
     defaultImport: BABYLON_GUI_NAMESPACE
-  })
-
-  const propsHandlerInterfaceDeclaration = generatedSourceFile.addInterface({
-    name: "PropsHandler",
-    isExported: true
-  });
-  propsHandlerInterfaceDeclaration.addTypeParameters([{
-    name: 'T'
-  }, {
-    name: 'U'
-  }]);
-  let getPropertyUpdatesMethod = propsHandlerInterfaceDeclaration.addMethod({
-    name: "getPropertyUpdates",
-    returnType: `${PropertyUpdateType}[] | null`
-  });
-  getPropertyUpdatesMethod.addParameters([{
-    name: "hostInstance",
-    type: 'T' // was `${ReactReconcilerCreatedInstanceClassName}<T>`, but we only need T
-  }, {
-    name: "oldProps",
-    type: "U"
-  }, {
-    name: "newProps",
-    type: "U"
-  }, {
-    name: "scene",
-    type: `${BABYLON_NAMESPACE}.Scene`
-  }])
-
-  const interfaceDeclaration = generatedSourceFile.addInterface({
-    name: "HasPropsHandlers",
-    isExported: true
-  });
-  interfaceDeclaration.addTypeParameters([{
-    name: 'T'
-  }, {
-    name: 'U'
-  }]);
-  interfaceDeclaration.addMethod({
-    name: "getPropsHandlers",
-    returnType: "PropsHandler<T, U>[]"
-  });
-
-  const addProsHandlerMethod = interfaceDeclaration.addMethod({
-    name: "addPropsHandler",
-    returnType: "void"
-  });
-  addProsHandlerMethod.addParameter({
-    name: "propHandler",
-    type: "PropsHandler<T, U>"
   })
 
   // This is the base class for many things (camera, meshes, etc.)

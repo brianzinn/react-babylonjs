@@ -1,8 +1,8 @@
 import { Vector3, SceneLoaderProgressEvent, AbstractMesh, Mesh } from "babylonjs"
 import { LoadedModel } from "./Model"
-import { PropsHandler, FiberMeshPropsHandler } from "../generatedCode"
-import { PropertyUpdate } from "../ReactBabylonJSHostConfig"
+import { FiberMeshPropsHandler } from "../generatedCode"
 import BasePropsHandler from "../BasePropsHandler"
+import { UpdatePayload, PropsHandler } from "../PropsHandler";
 
 export type ModelProps = {
   meshNames?: any
@@ -32,18 +32,8 @@ export class FiberModel extends BasePropsHandler<LoadedModel, ModelProps> {
 }
 
 export class ModelPropsHandler implements PropsHandler<LoadedModel, ModelProps> {
-  getPropertyUpdates(
-    hostInstance: LoadedModel,
-    oldProps: ModelProps,
-    newProps: ModelProps,
-    scene: BABYLON.Scene
-  ): PropertyUpdate[] | null {
-    let meshUpdates: PropertyUpdate[] | null = new FiberMeshPropsHandler().getPropertyUpdates(
-      hostInstance.rootMesh as Mesh,
-      oldProps,
-      newProps,
-      scene
-    )
+  getPropertyUpdates(hostInstance: LoadedModel, oldProps: ModelProps, newProps: ModelProps, scene: BABYLON.Scene): UpdatePayload {
+    let meshUpdates: UpdatePayload = new FiberMeshPropsHandler().getPropertyUpdates(hostInstance.rootMesh as Mesh, oldProps, newProps, scene)
 
     if (meshUpdates == null) {
       return null
