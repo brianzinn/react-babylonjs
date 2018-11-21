@@ -7,10 +7,10 @@ import * as CUSTOM_HOSTS from "./customHosts"
 import * as CUSTOM_COMPONENTS from "./customComponents"
 
 import { FiberModel, LoadedModel } from "./model"
-import { CreatedInstance, CreatedInstanceMetadata } from "./CreatedInstance";
-import { HasPropsHandlers, PropertyUpdate, UpdatePayload } from "./PropsHandler";
-import { LifecycleListener } from "./LifecycleListener";
-import { GeneratedParameter, CreateInfo, CreationType } from "./codeGenerationDescriptors";
+import { CreatedInstance, CreatedInstanceMetadata } from "./CreatedInstance"
+import { HasPropsHandlers, PropertyUpdate, UpdatePayload } from "./PropsHandler"
+import { LifecycleListener } from "./LifecycleListener"
+import { GeneratedParameter, CreateInfo, CreationType } from "./codeGenerationDescriptors"
 
 // ** TODO: switch to node module 'scheduler', but compiler is not finding 'require()' exports currently...
 type RequestIdleCallbackHandle = any
@@ -86,6 +86,9 @@ export const applyUpdateToInstance = (hostInstance: any, update: PropertyUpdate,
         target[update.propertyName] = update.value
       }
       break
+    case "BABYLON.GUI.Control":
+      target[update.propertyName] = update.value
+      break;
     default:
       if (update.type.startsWith("BABYLON.Observable")) {
         // TODO: we want to remove the old prop when changed, so it should be passed along as well.
@@ -155,7 +158,7 @@ const ReactBabylonJSHostConfig: HostConfig<
   },
 
   now: () => {
-    return Date.now()
+    return Date.now() // TODO: use performance.now
   },
 
   // multiple renderers concurrently render using the same context objects. E.g. React DOM and React ART on the

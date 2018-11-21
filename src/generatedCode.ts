@@ -10756,7 +10756,14 @@ export class FiberLinePropsHandler implements PropsHandler<GUI.Line, FiberLinePr
     getPropertyUpdates(hostInstance: GUI.Line, oldProps: FiberLineProps, newProps: FiberLineProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
         let updates: PropertyUpdate[] = [];
-        // TODO: type: BABYLON.GUI.Control property (not coded) GUI.Line.connectedControl.
+        // GUI.Line.connectedControl of GUIBABYLON.GUI.Control uses object equals to find diffs:
+        if (newProps.connectedControl && (!oldProps.connectedControl)) {
+            updates.push({
+                propertyName: 'connectedControl',
+                value: newProps.connectedControl,
+                type: 'BABYLON.GUI.Control'
+            });
+        }
         // TODO: type: number[] property (not coded) GUI.Line.dash.
         // GUI.Line.horizontalAlignment of type 'number':
         if (oldProps.horizontalAlignment !== newProps.horizontalAlignment) {
@@ -11740,7 +11747,14 @@ export class FiberButton3DPropsHandler implements PropsHandler<GUI.Button3D, Fib
     getPropertyUpdates(hostInstance: GUI.Button3D, oldProps: FiberButton3DProps, newProps: FiberButton3DProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
         let updates: PropertyUpdate[] = [];
-        // TODO: type: BABYLON.GUI.Control property (not coded) GUI.Button3D.content.
+        // GUI.Button3D.content of GUIBABYLON.GUI.Control uses object equals to find diffs:
+        if (newProps.content && (!oldProps.content)) {
+            updates.push({
+                propertyName: 'content',
+                value: newProps.content,
+                type: 'BABYLON.GUI.Control'
+            });
+        }
         // GUI.Button3D.contentResolution of type 'number':
         if (oldProps.contentResolution !== newProps.contentResolution) {
             updates.push({

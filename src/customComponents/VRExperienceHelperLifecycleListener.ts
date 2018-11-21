@@ -1,5 +1,5 @@
-import { LifecycleListener } from "../LifecycleListener";
-import { CreatedInstance } from "../CreatedInstance";
+import { LifecycleListener } from "../LifecycleListener"
+import { CreatedInstance } from "../CreatedInstance"
 
 export default class VRExperienceHelperLifecycleListener implements LifecycleListener {
   private props: any

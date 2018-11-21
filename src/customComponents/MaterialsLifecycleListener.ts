@@ -1,5 +1,5 @@
-import { CreatedInstance } from "../CreatedInstance";
-import { LifecycleListener } from "../LifecycleListener";
+import { CreatedInstance } from "../CreatedInstance"
+import { LifecycleListener } from "../LifecycleListener"
 
 export default class MaterialsLifecycleListener implements LifecycleListener {
   onParented(parent: CreatedInstance<any>) {}

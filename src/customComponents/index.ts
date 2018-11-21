@@ -7,6 +7,7 @@ export { default as GUI3DManagerLifecycleListener } from "./GUI3DManagerLifecycl
 export { default as MaterialsLifecycleListener } from "./MaterialsLifecycleListener"
 export { default as ModelLifecycleListener } from "./ModelLifecycleListener"
 export { default as ShadowGeneratorLifecycleListener } from "./ShadowGeneratorLifecycleListener"
+export { default as Skybox } from "./Skybox"
 export { default as TargetPropsHandler } from "./TargetPropsHandler"
 export { default as TexturesLifecycleListener } from "./TexturesLifecycleListener"
 export { default as VRExperienceHelperLifecycleListener } from "./VRExperienceHelperLifecycleListener"

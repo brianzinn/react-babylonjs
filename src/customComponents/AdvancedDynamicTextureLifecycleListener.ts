@@ -1,10 +1,9 @@
-import { CreatedInstance } from "../CreatedInstance";
-import { LifecycleListener } from "../LifecycleListener";
+import { CreatedInstance } from "../CreatedInstance"
+import { LifecycleListener } from "../LifecycleListener"
 import { Color3 } from "babylonjs"
 import * as BABYLON from "babylonjs"
 
 export default class AdvancedDynamicTextureLifecycleListener implements LifecycleListener {
-
   private props: any
 
   constructor(props: any) {
@@ -56,7 +55,7 @@ export default class AdvancedDynamicTextureLifecycleListener implements Lifecycl
         instance.hostInstance.addControl(child.hostInstance)
         child.state = { added: true }
       } else {
-        console.warn('skipping addControl().  not gui2d:', child)
+        console.warn("skipping addControl().  not gui2d:", child)
       }
     })
 
