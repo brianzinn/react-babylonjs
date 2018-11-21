@@ -1,5 +1,5 @@
-import { CreatedInstance } from "../CreatedInstance";
-import { LifecycleListener } from "../LifecycleListener";
+import { CreatedInstance } from "../CreatedInstance"
+import { LifecycleListener } from "../LifecycleListener"
 import { ShadowGenerator, Scene, AbstractMesh } from "babylonjs"
 
 export default class AdvancedDynamicTextureLifecycleListener implements LifecycleListener {

@@ -403,6 +403,12 @@ const writePropertyAsUpdateFunction = (classDeclaration: ClassDeclaration, write
         writer.writeLine(`updates.push({\npropertyName: '${propertyName}',\nvalue: newProps.${propertyName},\ntype: '${type}'\n});`);
       });
       break;
+    case "BABYLON.GUI.Control":
+      writer.writeLine(`// ${importedNamespace}.${classNameBabylon}.${propertyName} of ${importedNamespace}${type} uses object equals to find diffs:`)
+      writer.write(`if (newProps.${propertyName} && (!oldProps.${propertyName}))`).block(() => {
+        writer.writeLine(`updates.push({\npropertyName: '${propertyName}',\nvalue: newProps.${propertyName},\ntype: '${type}'\n});`);
+      });
+      break;
     default:
       writer.writeLine(`// TODO: type: ${type} property (not coded) ${importedNamespace}.${classNameBabylon}.${propertyName}.`);
       break;

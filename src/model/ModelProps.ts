@@ -2,7 +2,7 @@ import { Vector3, SceneLoaderProgressEvent, AbstractMesh, Mesh } from "babylonjs
 import { LoadedModel } from "./Model"
 import { FiberMeshPropsHandler } from "../generatedCode"
 import BasePropsHandler from "../BasePropsHandler"
-import { UpdatePayload, PropsHandler } from "../PropsHandler";
+import { UpdatePayload, PropsHandler } from "../PropsHandler"
 
 export type ModelProps = {
   meshNames?: any

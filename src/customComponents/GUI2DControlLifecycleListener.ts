@@ -1,37 +1,33 @@
-import { CreatedInstance } from "../CreatedInstance";
-import { LifecycleListener } from "../LifecycleListener";
+import { CreatedInstance } from "../CreatedInstance"
+import { LifecycleListener } from "../LifecycleListener"
 
 export default class GUI2DControlLifecycleListener implements LifecycleListener {
+  onParented(parent: CreatedInstance<any>, child: CreatedInstance<any>): any {}
 
-  onParented(parent: CreatedInstance<any>, child: CreatedInstance<any>): any {
-  }
-
-  onChildAdded(child: CreatedInstance<any>, parent: CreatedInstance<any>): any {
-  }
+  onChildAdded(child: CreatedInstance<any>, parent: CreatedInstance<any>): any {}
 
   onMount(instance: CreatedInstance<any>): void {
+    if (instance.state && instance.state.added === true) {
+      console.error("already added:", instance)
+      return
+    }
 
-      if (instance.state && instance.state.added === true) {
-        console.error('already added:', instance)
-        return
-      }
+    let addedParent: CreatedInstance<any> | null = null
 
-      let addedParent: CreatedInstance<any> | null = null;
+    let tmp = instance.parent
+    while (tmp) {
+      if (tmp.metadata.isGUI2DControl) {
+        if (tmp.state && tmp.state.added === true) {
+          addedParent = tmp
+          break
+        }
+      }
+      tmp = tmp.parent
+    }
 
-      let tmp = instance.parent
-      while(tmp) {
-          if (tmp.metadata.isGUI2DControl) {
-            if(tmp.state && tmp.state.added === true) {
-              addedParent = tmp;
-              break;
-            }
-          }
-          tmp = tmp.parent
-      }
-  
-      if (addedParent) {
-        this.addControls(addedParent)
-      }
+    if (addedParent) {
+      this.addControls(addedParent)
+    }
   }
 
   addControls(instance: CreatedInstance<any>) {
@@ -42,7 +38,7 @@ export default class GUI2DControlLifecycleListener implements LifecycleListener 
         instance.hostInstance.addControl(child.hostInstance)
         child.state = { added: true }
       } else {
-        console.warn('skipping addControl().  not gui2d:', child)
+        console.warn("skipping addControl().  not gui2d:", child)
       }
     })
 

@@ -12,11 +12,11 @@ import {
 } from "babylonjs"
 import "babylonjs-loaders"
 import { applyUpdateToInstance } from "../ReactBabylonJSHostConfig"
-import { CreatedInstance } from "../CreatedInstance";
-import { LifecycleListener } from "../LifecycleListener";
+import { CreatedInstance } from "../CreatedInstance"
+import { LifecycleListener } from "../LifecycleListener"
 
 import { LoaderStatus, LoadedModel, ModelPropsHandler } from "../model"
-import { PropertyUpdate, UpdatePayload } from "../PropsHandler";
+import { PropertyUpdate, UpdatePayload } from "../PropsHandler"
 
 export default class ModelLifecycleListener implements LifecycleListener {
   private props: any
@@ -68,12 +68,7 @@ export default class ModelLifecycleListener implements LifecycleListener {
         loadedModel.status = LoaderStatus.Loaded
 
         // we want to trigger after mesh is loaded (ie: position/rotation)
-        const updates: UpdatePayload = new ModelPropsHandler().getPropertyUpdates(
-          loadedModel,
-          { rootUrl: "", sceneFilename: "" },
-          this.props,
-          this.scene
-        )
+        const updates: UpdatePayload = new ModelPropsHandler().getPropertyUpdates(loadedModel, { rootUrl: "", sceneFilename: "" }, this.props, this.scene)
 
         if (updates != null) {
           updates.forEach(update => applyUpdateToInstance(instance!.hostInstance, update, "model"))

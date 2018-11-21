@@ -1,5 +1,5 @@
-import { CreatedInstance } from "../CreatedInstance";
-import { LifecycleListener } from "../LifecycleListener";
+import { CreatedInstance } from "../CreatedInstance"
+import { LifecycleListener } from "../LifecycleListener"
 import { Scene, Camera, Nullable, TargetCamera } from "babylonjs"
 
 export default class CameraLifecycleListener implements LifecycleListener {

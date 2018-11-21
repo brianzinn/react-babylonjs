@@ -1,5 +1,5 @@
-import { LifecycleListener } from "../LifecycleListener";
-import { CreatedInstance } from "../CreatedInstance";
+import { LifecycleListener } from "../LifecycleListener"
+import { CreatedInstance } from "../CreatedInstance"
 
 export default class TexturesLifecycleListener implements LifecycleListener {
   onParented(parent: CreatedInstance<any>) {}

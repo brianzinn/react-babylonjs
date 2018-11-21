@@ -1,5 +1,5 @@
-import { CreatedInstance } from "../CreatedInstance";
-import { LifecycleListener } from "../LifecycleListener";
+import { CreatedInstance } from "../CreatedInstance"
+import { LifecycleListener } from "../LifecycleListener"
 
 export default class EnvironmentHelperLifecycleListener implements LifecycleListener {
   private props: any
@@ -20,9 +20,7 @@ export default class EnvironmentHelperLifecycleListener implements LifecycleList
     }
 
     if (this.props.teleportEnvironmentGround) {
-      console.error(
-        "need to enable teleportation to ground (also from VRExperienceHelper, so call order has no impact."
-      )
+      console.error("need to enable teleportation to ground (also from VRExperienceHelper, so call order has no impact.")
     }
   }
 }
