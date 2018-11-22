@@ -30,18 +30,28 @@ export default class GUI3DControlLifecycleListener implements LifecycleListener 
   }
 
   addControls(instance: CreatedInstance<any>, last3DGuiControl: CreatedInstance<any>) {
+    const last3d: CreatedInstance<any> = instance.metadata.isGUI3DControl === true ? instance : last3DGuiControl
+
     instance.children.forEach(child => {
-      if (child.metadata.isGUI3DControl === true) {
-        // Need to add instance.state.isAdded = true. Components added at runtime can detect this.
-        instance.hostInstance.addControl(child.hostInstance)
+      if (last3d.customProps.childrenAsContent === true) {
+        last3d.hostInstance.content = child.hostInstance // child.hostInstance will be GUI.Control (ie: 2D)
+        child.state = { added: true, content: true }
+      } else if (child.metadata.isGUI3DControl === true) {
+        last3d.hostInstance.addControl(child.hostInstance)
         child.state = { added: true }
       }
     })
 
-    const last3d: CreatedInstance<any> = (instance.metadata.isGUI3DControl === true ? instance : last3DGuiControl)
+    if (instance.children.length > 0) {
+      instance.children.forEach(child => {
+        if(!child.state || child.state.content !== true) {
+          if (child.state && child.state.added === true && child.customProps.onControlAdded) {
+            child.customProps.onControlAdded(child)
+          }
 
-    instance.children.forEach(child => {
-      this.addControls(child, last3d)
-    })
+          this.addControls(child, last3d)
+        }
+      })
+    }
   }
 }

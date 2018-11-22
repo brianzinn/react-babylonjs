@@ -17,7 +17,7 @@ export default class AdvancedDynamicTextureLifecycleListener implements Lifecycl
   onMount(instance: CreatedInstance<any>): void {
     this.addControls(instance)
 
-    if (this.props.forParentMesh === true) {
+    if (instance.customProps.forParentMesh === true) {
       // console.log('for parent mesh', instance.parent ? instance.parent.babylonJsObject : 'error: no parent object')
 
       let mesh: BABYLON.Mesh = instance.parent!.hostInstance // should crawl for a mesh

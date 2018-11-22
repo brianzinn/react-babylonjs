@@ -18,6 +18,15 @@ export interface InstanceMetadataParameter {
   isCamera?: boolean
 }
 
+/**
+ * Props passed from controls that are not part of generated props and we are handling ourselves
+ */
+export interface CustomProps {
+  forParentMesh?: boolean
+  childrenAsContent?: boolean
+  onControlAdded?: (instance: CreatedInstance<any>) => void
+}
+
 export interface CreatedInstanceMetadata extends InstanceMetadataParameter {
   className: string
 }
@@ -33,6 +42,7 @@ export interface CreatedInstance<T> {
   parent: CreatedInstance<any> | null // Not the same as parent in BabylonJS, this is for internal reconciler structure. ie: graph walking
   children: CreatedInstance<any>[]
   state?: any
+  customProps: CustomProps
   // TODO: Consider merging these last 2 into a single class/container.
   propsHandlers?: HasPropsHandlers<T, any> // These are mostly generated
   lifecycleListener?: LifecycleListener // Only custom types currently support LifecycleListeners (ie: AttachesToParent)
@@ -44,10 +54,12 @@ export class CreatedInstanceImpl<T> implements CreatedInstance<T> {
   public parent: CreatedInstance<any> | null = null // Not the same as parent in BabylonJS, this is for internal reconciler structure. ie: graph walking
   public children: CreatedInstance<any>[] = []
   public propsHandlers: HasPropsHandlers<T, any>
+  public customProps: CustomProps
 
-  constructor(hostInstance: T, metadata: CreatedInstanceMetadata, fiberObject: HasPropsHandlers<T, any>) {
+  constructor(hostInstance: T, metadata: CreatedInstanceMetadata, fiberObject: HasPropsHandlers<T, any>, customProps: CustomProps) {
     this.hostInstance = hostInstance
     this.metadata = metadata
     this.propsHandlers = fiberObject
+    this.customProps = customProps
   }
 }
