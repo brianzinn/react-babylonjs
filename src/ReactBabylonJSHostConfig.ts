@@ -7,7 +7,7 @@ import * as CUSTOM_HOSTS from "./customHosts"
 import * as CUSTOM_COMPONENTS from "./customComponents"
 
 import { FiberModel, LoadedModel } from "./model"
-import { CreatedInstance, CreatedInstanceMetadata } from "./CreatedInstance"
+import { CreatedInstance, CreatedInstanceMetadata, CustomProps } from "./CreatedInstance"
 import { HasPropsHandlers, PropertyUpdate, UpdatePayload } from "./PropsHandler"
 import { LifecycleListener } from "./LifecycleListener"
 import { GeneratedParameter, CreateInfo, CreationType } from "./codeGenerationDescriptors"
@@ -88,7 +88,7 @@ export const applyUpdateToInstance = (hostInstance: any, update: PropertyUpdate,
       break
     case "BABYLON.GUI.Control":
       target[update.propertyName] = update.value
-      break;
+      break
     default:
       if (update.type.startsWith("BABYLON.Observable")) {
         // TODO: we want to remove the old prop when changed, so it should be passed along as well.
@@ -119,6 +119,7 @@ function createCreatedInstance<T, U extends HasPropsHandlers<T, any>>(
   hostInstance: T,
   propsHandlers: U,
   metadata: CreatedInstanceMetadata,
+  customProps?: CustomProps,
   lifecycleListener?: LifecycleListener
 ): CreatedInstance<T> {
   let createdMetadata = metadata
@@ -134,7 +135,8 @@ function createCreatedInstance<T, U extends HasPropsHandlers<T, any>>(
     parent: null, // set later in lifecycle
     children: [], // set later in lifecycle
     propsHandlers,
-    lifecycleListener
+    lifecycleListener,
+    customProps
   } as CreatedInstance<T>
 }
 
@@ -195,7 +197,8 @@ const ReactBabylonJSHostConfig: HostConfig<
           namespace: "ignore"
         },
         parent: null,
-        children: [] // we add root notes here
+        children: [], // we add root notes here
+        customProps: {}
       } as CreatedInstance<any>
     }
   },
@@ -274,6 +277,7 @@ const ReactBabylonJSHostConfig: HostConfig<
         parent: null,
         children: [],
         propsHandlers: undefined,
+        customProps: {},
         lifecycleListener: new (CUSTOM_HOSTS as any)[type + "Fiber"](scene, engine, props)
       }
 
@@ -291,7 +295,8 @@ const ReactBabylonJSHostConfig: HostConfig<
         parent: null,
         children: [],
         propsHandlers: new FiberModel(),
-        lifecycleListener: new CUSTOM_COMPONENTS.ModelLifecycleListener(scene! /* should always be available */, props)
+        lifecycleListener: new CUSTOM_COMPONENTS.ModelLifecycleListener(scene! /* should always be available */, props),
+        customProps: {}
       }
 
       // onCreated and other lifecycle hooks are not called for built-in host
@@ -367,6 +372,12 @@ const ReactBabylonJSHostConfig: HostConfig<
 
     let lifecycleListener: LifecycleListener | undefined = undefined
 
+    let customProps: CustomProps = {
+      childrenAsContent: props.childrenAsContent === true, // ie: Button3D.container instead of .addControl()
+      forParentMesh: props.forParentMesh === true, // AdvancedDynamicTexture attached to parent mesh (TODO: add forMeshByName="")
+      onControlAdded: typeof props.onControlAdded === 'function' ? props.onControlAdded : undefined
+    }
+
     // Consider these being dynamically attached to a list, much like PropsHandlers<T>
     if (metadata.isMaterial === true) {
       lifecycleListener = new CUSTOM_COMPONENTS.MaterialsLifecycleListener()
@@ -388,7 +399,7 @@ const ReactBabylonJSHostConfig: HostConfig<
       })
     }
 
-    let createdReference = createCreatedInstance(type, babylonObject, fiberObject, metadata, lifecycleListener)
+    let createdReference = createCreatedInstance(type, babylonObject, fiberObject, metadata, customProps, lifecycleListener)
 
     // Here we dynamically attach known props handlers.  Will be adding more in code generation for GUI - also for lifecycle mgmt.
     if (createdReference.metadata && createdReference.metadata.isTargetable === true) {

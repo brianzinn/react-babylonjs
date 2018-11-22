@@ -112,7 +112,8 @@ class Scene extends React.Component<SceneProps, any, any> {
         parent: null,
         metadata: {
           className: "root"
-        }
+        },
+        customProps: {}
       }
     }
 
