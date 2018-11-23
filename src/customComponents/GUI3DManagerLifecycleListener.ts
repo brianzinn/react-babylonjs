@@ -15,11 +15,10 @@ export default class GUI3DManagerLifecycleListener implements LifecycleListener 
     // When there is a panel, it must be added before the children. Otherwise there is no UtilityLayer to attach to.
     // This project before 'react-reconciler' was added from parent up the tree.  'react-reconciler' wants to do the opposite.
     instance.children.forEach((child: CreatedInstance<any>) => {
-
       if (child.metadata.isGUI3DControl === true) {
         if (last3DGuiControl.customProps.childrenAsContent === true) {
           last3DGuiControl.hostInstance.content = child.hostInstance
-          child.state = { added: true, content: true}
+          child.state = { added: true, content: true }
         } else {
           last3DGuiControl.hostInstance.addControl(child.hostInstance)
           child.state = { added: true }
@@ -30,7 +29,7 @@ export default class GUI3DManagerLifecycleListener implements LifecycleListener 
         child.customProps.onControlAdded(child)
       }
 
-      if(!child.state || child.state.content !== true) {
+      if (!child.state || child.state.content !== true) {
         const last3d: CreatedInstance<any> = child.metadata.isGUI3DControl === true ? child : last3DGuiControl
         this.addControls(child, last3d)
       }

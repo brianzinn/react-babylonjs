@@ -24,6 +24,8 @@ export interface InstanceMetadataParameter {
 export interface CustomProps {
   forParentMesh?: boolean
   childrenAsContent?: boolean
+  connectControlNames?: string[]
+  defaultKeyboard?: boolean
   onControlAdded?: (instance: CreatedInstance<any>) => void
 }
 

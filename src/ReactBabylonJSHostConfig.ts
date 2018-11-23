@@ -375,7 +375,9 @@ const ReactBabylonJSHostConfig: HostConfig<
     let customProps: CustomProps = {
       childrenAsContent: props.childrenAsContent === true, // ie: Button3D.container instead of .addControl()
       forParentMesh: props.forParentMesh === true, // AdvancedDynamicTexture attached to parent mesh (TODO: add forMeshByName="")
-      onControlAdded: typeof props.onControlAdded === 'function' ? props.onControlAdded : undefined
+      onControlAdded: typeof props.onControlAdded === "function" ? props.onControlAdded : undefined,
+      connectControlNames: props.connectControlNames, // VirtualKeyboard to connect inputs by name.
+      defaultKeyboard: props.defaultKeyboard === true
     }
 
     // Consider these being dynamically attached to a list, much like PropsHandlers<T>

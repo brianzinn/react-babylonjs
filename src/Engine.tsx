@@ -44,11 +44,13 @@ type EngineProps = {
   noSSR?: boolean | React.ReactChild,
   shadersRepository?: string,
   engineOptions?: BABYLON.EngineOptions,
+  antialias?: boolean,
   enableOfflineSupport?: boolean,
   adaptToDeviceRatio?: boolean,
   width?: number,
   height?: number,
   canvasStyle?: any,
+
   /**
    * By default touch-action: 'none' will be on the canvas.  Use this to disable.
    */
@@ -80,7 +82,9 @@ class Engine extends React.Component<EngineProps, EngineState> {
   componentDidMount() {
     this._engine = new BABYLON.Engine(
       this._canvas,
-      true
+      this.props.antialias === true ? true : false, // default false
+      this.props.engineOptions,
+      this.props.adaptToDeviceRatio === true ? true : false // default false
     )
     this._engine.runRenderLoop(() => {
       this._engine!.scenes.forEach(scene => {

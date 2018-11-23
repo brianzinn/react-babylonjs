@@ -44,7 +44,7 @@ export default class GUI3DControlLifecycleListener implements LifecycleListener 
 
     if (instance.children.length > 0) {
       instance.children.forEach(child => {
-        if(!child.state || child.state.content !== true) {
+        if (!child.state || child.state.content !== true) {
           if (child.state && child.state.added === true && child.customProps.onControlAdded) {
             child.customProps.onControlAdded(child)
           }
