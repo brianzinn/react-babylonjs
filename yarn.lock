@@ -128,10 +128,6 @@
     "@types/prop-types" "*"
     csstype "^2.2.0"
 
-"@types/scheduler@^0.10.0":
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/@types/scheduler/-/scheduler-0.10.0.tgz#9b5617d5ac31993c460b69900714cfef788e5db4"
-
 "@types/shelljs@0.7.8":
   version "0.7.8"
   resolved "https://registry.yarnpkg.com/@types/shelljs/-/shelljs-0.7.8.tgz#4b4d6ee7926e58d7bca448a50ba442fd9f6715bd"
@@ -525,23 +521,26 @@ babylon@^6.18.0:
   version "6.18.0"
   resolved "https://registry.yarnpkg.com/babylon/-/babylon-6.18.0.tgz#af2f3b88fa6f5c1e4c634d1a0f8eac4f55b395e3"
 
-babylonjs-gltf2interface@3.3.0-beta.6:
-  version "3.3.0-beta.6"
-  resolved "https://registry.yarnpkg.com/babylonjs-gltf2interface/-/babylonjs-gltf2interface-3.3.0-beta.6.tgz#3f8537f42447b25d42b6ee5936fd28893975249b"
+babylonjs-gltf2interface@4.0.0-alpha.9:
+  version "4.0.0-alpha.9"
+  resolved "https://registry.yarnpkg.com/babylonjs-gltf2interface/-/babylonjs-gltf2interface-4.0.0-alpha.9.tgz#d4cf7f537f92924468ebbe10f73a3073da53bc57"
 
-babylonjs-gui@^3.3.0-beta.6:
-  version "3.3.0-beta.6"
-  resolved "https://registry.yarnpkg.com/babylonjs-gui/-/babylonjs-gui-3.3.0-beta.6.tgz#cfc62a6e2ee53eed217b1181e4b0377a7cbabac0"
-
-babylonjs-loaders@^3.3.0-beta.6:
-  version "3.3.0-beta.6"
-  resolved "https://registry.yarnpkg.com/babylonjs-loaders/-/babylonjs-loaders-3.3.0-beta.6.tgz#dfa7c5ac5de1cfbe555e9e930867eccfaecf5e8d"
+babylonjs-gui@^4.0.0-alpha.9:
+  version "4.0.0-alpha.9"
+  resolved "https://registry.yarnpkg.com/babylonjs-gui/-/babylonjs-gui-4.0.0-alpha.9.tgz#1c678807a98b199540ff7f41db321769029045b3"
   dependencies:
-    babylonjs-gltf2interface "3.3.0-beta.6"
+    babylonjs "4.0.0-alpha.9"
 
-babylonjs@^3.3.0-beta.6:
-  version "3.3.0-beta.6"
-  resolved "https://registry.yarnpkg.com/babylonjs/-/babylonjs-3.3.0-beta.6.tgz#ff6c79b81e9172446338c87e6e4cbbaca5aaff75"
+babylonjs-loaders@^4.0.0-alpha.9:
+  version "4.0.0-alpha.9"
+  resolved "https://registry.yarnpkg.com/babylonjs-loaders/-/babylonjs-loaders-4.0.0-alpha.9.tgz#5ae5794a184c79f8ed645679d555801fea7466e3"
+  dependencies:
+    babylonjs "4.0.0-alpha.9"
+    babylonjs-gltf2interface "4.0.0-alpha.9"
+
+babylonjs@4.0.0-alpha.9, babylonjs@^4.0.0-alpha.9:
+  version "4.0.0-alpha.9"
+  resolved "https://registry.yarnpkg.com/babylonjs/-/babylonjs-4.0.0-alpha.9.tgz#22dbe53a17585d530257155a847cf5b66c4cf5e2"
 
 balanced-match@^1.0.0:
   version "1.0.0"
@@ -4083,13 +4082,6 @@ schedule@^0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/schedule/-/schedule-0.5.0.tgz#c128fffa0b402488b08b55ae74bb9df55cc29cc8"
   dependencies:
-    object-assign "^4.1.1"
-
-scheduler@0.10.0:
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.10.0.tgz#7988de90fe7edccc774ea175a783e69c40c521e1"
-  dependencies:
-    loose-envify "^1.1.0"
     object-assign "^4.1.1"
 
 scheduler@^0.11.0:

@@ -20,7 +20,7 @@ export default class AdvancedDynamicTextureLifecycleListener implements Lifecycl
     if (instance.customProps.forParentMesh === true) {
       // console.log('for parent mesh', instance.parent ? instance.parent.babylonJsObject : 'error: no parent object')
 
-      let mesh: BABYLON.Mesh = instance.parent!.hostInstance // should crawl for a mesh
+      let mesh: BABYLON.Mesh = instance.parent!.hostInstance // should crawl parent hierarchy for a mesh
       // console.error('we will be attaching the mesh:', mesh.name, mesh);
 
       var material = new BABYLON.StandardMaterial("AdvancedDynamicTextureMaterial", mesh.getScene())
@@ -50,17 +50,31 @@ export default class AdvancedDynamicTextureLifecycleListener implements Lifecycl
     // This project before 'react-reconciler' was added from parent up the tree.  'react-reconciler' wants to do the opposite.
     instance.children.forEach(child => {
       if (child.metadata.isGUI2DControl === true) {
-        console.warn("calling ", instance.hostInstance.name, ".addControl(", child.hostInstance.name, ")")
-        // Need to add instance.state.isAdded = true, for components added at runtime.
         instance.hostInstance.addControl(child.hostInstance)
         child.state = { added: true }
-      } else {
-        console.warn("skipping addControl().  not gui2d:", child)
       }
     })
+
+    if (instance.customProps.connectControlNames !== undefined && Array.isArray(instance.customProps.connectControlNames)) {
+      let controlNames: string[] = instance.customProps.connectControlNames
+      let root = instance
+      while (root.parent !== null) {
+        root = root.parent
+      }
+      this.connect(instance, root, controlNames)
+    }
 
     instance.children.forEach(child => {
       this.addControls(child)
     })
+  }
+
+  connect(keyboard: CreatedInstance<any>, searchInstance: CreatedInstance<any>, controlNames: string[]) {
+    if (searchInstance.metadata.isGUI2DControl && searchInstance.hostInstance && controlNames.indexOf(searchInstance.hostInstance.name) !== -1) {
+      // console.log(keyboard.hostInstance, '.connect(->', searchInstance.hostInstance)
+      keyboard.hostInstance.connect(searchInstance.hostInstance)
+    }
+
+    searchInstance.children.forEach(child => this.connect(keyboard, child, controlNames))
   }
 }
