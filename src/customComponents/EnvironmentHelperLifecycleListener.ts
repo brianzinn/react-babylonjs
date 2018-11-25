@@ -1,10 +1,13 @@
+import { Scene } from 'babylonjs'
 import { CreatedInstance } from "../CreatedInstance"
 import { LifecycleListener } from "../LifecycleListener"
 
 export default class EnvironmentHelperLifecycleListener implements LifecycleListener {
   private props: any
+  private scene: Scene
 
-  constructor(props: any) {
+  constructor(scene: Scene, props: any) {
+    this.scene = scene
     this.props = props
   }
 

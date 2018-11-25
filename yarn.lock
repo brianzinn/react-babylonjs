@@ -3707,14 +3707,14 @@ randomatic@^3.0.0:
     kind-of "^6.0.0"
     math-random "^1.0.1"
 
-react-reconciler@^0.17.0:
-  version "0.17.0"
-  resolved "https://registry.yarnpkg.com/react-reconciler/-/react-reconciler-0.17.0.tgz#7ea99b61290956efb895bdb8a3a288dafeb585b5"
+react-reconciler@^0.17.2:
+  version "0.17.2"
+  resolved "https://registry.yarnpkg.com/react-reconciler/-/react-reconciler-0.17.2.tgz#cabe8cb403793f6462842e07b525c3b61c4f5cde"
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
     prop-types "^15.6.2"
-    scheduler "^0.11.0"
+    scheduler "^0.11.2"
 
 react@^16.5.2:
   version "16.5.2"
@@ -4084,9 +4084,9 @@ schedule@^0.5.0:
   dependencies:
     object-assign "^4.1.1"
 
-scheduler@^0.11.0:
-  version "0.11.0"
-  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.11.0.tgz#def1f1bfa6550cc57981a87106e65e8aea41a6b5"
+scheduler@^0.11.2:
+  version "0.11.2"
+  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.11.2.tgz#a8db5399d06eba5abac51b705b7151d2319d33d3"
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"

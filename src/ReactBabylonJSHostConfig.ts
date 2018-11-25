@@ -377,28 +377,27 @@ const ReactBabylonJSHostConfig: HostConfig<
       forParentMesh: props.forParentMesh === true, // AdvancedDynamicTexture attached to parent mesh (TODO: add forMeshByName="")
       onControlAdded: typeof props.onControlAdded === "function" ? props.onControlAdded : undefined,
       connectControlNames: props.connectControlNames, // VirtualKeyboard to connect inputs by name.
-      defaultKeyboard: props.defaultKeyboard === true
+      defaultKeyboard: props.defaultKeyboard === true,
+      linkToTransformNodeByName: props.linkToTransformNodeByName,
+      shadowCasters: props.shadowCasters
     }
 
     // Consider these being dynamically attached to a list, much like PropsHandlers<T>
     if (metadata.isMaterial === true) {
       lifecycleListener = new CUSTOM_COMPONENTS.MaterialsLifecycleListener()
     } else if (metadata.isGUI3DControl === true) {
-      lifecycleListener = new CUSTOM_COMPONENTS.GUI3DControlLifecycleListener()
+      lifecycleListener = new CUSTOM_COMPONENTS.GUI3DControlLifecycleListener(scene)
     } else if (metadata.isGUI2DControl === true) {
       lifecycleListener = new CUSTOM_COMPONENTS.GUI2DControlLifecycleListener()
     } else if (metadata.isTexture === true) {
       lifecycleListener = new CUSTOM_COMPONENTS.TexturesLifecycleListener()
     } else if (metadata.isCamera === true) {
-      lifecycleListener = new CUSTOM_COMPONENTS.CameraLifecycleListener(props, scene, canvas as HTMLCanvasElement)
+      lifecycleListener = new CUSTOM_COMPONENTS.CameraLifecycleListener(scene, props, canvas as HTMLCanvasElement)
     }
 
     // here we dynamically assign listeners for specific types.
     if ((CUSTOM_COMPONENTS as any)[type + "LifecycleListener"] !== undefined) {
-      lifecycleListener = new (CUSTOM_COMPONENTS as any)[type + "LifecycleListener"]({
-        ...props,
-        scene /* give listeners scene access */
-      })
+      lifecycleListener = new (CUSTOM_COMPONENTS as any)[type + "LifecycleListener"](scene, props)
     }
 
     let createdReference = createCreatedInstance(type, babylonObject, fiberObject, metadata, customProps, lifecycleListener)

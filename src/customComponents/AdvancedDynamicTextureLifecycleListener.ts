@@ -1,12 +1,13 @@
 import { CreatedInstance } from "../CreatedInstance"
 import { LifecycleListener } from "../LifecycleListener"
-import { Color3 } from "babylonjs"
-import * as BABYLON from "babylonjs"
+import { Color3, Scene, StandardMaterial, Mesh } from "babylonjs"
 
 export default class AdvancedDynamicTextureLifecycleListener implements LifecycleListener {
   private props: any
+  private scene: Scene
 
-  constructor(props: any) {
+  constructor(scene: Scene, props: any) {
+    this.scene = scene
     this.props = props
   }
 
@@ -20,10 +21,10 @@ export default class AdvancedDynamicTextureLifecycleListener implements Lifecycl
     if (instance.customProps.forParentMesh === true) {
       // console.log('for parent mesh', instance.parent ? instance.parent.babylonJsObject : 'error: no parent object')
 
-      let mesh: BABYLON.Mesh = instance.parent!.hostInstance // should crawl parent hierarchy for a mesh
+      let mesh: Mesh = instance.parent!.hostInstance // should crawl parent hierarchy for a mesh
       // console.error('we will be attaching the mesh:', mesh.name, mesh);
 
-      var material = new BABYLON.StandardMaterial("AdvancedDynamicTextureMaterial", mesh.getScene())
+      var material = new StandardMaterial("AdvancedDynamicTextureMaterial", mesh.getScene())
       material.backFaceCulling = false
       material.diffuseColor = Color3.Black()
       material.specularColor = Color3.Black()
@@ -61,7 +62,11 @@ export default class AdvancedDynamicTextureLifecycleListener implements Lifecycl
       while (root.parent !== null) {
         root = root.parent
       }
-      this.connect(instance, root, controlNames)
+      this.connect(
+        instance,
+        root,
+        controlNames
+      )
     }
 
     instance.children.forEach(child => {
@@ -75,6 +80,12 @@ export default class AdvancedDynamicTextureLifecycleListener implements Lifecycl
       keyboard.hostInstance.connect(searchInstance.hostInstance)
     }
 
-    searchInstance.children.forEach(child => this.connect(keyboard, child, controlNames))
+    searchInstance.children.forEach(child =>
+      this.connect(
+        keyboard,
+        child,
+        controlNames
+      )
+    )
   }
 }

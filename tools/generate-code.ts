@@ -111,21 +111,6 @@ const addMetadata = (classDeclaration: ClassDeclaration, originalClassDeclaratio
 const createMeshClasses = (sourceFile: SourceFile) => {
 
   let meshBuilderTuple: ClassNameSpaceTuple = classesOfInterest.get("MeshBuilder")!;
-
-  let meshPropertiesToAdd: PropertyDeclaration[] = []
-
-  let meshClassDeclaration : ClassDeclaration | undefined = (classesOfInterest.get("Mesh") === undefined ? undefined : classesOfInterest.get("Mesh")!.classDeclaration);
-  while(meshClassDeclaration !== undefined) {
-      meshPropertiesToAdd.push(...getInstanceProperties(meshClassDeclaration))
-      meshClassDeclaration = meshClassDeclaration.getBaseClass();
-  }
-
-  if (meshPropertiesToAdd.length == 0) {
-    console.error("'Mesh' is a required class of interest to generate from MeshBuilder.")
-  }
-  const nodeClassDeclaration = classesOfInterest.get("Node")!.classDeclaration;
-  addPropsAndHandlerClasses(sourceFile, "Mesh", "Mesh", meshPropertiesToAdd, [/* no set methods */], meshBuilderTuple.namespace, nodeClassDeclaration)
-
   let factoryMethods: MethodDeclaration[] = meshBuilderTuple.classDeclaration.getStaticMethods();
 
   console.log(`Creating ${factoryMethods.length} Mesh objects:`)
@@ -141,7 +126,7 @@ const createMeshClasses = (sourceFile: SourceFile) => {
       REACT_EXPORTS.add(factoryType);
 
       console.log(` > ${factoryType}`)
-      let newClassDeclaration: ClassDeclaration = addClassDeclarationFromFactoryMethod(sourceFile, factoryType, "Mesh", method);
+      let newClassDeclaration: ClassDeclaration = addClassDeclarationFromFactoryMethod(sourceFile, factoryType, classesOfInterest.get("Mesh")!.classDeclaration, method);
       addCreateInfoFromFactoryMethod(method, meshBuilderTuple.classDeclaration.getName()!, methodName, newClassDeclaration, BABYLON_NAMESPACE)
       addMetadata(newClassDeclaration, undefined /* no original class */, {
         acceptsMaterials: true,
@@ -151,7 +136,7 @@ const createMeshClasses = (sourceFile: SourceFile) => {
   });
 }
 
-const addClassDeclarationFromFactoryMethod = (sourceFile: SourceFile, className: string, propsHandlerBaseName: string, factoryMethod: MethodDeclaration, extra?: (cd: ClassDeclaration) => void) => {
+const addClassDeclarationFromFactoryMethod = (sourceFile: SourceFile, className: string, classDeclaration: ClassDeclaration, factoryMethod: MethodDeclaration, extra?: (cd: ClassDeclaration) => void) => {
   
   const newClassDeclaration = sourceFile.addClass({
     name: `${ClassNamesPrefix}${className}`,
@@ -176,6 +161,8 @@ const addClassDeclarationFromFactoryMethod = (sourceFile: SourceFile, className:
 
   const propsHandlersPropertyName = 'propsHandlers';
 
+  const propsHandlerBaseName = classDeclaration.getName()
+
   newClassDeclaration.addProperty({
     name: propsHandlersPropertyName,
     type: `PropsHandler<${meshBuilderNamespace}.${propsHandlerBaseName}, ${ClassNamesPrefix}${propsHandlerBaseName}Props>[]`, // xxx
@@ -187,7 +174,14 @@ const addClassDeclarationFromFactoryMethod = (sourceFile: SourceFile, className:
   const newConstructor : ConstructorDeclaration = newClassDeclaration.addConstructor();
   newConstructor.setBodyText((writer : CodeBlockWriter) => {
     writer.writeLine(`this.${propsHandlersPropertyName} = [`)
-    writer.writeLine(`new ${ClassNamesPrefix}${propsHandlerBaseName}PropsHandler()`)
+    
+    const propsHandlers : string[] = [];
+    let handlerClassDeclaration : ClassDeclaration | undefined = classDeclaration;
+    while(handlerClassDeclaration) {
+      propsHandlers.push(`new ${ClassNamesPrefix}${handlerClassDeclaration.getName()}PropsHandler()`)
+      handlerClassDeclaration = handlerClassDeclaration.getBaseClass()
+    }
+    writer.writeLine(propsHandlers.join('\n,'));
     writer.writeLine("];")
   })
 
@@ -609,6 +603,37 @@ const addCreateInfoFromConstructor = (sourceClass: ClassDeclaration, targetClass
     ctorArgsProperty.setInitializer(JSON.stringify(value, null, 2))
 }
 
+const createClassesDerivedFrom = (sourceFile: SourceFile, classNamespaceTuple: ClassNameSpaceTuple, metadata?: InstanceMetadataParameter, extra?: (newClassDeclaration: ClassDeclaration, originalClassDeclaration: ClassDeclaration) => void, extraMetadata? : (newClassDeclaration: ClassDeclaration, metadata: CreatedInstanceMetadata, originalClassDeclaration?: ClassDeclaration) => void) : void => { 
+  let classDeclaration : ClassDeclaration | undefined = classNamespaceTuple.classDeclaration;
+  const className: string = classDeclaration.getName()!;
+
+  const classesToCreate : ClassDeclaration[] = [];
+
+  while(classDeclaration !== undefined) {
+    classesToCreate.push(classDeclaration)
+    classDeclaration = classDeclaration.getBaseClass()
+  }
+
+  classesToCreate.reverse()
+
+  console.log(`Building ${classesToCreate.length} classes derived from '${className}':`)
+
+  for(var i = 0; i < classesToCreate.length; i++) {
+    const classDeclaration = classesToCreate[i]
+
+    const baseClassDeclaration : ClassDeclaration | undefined = i > 0 ? classesToCreate[i - 1] : undefined;
+    REACT_EXPORTS.add(classDeclaration.getName()!)
+
+    let baseClassDeclarationForCreate = baseClassDeclaration === undefined ? classDeclaration : baseClassDeclaration
+
+    const newClassDeclaration = createClassDeclaration(classDeclaration, baseClassDeclarationForCreate, classNamespaceTuple.namespace, sourceFile, extra);
+    addCreateInfoFromConstructor(classDeclaration, newClassDeclaration, classNamespaceTuple.namespace);
+
+    addMetadata(newClassDeclaration, classDeclaration, metadata, extraMetadata);
+    console.log(` > ${classDeclaration.getName()}`)
+  }
+}
+
 /**
  * TODO: We should not be generating abstract classes.
  */
@@ -704,16 +729,10 @@ const generateCode = async () => {
     moduleSpecifier: "babylonjs-gui",
     defaultImport: BABYLON_GUI_NAMESPACE
   })
+ 
+  // This includes Node, which is base class for ie: Camera, Mesh, etc.
+  createClassesDerivedFrom(generatedSourceFile, classesOfInterest.get("Mesh")!, {})
 
-  // This is the base class for many things (camera, meshes, etc.)
-  generatedSourceFile.addClass({
-    name: `${ClassNamesPrefix}Node`,
-    isExported: true
-  });
-  
-  let nodeTuple = classesOfInterest.get("Node")!;
-  addPropsAndHandlerClasses(generatedSourceFile, "Node", "Node", getInstanceProperties(nodeTuple.classDeclaration!), getInstanceSetMethods(nodeTuple.classDeclaration), nodeTuple.namespace);
-   
   const extra = (newClassDeclaration: ClassDeclaration, originalClassDeclaration: ClassDeclaration) => {
     // consider having targetable as metadata.
     const targetableCameraName = "TargetCamera";

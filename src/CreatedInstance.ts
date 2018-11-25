@@ -22,10 +22,12 @@ export interface InstanceMetadataParameter {
  * Props passed from controls that are not part of generated props and we are handling ourselves
  */
 export interface CustomProps {
-  forParentMesh?: boolean
-  childrenAsContent?: boolean
-  connectControlNames?: string[]
-  defaultKeyboard?: boolean
+  forParentMesh?: boolean // to attach am AdvanceDynamicTexture to a mesh (TODO: add 'ByName')
+  childrenAsContent?: boolean // for 3D control content (which is 2D)
+  connectControlNames?: string[] // for VirtualKeyboard (input)
+  defaultKeyboard?: boolean // for VirtualKeyboard
+  linkToTransformNodeByName?: string // for Control3D, which has position, but not other properties like rotation.
+  shadowCasters?: string[]
   onControlAdded?: (instance: CreatedInstance<any>) => void
 }
 

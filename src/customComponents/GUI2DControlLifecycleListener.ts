@@ -9,11 +9,11 @@ export default class GUI2DControlLifecycleListener implements LifecycleListener 
   onMount(instance: CreatedInstance<any>): void {
     if (instance.customProps.defaultKeyboard === true) {
       // TODO: Generate from factory method.  VirtualKeyboard.CreateDefaultLayout()
-      instance.hostInstance.addKeysRow(["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "\u2190"]);
-      instance.hostInstance.addKeysRow(["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"]);
-      instance.hostInstance.addKeysRow(["a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'", "\u21B5"]);
-      instance.hostInstance.addKeysRow(["\u21E7", "z", "x", "c", "v", "b", "n", "m", ",", ".", "/"]);
-      instance.hostInstance.addKeysRow([" "], [{ width: "200px" }]);
+      instance.hostInstance.addKeysRow(["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "\u2190"])
+      instance.hostInstance.addKeysRow(["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"])
+      instance.hostInstance.addKeysRow(["a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'", "\u21B5"])
+      instance.hostInstance.addKeysRow(["\u21E7", "z", "x", "c", "v", "b", "n", "m", ",", ".", "/"])
+      instance.hostInstance.addKeysRow([" "], [{ width: "200px" }])
     }
 
     if (instance.state && instance.state.added === true) {
