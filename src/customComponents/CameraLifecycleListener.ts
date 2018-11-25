@@ -7,7 +7,7 @@ export default class CameraLifecycleListener implements LifecycleListener {
   private canvas: HTMLCanvasElement
   private scene: Nullable<Scene>
 
-  constructor(props: any, scene: Nullable<Scene>, canvas: HTMLCanvasElement) {
+  constructor(scene: Nullable<Scene>, props: any, canvas: HTMLCanvasElement) {
     this.props = props
     this.canvas = canvas
     this.scene = scene

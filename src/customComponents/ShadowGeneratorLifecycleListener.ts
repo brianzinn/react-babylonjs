@@ -4,8 +4,10 @@ import { ShadowGenerator, Scene, AbstractMesh } from "babylonjs"
 
 export default class AdvancedDynamicTextureLifecycleListener implements LifecycleListener {
   private props: any
+  private scene: Scene
 
-  constructor(props: any) {
+  constructor(scene: Scene, props: any) {
+    this.scene = scene
     this.props = props
   }
 
@@ -30,18 +32,16 @@ export default class AdvancedDynamicTextureLifecycleListener implements Lifecycl
       console.error("ShadowGenerator has no light source.")
     }
 
-    if (this.props.shadowCasters) {
-      if (!Array.isArray(this.props.shadowCasters)) {
-        console.error("Shadow casters must be an array (of strings).", this.props.shadowCasters)
+    if (instance.customProps.shadowCasters) {
+      if (!Array.isArray(instance.customProps.shadowCasters)) {
+        console.error("Shadow casters must be an array (of strings).", instance.customProps.shadowCasters)
         return
       }
 
-      console.log("this.props:", this.props)
-
-      let shadowCasters: string[] = this.props.shadowCasters.slice(0)
-      let scene: Scene = this.props.scene
+      let shadowCasters: string[] = instance.customProps.shadowCasters.slice(0)
+      
       // TODO: also need a listener for models or if we want to add a predicate:
-      scene.onNewMeshAddedObservable.add((mesh: AbstractMesh) => {
+      this.scene.onNewMeshAddedObservable.add((mesh: AbstractMesh) => {
         if (shadowCasters.indexOf(mesh.name) >= 0) {
           console.log("adding on observable shadow caster:", mesh.name)
           instance.hostInstance!.addShadowCaster(mesh)
@@ -49,7 +49,7 @@ export default class AdvancedDynamicTextureLifecycleListener implements Lifecycl
         }
       })
 
-      scene.meshes.forEach((mesh: AbstractMesh) => {
+      this.scene.meshes.forEach((mesh: AbstractMesh) => {
         if (shadowCasters.indexOf(mesh.name) >= 0) {
           console.log("adding shadow caster:", mesh.name)
           instance.hostInstance!.addShadowCaster(mesh)

@@ -3,7 +3,7 @@ import { HasPropsHandlers, PropsHandler } from "./PropsHandler"
 /**
  * TODO: Integrate this into the generated code, which duplicates for every class.
  */
-export default abstract class BasePropsHandler<T, U> implements HasPropsHandlers<T, U> {
+export default class BasePropsHandler<T, U> implements HasPropsHandlers<T, U> {
   private propsHandlers: PropsHandler<T, U>[]
 
   constructor(propsHandlers: PropsHandler<T, U>[]) {

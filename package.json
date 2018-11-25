@@ -1,6 +1,6 @@
 {
   "name": "react-babylonjs",
-  "version": "1.0.0-beta.2",
+  "version": "1.0.0-beta.3",
   "description": "ReactJS components for BabylonJS",
   "homepage": "https://brianzinn.github.io/react-babylonjs/",
   "keywords": [],
@@ -112,11 +112,11 @@
     "validate-commit-msg": "^2.12.2"
   },
   "peerDependencies": {
-    "babylonjs": "^2.5 || 3.x || >= 4.0.0-beta",
-    "babylonjs-gui": "3.x || >= 4.0.0-beta",
+    "babylonjs": "^2.5 || 3.x || >= 4.0.0-alpha",
+    "babylonjs-gui": "3.x || >= 4.0.0-alpha",
     "react": "16.x"
   },
   "dependencies": {
-    "react-reconciler": "^0.17.0"
+    "react-reconciler": "^0.17.2"
   }
 }

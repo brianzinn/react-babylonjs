@@ -1,7 +1,14 @@
 import { CreatedInstance } from "../CreatedInstance"
 import { LifecycleListener } from "../LifecycleListener"
+import { AbstractMesh, Nullable, Scene } from "babylonjs";
 
 export default class GUI3DManagerLifecycleListener implements LifecycleListener {
+  private scene: Scene
+
+  constructor(scene: Scene) {
+    this.scene = scene
+  }
+  
   onParented(parent: CreatedInstance<any>): void {}
   onChildAdded(child: CreatedInstance<any>): void {}
   onMount(instance: CreatedInstance<any>): void {
@@ -22,6 +29,16 @@ export default class GUI3DManagerLifecycleListener implements LifecycleListener 
         } else {
           last3DGuiControl.hostInstance.addControl(child.hostInstance)
           child.state = { added: true }
+
+          // NOTE: this must be called after .addControl(child.hostInstance).
+          if(child.customProps.linkToTransformNodeByName) {
+            const toLinkTo : Nullable<AbstractMesh> = this.scene.getMeshByName(child.customProps.linkToTransformNodeByName)
+            if (toLinkTo !== null) {
+              child.hostInstance.linkToTransformNode(toLinkTo)
+            } else {
+              console.error('linkToTransformNode cannot find ', instance.customProps.linkToTransformNodeByName, ' and does not have a scene listener for added meshes.  Declare earlier or add an issue on github.')
+            }
+          }
         }
       }
 
