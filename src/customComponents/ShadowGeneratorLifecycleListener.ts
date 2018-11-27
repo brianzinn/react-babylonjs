@@ -39,7 +39,7 @@ export default class AdvancedDynamicTextureLifecycleListener implements Lifecycl
       }
 
       let shadowCasters: string[] = instance.customProps.shadowCasters.slice(0)
-      
+
       // TODO: also need a listener for models or if we want to add a predicate:
       this.scene.onNewMeshAddedObservable.add((mesh: AbstractMesh) => {
         if (shadowCasters.indexOf(mesh.name) >= 0) {

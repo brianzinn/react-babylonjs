@@ -1,4 +1,4 @@
-import { Scene, AbstractMesh, Nullable } from 'babylonjs'
+import { Scene, AbstractMesh, Nullable } from "babylonjs"
 import { CreatedInstance } from "../CreatedInstance"
 import { LifecycleListener } from "../LifecycleListener"
 
@@ -13,7 +13,7 @@ export default class GUI3DControlLifecycleListener implements LifecycleListener 
 
   onChildAdded(child: CreatedInstance<any>, parent: CreatedInstance<any>): any {}
 
-  onMount(instance: CreatedInstance<any>): void {   
+  onMount(instance: CreatedInstance<any>): void {
     if (instance.state && instance.state.added === true) {
       return
     }
@@ -47,14 +47,16 @@ export default class GUI3DControlLifecycleListener implements LifecycleListener 
         last3d.hostInstance.addControl(child.hostInstance)
 
         // NOTE: this must be called after .addControl(child.hostInstance).
-        if(child.customProps.linkToTransformNodeByName) {
-          const toLinkTo : Nullable<AbstractMesh> = this.scene!.getMeshByName(child.customProps.linkToTransformNodeByName)
+        if (child.customProps.linkToTransformNodeByName) {
+          const toLinkTo: Nullable<AbstractMesh> = this.scene!.getMeshByName(child.customProps.linkToTransformNodeByName)
           if (toLinkTo !== null) {
             child.hostInstance.linkToTransformNode(toLinkTo)
           } else {
             console.error(
-              'linkToTransformNode cannot find Mesh:', instance.customProps.linkToTransformNodeByName, ' and does not have a scene listener for added meshes.' +
-              ' Declare Mesh earlier or add an issue on github (TransformNode does not work).')
+              "linkToTransformNode cannot find Mesh:",
+              instance.customProps.linkToTransformNodeByName,
+              " and does not have a scene listener for added meshes." + " Declare Mesh earlier or add an issue on github (TransformNode does not work)."
+            )
           }
         }
 

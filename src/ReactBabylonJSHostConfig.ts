@@ -303,8 +303,14 @@ const ReactBabylonJSHostConfig: HostConfig<
       return createdInstance
     }
 
-    let createInfoArgs: CreateInfo = (GENERATED as any)[`Fiber${type}`].CreateInfo
-    let metadata: CreatedInstanceMetadata = (GENERATED as any)[`Fiber${type}`].Metadata
+    const classDefinition = (GENERATED as any)[`Fiber${type}`]
+
+    if (classDefinition === undefined) {
+      throw new Error(`Cannot generate type '${type}' inside 'react-babylonjs' (ie: no DOM rendering on HTMLCanvas)`)
+    }
+
+    let createInfoArgs: CreateInfo = classDefinition.CreateInfo
+    let metadata: CreatedInstanceMetadata = classDefinition.Metadata
 
     // console.log(`creating: ${createInfoArgs.namespace}.${type}`)
     let generatedParameters: GeneratedParameter[] = createInfoArgs!.parameters
@@ -436,7 +442,6 @@ const ReactBabylonJSHostConfig: HostConfig<
   },
 
   createTextInstance: (): any => {
-    console.error("Create Text instance not supported to canvas.  If using GUI, use a TextBlock control.")
     return undefined
   },
 

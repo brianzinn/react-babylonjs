@@ -32,9 +32,7 @@ export class FiberModel extends BasePropsHandler<LoadedModel, ModelProps> {
 }
 
 export class ModelPropsHandler implements PropsHandler<LoadedModel, ModelProps> {
-
   getPropertyUpdates(hostInstance: LoadedModel, oldProps: ModelProps, newProps: ModelProps, scene: BABYLON.Scene): UpdatePayload {
-
     const propsHandlers: PropsHandler<any, any>[] = [
       new FiberMeshPropsHandler(),
       new FiberAbstractMeshPropsHandler(),
