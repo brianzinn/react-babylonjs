@@ -1,4 +1,4 @@
-import { Scene } from 'babylonjs'
+import { Scene } from "babylonjs"
 import { CreatedInstance } from "../CreatedInstance"
 import { LifecycleListener } from "../LifecycleListener"
 
