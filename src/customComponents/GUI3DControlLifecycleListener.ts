@@ -51,6 +51,7 @@ export default class GUI3DControlLifecycleListener implements LifecycleListener 
           const toLinkTo: Nullable<AbstractMesh> = this.scene!.getMeshByName(child.customProps.linkToTransformNodeByName)
           if (toLinkTo !== null) {
             child.hostInstance.linkToTransformNode(toLinkTo)
+            // toLinkTo.computeWorldMatrix()
           } else {
             console.error(
               "linkToTransformNode cannot find Mesh:",

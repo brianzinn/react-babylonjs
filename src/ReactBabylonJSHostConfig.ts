@@ -399,6 +399,8 @@ const ReactBabylonJSHostConfig: HostConfig<
       lifecycleListener = new CUSTOM_COMPONENTS.TexturesLifecycleListener()
     } else if (metadata.isCamera === true) {
       lifecycleListener = new CUSTOM_COMPONENTS.CameraLifecycleListener(scene, props, canvas as HTMLCanvasElement)
+    } else if (metadata.isMesh === true) {
+      lifecycleListener = new CUSTOM_COMPONENTS.MeshLifecycleListener()
     }
 
     // here we dynamically assign listeners for specific types.
