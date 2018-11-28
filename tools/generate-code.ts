@@ -730,8 +730,12 @@ const generateCode = async () => {
     defaultImport: BABYLON_GUI_NAMESPACE
   })
  
+  const addMeshMetadata = (newClassDeclaration: ClassDeclaration, metadata: CreatedInstanceMetadata, originalClassDeclaration?: ClassDeclaration) => {
+    metadata.isMesh = (originalClassDeclaration !== undefined && originalClassDeclaration.getName() === "Mesh")
+  }
+
   // This includes Node, which is base class for ie: Camera, Mesh, etc.
-  createClassesDerivedFrom(generatedSourceFile, classesOfInterest.get("Mesh")!, {})
+  createClassesDerivedFrom(generatedSourceFile, classesOfInterest.get("Mesh")!, {}, undefined, addMeshMetadata)
 
   const extra = (newClassDeclaration: ClassDeclaration, originalClassDeclaration: ClassDeclaration) => {
     // consider having targetable as metadata.
