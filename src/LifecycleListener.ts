@@ -1,6 +1,8 @@
 import { CreatedInstance } from "./CreatedInstance"
+import { Scene } from 'babylonjs'
 
 export interface LifecycleListener {
+  onCreated?: (instance: CreatedInstance<any>, scene: Scene) => void
   onParented: (parent: CreatedInstance<any>, child: CreatedInstance<any>) => any
   onChildAdded: (child: CreatedInstance<any>, parent: CreatedInstance<any>) => any
   onMount: (instance: CreatedInstance<any>) => any

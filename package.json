@@ -1,8 +1,8 @@
 {
   "name": "react-babylonjs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "ReactJS components for BabylonJS",
-  "homepage": "https://brianzinn.github.io/react-babylonjs/",
+  "homepage": "https://github.com/brianzinn/react-babylonjs/",
   "keywords": ["react", "babylonjs", "react-reconciler"],
   "main": "dist/react-babylonjs.umd.js",
   "module": "dist/react-babylonjs.es5.js",

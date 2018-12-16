@@ -19,11 +19,9 @@ export default class AdvancedDynamicTextureLifecycleListener implements Lifecycl
     let tmp: CreatedInstance<any> | null = instance.parent
     while (tmp != null) {
       if (tmp.metadata.isShadowLight) {
-        console.log("Creating ShadowGenerator.  size:", this.props.mapSize, "light", tmp.hostInstance)
+        // console.log("Creating ShadowGenerator.  size:", this.props.mapSize, "light", tmp.hostInstance)
         instance.hostInstance = new ShadowGenerator(this.props.mapSize, tmp.hostInstance, this.props.useFullFloatFirst)
         break
-      } else {
-        console.log("Not a shadow light source: metadata:", tmp.metadata, "object", tmp.hostInstance)
       }
       tmp = tmp.parent
     }
@@ -43,7 +41,7 @@ export default class AdvancedDynamicTextureLifecycleListener implements Lifecycl
       // TODO: also need a listener for models or if we want to add a predicate:
       this.scene.onNewMeshAddedObservable.add((mesh: AbstractMesh) => {
         if (shadowCasters.indexOf(mesh.name) >= 0) {
-          console.log("adding on observable shadow caster:", mesh.name)
+          // console.log("adding on observable shadow caster:", mesh.name)
           instance.hostInstance!.addShadowCaster(mesh)
           shadowCasters = shadowCasters.filter((name: string) => name !== mesh.name)
         }
@@ -51,7 +49,7 @@ export default class AdvancedDynamicTextureLifecycleListener implements Lifecycl
 
       this.scene.meshes.forEach((mesh: AbstractMesh) => {
         if (shadowCasters.indexOf(mesh.name) >= 0) {
-          console.log("adding shadow caster:", mesh.name)
+          // console.log("adding shadow caster:", mesh.name)
           instance.hostInstance!.addShadowCaster(mesh)
 
           shadowCasters = shadowCasters.filter((name: string) => name !== mesh.name)
