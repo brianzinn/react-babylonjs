@@ -1,6 +1,6 @@
 import { CreatedInstance } from "../CreatedInstance"
 import { LifecycleListener } from "../LifecycleListener"
-import { Scene, AbstractMesh } from 'babylonjs'
+import { Scene, AbstractMesh } from "babylonjs"
 
 export default class MaterialsLifecycleListener implements LifecycleListener {
   onCreated(instance: CreatedInstance<any>, scene: Scene) {
@@ -15,7 +15,9 @@ export default class MaterialsLifecycleListener implements LifecycleListener {
       // TODO: also need a listener for models or if we want to add a predicate:
       scene.onNewMeshAddedObservable.add((mesh: AbstractMesh) => {
         if (meshNamesToAttachTo.indexOf(mesh.name) >= 0) {
-          mesh.material = instance.hostInstance!
+          setTimeout(() => {
+            mesh.material = instance.hostInstance!
+          }, 0)
         }
       })
 
