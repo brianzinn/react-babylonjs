@@ -9,7 +9,7 @@ import React, { createContext } from 'react'
 import ReactReconciler from "react-reconciler"
 
 import { WithBabylonJSContext, withBabylonJS } from './Engine'
-import { Scene as BabylonScene, AbstractMesh, PointerInfo, PointerEventTypes } from 'babylonjs'
+import { Scene as BabylonScene, AbstractMesh, PointerInfo, PointerEventTypes, Color4 } from 'babylonjs'
 
 import ReactBabylonJSHostConfig, { Container, applyUpdateToInstance } from './ReactBabylonJSHostConfig'
 import { FiberScenePropsHandler } from './generatedCode'
@@ -53,12 +53,18 @@ export function withScene<
 interface SceneProps extends WithSceneContext {
   babylonJSContext: WithBabylonJSContext
   onMeshPicked?: (mesh: AbstractMesh, scene: BabylonScene) => void,
-  onSceneMount?: (sceneEventArgs: SceneEventArgs) => void
+  onScenePointerDown?: (evt: PointerInfo, scene: BabylonScene) => void,
+  onScenePointerUp?: (evt: PointerInfo, scene: BabylonScene) => void,
+  onScenePointerMove?: (evt: PointerInfo, scene: BabylonScene) => void,
+  onSceneMount?: (sceneEventArgs: SceneEventArgs) => void,
+  clearColor?: Color4
 }
 
 class Scene extends React.Component<SceneProps, any, any> {
   private _scene: BABYLON.Nullable<BABYLON.Scene> = null;
   private _pointerDownObservable: BABYLON.Nullable<BABYLON.Observer<BABYLON.PointerInfo>> = null;
+  private _pointerUpObservable: BABYLON.Nullable<BABYLON.Observer<BABYLON.PointerInfo>> = null;
+  private _pointerMoveObservable: BABYLON.Nullable<BABYLON.Observer<BABYLON.PointerInfo>> = null;
 
   private _fiberRoot?: ReactReconciler.FiberRoot;
   private _reactReconcilerBabylonJs = ReactReconciler(ReactBabylonJSHostConfig)
@@ -80,8 +86,18 @@ class Scene extends React.Component<SceneProps, any, any> {
         })
       }
     }
+
+    if (options.clearColor) {
+      this._scene!.clearColor = options.clearColor
+    }
+
     // TODO: Add keypress and other PointerEventTypes:
     this._pointerDownObservable = this._scene!.onPointerObservable.add((evt: PointerInfo) => {
+
+      if(typeof this.props.onScenePointerDown === 'function') {
+        this.props.onScenePointerDown(evt, this._scene!)
+      }
+
       if (evt && evt.pickInfo && evt.pickInfo.hit && evt.pickInfo.pickedMesh) {
         let mesh = evt.pickInfo.pickedMesh
 
@@ -92,6 +108,20 @@ class Scene extends React.Component<SceneProps, any, any> {
         }
       }
     }, PointerEventTypes.POINTERDOWN);
+
+    // can only be assigned on init
+    if(typeof this.props.onScenePointerUp === 'function') {
+      this._pointerUpObservable = this._scene!.onPointerObservable.add((evt: PointerInfo) => { 
+        this.props.onScenePointerUp!(evt, this._scene!)    
+      }, PointerEventTypes.POINTERUP)
+    };
+
+    // can only be assigned on init
+    if(typeof this.props.onScenePointerMove === 'function') {
+      this._pointerMoveObservable = this._scene!.onPointerObservable.add((evt: PointerInfo) => { 
+        this.props.onScenePointerMove!(evt, this._scene!)    
+      }, PointerEventTypes.POINTERMOVE)
+    };
 
     if (typeof this.props.onSceneMount === 'function') {
       this.props.onSceneMount({
@@ -148,11 +178,18 @@ class Scene extends React.Component<SceneProps, any, any> {
   }
 
   componentWillUnmount () {
-    this._scene!.dispose()
-
     if (this._pointerDownObservable != null) {
       this._scene!.onPointerObservable.remove(this._pointerDownObservable);
     }
+
+    if (this._pointerUpObservable != null) {
+      this._scene!.onPointerObservable.remove(this._pointerUpObservable);
+    }
+
+    if (this._pointerMoveObservable != null) {
+      this._scene!.onPointerObservable.remove(this._pointerMoveObservable);
+    }
+    this._scene!.dispose()
   }
 
   render () {
