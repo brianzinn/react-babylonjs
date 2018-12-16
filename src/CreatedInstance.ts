@@ -28,6 +28,7 @@ export interface CustomProps {
   defaultKeyboard?: boolean // for VirtualKeyboard
   linkToTransformNodeByName?: string // for Control3D, which has position, but not other properties like rotation.
   shadowCasters?: string[]
+  attachToMeshesByName?: string[]
   onControlAdded?: (instance: CreatedInstance<any>) => void
   // TODO: enableInteractions from VRExperienceHelper
 }

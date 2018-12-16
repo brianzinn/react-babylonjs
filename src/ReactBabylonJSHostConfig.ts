@@ -105,7 +105,7 @@ export const applyUpdateToInstance = (hostInstance: any, update: PropertyUpdate,
             target[update.propertyName](...Object.values(update.value))
           }
         } else {
-          console.error(`Cannot call [not a function] ${update.propertyName}(...) on:`, target)
+          console.error(`Cannot call [not a function] ${update.propertyName}(...) on:`, update.type, target)
         }
       } else {
         console.error(`Unhandled property update of type ${update.type}`)
@@ -385,7 +385,8 @@ const ReactBabylonJSHostConfig: HostConfig<
       connectControlNames: props.connectControlNames, // VirtualKeyboard to connect inputs by name.
       defaultKeyboard: props.defaultKeyboard === true,
       linkToTransformNodeByName: props.linkToTransformNodeByName,
-      shadowCasters: props.shadowCasters
+      shadowCasters: props.shadowCasters,
+      attachToMeshesByName: props.attachToMeshesByName // for materials - otherwise will attach to first parent that accepts materials
     }
 
     // Consider these being dynamically attached to a list, much like PropsHandlers<T>
@@ -409,6 +410,10 @@ const ReactBabylonJSHostConfig: HostConfig<
     }
 
     let createdReference = createCreatedInstance(type, babylonObject, fiberObject, metadata, customProps, lifecycleListener)
+
+    if (lifecycleListener && lifecycleListener.onCreated) {
+      lifecycleListener.onCreated(createdReference, scene!)
+    }
 
     // Here we dynamically attach known props handlers.  Will be adding more in code generation for GUI - also for lifecycle mgmt.
     if (createdReference.metadata && createdReference.metadata.isTargetable === true) {
