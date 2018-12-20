@@ -332,15 +332,19 @@ const ReactBabylonJSHostConfig: HostConfig<
         return newParameter
       } else {
         let value = props[generatedParameter.name]
-        if (value === undefined && generatedParameter.optional === false) {
+        if (value === undefined) {
           // NOTE: we removed the hosted Scene component, which needs (generatedParameter.type == "BABYLON.Engine")
           if (generatedParameter.type === "BABYLON.Scene" || (generatedParameter.type === "any" && generatedParameter.name === "scene")) {
             // MeshBuild.createSphere(name: string, options: {...}, scene: any)
+            // console.log('Assigning scene to:', type, generatedParameter)
             value = scene
-          } else {
-            console.warn(`On ${type} you are missing a non-optional parameter '${generatedParameter.name}' of type '${generatedParameter.type}'`)
           }
         }
+
+        if (value === undefined && generatedParameter.optional === false) {
+          console.warn(`On ${type} you are missing a non-optional parameter '${generatedParameter.name}' of type '${generatedParameter.type}'`)
+        }
+
         return value
       }
     })
@@ -348,9 +352,8 @@ const ReactBabylonJSHostConfig: HostConfig<
     let babylonObject: any | undefined = undefined
 
     if (createInfoArgs!.creationType === CreationType.FactoryMethod) {
-      // console.log("creating from factory", type, ...args)
-      //yconsole.dir(args)
-      babylonObject = (BABYLON.MeshBuilder as any)[createInfoArgs!.factoryMethod!](...args)
+      console.log(`creating from Factory: BABYLON.${createInfoArgs.libraryLocation}.${createInfoArgs.factoryMethod}(...args).  args:`, args)
+      babylonObject = ((BABYLON as any)[createInfoArgs.libraryLocation])[createInfoArgs!.factoryMethod!](...args)
     } else {
       if (metadata.delayCreation !== true) {
         switch (createInfoArgs.namespace) {

@@ -9,7 +9,7 @@ import React, { createContext } from 'react'
 import ReactReconciler from "react-reconciler"
 
 import { WithBabylonJSContext, withBabylonJS } from './Engine'
-import { Scene as BabylonScene, AbstractMesh, PointerInfo, PointerEventTypes, Color4 } from 'babylonjs'
+import { Scene as BabylonScene, AbstractMesh, PointerInfo, PointerEventTypes, Color4, SceneOptions } from 'babylonjs'
 
 import ReactBabylonJSHostConfig, { Container, applyUpdateToInstance } from './ReactBabylonJSHostConfig'
 import { FiberScenePropsHandler } from './generatedCode'
@@ -57,7 +57,8 @@ interface SceneProps extends WithSceneContext {
   onScenePointerUp?: (evt: PointerInfo, scene: BabylonScene) => void,
   onScenePointerMove?: (evt: PointerInfo, scene: BabylonScene) => void,
   onSceneMount?: (sceneEventArgs: SceneEventArgs) => void,
-  clearColor?: Color4
+  clearColor?: Color4,
+  sceneOptions: SceneOptions
 }
 
 class Scene extends React.Component<SceneProps, any, any> {
@@ -70,25 +71,26 @@ class Scene extends React.Component<SceneProps, any, any> {
   private _reactReconcilerBabylonJs = ReactReconciler(ReactBabylonJSHostConfig)
 
   componentDidMount() {
-    const { babylonJSContext, children, ...options } = this.props
+    const { babylonJSContext } = this.props
     
     if (!babylonJSContext) {
       // we could try to create one here with existing props (ie: backwards compat?)
       console.error('You are creating a scene without an Engine.  \'SceneOnly\' will only work as a child of Engine, use \'Scene\' otherwise.')
-    } else {
-      const { engine /*, canvas */ } = babylonJSContext;
+      return
+    }
       
-      this._scene = new BABYLON.Scene(engine!)
-      const updates : UpdatePayload = new FiberScenePropsHandler().getPropertyUpdates(this._scene, {}, this.props as any, this._scene)
-      if (updates != null) {
-        updates.forEach(propertyUpdate => {
-          applyUpdateToInstance(this._scene, propertyUpdate, 'scene')
-        })
-      }
+    const { engine /*, canvas */ } = babylonJSContext;
+
+    this._scene = new BABYLON.Scene(engine!, this.props.sceneOptions)
+    const updates : UpdatePayload = new FiberScenePropsHandler().getPropertyUpdates(this._scene, {}, this.props as any, this._scene)
+    if (updates != null) {
+      updates.forEach(propertyUpdate => {
+        applyUpdateToInstance(this._scene, propertyUpdate, 'scene')
+      })
     }
 
-    if (options.clearColor) {
-      this._scene!.clearColor = options.clearColor
+    if (this.props.clearColor !== undefined) {
+      this._scene!.clearColor = this.props.clearColor
     }
 
     // TODO: Add keypress and other PointerEventTypes:

@@ -1,12 +1,12 @@
 import React, { createContext } from 'react'
 
-import BABYLON from 'babylonjs'
+import { Nullable, Engine as BabylonJSEngine, EngineOptions} from 'babylonjs'
 
 
 // TODO: copy engineOptions/antialias/etc and canvas options from original Scene.tsx
 export interface WithBabylonJSContext {
-  engine: BABYLON.Nullable<BABYLON.Engine>
-  canvas: BABYLON.Nullable<HTMLCanvasElement | WebGLRenderingContext>
+  engine: Nullable<BabylonJSEngine>
+  canvas: Nullable<HTMLCanvasElement | WebGLRenderingContext>
 }
 
 // TODO: build a fallback mechanism when typeof React.createContext !== 'function'
@@ -43,7 +43,7 @@ type EngineProps = {
    */
   noSSR?: boolean | React.ReactChild,
   shadersRepository?: string,
-  engineOptions?: BABYLON.EngineOptions,
+  engineOptions?: EngineOptions,
   antialias?: boolean,
   enableOfflineSupport?: boolean,
   adaptToDeviceRatio?: boolean,
@@ -86,6 +86,7 @@ class Engine extends React.Component<EngineProps, EngineState> {
       this.props.engineOptions,
       this.props.adaptToDeviceRatio === true ? true : false // default false
     )
+
     this._engine.runRenderLoop(() => {
       this._engine!.scenes.forEach(scene => {
         scene.render()

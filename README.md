@@ -1,9 +1,9 @@
 # React BabylonJS
-> 'react-babylonjs' is for integration of BabylonJS into a ReactJS project.
+> *react-babylonjs* makes it a snap to integrate BabylonJS with ReactJS
 
-`react-babylonjs` is a `react-reconciler` implementation providing declarative bindings to the BabylonJS 3D Engine.  Custom props allow you to declaratively add shadows, build 2D/3D user interfaces with meshes, etc.
+`react-babylonjs` is a React renderer using the Fiber `react-reconciler` to provide declarative bindings for the BabylonJS 3D Engine.  API is followed thanks to generated code, but also custom props allow you to declaratively add shadows, attach 2D/3D UI to meshes, etc.
 
-You can also build your own custom 3D controls with functional components. Context API provides access to Scene/Engine/Canvas without prop drilling.
+You can also build your own custom 3D controls with functional components. Context API provides access to Scene/Engine/Canvas without prop drilling.  Last example uses React Hooks.
 
 [![NPM version](http://img.shields.io/npm/v/react-babylonjs.svg?style=flat-square)](https://www.npmjs.com/package/react-babylonjs)
 [![NPM downloads](http://img.shields.io/npm/dm/react-babylonjs.svg?style=flat-square)](https://www.npmjs.com/package/react-babylonjs)
@@ -255,7 +255,7 @@ function WithHooks() {
 
 # Redux middleware (removed in 0.4.3)
 
-To remove dependency on redux have moved the middlware for monitoring redux actions to 'redux-wiretap'.  Useful for synchronizing your BabylonJS Scene with ReactJS outside of props, which do not flow cleanly into your custom code.  Note that the declarative samples above do not generally require this synchronisation mechanism, as the components themselves are aware of the prop/state changes and update their BabylonJS objects automatically.
+To remove dependency on redux have moved the middlware for monitoring redux actions to `redux-wiretap`.  Useful for synchronizing your BabylonJS Scene with ReactJS outside of props, which do not flow cleanly into your custom code.  Note that the declarative samples above do not generally require this synchronisation mechanism, as the components themselves are aware of the prop/state changes and update their BabylonJS objects automatically.
 
 ### Example Projects
 * [Create React App (JavaScript)](https://github.com/brianzinn/create-react-app-babylonjs) CRA JavaScript implementation.  GH Pages has examples of typical and declarative usage.
