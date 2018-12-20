@@ -352,8 +352,8 @@ const ReactBabylonJSHostConfig: HostConfig<
     let babylonObject: any | undefined = undefined
 
     if (createInfoArgs!.creationType === CreationType.FactoryMethod) {
-      console.log(`creating from Factory: BABYLON.${createInfoArgs.libraryLocation}.${createInfoArgs.factoryMethod}(...args).  args:`, args)
-      babylonObject = ((BABYLON as any)[createInfoArgs.libraryLocation])[createInfoArgs!.factoryMethod!](...args)
+      // console.log(`creating from Factory: BABYLON.${createInfoArgs.libraryLocation}.${createInfoArgs.factoryMethod}(...args).  args:`, args)
+      babylonObject = (BABYLON as any)[createInfoArgs.libraryLocation][createInfoArgs!.factoryMethod!](...args)
     } else {
       if (metadata.delayCreation !== true) {
         switch (createInfoArgs.namespace) {

@@ -43,7 +43,7 @@ export default class ModelLifecycleListener implements LifecycleListener {
       this.props.sceneFilename,
       this.scene,
       (meshes: AbstractMesh[], particleSystems: IParticleSystem[], skeletons: Skeleton[], animationGroups: AnimationGroup[]): void => {
-        loadedModel.rootMesh = new AbstractMesh(this.props.sceneFilename + "-model")
+        loadedModel.rootMesh = new AbstractMesh(this.props.sceneFilename + "-root-model", this.scene)
         loadedModel.rootMesh.alwaysSelectAsActiveMesh = true
 
         loadedModel.meshes = []
@@ -65,6 +65,7 @@ export default class ModelLifecycleListener implements LifecycleListener {
         if (this.props.onModelLoaded) {
           this.props.onModelLoaded(loadedModel)
         }
+
         loadedModel.status = LoaderStatus.Loaded
 
         // we want to trigger after mesh is loaded (ie: position/rotation)
