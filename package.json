@@ -121,6 +121,6 @@
     "react": "16.x"
   },
   "dependencies": {
-    "react-reconciler": "^0.17.2"
+    "react-reconciler": "^0.18.0"
   }
 }
