@@ -11,10 +11,23 @@ const libraryName = 'react-babylonjs'
 export default {
   input: `compiled/${libraryName}.js`,
   output: [
-	  { file: pkg.main, name: camelCase(libraryName), format: 'umd' },
-	  { file: pkg.module, format: 'es' }
+	  {
+      file: pkg.main,
+      name: camelCase(libraryName),
+      format: 'umd',
+      sourcemap: true,
+      globals: {
+        react: 'React',
+        babylonjs: 'BABYLON',
+        'babylonjs-gui': 'BABYLON.GUI'
+      }
+    }, {
+      file: pkg.module,
+      format: 'es',
+      sourcemap: true
+    }
   ],
-  sourcemap: true,
+  context: 'window',
   // Indicate here external modules you don't wanna include in your bundle (i.e.: 'lodash')
   external: [ 'react', 'babylonjs', 'babylonjs-gui', 'babylonjs-loaders'],
   plugins: [
