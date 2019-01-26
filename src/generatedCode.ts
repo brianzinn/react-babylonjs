@@ -488,8 +488,8 @@ export class FiberAbstractMeshPropsHandler implements PropsHandler<BABYLON.Abstr
                 type: 'boolean'
             });
         }
-        // BABYLON.AbstractMesh.edgesColor of BABYLON.Color4 uses object equals to find diffs:
-        if (newProps.edgesColor && (!oldProps.edgesColor || !oldProps.edgesColor.equals(newProps.edgesColor))) {
+        // BABYLON.AbstractMesh.edgesColor of BABYLON.Color4.  Color4.equals() not available in BabylonJS < 4:
+        if (newProps.edgesColor && (!oldProps.edgesColor || oldProps.edgesColor.r !== newProps.edgesColor.r || oldProps.edgesColor.g !== newProps.edgesColor.g || oldProps.edgesColor.b !== newProps.edgesColor.b || oldProps.edgesColor.a !== newProps.edgesColor.a)) {
             updates.push({
                 propertyName: 'edgesColor',
                 value: newProps.edgesColor,
@@ -14717,8 +14717,8 @@ export class FiberRenderTargetTexturePropsHandler implements PropsHandler<BABYLO
                 type: 'BABYLON.Vector3'
             });
         }
-        // BABYLON.RenderTargetTexture.clearColor of BABYLON.Color4 uses object equals to find diffs:
-        if (newProps.clearColor && (!oldProps.clearColor || !oldProps.clearColor.equals(newProps.clearColor))) {
+        // BABYLON.RenderTargetTexture.clearColor of BABYLON.Color4.  Color4.equals() not available in BabylonJS < 4:
+        if (newProps.clearColor && (!oldProps.clearColor || oldProps.clearColor.r !== newProps.clearColor.r || oldProps.clearColor.g !== newProps.clearColor.g || oldProps.clearColor.b !== newProps.clearColor.b || oldProps.clearColor.a !== newProps.clearColor.a)) {
             updates.push({
                 propertyName: 'clearColor',
                 value: newProps.clearColor,
@@ -16801,8 +16801,8 @@ export class FiberScenePropsHandler implements PropsHandler<BABYLON.Scene, Fiber
             });
         }
         // TODO: type: BABYLON.Camera property (not coded) BABYLON.Scene.cameraToUseForPointers.
-        // BABYLON.Scene.clearColor of BABYLON.Color4 uses object equals to find diffs:
-        if (newProps.clearColor && (!oldProps.clearColor || !oldProps.clearColor.equals(newProps.clearColor))) {
+        // BABYLON.Scene.clearColor of BABYLON.Color4.  Color4.equals() not available in BabylonJS < 4:
+        if (newProps.clearColor && (!oldProps.clearColor || oldProps.clearColor.r !== newProps.clearColor.r || oldProps.clearColor.g !== newProps.clearColor.g || oldProps.clearColor.b !== newProps.clearColor.b || oldProps.clearColor.a !== newProps.clearColor.a)) {
             updates.push({
                 propertyName: 'clearColor',
                 value: newProps.clearColor,
