@@ -58,9 +58,9 @@ export const applyUpdateToInstance = (hostInstance: any, update: PropertyUpdate,
       // console.log(` > ${type}: updating ${update.type} on ${update.propertyName} to ${update.value}`)
       target[update.propertyName] = update.value
       break
-    case "BABYLON.Vector3": // TODO: merge with Color3
+    case "BABYLON.Vector3": // TODO: merge with Color3/Color4
       if (target[update.propertyName]) {
-        ;(target[update.propertyName] as BABYLON.Vector3).copyFrom(update.value)
+        (target[update.propertyName] as BABYLON.Vector3).copyFrom(update.value)
       } else if (update.value) {
         target[update.propertyName] = update.value.clone()
       } else {
@@ -68,14 +68,15 @@ export const applyUpdateToInstance = (hostInstance: any, update: PropertyUpdate,
       }
       break
     case "BABYLON.Color3":
-    case "BABYLON.Color4": // merge this switch with BABYLON.Vector3, Color4, etc.  The copyFrom BABYLON types.
+    case "BABYLON.Color4":
+      console.log('checking:', update.propertyName, target[update.propertyName]);
       if (target[update.propertyName]) {
         switch (update.type) {
           case "BABYLON.Color3":
-            ;(target[update.propertyName] as BABYLON.Color3).copyFrom(update.value)
+            (target[update.propertyName] as BABYLON.Color3).copyFrom(update.value)
             break
           case "BABYLON.Color4":
-            ;(target[update.propertyName] as BABYLON.Color4).copyFrom(update.value)
+            (target[update.propertyName] as BABYLON.Color4).copyFrom(update.value)
             break
         }
       } else if (update.value) {

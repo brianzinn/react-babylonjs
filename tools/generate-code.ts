@@ -392,13 +392,14 @@ const writePropertyAsUpdateFunction = (classDeclaration: ClassDeclaration, write
       break;
     case `${importedNamespace}.Vector3`:
     case `${importedNamespace}.Color3`:
-      writer.writeLine(`// ${importedNamespace}.${classNameBabylon}.${propertyName} of ${importedNamespace}${type} uses object equals to find diffs:`)
+    case `${importedNamespace}.Color4`:
+      writer.writeLine(`// ${importedNamespace}.${classNameBabylon}.${propertyName} of ${type} uses object equals to find diffs:`)
       writer.write(`if (newProps.${propertyName} && (!oldProps.${propertyName} || !oldProps.${propertyName}.equals(newProps.${propertyName})))`).block(() => {
         writer.writeLine(`updates.push({\npropertyName: '${propertyName}',\nvalue: newProps.${propertyName},\ntype: '${type}'\n});`);
       });
       break;
     case "BABYLON.GUI.Control":
-      writer.writeLine(`// ${importedNamespace}.${classNameBabylon}.${propertyName} of ${importedNamespace}${type} uses object equals to find diffs:`)
+      writer.writeLine(`// ${importedNamespace}.${classNameBabylon}.${propertyName} of ${importedNamespace}${type} sets once:`)
       writer.write(`if (newProps.${propertyName} && (!oldProps.${propertyName}))`).block(() => {
         writer.writeLine(`updates.push({\npropertyName: '${propertyName}',\nvalue: newProps.${propertyName},\ntype: '${type}'\n});`);
       });

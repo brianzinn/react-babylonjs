@@ -24,12 +24,12 @@ export function withBabylonJS<
   P extends { babylonJSContext: WithBabylonJSContext },
   R = Omit<P, 'babylonJSContext'>
   >(
-  Component: React.ComponentClass<P, any> | React.StatelessComponent<P>
+  Component: React.ComponentClass<P> | React.StatelessComponent<P>
   ): React.SFC<R> {
   return function BoundComponent(props: R) {
     return (
       <BabylonJSContext.Consumer>
-        {ctx => <Component {...props} babylonJSContext={ctx} />}
+        {ctx => <Component {...props as any} babylonJSContext={ctx} />}
       </BabylonJSContext.Consumer>
     );
   };
@@ -68,8 +68,8 @@ export type EngineState = {
 
 class Engine extends React.Component<EngineProps, EngineState> {
 
-  private _engine?: BABYLON.Nullable<BABYLON.Engine> = null;
-  private _canvas: BABYLON.Nullable<HTMLCanvasElement | WebGLRenderingContext> = null;
+  private _engine?: Nullable<BabylonJSEngine> = null;
+  private _canvas: Nullable<HTMLCanvasElement | WebGLRenderingContext> = null;
 
   constructor(props: EngineProps) {
     super(props);
@@ -80,7 +80,7 @@ class Engine extends React.Component<EngineProps, EngineState> {
   }
 
   componentDidMount() {
-    this._engine = new BABYLON.Engine(
+    this._engine = new BabylonJSEngine(
       this._canvas,
       this.props.antialias === true ? true : false, // default false
       this.props.engineOptions,
@@ -93,7 +93,7 @@ class Engine extends React.Component<EngineProps, EngineState> {
       })
     })
 
-    this._engine.onContextLostObservable.add((eventData: BABYLON.Engine) => {
+    this._engine.onContextLostObservable.add((eventData: BabylonJSEngine) => {
       console.log('context loss observable from Engine: ', eventData);
     })
 
@@ -152,7 +152,7 @@ class Engine extends React.Component<EngineProps, EngineState> {
     }
 
     // TODO: this.props.portalCanvas does not need to render a canvas.
-    return <BabylonJSContext.Provider value={{ engine: this._engine!, canvas: this._canvas }}>
+    return <BabylonJSContext.Provider value={{ engine: this._engine!, canvas: this._canvas}}>
       <canvas {...opts} ref={this.onCanvasRef}>
       {this._engine !== null &&
         this.props.children
@@ -168,4 +168,4 @@ class Engine extends React.Component<EngineProps, EngineState> {
   }
 }
 
-export default withBabylonJS(Engine)
+export default Engine
