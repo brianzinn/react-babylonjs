@@ -69,7 +69,6 @@ export const applyUpdateToInstance = (hostInstance: any, update: PropertyUpdate,
       break
     case "BABYLON.Color3":
     case "BABYLON.Color4":
-      console.log('checking:', update.propertyName, target[update.propertyName]);
       if (target[update.propertyName]) {
         switch (update.type) {
           case "BABYLON.Color3":

@@ -392,9 +392,14 @@ const writePropertyAsUpdateFunction = (classDeclaration: ClassDeclaration, write
       break;
     case `${importedNamespace}.Vector3`:
     case `${importedNamespace}.Color3`:
-    case `${importedNamespace}.Color4`:
       writer.writeLine(`// ${importedNamespace}.${classNameBabylon}.${propertyName} of ${type} uses object equals to find diffs:`)
       writer.write(`if (newProps.${propertyName} && (!oldProps.${propertyName} || !oldProps.${propertyName}.equals(newProps.${propertyName})))`).block(() => {
+        writer.writeLine(`updates.push({\npropertyName: '${propertyName}',\nvalue: newProps.${propertyName},\ntype: '${type}'\n});`);
+      });
+      break;
+    case `${importedNamespace}.Color4`: // Color4.equals() not added until PR #5517
+      writer.writeLine(`// ${importedNamespace}.${classNameBabylon}.${propertyName} of ${type}.  Color4.equals() not available in BabylonJS < 4:`)
+      writer.write(`if (newProps.${propertyName} && (!oldProps.${propertyName} || oldProps.${propertyName}.r !== newProps.${propertyName}.r || oldProps.${propertyName}.g !== newProps.${propertyName}.g || oldProps.${propertyName}.b !== newProps.${propertyName}.b || oldProps.${propertyName}.a !== newProps.${propertyName}.a))`).block(() => {
         writer.writeLine(`updates.push({\npropertyName: '${propertyName}',\nvalue: newProps.${propertyName},\ntype: '${type}'\n});`);
       });
       break;
