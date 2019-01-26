@@ -9,20 +9,20 @@ import React, { createContext } from 'react'
 import ReactReconciler from "react-reconciler"
 
 import { WithBabylonJSContext, withBabylonJS } from './Engine'
-import { Scene as BabylonScene, AbstractMesh, PointerInfo, PointerEventTypes, Color4, SceneOptions } from 'babylonjs'
+import { Scene as BabylonJSScene, Engine as BabylonJSEngine, Nullable, AbstractMesh, PointerInfo, PointerEventTypes, Color4, SceneOptions, Observer } from 'babylonjs'
 
 import ReactBabylonJSHostConfig, { Container, applyUpdateToInstance } from './ReactBabylonJSHostConfig'
 import { FiberScenePropsHandler } from './generatedCode'
 import { UpdatePayload } from './PropsHandler';
 
 export interface WithSceneContext {
-  engine: BABYLON.Nullable<BABYLON.Engine>,
-  canvas: BABYLON.Nullable<HTMLCanvasElement | WebGLRenderingContext>
-  scene: BABYLON.Nullable<BABYLON.Scene>
+  engine: Nullable<BabylonJSEngine>
+  canvas: Nullable<HTMLCanvasElement | WebGLRenderingContext>
+  scene: Nullable<BabylonJSScene>
 }
 
 export declare type SceneEventArgs = {
-  scene: BabylonScene;
+  scene: BabylonJSScene;
   canvas: HTMLCanvasElement;
 };
 
@@ -36,7 +36,7 @@ export const SceneContext = createContext<WithSceneContext>({
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
 export function withScene<
-  P extends { sceneContext?: WithSceneContext },
+  P extends { sceneContext: WithSceneContext },
   R = Omit<P, 'sceneContext'>
   >(
   Component: React.ComponentClass<P> | React.StatelessComponent<P>
@@ -44,32 +44,34 @@ export function withScene<
   return function BoundComponent(props: R) {
     return (
       <SceneContext.Consumer>
-        {ctx => <Component {...props} sceneContext={ctx} />}
+        {ctx => <Component {...props as any} sceneContext={ctx} />}
       </SceneContext.Consumer>
     );
   };
 }
 
-interface SceneProps extends WithSceneContext {
+type SceneProps = {
   babylonJSContext: WithBabylonJSContext
-  onMeshPicked?: (mesh: AbstractMesh, scene: BabylonScene) => void,
-  onScenePointerDown?: (evt: PointerInfo, scene: BabylonScene) => void,
-  onScenePointerUp?: (evt: PointerInfo, scene: BabylonScene) => void,
-  onScenePointerMove?: (evt: PointerInfo, scene: BabylonScene) => void,
-  onSceneMount?: (sceneEventArgs: SceneEventArgs) => void,
-  clearColor?: Color4,
+  onMeshPicked?: (mesh: AbstractMesh, scene: BabylonJSScene) => void,
+  onScenePointerDown?: (evt: PointerInfo, scene: BabylonJSScene) => void,
+  onScenePointerUp?: (evt: PointerInfo, scene: BabylonJSScene) => void,
+  onScenePointerMove?: (evt: PointerInfo, scene: BabylonJSScene) => void,
+  onSceneMount?: (sceneEventArgs: SceneEventArgs) => void
   sceneOptions: SceneOptions
 }
 
 class Scene extends React.Component<SceneProps, any, any> {
-  private _scene: BABYLON.Nullable<BABYLON.Scene> = null;
-  private _pointerDownObservable: BABYLON.Nullable<BABYLON.Observer<BABYLON.PointerInfo>> = null;
-  private _pointerUpObservable: BABYLON.Nullable<BABYLON.Observer<BABYLON.PointerInfo>> = null;
-  private _pointerMoveObservable: BABYLON.Nullable<BABYLON.Observer<BABYLON.PointerInfo>> = null;
+  private _scene: Nullable<BabylonJSScene> = null;
+  private _pointerDownObservable: Nullable<Observer<PointerInfo>> = null;
+  private _pointerUpObservable: Nullable<Observer<PointerInfo>> = null;
+  private _pointerMoveObservable: Nullable<Observer<PointerInfo>> = null;
 
   private _fiberRoot?: ReactReconciler.FiberRoot;
   private _reactReconcilerBabylonJs = ReactReconciler(ReactBabylonJSHostConfig)
-
+  private _propsHandler = new FiberScenePropsHandler();
+  
+  
+  
   componentDidMount() {
     const { babylonJSContext } = this.props
     
@@ -81,16 +83,12 @@ class Scene extends React.Component<SceneProps, any, any> {
       
     const { engine /*, canvas */ } = babylonJSContext;
 
-    this._scene = new BABYLON.Scene(engine!, this.props.sceneOptions)
-    const updates : UpdatePayload = new FiberScenePropsHandler().getPropertyUpdates(this._scene, {}, this.props as any, this._scene)
+    this._scene = new BabylonJSScene(engine!, this.props.sceneOptions)
+    const updates : UpdatePayload = this._propsHandler.getPropertyUpdates(this._scene, {}, this.props as any, this._scene)
     if (updates != null) {
       updates.forEach(propertyUpdate => {
         applyUpdateToInstance(this._scene, propertyUpdate, 'scene')
       })
-    }
-
-    if (this.props.clearColor !== undefined) {
-      this._scene!.clearColor = this.props.clearColor
     }
 
     // TODO: Add keypress and other PointerEventTypes:
@@ -153,7 +151,7 @@ class Scene extends React.Component<SceneProps, any, any> {
   
     this._reactReconcilerBabylonJs.injectIntoDevTools({
       bundleType: process.env.NODE_ENV === 'production' ? 0 : 1,
-      version: '1.0.0',
+      version: '1.0.2',
       rendererPackageName: 'react-babylonjs'
     })
 
@@ -167,6 +165,13 @@ class Scene extends React.Component<SceneProps, any, any> {
   }
 
   componentDidUpdate (prevProps: any, prevState: any) {
+    const updates : UpdatePayload = this._propsHandler.getPropertyUpdates(this._scene!, prevProps, this.props as any, this._scene!)
+    if (updates != null) {
+      updates.forEach(propertyUpdate => {
+        applyUpdateToInstance(this._scene, propertyUpdate, 'scene')
+      })
+    }
+
     // In the docs it is mentioned that shouldComponentUpdate() may be treated as a hint one day
     // avoid shouldComponentUpdate() => false, looks okay, but prop changes will lag behind 1 update.
     this._reactReconcilerBabylonJs.updateContainer(

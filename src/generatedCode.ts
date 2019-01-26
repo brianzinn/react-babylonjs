@@ -214,7 +214,7 @@ export class FiberTransformNodePropsHandler implements PropsHandler<BABYLON.Tran
                 type: 'BABYLON.Observable<BABYLON.TransformNode>'
             });
         }
-        // BABYLON.TransformNode.position of BABYLONBABYLON.Vector3 uses object equals to find diffs:
+        // BABYLON.TransformNode.position of BABYLON.Vector3 uses object equals to find diffs:
         if (newProps.position && (!oldProps.position || !oldProps.position.equals(newProps.position))) {
             updates.push({
                 propertyName: 'position',
@@ -222,7 +222,7 @@ export class FiberTransformNodePropsHandler implements PropsHandler<BABYLON.Tran
                 type: 'BABYLON.Vector3'
             });
         }
-        // BABYLON.TransformNode.rotation of BABYLONBABYLON.Vector3 uses object equals to find diffs:
+        // BABYLON.TransformNode.rotation of BABYLON.Vector3 uses object equals to find diffs:
         if (newProps.rotation && (!oldProps.rotation || !oldProps.rotation.equals(newProps.rotation))) {
             updates.push({
                 propertyName: 'rotation',
@@ -231,7 +231,7 @@ export class FiberTransformNodePropsHandler implements PropsHandler<BABYLON.Tran
             });
         }
         // TODO: type: BABYLON.Quaternion property (not coded) BABYLON.TransformNode.rotationQuaternion.
-        // BABYLON.TransformNode.scaling of BABYLONBABYLON.Vector3 uses object equals to find diffs:
+        // BABYLON.TransformNode.scaling of BABYLON.Vector3 uses object equals to find diffs:
         if (newProps.scaling && (!oldProps.scaling || !oldProps.scaling.equals(newProps.scaling))) {
             updates.push({
                 propertyName: 'scaling',
@@ -488,7 +488,14 @@ export class FiberAbstractMeshPropsHandler implements PropsHandler<BABYLON.Abstr
                 type: 'boolean'
             });
         }
-        // TODO: type: BABYLON.Color4 property (not coded) BABYLON.AbstractMesh.edgesColor.
+        // BABYLON.AbstractMesh.edgesColor of BABYLON.Color4 uses object equals to find diffs:
+        if (newProps.edgesColor && (!oldProps.edgesColor || !oldProps.edgesColor.equals(newProps.edgesColor))) {
+            updates.push({
+                propertyName: 'edgesColor',
+                value: newProps.edgesColor,
+                type: 'BABYLON.Color4'
+            });
+        }
         // BABYLON.AbstractMesh.edgesWidth of type 'number':
         if (oldProps.edgesWidth !== newProps.edgesWidth) {
             updates.push({
@@ -497,7 +504,7 @@ export class FiberAbstractMeshPropsHandler implements PropsHandler<BABYLON.Abstr
                 type: 'number'
             });
         }
-        // BABYLON.AbstractMesh.ellipsoid of BABYLONBABYLON.Vector3 uses object equals to find diffs:
+        // BABYLON.AbstractMesh.ellipsoid of BABYLON.Vector3 uses object equals to find diffs:
         if (newProps.ellipsoid && (!oldProps.ellipsoid || !oldProps.ellipsoid.equals(newProps.ellipsoid))) {
             updates.push({
                 propertyName: 'ellipsoid',
@@ -505,7 +512,7 @@ export class FiberAbstractMeshPropsHandler implements PropsHandler<BABYLON.Abstr
                 type: 'BABYLON.Vector3'
             });
         }
-        // BABYLON.AbstractMesh.ellipsoidOffset of BABYLONBABYLON.Vector3 uses object equals to find diffs:
+        // BABYLON.AbstractMesh.ellipsoidOffset of BABYLON.Vector3 uses object equals to find diffs:
         if (newProps.ellipsoidOffset && (!oldProps.ellipsoidOffset || !oldProps.ellipsoidOffset.equals(newProps.ellipsoidOffset))) {
             updates.push({
                 propertyName: 'ellipsoidOffset',
@@ -521,7 +528,7 @@ export class FiberAbstractMeshPropsHandler implements PropsHandler<BABYLON.Abstr
                 type: 'boolean'
             });
         }
-        // BABYLON.AbstractMesh.facetDepthSortFrom of BABYLONBABYLON.Vector3 uses object equals to find diffs:
+        // BABYLON.AbstractMesh.facetDepthSortFrom of BABYLON.Vector3 uses object equals to find diffs:
         if (newProps.facetDepthSortFrom && (!oldProps.facetDepthSortFrom || !oldProps.facetDepthSortFrom.equals(newProps.facetDepthSortFrom))) {
             updates.push({
                 propertyName: 'facetDepthSortFrom',
@@ -634,7 +641,7 @@ export class FiberAbstractMeshPropsHandler implements PropsHandler<BABYLON.Abstr
                 type: 'BABYLON.Observable<BABYLON.AbstractMesh>'
             });
         }
-        // BABYLON.AbstractMesh.outlineColor of BABYLONBABYLON.Color3 uses object equals to find diffs:
+        // BABYLON.AbstractMesh.outlineColor of BABYLON.Color3 uses object equals to find diffs:
         if (newProps.outlineColor && (!oldProps.outlineColor || !oldProps.outlineColor.equals(newProps.outlineColor))) {
             updates.push({
                 propertyName: 'outlineColor',
@@ -658,7 +665,7 @@ export class FiberAbstractMeshPropsHandler implements PropsHandler<BABYLON.Abstr
                 type: 'number'
             });
         }
-        // BABYLON.AbstractMesh.overlayColor of BABYLONBABYLON.Color3 uses object equals to find diffs:
+        // BABYLON.AbstractMesh.overlayColor of BABYLON.Color3 uses object equals to find diffs:
         if (newProps.overlayColor && (!oldProps.overlayColor || !oldProps.overlayColor.equals(newProps.overlayColor))) {
             updates.push({
                 propertyName: 'overlayColor',
@@ -698,7 +705,7 @@ export class FiberAbstractMeshPropsHandler implements PropsHandler<BABYLON.Abstr
                 type: 'number'
             });
         }
-        // BABYLON.AbstractMesh.scaling of BABYLONBABYLON.Vector3 uses object equals to find diffs:
+        // BABYLON.AbstractMesh.scaling of BABYLON.Vector3 uses object equals to find diffs:
         if (newProps.scaling && (!oldProps.scaling || !oldProps.scaling.equals(newProps.scaling))) {
             updates.push({
                 propertyName: 'scaling',
@@ -1208,7 +1215,7 @@ export class FiberCameraPropsHandler implements PropsHandler<BABYLON.Camera, Fib
             });
         }
         // TODO: type: BABYLON.RenderTargetTexture property (not coded) BABYLON.Camera.outputRenderTarget.
-        // BABYLON.Camera.position of BABYLONBABYLON.Vector3 uses object equals to find diffs:
+        // BABYLON.Camera.position of BABYLON.Vector3 uses object equals to find diffs:
         if (newProps.position && (!oldProps.position || !oldProps.position.equals(newProps.position))) {
             updates.push({
                 propertyName: 'position',
@@ -1216,7 +1223,7 @@ export class FiberCameraPropsHandler implements PropsHandler<BABYLON.Camera, Fib
                 type: 'BABYLON.Vector3'
             });
         }
-        // BABYLON.Camera.upVector of BABYLONBABYLON.Vector3 uses object equals to find diffs:
+        // BABYLON.Camera.upVector of BABYLON.Vector3 uses object equals to find diffs:
         if (newProps.upVector && (!oldProps.upVector || !oldProps.upVector.equals(newProps.upVector))) {
             updates.push({
                 propertyName: 'upVector',
@@ -1318,7 +1325,7 @@ export class FiberTargetCameraPropsHandler implements PropsHandler<BABYLON.Targe
     getPropertyUpdates(hostInstance: BABYLON.TargetCamera, oldProps: FiberTargetCameraProps, newProps: FiberTargetCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
         let updates: PropertyUpdate[] = [];
-        // BABYLON.TargetCamera.cameraDirection of BABYLONBABYLON.Vector3 uses object equals to find diffs:
+        // BABYLON.TargetCamera.cameraDirection of BABYLON.Vector3 uses object equals to find diffs:
         if (newProps.cameraDirection && (!oldProps.cameraDirection || !oldProps.cameraDirection.equals(newProps.cameraDirection))) {
             updates.push({
                 propertyName: 'cameraDirection',
@@ -1336,7 +1343,7 @@ export class FiberTargetCameraPropsHandler implements PropsHandler<BABYLON.Targe
                 type: 'boolean'
             });
         }
-        // BABYLON.TargetCamera.rotation of BABYLONBABYLON.Vector3 uses object equals to find diffs:
+        // BABYLON.TargetCamera.rotation of BABYLON.Vector3 uses object equals to find diffs:
         if (newProps.rotation && (!oldProps.rotation || !oldProps.rotation.equals(newProps.rotation))) {
             updates.push({
                 propertyName: 'rotation',
@@ -1532,7 +1539,7 @@ export class FiberArcRotateCameraPropsHandler implements PropsHandler<BABYLON.Ar
                 type: 'boolean'
             });
         }
-        // BABYLON.ArcRotateCamera.collisionRadius of BABYLONBABYLON.Vector3 uses object equals to find diffs:
+        // BABYLON.ArcRotateCamera.collisionRadius of BABYLON.Vector3 uses object equals to find diffs:
         if (newProps.collisionRadius && (!oldProps.collisionRadius || !oldProps.collisionRadius.equals(newProps.collisionRadius))) {
             updates.push({
                 propertyName: 'collisionRadius',
@@ -1625,7 +1632,7 @@ export class FiberArcRotateCameraPropsHandler implements PropsHandler<BABYLON.Ar
                 type: 'BABYLON.Observable<BABYLON.AbstractMesh>'
             });
         }
-        // BABYLON.ArcRotateCamera.panningAxis of BABYLONBABYLON.Vector3 uses object equals to find diffs:
+        // BABYLON.ArcRotateCamera.panningAxis of BABYLON.Vector3 uses object equals to find diffs:
         if (newProps.panningAxis && (!oldProps.panningAxis || !oldProps.panningAxis.equals(newProps.panningAxis))) {
             updates.push({
                 propertyName: 'panningAxis',
@@ -1649,7 +1656,7 @@ export class FiberArcRotateCameraPropsHandler implements PropsHandler<BABYLON.Ar
                 type: 'number'
             });
         }
-        // BABYLON.ArcRotateCamera.panningOriginTarget of BABYLONBABYLON.Vector3 uses object equals to find diffs:
+        // BABYLON.ArcRotateCamera.panningOriginTarget of BABYLON.Vector3 uses object equals to find diffs:
         if (newProps.panningOriginTarget && (!oldProps.panningOriginTarget || !oldProps.panningOriginTarget.equals(newProps.panningOriginTarget))) {
             updates.push({
                 propertyName: 'panningOriginTarget',
@@ -1697,7 +1704,7 @@ export class FiberArcRotateCameraPropsHandler implements PropsHandler<BABYLON.Ar
                 type: 'number'
             });
         }
-        // BABYLON.ArcRotateCamera.target of BABYLONBABYLON.Vector3 uses object equals to find diffs:
+        // BABYLON.ArcRotateCamera.target of BABYLON.Vector3 uses object equals to find diffs:
         if (newProps.target && (!oldProps.target || !oldProps.target.equals(newProps.target))) {
             updates.push({
                 propertyName: 'target',
@@ -2218,7 +2225,7 @@ export class FiberFlyCameraPropsHandler implements PropsHandler<BABYLON.FlyCamer
                 type: 'number'
             });
         }
-        // BABYLON.FlyCamera.cameraDirection of BABYLONBABYLON.Vector3 uses object equals to find diffs:
+        // BABYLON.FlyCamera.cameraDirection of BABYLON.Vector3 uses object equals to find diffs:
         if (newProps.cameraDirection && (!oldProps.cameraDirection || !oldProps.cameraDirection.equals(newProps.cameraDirection))) {
             updates.push({
                 propertyName: 'cameraDirection',
@@ -2242,7 +2249,7 @@ export class FiberFlyCameraPropsHandler implements PropsHandler<BABYLON.FlyCamer
                 type: 'number'
             });
         }
-        // BABYLON.FlyCamera.ellipsoid of BABYLONBABYLON.Vector3 uses object equals to find diffs:
+        // BABYLON.FlyCamera.ellipsoid of BABYLON.Vector3 uses object equals to find diffs:
         if (newProps.ellipsoid && (!oldProps.ellipsoid || !oldProps.ellipsoid.equals(newProps.ellipsoid))) {
             updates.push({
                 propertyName: 'ellipsoid',
@@ -2250,7 +2257,7 @@ export class FiberFlyCameraPropsHandler implements PropsHandler<BABYLON.FlyCamer
                 type: 'BABYLON.Vector3'
             });
         }
-        // BABYLON.FlyCamera.ellipsoidOffset of BABYLONBABYLON.Vector3 uses object equals to find diffs:
+        // BABYLON.FlyCamera.ellipsoidOffset of BABYLON.Vector3 uses object equals to find diffs:
         if (newProps.ellipsoidOffset && (!oldProps.ellipsoidOffset || !oldProps.ellipsoidOffset.equals(newProps.ellipsoidOffset))) {
             updates.push({
                 propertyName: 'ellipsoidOffset',
@@ -2625,7 +2632,7 @@ export class FiberFreeCameraPropsHandler implements PropsHandler<BABYLON.FreeCam
                 type: 'number'
             });
         }
-        // BABYLON.FreeCamera.ellipsoid of BABYLONBABYLON.Vector3 uses object equals to find diffs:
+        // BABYLON.FreeCamera.ellipsoid of BABYLON.Vector3 uses object equals to find diffs:
         if (newProps.ellipsoid && (!oldProps.ellipsoid || !oldProps.ellipsoid.equals(newProps.ellipsoid))) {
             updates.push({
                 propertyName: 'ellipsoid',
@@ -2633,7 +2640,7 @@ export class FiberFreeCameraPropsHandler implements PropsHandler<BABYLON.FreeCam
                 type: 'BABYLON.Vector3'
             });
         }
-        // BABYLON.FreeCamera.ellipsoidOffset of BABYLONBABYLON.Vector3 uses object equals to find diffs:
+        // BABYLON.FreeCamera.ellipsoidOffset of BABYLON.Vector3 uses object equals to find diffs:
         if (newProps.ellipsoidOffset && (!oldProps.ellipsoidOffset || !oldProps.ellipsoidOffset.equals(newProps.ellipsoidOffset))) {
             updates.push({
                 propertyName: 'ellipsoidOffset',
@@ -3571,7 +3578,7 @@ export class FiberWebVRFreeCameraPropsHandler implements PropsHandler<BABYLON.We
         // generated code
         let updates: PropertyUpdate[] = [];
         // TODO: type: BABYLON.WebVRController[] property (not coded) BABYLON.WebVRFreeCamera.controllers.
-        // BABYLON.WebVRFreeCamera.devicePosition of BABYLONBABYLON.Vector3 uses object equals to find diffs:
+        // BABYLON.WebVRFreeCamera.devicePosition of BABYLON.Vector3 uses object equals to find diffs:
         if (newProps.devicePosition && (!oldProps.devicePosition || !oldProps.devicePosition.equals(newProps.devicePosition))) {
             updates.push({
                 propertyName: 'devicePosition',
@@ -6940,7 +6947,7 @@ export class FiberStandardMaterialPropsHandler implements PropsHandler<BABYLON.S
                 type: 'number'
             });
         }
-        // BABYLON.StandardMaterial.ambientColor of BABYLONBABYLON.Color3 uses object equals to find diffs:
+        // BABYLON.StandardMaterial.ambientColor of BABYLON.Color3 uses object equals to find diffs:
         if (newProps.ambientColor && (!oldProps.ambientColor || !oldProps.ambientColor.equals(newProps.ambientColor))) {
             updates.push({
                 propertyName: 'ambientColor',
@@ -6993,7 +7000,7 @@ export class FiberStandardMaterialPropsHandler implements PropsHandler<BABYLON.S
             });
         }
         // TODO: type: (shaderName: string, uniforms: string[], uniformBuffers: string[], samplers: string[], defines: BABYLON.StandardMaterialDefines) => string property (not coded) BABYLON.StandardMaterial.customShaderNameResolve.
-        // BABYLON.StandardMaterial.diffuseColor of BABYLONBABYLON.Color3 uses object equals to find diffs:
+        // BABYLON.StandardMaterial.diffuseColor of BABYLON.Color3 uses object equals to find diffs:
         if (newProps.diffuseColor && (!oldProps.diffuseColor || !oldProps.diffuseColor.equals(newProps.diffuseColor))) {
             updates.push({
                 propertyName: 'diffuseColor',
@@ -7011,7 +7018,7 @@ export class FiberStandardMaterialPropsHandler implements PropsHandler<BABYLON.S
                 type: 'boolean'
             });
         }
-        // BABYLON.StandardMaterial.emissiveColor of BABYLONBABYLON.Color3 uses object equals to find diffs:
+        // BABYLON.StandardMaterial.emissiveColor of BABYLON.Color3 uses object equals to find diffs:
         if (newProps.emissiveColor && (!oldProps.emissiveColor || !oldProps.emissiveColor.equals(newProps.emissiveColor))) {
             updates.push({
                 propertyName: 'emissiveColor',
@@ -7093,7 +7100,7 @@ export class FiberStandardMaterialPropsHandler implements PropsHandler<BABYLON.S
                 type: 'number'
             });
         }
-        // BABYLON.StandardMaterial.specularColor of BABYLONBABYLON.Color3 uses object equals to find diffs:
+        // BABYLON.StandardMaterial.specularColor of BABYLON.Color3 uses object equals to find diffs:
         if (newProps.specularColor && (!oldProps.specularColor || !oldProps.specularColor.equals(newProps.specularColor))) {
             updates.push({
                 propertyName: 'specularColor',
@@ -7371,7 +7378,7 @@ export class FiberBackgroundMaterialPropsHandler implements PropsHandler<BABYLON
                 type: 'boolean'
             });
         }
-        // BABYLON.BackgroundMaterial.primaryColor of BABYLONBABYLON.Color3 uses object equals to find diffs:
+        // BABYLON.BackgroundMaterial.primaryColor of BABYLON.Color3 uses object equals to find diffs:
         if (newProps.primaryColor && (!oldProps.primaryColor || !oldProps.primaryColor.equals(newProps.primaryColor))) {
             updates.push({
                 propertyName: 'primaryColor',
@@ -7452,7 +7459,7 @@ export class FiberBackgroundMaterialPropsHandler implements PropsHandler<BABYLON
             });
         }
         // TODO: type: BABYLON.BaseTexture property (not coded) BABYLON.BackgroundMaterial.reflectionTexture.
-        // BABYLON.BackgroundMaterial.sceneCenter of BABYLONBABYLON.Vector3 uses object equals to find diffs:
+        // BABYLON.BackgroundMaterial.sceneCenter of BABYLON.Vector3 uses object equals to find diffs:
         if (newProps.sceneCenter && (!oldProps.sceneCenter || !oldProps.sceneCenter.equals(newProps.sceneCenter))) {
             updates.push({
                 propertyName: 'sceneCenter',
@@ -7669,7 +7676,7 @@ export class FiberPBRBaseSimpleMaterialPropsHandler implements PropsHandler<BABY
                 type: 'boolean'
             });
         }
-        // BABYLON.PBRBaseSimpleMaterial.emissiveColor of BABYLONBABYLON.Color3 uses object equals to find diffs:
+        // BABYLON.PBRBaseSimpleMaterial.emissiveColor of BABYLON.Color3 uses object equals to find diffs:
         if (newProps.emissiveColor && (!oldProps.emissiveColor || !oldProps.emissiveColor.equals(newProps.emissiveColor))) {
             updates.push({
                 propertyName: 'emissiveColor',
@@ -7789,7 +7796,7 @@ export class FiberPBRMetallicRoughnessMaterialPropsHandler implements PropsHandl
     getPropertyUpdates(hostInstance: BABYLON.PBRMetallicRoughnessMaterial, oldProps: FiberPBRMetallicRoughnessMaterialProps, newProps: FiberPBRMetallicRoughnessMaterialProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
         let updates: PropertyUpdate[] = [];
-        // BABYLON.PBRMetallicRoughnessMaterial.baseColor of BABYLONBABYLON.Color3 uses object equals to find diffs:
+        // BABYLON.PBRMetallicRoughnessMaterial.baseColor of BABYLON.Color3 uses object equals to find diffs:
         if (newProps.baseColor && (!oldProps.baseColor || !oldProps.baseColor.equals(newProps.baseColor))) {
             updates.push({
                 propertyName: 'baseColor',
@@ -7883,7 +7890,7 @@ export class FiberPBRSpecularGlossinessMaterialPropsHandler implements PropsHand
     getPropertyUpdates(hostInstance: BABYLON.PBRSpecularGlossinessMaterial, oldProps: FiberPBRSpecularGlossinessMaterialProps, newProps: FiberPBRSpecularGlossinessMaterialProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
         let updates: PropertyUpdate[] = [];
-        // BABYLON.PBRSpecularGlossinessMaterial.diffuseColor of BABYLONBABYLON.Color3 uses object equals to find diffs:
+        // BABYLON.PBRSpecularGlossinessMaterial.diffuseColor of BABYLON.Color3 uses object equals to find diffs:
         if (newProps.diffuseColor && (!oldProps.diffuseColor || !oldProps.diffuseColor.equals(newProps.diffuseColor))) {
             updates.push({
                 propertyName: 'diffuseColor',
@@ -7900,7 +7907,7 @@ export class FiberPBRSpecularGlossinessMaterialPropsHandler implements PropsHand
                 type: 'number'
             });
         }
-        // BABYLON.PBRSpecularGlossinessMaterial.specularColor of BABYLONBABYLON.Color3 uses object equals to find diffs:
+        // BABYLON.PBRSpecularGlossinessMaterial.specularColor of BABYLON.Color3 uses object equals to find diffs:
         if (newProps.specularColor && (!oldProps.specularColor || !oldProps.specularColor.equals(newProps.specularColor))) {
             updates.push({
                 propertyName: 'specularColor',
@@ -8042,7 +8049,7 @@ export class FiberPBRMaterialPropsHandler implements PropsHandler<BABYLON.PBRMat
     getPropertyUpdates(hostInstance: BABYLON.PBRMaterial, oldProps: FiberPBRMaterialProps, newProps: FiberPBRMaterialProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
         let updates: PropertyUpdate[] = [];
-        // BABYLON.PBRMaterial.albedoColor of BABYLONBABYLON.Color3 uses object equals to find diffs:
+        // BABYLON.PBRMaterial.albedoColor of BABYLON.Color3 uses object equals to find diffs:
         if (newProps.albedoColor && (!oldProps.albedoColor || !oldProps.albedoColor.equals(newProps.albedoColor))) {
             updates.push({
                 propertyName: 'albedoColor',
@@ -8059,7 +8066,7 @@ export class FiberPBRMaterialPropsHandler implements PropsHandler<BABYLON.PBRMat
                 type: 'number'
             });
         }
-        // BABYLON.PBRMaterial.ambientColor of BABYLONBABYLON.Color3 uses object equals to find diffs:
+        // BABYLON.PBRMaterial.ambientColor of BABYLON.Color3 uses object equals to find diffs:
         if (newProps.ambientColor && (!oldProps.ambientColor || !oldProps.ambientColor.equals(newProps.ambientColor))) {
             updates.push({
                 propertyName: 'ambientColor',
@@ -8151,7 +8158,7 @@ export class FiberPBRMaterialPropsHandler implements PropsHandler<BABYLON.PBRMat
                 type: 'boolean'
             });
         }
-        // BABYLON.PBRMaterial.emissiveColor of BABYLONBABYLON.Color3 uses object equals to find diffs:
+        // BABYLON.PBRMaterial.emissiveColor of BABYLON.Color3 uses object equals to find diffs:
         if (newProps.emissiveColor && (!oldProps.emissiveColor || !oldProps.emissiveColor.equals(newProps.emissiveColor))) {
             updates.push({
                 propertyName: 'emissiveColor',
@@ -8286,7 +8293,7 @@ export class FiberPBRMaterialPropsHandler implements PropsHandler<BABYLON.PBRMat
                 type: 'number'
             });
         }
-        // BABYLON.PBRMaterial.reflectionColor of BABYLONBABYLON.Color3 uses object equals to find diffs:
+        // BABYLON.PBRMaterial.reflectionColor of BABYLON.Color3 uses object equals to find diffs:
         if (newProps.reflectionColor && (!oldProps.reflectionColor || !oldProps.reflectionColor.equals(newProps.reflectionColor))) {
             updates.push({
                 propertyName: 'reflectionColor',
@@ -8295,7 +8302,7 @@ export class FiberPBRMaterialPropsHandler implements PropsHandler<BABYLON.PBRMat
             });
         }
         // TODO: type: BABYLON.BaseTexture property (not coded) BABYLON.PBRMaterial.reflectionTexture.
-        // BABYLON.PBRMaterial.reflectivityColor of BABYLONBABYLON.Color3 uses object equals to find diffs:
+        // BABYLON.PBRMaterial.reflectivityColor of BABYLON.Color3 uses object equals to find diffs:
         if (newProps.reflectivityColor && (!oldProps.reflectivityColor || !oldProps.reflectivityColor.equals(newProps.reflectivityColor))) {
             updates.push({
                 propertyName: 'reflectivityColor',
@@ -8788,7 +8795,7 @@ export class FiberLightPropsHandler implements PropsHandler<BABYLON.Light, Fiber
     getPropertyUpdates(hostInstance: BABYLON.Light, oldProps: FiberLightProps, newProps: FiberLightProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
         let updates: PropertyUpdate[] = [];
-        // BABYLON.Light.diffuse of BABYLONBABYLON.Color3 uses object equals to find diffs:
+        // BABYLON.Light.diffuse of BABYLON.Color3 uses object equals to find diffs:
         if (newProps.diffuse && (!oldProps.diffuse || !oldProps.diffuse.equals(newProps.diffuse))) {
             updates.push({
                 propertyName: 'diffuse',
@@ -8878,7 +8885,7 @@ export class FiberLightPropsHandler implements PropsHandler<BABYLON.Light, Fiber
                 type: 'boolean'
             });
         }
-        // BABYLON.Light.specular of BABYLONBABYLON.Color3 uses object equals to find diffs:
+        // BABYLON.Light.specular of BABYLON.Color3 uses object equals to find diffs:
         if (newProps.specular && (!oldProps.specular || !oldProps.specular.equals(newProps.specular))) {
             updates.push({
                 propertyName: 'specular',
@@ -8955,7 +8962,7 @@ export class FiberHemisphericLightPropsHandler implements PropsHandler<BABYLON.H
     getPropertyUpdates(hostInstance: BABYLON.HemisphericLight, oldProps: FiberHemisphericLightProps, newProps: FiberHemisphericLightProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
         let updates: PropertyUpdate[] = [];
-        // BABYLON.HemisphericLight.direction of BABYLONBABYLON.Vector3 uses object equals to find diffs:
+        // BABYLON.HemisphericLight.direction of BABYLON.Vector3 uses object equals to find diffs:
         if (newProps.direction && (!oldProps.direction || !oldProps.direction.equals(newProps.direction))) {
             updates.push({
                 propertyName: 'direction',
@@ -8963,7 +8970,7 @@ export class FiberHemisphericLightPropsHandler implements PropsHandler<BABYLON.H
                 type: 'BABYLON.Vector3'
             });
         }
-        // BABYLON.HemisphericLight.groundColor of BABYLONBABYLON.Color3 uses object equals to find diffs:
+        // BABYLON.HemisphericLight.groundColor of BABYLON.Color3 uses object equals to find diffs:
         if (newProps.groundColor && (!oldProps.groundColor || !oldProps.groundColor.equals(newProps.groundColor))) {
             updates.push({
                 propertyName: 'groundColor',
@@ -9052,7 +9059,7 @@ export class FiberShadowLightPropsHandler implements PropsHandler<BABYLON.Shadow
         // generated code
         let updates: PropertyUpdate[] = [];
         // TODO: type: (viewMatrix: BABYLON.Matrix, renderList: BABYLON.AbstractMesh[], result: BABYLON.Matrix) => void property (not coded) BABYLON.ShadowLight.customProjectionMatrixBuilder.
-        // BABYLON.ShadowLight.direction of BABYLONBABYLON.Vector3 uses object equals to find diffs:
+        // BABYLON.ShadowLight.direction of BABYLON.Vector3 uses object equals to find diffs:
         if (newProps.direction && (!oldProps.direction || !oldProps.direction.equals(newProps.direction))) {
             updates.push({
                 propertyName: 'direction',
@@ -9060,7 +9067,7 @@ export class FiberShadowLightPropsHandler implements PropsHandler<BABYLON.Shadow
                 type: 'BABYLON.Vector3'
             });
         }
-        // BABYLON.ShadowLight.position of BABYLONBABYLON.Vector3 uses object equals to find diffs:
+        // BABYLON.ShadowLight.position of BABYLON.Vector3 uses object equals to find diffs:
         if (newProps.position && (!oldProps.position || !oldProps.position.equals(newProps.position))) {
             updates.push({
                 propertyName: 'position',
@@ -9084,7 +9091,7 @@ export class FiberShadowLightPropsHandler implements PropsHandler<BABYLON.Shadow
                 type: 'number'
             });
         }
-        // BABYLON.ShadowLight.transformedDirection of BABYLONBABYLON.Vector3 uses object equals to find diffs:
+        // BABYLON.ShadowLight.transformedDirection of BABYLON.Vector3 uses object equals to find diffs:
         if (newProps.transformedDirection && (!oldProps.transformedDirection || !oldProps.transformedDirection.equals(newProps.transformedDirection))) {
             updates.push({
                 propertyName: 'transformedDirection',
@@ -9092,7 +9099,7 @@ export class FiberShadowLightPropsHandler implements PropsHandler<BABYLON.Shadow
                 type: 'BABYLON.Vector3'
             });
         }
-        // BABYLON.ShadowLight.transformedPosition of BABYLONBABYLON.Vector3 uses object equals to find diffs:
+        // BABYLON.ShadowLight.transformedPosition of BABYLON.Vector3 uses object equals to find diffs:
         if (newProps.transformedPosition && (!oldProps.transformedPosition || !oldProps.transformedPosition.equals(newProps.transformedPosition))) {
             updates.push({
                 propertyName: 'transformedPosition',
@@ -9260,7 +9267,7 @@ export class FiberPointLightPropsHandler implements PropsHandler<BABYLON.PointLi
     getPropertyUpdates(hostInstance: BABYLON.PointLight, oldProps: FiberPointLightProps, newProps: FiberPointLightProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
         let updates: PropertyUpdate[] = [];
-        // BABYLON.PointLight.direction of BABYLONBABYLON.Vector3 uses object equals to find diffs:
+        // BABYLON.PointLight.direction of BABYLON.Vector3 uses object equals to find diffs:
         if (newProps.direction && (!oldProps.direction || !oldProps.direction.equals(newProps.direction))) {
             updates.push({
                 propertyName: 'direction',
@@ -9392,7 +9399,7 @@ export class FiberSpotLightPropsHandler implements PropsHandler<BABYLON.SpotLigh
                 type: 'number'
             });
         }
-        // BABYLON.SpotLight.projectionTextureUpDirection of BABYLONBABYLON.Vector3 uses object equals to find diffs:
+        // BABYLON.SpotLight.projectionTextureUpDirection of BABYLON.Vector3 uses object equals to find diffs:
         if (newProps.projectionTextureUpDirection && (!oldProps.projectionTextureUpDirection || !oldProps.projectionTextureUpDirection.equals(newProps.projectionTextureUpDirection))) {
             updates.push({
                 propertyName: 'projectionTextureUpDirection',
@@ -11623,7 +11630,7 @@ export class FiberLinePropsHandler implements PropsHandler<GUI.Line, FiberLinePr
     getPropertyUpdates(hostInstance: GUI.Line, oldProps: FiberLineProps, newProps: FiberLineProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
         let updates: PropertyUpdate[] = [];
-        // GUI.Line.connectedControl of GUIBABYLON.GUI.Control uses object equals to find diffs:
+        // GUI.Line.connectedControl of GUIBABYLON.GUI.Control sets once:
         if (newProps.connectedControl && (!oldProps.connectedControl)) {
             updates.push({
                 propertyName: 'connectedControl',
@@ -12762,7 +12769,7 @@ export class FiberButton3DPropsHandler implements PropsHandler<GUI.Button3D, Fib
     getPropertyUpdates(hostInstance: GUI.Button3D, oldProps: FiberButton3DProps, newProps: FiberButton3DProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
         let updates: PropertyUpdate[] = [];
-        // GUI.Button3D.content of GUIBABYLON.GUI.Control uses object equals to find diffs:
+        // GUI.Button3D.content of GUIBABYLON.GUI.Control sets once:
         if (newProps.content && (!oldProps.content)) {
             updates.push({
                 propertyName: 'content',
@@ -13757,7 +13764,7 @@ export class FiberCubeTexturePropsHandler implements PropsHandler<BABYLON.CubeTe
     getPropertyUpdates(hostInstance: BABYLON.CubeTexture, oldProps: FiberCubeTextureProps, newProps: FiberCubeTextureProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
         let updates: PropertyUpdate[] = [];
-        // BABYLON.CubeTexture.boundingBoxPosition of BABYLONBABYLON.Vector3 uses object equals to find diffs:
+        // BABYLON.CubeTexture.boundingBoxPosition of BABYLON.Vector3 uses object equals to find diffs:
         if (newProps.boundingBoxPosition && (!oldProps.boundingBoxPosition || !oldProps.boundingBoxPosition.equals(newProps.boundingBoxPosition))) {
             updates.push({
                 propertyName: 'boundingBoxPosition',
@@ -13765,7 +13772,7 @@ export class FiberCubeTexturePropsHandler implements PropsHandler<BABYLON.CubeTe
                 type: 'BABYLON.Vector3'
             });
         }
-        // BABYLON.CubeTexture.boundingBoxSize of BABYLONBABYLON.Vector3 uses object equals to find diffs:
+        // BABYLON.CubeTexture.boundingBoxSize of BABYLON.Vector3 uses object equals to find diffs:
         if (newProps.boundingBoxSize && (!oldProps.boundingBoxSize || !oldProps.boundingBoxSize.equals(newProps.boundingBoxSize))) {
             updates.push({
                 propertyName: 'boundingBoxSize',
@@ -14010,7 +14017,7 @@ export class FiberHDRCubeTexturePropsHandler implements PropsHandler<BABYLON.HDR
     getPropertyUpdates(hostInstance: BABYLON.HDRCubeTexture, oldProps: FiberHDRCubeTextureProps, newProps: FiberHDRCubeTextureProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
         let updates: PropertyUpdate[] = [];
-        // BABYLON.HDRCubeTexture.boundingBoxPosition of BABYLONBABYLON.Vector3 uses object equals to find diffs:
+        // BABYLON.HDRCubeTexture.boundingBoxPosition of BABYLON.Vector3 uses object equals to find diffs:
         if (newProps.boundingBoxPosition && (!oldProps.boundingBoxPosition || !oldProps.boundingBoxPosition.equals(newProps.boundingBoxPosition))) {
             updates.push({
                 propertyName: 'boundingBoxPosition',
@@ -14018,7 +14025,7 @@ export class FiberHDRCubeTexturePropsHandler implements PropsHandler<BABYLON.HDR
                 type: 'BABYLON.Vector3'
             });
         }
-        // BABYLON.HDRCubeTexture.boundingBoxSize of BABYLONBABYLON.Vector3 uses object equals to find diffs:
+        // BABYLON.HDRCubeTexture.boundingBoxSize of BABYLON.Vector3 uses object equals to find diffs:
         if (newProps.boundingBoxSize && (!oldProps.boundingBoxSize || !oldProps.boundingBoxSize.equals(newProps.boundingBoxSize))) {
             updates.push({
                 propertyName: 'boundingBoxSize',
@@ -14694,7 +14701,7 @@ export class FiberRenderTargetTexturePropsHandler implements PropsHandler<BABYLO
         // generated code
         let updates: PropertyUpdate[] = [];
         // TODO: type: BABYLON.Camera property (not coded) BABYLON.RenderTargetTexture.activeCamera.
-        // BABYLON.RenderTargetTexture.boundingBoxPosition of BABYLONBABYLON.Vector3 uses object equals to find diffs:
+        // BABYLON.RenderTargetTexture.boundingBoxPosition of BABYLON.Vector3 uses object equals to find diffs:
         if (newProps.boundingBoxPosition && (!oldProps.boundingBoxPosition || !oldProps.boundingBoxPosition.equals(newProps.boundingBoxPosition))) {
             updates.push({
                 propertyName: 'boundingBoxPosition',
@@ -14702,7 +14709,7 @@ export class FiberRenderTargetTexturePropsHandler implements PropsHandler<BABYLO
                 type: 'BABYLON.Vector3'
             });
         }
-        // BABYLON.RenderTargetTexture.boundingBoxSize of BABYLONBABYLON.Vector3 uses object equals to find diffs:
+        // BABYLON.RenderTargetTexture.boundingBoxSize of BABYLON.Vector3 uses object equals to find diffs:
         if (newProps.boundingBoxSize && (!oldProps.boundingBoxSize || !oldProps.boundingBoxSize.equals(newProps.boundingBoxSize))) {
             updates.push({
                 propertyName: 'boundingBoxSize',
@@ -14710,7 +14717,14 @@ export class FiberRenderTargetTexturePropsHandler implements PropsHandler<BABYLO
                 type: 'BABYLON.Vector3'
             });
         }
-        // TODO: type: BABYLON.Color4 property (not coded) BABYLON.RenderTargetTexture.clearColor.
+        // BABYLON.RenderTargetTexture.clearColor of BABYLON.Color4 uses object equals to find diffs:
+        if (newProps.clearColor && (!oldProps.clearColor || !oldProps.clearColor.equals(newProps.clearColor))) {
+            updates.push({
+                propertyName: 'clearColor',
+                value: newProps.clearColor,
+                type: 'BABYLON.Color4'
+            });
+        }
         // BABYLON.RenderTargetTexture.coordinatesMode of type 'number':
         if (oldProps.coordinatesMode !== newProps.coordinatesMode) {
             updates.push({
@@ -16510,7 +16524,7 @@ export class FiberVRExperienceHelperPropsHandler implements PropsHandler<BABYLON
                 type: 'any'
             });
         }
-        // BABYLON.VRExperienceHelper.position of BABYLONBABYLON.Vector3 uses object equals to find diffs:
+        // BABYLON.VRExperienceHelper.position of BABYLON.Vector3 uses object equals to find diffs:
         if (newProps.position && (!oldProps.position || !oldProps.position.equals(newProps.position))) {
             updates.push({
                 propertyName: 'position',
@@ -16727,7 +16741,7 @@ export class FiberScenePropsHandler implements PropsHandler<BABYLON.Scene, Fiber
         // TODO: type: BABYLON.Camera[] property (not coded) BABYLON.Scene.activeCameras.
         // TODO: type: () => void property (not coded) BABYLON.Scene.afterCameraRender.
         // TODO: type: () => void property (not coded) BABYLON.Scene.afterRender.
-        // BABYLON.Scene.ambientColor of BABYLONBABYLON.Color3 uses object equals to find diffs:
+        // BABYLON.Scene.ambientColor of BABYLON.Color3 uses object equals to find diffs:
         if (newProps.ambientColor && (!oldProps.ambientColor || !oldProps.ambientColor.equals(newProps.ambientColor))) {
             updates.push({
                 propertyName: 'ambientColor',
@@ -16844,7 +16858,7 @@ export class FiberScenePropsHandler implements PropsHandler<BABYLON.Scene, Fiber
             });
         }
         // TODO: type: BABYLON.BaseTexture property (not coded) BABYLON.Scene.environmentTexture.
-        // BABYLON.Scene.fogColor of BABYLONBABYLON.Color3 uses object equals to find diffs:
+        // BABYLON.Scene.fogColor of BABYLON.Color3 uses object equals to find diffs:
         if (newProps.fogColor && (!oldProps.fogColor || !oldProps.fogColor.equals(newProps.fogColor))) {
             updates.push({
                 propertyName: 'fogColor',
@@ -16914,7 +16928,7 @@ export class FiberScenePropsHandler implements PropsHandler<BABYLON.Scene, Fiber
         // TODO: type: (mesh: BABYLON.AbstractMesh, collider: BABYLON.Collider) => BABYLON.ISmartArrayLike<BABYLON.SubMesh> property (not coded) BABYLON.Scene.getCollidingSubMeshCandidates.
         // TODO: type: () => number property (not coded) BABYLON.Scene.getDeterministicFrameTime.
         // TODO: type: (mesh: BABYLON.AbstractMesh, localRay: BABYLON.Ray) => BABYLON.ISmartArrayLike<BABYLON.SubMesh> property (not coded) BABYLON.Scene.getIntersectingSubMeshCandidates.
-        // BABYLON.Scene.gravity of BABYLONBABYLON.Vector3 uses object equals to find diffs:
+        // BABYLON.Scene.gravity of BABYLON.Vector3 uses object equals to find diffs:
         if (newProps.gravity && (!oldProps.gravity || !oldProps.gravity.equals(newProps.gravity))) {
             updates.push({
                 propertyName: 'gravity',
