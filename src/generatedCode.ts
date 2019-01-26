@@ -16787,7 +16787,14 @@ export class FiberScenePropsHandler implements PropsHandler<BABYLON.Scene, Fiber
             });
         }
         // TODO: type: BABYLON.Camera property (not coded) BABYLON.Scene.cameraToUseForPointers.
-        // TODO: type: BABYLON.Color4 property (not coded) BABYLON.Scene.clearColor.
+        // BABYLON.Scene.clearColor of BABYLONBABYLON.Color4 uses object equals to find diffs:
+        if (newProps.clearColor && (!oldProps.clearColor || !oldProps.clearColor.equals(newProps.clearColor))) {
+            updates.push({
+                propertyName: 'clearColor',
+                value: newProps.clearColor,
+                type: 'BABYLON.Color4'
+            });
+        }
         // TODO: type: BABYLON.Plane property (not coded) BABYLON.Scene.clipPlane.
         // TODO: type: BABYLON.Plane property (not coded) BABYLON.Scene.clipPlane2.
         // TODO: type: BABYLON.Plane property (not coded) BABYLON.Scene.clipPlane3.

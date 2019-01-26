@@ -67,9 +67,17 @@ export const applyUpdateToInstance = (hostInstance: any, update: PropertyUpdate,
         target[update.propertyName] = update.value // ie: undefined/null?
       }
       break
-    case "BABYLON.Color3": // merge this switch with BABYLON.Vector3, Color4, etc.  The copyFrom BABYLON types.
+    case "BABYLON.Color3":
+    case "BABYLON.Color4": // merge this switch with BABYLON.Vector3, Color4, etc.  The copyFrom BABYLON types.
       if (target[update.propertyName]) {
-        ;(target[update.propertyName] as BABYLON.Color3).copyFrom(update.value)
+        switch (update.type) {
+          case "BABYLON.Color3":
+            ;(target[update.propertyName] as BABYLON.Color3).copyFrom(update.value)
+            break
+          case "BABYLON.Color4":
+            ;(target[update.propertyName] as BABYLON.Color4).copyFrom(update.value)
+            break
+        }
       } else if (update.value) {
         target[update.propertyName] = update.value.clone()
       } else {
