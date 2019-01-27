@@ -2,25 +2,7 @@ import { PropsHandler, PropertyUpdate, HasPropsHandlers } from "./PropsHandler";
 import { CreatedInstanceMetadata } from "./CreatedInstance";
 import BABYLON from "babylonjs";
 import GUI from "babylonjs-gui";
-
-export class FiberNodeProps {
-    addToSceneRootNodes?: any;
-    animationPropertiesOverride?: BABYLON.AnimationPropertiesOverride;
-    animations?: BABYLON.Animation[];
-    doNotSerialize?: boolean;
-    id?: string;
-    metadata?: any;
-    name?: string;
-    onDispose?: () => void;
-    onDisposeObservable?: BABYLON.Observable<BABYLON.Node>;
-    onReady?: (node: BABYLON.Node) => void;
-    parent?: BABYLON.Node;
-    removeFromSceneRootNodes?: any;
-    reservedDataStore?: any;
-    state?: string;
-    uniqueId?: number;
-    setEnabled?: any;
-}
+import { FiberNodeProps, FiberTransformNodeProps, FiberAbstractMeshProps, FiberMeshProps, FiberCameraProps, FiberTargetCameraProps, FiberArcRotateCameraProps, FiberVRDeviceOrientationArcRotateCameraProps, FiberAnaglyphArcRotateCameraProps, FiberStereoscopicArcRotateCameraProps, FiberFlyCameraProps, FiberFollowCameraProps, FiberArcFollowCameraProps, FiberFreeCameraProps, FiberDeviceOrientationCameraProps, FiberVRDeviceOrientationFreeCameraProps, FiberVRDeviceOrientationGamepadCameraProps, FiberTouchCameraProps, FiberUniversalCameraProps, FiberGamepadCameraProps, FiberAnaglyphGamepadCameraProps, FiberStereoscopicGamepadCameraProps, FiberAnaglyphUniversalCameraProps, FiberStereoscopicUniversalCameraProps, FiberVirtualJoysticksCameraProps, FiberWebVRFreeCameraProps, FiberAnaglyphFreeCameraProps, FiberStereoscopicFreeCameraProps, FiberWebXRCameraProps, FiberMaterialProps, FiberMultiMaterialProps, FiberPushMaterialProps, FiberStandardMaterialProps, FiberBackgroundMaterialProps, FiberPBRBaseMaterialProps, FiberPBRBaseSimpleMaterialProps, FiberPBRMetallicRoughnessMaterialProps, FiberPBRSpecularGlossinessMaterialProps, FiberPBRMaterialProps, FiberShaderMaterialProps, FiberLightProps, FiberHemisphericLightProps, FiberShadowLightProps, FiberDirectionalLightProps, FiberPointLightProps, FiberSpotLightProps, FiberControlProps, FiberCheckboxProps, FiberColorPickerProps, FiberContainerProps, FiberEllipseProps, FiberGridProps, FiberStackPanelProps, FiberVirtualKeyboardProps, FiberRectangleProps, FiberButtonProps, FiberSelectionPanelProps, FiberScrollViewerProps, FiberImageProps, FiberInputTextProps, FiberInputPasswordProps, FiberLineProps, FiberMultiLineProps, FiberRadioButtonProps, FiberTextBlockProps, FiberDisplayGridProps, FiberBaseSliderProps, FiberSliderProps, FiberImageBasedSliderProps, FiberControl3DProps, FiberAbstractButton3DProps, FiberButton3DProps, FiberHolographicButtonProps, FiberMeshButton3DProps, FiberContainer3DProps, FiberStackPanel3DProps, FiberVolumeBasedPanelProps, FiberCylinderPanelProps, FiberPlanePanelProps, FiberScatterPanelProps, FiberSpherePanelProps, FiberBaseTextureProps, FiberColorGradingTextureProps, FiberCubeTextureProps, FiberRawCubeTextureProps, FiberHDRCubeTextureProps, FiberTextureProps, FiberDynamicTextureProps, FiberRawTextureProps, FiberRawTexture3DProps, FiberRenderTargetTextureProps, FiberMirrorTextureProps, FiberMultiRenderTargetProps, FiberRefractionTextureProps, FiberVideoTextureProps, FiberProceduralTextureProps, FiberCustomProceduralTextureProps, FiberNoiseProceduralTextureProps, FiberAdvancedDynamicTextureProps, FiberGUI3DManagerProps, FiberShadowGeneratorProps, FiberEnvironmentHelperProps, FiberVRExperienceHelperProps, FiberSceneProps } from "./generatedProps";
 
 export class FiberNodePropsHandler implements PropsHandler<BABYLON.Node, FiberNodeProps> {
     getPropertyUpdates(hostInstance: BABYLON.Node, oldProps: FiberNodeProps, newProps: FiberNodeProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
@@ -157,25 +139,6 @@ export class FiberNode implements HasPropsHandlers<BABYLON.Node, FiberNodeProps>
         "className": "FiberNode",
         "isMesh": false
     };
-}
-
-export class FiberTransformNodeProps extends FiberNodeProps {
-    billboardMode?: number;
-    ignoreNonUniformScaling?: boolean;
-    infiniteDistance?: boolean;
-    onAfterWorldMatrixUpdateObservable?: BABYLON.Observable<BABYLON.TransformNode>;
-    position?: BABYLON.Vector3;
-    rotation?: BABYLON.Vector3;
-    rotationQuaternion?: BABYLON.Quaternion;
-    scaling?: BABYLON.Vector3;
-    scalingDeterminant?: number;
-    setAbsolutePosition?: any;
-    setDirection?: any;
-    setParent?: any;
-    setPivotMatrix?: any;
-    setPivotPoint?: any;
-    setPositionWithLocalVector?: any;
-    setPreTransformMatrix?: any;
 }
 
 export class FiberTransformNodePropsHandler implements PropsHandler<BABYLON.TransformNode, FiberTransformNodeProps> {
@@ -356,59 +319,6 @@ export class FiberTransformNode implements HasPropsHandlers<BABYLON.Node, FiberN
         "className": "FiberTransformNode",
         "isMesh": false
     };
-}
-
-export class FiberAbstractMeshProps extends FiberTransformNodeProps {
-    actionManager?: BABYLON.ActionManager;
-    alphaIndex?: number;
-    alwaysSelectAsActiveMesh?: boolean;
-    applyFog?: boolean;
-    checkCollisions?: boolean;
-    collisionGroup?: number;
-    collisionMask?: number;
-    computeBonesUsingShaders?: boolean;
-    cullingStrategy?: number;
-    definedFacingForward?: boolean;
-    edgesColor?: BABYLON.Color4;
-    edgesWidth?: number;
-    ellipsoid?: BABYLON.Vector3;
-    ellipsoidOffset?: BABYLON.Vector3;
-    enablePointerMoveEvents?: boolean;
-    facetDepthSortFrom?: BABYLON.Vector3;
-    hasVertexAlpha?: boolean;
-    isBlocker?: boolean;
-    isPickable?: boolean;
-    isVisible?: boolean;
-    layerMask?: number;
-    material?: BABYLON.Material;
-    mustDepthSortFacets?: boolean;
-    numBoneInfluencers?: number;
-    onCollide?: () => void;
-    onCollideObservable?: BABYLON.Observable<BABYLON.AbstractMesh>;
-    onCollisionPositionChange?: () => void;
-    onCollisionPositionChangeObservable?: BABYLON.Observable<BABYLON.Vector3>;
-    onMaterialChangedObservable?: BABYLON.Observable<BABYLON.AbstractMesh>;
-    onRebuildObservable?: BABYLON.Observable<BABYLON.AbstractMesh>;
-    outlineColor?: BABYLON.Color3;
-    outlineWidth?: number;
-    overlayAlpha?: number;
-    overlayColor?: BABYLON.Color3;
-    partitioningBBoxRatio?: number;
-    partitioningSubdivisions?: number;
-    receiveShadows?: boolean;
-    renderingGroupId?: number;
-    scaling?: BABYLON.Vector3;
-    showSubMeshesBoundingBox?: boolean;
-    skeleton?: BABYLON.Skeleton;
-    subMeshes?: BABYLON.SubMesh[];
-    useOctreeForCollisions?: boolean;
-    useOctreeForPicking?: boolean;
-    useOctreeForRenderingSelection?: boolean;
-    useVertexColors?: boolean;
-    visibility?: number;
-    setBoundingInfo?: any;
-    setIndices?: any;
-    setVerticesData?: any;
 }
 
 export class FiberAbstractMeshPropsHandler implements PropsHandler<BABYLON.AbstractMesh, FiberAbstractMeshProps> {
@@ -838,25 +748,6 @@ export class FiberAbstractMesh implements HasPropsHandlers<BABYLON.TransformNode
     };
 }
 
-export class FiberMeshProps extends FiberAbstractMeshProps {
-    delayLoadingFile?: string;
-    delayLoadState?: number;
-    instances?: BABYLON.InstancedMesh[];
-    isUnIndexed?: boolean;
-    meshMap?: any;
-    morphTargetManager?: BABYLON.MorphTargetManager;
-    normalizeSkinFourWeights?: any;
-    normalizeSkinWeightsAndExtra?: any;
-    onBeforeDraw?: () => void;
-    onLODLevelSelection?: (distance: number, mesh: BABYLON.Mesh, selectedLevel: BABYLON.Mesh) => void;
-    overrideMaterialSideOrientation?: number;
-    overridenInstanceCount?: number;
-    setIndices?: any;
-    setMaterialByID?: any;
-    setVerticesBuffer?: any;
-    setVerticesData?: any;
-}
-
 export class FiberMeshPropsHandler implements PropsHandler<BABYLON.Mesh, FiberMeshProps> {
     getPropertyUpdates(hostInstance: BABYLON.Mesh, oldProps: FiberMeshProps, newProps: FiberMeshProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
@@ -1024,36 +915,6 @@ export class FiberMesh implements HasPropsHandlers<BABYLON.AbstractMesh, FiberAb
         "className": "FiberMesh",
         "isMesh": true
     };
-}
-
-export class FiberCameraProps extends FiberNodeProps {
-    cameraRigMode?: number;
-    customRenderTargets?: BABYLON.RenderTargetTexture[];
-    fov?: number;
-    fovMode?: number;
-    inertia?: number;
-    inputs?: BABYLON.CameraInputsManager<BABYLON.Camera>;
-    interaxialDistance?: number;
-    isIntermediate?: boolean;
-    isStereoscopicSideBySide?: boolean;
-    layerMask?: number;
-    maxZ?: number;
-    minZ?: number;
-    mode?: number;
-    onAfterCheckInputsObservable?: BABYLON.Observable<BABYLON.Camera>;
-    onProjectionMatrixChangedObservable?: BABYLON.Observable<BABYLON.Camera>;
-    onRestoreStateObservable?: BABYLON.Observable<BABYLON.Camera>;
-    onViewMatrixChangedObservable?: BABYLON.Observable<BABYLON.Camera>;
-    orthoBottom?: number;
-    orthoLeft?: number;
-    orthoRight?: number;
-    orthoTop?: number;
-    outputRenderTarget?: BABYLON.RenderTargetTexture;
-    position?: BABYLON.Vector3;
-    upVector?: BABYLON.Vector3;
-    viewport?: BABYLON.Viewport;
-    setCameraRigMode?: any;
-    setCameraRigParameter?: any;
 }
 
 export class FiberCameraPropsHandler implements PropsHandler<BABYLON.Camera, FiberCameraProps> {
@@ -1309,18 +1170,6 @@ export class FiberCamera implements HasPropsHandlers<BABYLON.Camera, FiberCamera
     };
 }
 
-export class FiberTargetCameraProps extends FiberCameraProps {
-    cameraDirection?: BABYLON.Vector3;
-    cameraRotation?: BABYLON.Vector2;
-    lockedTarget?: any;
-    noRotationConstraint?: boolean;
-    rotation?: BABYLON.Vector3;
-    rotationQuaternion?: BABYLON.Quaternion;
-    speed?: number;
-    updateUpVectorFromRotation?: boolean;
-    setTarget?: any;
-}
-
 export class FiberTargetCameraPropsHandler implements PropsHandler<BABYLON.TargetCamera, FiberTargetCameraProps> {
     getPropertyUpdates(hostInstance: BABYLON.TargetCamera, oldProps: FiberTargetCameraProps, newProps: FiberTargetCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
@@ -1437,54 +1286,6 @@ export class FiberTargetCamera implements HasPropsHandlers<BABYLON.Camera, Fiber
         "isCamera": true,
         "className": "FiberTargetCamera"
     };
-}
-
-export class FiberArcRotateCameraProps extends FiberTargetCameraProps {
-    allowUpsideDown?: boolean;
-    alpha?: number;
-    angularSensibilityX?: number;
-    angularSensibilityY?: number;
-    beta?: number;
-    checkCollisions?: boolean;
-    collisionRadius?: BABYLON.Vector3;
-    inertialAlphaOffset?: number;
-    inertialBetaOffset?: number;
-    inertialPanningX?: number;
-    inertialPanningY?: number;
-    inertialRadiusOffset?: number;
-    inputs?: BABYLON.ArcRotateCameraInputsManager;
-    keysDown?: number[];
-    keysLeft?: number[];
-    keysRight?: number[];
-    keysUp?: number[];
-    lowerAlphaLimit?: number;
-    lowerBetaLimit?: number;
-    lowerRadiusLimit?: number;
-    onCollide?: (collidedMesh: BABYLON.AbstractMesh) => void;
-    onMeshTargetChangedObservable?: BABYLON.Observable<BABYLON.AbstractMesh>;
-    panningAxis?: BABYLON.Vector3;
-    panningDistanceLimit?: number;
-    panningInertia?: number;
-    panningOriginTarget?: BABYLON.Vector3;
-    panningSensibility?: number;
-    pinchDeltaPercentage?: number;
-    pinchPrecision?: number;
-    pinchToPanMaxDistance?: number;
-    radius?: number;
-    target?: BABYLON.Vector3;
-    targetScreenOffset?: BABYLON.Vector2;
-    upperAlphaLimit?: number;
-    upperBetaLimit?: number;
-    upperRadiusLimit?: number;
-    useAutoRotationBehavior?: boolean;
-    useBouncingBehavior?: boolean;
-    useFramingBehavior?: boolean;
-    useInputToRestoreState?: boolean;
-    wheelDeltaPercentage?: number;
-    wheelPrecision?: number;
-    zoomOnFactor?: number;
-    setPosition?: any;
-    setTarget?: any;
 }
 
 export class FiberArcRotateCameraPropsHandler implements PropsHandler<BABYLON.ArcRotateCamera, FiberArcRotateCameraProps> {
@@ -1890,9 +1691,6 @@ export class FiberArcRotateCamera implements HasPropsHandlers<BABYLON.Camera, Fi
     };
 }
 
-export class FiberVRDeviceOrientationArcRotateCameraProps extends FiberArcRotateCameraProps {
-}
-
 export class FiberVRDeviceOrientationArcRotateCameraPropsHandler implements PropsHandler<BABYLON.VRDeviceOrientationArcRotateCamera, FiberVRDeviceOrientationArcRotateCameraProps> {
     getPropertyUpdates(hostInstance: BABYLON.VRDeviceOrientationArcRotateCamera, oldProps: FiberVRDeviceOrientationArcRotateCameraProps, newProps: FiberVRDeviceOrientationArcRotateCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
@@ -1981,9 +1779,6 @@ export class FiberVRDeviceOrientationArcRotateCamera implements HasPropsHandlers
     };
 }
 
-export class FiberAnaglyphArcRotateCameraProps extends FiberArcRotateCameraProps {
-}
-
 export class FiberAnaglyphArcRotateCameraPropsHandler implements PropsHandler<BABYLON.AnaglyphArcRotateCamera, FiberAnaglyphArcRotateCameraProps> {
     getPropertyUpdates(hostInstance: BABYLON.AnaglyphArcRotateCamera, oldProps: FiberAnaglyphArcRotateCameraProps, newProps: FiberAnaglyphArcRotateCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
@@ -2065,9 +1860,6 @@ export class FiberAnaglyphArcRotateCamera implements HasPropsHandlers<BABYLON.Ca
         "isCamera": true,
         "className": "FiberAnaglyphArcRotateCamera"
     };
-}
-
-export class FiberStereoscopicArcRotateCameraProps extends FiberArcRotateCameraProps {
 }
 
 export class FiberStereoscopicArcRotateCameraPropsHandler implements PropsHandler<BABYLON.StereoscopicArcRotateCamera, FiberStereoscopicArcRotateCameraProps> {
@@ -2156,29 +1948,6 @@ export class FiberStereoscopicArcRotateCamera implements HasPropsHandlers<BABYLO
         "isCamera": true,
         "className": "FiberStereoscopicArcRotateCamera"
     };
-}
-
-export class FiberFlyCameraProps extends FiberTargetCameraProps {
-    angularSensibility?: number;
-    applyGravity?: boolean;
-    bankedTurn?: boolean;
-    bankedTurnLimit?: number;
-    bankedTurnMultiplier?: number;
-    cameraDirection?: BABYLON.Vector3;
-    checkCollisions?: boolean;
-    collisionMask?: number;
-    ellipsoid?: BABYLON.Vector3;
-    ellipsoidOffset?: BABYLON.Vector3;
-    inputs?: BABYLON.FlyCameraInputsManager;
-    keysBackward?: number[];
-    keysDown?: number[];
-    keysForward?: number[];
-    keysLeft?: number[];
-    keysRight?: number[];
-    keysUp?: number[];
-    onCollide?: (collidedMesh: BABYLON.AbstractMesh) => void;
-    rollCorrect?: number;
-    rotationQuaternion?: BABYLON.Quaternion;
 }
 
 export class FiberFlyCameraPropsHandler implements PropsHandler<BABYLON.FlyCamera, FiberFlyCameraProps> {
@@ -2353,15 +2122,6 @@ export class FiberFlyCamera implements HasPropsHandlers<BABYLON.Camera, FiberCam
     };
 }
 
-export class FiberFollowCameraProps extends FiberTargetCameraProps {
-    cameraAcceleration?: number;
-    heightOffset?: number;
-    lockedTarget?: BABYLON.AbstractMesh;
-    maxCameraSpeed?: number;
-    radius?: number;
-    rotationOffset?: number;
-}
-
 export class FiberFollowCameraPropsHandler implements PropsHandler<BABYLON.FollowCamera, FiberFollowCameraProps> {
     getPropertyUpdates(hostInstance: BABYLON.FollowCamera, oldProps: FiberFollowCameraProps, newProps: FiberFollowCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
@@ -2471,13 +2231,6 @@ export class FiberFollowCamera implements HasPropsHandlers<BABYLON.Camera, Fiber
     };
 }
 
-export class FiberArcFollowCameraProps extends FiberTargetCameraProps {
-    alpha?: number;
-    beta?: number;
-    radius?: number;
-    target?: BABYLON.AbstractMesh;
-}
-
 export class FiberArcFollowCameraPropsHandler implements PropsHandler<BABYLON.ArcFollowCamera, FiberArcFollowCameraProps> {
     getPropertyUpdates(hostInstance: BABYLON.ArcFollowCamera, oldProps: FiberArcFollowCameraProps, newProps: FiberArcFollowCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
@@ -2579,21 +2332,6 @@ export class FiberArcFollowCamera implements HasPropsHandlers<BABYLON.Camera, Fi
         "isCamera": true,
         "className": "FiberArcFollowCamera"
     };
-}
-
-export class FiberFreeCameraProps extends FiberTargetCameraProps {
-    angularSensibility?: number;
-    applyGravity?: boolean;
-    checkCollisions?: boolean;
-    collisionMask?: number;
-    ellipsoid?: BABYLON.Vector3;
-    ellipsoidOffset?: BABYLON.Vector3;
-    inputs?: BABYLON.FreeCameraInputsManager;
-    keysDown?: number[];
-    keysLeft?: number[];
-    keysRight?: number[];
-    keysUp?: number[];
-    onCollide?: (collidedMesh: BABYLON.AbstractMesh) => void;
 }
 
 export class FiberFreeCameraPropsHandler implements PropsHandler<BABYLON.FreeCamera, FiberFreeCameraProps> {
@@ -2725,9 +2463,6 @@ export class FiberFreeCamera implements HasPropsHandlers<BABYLON.Camera, FiberCa
     };
 }
 
-export class FiberDeviceOrientationCameraProps extends FiberFreeCameraProps {
-}
-
 export class FiberDeviceOrientationCameraPropsHandler implements PropsHandler<BABYLON.DeviceOrientationCamera, FiberDeviceOrientationCameraProps> {
     getPropertyUpdates(hostInstance: BABYLON.DeviceOrientationCamera, oldProps: FiberDeviceOrientationCameraProps, newProps: FiberDeviceOrientationCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
@@ -2790,9 +2525,6 @@ export class FiberDeviceOrientationCamera implements HasPropsHandlers<BABYLON.Ca
         "isCamera": true,
         "className": "FiberDeviceOrientationCamera"
     };
-}
-
-export class FiberVRDeviceOrientationFreeCameraProps extends FiberDeviceOrientationCameraProps {
 }
 
 export class FiberVRDeviceOrientationFreeCameraPropsHandler implements PropsHandler<BABYLON.VRDeviceOrientationFreeCamera, FiberVRDeviceOrientationFreeCameraProps> {
@@ -2869,9 +2601,6 @@ export class FiberVRDeviceOrientationFreeCamera implements HasPropsHandlers<BABY
     };
 }
 
-export class FiberVRDeviceOrientationGamepadCameraProps extends FiberVRDeviceOrientationFreeCameraProps {
-}
-
 export class FiberVRDeviceOrientationGamepadCameraPropsHandler implements PropsHandler<BABYLON.VRDeviceOrientationGamepadCamera, FiberVRDeviceOrientationGamepadCameraProps> {
     getPropertyUpdates(hostInstance: BABYLON.VRDeviceOrientationGamepadCamera, oldProps: FiberVRDeviceOrientationGamepadCameraProps, newProps: FiberVRDeviceOrientationGamepadCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
@@ -2945,11 +2674,6 @@ export class FiberVRDeviceOrientationGamepadCamera implements HasPropsHandlers<B
         "isCamera": true,
         "className": "FiberVRDeviceOrientationGamepadCamera"
     };
-}
-
-export class FiberTouchCameraProps extends FiberFreeCameraProps {
-    touchAngularSensibility?: number;
-    touchMoveSensibility?: number;
 }
 
 export class FiberTouchCameraPropsHandler implements PropsHandler<BABYLON.TouchCamera, FiberTouchCameraProps> {
@@ -3030,11 +2754,6 @@ export class FiberTouchCamera implements HasPropsHandlers<BABYLON.Camera, FiberC
         "isCamera": true,
         "className": "FiberTouchCamera"
     };
-}
-
-export class FiberUniversalCameraProps extends FiberTouchCameraProps {
-    gamepadAngularSensibility?: number;
-    gamepadMoveSensibility?: number;
 }
 
 export class FiberUniversalCameraPropsHandler implements PropsHandler<BABYLON.UniversalCamera, FiberUniversalCameraProps> {
@@ -3118,9 +2837,6 @@ export class FiberUniversalCamera implements HasPropsHandlers<BABYLON.Camera, Fi
     };
 }
 
-export class FiberGamepadCameraProps extends FiberUniversalCameraProps {
-}
-
 export class FiberGamepadCameraPropsHandler implements PropsHandler<BABYLON.GamepadCamera, FiberGamepadCameraProps> {
     getPropertyUpdates(hostInstance: BABYLON.GamepadCamera, oldProps: FiberGamepadCameraProps, newProps: FiberGamepadCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
@@ -3185,9 +2901,6 @@ export class FiberGamepadCamera implements HasPropsHandlers<BABYLON.Camera, Fibe
         "isCamera": true,
         "className": "FiberGamepadCamera"
     };
-}
-
-export class FiberAnaglyphGamepadCameraProps extends FiberGamepadCameraProps {
 }
 
 export class FiberAnaglyphGamepadCameraPropsHandler implements PropsHandler<BABYLON.AnaglyphGamepadCamera, FiberAnaglyphGamepadCameraProps> {
@@ -3259,9 +2972,6 @@ export class FiberAnaglyphGamepadCamera implements HasPropsHandlers<BABYLON.Came
         "isCamera": true,
         "className": "FiberAnaglyphGamepadCamera"
     };
-}
-
-export class FiberStereoscopicGamepadCameraProps extends FiberGamepadCameraProps {
 }
 
 export class FiberStereoscopicGamepadCameraPropsHandler implements PropsHandler<BABYLON.StereoscopicGamepadCamera, FiberStereoscopicGamepadCameraProps> {
@@ -3340,9 +3050,6 @@ export class FiberStereoscopicGamepadCamera implements HasPropsHandlers<BABYLON.
     };
 }
 
-export class FiberAnaglyphUniversalCameraProps extends FiberUniversalCameraProps {
-}
-
 export class FiberAnaglyphUniversalCameraPropsHandler implements PropsHandler<BABYLON.AnaglyphUniversalCamera, FiberAnaglyphUniversalCameraProps> {
     getPropertyUpdates(hostInstance: BABYLON.AnaglyphUniversalCamera, oldProps: FiberAnaglyphUniversalCameraProps, newProps: FiberAnaglyphUniversalCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
@@ -3411,9 +3118,6 @@ export class FiberAnaglyphUniversalCamera implements HasPropsHandlers<BABYLON.Ca
         "isCamera": true,
         "className": "FiberAnaglyphUniversalCamera"
     };
-}
-
-export class FiberStereoscopicUniversalCameraProps extends FiberUniversalCameraProps {
 }
 
 export class FiberStereoscopicUniversalCameraPropsHandler implements PropsHandler<BABYLON.StereoscopicUniversalCamera, FiberStereoscopicUniversalCameraProps> {
@@ -3491,9 +3195,6 @@ export class FiberStereoscopicUniversalCamera implements HasPropsHandlers<BABYLO
     };
 }
 
-export class FiberVirtualJoysticksCameraProps extends FiberFreeCameraProps {
-}
-
 export class FiberVirtualJoysticksCameraPropsHandler implements PropsHandler<BABYLON.VirtualJoysticksCamera, FiberVirtualJoysticksCameraProps> {
     getPropertyUpdates(hostInstance: BABYLON.VirtualJoysticksCamera, oldProps: FiberVirtualJoysticksCameraProps, newProps: FiberVirtualJoysticksCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
@@ -3557,20 +3258,6 @@ export class FiberVirtualJoysticksCamera implements HasPropsHandlers<BABYLON.Cam
         "isCamera": true,
         "className": "FiberVirtualJoysticksCamera"
     };
-}
-
-export class FiberWebVRFreeCameraProps extends FiberFreeCameraProps {
-    controllers?: BABYLON.WebVRController[];
-    devicePosition?: BABYLON.Vector3;
-    deviceRotationQuaternion?: BABYLON.Quaternion;
-    deviceScaleFactor?: number;
-    onControllerMeshLoadedObservable?: BABYLON.Observable<BABYLON.WebVRController>;
-    onControllersAttachedObservable?: BABYLON.Observable<BABYLON.WebVRController[]>;
-    onPoseUpdatedFromDeviceObservable?: BABYLON.Observable<any>;
-    rawPose?: BABYLON.DevicePose;
-    rigParenting?: boolean;
-    updateCacheCalled?: any;
-    webVROptions?: any;
 }
 
 export class FiberWebVRFreeCameraPropsHandler implements PropsHandler<BABYLON.WebVRFreeCamera, FiberWebVRFreeCameraProps> {
@@ -3695,9 +3382,6 @@ export class FiberWebVRFreeCamera implements HasPropsHandlers<BABYLON.Camera, Fi
     };
 }
 
-export class FiberAnaglyphFreeCameraProps extends FiberFreeCameraProps {
-}
-
 export class FiberAnaglyphFreeCameraPropsHandler implements PropsHandler<BABYLON.AnaglyphFreeCamera, FiberAnaglyphFreeCameraProps> {
     getPropertyUpdates(hostInstance: BABYLON.AnaglyphFreeCamera, oldProps: FiberAnaglyphFreeCameraProps, newProps: FiberAnaglyphFreeCameraProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
@@ -3764,9 +3448,6 @@ export class FiberAnaglyphFreeCamera implements HasPropsHandlers<BABYLON.Camera,
         "isCamera": true,
         "className": "FiberAnaglyphFreeCamera"
     };
-}
-
-export class FiberStereoscopicFreeCameraProps extends FiberFreeCameraProps {
 }
 
 export class FiberStereoscopicFreeCameraPropsHandler implements PropsHandler<BABYLON.StereoscopicFreeCamera, FiberStereoscopicFreeCameraProps> {
@@ -3840,9 +3521,6 @@ export class FiberStereoscopicFreeCamera implements HasPropsHandlers<BABYLON.Cam
         "isCamera": true,
         "className": "FiberStereoscopicFreeCamera"
     };
-}
-
-export class FiberWebXRCameraProps extends FiberFreeCameraProps {
 }
 
 export class FiberWebXRCameraPropsHandler implements PropsHandler<BABYLON.WebXRCamera, FiberWebXRCameraProps> {
@@ -6449,41 +6127,6 @@ export class FiberDecal implements HasPropsHandlers<BABYLON.Mesh, FiberMeshProps
     };
 }
 
-export class FiberMaterialProps {
-    alpha?: number;
-    alphaMode?: number;
-    animations?: BABYLON.Animation[];
-    backFaceCulling?: boolean;
-    checkReadyOnEveryCall?: boolean;
-    checkReadyOnlyOnce?: boolean;
-    disableDepthWrite?: boolean;
-    doNotSerialize?: boolean;
-    fillMode?: number;
-    fogEnabled?: boolean;
-    forceDepthWrite?: boolean;
-    getRenderTargetTextures?: () => BABYLON.SmartArray<BABYLON.RenderTargetTexture>;
-    id?: string;
-    meshMap?: { [id: string]: BABYLON.AbstractMesh; };
-    metadata?: any;
-    name?: string;
-    needDepthPrePass?: boolean;
-    onBind?: (Mesh: BABYLON.AbstractMesh) => void;
-    onCompiled?: (effect: BABYLON.Effect) => void;
-    onDispose?: () => void;
-    onDisposeObservable?: BABYLON.Observable<BABYLON.Material>;
-    onError?: (effect: BABYLON.Effect, errors: string) => void;
-    pointsCloud?: boolean;
-    pointSize?: number;
-    releaseVertexArrayObject?: any;
-    reservedDataStore?: any;
-    separateCullingPass?: boolean;
-    sideOrientation?: number;
-    state?: string;
-    uniqueId?: number;
-    wireframe?: boolean;
-    zOffset?: number;
-}
-
 export class FiberMaterialPropsHandler implements PropsHandler<BABYLON.Material, FiberMaterialProps> {
     getPropertyUpdates(hostInstance: BABYLON.Material, oldProps: FiberMaterialProps, newProps: FiberMaterialProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
@@ -6756,10 +6399,6 @@ export class FiberMaterial implements HasPropsHandlers<BABYLON.Material, FiberMa
     };
 }
 
-export class FiberMultiMaterialProps extends FiberMaterialProps {
-    subMaterials?: BABYLON.Material[];
-}
-
 export class FiberMultiMaterialPropsHandler implements PropsHandler<BABYLON.MultiMaterial, FiberMultiMaterialProps> {
     getPropertyUpdates(hostInstance: BABYLON.MultiMaterial, oldProps: FiberMultiMaterialProps, newProps: FiberMultiMaterialProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
@@ -6814,10 +6453,6 @@ export class FiberMultiMaterial implements HasPropsHandlers<BABYLON.Material, Fi
         "isMaterial": true,
         "className": "FiberMultiMaterial"
     };
-}
-
-export class FiberPushMaterialProps extends FiberMaterialProps {
-    allowShaderHotSwapping?: boolean;
 }
 
 export class FiberPushMaterialPropsHandler implements PropsHandler<BABYLON.PushMaterial, FiberPushMaterialProps> {
@@ -6880,59 +6515,6 @@ export class FiberPushMaterial implements HasPropsHandlers<BABYLON.Material, Fib
         "isMaterial": true,
         "className": "FiberPushMaterial"
     };
-}
-
-export class FiberStandardMaterialProps extends FiberPushMaterialProps {
-    alphaCutOff?: number;
-    ambientColor?: BABYLON.Color3;
-    ambientTexture?: BABYLON.BaseTexture;
-    bumpTexture?: BABYLON.BaseTexture;
-    cameraColorCurves?: BABYLON.ColorCurves;
-    cameraColorCurvesEnabled?: boolean;
-    cameraColorGradingEnabled?: boolean;
-    cameraColorGradingTexture?: BABYLON.BaseTexture;
-    cameraContrast?: number;
-    cameraExposure?: number;
-    cameraToneMappingEnabled?: boolean;
-    customShaderNameResolve?: (shaderName: string, uniforms: string[], uniformBuffers: string[], samplers: string[], defines: BABYLON.StandardMaterialDefines) => string;
-    diffuseColor?: BABYLON.Color3;
-    diffuseFresnelParameters?: BABYLON.FresnelParameters;
-    diffuseTexture?: BABYLON.BaseTexture;
-    disableLighting?: boolean;
-    emissiveColor?: BABYLON.Color3;
-    emissiveFresnelParameters?: BABYLON.FresnelParameters;
-    emissiveTexture?: BABYLON.BaseTexture;
-    imageProcessingConfiguration?: BABYLON.ImageProcessingConfiguration;
-    indexOfRefraction?: number;
-    invertNormalMapX?: boolean;
-    invertNormalMapY?: boolean;
-    invertRefractionY?: boolean;
-    lightmapTexture?: BABYLON.BaseTexture;
-    linkEmissiveWithDiffuse?: boolean;
-    maxSimultaneousLights?: number;
-    opacityFresnelParameters?: BABYLON.FresnelParameters;
-    opacityTexture?: BABYLON.BaseTexture;
-    parallaxScaleBias?: number;
-    reflectionFresnelParameters?: BABYLON.FresnelParameters;
-    reflectionTexture?: BABYLON.BaseTexture;
-    refractionFresnelParameters?: BABYLON.FresnelParameters;
-    refractionTexture?: BABYLON.BaseTexture;
-    roughness?: number;
-    specularColor?: BABYLON.Color3;
-    specularPower?: number;
-    specularTexture?: BABYLON.BaseTexture;
-    twoSidedLighting?: boolean;
-    useAlphaFromDiffuseTexture?: boolean;
-    useEmissiveAsIllumination?: boolean;
-    useGlossinessFromSpecularMapAlpha?: boolean;
-    useLightmapAsShadowmap?: boolean;
-    useLogarithmicDepth?: boolean;
-    useObjectSpaceNormalMap?: boolean;
-    useParallax?: boolean;
-    useParallaxOcclusion?: boolean;
-    useReflectionFresnelFromSpecular?: boolean;
-    useReflectionOverAlpha?: boolean;
-    useSpecularOverAlpha?: boolean;
 }
 
 export class FiberStandardMaterialPropsHandler implements PropsHandler<BABYLON.StandardMaterial, FiberStandardMaterialProps> {
@@ -7265,39 +6847,6 @@ export class FiberStandardMaterial implements HasPropsHandlers<BABYLON.Material,
     };
 }
 
-export class FiberBackgroundMaterialProps extends FiberPushMaterialProps {
-    cameraColorCurves?: BABYLON.ColorCurves;
-    cameraColorCurvesEnabled?: boolean;
-    cameraColorGradingEnabled?: boolean;
-    cameraColorGradingTexture?: BABYLON.BaseTexture;
-    cameraContrast?: number;
-    cameraExposure?: number;
-    cameraToneMappingEnabled?: boolean;
-    diffuseTexture?: BABYLON.BaseTexture;
-    enableNoise?: boolean;
-    fovMultiplier?: number;
-    imageProcessingConfiguration?: BABYLON.ImageProcessingConfiguration;
-    maxSimultaneousLights?: number;
-    opacityFresnel?: boolean;
-    primaryColor?: BABYLON.Color3;
-    primaryColorHighlightLevel?: number;
-    primaryColorShadowLevel?: number;
-    reflectionAmount?: number;
-    reflectionBlur?: number;
-    reflectionFalloffDistance?: number;
-    reflectionFresnel?: boolean;
-    reflectionReflectance0?: number;
-    reflectionReflectance90?: number;
-    reflectionStandardFresnelWeight?: number;
-    reflectionTexture?: BABYLON.BaseTexture;
-    sceneCenter?: BABYLON.Vector3;
-    shadowLevel?: number;
-    shadowLights?: BABYLON.IShadowLight[];
-    switchToBGR?: boolean;
-    useEquirectangularFOV?: boolean;
-    useRGBColor?: boolean;
-}
-
 export class FiberBackgroundMaterialPropsHandler implements PropsHandler<BABYLON.BackgroundMaterial, FiberBackgroundMaterialProps> {
     getPropertyUpdates(hostInstance: BABYLON.BackgroundMaterial, oldProps: FiberBackgroundMaterialProps, newProps: FiberBackgroundMaterialProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
@@ -7551,11 +7100,6 @@ export class FiberBackgroundMaterial implements HasPropsHandlers<BABYLON.Materia
     };
 }
 
-export class FiberPBRBaseMaterialProps extends FiberPushMaterialProps {
-    transparencyMode?: number;
-    useLogarithmicDepth?: boolean;
-}
-
 export class FiberPBRBaseMaterialPropsHandler implements PropsHandler<BABYLON.PBRBaseMaterial, FiberPBRBaseMaterialProps> {
     getPropertyUpdates(hostInstance: BABYLON.PBRBaseMaterial, oldProps: FiberPBRBaseMaterialProps, newProps: FiberPBRBaseMaterialProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
@@ -7629,23 +7173,6 @@ export class FiberPBRBaseMaterial implements HasPropsHandlers<BABYLON.Material, 
         "isMaterial": true,
         "className": "FiberPBRBaseMaterial"
     };
-}
-
-export class FiberPBRBaseSimpleMaterialProps extends FiberPBRBaseMaterialProps {
-    alphaCutOff?: number;
-    disableLighting?: boolean;
-    doubleSided?: boolean;
-    emissiveColor?: BABYLON.Color3;
-    emissiveTexture?: BABYLON.BaseTexture;
-    environmentTexture?: BABYLON.BaseTexture;
-    invertNormalMapX?: boolean;
-    invertNormalMapY?: boolean;
-    lightmapTexture?: BABYLON.BaseTexture;
-    maxSimultaneousLights?: number;
-    normalTexture?: BABYLON.BaseTexture;
-    occlusionStrength?: number;
-    occlusionTexture?: BABYLON.BaseTexture;
-    useLightmapAsShadowmap?: boolean;
 }
 
 export class FiberPBRBaseSimpleMaterialPropsHandler implements PropsHandler<BABYLON.PBRBaseSimpleMaterial, FiberPBRBaseSimpleMaterialProps> {
@@ -7784,14 +7311,6 @@ export class FiberPBRBaseSimpleMaterial implements HasPropsHandlers<BABYLON.Mate
     };
 }
 
-export class FiberPBRMetallicRoughnessMaterialProps extends FiberPBRBaseSimpleMaterialProps {
-    baseColor?: BABYLON.Color3;
-    baseTexture?: BABYLON.BaseTexture;
-    metallic?: number;
-    metallicRoughnessTexture?: BABYLON.BaseTexture;
-    roughness?: number;
-}
-
 export class FiberPBRMetallicRoughnessMaterialPropsHandler implements PropsHandler<BABYLON.PBRMetallicRoughnessMaterial, FiberPBRMetallicRoughnessMaterialProps> {
     getPropertyUpdates(hostInstance: BABYLON.PBRMetallicRoughnessMaterial, oldProps: FiberPBRMetallicRoughnessMaterialProps, newProps: FiberPBRMetallicRoughnessMaterialProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
@@ -7878,14 +7397,6 @@ export class FiberPBRMetallicRoughnessMaterial implements HasPropsHandlers<BABYL
     };
 }
 
-export class FiberPBRSpecularGlossinessMaterialProps extends FiberPBRBaseSimpleMaterialProps {
-    diffuseColor?: BABYLON.Color3;
-    diffuseTexture?: BABYLON.BaseTexture;
-    glossiness?: number;
-    specularColor?: BABYLON.Color3;
-    specularGlossinessTexture?: BABYLON.BaseTexture;
-}
-
 export class FiberPBRSpecularGlossinessMaterialPropsHandler implements PropsHandler<BABYLON.PBRSpecularGlossinessMaterial, FiberPBRSpecularGlossinessMaterialProps> {
     getPropertyUpdates(hostInstance: BABYLON.PBRSpecularGlossinessMaterial, oldProps: FiberPBRSpecularGlossinessMaterialProps, newProps: FiberPBRSpecularGlossinessMaterialProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
@@ -7970,79 +7481,6 @@ export class FiberPBRSpecularGlossinessMaterial implements HasPropsHandlers<BABY
         "isMaterial": true,
         "className": "FiberPBRSpecularGlossinessMaterial"
     };
-}
-
-export class FiberPBRMaterialProps extends FiberPBRBaseMaterialProps {
-    albedoColor?: BABYLON.Color3;
-    albedoTexture?: BABYLON.BaseTexture;
-    alphaCutOff?: number;
-    ambientColor?: BABYLON.Color3;
-    ambientTexture?: BABYLON.BaseTexture;
-    ambientTextureImpactOnAnalyticalLights?: number;
-    ambientTextureStrength?: number;
-    bumpTexture?: BABYLON.BaseTexture;
-    cameraColorCurves?: BABYLON.ColorCurves;
-    cameraColorCurvesEnabled?: boolean;
-    cameraColorGradingEnabled?: boolean;
-    cameraColorGradingTexture?: BABYLON.BaseTexture;
-    cameraContrast?: number;
-    cameraExposure?: number;
-    cameraToneMappingEnabled?: boolean;
-    directIntensity?: number;
-    disableBumpMap?: boolean;
-    disableLighting?: boolean;
-    emissiveColor?: BABYLON.Color3;
-    emissiveIntensity?: number;
-    emissiveTexture?: BABYLON.BaseTexture;
-    enableSpecularAntiAliasing?: boolean;
-    environmentBRDFTexture?: BABYLON.BaseTexture;
-    environmentIntensity?: number;
-    forceAlphaTest?: boolean;
-    forceIrradianceInFragment?: boolean;
-    forceNormalForward?: boolean;
-    imageProcessingConfiguration?: BABYLON.ImageProcessingConfiguration;
-    indexOfRefraction?: number;
-    invertNormalMapX?: boolean;
-    invertNormalMapY?: boolean;
-    invertRefractionY?: boolean;
-    lightmapTexture?: BABYLON.BaseTexture;
-    linkRefractionWithTransparency?: boolean;
-    maxSimultaneousLights?: number;
-    metallic?: number;
-    metallicTexture?: BABYLON.BaseTexture;
-    microSurface?: number;
-    microSurfaceTexture?: BABYLON.BaseTexture;
-    opacityTexture?: BABYLON.BaseTexture;
-    parallaxScaleBias?: number;
-    reflectionColor?: BABYLON.Color3;
-    reflectionTexture?: BABYLON.BaseTexture;
-    reflectivityColor?: BABYLON.Color3;
-    reflectivityTexture?: BABYLON.BaseTexture;
-    refractionTexture?: BABYLON.BaseTexture;
-    roughness?: number;
-    specularIntensity?: number;
-    twoSidedLighting?: boolean;
-    unlit?: boolean;
-    useAlphaFresnel?: boolean;
-    useAlphaFromAlbedoTexture?: boolean;
-    useAmbientInGrayScale?: boolean;
-    useAmbientOcclusionFromMetallicTextureRed?: boolean;
-    useAutoMicroSurfaceFromReflectivityMap?: boolean;
-    useGLTFLightFalloff?: boolean;
-    useHorizonOcclusion?: boolean;
-    useLightmapAsShadowmap?: boolean;
-    useLinearAlphaFresnel?: boolean;
-    useMetallnessFromMetallicTextureBlue?: boolean;
-    useMicroSurfaceFromReflectivityMapAlpha?: boolean;
-    useObjectSpaceNormalMap?: boolean;
-    useParallax?: boolean;
-    useParallaxOcclusion?: boolean;
-    usePhysicalLightFalloff?: boolean;
-    useRadianceOcclusion?: boolean;
-    useRadianceOverAlpha?: boolean;
-    useRoughnessFromMetallicTextureAlpha?: boolean;
-    useRoughnessFromMetallicTextureGreen?: boolean;
-    useSpecularOverAlpha?: boolean;
 }
 
 export class FiberPBRMaterialPropsHandler implements PropsHandler<BABYLON.PBRMaterial, FiberPBRMaterialProps> {
@@ -8560,25 +7998,6 @@ export class FiberPBRMaterial implements HasPropsHandlers<BABYLON.Material, Fibe
     };
 }
 
-export class FiberShaderMaterialProps extends FiberMaterialProps {
-    setArray2?: any;
-    setArray3?: any;
-    setColor3?: any;
-    setColor3Array?: any;
-    setColor4?: any;
-    setFloat?: any;
-    setFloats?: any;
-    setInt?: any;
-    setMatrix?: any;
-    setMatrix2x2?: any;
-    setMatrix3x3?: any;
-    setTexture?: any;
-    setTextureArray?: any;
-    setVector2?: any;
-    setVector3?: any;
-    setVector4?: any;
-}
-
 export class FiberShaderMaterialPropsHandler implements PropsHandler<BABYLON.ShaderMaterial, FiberShaderMaterialProps> {
     getPropertyUpdates(hostInstance: BABYLON.ShaderMaterial, oldProps: FiberShaderMaterialProps, newProps: FiberShaderMaterialProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
@@ -8773,24 +8192,6 @@ export class FiberShaderMaterial implements HasPropsHandlers<BABYLON.Material, F
     };
 }
 
-export class FiberLightProps extends FiberNodeProps {
-    diffuse?: BABYLON.Color3;
-    excludedMeshes?: BABYLON.AbstractMesh[];
-    excludeWithLayerMask?: number;
-    falloffType?: number;
-    includedOnlyMeshes?: BABYLON.AbstractMesh[];
-    includeOnlyWithLayerMask?: number;
-    intensity?: number;
-    intensityMode?: number;
-    lightmapMode?: number;
-    radius?: number;
-    range?: number;
-    renderPriority?: number;
-    shadowEnabled?: boolean;
-    specular?: BABYLON.Color3;
-    setEnabled?: any;
-}
-
 export class FiberLightPropsHandler implements PropsHandler<BABYLON.Light, FiberLightProps> {
     getPropertyUpdates(hostInstance: BABYLON.Light, oldProps: FiberLightProps, newProps: FiberLightProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
@@ -8952,12 +8353,6 @@ export class FiberLight implements HasPropsHandlers<BABYLON.Light, FiberLightPro
     };
 }
 
-export class FiberHemisphericLightProps extends FiberLightProps {
-    direction?: BABYLON.Vector3;
-    groundColor?: BABYLON.Color3;
-    setDirectionToTarget?: any;
-}
-
 export class FiberHemisphericLightPropsHandler implements PropsHandler<BABYLON.HemisphericLight, FiberHemisphericLightProps> {
     getPropertyUpdates(hostInstance: BABYLON.HemisphericLight, oldProps: FiberHemisphericLightProps, newProps: FiberHemisphericLightProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
@@ -9040,18 +8435,6 @@ export class FiberHemisphericLight implements HasPropsHandlers<BABYLON.Light, Fi
     public static readonly Metadata: CreatedInstanceMetadata = {
         "className": "FiberHemisphericLight"
     };
-}
-
-export class FiberShadowLightProps extends FiberLightProps {
-    customProjectionMatrixBuilder?: (viewMatrix: BABYLON.Matrix, renderList: BABYLON.AbstractMesh[], result: BABYLON.Matrix) => void;
-    direction?: BABYLON.Vector3;
-    position?: BABYLON.Vector3;
-    shadowMaxZ?: number;
-    shadowMinZ?: number;
-    transformedDirection?: BABYLON.Vector3;
-    transformedPosition?: BABYLON.Vector3;
-    setDirectionToTarget?: any;
-    setShadowProjectionMatrix?: any;
 }
 
 export class FiberShadowLightPropsHandler implements PropsHandler<BABYLON.ShadowLight, FiberShadowLightProps> {
@@ -9164,12 +8547,6 @@ export class FiberShadowLight implements HasPropsHandlers<BABYLON.Light, FiberLi
     };
 }
 
-export class FiberDirectionalLightProps extends FiberShadowLightProps {
-    autoUpdateExtends?: boolean;
-    shadowFrustumSize?: number;
-    shadowOrthoScale?: number;
-}
-
 export class FiberDirectionalLightPropsHandler implements PropsHandler<BABYLON.DirectionalLight, FiberDirectionalLightProps> {
     getPropertyUpdates(hostInstance: BABYLON.DirectionalLight, oldProps: FiberDirectionalLightProps, newProps: FiberDirectionalLightProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
@@ -9258,11 +8635,6 @@ export class FiberDirectionalLight implements HasPropsHandlers<BABYLON.Light, Fi
     };
 }
 
-export class FiberPointLightProps extends FiberShadowLightProps {
-    direction?: BABYLON.Vector3;
-    shadowAngle?: number;
-}
-
 export class FiberPointLightPropsHandler implements PropsHandler<BABYLON.PointLight, FiberPointLightProps> {
     getPropertyUpdates(hostInstance: BABYLON.PointLight, oldProps: FiberPointLightProps, newProps: FiberPointLightProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
@@ -9341,17 +8713,6 @@ export class FiberPointLight implements HasPropsHandlers<BABYLON.Light, FiberLig
         "className": "FiberPointLight",
         "isShadowLight": true
     };
-}
-
-export class FiberSpotLightProps extends FiberShadowLightProps {
-    angle?: number;
-    exponent?: number;
-    innerAngle?: number;
-    projectionTexture?: BABYLON.BaseTexture;
-    projectionTextureLightFar?: number;
-    projectionTextureLightNear?: number;
-    projectionTextureUpDirection?: BABYLON.Vector3;
-    shadowAngleScale?: number;
 }
 
 export class FiberSpotLightPropsHandler implements PropsHandler<BABYLON.SpotLight, FiberSpotLightProps> {
@@ -9489,62 +8850,6 @@ export class FiberSpotLight implements HasPropsHandlers<BABYLON.Light, FiberLigh
         "className": "FiberSpotLight",
         "isShadowLight": true
     };
-}
-
-export class FiberControlProps {
-    alpha?: number;
-    clipChildren?: boolean;
-    color?: string;
-    disabledColor?: string;
-    fontFamily?: string;
-    fontOffset?: { ascent: number; height: number; descent: number; };
-    fontSize?: string | number;
-    fontStyle?: string;
-    fontWeight?: string;
-    height?: string | number;
-    horizontalAlignment?: number;
-    hoverCursor?: string;
-    isEnabled?: boolean;
-    isFocusInvisible?: boolean;
-    isHighlighted?: boolean;
-    isHitTestVisible?: boolean;
-    isPointerBlocker?: boolean;
-    isVisible?: boolean;
-    left?: string | number;
-    linkOffsetX?: string | number;
-    linkOffsetY?: string | number;
-    metadata?: any;
-    name?: string;
-    notRenderable?: boolean;
-    onAfterDrawObservable?: BABYLON.Observable<BABYLON.GUI.Control>;
-    onBeforeDrawObservable?: BABYLON.Observable<BABYLON.GUI.Control>;
-    onDirtyObservable?: BABYLON.Observable<BABYLON.GUI.Control>;
-    onPointerClickObservable?: BABYLON.Observable<BABYLON.GUI.Vector2WithInfo>;
-    onPointerDownObservable?: BABYLON.Observable<BABYLON.GUI.Vector2WithInfo>;
-    onPointerEnterObservable?: BABYLON.Observable<BABYLON.GUI.Control>;
-    onPointerMoveObservable?: BABYLON.Observable<BABYLON.Vector2>;
-    onPointerOutObservable?: BABYLON.Observable<BABYLON.GUI.Control>;
-    onPointerUpObservable?: BABYLON.Observable<BABYLON.GUI.Vector2WithInfo>;
-    paddingBottom?: string | number;
-    paddingLeft?: string | number;
-    paddingRight?: string | number;
-    paddingTop?: string | number;
-    parent?: BABYLON.GUI.Container;
-    rotation?: number;
-    scaleX?: number;
-    scaleY?: number;
-    shadowBlur?: number;
-    shadowColor?: string;
-    shadowOffsetX?: number;
-    shadowOffsetY?: number;
-    style?: BABYLON.GUI.Style;
-    top?: string | number;
-    transformCenterX?: number;
-    transformCenterY?: number;
-    uniqueId?: number;
-    verticalAlignment?: number;
-    width?: string | number;
-    zIndex?: number;
 }
 
 export class FiberControlPropsHandler implements PropsHandler<GUI.Control, FiberControlProps> {
@@ -9991,15 +9296,6 @@ export class FiberControl implements HasPropsHandlers<GUI.Control, FiberControlP
     };
 }
 
-export class FiberCheckboxProps extends FiberControlProps {
-    background?: string;
-    checkSizeRatio?: number;
-    isChecked?: boolean;
-    name?: string;
-    onIsCheckedChangedObservable?: BABYLON.Observable<boolean>;
-    thickness?: number;
-}
-
 export class FiberCheckboxPropsHandler implements PropsHandler<GUI.Checkbox, FiberCheckboxProps> {
     getPropertyUpdates(hostInstance: GUI.Checkbox, oldProps: FiberCheckboxProps, newProps: FiberCheckboxProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
@@ -10097,15 +9393,6 @@ export class FiberCheckbox implements HasPropsHandlers<GUI.Control, FiberControl
     };
 }
 
-export class FiberColorPickerProps extends FiberControlProps {
-    height?: string | number;
-    name?: string;
-    onValueChangedObservable?: BABYLON.Observable<BABYLON.Color3>;
-    size?: string | number;
-    value?: BABYLON.Color3;
-    width?: string | number;
-}
-
 export class FiberColorPickerPropsHandler implements PropsHandler<GUI.ColorPicker, FiberColorPickerProps> {
     getPropertyUpdates(hostInstance: GUI.ColorPicker, oldProps: FiberColorPickerProps, newProps: FiberColorPickerProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
@@ -10196,13 +9483,6 @@ export class FiberColorPicker implements HasPropsHandlers<GUI.Control, FiberCont
     };
 }
 
-export class FiberContainerProps extends FiberControlProps {
-    adaptHeightToChildren?: boolean;
-    adaptWidthToChildren?: boolean;
-    background?: string;
-    name?: string;
-}
-
 export class FiberContainerPropsHandler implements PropsHandler<GUI.Container, FiberContainerProps> {
     getPropertyUpdates(hostInstance: GUI.Container, oldProps: FiberContainerProps, newProps: FiberContainerProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
@@ -10284,11 +9564,6 @@ export class FiberContainer implements HasPropsHandlers<GUI.Control, FiberContro
     };
 }
 
-export class FiberEllipseProps extends FiberContainerProps {
-    name?: string;
-    thickness?: number;
-}
-
 export class FiberEllipsePropsHandler implements PropsHandler<GUI.Ellipse, FiberEllipseProps> {
     getPropertyUpdates(hostInstance: GUI.Ellipse, oldProps: FiberEllipseProps, newProps: FiberEllipseProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
@@ -10353,12 +9628,6 @@ export class FiberEllipse implements HasPropsHandlers<GUI.Control, FiberControlP
         "isGUI2DControl": true,
         "className": "FiberEllipse"
     };
-}
-
-export class FiberGridProps extends FiberContainerProps {
-    name?: string;
-    setColumnDefinition?: any;
-    setRowDefinition?: any;
 }
 
 export class FiberGridPropsHandler implements PropsHandler<GUI.Grid, FiberGridProps> {
@@ -10433,13 +9702,6 @@ export class FiberGrid implements HasPropsHandlers<GUI.Control, FiberControlProp
         "isGUI2DControl": true,
         "className": "FiberGrid"
     };
-}
-
-export class FiberStackPanelProps extends FiberContainerProps {
-    height?: string | number;
-    isVertical?: boolean;
-    name?: string;
-    width?: string | number;
 }
 
 export class FiberStackPanelPropsHandler implements PropsHandler<GUI.StackPanel, FiberStackPanelProps> {
@@ -10522,21 +9784,6 @@ export class FiberStackPanel implements HasPropsHandlers<GUI.Control, FiberContr
         "isGUI2DControl": true,
         "className": "FiberStackPanel"
     };
-}
-
-export class FiberVirtualKeyboardProps extends FiberStackPanelProps {
-    defaultButtonBackground?: string;
-    defaultButtonColor?: string;
-    defaultButtonHeight?: string;
-    defaultButtonPaddingBottom?: string;
-    defaultButtonPaddingLeft?: string;
-    defaultButtonPaddingRight?: string;
-    defaultButtonPaddingTop?: string;
-    defaultButtonWidth?: string;
-    onKeyPressObservable?: BABYLON.Observable<string>;
-    selectedShiftThickness?: number;
-    shiftButtonColor?: string;
-    shiftState?: number;
 }
 
 export class FiberVirtualKeyboardPropsHandler implements PropsHandler<GUI.VirtualKeyboard, FiberVirtualKeyboardProps> {
@@ -10680,12 +9927,6 @@ export class FiberVirtualKeyboard implements HasPropsHandlers<GUI.Control, Fiber
     };
 }
 
-export class FiberRectangleProps extends FiberContainerProps {
-    cornerRadius?: number;
-    name?: string;
-    thickness?: number;
-}
-
 export class FiberRectanglePropsHandler implements PropsHandler<GUI.Rectangle, FiberRectangleProps> {
     getPropertyUpdates(hostInstance: GUI.Rectangle, oldProps: FiberRectangleProps, newProps: FiberRectangleProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
@@ -10760,14 +10001,6 @@ export class FiberRectangle implements HasPropsHandlers<GUI.Control, FiberContro
     };
 }
 
-export class FiberButtonProps extends FiberRectangleProps {
-    name?: string;
-    pointerDownAnimation?: () => void;
-    pointerEnterAnimation?: () => void;
-    pointerOutAnimation?: () => void;
-    pointerUpAnimation?: () => void;
-}
-
 export class FiberButtonPropsHandler implements PropsHandler<GUI.Button, FiberButtonProps> {
     getPropertyUpdates(hostInstance: GUI.Button, oldProps: FiberButtonProps, newProps: FiberButtonProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
@@ -10829,19 +10062,6 @@ export class FiberButton implements HasPropsHandlers<GUI.Control, FiberControlPr
         "isGUI2DControl": true,
         "className": "FiberButton"
     };
-}
-
-export class FiberSelectionPanelProps extends FiberRectangleProps {
-    barColor?: string;
-    barHeight?: string;
-    buttonBackground?: string;
-    buttonColor?: string;
-    groups?: BABYLON.GUI.SelectorGroup[];
-    headerColor?: string;
-    labelColor?: string;
-    name?: string;
-    spacerHeight?: string;
-    setHeaderName?: any;
 }
 
 export class FiberSelectionPanelPropsHandler implements PropsHandler<GUI.SelectionPanel, FiberSelectionPanelProps> {
@@ -10973,17 +10193,6 @@ export class FiberSelectionPanel implements HasPropsHandlers<GUI.Control, FiberC
     };
 }
 
-export class FiberScrollViewerProps extends FiberRectangleProps {
-    barBackground?: string;
-    barBorderColor?: string;
-    barColor?: string;
-    name?: string;
-    paddingBottom?: string | number;
-    paddingLeft?: string | number;
-    paddingRight?: string | number;
-    paddingTop?: string | number;
-}
-
 export class FiberScrollViewerPropsHandler implements PropsHandler<GUI.ScrollViewer, FiberScrollViewerProps> {
     getPropertyUpdates(hostInstance: GUI.ScrollViewer, oldProps: FiberScrollViewerProps, newProps: FiberScrollViewerProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
@@ -11097,22 +10306,6 @@ export class FiberScrollViewer implements HasPropsHandlers<GUI.Control, FiberCon
         "isGUI2DControl": true,
         "className": "FiberScrollViewer"
     };
-}
-
-export class FiberImageProps extends FiberControlProps {
-    autoScale?: boolean;
-    cellHeight?: number;
-    cellId?: number;
-    cellWidth?: number;
-    domImage?: HTMLImageElement;
-    name?: string;
-    onImageLoadedObservable?: BABYLON.Observable<BABYLON.GUI.Image>;
-    source?: string;
-    sourceHeight?: number;
-    sourceLeft?: number;
-    sourceTop?: number;
-    sourceWidth?: number;
-    stretch?: number;
 }
 
 export class FiberImagePropsHandler implements PropsHandler<GUI.Image, FiberImageProps> {
@@ -11264,36 +10457,6 @@ export class FiberImage implements HasPropsHandlers<GUI.Control, FiberControlPro
         "isGUI2DControl": true,
         "className": "FiberImage"
     };
-}
-
-export class FiberInputTextProps extends FiberControlProps {
-    addKey?: boolean;
-    autoStretchWidth?: boolean;
-    background?: string;
-    currentKey?: string;
-    deadKey?: boolean;
-    focusedBackground?: string;
-    highligherOpacity?: number;
-    highlightedText?: string;
-    margin?: string;
-    maxWidth?: string | number;
-    name?: string;
-    onBeforeKeyAddObservable?: BABYLON.Observable<BABYLON.GUI.InputText>;
-    onBlurObservable?: BABYLON.Observable<BABYLON.GUI.InputText>;
-    onFocusObservable?: BABYLON.Observable<BABYLON.GUI.InputText>;
-    onFocusSelectAll?: boolean;
-    onTextChangedObservable?: BABYLON.Observable<BABYLON.GUI.InputText>;
-    onTextCopyObservable?: BABYLON.Observable<BABYLON.GUI.InputText>;
-    onTextCutObservable?: BABYLON.Observable<BABYLON.GUI.InputText>;
-    onTextHighlightObservable?: BABYLON.Observable<BABYLON.GUI.InputText>;
-    onTextPasteObservable?: BABYLON.Observable<BABYLON.GUI.InputText>;
-    placeholderColor?: string;
-    placeholderText?: string;
-    promptMessage?: string;
-    text?: string;
-    textHighlightColor?: string;
-    thickness?: number;
-    width?: string | number;
 }
 
 export class FiberInputTextPropsHandler implements PropsHandler<GUI.InputText, FiberInputTextProps> {
@@ -11566,9 +10729,6 @@ export class FiberInputText implements HasPropsHandlers<GUI.Control, FiberContro
     };
 }
 
-export class FiberInputPasswordProps extends FiberInputTextProps {
-}
-
 export class FiberInputPasswordPropsHandler implements PropsHandler<GUI.InputPassword, FiberInputPasswordProps> {
     getPropertyUpdates(hostInstance: GUI.InputPassword, oldProps: FiberInputPasswordProps, newProps: FiberInputPasswordProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
@@ -11611,19 +10771,6 @@ export class FiberInputPassword implements HasPropsHandlers<GUI.Control, FiberCo
         "isGUI2DControl": true,
         "className": "FiberInputPassword"
     };
-}
-
-export class FiberLineProps extends FiberControlProps {
-    connectedControl?: BABYLON.GUI.Control;
-    dash?: number[];
-    horizontalAlignment?: number;
-    lineWidth?: number;
-    name?: string;
-    verticalAlignment?: number;
-    x1?: string | number;
-    x2?: string | number;
-    y1?: string | number;
-    y2?: string | number;
 }
 
 export class FiberLinePropsHandler implements PropsHandler<GUI.Line, FiberLineProps> {
@@ -11748,15 +10895,6 @@ export class FiberLine implements HasPropsHandlers<GUI.Control, FiberControlProp
     };
 }
 
-export class FiberMultiLineProps extends FiberControlProps {
-    dash?: number[];
-    horizontalAlignment?: number;
-    lineWidth?: number;
-    name?: string;
-    onPointUpdate?: () => void;
-    verticalAlignment?: number;
-}
-
 export class FiberMultiLinePropsHandler implements PropsHandler<GUI.MultiLine, FiberMultiLineProps> {
     getPropertyUpdates(hostInstance: GUI.MultiLine, oldProps: FiberMultiLineProps, newProps: FiberMultiLineProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
@@ -11845,16 +10983,6 @@ export class FiberMultiLine implements HasPropsHandlers<GUI.Control, FiberContro
         "isGUI2DControl": true,
         "className": "FiberMultiLine"
     };
-}
-
-export class FiberRadioButtonProps extends FiberControlProps {
-    background?: string;
-    checkSizeRatio?: number;
-    group?: string;
-    isChecked?: boolean;
-    name?: string;
-    onIsCheckedChangedObservable?: BABYLON.Observable<boolean>;
-    thickness?: number;
 }
 
 export class FiberRadioButtonPropsHandler implements PropsHandler<GUI.RadioButton, FiberRadioButtonProps> {
@@ -11960,20 +11088,6 @@ export class FiberRadioButton implements HasPropsHandlers<GUI.Control, FiberCont
         "isGUI2DControl": true,
         "className": "FiberRadioButton"
     };
-}
-
-export class FiberTextBlockProps extends FiberControlProps {
-    lineSpacing?: string | number;
-    name?: string;
-    onLinesReadyObservable?: BABYLON.Observable<BABYLON.GUI.TextBlock>;
-    onTextChangedObservable?: BABYLON.Observable<BABYLON.GUI.TextBlock>;
-    outlineColor?: string;
-    outlineWidth?: number;
-    resizeToFit?: boolean;
-    text?: string;
-    textHorizontalAlignment?: number;
-    textVerticalAlignment?: number;
-    textWrapping?: boolean | BABYLON.GUI.TextWrapping;
 }
 
 export class FiberTextBlockPropsHandler implements PropsHandler<GUI.TextBlock, FiberTextBlockProps> {
@@ -12109,20 +11223,6 @@ export class FiberTextBlock implements HasPropsHandlers<GUI.Control, FiberContro
         "isGUI2DControl": true,
         "className": "FiberTextBlock"
     };
-}
-
-export class FiberDisplayGridProps extends FiberControlProps {
-    background?: string;
-    cellHeight?: number;
-    cellWidth?: number;
-    displayMajorLines?: boolean;
-    displayMinorLines?: boolean;
-    majorLineColor?: string;
-    majorLineFrequency?: number;
-    majorLineTickness?: number;
-    minorLineColor?: string;
-    minorLineTickness?: number;
-    name?: string;
 }
 
 export class FiberDisplayGridPropsHandler implements PropsHandler<GUI.DisplayGrid, FiberDisplayGridProps> {
@@ -12262,19 +11362,6 @@ export class FiberDisplayGrid implements HasPropsHandlers<GUI.Control, FiberCont
     };
 }
 
-export class FiberBaseSliderProps extends FiberControlProps {
-    barOffset?: string | number;
-    displayThumb?: boolean;
-    isThumbClamped?: boolean;
-    isVertical?: boolean;
-    maximum?: number;
-    minimum?: number;
-    name?: string;
-    onValueChangedObservable?: BABYLON.Observable<number>;
-    thumbWidth?: string | number;
-    value?: number;
-}
-
 export class FiberBaseSliderPropsHandler implements PropsHandler<GUI.BaseSlider, FiberBaseSliderProps> {
     getPropertyUpdates(hostInstance: GUI.BaseSlider, oldProps: FiberBaseSliderProps, newProps: FiberBaseSliderProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
@@ -12404,13 +11491,6 @@ export class FiberBaseSlider implements HasPropsHandlers<GUI.Control, FiberContr
     };
 }
 
-export class FiberSliderProps extends FiberBaseSliderProps {
-    background?: string;
-    borderColor?: string;
-    isThumbCircle?: boolean;
-    name?: string;
-}
-
 export class FiberSliderPropsHandler implements PropsHandler<GUI.Slider, FiberSliderProps> {
     getPropertyUpdates(hostInstance: GUI.Slider, oldProps: FiberSliderProps, newProps: FiberSliderProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
@@ -12493,14 +11573,6 @@ export class FiberSlider implements HasPropsHandlers<GUI.Control, FiberControlPr
     };
 }
 
-export class FiberImageBasedSliderProps extends FiberBaseSliderProps {
-    backgroundImage?: BABYLON.GUI.Image;
-    displayThumb?: boolean;
-    name?: string;
-    thumbImage?: BABYLON.GUI.Image;
-    valueBarImage?: BABYLON.GUI.Image;
-}
-
 export class FiberImageBasedSliderPropsHandler implements PropsHandler<GUI.ImageBasedSlider, FiberImageBasedSliderProps> {
     getPropertyUpdates(hostInstance: GUI.ImageBasedSlider, oldProps: FiberImageBasedSliderProps, newProps: FiberImageBasedSliderProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
@@ -12568,24 +11640,6 @@ export class FiberImageBasedSlider implements HasPropsHandlers<GUI.Control, Fibe
         "isGUI2DControl": true,
         "className": "FiberImageBasedSlider"
     };
-}
-
-export class FiberControl3DProps {
-    isVisible?: boolean;
-    name?: string;
-    onPointerClickObservable?: BABYLON.Observable<BABYLON.GUI.Vector3WithInfo>;
-    onPointerDownObservable?: BABYLON.Observable<BABYLON.GUI.Vector3WithInfo>;
-    onPointerEnterObservable?: BABYLON.Observable<BABYLON.GUI.Control3D>;
-    onPointerMoveObservable?: BABYLON.Observable<BABYLON.Vector3>;
-    onPointerOutObservable?: BABYLON.Observable<BABYLON.GUI.Control3D>;
-    onPointerUpObservable?: BABYLON.Observable<BABYLON.GUI.Vector3WithInfo>;
-    parent?: BABYLON.GUI.Container3D;
-    pointerDownAnimation?: () => void;
-    pointerEnterAnimation?: () => void;
-    pointerOutAnimation?: () => void;
-    pointerUpAnimation?: () => void;
-    position?: BABYLON.Vector3;
-    scaling?: BABYLON.Vector3;
 }
 
 export class FiberControl3DPropsHandler implements PropsHandler<GUI.Control3D, FiberControl3DProps> {
@@ -12707,9 +11761,6 @@ export class FiberControl3D implements HasPropsHandlers<GUI.Control3D, FiberCont
     };
 }
 
-export class FiberAbstractButton3DProps extends FiberControl3DProps {
-}
-
 export class FiberAbstractButton3DPropsHandler implements PropsHandler<GUI.AbstractButton3D, FiberAbstractButton3DProps> {
     getPropertyUpdates(hostInstance: GUI.AbstractButton3D, oldProps: FiberAbstractButton3DProps, newProps: FiberAbstractButton3DProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
@@ -12757,12 +11808,6 @@ export class FiberAbstractButton3D implements HasPropsHandlers<GUI.Control3D, Fi
         "isGUI3DControl": true,
         "className": "FiberAbstractButton3D"
     };
-}
-
-export class FiberButton3DProps extends FiberAbstractButton3DProps {
-    content?: BABYLON.GUI.Control;
-    contentResolution?: number;
-    contentScaleRatio?: number;
 }
 
 export class FiberButton3DPropsHandler implements PropsHandler<GUI.Button3D, FiberButton3DProps> {
@@ -12837,12 +11882,6 @@ export class FiberButton3D implements HasPropsHandlers<GUI.Control3D, FiberContr
         "isGUI3DControl": true,
         "className": "FiberButton3D"
     };
-}
-
-export class FiberHolographicButtonProps extends FiberButton3DProps {
-    imageUrl?: string;
-    text?: string;
-    tooltipText?: string;
 }
 
 export class FiberHolographicButtonPropsHandler implements PropsHandler<GUI.HolographicButton, FiberHolographicButtonProps> {
@@ -12925,9 +11964,6 @@ export class FiberHolographicButton implements HasPropsHandlers<GUI.Control3D, F
     };
 }
 
-export class FiberMeshButton3DProps extends FiberButton3DProps {
-}
-
 export class FiberMeshButton3DPropsHandler implements PropsHandler<GUI.MeshButton3D, FiberMeshButton3DProps> {
     getPropertyUpdates(hostInstance: GUI.MeshButton3D, oldProps: FiberMeshButton3DProps, newProps: FiberMeshButton3DProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
@@ -12982,10 +12018,6 @@ export class FiberMeshButton3D implements HasPropsHandlers<GUI.Control3D, FiberC
         "isGUI3DControl": true,
         "className": "FiberMeshButton3D"
     };
-}
-
-export class FiberContainer3DProps extends FiberControl3DProps {
-    blockLayout?: boolean;
 }
 
 export class FiberContainer3DPropsHandler implements PropsHandler<GUI.Container3D, FiberContainer3DProps> {
@@ -13043,11 +12075,6 @@ export class FiberContainer3D implements HasPropsHandlers<GUI.Control3D, FiberCo
         "isGUI3DControl": true,
         "className": "FiberContainer3D"
     };
-}
-
-export class FiberStackPanel3DProps extends FiberContainer3DProps {
-    isVertical?: boolean;
-    margin?: number;
 }
 
 export class FiberStackPanel3DPropsHandler implements PropsHandler<GUI.StackPanel3D, FiberStackPanel3DProps> {
@@ -13114,13 +12141,6 @@ export class FiberStackPanel3D implements HasPropsHandlers<GUI.Control3D, FiberC
         "isGUI3DControl": true,
         "className": "FiberStackPanel3D"
     };
-}
-
-export class FiberVolumeBasedPanelProps extends FiberContainer3DProps {
-    columns?: number;
-    margin?: number;
-    orientation?: number;
-    rows?: number;
 }
 
 export class FiberVolumeBasedPanelPropsHandler implements PropsHandler<GUI.VolumeBasedPanel, FiberVolumeBasedPanelProps> {
@@ -13199,10 +12219,6 @@ export class FiberVolumeBasedPanel implements HasPropsHandlers<GUI.Control3D, Fi
     };
 }
 
-export class FiberCylinderPanelProps extends FiberVolumeBasedPanelProps {
-    radius?: number;
-}
-
 export class FiberCylinderPanelPropsHandler implements PropsHandler<GUI.CylinderPanel, FiberCylinderPanelProps> {
     getPropertyUpdates(hostInstance: GUI.CylinderPanel, oldProps: FiberCylinderPanelProps, newProps: FiberCylinderPanelProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
@@ -13256,9 +12272,6 @@ export class FiberCylinderPanel implements HasPropsHandlers<GUI.Control3D, Fiber
     };
 }
 
-export class FiberPlanePanelProps extends FiberVolumeBasedPanelProps {
-}
-
 export class FiberPlanePanelPropsHandler implements PropsHandler<GUI.PlanePanel, FiberPlanePanelProps> {
     getPropertyUpdates(hostInstance: GUI.PlanePanel, oldProps: FiberPlanePanelProps, newProps: FiberPlanePanelProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
@@ -13302,10 +12315,6 @@ export class FiberPlanePanel implements HasPropsHandlers<GUI.Control3D, FiberCon
         "isGUI3DControl": true,
         "className": "FiberPlanePanel"
     };
-}
-
-export class FiberScatterPanelProps extends FiberVolumeBasedPanelProps {
-    iteration?: number;
 }
 
 export class FiberScatterPanelPropsHandler implements PropsHandler<GUI.ScatterPanel, FiberScatterPanelProps> {
@@ -13361,10 +12370,6 @@ export class FiberScatterPanel implements HasPropsHandlers<GUI.Control3D, FiberC
     };
 }
 
-export class FiberSpherePanelProps extends FiberVolumeBasedPanelProps {
-    radius?: number;
-}
-
 export class FiberSpherePanelPropsHandler implements PropsHandler<GUI.SpherePanel, FiberSpherePanelProps> {
     getPropertyUpdates(hostInstance: GUI.SpherePanel, oldProps: FiberSpherePanelProps, newProps: FiberSpherePanelProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
@@ -13416,35 +12421,6 @@ export class FiberSpherePanel implements HasPropsHandlers<GUI.Control3D, FiberCo
         "isGUI3DControl": true,
         "className": "FiberSpherePanel"
     };
-}
-
-export class FiberBaseTextureProps {
-    animations?: BABYLON.Animation[];
-    anisotropicFilteringLevel?: number;
-    coordinatesIndex?: number;
-    coordinatesMode?: number;
-    delayLoadState?: number;
-    gammaSpace?: boolean;
-    getAlphaFromRGB?: boolean;
-    hasAlpha?: boolean;
-    invertZ?: boolean;
-    is3D?: boolean;
-    isCube?: boolean;
-    isRenderTarget?: boolean;
-    level?: number;
-    lodGenerationOffset?: number;
-    lodGenerationScale?: number;
-    lodLevelInAlpha?: boolean;
-    metadata?: any;
-    name?: string;
-    onDispose?: () => void;
-    onDisposeObservable?: BABYLON.Observable<BABYLON.BaseTexture>;
-    reservedDataStore?: any;
-    sphericalPolynomial?: BABYLON.SphericalPolynomial;
-    uniqueId?: number;
-    wrapR?: number;
-    wrapU?: number;
-    wrapV?: number;
 }
 
 export class FiberBaseTexturePropsHandler implements PropsHandler<BABYLON.BaseTexture, FiberBaseTextureProps> {
@@ -13677,12 +12653,6 @@ export class FiberBaseTexture implements HasPropsHandlers<BABYLON.BaseTexture, F
     };
 }
 
-export class FiberColorGradingTextureProps extends FiberBaseTextureProps {
-    load3dlTexture?: any;
-    loadTexture?: any;
-    url?: string;
-}
-
 export class FiberColorGradingTexturePropsHandler implements PropsHandler<BABYLON.ColorGradingTexture, FiberColorGradingTextureProps> {
     getPropertyUpdates(hostInstance: BABYLON.ColorGradingTexture, oldProps: FiberColorGradingTextureProps, newProps: FiberColorGradingTextureProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
@@ -13750,14 +12720,6 @@ export class FiberColorGradingTexture implements HasPropsHandlers<BABYLON.BaseTe
         "isTexture": true,
         "className": "FiberColorGradingTexture"
     };
-}
-
-export class FiberCubeTextureProps extends FiberBaseTextureProps {
-    boundingBoxPosition?: BABYLON.Vector3;
-    boundingBoxSize?: BABYLON.Vector3;
-    rotationY?: number;
-    url?: string;
-    setReflectionTextureMatrix?: any;
 }
 
 export class FiberCubeTexturePropsHandler implements PropsHandler<BABYLON.CubeTexture, FiberCubeTextureProps> {
@@ -13909,9 +12871,6 @@ export class FiberCubeTexture implements HasPropsHandlers<BABYLON.BaseTexture, F
     };
 }
 
-export class FiberRawCubeTextureProps extends FiberCubeTextureProps {
-}
-
 export class FiberRawCubeTexturePropsHandler implements PropsHandler<BABYLON.RawCubeTexture, FiberRawCubeTextureProps> {
     getPropertyUpdates(hostInstance: BABYLON.RawCubeTexture, oldProps: FiberRawCubeTextureProps, newProps: FiberRawCubeTextureProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
@@ -14000,17 +12959,6 @@ export class FiberRawCubeTexture implements HasPropsHandlers<BABYLON.BaseTexture
         "isTexture": true,
         "className": "FiberRawCubeTexture"
     };
-}
-
-export class FiberHDRCubeTextureProps extends FiberBaseTextureProps {
-    boundingBoxPosition?: BABYLON.Vector3;
-    boundingBoxSize?: BABYLON.Vector3;
-    coordinatesMode?: number;
-    isBlocking?: boolean;
-    loadTexture?: any;
-    rotationY?: number;
-    url?: string;
-    setReflectionTextureMatrix?: any;
 }
 
 export class FiberHDRCubeTexturePropsHandler implements PropsHandler<BABYLON.HDRCubeTexture, FiberHDRCubeTextureProps> {
@@ -14160,22 +13108,6 @@ export class FiberHDRCubeTexture implements HasPropsHandlers<BABYLON.BaseTexture
         "isTexture": true,
         "className": "FiberHDRCubeTexture"
     };
-}
-
-export class FiberTextureProps extends FiberBaseTextureProps {
-    isBlocking?: boolean;
-    onLoadObservable?: BABYLON.Observable<BABYLON.Texture>;
-    uAng?: number;
-    uOffset?: number;
-    url?: string;
-    uRotationCenter?: number;
-    uScale?: number;
-    vAng?: number;
-    vOffset?: number;
-    vRotationCenter?: number;
-    vScale?: number;
-    wAng?: number;
-    wRotationCenter?: number;
 }
 
 export class FiberTexturePropsHandler implements PropsHandler<BABYLON.Texture, FiberTextureProps> {
@@ -14376,9 +13308,6 @@ export class FiberTexture implements HasPropsHandlers<BABYLON.BaseTexture, Fiber
     };
 }
 
-export class FiberDynamicTextureProps extends FiberTextureProps {
-}
-
 export class FiberDynamicTexturePropsHandler implements PropsHandler<BABYLON.DynamicTexture, FiberDynamicTextureProps> {
     getPropertyUpdates(hostInstance: BABYLON.DynamicTexture, oldProps: FiberDynamicTextureProps, newProps: FiberDynamicTextureProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
@@ -14452,10 +13381,6 @@ export class FiberDynamicTexture implements HasPropsHandlers<BABYLON.BaseTexture
         "isTexture": true,
         "className": "FiberDynamicTexture"
     };
-}
-
-export class FiberRawTextureProps extends FiberTextureProps {
-    format?: number;
 }
 
 export class FiberRawTexturePropsHandler implements PropsHandler<BABYLON.RawTexture, FiberRawTextureProps> {
@@ -14556,10 +13481,6 @@ export class FiberRawTexture implements HasPropsHandlers<BABYLON.BaseTexture, Fi
         "isTexture": true,
         "className": "FiberRawTexture"
     };
-}
-
-export class FiberRawTexture3DProps extends FiberTextureProps {
-    format?: number;
 }
 
 export class FiberRawTexture3DPropsHandler implements PropsHandler<BABYLON.RawTexture3D, FiberRawTexture3DProps> {
@@ -14663,37 +13584,6 @@ export class FiberRawTexture3D implements HasPropsHandlers<BABYLON.BaseTexture, 
         "isTexture": true,
         "className": "FiberRawTexture3D"
     };
-}
-
-export class FiberRenderTargetTextureProps extends FiberTextureProps {
-    activeCamera?: BABYLON.Camera;
-    boundingBoxPosition?: BABYLON.Vector3;
-    boundingBoxSize?: BABYLON.Vector3;
-    clearColor?: BABYLON.Color4;
-    coordinatesMode?: number;
-    customRenderFunction?: (opaqueSubMeshes: BABYLON.SmartArray<BABYLON.SubMesh>, alphaTestSubMeshes: BABYLON.SmartArray<BABYLON.SubMesh>, transparentSubMeshes: BABYLON.SmartArray<BABYLON.SubMesh>, depthOnlySubMeshes: BABYLON.SmartArray<BABYLON.SubMesh>, beforeTransparents?: () => void) => void;
-    depthStencilTexture?: BABYLON.InternalTexture;
-    ignoreCameraViewport?: boolean;
-    isCube?: boolean;
-    onAfterRender?: (faceIndex: number) => void;
-    onAfterRenderObservable?: BABYLON.Observable<number>;
-    onAfterUnbind?: () => void;
-    onAfterUnbindObservable?: BABYLON.Observable<BABYLON.RenderTargetTexture>;
-    onBeforeBindObservable?: BABYLON.Observable<BABYLON.RenderTargetTexture>;
-    onBeforeRender?: (faceIndex: number) => void;
-    onBeforeRenderObservable?: BABYLON.Observable<number>;
-    onClear?: (Engine: BABYLON.Engine) => void;
-    onClearObservable?: BABYLON.Observable<BABYLON.Engine>;
-    refreshRate?: number;
-    renderList?: BABYLON.AbstractMesh[];
-    renderListPredicate?: (AbstractMesh: BABYLON.AbstractMesh) => boolean;
-    renderParticles?: boolean;
-    renderSprites?: boolean;
-    renderToTarget?: any;
-    samples?: number;
-    useCameraPostProcesses?: boolean;
-    setRenderingAutoClearDepthStencil?: any;
-    setRenderingOrder?: any;
 }
 
 export class FiberRenderTargetTexturePropsHandler implements PropsHandler<BABYLON.RenderTargetTexture, FiberRenderTargetTextureProps> {
@@ -14990,16 +13880,6 @@ export class FiberRenderTargetTexture implements HasPropsHandlers<BABYLON.BaseTe
     };
 }
 
-export class FiberMirrorTextureProps extends FiberRenderTargetTextureProps {
-    adaptiveBlurKernel?: number;
-    blurKernel?: number;
-    blurKernelX?: number;
-    blurKernelY?: number;
-    blurRatio?: number;
-    mirrorPlane?: BABYLON.Plane;
-    scene?: any;
-}
-
 export class FiberMirrorTexturePropsHandler implements PropsHandler<BABYLON.MirrorTexture, FiberMirrorTextureProps> {
     getPropertyUpdates(hostInstance: BABYLON.MirrorTexture, oldProps: FiberMirrorTextureProps, newProps: FiberMirrorTextureProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
@@ -15126,12 +14006,6 @@ export class FiberMirrorTexture implements HasPropsHandlers<BABYLON.BaseTexture,
     };
 }
 
-export class FiberMultiRenderTargetProps extends FiberRenderTargetTextureProps {
-    samples?: number;
-    wrapU?: number;
-    wrapV?: number;
-}
-
 export class FiberMultiRenderTargetPropsHandler implements PropsHandler<BABYLON.MultiRenderTarget, FiberMultiRenderTargetProps> {
     getPropertyUpdates(hostInstance: BABYLON.MultiRenderTarget, oldProps: FiberMultiRenderTargetProps, newProps: FiberMultiRenderTargetProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
@@ -15230,11 +14104,6 @@ export class FiberMultiRenderTarget implements HasPropsHandlers<BABYLON.BaseText
     };
 }
 
-export class FiberRefractionTextureProps extends FiberRenderTargetTextureProps {
-    depth?: number;
-    refractionPlane?: BABYLON.Plane;
-}
-
 export class FiberRefractionTexturePropsHandler implements PropsHandler<BABYLON.RefractionTexture, FiberRefractionTextureProps> {
     getPropertyUpdates(hostInstance: BABYLON.RefractionTexture, oldProps: FiberRefractionTextureProps, newProps: FiberRefractionTextureProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
@@ -15309,10 +14178,6 @@ export class FiberRefractionTexture implements HasPropsHandlers<BABYLON.BaseText
         "isTexture": true,
         "className": "FiberRefractionTexture"
     };
-}
-
-export class FiberVideoTextureProps extends FiberTextureProps {
-    reset?: any;
 }
 
 export class FiberVideoTexturePropsHandler implements PropsHandler<BABYLON.VideoTexture, FiberVideoTextureProps> {
@@ -15395,25 +14260,6 @@ export class FiberVideoTexture implements HasPropsHandlers<BABYLON.BaseTexture, 
         "isTexture": true,
         "className": "FiberVideoTexture"
     };
-}
-
-export class FiberProceduralTextureProps extends FiberTextureProps {
-    autoClear?: boolean;
-    isCube?: boolean;
-    isEnabled?: boolean;
-    onGenerated?: () => void;
-    onGeneratedObservable?: BABYLON.Observable<BABYLON.ProceduralTexture>;
-    refreshRate?: number;
-    setColor3?: any;
-    setColor4?: any;
-    setFloat?: any;
-    setFloats?: any;
-    setFragment?: any;
-    setInt?: any;
-    setMatrix?: any;
-    setTexture?: any;
-    setVector2?: any;
-    setVector3?: any;
 }
 
 export class FiberProceduralTexturePropsHandler implements PropsHandler<BABYLON.ProceduralTexture, FiberProceduralTextureProps> {
@@ -15625,10 +14471,6 @@ export class FiberProceduralTexture implements HasPropsHandlers<BABYLON.BaseText
     };
 }
 
-export class FiberCustomProceduralTextureProps extends FiberProceduralTextureProps {
-    animate?: boolean;
-}
-
 export class FiberCustomProceduralTexturePropsHandler implements PropsHandler<BABYLON.CustomProceduralTexture, FiberCustomProceduralTextureProps> {
     getPropertyUpdates(hostInstance: BABYLON.CustomProceduralTexture, oldProps: FiberCustomProceduralTextureProps, newProps: FiberCustomProceduralTextureProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
@@ -15712,13 +14554,6 @@ export class FiberCustomProceduralTexture implements HasPropsHandlers<BABYLON.Ba
         "isTexture": true,
         "className": "FiberCustomProceduralTexture"
     };
-}
-
-export class FiberNoiseProceduralTextureProps extends FiberProceduralTextureProps {
-    animationSpeedFactor?: number;
-    brightness?: number;
-    octaves?: number;
-    persistence?: number;
 }
 
 export class FiberNoiseProceduralTexturePropsHandler implements PropsHandler<BABYLON.NoiseProceduralTexture, FiberNoiseProceduralTextureProps> {
@@ -15822,21 +14657,6 @@ export class FiberNoiseProceduralTexture implements HasPropsHandlers<BABYLON.Bas
         "isTexture": true,
         "className": "FiberNoiseProceduralTexture"
     };
-}
-
-export class FiberAdvancedDynamicTextureProps extends FiberDynamicTextureProps {
-    background?: string;
-    clipboardData?: string;
-    focusedControl?: BABYLON.GUI.IFocusableControl;
-    idealHeight?: number;
-    idealWidth?: number;
-    isForeground?: boolean;
-    onClipboardObservable?: BABYLON.Observable<BABYLON.ClipboardInfo>;
-    onControlPickedObservable?: BABYLON.Observable<BABYLON.GUI.Control>;
-    premulAlpha?: boolean;
-    renderAtIdealSize?: boolean;
-    renderScale?: number;
-    useSmallestIdeal?: boolean;
 }
 
 export class FiberAdvancedDynamicTexturePropsHandler implements PropsHandler<GUI.AdvancedDynamicTexture, FiberAdvancedDynamicTextureProps> {
@@ -16004,10 +14824,6 @@ export class FiberAdvancedDynamicTexture implements HasPropsHandlers<BABYLON.Bas
     };
 }
 
-export class FiberGUI3DManagerProps {
-    onPickedPointChangedObservable?: BABYLON.Observable<BABYLON.Vector3>;
-}
-
 export class FiberGUI3DManagerPropsHandler implements PropsHandler<GUI.GUI3DManager, FiberGUI3DManagerProps> {
     getPropertyUpdates(hostInstance: GUI.GUI3DManager, oldProps: FiberGUI3DManagerProps, newProps: FiberGUI3DManagerProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
@@ -16062,30 +14878,6 @@ export class FiberGUI3DManager implements HasPropsHandlers<GUI.GUI3DManager, Fib
         "isGUI3DControl": true,
         "className": "FiberGUI3DManager"
     };
-}
-
-export class FiberShadowGeneratorProps {
-    bias?: number;
-    blurBoxOffset?: number;
-    blurKernel?: number;
-    blurScale?: number;
-    contactHardeningLightSizeUVRatio?: number;
-    depthScale?: number;
-    filter?: number;
-    filteringQuality?: number;
-    forceBackFacesOnly?: boolean;
-    frustumEdgeFalloff?: number;
-    normalBias?: number;
-    useBlurCloseExponentialShadowMap?: boolean;
-    useBlurExponentialShadowMap?: boolean;
-    useCloseExponentialShadowMap?: boolean;
-    useContactHardeningShadow?: boolean;
-    useExponentialShadowMap?: boolean;
-    useKernelBlur?: boolean;
-    usePercentageCloserFiltering?: boolean;
-    usePoissonSampling?: boolean;
-    setDarkness?: any;
-    setTransparencyShadow?: any;
 }
 
 export class FiberShadowGeneratorPropsHandler implements PropsHandler<BABYLON.ShadowGenerator, FiberShadowGeneratorProps> {
@@ -16316,11 +15108,6 @@ export class FiberShadowGenerator implements HasPropsHandlers<BABYLON.ShadowGene
     };
 }
 
-export class FiberEnvironmentHelperProps {
-    onErrorObservable?: BABYLON.Observable<{ message?: string; exception?: any; }>;
-    setMainColor?: any;
-}
-
 export class FiberEnvironmentHelperPropsHandler implements PropsHandler<BABYLON.EnvironmentHelper, FiberEnvironmentHelperProps> {
     getPropertyUpdates(hostInstance: BABYLON.EnvironmentHelper, oldProps: FiberEnvironmentHelperProps, newProps: FiberEnvironmentHelperProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
         // generated code
@@ -16390,33 +15177,6 @@ export class FiberEnvironmentHelper implements HasPropsHandlers<BABYLON.Environm
         "isEnvironment": true,
         "className": "FiberEnvironmentHelper"
     };
-}
-
-export class FiberVRExperienceHelperProps {
-    beforeRender?: any;
-    displayGaze?: boolean;
-    displayLaserPointer?: boolean;
-    displayVRButton?: any;
-    gazeTrackerMesh?: BABYLON.Mesh;
-    meshSelectionPredicate?: (mesh: BABYLON.AbstractMesh) => boolean;
-    moveButtonToBottomRight?: any;
-    onAfterCameraTeleport?: BABYLON.Observable<BABYLON.Vector3>;
-    onBeforeCameraTeleport?: BABYLON.Observable<BABYLON.Vector3>;
-    onControllerMeshLoadedObservable?: BABYLON.Observable<BABYLON.WebVRController>;
-    onEnteringVRObservable?: BABYLON.Observable<BABYLON.VRExperienceHelper>;
-    onExitingVRObservable?: BABYLON.Observable<BABYLON.VRExperienceHelper>;
-    onNewMeshPicked?: BABYLON.Observable<BABYLON.PickingInfo>;
-    onNewMeshSelected?: BABYLON.Observable<BABYLON.AbstractMesh>;
-    onSelectedMeshUnselected?: BABYLON.Observable<BABYLON.AbstractMesh>;
-    onVRDisplayChanged?: any;
-    onVrDisplayPresentChange?: any;
-    position?: BABYLON.Vector3;
-    raySelectionPredicate?: (mesh: BABYLON.AbstractMesh) => boolean;
-    teleportationEnabled?: boolean;
-    teleportationTarget?: BABYLON.Mesh;
-    updateButtonVisibility?: any;
-    updateGazeTrackerScale?: boolean;
-    webVROptions?: BABYLON.VRExperienceHelperOptions;
 }
 
 export class FiberVRExperienceHelperPropsHandler implements PropsHandler<BABYLON.VRExperienceHelper, FiberVRExperienceHelperProps> {
@@ -16599,137 +15359,6 @@ export class FiberVRExperienceHelper implements HasPropsHandlers<BABYLON.VRExper
     public static readonly Metadata: CreatedInstanceMetadata = {
         "className": "FiberVRExperienceHelper"
     };
-}
-
-export class FiberSceneProps {
-    actionManager?: BABYLON.ActionManager;
-    activeCamera?: BABYLON.Camera;
-    activeCameras?: BABYLON.Camera[];
-    afterCameraRender?: () => void;
-    afterRender?: () => void;
-    ambientColor?: BABYLON.Color3;
-    animationPropertiesOverride?: BABYLON.AnimationPropertiesOverride;
-    animationsEnabled?: boolean;
-    animationTimeScale?: number;
-    autoClear?: boolean;
-    autoClearDepthAndStencil?: boolean;
-    beforeCameraRender?: () => void;
-    beforeRender?: () => void;
-    blockfreeActiveMeshesAndRenderingGroups?: boolean;
-    blockMaterialDirtyMechanism?: boolean;
-    cameraToUseForPointers?: BABYLON.Camera;
-    clearColor?: BABYLON.Color4;
-    clipPlane?: BABYLON.Plane;
-    clipPlane2?: BABYLON.Plane;
-    clipPlane3?: BABYLON.Plane;
-    clipPlane4?: BABYLON.Plane;
-    collisionCoordinator?: BABYLON.ICollisionCoordinator;
-    collisionsEnabled?: boolean;
-    constantlyUpdateMeshUnderPointer?: boolean;
-    customRenderTargets?: BABYLON.RenderTargetTexture[];
-    defaultCursor?: string;
-    defaultMaterial?: BABYLON.Material;
-    disableOfflineSupportExceptionRules?: RegExp[];
-    dispatchAllSubMeshesOfActiveMeshes?: boolean;
-    dumpNextRenderTargets?: boolean;
-    environmentTexture?: BABYLON.BaseTexture;
-    fogColor?: BABYLON.Color3;
-    fogDensity?: number;
-    fogEnabled?: boolean;
-    fogEnd?: number;
-    fogMode?: number;
-    fogStart?: number;
-    forcePointsCloud?: boolean;
-    forceWireframe?: boolean;
-    geometriesById?: any;
-    getActiveMeshCandidates?: () => BABYLON.ISmartArrayLike<BABYLON.AbstractMesh>;
-    getActiveSubMeshCandidates?: (mesh: BABYLON.AbstractMesh) => BABYLON.ISmartArrayLike<BABYLON.SubMesh>;
-    getCollidingSubMeshCandidates?: (mesh: BABYLON.AbstractMesh, collider: BABYLON.Collider) => BABYLON.ISmartArrayLike<BABYLON.SubMesh>;
-    getDeterministicFrameTime?: () => number;
-    getIntersectingSubMeshCandidates?: (mesh: BABYLON.AbstractMesh, localRay: BABYLON.Ray) => BABYLON.ISmartArrayLike<BABYLON.SubMesh>;
-    gravity?: BABYLON.Vector3;
-    hoverCursor?: string;
-    importedMeshesFiles?: String[];
-    lensFlaresEnabled?: boolean;
-    lightsEnabled?: boolean;
-    loadingPluginName?: string;
-    metadata?: any;
-    offlineProvider?: BABYLON.IOfflineProvider;
-    onActiveCameraChanged?: BABYLON.Observable<BABYLON.Scene>;
-    onAfterActiveMeshesEvaluationObservable?: BABYLON.Observable<BABYLON.Scene>;
-    onAfterAnimationsObservable?: BABYLON.Observable<BABYLON.Scene>;
-    onAfterCameraRenderObservable?: BABYLON.Observable<BABYLON.Camera>;
-    onAfterDrawPhaseObservable?: BABYLON.Observable<BABYLON.Scene>;
-    onAfterParticlesRenderingObservable?: BABYLON.Observable<BABYLON.Scene>;
-    onAfterRenderingGroupObservable?: BABYLON.Observable<BABYLON.RenderingGroupInfo>;
-    onAfterRenderObservable?: BABYLON.Observable<BABYLON.Scene>;
-    onAfterRenderTargetsRenderObservable?: BABYLON.Observable<BABYLON.Scene>;
-    onAfterStepObservable?: BABYLON.Observable<BABYLON.Scene>;
-    onBeforeActiveMeshesEvaluationObservable?: BABYLON.Observable<BABYLON.Scene>;
-    onBeforeAnimationsObservable?: BABYLON.Observable<BABYLON.Scene>;
-    onBeforeCameraRenderObservable?: BABYLON.Observable<BABYLON.Camera>;
-    onBeforeDrawPhaseObservable?: BABYLON.Observable<BABYLON.Scene>;
-    onBeforeParticlesRenderingObservable?: BABYLON.Observable<BABYLON.Scene>;
-    onBeforeRenderingGroupObservable?: BABYLON.Observable<BABYLON.RenderingGroupInfo>;
-    onBeforeRenderObservable?: BABYLON.Observable<BABYLON.Scene>;
-    onBeforeRenderTargetsRenderObservable?: BABYLON.Observable<BABYLON.Scene>;
-    onBeforeStepObservable?: BABYLON.Observable<BABYLON.Scene>;
-    onCameraRemovedObservable?: BABYLON.Observable<BABYLON.Camera>;
-    onDataLoadedObservable?: BABYLON.Observable<BABYLON.Scene>;
-    onDispose?: () => void;
-    onDisposeObservable?: BABYLON.Observable<BABYLON.Scene>;
-    onGeometryRemovedObservable?: BABYLON.Observable<BABYLON.Geometry>;
-    onKeyboardObservable?: BABYLON.Observable<BABYLON.KeyboardInfo>;
-    onLightRemovedObservable?: BABYLON.Observable<BABYLON.Light>;
-    onMaterialRemovedObservable?: BABYLON.Observable<BABYLON.Material>;
-    onMeshImportedObservable?: BABYLON.Observable<BABYLON.AbstractMesh>;
-    onMeshRemovedObservable?: BABYLON.Observable<BABYLON.AbstractMesh>;
-    onNewCameraAddedObservable?: BABYLON.Observable<BABYLON.Camera>;
-    onNewGeometryAddedObservable?: BABYLON.Observable<BABYLON.Geometry>;
-    onNewLightAddedObservable?: BABYLON.Observable<BABYLON.Light>;
-    onNewMaterialAddedObservable?: BABYLON.Observable<BABYLON.Material>;
-    onNewMeshAddedObservable?: BABYLON.Observable<BABYLON.AbstractMesh>;
-    onNewTextureAddedObservable?: BABYLON.Observable<BABYLON.BaseTexture>;
-    onNewTransformNodeAddedObservable?: BABYLON.Observable<BABYLON.TransformNode>;
-    onPointerDown?: (evt: PointerEvent, pickInfo: BABYLON.PickingInfo, type: BABYLON.PointerEventTypes) => void;
-    onPointerMove?: (evt: PointerEvent, pickInfo: BABYLON.PickingInfo, type: BABYLON.PointerEventTypes) => void;
-    onPointerObservable?: BABYLON.Observable<BABYLON.PointerInfo>;
-    onPointerPick?: (evt: PointerEvent, pickInfo: BABYLON.PickingInfo) => void;
-    onPointerUp?: (evt: PointerEvent, pickInfo: BABYLON.PickingInfo, type: BABYLON.PointerEventTypes) => void;
-    onPreKeyboardObservable?: BABYLON.Observable<BABYLON.KeyboardInfoPre>;
-    onPrePointerObservable?: BABYLON.Observable<BABYLON.PointerInfoPre>;
-    onReadyObservable?: BABYLON.Observable<BABYLON.Scene>;
-    onTextureRemovedObservable?: BABYLON.Observable<BABYLON.BaseTexture>;
-    onTransformNodeRemovedObservable?: BABYLON.Observable<BABYLON.TransformNode>;
-    particlesEnabled?: boolean;
-    pointerDownPredicate?: (Mesh: BABYLON.AbstractMesh) => boolean;
-    pointerMovePredicate?: (Mesh: BABYLON.AbstractMesh) => boolean;
-    pointerUpPredicate?: (Mesh: BABYLON.AbstractMesh) => boolean;
-    postProcesses?: BABYLON.PostProcess[];
-    postProcessesEnabled?: boolean;
-    postProcessManager?: BABYLON.PostProcessManager;
-    preventDefaultOnPointerDown?: boolean;
-    preventDefaultOnPointerUp?: boolean;
-    probesEnabled?: boolean;
-    proceduralTexturesEnabled?: boolean;
-    renderTargetsEnabled?: boolean;
-    requireLightSorting?: boolean;
-    reservedDataStore?: any;
-    shadowsEnabled?: boolean;
-    skeletonsEnabled?: boolean;
-    spritesEnabled?: boolean;
-    texturesEnabled?: boolean;
-    useConstantAnimationDeltaTime?: boolean;
-    useDelayedTextureLoading?: boolean;
-    useRightHandedSystem?: boolean;
-    workerCollisions?: boolean;
-    setActiveCameraByID?: any;
-    setActiveCameraByName?: any;
-    setPointerOverMesh?: any;
-    setRenderingAutoClearDepthStencil?: any;
-    setRenderingOrder?: any;
-    setStepId?: any;
-    setTransformMatrix?: any;
 }
 
 export class FiberScenePropsHandler implements PropsHandler<BABYLON.Scene, FiberSceneProps> {
