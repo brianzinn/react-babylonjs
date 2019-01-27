@@ -19,6 +19,8 @@ const ClassNamesPrefix = 'Fiber';
 // NOTE: this is important as 'strings' are what are available for NPM import and trigger react reconciler.
 const REACT_EXPORTS : Set<string> = new Set<string>();
 
+const PROPS_EXPORTS : string[] = []; // used to put all props in single import.
+
 // These are the base/factory classes we used to generate everything.  Comment them out to skip generation (you must keep "Node", though)
 let classesOfInterest : Map<String, ClassNameSpaceTuple | undefined> = new Map<String, ClassNameSpaceTuple | undefined>();
 
@@ -108,7 +110,7 @@ const addMetadata = (classDeclaration: ClassDeclaration, originalClassDeclaratio
   createInfoProperty.setInitializer(JSON.stringify(propertyInit, null, 2))
 }
 
-const createMeshClasses = (sourceFile: SourceFile) => {
+const createMeshClasses = (generatedCodeSourceFile: SourceFile) => {
 
   let meshBuilderTuple: ClassNameSpaceTuple = classesOfInterest.get("MeshBuilder")!;
   let factoryMethods: MethodDeclaration[] = meshBuilderTuple.classDeclaration.getStaticMethods();
@@ -126,7 +128,7 @@ const createMeshClasses = (sourceFile: SourceFile) => {
       REACT_EXPORTS.add(factoryType);
 
       console.log(` > ${factoryType}`)
-      let newClassDeclaration: ClassDeclaration = addClassDeclarationFromFactoryMethod(sourceFile, factoryType, classesOfInterest.get("Mesh")!.classDeclaration, method);
+      let newClassDeclaration: ClassDeclaration = addClassDeclarationFromFactoryMethod(generatedCodeSourceFile, factoryType, classesOfInterest.get("Mesh")!.classDeclaration, method);
       addCreateInfoFromFactoryMethod(method, meshBuilderTuple.classDeclaration.getName()!, methodName, newClassDeclaration, BABYLON_NAMESPACE)
       addMetadata(newClassDeclaration, undefined /* no original class */, {
         acceptsMaterials: true,
@@ -136,9 +138,9 @@ const createMeshClasses = (sourceFile: SourceFile) => {
   });
 }
 
-const addClassDeclarationFromFactoryMethod = (sourceFile: SourceFile, className: string, classDeclaration: ClassDeclaration, factoryMethod: MethodDeclaration, extra?: (cd: ClassDeclaration) => void) => {
+const addClassDeclarationFromFactoryMethod = (generatedCodeSourceFile: SourceFile, className: string, classDeclaration: ClassDeclaration, factoryMethod: MethodDeclaration, extra?: (cd: ClassDeclaration) => void) => {
   
-  const newClassDeclaration = sourceFile.addClass({
+  const newClassDeclaration = generatedCodeSourceFile.addClass({
     name: `${ClassNamesPrefix}${className}`,
     isExported: true
   });
@@ -415,14 +417,14 @@ const writePropertyAsUpdateFunction = (classDeclaration: ClassDeclaration, write
   }
 }
 
-const createClassDeclaration = (classDeclaration: ClassDeclaration, rootBaseClass: ClassDeclaration, namespace: string, sourceFile: SourceFile, extra?: (newClassDeclaration: ClassDeclaration, originalClassDeclaration: ClassDeclaration) => void) : ClassDeclaration =>  {
+const createClassDeclaration = (classDeclaration: ClassDeclaration, rootBaseClass: ClassDeclaration, namespace: string, generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile, extra?: (newClassDeclaration: ClassDeclaration, originalClassDeclaration: ClassDeclaration) => void) : ClassDeclaration =>  {
   const baseClass: ClassDeclaration | undefined = classDeclaration.getBaseClass(); // no mix-ins in BabylonJS AFAIK, but would otherwise use baseTypes()
   
   const className = classDeclaration.getName()!
 
-  addPropsAndHandlerClasses(sourceFile, className, className, getInstanceProperties(classDeclaration), getInstanceSetMethods(classDeclaration), namespace, baseClass);
+  addPropsAndHandlerClasses(generatedCodeSourceFile, generatedPropsSourceFile, className, className, getInstanceProperties(classDeclaration), getInstanceSetMethods(classDeclaration), namespace, baseClass);
 
-  const newClassDeclaration = sourceFile.addClass({
+  const newClassDeclaration = generatedCodeSourceFile.addClass({
     name: `${ClassNamesPrefix}${className}`,
     isExported: true
   });
@@ -518,10 +520,12 @@ class OrderedListCreator {
  * The odd parameters here are because we are also inventing classes not based on real BabylonJS objects (ie: Box, Sphere are actually Mesh)
  * It probably looks like we should just pass along the ClassDeclaration... 
  */
-const addPropsAndHandlerClasses = (sourceFile: SourceFile, classNameToGenerate: string, classNameBabylon: string, propertiesToAdd: PropertyDeclaration[], setMethods: MethodDeclaration[], importedNamespace: string, baseClass?: ClassDeclaration) => {
+const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile, classNameToGenerate: string, classNameBabylon: string, propertiesToAdd: PropertyDeclaration[], setMethods: MethodDeclaration[], importedNamespace: string, baseClass?: ClassDeclaration) => {
   
-  const classDeclarationProps = sourceFile.addClass({
-    name: `${ClassNamesPrefix}${classNameToGenerate}Props`,
+  const propsClassName = `${ClassNamesPrefix}${classNameToGenerate}Props`;
+
+  const classDeclarationProps = generatedPropsSourceFile.addClass({
+    name: propsClassName,
     isExported: true
   });
 
@@ -530,10 +534,12 @@ const addPropsAndHandlerClasses = (sourceFile: SourceFile, classNameToGenerate: 
     classDeclarationProps.setExtends(`${ClassNamesPrefix}${baseClassName}Props`)
   }
 
-  const classDeclarationPropsHandler = sourceFile.addClass({
+  const classDeclarationPropsHandler = generatedCodeSourceFile.addClass({
     name: `${ClassNamesPrefix}${classNameToGenerate}PropsHandler`,
     isExported: true
   });
+
+  PROPS_EXPORTS.push(propsClassName);
 
   classDeclarationPropsHandler.addImplements(`PropsHandler<${importedNamespace}.${classNameBabylon}, ${ClassNamesPrefix}${classNameToGenerate}Props>`)
 
@@ -609,7 +615,7 @@ const addCreateInfoFromConstructor = (sourceClass: ClassDeclaration, targetClass
     ctorArgsProperty.setInitializer(JSON.stringify(value, null, 2))
 }
 
-const createClassesDerivedFrom = (sourceFile: SourceFile, classNamespaceTuple: ClassNameSpaceTuple, metadata?: InstanceMetadataParameter, extra?: (newClassDeclaration: ClassDeclaration, originalClassDeclaration: ClassDeclaration) => void, extraMetadata? : (newClassDeclaration: ClassDeclaration, metadata: CreatedInstanceMetadata, originalClassDeclaration?: ClassDeclaration) => void) : void => { 
+const createClassesDerivedFrom = (generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile, classNamespaceTuple: ClassNameSpaceTuple, metadata?: InstanceMetadataParameter, extra?: (newClassDeclaration: ClassDeclaration, originalClassDeclaration: ClassDeclaration) => void, extraMetadata? : (newClassDeclaration: ClassDeclaration, metadata: CreatedInstanceMetadata, originalClassDeclaration?: ClassDeclaration) => void) : void => { 
   let classDeclaration : ClassDeclaration | undefined = classNamespaceTuple.classDeclaration;
   const className: string = classDeclaration.getName()!;
 
@@ -632,7 +638,7 @@ const createClassesDerivedFrom = (sourceFile: SourceFile, classNamespaceTuple: C
 
     let baseClassDeclarationForCreate = baseClassDeclaration === undefined ? classDeclaration : baseClassDeclaration
 
-    const newClassDeclaration = createClassDeclaration(classDeclaration, baseClassDeclarationForCreate, classNamespaceTuple.namespace, sourceFile, extra);
+    const newClassDeclaration = createClassDeclaration(classDeclaration, baseClassDeclarationForCreate, classNamespaceTuple.namespace, generatedCodeSourceFile, generatedPropsSourceFile, extra);
     addCreateInfoFromConstructor(classDeclaration, newClassDeclaration, classNamespaceTuple.namespace);
 
     addMetadata(newClassDeclaration, classDeclaration, metadata, extraMetadata);
@@ -643,7 +649,7 @@ const createClassesDerivedFrom = (sourceFile: SourceFile, classNamespaceTuple: C
 /**
  * TODO: We should not be generating abstract classes.
  */
-const createClassesInheritedFrom = (sourceFile: SourceFile, classNamespaceTuple: ClassNameSpaceTuple, metadata?: InstanceMetadataParameter, extra?: (newClassDeclaration: ClassDeclaration, originalClassDeclaration: ClassDeclaration) => void, extraMetadata? : (newClassDeclaration: ClassDeclaration, metadata: CreatedInstanceMetadata, originalClassDeclaration?: ClassDeclaration) => void) : void => {
+const createClassesInheritedFrom = (generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile, classNamespaceTuple: ClassNameSpaceTuple, metadata?: InstanceMetadataParameter, extra?: (newClassDeclaration: ClassDeclaration, originalClassDeclaration: ClassDeclaration) => void, extraMetadata? : (newClassDeclaration: ClassDeclaration, metadata: CreatedInstanceMetadata, originalClassDeclaration?: ClassDeclaration) => void) : void => {
   const orderedListCreator = new OrderedListCreator();
   
   const baseClassDeclaration = classNamespaceTuple.classDeclaration;
@@ -661,7 +667,7 @@ const createClassesInheritedFrom = (sourceFile: SourceFile, classNamespaceTuple:
     
     REACT_EXPORTS.add(derivedClassDeclaration.getName()!)
 
-    const newClassDeclaration = createClassDeclaration(derivedClassDeclaration, baseClassDeclaration, classNamespaceTuple.namespace, sourceFile, extra);
+    const newClassDeclaration = createClassDeclaration(derivedClassDeclaration, baseClassDeclaration, classNamespaceTuple.namespace, generatedCodeSourceFile, generatedPropsSourceFile, extra);
     addCreateInfoFromConstructor(derivedClassDeclaration, newClassDeclaration, classNamespaceTuple.namespace);
 
     addMetadata(newClassDeclaration, derivedClassDeclaration, metadata, extraMetadata);
@@ -669,11 +675,11 @@ const createClassesInheritedFrom = (sourceFile: SourceFile, classNamespaceTuple:
   });
 }
 
-const addReactExports = (sourceFile: SourceFile) => {
+const addReactExports = (generatedCodeSourceFile: SourceFile) => {
   let tags: string[] = Array.from(REACT_EXPORTS.keys()) as string[];
   tags.sort( /* use default ASCII sorter */);
   // These are the string imports needed by react-reconciler
-  sourceFile.addVariableStatement({
+  generatedCodeSourceFile.addVariableStatement({
     declarationKind: VariableDeclarationKind.Const,
     isExported: true,
     declarations: tags.map(tag => {
@@ -687,7 +693,7 @@ const addReactExports = (sourceFile: SourceFile) => {
   });
 }
 
-const createSingleClass = (classOfInterest: string, sourceFile: SourceFile, baseClass?: ClassDeclaration, metadata?: InstanceMetadataParameter, extra?: () => void) : void => {
+const createSingleClass = (classOfInterest: string, generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile, baseClass?: ClassDeclaration, metadata?: InstanceMetadataParameter, extra?: () => void) : void => {
   const classToGenerate = classesOfInterest.get(classOfInterest)
 
   if (classToGenerate === undefined) {
@@ -700,7 +706,7 @@ const createSingleClass = (classOfInterest: string, sourceFile: SourceFile, base
 
   REACT_EXPORTS.add(classToGenerate.classDeclaration.getName()!)
 
-  const newClassDeclaration = createClassDeclaration(classToGenerate.classDeclaration, baseClass, classToGenerate.namespace, sourceFile, extra);
+  const newClassDeclaration = createClassDeclaration(classToGenerate.classDeclaration, baseClass, classToGenerate.namespace, generatedCodeSourceFile, generatedPropsSourceFile, extra);
   addCreateInfoFromConstructor(classToGenerate.classDeclaration, newClassDeclaration, classToGenerate.namespace);
 
   addMetadata(newClassDeclaration, classToGenerate.classDeclaration, metadata);
@@ -710,38 +716,54 @@ const createSingleClass = (classOfInterest: string, sourceFile: SourceFile, base
 
 const generateCode = async () => {
   const exportsProject = new Project()
-  const generatedSourceFile = exportsProject.createSourceFile(
+  const generatedCodeSourceFile = exportsProject.createSourceFile(
     `${__dirname}/../src/generatedCode.ts`,
     "",
     { overwrite: true }
-  );  
+  );
 
-  generatedSourceFile.addImportDeclaration({
+  const generatedPropsSourceFile = exportsProject.createSourceFile(
+    `${__dirname}/../src/generatedProps.ts`,
+    "",
+    { overwrite: true }
+  );
+
+  generatedCodeSourceFile.addImportDeclaration({
     moduleSpecifier: "./PropsHandler",
     namedImports: ["PropsHandler", PropertyUpdateInterface, "HasPropsHandlers"]
   })
 
-  generatedSourceFile.addImportDeclaration({
+  generatedCodeSourceFile.addImportDeclaration({
     moduleSpecifier: "./CreatedInstance",
     namedImports: [ReactReconcilerCreatedInstanceMetadata]
   })
 
-  generatedSourceFile.addImportDeclaration({
+  generatedCodeSourceFile.addImportDeclaration({
     moduleSpecifier: "babylonjs",
     defaultImport: BABYLON_NAMESPACE
   })
 
-  generatedSourceFile.addImportDeclaration({
+  generatedCodeSourceFile.addImportDeclaration({
     moduleSpecifier: "babylonjs-gui",
     defaultImport: BABYLON_GUI_NAMESPACE
   })
- 
+
+  generatedPropsSourceFile.addImportDeclaration({
+    moduleSpecifier: "babylonjs",
+    defaultImport: BABYLON_NAMESPACE
+  })
+
+  generatedPropsSourceFile.addImportDeclaration({
+    moduleSpecifier: "babylonjs-gui",
+    defaultImport: BABYLON_GUI_NAMESPACE
+  })
+
   const addMeshMetadata = (newClassDeclaration: ClassDeclaration, metadata: CreatedInstanceMetadata, originalClassDeclaration?: ClassDeclaration) => {
     metadata.isMesh = (originalClassDeclaration !== undefined && originalClassDeclaration.getName() === "Mesh")
   }
 
   // This includes Node, which is base class for ie: Camera, Mesh, etc.
-  createClassesDerivedFrom(generatedSourceFile, classesOfInterest.get("Mesh")!, {}, undefined, addMeshMetadata)
+  createClassesDerivedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Mesh")!, {}, undefined, addMeshMetadata)
 
   const extra = (newClassDeclaration: ClassDeclaration, originalClassDeclaration: ClassDeclaration) => {
     // consider having targetable as metadata.
@@ -768,19 +790,19 @@ const generateCode = async () => {
   };
 
   if (classesOfInterest.get("Camera") !== undefined) {
-    createClassesInheritedFrom(generatedSourceFile, classesOfInterest.get("Camera")!, { isCamera: true }, extra);
+    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Camera")!, { isCamera: true }, extra);
   }
 
   if (classesOfInterest.get("MeshBuilder") !== undefined) {
-    createMeshClasses(generatedSourceFile);
+    createMeshClasses(generatedCodeSourceFile);
   }
 
   if (classesOfInterest.get("Material")) {
-    createClassesInheritedFrom(generatedSourceFile, classesOfInterest.get("Material")!, { isMaterial: true });
+    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Material")!, { isMaterial: true });
   }
 
   if (classesOfInterest.get("Light")) {
-    createClassesInheritedFrom(generatedSourceFile, classesOfInterest.get("Light")!, undefined, undefined, (classDeclaration: ClassDeclaration, metadata: CreatedInstanceMetadata, originalClassDeclaration?: ClassDeclaration) => {
+    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Light")!, undefined, undefined, (classDeclaration: ClassDeclaration, metadata: CreatedInstanceMetadata, originalClassDeclaration?: ClassDeclaration) => {
       if (originalClassDeclaration) {
         // TODO: walk the class hierarchy (or original class) to look for "ShadowLight" instead.
         switch(originalClassDeclaration.getName()) {
@@ -796,33 +818,43 @@ const generateCode = async () => {
   }
 
   if (classesOfInterest.get("Control")) {
-    createClassesInheritedFrom(generatedSourceFile, classesOfInterest.get("Control")!, { isGUI2DControl: true});
+    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Control")!, { isGUI2DControl: true});
   }
 
   if (classesOfInterest.get("Control3D")) {
-    createClassesInheritedFrom(generatedSourceFile, classesOfInterest.get("Control3D")!, { isGUI3DControl: true});
+    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Control3D")!, { isGUI3DControl: true});
   }
 
   if (classesOfInterest.get("BaseTexture")) {
-    createClassesInheritedFrom(generatedSourceFile, classesOfInterest.get("BaseTexture")!, {isTexture: true});
-    createSingleClass("AdvancedDynamicTexture", generatedSourceFile, classesOfInterest.get("BaseTexture")!.classDeclaration, { isGUI2DControl: true}, () => {})
+    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("BaseTexture")!, {isTexture: true});
+    createSingleClass("AdvancedDynamicTexture", generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("BaseTexture")!.classDeclaration, { isGUI2DControl: true}, () => {})
   } 
   
-  createSingleClass("GUI3DManager", generatedSourceFile, undefined, { isGUI3DControl: true }, () => {})
-  createSingleClass("ShadowGenerator", generatedSourceFile, undefined, { delayCreation: true }, () => {})
-  createSingleClass("EnvironmentHelper", generatedSourceFile, undefined, { isEnvironment: true })
-  createSingleClass("VRExperienceHelper", generatedSourceFile)
+  createSingleClass("GUI3DManager", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { isGUI3DControl: true }, () => {})
+  createSingleClass("ShadowGenerator", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true }, () => {})
+  createSingleClass("EnvironmentHelper", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { isEnvironment: true })
+  createSingleClass("VRExperienceHelper", generatedCodeSourceFile, generatedPropsSourceFile)
   
   if (classesOfInterest.get("Scene")) {
     // Scene we only want to generate the handlers. Constructor is very simple - just an Engine
     const sceneTuple: ClassNameSpaceTuple = classesOfInterest.get("Scene")!
     const className: string = sceneTuple.classDeclaration.getName()!
-    addPropsAndHandlerClasses(generatedSourceFile, className, className, getInstanceProperties(sceneTuple.classDeclaration), getInstanceSetMethods(sceneTuple.classDeclaration), sceneTuple.namespace, undefined);
+    addPropsAndHandlerClasses(generatedCodeSourceFile, generatedPropsSourceFile, className, className, getInstanceProperties(sceneTuple.classDeclaration), getInstanceSetMethods(sceneTuple.classDeclaration), sceneTuple.namespace, undefined);
   }
-  addReactExports(generatedSourceFile);
+  addReactExports(generatedCodeSourceFile);
 
-  generatedSourceFile.formatText();
-  await generatedSourceFile.save();
+  generatedCodeSourceFile.addImportDeclaration({
+    moduleSpecifier: "./generatedProps",
+    namedImports: PROPS_EXPORTS
+  })
+
+  console.log('saving created content...')
+
+  generatedCodeSourceFile.formatText();
+  await generatedCodeSourceFile.save();
+
+  generatedPropsSourceFile.formatText();
+  await generatedPropsSourceFile.save();
 }
 generateCode();
 
