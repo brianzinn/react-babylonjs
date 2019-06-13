@@ -1,7 +1,5 @@
 import * as BABYLON from "babylonjs";
-import GUI from "babylonjs-gui";
-
-export class FiberDynamicTerrainProps {
+export declare class FiberDynamicTerrainProps {
     name?: string;
     scene?: any;
     mapdata?: any;
@@ -9,7 +7,7 @@ export class FiberDynamicTerrainProps {
     mapSubZ?: number;
     terrainSub?: number;
 }
-export class FiberNodeProps {
+export declare class FiberNodeProps {
     addToSceneRootNodes?: any;
     animationPropertiesOverride?: BABYLON.AnimationPropertiesOverride;
     animations?: BABYLON.Animation[];
@@ -27,8 +25,7 @@ export class FiberNodeProps {
     uniqueId?: number;
     setEnabled?: any;
 }
-
-export class FiberTransformNodeProps extends FiberNodeProps {
+export declare class FiberTransformNodeProps extends FiberNodeProps {
     billboardMode?: number;
     ignoreNonUniformScaling?: boolean;
     infiniteDistance?: boolean;
@@ -46,8 +43,7 @@ export class FiberTransformNodeProps extends FiberNodeProps {
     setPositionWithLocalVector?: any;
     setPreTransformMatrix?: any;
 }
-
-export class FiberAbstractMeshProps extends FiberTransformNodeProps {
+export declare class FiberAbstractMeshProps extends FiberTransformNodeProps {
     actionManager?: BABYLON.ActionManager;
     alphaIndex?: number;
     alwaysSelectAsActiveMesh?: boolean;
@@ -99,8 +95,7 @@ export class FiberAbstractMeshProps extends FiberTransformNodeProps {
     setIndices?: any;
     setVerticesData?: any;
 }
-
-export class FiberMeshProps extends FiberAbstractMeshProps {
+export declare class FiberMeshProps extends FiberAbstractMeshProps {
     delayLoadingFile?: string;
     delayLoadState?: number;
     instances?: BABYLON.InstancedMesh[];
@@ -118,8 +113,7 @@ export class FiberMeshProps extends FiberAbstractMeshProps {
     setVerticesBuffer?: any;
     setVerticesData?: any;
 }
-
-export class FiberCameraProps extends FiberNodeProps {
+export declare class FiberCameraProps extends FiberNodeProps {
     cameraRigMode?: number;
     customRenderTargets?: BABYLON.RenderTargetTexture[];
     fov?: number;
@@ -148,8 +142,7 @@ export class FiberCameraProps extends FiberNodeProps {
     setCameraRigMode?: any;
     setCameraRigParameter?: any;
 }
-
-export class FiberTargetCameraProps extends FiberCameraProps {
+export declare class FiberTargetCameraProps extends FiberCameraProps {
     cameraDirection?: BABYLON.Vector3;
     cameraRotation?: BABYLON.Vector2;
     lockedTarget?: any;
@@ -160,8 +153,7 @@ export class FiberTargetCameraProps extends FiberCameraProps {
     updateUpVectorFromRotation?: boolean;
     setTarget?: any;
 }
-
-export class FiberArcRotateCameraProps extends FiberTargetCameraProps {
+export declare class FiberArcRotateCameraProps extends FiberTargetCameraProps {
     allowUpsideDown?: boolean;
     alpha?: number;
     angularSensibilityX?: number;
@@ -208,17 +200,13 @@ export class FiberArcRotateCameraProps extends FiberTargetCameraProps {
     setPosition?: any;
     setTarget?: any;
 }
-
-export class FiberVRDeviceOrientationArcRotateCameraProps extends FiberArcRotateCameraProps {
+export declare class FiberVRDeviceOrientationArcRotateCameraProps extends FiberArcRotateCameraProps {
 }
-
-export class FiberAnaglyphArcRotateCameraProps extends FiberArcRotateCameraProps {
+export declare class FiberAnaglyphArcRotateCameraProps extends FiberArcRotateCameraProps {
 }
-
-export class FiberStereoscopicArcRotateCameraProps extends FiberArcRotateCameraProps {
+export declare class FiberStereoscopicArcRotateCameraProps extends FiberArcRotateCameraProps {
 }
-
-export class FiberFlyCameraProps extends FiberTargetCameraProps {
+export declare class FiberFlyCameraProps extends FiberTargetCameraProps {
     angularSensibility?: number;
     applyGravity?: boolean;
     bankedTurn?: boolean;
@@ -240,8 +228,7 @@ export class FiberFlyCameraProps extends FiberTargetCameraProps {
     rollCorrect?: number;
     rotationQuaternion?: BABYLON.Quaternion;
 }
-
-export class FiberFollowCameraProps extends FiberTargetCameraProps {
+export declare class FiberFollowCameraProps extends FiberTargetCameraProps {
     cameraAcceleration?: number;
     heightOffset?: number;
     lockedTarget?: BABYLON.AbstractMesh;
@@ -249,15 +236,13 @@ export class FiberFollowCameraProps extends FiberTargetCameraProps {
     radius?: number;
     rotationOffset?: number;
 }
-
-export class FiberArcFollowCameraProps extends FiberTargetCameraProps {
+export declare class FiberArcFollowCameraProps extends FiberTargetCameraProps {
     alpha?: number;
     beta?: number;
     radius?: number;
     target?: BABYLON.AbstractMesh;
 }
-
-export class FiberFreeCameraProps extends FiberTargetCameraProps {
+export declare class FiberFreeCameraProps extends FiberTargetCameraProps {
     angularSensibility?: number;
     applyGravity?: boolean;
     checkCollisions?: boolean;
@@ -271,45 +256,33 @@ export class FiberFreeCameraProps extends FiberTargetCameraProps {
     keysUp?: number[];
     onCollide?: (collidedMesh: BABYLON.AbstractMesh) => void;
 }
-
-export class FiberDeviceOrientationCameraProps extends FiberFreeCameraProps {
+export declare class FiberDeviceOrientationCameraProps extends FiberFreeCameraProps {
 }
-
-export class FiberVRDeviceOrientationFreeCameraProps extends FiberDeviceOrientationCameraProps {
+export declare class FiberVRDeviceOrientationFreeCameraProps extends FiberDeviceOrientationCameraProps {
 }
-
-export class FiberVRDeviceOrientationGamepadCameraProps extends FiberVRDeviceOrientationFreeCameraProps {
+export declare class FiberVRDeviceOrientationGamepadCameraProps extends FiberVRDeviceOrientationFreeCameraProps {
 }
-
-export class FiberTouchCameraProps extends FiberFreeCameraProps {
+export declare class FiberTouchCameraProps extends FiberFreeCameraProps {
     touchAngularSensibility?: number;
     touchMoveSensibility?: number;
 }
-
-export class FiberUniversalCameraProps extends FiberTouchCameraProps {
+export declare class FiberUniversalCameraProps extends FiberTouchCameraProps {
     gamepadAngularSensibility?: number;
     gamepadMoveSensibility?: number;
 }
-
-export class FiberGamepadCameraProps extends FiberUniversalCameraProps {
+export declare class FiberGamepadCameraProps extends FiberUniversalCameraProps {
 }
-
-export class FiberAnaglyphGamepadCameraProps extends FiberGamepadCameraProps {
+export declare class FiberAnaglyphGamepadCameraProps extends FiberGamepadCameraProps {
 }
-
-export class FiberStereoscopicGamepadCameraProps extends FiberGamepadCameraProps {
+export declare class FiberStereoscopicGamepadCameraProps extends FiberGamepadCameraProps {
 }
-
-export class FiberAnaglyphUniversalCameraProps extends FiberUniversalCameraProps {
+export declare class FiberAnaglyphUniversalCameraProps extends FiberUniversalCameraProps {
 }
-
-export class FiberStereoscopicUniversalCameraProps extends FiberUniversalCameraProps {
+export declare class FiberStereoscopicUniversalCameraProps extends FiberUniversalCameraProps {
 }
-
-export class FiberVirtualJoysticksCameraProps extends FiberFreeCameraProps {
+export declare class FiberVirtualJoysticksCameraProps extends FiberFreeCameraProps {
 }
-
-export class FiberWebVRFreeCameraProps extends FiberFreeCameraProps {
+export declare class FiberWebVRFreeCameraProps extends FiberFreeCameraProps {
     controllers?: BABYLON.WebVRController[];
     devicePosition?: BABYLON.Vector3;
     deviceRotationQuaternion?: BABYLON.Quaternion;
@@ -322,17 +295,13 @@ export class FiberWebVRFreeCameraProps extends FiberFreeCameraProps {
     updateCacheCalled?: any;
     webVROptions?: any;
 }
-
-export class FiberAnaglyphFreeCameraProps extends FiberFreeCameraProps {
+export declare class FiberAnaglyphFreeCameraProps extends FiberFreeCameraProps {
 }
-
-export class FiberStereoscopicFreeCameraProps extends FiberFreeCameraProps {
+export declare class FiberStereoscopicFreeCameraProps extends FiberFreeCameraProps {
 }
-
-export class FiberWebXRCameraProps extends FiberFreeCameraProps {
+export declare class FiberWebXRCameraProps extends FiberFreeCameraProps {
 }
-
-export class FiberMaterialProps {
+export declare class FiberMaterialProps {
     alpha?: number;
     alphaMode?: number;
     animations?: BABYLON.Animation[];
@@ -346,7 +315,9 @@ export class FiberMaterialProps {
     forceDepthWrite?: boolean;
     getRenderTargetTextures?: () => BABYLON.SmartArray<BABYLON.RenderTargetTexture>;
     id?: string;
-    meshMap?: { [id: string]: BABYLON.AbstractMesh; };
+    meshMap?: {
+        [id: string]: BABYLON.AbstractMesh;
+    };
     metadata?: any;
     name?: string;
     needDepthPrePass?: boolean;
@@ -366,16 +337,13 @@ export class FiberMaterialProps {
     wireframe?: boolean;
     zOffset?: number;
 }
-
-export class FiberMultiMaterialProps extends FiberMaterialProps {
+export declare class FiberMultiMaterialProps extends FiberMaterialProps {
     subMaterials?: BABYLON.Material[];
 }
-
-export class FiberPushMaterialProps extends FiberMaterialProps {
+export declare class FiberPushMaterialProps extends FiberMaterialProps {
     allowShaderHotSwapping?: boolean;
 }
-
-export class FiberStandardMaterialProps extends FiberPushMaterialProps {
+export declare class FiberStandardMaterialProps extends FiberPushMaterialProps {
     alphaCutOff?: number;
     ambientColor?: BABYLON.Color3;
     ambientTexture?: BABYLON.BaseTexture;
@@ -427,8 +395,7 @@ export class FiberStandardMaterialProps extends FiberPushMaterialProps {
     useReflectionOverAlpha?: boolean;
     useSpecularOverAlpha?: boolean;
 }
-
-export class FiberBackgroundMaterialProps extends FiberPushMaterialProps {
+export declare class FiberBackgroundMaterialProps extends FiberPushMaterialProps {
     cameraColorCurves?: BABYLON.ColorCurves;
     cameraColorCurvesEnabled?: boolean;
     cameraColorGradingEnabled?: boolean;
@@ -460,13 +427,11 @@ export class FiberBackgroundMaterialProps extends FiberPushMaterialProps {
     useEquirectangularFOV?: boolean;
     useRGBColor?: boolean;
 }
-
-export class FiberPBRBaseMaterialProps extends FiberPushMaterialProps {
+export declare class FiberPBRBaseMaterialProps extends FiberPushMaterialProps {
     transparencyMode?: number;
     useLogarithmicDepth?: boolean;
 }
-
-export class FiberPBRBaseSimpleMaterialProps extends FiberPBRBaseMaterialProps {
+export declare class FiberPBRBaseSimpleMaterialProps extends FiberPBRBaseMaterialProps {
     alphaCutOff?: number;
     disableLighting?: boolean;
     doubleSided?: boolean;
@@ -482,24 +447,21 @@ export class FiberPBRBaseSimpleMaterialProps extends FiberPBRBaseMaterialProps {
     occlusionTexture?: BABYLON.BaseTexture;
     useLightmapAsShadowmap?: boolean;
 }
-
-export class FiberPBRMetallicRoughnessMaterialProps extends FiberPBRBaseSimpleMaterialProps {
+export declare class FiberPBRMetallicRoughnessMaterialProps extends FiberPBRBaseSimpleMaterialProps {
     baseColor?: BABYLON.Color3;
     baseTexture?: BABYLON.BaseTexture;
     metallic?: number;
     metallicRoughnessTexture?: BABYLON.BaseTexture;
     roughness?: number;
 }
-
-export class FiberPBRSpecularGlossinessMaterialProps extends FiberPBRBaseSimpleMaterialProps {
+export declare class FiberPBRSpecularGlossinessMaterialProps extends FiberPBRBaseSimpleMaterialProps {
     diffuseColor?: BABYLON.Color3;
     diffuseTexture?: BABYLON.BaseTexture;
     glossiness?: number;
     specularColor?: BABYLON.Color3;
     specularGlossinessTexture?: BABYLON.BaseTexture;
 }
-
-export class FiberPBRMaterialProps extends FiberPBRBaseMaterialProps {
+export declare class FiberPBRMaterialProps extends FiberPBRBaseMaterialProps {
     albedoColor?: BABYLON.Color3;
     albedoTexture?: BABYLON.BaseTexture;
     alphaCutOff?: number;
@@ -571,8 +533,7 @@ export class FiberPBRMaterialProps extends FiberPBRBaseMaterialProps {
     useRoughnessFromMetallicTextureGreen?: boolean;
     useSpecularOverAlpha?: boolean;
 }
-
-export class FiberShaderMaterialProps extends FiberMaterialProps {
+export declare class FiberShaderMaterialProps extends FiberMaterialProps {
     setArray2?: any;
     setArray3?: any;
     setColor3?: any;
@@ -590,8 +551,7 @@ export class FiberShaderMaterialProps extends FiberMaterialProps {
     setVector3?: any;
     setVector4?: any;
 }
-
-export class FiberLightProps extends FiberNodeProps {
+export declare class FiberLightProps extends FiberNodeProps {
     diffuse?: BABYLON.Color3;
     excludedMeshes?: BABYLON.AbstractMesh[];
     excludeWithLayerMask?: number;
@@ -608,14 +568,12 @@ export class FiberLightProps extends FiberNodeProps {
     specular?: BABYLON.Color3;
     setEnabled?: any;
 }
-
-export class FiberHemisphericLightProps extends FiberLightProps {
+export declare class FiberHemisphericLightProps extends FiberLightProps {
     direction?: BABYLON.Vector3;
     groundColor?: BABYLON.Color3;
     setDirectionToTarget?: any;
 }
-
-export class FiberShadowLightProps extends FiberLightProps {
+export declare class FiberShadowLightProps extends FiberLightProps {
     customProjectionMatrixBuilder?: (viewMatrix: BABYLON.Matrix, renderList: BABYLON.AbstractMesh[], result: BABYLON.Matrix) => void;
     direction?: BABYLON.Vector3;
     position?: BABYLON.Vector3;
@@ -626,19 +584,16 @@ export class FiberShadowLightProps extends FiberLightProps {
     setDirectionToTarget?: any;
     setShadowProjectionMatrix?: any;
 }
-
-export class FiberDirectionalLightProps extends FiberShadowLightProps {
+export declare class FiberDirectionalLightProps extends FiberShadowLightProps {
     autoUpdateExtends?: boolean;
     shadowFrustumSize?: number;
     shadowOrthoScale?: number;
 }
-
-export class FiberPointLightProps extends FiberShadowLightProps {
+export declare class FiberPointLightProps extends FiberShadowLightProps {
     direction?: BABYLON.Vector3;
     shadowAngle?: number;
 }
-
-export class FiberSpotLightProps extends FiberShadowLightProps {
+export declare class FiberSpotLightProps extends FiberShadowLightProps {
     angle?: number;
     exponent?: number;
     innerAngle?: number;
@@ -648,14 +603,17 @@ export class FiberSpotLightProps extends FiberShadowLightProps {
     projectionTextureUpDirection?: BABYLON.Vector3;
     shadowAngleScale?: number;
 }
-
-export class FiberControlProps {
+export declare class FiberControlProps {
     alpha?: number;
     clipChildren?: boolean;
     color?: string;
     disabledColor?: string;
     fontFamily?: string;
-    fontOffset?: { ascent: number; height: number; descent: number; };
+    fontOffset?: {
+        ascent: number;
+        height: number;
+        descent: number;
+    };
     fontSize?: string | number;
     fontStyle?: string;
     fontWeight?: string;
@@ -704,8 +662,7 @@ export class FiberControlProps {
     width?: string | number;
     zIndex?: number;
 }
-
-export class FiberCheckboxProps extends FiberControlProps {
+export declare class FiberCheckboxProps extends FiberControlProps {
     background?: string;
     checkSizeRatio?: number;
     isChecked?: boolean;
@@ -713,8 +670,7 @@ export class FiberCheckboxProps extends FiberControlProps {
     onIsCheckedChangedObservable?: BABYLON.Observable<boolean>;
     thickness?: number;
 }
-
-export class FiberColorPickerProps extends FiberControlProps {
+export declare class FiberColorPickerProps extends FiberControlProps {
     height?: string | number;
     name?: string;
     onValueChangedObservable?: BABYLON.Observable<BABYLON.Color3>;
@@ -722,33 +678,28 @@ export class FiberColorPickerProps extends FiberControlProps {
     value?: BABYLON.Color3;
     width?: string | number;
 }
-
-export class FiberContainerProps extends FiberControlProps {
+export declare class FiberContainerProps extends FiberControlProps {
     adaptHeightToChildren?: boolean;
     adaptWidthToChildren?: boolean;
     background?: string;
     name?: string;
 }
-
-export class FiberEllipseProps extends FiberContainerProps {
+export declare class FiberEllipseProps extends FiberContainerProps {
     name?: string;
     thickness?: number;
 }
-
-export class FiberGridProps extends FiberContainerProps {
+export declare class FiberGridProps extends FiberContainerProps {
     name?: string;
     setColumnDefinition?: any;
     setRowDefinition?: any;
 }
-
-export class FiberStackPanelProps extends FiberContainerProps {
+export declare class FiberStackPanelProps extends FiberContainerProps {
     height?: string | number;
     isVertical?: boolean;
     name?: string;
     width?: string | number;
 }
-
-export class FiberVirtualKeyboardProps extends FiberStackPanelProps {
+export declare class FiberVirtualKeyboardProps extends FiberStackPanelProps {
     defaultButtonBackground?: string;
     defaultButtonColor?: string;
     defaultButtonHeight?: string;
@@ -762,22 +713,19 @@ export class FiberVirtualKeyboardProps extends FiberStackPanelProps {
     shiftButtonColor?: string;
     shiftState?: number;
 }
-
-export class FiberRectangleProps extends FiberContainerProps {
+export declare class FiberRectangleProps extends FiberContainerProps {
     cornerRadius?: number;
     name?: string;
     thickness?: number;
 }
-
-export class FiberButtonProps extends FiberRectangleProps {
+export declare class FiberButtonProps extends FiberRectangleProps {
     name?: string;
     pointerDownAnimation?: () => void;
     pointerEnterAnimation?: () => void;
     pointerOutAnimation?: () => void;
     pointerUpAnimation?: () => void;
 }
-
-export class FiberSelectionPanelProps extends FiberRectangleProps {
+export declare class FiberSelectionPanelProps extends FiberRectangleProps {
     barColor?: string;
     barHeight?: string;
     buttonBackground?: string;
@@ -789,8 +737,7 @@ export class FiberSelectionPanelProps extends FiberRectangleProps {
     spacerHeight?: string;
     setHeaderName?: any;
 }
-
-export class FiberScrollViewerProps extends FiberRectangleProps {
+export declare class FiberScrollViewerProps extends FiberRectangleProps {
     barBackground?: string;
     barBorderColor?: string;
     barColor?: string;
@@ -800,8 +747,7 @@ export class FiberScrollViewerProps extends FiberRectangleProps {
     paddingRight?: string | number;
     paddingTop?: string | number;
 }
-
-export class FiberImageProps extends FiberControlProps {
+export declare class FiberImageProps extends FiberControlProps {
     autoScale?: boolean;
     cellHeight?: number;
     cellId?: number;
@@ -816,8 +762,7 @@ export class FiberImageProps extends FiberControlProps {
     sourceWidth?: number;
     stretch?: number;
 }
-
-export class FiberInputTextProps extends FiberControlProps {
+export declare class FiberInputTextProps extends FiberControlProps {
     addKey?: boolean;
     autoStretchWidth?: boolean;
     background?: string;
@@ -846,11 +791,9 @@ export class FiberInputTextProps extends FiberControlProps {
     thickness?: number;
     width?: string | number;
 }
-
-export class FiberInputPasswordProps extends FiberInputTextProps {
+export declare class FiberInputPasswordProps extends FiberInputTextProps {
 }
-
-export class FiberLineProps extends FiberControlProps {
+export declare class FiberLineProps extends FiberControlProps {
     connectedControl?: BABYLON.GUI.Control;
     dash?: number[];
     horizontalAlignment?: number;
@@ -862,8 +805,7 @@ export class FiberLineProps extends FiberControlProps {
     y1?: string | number;
     y2?: string | number;
 }
-
-export class FiberMultiLineProps extends FiberControlProps {
+export declare class FiberMultiLineProps extends FiberControlProps {
     dash?: number[];
     horizontalAlignment?: number;
     lineWidth?: number;
@@ -871,8 +813,7 @@ export class FiberMultiLineProps extends FiberControlProps {
     onPointUpdate?: () => void;
     verticalAlignment?: number;
 }
-
-export class FiberRadioButtonProps extends FiberControlProps {
+export declare class FiberRadioButtonProps extends FiberControlProps {
     background?: string;
     checkSizeRatio?: number;
     group?: string;
@@ -881,8 +822,7 @@ export class FiberRadioButtonProps extends FiberControlProps {
     onIsCheckedChangedObservable?: BABYLON.Observable<boolean>;
     thickness?: number;
 }
-
-export class FiberTextBlockProps extends FiberControlProps {
+export declare class FiberTextBlockProps extends FiberControlProps {
     lineSpacing?: string | number;
     name?: string;
     onLinesReadyObservable?: BABYLON.Observable<BABYLON.GUI.TextBlock>;
@@ -895,8 +835,7 @@ export class FiberTextBlockProps extends FiberControlProps {
     textVerticalAlignment?: number;
     textWrapping?: boolean | BABYLON.GUI.TextWrapping;
 }
-
-export class FiberDisplayGridProps extends FiberControlProps {
+export declare class FiberDisplayGridProps extends FiberControlProps {
     background?: string;
     cellHeight?: number;
     cellWidth?: number;
@@ -909,8 +848,7 @@ export class FiberDisplayGridProps extends FiberControlProps {
     minorLineTickness?: number;
     name?: string;
 }
-
-export class FiberBaseSliderProps extends FiberControlProps {
+export declare class FiberBaseSliderProps extends FiberControlProps {
     barOffset?: string | number;
     displayThumb?: boolean;
     isThumbClamped?: boolean;
@@ -922,23 +860,20 @@ export class FiberBaseSliderProps extends FiberControlProps {
     thumbWidth?: string | number;
     value?: number;
 }
-
-export class FiberSliderProps extends FiberBaseSliderProps {
+export declare class FiberSliderProps extends FiberBaseSliderProps {
     background?: string;
     borderColor?: string;
     isThumbCircle?: boolean;
     name?: string;
 }
-
-export class FiberImageBasedSliderProps extends FiberBaseSliderProps {
+export declare class FiberImageBasedSliderProps extends FiberBaseSliderProps {
     backgroundImage?: BABYLON.GUI.Image;
     displayThumb?: boolean;
     name?: string;
     thumbImage?: BABYLON.GUI.Image;
     valueBarImage?: BABYLON.GUI.Image;
 }
-
-export class FiberControl3DProps {
+export declare class FiberControl3DProps {
     isVisible?: boolean;
     name?: string;
     onPointerClickObservable?: BABYLON.Observable<BABYLON.GUI.Vector3WithInfo>;
@@ -955,57 +890,45 @@ export class FiberControl3DProps {
     position?: BABYLON.Vector3;
     scaling?: BABYLON.Vector3;
 }
-
-export class FiberAbstractButton3DProps extends FiberControl3DProps {
+export declare class FiberAbstractButton3DProps extends FiberControl3DProps {
 }
-
-export class FiberButton3DProps extends FiberAbstractButton3DProps {
+export declare class FiberButton3DProps extends FiberAbstractButton3DProps {
     content?: BABYLON.GUI.Control;
     contentResolution?: number;
     contentScaleRatio?: number;
 }
-
-export class FiberHolographicButtonProps extends FiberButton3DProps {
+export declare class FiberHolographicButtonProps extends FiberButton3DProps {
     imageUrl?: string;
     text?: string;
     tooltipText?: string;
 }
-
-export class FiberMeshButton3DProps extends FiberButton3DProps {
+export declare class FiberMeshButton3DProps extends FiberButton3DProps {
 }
-
-export class FiberContainer3DProps extends FiberControl3DProps {
+export declare class FiberContainer3DProps extends FiberControl3DProps {
     blockLayout?: boolean;
 }
-
-export class FiberStackPanel3DProps extends FiberContainer3DProps {
+export declare class FiberStackPanel3DProps extends FiberContainer3DProps {
     isVertical?: boolean;
     margin?: number;
 }
-
-export class FiberVolumeBasedPanelProps extends FiberContainer3DProps {
+export declare class FiberVolumeBasedPanelProps extends FiberContainer3DProps {
     columns?: number;
     margin?: number;
     orientation?: number;
     rows?: number;
 }
-
-export class FiberCylinderPanelProps extends FiberVolumeBasedPanelProps {
+export declare class FiberCylinderPanelProps extends FiberVolumeBasedPanelProps {
     radius?: number;
 }
-
-export class FiberPlanePanelProps extends FiberVolumeBasedPanelProps {
+export declare class FiberPlanePanelProps extends FiberVolumeBasedPanelProps {
 }
-
-export class FiberScatterPanelProps extends FiberVolumeBasedPanelProps {
+export declare class FiberScatterPanelProps extends FiberVolumeBasedPanelProps {
     iteration?: number;
 }
-
-export class FiberSpherePanelProps extends FiberVolumeBasedPanelProps {
+export declare class FiberSpherePanelProps extends FiberVolumeBasedPanelProps {
     radius?: number;
 }
-
-export class FiberBaseTextureProps {
+export declare class FiberBaseTextureProps {
     animations?: BABYLON.Animation[];
     anisotropicFilteringLevel?: number;
     coordinatesIndex?: number;
@@ -1033,25 +956,21 @@ export class FiberBaseTextureProps {
     wrapU?: number;
     wrapV?: number;
 }
-
-export class FiberColorGradingTextureProps extends FiberBaseTextureProps {
+export declare class FiberColorGradingTextureProps extends FiberBaseTextureProps {
     load3dlTexture?: any;
     loadTexture?: any;
     url?: string;
 }
-
-export class FiberCubeTextureProps extends FiberBaseTextureProps {
+export declare class FiberCubeTextureProps extends FiberBaseTextureProps {
     boundingBoxPosition?: BABYLON.Vector3;
     boundingBoxSize?: BABYLON.Vector3;
     rotationY?: number;
     url?: string;
     setReflectionTextureMatrix?: any;
 }
-
-export class FiberRawCubeTextureProps extends FiberCubeTextureProps {
+export declare class FiberRawCubeTextureProps extends FiberCubeTextureProps {
 }
-
-export class FiberHDRCubeTextureProps extends FiberBaseTextureProps {
+export declare class FiberHDRCubeTextureProps extends FiberBaseTextureProps {
     boundingBoxPosition?: BABYLON.Vector3;
     boundingBoxSize?: BABYLON.Vector3;
     coordinatesMode?: number;
@@ -1061,8 +980,7 @@ export class FiberHDRCubeTextureProps extends FiberBaseTextureProps {
     url?: string;
     setReflectionTextureMatrix?: any;
 }
-
-export class FiberTextureProps extends FiberBaseTextureProps {
+export declare class FiberTextureProps extends FiberBaseTextureProps {
     isBlocking?: boolean;
     onLoadObservable?: BABYLON.Observable<BABYLON.Texture>;
     uAng?: number;
@@ -1077,19 +995,15 @@ export class FiberTextureProps extends FiberBaseTextureProps {
     wAng?: number;
     wRotationCenter?: number;
 }
-
-export class FiberDynamicTextureProps extends FiberTextureProps {
+export declare class FiberDynamicTextureProps extends FiberTextureProps {
 }
-
-export class FiberRawTextureProps extends FiberTextureProps {
+export declare class FiberRawTextureProps extends FiberTextureProps {
     format?: number;
 }
-
-export class FiberRawTexture3DProps extends FiberTextureProps {
+export declare class FiberRawTexture3DProps extends FiberTextureProps {
     format?: number;
 }
-
-export class FiberRenderTargetTextureProps extends FiberTextureProps {
+export declare class FiberRenderTargetTextureProps extends FiberTextureProps {
     activeCamera?: BABYLON.Camera;
     boundingBoxPosition?: BABYLON.Vector3;
     boundingBoxSize?: BABYLON.Vector3;
@@ -1119,8 +1033,7 @@ export class FiberRenderTargetTextureProps extends FiberTextureProps {
     setRenderingAutoClearDepthStencil?: any;
     setRenderingOrder?: any;
 }
-
-export class FiberMirrorTextureProps extends FiberRenderTargetTextureProps {
+export declare class FiberMirrorTextureProps extends FiberRenderTargetTextureProps {
     adaptiveBlurKernel?: number;
     blurKernel?: number;
     blurKernelX?: number;
@@ -1129,23 +1042,19 @@ export class FiberMirrorTextureProps extends FiberRenderTargetTextureProps {
     mirrorPlane?: BABYLON.Plane;
     scene?: any;
 }
-
-export class FiberMultiRenderTargetProps extends FiberRenderTargetTextureProps {
+export declare class FiberMultiRenderTargetProps extends FiberRenderTargetTextureProps {
     samples?: number;
     wrapU?: number;
     wrapV?: number;
 }
-
-export class FiberRefractionTextureProps extends FiberRenderTargetTextureProps {
+export declare class FiberRefractionTextureProps extends FiberRenderTargetTextureProps {
     depth?: number;
     refractionPlane?: BABYLON.Plane;
 }
-
-export class FiberVideoTextureProps extends FiberTextureProps {
+export declare class FiberVideoTextureProps extends FiberTextureProps {
     reset?: any;
 }
-
-export class FiberProceduralTextureProps extends FiberTextureProps {
+export declare class FiberProceduralTextureProps extends FiberTextureProps {
     autoClear?: boolean;
     isCube?: boolean;
     isEnabled?: boolean;
@@ -1163,19 +1072,16 @@ export class FiberProceduralTextureProps extends FiberTextureProps {
     setVector2?: any;
     setVector3?: any;
 }
-
-export class FiberCustomProceduralTextureProps extends FiberProceduralTextureProps {
+export declare class FiberCustomProceduralTextureProps extends FiberProceduralTextureProps {
     animate?: boolean;
 }
-
-export class FiberNoiseProceduralTextureProps extends FiberProceduralTextureProps {
+export declare class FiberNoiseProceduralTextureProps extends FiberProceduralTextureProps {
     animationSpeedFactor?: number;
     brightness?: number;
     octaves?: number;
     persistence?: number;
 }
-
-export class FiberAdvancedDynamicTextureProps extends FiberDynamicTextureProps {
+export declare class FiberAdvancedDynamicTextureProps extends FiberDynamicTextureProps {
     background?: string;
     clipboardData?: string;
     focusedControl?: BABYLON.GUI.IFocusableControl;
@@ -1189,12 +1095,10 @@ export class FiberAdvancedDynamicTextureProps extends FiberDynamicTextureProps {
     renderScale?: number;
     useSmallestIdeal?: boolean;
 }
-
-export class FiberGUI3DManagerProps {
+export declare class FiberGUI3DManagerProps {
     onPickedPointChangedObservable?: BABYLON.Observable<BABYLON.Vector3>;
 }
-
-export class FiberShadowGeneratorProps {
+export declare class FiberShadowGeneratorProps {
     bias?: number;
     blurBoxOffset?: number;
     blurKernel?: number;
@@ -1217,13 +1121,14 @@ export class FiberShadowGeneratorProps {
     setDarkness?: any;
     setTransparencyShadow?: any;
 }
-
-export class FiberEnvironmentHelperProps {
-    onErrorObservable?: BABYLON.Observable<{ message?: string; exception?: any; }>;
+export declare class FiberEnvironmentHelperProps {
+    onErrorObservable?: BABYLON.Observable<{
+        message?: string;
+        exception?: any;
+    }>;
     setMainColor?: any;
 }
-
-export class FiberVRExperienceHelperProps {
+export declare class FiberVRExperienceHelperProps {
     beforeRender?: any;
     displayGaze?: boolean;
     displayLaserPointer?: boolean;
@@ -1249,8 +1154,7 @@ export class FiberVRExperienceHelperProps {
     updateGazeTrackerScale?: boolean;
     webVROptions?: BABYLON.VRExperienceHelperOptions;
 }
-
-export class FiberSceneProps {
+export declare class FiberSceneProps {
     actionManager?: BABYLON.ActionManager;
     activeCamera?: BABYLON.Camera;
     activeCameras?: BABYLON.Camera[];

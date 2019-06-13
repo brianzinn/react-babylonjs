@@ -763,6 +763,11 @@ babylonjs@4.0.0-alpha.10:
   resolved "https://registry.yarnpkg.com/babylonjs/-/babylonjs-4.0.0-alpha.10.tgz#451a51e82b68a88fee94040e7ed8942c88ca70b8"
   integrity sha512-PeeFraNxFI4NRxuTDUgnTAPxSLWBCfJoIhEqT24/sTSGOeaGS000nMjv7zgE6qCeaiE813IAYRXFIQg8pMfjAg==
 
+babylonjs@^4.0.3:
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/babylonjs/-/babylonjs-4.0.3.tgz#5dba9a96a7cb70634338e8dd7a17081e9f902cf6"
+  integrity sha512-S5PoPmf0Vo03FDmF9z8djBiIm8GSLvCesln/9aKV9RbD4W+NTqVmMKhR8CQoMRCQNb2JSKKUuyUygXxCRVG37Q==
+
 balanced-match@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
@@ -1838,7 +1843,9 @@ duplexify@^3.4.2, duplexify@^3.6.0:
 
 "dyanmic-terrain@https://github.com/seacloud9/dyanmic-terrain":
   version "1.0.6"
-  resolved "https://github.com/seacloud9/dyanmic-terrain#dfee58a86efb7633a0bf611448017be9fe0d0bdd"
+  resolved "https://github.com/seacloud9/dyanmic-terrain#a1c26669493914e5c8b2a52dab6bf49bddc6b02a"
+  dependencies:
+    babylonjs "^4.0.3"
 
 ecc-jsbn@~0.1.1:
   version "0.1.2"

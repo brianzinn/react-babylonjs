@@ -1,5 +1,5 @@
 import ReactReconciler, { HostConfig } from "react-reconciler"
-import BABYLON from "babylonjs"
+import * as BABYLON from "babylonjs"
 import * as GUI from "babylonjs-gui"
 
 import * as GENERATED from "./generatedCode"
