@@ -1,7 +1,7 @@
 import { PropsHandler, PropertyUpdate, HasPropsHandlers } from "./PropsHandler";
 import { CreatedInstanceMetadata } from "./CreatedInstance";
 import * as BABYLON from "babylonjs";
-import "dyanmic-terrain";
+import * as BABYLONEXT from './customComponents/DynamicTerrain';
 import GUI from "babylonjs-gui";
 import { FiberNodeProps, FiberTransformNodeProps, FiberAbstractMeshProps, FiberMeshProps, FiberCameraProps, FiberTargetCameraProps, FiberArcRotateCameraProps, FiberVRDeviceOrientationArcRotateCameraProps, FiberAnaglyphArcRotateCameraProps, FiberStereoscopicArcRotateCameraProps, FiberFlyCameraProps, FiberFollowCameraProps, FiberArcFollowCameraProps, FiberFreeCameraProps, FiberDeviceOrientationCameraProps, FiberVRDeviceOrientationFreeCameraProps, FiberVRDeviceOrientationGamepadCameraProps, FiberTouchCameraProps, FiberUniversalCameraProps, FiberGamepadCameraProps, FiberAnaglyphGamepadCameraProps, FiberStereoscopicGamepadCameraProps, FiberAnaglyphUniversalCameraProps, FiberStereoscopicUniversalCameraProps, FiberVirtualJoysticksCameraProps, FiberWebVRFreeCameraProps, FiberAnaglyphFreeCameraProps, FiberStereoscopicFreeCameraProps, FiberWebXRCameraProps, FiberMaterialProps, FiberMultiMaterialProps, FiberPushMaterialProps, FiberStandardMaterialProps, FiberBackgroundMaterialProps, FiberPBRBaseMaterialProps, FiberPBRBaseSimpleMaterialProps, FiberPBRMetallicRoughnessMaterialProps, FiberPBRSpecularGlossinessMaterialProps, FiberPBRMaterialProps, FiberShaderMaterialProps, FiberLightProps, FiberHemisphericLightProps, FiberShadowLightProps, FiberDirectionalLightProps, FiberPointLightProps, FiberSpotLightProps, FiberControlProps, FiberCheckboxProps, FiberColorPickerProps, FiberContainerProps, FiberEllipseProps, FiberGridProps, FiberStackPanelProps, FiberVirtualKeyboardProps, FiberRectangleProps, FiberButtonProps, FiberSelectionPanelProps, FiberScrollViewerProps, FiberImageProps, FiberInputTextProps, FiberInputPasswordProps, FiberLineProps, FiberMultiLineProps, FiberRadioButtonProps, FiberTextBlockProps, FiberDisplayGridProps, FiberBaseSliderProps, FiberSliderProps, FiberImageBasedSliderProps, FiberControl3DProps, FiberAbstractButton3DProps, FiberButton3DProps, FiberHolographicButtonProps, FiberMeshButton3DProps, FiberContainer3DProps, FiberStackPanel3DProps, FiberVolumeBasedPanelProps, FiberCylinderPanelProps, FiberPlanePanelProps, FiberScatterPanelProps, FiberSpherePanelProps, FiberBaseTextureProps, FiberColorGradingTextureProps, FiberCubeTextureProps, FiberRawCubeTextureProps, FiberHDRCubeTextureProps, FiberTextureProps, FiberDynamicTextureProps, FiberRawTextureProps, FiberRawTexture3DProps, FiberRenderTargetTextureProps, FiberMirrorTextureProps, FiberMultiRenderTargetProps, FiberRefractionTextureProps, FiberVideoTextureProps, FiberProceduralTextureProps, FiberCustomProceduralTextureProps, FiberNoiseProceduralTextureProps, FiberAdvancedDynamicTextureProps, FiberGUI3DManagerProps, FiberShadowGeneratorProps, FiberEnvironmentHelperProps, FiberVRExperienceHelperProps, FiberSceneProps, FiberDynamicTerrainProps } from "./generatedProps";
 export declare class FiberNodePropsHandler implements PropsHandler<BABYLON.Node, FiberNodeProps> {
@@ -18,13 +18,13 @@ export declare class FiberNode implements HasPropsHandlers<BABYLON.Node, FiberNo
     getPropsHandlers(): PropsHandler<BABYLON.Node, FiberNodeProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Node, FiberNodeProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -43,13 +43,13 @@ export declare class FiberTransformNode implements HasPropsHandlers<BABYLON.Node
     getPropsHandlers(): PropsHandler<BABYLON.Node, FiberNodeProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Node, FiberNodeProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -68,13 +68,13 @@ export declare class FiberAbstractMesh implements HasPropsHandlers<BABYLON.Trans
     getPropsHandlers(): PropsHandler<BABYLON.TransformNode, FiberTransformNodeProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.TransformNode, FiberTransformNodeProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -93,13 +93,13 @@ export declare class FiberMesh implements HasPropsHandlers<BABYLON.AbstractMesh,
     getPropsHandlers(): PropsHandler<BABYLON.AbstractMesh, FiberAbstractMeshProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.AbstractMesh, FiberAbstractMeshProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -119,13 +119,13 @@ export declare class FiberCamera implements HasPropsHandlers<BABYLON.Camera, Fib
     getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -146,13 +146,13 @@ export declare class FiberTargetCamera implements HasPropsHandlers<BABYLON.Camer
     getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -175,13 +175,13 @@ export declare class FiberArcRotateCamera implements HasPropsHandlers<BABYLON.Ca
     getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -201,13 +201,13 @@ export declare class FiberVRDeviceOrientationArcRotateCamera implements HasProps
     getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -227,13 +227,13 @@ export declare class FiberAnaglyphArcRotateCamera implements HasPropsHandlers<BA
     getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -253,13 +253,13 @@ export declare class FiberStereoscopicArcRotateCamera implements HasPropsHandler
     getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -280,13 +280,13 @@ export declare class FiberFlyCamera implements HasPropsHandlers<BABYLON.Camera, 
     getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -307,13 +307,13 @@ export declare class FiberFollowCamera implements HasPropsHandlers<BABYLON.Camer
     getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -334,13 +334,13 @@ export declare class FiberArcFollowCamera implements HasPropsHandlers<BABYLON.Ca
     getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -361,13 +361,13 @@ export declare class FiberFreeCamera implements HasPropsHandlers<BABYLON.Camera,
     getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -388,13 +388,13 @@ export declare class FiberDeviceOrientationCamera implements HasPropsHandlers<BA
     getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -414,13 +414,13 @@ export declare class FiberVRDeviceOrientationFreeCamera implements HasPropsHandl
     getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -440,13 +440,13 @@ export declare class FiberVRDeviceOrientationGamepadCamera implements HasPropsHa
     getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -467,13 +467,13 @@ export declare class FiberTouchCamera implements HasPropsHandlers<BABYLON.Camera
     getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -494,13 +494,13 @@ export declare class FiberUniversalCamera implements HasPropsHandlers<BABYLON.Ca
     getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -521,13 +521,13 @@ export declare class FiberGamepadCamera implements HasPropsHandlers<BABYLON.Came
     getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -547,13 +547,13 @@ export declare class FiberAnaglyphGamepadCamera implements HasPropsHandlers<BABY
     getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -573,13 +573,13 @@ export declare class FiberStereoscopicGamepadCamera implements HasPropsHandlers<
     getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -599,13 +599,13 @@ export declare class FiberAnaglyphUniversalCamera implements HasPropsHandlers<BA
     getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -625,13 +625,13 @@ export declare class FiberStereoscopicUniversalCamera implements HasPropsHandler
     getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -653,13 +653,13 @@ export declare class FiberVirtualJoysticksCamera implements HasPropsHandlers<BAB
     getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -680,13 +680,13 @@ export declare class FiberWebVRFreeCamera implements HasPropsHandlers<BABYLON.Ca
     getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -706,13 +706,13 @@ export declare class FiberAnaglyphFreeCamera implements HasPropsHandlers<BABYLON
     getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -732,13 +732,13 @@ export declare class FiberStereoscopicFreeCamera implements HasPropsHandlers<BAB
     getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -758,13 +758,13 @@ export declare class FiberWebXRCamera implements HasPropsHandlers<BABYLON.Camera
     getPropsHandlers(): PropsHandler<BABYLON.Camera, FiberCameraProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Camera, FiberCameraProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -787,22 +787,22 @@ export declare class FiberBox implements HasPropsHandlers<BABYLON.Mesh, FiberMes
     getPropsHandlers(): PropsHandler<BABYLON.Mesh, FiberMeshProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Mesh, FiberMeshProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "factoryMethod": string;
-        "parameters": ({
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        factoryMethod: string;
+        parameters: ({
+            name: string;
+            type: string;
+            optional: boolean;
         } | {
-            "name": string;
-            "type": {
-                "name": string;
-                "type": string;
-                "optional": boolean;
+            name: string;
+            type: {
+                name: string;
+                type: string;
+                optional: boolean;
             }[];
-            "optional": boolean;
+            optional: boolean;
         })[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -826,22 +826,22 @@ export declare class FiberSphere implements HasPropsHandlers<BABYLON.Mesh, Fiber
     getPropsHandlers(): PropsHandler<BABYLON.Mesh, FiberMeshProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Mesh, FiberMeshProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "factoryMethod": string;
-        "parameters": ({
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        factoryMethod: string;
+        parameters: ({
+            name: string;
+            type: string;
+            optional: boolean;
         } | {
-            "name": string;
-            "type": {
-                "name": string;
-                "type": string;
-                "optional": boolean;
+            name: string;
+            type: {
+                name: string;
+                type: string;
+                optional: boolean;
             }[];
-            "optional": boolean;
+            optional: boolean;
         })[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -863,22 +863,22 @@ export declare class FiberDisc implements HasPropsHandlers<BABYLON.Mesh, FiberMe
     getPropsHandlers(): PropsHandler<BABYLON.Mesh, FiberMeshProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Mesh, FiberMeshProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "factoryMethod": string;
-        "parameters": ({
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        factoryMethod: string;
+        parameters: ({
+            name: string;
+            type: string;
+            optional: boolean;
         } | {
-            "name": string;
-            "type": {
-                "name": string;
-                "type": string;
-                "optional": boolean;
+            name: string;
+            type: {
+                name: string;
+                type: string;
+                optional: boolean;
             }[];
-            "optional": boolean;
+            optional: boolean;
         })[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -901,22 +901,22 @@ export declare class FiberIcoSphere implements HasPropsHandlers<BABYLON.Mesh, Fi
     getPropsHandlers(): PropsHandler<BABYLON.Mesh, FiberMeshProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Mesh, FiberMeshProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "factoryMethod": string;
-        "parameters": ({
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        factoryMethod: string;
+        parameters: ({
+            name: string;
+            type: string;
+            optional: boolean;
         } | {
-            "name": string;
-            "type": {
-                "name": string;
-                "type": string;
-                "optional": boolean;
+            name: string;
+            type: {
+                name: string;
+                type: string;
+                optional: boolean;
             }[];
-            "optional": boolean;
+            optional: boolean;
         })[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -946,22 +946,22 @@ export declare class FiberRibbon implements HasPropsHandlers<BABYLON.Mesh, Fiber
     getPropsHandlers(): PropsHandler<BABYLON.Mesh, FiberMeshProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Mesh, FiberMeshProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "factoryMethod": string;
-        "parameters": ({
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        factoryMethod: string;
+        parameters: ({
+            name: string;
+            type: string;
+            optional: boolean;
         } | {
-            "name": string;
-            "type": {
-                "name": string;
-                "type": string;
-                "optional": boolean;
+            name: string;
+            type: {
+                name: string;
+                type: string;
+                optional: boolean;
             }[];
-            "optional": boolean;
+            optional: boolean;
         })[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -996,22 +996,22 @@ export declare class FiberCylinder implements HasPropsHandlers<BABYLON.Mesh, Fib
     getPropsHandlers(): PropsHandler<BABYLON.Mesh, FiberMeshProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Mesh, FiberMeshProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "factoryMethod": string;
-        "parameters": ({
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        factoryMethod: string;
+        parameters: ({
+            name: string;
+            type: string;
+            optional: boolean;
         } | {
-            "name": string;
-            "type": {
-                "name": string;
-                "type": string;
-                "optional": boolean;
+            name: string;
+            type: {
+                name: string;
+                type: string;
+                optional: boolean;
             }[];
-            "optional": boolean;
+            optional: boolean;
         })[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -1033,22 +1033,22 @@ export declare class FiberTorus implements HasPropsHandlers<BABYLON.Mesh, FiberM
     getPropsHandlers(): PropsHandler<BABYLON.Mesh, FiberMeshProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Mesh, FiberMeshProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "factoryMethod": string;
-        "parameters": ({
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        factoryMethod: string;
+        parameters: ({
+            name: string;
+            type: string;
+            optional: boolean;
         } | {
-            "name": string;
-            "type": {
-                "name": string;
-                "type": string;
-                "optional": boolean;
+            name: string;
+            type: {
+                name: string;
+                type: string;
+                optional: boolean;
             }[];
-            "optional": boolean;
+            optional: boolean;
         })[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -1071,22 +1071,22 @@ export declare class FiberTorusKnot implements HasPropsHandlers<BABYLON.Mesh, Fi
     getPropsHandlers(): PropsHandler<BABYLON.Mesh, FiberMeshProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Mesh, FiberMeshProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "factoryMethod": string;
-        "parameters": ({
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        factoryMethod: string;
+        parameters: ({
+            name: string;
+            type: string;
+            optional: boolean;
         } | {
-            "name": string;
-            "type": {
-                "name": string;
-                "type": string;
-                "optional": boolean;
+            name: string;
+            type: {
+                name: string;
+                type: string;
+                optional: boolean;
             }[];
-            "optional": boolean;
+            optional: boolean;
         })[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -1111,22 +1111,22 @@ export declare class FiberLineSystem implements HasPropsHandlers<BABYLON.Mesh, F
     getPropsHandlers(): PropsHandler<BABYLON.Mesh, FiberMeshProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Mesh, FiberMeshProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "factoryMethod": string;
-        "parameters": ({
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        factoryMethod: string;
+        parameters: ({
+            name: string;
+            type: string;
+            optional: boolean;
         } | {
-            "name": string;
-            "type": {
-                "name": string;
-                "type": string;
-                "optional": boolean;
+            name: string;
+            type: {
+                name: string;
+                type: string;
+                optional: boolean;
             }[];
-            "optional": boolean;
+            optional: boolean;
         })[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -1150,22 +1150,22 @@ export declare class FiberLines implements HasPropsHandlers<BABYLON.Mesh, FiberM
     getPropsHandlers(): PropsHandler<BABYLON.Mesh, FiberMeshProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Mesh, FiberMeshProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "factoryMethod": string;
-        "parameters": ({
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        factoryMethod: string;
+        parameters: ({
+            name: string;
+            type: string;
+            optional: boolean;
         } | {
-            "name": string;
-            "type": {
-                "name": string;
-                "type": string;
-                "optional": boolean;
+            name: string;
+            type: {
+                name: string;
+                type: string;
+                optional: boolean;
             }[];
-            "optional": boolean;
+            optional: boolean;
         })[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -1190,22 +1190,22 @@ export declare class FiberDashedLines implements HasPropsHandlers<BABYLON.Mesh, 
     getPropsHandlers(): PropsHandler<BABYLON.Mesh, FiberMeshProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Mesh, FiberMeshProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "factoryMethod": string;
-        "parameters": ({
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        factoryMethod: string;
+        parameters: ({
+            name: string;
+            type: string;
+            optional: boolean;
         } | {
-            "name": string;
-            "type": {
-                "name": string;
-                "type": string;
-                "optional": boolean;
+            name: string;
+            type: {
+                name: string;
+                type: string;
+                optional: boolean;
             }[];
-            "optional": boolean;
+            optional: boolean;
         })[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -1232,22 +1232,22 @@ export declare class FiberExtrudeShape implements HasPropsHandlers<BABYLON.Mesh,
     getPropsHandlers(): PropsHandler<BABYLON.Mesh, FiberMeshProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Mesh, FiberMeshProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "factoryMethod": string;
-        "parameters": ({
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        factoryMethod: string;
+        parameters: ({
+            name: string;
+            type: string;
+            optional: boolean;
         } | {
-            "name": string;
-            "type": {
-                "name": string;
-                "type": string;
-                "optional": boolean;
+            name: string;
+            type: {
+                name: string;
+                type: string;
+                optional: boolean;
             }[];
-            "optional": boolean;
+            optional: boolean;
         })[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -1279,22 +1279,22 @@ export declare class FiberExtrudeShapeCustom implements HasPropsHandlers<BABYLON
     getPropsHandlers(): PropsHandler<BABYLON.Mesh, FiberMeshProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Mesh, FiberMeshProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "factoryMethod": string;
-        "parameters": ({
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        factoryMethod: string;
+        parameters: ({
+            name: string;
+            type: string;
+            optional: boolean;
         } | {
-            "name": string;
-            "type": {
-                "name": string;
-                "type": string;
-                "optional": boolean;
+            name: string;
+            type: {
+                name: string;
+                type: string;
+                optional: boolean;
             }[];
-            "optional": boolean;
+            optional: boolean;
         })[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -1322,22 +1322,22 @@ export declare class FiberLathe implements HasPropsHandlers<BABYLON.Mesh, FiberM
     getPropsHandlers(): PropsHandler<BABYLON.Mesh, FiberMeshProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Mesh, FiberMeshProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "factoryMethod": string;
-        "parameters": ({
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        factoryMethod: string;
+        parameters: ({
+            name: string;
+            type: string;
+            optional: boolean;
         } | {
-            "name": string;
-            "type": {
-                "name": string;
-                "type": string;
-                "optional": boolean;
+            name: string;
+            type: {
+                name: string;
+                type: string;
+                optional: boolean;
             }[];
-            "optional": boolean;
+            optional: boolean;
         })[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -1359,22 +1359,22 @@ export declare class FiberPlane implements HasPropsHandlers<BABYLON.Mesh, FiberM
     getPropsHandlers(): PropsHandler<BABYLON.Mesh, FiberMeshProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Mesh, FiberMeshProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "factoryMethod": string;
-        "parameters": ({
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        factoryMethod: string;
+        parameters: ({
+            name: string;
+            type: string;
+            optional: boolean;
         } | {
-            "name": string;
-            "type": {
-                "name": string;
-                "type": string;
-                "optional": boolean;
+            name: string;
+            type: {
+                name: string;
+                type: string;
+                optional: boolean;
             }[];
-            "optional": boolean;
+            optional: boolean;
         })[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -1393,47 +1393,47 @@ export declare class FiberGround implements HasPropsHandlers<BABYLON.Mesh, Fiber
     getPropsHandlers(): PropsHandler<BABYLON.Mesh, FiberMeshProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Mesh, FiberMeshProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "factoryMethod": string;
-        "parameters": ({
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        factoryMethod: string;
+        parameters: ({
+            name: string;
+            type: string;
+            optional: boolean;
         } | {
-            "name": string;
-            "type": {
-                "name": string;
-                "type": string;
-                "optional": boolean;
+            name: string;
+            type: {
+                name: string;
+                type: string;
+                optional: boolean;
             }[];
-            "optional": boolean;
+            optional: boolean;
         })[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
 }
-export declare class FiberDynamicTerrain implements HasPropsHandlers<BABYLON.DynamicTerrain, FiberDynamicTerrainProps> {
+export declare class FiberDynamicTerrain implements HasPropsHandlers<BABYLONEXT.DynamicTerrain, FiberDynamicTerrainProps> {
     private propsHandlers;
     constructor();
-    getPropsHandlers(): PropsHandler<BABYLON.DynamicTerrain, FiberDynamicTerrainProps>[];
-    addPropsHandler(propHandler: PropsHandler<BABYLON.DynamicTerrain, FiberDynamicTerrainProps>): void;
+    getPropsHandlers(): PropsHandler<BABYLONEXT.DynamicTerrain, FiberDynamicTerrainProps>[];
+    addPropsHandler(propHandler: PropsHandler<BABYLONEXT.DynamicTerrain, FiberDynamicTerrainProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": ({
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        namespace: string;
+        libraryLocation: string;
+        parameters: ({
+            name: string;
+            type: string;
+            optional: boolean;
         } | {
-            "name": string;
-            "type": {
-                "name": string;
-                "type": string;
-                "optional": boolean;
+            name: string;
+            type: {
+                name: string;
+                type: string;
+                optional: boolean;
             }[];
-            "optional": boolean;
+            optional: boolean;
         })[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -1454,22 +1454,22 @@ export declare class FiberTiledGround implements HasPropsHandlers<BABYLON.Mesh, 
     getPropsHandlers(): PropsHandler<BABYLON.Mesh, FiberMeshProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Mesh, FiberMeshProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "factoryMethod": string;
-        "parameters": ({
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        factoryMethod: string;
+        parameters: ({
+            name: string;
+            type: string;
+            optional: boolean;
         } | {
-            "name": string;
-            "type": {
-                "name": string;
-                "type": string;
-                "optional": boolean;
+            name: string;
+            type: {
+                name: string;
+                type: string;
+                optional: boolean;
             }[];
-            "optional": boolean;
+            optional: boolean;
         })[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -1494,22 +1494,22 @@ export declare class FiberGroundFromHeightMap implements HasPropsHandlers<BABYLO
     getPropsHandlers(): PropsHandler<BABYLON.Mesh, FiberMeshProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Mesh, FiberMeshProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "factoryMethod": string;
-        "parameters": ({
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        factoryMethod: string;
+        parameters: ({
+            name: string;
+            type: string;
+            optional: boolean;
         } | {
-            "name": string;
-            "type": {
-                "name": string;
-                "type": string;
-                "optional": boolean;
+            name: string;
+            type: {
+                name: string;
+                type: string;
+                optional: boolean;
             }[];
-            "optional": boolean;
+            optional: boolean;
         })[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -1531,22 +1531,22 @@ export declare class FiberPolygon implements HasPropsHandlers<BABYLON.Mesh, Fibe
     getPropsHandlers(): PropsHandler<BABYLON.Mesh, FiberMeshProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Mesh, FiberMeshProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "factoryMethod": string;
-        "parameters": ({
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        factoryMethod: string;
+        parameters: ({
+            name: string;
+            type: string;
+            optional: boolean;
         } | {
-            "name": string;
-            "type": {
-                "name": string;
-                "type": string;
-                "optional": boolean;
+            name: string;
+            type: {
+                name: string;
+                type: string;
+                optional: boolean;
             }[];
-            "optional": boolean;
+            optional: boolean;
         })[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -1563,22 +1563,22 @@ export declare class FiberExtrudePolygon implements HasPropsHandlers<BABYLON.Mes
     getPropsHandlers(): PropsHandler<BABYLON.Mesh, FiberMeshProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Mesh, FiberMeshProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "factoryMethod": string;
-        "parameters": ({
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        factoryMethod: string;
+        parameters: ({
+            name: string;
+            type: string;
+            optional: boolean;
         } | {
-            "name": string;
-            "type": {
-                "name": string;
-                "type": string;
-                "optional": boolean;
+            name: string;
+            type: {
+                name: string;
+                type: string;
+                optional: boolean;
             }[];
-            "optional": boolean;
+            optional: boolean;
         })[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -1607,22 +1607,22 @@ export declare class FiberTube implements HasPropsHandlers<BABYLON.Mesh, FiberMe
     getPropsHandlers(): PropsHandler<BABYLON.Mesh, FiberMeshProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Mesh, FiberMeshProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "factoryMethod": string;
-        "parameters": ({
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        factoryMethod: string;
+        parameters: ({
+            name: string;
+            type: string;
+            optional: boolean;
         } | {
-            "name": string;
-            "type": {
-                "name": string;
-                "type": string;
-                "optional": boolean;
+            name: string;
+            type: {
+                name: string;
+                type: string;
+                optional: boolean;
             }[];
-            "optional": boolean;
+            optional: boolean;
         })[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -1649,22 +1649,22 @@ export declare class FiberPolyhedron implements HasPropsHandlers<BABYLON.Mesh, F
     getPropsHandlers(): PropsHandler<BABYLON.Mesh, FiberMeshProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Mesh, FiberMeshProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "factoryMethod": string;
-        "parameters": ({
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        factoryMethod: string;
+        parameters: ({
+            name: string;
+            type: string;
+            optional: boolean;
         } | {
-            "name": string;
-            "type": {
-                "name": string;
-                "type": string;
-                "optional": boolean;
+            name: string;
+            type: {
+                name: string;
+                type: string;
+                optional: boolean;
             }[];
-            "optional": boolean;
+            optional: boolean;
         })[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -1685,22 +1685,22 @@ export declare class FiberDecal implements HasPropsHandlers<BABYLON.Mesh, FiberM
     getPropsHandlers(): PropsHandler<BABYLON.Mesh, FiberMeshProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Mesh, FiberMeshProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "factoryMethod": string;
-        "parameters": ({
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        factoryMethod: string;
+        parameters: ({
+            name: string;
+            type: string;
+            optional: boolean;
         } | {
-            "name": string;
-            "type": {
-                "name": string;
-                "type": string;
-                "optional": boolean;
+            name: string;
+            type: {
+                name: string;
+                type: string;
+                optional: boolean;
             }[];
-            "optional": boolean;
+            optional: boolean;
         })[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -1719,13 +1719,13 @@ export declare class FiberMaterial implements HasPropsHandlers<BABYLON.Material,
     getPropsHandlers(): PropsHandler<BABYLON.Material, FiberMaterialProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Material, FiberMaterialProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -1745,13 +1745,13 @@ export declare class FiberMultiMaterial implements HasPropsHandlers<BABYLON.Mate
     getPropsHandlers(): PropsHandler<BABYLON.Material, FiberMaterialProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Material, FiberMaterialProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -1770,13 +1770,13 @@ export declare class FiberPushMaterial implements HasPropsHandlers<BABYLON.Mater
     getPropsHandlers(): PropsHandler<BABYLON.Material, FiberMaterialProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Material, FiberMaterialProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -1796,13 +1796,13 @@ export declare class FiberStandardMaterial implements HasPropsHandlers<BABYLON.M
     getPropsHandlers(): PropsHandler<BABYLON.Material, FiberMaterialProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Material, FiberMaterialProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -1821,13 +1821,13 @@ export declare class FiberBackgroundMaterial implements HasPropsHandlers<BABYLON
     getPropsHandlers(): PropsHandler<BABYLON.Material, FiberMaterialProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Material, FiberMaterialProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -1850,13 +1850,13 @@ export declare class FiberPBRBaseMaterial implements HasPropsHandlers<BABYLON.Ma
     getPropsHandlers(): PropsHandler<BABYLON.Material, FiberMaterialProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Material, FiberMaterialProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -1878,13 +1878,13 @@ export declare class FiberPBRBaseSimpleMaterial implements HasPropsHandlers<BABY
     getPropsHandlers(): PropsHandler<BABYLON.Material, FiberMaterialProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Material, FiberMaterialProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -1906,13 +1906,13 @@ export declare class FiberPBRMetallicRoughnessMaterial implements HasPropsHandle
     getPropsHandlers(): PropsHandler<BABYLON.Material, FiberMaterialProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Material, FiberMaterialProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -1934,13 +1934,13 @@ export declare class FiberPBRSpecularGlossinessMaterial implements HasPropsHandl
     getPropsHandlers(): PropsHandler<BABYLON.Material, FiberMaterialProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Material, FiberMaterialProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -1963,13 +1963,13 @@ export declare class FiberPBRMaterial implements HasPropsHandlers<BABYLON.Materi
     getPropsHandlers(): PropsHandler<BABYLON.Material, FiberMaterialProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Material, FiberMaterialProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -1990,13 +1990,13 @@ export declare class FiberShaderMaterial implements HasPropsHandlers<BABYLON.Mat
     getPropsHandlers(): PropsHandler<BABYLON.Material, FiberMaterialProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Material, FiberMaterialProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -2017,13 +2017,13 @@ export declare class FiberLight implements HasPropsHandlers<BABYLON.Light, Fiber
     getPropsHandlers(): PropsHandler<BABYLON.Light, FiberLightProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Light, FiberLightProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -2043,13 +2043,13 @@ export declare class FiberHemisphericLight implements HasPropsHandlers<BABYLON.L
     getPropsHandlers(): PropsHandler<BABYLON.Light, FiberLightProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Light, FiberLightProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -2069,10 +2069,10 @@ export declare class FiberShadowLight implements HasPropsHandlers<BABYLON.Light,
     getPropsHandlers(): PropsHandler<BABYLON.Light, FiberLightProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Light, FiberLightProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": never[];
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: any[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
 }
@@ -2093,13 +2093,13 @@ export declare class FiberDirectionalLight implements HasPropsHandlers<BABYLON.L
     getPropsHandlers(): PropsHandler<BABYLON.Light, FiberLightProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Light, FiberLightProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -2121,13 +2121,13 @@ export declare class FiberPointLight implements HasPropsHandlers<BABYLON.Light, 
     getPropsHandlers(): PropsHandler<BABYLON.Light, FiberLightProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Light, FiberLightProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -2150,13 +2150,13 @@ export declare class FiberSpotLight implements HasPropsHandlers<BABYLON.Light, F
     getPropsHandlers(): PropsHandler<BABYLON.Light, FiberLightProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.Light, FiberLightProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -2175,13 +2175,13 @@ export declare class FiberControl implements HasPropsHandlers<GUI.Control, Fiber
     getPropsHandlers(): PropsHandler<GUI.Control, FiberControlProps>[];
     addPropsHandler(propHandler: PropsHandler<GUI.Control, FiberControlProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -2200,13 +2200,13 @@ export declare class FiberCheckbox implements HasPropsHandlers<GUI.Control, Fibe
     getPropsHandlers(): PropsHandler<GUI.Control, FiberControlProps>[];
     addPropsHandler(propHandler: PropsHandler<GUI.Control, FiberControlProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -2225,13 +2225,13 @@ export declare class FiberColorPicker implements HasPropsHandlers<GUI.Control, F
     getPropsHandlers(): PropsHandler<GUI.Control, FiberControlProps>[];
     addPropsHandler(propHandler: PropsHandler<GUI.Control, FiberControlProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -2250,13 +2250,13 @@ export declare class FiberContainer implements HasPropsHandlers<GUI.Control, Fib
     getPropsHandlers(): PropsHandler<GUI.Control, FiberControlProps>[];
     addPropsHandler(propHandler: PropsHandler<GUI.Control, FiberControlProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -2275,13 +2275,13 @@ export declare class FiberEllipse implements HasPropsHandlers<GUI.Control, Fiber
     getPropsHandlers(): PropsHandler<GUI.Control, FiberControlProps>[];
     addPropsHandler(propHandler: PropsHandler<GUI.Control, FiberControlProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -2300,13 +2300,13 @@ export declare class FiberGrid implements HasPropsHandlers<GUI.Control, FiberCon
     getPropsHandlers(): PropsHandler<GUI.Control, FiberControlProps>[];
     addPropsHandler(propHandler: PropsHandler<GUI.Control, FiberControlProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -2325,13 +2325,13 @@ export declare class FiberStackPanel implements HasPropsHandlers<GUI.Control, Fi
     getPropsHandlers(): PropsHandler<GUI.Control, FiberControlProps>[];
     addPropsHandler(propHandler: PropsHandler<GUI.Control, FiberControlProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -2350,10 +2350,10 @@ export declare class FiberVirtualKeyboard implements HasPropsHandlers<GUI.Contro
     getPropsHandlers(): PropsHandler<GUI.Control, FiberControlProps>[];
     addPropsHandler(propHandler: PropsHandler<GUI.Control, FiberControlProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": never[];
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: any[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
 }
@@ -2371,13 +2371,13 @@ export declare class FiberRectangle implements HasPropsHandlers<GUI.Control, Fib
     getPropsHandlers(): PropsHandler<GUI.Control, FiberControlProps>[];
     addPropsHandler(propHandler: PropsHandler<GUI.Control, FiberControlProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -2396,13 +2396,13 @@ export declare class FiberButton implements HasPropsHandlers<GUI.Control, FiberC
     getPropsHandlers(): PropsHandler<GUI.Control, FiberControlProps>[];
     addPropsHandler(propHandler: PropsHandler<GUI.Control, FiberControlProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -2421,13 +2421,13 @@ export declare class FiberSelectionPanel implements HasPropsHandlers<GUI.Control
     getPropsHandlers(): PropsHandler<GUI.Control, FiberControlProps>[];
     addPropsHandler(propHandler: PropsHandler<GUI.Control, FiberControlProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -2446,13 +2446,13 @@ export declare class FiberScrollViewer implements HasPropsHandlers<GUI.Control, 
     getPropsHandlers(): PropsHandler<GUI.Control, FiberControlProps>[];
     addPropsHandler(propHandler: PropsHandler<GUI.Control, FiberControlProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -2471,13 +2471,13 @@ export declare class FiberImage implements HasPropsHandlers<GUI.Control, FiberCo
     getPropsHandlers(): PropsHandler<GUI.Control, FiberControlProps>[];
     addPropsHandler(propHandler: PropsHandler<GUI.Control, FiberControlProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -2496,13 +2496,13 @@ export declare class FiberInputText implements HasPropsHandlers<GUI.Control, Fib
     getPropsHandlers(): PropsHandler<GUI.Control, FiberControlProps>[];
     addPropsHandler(propHandler: PropsHandler<GUI.Control, FiberControlProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -2521,10 +2521,10 @@ export declare class FiberInputPassword implements HasPropsHandlers<GUI.Control,
     getPropsHandlers(): PropsHandler<GUI.Control, FiberControlProps>[];
     addPropsHandler(propHandler: PropsHandler<GUI.Control, FiberControlProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": never[];
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: any[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
 }
@@ -2542,13 +2542,13 @@ export declare class FiberLine implements HasPropsHandlers<GUI.Control, FiberCon
     getPropsHandlers(): PropsHandler<GUI.Control, FiberControlProps>[];
     addPropsHandler(propHandler: PropsHandler<GUI.Control, FiberControlProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -2567,13 +2567,13 @@ export declare class FiberMultiLine implements HasPropsHandlers<GUI.Control, Fib
     getPropsHandlers(): PropsHandler<GUI.Control, FiberControlProps>[];
     addPropsHandler(propHandler: PropsHandler<GUI.Control, FiberControlProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -2592,13 +2592,13 @@ export declare class FiberRadioButton implements HasPropsHandlers<GUI.Control, F
     getPropsHandlers(): PropsHandler<GUI.Control, FiberControlProps>[];
     addPropsHandler(propHandler: PropsHandler<GUI.Control, FiberControlProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -2617,13 +2617,13 @@ export declare class FiberTextBlock implements HasPropsHandlers<GUI.Control, Fib
     getPropsHandlers(): PropsHandler<GUI.Control, FiberControlProps>[];
     addPropsHandler(propHandler: PropsHandler<GUI.Control, FiberControlProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -2642,13 +2642,13 @@ export declare class FiberDisplayGrid implements HasPropsHandlers<GUI.Control, F
     getPropsHandlers(): PropsHandler<GUI.Control, FiberControlProps>[];
     addPropsHandler(propHandler: PropsHandler<GUI.Control, FiberControlProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -2667,13 +2667,13 @@ export declare class FiberBaseSlider implements HasPropsHandlers<GUI.Control, Fi
     getPropsHandlers(): PropsHandler<GUI.Control, FiberControlProps>[];
     addPropsHandler(propHandler: PropsHandler<GUI.Control, FiberControlProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -2692,13 +2692,13 @@ export declare class FiberSlider implements HasPropsHandlers<GUI.Control, FiberC
     getPropsHandlers(): PropsHandler<GUI.Control, FiberControlProps>[];
     addPropsHandler(propHandler: PropsHandler<GUI.Control, FiberControlProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -2717,13 +2717,13 @@ export declare class FiberImageBasedSlider implements HasPropsHandlers<GUI.Contr
     getPropsHandlers(): PropsHandler<GUI.Control, FiberControlProps>[];
     addPropsHandler(propHandler: PropsHandler<GUI.Control, FiberControlProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -2742,13 +2742,13 @@ export declare class FiberControl3D implements HasPropsHandlers<GUI.Control3D, F
     getPropsHandlers(): PropsHandler<GUI.Control3D, FiberControl3DProps>[];
     addPropsHandler(propHandler: PropsHandler<GUI.Control3D, FiberControl3DProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -2767,13 +2767,13 @@ export declare class FiberAbstractButton3D implements HasPropsHandlers<GUI.Contr
     getPropsHandlers(): PropsHandler<GUI.Control3D, FiberControl3DProps>[];
     addPropsHandler(propHandler: PropsHandler<GUI.Control3D, FiberControl3DProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -2792,13 +2792,13 @@ export declare class FiberButton3D implements HasPropsHandlers<GUI.Control3D, Fi
     getPropsHandlers(): PropsHandler<GUI.Control3D, FiberControl3DProps>[];
     addPropsHandler(propHandler: PropsHandler<GUI.Control3D, FiberControl3DProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -2817,13 +2817,13 @@ export declare class FiberHolographicButton implements HasPropsHandlers<GUI.Cont
     getPropsHandlers(): PropsHandler<GUI.Control3D, FiberControl3DProps>[];
     addPropsHandler(propHandler: PropsHandler<GUI.Control3D, FiberControl3DProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -2842,13 +2842,13 @@ export declare class FiberMeshButton3D implements HasPropsHandlers<GUI.Control3D
     getPropsHandlers(): PropsHandler<GUI.Control3D, FiberControl3DProps>[];
     addPropsHandler(propHandler: PropsHandler<GUI.Control3D, FiberControl3DProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -2867,13 +2867,13 @@ export declare class FiberContainer3D implements HasPropsHandlers<GUI.Control3D,
     getPropsHandlers(): PropsHandler<GUI.Control3D, FiberControl3DProps>[];
     addPropsHandler(propHandler: PropsHandler<GUI.Control3D, FiberControl3DProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -2892,13 +2892,13 @@ export declare class FiberStackPanel3D implements HasPropsHandlers<GUI.Control3D
     getPropsHandlers(): PropsHandler<GUI.Control3D, FiberControl3DProps>[];
     addPropsHandler(propHandler: PropsHandler<GUI.Control3D, FiberControl3DProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -2917,10 +2917,10 @@ export declare class FiberVolumeBasedPanel implements HasPropsHandlers<GUI.Contr
     getPropsHandlers(): PropsHandler<GUI.Control3D, FiberControl3DProps>[];
     addPropsHandler(propHandler: PropsHandler<GUI.Control3D, FiberControl3DProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": never[];
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: any[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
 }
@@ -2938,10 +2938,10 @@ export declare class FiberCylinderPanel implements HasPropsHandlers<GUI.Control3
     getPropsHandlers(): PropsHandler<GUI.Control3D, FiberControl3DProps>[];
     addPropsHandler(propHandler: PropsHandler<GUI.Control3D, FiberControl3DProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": never[];
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: any[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
 }
@@ -2959,10 +2959,10 @@ export declare class FiberPlanePanel implements HasPropsHandlers<GUI.Control3D, 
     getPropsHandlers(): PropsHandler<GUI.Control3D, FiberControl3DProps>[];
     addPropsHandler(propHandler: PropsHandler<GUI.Control3D, FiberControl3DProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": never[];
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: any[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
 }
@@ -2980,10 +2980,10 @@ export declare class FiberScatterPanel implements HasPropsHandlers<GUI.Control3D
     getPropsHandlers(): PropsHandler<GUI.Control3D, FiberControl3DProps>[];
     addPropsHandler(propHandler: PropsHandler<GUI.Control3D, FiberControl3DProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": never[];
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: any[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
 }
@@ -3001,10 +3001,10 @@ export declare class FiberSpherePanel implements HasPropsHandlers<GUI.Control3D,
     getPropsHandlers(): PropsHandler<GUI.Control3D, FiberControl3DProps>[];
     addPropsHandler(propHandler: PropsHandler<GUI.Control3D, FiberControl3DProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": never[];
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: any[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
 }
@@ -3024,13 +3024,13 @@ export declare class FiberBaseTexture implements HasPropsHandlers<BABYLON.BaseTe
     getPropsHandlers(): PropsHandler<BABYLON.BaseTexture, FiberBaseTextureProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.BaseTexture, FiberBaseTextureProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -3054,13 +3054,13 @@ export declare class FiberColorGradingTexture implements HasPropsHandlers<BABYLO
     getPropsHandlers(): PropsHandler<BABYLON.BaseTexture, FiberBaseTextureProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.BaseTexture, FiberBaseTextureProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -3079,13 +3079,13 @@ export declare class FiberCubeTexture implements HasPropsHandlers<BABYLON.BaseTe
     getPropsHandlers(): PropsHandler<BABYLON.BaseTexture, FiberBaseTextureProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.BaseTexture, FiberBaseTextureProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -3104,13 +3104,13 @@ export declare class FiberRawCubeTexture implements HasPropsHandlers<BABYLON.Bas
     getPropsHandlers(): PropsHandler<BABYLON.BaseTexture, FiberBaseTextureProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.BaseTexture, FiberBaseTextureProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -3132,13 +3132,13 @@ export declare class FiberHDRCubeTexture implements HasPropsHandlers<BABYLON.Bas
     getPropsHandlers(): PropsHandler<BABYLON.BaseTexture, FiberBaseTextureProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.BaseTexture, FiberBaseTextureProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -3157,13 +3157,13 @@ export declare class FiberTexture implements HasPropsHandlers<BABYLON.BaseTextur
     getPropsHandlers(): PropsHandler<BABYLON.BaseTexture, FiberBaseTextureProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.BaseTexture, FiberBaseTextureProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -3182,13 +3182,13 @@ export declare class FiberDynamicTexture implements HasPropsHandlers<BABYLON.Bas
     getPropsHandlers(): PropsHandler<BABYLON.BaseTexture, FiberBaseTextureProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.BaseTexture, FiberBaseTextureProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -3209,13 +3209,13 @@ export declare class FiberRawTexture implements HasPropsHandlers<BABYLON.BaseTex
     getPropsHandlers(): PropsHandler<BABYLON.BaseTexture, FiberBaseTextureProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.BaseTexture, FiberBaseTextureProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -3234,13 +3234,13 @@ export declare class FiberRawTexture3D implements HasPropsHandlers<BABYLON.BaseT
     getPropsHandlers(): PropsHandler<BABYLON.BaseTexture, FiberBaseTextureProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.BaseTexture, FiberBaseTextureProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -3261,13 +3261,13 @@ export declare class FiberRenderTargetTexture implements HasPropsHandlers<BABYLO
     getPropsHandlers(): PropsHandler<BABYLON.BaseTexture, FiberBaseTextureProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.BaseTexture, FiberBaseTextureProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -3289,13 +3289,13 @@ export declare class FiberMirrorTexture implements HasPropsHandlers<BABYLON.Base
     getPropsHandlers(): PropsHandler<BABYLON.BaseTexture, FiberBaseTextureProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.BaseTexture, FiberBaseTextureProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -3317,13 +3317,13 @@ export declare class FiberMultiRenderTarget implements HasPropsHandlers<BABYLON.
     getPropsHandlers(): PropsHandler<BABYLON.BaseTexture, FiberBaseTextureProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.BaseTexture, FiberBaseTextureProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -3343,13 +3343,13 @@ export declare class FiberRefractionTexture implements HasPropsHandlers<BABYLON.
     getPropsHandlers(): PropsHandler<BABYLON.BaseTexture, FiberBaseTextureProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.BaseTexture, FiberBaseTextureProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -3369,13 +3369,13 @@ export declare class FiberVideoTexture implements HasPropsHandlers<BABYLON.BaseT
     getPropsHandlers(): PropsHandler<BABYLON.BaseTexture, FiberBaseTextureProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.BaseTexture, FiberBaseTextureProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -3395,13 +3395,13 @@ export declare class FiberProceduralTexture implements HasPropsHandlers<BABYLON.
     getPropsHandlers(): PropsHandler<BABYLON.BaseTexture, FiberBaseTextureProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.BaseTexture, FiberBaseTextureProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -3421,13 +3421,13 @@ export declare class FiberCustomProceduralTexture implements HasPropsHandlers<BA
     getPropsHandlers(): PropsHandler<BABYLON.BaseTexture, FiberBaseTextureProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.BaseTexture, FiberBaseTextureProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -3446,13 +3446,13 @@ export declare class FiberNoiseProceduralTexture implements HasPropsHandlers<BAB
     getPropsHandlers(): PropsHandler<BABYLON.BaseTexture, FiberBaseTextureProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.BaseTexture, FiberBaseTextureProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -3471,13 +3471,13 @@ export declare class FiberAdvancedDynamicTexture implements HasPropsHandlers<BAB
     getPropsHandlers(): PropsHandler<BABYLON.BaseTexture, FiberBaseTextureProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.BaseTexture, FiberBaseTextureProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -3496,13 +3496,13 @@ export declare class FiberGUI3DManager implements HasPropsHandlers<GUI.GUI3DMana
     getPropsHandlers(): PropsHandler<GUI.GUI3DManager, FiberGUI3DManagerProps>[];
     addPropsHandler(propHandler: PropsHandler<GUI.GUI3DManager, FiberGUI3DManagerProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -3523,13 +3523,13 @@ export declare class FiberShadowGenerator implements HasPropsHandlers<BABYLON.Sh
     getPropsHandlers(): PropsHandler<BABYLON.ShadowGenerator, FiberShadowGeneratorProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.ShadowGenerator, FiberShadowGeneratorProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -3550,13 +3550,13 @@ export declare class FiberEnvironmentHelper implements HasPropsHandlers<BABYLON.
     getPropsHandlers(): PropsHandler<BABYLON.EnvironmentHelper, FiberEnvironmentHelperProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.EnvironmentHelper, FiberEnvironmentHelperProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;
@@ -3576,13 +3576,13 @@ export declare class FiberVRExperienceHelper implements HasPropsHandlers<BABYLON
     getPropsHandlers(): PropsHandler<BABYLON.VRExperienceHelper, FiberVRExperienceHelperProps>[];
     addPropsHandler(propHandler: PropsHandler<BABYLON.VRExperienceHelper, FiberVRExperienceHelperProps>): void;
     static readonly CreateInfo: {
-        "creationType": string;
-        "libraryLocation": string;
-        "namespace": string;
-        "parameters": {
-            "name": string;
-            "type": string;
-            "optional": boolean;
+        creationType: string;
+        libraryLocation: string;
+        namespace: string;
+        parameters: {
+            name: string;
+            type: string;
+            optional: boolean;
         }[];
     };
     static readonly Metadata: CreatedInstanceMetadata;

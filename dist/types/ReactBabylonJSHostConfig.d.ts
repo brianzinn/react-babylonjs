@@ -29,6 +29,6 @@ export declare type Container = {
 declare type HostContext = {} & Container;
 declare type TimeoutHandler = number | undefined;
 declare type NoTimeout = number;
-export declare const applyUpdateToInstance: (hostInstance: any, update: PropertyUpdate, type: string | undefined) => void;
+export declare const applyUpdateToInstance: (hostInstance: any, update: PropertyUpdate, type: string) => void;
 declare const ReactBabylonJSHostConfig: HostConfig<string, Props, Container, HostCreatedInstance<any>, {}, {}, {}, HostContext, UpdatePayload, {}, TimeoutHandler, NoTimeout>;
 export default ReactBabylonJSHostConfig;

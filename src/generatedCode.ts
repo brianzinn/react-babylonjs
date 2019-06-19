@@ -1,7 +1,8 @@
 import { PropsHandler, PropertyUpdate, HasPropsHandlers } from "./PropsHandler"
 import { CreatedInstanceMetadata } from "./CreatedInstance"
 import * as BABYLON from "babylonjs"
-import "dyanmic-terrain"
+import * as BABYLONEXT from './customComponents/DynamicTerrain'
+
 import GUI from "babylonjs-gui"
 import {
   FiberNodeProps,
@@ -111,13 +112,16 @@ import {
   FiberDynamicTerrainProps
 } from "./generatedProps"
 
-//const BABYLONEXT = require("dyanmic-terrain")
+
+
+
 
 export class FiberNodePropsHandler implements PropsHandler<BABYLON.Node, FiberNodeProps> {
   getPropertyUpdates(hostInstance: BABYLON.Node, oldProps: FiberNodeProps, newProps: FiberNodeProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
     // generated code
     let updates: PropertyUpdate[] = []
     // TODO: type: any property (not coded) BABYLON.Node.addToSceneRootNodes.
+
     // TODO: type: BABYLON.AnimationPropertiesOverride property (not coded) BABYLON.Node.animationPropertiesOverride.
     // TODO: type: BABYLON.Animation[] property (not coded) BABYLON.Node.animations.
     // BABYLON.Node.doNotSerialize of type 'boolean':
@@ -5507,25 +5511,25 @@ export class FiberGround implements HasPropsHandlers<BABYLON.Mesh, FiberMeshProp
   }
 }
 
-export class FiberDynamicTerrain implements HasPropsHandlers<BABYLON.DynamicTerrain, FiberDynamicTerrainProps> {
-  private propsHandlers: PropsHandler<BABYLON.DynamicTerrain, FiberDynamicTerrainProps>[]
+export class FiberDynamicTerrain implements HasPropsHandlers<BABYLONEXT.DynamicTerrain, FiberDynamicTerrainProps> {
+  private propsHandlers: PropsHandler<BABYLONEXT.DynamicTerrain, FiberDynamicTerrainProps>[]
 
   constructor() {
     this.propsHandlers = []
   }
 
-  getPropsHandlers(): PropsHandler<BABYLON.DynamicTerrain, FiberDynamicTerrainProps>[] {
+  getPropsHandlers(): PropsHandler<BABYLONEXT.DynamicTerrain, FiberDynamicTerrainProps>[] {
     return this.propsHandlers
   }
 
-  addPropsHandler(propHandler: PropsHandler<BABYLON.DynamicTerrain, FiberDynamicTerrainProps>): void {
+  addPropsHandler(propHandler: PropsHandler<BABYLONEXT.DynamicTerrain, FiberDynamicTerrainProps>): void {
     this.propsHandlers.push(propHandler)
   }
 
   public static readonly CreateInfo = {
     creationType: "Constructor",
+    namespace: "BABYLONEXT",
     libraryLocation: "DynamicTerrain",
-    namespace: "BABYLON",
     parameters: [
       {
         name: "name",
@@ -5554,7 +5558,48 @@ export class FiberDynamicTerrain implements HasPropsHandlers<BABYLON.DynamicTerr
             name: "terrainSub",
             type: "number",
             optional: true
+          },
+          {
+            name: "mapColors",
+            type: "array",
+            optional: true
+          },
+          {
+            name: "mapNormals",
+            type: "array",
+            optional: true
+          },
+          {
+            name: "invertSide",
+            type: "boolean",
+            optional: true
+          },
+          {
+            name: "camera",
+            type: "any",
+            optional: true
+          },
+          {
+            name: "SPmapData",
+            type: "any",
+            optional: true
+          },
+          {
+            name: "sps",
+            type: "any",
+            optional: true
+          },
+          {
+            name: "SPcolorData",
+            type: "array",
+            optional: true
+          },
+          {
+            name: "SPuvData",
+            type: "array",
+            optional: true
           }
+          
         ],
         optional: false
       },
@@ -5658,7 +5703,7 @@ export class FiberTiledGround implements HasPropsHandlers<BABYLON.Mesh, FiberMes
   }
   public static readonly Metadata: CreatedInstanceMetadata = {
     acceptsMaterials: true,
-    isMesh: true,
+    isMesh: false,
     className: "FiberTiledGround"
   }
 }

@@ -18,6 +18,13 @@
     esutils "^2.0.2"
     js-tokens "^4.0.0"
 
+"@babylonjs/core@^4.0.3":
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/@babylonjs/core/-/core-4.0.3.tgz#67e04f42ecd2c68d2668e07c9c61f29081244a59"
+  integrity sha512-M9UYwAwXLIBq+WzNdmYD3TjgHJ+Vb85/pjqt9vN6SqmkwfpmMibfKr3bXkNgodZrVS+UUjvf8A/aWI3cJH0MNg==
+  dependencies:
+    tslib "^1.9.3"
+
 "@dsherret/to-absolute-glob@^2.0.2":
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/@dsherret/to-absolute-glob/-/to-absolute-glob-2.0.2.tgz#1f6475dc8bd974cea07a2daf3864b317b1dd332c"
@@ -762,11 +769,6 @@ babylonjs@4.0.0-alpha.10:
   version "4.0.0-alpha.10"
   resolved "https://registry.yarnpkg.com/babylonjs/-/babylonjs-4.0.0-alpha.10.tgz#451a51e82b68a88fee94040e7ed8942c88ca70b8"
   integrity sha512-PeeFraNxFI4NRxuTDUgnTAPxSLWBCfJoIhEqT24/sTSGOeaGS000nMjv7zgE6qCeaiE813IAYRXFIQg8pMfjAg==
-
-babylonjs@^4.0.3:
-  version "4.0.3"
-  resolved "https://registry.yarnpkg.com/babylonjs/-/babylonjs-4.0.3.tgz#5dba9a96a7cb70634338e8dd7a17081e9f902cf6"
-  integrity sha512-S5PoPmf0Vo03FDmF9z8djBiIm8GSLvCesln/9aKV9RbD4W+NTqVmMKhR8CQoMRCQNb2JSKKUuyUygXxCRVG37Q==
 
 balanced-match@^1.0.0:
   version "1.0.0"
@@ -1840,12 +1842,6 @@ duplexify@^3.4.2, duplexify@^3.6.0:
     inherits "^2.0.1"
     readable-stream "^2.0.0"
     stream-shift "^1.0.0"
-
-"dyanmic-terrain@https://github.com/seacloud9/dyanmic-terrain":
-  version "1.0.6"
-  resolved "https://github.com/seacloud9/dyanmic-terrain#a1c26669493914e5c8b2a52dab6bf49bddc6b02a"
-  dependencies:
-    babylonjs "^4.0.3"
 
 ecc-jsbn@~0.1.1:
   version "0.1.2"
@@ -7300,6 +7296,11 @@ tslib@^1.8.0, tslib@^1.8.1, tslib@^1.9.0:
   version "1.9.3"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.9.3.tgz#d7e4dd79245d85428c4d7e4822a79917954ca286"
   integrity sha512-4krF8scpejhaOgqzBEcGM7yDIEfi0/8+8zDRZhNZZ2kjmHJ4hv3zCbQWxoJGz1iw5U0Jl0nma13xzHXcncMavQ==
+
+tslib@^1.9.3:
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.10.0.tgz#c3c19f95973fb0a62973fb09d90d961ee43e5c8a"
+  integrity sha512-qOebF53frne81cf0S9B41ByenJ3/IuH8yJKngAX35CmiZySA0khhkovshKK+jGCaMnVomla7gVlIcc3EvKPbTQ==
 
 tslint-config-prettier@^1.17.0:
   version "1.17.0"

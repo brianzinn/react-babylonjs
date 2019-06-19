@@ -74,6 +74,7 @@
     }
   },
   "devDependencies": {
+    "@babylonjs/core": "^4.0.3",
     "@types/jest": "^23.3.12",
     "@types/lodash": "^4.14.114",
     "@types/node": "^8.0.0",
@@ -87,7 +88,6 @@
     "coveralls": "^3.0.2",
     "cross-env": "^5.2.0",
     "cz-conventional-changelog": "^2.1.0",
-    "dyanmic-terrain": "https://github.com/seacloud9/dyanmic-terrain",
     "fbjs": "^1.0.0",
     "husky": "^1.3.1",
     "jest": "^23.6.0",
