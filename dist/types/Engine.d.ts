@@ -45,7 +45,7 @@ declare class Engine extends React.Component<EngineProps, EngineState> {
     componentDidMount(): void;
     onCanvasRef: (c: HTMLCanvasElement) => void;
     componentWillUnmount(): void;
-    render(): string | number | React.ReactElement<any> | null;
+    render(): React.ReactChild;
     onResizeWindow: () => void;
 }
 export default Engine;
