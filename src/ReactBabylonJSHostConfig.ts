@@ -1,7 +1,7 @@
 import ReactReconciler, { HostConfig } from "react-reconciler"
 import * as BABYLON from "babylonjs"
 import * as GUI from "babylonjs-gui"
-import * as BABYLONEXT from './customComponents/DynamicTerrain'
+import * as BABYLONEXT from "./customComponents/DynamicTerrain"
 
 import * as GENERATED from "./generatedCode"
 import * as CUSTOM_HOSTS from "./customHosts"
@@ -12,8 +12,6 @@ import { CreatedInstance, CreatedInstanceMetadata, CustomProps } from "./Created
 import { HasPropsHandlers, PropertyUpdate, UpdatePayload } from "./PropsHandler"
 import { LifecycleListener } from "./LifecycleListener"
 import { GeneratedParameter, CreateInfo, CreationType } from "./codeGenerationDescriptors"
-
-
 
 // ** TODO: switch to node module 'scheduler', but compiler is not finding 'require()' exports currently...
 type RequestIdleCallbackHandle = any
@@ -372,11 +370,11 @@ const ReactBabylonJSHostConfig: HostConfig<
             // console.log("creating:", type, ...args)
             babylonObject = new (BABYLON as any)[type](...args)
             break
-            case "BABYLONEXT":
-              // console.log("creating:", type, ...args)
+          case "BABYLONEXT":
+            // console.log("creating:", type, ...args)
 
-              babylonObject = new (BABYLONEXT as any)[type](...args)
-              break  
+            babylonObject = new (BABYLONEXT as any)[type](...args)
+            break
           case "GUI":
             // console.log("creating GUI", type, ...args)
             babylonObject = new (GUI as any)[type](...args)
