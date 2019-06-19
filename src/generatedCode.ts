@@ -1,7 +1,7 @@
 import { PropsHandler, PropertyUpdate, HasPropsHandlers } from "./PropsHandler"
 import { CreatedInstanceMetadata } from "./CreatedInstance"
 import * as BABYLON from "babylonjs"
-import * as BABYLONEXT from './customComponents/DynamicTerrain'
+import * as BABYLONEXT from "./customComponents/DynamicTerrain"
 
 import GUI from "babylonjs-gui"
 import {
@@ -111,10 +111,6 @@ import {
   FiberSceneProps,
   FiberDynamicTerrainProps
 } from "./generatedProps"
-
-
-
-
 
 export class FiberNodePropsHandler implements PropsHandler<BABYLON.Node, FiberNodeProps> {
   getPropertyUpdates(hostInstance: BABYLON.Node, oldProps: FiberNodeProps, newProps: FiberNodeProps, scene: BABYLON.Scene): PropertyUpdate[] | null {
@@ -5599,7 +5595,6 @@ export class FiberDynamicTerrain implements HasPropsHandlers<BABYLONEXT.DynamicT
             type: "array",
             optional: true
           }
-          
         ],
         optional: false
       },
