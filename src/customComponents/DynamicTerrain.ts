@@ -1,7 +1,18 @@
-import {Scene, Camera, IndicesArray, SolidParticleSystem, Vector3, Vector2, Color3, Color4,
-  Mesh, VertexBuffer, VertexData, MeshBuilder, Tools
-} from 'babylonjs'
-
+import {
+  Scene,
+  Camera,
+  IndicesArray,
+  SolidParticleSystem,
+  Vector3,
+  Vector2,
+  Color3,
+  Color4,
+  Mesh,
+  VertexBuffer,
+  VertexData,
+  MeshBuilder,
+  Tools
+} from "babylonjs"
 
 export class DynamicTerrain {
   public name: string
