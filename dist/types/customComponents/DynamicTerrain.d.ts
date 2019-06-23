@@ -1,8 +1,4 @@
-import { Scene } from "@babylonjs/core/scene";
-import { Camera } from "@babylonjs/core/Cameras/Camera";
-import { SolidParticleSystem } from "@babylonjs/core/Particles/SolidParticleSystem";
-import { Vector3, Color3 } from "@babylonjs/core/Maths/math";
-import { Mesh } from "@babylonjs/core/Meshes/mesh";
+import { Scene, Camera, SolidParticleSystem, Vector3, Color3, Mesh } from 'babylonjs';
 export declare class DynamicTerrain {
     name: string;
     private _terrainSub;
