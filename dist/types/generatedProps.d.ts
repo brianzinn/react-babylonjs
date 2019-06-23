@@ -2,10 +2,20 @@ import * as BABYLON from "babylonjs";
 export declare class FiberDynamicTerrainProps {
     name?: string;
     scene?: any;
-    mapdata?: any;
+    terrainSub?: number;
+    mapData?: number[] | Float32Array;
     mapSubX?: number;
     mapSubZ?: number;
-    terrainSub?: number;
+    mapUVs?: number[] | Float32Array;
+    mapColors?: number[] | Float32Array;
+    mapNormals?: number[] | Float32Array;
+    invertSide?: boolean;
+    camera?: any;
+    SPmapData?: number[][] | Float32Array[];
+    sps?: any;
+    SPcolorData?: number[][] | Float32Array[];
+    SPuvData?: number[][] | Float32Array[];
+    intializedCallback?: any;
 }
 export declare class FiberNodeProps {
     addToSceneRootNodes?: any;

@@ -5131,7 +5131,7 @@ var FiberDynamicTerrain = /** @class */ (function () {
                 name: "options",
                 type: [
                     {
-                        name: "mapdata",
+                        name: "mapData",
                         type: "Float32Array",
                         optional: false
                     },
@@ -5188,6 +5188,11 @@ var FiberDynamicTerrain = /** @class */ (function () {
                     {
                         name: "SPuvData",
                         type: "array",
+                        optional: true
+                    },
+                    {
+                        name: "intializedCallback",
+                        type: "any",
                         optional: true
                     }
                 ],
@@ -65972,11 +65977,12 @@ var DynamicTerrain$1 = /** @class */ (function () {
         this._LODNegativeZ = true; // DoeSPcs LOD apply to the terrain lower edge ?
         this._inverted = false; // is the terrain mesh inverted upside down ?
         this.shiftFromCamera = {
+            // terrain center shift from camera position
             x: 0.0,
             z: 0.0
         };
         this._deltaSubX = 0 | 0; // map x subdivision delta : variation in number of map subdivisions
-        this._deltaSubZ = 0 | 0; // map z subdivision delta 
+        this._deltaSubZ = 0 | 0; // map z subdivision delta
         this._refreshEveryFrame = false; // boolean : to force the terrain computation every frame
         this._useCustomVertexFunction = false; // boolean : to allow the call to updateVertex()
         this._computeNormals = false; // boolean : to skip or not the normal computation
@@ -66004,6 +66010,7 @@ var DynamicTerrain$1 = /** @class */ (function () {
         this._terrainIdx = this._terrainSub + 1;
         this._mapSubX = options.mapSubX || this._terrainIdx;
         this._mapSubZ = options.mapSubZ || this._terrainIdx;
+        this._intializedCallback = options.intializedCallback || false;
         this._mapUVs = options.mapUVs; // if not defined, it will be still populated by default values
         this._mapColors = options.mapColors;
         this._scene = scene;
@@ -66014,14 +66021,14 @@ var DynamicTerrain$1 = /** @class */ (function () {
         this._SPuvData = options.SPuvData;
         this._sps = options.sps;
         // initialize the map arrays if not passed as parameters
-        this._datamap = (this._mapData) ? true : false;
-        this._uvmap = (this._mapUVs) ? true : false;
-        this._colormap = (this._mapColors) ? true : false;
-        this._mapSPData = (this._SPmapData) ? true : false;
-        this._colorSPData = (this._mapSPData && this._SPcolorData) ? true : false;
-        this._uvSPData = (this._mapSPData && this._SPuvData) ? true : false;
-        this._mapData = (this._datamap) ? this._mapData : new Float32Array(this._terrainIdx * this._terrainIdx * 3);
-        this._mapUVs = (this._uvmap) ? this._mapUVs : new Float32Array(this._terrainIdx * this._terrainIdx * 2);
+        this._datamap = this._mapData ? true : false;
+        this._uvmap = this._mapUVs ? true : false;
+        this._colormap = this._mapColors ? true : false;
+        this._mapSPData = this._SPmapData ? true : false;
+        this._colorSPData = this._mapSPData && this._SPcolorData ? true : false;
+        this._uvSPData = this._mapSPData && this._SPuvData ? true : false;
+        this._mapData = this._datamap ? this._mapData : new Float32Array(this._terrainIdx * this._terrainIdx * 3);
+        this._mapUVs = this._uvmap ? this._mapUVs : new Float32Array(this._terrainIdx * this._terrainIdx * 2);
         if (this._datamap) {
             this._mapNormals = options.mapNormals || new Float32Array(this._mapSubX * this._mapSubZ * 3);
         }
@@ -66079,8 +66086,8 @@ var DynamicTerrain$1 = /** @class */ (function () {
                     uv = new Vector2(mapUVs[uvIndex], mapUVs[uvIndex + 1]);
                 }
                 else {
-                    u = 1.0 - Math.abs(1.0 - 2.0 * i / lg);
-                    v = 1.0 - Math.abs(1.0 - 2.0 * j / lg);
+                    u = 1.0 - Math.abs(1.0 - (2.0 * i) / lg);
+                    v = 1.0 - Math.abs(1.0 - (2.0 * j) / lg);
                     mapUVs[2 * terIndex] = u;
                     mapUVs[2 * terIndex + 1] = v;
                     uv = new Vector2(u, v);
@@ -66095,7 +66102,7 @@ var DynamicTerrain$1 = /** @class */ (function () {
         this._averageSubSizeZ = this._mapSizeZ / this._mapSubZ;
         var ribbonOptions = {
             pathArray: terrainData,
-            sideOrientation: (options.invertSide) ? Mesh$1.FRONTSIDE : Mesh$1.BACKSIDE,
+            sideOrientation: options.invertSide ? Mesh$1.FRONTSIDE : Mesh$1.BACKSIDE,
             colors: terrainColor,
             uvs: terrainUV,
             updatable: true
@@ -66114,8 +66121,8 @@ var DynamicTerrain$1 = /** @class */ (function () {
         // initialize deltaSub to make on the map
         var deltaNbSubX = (this._terrain.position.x - mapData[0]) / this._averageSubSizeX;
         var deltaNbSubZ = (this._terrain.position.z - mapData[2]) / this._averageSubSizeZ;
-        this._deltaSubX = (deltaNbSubX > 0) ? Math.floor(deltaNbSubX) : Math.ceil(deltaNbSubX);
-        this._deltaSubZ = (deltaNbSubZ > 0) ? Math.floor(deltaNbSubZ) : Math.ceil(deltaNbSubZ);
+        this._deltaSubX = deltaNbSubX > 0 ? Math.floor(deltaNbSubX) : Math.ceil(deltaNbSubX);
+        this._deltaSubZ = deltaNbSubZ > 0 ? Math.floor(deltaNbSubZ) : Math.ceil(deltaNbSubZ);
         this._scene.onBeforeRenderObservable.add(function () {
             var refreshEveryFrame = _this._refreshEveryFrame;
             _this.beforeUpdate(refreshEveryFrame);
@@ -66145,8 +66152,8 @@ var DynamicTerrain$1 = /** @class */ (function () {
                     var z = data[dIdx + 2];
                     x = x - Math.floor((x - x0) / mapSizeX) * mapSizeX;
                     z = z - Math.floor((z - z0) / mapSizeZ) * mapSizeZ;
-                    var col = Math.floor((x - x0) * mapSubX / mapSizeX);
-                    var row = Math.floor((z - z0) * mapSubZ / mapSizeZ);
+                    var col = Math.floor(((x - x0) * mapSubX) / mapSizeX);
+                    var row = Math.floor(((z - z0) * mapSubZ) / mapSizeZ);
                     var quadIdx = row * mapSubX + col;
                     if (quads[quadIdx] === undefined) {
                         quads[quadIdx] = [];
@@ -66195,8 +66202,14 @@ var DynamicTerrain$1 = /** @class */ (function () {
             }
             spsNbPerType.push(count);
         }
-        this.update(true); // recompute everything once the initial deltas are calculated 
+        this.update(true); // recompute everything once the initial deltas are calculated
+        if (this._intializedCallback) {
+            this.intialized();
+        }
     }
+    DynamicTerrain.prototype.intialized = function () {
+        this._intializedCallback(this);
+    };
     /**
      * Updates the terrain position and shape according to the camera position.
      * `force` : boolean, forces the terrain update even if no camera position change.
@@ -66205,7 +66218,7 @@ var DynamicTerrain$1 = /** @class */ (function () {
     DynamicTerrain.prototype.update = function (force) {
         var needsUpdate = false;
         var updateLOD = false;
-        var updateForced = (force) ? true : false;
+        var updateForced = force ? true : false;
         var terrainPosition = this._terrain.position;
         var cameraPosition = this._terrainCamera.globalPosition;
         var shiftFromCamera = this.shiftFromCamera;
@@ -66218,10 +66231,10 @@ var DynamicTerrain$1 = /** @class */ (function () {
         var mod = this._mod;
         // current LOD
         var oldCorrection = this._cameraLODCorrection;
-        this._cameraLODCorrection = (this.updateCameraLOD(this._terrainCamera)) | 0;
-        updateLOD = (oldCorrection == this._cameraLODCorrection) ? false : true;
+        this._cameraLODCorrection = this.updateCameraLOD(this._terrainCamera) | 0;
+        updateLOD = oldCorrection == this._cameraLODCorrection ? false : true;
         var LODValue = this._initialLOD + this._cameraLODCorrection;
-        LODValue = (LODValue > 0) ? LODValue : 1;
+        LODValue = LODValue > 0 ? LODValue : 1;
         this._LODValue = LODValue;
         // threshold sizes on each axis to trigger the terrain update
         var mapShiftX = this._averageSubSizeX * subToleranceX * LODValue;
@@ -66230,17 +66243,17 @@ var DynamicTerrain$1 = /** @class */ (function () {
         var deltaSubX = this._deltaSubX;
         var deltaSubZ = this._deltaSubZ;
         if (Math.abs(deltaX) > mapShiftX) {
-            var signX = (deltaX > 0.0) ? -1 : 1;
+            var signX = deltaX > 0.0 ? -1 : 1;
             mapFlgtNb = Math.abs(deltaX / mapShiftX) | 0;
             terrainPosition.x += mapShiftX * signX * mapFlgtNb;
-            deltaSubX += (subToleranceX * signX * LODValue * mapFlgtNb);
+            deltaSubX += subToleranceX * signX * LODValue * mapFlgtNb;
             needsUpdate = true;
         }
         if (Math.abs(deltaZ) > mapShiftZ) {
-            var signZ = (deltaZ > 0.0) ? -1 : 1;
+            var signZ = deltaZ > 0.0 ? -1 : 1;
             mapFlgtNb = Math.abs(deltaZ / mapShiftZ) | 0;
             terrainPosition.z += mapShiftZ * signZ * mapFlgtNb;
-            deltaSubZ += (subToleranceZ * signZ * LODValue * mapFlgtNb);
+            deltaSubZ += subToleranceZ * signZ * LODValue * mapFlgtNb;
             needsUpdate = true;
         }
         var updateSize = updateLOD || updateForced; // must the terrain size be updated ?
@@ -66307,9 +66320,9 @@ var DynamicTerrain$1 = /** @class */ (function () {
         var mapSizeZ = this._mapSizeZ;
         var averageSubSizeX = this._averageSubSizeX;
         var averageSubSizeZ = this._averageSubSizeZ;
-        var particleMap = (mapSPData && quads);
-        var particleColorMap = (particleMap && this._colorSPData);
-        var particleUVMap = (particleMap && this._uvSPData);
+        var particleMap = mapSPData && quads;
+        var particleColorMap = particleMap && this._colorSPData;
+        var particleUVMap = particleMap && this._uvSPData;
         var l = 0 | 0;
         var index = 0 | 0; // current vertex index in the map data array
         var posIndex1 = 0 | 0; // current position index in the map data array
@@ -66410,7 +66423,7 @@ var DynamicTerrain$1 = /** @class */ (function () {
                 ribbonColInd3 = ribbonColInd + 2;
                 ribbonColInd4 = ribbonColInd + 3;
                 ribbonInd += 1;
-                // geometry                  
+                // geometry
                 positions[ribbonPosInd1] = averageSubSizeX * stepI;
                 positions[ribbonPosInd2] = mapData[posIndex2];
                 positions[ribbonPosInd3] = averageSubSizeZ * stepJ;
@@ -66475,7 +66488,8 @@ var DynamicTerrain$1 = /** @class */ (function () {
                 // SPS management
                 if (particleMap) {
                     var quad = quads[index];
-                    if (quad) { // if a quad contains some particles in the map
+                    if (quad) {
+                        // if a quad contains some particles in the map
                         for (var t = 0; t < quad.length; t++) {
                             var data = SPmapData[t];
                             var partIndexes = quad[t];
@@ -66491,12 +66505,12 @@ var DynamicTerrain$1 = /** @class */ (function () {
                                 var nbInSPS = nbPerType[t];
                                 var available = nbAvailablePerType[t];
                                 var rem = nbInSPS - available;
-                                var used = (rem > 0) ? rem : 0;
-                                var min = (available < nbQuadParticles) ? available : nbQuadParticles; // don't iterate beyond possible
+                                var used = rem > 0 ? rem : 0;
+                                var min = available < nbQuadParticles ? available : nbQuadParticles; // don't iterate beyond possible
                                 for (var pIdx = 0; pIdx < min; pIdx++) {
                                     var px = partIndexes[pIdx];
                                     var idm = px * dataStride;
-                                    // set successive available particles of this type       
+                                    // set successive available particles of this type
                                     var particle = particles[typeStartIndex + pIdx + used];
                                     var pos = particle.position;
                                     var rot = particle.rotation;
@@ -66531,9 +66545,9 @@ var DynamicTerrain$1 = /** @class */ (function () {
                                     particle.isVisible = true;
                                     available = available - 1;
                                     used = used + 1;
-                                    min = (available < nbQuadParticles) ? available : nbQuadParticles;
+                                    min = available < nbQuadParticles ? available : nbQuadParticles;
                                 }
-                                available = (available > 0) ? available : 0;
+                                available = available > 0 ? available : 0;
                                 nbAvailablePerType[t] = available;
                             }
                         }
@@ -66550,7 +66564,7 @@ var DynamicTerrain$1 = /** @class */ (function () {
                 nbAvailablePerType[c] = nbPerType[c];
             }
         }
-        // ribbon update    
+        // ribbon update
         terrain.updateVerticesData(VertexBuffer.PositionKind, positions, false, false);
         if (this._computeNormals) {
             VertexData.ComputeNormals(positions, this._indices, normals);
@@ -66581,7 +66595,7 @@ var DynamicTerrain$1 = /** @class */ (function () {
         var averageSubSizeZ = this._averageSubSizeZ;
         for (var l = 0 | 0; l < LODLimits.length; l++) {
             lod = LODValue + l + 1;
-            next = (l >= LODLimits.length - 1) ? 0 : LODLimits[l + 1];
+            next = l >= LODLimits.length - 1 ? 0 : LODLimits[l + 1];
             nb = 2 * (LODLimits[l] - next);
             tsx += averageSubSizeX * lod * nb;
             tsz += averageSubSizeZ * lod * nb;
@@ -66627,15 +66641,15 @@ var DynamicTerrain$1 = /** @class */ (function () {
         // reset x and z in the map space so they are between 0 and the map size
         x = x - Math.floor((x - x0) / mapSizeX) * mapSizeX;
         z = z - Math.floor((z - z0) / mapSizeZ) * mapSizeZ;
-        var col1 = Math.floor((x - x0) * mapSubX / mapSizeX);
-        var row1 = Math.floor((z - z0) * mapSubZ / mapSizeZ);
+        var col1 = Math.floor(((x - x0) * mapSubX) / mapSizeX);
+        var row1 = Math.floor(((z - z0) * mapSubZ) / mapSizeZ);
         var col2 = (col1 + 1) % mapSubX;
         var row2 = (row1 + 1) % mapSubZ;
         // starting indexes of the positions of 4 vertices defining a quad on the map
         var idx1 = 3 * (row1 * mapSubX + col1);
         var idx2 = 3 * (row1 * mapSubX + col2);
-        var idx3 = 3 * ((row2) * mapSubX + col1);
-        var idx4 = 3 * ((row2) * mapSubX + col2);
+        var idx3 = 3 * (row2 * mapSubX + col1);
+        var idx4 = 3 * (row2 * mapSubX + col2);
         var v1 = DynamicTerrain._v1;
         var v2 = DynamicTerrain._v2;
         var v3 = DynamicTerrain._v3;
@@ -66753,16 +66767,16 @@ var DynamicTerrain$1 = /** @class */ (function () {
         return true;
     };
     /**
-     * Static : Returns a new data map from the passed heightmap image file.
-     The parameters `width` and `height` (positive floats, default 300) set the map width and height sizes.
-     * `subX` is the wanted number of points along the map width (default 100).
-     * `subZ` is the wanted number of points along the map height (default 100).
-     * The parameter `minHeight` (float, default 0) is the minimum altitude of the map.
-     * The parameter `maxHeight` (float, default 1) is the maximum altitude of the map.
-     * The parameter `colorFilter` (optional Color3, default (0.3, 0.59, 0.11) ) is the filter to apply to the image pixel colors to compute the height.
-     * `onReady` is an optional callback function, called once the map is computed. It's passed the computed map.
-     * `scene` is the Scene object whose database will store the downloaded image.
-     */
+           * Static : Returns a new data map from the passed heightmap image file.
+           The parameters `width` and `height` (positive floats, default 300) set the map width and height sizes.
+           * `subX` is the wanted number of points along the map width (default 100).
+           * `subZ` is the wanted number of points along the map height (default 100).
+           * The parameter `minHeight` (float, default 0) is the minimum altitude of the map.
+           * The parameter `maxHeight` (float, default 1) is the maximum altitude of the map.
+           * The parameter `colorFilter` (optional Color3, default (0.3, 0.59, 0.11) ) is the filter to apply to the image pixel colors to compute the height.
+           * `onReady` is an optional callback function, called once the map is computed. It's passed the computed map.
+           * `scene` is the Scene object whose database will store the downloaded image.
+           */
     DynamicTerrain.CreateMapFromHeightMap = function (heightmapURL, options, scene) {
         var subX = options.subX || 100;
         var subZ = options.subZ || 100;
@@ -66809,10 +66823,10 @@ var DynamicTerrain$1 = /** @class */ (function () {
             var z = 0.0;
             for (var row = 0; row < subZ; row++) {
                 for (var col = 0; col < subX; col++) {
-                    x = col * width / subX - width * 0.5;
-                    z = row * height / subZ - height * 0.5;
-                    var heightmapX = ((x + width * 0.5) / width * (bufferWidth - 1)) | 0;
-                    var heightmapY = (bufferHeight - 1) - ((z + height * 0.5) / height * (bufferHeight - 1)) | 0;
+                    x = (col * width) / subX - width * 0.5;
+                    z = (row * height) / subZ - height * 0.5;
+                    var heightmapX = (((x + width * 0.5) / width) * (bufferWidth - 1)) | 0;
+                    var heightmapY = (bufferHeight - 1 - ((z + height * 0.5) / height) * (bufferHeight - 1)) | 0;
                     var pos = (heightmapX + heightmapY * bufferWidth) * 4;
                     var gradient = (buffer[pos] * filter.r + buffer[pos + 1] * filter.g + buffer[pos + 2] * filter.b) / 255.0;
                     y = minHeight + (maxHeight - minHeight) * gradient;
@@ -66903,7 +66917,7 @@ var DynamicTerrain$1 = /** @class */ (function () {
             return this._subToleranceX;
         },
         set: function (val) {
-            this._subToleranceX = (val > 0) ? val : 1;
+            this._subToleranceX = val > 0 ? val : 1;
         },
         enumerable: true,
         configurable: true
@@ -66917,7 +66931,7 @@ var DynamicTerrain$1 = /** @class */ (function () {
             return this._subToleranceZ;
         },
         set: function (val) {
-            this._subToleranceZ = (val > 0) ? val : 1;
+            this._subToleranceZ = val > 0 ? val : 1;
         },
         enumerable: true,
         configurable: true
@@ -66931,17 +66945,17 @@ var DynamicTerrain$1 = /** @class */ (function () {
             return this._initialLOD;
         },
         set: function (val) {
-            this._initialLOD = (val > 0) ? val : 1;
+            this._initialLOD = val > 0 ? val : 1;
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(DynamicTerrain.prototype, "LODValue", {
         /**
-        * Current LOD factor value : the lower factor in the terrain.
-        * The LOD value is the sum of the initialLOD and the current cameraLODCorrection.
-        * Integer greater or equal to 1. Default 1.
-        */
+         * Current LOD factor value : the lower factor in the terrain.
+         * The LOD value is the sum of the initialLOD and the current cameraLODCorrection.
+         * Integer greater or equal to 1. Default 1.
+         */
         get: function () {
             return this._LODValue;
         },
@@ -66957,7 +66971,7 @@ var DynamicTerrain$1 = /** @class */ (function () {
             return this._cameraLODCorrection;
         },
         set: function (val) {
-            this._cameraLODCorrection = (val >= 0) ? val : 0;
+            this._cameraLODCorrection = val >= 0 ? val : 0;
         },
         enumerable: true,
         configurable: true
@@ -67320,6 +67334,7 @@ var DynamicTerrain$1 = /** @class */ (function () {
         return;
     };
     DynamicTerrain._vertex = {
+        // current vertex object passed to the user custom function
         position: Vector3$1.Zero(),
         uvs: Vector2.Zero(),
         color: new Color4(1.0, 1.0, 1.0, 1.0),
