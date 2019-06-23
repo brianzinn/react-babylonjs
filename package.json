@@ -74,7 +74,6 @@
     }
   },
   "devDependencies": {
-    "@babylonjs/core": "^4.0.3",
     "@types/jest": "^23.3.12",
     "@types/lodash": "^4.14.114",
     "@types/node": "^8.0.0",

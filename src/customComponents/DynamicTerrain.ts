@@ -1,13 +1,8 @@
-import { Scene } from "@babylonjs/core/scene"
-import { Camera } from "@babylonjs/core/Cameras/Camera"
-import { IndicesArray } from "@babylonjs/core/Types"
-import { SolidParticleSystem } from "@babylonjs/core/Particles/SolidParticleSystem"
-import { Vector3, Vector2, Color3, Color4 } from "@babylonjs/core/Maths/math"
-import { Mesh } from "@babylonjs/core/Meshes/mesh"
-import { VertexBuffer } from "@babylonjs/core/Meshes/buffer"
-import { VertexData } from "@babylonjs/core/Meshes/mesh.vertexData"
-import { MeshBuilder } from "@babylonjs/core/Meshes/meshBuilder"
-import { Tools } from "@babylonjs/core/Misc/tools"
+import {Scene, Camera, IndicesArray, SolidParticleSystem, Vector3, Vector2, Color3, Color4,
+  Mesh, VertexBuffer, VertexData, MeshBuilder, Tools
+} from 'babylonjs'
+
+
 export class DynamicTerrain {
   public name: string
 
