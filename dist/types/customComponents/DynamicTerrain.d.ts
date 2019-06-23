@@ -58,6 +58,7 @@ export declare class DynamicTerrain {
     private _uvSPData;
     private _mapQuads;
     private static _vertex;
+    private _intializedCallback;
     private _averageSubSizeX;
     private _averageSubSizeZ;
     private _terrainSizeX;
@@ -113,7 +114,9 @@ export declare class DynamicTerrain {
         sps?: SolidParticleSystem;
         SPcolorData?: number[][] | Float32Array[];
         SPuvData?: number[][] | Float32Array[];
+        intializedCallback?: any;
     }, scene: Scene);
+    intialized(): void;
     /**
      * Updates the terrain position and shape according to the camera position.
      * `force` : boolean, forces the terrain update even if no camera position change.
@@ -168,16 +171,16 @@ export declare class DynamicTerrain {
      */
     contains(x: number, z: number): boolean;
     /**
-     * Static : Returns a new data map from the passed heightmap image file.
-     The parameters `width` and `height` (positive floats, default 300) set the map width and height sizes.
-     * `subX` is the wanted number of points along the map width (default 100).
-     * `subZ` is the wanted number of points along the map height (default 100).
-     * The parameter `minHeight` (float, default 0) is the minimum altitude of the map.
-     * The parameter `maxHeight` (float, default 1) is the maximum altitude of the map.
-     * The parameter `colorFilter` (optional Color3, default (0.3, 0.59, 0.11) ) is the filter to apply to the image pixel colors to compute the height.
-     * `onReady` is an optional callback function, called once the map is computed. It's passed the computed map.
-     * `scene` is the Scene object whose database will store the downloaded image.
-     */
+           * Static : Returns a new data map from the passed heightmap image file.
+           The parameters `width` and `height` (positive floats, default 300) set the map width and height sizes.
+           * `subX` is the wanted number of points along the map width (default 100).
+           * `subZ` is the wanted number of points along the map height (default 100).
+           * The parameter `minHeight` (float, default 0) is the minimum altitude of the map.
+           * The parameter `maxHeight` (float, default 1) is the maximum altitude of the map.
+           * The parameter `colorFilter` (optional Color3, default (0.3, 0.59, 0.11) ) is the filter to apply to the image pixel colors to compute the height.
+           * `onReady` is an optional callback function, called once the map is computed. It's passed the computed map.
+           * `scene` is the Scene object whose database will store the downloaded image.
+           */
     static CreateMapFromHeightMap(heightmapURL: string, options: {
         width: number;
         height: number;
@@ -256,10 +259,10 @@ export declare class DynamicTerrain {
      */
     initialLOD: number;
     /**
-    * Current LOD factor value : the lower factor in the terrain.
-    * The LOD value is the sum of the initialLOD and the current cameraLODCorrection.
-    * Integer greater or equal to 1. Default 1.
-    */
+     * Current LOD factor value : the lower factor in the terrain.
+     * The LOD value is the sum of the initialLOD and the current cameraLODCorrection.
+     * Integer greater or equal to 1. Default 1.
+     */
     readonly LODValue: number;
     /**
      * Camera LOD correction : the factor to add to the initial LOD according to the camera position, movement, etc.

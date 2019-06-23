@@ -2,12 +2,22 @@ import * as BABYLON from "babylonjs"
 import GUI from "babylonjs-gui"
 
 export class FiberDynamicTerrainProps {
-  name?: string
-  scene?: any
-  mapdata?: any
-  mapSubX?: number
-  mapSubZ?: number
-  terrainSub?: number
+      name?: string
+      scene?: any
+      terrainSub?: number
+      mapData?: number[] | Float32Array
+      mapSubX?: number
+      mapSubZ?: number
+      mapUVs?: number[] | Float32Array
+      mapColors?: number[] | Float32Array
+      mapNormals?: number[] | Float32Array
+      invertSide?: boolean
+      camera?: any
+      SPmapData?: number[][] | Float32Array[]
+      sps?: any
+      SPcolorData?: number[][] | Float32Array[]
+      SPuvData?: number[][] | Float32Array[]
+      intializedCallback?:any
 }
 export class FiberNodeProps {
   addToSceneRootNodes?: any

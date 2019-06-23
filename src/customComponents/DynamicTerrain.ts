@@ -74,6 +74,7 @@ export class DynamicTerrain {
     worldPosition: Vector3.Zero(), // vertex World position
     mapIndex: 0 | 0 // current map index
   }
+  private _intializedCallback:any
   private _averageSubSizeX: number = 0.0 // map cell average x size
   private _averageSubSizeZ: number = 0.0 // map cell average z size
   private _terrainSizeX: number = 0.0 // terrain x size
@@ -97,6 +98,7 @@ export class DynamicTerrain {
   private static _norm: Vector3 = Vector3.Zero()
   private static _bbMin: Vector3 = Vector3.Zero()
   private static _bbMax: Vector3 = Vector3.Zero()
+
 
   /**
    * constructor
@@ -132,7 +134,8 @@ export class DynamicTerrain {
       SPmapData?: number[][] | Float32Array[]
       sps?: SolidParticleSystem
       SPcolorData?: number[][] | Float32Array[]
-      SPuvData?: number[][] | Float32Array[]
+      SPuvData?: number[][] | Float32Array[],
+      intializedCallback?: any
     },
     scene: Scene
   ) {
@@ -142,6 +145,7 @@ export class DynamicTerrain {
     this._terrainIdx = this._terrainSub + 1
     this._mapSubX = options.mapSubX || this._terrainIdx
     this._mapSubZ = options.mapSubZ || this._terrainIdx
+    this._intializedCallback = options.intializedCallback || false
     this._mapUVs = options.mapUVs // if not defined, it will be still populated by default values
     this._mapColors = options.mapColors
     this._scene = scene
@@ -337,6 +341,14 @@ export class DynamicTerrain {
       spsNbPerType.push(count)
     }
     this.update(true) // recompute everything once the initial deltas are calculated
+    if(this._intializedCallback){
+      this.intialized()
+    }
+    
+  }
+
+  public intialized(){
+    this._intializedCallback(this)
   }
 
   /**

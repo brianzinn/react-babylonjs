@@ -5536,7 +5536,7 @@ export class FiberDynamicTerrain implements HasPropsHandlers<BABYLONEXT.DynamicT
         name: "options",
         type: [
           {
-            name: "mapdata",
+            name: "mapData",
             type: "Float32Array",
             optional: false
           },
@@ -5593,6 +5593,11 @@ export class FiberDynamicTerrain implements HasPropsHandlers<BABYLONEXT.DynamicT
           {
             name: "SPuvData",
             type: "array",
+            optional: true
+          },
+          {
+            name: "intializedCallback",
+            type: "any",
             optional: true
           }
         ],
