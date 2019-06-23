@@ -1,8 +1,8 @@
 {
   "name": "react-babylonjs",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "ReactJS components for BabylonJS",
-  "homepage": "https://github.com/brianzinn/react-babylonjs/",
+  "homepage": "https://github.com/seacloud9/react-babylonjs/",
   "keywords": [
     "react",
     "babylonjs",
@@ -17,7 +17,7 @@
   "author": "Brian Zinn <github@wakeskate.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/brianzinn/react-babylonjs/"
+    "url": "https://github.com/seacloud9/react-babylonjs/"
   },
   "license": "MIT",
   "engines": {
