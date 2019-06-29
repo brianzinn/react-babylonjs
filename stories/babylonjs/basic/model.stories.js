@@ -1,10 +1,84 @@
-import React, { Component } from 'react'
+import React, { Component} from 'react'
+import { TimelineLite } from "gsap/all";
 import { storiesOf } from '@storybook/react'
 import 'babylonjs-inspector'
-import { Engine, Scene, ArcRotateCamera, HemisphericLight } from '../../../dist/react-babylonjs.es5'
-import { Vector3, Color3, ActionManager, SetValueAction } from 'babylonjs'
+import { Engine, Scene, Skybox, ArcRotateCamera, HemisphericLight } from '../../../dist/react-babylonjs.es5'
+import { Vector3, Color3, ActionManager, SetValueAction, CubeTexture, FresnelParameters, StandardMaterial, Color4 } from 'babylonjs'
 import ScaledModelWithProgress from '../ScaledModelWithProgress'
 import '../../style.css'
+
+const SkyboxScenes = [{
+  name: 'sunny day',
+  texture: `/assets/textures/TropicalSunnyDay`
+}, {
+  name: 'specular HDR',
+  texture: `/assets/textures/SpecularHDR.dds`
+}]
+
+
+class WithReact extends Component {
+  constructor () {
+    super()
+
+    this.state = {
+      atomYPos: 0,
+      atomScaling: 3.0,
+      skyboxIndex: 0
+    }
+
+    this.onModelLoaded = this.onModelLoaded.bind(this)
+    this.logoTween = new TimelineLite({ paused: true })
+  }
+
+
+  onModelLoaded = (model, {scene}) => {
+    model.meshes.map((mesh, index) => {
+      let material = new StandardMaterial("kosh", scene);
+      material.reflectionTexture = new CubeTexture("/assets/textures/TropicalSunnyDay", scene);
+      material.diffuseColor = new Color3(0, 0, 0);
+      material.emissiveColor = new Color3(0.5, 0.5, 0.5);
+      material.alpha = 0.2;
+      material.specularPower = 16;
+
+      // Fresnel
+      material.reflectionFresnelParameters = new FresnelParameters();
+      material.reflectionFresnelParameters.bias = 0.1;
+
+      material.emissiveFresnelParameters = new FresnelParameters();
+      material.emissiveFresnelParameters.bias = 0.6;
+      material.emissiveFresnelParameters.power = 4;
+      material.emissiveFresnelParameters.leftColor = Color3.White();
+      material.emissiveFresnelParameters.rightColor = Color3.Black();
+
+      material.opacityFresnelParameters = new FresnelParameters();
+      material.opacityFresnelParameters.leftColor = Color3.White();
+      material.opacityFresnelParameters.rightColor = Color3.Black();
+      if(index === 0){
+        this.logoTween.to(mesh.scaling, 2, { x: 4, y: 4, z: 4 })
+        this.logoTween.to(mesh.scaling, 2, { x: 2, y: 2, z: 2 })
+        this.logoTween.to(mesh.rotation, 1, { x: 1, y: 1, z: 1 })
+        this.logoTween.play();
+      }
+      mesh.material = material;  
+    }) 
+  }
+
+  render () {
+    return (
+      <Engine antialias adaptToDeviceRatio canvasId='babylonJS'>
+        <Scene onSceneMount={this.onSceneMount} clearColor={new Color4(1.0, 1.0, 1.0, 1.0)}>
+        <Skybox rootUrl={SkyboxScenes[Math.abs(this.state.skyboxIndex) % SkyboxScenes.length].texture} />
+          <ArcRotateCamera name='camera1' alpha={Math.PI / 2} beta={Math.PI / 2} radius={9.0} target={Vector3.Zero()} minZ={0.001} />
+          <HemisphericLight name='light1' intensity={0.7} direction={Vector3.Up()} />
+          <ScaledModelWithProgress rootUrl={`/assets/models/`} sceneFilename='atom.glb' scaleTo={this.state.atomScaling}
+            progressBarColor={Color3.FromInts(135, 206, 235)} center={new Vector3(0, this.state.atomYPos, 0)}
+            onModelLoaded={this.onModelLoaded}
+          />
+        </Scene>
+      </Engine>
+    )
+  }
+}
 
 class WithModel extends Component {
   constructor () {
@@ -50,7 +124,7 @@ class WithModel extends Component {
     }))
   }
 
-  onModelLoaded (model, sceneContext) {
+  onModelLoaded  = (model, sceneContext) => {
     let mesh = model.meshes[1]
     mesh.actionManager = new ActionManager(sceneContext.scene)
     mesh.actionManager.registerAction(
@@ -99,3 +173,10 @@ export default storiesOf('Babylon Basic', module)
       <WithModel />
     </div>
   ))
+  .add('Model Atom GSAP Tween', () => (
+    <div style={{ flex: 1, display: 'flex' }}>
+      <WithReact />
+    </div>
+  ))
+
+  
