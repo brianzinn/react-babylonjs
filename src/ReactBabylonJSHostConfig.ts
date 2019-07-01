@@ -1,6 +1,7 @@
 import ReactReconciler, { HostConfig } from "react-reconciler"
-import BABYLON from "babylonjs"
+import * as BABYLON from "babylonjs"
 import * as GUI from "babylonjs-gui"
+import * as BABYLONEXT from "./customComponents/DynamicTerrain"
 
 import * as GENERATED from "./generatedCode"
 import * as CUSTOM_HOSTS from "./customHosts"
@@ -60,7 +61,7 @@ export const applyUpdateToInstance = (hostInstance: any, update: PropertyUpdate,
       break
     case "BABYLON.Vector3": // TODO: merge with Color3/Color4
       if (target[update.propertyName]) {
-        (target[update.propertyName] as BABYLON.Vector3).copyFrom(update.value)
+        ;(target[update.propertyName] as BABYLON.Vector3).copyFrom(update.value)
       } else if (update.value) {
         target[update.propertyName] = update.value.clone()
       } else {
@@ -72,10 +73,10 @@ export const applyUpdateToInstance = (hostInstance: any, update: PropertyUpdate,
       if (target[update.propertyName]) {
         switch (update.type) {
           case "BABYLON.Color3":
-            (target[update.propertyName] as BABYLON.Color3).copyFrom(update.value)
+            ;(target[update.propertyName] as BABYLON.Color3).copyFrom(update.value)
             break
           case "BABYLON.Color4":
-            (target[update.propertyName] as BABYLON.Color4).copyFrom(update.value)
+            ;(target[update.propertyName] as BABYLON.Color4).copyFrom(update.value)
             break
         }
       } else if (update.value) {
@@ -368,6 +369,11 @@ const ReactBabylonJSHostConfig: HostConfig<
           case "BABYLON":
             // console.log("creating:", type, ...args)
             babylonObject = new (BABYLON as any)[type](...args)
+            break
+          case "BABYLONEXT":
+            // console.log("creating:", type, ...args)
+
+            babylonObject = new (BABYLONEXT as any)[type](...args)
             break
           case "GUI":
             // console.log("creating GUI", type, ...args)

@@ -5,7 +5,6 @@ coverage
 *.log
 .vscode
 .idea
-dist
 compiled
 .awcache
 /package-lock.json

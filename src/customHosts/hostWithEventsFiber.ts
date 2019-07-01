@@ -1,4 +1,4 @@
-import BABYLON from "babylonjs"
+import * as BABYLON from "babylonjs"
 import { CreatedInstance } from "../CreatedInstance"
 import { LifecycleListener } from "../LifecycleListener"
 
