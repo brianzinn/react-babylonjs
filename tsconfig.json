@@ -7,7 +7,7 @@
         "jsx": "react",
         "resolveJsonModule": true,
         "esModuleInterop": true,
-        "strict": true,
+        "strict": false,
         "sourceMap": true,
         "declaration": true,
         "allowSyntheticDefaultImports": true,
