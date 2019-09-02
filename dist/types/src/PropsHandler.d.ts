@@ -1,4 +1,3 @@
-/// <reference types="babylonjs" />
 export interface PropertyUpdate {
     type: string;
     value: any;
