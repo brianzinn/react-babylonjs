@@ -372,7 +372,6 @@ const ReactBabylonJSHostConfig: HostConfig<
             break
           case "BABYLONEXT":
             // console.log("creating:", type, ...args)
-
             babylonObject = new (BABYLONEXT as any)[type](...args)
             break
           case "GUI":
@@ -380,7 +379,7 @@ const ReactBabylonJSHostConfig: HostConfig<
             babylonObject = new (GUI as any)[type](...args)
             break
           default:
-            console.error("metadata defines (or does not) an namespace that is known", metadata)
+            console.error("metadata defines (or does not) a namespace that is known", metadata)
             break
         }
       }

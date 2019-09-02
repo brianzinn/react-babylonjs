@@ -146,20 +146,20 @@ export class DynamicTerrain {
   ) {
     this.name = name
     this._terrainSub = options.terrainSub || 60
-    this._mapData = options.mapData
+    this._mapData = options.mapData!
     this._terrainIdx = this._terrainSub + 1
     this._mapSubX = options.mapSubX || this._terrainIdx
     this._mapSubZ = options.mapSubZ || this._terrainIdx
     this._intializedCallback = options.intializedCallback || false
-    this._mapUVs = options.mapUVs // if not defined, it will be still populated by default values
-    this._mapColors = options.mapColors
+    this._mapUVs = options.mapUVs! // if not defined, it will be still populated by default values
+    this._mapColors = options.mapColors!
     this._scene = scene
-    this._terrainCamera = options.camera || scene.activeCamera
-    this._inverted = options.invertSide
-    this._SPmapData = options.SPmapData
-    this._SPcolorData = options.SPcolorData
-    this._SPuvData = options.SPuvData
-    this._sps = options.sps
+    this._terrainCamera = options.camera || scene.activeCamera!
+    this._inverted = options.invertSide!
+    this._SPmapData = options.SPmapData!
+    this._SPcolorData = options.SPcolorData!
+    this._SPuvData = options.SPuvData!
+    this._sps = options.sps!
 
     // initialize the map arrays if not passed as parameters
     this._datamap = this._mapData ? true : false
