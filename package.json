@@ -33,7 +33,6 @@
     "test:prod": "npm run lint && npm run test -- --coverage --no-cache",
     "deploy-docs": "ts-node tools/gh-pages-publish",
     "report-coverage": "cat ./coverage/lcov.info | coveralls",
-    "precommit": "lint-staged",
     "storybook": "start-storybook -p 6006 -s ./storyboard-site",
     "build-storybook": "build-storybook -o react-babylonjs -s ./storyboard-site",
     "generate-code": "ts-node -P tsconfig.generate.json tools/generate-code"
