@@ -13,8 +13,6 @@ const path = require("path");
 
 const ReactReconcilerCreatedInstanceMetadata = "CreatedInstanceMetadata";
 const PropertyUpdateInterface = "PropertyUpdate";
-const BABYLON_NAMESPACE = "BABYLON";
-const BABYLON_GUI_NAMESPACE = "GUI"
 const ClassNamesPrefix = 'Fiber';
 
 type ClassNameSpaceTuple = {
@@ -34,28 +32,40 @@ let classesOfInterest : Map<String, ClassNameSpaceTuple | undefined> = new Map<S
 classesOfInterest.set("Node", undefined)
 
 // decides what is generated
-// classesOfInterest.set("Camera", undefined);
-// classesOfInterest.set("Material", undefined);
+classesOfInterest.set("Camera", undefined);
+classesOfInterest.set("Material", undefined);
 classesOfInterest.set("Mesh", undefined);
-// classesOfInterest.set("MeshBuilder", undefined)
-// classesOfInterest.set("Light", undefined);
-// classesOfInterest.set("Control", undefined);
-// classesOfInterest.set("Control3D", undefined);
-// classesOfInterest.set("GUI3DManager", undefined);
-// classesOfInterest.set("BaseTexture", undefined);
-// classesOfInterest.set("AdvancedDynamicTexture", undefined);
-// classesOfInterest.set("ShadowGenerator", undefined)
-// classesOfInterest.set("EnvironmentHelper", undefined);
-// classesOfInterest.set("VRExperienceHelper", undefined);
-// classesOfInterest.set("AbstractScene", undefined);
+classesOfInterest.set("MeshBuilder", undefined)
+classesOfInterest.set("Light", undefined);
+classesOfInterest.set("Control", undefined);
+classesOfInterest.set("Control3D", undefined);
+classesOfInterest.set("GUI3DManager", undefined);
+classesOfInterest.set("BaseTexture", undefined);
+classesOfInterest.set("AdvancedDynamicTexture", undefined);
+classesOfInterest.set("ShadowGenerator", undefined)
+classesOfInterest.set("EnvironmentHelper", undefined);
+classesOfInterest.set("VRExperienceHelper", undefined);
+classesOfInterest.set("AbstractScene", undefined);
 classesOfInterest.set("Scene", undefined);
 
-const getNamespace = (classDeclaration : ClassDeclaration) : string => {
-  let symbol = classDeclaration.getType().compilerType.symbol;
-  return (symbol as any).parent.name
+/**
+ * Generally importAlias is the same as declarationType.  They differ when they are Animation/Animation[], so the declaration includes
+ * additional typing for the declaration.
+ */
+type ModuleDeclaration = {
+  moduleSpecifier: string,
+  className: string,
+  importAlias: string,
+  declarationType: string // TODO: is this used/needed?
+};
+
+type FileModuleDeclaration = {
+  hostComponent: boolean, // used to generate factory
+  sourceFile: SourceFile, // needed since we use filePath as key for top-level dictionary
+  moduleDeclaration: ModuleDeclaration
 }
 
-const importDeclarationMap: Map<string, string[]> = new Map<string, string[]>();
+const importDeclarationMap: Map<string, Map<string, FileModuleDeclaration[]>> = new Map<string, Map< string, FileModuleDeclaration[]>>();
 
 const capitalize = (value: string) =>  {
   if (!value || value.length === 0) {
@@ -63,12 +73,6 @@ const capitalize = (value: string) =>  {
   }
   return value.charAt(0).toUpperCase() + value.substring(1).toLowerCase();
 }
-
-type ModuleDeclaration = {
-  moduleSpecifier: string,
-  className: string,
-  classAlias: string
-};
 
 const getModuleDeclarationFromClassDeclaration = (classDeclaration: ClassDeclaration): ModuleDeclaration => {
   const sourceFile = classDeclaration.getSourceFile();
@@ -90,45 +94,71 @@ const getModuleDeclarationFromClassDeclaration = (classDeclaration: ClassDeclara
   return {
     moduleSpecifier,
     className,
-    classAlias
+    importAlias: classAlias,
+    declarationType: classAlias
   };
 }
 
-const addNamedImportToFile = (moduleDeclaration: ModuleDeclaration, targets: SourceFile[]): void => {
-  console.log(' > adding:' + moduleDeclaration.classAlias);
+const addNamedImportToFile = (moduleDeclaration: ModuleDeclaration, targets: SourceFile[], isHostComponent: boolean): void => {
   targets.forEach(file => {
     const fileKey = file.getFilePath();
     if(!importDeclarationMap.has(fileKey)) {
-      importDeclarationMap.set(fileKey, []);
+      const fileMap: Map<string, FileModuleDeclaration[]> = new Map<string, FileModuleDeclaration[]>();
+      importDeclarationMap.set(fileKey, fileMap);
     }
 
-    const existingImports = importDeclarationMap.get(fileKey);
-    const declarationKey = `${moduleDeclaration.moduleSpecifier}/${moduleDeclaration.className}`;
+    const existingFileMap: Map<string, FileModuleDeclaration[]> = importDeclarationMap.get(fileKey)!;
 
-    if (existingImports && !existingImports.includes(declarationKey)) {
-      existingImports.push(declarationKey);
-      const importDeclaration: ImportDeclaration = file.addImportDeclaration({
-        moduleSpecifier: moduleDeclaration.moduleSpecifier
-      } as ImportDeclarationStructure)
+    if (!existingFileMap.has(moduleDeclaration.moduleSpecifier)) {
+      existingFileMap.set(moduleDeclaration.moduleSpecifier, []);
+    }
 
-      importDeclaration.addNamedImport({
-          name: moduleDeclaration.className,
-          alias: moduleDeclaration.classAlias
+    const declarationList: FileModuleDeclaration[] = existingFileMap.get(moduleDeclaration.moduleSpecifier)!;
+    const match = declarationList.find(i =>
+      i.moduleDeclaration.className === moduleDeclaration.className
+    )
+
+    if (match === undefined) {
+      // console.error('not found:', moduleDeclaration.className, 'in -> ', declarationList.map(t => t.moduleDeclaration.className).join(','));
+      
+      declarationList.push({
+        hostComponent: isHostComponent,
+        sourceFile: file,
+        moduleDeclaration
       })
+    } else {
+      match.hostComponent = match.hostComponent || isHostComponent;
     }
   })
 }
 
+/**
+ * 
+ * Would comvert something like BabylonjsCore
+ * 
+ * @param input 
+ */
+const reduceToImport = (input: string): string => {
+  let result = input;
+  while(result.endsWith('[]')) {
+    result = result.substr(0, result.length - 2);
+  }
+  return result;
+}
+
 const createTypeFromText = (typeText: string, targetFile: SourceFile[]): string => {
-  console.log('creating type from text:', typeText);
-  // ^<> for generics.  ',)' for parameter lists
-  const pattern = /import\(\"([^\"]+)\"\)\.([^<>,)]+)/;
+  // ^<> for generics.  ',)' for parameter lists, ';' for types, '|' for unions
+  const pattern = /import\(\"([^\"]+)\"\)\.([^<>,;\|) ]+)/;
 
   let match = typeText.match(pattern);
 
   while (match !== null && match.length === 3) {
     const importLocation = match[1];
     const importClassName = match[2];
+
+    if (importClassName.endsWith(' ')) {
+      console.error('match', match);
+    }
 
     const pathMatch = importLocation.match(/node_modules\/(.*)/);
 
@@ -140,13 +170,17 @@ const createTypeFromText = (typeText: string, targetFile: SourceFile[]): string 
       const aliasPrefix = packageName.substr(1).split('/').map(x => capitalize(x)).join('');
       const classAlias = `${aliasPrefix}${importClassName}`
 
+      const importAlias = reduceToImport(classAlias);
+      const className = reduceToImport(importClassName);
+
       const moduleDeclaration: ModuleDeclaration = {
         moduleSpecifier,
-        className: importClassName,
-        classAlias
+        className,
+        importAlias: importAlias,
+        declarationType: classAlias
       };
 
-      addNamedImportToFile(moduleDeclaration, targetFile);
+      addNamedImportToFile(moduleDeclaration, targetFile, false);
 
       typeText = typeText.replace(match[0], classAlias);
       match = typeText.match(pattern);
@@ -165,7 +199,7 @@ const addProject = (packageName: string, sourceFiles: SourceFile[]): void => {
       const className = classDeclaration.getName()
       if (className !== undefined && classesOfInterest.has(className)) {
         const moduleDeclaration = getModuleDeclarationFromClassDeclaration(classDeclaration);
-        addNamedImportToFile(moduleDeclaration, sourceFiles);
+        addNamedImportToFile(moduleDeclaration, sourceFiles, true);
 
         classesOfInterest.set(className, {
           classDeclaration,
@@ -218,7 +252,7 @@ const createMeshClasses = (generatedCodeSourceFile: SourceFile) => {
 
       console.log(` > ${factoryType}`)
       let newClassDeclaration: ClassDeclaration = addClassDeclarationFromFactoryMethod(generatedCodeSourceFile, factoryType, classesOfInterest.get("Mesh")!.classDeclaration, method);
-      addCreateInfoFromFactoryMethod(method, meshBuilderTuple.classDeclaration.getName()!, methodName, newClassDeclaration, BABYLON_NAMESPACE, [generatedCodeSourceFile])
+      addCreateInfoFromFactoryMethod(method, meshBuilderTuple.classDeclaration.getName()!, methodName, newClassDeclaration, "@babylonjs/core", [generatedCodeSourceFile])
       addMetadata(newClassDeclaration, undefined /* no original class */, {
         acceptsMaterials: true,
         isMesh: true
@@ -242,7 +276,6 @@ const addClassDeclarationFromFactoryMethod = (generatedCodeSourceFile: SourceFil
   // We don't need to inherit anything, also collides with property declarations
   // cameraClassDeclaration.setExtends(`${ClassNamesPrefix}${baseClass!.getName()}`)
 
-
   let jsDocs: JSDoc[] = factoryMethod.getJsDocs();
   const generatedComment = 'This code has been generated'
   if (jsDocs.length > 0) {
@@ -257,11 +290,11 @@ const addClassDeclarationFromFactoryMethod = (generatedCodeSourceFile: SourceFil
 
   newClassDeclaration.addProperty({
     name: propsHandlersPropertyName,
-    type: `PropsHandler<${newClassModuleDeclaration.classAlias}, ${ClassNamesPrefix}${propsHandlerBaseName}Props>[]`, // xxx
+    type: `PropsHandler<${newClassModuleDeclaration.importAlias}, ${ClassNamesPrefix}${propsHandlerBaseName}Props>[]`, // xxx
     scope: Scope.Private
   })
 
-  newClassDeclaration.addImplements(`HasPropsHandlers<${newClassModuleDeclaration.classAlias}, ${ClassNamesPrefix}${propsHandlerBaseName}Props>`)
+  newClassDeclaration.addImplements(`HasPropsHandlers<${newClassModuleDeclaration.importAlias}, ${ClassNamesPrefix}${propsHandlerBaseName}Props>`)
 
   const newConstructor : ConstructorDeclaration = newClassDeclaration.addConstructor();
   newConstructor.setBodyText((writer : CodeBlockWriter) => {
@@ -279,7 +312,7 @@ const addClassDeclarationFromFactoryMethod = (generatedCodeSourceFile: SourceFil
 
   let getPropertyUpdatesMethod = newClassDeclaration.addMethod({
     name: "getPropsHandlers",
-    returnType: `PropsHandler<${newClassModuleDeclaration.classAlias}, ${ClassNamesPrefix}${propsHandlerBaseName}Props>[]`
+    returnType: `PropsHandler<${newClassModuleDeclaration.importAlias}, ${ClassNamesPrefix}${propsHandlerBaseName}Props>[]`
   });
 
   getPropertyUpdatesMethod.setBodyText(writer => {
@@ -292,7 +325,7 @@ const addClassDeclarationFromFactoryMethod = (generatedCodeSourceFile: SourceFil
   });
   addPropertyHandlerMethod.addParameter({
     name: 'propHandler',
-    type: `PropsHandler<${newClassModuleDeclaration.classAlias}, ${ClassNamesPrefix}${propsHandlerBaseName}Props>`
+    type: `PropsHandler<${newClassModuleDeclaration.importAlias}, ${ClassNamesPrefix}${propsHandlerBaseName}Props>`
   })
 
   addPropertyHandlerMethod.setBodyText(writer => {
@@ -301,7 +334,6 @@ const addClassDeclarationFromFactoryMethod = (generatedCodeSourceFile: SourceFil
 
   return newClassDeclaration;
 }
-
 
 const addCreateInfoFromFactoryMethod = (method: MethodDeclaration, factoryClass: string, factoryMethod : string, targetClass: ClassDeclaration, namespace: string, targetFiles: SourceFile[]) : void => {
   let methodParameters : GeneratedParameter[] = []
@@ -313,8 +345,6 @@ const addCreateInfoFromFactoryMethod = (method: MethodDeclaration, factoryClass:
       return;
     }
 
-    // getText() accomplishes what we need so far.
-    console.log('from factory');
     const parameterType: string = createTypeFromText(createMethodParameter.getType().getText(), targetFiles);
     const optional : boolean = createMethodParameter.isOptional();
 
@@ -324,7 +354,7 @@ const addCreateInfoFromFactoryMethod = (method: MethodDeclaration, factoryClass:
       optional
     }
 
-    if (parameterType.startsWith('import') === false && createMethodParameter.getType().getSymbol() && createMethodParameter.getType().getSymbol()!.getMembers()) {
+    if (parameterType.startsWith('BabylonjsCore') === false && createMethodParameter.getType().getSymbol() && createMethodParameter.getType().getSymbol()!.getMembers()) {
         let specialProperties : GeneratedParameter[] = []
         generatedParameter.type = specialProperties;
 
@@ -332,9 +362,9 @@ const addCreateInfoFromFactoryMethod = (method: MethodDeclaration, factoryClass:
         createMethodParameter.getType().getSymbol()!.getMembers().forEach(member => {
           let propertyName = member.getName();
           let internalType = member.getTypeAtLocation(member.getValueDeclaration()!);
-          let propertyType = internalType.getText()
 
-          
+          let propertyType = createTypeFromText(internalType.getText(), targetFiles);
+
           // let questionToken2 = (member.getValueDeclaration()!.compilerNode as any).questionToken;
           let questionToken = (member.compilerSymbol.valueDeclaration as any).questionToken;
           
@@ -428,7 +458,6 @@ const writeMethodAsUpdateFunction = (classDeclaration: ClassDeclaration, writer:
 
   let paramTypes: string[] = []
   params.forEach(param => {
-    console.log('writeMethodAsUpdateFunction createTypeFromText')
     const type = createTypeFromText(param.getType().getText(), targetFiles);
     const questionToken = param.hasQuestionToken ? '?' : ''
     const paramName: string | undefined = param.getName();
@@ -444,7 +473,7 @@ const writeMethodAsUpdateFunction = (classDeclaration: ClassDeclaration, writer:
 }
 
 const writePropertyAsUpdateFunction = (classDeclaration: ClassDeclaration, writer: CodeBlockWriter, property: PropertyDeclaration, addedProperties: Set<String>, classNameBabylon: string, targetFiles: SourceFile[]) => {
-  const type = property.getType().getText();
+  const type =  createTypeFromText(property.getType().getText(), targetFiles);
   const propertyName: string = property.getName();
   // doesn't really matter if it's 'optional', as nothing is forcing JavaScript users to follow your conventions.
   // const isOptional = property.getQuestionTokenNode();
@@ -464,14 +493,11 @@ const writePropertyAsUpdateFunction = (classDeclaration: ClassDeclaration, write
   meshProperty.setHasQuestionToken(true);
 
   if (propertyName.startsWith('on')) {
-    console.log('on createTypeFromText:', propertyName);
-    const methodType = createTypeFromText(type, targetFiles);
-
-    writer.writeLine(`// ${'xxx-ns-xxx'}.${classNameBabylon}.${propertyName} of type '${methodType}/fn':`)
+    writer.writeLine(`// ${'xxx-ns-xxx'}.${classNameBabylon}.${propertyName} of type '${type}/fn':`)
     writer.write(`if (oldProps.${propertyName} === undefined && oldProps.${propertyName} !== newProps.${propertyName})`).block(() => {
       // We need the oldProps[propertyName] here, since we will want to remove that observable (note they are never equal!)
       // TODO: search why these functions are never equal and also removing does not work.  ,prevValue: oldProps.${propertyName}
-      writer.writeLine(`updates.push({\npropertyName: '${propertyName}',\nvalue: newProps.${propertyName},\ntype: '${methodType}'\n});`);
+      writer.writeLine(`updates.push({\npropertyName: '${propertyName}',\nvalue: newProps.${propertyName},\ntype: '${type}'\n});`);
     });
     return;
   }
@@ -506,19 +532,28 @@ const writePropertyAsUpdateFunction = (classDeclaration: ClassDeclaration, write
       });
       break;
     default:
-      writer.writeLine(`// TODO: type: ${createTypeFromText(type, [])} property (not coded) ${'xxx-ns-xxx'}.${classNameBabylon}.${propertyName}.`);
+      writer.writeLine(`// TODO: type: ${type} property (not coded) ${'xxx-ns-xxx'}.${classNameBabylon}.${propertyName}.`);
       break;
   }
 }
 
+/**
+ * 
+ * @param classDeclaration 
+ * @param rootBaseClass Base class (or same class if there is no base class).  For factory methods is the class being created.
+ * @param moduleDeclaration 
+ * @param generatedCodeSourceFile 
+ * @param generatedPropsSourceFile 
+ * @param extra 
+ */
 const createClassDeclaration = (classDeclaration: ClassDeclaration, rootBaseClass: ClassDeclaration, moduleDeclaration: ModuleDeclaration, generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile, extra?: (newClassDeclaration: ClassDeclaration, originalClassDeclaration: ClassDeclaration) => void) : ClassDeclaration =>  {
   const baseClass: ClassDeclaration | undefined = classDeclaration.getBaseClass(); // no mix-ins in BabylonJS AFAIK, but would otherwise use baseTypes()
-  
   const className: string = classDeclaration.getName()!;
+  
+  const importedClassDeclaration = getModuleDeclarationFromClassDeclaration(classDeclaration);
+  addNamedImportToFile(importedClassDeclaration, [generatedCodeSourceFile, generatedPropsSourceFile], true);
 
-  console.log(`creating class: ${className} rootBaseClass (handler - single): ${rootBaseClass.getName()}`)
-
-  addPropsAndHandlerClasses(generatedCodeSourceFile, generatedPropsSourceFile, className, className, getInstanceProperties(classDeclaration), getInstanceSetMethods(classDeclaration), moduleDeclaration, baseClass);
+  addPropsAndHandlerClasses(generatedCodeSourceFile, generatedPropsSourceFile, className, importedClassDeclaration, getInstanceProperties(classDeclaration), getInstanceSetMethods(classDeclaration), baseClass);
 
   const newClassDeclaration = generatedCodeSourceFile.addClass({
     name: `${ClassNamesPrefix}${className}`,
@@ -551,11 +586,11 @@ const createClassDeclaration = (classDeclaration: ClassDeclaration, rootBaseClas
   // TODO: ensure import to ${rootBaseClassNamespace}.${rootBaseClassName}
   newClassDeclaration.addProperty({
     name: propsHandlersPropertyName,
-    type: `PropsHandler<${rootBaseModuleDeclaration.classAlias}, ${ClassNamesPrefix}${rootBaseClassName}Props>[]`,
+    type: `PropsHandler<${rootBaseModuleDeclaration.importAlias}, ${ClassNamesPrefix}${rootBaseClassName}Props>[]`,
     scope: Scope.Private
   })
 
-  newClassDeclaration.addImplements(`HasPropsHandlers<${rootBaseModuleDeclaration.classAlias}, ${ClassNamesPrefix}${rootBaseClassName}Props>`)
+  newClassDeclaration.addImplements(`HasPropsHandlers<${rootBaseModuleDeclaration.importAlias}, ${ClassNamesPrefix}${rootBaseClassName}Props>`)
 
   const newConstructor : ConstructorDeclaration = newClassDeclaration.addConstructor();
   newConstructor.setBodyText((writer : CodeBlockWriter) => {
@@ -575,7 +610,7 @@ const createClassDeclaration = (classDeclaration: ClassDeclaration, rootBaseClas
 
   let getPropertyUpdatesMethod = newClassDeclaration.addMethod({
     name: "getPropsHandlers",
-    returnType: `PropsHandler<${rootBaseModuleDeclaration.classAlias}, ${ClassNamesPrefix}${rootBaseClassName}Props>[]`
+    returnType: `PropsHandler<${rootBaseModuleDeclaration.importAlias}, ${ClassNamesPrefix}${rootBaseClassName}Props>[]`
   });
 
   getPropertyUpdatesMethod.setBodyText(writer => {
@@ -588,7 +623,7 @@ const createClassDeclaration = (classDeclaration: ClassDeclaration, rootBaseClas
   });
   addPropertyHandlerMethod.addParameter({
     name: 'propHandler',
-    type: `PropsHandler<${rootBaseModuleDeclaration.classAlias}, ${ClassNamesPrefix}${rootBaseClassName}Props>`
+    type: `PropsHandler<${rootBaseModuleDeclaration.importAlias}, ${ClassNamesPrefix}${rootBaseClassName}Props>`
   })
 
   addPropertyHandlerMethod.setBodyText(writer => {
@@ -616,11 +651,13 @@ class OrderedListCreator {
 }
 
 /**
- * The odd parameters here are because we are also inventing classes not based on real BabylonJS objects (ie: Box, Sphere are actually Mesh)
+ * The odd parameters here 'classNameToGenerate' and 'classNameBabylon' are because we are also inventing classes not based on real BabylonJS objects (ie: Box, Sphere are actually Mesh)
  * It probably looks like we should just pass along the ClassDeclaration... 
  */
-const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile, classNameToGenerate: string, classNameBabylon: string, propertiesToAdd: PropertyDeclaration[], setMethods: MethodDeclaration[], moduleDeclaration: ModuleDeclaration, baseClass: ClassDeclaration | undefined ) => {
+const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile, classNameToGenerate: string, babylonClassDeclaration: ModuleDeclaration, propertiesToAdd: PropertyDeclaration[], setMethods: MethodDeclaration[], baseClass: ClassDeclaration | undefined ) => {
   
+  console.log('addpropshandlers1:', classNameToGenerate, babylonClassDeclaration.className, babylonClassDeclaration.importAlias);
+
   const propsClassName = `${ClassNamesPrefix}${classNameToGenerate}Props`;
 
   const classDeclarationProps = generatedPropsSourceFile.addClass({
@@ -628,9 +665,13 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
     isExported: true
   });
 
+  // let baseClassModuleDeclaration: ModuleDeclaration | undefined;
+
   if (baseClass !== undefined) {
     let baseClassName = baseClass.getName()
+    // console.log('addpropshandlers2:', classNameToGenerate, classNameBabylon, baseClassName)
     classDeclarationProps.setExtends(`${ClassNamesPrefix}${baseClassName}Props`)
+    // baseClassModuleDeclaration = getModuleDeclarationFromClassDeclaration(baseClass);
   }
 
   const classDeclarationPropsHandler = generatedCodeSourceFile.addClass({
@@ -641,7 +682,7 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
   PROPS_EXPORTS.push(propsClassName);
 
   // TODO: ensure ${importedNamespace} has imported base class..
-  classDeclarationPropsHandler.addImplements(`PropsHandler<${moduleDeclaration.classAlias}, ${ClassNamesPrefix}${classNameToGenerate}Props>`)
+  classDeclarationPropsHandler.addImplements(`PropsHandler<${babylonClassDeclaration.importAlias}, ${ClassNamesPrefix}${classNameToGenerate}Props>`)
 
   let getPropertyUpdatesMethod = classDeclarationPropsHandler.addMethod({
     name: "getPropertyUpdates",
@@ -649,7 +690,7 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
   });
   getPropertyUpdatesMethod.addParameters([{
     name: "hostInstance",
-    type: moduleDeclaration.classAlias
+    type: babylonClassDeclaration.importAlias
   }, {
     name: "oldProps",
     type: `${ClassNamesPrefix}${classNameToGenerate}Props`
@@ -668,12 +709,12 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
 
     let addedMeshProperties = new Set<string>();
     propertiesToAdd.sort((a, b) => a.getName().localeCompare(b.getName())).forEach((property: PropertyDeclaration) => {
-      writePropertyAsUpdateFunction(classDeclarationProps, writer, property, addedMeshProperties, classNameBabylon, [generatedCodeSourceFile, generatedPropsSourceFile]);
+      writePropertyAsUpdateFunction(classDeclarationProps, writer, property, addedMeshProperties, babylonClassDeclaration.importAlias, [generatedCodeSourceFile, generatedPropsSourceFile]);
     })
 
     let addedMeshMethods = new Set<string>();
     setMethods.sort((a,b) => a.getName().localeCompare(b.getName())).forEach((method: MethodDeclaration) => {
-      writeMethodAsUpdateFunction(classDeclarationProps, writer, method, addedMeshMethods, classNameBabylon, [generatedCodeSourceFile, generatedPropsSourceFile]);
+      writeMethodAsUpdateFunction(classDeclarationProps, writer, method, addedMeshMethods, babylonClassDeclaration.importAlias, [generatedCodeSourceFile, generatedPropsSourceFile]);
     })
     return writer.writeLine("return updates.length === 0 ? null : updates;");;
   })
@@ -697,7 +738,6 @@ const addCreateInfoFromConstructor = (sourceClass: ClassDeclaration, targetClass
 
     if (constructorDeclarations.length > 0) {
       constructorDeclarations[0].getParameters().forEach(parameterDeclaration => {
-        console.log('fromCtor -> create from text')
         constructorArguments.push({
           name: parameterDeclaration.getName()!,
           type: createTypeFromText(parameterDeclaration.getType().getText(), targetFiles),
@@ -730,16 +770,18 @@ const createClassesDerivedFrom = (generatedCodeSourceFile: SourceFile, generated
 
   classesToCreate.reverse()
 
-  console.log(`Building ${classesToCreate.length} classes derived from '${className}':`, classesToCreate.map(c => c.getName()))
+  // console.log(`Building ${classesToCreate.length} classes derived from '${className}':`, classesToCreate.map(c => c.getName()))
 
   for(let i = 0; i < classesToCreate.length; i++) {
     const classDeclaration = classesToCreate[i]
 
     const moduleDeclaration = getModuleDeclarationFromClassDeclaration(classDeclaration);
-    addNamedImportToFile(moduleDeclaration, [generatedCodeSourceFile, generatedPropsSourceFile]);
+    addNamedImportToFile(moduleDeclaration, [generatedCodeSourceFile, generatedPropsSourceFile], false);
 
     const baseClassDeclaration : ClassDeclaration | undefined = i > 0 ? classesToCreate[i - 1] : undefined;
     REACT_EXPORTS.add(classDeclaration.getName()!);
+
+    console.warn('creating', classDeclaration.getName(), " base -> ", baseClassDeclaration === undefined ? '<undefined>' : baseClassDeclaration.getName());
 
     let baseClassDeclarationForCreate = baseClassDeclaration === undefined ? classDeclaration : baseClassDeclaration
 
@@ -833,8 +875,10 @@ const generateCode = async () => {
     { overwrite: true }
   );
 
-  addProject("@babylonjs/core", [generatedCodeSourceFile, generatedPropsSourceFile]);
-  addProject("@babylonjs/gui", [generatedCodeSourceFile, generatedPropsSourceFile]);
+  const imports: string[] = ["@babylonjs/core"] // "@babylonjs/gui"];
+  imports.forEach(l => {
+    addProject(l, [generatedCodeSourceFile, generatedPropsSourceFile]);
+  });
 
   // These imports need to be totally REDONE and dynamically generated from ES6 locations (probably using a dictionary for uniqueness)
   generatedCodeSourceFile.addImportDeclaration({
@@ -928,13 +972,36 @@ const generateCode = async () => {
     // Scene we only want to generate the handlers. Constructor is very simple - just an Engine
     const sceneTuple: ClassNameSpaceTuple = classesOfInterest.get("Scene")!
     const className: string = sceneTuple.classDeclaration.getName()!
-    addPropsAndHandlerClasses(generatedCodeSourceFile, generatedPropsSourceFile, className, className, getInstanceProperties(sceneTuple.classDeclaration), getInstanceSetMethods(sceneTuple.classDeclaration), sceneTuple.moduleDeclaration, undefined);
+
+    const sceneClassDeclaration = getModuleDeclarationFromClassDeclaration(sceneTuple.classDeclaration);
+
+    addPropsAndHandlerClasses(generatedCodeSourceFile, generatedPropsSourceFile, className, sceneClassDeclaration, getInstanceProperties(sceneTuple.classDeclaration), getInstanceSetMethods(sceneTuple.classDeclaration), undefined);
   }
   addReactExports(generatedCodeSourceFile);
 
   generatedCodeSourceFile.addImportDeclaration({
     moduleSpecifier: "./generatedProps",
     namedImports: PROPS_EXPORTS
+  })
+
+  Array.from(importDeclarationMap.values()).forEach(file => {
+    Array.from(file.values()).forEach((fileModuleDeclarations: FileModuleDeclaration[]) => {
+      const sourceFile: SourceFile = fileModuleDeclarations[0].sourceFile;
+      const importDeclaration: ImportDeclaration = sourceFile.addImportDeclaration({
+        moduleSpecifier: fileModuleDeclarations[0].moduleDeclaration.moduleSpecifier
+      } as ImportDeclarationStructure)
+
+      fileModuleDeclarations.forEach((fileModuleDeclaration: FileModuleDeclaration) => {
+        importDeclaration.addNamedImport({
+          name: fileModuleDeclaration.moduleDeclaration.className,
+          alias: fileModuleDeclaration.moduleDeclaration.importAlias
+        })
+
+        if (fileModuleDeclaration.hostComponent) {
+          console.error('add to create factory:', fileModuleDeclaration.moduleDeclaration.className)
+        }
+      })
+    })
   })
 
   console.log('saving created content...')
