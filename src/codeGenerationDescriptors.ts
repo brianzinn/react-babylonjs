@@ -10,8 +10,11 @@ export class CreationType {
 }
 
 export interface CreateInfo {
-  libraryLocation: string // ie: `BABYLON.${libraryLocation}`
-  namespace: string // so far only 'BABYLON' or 'GUI'
+  libraryLocation: string // ie: `${libraryLocation}`
+  /**
+   * so far only '@babylonjs/core', '@babylonjs/gui', or 'BABYLONEXT' (for Terrain)
+   */
+  namespace: string
   factoryMethod?: string // required for 'Factory' creation type.
   creationType: string // TODO: enum
   parameters: GeneratedParameter[]

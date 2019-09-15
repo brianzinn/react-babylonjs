@@ -9,9 +9,10 @@ import React, { createContext } from 'react'
 import ReactReconciler from "react-reconciler"
 
 import { WithBabylonJSContext, withBabylonJS } from './Engine'
-import { Scene as BabylonJSScene, Engine as BabylonJSEngine, Nullable, AbstractMesh, PointerInfo, PointerEventTypes, Color4, SceneOptions, Observer } from 'babylonjs'
+import { Scene as BabylonJSScene, Engine as BabylonJSEngine, Nullable, AbstractMesh, PointerInfo, PointerEventTypes, SceneOptions, Observer, Vector3 } from '@babylonjs/core'
 
-import ReactBabylonJSHostConfig, { Container, applyUpdateToInstance } from './ReactBabylonJSHostConfig'
+import { applyUpdateToInstance } from "./UpdateInstance"
+import ReactBabylonJSHostConfig, { Container } from './ReactBabylonJSHostConfig'
 import { FiberScenePropsHandler } from './generatedCode'
 import { UpdatePayload } from './PropsHandler';
 
@@ -39,8 +40,8 @@ export function withScene<
   P extends { sceneContext: WithSceneContext },
   R = Omit<P, 'sceneContext'>
   >(
-  Component: React.ComponentClass<P> | React.StatelessComponent<P>
-  ): React.SFC<R> {
+  Component: React.ComponentClass<P> | React.FunctionComponent<P>
+  ): React.FunctionComponent<R> {
   return function BoundComponent(props: R) {
     return (
       <SceneContext.Consumer>
@@ -52,12 +53,13 @@ export function withScene<
 
 type SceneProps = {
   babylonJSContext: WithBabylonJSContext
-  onMeshPicked?: (mesh: AbstractMesh, scene: BabylonJSScene) => void,
-  onScenePointerDown?: (evt: PointerInfo, scene: BabylonJSScene) => void,
-  onScenePointerUp?: (evt: PointerInfo, scene: BabylonJSScene) => void,
-  onScenePointerMove?: (evt: PointerInfo, scene: BabylonJSScene) => void,
+  onMeshPicked?: (mesh: AbstractMesh, scene: BabylonJSScene) => void
+  onScenePointerDown?: (evt: PointerInfo, scene: BabylonJSScene) => void
+  onScenePointerUp?: (evt: PointerInfo, scene: BabylonJSScene) => void
+  onScenePointerMove?: (evt: PointerInfo, scene: BabylonJSScene) => void
   onSceneMount?: (sceneEventArgs: SceneEventArgs) => void
-  sceneOptions: SceneOptions
+  enablePhysics?: (gravityVector: Vector3, plugin: any) => void
+  sceneOptions?: SceneOptions
 }
 
 class Scene extends React.Component<SceneProps, any, any> {
@@ -85,14 +87,14 @@ class Scene extends React.Component<SceneProps, any, any> {
 
     this._scene = new BabylonJSScene(engine!, this.props.sceneOptions)
     const updates : UpdatePayload = this._propsHandler.getPropertyUpdates(this._scene, {}, this.props as any, this._scene)
-    if (updates != null) {
+    if (updates !== null) {
       updates.forEach(propertyUpdate => {
         applyUpdateToInstance(this._scene, propertyUpdate, 'scene')
       })
     }
 
     // TODO: Add keypress and other PointerEventTypes:
-    this._pointerDownObservable = this._scene!.onPointerObservable.add((evt: PointerInfo) => {
+    this._pointerDownObservable = this._scene.onPointerObservable.add((evt: PointerInfo) => {
 
       if(typeof this.props.onScenePointerDown === 'function') {
         this.props.onScenePointerDown(evt, this._scene!)
@@ -111,22 +113,22 @@ class Scene extends React.Component<SceneProps, any, any> {
 
     // can only be assigned on init
     if(typeof this.props.onScenePointerUp === 'function') {
-      this._pointerUpObservable = this._scene!.onPointerObservable.add((evt: PointerInfo) => { 
-        this.props.onScenePointerUp!(evt, this._scene!)    
+      this._pointerUpObservable = this._scene.onPointerObservable.add((evt: PointerInfo) => { 
+        this.props.onScenePointerUp!(evt, this._scene!)
       }, PointerEventTypes.POINTERUP)
     };
 
     // can only be assigned on init
     if(typeof this.props.onScenePointerMove === 'function') {
-      this._pointerMoveObservable = this._scene!.onPointerObservable.add((evt: PointerInfo) => { 
-        this.props.onScenePointerMove!(evt, this._scene!)    
+      this._pointerMoveObservable = this._scene.onPointerObservable.add((evt: PointerInfo) => { 
+        this.props.onScenePointerMove!(evt, this._scene!)
       }, PointerEventTypes.POINTERMOVE)
     };
 
     if (typeof this.props.onSceneMount === 'function') {
       this.props.onSceneMount({
-          scene: this._scene!,
-          canvas: this._scene!.getEngine().getRenderingCanvas()!
+          scene: this._scene,
+          canvas: this._scene.getEngine().getRenderingCanvas()!
       });
       // TODO: console.error if canvas is not attached. runRenderLoop() is expected to be part of onSceneMount().
     }
@@ -151,7 +153,7 @@ class Scene extends React.Component<SceneProps, any, any> {
   
     this._reactReconcilerBabylonJs.injectIntoDevTools({
       bundleType: process.env.NODE_ENV === 'production' ? 0 : 1,
-      version: '1.0.2',
+      version: '1.0.3',
       rendererPackageName: 'react-babylonjs'
     })
 
@@ -160,13 +162,13 @@ class Scene extends React.Component<SceneProps, any, any> {
     return this._reactReconcilerBabylonJs.updateContainer(
       <SceneContext.Provider value={{ engine: this.props.babylonJSContext.engine, canvas: this.props.babylonJSContext.canvas, scene: this._scene }}>
         {this.props.children}
-      </SceneContext.Provider>, this._fiberRoot, undefined /* TODO: try to dual-write for screen readers */, () => {}
+      </SceneContext.Provider>, this._fiberRoot, undefined /* TODO: try to dual-write for screen readers */, () => { /* empty */}
     )
   }
 
   componentDidUpdate (prevProps: any, prevState: any) {
     const updates : UpdatePayload = this._propsHandler.getPropertyUpdates(this._scene!, prevProps, this.props as any, this._scene!)
-    if (updates != null) {
+    if (updates !== null) {
       updates.forEach(propertyUpdate => {
         applyUpdateToInstance(this._scene, propertyUpdate, 'scene')
       })
@@ -185,15 +187,15 @@ class Scene extends React.Component<SceneProps, any, any> {
   }
 
   componentWillUnmount () {
-    if (this._pointerDownObservable != null) {
+    if (this._pointerDownObservable) {
       this._scene!.onPointerObservable.remove(this._pointerDownObservable);
     }
 
-    if (this._pointerUpObservable != null) {
+    if (this._pointerUpObservable) {
       this._scene!.onPointerObservable.remove(this._pointerUpObservable);
     }
 
-    if (this._pointerMoveObservable != null) {
+    if (this._pointerMoveObservable) {
       this._scene!.onPointerObservable.remove(this._pointerMoveObservable);
     }
     this._scene!.dispose()

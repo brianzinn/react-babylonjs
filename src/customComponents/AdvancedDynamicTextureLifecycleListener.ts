@@ -1,6 +1,6 @@
 import { CreatedInstance } from "../CreatedInstance"
 import { LifecycleListener } from "../LifecycleListener"
-import { Color3, Scene, StandardMaterial, Mesh } from "babylonjs"
+import { Color3, Scene, StandardMaterial, Mesh } from "@babylonjs/core"
 
 export default class AdvancedDynamicTextureLifecycleListener implements LifecycleListener {
   private props: any

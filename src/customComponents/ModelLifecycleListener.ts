@@ -9,9 +9,9 @@ import {
   ISceneLoaderPlugin,
   ISceneLoaderPluginAsync,
   SceneLoaderProgressEvent
-} from "babylonjs"
-import "babylonjs-loaders"
-import { applyUpdateToInstance } from "../ReactBabylonJSHostConfig"
+} from "@babylonjs/core"
+import "@babylonjs/loaders"
+import { applyUpdateToInstance } from "../UpdateInstance"
 import { CreatedInstance } from "../CreatedInstance"
 import { LifecycleListener } from "../LifecycleListener"
 
@@ -27,9 +27,9 @@ export default class ModelLifecycleListener implements LifecycleListener {
     this.scene = scene
   }
 
-  onParented(parent: CreatedInstance<any>, child: CreatedInstance<any>): any {}
+  onParented(parent: CreatedInstance<any>, child: CreatedInstance<any>): any { /* empty */}
 
-  onChildAdded(child: CreatedInstance<any>, parent: CreatedInstance<any>): any {}
+  onChildAdded(child: CreatedInstance<any>, parent: CreatedInstance<any>): any { /* empty */}
 
   onMount(instance: CreatedInstance<any>): void {
     let loadedModel = new LoadedModel()
@@ -71,8 +71,8 @@ export default class ModelLifecycleListener implements LifecycleListener {
         // we want to trigger after mesh is loaded (ie: position/rotation)
         const updates: UpdatePayload = new ModelPropsHandler().getPropertyUpdates(loadedModel, { rootUrl: "", sceneFilename: "" }, this.props, this.scene)
 
-        if (updates != null) {
-          updates.forEach(update => applyUpdateToInstance(instance!.hostInstance, update, "model"))
+        if (updates !== null) {
+          updates.forEach(update => applyUpdateToInstance(instance.hostInstance, update, "model"))
         }
 
         if (this.props.scaleToDimension && loadedModel && loadedModel.scaleToDimension !== this.props.scaleToDimension) {
@@ -86,7 +86,7 @@ export default class ModelLifecycleListener implements LifecycleListener {
 
             const dimension = this.props.scaleToDimension / longestDimension
 
-            loadedModel.rootMesh!.scaling.scaleInPlace(dimension)
+            loadedModel.rootMesh.scaling.scaleInPlace(dimension)
             loadedModel.scaleToDimension = this.props.scaleToDimension
           }
         }
