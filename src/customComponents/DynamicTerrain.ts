@@ -11,8 +11,9 @@ import {
   VertexBuffer,
   VertexData,
   MeshBuilder,
+  Nullable,
   Tools
-} from "babylonjs"
+} from "@babylonjs/core"
 
 export class DynamicTerrain {
   public name: string
@@ -53,7 +54,7 @@ export class DynamicTerrain {
     x: 0.0,
     z: 0.0
   }
-  private _indices: IndicesArray
+  private _indices: Nullable<IndicesArray>
   private _positions: Float32Array | number[]
   private _normals: Float32Array | number[]
   private _colors: Float32Array | number[]
@@ -248,10 +249,10 @@ export class DynamicTerrain {
     }
     this._terrain = MeshBuilder.CreateRibbon("terrain", ribbonOptions, this._scene)
     this._indices = this._terrain.getIndices()
-    this._positions = this._terrain.getVerticesData(VertexBuffer.PositionKind)
-    this._normals = this._terrain.getVerticesData(VertexBuffer.NormalKind)
-    this._uvs = this._terrain.getVerticesData(VertexBuffer.UVKind)
-    this._colors = this._terrain.getVerticesData(VertexBuffer.ColorKind)
+    this._positions = this._terrain.getVerticesData(VertexBuffer.PositionKind) as (number[] | Float32Array)
+    this._normals = this._terrain.getVerticesData(VertexBuffer.NormalKind)!
+    this._uvs = this._terrain.getVerticesData(VertexBuffer.UVKind)!
+    this._colors = this._terrain.getVerticesData(VertexBuffer.ColorKind)!
     this.computeNormalsFromMap()
 
     // update it immediatly and register the update callback function in the render loop
@@ -279,7 +280,7 @@ export class DynamicTerrain {
       const mapSizeZ = this._mapSizeZ
       const mapSubX = this._mapSubX
       const mapSubZ = this._mapSubZ
-      const quads = []
+      const quads: number[][][] = []
       this._mapQuads = quads
       let x0 = mapData[0]
       let z0 = mapData[2]
@@ -320,12 +321,12 @@ export class DynamicTerrain {
         sps.computeParticleTexture = true
       }
       // store particle types
-      const spsTypeStartIndexes = []
+      const spsTypeStartIndexes: number[] = []
       this._spsTypeStartIndexes = spsTypeStartIndexes
-      const spsNbPerType = []
+      const spsNbPerType: number[] = []
       this._spsNbPerType = spsNbPerType
-      const nbAvailablePerType = []
-      this._nbAvailablePerType = nbAvailablePerType
+      const nbAvailablePerType: number[] = []
+      this._nbAvailablePerType = nbAvailablePerType!
       const nbParticles = sps.nbParticles
       const particles = sps.particles
       let type = 0
@@ -432,7 +433,7 @@ export class DynamicTerrain {
     const bbMin = DynamicTerrain._bbMin
     const bbMax = DynamicTerrain._bbMax
     const terrain = this._terrain
-    const positions = this._positions
+    const positions = this._positions!
     const normals = this._normals
     const colors = this._colors
     const uvs = this._uvs
@@ -663,10 +664,10 @@ export class DynamicTerrain {
                 var sp_uvData = SPuvData[t]
               }
               if (partIndexes) {
-                let typeStartIndex = spsTypeStartIndexes[t] // particle start index for a given type in the SPS
+                let typeStartIndex = spsTypeStartIndexes![t] // particle start index for a given type in the SPS
                 const nbQuadParticles = partIndexes.length
                 let nbInSPS = nbPerType[t]
-                let available = nbAvailablePerType[t]
+                let available = nbAvailablePerType![t]
                 const rem = nbInSPS - available
                 var used = rem > 0 ? rem : 0
                 let min = available < nbQuadParticles ? available : nbQuadParticles // don't iterate beyond possible
@@ -674,15 +675,15 @@ export class DynamicTerrain {
                   let px = partIndexes[pIdx]
                   let idm = px * dataStride
                   // set successive available particles of this type
-                  let particle = particles[typeStartIndex + pIdx + used]
+                  let particle = particles![typeStartIndex + pIdx + used]
                   let pos = particle.position
                   let rot = particle.rotation
                   let scl = particle.scaling
                   let x = data[idm]
-                  pos.x = x + Math.floor((terrainPos.x - x - x0) / mapSizeX) * mapSizeX
+                  pos.x = x + Math.floor((terrainPos!.x - x - x0!) / mapSizeX) * mapSizeX
                   pos.y = data[idm + 1]
                   let z = data[idm + 2]
-                  pos.z = z + Math.floor((terrainPos.z - z - z0) / mapSizeZ) * mapSizeZ
+                  pos.z = z + Math.floor((terrainPos!.z - z - z0!) / mapSizeZ) * mapSizeZ
                   rot.x = data[idm + 3]
                   rot.y = data[idm + 4]
                   rot.z = data[idm + 5]
@@ -691,19 +692,19 @@ export class DynamicTerrain {
                   scl.z = data[idm + 8]
                   if (particleColorMap) {
                     let idc = px * colorStride
-                    let col = particle.color
-                    col.r = sp_colorData[idc]
-                    col.g = sp_colorData[idc + 1]
-                    col.b = sp_colorData[idc + 2]
-                    col.a = sp_colorData[idc + 3]
+                    let col = particle.color!
+                    col.r = sp_colorData![idc]
+                    col.g = sp_colorData![idc + 1]
+                    col.b = sp_colorData![idc + 2]
+                    col.a = sp_colorData![idc + 3]
                   }
                   if (particleUVMap) {
                     let iduv = px * uvStride
                     let uvs = particle.uvs
-                    uvs.x = sp_uvData[iduv]
-                    uvs.y = sp_uvData[iduv + 1]
-                    uvs.z = sp_uvData[iduv + 2]
-                    uvs.w = sp_uvData[iduv + 3]
+                    uvs.x = sp_uvData![iduv]
+                    uvs.y = sp_uvData![iduv + 1]
+                    uvs.z = sp_uvData![iduv + 2]
+                    uvs.w = sp_uvData![iduv + 3]
                   }
                   particle.isVisible = true
                   available = available - 1
@@ -711,7 +712,7 @@ export class DynamicTerrain {
                   min = available < nbQuadParticles ? available : nbQuadParticles
                 }
                 available = available > 0 ? available : 0
-                nbAvailablePerType[t] = available
+                nbAvailablePerType![t] = available
               }
             }
           }
@@ -723,9 +724,9 @@ export class DynamicTerrain {
     }
 
     if (particleMap) {
-      sps.setParticles()
-      for (let c = 0; c < nbAvailablePerType.length; c++) {
-        nbAvailablePerType[c] = nbPerType[c]
+      sps!.setParticles()
+      for (let c = 0; c < nbAvailablePerType!.length; c++) {
+        nbAvailablePerType![c] = nbPerType[c]
       }
     }
 
@@ -737,7 +738,7 @@ export class DynamicTerrain {
     terrain.updateVerticesData(VertexBuffer.NormalKind, normals, false, false)
     terrain.updateVerticesData(VertexBuffer.UVKind, uvs, false, false)
     terrain.updateVerticesData(VertexBuffer.ColorKind, colors, false, false)
-    terrain._boundingInfo.reConstruct(bbMin, bbMax, terrain._worldMatrix)
+    terrain._boundingInfo!.reConstruct(bbMin, bbMax, terrain._worldMatrix)
   }
 
   // private modulo, for dealing with negative indexes
@@ -900,7 +901,7 @@ export class DynamicTerrain {
   public static ComputeNormalsFromMapToRef(
     mapData: number[] | Float32Array,
     mapSubX: number,
-    mapSubZ,
+    mapSubZ: number,
     normals: number[] | Float32Array,
     inverted: boolean
   ): void {
@@ -958,7 +959,7 @@ export class DynamicTerrain {
    * @param z
    */
   public contains(x: number, z: number): boolean {
-    const positions = this._positions
+    const positions = this._positions!
     const meshPosition = this.mesh.position
     const terrainIdx = this._terrainIdx
     if (x < positions[0] + meshPosition.x || x > positions[3 * terrainIdx] + meshPosition.x) {
@@ -1044,10 +1045,10 @@ export class DynamicTerrain {
     const filter = options.colorFilter || new Color3(0.3, 0.59, 0.11)
     const onReady = options.onReady
 
-    const onload = img => {
+    const onload = (img: HTMLImageElement) => {
       // Getting height map data
       const canvas = document.createElement("canvas")
-      const context = canvas.getContext("2d")
+      const context = canvas.getContext("2d")!
       const bufferWidth = img.width
       const bufferHeight = img.height
       canvas.width = bufferWidth
@@ -1423,7 +1424,7 @@ export class DynamicTerrain {
    * - j : the vertex index on the terrain x axis
    * This function is called only if the property useCustomVertexFunction is set to true.
    */
-  public updateVertex(vertex, i, j): void {
+  public updateVertex(vertex: Vector3, i: number, j: number): void {
     return
   }
 

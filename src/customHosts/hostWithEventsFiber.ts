@@ -1,4 +1,4 @@
-import * as BABYLON from "babylonjs"
+import { Engine, Scene } from "@babylonjs/core"
 import { CreatedInstance } from "../CreatedInstance"
 import { LifecycleListener } from "../LifecycleListener"
 
@@ -6,16 +6,16 @@ import { LifecycleListener } from "../LifecycleListener"
  * This is a host component.  Much like a span or div for ReactDOM.render();
  */
 export default class HostWithEventsFiber implements LifecycleListener {
-  private _scene: BABYLON.Scene
-  private _engine: BABYLON.Engine
+  private _scene: Scene
+  private _engine: Engine
   private _hostContextData: any
 
-  private _onParented?: (scene: BABYLON.Scene, engine: BABYLON.Engine, parent: CreatedInstance<any>) => any
-  private _onChildAdded?: (scene: BABYLON.Scene, engine: BABYLON.Engine, child: CreatedInstance<any>, hostContextData: any) => any
-  private _onMount?: (scene: BABYLON.Scene, engine: BABYLON.Engine, instance: CreatedInstance<any>, hostContextData: any) => any
-  private _onUnmount?: (scene: BABYLON.Scene, engine: BABYLON.Engine, /*instance: CreatedInstance<any>,*/ hostContextData: any) => any
+  private _onParented?: (scene: Scene, engine: Engine, parent: CreatedInstance<any>) => any
+  private _onChildAdded?: (scene: Scene, engine: Engine, child: CreatedInstance<any>, hostContextData: any) => any
+  private _onMount?: (scene: Scene, engine: Engine, instance: CreatedInstance<any>, hostContextData: any) => any
+  private _onUnmount?: (scene: Scene, engine: Engine, /*instance: CreatedInstance<any>,*/ hostContextData: any) => any
 
-  public constructor(scene: BABYLON.Scene, engine: BABYLON.Engine, props: any) {
+  public constructor(scene: Scene, engine: Engine, props: any) {
     this._scene = scene
     this._engine = engine
 

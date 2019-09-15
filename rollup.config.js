@@ -17,9 +17,7 @@ export default {
       format: 'umd',
       sourcemap: true,
       globals: {
-        react: 'React',
-        babylonjs: 'BABYLON',
-        'babylonjs-gui': 'BABYLON.GUI'
+        react: 'React'
       }
     }, {
       file: pkg.module,
@@ -29,7 +27,7 @@ export default {
   ],
   context: 'window',
   // Indicate here external modules you don't wanna include in your bundle (i.e.: 'lodash')
-  external: [ 'react', 'babylonjs', 'babylonjs-gui', 'babylonjs-loaders'],
+  external: [ 'react', 'react-reconciler', 'react-dom', '@babylonjs/core', '@babylonjs/gui', '@babylonjs/loaders'],
   plugins: [
     // Allow bundling cjs modules (unlike webpack, rollup doesn't understand cjs)
     commonjs(),

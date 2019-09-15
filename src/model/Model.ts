@@ -1,5 +1,5 @@
-import { IParticleSystem, Skeleton, AnimationGroup, AbstractMesh, Nullable, Vector3, BoundingInfo } from "babylonjs"
-import "babylonjs-loaders"
+import { IParticleSystem, Skeleton, AnimationGroup, AbstractMesh, Nullable, Vector3, BoundingInfo } from "@babylonjs/core"
+import "@babylonjs/loaders"
 
 export enum LoaderStatus {
   Loading,

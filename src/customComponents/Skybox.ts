@@ -1,5 +1,5 @@
 import React from "react"
-import { Texture } from "babylonjs"
+import { Texture } from "@babylonjs/core"
 //import { withBabylonJS } from "../Engine"
 import { Box } from "../generatedCode"
 

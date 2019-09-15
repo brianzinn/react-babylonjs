@@ -78,6 +78,7 @@
     "@babel/core": "^7.4.5",
     "@babylonjs/core": "^4.0.3",
     "@babylonjs/gui": "^4.0.3",
+    "@babylonjs/loaders": "^4.0.3",
     "@storybook/addon-actions": "^5.1.9",
     "@storybook/addon-info": "^5.1.9",
     "@storybook/addon-links": "^5.1.9",
@@ -110,14 +111,14 @@
     "rollup-plugin-commonjs": "^9.2.0",
     "rollup-plugin-json": "^3.1.0",
     "rollup-plugin-node-resolve": "^4.0.0",
-    "rollup-plugin-sourcemaps": "^0.4.2",  
+    "rollup-plugin-sourcemaps": "^0.4.2",
     "semantic-release": "^15.13.3",
     "shallow-equal-object": "^1.1.1",
     "storybook": "^1.0.0",
     "storybook-addon-jsx": "^7.1.2",
     "ts-jest": "^23.10.5",
+    "ts-morph": "^4.0.1",
     "ts-node": "^7.0.1",
-    "ts-simple-ast": "^21.0.4",
     "tsc-watch": "^1.0.31",
     "tslint": "^5.12.1",
     "tslint-config-prettier": "^1.17.0",
@@ -130,7 +131,5 @@
     "react": "16.x",
     "react-dom": "^16.8.6",
     "react-reconciler": "^0.18.0"
-  },
-  "dependencies": {
   }
 }

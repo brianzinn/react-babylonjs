@@ -1,6 +1,6 @@
 import { CreatedInstance } from "../CreatedInstance"
 import { LifecycleListener } from "../LifecycleListener"
-import { AbstractMesh, Nullable, Scene } from "babylonjs"
+import { AbstractMesh, Nullable, Scene } from "@babylonjs/core"
 
 export default class GUI3DManagerLifecycleListener implements LifecycleListener {
   private scene: Scene
