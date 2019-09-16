@@ -108,7 +108,7 @@ import { PointerEventTypes as BabylonjsCorePointerEventTypes, PointerInfo as Bab
 import { PostProcess as BabylonjsCorePostProcess } from "@babylonjs/core/PostProcesses/postProcess";
 import { PostProcessManager as BabylonjsCorePostProcessManager } from "@babylonjs/core/PostProcesses/postProcessManager";
 
-export class FiberNodeProps {
+export type FiberNodeProps = {
     addToSceneRootNodes?: any;
     animationPropertiesOverride?: BabylonjsCoreAnimationPropertiesOverride;
     animations?: BabylonjsCoreAnimation[];
@@ -126,9 +126,8 @@ export class FiberNodeProps {
     state?: string;
     uniqueId?: number;
     setEnabled?: any;
-}
-
-export class FiberTransformNodeProps extends FiberNodeProps {
+};
+export type FiberTransformNodeProps = {
     billboardMode?: number;
     ignoreNonUniformScaling?: boolean;
     infiniteDistance?: boolean;
@@ -147,9 +146,8 @@ export class FiberTransformNodeProps extends FiberNodeProps {
     setPivotPoint?: any;
     setPositionWithLocalVector?: any;
     setPreTransformMatrix?: any;
-}
-
-export class FiberAbstractMeshProps extends FiberTransformNodeProps {
+} & FiberNodeProps;
+export type FiberAbstractMeshProps = {
     actionManager?: BabylonjsCoreAbstractActionManager;
     alphaIndex?: number;
     alwaysSelectAsActiveMesh?: boolean;
@@ -201,9 +199,8 @@ export class FiberAbstractMeshProps extends FiberTransformNodeProps {
     setBoundingInfo?: any;
     setIndices?: any;
     setVerticesData?: any;
-}
-
-export class FiberMeshProps extends FiberAbstractMeshProps {
+} & FiberTransformNodeProps;
+export type FiberMeshProps = {
     delayLoadingFile?: string;
     delayLoadState?: number;
     instances?: BabylonjsCoreInstancedMesh[];
@@ -219,9 +216,8 @@ export class FiberMeshProps extends FiberAbstractMeshProps {
     setMaterialByID?: any;
     setVerticesBuffer?: any;
     setVerticesData?: any;
-}
-
-export class FiberCameraProps extends FiberNodeProps {
+} & FiberAbstractMeshProps;
+export type FiberCameraProps = {
     cameraRigMode?: number;
     customRenderTargets?: BabylonjsCoreRenderTargetTexture[];
     fov?: number;
@@ -249,9 +245,8 @@ export class FiberCameraProps extends FiberNodeProps {
     viewport?: BabylonjsCoreViewport;
     setCameraRigMode?: any;
     setCameraRigParameter?: any;
-}
-
-export class FiberTargetCameraProps extends FiberCameraProps {
+} & FiberNodeProps;
+export type FiberTargetCameraProps = {
     cameraDirection?: BabylonjsCoreVector3;
     cameraRotation?: BabylonjsCoreVector2;
     lockedTarget?: any;
@@ -261,9 +256,8 @@ export class FiberTargetCameraProps extends FiberCameraProps {
     speed?: number;
     updateUpVectorFromRotation?: boolean;
     setTarget?: any;
-}
-
-export class FiberFreeCameraProps extends FiberTargetCameraProps {
+} & FiberCameraProps;
+export type FiberFreeCameraProps = {
     angularSensibility?: number;
     applyGravity?: boolean;
     checkCollisions?: boolean;
@@ -276,52 +270,27 @@ export class FiberFreeCameraProps extends FiberTargetCameraProps {
     keysRight?: number[];
     keysUp?: number[];
     onCollide?: (collidedMesh: BabylonjsCoreAbstractMesh) => void;
-}
-
-export class FiberTouchCameraProps extends FiberFreeCameraProps {
+} & FiberTargetCameraProps;
+export type FiberTouchCameraProps = {
     touchAngularSensibility?: number;
     touchMoveSensibility?: number;
-}
-
-export class FiberUniversalCameraProps extends FiberTouchCameraProps {
+} & FiberFreeCameraProps;
+export type FiberUniversalCameraProps = {
     gamepadAngularSensibility?: number;
     gamepadMoveSensibility?: number;
-}
-
-export class FiberGamepadCameraProps extends FiberUniversalCameraProps {
-}
-
-export class FiberAnaglyphGamepadCameraProps extends FiberGamepadCameraProps {
-}
-
-export class FiberStereoscopicGamepadCameraProps extends FiberGamepadCameraProps {
-}
-
-export class FiberAnaglyphUniversalCameraProps extends FiberUniversalCameraProps {
-}
-
-export class FiberStereoscopicUniversalCameraProps extends FiberUniversalCameraProps {
-}
-
-export class FiberDeviceOrientationCameraProps extends FiberFreeCameraProps {
-}
-
-export class FiberVRDeviceOrientationFreeCameraProps extends FiberDeviceOrientationCameraProps {
-}
-
-export class FiberVRDeviceOrientationGamepadCameraProps extends FiberVRDeviceOrientationFreeCameraProps {
-}
-
-export class FiberAnaglyphFreeCameraProps extends FiberFreeCameraProps {
-}
-
-export class FiberStereoscopicFreeCameraProps extends FiberFreeCameraProps {
-}
-
-export class FiberVirtualJoysticksCameraProps extends FiberFreeCameraProps {
-}
-
-export class FiberWebVRFreeCameraProps extends FiberFreeCameraProps {
+} & FiberTouchCameraProps;
+export type FiberGamepadCameraProps = {} & FiberUniversalCameraProps;
+export type FiberAnaglyphGamepadCameraProps = {} & FiberGamepadCameraProps;
+export type FiberStereoscopicGamepadCameraProps = {} & FiberGamepadCameraProps;
+export type FiberAnaglyphUniversalCameraProps = {} & FiberUniversalCameraProps;
+export type FiberStereoscopicUniversalCameraProps = {} & FiberUniversalCameraProps;
+export type FiberDeviceOrientationCameraProps = {} & FiberFreeCameraProps;
+export type FiberVRDeviceOrientationFreeCameraProps = {} & FiberDeviceOrientationCameraProps;
+export type FiberVRDeviceOrientationGamepadCameraProps = {} & FiberVRDeviceOrientationFreeCameraProps;
+export type FiberAnaglyphFreeCameraProps = {} & FiberFreeCameraProps;
+export type FiberStereoscopicFreeCameraProps = {} & FiberFreeCameraProps;
+export type FiberVirtualJoysticksCameraProps = {} & FiberFreeCameraProps;
+export type FiberWebVRFreeCameraProps = {
     controllers?: BabylonjsCoreWebVRController[];
     devicePosition?: BabylonjsCoreVector3;
     deviceRotationQuaternion?: BabylonjsCoreQuaternion;
@@ -333,12 +302,9 @@ export class FiberWebVRFreeCameraProps extends FiberFreeCameraProps {
     rigParenting?: boolean;
     updateCacheCalled?: any;
     webVROptions?: any;
-}
-
-export class FiberWebXRCameraProps extends FiberFreeCameraProps {
-}
-
-export class FiberArcRotateCameraProps extends FiberTargetCameraProps {
+} & FiberFreeCameraProps;
+export type FiberWebXRCameraProps = {} & FiberFreeCameraProps;
+export type FiberArcRotateCameraProps = {
     allowUpsideDown?: boolean;
     alpha?: number;
     angularSensibilityX?: number;
@@ -386,18 +352,11 @@ export class FiberArcRotateCameraProps extends FiberTargetCameraProps {
     zoomOnFactor?: number;
     setPosition?: any;
     setTarget?: any;
-}
-
-export class FiberAnaglyphArcRotateCameraProps extends FiberArcRotateCameraProps {
-}
-
-export class FiberStereoscopicArcRotateCameraProps extends FiberArcRotateCameraProps {
-}
-
-export class FiberVRDeviceOrientationArcRotateCameraProps extends FiberArcRotateCameraProps {
-}
-
-export class FiberFlyCameraProps extends FiberTargetCameraProps {
+} & FiberTargetCameraProps;
+export type FiberAnaglyphArcRotateCameraProps = {} & FiberArcRotateCameraProps;
+export type FiberStereoscopicArcRotateCameraProps = {} & FiberArcRotateCameraProps;
+export type FiberVRDeviceOrientationArcRotateCameraProps = {} & FiberArcRotateCameraProps;
+export type FiberFlyCameraProps = {
     angularSensibility?: number;
     applyGravity?: boolean;
     bankedTurn?: boolean;
@@ -418,9 +377,8 @@ export class FiberFlyCameraProps extends FiberTargetCameraProps {
     onCollide?: (collidedMesh: BabylonjsCoreAbstractMesh) => void;
     rollCorrect?: number;
     rotationQuaternion?: BabylonjsCoreQuaternion;
-}
-
-export class FiberFollowCameraProps extends FiberTargetCameraProps {
+} & FiberTargetCameraProps;
+export type FiberFollowCameraProps = {
     cameraAcceleration?: number;
     heightOffset?: number;
     inputs?: BabylonjsCoreFollowCameraInputsManager;
@@ -434,16 +392,14 @@ export class FiberFollowCameraProps extends FiberTargetCameraProps {
     upperHeightOffsetLimit?: number;
     upperRadiusLimit?: number;
     upperRotationOffsetLimit?: number;
-}
-
-export class FiberArcFollowCameraProps extends FiberTargetCameraProps {
+} & FiberTargetCameraProps;
+export type FiberArcFollowCameraProps = {
     alpha?: number;
     beta?: number;
     radius?: number;
     target?: BabylonjsCoreAbstractMesh;
-}
-
-export class FiberMaterialProps {
+} & FiberTargetCameraProps;
+export type FiberMaterialProps = {
     alpha?: number;
     alphaMode?: number;
     animations?: BabylonjsCoreAnimation[];
@@ -477,9 +433,8 @@ export class FiberMaterialProps {
     uniqueId?: number;
     wireframe?: boolean;
     zOffset?: number;
-}
-
-export class FiberShaderMaterialProps extends FiberMaterialProps {
+};
+export type FiberShaderMaterialProps = {
     setArray2?: any;
     setArray3?: any;
     setColor3?: any;
@@ -496,17 +451,14 @@ export class FiberShaderMaterialProps extends FiberMaterialProps {
     setVector2?: any;
     setVector3?: any;
     setVector4?: any;
-}
-
-export class FiberMultiMaterialProps extends FiberMaterialProps {
+} & FiberMaterialProps;
+export type FiberMultiMaterialProps = {
     subMaterials?: BabylonjsCoreMaterial[];
-}
-
-export class FiberPushMaterialProps extends FiberMaterialProps {
+} & FiberMaterialProps;
+export type FiberPushMaterialProps = {
     allowShaderHotSwapping?: boolean;
-}
-
-export class FiberStandardMaterialProps extends FiberPushMaterialProps {
+} & FiberMaterialProps;
+export type FiberStandardMaterialProps = {
     alphaCutOff?: number;
     ambientColor?: BabylonjsCoreColor3;
     ambientTexture?: BabylonjsCoreBaseTexture;
@@ -557,9 +509,8 @@ export class FiberStandardMaterialProps extends FiberPushMaterialProps {
     useReflectionFresnelFromSpecular?: boolean;
     useReflectionOverAlpha?: boolean;
     useSpecularOverAlpha?: boolean;
-}
-
-export class FiberBackgroundMaterialProps extends FiberPushMaterialProps {
+} & FiberPushMaterialProps;
+export type FiberBackgroundMaterialProps = {
     cameraColorCurves?: BabylonjsCoreColorCurves;
     cameraColorCurvesEnabled?: boolean;
     cameraColorGradingEnabled?: boolean;
@@ -590,18 +541,16 @@ export class FiberBackgroundMaterialProps extends FiberPushMaterialProps {
     switchToBGR?: boolean;
     useEquirectangularFOV?: boolean;
     useRGBColor?: boolean;
-}
-
-export class FiberPBRBaseMaterialProps extends FiberPushMaterialProps {
+} & FiberPushMaterialProps;
+export type FiberPBRBaseMaterialProps = {
     customShaderNameResolve?: (shaderName: string, uniforms: string[], uniformBuffers: string[], samplers: string[], defines: BabylonjsCorePBRMaterialDefines) => string;
     debugFactor?: any;
     debugLimit?: any;
     debugMode?: number;
     transparencyMode?: number;
     useLogarithmicDepth?: boolean;
-}
-
-export class FiberPBRBaseSimpleMaterialProps extends FiberPBRBaseMaterialProps {
+} & FiberPushMaterialProps;
+export type FiberPBRBaseSimpleMaterialProps = {
     alphaCutOff?: number;
     disableLighting?: boolean;
     doubleSided?: boolean;
@@ -616,25 +565,22 @@ export class FiberPBRBaseSimpleMaterialProps extends FiberPBRBaseMaterialProps {
     occlusionStrength?: number;
     occlusionTexture?: BabylonjsCoreBaseTexture;
     useLightmapAsShadowmap?: boolean;
-}
-
-export class FiberPBRMetallicRoughnessMaterialProps extends FiberPBRBaseSimpleMaterialProps {
+} & FiberPBRBaseMaterialProps;
+export type FiberPBRMetallicRoughnessMaterialProps = {
     baseColor?: BabylonjsCoreColor3;
     baseTexture?: BabylonjsCoreBaseTexture;
     metallic?: number;
     metallicRoughnessTexture?: BabylonjsCoreBaseTexture;
     roughness?: number;
-}
-
-export class FiberPBRSpecularGlossinessMaterialProps extends FiberPBRBaseSimpleMaterialProps {
+} & FiberPBRBaseSimpleMaterialProps;
+export type FiberPBRSpecularGlossinessMaterialProps = {
     diffuseColor?: BabylonjsCoreColor3;
     diffuseTexture?: BabylonjsCoreBaseTexture;
     glossiness?: number;
     specularColor?: BabylonjsCoreColor3;
     specularGlossinessTexture?: BabylonjsCoreBaseTexture;
-}
-
-export class FiberPBRMaterialProps extends FiberPBRBaseMaterialProps {
+} & FiberPBRBaseSimpleMaterialProps;
+export type FiberPBRMaterialProps = {
     albedoColor?: BabylonjsCoreColor3;
     albedoTexture?: BabylonjsCoreBaseTexture;
     alphaCutOff?: number;
@@ -705,9 +651,8 @@ export class FiberPBRMaterialProps extends FiberPBRBaseMaterialProps {
     useRoughnessFromMetallicTextureAlpha?: boolean;
     useRoughnessFromMetallicTextureGreen?: boolean;
     useSpecularOverAlpha?: boolean;
-}
-
-export class FiberLightProps extends FiberNodeProps {
+} & FiberPBRBaseMaterialProps;
+export type FiberLightProps = {
     diffuse?: BabylonjsCoreColor3;
     excludedMeshes?: BabylonjsCoreAbstractMesh[];
     excludeWithLayerMask?: number;
@@ -723,9 +668,8 @@ export class FiberLightProps extends FiberNodeProps {
     shadowEnabled?: boolean;
     specular?: BabylonjsCoreColor3;
     setEnabled?: any;
-}
-
-export class FiberShadowLightProps extends FiberLightProps {
+} & FiberNodeProps;
+export type FiberShadowLightProps = {
     customProjectionMatrixBuilder?: (viewMatrix: BabylonjsCoreMatrix, renderList: BabylonjsCoreAbstractMesh[], result: BabylonjsCoreMatrix) => void;
     direction?: BabylonjsCoreVector3;
     position?: BabylonjsCoreVector3;
@@ -735,20 +679,17 @@ export class FiberShadowLightProps extends FiberLightProps {
     transformedPosition?: BabylonjsCoreVector3;
     setDirectionToTarget?: any;
     setShadowProjectionMatrix?: any;
-}
-
-export class FiberDirectionalLightProps extends FiberShadowLightProps {
+} & FiberLightProps;
+export type FiberDirectionalLightProps = {
     autoUpdateExtends?: boolean;
     shadowFrustumSize?: number;
     shadowOrthoScale?: number;
-}
-
-export class FiberPointLightProps extends FiberShadowLightProps {
+} & FiberShadowLightProps;
+export type FiberPointLightProps = {
     direction?: BabylonjsCoreVector3;
     shadowAngle?: number;
-}
-
-export class FiberSpotLightProps extends FiberShadowLightProps {
+} & FiberShadowLightProps;
+export type FiberSpotLightProps = {
     angle?: number;
     exponent?: number;
     innerAngle?: number;
@@ -757,15 +698,13 @@ export class FiberSpotLightProps extends FiberShadowLightProps {
     projectionTextureLightNear?: number;
     projectionTextureUpDirection?: BabylonjsCoreVector3;
     shadowAngleScale?: number;
-}
-
-export class FiberHemisphericLightProps extends FiberLightProps {
+} & FiberShadowLightProps;
+export type FiberHemisphericLightProps = {
     direction?: BabylonjsCoreVector3;
     groundColor?: BabylonjsCoreColor3;
     setDirectionToTarget?: any;
-}
-
-export class FiberBaseTextureProps {
+} & FiberLightProps;
+export type FiberBaseTextureProps = {
     animations?: BabylonjsCoreAnimation[];
     anisotropicFilteringLevel?: number;
     coordinatesIndex?: number;
@@ -792,20 +731,16 @@ export class FiberBaseTextureProps {
     wrapR?: number;
     wrapU?: number;
     wrapV?: number;
-}
-
-export class FiberCubeTextureProps extends FiberBaseTextureProps {
+};
+export type FiberCubeTextureProps = {
     boundingBoxPosition?: BabylonjsCoreVector3;
     boundingBoxSize?: BabylonjsCoreVector3;
     rotationY?: number;
     url?: string;
     setReflectionTextureMatrix?: any;
-}
-
-export class FiberRawCubeTextureProps extends FiberCubeTextureProps {
-}
-
-export class FiberTextureProps extends FiberBaseTextureProps {
+} & FiberBaseTextureProps;
+export type FiberRawCubeTextureProps = {} & FiberCubeTextureProps;
+export type FiberTextureProps = {
     inspectableCustomProperties?: BabylonjsCoreIInspectable[];
     isBlocking?: boolean;
     onLoadObservable?: BabylonjsCoreObservable<BabylonjsCoreTexture>;
@@ -820,13 +755,11 @@ export class FiberTextureProps extends FiberBaseTextureProps {
     vScale?: number;
     wAng?: number;
     wRotationCenter?: number;
-}
-
-export class FiberRawTextureProps extends FiberTextureProps {
+} & FiberBaseTextureProps;
+export type FiberRawTextureProps = {
     format?: number;
-}
-
-export class FiberProceduralTextureProps extends FiberTextureProps {
+} & FiberTextureProps;
+export type FiberProceduralTextureProps = {
     autoClear?: boolean;
     isCube?: boolean;
     isEnabled?: boolean;
@@ -843,20 +776,17 @@ export class FiberProceduralTextureProps extends FiberTextureProps {
     setTexture?: any;
     setVector2?: any;
     setVector3?: any;
-}
-
-export class FiberCustomProceduralTextureProps extends FiberProceduralTextureProps {
+} & FiberTextureProps;
+export type FiberCustomProceduralTextureProps = {
     animate?: boolean;
-}
-
-export class FiberNoiseProceduralTextureProps extends FiberProceduralTextureProps {
+} & FiberProceduralTextureProps;
+export type FiberNoiseProceduralTextureProps = {
     animationSpeedFactor?: number;
     brightness?: number;
     octaves?: number;
     persistence?: number;
-}
-
-export class FiberRenderTargetTextureProps extends FiberTextureProps {
+} & FiberProceduralTextureProps;
+export type FiberRenderTargetTextureProps = {
     activeCamera?: BabylonjsCoreCamera;
     boundingBoxPosition?: BabylonjsCoreVector3;
     boundingBoxSize?: BabylonjsCoreVector3;
@@ -885,9 +815,8 @@ export class FiberRenderTargetTextureProps extends FiberTextureProps {
     useCameraPostProcesses?: boolean;
     setRenderingAutoClearDepthStencil?: any;
     setRenderingOrder?: any;
-}
-
-export class FiberMirrorTextureProps extends FiberRenderTargetTextureProps {
+} & FiberTextureProps;
+export type FiberMirrorTextureProps = {
     adaptiveBlurKernel?: number;
     blurKernel?: number;
     blurKernelX?: number;
@@ -895,48 +824,37 @@ export class FiberMirrorTextureProps extends FiberRenderTargetTextureProps {
     blurRatio?: number;
     mirrorPlane?: BabylonjsCorePlane;
     scene?: any;
-}
-
-export class FiberMultiRenderTargetProps extends FiberRenderTargetTextureProps {
+} & FiberRenderTargetTextureProps;
+export type FiberMultiRenderTargetProps = {
     samples?: number;
     wrapU?: number;
     wrapV?: number;
-}
-
-export class FiberRefractionTextureProps extends FiberRenderTargetTextureProps {
+} & FiberRenderTargetTextureProps;
+export type FiberRefractionTextureProps = {
     depth?: number;
     refractionPlane?: BabylonjsCorePlane;
-}
-
-export class FiberMultiviewRenderTargetProps extends FiberRenderTargetTextureProps {
-}
-
-export class FiberVideoTextureProps extends FiberTextureProps {
+} & FiberRenderTargetTextureProps;
+export type FiberMultiviewRenderTargetProps = {} & FiberRenderTargetTextureProps;
+export type FiberVideoTextureProps = {
     reset?: any;
-}
-
-export class FiberDynamicTextureProps extends FiberTextureProps {
-}
-
-export class FiberRawTexture3DProps extends FiberTextureProps {
+} & FiberTextureProps;
+export type FiberDynamicTextureProps = {} & FiberTextureProps;
+export type FiberRawTexture3DProps = {
     format?: number;
-}
-
-export class FiberColorGradingTextureProps extends FiberBaseTextureProps {
+} & FiberTextureProps;
+export type FiberColorGradingTextureProps = {
     load3dlTexture?: any;
     loadTexture?: any;
     url?: string;
-}
-
-export class FiberEquiRectangularCubeTextureProps extends FiberBaseTextureProps {
+} & FiberBaseTextureProps;
+export type FiberEquiRectangularCubeTextureProps = {
     coordinatesMode?: number;
     getFloat32ArrayFromArrayBuffer?: any;
     loadImage?: any;
     loadTexture?: any;
     url?: string;
-}
-
-export class FiberHDRCubeTextureProps extends FiberBaseTextureProps {
+} & FiberBaseTextureProps;
+export type FiberHDRCubeTextureProps = {
     boundingBoxPosition?: BabylonjsCoreVector3;
     boundingBoxSize?: BabylonjsCoreVector3;
     coordinatesMode?: number;
@@ -945,13 +863,11 @@ export class FiberHDRCubeTextureProps extends FiberBaseTextureProps {
     rotationY?: number;
     url?: string;
     setReflectionTextureMatrix?: any;
-}
-
-export class FiberHtmlElementTextureProps extends FiberBaseTextureProps {
+} & FiberBaseTextureProps;
+export type FiberHtmlElementTextureProps = {
     element?: HTMLVideoElement | HTMLCanvasElement;
-}
-
-export class FiberShadowGeneratorProps {
+} & FiberBaseTextureProps;
+export type FiberShadowGeneratorProps = {
     bias?: number;
     blurBoxOffset?: number;
     blurKernel?: number;
@@ -976,14 +892,12 @@ export class FiberShadowGeneratorProps {
     usePoissonSampling?: boolean;
     setDarkness?: any;
     setTransparencyShadow?: any;
-}
-
-export class FiberEnvironmentHelperProps {
+};
+export type FiberEnvironmentHelperProps = {
     onErrorObservable?: BabylonjsCoreObservable<{ message?: string; exception?: any; }>;
     setMainColor?: any;
-}
-
-export class FiberVRExperienceHelperProps {
+};
+export type FiberVRExperienceHelperProps = {
     beforeRender?: any;
     displayGaze?: boolean;
     displayLaserPointer?: boolean;
@@ -1011,9 +925,8 @@ export class FiberVRExperienceHelperProps {
     updateGazeTrackerColor?: boolean;
     updateGazeTrackerScale?: boolean;
     webVROptions?: BabylonjsCoreVRExperienceHelperOptions;
-}
-
-export class FiberSceneProps {
+};
+export type FiberSceneProps = {
     actionManager?: BabylonjsCoreAbstractActionManager;
     activeCamera?: BabylonjsCoreCamera;
     activeCameras?: BabylonjsCoreCamera[];
@@ -1146,4 +1059,4 @@ export class FiberSceneProps {
     setRenderingOrder?: any;
     setStepId?: any;
     setTransformMatrix?: any;
-}
+};

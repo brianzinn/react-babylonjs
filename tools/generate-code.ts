@@ -6,7 +6,8 @@
  * 
  * "could not resolve entry" is the error, if you forget to switch it back as 'src' and 'tool's will be subdirs in compiled.
  */
-import { Project, VariableDeclarationKind, ClassDeclaration, PropertyDeclaration, CodeBlockWriter, SourceFile, JSDoc, ConstructorDeclaration, Scope, MethodDeclaration, ParameterDeclaration, SyntaxKind, ClassMemberTypes, ExportDeclaration, ExportSpecifier, ImportDeclarationStructure, ImportDeclaration, FunctionDeclaration, VariableStatement } from 'ts-morph'
+import { Project, VariableDeclarationKind, ClassDeclaration, PropertyDeclaration, CodeBlockWriter, SourceFile, JSDoc, ConstructorDeclaration, Scope, MethodDeclaration, ParameterDeclaration, WriterFunction, OptionalKind, PropertySignatureStructure, Writers, ImportDeclarationStructure, ImportDeclaration, FunctionDeclaration, VariableStatement } from 'ts-morph'
+
 import { GeneratedParameter, CreateInfo, CreationType } from "../src/codeGenerationDescriptors";
 import { InstanceMetadataParameter, CreatedInstanceMetadata } from "../src/CreatedInstance"
 const path = require("path");
@@ -31,6 +32,8 @@ let classesOfInterest : Map<String, ClassNameSpaceTuple | undefined> = new Map<S
 // always needed:
 classesOfInterest.set("Node", undefined)
 classesOfInterest.set("Mesh", undefined);
+classesOfInterest.set("AbstractScene", undefined);
+classesOfInterest.set("Scene", undefined);
 
 // decides what is generated
 classesOfInterest.set("Camera", undefined);
@@ -45,8 +48,6 @@ classesOfInterest.set("AdvancedDynamicTexture", undefined);
 classesOfInterest.set("ShadowGenerator", undefined)
 classesOfInterest.set("EnvironmentHelper", undefined);
 classesOfInterest.set("VRExperienceHelper", undefined);
-classesOfInterest.set("AbstractScene", undefined);
-classesOfInterest.set("Scene", undefined);
 
 /**
  * Generally importAlias is the same as declarationType.  They differ when they are Animation/Animation[], so the declaration includes
@@ -445,7 +446,7 @@ const getInstanceProperties = (classDeclaration: ClassDeclaration) : PropertyDec
   return result;
 }
 
-const writeMethodAsUpdateFunction = (classDeclaration: ClassDeclaration, writer: CodeBlockWriter, method: MethodDeclaration, addedMethods: Set<String>, classNameBabylon: string, targetFiles: SourceFile[]) : void => {
+const writeMethodAsUpdateFunction = (propsProperties: OptionalKind<PropertySignatureStructure>[], writer: CodeBlockWriter, method: MethodDeclaration, addedMethods: Set<String>, classNameBabylon: string, targetFiles: SourceFile[]) : void => {
   
   const params: ParameterDeclaration[] = method.getParameters();
   if (params.length === 0) {
@@ -454,11 +455,11 @@ const writeMethodAsUpdateFunction = (classDeclaration: ClassDeclaration, writer:
 
   const methodName = method.getName()
 
-  const meshProperty = classDeclaration.addProperty({
+  propsProperties.push({
     name: methodName,
-    type: 'any', // it's a function signature
+    type: 'any', // it's a function signature (we can improve on this)
+    hasQuestionToken: true
   })
-  meshProperty.setHasQuestionToken(true);
 
   let paramTypes: string[] = []
   params.forEach(param => {
@@ -476,7 +477,7 @@ const writeMethodAsUpdateFunction = (classDeclaration: ClassDeclaration, writer:
     });
 }
 
-const writePropertyAsUpdateFunction = (classDeclaration: ClassDeclaration, writer: CodeBlockWriter, property: PropertyDeclaration, addedProperties: Set<String>, classNameBabylon: string, targetFiles: SourceFile[]) => {
+const writePropertyAsUpdateFunction = (propsProperties: OptionalKind<PropertySignatureStructure>[], writer: CodeBlockWriter, property: PropertyDeclaration, addedProperties: Set<String>, classNameBabylon: string, targetFiles: SourceFile[]) => {
   const type =  createTypeFromText(property.getType().getText(), targetFiles);
   const propertyName: string = property.getName();
   // doesn't really matter if it's 'optional', as nothing is forcing JavaScript users to follow your conventions.
@@ -490,11 +491,11 @@ const writePropertyAsUpdateFunction = (classDeclaration: ClassDeclaration, write
   addedProperties.add(propertyName);
   // console.log(` >> including Mesh.${propertyName} (${type}))`)
 
-  const meshProperty = classDeclaration.addProperty({
+  propsProperties.push({
     name: propertyName,
     type: type,
+    hasQuestionToken: true
   })
-  meshProperty.setHasQuestionToken(true);
 
   if (propertyName.startsWith('on')) {
     writer.writeLine(`// ${'xxx-ns-xxx'}.${classNameBabylon}.${propertyName} of type '${type}/fn':`)
@@ -660,22 +661,9 @@ class OrderedListCreator {
  */
 const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile, classNameToGenerate: string, babylonClassDeclaration: ModuleDeclaration, propertiesToAdd: PropertyDeclaration[], setMethods: MethodDeclaration[], baseClass: ClassDeclaration | undefined ) => {
   // console.log('addpropshandlers1:', classNameToGenerate, babylonClassDeclaration.className, babylonClassDeclaration.importAlias);
-
   const propsClassName = `${ClassNamesPrefix}${classNameToGenerate}Props`;
-
-  const classDeclarationProps = generatedPropsSourceFile.addClass({
-    name: propsClassName,
-    isExported: true
-  });
-
-  // let baseClassModuleDeclaration: ModuleDeclaration | undefined;
-
-  if (baseClass !== undefined) {
-    let baseClassName = baseClass.getName()
-    // console.log('addpropshandlers2:', classNameToGenerate, classNameBabylon, baseClassName)
-    classDeclarationProps.setExtends(`${ClassNamesPrefix}${baseClassName}Props`)
-    // baseClassModuleDeclaration = getModuleDeclarationFromClassDeclaration(baseClass);
-  }
+  const typeProperties: OptionalKind<PropertySignatureStructure>[] = []
+ 
 
   const classDeclarationPropsHandler = generatedCodeSourceFile.addClass({
     name: `${ClassNamesPrefix}${classNameToGenerate}PropsHandler`,
@@ -712,14 +700,26 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
 
     let addedMeshProperties = new Set<string>();
     propertiesToAdd.sort((a, b) => a.getName().localeCompare(b.getName())).forEach((property: PropertyDeclaration) => {
-      writePropertyAsUpdateFunction(classDeclarationProps, writer, property, addedMeshProperties, babylonClassDeclaration.importAlias, [generatedCodeSourceFile, generatedPropsSourceFile]);
+      writePropertyAsUpdateFunction(typeProperties, writer, property, addedMeshProperties, babylonClassDeclaration.importAlias, [generatedCodeSourceFile, generatedPropsSourceFile]);
     })
 
     let addedMeshMethods = new Set<string>();
     setMethods.sort((a,b) => a.getName().localeCompare(b.getName())).forEach((method: MethodDeclaration) => {
-      writeMethodAsUpdateFunction(classDeclarationProps, writer, method, addedMeshMethods, babylonClassDeclaration.importAlias, [generatedCodeSourceFile, generatedPropsSourceFile]);
+      writeMethodAsUpdateFunction(typeProperties, writer, method, addedMeshMethods, babylonClassDeclaration.importAlias, [generatedCodeSourceFile, generatedPropsSourceFile]);
     })
     return writer.writeLine("return updates.length === 0 ? null : updates;");;
+  })
+
+  const { intersectionType, objectType } = Writers;
+  const propertiesObject = objectType({properties: typeProperties})
+  const aliasType: WriterFunction = (baseClass !== undefined)
+    ? intersectionType(propertiesObject, `${ClassNamesPrefix}${baseClass.getName()}Props`)
+    :  propertiesObject
+
+  generatedPropsSourceFile.addTypeAlias({
+    name: propsClassName,
+    isExported: true,
+    type: aliasType
   })
 }
 
