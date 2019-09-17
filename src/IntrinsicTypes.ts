@@ -1,4 +1,4 @@
-import { FiberDirectionalLightProps, FiberArcRotateCameraProps, FiberMeshProps, FiberFreeCameraProps, FiberHemisphericLightProps } from './generatedProps'
+import { FiberDirectionalLightProps, FiberArcRotateCameraProps, FiberMeshProps, FiberFreeCameraProps, FiberHemisphericLightProps, FiberSpherePropsCtor, FiberGroundPropsCtor } from './generatedProps'
 
 // old tsconfig did not emit global
 declare global {
@@ -9,8 +9,8 @@ declare global {
             box: FiberMeshProps
             freeCamera: FiberFreeCameraProps
             hemisphericLight: FiberHemisphericLightProps
-            sphere: FiberMeshProps & { diameter: number, segments: number }
-            ground: FiberMeshProps & { width: number, height: number, subdivisions: number }
+            sphere: FiberMeshProps & FiberSpherePropsCtor
+            ground: FiberMeshProps & FiberGroundPropsCtor
         }
     }
 }
