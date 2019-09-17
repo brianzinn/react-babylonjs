@@ -238,7 +238,7 @@ const addMetadata = (classDeclaration: ClassDeclaration, originalClassDeclaratio
   createInfoProperty.setInitializer(JSON.stringify(propertyInit, null, 2))
 }
 
-const createMeshClasses = (generatedCodeSourceFile: SourceFile) => {
+const createMeshClasses = (generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile) => {
 
   let meshBuilderTuple: ClassNameSpaceTuple = classesOfInterest.get("MeshBuilder")!;
   let factoryMethods: MethodDeclaration[] = meshBuilderTuple.classDeclaration.getStaticMethods();
@@ -257,7 +257,7 @@ const createMeshClasses = (generatedCodeSourceFile: SourceFile) => {
 
       console.log(` > ${factoryType}`)
       let newClassDeclaration: ClassDeclaration = addClassDeclarationFromFactoryMethod(generatedCodeSourceFile, factoryType, classesOfInterest.get("Mesh")!.classDeclaration, method);
-      addCreateInfoFromFactoryMethod(method,  camelCase(meshBuilderTuple.classDeclaration.getName()!), methodName, newClassDeclaration, "@babylonjs/core", [generatedCodeSourceFile])
+      addCreateInfoFromFactoryMethod(method,  camelCase(meshBuilderTuple.classDeclaration.getName()!), methodName, newClassDeclaration, "@babylonjs/core", generatedCodeSourceFile, generatedPropsSourceFile)
       addMetadata(newClassDeclaration, undefined /* no original class */, {
         acceptsMaterials: true,
         isMesh: true
@@ -340,8 +340,9 @@ const addClassDeclarationFromFactoryMethod = (generatedCodeSourceFile: SourceFil
   return newClassDeclaration;
 }
 
-const addCreateInfoFromFactoryMethod = (method: MethodDeclaration, factoryClass: string, factoryMethod : string, targetClass: ClassDeclaration, namespace: string, targetFiles: SourceFile[]) : void => {
+const addCreateInfoFromFactoryMethod = (method: MethodDeclaration, factoryClass: string, factoryMethod : string, targetClass: ClassDeclaration, namespace: string, generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile) : void => {
   let methodParameters : GeneratedParameter[] = []
+  const typeProperties: OptionalKind<PropertySignatureStructure>[] = []
 
   method.getParameters().forEach((createMethodParameter: ParameterDeclaration) => {
     const parameterName: string | undefined = createMethodParameter.getName()
@@ -350,7 +351,7 @@ const addCreateInfoFromFactoryMethod = (method: MethodDeclaration, factoryClass:
       return;
     }
 
-    const parameterType: string = createTypeFromText(createMethodParameter.getType().getText(), targetFiles);
+    const parameterType: string = createTypeFromText(createMethodParameter.getType().getText(), [generatedCodeSourceFile, generatedPropsSourceFile]);
     const optional : boolean = createMethodParameter.isOptional();
 
     let generatedParameter : GeneratedParameter = {
@@ -368,7 +369,7 @@ const addCreateInfoFromFactoryMethod = (method: MethodDeclaration, factoryClass:
           let propertyName = member.getName();
           let internalType = member.getTypeAtLocation(member.getValueDeclaration()!);
 
-          let propertyType = createTypeFromText(internalType.getText(), targetFiles);
+          let propertyType = createTypeFromText(internalType.getText(), [generatedCodeSourceFile, generatedPropsSourceFile]);
 
           // let questionToken2 = (member.getValueDeclaration()!.compilerNode as any).questionToken;
           let questionToken = (member.compilerSymbol.valueDeclaration as any).questionToken;
@@ -379,9 +380,21 @@ const addCreateInfoFromFactoryMethod = (method: MethodDeclaration, factoryClass:
             optional: questionToken !== undefined
           }
 
+          typeProperties.push({
+            name: propertyName,
+            type: propertyType,
+            hasQuestionToken: true // 'options' are always optional from constructor point of view (enforced in IntrinsicType, 'CreateInfo' only generates warnings)
+          })
+
           // conditional breakpoint for inspecting in IDE: factoryMethod === 'CreateSphere'
           specialProperties.push(generatedSubParameter)
         })            
+      } else {
+        typeProperties.push({
+          name: parameterName,
+          type: parameterType,
+          hasQuestionToken: optional
+        })
       }
 
       methodParameters.push(generatedParameter);
@@ -403,6 +416,8 @@ const addCreateInfoFromFactoryMethod = (method: MethodDeclaration, factoryClass:
   }
 
   createInfoProperty.setInitializer(JSON.stringify(value, null, 2))
+
+  writeTypeAlias(generatedPropsSourceFile, `${targetClass.getName()}PropsCtor`, typeProperties);
 }
 
 const getInstanceSetMethods = (classDeclaration: ClassDeclaration) : MethodDeclaration[] => {
@@ -661,16 +676,13 @@ class OrderedListCreator {
  */
 const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile, classNameToGenerate: string, babylonClassDeclaration: ModuleDeclaration, propertiesToAdd: PropertyDeclaration[], setMethods: MethodDeclaration[], baseClass: ClassDeclaration | undefined ) => {
   // console.log('addpropshandlers1:', classNameToGenerate, babylonClassDeclaration.className, babylonClassDeclaration.importAlias);
-  const propsClassName = `${ClassNamesPrefix}${classNameToGenerate}Props`;
+
   const typeProperties: OptionalKind<PropertySignatureStructure>[] = []
- 
 
   const classDeclarationPropsHandler = generatedCodeSourceFile.addClass({
     name: `${ClassNamesPrefix}${classNameToGenerate}PropsHandler`,
     isExported: true
   });
-
-  PROPS_EXPORTS.push(propsClassName);
 
   // TODO: ensure ${importedNamespace} has imported base class..
   classDeclarationPropsHandler.addImplements(`PropsHandler<${babylonClassDeclaration.importAlias}, ${ClassNamesPrefix}${classNameToGenerate}Props>`)
@@ -710,20 +722,27 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
     return writer.writeLine("return updates.length === 0 ? null : updates;");;
   })
 
+  const intersectsWith = baseClass === undefined ? undefined: baseClass.getName();
+  const propsClassName = `${ClassNamesPrefix}${classNameToGenerate}Props`;
+  PROPS_EXPORTS.push(propsClassName);
+  writeTypeAlias(generatedPropsSourceFile, propsClassName, typeProperties, intersectsWith);
+}
+
+const writeTypeAlias = (file: SourceFile, name: string, typeProperties: OptionalKind<PropertySignatureStructure>[], intersectsWith?: string): void => {
   const { intersectionType, objectType } = Writers;
   const propertiesObject = objectType({properties: typeProperties})
-  const aliasType: WriterFunction = (baseClass !== undefined)
-    ? intersectionType(propertiesObject, `${ClassNamesPrefix}${baseClass.getName()}Props`)
+  const aliasType: WriterFunction = (intersectsWith !== undefined)
+    ? intersectionType(propertiesObject, `${ClassNamesPrefix}${intersectsWith}Props`)
     :  propertiesObject
 
-  generatedPropsSourceFile.addTypeAlias({
-    name: propsClassName,
+  file.addTypeAlias({
+    name,
     isExported: true,
     type: aliasType
   })
 }
 
-const addCreateInfoFromConstructor = (sourceClass: ClassDeclaration, targetClass: ClassDeclaration, moduleDeclaration: ModuleDeclaration, targetFiles: SourceFile[]) : void => {
+const addCreateInfoFromConstructor = (sourceClass: ClassDeclaration, targetClass: ClassDeclaration, moduleDeclaration: ModuleDeclaration, generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile) : void => {
     // this will allow us to do reflection to create the BabylonJS object from application props.
     const ctorArgsProperty = targetClass.addProperty({
       name: 'CreateInfo',
@@ -731,7 +750,9 @@ const addCreateInfoFromConstructor = (sourceClass: ClassDeclaration, targetClass
       isStatic: true,
       isReadonly : true
     })
-  
+
+    const typeProperties: OptionalKind<PropertySignatureStructure>[] = []
+
     const constructorDeclarations : ConstructorDeclaration[] = sourceClass.getConstructors();
   
     let constructorArguments: GeneratedParameter[] = [];
@@ -741,10 +762,18 @@ const addCreateInfoFromConstructor = (sourceClass: ClassDeclaration, targetClass
 
     if (constructorDeclarations.length > 0) {
       constructorDeclarations[0].getParameters().forEach(parameterDeclaration => {
+
+        const type: string = createTypeFromText(parameterDeclaration.getType().getText(), [generatedCodeSourceFile, generatedPropsSourceFile]);
         constructorArguments.push({
           name: parameterDeclaration.getName()!,
-          type: createTypeFromText(parameterDeclaration.getType().getText(), targetFiles),
+          type,
           optional: parameterDeclaration.isOptional()
+        })
+
+        typeProperties.push({
+          name: parameterDeclaration.getName()!,
+          type,
+          hasQuestionToken: parameterDeclaration.isOptional()
         })
       })
     }
@@ -758,6 +787,8 @@ const addCreateInfoFromConstructor = (sourceClass: ClassDeclaration, targetClass
     }
 
     ctorArgsProperty.setInitializer(JSON.stringify(value, null, 2))
+
+    writeTypeAlias(generatedPropsSourceFile, `${ClassNamesPrefix}${sourceClass.getName()}PropsCtor`, typeProperties);
 }
 
 const createClassesDerivedFrom = (generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile, classNamespaceTuple: ClassNameSpaceTuple, metadata?: InstanceMetadataParameter, extra?: (newClassDeclaration: ClassDeclaration, originalClassDeclaration: ClassDeclaration) => void, extraMetadata? : (newClassDeclaration: ClassDeclaration, metadata: CreatedInstanceMetadata, originalClassDeclaration?: ClassDeclaration) => void) : void => { 
@@ -788,7 +819,7 @@ const createClassesDerivedFrom = (generatedCodeSourceFile: SourceFile, generated
     let baseClassDeclarationForCreate = baseClassDeclaration === undefined ? classDeclaration : baseClassDeclaration
 
     const newClassDeclaration = createClassDeclaration(classDeclaration, baseClassDeclarationForCreate, generatedCodeSourceFile, generatedPropsSourceFile, extra);
-    addCreateInfoFromConstructor(classDeclaration, newClassDeclaration, classNamespaceTuple.moduleDeclaration, [generatedCodeSourceFile, generatedPropsSourceFile]);
+    addCreateInfoFromConstructor(classDeclaration, newClassDeclaration, classNamespaceTuple.moduleDeclaration, generatedCodeSourceFile, generatedPropsSourceFile);
 
     addMetadata(newClassDeclaration, classDeclaration, metadata, extraMetadata);
     console.log(` > ${classDeclaration.getName()}`)
@@ -817,7 +848,7 @@ const createClassesInheritedFrom = (generatedCodeSourceFile: SourceFile, generat
     REACT_EXPORTS.add(derivedClassDeclaration.getName()!)
 
     const newClassDeclaration = createClassDeclaration(derivedClassDeclaration, baseClassDeclaration, generatedCodeSourceFile, generatedPropsSourceFile, extra);
-    addCreateInfoFromConstructor(derivedClassDeclaration, newClassDeclaration, classNamespaceTuple.moduleDeclaration, [generatedCodeSourceFile, generatedPropsSourceFile]);
+    addCreateInfoFromConstructor(derivedClassDeclaration, newClassDeclaration, classNamespaceTuple.moduleDeclaration, generatedCodeSourceFile, generatedPropsSourceFile);
 
     addMetadata(newClassDeclaration, derivedClassDeclaration, metadata, extraMetadata);
     console.log(` > ${derivedClassDeclaration.getName()}`)
@@ -863,7 +894,7 @@ const createSingleClass = (classOfInterest: string, generatedCodeSourceFile: Sou
   REACT_EXPORTS.add(classToGenerate.classDeclaration.getName()!);
 
   const newClassDeclaration = createClassDeclaration(classToGenerate.classDeclaration, baseClass, generatedCodeSourceFile, generatedPropsSourceFile, extra);
-  addCreateInfoFromConstructor(classToGenerate.classDeclaration, newClassDeclaration, classToGenerate.moduleDeclaration, [generatedCodeSourceFile, generatedPropsSourceFile]);
+  addCreateInfoFromConstructor(classToGenerate.classDeclaration, newClassDeclaration, classToGenerate.moduleDeclaration, generatedCodeSourceFile, generatedPropsSourceFile);
 
   addMetadata(newClassDeclaration, classToGenerate.classDeclaration, metadata);
   console.log('Single class added')
@@ -936,7 +967,7 @@ const generateCode = async () => {
   }
 
   if (classesOfInterest.get("MeshBuilder") !== undefined) {
-    createMeshClasses(generatedCodeSourceFile);
+    createMeshClasses(generatedCodeSourceFile, generatedPropsSourceFile);
   }
 
   if (classesOfInterest.get("Material")) {
