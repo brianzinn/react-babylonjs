@@ -1,3 +1,4 @@
+import { Key, ReactNode } from "react";
 import { AbstractScene as BabylonjsCoreAbstractScene } from "@babylonjs/core/abstractScene";
 import { Node as BabylonjsCoreNode } from "@babylonjs/core/node";
 import { Scene as BabylonjsCoreScene } from "@babylonjs/core/scene";
@@ -109,6 +110,110 @@ import { KeyboardInfo as BabylonjsCoreKeyboardInfo, KeyboardInfoPre as Babylonjs
 import { PointerEventTypes as BabylonjsCorePointerEventTypes, PointerInfo as BabylonjsCorePointerInfo, PointerInfoPre as BabylonjsCorePointerInfoPre } from "@babylonjs/core/Events/pointerEvents";
 import { PostProcess as BabylonjsCorePostProcess } from "@babylonjs/core/PostProcesses/postProcess";
 import { PostProcessManager as BabylonjsCorePostProcessManager } from "@babylonjs/core/PostProcesses/postProcessManager";
+
+export type BabylonNode<T> = {
+    key?: Key;
+    children?: ReactNode;
+    onCreated: (instance: T, scene: BabylonjsCoreScene) => void;
+};
+
+declare global {
+    namespace JSX {
+        interface IntrinsicElements {
+            node: BabylonNode<FiberNodeProps & FiberNodePropsCtor>;
+            transformNode: BabylonNode<FiberTransformNodeProps & FiberTransformNodePropsCtor>;
+            abstractMesh: BabylonNode<FiberAbstractMeshProps & FiberAbstractMeshPropsCtor>;
+            mesh: BabylonNode<FiberMeshProps & FiberMeshPropsCtor>;
+            camera: BabylonNode<FiberCameraProps & FiberCameraPropsCtor>;
+            targetCamera: BabylonNode<FiberTargetCameraProps & FiberTargetCameraPropsCtor>;
+            freeCamera: BabylonNode<FiberFreeCameraProps & FiberFreeCameraPropsCtor>;
+            touchCamera: BabylonNode<FiberTouchCameraProps & FiberTouchCameraPropsCtor>;
+            universalCamera: BabylonNode<FiberUniversalCameraProps & FiberUniversalCameraPropsCtor>;
+            gamepadCamera: BabylonNode<FiberGamepadCameraProps & FiberGamepadCameraPropsCtor>;
+            anaglyphGamepadCamera: BabylonNode<FiberAnaglyphGamepadCameraProps & FiberAnaglyphGamepadCameraPropsCtor>;
+            stereoscopicGamepadCamera: BabylonNode<FiberStereoscopicGamepadCameraProps & FiberStereoscopicGamepadCameraPropsCtor>;
+            anaglyphUniversalCamera: BabylonNode<FiberAnaglyphUniversalCameraProps & FiberAnaglyphUniversalCameraPropsCtor>;
+            stereoscopicUniversalCamera: BabylonNode<FiberStereoscopicUniversalCameraProps & FiberStereoscopicUniversalCameraPropsCtor>;
+            deviceOrientationCamera: BabylonNode<FiberDeviceOrientationCameraProps & FiberDeviceOrientationCameraPropsCtor>;
+            vRDeviceOrientationFreeCamera: BabylonNode<FiberVRDeviceOrientationFreeCameraProps & FiberVRDeviceOrientationFreeCameraPropsCtor>;
+            vRDeviceOrientationGamepadCamera: BabylonNode<FiberVRDeviceOrientationGamepadCameraProps & FiberVRDeviceOrientationGamepadCameraPropsCtor>;
+            anaglyphFreeCamera: BabylonNode<FiberAnaglyphFreeCameraProps & FiberAnaglyphFreeCameraPropsCtor>;
+            stereoscopicFreeCamera: BabylonNode<FiberStereoscopicFreeCameraProps & FiberStereoscopicFreeCameraPropsCtor>;
+            virtualJoysticksCamera: BabylonNode<FiberVirtualJoysticksCameraProps & FiberVirtualJoysticksCameraPropsCtor>;
+            webVRFreeCamera: BabylonNode<FiberWebVRFreeCameraProps & FiberWebVRFreeCameraPropsCtor>;
+            webXRCamera: BabylonNode<FiberWebXRCameraProps & FiberWebXRCameraPropsCtor>;
+            arcRotateCamera: BabylonNode<FiberArcRotateCameraProps & FiberArcRotateCameraPropsCtor>;
+            anaglyphArcRotateCamera: BabylonNode<FiberAnaglyphArcRotateCameraProps & FiberAnaglyphArcRotateCameraPropsCtor>;
+            stereoscopicArcRotateCamera: BabylonNode<FiberStereoscopicArcRotateCameraProps & FiberStereoscopicArcRotateCameraPropsCtor>;
+            vRDeviceOrientationArcRotateCamera: BabylonNode<FiberVRDeviceOrientationArcRotateCameraProps & FiberVRDeviceOrientationArcRotateCameraPropsCtor>;
+            flyCamera: BabylonNode<FiberFlyCameraProps & FiberFlyCameraPropsCtor>;
+            followCamera: BabylonNode<FiberFollowCameraProps & FiberFollowCameraPropsCtor>;
+            arcFollowCamera: BabylonNode<FiberArcFollowCameraProps & FiberArcFollowCameraPropsCtor>;
+            box: BabylonNode<FiberMeshProps & FiberBoxPropsCtor>;
+            sphere: BabylonNode<FiberMeshProps & FiberSpherePropsCtor>;
+            disc: BabylonNode<FiberMeshProps & FiberDiscPropsCtor>;
+            icoSphere: BabylonNode<FiberMeshProps & FiberIcoSpherePropsCtor>;
+            ribbon: BabylonNode<FiberMeshProps & FiberRibbonPropsCtor>;
+            cylinder: BabylonNode<FiberMeshProps & FiberCylinderPropsCtor>;
+            torus: BabylonNode<FiberMeshProps & FiberTorusPropsCtor>;
+            torusKnot: BabylonNode<FiberMeshProps & FiberTorusKnotPropsCtor>;
+            lineSystem: BabylonNode<FiberMeshProps & FiberLineSystemPropsCtor>;
+            lines: BabylonNode<FiberMeshProps & FiberLinesPropsCtor>;
+            dashedLines: BabylonNode<FiberMeshProps & FiberDashedLinesPropsCtor>;
+            extrudeShape: BabylonNode<FiberMeshProps & FiberExtrudeShapePropsCtor>;
+            extrudeShapeCustom: BabylonNode<FiberMeshProps & FiberExtrudeShapeCustomPropsCtor>;
+            lathe: BabylonNode<FiberMeshProps & FiberLathePropsCtor>;
+            plane: BabylonNode<FiberMeshProps & FiberPlanePropsCtor>;
+            ground: BabylonNode<FiberMeshProps & FiberGroundPropsCtor>;
+            tiledGround: BabylonNode<FiberMeshProps & FiberTiledGroundPropsCtor>;
+            groundFromHeightMap: BabylonNode<FiberMeshProps & FiberGroundFromHeightMapPropsCtor>;
+            extrudePolygon: BabylonNode<FiberMeshProps & FiberExtrudePolygonPropsCtor>;
+            tube: BabylonNode<FiberMeshProps & FiberTubePropsCtor>;
+            polyhedron: BabylonNode<FiberMeshProps & FiberPolyhedronPropsCtor>;
+            decal: BabylonNode<FiberMeshProps & FiberDecalPropsCtor>;
+            material: BabylonNode<FiberMaterialProps & FiberMaterialPropsCtor>;
+            shaderMaterial: BabylonNode<FiberShaderMaterialProps & FiberShaderMaterialPropsCtor>;
+            multiMaterial: BabylonNode<FiberMultiMaterialProps & FiberMultiMaterialPropsCtor>;
+            pushMaterial: BabylonNode<FiberPushMaterialProps & FiberPushMaterialPropsCtor>;
+            standardMaterial: BabylonNode<FiberStandardMaterialProps & FiberStandardMaterialPropsCtor>;
+            backgroundMaterial: BabylonNode<FiberBackgroundMaterialProps & FiberBackgroundMaterialPropsCtor>;
+            pBRBaseMaterial: BabylonNode<FiberPBRBaseMaterialProps & FiberPBRBaseMaterialPropsCtor>;
+            pBRBaseSimpleMaterial: BabylonNode<FiberPBRBaseSimpleMaterialProps & FiberPBRBaseSimpleMaterialPropsCtor>;
+            pBRMetallicRoughnessMaterial: BabylonNode<FiberPBRMetallicRoughnessMaterialProps & FiberPBRMetallicRoughnessMaterialPropsCtor>;
+            pBRSpecularGlossinessMaterial: BabylonNode<FiberPBRSpecularGlossinessMaterialProps & FiberPBRSpecularGlossinessMaterialPropsCtor>;
+            pBRMaterial: BabylonNode<FiberPBRMaterialProps & FiberPBRMaterialPropsCtor>;
+            light: BabylonNode<FiberLightProps & FiberLightPropsCtor>;
+            shadowLight: BabylonNode<FiberShadowLightProps & FiberShadowLightPropsCtor>;
+            directionalLight: BabylonNode<FiberDirectionalLightProps & FiberDirectionalLightPropsCtor>;
+            pointLight: BabylonNode<FiberPointLightProps & FiberPointLightPropsCtor>;
+            spotLight: BabylonNode<FiberSpotLightProps & FiberSpotLightPropsCtor>;
+            hemisphericLight: BabylonNode<FiberHemisphericLightProps & FiberHemisphericLightPropsCtor>;
+            baseTexture: BabylonNode<FiberBaseTextureProps & FiberBaseTexturePropsCtor>;
+            cubeTexture: BabylonNode<FiberCubeTextureProps & FiberCubeTexturePropsCtor>;
+            rawCubeTexture: BabylonNode<FiberRawCubeTextureProps & FiberRawCubeTexturePropsCtor>;
+            texture: BabylonNode<FiberTextureProps & FiberTexturePropsCtor>;
+            rawTexture: BabylonNode<FiberRawTextureProps & FiberRawTexturePropsCtor>;
+            proceduralTexture: BabylonNode<FiberProceduralTextureProps & FiberProceduralTexturePropsCtor>;
+            customProceduralTexture: BabylonNode<FiberCustomProceduralTextureProps & FiberCustomProceduralTexturePropsCtor>;
+            noiseProceduralTexture: BabylonNode<FiberNoiseProceduralTextureProps & FiberNoiseProceduralTexturePropsCtor>;
+            renderTargetTexture: BabylonNode<FiberRenderTargetTextureProps & FiberRenderTargetTexturePropsCtor>;
+            mirrorTexture: BabylonNode<FiberMirrorTextureProps & FiberMirrorTexturePropsCtor>;
+            multiRenderTarget: BabylonNode<FiberMultiRenderTargetProps & FiberMultiRenderTargetPropsCtor>;
+            refractionTexture: BabylonNode<FiberRefractionTextureProps & FiberRefractionTexturePropsCtor>;
+            multiviewRenderTarget: BabylonNode<FiberMultiviewRenderTargetProps & FiberMultiviewRenderTargetPropsCtor>;
+            videoTexture: BabylonNode<FiberVideoTextureProps & FiberVideoTexturePropsCtor>;
+            dynamicTexture: BabylonNode<FiberDynamicTextureProps & FiberDynamicTexturePropsCtor>;
+            rawTexture3D: BabylonNode<FiberRawTexture3DProps & FiberRawTexture3DPropsCtor>;
+            colorGradingTexture: BabylonNode<FiberColorGradingTextureProps & FiberColorGradingTexturePropsCtor>;
+            equiRectangularCubeTexture: BabylonNode<FiberEquiRectangularCubeTextureProps & FiberEquiRectangularCubeTexturePropsCtor>;
+            hDRCubeTexture: BabylonNode<FiberHDRCubeTextureProps & FiberHDRCubeTexturePropsCtor>;
+            htmlElementTexture: BabylonNode<FiberHtmlElementTextureProps & FiberHtmlElementTexturePropsCtor>;
+            shadowGenerator: BabylonNode<FiberShadowGeneratorProps & FiberShadowGeneratorPropsCtor>;
+            environmentHelper: BabylonNode<FiberEnvironmentHelperProps & FiberEnvironmentHelperPropsCtor>;
+            vRExperienceHelper: BabylonNode<FiberVRExperienceHelperProps & FiberVRExperienceHelperPropsCtor>;
+        }
+    }
+}
 
 export type FiberNodeProps = {
     addToSceneRootNodes?: any;

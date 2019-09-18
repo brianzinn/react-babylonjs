@@ -152,7 +152,7 @@ const ReactBabylonJSHostConfig: HostConfig<
 
   prepareUpdate(
     instance: HostCreatedInstance<any>,
-    type: String,
+    type: string,
     oldProps: Props,
     newProps: Props,
     rootContainerInstance: Container,
