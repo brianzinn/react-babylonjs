@@ -6,7 +6,7 @@
  * 
  * "could not resolve entry" is the error, if you forget to switch it back as 'src' and 'tool's will be subdirs in compiled.
  */
-import { Project, VariableDeclarationKind, ClassDeclaration, PropertyDeclaration, CodeBlockWriter, SourceFile, JSDoc, ConstructorDeclaration, Scope, MethodDeclaration, ParameterDeclaration, WriterFunction, OptionalKind, PropertySignatureStructure, Writers, ImportDeclarationStructure, ImportDeclaration, FunctionDeclaration, VariableStatement } from 'ts-morph'
+import { Project, VariableDeclarationKind, ClassDeclaration, PropertyDeclaration, CodeBlockWriter, SourceFile, JSDoc, ConstructorDeclaration, Scope, MethodDeclaration, ParameterDeclaration, WriterFunction, OptionalKind, PropertySignatureStructure, Writers, ImportDeclarationStructure, ImportDeclaration, FunctionDeclaration, VariableStatement, NamespaceDeclarationKind, InterfaceDeclaration } from 'ts-morph'
 
 import { GeneratedParameter, CreateInfo, CreationType } from "../src/codeGenerationDescriptors";
 import { InstanceMetadataParameter, CreatedInstanceMetadata } from "../src/CreatedInstance"
@@ -21,8 +21,28 @@ type ClassNameSpaceTuple = {
   moduleDeclaration: ModuleDeclaration
 }
 
-// NOTE: this is important as 'strings' are what are available for NPM import and trigger react reconciler.
+// NOTE: 'strings' are what are available for NPM import for 'Component', while JSX.IntrinsicElements are global (for now).
+// Both are created the same way as host components by react-reconciler
 const REACT_EXPORTS : Set<string> = new Set<string>();
+let INTRINSIC_ELEMENTS: InterfaceDeclaration;
+
+const _hostElementMap: Set<string> = new Set<string>();
+const addHostElement = (className: string, propsClassName?: string): void => {
+  if (!REACT_EXPORTS.has(className)) {
+    REACT_EXPORTS.add(className);
+
+    _hostElementMap.add(className); // prevent duplicates
+
+    if (className !== 'Polygon') {
+      // TS warning: Property 'polygon' must be of type SVGProps<SVGPolygonElement>, but here has type..., so we are skipping to generate polygon for now.  TypeScript has some issues with `global` in flight.
+      INTRINSIC_ELEMENTS.addProperty({
+        name: camelCase(className),
+        // type:  `BabylonNode<${Writers.intersectionType(`${ClassNamesPrefix}${propsClassName || className}Props`, `${ClassNamesPrefix}${className}PropsCtor`).toString()}>`
+        type:  `BabylonNode<${ClassNamesPrefix}${propsClassName || className}Props & ${ClassNamesPrefix}${className}PropsCtor>`
+      })
+    }
+  }
+}
 
 const PROPS_EXPORTS : string[] = []; // used to put all props in single import.
 
@@ -75,6 +95,12 @@ const capitalize = (value: string) =>  {
   return value.charAt(0).toUpperCase() + value.substring(1).toLowerCase();
 }
 
+/**
+ * TODO: fix this so, that classes with acronyms are properly formatted (I think _ does this).
+ * ie: VRExperienceHelper -> vrExperienceHelper, PBRMaterial -> pbrMaterial
+ * 
+ * @param value
+ */
 const camelCase = (value: string): string => {
   return value.charAt(0).toLowerCase() + value.substring(1);
 }
@@ -253,7 +279,8 @@ const createMeshClasses = (generatedCodeSourceFile: SourceFile, generatedPropsSo
         ? methodName.substr('Create'.length)
         : methodName; // ie: ExtrudePolygon, ExtrudeShape & ExtrudeShapeCustom
 
-      REACT_EXPORTS.add(factoryType);
+
+      addHostElement(factoryType, 'Mesh');
 
       console.log(` > ${factoryType}`)
       let newClassDeclaration: ClassDeclaration = addClassDeclarationFromFactoryMethod(generatedCodeSourceFile, factoryType, classesOfInterest.get("Mesh")!.classDeclaration, method);
@@ -812,9 +839,10 @@ const createClassesDerivedFrom = (generatedCodeSourceFile: SourceFile, generated
     addNamedImportToFile(moduleDeclaration, [generatedCodeSourceFile, generatedPropsSourceFile], false);
 
     const baseClassDeclaration : ClassDeclaration | undefined = i > 0 ? classesToCreate[i - 1] : undefined;
-    REACT_EXPORTS.add(classDeclaration.getName()!);
+    const className = classDeclaration.getName()!;
+    addHostElement(className);
 
-    console.warn('creating', classDeclaration.getName(), " base -> ", baseClassDeclaration === undefined ? '<undefined>' : baseClassDeclaration.getName());
+    console.warn('creating', className, " base -> ", baseClassDeclaration === undefined ? '<undefined>' : baseClassDeclaration.getName());
 
     let baseClassDeclarationForCreate = baseClassDeclaration === undefined ? classDeclaration : baseClassDeclaration
 
@@ -822,7 +850,7 @@ const createClassesDerivedFrom = (generatedCodeSourceFile: SourceFile, generated
     addCreateInfoFromConstructor(classDeclaration, newClassDeclaration, classNamespaceTuple.moduleDeclaration, generatedCodeSourceFile, generatedPropsSourceFile);
 
     addMetadata(newClassDeclaration, classDeclaration, metadata, extraMetadata);
-    console.log(` > ${classDeclaration.getName()}`)
+    console.log(` > ${className}`)
   }
 }
 
@@ -835,7 +863,7 @@ const createClassesInheritedFrom = (generatedCodeSourceFile: SourceFile, generat
   const baseClassDeclaration = classNamespaceTuple.classDeclaration;
 
   const baseClassName: string = baseClassDeclaration.getName()!;
-  REACT_EXPORTS.add(baseClassName)
+  addHostElement(baseClassName);
 
   const derivedClassesOrdered : Map<string, ClassDeclaration> = new Map<string, ClassDeclaration>();
 
@@ -844,8 +872,7 @@ const createClassesInheritedFrom = (generatedCodeSourceFile: SourceFile, generat
   console.log(`Building ${derivedClassesOrdered.size} ${baseClassName}s: `)
 
   derivedClassesOrdered.forEach((derivedClassDeclaration: ClassDeclaration) => {    
-    
-    REACT_EXPORTS.add(derivedClassDeclaration.getName()!)
+    addHostElement(derivedClassDeclaration.getName()!);
 
     const newClassDeclaration = createClassDeclaration(derivedClassDeclaration, baseClassDeclaration, generatedCodeSourceFile, generatedPropsSourceFile, extra);
     addCreateInfoFromConstructor(derivedClassDeclaration, newClassDeclaration, classNamespaceTuple.moduleDeclaration, generatedCodeSourceFile, generatedPropsSourceFile);
@@ -891,7 +918,7 @@ const createSingleClass = (classOfInterest: string, generatedCodeSourceFile: Sou
     baseClass = classToGenerate.classDeclaration
   }
 
-  REACT_EXPORTS.add(classToGenerate.classDeclaration.getName()!);
+  addHostElement(classToGenerate.classDeclaration.getName()!)
 
   const newClassDeclaration = createClassDeclaration(classToGenerate.classDeclaration, baseClass, generatedCodeSourceFile, generatedPropsSourceFile, extra);
   addCreateInfoFromConstructor(classToGenerate.classDeclaration, newClassDeclaration, classToGenerate.moduleDeclaration, generatedCodeSourceFile, generatedPropsSourceFile);
@@ -931,10 +958,49 @@ const generateCode = async () => {
     namedImports: [ReactReconcilerCreatedInstanceMetadata]
   })
   
+  const reactImport = generatedPropsSourceFile.addImportDeclaration({
+    moduleSpecifier: "react",
+    namedImports: ["Key", "ReactNode"]
+  })
+
   const addMeshMetadata = (newClassDeclaration: ClassDeclaration, metadata: CreatedInstanceMetadata, originalClassDeclaration?: ClassDeclaration) => {
     metadata.isMesh = (originalClassDeclaration !== undefined && originalClassDeclaration.getName() === "Mesh")
   }
 
+  const mainTypeAlias = generatedPropsSourceFile.addTypeAlias({
+    name: 'BabylonNode',
+    type: Writers.objectType({properties: [{
+      name: 'key',
+      type: 'Key',
+      hasQuestionToken: true
+    }, {
+      name: 'children',
+      type: 'ReactNode', // JSX or string
+      hasQuestionToken: true
+    }, {
+      name: 'onCreated',
+      type: '(instance: T, scene: BabylonjsCoreScene) => void'
+    }]}),
+    isExported: true
+  })
+  mainTypeAlias.addTypeParameter({
+    name: "T"
+  })
+
+  const globalNamespace = generatedPropsSourceFile.addNamespace({
+    name: "global",
+    declarationKind: NamespaceDeclarationKind.Global,
+    hasDeclareKeyword: true,
+  })
+
+  const jsxNamespace = globalNamespace.addNamespace({
+    name: 'JSX',
+  })
+
+  INTRINSIC_ELEMENTS = jsxNamespace.addInterface({
+    name: "IntrinsicElements",
+
+  })
   // This includes Node, which is base class for ie: Camera, Mesh, etc.
   createClassesDerivedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Mesh")!, {}, undefined, addMeshMetadata)
 
