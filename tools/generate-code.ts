@@ -26,13 +26,22 @@ type ClassNameSpaceTuple = {
  * LifecycleHandler and delay creation will handle these not being set (ie: look at PhysicsImpostr constructor!)
  */
 const LATE_BOUND_CONSTRUCTOR_PARAMETERS: Map<string, string[]> = new Map<string, string[]>([
-  ['PhysicsImpostor', ['object']]
+  ['PhysicsImpostor', ['object']],
+  ['ShadowGenerator', ['light']]
 ]);
 
 console.log('ver:', ts.version);
 
-// keyof JSX.IntrinsicElements doesn't work at runtime, due to type erasure :(
 const CONFLICT_INTRINSIC_ELEMENTS = ['Button', 'Ellipse', 'Image', 'Line', 'Polygon'];
+
+// would be good to check JSX.IntrinsicElements with 'keyof', but it's erased at runtime (doesn't work on dynamic strings)
+// fixes TS warning: Property 'polygon' must be of type SVGProps<SVGPolygonElement>, but here has type..., so we are skipping to generate polygon for now.
+// TypeScript has some issues being worked on to address local instead of `global`
+const classToIntrinsic = (className: string): string => {
+  return CONFLICT_INTRINSIC_ELEMENTS.indexOf(className) >= 0
+      ? `'babylon-${camelCase(className)}'`
+      : camelCase(className);
+}
 
 // NOTE: 'strings' are what are available for NPM import for 'Component', while JSX.IntrinsicElements are global (for now).
 // Both are created the same way as host components by react-reconciler
@@ -51,16 +60,10 @@ const addHostElement = (className: string, babylonjsClassDeclaration: ClassDecla
     _hostElementMap.add(className); // prevent duplicates
     const { intersectionType } = Writers;
 
-    // would be good to check JSX.IntrinsicElements with 'keyof', but it's erased at runtime (doesn't work on dynamic strings)
-    // TS warning: Property 'polygon' must be of type SVGProps<SVGPolygonElement>, but here has type..., so we are skipping to generate polygon for now.  TypeScript has some issues with `global` in flight.
-    const name = CONFLICT_INTRINSIC_ELEMENTS.indexOf(className) >= 0
-      ? `'babylon-${camelCase(className)}'`
-      : camelCase(className);
-
     const moduleDeclaration = getModuleDeclarationFromClassDeclaration(babylonjsClassDeclaration);
 
     INTRINSIC_ELEMENTS.addProperty({
-      name,
+      name: classToIntrinsic(className),
       type:  intersectionType(
         intersectionType(`${ClassNamesPrefix}${babylonjsClassDeclaration.getName()}Props`, `${ClassNamesPrefix}${className}PropsCtor`),
         `BabylonNode<${moduleDeclaration.importAlias}>`
@@ -332,8 +335,7 @@ const createMeshClasses = (generatedCodeSourceFile: SourceFile, generatedPropsSo
 
   let factoryMethods: MethodDeclaration[] = meshBuilderTuple.classDeclaration.getStaticMethods();
 
-  console.log(`Creating ${factoryMethods.length} Mesh objects:`)
-
+  // console.log(`Creating ${factoryMethods.length} Mesh objects:`)
   factoryMethods.forEach((method: MethodDeclaration) => {
     const methodName: string = method.getName();
     
@@ -347,11 +349,12 @@ const createMeshClasses = (generatedCodeSourceFile: SourceFile, generatedPropsSo
 
       console.log(` > ${factoryType}`)
       let newClassDeclaration: ClassDeclaration = addClassDeclarationFromFactoryMethod(generatedCodeSourceFile, factoryType, classesOfInterest.get("Mesh")!.classDeclaration, method);
-      addCreateInfoFromFactoryMethod(method,  camelCase(meshBuilderTuple.classDeclaration.getName()!), methodName, newClassDeclaration, "@babylonjs/core", generatedCodeSourceFile, generatedPropsSourceFile)
-      addMetadata(newClassDeclaration, undefined /* no original class */, {
+      const metadata: InstanceMetadataParameter = {
         acceptsMaterials: true,
         isMesh: true
-      })
+      };
+      addCreateInfoFromFactoryMethod(method,  camelCase(meshBuilderTuple.classDeclaration.getName()!), methodName, newClassDeclaration, "@babylonjs/core", generatedCodeSourceFile, generatedPropsSourceFile)
+      addMetadata(newClassDeclaration, undefined /* no original class */, metadata)
     }
   });
 }
@@ -621,9 +624,12 @@ const writePropertyAsUpdateFunction = (propsProperties: OptionalKind<PropertySig
   addedProperties.add(propertyName);
   // console.log(` >> including Mesh.${propertyName} (${type}))`)
 
+  // cannot set observable types from React.  TODO: track and remove added observables on unmount.
+  const propsType = type.startsWith('BabylonjsCoreObservable') ? 'any' : type;
+
   propsProperties.push({
     name: propertyName,
-    type: type,
+    type: propsType,
     hasQuestionToken: true
   })
 
@@ -865,17 +871,25 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
     })
   }
 
-  const intersectsWith = baseClass === undefined ? undefined: baseClass.getName();
+  // this is temporary, where we give ALL classes these CustomProps.  Will be addressed (ideally we leave intersectsWith here 'undefined' and add ONLY valid props)
+  const intersectsWith = baseClass === undefined ? 'CustomProps': baseClass.getName();
   const propsClassName = `${ClassNamesPrefix}${classNameToGenerate}Props`;
+
   PROPS_EXPORTS.push(propsClassName);
   writeTypeAlias(generatedPropsSourceFile, propsClassName, typeProperties.sort((a, b) => a.name.localeCompare(b.name)), intersectsWith);
 }
 
 const writeTypeAlias = (file: SourceFile, name: string, typeProperties: OptionalKind<PropertySignatureStructure>[], intersectsWith?: string): void => {
   const { intersectionType, objectType } = Writers;
+
+  // bad hack to get custom props through.  will address soon...
+  const intersectsWithType = intersectsWith === undefined
+    ? undefined
+    : intersectsWith === 'CustomProps' ? 'CustomProps' : `${ClassNamesPrefix}${intersectsWith}Props`;
+
   const propertiesObject = objectType({properties: typeProperties})
-  const aliasType: WriterFunction = (intersectsWith !== undefined)
-    ? intersectionType(propertiesObject, `${ClassNamesPrefix}${intersectsWith}Props`)
+  const aliasType: WriterFunction = (intersectsWithType !== undefined)
+    ? intersectionType(propertiesObject, intersectsWithType)
     :  propertiesObject
 
   file.addTypeAlias({
@@ -934,14 +948,14 @@ const addCreateInfoFromConstructor = (sourceClass: ClassDeclaration, targetClass
     // this is all kind of garbage now... we cannot dynamically generate like we did before :(
     let value : CreateInfo = {
       creationType: CreationType.Constructor,
-      libraryLocation: sourceClass.getName()!,
+      libraryLocation: className!,
       namespace: moduleDeclaration.moduleSpecifier,
       parameters: constructorArguments
     }
 
     ctorArgsProperty.setInitializer(JSON.stringify(value, null, 2))
 
-    writeTypeAlias(generatedPropsSourceFile, `${ClassNamesPrefix}${sourceClass.getName()}PropsCtor`, typeProperties);
+    writeTypeAlias(generatedPropsSourceFile, `${ClassNamesPrefix}${className}PropsCtor`, typeProperties);
 }
 
 const createClassesDerivedFrom = (generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile, classNamespaceTuple: ClassNameSpaceTuple, metadata?: InstanceMetadataParameter, extra?: (newClassDeclaration: ClassDeclaration, originalClassDeclaration: ClassDeclaration) => void, extraMetadata? : (newClassDeclaration: ClassDeclaration, metadata: CreatedInstanceMetadata, originalClassDeclaration?: ClassDeclaration) => void) : void => { 
@@ -1086,9 +1100,14 @@ const generateCode = async () => {
     namedImports: [ReactReconcilerCreatedInstanceMetadata]
   })
   
-  const reactImport = generatedPropsSourceFile.addImportDeclaration({
+  generatedPropsSourceFile.addImportDeclaration({
     moduleSpecifier: "react",
     namedImports: ["Key", "ReactNode", "Ref"]
+  })
+
+  generatedPropsSourceFile.addImportDeclaration({
+    moduleSpecifier: './CreatedInstance',
+    namedImports: ['CustomProps']
   })
 
   const addMeshMetadata = (newClassDeclaration: ClassDeclaration, metadata: CreatedInstanceMetadata, originalClassDeclaration?: ClassDeclaration) => {
@@ -1256,7 +1275,7 @@ const generateCode = async () => {
     declarations: [{
       name: 'classesMap',
       type: "object",
-      initializer: `{${Array.from(factoryClasses.entries()).map(([alias, className]) => `${camelCase(className)}: ${alias}`).join(',')}}`
+      initializer: `{${Array.from(factoryClasses.entries()).map(([alias, className]) => `${classToIntrinsic(className)}: ${alias}`).join(',')}}`
     }]
   });
 
