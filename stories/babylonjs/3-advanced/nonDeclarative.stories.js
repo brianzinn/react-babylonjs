@@ -21,7 +21,7 @@ function onSceneMount (e) {
   var light = new HemisphericLight('light1', new Vector3(0, 1, 0), scene)
   light.intensity = 0.7
   var pbr = new PBRMetallicRoughnessMaterial('pbr', scene)
-  pbr.environmentTexture = CubeTexture.CreateFromPrefilteredData('/assets/textures/environment.dds', scene)
+  pbr.environmentTexture = CubeTexture.CreateFromPrefilteredData('assets/textures/environment.dds', scene)
   var gridSize = 4
   for (var i = 0; i < gridSize; i++) {
     for (var j = 0; j < 10; j++) {
@@ -125,7 +125,7 @@ function NonDeclarative () {
 }
 
 export default storiesOf('Babylon Advanced', module)
-  .add('Non-Declartive', () => (
+  .add('Non-Declarative', () => (
     <div style={{ flex: 1, display: 'flex' }}>
       <NonDeclarative />
     </div>

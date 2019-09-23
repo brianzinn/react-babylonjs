@@ -8,10 +8,10 @@ import '../../style.css'
 let globalIndex = 0 // due to closure and how observables are assigned.
 const SkyboxScenes = [{
   name: 'sunny day',
-  texture: `/assets/textures/TropicalSunnyDay`
+  texture: `assets/textures/TropicalSunnyDay`
 }, {
   name: 'specular HDR',
-  texture: `/assets/textures/SpecularHDR.dds`
+  texture: `assets/textures/SpecularHDR.dds`
 }]
 
 function WithSkybox () {
@@ -48,7 +48,7 @@ function WithSkybox () {
 }
 
 export default storiesOf('Babylon Basic', module)
-  .add('Skybox', () => (
+  .addWithJSX('Skybox', () => (
     <div style={{ flex: 1, display: 'flex' }}>
       <WithSkybox />
     </div>

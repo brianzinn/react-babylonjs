@@ -7,4 +7,5 @@ coverage
 .idea
 compiled
 .awcache
+dist
 /package-lock.json

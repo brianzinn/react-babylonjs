@@ -5,7 +5,7 @@ import { Vector3 } from 'babylonjs'
 import '../../style.css'
 
 export default storiesOf('Babylon Basic', module)
-  .add('Simple objects', () => (
+  .addWithJSX('Simple objects', () => (
     <div style={{ flex: 1, display: 'flex' }}>
       <Engine antialias adaptToDeviceRatio canvasId='babylonJS' >
         <Scene>

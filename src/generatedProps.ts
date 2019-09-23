@@ -1,1383 +1,2447 @@
-import * as BABYLON from "babylonjs"
-import GUI from "babylonjs-gui"
-
-export class FiberDynamicTerrainProps {
-  name?: string
-  scene?: any
-  terrainSub?: number
-  mapData?: number[] | Float32Array
-  mapSubX?: number
-  mapSubZ?: number
-  mapUVs?: number[] | Float32Array
-  mapColors?: number[] | Float32Array
-  mapNormals?: number[] | Float32Array
-  invertSide?: boolean
-  camera?: any
-  SPmapData?: number[][] | Float32Array[]
-  sps?: any
-  SPcolorData?: number[][] | Float32Array[]
-  SPuvData?: number[][] | Float32Array[]
-  intializedCallback?: any
-}
-export class FiberNodeProps {
-  addToSceneRootNodes?: any
-  animationPropertiesOverride?: BABYLON.AnimationPropertiesOverride
-  animations?: BABYLON.Animation[]
-  doNotSerialize?: boolean
-  id?: string
-  metadata?: any
-  name?: string
-  onDispose?: () => void
-  onDisposeObservable?: BABYLON.Observable<BABYLON.Node>
-  onReady?: (node: BABYLON.Node) => void
-  parent?: BABYLON.Node
-  removeFromSceneRootNodes?: any
-  reservedDataStore?: any
-  state?: string
-  uniqueId?: number
-  setEnabled?: any
-}
-
-export class FiberTransformNodeProps extends FiberNodeProps {
-  billboardMode?: number
-  ignoreNonUniformScaling?: boolean
-  infiniteDistance?: boolean
-  onAfterWorldMatrixUpdateObservable?: BABYLON.Observable<BABYLON.TransformNode>
-  position?: BABYLON.Vector3
-  rotation?: BABYLON.Vector3
-  rotationQuaternion?: BABYLON.Quaternion
-  scaling?: BABYLON.Vector3
-  scalingDeterminant?: number
-  setAbsolutePosition?: any
-  setDirection?: any
-  setParent?: any
-  setPivotMatrix?: any
-  setPivotPoint?: any
-  setPositionWithLocalVector?: any
-  setPreTransformMatrix?: any
-}
-
-export class FiberAbstractMeshProps extends FiberTransformNodeProps {
-  actionManager?: BABYLON.ActionManager
-  alphaIndex?: number
-  alwaysSelectAsActiveMesh?: boolean
-  applyFog?: boolean
-  checkCollisions?: boolean
-  collisionGroup?: number
-  collisionMask?: number
-  computeBonesUsingShaders?: boolean
-  cullingStrategy?: number
-  definedFacingForward?: boolean
-  edgesColor?: BABYLON.Color4
-  edgesWidth?: number
-  ellipsoid?: BABYLON.Vector3
-  ellipsoidOffset?: BABYLON.Vector3
-  enablePointerMoveEvents?: boolean
-  facetDepthSortFrom?: BABYLON.Vector3
-  hasVertexAlpha?: boolean
-  isBlocker?: boolean
-  isPickable?: boolean
-  isVisible?: boolean
-  layerMask?: number
-  material?: BABYLON.Material
-  mustDepthSortFacets?: boolean
-  numBoneInfluencers?: number
-  onCollide?: () => void
-  onCollideObservable?: BABYLON.Observable<BABYLON.AbstractMesh>
-  onCollisionPositionChange?: () => void
-  onCollisionPositionChangeObservable?: BABYLON.Observable<BABYLON.Vector3>
-  onMaterialChangedObservable?: BABYLON.Observable<BABYLON.AbstractMesh>
-  onRebuildObservable?: BABYLON.Observable<BABYLON.AbstractMesh>
-  outlineColor?: BABYLON.Color3
-  outlineWidth?: number
-  overlayAlpha?: number
-  overlayColor?: BABYLON.Color3
-  partitioningBBoxRatio?: number
-  partitioningSubdivisions?: number
-  receiveShadows?: boolean
-  renderingGroupId?: number
-  scaling?: BABYLON.Vector3
-  showSubMeshesBoundingBox?: boolean
-  skeleton?: BABYLON.Skeleton
-  subMeshes?: BABYLON.SubMesh[]
-  useOctreeForCollisions?: boolean
-  useOctreeForPicking?: boolean
-  useOctreeForRenderingSelection?: boolean
-  useVertexColors?: boolean
-  visibility?: number
-  setBoundingInfo?: any
-  setIndices?: any
-  setVerticesData?: any
-}
-
-export class FiberMeshProps extends FiberAbstractMeshProps {
-  delayLoadingFile?: string
-  delayLoadState?: number
-  instances?: BABYLON.InstancedMesh[]
-  isUnIndexed?: boolean
-  meshMap?: any
-  morphTargetManager?: BABYLON.MorphTargetManager
-  normalizeSkinFourWeights?: any
-  normalizeSkinWeightsAndExtra?: any
-  onBeforeDraw?: () => void
-  onLODLevelSelection?: (distance: number, mesh: BABYLON.Mesh, selectedLevel: BABYLON.Mesh) => void
-  overrideMaterialSideOrientation?: number
-  overridenInstanceCount?: number
-  setIndices?: any
-  setMaterialByID?: any
-  setVerticesBuffer?: any
-  setVerticesData?: any
-}
-
-export class FiberCameraProps extends FiberNodeProps {
-  cameraRigMode?: number
-  customRenderTargets?: BABYLON.RenderTargetTexture[]
-  fov?: number
-  fovMode?: number
-  inertia?: number
-  inputs?: BABYLON.CameraInputsManager<BABYLON.Camera>
-  interaxialDistance?: number
-  isIntermediate?: boolean
-  isStereoscopicSideBySide?: boolean
-  layerMask?: number
-  maxZ?: number
-  minZ?: number
-  mode?: number
-  onAfterCheckInputsObservable?: BABYLON.Observable<BABYLON.Camera>
-  onProjectionMatrixChangedObservable?: BABYLON.Observable<BABYLON.Camera>
-  onRestoreStateObservable?: BABYLON.Observable<BABYLON.Camera>
-  onViewMatrixChangedObservable?: BABYLON.Observable<BABYLON.Camera>
-  orthoBottom?: number
-  orthoLeft?: number
-  orthoRight?: number
-  orthoTop?: number
-  outputRenderTarget?: BABYLON.RenderTargetTexture
-  position?: BABYLON.Vector3
-  upVector?: BABYLON.Vector3
-  viewport?: BABYLON.Viewport
-  setCameraRigMode?: any
-  setCameraRigParameter?: any
-}
-
-export class FiberTargetCameraProps extends FiberCameraProps {
-  cameraDirection?: BABYLON.Vector3
-  cameraRotation?: BABYLON.Vector2
-  lockedTarget?: any
-  noRotationConstraint?: boolean
-  rotation?: BABYLON.Vector3
-  rotationQuaternion?: BABYLON.Quaternion
-  speed?: number
-  updateUpVectorFromRotation?: boolean
-  setTarget?: any
-}
-
-export class FiberArcRotateCameraProps extends FiberTargetCameraProps {
-  allowUpsideDown?: boolean
-  alpha?: number
-  angularSensibilityX?: number
-  angularSensibilityY?: number
-  beta?: number
-  checkCollisions?: boolean
-  collisionRadius?: BABYLON.Vector3
-  inertialAlphaOffset?: number
-  inertialBetaOffset?: number
-  inertialPanningX?: number
-  inertialPanningY?: number
-  inertialRadiusOffset?: number
-  inputs?: BABYLON.ArcRotateCameraInputsManager
-  keysDown?: number[]
-  keysLeft?: number[]
-  keysRight?: number[]
-  keysUp?: number[]
-  lowerAlphaLimit?: number
-  lowerBetaLimit?: number
-  lowerRadiusLimit?: number
-  onCollide?: (collidedMesh: BABYLON.AbstractMesh) => void
-  onMeshTargetChangedObservable?: BABYLON.Observable<BABYLON.AbstractMesh>
-  panningAxis?: BABYLON.Vector3
-  panningDistanceLimit?: number
-  panningInertia?: number
-  panningOriginTarget?: BABYLON.Vector3
-  panningSensibility?: number
-  pinchDeltaPercentage?: number
-  pinchPrecision?: number
-  pinchToPanMaxDistance?: number
-  radius?: number
-  target?: BABYLON.Vector3
-  targetScreenOffset?: BABYLON.Vector2
-  upperAlphaLimit?: number
-  upperBetaLimit?: number
-  upperRadiusLimit?: number
-  useAutoRotationBehavior?: boolean
-  useBouncingBehavior?: boolean
-  useFramingBehavior?: boolean
-  useInputToRestoreState?: boolean
-  wheelDeltaPercentage?: number
-  wheelPrecision?: number
-  zoomOnFactor?: number
-  setPosition?: any
-  setTarget?: any
-}
-
-export class FiberVRDeviceOrientationArcRotateCameraProps extends FiberArcRotateCameraProps {}
-
-export class FiberAnaglyphArcRotateCameraProps extends FiberArcRotateCameraProps {}
-
-export class FiberStereoscopicArcRotateCameraProps extends FiberArcRotateCameraProps {}
-
-export class FiberFlyCameraProps extends FiberTargetCameraProps {
-  angularSensibility?: number
-  applyGravity?: boolean
-  bankedTurn?: boolean
-  bankedTurnLimit?: number
-  bankedTurnMultiplier?: number
-  cameraDirection?: BABYLON.Vector3
-  checkCollisions?: boolean
-  collisionMask?: number
-  ellipsoid?: BABYLON.Vector3
-  ellipsoidOffset?: BABYLON.Vector3
-  inputs?: BABYLON.FlyCameraInputsManager
-  keysBackward?: number[]
-  keysDown?: number[]
-  keysForward?: number[]
-  keysLeft?: number[]
-  keysRight?: number[]
-  keysUp?: number[]
-  onCollide?: (collidedMesh: BABYLON.AbstractMesh) => void
-  rollCorrect?: number
-  rotationQuaternion?: BABYLON.Quaternion
-}
-
-export class FiberFollowCameraProps extends FiberTargetCameraProps {
-  cameraAcceleration?: number
-  heightOffset?: number
-  lockedTarget?: BABYLON.AbstractMesh
-  maxCameraSpeed?: number
-  radius?: number
-  rotationOffset?: number
-}
-
-export class FiberArcFollowCameraProps extends FiberTargetCameraProps {
-  alpha?: number
-  beta?: number
-  radius?: number
-  target?: BABYLON.AbstractMesh
-}
-
-export class FiberFreeCameraProps extends FiberTargetCameraProps {
-  angularSensibility?: number
-  applyGravity?: boolean
-  checkCollisions?: boolean
-  collisionMask?: number
-  ellipsoid?: BABYLON.Vector3
-  ellipsoidOffset?: BABYLON.Vector3
-  inputs?: BABYLON.FreeCameraInputsManager
-  keysDown?: number[]
-  keysLeft?: number[]
-  keysRight?: number[]
-  keysUp?: number[]
-  onCollide?: (collidedMesh: BABYLON.AbstractMesh) => void
-}
-
-export class FiberDeviceOrientationCameraProps extends FiberFreeCameraProps {}
-
-export class FiberVRDeviceOrientationFreeCameraProps extends FiberDeviceOrientationCameraProps {}
-
-export class FiberVRDeviceOrientationGamepadCameraProps extends FiberVRDeviceOrientationFreeCameraProps {}
-
-export class FiberTouchCameraProps extends FiberFreeCameraProps {
-  touchAngularSensibility?: number
-  touchMoveSensibility?: number
-}
-
-export class FiberUniversalCameraProps extends FiberTouchCameraProps {
-  gamepadAngularSensibility?: number
-  gamepadMoveSensibility?: number
-}
-
-export class FiberGamepadCameraProps extends FiberUniversalCameraProps {}
-
-export class FiberAnaglyphGamepadCameraProps extends FiberGamepadCameraProps {}
-
-export class FiberStereoscopicGamepadCameraProps extends FiberGamepadCameraProps {}
-
-export class FiberAnaglyphUniversalCameraProps extends FiberUniversalCameraProps {}
-
-export class FiberStereoscopicUniversalCameraProps extends FiberUniversalCameraProps {}
-
-export class FiberVirtualJoysticksCameraProps extends FiberFreeCameraProps {}
-
-export class FiberWebVRFreeCameraProps extends FiberFreeCameraProps {
-  controllers?: BABYLON.WebVRController[]
-  devicePosition?: BABYLON.Vector3
-  deviceRotationQuaternion?: BABYLON.Quaternion
-  deviceScaleFactor?: number
-  onControllerMeshLoadedObservable?: BABYLON.Observable<BABYLON.WebVRController>
-  onControllersAttachedObservable?: BABYLON.Observable<BABYLON.WebVRController[]>
-  onPoseUpdatedFromDeviceObservable?: BABYLON.Observable<any>
-  rawPose?: BABYLON.DevicePose
-  rigParenting?: boolean
-  updateCacheCalled?: any
-  webVROptions?: any
-}
-
-export class FiberAnaglyphFreeCameraProps extends FiberFreeCameraProps {}
-
-export class FiberStereoscopicFreeCameraProps extends FiberFreeCameraProps {}
-
-export class FiberWebXRCameraProps extends FiberFreeCameraProps {}
-
-export class FiberMaterialProps {
-  alpha?: number
-  alphaMode?: number
-  animations?: BABYLON.Animation[]
-  backFaceCulling?: boolean
-  checkReadyOnEveryCall?: boolean
-  checkReadyOnlyOnce?: boolean
-  disableDepthWrite?: boolean
-  doNotSerialize?: boolean
-  fillMode?: number
-  fogEnabled?: boolean
-  forceDepthWrite?: boolean
-  getRenderTargetTextures?: () => BABYLON.SmartArray<BABYLON.RenderTargetTexture>
-  id?: string
-  meshMap?: { [id: string]: BABYLON.AbstractMesh }
-  metadata?: any
-  name?: string
-  needDepthPrePass?: boolean
-  onBind?: (Mesh: BABYLON.AbstractMesh) => void
-  onCompiled?: (effect: BABYLON.Effect) => void
-  onDispose?: () => void
-  onDisposeObservable?: BABYLON.Observable<BABYLON.Material>
-  onError?: (effect: BABYLON.Effect, errors: string) => void
-  pointsCloud?: boolean
-  pointSize?: number
-  releaseVertexArrayObject?: any
-  reservedDataStore?: any
-  separateCullingPass?: boolean
-  sideOrientation?: number
-  state?: string
-  uniqueId?: number
-  wireframe?: boolean
-  zOffset?: number
-}
-
-export class FiberMultiMaterialProps extends FiberMaterialProps {
-  subMaterials?: BABYLON.Material[]
-}
-
-export class FiberPushMaterialProps extends FiberMaterialProps {
-  allowShaderHotSwapping?: boolean
-}
-
-export class FiberStandardMaterialProps extends FiberPushMaterialProps {
-  alphaCutOff?: number
-  ambientColor?: BABYLON.Color3
-  ambientTexture?: BABYLON.BaseTexture
-  bumpTexture?: BABYLON.BaseTexture
-  cameraColorCurves?: BABYLON.ColorCurves
-  cameraColorCurvesEnabled?: boolean
-  cameraColorGradingEnabled?: boolean
-  cameraColorGradingTexture?: BABYLON.BaseTexture
-  cameraContrast?: number
-  cameraExposure?: number
-  cameraToneMappingEnabled?: boolean
-  customShaderNameResolve?: (
-    shaderName: string,
-    uniforms: string[],
-    uniformBuffers: string[],
-    samplers: string[],
-    defines: BABYLON.StandardMaterialDefines
-  ) => string
-  diffuseColor?: BABYLON.Color3
-  diffuseFresnelParameters?: BABYLON.FresnelParameters
-  diffuseTexture?: BABYLON.BaseTexture
-  disableLighting?: boolean
-  emissiveColor?: BABYLON.Color3
-  emissiveFresnelParameters?: BABYLON.FresnelParameters
-  emissiveTexture?: BABYLON.BaseTexture
-  imageProcessingConfiguration?: BABYLON.ImageProcessingConfiguration
-  indexOfRefraction?: number
-  invertNormalMapX?: boolean
-  invertNormalMapY?: boolean
-  invertRefractionY?: boolean
-  lightmapTexture?: BABYLON.BaseTexture
-  linkEmissiveWithDiffuse?: boolean
-  maxSimultaneousLights?: number
-  opacityFresnelParameters?: BABYLON.FresnelParameters
-  opacityTexture?: BABYLON.BaseTexture
-  parallaxScaleBias?: number
-  reflectionFresnelParameters?: BABYLON.FresnelParameters
-  reflectionTexture?: BABYLON.BaseTexture
-  refractionFresnelParameters?: BABYLON.FresnelParameters
-  refractionTexture?: BABYLON.BaseTexture
-  roughness?: number
-  specularColor?: BABYLON.Color3
-  specularPower?: number
-  specularTexture?: BABYLON.BaseTexture
-  twoSidedLighting?: boolean
-  useAlphaFromDiffuseTexture?: boolean
-  useEmissiveAsIllumination?: boolean
-  useGlossinessFromSpecularMapAlpha?: boolean
-  useLightmapAsShadowmap?: boolean
-  useLogarithmicDepth?: boolean
-  useObjectSpaceNormalMap?: boolean
-  useParallax?: boolean
-  useParallaxOcclusion?: boolean
-  useReflectionFresnelFromSpecular?: boolean
-  useReflectionOverAlpha?: boolean
-  useSpecularOverAlpha?: boolean
-}
-
-export class FiberBackgroundMaterialProps extends FiberPushMaterialProps {
-  cameraColorCurves?: BABYLON.ColorCurves
-  cameraColorCurvesEnabled?: boolean
-  cameraColorGradingEnabled?: boolean
-  cameraColorGradingTexture?: BABYLON.BaseTexture
-  cameraContrast?: number
-  cameraExposure?: number
-  cameraToneMappingEnabled?: boolean
-  diffuseTexture?: BABYLON.BaseTexture
-  enableNoise?: boolean
-  fovMultiplier?: number
-  imageProcessingConfiguration?: BABYLON.ImageProcessingConfiguration
-  maxSimultaneousLights?: number
-  opacityFresnel?: boolean
-  primaryColor?: BABYLON.Color3
-  primaryColorHighlightLevel?: number
-  primaryColorShadowLevel?: number
-  reflectionAmount?: number
-  reflectionBlur?: number
-  reflectionFalloffDistance?: number
-  reflectionFresnel?: boolean
-  reflectionReflectance0?: number
-  reflectionReflectance90?: number
-  reflectionStandardFresnelWeight?: number
-  reflectionTexture?: BABYLON.BaseTexture
-  sceneCenter?: BABYLON.Vector3
-  shadowLevel?: number
-  shadowLights?: BABYLON.IShadowLight[]
-  switchToBGR?: boolean
-  useEquirectangularFOV?: boolean
-  useRGBColor?: boolean
-}
-
-export class FiberPBRBaseMaterialProps extends FiberPushMaterialProps {
-  transparencyMode?: number
-  useLogarithmicDepth?: boolean
-}
-
-export class FiberPBRBaseSimpleMaterialProps extends FiberPBRBaseMaterialProps {
-  alphaCutOff?: number
-  disableLighting?: boolean
-  doubleSided?: boolean
-  emissiveColor?: BABYLON.Color3
-  emissiveTexture?: BABYLON.BaseTexture
-  environmentTexture?: BABYLON.BaseTexture
-  invertNormalMapX?: boolean
-  invertNormalMapY?: boolean
-  lightmapTexture?: BABYLON.BaseTexture
-  maxSimultaneousLights?: number
-  normalTexture?: BABYLON.BaseTexture
-  occlusionStrength?: number
-  occlusionTexture?: BABYLON.BaseTexture
-  useLightmapAsShadowmap?: boolean
-}
-
-export class FiberPBRMetallicRoughnessMaterialProps extends FiberPBRBaseSimpleMaterialProps {
-  baseColor?: BABYLON.Color3
-  baseTexture?: BABYLON.BaseTexture
-  metallic?: number
-  metallicRoughnessTexture?: BABYLON.BaseTexture
-  roughness?: number
-}
-
-export class FiberPBRSpecularGlossinessMaterialProps extends FiberPBRBaseSimpleMaterialProps {
-  diffuseColor?: BABYLON.Color3
-  diffuseTexture?: BABYLON.BaseTexture
-  glossiness?: number
-  specularColor?: BABYLON.Color3
-  specularGlossinessTexture?: BABYLON.BaseTexture
-}
-
-export class FiberPBRMaterialProps extends FiberPBRBaseMaterialProps {
-  albedoColor?: BABYLON.Color3
-  albedoTexture?: BABYLON.BaseTexture
-  alphaCutOff?: number
-  ambientColor?: BABYLON.Color3
-  ambientTexture?: BABYLON.BaseTexture
-  ambientTextureImpactOnAnalyticalLights?: number
-  ambientTextureStrength?: number
-  bumpTexture?: BABYLON.BaseTexture
-  cameraColorCurves?: BABYLON.ColorCurves
-  cameraColorCurvesEnabled?: boolean
-  cameraColorGradingEnabled?: boolean
-  cameraColorGradingTexture?: BABYLON.BaseTexture
-  cameraContrast?: number
-  cameraExposure?: number
-  cameraToneMappingEnabled?: boolean
-  directIntensity?: number
-  disableBumpMap?: boolean
-  disableLighting?: boolean
-  emissiveColor?: BABYLON.Color3
-  emissiveIntensity?: number
-  emissiveTexture?: BABYLON.BaseTexture
-  enableSpecularAntiAliasing?: boolean
-  environmentBRDFTexture?: BABYLON.BaseTexture
-  environmentIntensity?: number
-  forceAlphaTest?: boolean
-  forceIrradianceInFragment?: boolean
-  forceNormalForward?: boolean
-  imageProcessingConfiguration?: BABYLON.ImageProcessingConfiguration
-  indexOfRefraction?: number
-  invertNormalMapX?: boolean
-  invertNormalMapY?: boolean
-  invertRefractionY?: boolean
-  lightmapTexture?: BABYLON.BaseTexture
-  linkRefractionWithTransparency?: boolean
-  maxSimultaneousLights?: number
-  metallic?: number
-  metallicTexture?: BABYLON.BaseTexture
-  microSurface?: number
-  microSurfaceTexture?: BABYLON.BaseTexture
-  opacityTexture?: BABYLON.BaseTexture
-  parallaxScaleBias?: number
-  reflectionColor?: BABYLON.Color3
-  reflectionTexture?: BABYLON.BaseTexture
-  reflectivityColor?: BABYLON.Color3
-  reflectivityTexture?: BABYLON.BaseTexture
-  refractionTexture?: BABYLON.BaseTexture
-  roughness?: number
-  specularIntensity?: number
-  twoSidedLighting?: boolean
-  unlit?: boolean
-  useAlphaFresnel?: boolean
-  useAlphaFromAlbedoTexture?: boolean
-  useAmbientInGrayScale?: boolean
-  useAmbientOcclusionFromMetallicTextureRed?: boolean
-  useAutoMicroSurfaceFromReflectivityMap?: boolean
-  useGLTFLightFalloff?: boolean
-  useHorizonOcclusion?: boolean
-  useLightmapAsShadowmap?: boolean
-  useLinearAlphaFresnel?: boolean
-  useMetallnessFromMetallicTextureBlue?: boolean
-  useMicroSurfaceFromReflectivityMapAlpha?: boolean
-  useObjectSpaceNormalMap?: boolean
-  useParallax?: boolean
-  useParallaxOcclusion?: boolean
-  usePhysicalLightFalloff?: boolean
-  useRadianceOcclusion?: boolean
-  useRadianceOverAlpha?: boolean
-  useRoughnessFromMetallicTextureAlpha?: boolean
-  useRoughnessFromMetallicTextureGreen?: boolean
-  useSpecularOverAlpha?: boolean
-}
-
-export class FiberShaderMaterialProps extends FiberMaterialProps {
-  setArray2?: any
-  setArray3?: any
-  setColor3?: any
-  setColor3Array?: any
-  setColor4?: any
-  setFloat?: any
-  setFloats?: any
-  setInt?: any
-  setMatrix?: any
-  setMatrix2x2?: any
-  setMatrix3x3?: any
-  setTexture?: any
-  setTextureArray?: any
-  setVector2?: any
-  setVector3?: any
-  setVector4?: any
-}
-
-export class FiberLightProps extends FiberNodeProps {
-  diffuse?: BABYLON.Color3
-  excludedMeshes?: BABYLON.AbstractMesh[]
-  excludeWithLayerMask?: number
-  falloffType?: number
-  includedOnlyMeshes?: BABYLON.AbstractMesh[]
-  includeOnlyWithLayerMask?: number
-  intensity?: number
-  intensityMode?: number
-  lightmapMode?: number
-  radius?: number
-  range?: number
-  renderPriority?: number
-  shadowEnabled?: boolean
-  specular?: BABYLON.Color3
-  setEnabled?: any
-}
-
-export class FiberHemisphericLightProps extends FiberLightProps {
-  direction?: BABYLON.Vector3
-  groundColor?: BABYLON.Color3
-  setDirectionToTarget?: any
-}
-
-export class FiberShadowLightProps extends FiberLightProps {
-  customProjectionMatrixBuilder?: (viewMatrix: BABYLON.Matrix, renderList: BABYLON.AbstractMesh[], result: BABYLON.Matrix) => void
-  direction?: BABYLON.Vector3
-  position?: BABYLON.Vector3
-  shadowMaxZ?: number
-  shadowMinZ?: number
-  transformedDirection?: BABYLON.Vector3
-  transformedPosition?: BABYLON.Vector3
-  setDirectionToTarget?: any
-  setShadowProjectionMatrix?: any
-}
-
-export class FiberDirectionalLightProps extends FiberShadowLightProps {
-  autoUpdateExtends?: boolean
-  shadowFrustumSize?: number
-  shadowOrthoScale?: number
-}
-
-export class FiberPointLightProps extends FiberShadowLightProps {
-  direction?: BABYLON.Vector3
-  shadowAngle?: number
-}
-
-export class FiberSpotLightProps extends FiberShadowLightProps {
-  angle?: number
-  exponent?: number
-  innerAngle?: number
-  projectionTexture?: BABYLON.BaseTexture
-  projectionTextureLightFar?: number
-  projectionTextureLightNear?: number
-  projectionTextureUpDirection?: BABYLON.Vector3
-  shadowAngleScale?: number
-}
-
-export class FiberControlProps {
-  alpha?: number
-  clipChildren?: boolean
-  color?: string
-  disabledColor?: string
-  fontFamily?: string
-  fontOffset?: { ascent: number; height: number; descent: number }
-  fontSize?: string | number
-  fontStyle?: string
-  fontWeight?: string
-  height?: string | number
-  horizontalAlignment?: number
-  hoverCursor?: string
-  isEnabled?: boolean
-  isFocusInvisible?: boolean
-  isHighlighted?: boolean
-  isHitTestVisible?: boolean
-  isPointerBlocker?: boolean
-  isVisible?: boolean
-  left?: string | number
-  linkOffsetX?: string | number
-  linkOffsetY?: string | number
-  metadata?: any
-  name?: string
-  notRenderable?: boolean
-  onAfterDrawObservable?: BABYLON.Observable<BABYLON.GUI.Control>
-  onBeforeDrawObservable?: BABYLON.Observable<BABYLON.GUI.Control>
-  onDirtyObservable?: BABYLON.Observable<BABYLON.GUI.Control>
-  onPointerClickObservable?: BABYLON.Observable<BABYLON.GUI.Vector2WithInfo>
-  onPointerDownObservable?: BABYLON.Observable<BABYLON.GUI.Vector2WithInfo>
-  onPointerEnterObservable?: BABYLON.Observable<BABYLON.GUI.Control>
-  onPointerMoveObservable?: BABYLON.Observable<BABYLON.Vector2>
-  onPointerOutObservable?: BABYLON.Observable<BABYLON.GUI.Control>
-  onPointerUpObservable?: BABYLON.Observable<BABYLON.GUI.Vector2WithInfo>
-  paddingBottom?: string | number
-  paddingLeft?: string | number
-  paddingRight?: string | number
-  paddingTop?: string | number
-  parent?: BABYLON.GUI.Container
-  rotation?: number
-  scaleX?: number
-  scaleY?: number
-  shadowBlur?: number
-  shadowColor?: string
-  shadowOffsetX?: number
-  shadowOffsetY?: number
-  style?: BABYLON.GUI.Style
-  top?: string | number
-  transformCenterX?: number
-  transformCenterY?: number
-  uniqueId?: number
-  verticalAlignment?: number
-  width?: string | number
-  zIndex?: number
-}
-
-export class FiberCheckboxProps extends FiberControlProps {
-  background?: string
-  checkSizeRatio?: number
-  isChecked?: boolean
-  name?: string
-  onIsCheckedChangedObservable?: BABYLON.Observable<boolean>
-  thickness?: number
-}
-
-export class FiberColorPickerProps extends FiberControlProps {
-  height?: string | number
-  name?: string
-  onValueChangedObservable?: BABYLON.Observable<BABYLON.Color3>
-  size?: string | number
-  value?: BABYLON.Color3
-  width?: string | number
-}
-
-export class FiberContainerProps extends FiberControlProps {
-  adaptHeightToChildren?: boolean
-  adaptWidthToChildren?: boolean
-  background?: string
-  name?: string
-}
-
-export class FiberEllipseProps extends FiberContainerProps {
-  name?: string
-  thickness?: number
-}
-
-export class FiberGridProps extends FiberContainerProps {
-  name?: string
-  setColumnDefinition?: any
-  setRowDefinition?: any
-}
-
-export class FiberStackPanelProps extends FiberContainerProps {
-  height?: string | number
-  isVertical?: boolean
-  name?: string
-  width?: string | number
-}
-
-export class FiberVirtualKeyboardProps extends FiberStackPanelProps {
-  defaultButtonBackground?: string
-  defaultButtonColor?: string
-  defaultButtonHeight?: string
-  defaultButtonPaddingBottom?: string
-  defaultButtonPaddingLeft?: string
-  defaultButtonPaddingRight?: string
-  defaultButtonPaddingTop?: string
-  defaultButtonWidth?: string
-  onKeyPressObservable?: BABYLON.Observable<string>
-  selectedShiftThickness?: number
-  shiftButtonColor?: string
-  shiftState?: number
-}
-
-export class FiberRectangleProps extends FiberContainerProps {
-  cornerRadius?: number
-  name?: string
-  thickness?: number
-}
-
-export class FiberButtonProps extends FiberRectangleProps {
-  name?: string
-  pointerDownAnimation?: () => void
-  pointerEnterAnimation?: () => void
-  pointerOutAnimation?: () => void
-  pointerUpAnimation?: () => void
-}
-
-export class FiberSelectionPanelProps extends FiberRectangleProps {
-  barColor?: string
-  barHeight?: string
-  buttonBackground?: string
-  buttonColor?: string
-  groups?: BABYLON.GUI.SelectorGroup[]
-  headerColor?: string
-  labelColor?: string
-  name?: string
-  spacerHeight?: string
-  setHeaderName?: any
-}
-
-export class FiberScrollViewerProps extends FiberRectangleProps {
-  barBackground?: string
-  barBorderColor?: string
-  barColor?: string
-  name?: string
-  paddingBottom?: string | number
-  paddingLeft?: string | number
-  paddingRight?: string | number
-  paddingTop?: string | number
-}
-
-export class FiberImageProps extends FiberControlProps {
-  autoScale?: boolean
-  cellHeight?: number
-  cellId?: number
-  cellWidth?: number
-  domImage?: HTMLImageElement
-  name?: string
-  onImageLoadedObservable?: BABYLON.Observable<BABYLON.GUI.Image>
-  source?: string
-  sourceHeight?: number
-  sourceLeft?: number
-  sourceTop?: number
-  sourceWidth?: number
-  stretch?: number
-}
-
-export class FiberInputTextProps extends FiberControlProps {
-  addKey?: boolean
-  autoStretchWidth?: boolean
-  background?: string
-  currentKey?: string
-  deadKey?: boolean
-  focusedBackground?: string
-  highligherOpacity?: number
-  highlightedText?: string
-  margin?: string
-  maxWidth?: string | number
-  name?: string
-  onBeforeKeyAddObservable?: BABYLON.Observable<BABYLON.GUI.InputText>
-  onBlurObservable?: BABYLON.Observable<BABYLON.GUI.InputText>
-  onFocusObservable?: BABYLON.Observable<BABYLON.GUI.InputText>
-  onFocusSelectAll?: boolean
-  onTextChangedObservable?: BABYLON.Observable<BABYLON.GUI.InputText>
-  onTextCopyObservable?: BABYLON.Observable<BABYLON.GUI.InputText>
-  onTextCutObservable?: BABYLON.Observable<BABYLON.GUI.InputText>
-  onTextHighlightObservable?: BABYLON.Observable<BABYLON.GUI.InputText>
-  onTextPasteObservable?: BABYLON.Observable<BABYLON.GUI.InputText>
-  placeholderColor?: string
-  placeholderText?: string
-  promptMessage?: string
-  text?: string
-  textHighlightColor?: string
-  thickness?: number
-  width?: string | number
-}
-
-export class FiberInputPasswordProps extends FiberInputTextProps {}
-
-export class FiberLineProps extends FiberControlProps {
-  connectedControl?: BABYLON.GUI.Control
-  dash?: number[]
-  horizontalAlignment?: number
-  lineWidth?: number
-  name?: string
-  verticalAlignment?: number
-  x1?: string | number
-  x2?: string | number
-  y1?: string | number
-  y2?: string | number
-}
-
-export class FiberMultiLineProps extends FiberControlProps {
-  dash?: number[]
-  horizontalAlignment?: number
-  lineWidth?: number
-  name?: string
-  onPointUpdate?: () => void
-  verticalAlignment?: number
-}
-
-export class FiberRadioButtonProps extends FiberControlProps {
-  background?: string
-  checkSizeRatio?: number
-  group?: string
-  isChecked?: boolean
-  name?: string
-  onIsCheckedChangedObservable?: BABYLON.Observable<boolean>
-  thickness?: number
-}
-
-export class FiberTextBlockProps extends FiberControlProps {
-  lineSpacing?: string | number
-  name?: string
-  onLinesReadyObservable?: BABYLON.Observable<BABYLON.GUI.TextBlock>
-  onTextChangedObservable?: BABYLON.Observable<BABYLON.GUI.TextBlock>
-  outlineColor?: string
-  outlineWidth?: number
-  resizeToFit?: boolean
-  text?: string
-  textHorizontalAlignment?: number
-  textVerticalAlignment?: number
-  textWrapping?: boolean | BABYLON.GUI.TextWrapping
-}
-
-export class FiberDisplayGridProps extends FiberControlProps {
-  background?: string
-  cellHeight?: number
-  cellWidth?: number
-  displayMajorLines?: boolean
-  displayMinorLines?: boolean
-  majorLineColor?: string
-  majorLineFrequency?: number
-  majorLineTickness?: number
-  minorLineColor?: string
-  minorLineTickness?: number
-  name?: string
-}
-
-export class FiberBaseSliderProps extends FiberControlProps {
-  barOffset?: string | number
-  displayThumb?: boolean
-  isThumbClamped?: boolean
-  isVertical?: boolean
-  maximum?: number
-  minimum?: number
-  name?: string
-  onValueChangedObservable?: BABYLON.Observable<number>
-  thumbWidth?: string | number
-  value?: number
-}
-
-export class FiberSliderProps extends FiberBaseSliderProps {
-  background?: string
-  borderColor?: string
-  isThumbCircle?: boolean
-  name?: string
-}
-
-export class FiberImageBasedSliderProps extends FiberBaseSliderProps {
-  backgroundImage?: BABYLON.GUI.Image
-  displayThumb?: boolean
-  name?: string
-  thumbImage?: BABYLON.GUI.Image
-  valueBarImage?: BABYLON.GUI.Image
-}
-
-export class FiberControl3DProps {
-  isVisible?: boolean
-  name?: string
-  onPointerClickObservable?: BABYLON.Observable<BABYLON.GUI.Vector3WithInfo>
-  onPointerDownObservable?: BABYLON.Observable<BABYLON.GUI.Vector3WithInfo>
-  onPointerEnterObservable?: BABYLON.Observable<BABYLON.GUI.Control3D>
-  onPointerMoveObservable?: BABYLON.Observable<BABYLON.Vector3>
-  onPointerOutObservable?: BABYLON.Observable<BABYLON.GUI.Control3D>
-  onPointerUpObservable?: BABYLON.Observable<BABYLON.GUI.Vector3WithInfo>
-  parent?: BABYLON.GUI.Container3D
-  pointerDownAnimation?: () => void
-  pointerEnterAnimation?: () => void
-  pointerOutAnimation?: () => void
-  pointerUpAnimation?: () => void
-  position?: BABYLON.Vector3
-  scaling?: BABYLON.Vector3
-}
-
-export class FiberAbstractButton3DProps extends FiberControl3DProps {}
-
-export class FiberButton3DProps extends FiberAbstractButton3DProps {
-  content?: BABYLON.GUI.Control
-  contentResolution?: number
-  contentScaleRatio?: number
-}
-
-export class FiberHolographicButtonProps extends FiberButton3DProps {
-  imageUrl?: string
-  text?: string
-  tooltipText?: string
-}
-
-export class FiberMeshButton3DProps extends FiberButton3DProps {}
-
-export class FiberContainer3DProps extends FiberControl3DProps {
-  blockLayout?: boolean
-}
-
-export class FiberStackPanel3DProps extends FiberContainer3DProps {
-  isVertical?: boolean
-  margin?: number
-}
-
-export class FiberVolumeBasedPanelProps extends FiberContainer3DProps {
-  columns?: number
-  margin?: number
-  orientation?: number
-  rows?: number
-}
-
-export class FiberCylinderPanelProps extends FiberVolumeBasedPanelProps {
-  radius?: number
-}
-
-export class FiberPlanePanelProps extends FiberVolumeBasedPanelProps {}
-
-export class FiberScatterPanelProps extends FiberVolumeBasedPanelProps {
-  iteration?: number
-}
-
-export class FiberSpherePanelProps extends FiberVolumeBasedPanelProps {
-  radius?: number
-}
-
-export class FiberBaseTextureProps {
-  animations?: BABYLON.Animation[]
-  anisotropicFilteringLevel?: number
-  coordinatesIndex?: number
-  coordinatesMode?: number
-  delayLoadState?: number
-  gammaSpace?: boolean
-  getAlphaFromRGB?: boolean
-  hasAlpha?: boolean
-  invertZ?: boolean
-  is3D?: boolean
-  isCube?: boolean
-  isRenderTarget?: boolean
-  level?: number
-  lodGenerationOffset?: number
-  lodGenerationScale?: number
-  lodLevelInAlpha?: boolean
-  metadata?: any
-  name?: string
-  onDispose?: () => void
-  onDisposeObservable?: BABYLON.Observable<BABYLON.BaseTexture>
-  reservedDataStore?: any
-  sphericalPolynomial?: BABYLON.SphericalPolynomial
-  uniqueId?: number
-  wrapR?: number
-  wrapU?: number
-  wrapV?: number
-}
-
-export class FiberColorGradingTextureProps extends FiberBaseTextureProps {
-  load3dlTexture?: any
-  loadTexture?: any
-  url?: string
-}
-
-export class FiberCubeTextureProps extends FiberBaseTextureProps {
-  boundingBoxPosition?: BABYLON.Vector3
-  boundingBoxSize?: BABYLON.Vector3
-  rotationY?: number
-  url?: string
-  setReflectionTextureMatrix?: any
-}
-
-export class FiberRawCubeTextureProps extends FiberCubeTextureProps {}
-
-export class FiberHDRCubeTextureProps extends FiberBaseTextureProps {
-  boundingBoxPosition?: BABYLON.Vector3
-  boundingBoxSize?: BABYLON.Vector3
-  coordinatesMode?: number
-  isBlocking?: boolean
-  loadTexture?: any
-  rotationY?: number
-  url?: string
-  setReflectionTextureMatrix?: any
-}
-
-export class FiberTextureProps extends FiberBaseTextureProps {
-  isBlocking?: boolean
-  onLoadObservable?: BABYLON.Observable<BABYLON.Texture>
-  uAng?: number
-  uOffset?: number
-  url?: string
-  uRotationCenter?: number
-  uScale?: number
-  vAng?: number
-  vOffset?: number
-  vRotationCenter?: number
-  vScale?: number
-  wAng?: number
-  wRotationCenter?: number
-}
-
-export class FiberDynamicTextureProps extends FiberTextureProps {}
-
-export class FiberRawTextureProps extends FiberTextureProps {
-  format?: number
-}
-
-export class FiberRawTexture3DProps extends FiberTextureProps {
-  format?: number
-}
-
-export class FiberRenderTargetTextureProps extends FiberTextureProps {
-  activeCamera?: BABYLON.Camera
-  boundingBoxPosition?: BABYLON.Vector3
-  boundingBoxSize?: BABYLON.Vector3
-  clearColor?: BABYLON.Color4
-  coordinatesMode?: number
-  customRenderFunction?: (
-    opaqueSubMeshes: BABYLON.SmartArray<BABYLON.SubMesh>,
-    alphaTestSubMeshes: BABYLON.SmartArray<BABYLON.SubMesh>,
-    transparentSubMeshes: BABYLON.SmartArray<BABYLON.SubMesh>,
-    depthOnlySubMeshes: BABYLON.SmartArray<BABYLON.SubMesh>,
-    beforeTransparents?: () => void
-  ) => void
-  depthStencilTexture?: BABYLON.InternalTexture
-  ignoreCameraViewport?: boolean
-  isCube?: boolean
-  onAfterRender?: (faceIndex: number) => void
-  onAfterRenderObservable?: BABYLON.Observable<number>
-  onAfterUnbind?: () => void
-  onAfterUnbindObservable?: BABYLON.Observable<BABYLON.RenderTargetTexture>
-  onBeforeBindObservable?: BABYLON.Observable<BABYLON.RenderTargetTexture>
-  onBeforeRender?: (faceIndex: number) => void
-  onBeforeRenderObservable?: BABYLON.Observable<number>
-  onClear?: (Engine: BABYLON.Engine) => void
-  onClearObservable?: BABYLON.Observable<BABYLON.Engine>
-  refreshRate?: number
-  renderList?: BABYLON.AbstractMesh[]
-  renderListPredicate?: (AbstractMesh: BABYLON.AbstractMesh) => boolean
-  renderParticles?: boolean
-  renderSprites?: boolean
-  renderToTarget?: any
-  samples?: number
-  useCameraPostProcesses?: boolean
-  setRenderingAutoClearDepthStencil?: any
-  setRenderingOrder?: any
-}
-
-export class FiberMirrorTextureProps extends FiberRenderTargetTextureProps {
-  adaptiveBlurKernel?: number
-  blurKernel?: number
-  blurKernelX?: number
-  blurKernelY?: number
-  blurRatio?: number
-  mirrorPlane?: BABYLON.Plane
-  scene?: any
-}
-
-export class FiberMultiRenderTargetProps extends FiberRenderTargetTextureProps {
-  samples?: number
-  wrapU?: number
-  wrapV?: number
-}
-
-export class FiberRefractionTextureProps extends FiberRenderTargetTextureProps {
-  depth?: number
-  refractionPlane?: BABYLON.Plane
-}
-
-export class FiberVideoTextureProps extends FiberTextureProps {
-  reset?: any
-}
-
-export class FiberProceduralTextureProps extends FiberTextureProps {
-  autoClear?: boolean
-  isCube?: boolean
-  isEnabled?: boolean
-  onGenerated?: () => void
-  onGeneratedObservable?: BABYLON.Observable<BABYLON.ProceduralTexture>
-  refreshRate?: number
-  setColor3?: any
-  setColor4?: any
-  setFloat?: any
-  setFloats?: any
-  setFragment?: any
-  setInt?: any
-  setMatrix?: any
-  setTexture?: any
-  setVector2?: any
-  setVector3?: any
-}
-
-export class FiberCustomProceduralTextureProps extends FiberProceduralTextureProps {
-  animate?: boolean
-}
-
-export class FiberNoiseProceduralTextureProps extends FiberProceduralTextureProps {
-  animationSpeedFactor?: number
-  brightness?: number
-  octaves?: number
-  persistence?: number
-}
-
-export class FiberAdvancedDynamicTextureProps extends FiberDynamicTextureProps {
-  background?: string
-  clipboardData?: string
-  focusedControl?: BABYLON.GUI.IFocusableControl
-  idealHeight?: number
-  idealWidth?: number
-  isForeground?: boolean
-  onClipboardObservable?: BABYLON.Observable<BABYLON.ClipboardInfo>
-  onControlPickedObservable?: BABYLON.Observable<BABYLON.GUI.Control>
-  premulAlpha?: boolean
-  renderAtIdealSize?: boolean
-  renderScale?: number
-  useSmallestIdeal?: boolean
-}
-
-export class FiberGUI3DManagerProps {
-  onPickedPointChangedObservable?: BABYLON.Observable<BABYLON.Vector3>
-}
-
-export class FiberShadowGeneratorProps {
-  bias?: number
-  blurBoxOffset?: number
-  blurKernel?: number
-  blurScale?: number
-  contactHardeningLightSizeUVRatio?: number
-  depthScale?: number
-  filter?: number
-  filteringQuality?: number
-  forceBackFacesOnly?: boolean
-  frustumEdgeFalloff?: number
-  normalBias?: number
-  useBlurCloseExponentialShadowMap?: boolean
-  useBlurExponentialShadowMap?: boolean
-  useCloseExponentialShadowMap?: boolean
-  useContactHardeningShadow?: boolean
-  useExponentialShadowMap?: boolean
-  useKernelBlur?: boolean
-  usePercentageCloserFiltering?: boolean
-  usePoissonSampling?: boolean
-  setDarkness?: any
-  setTransparencyShadow?: any
-}
-
-export class FiberEnvironmentHelperProps {
-  onErrorObservable?: BABYLON.Observable<{ message?: string; exception?: any }>
-  setMainColor?: any
-}
-
-export class FiberVRExperienceHelperProps {
-  beforeRender?: any
-  displayGaze?: boolean
-  displayLaserPointer?: boolean
-  displayVRButton?: any
-  gazeTrackerMesh?: BABYLON.Mesh
-  meshSelectionPredicate?: (mesh: BABYLON.AbstractMesh) => boolean
-  moveButtonToBottomRight?: any
-  onAfterCameraTeleport?: BABYLON.Observable<BABYLON.Vector3>
-  onBeforeCameraTeleport?: BABYLON.Observable<BABYLON.Vector3>
-  onControllerMeshLoadedObservable?: BABYLON.Observable<BABYLON.WebVRController>
-  onEnteringVRObservable?: BABYLON.Observable<BABYLON.VRExperienceHelper>
-  onExitingVRObservable?: BABYLON.Observable<BABYLON.VRExperienceHelper>
-  onNewMeshPicked?: BABYLON.Observable<BABYLON.PickingInfo>
-  onNewMeshSelected?: BABYLON.Observable<BABYLON.AbstractMesh>
-  onSelectedMeshUnselected?: BABYLON.Observable<BABYLON.AbstractMesh>
-  onVRDisplayChanged?: any
-  onVrDisplayPresentChange?: any
-  position?: BABYLON.Vector3
-  raySelectionPredicate?: (mesh: BABYLON.AbstractMesh) => boolean
-  teleportationEnabled?: boolean
-  teleportationTarget?: BABYLON.Mesh
-  updateButtonVisibility?: any
-  updateGazeTrackerScale?: boolean
-  webVROptions?: BABYLON.VRExperienceHelperOptions
-}
-
-export class FiberSceneProps {
-  actionManager?: BABYLON.ActionManager
-  activeCamera?: BABYLON.Camera
-  activeCameras?: BABYLON.Camera[]
-  afterCameraRender?: () => void
-  afterRender?: () => void
-  ambientColor?: BABYLON.Color3
-  animationPropertiesOverride?: BABYLON.AnimationPropertiesOverride
-  animationsEnabled?: boolean
-  animationTimeScale?: number
-  autoClear?: boolean
-  autoClearDepthAndStencil?: boolean
-  beforeCameraRender?: () => void
-  beforeRender?: () => void
-  blockfreeActiveMeshesAndRenderingGroups?: boolean
-  blockMaterialDirtyMechanism?: boolean
-  cameraToUseForPointers?: BABYLON.Camera
-  clearColor?: BABYLON.Color4
-  clipPlane?: BABYLON.Plane
-  clipPlane2?: BABYLON.Plane
-  clipPlane3?: BABYLON.Plane
-  clipPlane4?: BABYLON.Plane
-  collisionCoordinator?: BABYLON.ICollisionCoordinator
-  collisionsEnabled?: boolean
-  constantlyUpdateMeshUnderPointer?: boolean
-  customRenderTargets?: BABYLON.RenderTargetTexture[]
-  defaultCursor?: string
-  defaultMaterial?: BABYLON.Material
-  disableOfflineSupportExceptionRules?: RegExp[]
-  dispatchAllSubMeshesOfActiveMeshes?: boolean
-  dumpNextRenderTargets?: boolean
-  environmentTexture?: BABYLON.BaseTexture
-  fogColor?: BABYLON.Color3
-  fogDensity?: number
-  fogEnabled?: boolean
-  fogEnd?: number
-  fogMode?: number
-  fogStart?: number
-  forcePointsCloud?: boolean
-  forceWireframe?: boolean
-  geometriesById?: any
-  getActiveMeshCandidates?: () => BABYLON.ISmartArrayLike<BABYLON.AbstractMesh>
-  getActiveSubMeshCandidates?: (mesh: BABYLON.AbstractMesh) => BABYLON.ISmartArrayLike<BABYLON.SubMesh>
-  getCollidingSubMeshCandidates?: (mesh: BABYLON.AbstractMesh, collider: BABYLON.Collider) => BABYLON.ISmartArrayLike<BABYLON.SubMesh>
-  getDeterministicFrameTime?: () => number
-  getIntersectingSubMeshCandidates?: (mesh: BABYLON.AbstractMesh, localRay: BABYLON.Ray) => BABYLON.ISmartArrayLike<BABYLON.SubMesh>
-  gravity?: BABYLON.Vector3
-  hoverCursor?: string
-  importedMeshesFiles?: String[]
-  lensFlaresEnabled?: boolean
-  lightsEnabled?: boolean
-  loadingPluginName?: string
-  metadata?: any
-  offlineProvider?: BABYLON.IOfflineProvider
-  onActiveCameraChanged?: BABYLON.Observable<BABYLON.Scene>
-  onAfterActiveMeshesEvaluationObservable?: BABYLON.Observable<BABYLON.Scene>
-  onAfterAnimationsObservable?: BABYLON.Observable<BABYLON.Scene>
-  onAfterCameraRenderObservable?: BABYLON.Observable<BABYLON.Camera>
-  onAfterDrawPhaseObservable?: BABYLON.Observable<BABYLON.Scene>
-  onAfterParticlesRenderingObservable?: BABYLON.Observable<BABYLON.Scene>
-  onAfterRenderingGroupObservable?: BABYLON.Observable<BABYLON.RenderingGroupInfo>
-  onAfterRenderObservable?: BABYLON.Observable<BABYLON.Scene>
-  onAfterRenderTargetsRenderObservable?: BABYLON.Observable<BABYLON.Scene>
-  onAfterStepObservable?: BABYLON.Observable<BABYLON.Scene>
-  onBeforeActiveMeshesEvaluationObservable?: BABYLON.Observable<BABYLON.Scene>
-  onBeforeAnimationsObservable?: BABYLON.Observable<BABYLON.Scene>
-  onBeforeCameraRenderObservable?: BABYLON.Observable<BABYLON.Camera>
-  onBeforeDrawPhaseObservable?: BABYLON.Observable<BABYLON.Scene>
-  onBeforeParticlesRenderingObservable?: BABYLON.Observable<BABYLON.Scene>
-  onBeforeRenderingGroupObservable?: BABYLON.Observable<BABYLON.RenderingGroupInfo>
-  onBeforeRenderObservable?: BABYLON.Observable<BABYLON.Scene>
-  onBeforeRenderTargetsRenderObservable?: BABYLON.Observable<BABYLON.Scene>
-  onBeforeStepObservable?: BABYLON.Observable<BABYLON.Scene>
-  onCameraRemovedObservable?: BABYLON.Observable<BABYLON.Camera>
-  onDataLoadedObservable?: BABYLON.Observable<BABYLON.Scene>
-  onDispose?: () => void
-  onDisposeObservable?: BABYLON.Observable<BABYLON.Scene>
-  onGeometryRemovedObservable?: BABYLON.Observable<BABYLON.Geometry>
-  onKeyboardObservable?: BABYLON.Observable<BABYLON.KeyboardInfo>
-  onLightRemovedObservable?: BABYLON.Observable<BABYLON.Light>
-  onMaterialRemovedObservable?: BABYLON.Observable<BABYLON.Material>
-  onMeshImportedObservable?: BABYLON.Observable<BABYLON.AbstractMesh>
-  onMeshRemovedObservable?: BABYLON.Observable<BABYLON.AbstractMesh>
-  onNewCameraAddedObservable?: BABYLON.Observable<BABYLON.Camera>
-  onNewGeometryAddedObservable?: BABYLON.Observable<BABYLON.Geometry>
-  onNewLightAddedObservable?: BABYLON.Observable<BABYLON.Light>
-  onNewMaterialAddedObservable?: BABYLON.Observable<BABYLON.Material>
-  onNewMeshAddedObservable?: BABYLON.Observable<BABYLON.AbstractMesh>
-  onNewTextureAddedObservable?: BABYLON.Observable<BABYLON.BaseTexture>
-  onNewTransformNodeAddedObservable?: BABYLON.Observable<BABYLON.TransformNode>
-  onPointerDown?: (evt: PointerEvent, pickInfo: BABYLON.PickingInfo, type: BABYLON.PointerEventTypes) => void
-  onPointerMove?: (evt: PointerEvent, pickInfo: BABYLON.PickingInfo, type: BABYLON.PointerEventTypes) => void
-  onPointerObservable?: BABYLON.Observable<BABYLON.PointerInfo>
-  onPointerPick?: (evt: PointerEvent, pickInfo: BABYLON.PickingInfo) => void
-  onPointerUp?: (evt: PointerEvent, pickInfo: BABYLON.PickingInfo, type: BABYLON.PointerEventTypes) => void
-  onPreKeyboardObservable?: BABYLON.Observable<BABYLON.KeyboardInfoPre>
-  onPrePointerObservable?: BABYLON.Observable<BABYLON.PointerInfoPre>
-  onReadyObservable?: BABYLON.Observable<BABYLON.Scene>
-  onTextureRemovedObservable?: BABYLON.Observable<BABYLON.BaseTexture>
-  onTransformNodeRemovedObservable?: BABYLON.Observable<BABYLON.TransformNode>
-  particlesEnabled?: boolean
-  pointerDownPredicate?: (Mesh: BABYLON.AbstractMesh) => boolean
-  pointerMovePredicate?: (Mesh: BABYLON.AbstractMesh) => boolean
-  pointerUpPredicate?: (Mesh: BABYLON.AbstractMesh) => boolean
-  postProcesses?: BABYLON.PostProcess[]
-  postProcessesEnabled?: boolean
-  postProcessManager?: BABYLON.PostProcessManager
-  preventDefaultOnPointerDown?: boolean
-  preventDefaultOnPointerUp?: boolean
-  probesEnabled?: boolean
-  proceduralTexturesEnabled?: boolean
-  renderTargetsEnabled?: boolean
-  requireLightSorting?: boolean
-  reservedDataStore?: any
-  shadowsEnabled?: boolean
-  skeletonsEnabled?: boolean
-  spritesEnabled?: boolean
-  texturesEnabled?: boolean
-  useConstantAnimationDeltaTime?: boolean
-  useDelayedTextureLoading?: boolean
-  useRightHandedSystem?: boolean
-  workerCollisions?: boolean
-  setActiveCameraByID?: any
-  setActiveCameraByName?: any
-  setPointerOverMesh?: any
-  setRenderingAutoClearDepthStencil?: any
-  setRenderingOrder?: any
-  setStepId?: any
-  setTransformMatrix?: any
-}
+import { Key, ReactNode, Ref } from "react";
+import { AbstractScene as BabylonjsCoreAbstractScene } from "@babylonjs/core/abstractScene";
+import { Node as BabylonjsCoreNode } from "@babylonjs/core/node";
+import { Scene as BabylonjsCoreScene } from "@babylonjs/core/scene";
+import { Camera as BabylonjsCoreCamera } from "@babylonjs/core/Cameras/camera";
+import { Xbox360Button as BabylonjsCoreXbox360Button, Xbox360Dpad as BabylonjsCoreXbox360Dpad } from "@babylonjs/core/Gamepads/xboxGamepad";
+import { EnvironmentHelper as BabylonjsCoreEnvironmentHelper, IEnvironmentHelperOptions as BabylonjsCoreIEnvironmentHelperOptions } from "@babylonjs/core/Helpers/environmentHelper";
+import { Light as BabylonjsCoreLight } from "@babylonjs/core/Lights/light";
+import { Material as BabylonjsCoreMaterial } from "@babylonjs/core/Materials/material";
+import { Space as BabylonjsCoreSpace, Orientation as BabylonjsCoreOrientation, Vector3 as BabylonjsCoreVector3, Quaternion as BabylonjsCoreQuaternion, Matrix as BabylonjsCoreMatrix, Color4 as BabylonjsCoreColor4, Color3 as BabylonjsCoreColor3, Viewport as BabylonjsCoreViewport, Vector2 as BabylonjsCoreVector2, Vector4 as BabylonjsCoreVector4, Plane as BabylonjsCorePlane } from "@babylonjs/core/Maths/math";
+import { Mesh as BabylonjsCoreMesh } from "@babylonjs/core/Meshes/mesh";
+import { MeshBuilder as BabylonjsCoreMeshBuilder } from "@babylonjs/core/Meshes/meshBuilder";
+import { AssetTaskState as BabylonjsCoreAssetTaskState } from "@babylonjs/core/Misc/assetsManager";
+import { InspectableType as BabylonjsCoreInspectableType, IInspectable as BabylonjsCoreIInspectable } from "@babylonjs/core/Misc/iInspectable";
+import { JoystickAxis as BabylonjsCoreJoystickAxis } from "@babylonjs/core/Misc/virtualJoystick";
+import { SubEmitterType as BabylonjsCoreSubEmitterType } from "@babylonjs/core/Particles/subEmitter";
+import { PhysicsRadialImpulseFalloff as BabylonjsCorePhysicsRadialImpulseFalloff, PhysicsUpdraftMode as BabylonjsCorePhysicsUpdraftMode } from "@babylonjs/core/Physics/physicsHelper";
+import { PhysicsImpostor as BabylonjsCorePhysicsImpostor, IPhysicsEnabledObject as BabylonjsCoreIPhysicsEnabledObject, PhysicsImpostorParameters as BabylonjsCorePhysicsImpostorParameters } from "@babylonjs/core/Physics/physicsImpostor";
+import { DepthOfFieldEffectBlurLevel as BabylonjsCoreDepthOfFieldEffectBlurLevel } from "@babylonjs/core/PostProcesses/depthOfFieldEffect";
+import { TonemappingOperator as BabylonjsCoreTonemappingOperator } from "@babylonjs/core/PostProcesses/tonemapPostProcess";
+import { VRExperienceHelper as BabylonjsCoreVRExperienceHelper, OnAfterEnteringVRObservableEvent as BabylonjsCoreOnAfterEnteringVRObservableEvent, VRExperienceHelperOptions as BabylonjsCoreVRExperienceHelperOptions } from "@babylonjs/core/Cameras/VR/vrExperienceHelper";
+import { WebXRState as BabylonjsCoreWebXRState } from "@babylonjs/core/Cameras/XR/webXRExperienceHelper";
+import { PoseEnabledControllerType as BabylonjsCorePoseEnabledControllerType } from "@babylonjs/core/Gamepads/Controllers/poseEnabledController";
+import { ShadowGenerator as BabylonjsCoreShadowGenerator, ICustomShaderOptions as BabylonjsCoreICustomShaderOptions } from "@babylonjs/core/Lights/Shadows/shadowGenerator";
+import { BaseTexture as BabylonjsCoreBaseTexture } from "@babylonjs/core/Materials/Textures/baseTexture";
+import { AdvancedDynamicTexture as BabylonjsGuiAdvancedDynamicTexture, IFocusableControl as BabylonjsGuiIFocusableControl } from "@babylonjs/gui/2D/advancedDynamicTexture";
+import { GUI3DManager as BabylonjsGuiGUI3DManager } from "@babylonjs/gui/3D/gui3DManager";
+import { Control as BabylonjsGuiControl } from "@babylonjs/gui/2D/controls/control";
+import { TextWrapping as BabylonjsGuiTextWrapping, TextBlock as BabylonjsGuiTextBlock } from "@babylonjs/gui/2D/controls/textBlock";
+import { Control3D as BabylonjsGuiControl3D } from "@babylonjs/gui/3D/controls/control3D";
+import { AnimationPropertiesOverride as BabylonjsCoreAnimationPropertiesOverride } from "@babylonjs/core/Animations/animationPropertiesOverride";
+import { Animation as BabylonjsCoreAnimation } from "@babylonjs/core/Animations/animation";
+import { Observable as BabylonjsCoreObservable } from "@babylonjs/core/Misc/observable";
+import { TransformNode as BabylonjsCoreTransformNode } from "@babylonjs/core/Meshes/transformNode";
+import { AbstractMesh as BabylonjsCoreAbstractMesh } from "@babylonjs/core/Meshes/abstractMesh";
+import { AbstractActionManager as BabylonjsCoreAbstractActionManager } from "@babylonjs/core/Actions/abstractActionManager";
+import { Skeleton as BabylonjsCoreSkeleton } from "@babylonjs/core/Bones/skeleton";
+import { SubMesh as BabylonjsCoreSubMesh } from "@babylonjs/core/Meshes/subMesh";
+import { BoundingInfo as BabylonjsCoreBoundingInfo } from "@babylonjs/core/Culling/boundingInfo";
+import { IndicesArray as BabylonjsCoreIndicesArray, FloatArray as BabylonjsCoreFloatArray } from "@babylonjs/core/types";
+import { InstancedMesh as BabylonjsCoreInstancedMesh } from "@babylonjs/core/Meshes/instancedMesh";
+import { MorphTargetManager as BabylonjsCoreMorphTargetManager } from "@babylonjs/core/Morph/morphTargetManager";
+import { VertexBuffer as BabylonjsCoreVertexBuffer } from "@babylonjs/core/Meshes/buffer";
+import { RenderTargetTexture as BabylonjsCoreRenderTargetTexture } from "@babylonjs/core/Materials/Textures/renderTargetTexture";
+import { CameraInputsManager as BabylonjsCoreCameraInputsManager } from "@babylonjs/core/Cameras/cameraInputsManager";
+import { TargetCamera as BabylonjsCoreTargetCamera } from "@babylonjs/core/Cameras/targetCamera";
+import { FreeCamera as BabylonjsCoreFreeCamera } from "@babylonjs/core/Cameras/freeCamera";
+import { FreeCameraInputsManager as BabylonjsCoreFreeCameraInputsManager } from "@babylonjs/core/Cameras/freeCameraInputsManager";
+import { TouchCamera as BabylonjsCoreTouchCamera } from "@babylonjs/core/Cameras/touchCamera";
+import { UniversalCamera as BabylonjsCoreUniversalCamera } from "@babylonjs/core/Cameras/universalCamera";
+import { GamepadCamera as BabylonjsCoreGamepadCamera } from "@babylonjs/core/Cameras/gamepadCamera";
+import { AnaglyphGamepadCamera as BabylonjsCoreAnaglyphGamepadCamera } from "@babylonjs/core/Cameras/Stereoscopic/anaglyphGamepadCamera";
+import { StereoscopicGamepadCamera as BabylonjsCoreStereoscopicGamepadCamera } from "@babylonjs/core/Cameras/Stereoscopic/stereoscopicGamepadCamera";
+import { AnaglyphUniversalCamera as BabylonjsCoreAnaglyphUniversalCamera } from "@babylonjs/core/Cameras/Stereoscopic/anaglyphUniversalCamera";
+import { StereoscopicUniversalCamera as BabylonjsCoreStereoscopicUniversalCamera } from "@babylonjs/core/Cameras/Stereoscopic/stereoscopicUniversalCamera";
+import { DeviceOrientationCamera as BabylonjsCoreDeviceOrientationCamera } from "@babylonjs/core/Cameras/deviceOrientationCamera";
+import { VRDeviceOrientationFreeCamera as BabylonjsCoreVRDeviceOrientationFreeCamera } from "@babylonjs/core/Cameras/VR/vrDeviceOrientationFreeCamera";
+import { VRCameraMetrics as BabylonjsCoreVRCameraMetrics } from "@babylonjs/core/Cameras/VR/vrCameraMetrics";
+import { VRDeviceOrientationGamepadCamera as BabylonjsCoreVRDeviceOrientationGamepadCamera } from "@babylonjs/core/Cameras/VR/vrDeviceOrientationGamepadCamera";
+import { AnaglyphFreeCamera as BabylonjsCoreAnaglyphFreeCamera } from "@babylonjs/core/Cameras/Stereoscopic/anaglyphFreeCamera";
+import { StereoscopicFreeCamera as BabylonjsCoreStereoscopicFreeCamera } from "@babylonjs/core/Cameras/Stereoscopic/stereoscopicFreeCamera";
+import { VirtualJoysticksCamera as BabylonjsCoreVirtualJoysticksCamera } from "@babylonjs/core/Cameras/virtualJoysticksCamera";
+import { WebVRFreeCamera as BabylonjsCoreWebVRFreeCamera, DevicePose as BabylonjsCoreDevicePose, WebVROptions as BabylonjsCoreWebVROptions } from "@babylonjs/core/Cameras/VR/webVRCamera";
+import { WebVRController as BabylonjsCoreWebVRController } from "@babylonjs/core/Gamepads/Controllers/webVRController";
+import { WebXRCamera as BabylonjsCoreWebXRCamera } from "@babylonjs/core/Cameras/XR/webXRCamera";
+import { ArcRotateCamera as BabylonjsCoreArcRotateCamera } from "@babylonjs/core/Cameras/arcRotateCamera";
+import { ArcRotateCameraInputsManager as BabylonjsCoreArcRotateCameraInputsManager } from "@babylonjs/core/Cameras/arcRotateCameraInputsManager";
+import { AnaglyphArcRotateCamera as BabylonjsCoreAnaglyphArcRotateCamera } from "@babylonjs/core/Cameras/Stereoscopic/anaglyphArcRotateCamera";
+import { StereoscopicArcRotateCamera as BabylonjsCoreStereoscopicArcRotateCamera } from "@babylonjs/core/Cameras/Stereoscopic/stereoscopicArcRotateCamera";
+import { VRDeviceOrientationArcRotateCamera as BabylonjsCoreVRDeviceOrientationArcRotateCamera } from "@babylonjs/core/Cameras/VR/vrDeviceOrientationArcRotateCamera";
+import { FlyCamera as BabylonjsCoreFlyCamera } from "@babylonjs/core/Cameras/flyCamera";
+import { FlyCameraInputsManager as BabylonjsCoreFlyCameraInputsManager } from "@babylonjs/core/Cameras/flyCameraInputsManager";
+import { FollowCamera as BabylonjsCoreFollowCamera, ArcFollowCamera as BabylonjsCoreArcFollowCamera } from "@babylonjs/core/Cameras/followCamera";
+import { FollowCameraInputsManager as BabylonjsCoreFollowCameraInputsManager } from "@babylonjs/core/Cameras/followCameraInputsManager";
+import { LinesMesh as BabylonjsCoreLinesMesh } from "@babylonjs/core/Meshes/linesMesh";
+import { GroundMesh as BabylonjsCoreGroundMesh } from "@babylonjs/core/Meshes/groundMesh";
+import { SmartArray as BabylonjsCoreSmartArray, ISmartArrayLike as BabylonjsCoreISmartArrayLike } from "@babylonjs/core/Misc/smartArray";
+import { Effect as BabylonjsCoreEffect } from "@babylonjs/core/Materials/effect";
+import { ShaderMaterial as BabylonjsCoreShaderMaterial, IShaderMaterialOptions as BabylonjsCoreIShaderMaterialOptions } from "@babylonjs/core/Materials/shaderMaterial";
+import { Texture as BabylonjsCoreTexture } from "@babylonjs/core/Materials/Textures/texture";
+import { MultiMaterial as BabylonjsCoreMultiMaterial } from "@babylonjs/core/Materials/multiMaterial";
+import { PushMaterial as BabylonjsCorePushMaterial } from "@babylonjs/core/Materials/pushMaterial";
+import { StandardMaterial as BabylonjsCoreStandardMaterial, StandardMaterialDefines as BabylonjsCoreStandardMaterialDefines } from "@babylonjs/core/Materials/standardMaterial";
+import { ColorCurves as BabylonjsCoreColorCurves } from "@babylonjs/core/Materials/colorCurves";
+import { FresnelParameters as BabylonjsCoreFresnelParameters } from "@babylonjs/core/Materials/fresnelParameters";
+import { ImageProcessingConfiguration as BabylonjsCoreImageProcessingConfiguration } from "@babylonjs/core/Materials/imageProcessingConfiguration";
+import { BackgroundMaterial as BabylonjsCoreBackgroundMaterial } from "@babylonjs/core/Materials/Background/backgroundMaterial";
+import { IShadowLight as BabylonjsCoreIShadowLight, ShadowLight as BabylonjsCoreShadowLight } from "@babylonjs/core/Lights/shadowLight";
+import { PBRBaseMaterial as BabylonjsCorePBRBaseMaterial, PBRMaterialDefines as BabylonjsCorePBRMaterialDefines } from "@babylonjs/core/Materials/PBR/pbrBaseMaterial";
+import { PBRBaseSimpleMaterial as BabylonjsCorePBRBaseSimpleMaterial } from "@babylonjs/core/Materials/PBR/pbrBaseSimpleMaterial";
+import { PBRMetallicRoughnessMaterial as BabylonjsCorePBRMetallicRoughnessMaterial } from "@babylonjs/core/Materials/PBR/pbrMetallicRoughnessMaterial";
+import { PBRSpecularGlossinessMaterial as BabylonjsCorePBRSpecularGlossinessMaterial } from "@babylonjs/core/Materials/PBR/pbrSpecularGlossinessMaterial";
+import { PBRMaterial as BabylonjsCorePBRMaterial } from "@babylonjs/core/Materials/PBR/pbrMaterial";
+import { DirectionalLight as BabylonjsCoreDirectionalLight } from "@babylonjs/core/Lights/directionalLight";
+import { PointLight as BabylonjsCorePointLight } from "@babylonjs/core/Lights/pointLight";
+import { SpotLight as BabylonjsCoreSpotLight } from "@babylonjs/core/Lights/spotLight";
+import { HemisphericLight as BabylonjsCoreHemisphericLight } from "@babylonjs/core/Lights/hemisphericLight";
+import { Vector2WithInfo as BabylonjsGuiVector2WithInfo } from "@babylonjs/gui/2D/math2D";
+import { Container as BabylonjsGuiContainer } from "@babylonjs/gui/2D/controls/container";
+import { Style as BabylonjsGuiStyle } from "@babylonjs/gui/2D/style";
+import { Rectangle as BabylonjsGuiRectangle } from "@babylonjs/gui/2D/controls/rectangle";
+import { Button as BabylonjsGuiButton } from "@babylonjs/gui/2D/controls/button";
+import { SelectionPanel as BabylonjsGuiSelectionPanel, SelectorGroup as BabylonjsGuiSelectorGroup } from "@babylonjs/gui/2D/controls/selector";
+import { ScrollViewer as BabylonjsGuiScrollViewer } from "@babylonjs/gui/2D/controls/scrollViewers/scrollViewer";
+import { StackPanel as BabylonjsGuiStackPanel } from "@babylonjs/gui/2D/controls/stackPanel";
+import { VirtualKeyboard as BabylonjsGuiVirtualKeyboard } from "@babylonjs/gui/2D/controls/virtualKeyboard";
+import { Ellipse as BabylonjsGuiEllipse } from "@babylonjs/gui/2D/controls/ellipse";
+import { Grid as BabylonjsGuiGrid } from "@babylonjs/gui/2D/controls/grid";
+import { _ScrollViewerWindow as BabylonjsGui_ScrollViewerWindow } from "@babylonjs/gui/2D/controls/scrollViewers/scrollViewerWindow";
+import { Image as BabylonjsGuiImage } from "@babylonjs/gui/2D/controls/image";
+import { Checkbox as BabylonjsGuiCheckbox } from "@babylonjs/gui/2D/controls/checkbox";
+import { ColorPicker as BabylonjsGuiColorPicker } from "@babylonjs/gui/2D/controls/colorpicker";
+import { InputText as BabylonjsGuiInputText } from "@babylonjs/gui/2D/controls/inputText";
+import { InputPassword as BabylonjsGuiInputPassword } from "@babylonjs/gui/2D/controls/inputPassword";
+import { Line as BabylonjsGuiLine } from "@babylonjs/gui/2D/controls/line";
+import { MultiLine as BabylonjsGuiMultiLine } from "@babylonjs/gui/2D/controls/multiLine";
+import { RadioButton as BabylonjsGuiRadioButton } from "@babylonjs/gui/2D/controls/radioButton";
+import { BaseSlider as BabylonjsGuiBaseSlider } from "@babylonjs/gui/2D/controls/sliders/baseSlider";
+import { ScrollBar as BabylonjsGuiScrollBar } from "@babylonjs/gui/2D/controls/sliders/scrollBar";
+import { Slider as BabylonjsGuiSlider } from "@babylonjs/gui/2D/controls/sliders/slider";
+import { ImageBasedSlider as BabylonjsGuiImageBasedSlider } from "@babylonjs/gui/2D/controls/sliders/imageBasedSlider";
+import { DisplayGrid as BabylonjsGuiDisplayGrid } from "@babylonjs/gui/2D/controls/displayGrid";
+import { Vector3WithInfo as BabylonjsGuiVector3WithInfo } from "@babylonjs/gui/3D/vector3WithInfo";
+import { Container3D as BabylonjsGuiContainer3D } from "@babylonjs/gui/3D/controls/container3D";
+import { VolumeBasedPanel as BabylonjsGuiVolumeBasedPanel } from "@babylonjs/gui/3D/controls/volumeBasedPanel";
+import { CylinderPanel as BabylonjsGuiCylinderPanel } from "@babylonjs/gui/3D/controls/cylinderPanel";
+import { PlanePanel as BabylonjsGuiPlanePanel } from "@babylonjs/gui/3D/controls/planePanel";
+import { ScatterPanel as BabylonjsGuiScatterPanel } from "@babylonjs/gui/3D/controls/scatterPanel";
+import { SpherePanel as BabylonjsGuiSpherePanel } from "@babylonjs/gui/3D/controls/spherePanel";
+import { StackPanel3D as BabylonjsGuiStackPanel3D } from "@babylonjs/gui/3D/controls/stackPanel3D";
+import { AbstractButton3D as BabylonjsGuiAbstractButton3D } from "@babylonjs/gui/3D/controls/abstractButton3D";
+import { Button3D as BabylonjsGuiButton3D } from "@babylonjs/gui/3D/controls/button3D";
+import { HolographicButton as BabylonjsGuiHolographicButton } from "@babylonjs/gui/3D/controls/holographicButton";
+import { MeshButton3D as BabylonjsGuiMeshButton3D } from "@babylonjs/gui/3D/controls/meshButton3D";
+import { SphericalPolynomial as BabylonjsCoreSphericalPolynomial } from "@babylonjs/core/Maths/sphericalPolynomial";
+import { CubeTexture as BabylonjsCoreCubeTexture } from "@babylonjs/core/Materials/Textures/cubeTexture";
+import { RawCubeTexture as BabylonjsCoreRawCubeTexture } from "@babylonjs/core/Materials/Textures/rawCubeTexture";
+import { RawTexture as BabylonjsCoreRawTexture } from "@babylonjs/core/Materials/Textures/rawTexture";
+import { ProceduralTexture as BabylonjsCoreProceduralTexture } from "@babylonjs/core/Materials/Textures/Procedurals/proceduralTexture";
+import { CustomProceduralTexture as BabylonjsCoreCustomProceduralTexture } from "@babylonjs/core/Materials/Textures/Procedurals/customProceduralTexture";
+import { NoiseProceduralTexture as BabylonjsCoreNoiseProceduralTexture } from "@babylonjs/core/Materials/Textures/Procedurals/noiseProceduralTexture";
+import { InternalTexture as BabylonjsCoreInternalTexture } from "@babylonjs/core/Materials/Textures/internalTexture";
+import { Engine as BabylonjsCoreEngine } from "@babylonjs/core/Engines/engine";
+import { MirrorTexture as BabylonjsCoreMirrorTexture } from "@babylonjs/core/Materials/Textures/mirrorTexture";
+import { MultiRenderTarget as BabylonjsCoreMultiRenderTarget, IMultiRenderTargetOptions as BabylonjsCoreIMultiRenderTargetOptions } from "@babylonjs/core/Materials/Textures/multiRenderTarget";
+import { RefractionTexture as BabylonjsCoreRefractionTexture } from "@babylonjs/core/Materials/Textures/refractionTexture";
+import { MultiviewRenderTarget as BabylonjsCoreMultiviewRenderTarget } from "@babylonjs/core/Materials/Textures/MultiviewRenderTarget";
+import { VideoTexture as BabylonjsCoreVideoTexture, VideoTextureSettings as BabylonjsCoreVideoTextureSettings } from "@babylonjs/core/Materials/Textures/videoTexture";
+import { DynamicTexture as BabylonjsCoreDynamicTexture } from "@babylonjs/core/Materials/Textures/dynamicTexture";
+import { RawTexture3D as BabylonjsCoreRawTexture3D } from "@babylonjs/core/Materials/Textures/rawTexture3D";
+import { ColorGradingTexture as BabylonjsCoreColorGradingTexture } from "@babylonjs/core/Materials/Textures/colorGradingTexture";
+import { EquiRectangularCubeTexture as BabylonjsCoreEquiRectangularCubeTexture } from "@babylonjs/core/Materials/Textures/equiRectangularCubeTexture";
+import { HDRCubeTexture as BabylonjsCoreHDRCubeTexture } from "@babylonjs/core/Materials/Textures/hdrCubeTexture";
+import { HtmlElementTexture as BabylonjsCoreHtmlElementTexture, IHtmlElementTextureOptions as BabylonjsCoreIHtmlElementTextureOptions } from "@babylonjs/core/Materials/Textures/htmlElementTexture";
+import { ClipboardInfo as BabylonjsCoreClipboardInfo } from "@babylonjs/core/Events/clipboardEvents";
+import { PickingInfo as BabylonjsCorePickingInfo } from "@babylonjs/core/Collisions/pickingInfo";
+import { Collider as BabylonjsCoreCollider } from "@babylonjs/core/Collisions/collider";
+import { Ray as BabylonjsCoreRay } from "@babylonjs/core/Culling/ray";
+import { IOfflineProvider as BabylonjsCoreIOfflineProvider } from "@babylonjs/core/Offline/IOfflineProvider";
+import { RenderingGroupInfo as BabylonjsCoreRenderingGroupInfo } from "@babylonjs/core/Rendering/renderingManager";
+import { Geometry as BabylonjsCoreGeometry } from "@babylonjs/core/Meshes/geometry";
+import { KeyboardInfo as BabylonjsCoreKeyboardInfo, KeyboardInfoPre as BabylonjsCoreKeyboardInfoPre } from "@babylonjs/core/Events/keyboardEvents";
+import { PointerEventTypes as BabylonjsCorePointerEventTypes, PointerInfo as BabylonjsCorePointerInfo, PointerInfoPre as BabylonjsCorePointerInfoPre } from "@babylonjs/core/Events/pointerEvents";
+import { PostProcess as BabylonjsCorePostProcess } from "@babylonjs/core/PostProcesses/postProcess";
+import { PostProcessManager as BabylonjsCorePostProcessManager } from "@babylonjs/core/PostProcesses/postProcessManager";
+import { IPhysicsEnginePlugin as BabylonjsCoreIPhysicsEnginePlugin } from "@babylonjs/core/Physics/IPhysicsEngine";
+
+export type BabylonNode<T> = {
+    children?: ReactNode;
+    key?: Key;
+    onCreated?: (instance: T, scene: BabylonjsCoreScene) => void;
+    ref?: Ref<ReactNode>;
+};
+
+declare global {
+    namespace JSX {
+        interface IntrinsicElements {
+            node: FiberNodeProps & FiberNodePropsCtor & BabylonNode<BabylonjsCoreNode>;
+            transformNode: FiberTransformNodeProps & FiberTransformNodePropsCtor & BabylonNode<BabylonjsCoreTransformNode>;
+            abstractMesh: FiberAbstractMeshProps & FiberAbstractMeshPropsCtor & BabylonNode<BabylonjsCoreAbstractMesh>;
+            mesh: FiberMeshProps & FiberMeshPropsCtor & BabylonNode<BabylonjsCoreMesh>;
+            camera: FiberCameraProps & FiberCameraPropsCtor & BabylonNode<BabylonjsCoreCamera>;
+            targetCamera: FiberTargetCameraProps & FiberTargetCameraPropsCtor & BabylonNode<BabylonjsCoreTargetCamera>;
+            freeCamera: FiberFreeCameraProps & FiberFreeCameraPropsCtor & BabylonNode<BabylonjsCoreFreeCamera>;
+            touchCamera: FiberTouchCameraProps & FiberTouchCameraPropsCtor & BabylonNode<BabylonjsCoreTouchCamera>;
+            universalCamera: FiberUniversalCameraProps & FiberUniversalCameraPropsCtor & BabylonNode<BabylonjsCoreUniversalCamera>;
+            gamepadCamera: FiberGamepadCameraProps & FiberGamepadCameraPropsCtor & BabylonNode<BabylonjsCoreGamepadCamera>;
+            anaglyphGamepadCamera: FiberAnaglyphGamepadCameraProps & FiberAnaglyphGamepadCameraPropsCtor & BabylonNode<BabylonjsCoreAnaglyphGamepadCamera>;
+            stereoscopicGamepadCamera: FiberStereoscopicGamepadCameraProps & FiberStereoscopicGamepadCameraPropsCtor & BabylonNode<BabylonjsCoreStereoscopicGamepadCamera>;
+            anaglyphUniversalCamera: FiberAnaglyphUniversalCameraProps & FiberAnaglyphUniversalCameraPropsCtor & BabylonNode<BabylonjsCoreAnaglyphUniversalCamera>;
+            stereoscopicUniversalCamera: FiberStereoscopicUniversalCameraProps & FiberStereoscopicUniversalCameraPropsCtor & BabylonNode<BabylonjsCoreStereoscopicUniversalCamera>;
+            deviceOrientationCamera: FiberDeviceOrientationCameraProps & FiberDeviceOrientationCameraPropsCtor & BabylonNode<BabylonjsCoreDeviceOrientationCamera>;
+            vRDeviceOrientationFreeCamera: FiberVRDeviceOrientationFreeCameraProps & FiberVRDeviceOrientationFreeCameraPropsCtor & BabylonNode<BabylonjsCoreVRDeviceOrientationFreeCamera>;
+            vRDeviceOrientationGamepadCamera: FiberVRDeviceOrientationGamepadCameraProps & FiberVRDeviceOrientationGamepadCameraPropsCtor & BabylonNode<BabylonjsCoreVRDeviceOrientationGamepadCamera>;
+            anaglyphFreeCamera: FiberAnaglyphFreeCameraProps & FiberAnaglyphFreeCameraPropsCtor & BabylonNode<BabylonjsCoreAnaglyphFreeCamera>;
+            stereoscopicFreeCamera: FiberStereoscopicFreeCameraProps & FiberStereoscopicFreeCameraPropsCtor & BabylonNode<BabylonjsCoreStereoscopicFreeCamera>;
+            virtualJoysticksCamera: FiberVirtualJoysticksCameraProps & FiberVirtualJoysticksCameraPropsCtor & BabylonNode<BabylonjsCoreVirtualJoysticksCamera>;
+            webVRFreeCamera: FiberWebVRFreeCameraProps & FiberWebVRFreeCameraPropsCtor & BabylonNode<BabylonjsCoreWebVRFreeCamera>;
+            webXRCamera: FiberWebXRCameraProps & FiberWebXRCameraPropsCtor & BabylonNode<BabylonjsCoreWebXRCamera>;
+            arcRotateCamera: FiberArcRotateCameraProps & FiberArcRotateCameraPropsCtor & BabylonNode<BabylonjsCoreArcRotateCamera>;
+            anaglyphArcRotateCamera: FiberAnaglyphArcRotateCameraProps & FiberAnaglyphArcRotateCameraPropsCtor & BabylonNode<BabylonjsCoreAnaglyphArcRotateCamera>;
+            stereoscopicArcRotateCamera: FiberStereoscopicArcRotateCameraProps & FiberStereoscopicArcRotateCameraPropsCtor & BabylonNode<BabylonjsCoreStereoscopicArcRotateCamera>;
+            vRDeviceOrientationArcRotateCamera: FiberVRDeviceOrientationArcRotateCameraProps & FiberVRDeviceOrientationArcRotateCameraPropsCtor & BabylonNode<BabylonjsCoreVRDeviceOrientationArcRotateCamera>;
+            flyCamera: FiberFlyCameraProps & FiberFlyCameraPropsCtor & BabylonNode<BabylonjsCoreFlyCamera>;
+            followCamera: FiberFollowCameraProps & FiberFollowCameraPropsCtor & BabylonNode<BabylonjsCoreFollowCamera>;
+            arcFollowCamera: FiberArcFollowCameraProps & FiberArcFollowCameraPropsCtor & BabylonNode<BabylonjsCoreArcFollowCamera>;
+            box: FiberMeshProps & FiberBoxPropsCtor & BabylonNode<BabylonjsCoreMesh>;
+            sphere: FiberMeshProps & FiberSpherePropsCtor & BabylonNode<BabylonjsCoreMesh>;
+            disc: FiberMeshProps & FiberDiscPropsCtor & BabylonNode<BabylonjsCoreMesh>;
+            icoSphere: FiberMeshProps & FiberIcoSpherePropsCtor & BabylonNode<BabylonjsCoreMesh>;
+            ribbon: FiberMeshProps & FiberRibbonPropsCtor & BabylonNode<BabylonjsCoreMesh>;
+            cylinder: FiberMeshProps & FiberCylinderPropsCtor & BabylonNode<BabylonjsCoreMesh>;
+            torus: FiberMeshProps & FiberTorusPropsCtor & BabylonNode<BabylonjsCoreMesh>;
+            torusKnot: FiberMeshProps & FiberTorusKnotPropsCtor & BabylonNode<BabylonjsCoreMesh>;
+            lineSystem: FiberMeshProps & FiberLineSystemPropsCtor & BabylonNode<BabylonjsCoreMesh>;
+            lines: FiberMeshProps & FiberLinesPropsCtor & BabylonNode<BabylonjsCoreMesh>;
+            dashedLines: FiberMeshProps & FiberDashedLinesPropsCtor & BabylonNode<BabylonjsCoreMesh>;
+            extrudeShape: FiberMeshProps & FiberExtrudeShapePropsCtor & BabylonNode<BabylonjsCoreMesh>;
+            extrudeShapeCustom: FiberMeshProps & FiberExtrudeShapeCustomPropsCtor & BabylonNode<BabylonjsCoreMesh>;
+            lathe: FiberMeshProps & FiberLathePropsCtor & BabylonNode<BabylonjsCoreMesh>;
+            plane: FiberMeshProps & FiberPlanePropsCtor & BabylonNode<BabylonjsCoreMesh>;
+            ground: FiberMeshProps & FiberGroundPropsCtor & BabylonNode<BabylonjsCoreMesh>;
+            tiledGround: FiberMeshProps & FiberTiledGroundPropsCtor & BabylonNode<BabylonjsCoreMesh>;
+            groundFromHeightMap: FiberMeshProps & FiberGroundFromHeightMapPropsCtor & BabylonNode<BabylonjsCoreMesh>;
+            'babylon-polygon': FiberMeshProps & FiberPolygonPropsCtor & BabylonNode<BabylonjsCoreMesh>;
+            extrudePolygon: FiberMeshProps & FiberExtrudePolygonPropsCtor & BabylonNode<BabylonjsCoreMesh>;
+            tube: FiberMeshProps & FiberTubePropsCtor & BabylonNode<BabylonjsCoreMesh>;
+            polyhedron: FiberMeshProps & FiberPolyhedronPropsCtor & BabylonNode<BabylonjsCoreMesh>;
+            decal: FiberMeshProps & FiberDecalPropsCtor & BabylonNode<BabylonjsCoreMesh>;
+            material: FiberMaterialProps & FiberMaterialPropsCtor & BabylonNode<BabylonjsCoreMaterial>;
+            shaderMaterial: FiberShaderMaterialProps & FiberShaderMaterialPropsCtor & BabylonNode<BabylonjsCoreShaderMaterial>;
+            multiMaterial: FiberMultiMaterialProps & FiberMultiMaterialPropsCtor & BabylonNode<BabylonjsCoreMultiMaterial>;
+            pushMaterial: FiberPushMaterialProps & FiberPushMaterialPropsCtor & BabylonNode<BabylonjsCorePushMaterial>;
+            standardMaterial: FiberStandardMaterialProps & FiberStandardMaterialPropsCtor & BabylonNode<BabylonjsCoreStandardMaterial>;
+            backgroundMaterial: FiberBackgroundMaterialProps & FiberBackgroundMaterialPropsCtor & BabylonNode<BabylonjsCoreBackgroundMaterial>;
+            pBRBaseMaterial: FiberPBRBaseMaterialProps & FiberPBRBaseMaterialPropsCtor & BabylonNode<BabylonjsCorePBRBaseMaterial>;
+            pBRBaseSimpleMaterial: FiberPBRBaseSimpleMaterialProps & FiberPBRBaseSimpleMaterialPropsCtor & BabylonNode<BabylonjsCorePBRBaseSimpleMaterial>;
+            pBRMetallicRoughnessMaterial: FiberPBRMetallicRoughnessMaterialProps & FiberPBRMetallicRoughnessMaterialPropsCtor & BabylonNode<BabylonjsCorePBRMetallicRoughnessMaterial>;
+            pBRSpecularGlossinessMaterial: FiberPBRSpecularGlossinessMaterialProps & FiberPBRSpecularGlossinessMaterialPropsCtor & BabylonNode<BabylonjsCorePBRSpecularGlossinessMaterial>;
+            pBRMaterial: FiberPBRMaterialProps & FiberPBRMaterialPropsCtor & BabylonNode<BabylonjsCorePBRMaterial>;
+            light: FiberLightProps & FiberLightPropsCtor & BabylonNode<BabylonjsCoreLight>;
+            shadowLight: FiberShadowLightProps & FiberShadowLightPropsCtor & BabylonNode<BabylonjsCoreShadowLight>;
+            directionalLight: FiberDirectionalLightProps & FiberDirectionalLightPropsCtor & BabylonNode<BabylonjsCoreDirectionalLight>;
+            pointLight: FiberPointLightProps & FiberPointLightPropsCtor & BabylonNode<BabylonjsCorePointLight>;
+            spotLight: FiberSpotLightProps & FiberSpotLightPropsCtor & BabylonNode<BabylonjsCoreSpotLight>;
+            hemisphericLight: FiberHemisphericLightProps & FiberHemisphericLightPropsCtor & BabylonNode<BabylonjsCoreHemisphericLight>;
+            control: FiberControlProps & FiberControlPropsCtor & BabylonNode<BabylonjsGuiControl>;
+            container: FiberContainerProps & FiberContainerPropsCtor & BabylonNode<BabylonjsGuiContainer>;
+            rectangle: FiberRectangleProps & FiberRectanglePropsCtor & BabylonNode<BabylonjsGuiRectangle>;
+            'babylon-button': FiberButtonProps & FiberButtonPropsCtor & BabylonNode<BabylonjsGuiButton>;
+            selectionPanel: FiberSelectionPanelProps & FiberSelectionPanelPropsCtor & BabylonNode<BabylonjsGuiSelectionPanel>;
+            scrollViewer: FiberScrollViewerProps & FiberScrollViewerPropsCtor & BabylonNode<BabylonjsGuiScrollViewer>;
+            stackPanel: FiberStackPanelProps & FiberStackPanelPropsCtor & BabylonNode<BabylonjsGuiStackPanel>;
+            virtualKeyboard: FiberVirtualKeyboardProps & FiberVirtualKeyboardPropsCtor & BabylonNode<BabylonjsGuiVirtualKeyboard>;
+            'babylon-ellipse': FiberEllipseProps & FiberEllipsePropsCtor & BabylonNode<BabylonjsGuiEllipse>;
+            grid: FiberGridProps & FiberGridPropsCtor & BabylonNode<BabylonjsGuiGrid>;
+            _ScrollViewerWindow: Fiber_ScrollViewerWindowProps & Fiber_ScrollViewerWindowPropsCtor & BabylonNode<BabylonjsGui_ScrollViewerWindow>;
+            textBlock: FiberTextBlockProps & FiberTextBlockPropsCtor & BabylonNode<BabylonjsGuiTextBlock>;
+            'babylon-image': FiberImageProps & FiberImagePropsCtor & BabylonNode<BabylonjsGuiImage>;
+            checkbox: FiberCheckboxProps & FiberCheckboxPropsCtor & BabylonNode<BabylonjsGuiCheckbox>;
+            colorPicker: FiberColorPickerProps & FiberColorPickerPropsCtor & BabylonNode<BabylonjsGuiColorPicker>;
+            inputText: FiberInputTextProps & FiberInputTextPropsCtor & BabylonNode<BabylonjsGuiInputText>;
+            inputPassword: FiberInputPasswordProps & FiberInputPasswordPropsCtor & BabylonNode<BabylonjsGuiInputPassword>;
+            'babylon-line': FiberLineProps & FiberLinePropsCtor & BabylonNode<BabylonjsGuiLine>;
+            multiLine: FiberMultiLineProps & FiberMultiLinePropsCtor & BabylonNode<BabylonjsGuiMultiLine>;
+            radioButton: FiberRadioButtonProps & FiberRadioButtonPropsCtor & BabylonNode<BabylonjsGuiRadioButton>;
+            baseSlider: FiberBaseSliderProps & FiberBaseSliderPropsCtor & BabylonNode<BabylonjsGuiBaseSlider>;
+            scrollBar: FiberScrollBarProps & FiberScrollBarPropsCtor & BabylonNode<BabylonjsGuiScrollBar>;
+            slider: FiberSliderProps & FiberSliderPropsCtor & BabylonNode<BabylonjsGuiSlider>;
+            imageBasedSlider: FiberImageBasedSliderProps & FiberImageBasedSliderPropsCtor & BabylonNode<BabylonjsGuiImageBasedSlider>;
+            displayGrid: FiberDisplayGridProps & FiberDisplayGridPropsCtor & BabylonNode<BabylonjsGuiDisplayGrid>;
+            control3D: FiberControl3DProps & FiberControl3DPropsCtor & BabylonNode<BabylonjsGuiControl3D>;
+            container3D: FiberContainer3DProps & FiberContainer3DPropsCtor & BabylonNode<BabylonjsGuiContainer3D>;
+            volumeBasedPanel: FiberVolumeBasedPanelProps & FiberVolumeBasedPanelPropsCtor & BabylonNode<BabylonjsGuiVolumeBasedPanel>;
+            cylinderPanel: FiberCylinderPanelProps & FiberCylinderPanelPropsCtor & BabylonNode<BabylonjsGuiCylinderPanel>;
+            planePanel: FiberPlanePanelProps & FiberPlanePanelPropsCtor & BabylonNode<BabylonjsGuiPlanePanel>;
+            scatterPanel: FiberScatterPanelProps & FiberScatterPanelPropsCtor & BabylonNode<BabylonjsGuiScatterPanel>;
+            spherePanel: FiberSpherePanelProps & FiberSpherePanelPropsCtor & BabylonNode<BabylonjsGuiSpherePanel>;
+            stackPanel3D: FiberStackPanel3DProps & FiberStackPanel3DPropsCtor & BabylonNode<BabylonjsGuiStackPanel3D>;
+            abstractButton3D: FiberAbstractButton3DProps & FiberAbstractButton3DPropsCtor & BabylonNode<BabylonjsGuiAbstractButton3D>;
+            button3D: FiberButton3DProps & FiberButton3DPropsCtor & BabylonNode<BabylonjsGuiButton3D>;
+            holographicButton: FiberHolographicButtonProps & FiberHolographicButtonPropsCtor & BabylonNode<BabylonjsGuiHolographicButton>;
+            meshButton3D: FiberMeshButton3DProps & FiberMeshButton3DPropsCtor & BabylonNode<BabylonjsGuiMeshButton3D>;
+            baseTexture: FiberBaseTextureProps & FiberBaseTexturePropsCtor & BabylonNode<BabylonjsCoreBaseTexture>;
+            cubeTexture: FiberCubeTextureProps & FiberCubeTexturePropsCtor & BabylonNode<BabylonjsCoreCubeTexture>;
+            rawCubeTexture: FiberRawCubeTextureProps & FiberRawCubeTexturePropsCtor & BabylonNode<BabylonjsCoreRawCubeTexture>;
+            texture: FiberTextureProps & FiberTexturePropsCtor & BabylonNode<BabylonjsCoreTexture>;
+            rawTexture: FiberRawTextureProps & FiberRawTexturePropsCtor & BabylonNode<BabylonjsCoreRawTexture>;
+            proceduralTexture: FiberProceduralTextureProps & FiberProceduralTexturePropsCtor & BabylonNode<BabylonjsCoreProceduralTexture>;
+            customProceduralTexture: FiberCustomProceduralTextureProps & FiberCustomProceduralTexturePropsCtor & BabylonNode<BabylonjsCoreCustomProceduralTexture>;
+            noiseProceduralTexture: FiberNoiseProceduralTextureProps & FiberNoiseProceduralTexturePropsCtor & BabylonNode<BabylonjsCoreNoiseProceduralTexture>;
+            renderTargetTexture: FiberRenderTargetTextureProps & FiberRenderTargetTexturePropsCtor & BabylonNode<BabylonjsCoreRenderTargetTexture>;
+            mirrorTexture: FiberMirrorTextureProps & FiberMirrorTexturePropsCtor & BabylonNode<BabylonjsCoreMirrorTexture>;
+            multiRenderTarget: FiberMultiRenderTargetProps & FiberMultiRenderTargetPropsCtor & BabylonNode<BabylonjsCoreMultiRenderTarget>;
+            refractionTexture: FiberRefractionTextureProps & FiberRefractionTexturePropsCtor & BabylonNode<BabylonjsCoreRefractionTexture>;
+            multiviewRenderTarget: FiberMultiviewRenderTargetProps & FiberMultiviewRenderTargetPropsCtor & BabylonNode<BabylonjsCoreMultiviewRenderTarget>;
+            videoTexture: FiberVideoTextureProps & FiberVideoTexturePropsCtor & BabylonNode<BabylonjsCoreVideoTexture>;
+            dynamicTexture: FiberDynamicTextureProps & FiberDynamicTexturePropsCtor & BabylonNode<BabylonjsCoreDynamicTexture>;
+            rawTexture3D: FiberRawTexture3DProps & FiberRawTexture3DPropsCtor & BabylonNode<BabylonjsCoreRawTexture3D>;
+            colorGradingTexture: FiberColorGradingTextureProps & FiberColorGradingTexturePropsCtor & BabylonNode<BabylonjsCoreColorGradingTexture>;
+            equiRectangularCubeTexture: FiberEquiRectangularCubeTextureProps & FiberEquiRectangularCubeTexturePropsCtor & BabylonNode<BabylonjsCoreEquiRectangularCubeTexture>;
+            hDRCubeTexture: FiberHDRCubeTextureProps & FiberHDRCubeTexturePropsCtor & BabylonNode<BabylonjsCoreHDRCubeTexture>;
+            htmlElementTexture: FiberHtmlElementTextureProps & FiberHtmlElementTexturePropsCtor & BabylonNode<BabylonjsCoreHtmlElementTexture>;
+            advancedDynamicTexture: FiberAdvancedDynamicTextureProps & FiberAdvancedDynamicTexturePropsCtor & BabylonNode<BabylonjsGuiAdvancedDynamicTexture>;
+            gUI3DManager: FiberGUI3DManagerProps & FiberGUI3DManagerPropsCtor & BabylonNode<BabylonjsGuiGUI3DManager>;
+            shadowGenerator: FiberShadowGeneratorProps & FiberShadowGeneratorPropsCtor & BabylonNode<BabylonjsCoreShadowGenerator>;
+            environmentHelper: FiberEnvironmentHelperProps & FiberEnvironmentHelperPropsCtor & BabylonNode<BabylonjsCoreEnvironmentHelper>;
+            physicsImpostor: FiberPhysicsImpostorProps & FiberPhysicsImpostorPropsCtor & BabylonNode<BabylonjsCorePhysicsImpostor>;
+            vRExperienceHelper: FiberVRExperienceHelperProps & FiberVRExperienceHelperPropsCtor & BabylonNode<BabylonjsCoreVRExperienceHelper>;
+        }
+    }
+}
+
+export type FiberNodeProps = {
+    addToSceneRootNodes?: any;
+    animationPropertiesOverride?: BabylonjsCoreAnimationPropertiesOverride;
+    animations?: BabylonjsCoreAnimation[];
+    doNotSerialize?: boolean;
+    id?: string;
+    inspectableCustomProperties?: BabylonjsCoreIInspectable[];
+    metadata?: any;
+    name?: string;
+    onDispose?: () => void;
+    onDisposeObservable?: BabylonjsCoreObservable<BabylonjsCoreNode>;
+    onReady?: (node: BabylonjsCoreNode) => void;
+    parent?: BabylonjsCoreNode;
+    removeFromSceneRootNodes?: any;
+    reservedDataStore?: any;
+    setEnabled?: any;
+    state?: string;
+    uniqueId?: number;
+};
+export type FiberNodePropsCtor = {
+    name: string;
+    addToRootNodes?: boolean;
+};
+export type FiberTransformNodeProps = {
+    billboardMode?: number;
+    ignoreNonUniformScaling?: boolean;
+    infiniteDistance?: boolean;
+    onAfterWorldMatrixUpdateObservable?: BabylonjsCoreObservable<BabylonjsCoreTransformNode>;
+    position?: BabylonjsCoreVector3;
+    preserveParentRotationForBillboard?: boolean;
+    reIntegrateRotationIntoRotationQuaternion?: boolean;
+    rotation?: BabylonjsCoreVector3;
+    rotationQuaternion?: BabylonjsCoreQuaternion;
+    scaling?: BabylonjsCoreVector3;
+    scalingDeterminant?: number;
+    setAbsolutePosition?: any;
+    setDirection?: any;
+    setParent?: any;
+    setPivotMatrix?: any;
+    setPivotPoint?: any;
+    setPositionWithLocalVector?: any;
+    setPreTransformMatrix?: any;
+} & FiberNodeProps;
+export type FiberTransformNodePropsCtor = {
+    name: string;
+    isPure?: boolean;
+};
+export type FiberAbstractMeshProps = {
+    actionManager?: BabylonjsCoreAbstractActionManager;
+    alphaIndex?: number;
+    alwaysSelectAsActiveMesh?: boolean;
+    applyFog?: boolean;
+    checkCollisions?: boolean;
+    collisionGroup?: number;
+    collisionMask?: number;
+    computeBonesUsingShaders?: boolean;
+    cullingStrategy?: number;
+    definedFacingForward?: boolean;
+    doNotSyncBoundingInfo?: boolean;
+    edgesColor?: BabylonjsCoreColor4;
+    edgesWidth?: number;
+    ellipsoid?: BabylonjsCoreVector3;
+    ellipsoidOffset?: BabylonjsCoreVector3;
+    enablePointerMoveEvents?: boolean;
+    facetDepthSortFrom?: BabylonjsCoreVector3;
+    hasVertexAlpha?: boolean;
+    isBlocker?: boolean;
+    isPickable?: boolean;
+    isVisible?: boolean;
+    layerMask?: number;
+    material?: BabylonjsCoreMaterial;
+    mustDepthSortFacets?: boolean;
+    numBoneInfluencers?: number;
+    onCollide?: () => void;
+    onCollideObservable?: BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>;
+    onCollisionPositionChange?: () => void;
+    onCollisionPositionChangeObservable?: BabylonjsCoreObservable<BabylonjsCoreVector3>;
+    onMaterialChangedObservable?: BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>;
+    onRebuildObservable?: BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>;
+    outlineColor?: BabylonjsCoreColor3;
+    outlineWidth?: number;
+    overlayAlpha?: number;
+    overlayColor?: BabylonjsCoreColor3;
+    partitioningBBoxRatio?: number;
+    partitioningSubdivisions?: number;
+    receiveShadows?: boolean;
+    renderingGroupId?: number;
+    scaling?: BabylonjsCoreVector3;
+    setBoundingInfo?: any;
+    setIndices?: any;
+    setVerticesData?: any;
+    showSubMeshesBoundingBox?: boolean;
+    skeleton?: BabylonjsCoreSkeleton;
+    subMeshes?: BabylonjsCoreSubMesh[];
+    useOctreeForCollisions?: boolean;
+    useOctreeForPicking?: boolean;
+    useOctreeForRenderingSelection?: boolean;
+    useVertexColors?: boolean;
+    visibility?: number;
+} & FiberTransformNodeProps;
+export type FiberAbstractMeshPropsCtor = {
+    name: string;
+};
+export type FiberMeshProps = {
+    delayLoadingFile?: string;
+    delayLoadState?: number;
+    instances?: BabylonjsCoreInstancedMesh[];
+    isUnIndexed?: boolean;
+    morphTargetManager?: BabylonjsCoreMorphTargetManager;
+    normalizeSkinFourWeights?: any;
+    normalizeSkinWeightsAndExtra?: any;
+    onBeforeDraw?: () => void;
+    onLODLevelSelection?: (distance: number, mesh: BabylonjsCoreMesh, selectedLevel: BabylonjsCoreMesh) => void;
+    overrideMaterialSideOrientation?: number;
+    overridenInstanceCount?: number;
+    setIndices?: any;
+    setMaterialByID?: any;
+    setVerticesBuffer?: any;
+    setVerticesData?: any;
+} & FiberAbstractMeshProps;
+export type FiberMeshPropsCtor = {
+    name: string;
+    parent?: BabylonjsCoreNode;
+    source?: BabylonjsCoreMesh;
+    doNotCloneChildren?: boolean;
+    clonePhysicsImpostor?: boolean;
+};
+export type FiberCameraProps = {
+    cameraRigMode?: number;
+    customRenderTargets?: BabylonjsCoreRenderTargetTexture[];
+    fov?: number;
+    fovMode?: number;
+    inertia?: number;
+    inputs?: BabylonjsCoreCameraInputsManager<BabylonjsCoreCamera>;
+    interaxialDistance?: number;
+    isIntermediate?: boolean;
+    isStereoscopicSideBySide?: boolean;
+    layerMask?: number;
+    maxZ?: number;
+    minZ?: number;
+    mode?: number;
+    onAfterCheckInputsObservable?: BabylonjsCoreObservable<BabylonjsCoreCamera>;
+    onProjectionMatrixChangedObservable?: BabylonjsCoreObservable<BabylonjsCoreCamera>;
+    onRestoreStateObservable?: BabylonjsCoreObservable<BabylonjsCoreCamera>;
+    onViewMatrixChangedObservable?: BabylonjsCoreObservable<BabylonjsCoreCamera>;
+    orthoBottom?: number;
+    orthoLeft?: number;
+    orthoRight?: number;
+    orthoTop?: number;
+    outputRenderTarget?: BabylonjsCoreRenderTargetTexture;
+    position?: BabylonjsCoreVector3;
+    setCameraRigMode?: any;
+    setCameraRigParameter?: any;
+    upVector?: BabylonjsCoreVector3;
+    viewport?: BabylonjsCoreViewport;
+} & FiberNodeProps;
+export type FiberCameraPropsCtor = {
+    name: string;
+    position: BabylonjsCoreVector3;
+    setActiveOnSceneIfNoneActive?: boolean;
+};
+export type FiberTargetCameraProps = {
+    cameraDirection?: BabylonjsCoreVector3;
+    cameraRotation?: BabylonjsCoreVector2;
+    lockedTarget?: any;
+    noRotationConstraint?: boolean;
+    rotation?: BabylonjsCoreVector3;
+    rotationQuaternion?: BabylonjsCoreQuaternion;
+    setTarget?: any;
+    speed?: number;
+    updateUpVectorFromRotation?: boolean;
+} & FiberCameraProps;
+export type FiberTargetCameraPropsCtor = {
+    name: string;
+    position: BabylonjsCoreVector3;
+    setActiveOnSceneIfNoneActive?: boolean;
+};
+export type FiberFreeCameraProps = {
+    angularSensibility?: number;
+    applyGravity?: boolean;
+    checkCollisions?: boolean;
+    collisionMask?: number;
+    ellipsoid?: BabylonjsCoreVector3;
+    ellipsoidOffset?: BabylonjsCoreVector3;
+    inputs?: BabylonjsCoreFreeCameraInputsManager;
+    keysDown?: number[];
+    keysLeft?: number[];
+    keysRight?: number[];
+    keysUp?: number[];
+    onCollide?: (collidedMesh: BabylonjsCoreAbstractMesh) => void;
+} & FiberTargetCameraProps;
+export type FiberFreeCameraPropsCtor = {
+    name: string;
+    position: BabylonjsCoreVector3;
+    setActiveOnSceneIfNoneActive?: boolean;
+};
+export type FiberTouchCameraProps = {
+    touchAngularSensibility?: number;
+    touchMoveSensibility?: number;
+} & FiberFreeCameraProps;
+export type FiberTouchCameraPropsCtor = {
+    name: string;
+    position: BabylonjsCoreVector3;
+};
+export type FiberUniversalCameraProps = {
+    gamepadAngularSensibility?: number;
+    gamepadMoveSensibility?: number;
+} & FiberTouchCameraProps;
+export type FiberUniversalCameraPropsCtor = {
+    name: string;
+    position: BabylonjsCoreVector3;
+};
+export type FiberGamepadCameraProps = {} & FiberUniversalCameraProps;
+export type FiberGamepadCameraPropsCtor = {
+    name: string;
+    position: BabylonjsCoreVector3;
+};
+export type FiberAnaglyphGamepadCameraProps = {} & FiberGamepadCameraProps;
+export type FiberAnaglyphGamepadCameraPropsCtor = {
+    name: string;
+    position: BabylonjsCoreVector3;
+    interaxialDistance: number;
+};
+export type FiberStereoscopicGamepadCameraProps = {} & FiberGamepadCameraProps;
+export type FiberStereoscopicGamepadCameraPropsCtor = {
+    name: string;
+    position: BabylonjsCoreVector3;
+    interaxialDistance: number;
+    isStereoscopicSideBySide: boolean;
+};
+export type FiberAnaglyphUniversalCameraProps = {} & FiberUniversalCameraProps;
+export type FiberAnaglyphUniversalCameraPropsCtor = {
+    name: string;
+    position: BabylonjsCoreVector3;
+    interaxialDistance: number;
+};
+export type FiberStereoscopicUniversalCameraProps = {} & FiberUniversalCameraProps;
+export type FiberStereoscopicUniversalCameraPropsCtor = {
+    name: string;
+    position: BabylonjsCoreVector3;
+    interaxialDistance: number;
+    isStereoscopicSideBySide: boolean;
+};
+export type FiberDeviceOrientationCameraProps = {} & FiberFreeCameraProps;
+export type FiberDeviceOrientationCameraPropsCtor = {
+    name: string;
+    position: BabylonjsCoreVector3;
+};
+export type FiberVRDeviceOrientationFreeCameraProps = {} & FiberDeviceOrientationCameraProps;
+export type FiberVRDeviceOrientationFreeCameraPropsCtor = {
+    name: string;
+    position: BabylonjsCoreVector3;
+    compensateDistortion?: boolean;
+    vrCameraMetrics?: BabylonjsCoreVRCameraMetrics;
+};
+export type FiberVRDeviceOrientationGamepadCameraProps = {} & FiberVRDeviceOrientationFreeCameraProps;
+export type FiberVRDeviceOrientationGamepadCameraPropsCtor = {
+    name: string;
+    position: BabylonjsCoreVector3;
+    compensateDistortion?: boolean;
+    vrCameraMetrics?: BabylonjsCoreVRCameraMetrics;
+};
+export type FiberAnaglyphFreeCameraProps = {} & FiberFreeCameraProps;
+export type FiberAnaglyphFreeCameraPropsCtor = {
+    name: string;
+    position: BabylonjsCoreVector3;
+    interaxialDistance: number;
+};
+export type FiberStereoscopicFreeCameraProps = {} & FiberFreeCameraProps;
+export type FiberStereoscopicFreeCameraPropsCtor = {
+    name: string;
+    position: BabylonjsCoreVector3;
+    interaxialDistance: number;
+    isStereoscopicSideBySide: boolean;
+};
+export type FiberVirtualJoysticksCameraProps = {} & FiberFreeCameraProps;
+export type FiberVirtualJoysticksCameraPropsCtor = {
+    name: string;
+    position: BabylonjsCoreVector3;
+};
+export type FiberWebVRFreeCameraProps = {
+    controllers?: BabylonjsCoreWebVRController[];
+    devicePosition?: BabylonjsCoreVector3;
+    deviceRotationQuaternion?: BabylonjsCoreQuaternion;
+    deviceScaleFactor?: number;
+    onControllerMeshLoadedObservable?: BabylonjsCoreObservable<BabylonjsCoreWebVRController>;
+    onControllersAttachedObservable?: BabylonjsCoreObservable<BabylonjsCoreWebVRController[]>;
+    onPoseUpdatedFromDeviceObservable?: BabylonjsCoreObservable<any>;
+    rawPose?: BabylonjsCoreDevicePose;
+    rigParenting?: boolean;
+    updateCacheCalled?: any;
+    webVROptions?: any;
+} & FiberFreeCameraProps;
+export type FiberWebVRFreeCameraPropsCtor = {
+    name: string;
+    position: BabylonjsCoreVector3;
+    webVROptions?: BabylonjsCoreWebVROptions;
+};
+export type FiberWebXRCameraProps = {} & FiberFreeCameraProps;
+export type FiberWebXRCameraPropsCtor = {
+    name: string;
+};
+export type FiberArcRotateCameraProps = {
+    allowUpsideDown?: boolean;
+    alpha?: number;
+    angularSensibilityX?: number;
+    angularSensibilityY?: number;
+    beta?: number;
+    checkCollisions?: boolean;
+    collisionRadius?: BabylonjsCoreVector3;
+    inertialAlphaOffset?: number;
+    inertialBetaOffset?: number;
+    inertialPanningX?: number;
+    inertialPanningY?: number;
+    inertialRadiusOffset?: number;
+    inputs?: BabylonjsCoreArcRotateCameraInputsManager;
+    keysDown?: number[];
+    keysLeft?: number[];
+    keysRight?: number[];
+    keysUp?: number[];
+    lowerAlphaLimit?: number;
+    lowerBetaLimit?: number;
+    lowerRadiusLimit?: number;
+    onCollide?: (collidedMesh: BabylonjsCoreAbstractMesh) => void;
+    onMeshTargetChangedObservable?: BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>;
+    panningAxis?: BabylonjsCoreVector3;
+    panningDistanceLimit?: number;
+    panningInertia?: number;
+    panningOriginTarget?: BabylonjsCoreVector3;
+    panningSensibility?: number;
+    pinchDeltaPercentage?: number;
+    pinchPrecision?: number;
+    pinchToPanMaxDistance?: number;
+    position?: BabylonjsCoreVector3;
+    radius?: number;
+    setPosition?: any;
+    setTarget?: any;
+    target?: BabylonjsCoreVector3;
+    targetScreenOffset?: BabylonjsCoreVector2;
+    upperAlphaLimit?: number;
+    upperBetaLimit?: number;
+    upperRadiusLimit?: number;
+    upVector?: BabylonjsCoreVector3;
+    useAutoRotationBehavior?: boolean;
+    useBouncingBehavior?: boolean;
+    useFramingBehavior?: boolean;
+    useInputToRestoreState?: boolean;
+    wheelDeltaPercentage?: number;
+    wheelPrecision?: number;
+    zoomOnFactor?: number;
+} & FiberTargetCameraProps;
+export type FiberArcRotateCameraPropsCtor = {
+    name: string;
+    alpha: number;
+    beta: number;
+    radius: number;
+    target: BabylonjsCoreVector3;
+    setActiveOnSceneIfNoneActive?: boolean;
+};
+export type FiberAnaglyphArcRotateCameraProps = {} & FiberArcRotateCameraProps;
+export type FiberAnaglyphArcRotateCameraPropsCtor = {
+    name: string;
+    alpha: number;
+    beta: number;
+    radius: number;
+    target: BabylonjsCoreVector3;
+    interaxialDistance: number;
+};
+export type FiberStereoscopicArcRotateCameraProps = {} & FiberArcRotateCameraProps;
+export type FiberStereoscopicArcRotateCameraPropsCtor = {
+    name: string;
+    alpha: number;
+    beta: number;
+    radius: number;
+    target: BabylonjsCoreVector3;
+    interaxialDistance: number;
+    isStereoscopicSideBySide: boolean;
+};
+export type FiberVRDeviceOrientationArcRotateCameraProps = {} & FiberArcRotateCameraProps;
+export type FiberVRDeviceOrientationArcRotateCameraPropsCtor = {
+    name: string;
+    alpha: number;
+    beta: number;
+    radius: number;
+    target: BabylonjsCoreVector3;
+    compensateDistortion?: boolean;
+    vrCameraMetrics?: BabylonjsCoreVRCameraMetrics;
+};
+export type FiberFlyCameraProps = {
+    angularSensibility?: number;
+    applyGravity?: boolean;
+    bankedTurn?: boolean;
+    bankedTurnLimit?: number;
+    bankedTurnMultiplier?: number;
+    cameraDirection?: BabylonjsCoreVector3;
+    checkCollisions?: boolean;
+    collisionMask?: number;
+    ellipsoid?: BabylonjsCoreVector3;
+    ellipsoidOffset?: BabylonjsCoreVector3;
+    inputs?: BabylonjsCoreFlyCameraInputsManager;
+    keysBackward?: number[];
+    keysDown?: number[];
+    keysForward?: number[];
+    keysLeft?: number[];
+    keysRight?: number[];
+    keysUp?: number[];
+    onCollide?: (collidedMesh: BabylonjsCoreAbstractMesh) => void;
+    rollCorrect?: number;
+    rotationQuaternion?: BabylonjsCoreQuaternion;
+} & FiberTargetCameraProps;
+export type FiberFlyCameraPropsCtor = {
+    name: string;
+    position: BabylonjsCoreVector3;
+    setActiveOnSceneIfNoneActive?: boolean;
+};
+export type FiberFollowCameraProps = {
+    cameraAcceleration?: number;
+    heightOffset?: number;
+    inputs?: BabylonjsCoreFollowCameraInputsManager;
+    lockedTarget?: BabylonjsCoreAbstractMesh;
+    lowerHeightOffsetLimit?: number;
+    lowerRadiusLimit?: number;
+    lowerRotationOffsetLimit?: number;
+    maxCameraSpeed?: number;
+    radius?: number;
+    rotationOffset?: number;
+    upperHeightOffsetLimit?: number;
+    upperRadiusLimit?: number;
+    upperRotationOffsetLimit?: number;
+} & FiberTargetCameraProps;
+export type FiberFollowCameraPropsCtor = {
+    name: string;
+    position: BabylonjsCoreVector3;
+    lockedTarget?: BabylonjsCoreAbstractMesh;
+};
+export type FiberArcFollowCameraProps = {
+    alpha?: number;
+    beta?: number;
+    radius?: number;
+    target?: BabylonjsCoreAbstractMesh;
+} & FiberTargetCameraProps;
+export type FiberArcFollowCameraPropsCtor = {
+    name: string;
+    alpha: number;
+    beta: number;
+    radius: number;
+    target: BabylonjsCoreAbstractMesh;
+};
+export type FiberBoxPropsCtor = {
+    name: string;
+    size?: number;
+    width?: number;
+    height?: number;
+    depth?: number;
+    faceUV?: BabylonjsCoreVector4[];
+    faceColors?: BabylonjsCoreColor4[];
+    sideOrientation?: number;
+    frontUVs?: BabylonjsCoreVector4;
+    backUVs?: BabylonjsCoreVector4;
+    updatable?: boolean;
+};
+export type FiberSpherePropsCtor = {
+    name: string;
+    segments?: number;
+    diameter?: number;
+    diameterX?: number;
+    diameterY?: number;
+    diameterZ?: number;
+    arc?: number;
+    slice?: number;
+    sideOrientation?: number;
+    frontUVs?: BabylonjsCoreVector4;
+    backUVs?: BabylonjsCoreVector4;
+    updatable?: boolean;
+};
+export type FiberDiscPropsCtor = {
+    name: string;
+    radius?: number;
+    tessellation?: number;
+    arc?: number;
+    updatable?: boolean;
+    sideOrientation?: number;
+    frontUVs?: BabylonjsCoreVector4;
+    backUVs?: BabylonjsCoreVector4;
+};
+export type FiberIcoSpherePropsCtor = {
+    name: string;
+    radius?: number;
+    radiusX?: number;
+    radiusY?: number;
+    radiusZ?: number;
+    flat?: boolean;
+    subdivisions?: number;
+    sideOrientation?: number;
+    frontUVs?: BabylonjsCoreVector4;
+    backUVs?: BabylonjsCoreVector4;
+    updatable?: boolean;
+};
+export type FiberRibbonPropsCtor = {
+    name: string;
+    pathArray?: BabylonjsCoreVector3[][];
+    closeArray?: boolean;
+    closePath?: boolean;
+    offset?: number;
+    updatable?: boolean;
+    sideOrientation?: number;
+    frontUVs?: BabylonjsCoreVector4;
+    backUVs?: BabylonjsCoreVector4;
+    instance?: BabylonjsCoreMesh;
+    invertUV?: boolean;
+    uvs?: BabylonjsCoreVector2[];
+    colors?: BabylonjsCoreColor4[];
+};
+export type FiberCylinderPropsCtor = {
+    name: string;
+    height?: number;
+    diameterTop?: number;
+    diameterBottom?: number;
+    diameter?: number;
+    tessellation?: number;
+    subdivisions?: number;
+    arc?: number;
+    faceColors?: BabylonjsCoreColor4[];
+    faceUV?: BabylonjsCoreVector4[];
+    updatable?: boolean;
+    hasRings?: boolean;
+    enclose?: boolean;
+    sideOrientation?: number;
+    frontUVs?: BabylonjsCoreVector4;
+    backUVs?: BabylonjsCoreVector4;
+};
+export type FiberTorusPropsCtor = {
+    name: string;
+    diameter?: number;
+    thickness?: number;
+    tessellation?: number;
+    updatable?: boolean;
+    sideOrientation?: number;
+    frontUVs?: BabylonjsCoreVector4;
+    backUVs?: BabylonjsCoreVector4;
+};
+export type FiberTorusKnotPropsCtor = {
+    name: string;
+    radius?: number;
+    tube?: number;
+    radialSegments?: number;
+    tubularSegments?: number;
+    p?: number;
+    q?: number;
+    updatable?: boolean;
+    sideOrientation?: number;
+    frontUVs?: BabylonjsCoreVector4;
+    backUVs?: BabylonjsCoreVector4;
+};
+export type FiberLineSystemPropsCtor = {
+    name: string;
+    lines?: BabylonjsCoreVector3[][];
+    updatable?: boolean;
+    instance?: BabylonjsCoreLinesMesh;
+    colors?: BabylonjsCoreColor4[][];
+    useVertexAlpha?: boolean;
+};
+export type FiberLinesPropsCtor = {
+    name: string;
+    points?: BabylonjsCoreVector3[];
+    updatable?: boolean;
+    instance?: BabylonjsCoreLinesMesh;
+    colors?: BabylonjsCoreColor4[];
+    useVertexAlpha?: boolean;
+};
+export type FiberDashedLinesPropsCtor = {
+    name: string;
+    points?: BabylonjsCoreVector3[];
+    dashSize?: number;
+    gapSize?: number;
+    dashNb?: number;
+    updatable?: boolean;
+    instance?: BabylonjsCoreLinesMesh;
+};
+export type FiberExtrudeShapePropsCtor = {
+    name: string;
+    shape?: BabylonjsCoreVector3[];
+    path?: BabylonjsCoreVector3[];
+    scale?: number;
+    rotation?: number;
+    cap?: number;
+    updatable?: boolean;
+    sideOrientation?: number;
+    frontUVs?: BabylonjsCoreVector4;
+    backUVs?: BabylonjsCoreVector4;
+    instance?: BabylonjsCoreMesh;
+    invertUV?: boolean;
+};
+export type FiberExtrudeShapeCustomPropsCtor = {
+    name: string;
+    shape?: BabylonjsCoreVector3[];
+    path?: BabylonjsCoreVector3[];
+    scaleFunction?: any;
+    rotationFunction?: any;
+    ribbonCloseArray?: boolean;
+    ribbonClosePath?: boolean;
+    cap?: number;
+    updatable?: boolean;
+    sideOrientation?: number;
+    frontUVs?: BabylonjsCoreVector4;
+    backUVs?: BabylonjsCoreVector4;
+    instance?: BabylonjsCoreMesh;
+    invertUV?: boolean;
+};
+export type FiberLathePropsCtor = {
+    name: string;
+    shape?: BabylonjsCoreVector3[];
+    radius?: number;
+    tessellation?: number;
+    clip?: number;
+    arc?: number;
+    closed?: boolean;
+    updatable?: boolean;
+    sideOrientation?: number;
+    frontUVs?: BabylonjsCoreVector4;
+    backUVs?: BabylonjsCoreVector4;
+    cap?: number;
+    invertUV?: boolean;
+};
+export type FiberPlanePropsCtor = {
+    name: string;
+    size?: number;
+    width?: number;
+    height?: number;
+    sideOrientation?: number;
+    frontUVs?: BabylonjsCoreVector4;
+    backUVs?: BabylonjsCoreVector4;
+    updatable?: boolean;
+    sourcePlane?: BabylonjsCorePlane;
+};
+export type FiberGroundPropsCtor = {
+    name: string;
+    width?: number;
+    height?: number;
+    subdivisions?: number;
+    subdivisionsX?: number;
+    subdivisionsY?: number;
+    updatable?: boolean;
+};
+export type FiberTiledGroundPropsCtor = {
+    name: string;
+    xmin?: number;
+    zmin?: number;
+    xmax?: number;
+    zmax?: number;
+    subdivisions?: { w: number; h: number; };
+    precision?: { w: number; h: number; };
+    updatable?: boolean;
+};
+export type FiberGroundFromHeightMapPropsCtor = {
+    name: string;
+    url: string;
+    width?: number;
+    height?: number;
+    subdivisions?: number;
+    minHeight?: number;
+    maxHeight?: number;
+    colorFilter?: BabylonjsCoreColor3;
+    alphaFilter?: number;
+    updatable?: boolean;
+    onReady?: (mesh: BabylonjsCoreGroundMesh) => void;
+};
+export type FiberPolygonPropsCtor = {
+    name: string;
+    shape?: BabylonjsCoreVector3[];
+    holes?: BabylonjsCoreVector3[][];
+    depth?: number;
+    faceUV?: BabylonjsCoreVector4[];
+    faceColors?: BabylonjsCoreColor4[];
+    updatable?: boolean;
+    sideOrientation?: number;
+    frontUVs?: BabylonjsCoreVector4;
+    backUVs?: BabylonjsCoreVector4;
+    earcutInjection?: any;
+};
+export type FiberExtrudePolygonPropsCtor = {
+    name: string;
+    shape?: BabylonjsCoreVector3[];
+    holes?: BabylonjsCoreVector3[][];
+    depth?: number;
+    faceUV?: BabylonjsCoreVector4[];
+    faceColors?: BabylonjsCoreColor4[];
+    updatable?: boolean;
+    sideOrientation?: number;
+    frontUVs?: BabylonjsCoreVector4;
+    backUVs?: BabylonjsCoreVector4;
+    earcutInjection?: any;
+};
+export type FiberTubePropsCtor = {
+    name: string;
+    path?: BabylonjsCoreVector3[];
+    radius?: number;
+    tessellation?: number;
+    radiusFunction?: (i: number, distance: number) => number;
+    cap?: number;
+    arc?: number;
+    updatable?: boolean;
+    sideOrientation?: number;
+    frontUVs?: BabylonjsCoreVector4;
+    backUVs?: BabylonjsCoreVector4;
+    instance?: BabylonjsCoreMesh;
+    invertUV?: boolean;
+};
+export type FiberPolyhedronPropsCtor = {
+    name: string;
+    type?: number;
+    size?: number;
+    sizeX?: number;
+    sizeY?: number;
+    sizeZ?: number;
+    custom?: any;
+    faceUV?: BabylonjsCoreVector4[];
+    faceColors?: BabylonjsCoreColor4[];
+    flat?: boolean;
+    updatable?: boolean;
+    sideOrientation?: number;
+    frontUVs?: BabylonjsCoreVector4;
+    backUVs?: BabylonjsCoreVector4;
+};
+export type FiberDecalPropsCtor = {
+    name: string;
+    sourceMesh: BabylonjsCoreAbstractMesh;
+    position?: BabylonjsCoreVector3;
+    normal?: BabylonjsCoreVector3;
+    size?: BabylonjsCoreVector3;
+    angle?: number;
+};
+export type FiberMaterialProps = {
+    alpha?: number;
+    alphaMode?: number;
+    animations?: BabylonjsCoreAnimation[];
+    backFaceCulling?: boolean;
+    checkReadyOnEveryCall?: boolean;
+    checkReadyOnlyOnce?: boolean;
+    disableDepthWrite?: boolean;
+    doNotSerialize?: boolean;
+    fillMode?: number;
+    fogEnabled?: boolean;
+    forceDepthWrite?: boolean;
+    getRenderTargetTextures?: () => BabylonjsCoreSmartArray<BabylonjsCoreRenderTargetTexture>;
+    id?: string;
+    inspectableCustomProperties?: BabylonjsCoreIInspectable[];
+    meshMap?: { [id: string]: BabylonjsCoreAbstractMesh; };
+    metadata?: any;
+    name?: string;
+    needDepthPrePass?: boolean;
+    onBind?: (Mesh: BabylonjsCoreAbstractMesh) => void;
+    onCompiled?: (effect: BabylonjsCoreEffect) => void;
+    onDispose?: () => void;
+    onDisposeObservable?: BabylonjsCoreObservable<BabylonjsCoreMaterial>;
+    onError?: (effect: BabylonjsCoreEffect, errors: string) => void;
+    pointsCloud?: boolean;
+    pointSize?: number;
+    releaseVertexArrayObject?: any;
+    reservedDataStore?: any;
+    separateCullingPass?: boolean;
+    sideOrientation?: number;
+    state?: string;
+    uniqueId?: number;
+    wireframe?: boolean;
+    zOffset?: number;
+};
+export type FiberMaterialPropsCtor = {
+    name: string;
+    doNotAdd?: boolean;
+};
+export type FiberShaderMaterialProps = {
+    setArray2?: any;
+    setArray3?: any;
+    setColor3?: any;
+    setColor3Array?: any;
+    setColor4?: any;
+    setFloat?: any;
+    setFloats?: any;
+    setInt?: any;
+    setMatrix?: any;
+    setMatrix2x2?: any;
+    setMatrix3x3?: any;
+    setTexture?: any;
+    setTextureArray?: any;
+    setVector2?: any;
+    setVector3?: any;
+    setVector4?: any;
+} & FiberMaterialProps;
+export type FiberShaderMaterialPropsCtor = {
+    name: string;
+    shaderPath: any;
+    options?: Partial<BabylonjsCoreIShaderMaterialOptions>;
+};
+export type FiberMultiMaterialProps = {
+    subMaterials?: BabylonjsCoreMaterial[];
+} & FiberMaterialProps;
+export type FiberMultiMaterialPropsCtor = {
+    name: string;
+};
+export type FiberPushMaterialProps = {
+    allowShaderHotSwapping?: boolean;
+} & FiberMaterialProps;
+export type FiberPushMaterialPropsCtor = {
+    name: string;
+};
+export type FiberStandardMaterialProps = {
+    alphaCutOff?: number;
+    ambientColor?: BabylonjsCoreColor3;
+    ambientTexture?: BabylonjsCoreBaseTexture;
+    bumpTexture?: BabylonjsCoreBaseTexture;
+    cameraColorCurves?: BabylonjsCoreColorCurves;
+    cameraColorCurvesEnabled?: boolean;
+    cameraColorGradingEnabled?: boolean;
+    cameraColorGradingTexture?: BabylonjsCoreBaseTexture;
+    cameraContrast?: number;
+    cameraExposure?: number;
+    cameraToneMappingEnabled?: boolean;
+    customShaderNameResolve?: (shaderName: string, uniforms: string[], uniformBuffers: string[], samplers: string[], defines: BabylonjsCoreStandardMaterialDefines) => string;
+    diffuseColor?: BabylonjsCoreColor3;
+    diffuseFresnelParameters?: BabylonjsCoreFresnelParameters;
+    diffuseTexture?: BabylonjsCoreBaseTexture;
+    disableLighting?: boolean;
+    emissiveColor?: BabylonjsCoreColor3;
+    emissiveFresnelParameters?: BabylonjsCoreFresnelParameters;
+    emissiveTexture?: BabylonjsCoreBaseTexture;
+    imageProcessingConfiguration?: BabylonjsCoreImageProcessingConfiguration;
+    indexOfRefraction?: number;
+    invertNormalMapX?: boolean;
+    invertNormalMapY?: boolean;
+    invertRefractionY?: boolean;
+    lightmapTexture?: BabylonjsCoreBaseTexture;
+    linkEmissiveWithDiffuse?: boolean;
+    maxSimultaneousLights?: number;
+    opacityFresnelParameters?: BabylonjsCoreFresnelParameters;
+    opacityTexture?: BabylonjsCoreBaseTexture;
+    parallaxScaleBias?: number;
+    reflectionFresnelParameters?: BabylonjsCoreFresnelParameters;
+    reflectionTexture?: BabylonjsCoreBaseTexture;
+    refractionFresnelParameters?: BabylonjsCoreFresnelParameters;
+    refractionTexture?: BabylonjsCoreBaseTexture;
+    roughness?: number;
+    specularColor?: BabylonjsCoreColor3;
+    specularPower?: number;
+    specularTexture?: BabylonjsCoreBaseTexture;
+    twoSidedLighting?: boolean;
+    useAlphaFromDiffuseTexture?: boolean;
+    useEmissiveAsIllumination?: boolean;
+    useGlossinessFromSpecularMapAlpha?: boolean;
+    useLightmapAsShadowmap?: boolean;
+    useLogarithmicDepth?: boolean;
+    useObjectSpaceNormalMap?: boolean;
+    useParallax?: boolean;
+    useParallaxOcclusion?: boolean;
+    useReflectionFresnelFromSpecular?: boolean;
+    useReflectionOverAlpha?: boolean;
+    useSpecularOverAlpha?: boolean;
+} & FiberPushMaterialProps;
+export type FiberStandardMaterialPropsCtor = {
+    name: string;
+};
+export type FiberBackgroundMaterialProps = {
+    cameraColorCurves?: BabylonjsCoreColorCurves;
+    cameraColorCurvesEnabled?: boolean;
+    cameraColorGradingEnabled?: boolean;
+    cameraColorGradingTexture?: BabylonjsCoreBaseTexture;
+    cameraContrast?: number;
+    cameraExposure?: number;
+    cameraToneMappingEnabled?: boolean;
+    diffuseTexture?: BabylonjsCoreBaseTexture;
+    enableNoise?: boolean;
+    fovMultiplier?: number;
+    imageProcessingConfiguration?: BabylonjsCoreImageProcessingConfiguration;
+    maxSimultaneousLights?: number;
+    opacityFresnel?: boolean;
+    primaryColor?: BabylonjsCoreColor3;
+    primaryColorHighlightLevel?: number;
+    primaryColorShadowLevel?: number;
+    reflectionAmount?: number;
+    reflectionBlur?: number;
+    reflectionFalloffDistance?: number;
+    reflectionFresnel?: boolean;
+    reflectionReflectance0?: number;
+    reflectionReflectance90?: number;
+    reflectionStandardFresnelWeight?: number;
+    reflectionTexture?: BabylonjsCoreBaseTexture;
+    sceneCenter?: BabylonjsCoreVector3;
+    shadowLevel?: number;
+    shadowLights?: BabylonjsCoreIShadowLight[];
+    switchToBGR?: boolean;
+    useEquirectangularFOV?: boolean;
+    useRGBColor?: boolean;
+} & FiberPushMaterialProps;
+export type FiberBackgroundMaterialPropsCtor = {
+    name: string;
+};
+export type FiberPBRBaseMaterialProps = {
+    customShaderNameResolve?: (shaderName: string, uniforms: string[], uniformBuffers: string[], samplers: string[], defines: BabylonjsCorePBRMaterialDefines) => string;
+    debugFactor?: any;
+    debugLimit?: any;
+    debugMode?: number;
+    transparencyMode?: number;
+    useLogarithmicDepth?: boolean;
+} & FiberPushMaterialProps;
+export type FiberPBRBaseMaterialPropsCtor = {
+    name: string;
+};
+export type FiberPBRBaseSimpleMaterialProps = {
+    alphaCutOff?: number;
+    disableLighting?: boolean;
+    doubleSided?: boolean;
+    emissiveColor?: BabylonjsCoreColor3;
+    emissiveTexture?: BabylonjsCoreBaseTexture;
+    environmentTexture?: BabylonjsCoreBaseTexture;
+    invertNormalMapX?: boolean;
+    invertNormalMapY?: boolean;
+    lightmapTexture?: BabylonjsCoreBaseTexture;
+    maxSimultaneousLights?: number;
+    normalTexture?: BabylonjsCoreBaseTexture;
+    occlusionStrength?: number;
+    occlusionTexture?: BabylonjsCoreBaseTexture;
+    useLightmapAsShadowmap?: boolean;
+} & FiberPBRBaseMaterialProps;
+export type FiberPBRBaseSimpleMaterialPropsCtor = {
+    name: string;
+};
+export type FiberPBRMetallicRoughnessMaterialProps = {
+    baseColor?: BabylonjsCoreColor3;
+    baseTexture?: BabylonjsCoreBaseTexture;
+    metallic?: number;
+    metallicRoughnessTexture?: BabylonjsCoreBaseTexture;
+    roughness?: number;
+} & FiberPBRBaseSimpleMaterialProps;
+export type FiberPBRMetallicRoughnessMaterialPropsCtor = {
+    name: string;
+};
+export type FiberPBRSpecularGlossinessMaterialProps = {
+    diffuseColor?: BabylonjsCoreColor3;
+    diffuseTexture?: BabylonjsCoreBaseTexture;
+    glossiness?: number;
+    specularColor?: BabylonjsCoreColor3;
+    specularGlossinessTexture?: BabylonjsCoreBaseTexture;
+} & FiberPBRBaseSimpleMaterialProps;
+export type FiberPBRSpecularGlossinessMaterialPropsCtor = {
+    name: string;
+};
+export type FiberPBRMaterialProps = {
+    albedoColor?: BabylonjsCoreColor3;
+    albedoTexture?: BabylonjsCoreBaseTexture;
+    alphaCutOff?: number;
+    ambientColor?: BabylonjsCoreColor3;
+    ambientTexture?: BabylonjsCoreBaseTexture;
+    ambientTextureImpactOnAnalyticalLights?: number;
+    ambientTextureStrength?: number;
+    bumpTexture?: BabylonjsCoreBaseTexture;
+    cameraColorCurves?: BabylonjsCoreColorCurves;
+    cameraColorCurvesEnabled?: boolean;
+    cameraColorGradingEnabled?: boolean;
+    cameraColorGradingTexture?: BabylonjsCoreBaseTexture;
+    cameraContrast?: number;
+    cameraExposure?: number;
+    cameraToneMappingEnabled?: boolean;
+    directIntensity?: number;
+    disableBumpMap?: boolean;
+    disableLighting?: boolean;
+    emissiveColor?: BabylonjsCoreColor3;
+    emissiveIntensity?: number;
+    emissiveTexture?: BabylonjsCoreBaseTexture;
+    enableSpecularAntiAliasing?: boolean;
+    environmentBRDFTexture?: BabylonjsCoreBaseTexture;
+    environmentIntensity?: number;
+    forceAlphaTest?: boolean;
+    forceIrradianceInFragment?: boolean;
+    forceNormalForward?: boolean;
+    imageProcessingConfiguration?: BabylonjsCoreImageProcessingConfiguration;
+    indexOfRefraction?: number;
+    invertNormalMapX?: boolean;
+    invertNormalMapY?: boolean;
+    invertRefractionY?: boolean;
+    lightmapTexture?: BabylonjsCoreBaseTexture;
+    linkRefractionWithTransparency?: boolean;
+    maxSimultaneousLights?: number;
+    metallic?: number;
+    metallicTexture?: BabylonjsCoreBaseTexture;
+    microSurface?: number;
+    microSurfaceTexture?: BabylonjsCoreBaseTexture;
+    opacityTexture?: BabylonjsCoreBaseTexture;
+    parallaxScaleBias?: number;
+    reflectionColor?: BabylonjsCoreColor3;
+    reflectionTexture?: BabylonjsCoreBaseTexture;
+    reflectivityColor?: BabylonjsCoreColor3;
+    reflectivityTexture?: BabylonjsCoreBaseTexture;
+    refractionTexture?: BabylonjsCoreBaseTexture;
+    roughness?: number;
+    specularIntensity?: number;
+    twoSidedLighting?: boolean;
+    unlit?: boolean;
+    useAlphaFresnel?: boolean;
+    useAlphaFromAlbedoTexture?: boolean;
+    useAmbientInGrayScale?: boolean;
+    useAmbientOcclusionFromMetallicTextureRed?: boolean;
+    useAutoMicroSurfaceFromReflectivityMap?: boolean;
+    useGLTFLightFalloff?: boolean;
+    useHorizonOcclusion?: boolean;
+    useLightmapAsShadowmap?: boolean;
+    useLinearAlphaFresnel?: boolean;
+    useMetallnessFromMetallicTextureBlue?: boolean;
+    useMicroSurfaceFromReflectivityMapAlpha?: boolean;
+    useObjectSpaceNormalMap?: boolean;
+    useParallax?: boolean;
+    useParallaxOcclusion?: boolean;
+    usePhysicalLightFalloff?: boolean;
+    useRadianceOcclusion?: boolean;
+    useRadianceOverAlpha?: boolean;
+    useRoughnessFromMetallicTextureAlpha?: boolean;
+    useRoughnessFromMetallicTextureGreen?: boolean;
+    useSpecularOverAlpha?: boolean;
+} & FiberPBRBaseMaterialProps;
+export type FiberPBRMaterialPropsCtor = {
+    name: string;
+};
+export type FiberLightProps = {
+    diffuse?: BabylonjsCoreColor3;
+    excludedMeshes?: BabylonjsCoreAbstractMesh[];
+    excludeWithLayerMask?: number;
+    falloffType?: number;
+    includedOnlyMeshes?: BabylonjsCoreAbstractMesh[];
+    includeOnlyWithLayerMask?: number;
+    intensity?: number;
+    intensityMode?: number;
+    lightmapMode?: number;
+    radius?: number;
+    range?: number;
+    renderPriority?: number;
+    setEnabled?: any;
+    shadowEnabled?: boolean;
+    specular?: BabylonjsCoreColor3;
+} & FiberNodeProps;
+export type FiberLightPropsCtor = {
+    name: string;
+};
+export type FiberShadowLightProps = {
+    customProjectionMatrixBuilder?: (viewMatrix: BabylonjsCoreMatrix, renderList: BabylonjsCoreAbstractMesh[], result: BabylonjsCoreMatrix) => void;
+    direction?: BabylonjsCoreVector3;
+    position?: BabylonjsCoreVector3;
+    setDirectionToTarget?: any;
+    setShadowProjectionMatrix?: any;
+    shadowMaxZ?: number;
+    shadowMinZ?: number;
+    transformedDirection?: BabylonjsCoreVector3;
+    transformedPosition?: BabylonjsCoreVector3;
+} & FiberLightProps;
+export type FiberShadowLightPropsCtor = {};
+export type FiberDirectionalLightProps = {
+    autoUpdateExtends?: boolean;
+    shadowFrustumSize?: number;
+    shadowOrthoScale?: number;
+} & FiberShadowLightProps;
+export type FiberDirectionalLightPropsCtor = {
+    name: string;
+    direction: BabylonjsCoreVector3;
+};
+export type FiberPointLightProps = {
+    direction?: BabylonjsCoreVector3;
+    shadowAngle?: number;
+} & FiberShadowLightProps;
+export type FiberPointLightPropsCtor = {
+    name: string;
+    position: BabylonjsCoreVector3;
+};
+export type FiberSpotLightProps = {
+    angle?: number;
+    exponent?: number;
+    innerAngle?: number;
+    projectionTexture?: BabylonjsCoreBaseTexture;
+    projectionTextureLightFar?: number;
+    projectionTextureLightNear?: number;
+    projectionTextureUpDirection?: BabylonjsCoreVector3;
+    shadowAngleScale?: number;
+} & FiberShadowLightProps;
+export type FiberSpotLightPropsCtor = {
+    name: string;
+    position: BabylonjsCoreVector3;
+    direction: BabylonjsCoreVector3;
+    angle: number;
+    exponent: number;
+};
+export type FiberHemisphericLightProps = {
+    direction?: BabylonjsCoreVector3;
+    groundColor?: BabylonjsCoreColor3;
+    setDirectionToTarget?: any;
+} & FiberLightProps;
+export type FiberHemisphericLightPropsCtor = {
+    name: string;
+    direction: BabylonjsCoreVector3;
+};
+export type FiberControlProps = {
+    alpha?: number;
+    clipChildren?: boolean;
+    clipContent?: boolean;
+    color?: string;
+    disabledColor?: string;
+    fontFamily?: string;
+    fontOffset?: { ascent: number; height: number; descent: number; };
+    fontSize?: string | number;
+    fontSizeInPixels?: number;
+    fontStyle?: string;
+    fontWeight?: string;
+    height?: string | number;
+    heightInPixels?: number;
+    horizontalAlignment?: number;
+    hoverCursor?: string;
+    isEnabled?: boolean;
+    isFocusInvisible?: boolean;
+    isHighlighted?: boolean;
+    isHitTestVisible?: boolean;
+    isPointerBlocker?: boolean;
+    isVisible?: boolean;
+    left?: string | number;
+    leftInPixels?: number;
+    linkOffsetX?: string | number;
+    linkOffsetXInPixels?: number;
+    linkOffsetY?: string | number;
+    linkOffsetYInPixels?: number;
+    metadata?: any;
+    name?: string;
+    notRenderable?: boolean;
+    onAfterDrawObservable?: BabylonjsCoreObservable<BabylonjsGuiControl>;
+    onBeforeDrawObservable?: BabylonjsCoreObservable<BabylonjsGuiControl>;
+    onDirtyObservable?: BabylonjsCoreObservable<BabylonjsGuiControl>;
+    onPointerClickObservable?: BabylonjsCoreObservable<BabylonjsGuiVector2WithInfo>;
+    onPointerDownObservable?: BabylonjsCoreObservable<BabylonjsGuiVector2WithInfo>;
+    onPointerEnterObservable?: BabylonjsCoreObservable<BabylonjsGuiControl>;
+    onPointerMoveObservable?: BabylonjsCoreObservable<BabylonjsCoreVector2>;
+    onPointerOutObservable?: BabylonjsCoreObservable<BabylonjsGuiControl>;
+    onPointerUpObservable?: BabylonjsCoreObservable<BabylonjsGuiVector2WithInfo>;
+    paddingBottom?: string | number;
+    paddingBottomInPixels?: number;
+    paddingLeft?: string | number;
+    paddingLeftInPixels?: number;
+    paddingRight?: string | number;
+    paddingRightInPixels?: number;
+    paddingTop?: string | number;
+    paddingTopInPixels?: number;
+    parent?: BabylonjsGuiContainer;
+    rotation?: number;
+    scaleX?: number;
+    scaleY?: number;
+    shadowBlur?: number;
+    shadowColor?: string;
+    shadowOffsetX?: number;
+    shadowOffsetY?: number;
+    style?: BabylonjsGuiStyle;
+    top?: string | number;
+    topInPixels?: number;
+    transformCenterX?: number;
+    transformCenterY?: number;
+    uniqueId?: number;
+    useBitmapCache?: boolean;
+    verticalAlignment?: number;
+    width?: string | number;
+    widthInPixels?: number;
+    zIndex?: number;
+};
+export type FiberControlPropsCtor = {
+    name?: string;
+};
+export type FiberContainerProps = {
+    adaptHeightToChildren?: boolean;
+    adaptWidthToChildren?: boolean;
+    background?: string;
+    name?: string;
+} & FiberControlProps;
+export type FiberContainerPropsCtor = {
+    name?: string;
+};
+export type FiberRectangleProps = {
+    cornerRadius?: number;
+    name?: string;
+    thickness?: number;
+} & FiberContainerProps;
+export type FiberRectanglePropsCtor = {
+    name?: string;
+};
+export type FiberButtonProps = {
+    name?: string;
+    pointerDownAnimation?: () => void;
+    pointerEnterAnimation?: () => void;
+    pointerOutAnimation?: () => void;
+    pointerUpAnimation?: () => void;
+} & FiberRectangleProps;
+export type FiberButtonPropsCtor = {
+    name?: string;
+};
+export type FiberSelectionPanelProps = {
+    barColor?: string;
+    barHeight?: string;
+    buttonBackground?: string;
+    buttonColor?: string;
+    groups?: BabylonjsGuiSelectorGroup[];
+    headerColor?: string;
+    labelColor?: string;
+    name?: string;
+    setHeaderName?: any;
+    spacerHeight?: string;
+} & FiberRectangleProps;
+export type FiberSelectionPanelPropsCtor = {
+    name: string;
+    groups?: BabylonjsGuiSelectorGroup[];
+};
+export type FiberScrollViewerProps = {
+    barBackground?: string;
+    barColor?: string;
+    barSize?: number;
+    wheelPrecision?: number;
+} & FiberRectangleProps;
+export type FiberScrollViewerPropsCtor = {
+    name?: string;
+};
+export type FiberStackPanelProps = {
+    height?: string | number;
+    isVertical?: boolean;
+    name?: string;
+    width?: string | number;
+} & FiberContainerProps;
+export type FiberStackPanelPropsCtor = {
+    name?: string;
+};
+export type FiberVirtualKeyboardProps = {
+    defaultButtonBackground?: string;
+    defaultButtonColor?: string;
+    defaultButtonHeight?: string;
+    defaultButtonPaddingBottom?: string;
+    defaultButtonPaddingLeft?: string;
+    defaultButtonPaddingRight?: string;
+    defaultButtonPaddingTop?: string;
+    defaultButtonWidth?: string;
+    onKeyPressObservable?: BabylonjsCoreObservable<string>;
+    selectedShiftThickness?: number;
+    shiftButtonColor?: string;
+    shiftState?: number;
+} & FiberStackPanelProps;
+export type FiberVirtualKeyboardPropsCtor = {};
+export type FiberEllipseProps = {
+    name?: string;
+    thickness?: number;
+} & FiberContainerProps;
+export type FiberEllipsePropsCtor = {
+    name?: string;
+};
+export type FiberGridProps = {
+    name?: string;
+    setColumnDefinition?: any;
+    setRowDefinition?: any;
+} & FiberContainerProps;
+export type FiberGridPropsCtor = {
+    name?: string;
+};
+export type Fiber_ScrollViewerWindowProps = {
+    parentClientHeight?: number;
+    parentClientWidth?: number;
+} & FiberContainerProps;
+export type Fiber_ScrollViewerWindowPropsCtor = {
+    name?: string;
+};
+export type FiberTextBlockProps = {
+    lineSpacing?: string | number;
+    name?: string;
+    onLinesReadyObservable?: BabylonjsCoreObservable<BabylonjsGuiTextBlock>;
+    onTextChangedObservable?: BabylonjsCoreObservable<BabylonjsGuiTextBlock>;
+    outlineColor?: string;
+    outlineWidth?: number;
+    resizeToFit?: boolean;
+    text?: string;
+    textHorizontalAlignment?: number;
+    textVerticalAlignment?: number;
+    textWrapping?: boolean | BabylonjsGuiTextWrapping;
+} & FiberControlProps;
+export type FiberTextBlockPropsCtor = {
+    name?: string;
+    text?: string;
+};
+export type FiberImageProps = {
+    autoScale?: boolean;
+    cellHeight?: number;
+    cellId?: number;
+    cellWidth?: number;
+    detectPointerOnOpaqueOnly?: boolean;
+    domImage?: HTMLImageElement;
+    name?: string;
+    onImageLoadedObservable?: BabylonjsCoreObservable<BabylonjsGuiImage>;
+    populateNinePatchSlicesFromImage?: boolean;
+    sliceBottom?: number;
+    sliceLeft?: number;
+    sliceRight?: number;
+    sliceTop?: number;
+    source?: string;
+    sourceHeight?: number;
+    sourceLeft?: number;
+    sourceTop?: number;
+    sourceWidth?: number;
+    stretch?: number;
+} & FiberControlProps;
+export type FiberImagePropsCtor = {
+    name?: string;
+    url?: string;
+};
+export type FiberCheckboxProps = {
+    background?: string;
+    checkSizeRatio?: number;
+    isChecked?: boolean;
+    name?: string;
+    onIsCheckedChangedObservable?: BabylonjsCoreObservable<boolean>;
+    thickness?: number;
+} & FiberControlProps;
+export type FiberCheckboxPropsCtor = {
+    name?: string;
+};
+export type FiberColorPickerProps = {
+    height?: string | number;
+    name?: string;
+    onValueChangedObservable?: BabylonjsCoreObservable<BabylonjsCoreColor3>;
+    size?: string | number;
+    value?: BabylonjsCoreColor3;
+    width?: string | number;
+} & FiberControlProps;
+export type FiberColorPickerPropsCtor = {
+    name?: string;
+};
+export type FiberInputTextProps = {
+    addKey?: boolean;
+    autoStretchWidth?: boolean;
+    background?: string;
+    currentKey?: string;
+    deadKey?: boolean;
+    focusedBackground?: string;
+    focusedColor?: string;
+    highligherOpacity?: number;
+    highlightedText?: string;
+    margin?: string;
+    maxWidth?: string | number;
+    name?: string;
+    onBeforeKeyAddObservable?: BabylonjsCoreObservable<BabylonjsGuiInputText>;
+    onBlurObservable?: BabylonjsCoreObservable<BabylonjsGuiInputText>;
+    onFocusObservable?: BabylonjsCoreObservable<BabylonjsGuiInputText>;
+    onFocusSelectAll?: boolean;
+    onKeyboardEventProcessedObservable?: BabylonjsCoreObservable<KeyboardEvent>;
+    onTextChangedObservable?: BabylonjsCoreObservable<BabylonjsGuiInputText>;
+    onTextCopyObservable?: BabylonjsCoreObservable<BabylonjsGuiInputText>;
+    onTextCutObservable?: BabylonjsCoreObservable<BabylonjsGuiInputText>;
+    onTextHighlightObservable?: BabylonjsCoreObservable<BabylonjsGuiInputText>;
+    onTextPasteObservable?: BabylonjsCoreObservable<BabylonjsGuiInputText>;
+    placeholderColor?: string;
+    placeholderText?: string;
+    promptMessage?: string;
+    text?: string;
+    textHighlightColor?: string;
+    thickness?: number;
+    width?: string | number;
+} & FiberControlProps;
+export type FiberInputTextPropsCtor = {
+    name?: string;
+    text?: string;
+};
+export type FiberInputPasswordProps = {} & FiberInputTextProps;
+export type FiberInputPasswordPropsCtor = {};
+export type FiberLineProps = {
+    connectedControl?: BabylonjsGuiControl;
+    dash?: number[];
+    horizontalAlignment?: number;
+    lineWidth?: number;
+    name?: string;
+    verticalAlignment?: number;
+    x1?: string | number;
+    x2?: string | number;
+    y1?: string | number;
+    y2?: string | number;
+} & FiberControlProps;
+export type FiberLinePropsCtor = {
+    name?: string;
+};
+export type FiberMultiLineProps = {
+    dash?: number[];
+    horizontalAlignment?: number;
+    lineWidth?: number;
+    name?: string;
+    onPointUpdate?: () => void;
+    verticalAlignment?: number;
+} & FiberControlProps;
+export type FiberMultiLinePropsCtor = {
+    name?: string;
+};
+export type FiberRadioButtonProps = {
+    background?: string;
+    checkSizeRatio?: number;
+    group?: string;
+    isChecked?: boolean;
+    name?: string;
+    onIsCheckedChangedObservable?: BabylonjsCoreObservable<boolean>;
+    thickness?: number;
+} & FiberControlProps;
+export type FiberRadioButtonPropsCtor = {
+    name?: string;
+};
+export type FiberBaseSliderProps = {
+    barOffset?: string | number;
+    displayThumb?: boolean;
+    isThumbClamped?: boolean;
+    isVertical?: boolean;
+    maximum?: number;
+    minimum?: number;
+    name?: string;
+    onValueChangedObservable?: BabylonjsCoreObservable<number>;
+    step?: number;
+    thumbWidth?: string | number;
+    value?: number;
+} & FiberControlProps;
+export type FiberBaseSliderPropsCtor = {
+    name?: string;
+};
+export type FiberScrollBarProps = {
+    background?: string;
+    borderColor?: string;
+    name?: string;
+} & FiberBaseSliderProps;
+export type FiberScrollBarPropsCtor = {
+    name?: string;
+};
+export type FiberSliderProps = {
+    background?: string;
+    borderColor?: string;
+    displayValueBar?: boolean;
+    isThumbCircle?: boolean;
+    name?: string;
+} & FiberBaseSliderProps;
+export type FiberSliderPropsCtor = {
+    name?: string;
+};
+export type FiberImageBasedSliderProps = {
+    backgroundImage?: BabylonjsGuiImage;
+    displayThumb?: boolean;
+    name?: string;
+    thumbImage?: BabylonjsGuiImage;
+    valueBarImage?: BabylonjsGuiImage;
+} & FiberBaseSliderProps;
+export type FiberImageBasedSliderPropsCtor = {
+    name?: string;
+};
+export type FiberDisplayGridProps = {
+    background?: string;
+    cellHeight?: number;
+    cellWidth?: number;
+    displayMajorLines?: boolean;
+    displayMinorLines?: boolean;
+    majorLineColor?: string;
+    majorLineFrequency?: number;
+    majorLineTickness?: number;
+    minorLineColor?: string;
+    minorLineTickness?: number;
+    name?: string;
+} & FiberControlProps;
+export type FiberDisplayGridPropsCtor = {
+    name?: string;
+};
+export type FiberControl3DProps = {
+    isVisible?: boolean;
+    name?: string;
+    onPointerClickObservable?: BabylonjsCoreObservable<BabylonjsGuiVector3WithInfo>;
+    onPointerDownObservable?: BabylonjsCoreObservable<BabylonjsGuiVector3WithInfo>;
+    onPointerEnterObservable?: BabylonjsCoreObservable<BabylonjsGuiControl3D>;
+    onPointerMoveObservable?: BabylonjsCoreObservable<BabylonjsCoreVector3>;
+    onPointerOutObservable?: BabylonjsCoreObservable<BabylonjsGuiControl3D>;
+    onPointerUpObservable?: BabylonjsCoreObservable<BabylonjsGuiVector3WithInfo>;
+    parent?: BabylonjsGuiContainer3D;
+    pointerDownAnimation?: () => void;
+    pointerEnterAnimation?: () => void;
+    pointerOutAnimation?: () => void;
+    pointerUpAnimation?: () => void;
+    position?: BabylonjsCoreVector3;
+    scaling?: BabylonjsCoreVector3;
+};
+export type FiberControl3DPropsCtor = {
+    name?: string;
+};
+export type FiberContainer3DProps = {
+    blockLayout?: boolean;
+} & FiberControl3DProps;
+export type FiberContainer3DPropsCtor = {
+    name?: string;
+};
+export type FiberVolumeBasedPanelProps = {
+    columns?: number;
+    margin?: number;
+    orientation?: number;
+    rows?: number;
+} & FiberContainer3DProps;
+export type FiberVolumeBasedPanelPropsCtor = {};
+export type FiberCylinderPanelProps = {
+    radius?: number;
+} & FiberVolumeBasedPanelProps;
+export type FiberCylinderPanelPropsCtor = {};
+export type FiberPlanePanelProps = {} & FiberVolumeBasedPanelProps;
+export type FiberPlanePanelPropsCtor = {};
+export type FiberScatterPanelProps = {
+    iteration?: number;
+} & FiberVolumeBasedPanelProps;
+export type FiberScatterPanelPropsCtor = {};
+export type FiberSpherePanelProps = {
+    radius?: number;
+} & FiberVolumeBasedPanelProps;
+export type FiberSpherePanelPropsCtor = {};
+export type FiberStackPanel3DProps = {
+    isVertical?: boolean;
+    margin?: number;
+} & FiberContainer3DProps;
+export type FiberStackPanel3DPropsCtor = {
+    isVertical?: boolean;
+};
+export type FiberAbstractButton3DProps = {} & FiberControl3DProps;
+export type FiberAbstractButton3DPropsCtor = {
+    name?: string;
+};
+export type FiberButton3DProps = {
+    content?: BabylonjsGuiControl;
+    contentResolution?: number;
+    contentScaleRatio?: number;
+} & FiberAbstractButton3DProps;
+export type FiberButton3DPropsCtor = {
+    name?: string;
+};
+export type FiberHolographicButtonProps = {
+    imageUrl?: string;
+    text?: string;
+    tooltipText?: string;
+} & FiberButton3DProps;
+export type FiberHolographicButtonPropsCtor = {
+    name?: string;
+    shareMaterials?: boolean;
+};
+export type FiberMeshButton3DProps = {} & FiberButton3DProps;
+export type FiberMeshButton3DPropsCtor = {
+    mesh: BabylonjsCoreMesh;
+    name?: string;
+};
+export type FiberBaseTextureProps = {
+    animations?: BabylonjsCoreAnimation[];
+    anisotropicFilteringLevel?: number;
+    coordinatesIndex?: number;
+    coordinatesMode?: number;
+    delayLoadState?: number;
+    gammaSpace?: boolean;
+    getAlphaFromRGB?: boolean;
+    hasAlpha?: boolean;
+    invertZ?: boolean;
+    is3D?: boolean;
+    isCube?: boolean;
+    isRenderTarget?: boolean;
+    level?: number;
+    lodGenerationOffset?: number;
+    lodGenerationScale?: number;
+    lodLevelInAlpha?: boolean;
+    metadata?: any;
+    name?: string;
+    onDispose?: () => void;
+    onDisposeObservable?: BabylonjsCoreObservable<BabylonjsCoreBaseTexture>;
+    reservedDataStore?: any;
+    sphericalPolynomial?: BabylonjsCoreSphericalPolynomial;
+    uniqueId?: number;
+    wrapR?: number;
+    wrapU?: number;
+    wrapV?: number;
+};
+export type FiberBaseTexturePropsCtor = {};
+export type FiberCubeTextureProps = {
+    boundingBoxPosition?: BabylonjsCoreVector3;
+    boundingBoxSize?: BabylonjsCoreVector3;
+    rotationY?: number;
+    setReflectionTextureMatrix?: any;
+    url?: string;
+} & FiberBaseTextureProps;
+export type FiberCubeTexturePropsCtor = {
+    rootUrl: string;
+    extensions?: string[];
+    noMipmap?: boolean;
+    files?: string[];
+    onLoad?: () => void;
+    onError?: (message?: string, exception?: any) => void;
+    format?: number;
+    prefiltered?: boolean;
+    forcedExtension?: any;
+    createPolynomials?: boolean;
+    lodScale?: number;
+    lodOffset?: number;
+};
+export type FiberRawCubeTextureProps = {} & FiberCubeTextureProps;
+export type FiberRawCubeTexturePropsCtor = {
+    data: ArrayBufferView[];
+    size: number;
+    format?: number;
+    type?: number;
+    generateMipMaps?: boolean;
+    invertY?: boolean;
+    samplingMode?: number;
+    compression?: string;
+};
+export type FiberTextureProps = {
+    inspectableCustomProperties?: BabylonjsCoreIInspectable[];
+    isBlocking?: boolean;
+    onLoadObservable?: BabylonjsCoreObservable<BabylonjsCoreTexture>;
+    uAng?: number;
+    uOffset?: number;
+    url?: string;
+    uRotationCenter?: number;
+    uScale?: number;
+    vAng?: number;
+    vOffset?: number;
+    vRotationCenter?: number;
+    vScale?: number;
+    wAng?: number;
+    wRotationCenter?: number;
+} & FiberBaseTextureProps;
+export type FiberTexturePropsCtor = {
+    url: string;
+    noMipmap?: boolean;
+    invertY?: boolean;
+    samplingMode?: number;
+    onLoad?: () => void;
+    onError?: (message?: string, exception?: any) => void;
+    buffer?: string | ArrayBuffer | HTMLImageElement | Blob;
+    deleteBuffer?: boolean;
+    format?: number;
+};
+export type FiberRawTextureProps = {
+    format?: number;
+} & FiberTextureProps;
+export type FiberRawTexturePropsCtor = {
+    data: ArrayBufferView;
+    width: number;
+    height: number;
+    format: number;
+    generateMipMaps?: boolean;
+    invertY?: boolean;
+    samplingMode?: number;
+    type?: number;
+};
+export type FiberProceduralTextureProps = {
+    autoClear?: boolean;
+    isCube?: boolean;
+    isEnabled?: boolean;
+    onGenerated?: () => void;
+    onGeneratedObservable?: BabylonjsCoreObservable<BabylonjsCoreProceduralTexture>;
+    refreshRate?: number;
+    setColor3?: any;
+    setColor4?: any;
+    setFloat?: any;
+    setFloats?: any;
+    setFragment?: any;
+    setInt?: any;
+    setMatrix?: any;
+    setTexture?: any;
+    setVector2?: any;
+    setVector3?: any;
+} & FiberTextureProps;
+export type FiberProceduralTexturePropsCtor = {
+    name: string;
+    size: any;
+    fragment: any;
+    fallbackTexture?: BabylonjsCoreTexture;
+    generateMipMaps?: boolean;
+    isCube?: boolean;
+};
+export type FiberCustomProceduralTextureProps = {
+    animate?: boolean;
+} & FiberProceduralTextureProps;
+export type FiberCustomProceduralTexturePropsCtor = {
+    name: string;
+    texturePath: string;
+    size: number;
+    fallbackTexture?: BabylonjsCoreTexture;
+    generateMipMaps?: boolean;
+};
+export type FiberNoiseProceduralTextureProps = {
+    animationSpeedFactor?: number;
+    brightness?: number;
+    octaves?: number;
+    persistence?: number;
+} & FiberProceduralTextureProps;
+export type FiberNoiseProceduralTexturePropsCtor = {
+    name: string;
+    size?: number;
+    fallbackTexture?: BabylonjsCoreTexture;
+    generateMipMaps?: boolean;
+};
+export type FiberRenderTargetTextureProps = {
+    activeCamera?: BabylonjsCoreCamera;
+    boundingBoxPosition?: BabylonjsCoreVector3;
+    boundingBoxSize?: BabylonjsCoreVector3;
+    clearColor?: BabylonjsCoreColor4;
+    coordinatesMode?: number;
+    customRenderFunction?: (opaqueSubMeshes: BabylonjsCoreSmartArray<BabylonjsCoreSubMesh>, alphaTestSubMeshes: BabylonjsCoreSmartArray<BabylonjsCoreSubMesh>, transparentSubMeshes: BabylonjsCoreSmartArray<BabylonjsCoreSubMesh>, depthOnlySubMeshes: BabylonjsCoreSmartArray<BabylonjsCoreSubMesh>, beforeTransparents?: () => void) => void;
+    depthStencilTexture?: BabylonjsCoreInternalTexture;
+    ignoreCameraViewport?: boolean;
+    isCube?: boolean;
+    onAfterRender?: (faceIndex: number) => void;
+    onAfterRenderObservable?: BabylonjsCoreObservable<number>;
+    onAfterUnbind?: () => void;
+    onAfterUnbindObservable?: BabylonjsCoreObservable<BabylonjsCoreRenderTargetTexture>;
+    onBeforeBindObservable?: BabylonjsCoreObservable<BabylonjsCoreRenderTargetTexture>;
+    onBeforeRender?: (faceIndex: number) => void;
+    onBeforeRenderObservable?: BabylonjsCoreObservable<number>;
+    onClear?: (Engine: BabylonjsCoreEngine) => void;
+    onClearObservable?: BabylonjsCoreObservable<BabylonjsCoreEngine>;
+    refreshRate?: number;
+    renderList?: BabylonjsCoreAbstractMesh[];
+    renderListPredicate?: (AbstractMesh: BabylonjsCoreAbstractMesh) => boolean;
+    renderParticles?: boolean;
+    renderSprites?: boolean;
+    renderToTarget?: any;
+    samples?: number;
+    setRenderingAutoClearDepthStencil?: any;
+    setRenderingOrder?: any;
+    useCameraPostProcesses?: boolean;
+} & FiberTextureProps;
+export type FiberRenderTargetTexturePropsCtor = {
+    name: string;
+    size: number | { width: number; height: number; } | { ratio: number; };
+    generateMipMaps?: boolean;
+    doNotChangeAspectRatio?: boolean;
+    type?: number;
+    isCube?: boolean;
+    samplingMode?: number;
+    generateDepthBuffer?: boolean;
+    generateStencilBuffer?: boolean;
+    isMulti?: boolean;
+    format?: number;
+    delayAllocation?: boolean;
+};
+export type FiberMirrorTextureProps = {
+    adaptiveBlurKernel?: number;
+    blurKernel?: number;
+    blurKernelX?: number;
+    blurKernelY?: number;
+    blurRatio?: number;
+    mirrorPlane?: BabylonjsCorePlane;
+    scene?: any;
+} & FiberRenderTargetTextureProps;
+export type FiberMirrorTexturePropsCtor = {
+    name: string;
+    size: number | { width: number; height: number; } | { ratio: number; };
+    generateMipMaps?: boolean;
+    type?: number;
+    samplingMode?: number;
+    generateDepthBuffer?: boolean;
+};
+export type FiberMultiRenderTargetProps = {
+    samples?: number;
+    wrapU?: number;
+    wrapV?: number;
+} & FiberRenderTargetTextureProps;
+export type FiberMultiRenderTargetPropsCtor = {
+    name: string;
+    size: any;
+    count: number;
+    options?: BabylonjsCoreIMultiRenderTargetOptions;
+};
+export type FiberRefractionTextureProps = {
+    depth?: number;
+    refractionPlane?: BabylonjsCorePlane;
+} & FiberRenderTargetTextureProps;
+export type FiberRefractionTexturePropsCtor = {
+    name: string;
+    size: number;
+    generateMipMaps?: boolean;
+};
+export type FiberMultiviewRenderTargetProps = {} & FiberRenderTargetTextureProps;
+export type FiberMultiviewRenderTargetPropsCtor = {
+    size?: number | { width: number; height: number; } | { ratio: number; };
+};
+export type FiberVideoTextureProps = {
+    reset?: any;
+} & FiberTextureProps;
+export type FiberVideoTexturePropsCtor = {
+    name: string;
+    src: string | string[] | HTMLVideoElement;
+    generateMipMaps?: boolean;
+    invertY?: boolean;
+    samplingMode?: number;
+    settings?: BabylonjsCoreVideoTextureSettings;
+};
+export type FiberDynamicTextureProps = {} & FiberTextureProps;
+export type FiberDynamicTexturePropsCtor = {
+    name: string;
+    options: any;
+    generateMipMaps: boolean;
+    samplingMode?: number;
+    format?: number;
+};
+export type FiberRawTexture3DProps = {
+    format?: number;
+} & FiberTextureProps;
+export type FiberRawTexture3DPropsCtor = {
+    data: ArrayBufferView;
+    width: number;
+    height: number;
+    depth: number;
+    format: number;
+    generateMipMaps?: boolean;
+    invertY?: boolean;
+    samplingMode?: number;
+    textureType?: number;
+};
+export type FiberColorGradingTextureProps = {
+    load3dlTexture?: any;
+    loadTexture?: any;
+    url?: string;
+} & FiberBaseTextureProps;
+export type FiberColorGradingTexturePropsCtor = {
+    url: string;
+};
+export type FiberEquiRectangularCubeTextureProps = {
+    coordinatesMode?: number;
+    getFloat32ArrayFromArrayBuffer?: any;
+    loadImage?: any;
+    loadTexture?: any;
+    url?: string;
+} & FiberBaseTextureProps;
+export type FiberEquiRectangularCubeTexturePropsCtor = {
+    url: string;
+    size: number;
+    noMipmap?: boolean;
+    gammaSpace?: boolean;
+    onLoad?: () => void;
+    onError?: (message?: string, exception?: any) => void;
+};
+export type FiberHDRCubeTextureProps = {
+    boundingBoxPosition?: BabylonjsCoreVector3;
+    boundingBoxSize?: BabylonjsCoreVector3;
+    coordinatesMode?: number;
+    isBlocking?: boolean;
+    loadTexture?: any;
+    rotationY?: number;
+    setReflectionTextureMatrix?: any;
+    url?: string;
+} & FiberBaseTextureProps;
+export type FiberHDRCubeTexturePropsCtor = {
+    url: string;
+    size: number;
+    noMipmap?: boolean;
+    generateHarmonics?: boolean;
+    gammaSpace?: boolean;
+    reserved?: boolean;
+    onLoad?: () => void;
+    onError?: (message?: string, exception?: any) => void;
+};
+export type FiberHtmlElementTextureProps = {
+    element?: HTMLVideoElement | HTMLCanvasElement;
+} & FiberBaseTextureProps;
+export type FiberHtmlElementTexturePropsCtor = {
+    name: string;
+    element: HTMLVideoElement | HTMLCanvasElement;
+    options: BabylonjsCoreIHtmlElementTextureOptions;
+};
+export type FiberAdvancedDynamicTextureProps = {
+    background?: string;
+    clipboardData?: string;
+    focusedControl?: BabylonjsGuiIFocusableControl;
+    idealHeight?: number;
+    idealWidth?: number;
+    isForeground?: boolean;
+    onBeginLayoutObservable?: BabylonjsCoreObservable<BabylonjsGuiAdvancedDynamicTexture>;
+    onBeginRenderObservable?: BabylonjsCoreObservable<BabylonjsGuiAdvancedDynamicTexture>;
+    onClipboardCopy?: any;
+    onClipboardCut?: any;
+    onClipboardObservable?: BabylonjsCoreObservable<BabylonjsCoreClipboardInfo>;
+    onClipboardPaste?: any;
+    onControlPickedObservable?: BabylonjsCoreObservable<BabylonjsGuiControl>;
+    onEndLayoutObservable?: BabylonjsCoreObservable<BabylonjsGuiAdvancedDynamicTexture>;
+    onEndRenderObservable?: BabylonjsCoreObservable<BabylonjsGuiAdvancedDynamicTexture>;
+    premulAlpha?: boolean;
+    renderAtIdealSize?: boolean;
+    renderScale?: number;
+    useInvalidateRectOptimization?: boolean;
+    useSmallestIdeal?: boolean;
+} & FiberDynamicTextureProps;
+export type FiberAdvancedDynamicTexturePropsCtor = {
+    name: string;
+    width: number;
+    height: number;
+    generateMipMaps?: boolean;
+    samplingMode?: number;
+};
+export type FiberGUI3DManagerProps = {
+    onPickedPointChangedObservable?: BabylonjsCoreObservable<BabylonjsCoreVector3>;
+};
+export type FiberGUI3DManagerPropsCtor = {};
+export type FiberShadowGeneratorProps = {
+    bias?: number;
+    blurBoxOffset?: number;
+    blurKernel?: number;
+    blurScale?: number;
+    contactHardeningLightSizeUVRatio?: number;
+    customShaderOptions?: BabylonjsCoreICustomShaderOptions;
+    depthScale?: number;
+    filter?: number;
+    filteringQuality?: number;
+    forceBackFacesOnly?: boolean;
+    frustumEdgeFalloff?: number;
+    normalBias?: number;
+    onBeforeShadowMapRenderMeshObservable?: BabylonjsCoreObservable<BabylonjsCoreMesh>;
+    onBeforeShadowMapRenderObservable?: BabylonjsCoreObservable<BabylonjsCoreEffect>;
+    setDarkness?: any;
+    setTransparencyShadow?: any;
+    useBlurCloseExponentialShadowMap?: boolean;
+    useBlurExponentialShadowMap?: boolean;
+    useCloseExponentialShadowMap?: boolean;
+    useContactHardeningShadow?: boolean;
+    useExponentialShadowMap?: boolean;
+    useKernelBlur?: boolean;
+    usePercentageCloserFiltering?: boolean;
+    usePoissonSampling?: boolean;
+};
+export type FiberShadowGeneratorPropsCtor = {
+    mapSize: number;
+    light: BabylonjsCoreIShadowLight;
+    usefulFloatFirst?: boolean;
+};
+export type FiberEnvironmentHelperProps = {
+    onErrorObservable?: BabylonjsCoreObservable<{ message?: string; exception?: any; }>;
+    setMainColor?: any;
+};
+export type FiberEnvironmentHelperPropsCtor = {
+    options: Partial<BabylonjsCoreIEnvironmentHelperOptions>;
+};
+export type FiberPhysicsImpostorProps = {
+    afterStep?: () => void;
+    beforeStep?: () => void;
+    friction?: number;
+    mass?: number;
+    object?: BabylonjsCoreIPhysicsEnabledObject;
+    onCollide?: (e: { body: any; }) => void;
+    onCollideEvent?: (collider: BabylonjsCorePhysicsImpostor, collidedWith: BabylonjsCorePhysicsImpostor) => void;
+    parent?: BabylonjsCorePhysicsImpostor;
+    physicsBody?: any;
+    positionIterations?: number;
+    pressure?: number;
+    restitution?: number;
+    segments?: number;
+    setAngularVelocity?: any;
+    setDeltaPosition?: any;
+    setDeltaRotation?: any;
+    setLinearVelocity?: any;
+    setMass?: any;
+    setParam?: any;
+    soft?: boolean;
+    stiffness?: number;
+    type?: number;
+    uniqueId?: number;
+    velocityIterations?: number;
+};
+export type FiberPhysicsImpostorPropsCtor = {
+    object?: BabylonjsCoreIPhysicsEnabledObject;
+    type: number;
+    _options?: BabylonjsCorePhysicsImpostorParameters;
+};
+export type FiberVRExperienceHelperProps = {
+    beforeRender?: any;
+    displayGaze?: boolean;
+    displayLaserPointer?: boolean;
+    displayVRButton?: any;
+    gazeTrackerMesh?: BabylonjsCoreMesh;
+    meshSelectionPredicate?: (mesh: BabylonjsCoreAbstractMesh) => boolean;
+    moveButtonToBottomRight?: any;
+    onAfterCameraTeleport?: BabylonjsCoreObservable<BabylonjsCoreVector3>;
+    onAfterEnteringVRObservable?: BabylonjsCoreObservable<BabylonjsCoreOnAfterEnteringVRObservableEvent>;
+    onBeforeCameraTeleport?: BabylonjsCoreObservable<BabylonjsCoreVector3>;
+    onControllerMeshLoadedObservable?: BabylonjsCoreObservable<BabylonjsCoreWebVRController>;
+    onEnteringVRObservable?: BabylonjsCoreObservable<BabylonjsCoreVRExperienceHelper>;
+    onExitingVRObservable?: BabylonjsCoreObservable<BabylonjsCoreVRExperienceHelper>;
+    onNewMeshPicked?: BabylonjsCoreObservable<BabylonjsCorePickingInfo>;
+    onNewMeshSelected?: BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>;
+    onSelectedMeshUnselected?: BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>;
+    onVRDisplayChanged?: any;
+    onVrDisplayPresentChange?: any;
+    position?: BabylonjsCoreVector3;
+    raySelectionPredicate?: (mesh: BabylonjsCoreAbstractMesh) => boolean;
+    requestPointerLockOnFullScreen?: boolean;
+    teleportationEnabled?: boolean;
+    teleportationTarget?: BabylonjsCoreMesh;
+    updateButtonVisibility?: any;
+    updateGazeTrackerColor?: boolean;
+    updateGazeTrackerScale?: boolean;
+    webVROptions?: BabylonjsCoreVRExperienceHelperOptions;
+};
+export type FiberVRExperienceHelperPropsCtor = {
+    webVROptions?: BabylonjsCoreVRExperienceHelperOptions;
+};
+export type FiberSceneProps = {
+    actionManager?: BabylonjsCoreAbstractActionManager;
+    activeCamera?: BabylonjsCoreCamera;
+    activeCameras?: BabylonjsCoreCamera[];
+    afterCameraRender?: () => void;
+    afterRender?: () => void;
+    ambientColor?: BabylonjsCoreColor3;
+    animationPropertiesOverride?: BabylonjsCoreAnimationPropertiesOverride;
+    animationsEnabled?: boolean;
+    animationTimeScale?: number;
+    autoClear?: boolean;
+    autoClearDepthAndStencil?: boolean;
+    beforeCameraRender?: () => void;
+    beforeRender?: () => void;
+    blockfreeActiveMeshesAndRenderingGroups?: boolean;
+    blockMaterialDirtyMechanism?: boolean;
+    cameraToUseForPointers?: BabylonjsCoreCamera;
+    clearColor?: BabylonjsCoreColor4;
+    clipPlane?: BabylonjsCorePlane;
+    clipPlane2?: BabylonjsCorePlane;
+    clipPlane3?: BabylonjsCorePlane;
+    clipPlane4?: BabylonjsCorePlane;
+    collisionsEnabled?: boolean;
+    constantlyUpdateMeshUnderPointer?: boolean;
+    customLODSelector?: (mesh: BabylonjsCoreAbstractMesh, camera: BabylonjsCoreCamera) => BabylonjsCoreAbstractMesh;
+    customRenderTargets?: BabylonjsCoreRenderTargetTexture[];
+    defaultCursor?: string;
+    defaultMaterial?: BabylonjsCoreMaterial;
+    deleteCompoundImpostor?: any;
+    disableOfflineSupportExceptionRules?: RegExp[];
+    dispatchAllSubMeshesOfActiveMeshes?: boolean;
+    dumpNextRenderTargets?: boolean;
+    enablePhysics?: any;
+    environmentBRDFTexture?: BabylonjsCoreBaseTexture;
+    environmentTexture?: BabylonjsCoreBaseTexture;
+    fogColor?: BabylonjsCoreColor3;
+    fogDensity?: number;
+    fogEnabled?: boolean;
+    fogEnd?: number;
+    fogMode?: number;
+    fogStart?: number;
+    forcePointsCloud?: boolean;
+    forceWireframe?: boolean;
+    geometriesByUniqueId?: any;
+    getActiveMeshCandidates?: () => BabylonjsCoreISmartArrayLike<BabylonjsCoreAbstractMesh>;
+    getActiveSubMeshCandidates?: (mesh: BabylonjsCoreAbstractMesh) => BabylonjsCoreISmartArrayLike<BabylonjsCoreSubMesh>;
+    getCollidingSubMeshCandidates?: (mesh: BabylonjsCoreAbstractMesh, collider: BabylonjsCoreCollider) => BabylonjsCoreISmartArrayLike<BabylonjsCoreSubMesh>;
+    getDeterministicFrameTime?: () => number;
+    getIntersectingSubMeshCandidates?: (mesh: BabylonjsCoreAbstractMesh, localRay: BabylonjsCoreRay) => BabylonjsCoreISmartArrayLike<BabylonjsCoreSubMesh>;
+    gravity?: BabylonjsCoreVector3;
+    hoverCursor?: string;
+    importedMeshesFiles?: String[];
+    lensFlaresEnabled?: boolean;
+    lightsEnabled?: boolean;
+    loadingPluginName?: string;
+    metadata?: any;
+    offlineProvider?: BabylonjsCoreIOfflineProvider;
+    onActiveCameraChanged?: BabylonjsCoreObservable<BabylonjsCoreScene>;
+    onAfterActiveMeshesEvaluationObservable?: BabylonjsCoreObservable<BabylonjsCoreScene>;
+    onAfterAnimationsObservable?: BabylonjsCoreObservable<BabylonjsCoreScene>;
+    onAfterCameraRenderObservable?: BabylonjsCoreObservable<BabylonjsCoreCamera>;
+    onAfterDrawPhaseObservable?: BabylonjsCoreObservable<BabylonjsCoreScene>;
+    onAfterParticlesRenderingObservable?: BabylonjsCoreObservable<BabylonjsCoreScene>;
+    onAfterPhysicsObservable?: BabylonjsCoreObservable<BabylonjsCoreScene>;
+    onAfterRenderingGroupObservable?: BabylonjsCoreObservable<BabylonjsCoreRenderingGroupInfo>;
+    onAfterRenderObservable?: BabylonjsCoreObservable<BabylonjsCoreScene>;
+    onAfterRenderTargetsRenderObservable?: BabylonjsCoreObservable<BabylonjsCoreScene>;
+    onAfterStepObservable?: BabylonjsCoreObservable<BabylonjsCoreScene>;
+    onBeforeActiveMeshesEvaluationObservable?: BabylonjsCoreObservable<BabylonjsCoreScene>;
+    onBeforeAnimationsObservable?: BabylonjsCoreObservable<BabylonjsCoreScene>;
+    onBeforeCameraRenderObservable?: BabylonjsCoreObservable<BabylonjsCoreCamera>;
+    onBeforeDrawPhaseObservable?: BabylonjsCoreObservable<BabylonjsCoreScene>;
+    onBeforeParticlesRenderingObservable?: BabylonjsCoreObservable<BabylonjsCoreScene>;
+    onBeforePhysicsObservable?: BabylonjsCoreObservable<BabylonjsCoreScene>;
+    onBeforeRenderingGroupObservable?: BabylonjsCoreObservable<BabylonjsCoreRenderingGroupInfo>;
+    onBeforeRenderObservable?: BabylonjsCoreObservable<BabylonjsCoreScene>;
+    onBeforeRenderTargetsRenderObservable?: BabylonjsCoreObservable<BabylonjsCoreScene>;
+    onBeforeStepObservable?: BabylonjsCoreObservable<BabylonjsCoreScene>;
+    onCameraRemovedObservable?: BabylonjsCoreObservable<BabylonjsCoreCamera>;
+    onDataLoadedObservable?: BabylonjsCoreObservable<BabylonjsCoreScene>;
+    onDispose?: () => void;
+    onDisposeObservable?: BabylonjsCoreObservable<BabylonjsCoreScene>;
+    onGeometryRemovedObservable?: BabylonjsCoreObservable<BabylonjsCoreGeometry>;
+    onKeyboardObservable?: BabylonjsCoreObservable<BabylonjsCoreKeyboardInfo>;
+    onLightRemovedObservable?: BabylonjsCoreObservable<BabylonjsCoreLight>;
+    onMaterialRemovedObservable?: BabylonjsCoreObservable<BabylonjsCoreMaterial>;
+    onMeshImportedObservable?: BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>;
+    onMeshRemovedObservable?: BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>;
+    onNewCameraAddedObservable?: BabylonjsCoreObservable<BabylonjsCoreCamera>;
+    onNewGeometryAddedObservable?: BabylonjsCoreObservable<BabylonjsCoreGeometry>;
+    onNewLightAddedObservable?: BabylonjsCoreObservable<BabylonjsCoreLight>;
+    onNewMaterialAddedObservable?: BabylonjsCoreObservable<BabylonjsCoreMaterial>;
+    onNewMeshAddedObservable?: BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>;
+    onNewSkeletonAddedObservable?: BabylonjsCoreObservable<BabylonjsCoreSkeleton>;
+    onNewTextureAddedObservable?: BabylonjsCoreObservable<BabylonjsCoreBaseTexture>;
+    onNewTransformNodeAddedObservable?: BabylonjsCoreObservable<BabylonjsCoreTransformNode>;
+    onPointerDown?: (evt: PointerEvent, pickInfo: BabylonjsCorePickingInfo, type: BabylonjsCorePointerEventTypes) => void;
+    onPointerMove?: (evt: PointerEvent, pickInfo: BabylonjsCorePickingInfo, type: BabylonjsCorePointerEventTypes) => void;
+    onPointerObservable?: BabylonjsCoreObservable<BabylonjsCorePointerInfo>;
+    onPointerPick?: (evt: PointerEvent, pickInfo: BabylonjsCorePickingInfo) => void;
+    onPointerUp?: (evt: PointerEvent, pickInfo: BabylonjsCorePickingInfo, type: BabylonjsCorePointerEventTypes) => void;
+    onPreKeyboardObservable?: BabylonjsCoreObservable<BabylonjsCoreKeyboardInfoPre>;
+    onPrePointerObservable?: BabylonjsCoreObservable<BabylonjsCorePointerInfoPre>;
+    onReadyObservable?: BabylonjsCoreObservable<BabylonjsCoreScene>;
+    onSkeletonRemovedObservable?: BabylonjsCoreObservable<BabylonjsCoreSkeleton>;
+    onTextureRemovedObservable?: BabylonjsCoreObservable<BabylonjsCoreBaseTexture>;
+    onTransformNodeRemovedObservable?: BabylonjsCoreObservable<BabylonjsCoreTransformNode>;
+    particlesEnabled?: boolean;
+    pointerDownPredicate?: (Mesh: BabylonjsCoreAbstractMesh) => boolean;
+    pointerMovePredicate?: (Mesh: BabylonjsCoreAbstractMesh) => boolean;
+    pointerUpPredicate?: (Mesh: BabylonjsCoreAbstractMesh) => boolean;
+    pointerX?: number;
+    pointerY?: number;
+    postProcesses?: BabylonjsCorePostProcess[];
+    postProcessesEnabled?: boolean;
+    postProcessManager?: BabylonjsCorePostProcessManager;
+    preventDefaultOnPointerDown?: boolean;
+    preventDefaultOnPointerUp?: boolean;
+    probesEnabled?: boolean;
+    proceduralTexturesEnabled?: boolean;
+    renderTargetsEnabled?: boolean;
+    requireLightSorting?: boolean;
+    reservedDataStore?: any;
+    setActiveCameraByID?: any;
+    setActiveCameraByName?: any;
+    setPointerOverMesh?: any;
+    setRenderingAutoClearDepthStencil?: any;
+    setRenderingOrder?: any;
+    setStepId?: any;
+    setTransformMatrix?: any;
+    shadowsEnabled?: boolean;
+    skeletonsEnabled?: boolean;
+    spritesEnabled?: boolean;
+    texturesEnabled?: boolean;
+    useConstantAnimationDeltaTime?: boolean;
+    useDelayedTextureLoading?: boolean;
+    useRightHandedSystem?: boolean;
+};

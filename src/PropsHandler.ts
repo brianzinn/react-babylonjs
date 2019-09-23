@@ -1,3 +1,5 @@
+import { Scene } from '@babylonjs/core'
+
 // TODO: type/value need to be joined, as the method will have multiple.
 export interface PropertyUpdate {
   type: string
@@ -13,7 +15,7 @@ export interface PropertyUpdate {
 export type UpdatePayload = PropertyUpdate[] | null
 
 export interface PropsHandler<T, U> {
-  getPropertyUpdates(hostInstance: T, oldProps: U, newProps: U, scene: BABYLON.Scene): UpdatePayload
+  getPropertyUpdates(hostInstance: T, oldProps: U, newProps: U, scene: Scene): UpdatePayload
 }
 
 export interface HasPropsHandlers<T, U> {

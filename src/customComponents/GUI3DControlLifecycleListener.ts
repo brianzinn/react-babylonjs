@@ -1,4 +1,4 @@
-import { Scene, AbstractMesh, Nullable } from "babylonjs"
+import { Scene, AbstractMesh, Nullable } from "@babylonjs/core"
 import { CreatedInstance } from "../CreatedInstance"
 import { LifecycleListener } from "../LifecycleListener"
 
