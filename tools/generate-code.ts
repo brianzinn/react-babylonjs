@@ -6,7 +6,7 @@
  * 
  * "could not resolve entry" is the error, if you forget to switch it back as 'src' and 'tool's will be subdirs in compiled.
  */
-import { Project, ts, Type, VariableDeclarationKind, ClassDeclaration, PropertyDeclaration, CodeBlockWriter, SourceFile, JSDoc, ConstructorDeclaration, Scope, MethodDeclaration, ParameterDeclaration, WriterFunction, OptionalKind, PropertySignatureStructure, Writers, ImportDeclarationStructure, ImportDeclaration, FunctionDeclaration, VariableStatement, NamespaceDeclarationKind, InterfaceDeclaration, MethodSignature, EnumDeclaration, NamespaceDeclaration } from 'ts-morph'
+import { Project, ts, Type, VariableDeclarationKind, ClassDeclaration, PropertyDeclaration, CodeBlockWriter, SourceFile, JSDoc, ConstructorDeclaration, Scope, MethodDeclaration, ParameterDeclaration, WriterFunction, OptionalKind, PropertySignatureStructure, Writers, ImportDeclarationStructure, ImportDeclaration, FunctionDeclaration, VariableStatement, NamespaceDeclarationKind, InterfaceDeclaration, MethodSignature, EnumDeclaration, NamespaceDeclaration, JsxAttribute } from 'ts-morph'
 
 import { GeneratedParameter, CreateInfo, CreationType } from "../src/codeGenerationDescriptors";
 import { InstanceMetadataParameter, CreatedInstanceMetadata } from "../src/CreatedInstance"
@@ -21,7 +21,18 @@ type ClassNameSpaceTuple = {
   moduleDeclaration: ModuleDeclaration
 }
 
+/**
+ * These are required parameters that we defer to after instantion (JSX.IntrinsicElements marked as optional)
+ * LifecycleHandler and delay creation will handle these not being set (ie: look at PhysicsImpostr constructor!)
+ */
+const LATE_BOUND_CONSTRUCTOR_PARAMETERS: Map<string, string[]> = new Map<string, string[]>([
+  ['PhysicsImpostor', ['object']]
+]);
+
 console.log('ver:', ts.version);
+
+// keyof JSX.IntrinsicElements doesn't work at runtime, due to type erasure :(
+const CONFLICT_INTRINSIC_ELEMENTS = ['Button', 'Ellipse', 'Image', 'Line', 'Polygon'];
 
 // NOTE: 'strings' are what are available for NPM import for 'Component', while JSX.IntrinsicElements are global (for now).
 // Both are created the same way as host components by react-reconciler
@@ -39,24 +50,28 @@ const addHostElement = (className: string, babylonjsClassDeclaration: ClassDecla
 
     _hostElementMap.add(className); // prevent duplicates
     const { intersectionType } = Writers;
-    if (className !== 'Polygon') {
-      // TS warning: Property 'polygon' must be of type SVGProps<SVGPolygonElement>, but here has type..., so we are skipping to generate polygon for now.  TypeScript has some issues with `global` in flight.
 
-      const moduleDeclaration = getModuleDeclarationFromClassDeclaration(babylonjsClassDeclaration);
+    // would be good to check JSX.IntrinsicElements with 'keyof', but it's erased at runtime (doesn't work on dynamic strings)
+    // TS warning: Property 'polygon' must be of type SVGProps<SVGPolygonElement>, but here has type..., so we are skipping to generate polygon for now.  TypeScript has some issues with `global` in flight.
+    const name = CONFLICT_INTRINSIC_ELEMENTS.indexOf(className) >= 0
+      ? `'babylon-${camelCase(className)}'`
+      : camelCase(className);
 
-      INTRINSIC_ELEMENTS.addProperty({
-        name: camelCase(className),
-        type:  intersectionType(
-          intersectionType(`${ClassNamesPrefix}${babylonjsClassDeclaration.getName()}Props`, `${ClassNamesPrefix}${className}PropsCtor`),
-          `BabylonNode<${moduleDeclaration.importAlias}>`
-        )
-      });
-    }
+    const moduleDeclaration = getModuleDeclarationFromClassDeclaration(babylonjsClassDeclaration);
+
+    INTRINSIC_ELEMENTS.addProperty({
+      name,
+      type:  intersectionType(
+        intersectionType(`${ClassNamesPrefix}${babylonjsClassDeclaration.getName()}Props`, `${ClassNamesPrefix}${className}PropsCtor`),
+        `BabylonNode<${moduleDeclaration.importAlias}>`
+      )
+    });
   }
 }
 
 const monkeyPatchInterfaces: Map<string, InterfaceDeclaration[]> = new Map<string, InterfaceDeclaration[]>();
 const enumMap: Map<string, string> = new Map<string, string>();
+let ENUMS_LIST: string[] = [];
 const PROPS_EXPORTS : string[] = []; // used to put all props in single import.
 
 // These are the base/factory classes we used to generate everything.  Comment them out to skip generation (you must keep "Node", though)
@@ -80,6 +95,7 @@ classesOfInterest.set("BaseTexture", undefined);
 classesOfInterest.set("AdvancedDynamicTexture", undefined);
 classesOfInterest.set("ShadowGenerator", undefined)
 classesOfInterest.set("EnvironmentHelper", undefined);
+classesOfInterest.set("PhysicsImpostor", undefined);
 classesOfInterest.set("VRExperienceHelper", undefined);
 
 /**
@@ -233,6 +249,16 @@ const createTypeFromText = (typeText: string, targetFiles: SourceFile[], customP
       match = typeText.match(pattern);
     }
   }
+
+  // enumerations are missing imports.  getText() just uses TypeChecker#typeToString
+  // this converts ie: 'boolean | Space' to 'boolean | BabylonjsCoreSpace', which matches imports
+  typeText.split('|').map(t => t.trim()).forEach(value => {
+    const enumIndex = ENUMS_LIST.indexOf(value);
+    if (enumIndex >= 0) {
+      const regex: RegExp = new RegExp(`(^${value}|${value}$)`, 'gi');
+      typeText = typeText.replace(regex, enumMap.get(value)!);
+    }
+  })
 
   return typeText;
 }
@@ -548,9 +574,6 @@ const getMethodType = (methodDeclaration: MethodDeclaration | MethodSignature, t
   params.forEach(param => {
     let type: string = createTypeFromText(param.getType().getText(), targetFiles);
 
-    if (enumMap.has(type)) {
-      type = enumMap.get(type)!;
-    }
     const questionToken = param.hasQuestionToken ? '?' : ''
     const paramName: string | undefined = param.getName();
     paramTypes.push(`${paramName}${questionToken}: ${type}`)
@@ -835,7 +858,7 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
           const methodName = method.getName()
           typeProperties.push({
             name: methodName,
-            type,
+            type: 'any',
             hasQuestionToken: true
           })
         })
@@ -871,6 +894,11 @@ const addCreateInfoFromConstructor = (sourceClass: ClassDeclaration, targetClass
       isReadonly : true
     })
 
+    const forceOptionalParameters: string[] = LATE_BOUND_CONSTRUCTOR_PARAMETERS.has(sourceClass.getName()!)
+      ? LATE_BOUND_CONSTRUCTOR_PARAMETERS.get(sourceClass.getName()!)!
+      : [];
+
+    const className = sourceClass.getName();
     const typeProperties: OptionalKind<PropertySignatureStructure>[] = []
 
     const constructorDeclarations : ConstructorDeclaration[] = sourceClass.getConstructors();
@@ -884,18 +912,20 @@ const addCreateInfoFromConstructor = (sourceClass: ClassDeclaration, targetClass
       constructorDeclarations[0].getParameters().forEach(parameterDeclaration => {
 
         const type: string = createTypeFromText(parameterDeclaration.getType().getText(), [generatedCodeSourceFile, generatedPropsSourceFile]);
+        const name = parameterDeclaration.getName()!
+        const optional: boolean = parameterDeclaration.isOptional() || forceOptionalParameters.indexOf(name) >= 0
         constructorArguments.push({
-          name: parameterDeclaration.getName()!,
+          name,
           type,
-          optional: parameterDeclaration.isOptional()
+          optional
         })
 
         // TODO: need to remap some properties.  ie: (target: Mesh) to (lockedTargetMeshName: string)
         if (includeAsConstructorParameter(type)) {
           typeProperties.push({
-            name: parameterDeclaration.getName()!,
+            name,
             type,
-            hasQuestionToken: parameterDeclaration.isOptional()
+            hasQuestionToken: optional
           });
         }
       })
@@ -1043,6 +1073,8 @@ const generateCode = async () => {
     addProject(l, [generatedCodeSourceFile, generatedPropsSourceFile]);
   });
 
+  ENUMS_LIST = Array.from(enumMap.keys());
+
   // These imports need to be totally REDONE and dynamically generated from ES6 locations (probably using a dictionary for uniqueness)
   generatedCodeSourceFile.addImportDeclaration({
     moduleSpecifier: "./PropsHandler",
@@ -1173,6 +1205,7 @@ const generateCode = async () => {
   createSingleClass("GUI3DManager", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { isGUI3DControl: true }, () => {return;})
   createSingleClass("ShadowGenerator", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true }, () => {return;})
   createSingleClass("EnvironmentHelper", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { isEnvironment: true })
+  createSingleClass("PhysicsImpostor", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true})
   createSingleClass("VRExperienceHelper", generatedCodeSourceFile, generatedPropsSourceFile)
   
   if (classesOfInterest.get("Scene")) {

@@ -15,6 +15,7 @@ import { InspectableType as BabylonjsCoreInspectableType, IInspectable as Babylo
 import { JoystickAxis as BabylonjsCoreJoystickAxis } from "@babylonjs/core/Misc/virtualJoystick";
 import { SubEmitterType as BabylonjsCoreSubEmitterType } from "@babylonjs/core/Particles/subEmitter";
 import { PhysicsRadialImpulseFalloff as BabylonjsCorePhysicsRadialImpulseFalloff, PhysicsUpdraftMode as BabylonjsCorePhysicsUpdraftMode } from "@babylonjs/core/Physics/physicsHelper";
+import { PhysicsImpostor as BabylonjsCorePhysicsImpostor, IPhysicsEnabledObject as BabylonjsCoreIPhysicsEnabledObject, PhysicsImpostorParameters as BabylonjsCorePhysicsImpostorParameters } from "@babylonjs/core/Physics/physicsImpostor";
 import { DepthOfFieldEffectBlurLevel as BabylonjsCoreDepthOfFieldEffectBlurLevel } from "@babylonjs/core/PostProcesses/depthOfFieldEffect";
 import { TonemappingOperator as BabylonjsCoreTonemappingOperator } from "@babylonjs/core/PostProcesses/tonemapPostProcess";
 import { VRExperienceHelper as BabylonjsCoreVRExperienceHelper, OnAfterEnteringVRObservableEvent as BabylonjsCoreOnAfterEnteringVRObservableEvent, VRExperienceHelperOptions as BabylonjsCoreVRExperienceHelperOptions } from "@babylonjs/core/Cameras/VR/vrExperienceHelper";
@@ -221,6 +222,7 @@ declare global {
             ground: FiberMeshProps & FiberGroundPropsCtor & BabylonNode<BabylonjsCoreMesh>;
             tiledGround: FiberMeshProps & FiberTiledGroundPropsCtor & BabylonNode<BabylonjsCoreMesh>;
             groundFromHeightMap: FiberMeshProps & FiberGroundFromHeightMapPropsCtor & BabylonNode<BabylonjsCoreMesh>;
+            'babylon-polygon': FiberMeshProps & FiberPolygonPropsCtor & BabylonNode<BabylonjsCoreMesh>;
             extrudePolygon: FiberMeshProps & FiberExtrudePolygonPropsCtor & BabylonNode<BabylonjsCoreMesh>;
             tube: FiberMeshProps & FiberTubePropsCtor & BabylonNode<BabylonjsCoreMesh>;
             polyhedron: FiberMeshProps & FiberPolyhedronPropsCtor & BabylonNode<BabylonjsCoreMesh>;
@@ -245,21 +247,21 @@ declare global {
             control: FiberControlProps & FiberControlPropsCtor & BabylonNode<BabylonjsGuiControl>;
             container: FiberContainerProps & FiberContainerPropsCtor & BabylonNode<BabylonjsGuiContainer>;
             rectangle: FiberRectangleProps & FiberRectanglePropsCtor & BabylonNode<BabylonjsGuiRectangle>;
-            button: FiberButtonProps & FiberButtonPropsCtor & BabylonNode<BabylonjsGuiButton>;
+            'babylon-button': FiberButtonProps & FiberButtonPropsCtor & BabylonNode<BabylonjsGuiButton>;
             selectionPanel: FiberSelectionPanelProps & FiberSelectionPanelPropsCtor & BabylonNode<BabylonjsGuiSelectionPanel>;
             scrollViewer: FiberScrollViewerProps & FiberScrollViewerPropsCtor & BabylonNode<BabylonjsGuiScrollViewer>;
             stackPanel: FiberStackPanelProps & FiberStackPanelPropsCtor & BabylonNode<BabylonjsGuiStackPanel>;
             virtualKeyboard: FiberVirtualKeyboardProps & FiberVirtualKeyboardPropsCtor & BabylonNode<BabylonjsGuiVirtualKeyboard>;
-            ellipse: FiberEllipseProps & FiberEllipsePropsCtor & BabylonNode<BabylonjsGuiEllipse>;
+            'babylon-ellipse': FiberEllipseProps & FiberEllipsePropsCtor & BabylonNode<BabylonjsGuiEllipse>;
             grid: FiberGridProps & FiberGridPropsCtor & BabylonNode<BabylonjsGuiGrid>;
             _ScrollViewerWindow: Fiber_ScrollViewerWindowProps & Fiber_ScrollViewerWindowPropsCtor & BabylonNode<BabylonjsGui_ScrollViewerWindow>;
             textBlock: FiberTextBlockProps & FiberTextBlockPropsCtor & BabylonNode<BabylonjsGuiTextBlock>;
-            image: FiberImageProps & FiberImagePropsCtor & BabylonNode<BabylonjsGuiImage>;
+            'babylon-image': FiberImageProps & FiberImagePropsCtor & BabylonNode<BabylonjsGuiImage>;
             checkbox: FiberCheckboxProps & FiberCheckboxPropsCtor & BabylonNode<BabylonjsGuiCheckbox>;
             colorPicker: FiberColorPickerProps & FiberColorPickerPropsCtor & BabylonNode<BabylonjsGuiColorPicker>;
             inputText: FiberInputTextProps & FiberInputTextPropsCtor & BabylonNode<BabylonjsGuiInputText>;
             inputPassword: FiberInputPasswordProps & FiberInputPasswordPropsCtor & BabylonNode<BabylonjsGuiInputPassword>;
-            line: FiberLineProps & FiberLinePropsCtor & BabylonNode<BabylonjsGuiLine>;
+            'babylon-line': FiberLineProps & FiberLinePropsCtor & BabylonNode<BabylonjsGuiLine>;
             multiLine: FiberMultiLineProps & FiberMultiLinePropsCtor & BabylonNode<BabylonjsGuiMultiLine>;
             radioButton: FiberRadioButtonProps & FiberRadioButtonPropsCtor & BabylonNode<BabylonjsGuiRadioButton>;
             baseSlider: FiberBaseSliderProps & FiberBaseSliderPropsCtor & BabylonNode<BabylonjsGuiBaseSlider>;
@@ -303,6 +305,7 @@ declare global {
             gUI3DManager: FiberGUI3DManagerProps & FiberGUI3DManagerPropsCtor & BabylonNode<BabylonjsGuiGUI3DManager>;
             shadowGenerator: FiberShadowGeneratorProps & FiberShadowGeneratorPropsCtor & BabylonNode<BabylonjsCoreShadowGenerator>;
             environmentHelper: FiberEnvironmentHelperProps & FiberEnvironmentHelperPropsCtor & BabylonNode<BabylonjsCoreEnvironmentHelper>;
+            physicsImpostor: FiberPhysicsImpostorProps & FiberPhysicsImpostorPropsCtor & BabylonNode<BabylonjsCorePhysicsImpostor>;
             vRExperienceHelper: FiberVRExperienceHelperProps & FiberVRExperienceHelperPropsCtor & BabylonNode<BabylonjsCoreVRExperienceHelper>;
         }
     }
@@ -1584,7 +1587,7 @@ export type FiberTextBlockProps = {
     text?: string;
     textHorizontalAlignment?: number;
     textVerticalAlignment?: number;
-    textWrapping?: boolean | TextWrapping;
+    textWrapping?: boolean | BabylonjsGuiTextWrapping;
 } & FiberControlProps;
 export type FiberTextBlockPropsCtor = {
     name?: string;
@@ -2241,6 +2244,37 @@ export type FiberEnvironmentHelperProps = {
 export type FiberEnvironmentHelperPropsCtor = {
     options: Partial<BabylonjsCoreIEnvironmentHelperOptions>;
 };
+export type FiberPhysicsImpostorProps = {
+    afterStep?: () => void;
+    beforeStep?: () => void;
+    friction?: number;
+    mass?: number;
+    object?: BabylonjsCoreIPhysicsEnabledObject;
+    onCollide?: (e: { body: any; }) => void;
+    onCollideEvent?: (collider: BabylonjsCorePhysicsImpostor, collidedWith: BabylonjsCorePhysicsImpostor) => void;
+    parent?: BabylonjsCorePhysicsImpostor;
+    physicsBody?: any;
+    positionIterations?: number;
+    pressure?: number;
+    restitution?: number;
+    segments?: number;
+    setAngularVelocity?: any;
+    setDeltaPosition?: any;
+    setDeltaRotation?: any;
+    setLinearVelocity?: any;
+    setMass?: any;
+    setParam?: any;
+    soft?: boolean;
+    stiffness?: number;
+    type?: number;
+    uniqueId?: number;
+    velocityIterations?: number;
+};
+export type FiberPhysicsImpostorPropsCtor = {
+    object?: BabylonjsCoreIPhysicsEnabledObject;
+    type: number;
+    _options?: BabylonjsCorePhysicsImpostorParameters;
+};
 export type FiberVRExperienceHelperProps = {
     beforeRender?: any;
     displayGaze?: boolean;
@@ -2301,11 +2335,11 @@ export type FiberSceneProps = {
     customRenderTargets?: BabylonjsCoreRenderTargetTexture[];
     defaultCursor?: string;
     defaultMaterial?: BabylonjsCoreMaterial;
-    deleteCompoundImpostor?: (compound?: any) => void;
+    deleteCompoundImpostor?: any;
     disableOfflineSupportExceptionRules?: RegExp[];
     dispatchAllSubMeshesOfActiveMeshes?: boolean;
     dumpNextRenderTargets?: boolean;
-    enablePhysics?: (gravity?: BabylonjsCoreVector3, plugin?: BabylonjsCoreIPhysicsEnginePlugin) => boolean;
+    enablePhysics?: any;
     environmentBRDFTexture?: BabylonjsCoreBaseTexture;
     environmentTexture?: BabylonjsCoreBaseTexture;
     fogColor?: BabylonjsCoreColor3;

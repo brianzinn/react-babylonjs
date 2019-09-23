@@ -5,15 +5,16 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React, { createContext } from 'react'
-import ReactReconciler from "react-reconciler"
+import React, { createContext } from 'react';
+import ReactReconciler from "react-reconciler";
 
-import { WithBabylonJSContext, withBabylonJS } from './Engine'
-import { Scene as BabylonJSScene, Engine as BabylonJSEngine, Nullable, AbstractMesh, PointerInfo, PointerEventTypes, SceneOptions, Observer, Vector3 } from '@babylonjs/core'
+import { WithBabylonJSContext, withBabylonJS } from './Engine';
+import { Scene as BabylonJSScene, Engine as BabylonJSEngine, Nullable, AbstractMesh, PointerInfo, PointerEventTypes, SceneOptions, Observer } from '@babylonjs/core';
 
-import { applyUpdateToInstance } from "./UpdateInstance"
-import ReactBabylonJSHostConfig, { Container } from './ReactBabylonJSHostConfig'
-import { FiberScenePropsHandler } from './generatedCode'
+import { applyUpdateToInstance } from "./UpdateInstance";
+import ReactBabylonJSHostConfig, { Container } from './ReactBabylonJSHostConfig';
+import { FiberScenePropsHandler } from './generatedCode';
+import { FiberSceneProps } from './generatedProps';
 import { UpdatePayload } from './PropsHandler';
 
 export interface WithSceneContext {
@@ -58,9 +59,8 @@ type SceneProps = {
   onScenePointerUp?: (evt: PointerInfo, scene: BabylonJSScene) => void
   onScenePointerMove?: (evt: PointerInfo, scene: BabylonJSScene) => void
   onSceneMount?: (sceneEventArgs: SceneEventArgs) => void
-  enablePhysics?: (gravityVector: Vector3, plugin: any) => void
   sceneOptions?: SceneOptions
-}
+} & FiberSceneProps
 
 class Scene extends React.Component<SceneProps, any, any> {
   private _scene: Nullable<BabylonJSScene> = null;
@@ -71,9 +71,7 @@ class Scene extends React.Component<SceneProps, any, any> {
   private _fiberRoot?: ReactReconciler.FiberRoot;
   private _reactReconcilerBabylonJs = ReactReconciler(ReactBabylonJSHostConfig)
   private _propsHandler = new FiberScenePropsHandler();
-  
-  
-  
+
   componentDidMount() {
     const { babylonJSContext } = this.props
     
@@ -131,6 +129,13 @@ class Scene extends React.Component<SceneProps, any, any> {
           canvas: this._scene.getEngine().getRenderingCanvas()!
       });
       // TODO: console.error if canvas is not attached. runRenderLoop() is expected to be part of onSceneMount().
+    }
+
+    if (Array.isArray(this.props.enablePhysics)) {
+      console.log('enabling physics')
+      this._scene.enablePhysics(this.props.enablePhysics[0], this.props.enablePhysics[1]);
+    } else {
+      console.log('not enabling physics:', this.props.enablePhysics)
     }
     const isAsync = false // Disables experimental async rendering
     

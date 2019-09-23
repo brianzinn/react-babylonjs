@@ -282,8 +282,8 @@ const ReactBabylonJSHostConfig: HostConfig<
             // MeshBuild.createSphere(name: string, options: {...}, scene: any)
             // console.log('Assigning scene to:', type, generatedParameter)
             value = scene
-          } else {
-            console.log('unassigned:', generatedParameter.type);
+          } else if (generatedParameter.optional === false) {
+            console.warn(`required parameter for ${type} unassigned -> ${generatedParameter.name}:${generatedParameter.type}`);
           }
         }
 
@@ -303,9 +303,7 @@ const ReactBabylonJSHostConfig: HostConfig<
     } else {
       if (metadata.delayCreation !== true) {
         if(createInfoArgs.namespace.startsWith('@babylonjs/')) {
-            console.log("creating:", type, ...args)
             const clazz: any = GENERATED.babylonClassFactory(type);
-            console.log('instantiating:', clazz);
             babylonObject = new clazz(...args)
         } else if (createInfoArgs.namespace === "BABYLONEXT") {
             // console.log("creating:", type, ...args)
@@ -352,8 +350,11 @@ const ReactBabylonJSHostConfig: HostConfig<
     }
 
     // here we dynamically assign listeners for specific types.
-    if ((CUSTOM_COMPONENTS as any)[type + "LifecycleListener"] !== undefined) {
-      lifecycleListener = new (CUSTOM_COMPONENTS as any)[type + "LifecycleListener"](scene, props)
+    // TODO: need to double-check because we are using 'camelCase'
+
+    if ((CUSTOM_COMPONENTS as any)[properCase(type) + "LifecycleListener"] !== undefined) {
+      console.log('creating dynamic lifecycle listener.')
+      lifecycleListener = new (CUSTOM_COMPONENTS as any)[properCase(type) + "LifecycleListener"](scene, props)
     }
 
     let createdReference = createCreatedInstance(type, babylonObject, fiberObject, metadata, customProps, lifecycleListener)

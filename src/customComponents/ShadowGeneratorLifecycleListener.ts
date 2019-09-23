@@ -2,7 +2,7 @@ import { CreatedInstance } from "../CreatedInstance"
 import { LifecycleListener } from "../LifecycleListener"
 import { ShadowGenerator, Scene, AbstractMesh } from "@babylonjs/core"
 
-export default class AdvancedDynamicTextureLifecycleListener implements LifecycleListener {
+export default class ShadowGeneratorLifecycleListener implements LifecycleListener {
   private props: any
   private scene: Scene
 
