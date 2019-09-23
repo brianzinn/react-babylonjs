@@ -1,5 +1,13 @@
-import { addParameters, configure } from '@storybook/react';
+import { addParameters, setAddon, configure } from '@storybook/react';
+import { setDefaults } from '@storybook/addon-info';
+import JSXAddon from 'storybook-addon-jsx'
 
+setAddon(JSXAddon)
+
+// addon-info
+setDefaults({
+  header: false, // Toggles display of header with component name and description
+});
 
 // Option defaults:
 addParameters({

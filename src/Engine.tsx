@@ -1,6 +1,5 @@
 import React, { createContext } from 'react'
-
-import { Nullable, Engine as BabylonJSEngine, EngineOptions} from 'babylonjs'
+import { Nullable, Engine as BabylonJSEngine, EngineOptions} from '@babylonjs/core'
 
 
 // TODO: copy engineOptions/antialias/etc and canvas options from original Scene.tsx
@@ -24,8 +23,8 @@ export function withBabylonJS<
   P extends { babylonJSContext: WithBabylonJSContext },
   R = Omit<P, 'babylonJSContext'>
   >(
-  Component: React.ComponentClass<P> | React.StatelessComponent<P>
-  ): React.SFC<R> {
+  Component: React.ComponentClass<P> | React.FunctionComponent<P>
+  ): React.FunctionComponent<R> {
   return function BoundComponent(props: R) {
     return (
       <BabylonJSContext.Consumer>
@@ -109,9 +108,9 @@ class Engine extends React.Component<EngineProps, EngineState> {
       this._canvas = document.getElementById('portal-canvas') as  HTMLCanvasElement
       console.error('set canvas', this._canvas);
     } else {
-      if (c !== null) { // null when called from unmountComponent()
-        //c.addEventListener('mouseover', this.focus)
-        //c.addEventListener('mouseout', this.blur)
+      if (c) { // null when called from unmountComponent()
+        // c.addEventListener('mouseover', this.focus)
+        // c.addEventListener('mouseout', this.blur)
         this._canvas = c
       }
     }

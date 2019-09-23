@@ -1,5 +1,6 @@
 import { LifecycleListener } from "../LifecycleListener"
 import { CreatedInstance } from "../CreatedInstance"
+import { Texture } from '@babylonjs/core'
 
 export default class TexturesLifecycleListener implements LifecycleListener {
   onParented(parent: CreatedInstance<any>) {}
@@ -13,10 +14,10 @@ export default class TexturesLifecycleListener implements LifecycleListener {
         console.error(
           "Skybox specific code.  Assigning reflection texture.  Need custom properties to define which texture/coordinatesMode to apply",
           texture,
-          BABYLON.Texture.SKYBOX_MODE
+          Texture.SKYBOX_MODE
         )
         tmp.hostInstance.reflectionTexture = texture // need a way to assign different textures;
-        tmp.hostInstance.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE
+        tmp.hostInstance.reflectionTexture.coordinatesMode = Texture.SKYBOX_MODE
         break
       }
       tmp = tmp.parent

@@ -9,10 +9,10 @@ import '../../style.css'
 
 const SkyboxScenes = [{
   name: 'sunny day',
-  texture: `/assets/textures/TropicalSunnyDay`
+  texture: `assets/textures/TropicalSunnyDay`
 }, {
   name: 'specular HDR',
-  texture: `/assets/textures/SpecularHDR.dds`
+  texture: `assets/textures/SpecularHDR.dds`
 }]
 
 
@@ -34,7 +34,7 @@ class WithReact extends Component {
   onModelLoaded = (model, {scene}) => {
     model.meshes.map((mesh, index) => {
       let material = new StandardMaterial("kosh", scene);
-      material.reflectionTexture = new CubeTexture("/assets/textures/TropicalSunnyDay", scene);
+      material.reflectionTexture = new CubeTexture("assets/textures/TropicalSunnyDay", scene);
       material.diffuseColor = new Color3(0, 0, 0);
       material.emissiveColor = new Color3(0.5, 0.5, 0.5);
       material.alpha = 0.2;
@@ -70,7 +70,7 @@ class WithReact extends Component {
         <Skybox rootUrl={SkyboxScenes[Math.abs(this.state.skyboxIndex) % SkyboxScenes.length].texture} />
           <ArcRotateCamera name='camera1' alpha={Math.PI / 2} beta={Math.PI / 2} radius={9.0} target={Vector3.Zero()} minZ={0.001} />
           <HemisphericLight name='light1' intensity={0.7} direction={Vector3.Up()} />
-          <ScaledModelWithProgress rootUrl={`/assets/models/`} sceneFilename='atom.glb' scaleTo={this.state.atomScaling}
+          <ScaledModelWithProgress rootUrl={`assets/models/`} sceneFilename='atom.glb' scaleTo={this.state.atomScaling}
             progressBarColor={Color3.FromInts(135, 206, 235)} center={new Vector3(0, this.state.atomYPos, 0)}
             onModelLoaded={this.onModelLoaded}
           />
@@ -168,12 +168,12 @@ class WithModel extends Component {
 }
 
 export default storiesOf('Babylon Basic', module)
-  .add('Model', () => (
+  .addWithJSX('Model', () => (
     <div style={{ flex: 1, display: 'flex' }}>
       <WithModel />
     </div>
   ))
-  .add('Model Atom GSAP Tween', () => (
+  .addWithJSX('Model Atom GSAP Tween', () => (
     <div style={{ flex: 1, display: 'flex' }}>
       <WithReact />
     </div>

@@ -30,7 +30,7 @@ export interface CustomProps {
   shadowCasters?: string[]
   attachToMeshesByName?: string[]
   onControlAdded?: (instance: CreatedInstance<any>) => void
-  // TODO: enableInteractions from VRExperienceHelper
+  // TODO: enableInteractions from VRExperienceHelper and add AR!!!
 }
 
 export interface CreatedInstanceMetadata extends InstanceMetadataParameter {

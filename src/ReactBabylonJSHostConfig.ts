@@ -1,9 +1,7 @@
 import ReactReconciler, { HostConfig } from "react-reconciler"
-import * as BABYLON from "babylonjs"
-import * as GUI from "babylonjs-gui"
+import { Scene, Engine, Nullable } from '@babylonjs/core'
 import * as BABYLONEXT from "./customComponents/DynamicTerrain"
-
-import * as GENERATED from "./generatedCode"
+import * as GENERATED from './generatedCode'
 import * as CUSTOM_HOSTS from "./customHosts"
 import * as CUSTOM_COMPONENTS from "./customComponents"
 
@@ -12,6 +10,7 @@ import { CreatedInstance, CreatedInstanceMetadata, CustomProps } from "./Created
 import { HasPropsHandlers, PropertyUpdate, UpdatePayload } from "./PropsHandler"
 import { LifecycleListener } from "./LifecycleListener"
 import { GeneratedParameter, CreateInfo, CreationType } from "./codeGenerationDescriptors"
+import { applyUpdateToInstance } from "./UpdateInstance"
 
 // ** TODO: switch to node module 'scheduler', but compiler is not finding 'require()' exports currently...
 type RequestIdleCallbackHandle = any
@@ -34,13 +33,13 @@ declare global {
 type HostCreatedInstance<T> = CreatedInstance<T> | undefined
 
 type Props = {
-  scene: BABYLON.Scene
+  scene: Scene
 } & any
 
 export type Container = {
-  engine: BABYLON.Nullable<BABYLON.Engine>
-  canvas: BABYLON.Nullable<HTMLCanvasElement | WebGLRenderingContext>
-  scene: BABYLON.Nullable<BABYLON.Scene>
+  engine: Nullable<Engine>
+  canvas: Nullable<HTMLCanvasElement | WebGLRenderingContext>
+  scene: Nullable<Scene>
   rootInstance: CreatedInstance<any>
 }
 
@@ -48,79 +47,13 @@ type HostContext = {} & Container
 type TimeoutHandler = number | undefined
 type NoTimeout = number
 
-export const applyUpdateToInstance = (hostInstance: any, update: PropertyUpdate, type: string | undefined): void => {
-  let target = update.target !== undefined ? hostInstance[update.target] : hostInstance
-
-  switch (update.type) {
-    case "string":
-    case "number":
-    case "boolean":
-    case "string | number": // TODO: string | number is a deficiency in the code generator.  ie: can test for only primitives | and generate update type in code generator
-      // console.log(` > ${type}: updating ${update.type} on ${update.propertyName} to ${update.value}`)
-      target[update.propertyName] = update.value
-      break
-    case "BABYLON.Vector3": // TODO: merge with Color3/Color4
-      if (target[update.propertyName]) {
-        ;(target[update.propertyName] as BABYLON.Vector3).copyFrom(update.value)
-      } else if (update.value) {
-        target[update.propertyName] = update.value.clone()
-      } else {
-        target[update.propertyName] = update.value // ie: undefined/null?
-      }
-      break
-    case "BABYLON.Color3":
-    case "BABYLON.Color4":
-      if (target[update.propertyName]) {
-        switch (update.type) {
-          case "BABYLON.Color3":
-            ;(target[update.propertyName] as BABYLON.Color3).copyFrom(update.value)
-            break
-          case "BABYLON.Color4":
-            ;(target[update.propertyName] as BABYLON.Color4).copyFrom(update.value)
-            break
-        }
-      } else if (update.value) {
-        target[update.propertyName] = update.value.clone()
-      } else {
-        target[update.propertyName] = update.value
-      }
-      break
-    case "BABYLON.Mesh":
-      // console.log(` > ${type}: updating Mesh on:${update.propertyName} to ${update.value}`)
-      if (target[update.propertyName] && update.value) {
-        if ((target[update.propertyName] as BABYLON.Mesh).uniqueId != update.value.uniqueId) {
-          target[update.propertyName] = update.value
-        }
-      } else {
-        target[update.propertyName] = update.value
-      }
-      break
-    case "BABYLON.GUI.Control":
-      target[update.propertyName] = update.value
-      break
-    default:
-      if (update.type.startsWith("BABYLON.Observable")) {
-        // TODO: we want to remove the old prop when changed, so it should be passed along as well.
-        //if (update.prevValue) {
-        //  babylonObject[update.propertyName].remove(update.prevValue)
-        //}
-
-        target[update.propertyName].add(update.value)
-      } else if (update.type.startsWith("(")) {
-        if (typeof target[update.propertyName] === "function") {
-          if (Array.isArray(update.value)) {
-            target[update.propertyName](...update.value)
-          } else {
-            target[update.propertyName](...Object.values(update.value))
-          }
-        } else {
-          console.error(`Cannot call [not a function] ${update.propertyName}(...) on:`, update.type, target)
-        }
-      } else {
-        console.error(`Unhandled property update of type ${update.type}`)
-      }
-      break
-  }
+/**
+ * Has no effect on existing ProperCase, but converts camelCase to ProperCase.
+ * 
+ * @param value
+ */
+const properCase = (value: string): string => {
+    return value.charAt(0).toUpperCase() + value.substring(1);
 }
 
 function createCreatedInstance<T, U extends HasPropsHandlers<T, any>>(
@@ -219,7 +152,7 @@ const ReactBabylonJSHostConfig: HostConfig<
 
   prepareUpdate(
     instance: HostCreatedInstance<any>,
-    type: String,
+    type: string,
     oldProps: Props,
     newProps: Props,
     rootContainerInstance: Container,
@@ -233,7 +166,7 @@ const ReactBabylonJSHostConfig: HostConfig<
     // Only custom types will not have a fiber object to handle props changes
     instance.propsHandlers!.getPropsHandlers().forEach(propHandler => {
       let handlerUpdates: PropertyUpdate[] | null = propHandler.getPropertyUpdates(
-        instance as CreatedInstance<any>,
+        instance,
         oldProps,
         newProps,
         rootContainerInstance.scene!
@@ -243,7 +176,7 @@ const ReactBabylonJSHostConfig: HostConfig<
       }
     })
 
-    return updatePayload.length == 0 ? null : updatePayload
+    return updatePayload.length === 0 ? null : updatePayload
   },
 
   /**
@@ -312,7 +245,9 @@ const ReactBabylonJSHostConfig: HostConfig<
       return createdInstance
     }
 
-    const classDefinition = (GENERATED as any)[`Fiber${type}`]
+
+
+    const classDefinition = (GENERATED as any)[`Fiber${properCase(type)}`]
 
     if (classDefinition === undefined) {
       throw new Error(`Cannot generate type '${type}' inside 'react-babylonjs' (ie: no DOM rendering on HTMLCanvas)`)
@@ -322,7 +257,7 @@ const ReactBabylonJSHostConfig: HostConfig<
     let metadata: CreatedInstanceMetadata = classDefinition.Metadata
 
     // console.log(`creating: ${createInfoArgs.namespace}.${type}`)
-    let generatedParameters: GeneratedParameter[] = createInfoArgs!.parameters
+    let generatedParameters: GeneratedParameter[] = createInfoArgs.parameters
 
     // console.log("generated params:", generatedParameters)
 
@@ -342,11 +277,13 @@ const ReactBabylonJSHostConfig: HostConfig<
       } else {
         let value = props[generatedParameter.name]
         if (value === undefined) {
-          // NOTE: we removed the hosted Scene component, which needs (generatedParameter.type == "BABYLON.Engine")
-          if (generatedParameter.type === "BABYLON.Scene" || (generatedParameter.type === "any" && generatedParameter.name === "scene")) {
+          // NOTE: we removed the hosted Scene component, which needs (generatedParameter.type == "BabylonjsCoreEngine")
+          if (generatedParameter.type === "BabylonjsCoreScene" || (generatedParameter.type === "any" && generatedParameter.name === "scene")) {
             // MeshBuild.createSphere(name: string, options: {...}, scene: any)
             // console.log('Assigning scene to:', type, generatedParameter)
             value = scene
+          } else if (generatedParameter.optional === false) {
+            console.warn(`required parameter for ${type} unassigned -> ${generatedParameter.name}:${generatedParameter.type}`);
           }
         }
 
@@ -360,38 +297,29 @@ const ReactBabylonJSHostConfig: HostConfig<
 
     let babylonObject: any | undefined = undefined
 
-    if (createInfoArgs!.creationType === CreationType.FactoryMethod) {
-      // console.log(`creating from Factory: BABYLON.${createInfoArgs.libraryLocation}.${createInfoArgs.factoryMethod}(...args).  args:`, args)
-      babylonObject = (BABYLON as any)[createInfoArgs.libraryLocation][createInfoArgs!.factoryMethod!](...args)
+    if (createInfoArgs.creationType === CreationType.FactoryMethod) {
+      console.warn(`creating from Factory: ${createInfoArgs.libraryLocation}.${createInfoArgs.factoryMethod}(...args).  args:`, args)
+      babylonObject = GENERATED.babylonClassFactory(createInfoArgs.libraryLocation)[createInfoArgs.factoryMethod!](...args)
     } else {
       if (metadata.delayCreation !== true) {
-        switch (createInfoArgs.namespace) {
-          case "BABYLON":
+        if(createInfoArgs.namespace.startsWith('@babylonjs/')) {
+            const clazz: any = GENERATED.babylonClassFactory(type);
+            babylonObject = new clazz(...args)
+        } else if (createInfoArgs.namespace === "BABYLONEXT") {
             // console.log("creating:", type, ...args)
-            babylonObject = new (BABYLON as any)[type](...args)
-            break
-          case "BABYLONEXT":
-            // console.log("creating:", type, ...args)
-
             babylonObject = new (BABYLONEXT as any)[type](...args)
-            break
-          case "GUI":
-            // console.log("creating GUI", type, ...args)
-            babylonObject = new (GUI as any)[type](...args)
-            break
-          default:
-            console.error("metadata defines (or does not) an namespace that is known", metadata)
-            break
+        } else {
+            console.error("metadata defines (or does not) a namespace that is known", metadata)
         }
       }
     }
 
     // Developer accessible lifecycle phase.  ie: access propery/method exposed in props.
     if (typeof props.onCreated === "function") {
-      props.onCreated!(babylonObject)
+      props.onCreated(babylonObject)
     }
 
-    const fiberObject: HasPropsHandlers<any, any> = new (GENERATED as any)[`Fiber${type}`]()
+    const fiberObject: HasPropsHandlers<any, any> = new (GENERATED as any)[`Fiber${properCase(type)}`]()
 
     let lifecycleListener: LifecycleListener | undefined = undefined
 
@@ -422,8 +350,11 @@ const ReactBabylonJSHostConfig: HostConfig<
     }
 
     // here we dynamically assign listeners for specific types.
-    if ((CUSTOM_COMPONENTS as any)[type + "LifecycleListener"] !== undefined) {
-      lifecycleListener = new (CUSTOM_COMPONENTS as any)[type + "LifecycleListener"](scene, props)
+    // TODO: need to double-check because we are using 'camelCase'
+
+    if ((CUSTOM_COMPONENTS as any)[properCase(type) + "LifecycleListener"] !== undefined) {
+      console.log('creating dynamic lifecycle listener.')
+      lifecycleListener = new (CUSTOM_COMPONENTS as any)[properCase(type) + "LifecycleListener"](scene, props)
     }
 
     let createdReference = createCreatedInstance(type, babylonObject, fiberObject, metadata, customProps, lifecycleListener)
@@ -489,10 +420,10 @@ const ReactBabylonJSHostConfig: HostConfig<
   noTimeout: -1,
 
   // Called based on return value of: finalizeInitialChildren.  in-memory render tree created, but not yet attached.
-  prepareForCommit: (containerInfo: Container): void => {},
+  prepareForCommit: (containerInfo: Container): void => { /* empty */ },
 
   // Called after the in-memory tree has been committed (ie: after attaching again to root element)
-  resetAfterCommit: (containerInfo: Container): void => {},
+  resetAfterCommit: (containerInfo: Container): void => { /* empty */ },
 
   appendInitialChild: (parent: HostCreatedInstance<any>, child: CreatedInstance<any>) => {
     // Here we are traversing downwards.  Beyond parent has not been initialized, but all children have been.
@@ -547,7 +478,7 @@ const ReactBabylonJSHostConfig: HostConfig<
   },
 
   commitUpdate(instance: HostCreatedInstance<any>, updatePayload: UpdatePayload, type: string /* old + new props are extra params here */) {
-    if (updatePayload != null) {
+    if (updatePayload !== null) {
       updatePayload.forEach((update: PropertyUpdate) => {
         applyUpdateToInstance(instance!.hostInstance, update, type)
       })

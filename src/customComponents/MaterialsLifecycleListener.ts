@@ -1,6 +1,6 @@
 import { CreatedInstance } from "../CreatedInstance"
 import { LifecycleListener } from "../LifecycleListener"
-import { Scene, AbstractMesh } from "babylonjs"
+import { Scene, AbstractMesh } from "@babylonjs/core"
 
 export default class MaterialsLifecycleListener implements LifecycleListener {
   onCreated(instance: CreatedInstance<any>, scene: Scene) {

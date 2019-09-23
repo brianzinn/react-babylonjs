@@ -1,4 +1,4 @@
-import { Vector3, SceneLoaderProgressEvent, AbstractMesh, Mesh } from "babylonjs"
+import { Scene, Vector3, SceneLoaderProgressEvent, AbstractMesh, Mesh } from "@babylonjs/core"
 import { LoadedModel } from "./Model"
 import { FiberMeshPropsHandler, FiberAbstractMeshPropsHandler, FiberTransformNodePropsHandler, FiberNodePropsHandler } from "../generatedCode"
 import BasePropsHandler from "../BasePropsHandler"
@@ -32,7 +32,7 @@ export class FiberModel extends BasePropsHandler<LoadedModel, ModelProps> {
 }
 
 export class ModelPropsHandler implements PropsHandler<LoadedModel, ModelProps> {
-  getPropertyUpdates(hostInstance: LoadedModel, oldProps: ModelProps, newProps: ModelProps, scene: BABYLON.Scene): UpdatePayload {
+  getPropertyUpdates(hostInstance: LoadedModel, oldProps: ModelProps, newProps: ModelProps, scene: Scene): UpdatePayload {
     const propsHandlers: PropsHandler<any, any>[] = [
       new FiberMeshPropsHandler(),
       new FiberAbstractMeshPropsHandler(),

@@ -68,7 +68,7 @@ export class WithDynamicTerrain extends Component {
 }
 
 export default storiesOf('Babylon Basic', module)
-  .add('Dynamic Terrain', () => (
+  .addWithJSX('Dynamic Terrain', () => (
     <div style={{ flex: 1, display: 'flex' }}>
       <WithDynamicTerrain />
     </div>
