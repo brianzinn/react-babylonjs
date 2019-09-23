@@ -18,7 +18,6 @@ export default class PhysicsImpostorLifecycleListener implements LifecycleListen
   }
 
   onParented(parent: CreatedInstance<any>, child: CreatedInstance<any>): any {
-      console.log('physics impostor parented to', parent.hostInstance.name);
       // IPhysicsEnabledObject requires only position and rotationQuaternion
       if (parent.hostInstance.position === undefined || parent.hostInstance.rotationQuaternion === undefined) {
           console.warn('PhysicsImpostor is parented to an element that does not appear to implement IPhysicsEnabledObject');
@@ -34,8 +33,6 @@ export default class PhysicsImpostorLifecycleListener implements LifecycleListen
       const options: PhysicsImpostorParameters = this.props._options // constructor has a default { mass: 0 }
 
       instance.hostInstance = new PhysicsImpostor(this._parent, this.props.type, options, this.scene!);
-        console.log('mounted', instance.hostInstance, ' with parent ', (this._parent as any).name)
-        console.log('physics props:', this.props);
         instance.hostInstance.object = this._parent;
         (this._parent as any).physicsImpostor = instance.hostInstance;
         

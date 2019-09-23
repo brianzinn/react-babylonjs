@@ -51,7 +51,6 @@ export default class ShadowGeneratorLifecycleListener implements LifecycleListen
         if (shadowCasters.indexOf(mesh.name) >= 0) {
           // console.log("adding shadow caster:", mesh.name)
           instance.hostInstance!.addShadowCaster(mesh)
-
           shadowCasters = shadowCasters.filter((name: string) => name !== mesh.name)
         }
       })
