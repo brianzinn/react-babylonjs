@@ -1,6 +1,6 @@
 import { PropsHandler, PropertyUpdate, HasPropsHandlers } from "./PropsHandler";
 import { CreatedInstanceMetadata } from "./CreatedInstance";
-import { FiberNodeProps, FiberTransformNodeProps, FiberAbstractMeshProps, FiberMeshProps, FiberCameraProps, FiberTargetCameraProps, FiberFreeCameraProps, FiberTouchCameraProps, FiberUniversalCameraProps, FiberGamepadCameraProps, FiberAnaglyphGamepadCameraProps, FiberStereoscopicGamepadCameraProps, FiberAnaglyphUniversalCameraProps, FiberStereoscopicUniversalCameraProps, FiberDeviceOrientationCameraProps, FiberVRDeviceOrientationFreeCameraProps, FiberVRDeviceOrientationGamepadCameraProps, FiberAnaglyphFreeCameraProps, FiberStereoscopicFreeCameraProps, FiberVirtualJoysticksCameraProps, FiberWebVRFreeCameraProps, FiberWebXRCameraProps, FiberArcRotateCameraProps, FiberAnaglyphArcRotateCameraProps, FiberStereoscopicArcRotateCameraProps, FiberVRDeviceOrientationArcRotateCameraProps, FiberFlyCameraProps, FiberFollowCameraProps, FiberArcFollowCameraProps, FiberMaterialProps, FiberShaderMaterialProps, FiberMultiMaterialProps, FiberPushMaterialProps, FiberStandardMaterialProps, FiberBackgroundMaterialProps, FiberPBRBaseMaterialProps, FiberPBRBaseSimpleMaterialProps, FiberPBRMetallicRoughnessMaterialProps, FiberPBRSpecularGlossinessMaterialProps, FiberPBRMaterialProps, FiberLightProps, FiberShadowLightProps, FiberDirectionalLightProps, FiberPointLightProps, FiberSpotLightProps, FiberHemisphericLightProps, FiberControlProps, FiberContainerProps, FiberRectangleProps, FiberButtonProps, FiberSelectionPanelProps, FiberScrollViewerProps, FiberStackPanelProps, FiberVirtualKeyboardProps, FiberEllipseProps, FiberGridProps, Fiber_ScrollViewerWindowProps, FiberTextBlockProps, FiberImageProps, FiberCheckboxProps, FiberColorPickerProps, FiberInputTextProps, FiberInputPasswordProps, FiberLineProps, FiberMultiLineProps, FiberRadioButtonProps, FiberBaseSliderProps, FiberScrollBarProps, FiberSliderProps, FiberImageBasedSliderProps, FiberDisplayGridProps, FiberControl3DProps, FiberContainer3DProps, FiberVolumeBasedPanelProps, FiberCylinderPanelProps, FiberPlanePanelProps, FiberScatterPanelProps, FiberSpherePanelProps, FiberStackPanel3DProps, FiberAbstractButton3DProps, FiberButton3DProps, FiberHolographicButtonProps, FiberMeshButton3DProps, FiberBaseTextureProps, FiberCubeTextureProps, FiberRawCubeTextureProps, FiberTextureProps, FiberRawTextureProps, FiberProceduralTextureProps, FiberCustomProceduralTextureProps, FiberNoiseProceduralTextureProps, FiberRenderTargetTextureProps, FiberMirrorTextureProps, FiberMultiRenderTargetProps, FiberRefractionTextureProps, FiberMultiviewRenderTargetProps, FiberVideoTextureProps, FiberDynamicTextureProps, FiberRawTexture3DProps, FiberColorGradingTextureProps, FiberEquiRectangularCubeTextureProps, FiberHDRCubeTextureProps, FiberHtmlElementTextureProps, FiberAdvancedDynamicTextureProps, FiberGUI3DManagerProps, FiberShadowGeneratorProps, FiberEnvironmentHelperProps, FiberVRExperienceHelperProps, FiberSceneProps } from "./generatedProps";
+import { FiberNodeProps, FiberTransformNodeProps, FiberAbstractMeshProps, FiberMeshProps, FiberCameraProps, FiberTargetCameraProps, FiberFreeCameraProps, FiberTouchCameraProps, FiberUniversalCameraProps, FiberGamepadCameraProps, FiberAnaglyphGamepadCameraProps, FiberStereoscopicGamepadCameraProps, FiberAnaglyphUniversalCameraProps, FiberStereoscopicUniversalCameraProps, FiberDeviceOrientationCameraProps, FiberVRDeviceOrientationFreeCameraProps, FiberVRDeviceOrientationGamepadCameraProps, FiberAnaglyphFreeCameraProps, FiberStereoscopicFreeCameraProps, FiberVirtualJoysticksCameraProps, FiberWebVRFreeCameraProps, FiberWebXRCameraProps, FiberArcRotateCameraProps, FiberAnaglyphArcRotateCameraProps, FiberStereoscopicArcRotateCameraProps, FiberVRDeviceOrientationArcRotateCameraProps, FiberFlyCameraProps, FiberFollowCameraProps, FiberArcFollowCameraProps, FiberMaterialProps, FiberShaderMaterialProps, FiberMultiMaterialProps, FiberPushMaterialProps, FiberStandardMaterialProps, FiberBackgroundMaterialProps, FiberPBRBaseMaterialProps, FiberPBRBaseSimpleMaterialProps, FiberPBRMetallicRoughnessMaterialProps, FiberPBRSpecularGlossinessMaterialProps, FiberPBRMaterialProps, FiberLightProps, FiberShadowLightProps, FiberDirectionalLightProps, FiberPointLightProps, FiberSpotLightProps, FiberHemisphericLightProps, FiberControlProps, FiberContainerProps, FiberRectangleProps, FiberButtonProps, FiberSelectionPanelProps, FiberScrollViewerProps, FiberStackPanelProps, FiberVirtualKeyboardProps, FiberEllipseProps, FiberGridProps, Fiber_ScrollViewerWindowProps, FiberTextBlockProps, FiberImageProps, FiberCheckboxProps, FiberColorPickerProps, FiberInputTextProps, FiberInputPasswordProps, FiberLineProps, FiberMultiLineProps, FiberRadioButtonProps, FiberBaseSliderProps, FiberScrollBarProps, FiberSliderProps, FiberImageBasedSliderProps, FiberDisplayGridProps, FiberControl3DProps, FiberContainer3DProps, FiberVolumeBasedPanelProps, FiberCylinderPanelProps, FiberPlanePanelProps, FiberScatterPanelProps, FiberSpherePanelProps, FiberStackPanel3DProps, FiberAbstractButton3DProps, FiberButton3DProps, FiberHolographicButtonProps, FiberMeshButton3DProps, FiberBaseTextureProps, FiberCubeTextureProps, FiberRawCubeTextureProps, FiberTextureProps, FiberRawTextureProps, FiberProceduralTextureProps, FiberCustomProceduralTextureProps, FiberNoiseProceduralTextureProps, FiberRenderTargetTextureProps, FiberMirrorTextureProps, FiberMultiRenderTargetProps, FiberRefractionTextureProps, FiberMultiviewRenderTargetProps, FiberVideoTextureProps, FiberDynamicTextureProps, FiberRawTexture3DProps, FiberColorGradingTextureProps, FiberEquiRectangularCubeTextureProps, FiberHDRCubeTextureProps, FiberHtmlElementTextureProps, FiberAdvancedDynamicTextureProps, FiberGUI3DManagerProps, FiberShadowGeneratorProps, FiberEnvironmentHelperProps, FiberPhysicsImpostorProps, FiberVRExperienceHelperProps, FiberSceneProps } from "./generatedProps";
 import { AbstractScene as BabylonjsCoreAbstractScene } from "@babylonjs/core/abstractScene";
 import { Node as BabylonjsCoreNode } from "@babylonjs/core/node";
 import { Scene as BabylonjsCoreScene } from "@babylonjs/core/scene";
@@ -17,6 +17,7 @@ import { InspectableType as BabylonjsCoreInspectableType, IInspectable as Babylo
 import { JoystickAxis as BabylonjsCoreJoystickAxis } from "@babylonjs/core/Misc/virtualJoystick";
 import { SubEmitterType as BabylonjsCoreSubEmitterType } from "@babylonjs/core/Particles/subEmitter";
 import { PhysicsRadialImpulseFalloff as BabylonjsCorePhysicsRadialImpulseFalloff, PhysicsUpdraftMode as BabylonjsCorePhysicsUpdraftMode } from "@babylonjs/core/Physics/physicsHelper";
+import { PhysicsImpostor as BabylonjsCorePhysicsImpostor, IPhysicsEnabledObject as BabylonjsCoreIPhysicsEnabledObject, PhysicsImpostorParameters as BabylonjsCorePhysicsImpostorParameters } from "@babylonjs/core/Physics/physicsImpostor";
 import { DepthOfFieldEffectBlurLevel as BabylonjsCoreDepthOfFieldEffectBlurLevel } from "@babylonjs/core/PostProcesses/depthOfFieldEffect";
 import { TonemappingOperator as BabylonjsCoreTonemappingOperator } from "@babylonjs/core/PostProcesses/tonemapPostProcess";
 import { VRExperienceHelper as BabylonjsCoreVRExperienceHelper, OnAfterEnteringVRObservableEvent as BabylonjsCoreOnAfterEnteringVRObservableEvent, VRExperienceHelperOptions as BabylonjsCoreVRExperienceHelperOptions } from "@babylonjs/core/Cameras/VR/vrExperienceHelper";
@@ -10616,7 +10617,7 @@ export class FiberTextBlockPropsHandler implements PropsHandler<BabylonjsGuiText
                 type: 'number'
             });
         }
-        // TODO: type: 'boolean | TextWrapping' property (not coded) BabylonjsGuiTextBlock.textWrapping.
+        // TODO: type: 'boolean | BabylonjsGuiTextWrapping' property (not coded) BabylonjsGuiTextBlock.textWrapping.
         return updates.length === 0 ? null : updates;
     }
 }
@@ -16067,6 +16068,226 @@ export class FiberEnvironmentHelper implements HasPropsHandlers<BabylonjsCoreEnv
     };
 }
 
+export class FiberPhysicsImpostorPropsHandler implements PropsHandler<BabylonjsCorePhysicsImpostor, FiberPhysicsImpostorProps> {
+    getPropertyUpdates(hostInstance: BabylonjsCorePhysicsImpostor, oldProps: FiberPhysicsImpostorProps, newProps: FiberPhysicsImpostorProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
+        // generated code
+        let updates: PropertyUpdate[] = [];
+        // TODO: type: '() => void' property (not coded) BabylonjsCorePhysicsImpostor.afterStep.
+        // TODO: type: '() => void' property (not coded) BabylonjsCorePhysicsImpostor.beforeStep.
+        // BabylonjsCorePhysicsImpostor.friction (number):
+        if (oldProps.friction !== newProps.friction) {
+            updates.push({
+                propertyName: 'friction',
+                value: newProps.friction,
+                type: 'number'
+            });
+        }
+        // BabylonjsCorePhysicsImpostor.mass (number):
+        if (oldProps.mass !== newProps.mass) {
+            updates.push({
+                propertyName: 'mass',
+                value: newProps.mass,
+                type: 'number'
+            });
+        }
+        // TODO: type: 'BabylonjsCoreIPhysicsEnabledObject' property (not coded) BabylonjsCorePhysicsImpostor.object.
+        // xxx-ns-xxx.BabylonjsCorePhysicsImpostor.onCollide of type '(e: { body: any; }) => void/fn':
+        if (oldProps.onCollide === undefined && oldProps.onCollide !== newProps.onCollide) {
+            updates.push({
+                propertyName: 'onCollide',
+                value: newProps.onCollide,
+                type: '(e: { body: any; }) => void'
+            });
+        }
+        // xxx-ns-xxx.BabylonjsCorePhysicsImpostor.onCollideEvent of type '(collider: BabylonjsCorePhysicsImpostor, collidedWith: BabylonjsCorePhysicsImpostor) => void/fn':
+        if (oldProps.onCollideEvent === undefined && oldProps.onCollideEvent !== newProps.onCollideEvent) {
+            updates.push({
+                propertyName: 'onCollideEvent',
+                value: newProps.onCollideEvent,
+                type: '(collider: BabylonjsCorePhysicsImpostor, collidedWith: BabylonjsCorePhysicsImpostor) => void'
+            });
+        }
+        // TODO: type: 'BabylonjsCorePhysicsImpostor' property (not coded) BabylonjsCorePhysicsImpostor.parent.
+        // TODO: type: 'any' property (not coded) BabylonjsCorePhysicsImpostor.physicsBody.
+        // BabylonjsCorePhysicsImpostor.positionIterations (number):
+        if (oldProps.positionIterations !== newProps.positionIterations) {
+            updates.push({
+                propertyName: 'positionIterations',
+                value: newProps.positionIterations,
+                type: 'number'
+            });
+        }
+        // BabylonjsCorePhysicsImpostor.pressure (number):
+        if (oldProps.pressure !== newProps.pressure) {
+            updates.push({
+                propertyName: 'pressure',
+                value: newProps.pressure,
+                type: 'number'
+            });
+        }
+        // BabylonjsCorePhysicsImpostor.restitution (number):
+        if (oldProps.restitution !== newProps.restitution) {
+            updates.push({
+                propertyName: 'restitution',
+                value: newProps.restitution,
+                type: 'number'
+            });
+        }
+        // BabylonjsCorePhysicsImpostor.segments (number):
+        if (oldProps.segments !== newProps.segments) {
+            updates.push({
+                propertyName: 'segments',
+                value: newProps.segments,
+                type: 'number'
+            });
+        }
+        // BabylonjsCorePhysicsImpostor.soft (boolean):
+        if (oldProps.soft !== newProps.soft) {
+            updates.push({
+                propertyName: 'soft',
+                value: newProps.soft,
+                type: 'boolean'
+            });
+        }
+        // BabylonjsCorePhysicsImpostor.stiffness (number):
+        if (oldProps.stiffness !== newProps.stiffness) {
+            updates.push({
+                propertyName: 'stiffness',
+                value: newProps.stiffness,
+                type: 'number'
+            });
+        }
+        // BabylonjsCorePhysicsImpostor.type (number):
+        if (oldProps.type !== newProps.type) {
+            updates.push({
+                propertyName: 'type',
+                value: newProps.type,
+                type: 'number'
+            });
+        }
+        // BabylonjsCorePhysicsImpostor.uniqueId (number):
+        if (oldProps.uniqueId !== newProps.uniqueId) {
+            updates.push({
+                propertyName: 'uniqueId',
+                value: newProps.uniqueId,
+                type: 'number'
+            });
+        }
+        // BabylonjsCorePhysicsImpostor.velocityIterations (number):
+        if (oldProps.velocityIterations !== newProps.velocityIterations) {
+            updates.push({
+                propertyName: 'velocityIterations',
+                value: newProps.velocityIterations,
+                type: 'number'
+            });
+        }
+        // BabylonjsCorePhysicsImpostor.setAngularVelocity of type '(velocity?: BabylonjsCoreVector3) => void':
+        if (oldProps.setAngularVelocity !== newProps.setAngularVelocity) {
+            updates.push({
+                propertyName: 'setAngularVelocity',
+                value: newProps.setAngularVelocity,
+                type: '(velocity?: BabylonjsCoreVector3) => void'
+            });
+        }
+        // BabylonjsCorePhysicsImpostor.setDeltaPosition of type '(position?: BabylonjsCoreVector3) => void':
+        if (oldProps.setDeltaPosition !== newProps.setDeltaPosition) {
+            updates.push({
+                propertyName: 'setDeltaPosition',
+                value: newProps.setDeltaPosition,
+                type: '(position?: BabylonjsCoreVector3) => void'
+            });
+        }
+        // BabylonjsCorePhysicsImpostor.setDeltaRotation of type '(rotation?: BabylonjsCoreQuaternion) => void':
+        if (oldProps.setDeltaRotation !== newProps.setDeltaRotation) {
+            updates.push({
+                propertyName: 'setDeltaRotation',
+                value: newProps.setDeltaRotation,
+                type: '(rotation?: BabylonjsCoreQuaternion) => void'
+            });
+        }
+        // BabylonjsCorePhysicsImpostor.setLinearVelocity of type '(velocity?: BabylonjsCoreVector3) => void':
+        if (oldProps.setLinearVelocity !== newProps.setLinearVelocity) {
+            updates.push({
+                propertyName: 'setLinearVelocity',
+                value: newProps.setLinearVelocity,
+                type: '(velocity?: BabylonjsCoreVector3) => void'
+            });
+        }
+        // BabylonjsCorePhysicsImpostor.setMass of type '(mass?: number) => void':
+        if (oldProps.setMass !== newProps.setMass) {
+            updates.push({
+                propertyName: 'setMass',
+                value: newProps.setMass,
+                type: '(mass?: number) => void'
+            });
+        }
+        // BabylonjsCorePhysicsImpostor.setParam of type '(paramName?: string, value?: number) => void':
+        if (oldProps.setParam !== newProps.setParam) {
+            updates.push({
+                propertyName: 'setParam',
+                value: newProps.setParam,
+                type: '(paramName?: string, value?: number) => void'
+            });
+        }
+        return updates.length === 0 ? null : updates;
+    }
+}
+
+/**
+ * Represents a physics imposter
+ *
+ * This code has been generated
+ */
+export class FiberPhysicsImpostor implements HasPropsHandlers<BabylonjsCorePhysicsImpostor, FiberPhysicsImpostorProps> {
+    private propsHandlers: PropsHandler<BabylonjsCorePhysicsImpostor, FiberPhysicsImpostorProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberPhysicsImpostorPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<BabylonjsCorePhysicsImpostor, FiberPhysicsImpostorProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<BabylonjsCorePhysicsImpostor, FiberPhysicsImpostorProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "PhysicsImpostor",
+        "namespace": "@babylonjs/core/Physics/physicsImpostor",
+        "parameters": [
+            {
+                "name": "object",
+                "type": "BabylonjsCoreIPhysicsEnabledObject",
+                "optional": true
+            },
+            {
+                "name": "type",
+                "type": "number",
+                "optional": false
+            },
+            {
+                "name": "_options",
+                "type": "BabylonjsCorePhysicsImpostorParameters",
+                "optional": true
+            },
+            {
+                "name": "_scene",
+                "type": "BabylonjsCoreScene",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "delayCreation": true,
+        "className": "FiberPhysicsImpostor"
+    };
+}
+
 export class FiberVRExperienceHelperPropsHandler implements PropsHandler<BabylonjsCoreVRExperienceHelper, FiberVRExperienceHelperProps> {
     getPropertyUpdates(hostInstance: BabylonjsCoreVRExperienceHelper, oldProps: FiberVRExperienceHelperProps, newProps: FiberVRExperienceHelperProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
         // generated code
@@ -17099,8 +17320,8 @@ export class FiberScenePropsHandler implements PropsHandler<BabylonjsCoreScene, 
     }
 }
 
-export const AbstractButton3D: string = 'AbstractButton3D', AbstractMesh: string = 'AbstractMesh', AdvancedDynamicTexture: string = 'AdvancedDynamicTexture', AnaglyphArcRotateCamera: string = 'AnaglyphArcRotateCamera', AnaglyphFreeCamera: string = 'AnaglyphFreeCamera', AnaglyphGamepadCamera: string = 'AnaglyphGamepadCamera', AnaglyphUniversalCamera: string = 'AnaglyphUniversalCamera', ArcFollowCamera: string = 'ArcFollowCamera', ArcRotateCamera: string = 'ArcRotateCamera', BackgroundMaterial: string = 'BackgroundMaterial', BaseSlider: string = 'BaseSlider', BaseTexture: string = 'BaseTexture', Box: string = 'Box', Button: string = 'Button', Button3D: string = 'Button3D', Camera: string = 'Camera', Checkbox: string = 'Checkbox', ColorGradingTexture: string = 'ColorGradingTexture', ColorPicker: string = 'ColorPicker', Container: string = 'Container', Container3D: string = 'Container3D', Control: string = 'Control', Control3D: string = 'Control3D', CubeTexture: string = 'CubeTexture', CustomProceduralTexture: string = 'CustomProceduralTexture', Cylinder: string = 'Cylinder', CylinderPanel: string = 'CylinderPanel', DashedLines: string = 'DashedLines', Decal: string = 'Decal', DeviceOrientationCamera: string = 'DeviceOrientationCamera', DirectionalLight: string = 'DirectionalLight', Disc: string = 'Disc', DisplayGrid: string = 'DisplayGrid', DynamicTexture: string = 'DynamicTexture', Ellipse: string = 'Ellipse', EnvironmentHelper: string = 'EnvironmentHelper', EquiRectangularCubeTexture: string = 'EquiRectangularCubeTexture', ExtrudePolygon: string = 'ExtrudePolygon', ExtrudeShape: string = 'ExtrudeShape', ExtrudeShapeCustom: string = 'ExtrudeShapeCustom', FlyCamera: string = 'FlyCamera', FollowCamera: string = 'FollowCamera', FreeCamera: string = 'FreeCamera', GUI3DManager: string = 'GUI3DManager', GamepadCamera: string = 'GamepadCamera', Grid: string = 'Grid', Ground: string = 'Ground', GroundFromHeightMap: string = 'GroundFromHeightMap', HDRCubeTexture: string = 'HDRCubeTexture', HemisphericLight: string = 'HemisphericLight', HolographicButton: string = 'HolographicButton', HtmlElementTexture: string = 'HtmlElementTexture', IcoSphere: string = 'IcoSphere', Image: string = 'Image', ImageBasedSlider: string = 'ImageBasedSlider', InputPassword: string = 'InputPassword', InputText: string = 'InputText', Lathe: string = 'Lathe', Light: string = 'Light', Line: string = 'Line', LineSystem: string = 'LineSystem', Lines: string = 'Lines', Material: string = 'Material', Mesh: string = 'Mesh', MeshButton3D: string = 'MeshButton3D', MirrorTexture: string = 'MirrorTexture', MultiLine: string = 'MultiLine', MultiMaterial: string = 'MultiMaterial', MultiRenderTarget: string = 'MultiRenderTarget', MultiviewRenderTarget: string = 'MultiviewRenderTarget', Node: string = 'Node', NoiseProceduralTexture: string = 'NoiseProceduralTexture', PBRBaseMaterial: string = 'PBRBaseMaterial', PBRBaseSimpleMaterial: string = 'PBRBaseSimpleMaterial', PBRMaterial: string = 'PBRMaterial', PBRMetallicRoughnessMaterial: string = 'PBRMetallicRoughnessMaterial', PBRSpecularGlossinessMaterial: string = 'PBRSpecularGlossinessMaterial', Plane: string = 'Plane', PlanePanel: string = 'PlanePanel', PointLight: string = 'PointLight', Polygon: string = 'Polygon', Polyhedron: string = 'Polyhedron', ProceduralTexture: string = 'ProceduralTexture', PushMaterial: string = 'PushMaterial', RadioButton: string = 'RadioButton', RawCubeTexture: string = 'RawCubeTexture', RawTexture: string = 'RawTexture', RawTexture3D: string = 'RawTexture3D', Rectangle: string = 'Rectangle', RefractionTexture: string = 'RefractionTexture', RenderTargetTexture: string = 'RenderTargetTexture', Ribbon: string = 'Ribbon', ScatterPanel: string = 'ScatterPanel', ScrollBar: string = 'ScrollBar', ScrollViewer: string = 'ScrollViewer', SelectionPanel: string = 'SelectionPanel', ShaderMaterial: string = 'ShaderMaterial', ShadowGenerator: string = 'ShadowGenerator', ShadowLight: string = 'ShadowLight', Slider: string = 'Slider', Sphere: string = 'Sphere', SpherePanel: string = 'SpherePanel', SpotLight: string = 'SpotLight', StackPanel: string = 'StackPanel', StackPanel3D: string = 'StackPanel3D', StandardMaterial: string = 'StandardMaterial', StereoscopicArcRotateCamera: string = 'StereoscopicArcRotateCamera', StereoscopicFreeCamera: string = 'StereoscopicFreeCamera', StereoscopicGamepadCamera: string = 'StereoscopicGamepadCamera', StereoscopicUniversalCamera: string = 'StereoscopicUniversalCamera', TargetCamera: string = 'TargetCamera', TextBlock: string = 'TextBlock', Texture: string = 'Texture', TiledGround: string = 'TiledGround', Torus: string = 'Torus', TorusKnot: string = 'TorusKnot', TouchCamera: string = 'TouchCamera', TransformNode: string = 'TransformNode', Tube: string = 'Tube', UniversalCamera: string = 'UniversalCamera', VRDeviceOrientationArcRotateCamera: string = 'VRDeviceOrientationArcRotateCamera', VRDeviceOrientationFreeCamera: string = 'VRDeviceOrientationFreeCamera', VRDeviceOrientationGamepadCamera: string = 'VRDeviceOrientationGamepadCamera', VRExperienceHelper: string = 'VRExperienceHelper', VideoTexture: string = 'VideoTexture', VirtualJoysticksCamera: string = 'VirtualJoysticksCamera', VirtualKeyboard: string = 'VirtualKeyboard', VolumeBasedPanel: string = 'VolumeBasedPanel', WebVRFreeCamera: string = 'WebVRFreeCamera', WebXRCamera: string = 'WebXRCamera', _ScrollViewerWindow: string = '_ScrollViewerWindow';
-const classesMap: object = { abstractScene: BabylonjsCoreAbstractScene, node: BabylonjsCoreNode, scene: BabylonjsCoreScene, camera: BabylonjsCoreCamera, environmentHelper: BabylonjsCoreEnvironmentHelper, light: BabylonjsCoreLight, material: BabylonjsCoreMaterial, mesh: BabylonjsCoreMesh, meshBuilder: BabylonjsCoreMeshBuilder, vRExperienceHelper: BabylonjsCoreVRExperienceHelper, shadowGenerator: BabylonjsCoreShadowGenerator, baseTexture: BabylonjsCoreBaseTexture, advancedDynamicTexture: BabylonjsGuiAdvancedDynamicTexture, gUI3DManager: BabylonjsGuiGUI3DManager, control: BabylonjsGuiControl, textBlock: BabylonjsGuiTextBlock, control3D: BabylonjsGuiControl3D, transformNode: BabylonjsCoreTransformNode, abstractMesh: BabylonjsCoreAbstractMesh, renderTargetTexture: BabylonjsCoreRenderTargetTexture, targetCamera: BabylonjsCoreTargetCamera, freeCamera: BabylonjsCoreFreeCamera, touchCamera: BabylonjsCoreTouchCamera, universalCamera: BabylonjsCoreUniversalCamera, gamepadCamera: BabylonjsCoreGamepadCamera, anaglyphGamepadCamera: BabylonjsCoreAnaglyphGamepadCamera, stereoscopicGamepadCamera: BabylonjsCoreStereoscopicGamepadCamera, anaglyphUniversalCamera: BabylonjsCoreAnaglyphUniversalCamera, stereoscopicUniversalCamera: BabylonjsCoreStereoscopicUniversalCamera, deviceOrientationCamera: BabylonjsCoreDeviceOrientationCamera, vRDeviceOrientationFreeCamera: BabylonjsCoreVRDeviceOrientationFreeCamera, vRDeviceOrientationGamepadCamera: BabylonjsCoreVRDeviceOrientationGamepadCamera, anaglyphFreeCamera: BabylonjsCoreAnaglyphFreeCamera, stereoscopicFreeCamera: BabylonjsCoreStereoscopicFreeCamera, virtualJoysticksCamera: BabylonjsCoreVirtualJoysticksCamera, webVRFreeCamera: BabylonjsCoreWebVRFreeCamera, webXRCamera: BabylonjsCoreWebXRCamera, arcRotateCamera: BabylonjsCoreArcRotateCamera, anaglyphArcRotateCamera: BabylonjsCoreAnaglyphArcRotateCamera, stereoscopicArcRotateCamera: BabylonjsCoreStereoscopicArcRotateCamera, vRDeviceOrientationArcRotateCamera: BabylonjsCoreVRDeviceOrientationArcRotateCamera, flyCamera: BabylonjsCoreFlyCamera, followCamera: BabylonjsCoreFollowCamera, arcFollowCamera: BabylonjsCoreArcFollowCamera, shaderMaterial: BabylonjsCoreShaderMaterial, texture: BabylonjsCoreTexture, multiMaterial: BabylonjsCoreMultiMaterial, pushMaterial: BabylonjsCorePushMaterial, standardMaterial: BabylonjsCoreStandardMaterial, backgroundMaterial: BabylonjsCoreBackgroundMaterial, shadowLight: BabylonjsCoreShadowLight, pBRBaseMaterial: BabylonjsCorePBRBaseMaterial, pBRBaseSimpleMaterial: BabylonjsCorePBRBaseSimpleMaterial, pBRMetallicRoughnessMaterial: BabylonjsCorePBRMetallicRoughnessMaterial, pBRSpecularGlossinessMaterial: BabylonjsCorePBRSpecularGlossinessMaterial, pBRMaterial: BabylonjsCorePBRMaterial, directionalLight: BabylonjsCoreDirectionalLight, pointLight: BabylonjsCorePointLight, spotLight: BabylonjsCoreSpotLight, hemisphericLight: BabylonjsCoreHemisphericLight, container: BabylonjsGuiContainer, rectangle: BabylonjsGuiRectangle, button: BabylonjsGuiButton, selectionPanel: BabylonjsGuiSelectionPanel, scrollViewer: BabylonjsGuiScrollViewer, stackPanel: BabylonjsGuiStackPanel, virtualKeyboard: BabylonjsGuiVirtualKeyboard, ellipse: BabylonjsGuiEllipse, grid: BabylonjsGuiGrid, _ScrollViewerWindow: BabylonjsGui_ScrollViewerWindow, image: BabylonjsGuiImage, checkbox: BabylonjsGuiCheckbox, colorPicker: BabylonjsGuiColorPicker, inputText: BabylonjsGuiInputText, inputPassword: BabylonjsGuiInputPassword, line: BabylonjsGuiLine, multiLine: BabylonjsGuiMultiLine, radioButton: BabylonjsGuiRadioButton, baseSlider: BabylonjsGuiBaseSlider, scrollBar: BabylonjsGuiScrollBar, slider: BabylonjsGuiSlider, imageBasedSlider: BabylonjsGuiImageBasedSlider, displayGrid: BabylonjsGuiDisplayGrid, container3D: BabylonjsGuiContainer3D, volumeBasedPanel: BabylonjsGuiVolumeBasedPanel, cylinderPanel: BabylonjsGuiCylinderPanel, planePanel: BabylonjsGuiPlanePanel, scatterPanel: BabylonjsGuiScatterPanel, spherePanel: BabylonjsGuiSpherePanel, stackPanel3D: BabylonjsGuiStackPanel3D, abstractButton3D: BabylonjsGuiAbstractButton3D, button3D: BabylonjsGuiButton3D, holographicButton: BabylonjsGuiHolographicButton, meshButton3D: BabylonjsGuiMeshButton3D, cubeTexture: BabylonjsCoreCubeTexture, rawCubeTexture: BabylonjsCoreRawCubeTexture, rawTexture: BabylonjsCoreRawTexture, proceduralTexture: BabylonjsCoreProceduralTexture, customProceduralTexture: BabylonjsCoreCustomProceduralTexture, noiseProceduralTexture: BabylonjsCoreNoiseProceduralTexture, mirrorTexture: BabylonjsCoreMirrorTexture, multiRenderTarget: BabylonjsCoreMultiRenderTarget, refractionTexture: BabylonjsCoreRefractionTexture, multiviewRenderTarget: BabylonjsCoreMultiviewRenderTarget, videoTexture: BabylonjsCoreVideoTexture, dynamicTexture: BabylonjsCoreDynamicTexture, rawTexture3D: BabylonjsCoreRawTexture3D, colorGradingTexture: BabylonjsCoreColorGradingTexture, equiRectangularCubeTexture: BabylonjsCoreEquiRectangularCubeTexture, hDRCubeTexture: BabylonjsCoreHDRCubeTexture, htmlElementTexture: BabylonjsCoreHtmlElementTexture };
+export const AbstractButton3D: string = 'AbstractButton3D', AbstractMesh: string = 'AbstractMesh', AdvancedDynamicTexture: string = 'AdvancedDynamicTexture', AnaglyphArcRotateCamera: string = 'AnaglyphArcRotateCamera', AnaglyphFreeCamera: string = 'AnaglyphFreeCamera', AnaglyphGamepadCamera: string = 'AnaglyphGamepadCamera', AnaglyphUniversalCamera: string = 'AnaglyphUniversalCamera', ArcFollowCamera: string = 'ArcFollowCamera', ArcRotateCamera: string = 'ArcRotateCamera', BackgroundMaterial: string = 'BackgroundMaterial', BaseSlider: string = 'BaseSlider', BaseTexture: string = 'BaseTexture', Box: string = 'Box', Button: string = 'Button', Button3D: string = 'Button3D', Camera: string = 'Camera', Checkbox: string = 'Checkbox', ColorGradingTexture: string = 'ColorGradingTexture', ColorPicker: string = 'ColorPicker', Container: string = 'Container', Container3D: string = 'Container3D', Control: string = 'Control', Control3D: string = 'Control3D', CubeTexture: string = 'CubeTexture', CustomProceduralTexture: string = 'CustomProceduralTexture', Cylinder: string = 'Cylinder', CylinderPanel: string = 'CylinderPanel', DashedLines: string = 'DashedLines', Decal: string = 'Decal', DeviceOrientationCamera: string = 'DeviceOrientationCamera', DirectionalLight: string = 'DirectionalLight', Disc: string = 'Disc', DisplayGrid: string = 'DisplayGrid', DynamicTexture: string = 'DynamicTexture', Ellipse: string = 'Ellipse', EnvironmentHelper: string = 'EnvironmentHelper', EquiRectangularCubeTexture: string = 'EquiRectangularCubeTexture', ExtrudePolygon: string = 'ExtrudePolygon', ExtrudeShape: string = 'ExtrudeShape', ExtrudeShapeCustom: string = 'ExtrudeShapeCustom', FlyCamera: string = 'FlyCamera', FollowCamera: string = 'FollowCamera', FreeCamera: string = 'FreeCamera', GUI3DManager: string = 'GUI3DManager', GamepadCamera: string = 'GamepadCamera', Grid: string = 'Grid', Ground: string = 'Ground', GroundFromHeightMap: string = 'GroundFromHeightMap', HDRCubeTexture: string = 'HDRCubeTexture', HemisphericLight: string = 'HemisphericLight', HolographicButton: string = 'HolographicButton', HtmlElementTexture: string = 'HtmlElementTexture', IcoSphere: string = 'IcoSphere', Image: string = 'Image', ImageBasedSlider: string = 'ImageBasedSlider', InputPassword: string = 'InputPassword', InputText: string = 'InputText', Lathe: string = 'Lathe', Light: string = 'Light', Line: string = 'Line', LineSystem: string = 'LineSystem', Lines: string = 'Lines', Material: string = 'Material', Mesh: string = 'Mesh', MeshButton3D: string = 'MeshButton3D', MirrorTexture: string = 'MirrorTexture', MultiLine: string = 'MultiLine', MultiMaterial: string = 'MultiMaterial', MultiRenderTarget: string = 'MultiRenderTarget', MultiviewRenderTarget: string = 'MultiviewRenderTarget', Node: string = 'Node', NoiseProceduralTexture: string = 'NoiseProceduralTexture', PBRBaseMaterial: string = 'PBRBaseMaterial', PBRBaseSimpleMaterial: string = 'PBRBaseSimpleMaterial', PBRMaterial: string = 'PBRMaterial', PBRMetallicRoughnessMaterial: string = 'PBRMetallicRoughnessMaterial', PBRSpecularGlossinessMaterial: string = 'PBRSpecularGlossinessMaterial', PhysicsImpostor: string = 'PhysicsImpostor', Plane: string = 'Plane', PlanePanel: string = 'PlanePanel', PointLight: string = 'PointLight', Polygon: string = 'Polygon', Polyhedron: string = 'Polyhedron', ProceduralTexture: string = 'ProceduralTexture', PushMaterial: string = 'PushMaterial', RadioButton: string = 'RadioButton', RawCubeTexture: string = 'RawCubeTexture', RawTexture: string = 'RawTexture', RawTexture3D: string = 'RawTexture3D', Rectangle: string = 'Rectangle', RefractionTexture: string = 'RefractionTexture', RenderTargetTexture: string = 'RenderTargetTexture', Ribbon: string = 'Ribbon', ScatterPanel: string = 'ScatterPanel', ScrollBar: string = 'ScrollBar', ScrollViewer: string = 'ScrollViewer', SelectionPanel: string = 'SelectionPanel', ShaderMaterial: string = 'ShaderMaterial', ShadowGenerator: string = 'ShadowGenerator', ShadowLight: string = 'ShadowLight', Slider: string = 'Slider', Sphere: string = 'Sphere', SpherePanel: string = 'SpherePanel', SpotLight: string = 'SpotLight', StackPanel: string = 'StackPanel', StackPanel3D: string = 'StackPanel3D', StandardMaterial: string = 'StandardMaterial', StereoscopicArcRotateCamera: string = 'StereoscopicArcRotateCamera', StereoscopicFreeCamera: string = 'StereoscopicFreeCamera', StereoscopicGamepadCamera: string = 'StereoscopicGamepadCamera', StereoscopicUniversalCamera: string = 'StereoscopicUniversalCamera', TargetCamera: string = 'TargetCamera', TextBlock: string = 'TextBlock', Texture: string = 'Texture', TiledGround: string = 'TiledGround', Torus: string = 'Torus', TorusKnot: string = 'TorusKnot', TouchCamera: string = 'TouchCamera', TransformNode: string = 'TransformNode', Tube: string = 'Tube', UniversalCamera: string = 'UniversalCamera', VRDeviceOrientationArcRotateCamera: string = 'VRDeviceOrientationArcRotateCamera', VRDeviceOrientationFreeCamera: string = 'VRDeviceOrientationFreeCamera', VRDeviceOrientationGamepadCamera: string = 'VRDeviceOrientationGamepadCamera', VRExperienceHelper: string = 'VRExperienceHelper', VideoTexture: string = 'VideoTexture', VirtualJoysticksCamera: string = 'VirtualJoysticksCamera', VirtualKeyboard: string = 'VirtualKeyboard', VolumeBasedPanel: string = 'VolumeBasedPanel', WebVRFreeCamera: string = 'WebVRFreeCamera', WebXRCamera: string = 'WebXRCamera', _ScrollViewerWindow: string = '_ScrollViewerWindow';
+const classesMap: object = { abstractScene: BabylonjsCoreAbstractScene, node: BabylonjsCoreNode, scene: BabylonjsCoreScene, camera: BabylonjsCoreCamera, environmentHelper: BabylonjsCoreEnvironmentHelper, light: BabylonjsCoreLight, material: BabylonjsCoreMaterial, mesh: BabylonjsCoreMesh, meshBuilder: BabylonjsCoreMeshBuilder, physicsImpostor: BabylonjsCorePhysicsImpostor, vRExperienceHelper: BabylonjsCoreVRExperienceHelper, shadowGenerator: BabylonjsCoreShadowGenerator, baseTexture: BabylonjsCoreBaseTexture, advancedDynamicTexture: BabylonjsGuiAdvancedDynamicTexture, gUI3DManager: BabylonjsGuiGUI3DManager, control: BabylonjsGuiControl, textBlock: BabylonjsGuiTextBlock, control3D: BabylonjsGuiControl3D, transformNode: BabylonjsCoreTransformNode, abstractMesh: BabylonjsCoreAbstractMesh, renderTargetTexture: BabylonjsCoreRenderTargetTexture, targetCamera: BabylonjsCoreTargetCamera, freeCamera: BabylonjsCoreFreeCamera, touchCamera: BabylonjsCoreTouchCamera, universalCamera: BabylonjsCoreUniversalCamera, gamepadCamera: BabylonjsCoreGamepadCamera, anaglyphGamepadCamera: BabylonjsCoreAnaglyphGamepadCamera, stereoscopicGamepadCamera: BabylonjsCoreStereoscopicGamepadCamera, anaglyphUniversalCamera: BabylonjsCoreAnaglyphUniversalCamera, stereoscopicUniversalCamera: BabylonjsCoreStereoscopicUniversalCamera, deviceOrientationCamera: BabylonjsCoreDeviceOrientationCamera, vRDeviceOrientationFreeCamera: BabylonjsCoreVRDeviceOrientationFreeCamera, vRDeviceOrientationGamepadCamera: BabylonjsCoreVRDeviceOrientationGamepadCamera, anaglyphFreeCamera: BabylonjsCoreAnaglyphFreeCamera, stereoscopicFreeCamera: BabylonjsCoreStereoscopicFreeCamera, virtualJoysticksCamera: BabylonjsCoreVirtualJoysticksCamera, webVRFreeCamera: BabylonjsCoreWebVRFreeCamera, webXRCamera: BabylonjsCoreWebXRCamera, arcRotateCamera: BabylonjsCoreArcRotateCamera, anaglyphArcRotateCamera: BabylonjsCoreAnaglyphArcRotateCamera, stereoscopicArcRotateCamera: BabylonjsCoreStereoscopicArcRotateCamera, vRDeviceOrientationArcRotateCamera: BabylonjsCoreVRDeviceOrientationArcRotateCamera, flyCamera: BabylonjsCoreFlyCamera, followCamera: BabylonjsCoreFollowCamera, arcFollowCamera: BabylonjsCoreArcFollowCamera, shaderMaterial: BabylonjsCoreShaderMaterial, texture: BabylonjsCoreTexture, multiMaterial: BabylonjsCoreMultiMaterial, pushMaterial: BabylonjsCorePushMaterial, standardMaterial: BabylonjsCoreStandardMaterial, backgroundMaterial: BabylonjsCoreBackgroundMaterial, shadowLight: BabylonjsCoreShadowLight, pBRBaseMaterial: BabylonjsCorePBRBaseMaterial, pBRBaseSimpleMaterial: BabylonjsCorePBRBaseSimpleMaterial, pBRMetallicRoughnessMaterial: BabylonjsCorePBRMetallicRoughnessMaterial, pBRSpecularGlossinessMaterial: BabylonjsCorePBRSpecularGlossinessMaterial, pBRMaterial: BabylonjsCorePBRMaterial, directionalLight: BabylonjsCoreDirectionalLight, pointLight: BabylonjsCorePointLight, spotLight: BabylonjsCoreSpotLight, hemisphericLight: BabylonjsCoreHemisphericLight, container: BabylonjsGuiContainer, rectangle: BabylonjsGuiRectangle, button: BabylonjsGuiButton, selectionPanel: BabylonjsGuiSelectionPanel, scrollViewer: BabylonjsGuiScrollViewer, stackPanel: BabylonjsGuiStackPanel, virtualKeyboard: BabylonjsGuiVirtualKeyboard, ellipse: BabylonjsGuiEllipse, grid: BabylonjsGuiGrid, _ScrollViewerWindow: BabylonjsGui_ScrollViewerWindow, image: BabylonjsGuiImage, checkbox: BabylonjsGuiCheckbox, colorPicker: BabylonjsGuiColorPicker, inputText: BabylonjsGuiInputText, inputPassword: BabylonjsGuiInputPassword, line: BabylonjsGuiLine, multiLine: BabylonjsGuiMultiLine, radioButton: BabylonjsGuiRadioButton, baseSlider: BabylonjsGuiBaseSlider, scrollBar: BabylonjsGuiScrollBar, slider: BabylonjsGuiSlider, imageBasedSlider: BabylonjsGuiImageBasedSlider, displayGrid: BabylonjsGuiDisplayGrid, container3D: BabylonjsGuiContainer3D, volumeBasedPanel: BabylonjsGuiVolumeBasedPanel, cylinderPanel: BabylonjsGuiCylinderPanel, planePanel: BabylonjsGuiPlanePanel, scatterPanel: BabylonjsGuiScatterPanel, spherePanel: BabylonjsGuiSpherePanel, stackPanel3D: BabylonjsGuiStackPanel3D, abstractButton3D: BabylonjsGuiAbstractButton3D, button3D: BabylonjsGuiButton3D, holographicButton: BabylonjsGuiHolographicButton, meshButton3D: BabylonjsGuiMeshButton3D, cubeTexture: BabylonjsCoreCubeTexture, rawCubeTexture: BabylonjsCoreRawCubeTexture, rawTexture: BabylonjsCoreRawTexture, proceduralTexture: BabylonjsCoreProceduralTexture, customProceduralTexture: BabylonjsCoreCustomProceduralTexture, noiseProceduralTexture: BabylonjsCoreNoiseProceduralTexture, mirrorTexture: BabylonjsCoreMirrorTexture, multiRenderTarget: BabylonjsCoreMultiRenderTarget, refractionTexture: BabylonjsCoreRefractionTexture, multiviewRenderTarget: BabylonjsCoreMultiviewRenderTarget, videoTexture: BabylonjsCoreVideoTexture, dynamicTexture: BabylonjsCoreDynamicTexture, rawTexture3D: BabylonjsCoreRawTexture3D, colorGradingTexture: BabylonjsCoreColorGradingTexture, equiRectangularCubeTexture: BabylonjsCoreEquiRectangularCubeTexture, hDRCubeTexture: BabylonjsCoreHDRCubeTexture, htmlElementTexture: BabylonjsCoreHtmlElementTexture };
 
 export function babylonClassFactory(importAlias: string): any {
     return (classesMap as any)[importAlias];
