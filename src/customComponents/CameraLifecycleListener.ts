@@ -22,7 +22,7 @@ export default class CameraLifecycleListener implements LifecycleListener {
     const camera = instance.hostInstance as Camera
     const noPreventDefault = this.props.noPreventDefault === false ? false : true
 
-    console.log("attachControl. camera:", camera, this.canvas, noPreventDefault)
+    // console.log("camera.attachControl:", camera, this.canvas, noPreventDefault)
     // should be a custom property for autoAttaching?  Will be an issue for multiple cameras.
     camera.attachControl(this.canvas, noPreventDefault)
 
