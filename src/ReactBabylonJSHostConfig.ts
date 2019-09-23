@@ -245,12 +245,16 @@ const ReactBabylonJSHostConfig: HostConfig<
       return createdInstance
     }
 
+    // some types (ie: button) are called 'babylonjs-button'.
+    const dashIndex = type.indexOf('-');
+    const underlyingClassName: string =  dashIndex > 0
+      ? properCase(type.substr(dashIndex + 1))
+      : properCase(type)
 
-
-    const classDefinition = (GENERATED as any)[`Fiber${properCase(type)}`]
+    const classDefinition = (GENERATED as any)[`Fiber${underlyingClassName}`]
 
     if (classDefinition === undefined) {
-      throw new Error(`Cannot generate type '${type}' inside 'react-babylonjs' (ie: no DOM rendering on HTMLCanvas)`)
+      throw new Error(`Cannot generate type '${type}/${underlyingClassName}' inside 'react-babylonjs' (ie: no DOM rendering on HTMLCanvas)`)
     }
 
     let createInfoArgs: CreateInfo = classDefinition.CreateInfo
@@ -298,15 +302,18 @@ const ReactBabylonJSHostConfig: HostConfig<
     let babylonObject: any | undefined = undefined
 
     if (createInfoArgs.creationType === CreationType.FactoryMethod) {
-      console.warn(`creating from Factory: ${createInfoArgs.libraryLocation}.${createInfoArgs.factoryMethod}(...args).  args:`, args)
+      // console.warn(`creating from Factory: ${createInfoArgs.libraryLocation}.${createInfoArgs.factoryMethod}(...args).  args:`, args)
       babylonObject = GENERATED.babylonClassFactory(createInfoArgs.libraryLocation)[createInfoArgs.factoryMethod!](...args)
     } else {
       if (metadata.delayCreation !== true) {
         if(createInfoArgs.namespace.startsWith('@babylonjs/')) {
             const clazz: any = GENERATED.babylonClassFactory(type);
+            if (clazz === undefined) {
+              console.error('cannot find (factory):', type);
+            }
             babylonObject = new clazz(...args)
         } else if (createInfoArgs.namespace === "BABYLONEXT") {
-            // console.log("creating:", type, ...args)
+            // console.log("creating:", type, ...args) - TODO: fix this with intrinsicTypes
             babylonObject = new (BABYLONEXT as any)[type](...args)
         } else {
             console.error("metadata defines (or does not) a namespace that is known", metadata)
@@ -319,7 +326,7 @@ const ReactBabylonJSHostConfig: HostConfig<
       props.onCreated(babylonObject)
     }
 
-    const fiberObject: HasPropsHandlers<any, any> = new (GENERATED as any)[`Fiber${properCase(type)}`]()
+    const fiberObject: HasPropsHandlers<any, any> = new (GENERATED as any)[`Fiber${underlyingClassName}`]()
 
     let lifecycleListener: LifecycleListener | undefined = undefined
 
@@ -351,13 +358,11 @@ const ReactBabylonJSHostConfig: HostConfig<
 
     // here we dynamically assign listeners for specific types.
     // TODO: need to double-check because we are using 'camelCase'
-
-    if ((CUSTOM_COMPONENTS as any)[properCase(type) + "LifecycleListener"] !== undefined) {
-      console.log('creating dynamic lifecycle listener.')
-      lifecycleListener = new (CUSTOM_COMPONENTS as any)[properCase(type) + "LifecycleListener"](scene, props)
+    if ((CUSTOM_COMPONENTS as any)[underlyingClassName + "LifecycleListener"] !== undefined) {
+      lifecycleListener = new (CUSTOM_COMPONENTS as any)[underlyingClassName + "LifecycleListener"](scene, props)
     }
 
-    let createdReference = createCreatedInstance(type, babylonObject, fiberObject, metadata, customProps, lifecycleListener)
+    let createdReference = createCreatedInstance(underlyingClassName, babylonObject, fiberObject, metadata, customProps, lifecycleListener)
 
     if (lifecycleListener && lifecycleListener.onCreated) {
       lifecycleListener.onCreated(createdReference, scene!)
@@ -428,9 +433,13 @@ const ReactBabylonJSHostConfig: HostConfig<
   appendInitialChild: (parent: HostCreatedInstance<any>, child: CreatedInstance<any>) => {
     // Here we are traversing downwards.  Beyond parent has not been initialized, but all children have been.
     if (parent) {
-      // doubly linking child to parent
-      parent.children.push(child) // TODO: need to remove from children as well when removing.
-      child.parent = parent
+      if (!child) {
+        console.error('undefined child', parent);
+      } else {
+        // doubly linking child to parent
+        parent.children.push(child) // TODO: need to remove from children as well when removing.
+        child.parent = parent
+      }
     }
 
     if (child && child.lifecycleListener && child.lifecycleListener.onParented) {
