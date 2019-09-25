@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import { storiesOf } from '@storybook/react'
-import { Engine, Scene, HemisphericLight, ArcRotateCamera, GUI3DManager, CylinderPanel, VRExperienceHelper, Mesh, StandardMaterial,
-  Plane, AdvancedDynamicTexture, Rectangle, StackPanel, InputText, TextBlock, Box, Button, EnvironmentHelper, VirtualKeyboard } from '../../../dist/react-babylonjs.es5'
-import { Vector3, Color3 } from 'babylonjs'
-import { Control } from 'babylonjs-gui'
+import { Engine, Scene } from '../../../dist/react-babylonjs.es5'
+import { Vector3, Color3 } from '@babylonjs/core/Maths/math'
+import { Control } from '@babylonjs/gui'
 import MashupButton from './MashupButton'
 import ScaledModelWithProgress from '../ScaledModelWithProgress'
 import '../../style.css'
@@ -168,11 +167,11 @@ export class RemixMeshMashup extends Component {
       return (
         <Engine canvasId='babylonJS' antialias adaptToDeviceRatio engineOptions={{ stencil: true, preserveDrawingBuffer: true }}>
           <Scene>
-            <HemisphericLight name='light1' intensity={0.7} direction={Vector3.Up()} />
-            <ArcRotateCamera target={Vector3.Zero()} radius={4} alpha={-Math.PI / 2} beta={(Math.PI / 2)} minZ={0.001} wheelPrecision={30} />
-            <Mesh name='panelAnchor' position={new Vector3(0, 2, 0)} />
-            <GUI3DManager name='gui3d'>
-              <CylinderPanel name='panel' margin={0.2} rows={2} radius={4} linkToTransformNodeByName='panelAnchor'>
+            <hemisphericLight name='light1' intensity={0.7} direction={Vector3.Up()} />
+            <arcRotateCamera target={Vector3.Zero()} radius={4} alpha={-Math.PI / 2} beta={(Math.PI / 2)} minZ={0.001} wheelPrecision={30} />
+            <mesh name='panelAnchor' position={new Vector3(0, 2, 0)} />
+            <gUI3DManager name='gui3d'>
+              <cylinderPanel name='panel' margin={0.2} rows={2} radius={4} linkToTransformNodeByName='panelAnchor'>
                 {
                   this.state.results.map(result => {
                     if (result.type === 'board' || result.type === 'creation') {
@@ -195,33 +194,33 @@ export class RemixMeshMashup extends Component {
                     }
                   })
                 }
-              </CylinderPanel>
-            </GUI3DManager>
-            <Box height={1 / 8 + 0.1} width={1.1} depth={0.01} position={new Vector3(0, -0.5, -2)}>
-              <StandardMaterial diffuseColor={Color3.White()} specularColor={Color3.Black()} />
-            </Box>
-            <Plane name='dialog' width={1} height={1 / 8} position={new Vector3(0, -0.5, -2.008)}>
-              <AdvancedDynamicTexture name='adt' height={1024} width={1024} createForParentMesh>
-                <Rectangle name='rect' color='#666666' height={1 / 8} scaleY={8}>
-                  <StackPanel name='sp-1' isVertical={false} padding={0.05}>
-                    <InputText name='searchInputText' text={this.state.searchText} color='white' fontSize={36} width={0.8} onTextChanged={this.updateSearchTextBabylon} />
-                    <Button name='button' background='#FFAF00' width={0.2} cornerRadius={10} onPointerDown={this.doSearch}>
-                      <StackPanel name='sp-2' isVertical={false} padding={0.05}>
-                        <TextBlock key='search-text' name='search-text' text='Search' fontStyle='bold' fontSize={36} color='black' width={0.7} />
-                        <TextBlock key='search-icon' name='search-icon' text={'\uf002'} fontFamily='FontAwesome' fontSize={36} color='black' width={0.3} />
-                      </StackPanel>
-                    </Button>
-                  </StackPanel>
-                </Rectangle>
-              </AdvancedDynamicTexture>
-            </Plane>
-            <Plane name='keyboard' width={1} height={1 / 4} position={new Vector3(0, -(0.6 + 1 / 8), -2.1414)} rotation={new Vector3(Math.PI / 4, 0, 0)} >
-              <AdvancedDynamicTexture height={1024} width={1024} createForParentMesh onlyAlphaTesting>
-                <Rectangle color='white' height={1 / 4} scaleY={4}>
-                  <VirtualKeyboard connectControlNames={['searchInputText']} defaultKeyboard disableOffFocus verticalAlignment={Control.VERTICAL_ALIGNMENT_TOP} />
-                </Rectangle>
-              </AdvancedDynamicTexture>
-            </Plane>
+              </cylinderPanel>
+            </gUI3DManager>
+            <box height={1 / 8 + 0.1} width={1.1} depth={0.01} position={new Vector3(0, -0.5, -2)}>
+              <standardMaterial diffuseColor={Color3.White()} specularColor={Color3.Black()} />
+            </box>
+            <plane name='dialog' width={1} height={1 / 8} position={new Vector3(0, -0.5, -2.008)}>
+              <advancedDynamicTexture name='adt' height={1024} width={1024} createForParentMesh>
+                <rectangle name='rect' color='#666666' height={1 / 8} scaleY={8}>
+                  <stackPanel name='sp-1' isVertical={false} padding={0.05}>
+                    <inputText name='searchInputText' text={this.state.searchText} color='white' fontSize={36} width={0.8} onTextChanged={this.updateSearchTextBabylon} />
+                    <babylon-button name='button' background='#FFAF00' width={0.2} cornerRadius={10} onPointerDown={this.doSearch}>
+                      <stackPanel name='sp-2' isVertical={false} padding={0.05}>
+                        <textBlock key='search-text' name='search-text' text='Search' fontStyle='bold' fontSize={36} color='black' width={0.7} />
+                        <textBlock key='search-icon' name='search-icon' text={'\uf002'} fontFamily='FontAwesome' fontSize={36} color='black' width={0.3} />
+                      </stackPanel>
+                    </babylon-button>
+                  </stackPanel>
+                </rectangle>
+              </advancedDynamicTexture>
+            </plane>
+            <plane name='keyboard' width={1} height={1 / 4} position={new Vector3(0, -(0.6 + 1 / 8), -2.1414)} rotation={new Vector3(Math.PI / 4, 0, 0)} >
+              <advancedDynamicTexture height={1024} width={1024} createForParentMesh onlyAlphaTesting>
+                <rectangle color='white' height={1 / 4} scaleY={4}>
+                  <virtualKeyboard connectControlNames={['searchInputText']} defaultKeyboard disableOffFocus verticalAlignment={Control.VERTICAL_ALIGNMENT_TOP} />
+                </rectangle>
+              </advancedDynamicTexture>
+            </plane>
             {this.state.model &&
             <ScaledModelWithProgress key={this.state.model.key} rootUrl={this.state.model.rootUrl} sceneFilename={this.state.model.sceneFilename} scaleTo={2}
               progressBarColor={Color3.FromInts(255, 165, 0)} center={new Vector3(0, 0, 0)}
@@ -231,8 +230,8 @@ export class RemixMeshMashup extends Component {
             />
             }
 
-            <VRExperienceHelper webVROptions={{ createDeviceOrientationCamera: false }} teleportEnvironmentGround enableInteractions />
-            <EnvironmentHelper enableGroundShadow groundYBias={1} mainColor={Color3.FromHexString('#74b9ff')} />
+            <vRExperienceHelper webVROptions={{ createDeviceOrientationCamera: false }} teleportEnvironmentGround enableInteractions />
+            <environmentHelper enableGroundShadow groundYBias={1} mainColor={Color3.FromHexString('#74b9ff')} />
           </Scene>
         </Engine>
       )

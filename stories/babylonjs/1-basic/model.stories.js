@@ -1,9 +1,12 @@
 import React, { Component} from 'react'
 import { TimelineLite } from "gsap/all";
 import { storiesOf } from '@storybook/react'
-import 'babylonjs-inspector'
-import { Engine, Scene, Skybox, ArcRotateCamera, HemisphericLight } from '../../../dist/react-babylonjs.es5'
-import { Vector3, Color3, ActionManager, SetValueAction, CubeTexture, FresnelParameters, StandardMaterial, Color4 } from 'babylonjs'
+import '@babylonjs/inspector'
+import { Engine, Scene, Skybox } from '../../../dist/react-babylonjs.es5'
+import { Vector3, Color3, Color4 } from '@babylonjs/core'
+import { StandardMaterial, FresnelParameters } from '@babylonjs/core/Materials'
+import { CubeTexture } from '@babylonjs/core/Materials/Textures'
+import { ActionManager, SetValueAction } from '@babylonjs/core/Actions'
 import ScaledModelWithProgress from '../ScaledModelWithProgress'
 import '../../style.css'
 
@@ -68,8 +71,8 @@ class WithReact extends Component {
       <Engine antialias adaptToDeviceRatio canvasId='babylonJS'>
         <Scene onSceneMount={this.onSceneMount} clearColor={new Color4(1.0, 1.0, 1.0, 1.0)}>
         <Skybox rootUrl={SkyboxScenes[Math.abs(this.state.skyboxIndex) % SkyboxScenes.length].texture} />
-          <ArcRotateCamera name='camera1' alpha={Math.PI / 2} beta={Math.PI / 2} radius={9.0} target={Vector3.Zero()} minZ={0.001} />
-          <HemisphericLight name='light1' intensity={0.7} direction={Vector3.Up()} />
+          <arcRotateCamera name='camera1' alpha={Math.PI / 2} beta={Math.PI / 2} radius={9.0} target={Vector3.Zero()} minZ={0.001} />
+          <hemisphericLight name='light1' intensity={0.7} direction={Vector3.Up()} />
           <ScaledModelWithProgress rootUrl={`assets/models/`} sceneFilename='atom.glb' scaleTo={this.state.atomScaling}
             progressBarColor={Color3.FromInts(135, 206, 235)} center={new Vector3(0, this.state.atomYPos, 0)}
             onModelLoaded={this.onModelLoaded}
@@ -150,8 +153,8 @@ class WithModel extends Component {
     return (
       <Engine antialias adaptToDeviceRatio canvasId='babylonJS'>
         <Scene>
-          <ArcRotateCamera name='camera1' alpha={Math.PI / 2} beta={Math.PI / 2} radius={9.0} target={Vector3.Zero()} minZ={0.001} />
-          <HemisphericLight name='light1' intensity={0.7} direction={Vector3.Up()} />
+          <arcRotateCamera name='camera1' alpha={Math.PI / 2} beta={Math.PI / 2} radius={9.0} target={Vector3.Zero()} minZ={0.001} />
+          <hemisphericLight name='light1' intensity={0.7} direction={Vector3.Up()} />
 
           <ScaledModelWithProgress rootUrl={`${baseUrl}BoomBox/glTF/`} sceneFilename='BoomBox.gltf' scaleTo={3}
             progressBarColor={Color3.FromInts(255, 165, 0)} center={new Vector3(2.5, 0, 0)}

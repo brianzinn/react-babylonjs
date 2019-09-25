@@ -1,13 +1,10 @@
 import React, { Component } from 'react'
 import { storiesOf } from '@storybook/react'
-import {
-  Engine, Scene, ArcRotateCamera, StandardMaterial, VRExperienceHelper, IcoSphere,
-  DirectionalLight, ShadowGenerator, EnvironmentHelper
-} from '../../../dist/react-babylonjs.es5'
+import { Engine, Scene } from '../../../dist/react-babylonjs.es5'
 
 import ScaledModelWithProgress from '../ScaledModelWithProgress'
 import SingleAxisRotateMeshBehavior from '../SingleAxisRotateMeshBehavior'
-import { Vector3, Color3, Axis } from 'babylonjs'
+import { Vector3, Color3, Axis } from '@babylonjs/core/Maths/math'
 import '../../style.css'
 
 export class WithVR extends Component {
@@ -55,34 +52,34 @@ export class WithVR extends Component {
     return (
       <Engine antialias adaptToDeviceRatio canvasId='babylonJS'>
         <Scene onMeshPicked={this.onMeshPicked}>
-          <ArcRotateCamera name='arc' target={new Vector3(0, 1, 0)}
+          <arcRotateCamera name='arc' target={new Vector3(0, 1, 0)}
             alpha={-Math.PI / 2} beta={(0.5 + (Math.PI / 4))}
             radius={2} minZ={0.001} wheelPrecision={50} />
 
-          <DirectionalLight name='dl' direction={new Vector3(0, -0.5, 0.5)} position={new Vector3(0, 2, 0.5)}>
-            <ShadowGenerator mapSize={1024} useBlurExponentialShadowMap blurKernel={32} shadowCasters={['counterClockwise', 'clockwise', 'BoomBox']} />
-          </DirectionalLight>
+          <directionalLight name='dl' direction={new Vector3(0, -0.5, 0.5)} position={new Vector3(0, 2, 0.5)}>
+            <shadowGenerator mapSize={1024} useBlurExponentialShadowMap blurKernel={32} shadowCasters={['counterClockwise', 'clockwise', 'BoomBox']} />
+          </directionalLight>
 
-          <IcoSphere name='counterClockwise' position={new Vector3(-0.5, 1, 0)} radius={0.2} flat subdivisions={1}>
-            <StandardMaterial
+          <icoSphere name='counterClockwise' position={new Vector3(-0.5, 1, 0)} radius={0.2} flat subdivisions={1}>
+            <standardMaterial name='ccw-mat'
               diffuseColor={Color3.Yellow()}
               specularColor={Color3.Black()}
             />
             <SingleAxisRotateMeshBehavior rpm={4} axis={Axis.Y} />
-          </IcoSphere>
+          </icoSphere>
           <ScaledModelWithProgress rootUrl={`${baseUrl}BoomBox/glTF/`} sceneFilename='BoomBox.gltf' scaleTo={0.4}
             progressBarColor={Color3.FromInts(255, 165, 0)} center={new Vector3(0, 1, 0)}
             modelRotation={new Vector3(0, this.state.modelRotationY, 0)}
           />
-          <IcoSphere name='clockwise' position={new Vector3(0.5, 1, 0)} radius={0.2} flat subdivisions={1}>
-            <StandardMaterial
+          <icoSphere name='clockwise' position={new Vector3(0.5, 1, 0)} radius={0.2} flat subdivisions={1}>
+            <standardMaterial name='cw-mat'
               diffuseColor={Color3.FromInts(255, 165, 0)}
               specularColor={Color3.Black()}
             />
             <SingleAxisRotateMeshBehavior rpm={4} axis={Axis.Y} />
-          </IcoSphere>
-          <VRExperienceHelper webVROptions={{ createDeviceOrientationCamera: false }} teleportEnvironmentGround enableInteractions />
-          <EnvironmentHelper options={{ enableGroundShadow: true /* true by default */, groundYBias: 1 }} mainColor={Color3.FromHexString('#74b9ff')} />
+          </icoSphere>
+          <vRExperienceHelper webVROptions={{ createDeviceOrientationCamera: false }} teleportEnvironmentGround enableInteractions />
+          <environmentHelper options={{ enableGroundShadow: true /* true by default */, groundYBias: 1 }} mainColor={Color3.FromHexString('#74b9ff')} />
         </Scene>
       </Engine>
     )

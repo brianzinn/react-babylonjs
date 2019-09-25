@@ -78,6 +78,7 @@
     "@babel/core": "^7.4.5",
     "@babylonjs/core": "^4.0.3",
     "@babylonjs/gui": "^4.0.3",
+    "@babylonjs/inspector": "^4.0.3",
     "@babylonjs/loaders": "^4.0.3",
     "@storybook/addon-actions": "^5.1.9",
     "@storybook/addon-info": "^5.1.9",
@@ -105,6 +106,8 @@
     "prettier": "^1.15.3",
     "prompt": "^1.0.0",
     "react": "^16.8.6",
+    "react-dom": "^16.9.0",
+    "react-reconciler": "^0.21.0",
     "replace-in-file": "^3.4.3",
     "rimraf": "^2.6.1",
     "rollup": "^1.1.0",
@@ -129,7 +132,7 @@
   },
   "peerDependencies": {
     "react": "16.x",
-    "react-dom": "^16.8.6",
-    "react-reconciler": "^0.18.0"
+    "react-dom": "16.x",
+    "react-reconciler": "0.x"
   }
 }

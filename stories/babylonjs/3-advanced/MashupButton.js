@@ -1,6 +1,6 @@
 import React from 'react'
-import { Button3D, TextBlock, StackPanel, Image, withScene } from '../../../dist/react-babylonjs.es5'
-import { Color3 } from 'babylonjs'
+import { withScene } from '../../../dist/react-babylonjs.es5'
+import { Color3 } from '@babylonjs/core/Maths/math'
 
 function onControlAdded (button3d) {
   if (button3d.hostInstance && button3d.hostInstance.mesh && button3d.hostInstance.mesh.material) {
@@ -22,12 +22,12 @@ function onControlAdded (button3d) {
 }
 
 const MashupButton = (props) => (
-  <Button3D onControlAdded={onControlAdded} childrenAsContent onPointerDownObservable={props.onPointerDown}>
-    <StackPanel background='#CCCCCC' isVertical height='256px'>
-      <Image name={`img-${props.text}`} width='180px' height='180px' paddingTop='10px' paddingBottom='10px' url={props.imageUrl} />
-      <TextBlock name={`text-${props.text}`} text={props.text} color={props.fontColor} fontSize={props.fontSize} height='56px' />
-    </StackPanel>
-  </Button3D>
+  <button3D onControlAdded={onControlAdded} childrenAsContent onPointerDownObservable={props.onPointerDown}>
+    <stackPanel background='#CCCCCC' isVertical height='256px'>
+      <babylon-image name={`img-${props.text}`} width='180px' height='180px' paddingTop='10px' paddingBottom='10px' url={props.imageUrl} />
+      <textBlock name={`text-${props.text}`} text={props.text} color={props.fontColor} fontSize={props.fontSize} height='56px' />
+    </stackPanel>
+  </button3D>
 )
 
 export default withScene(MashupButton)

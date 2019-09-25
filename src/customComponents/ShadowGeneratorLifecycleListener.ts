@@ -27,13 +27,14 @@ export default class ShadowGeneratorLifecycleListener implements LifecycleListen
     }
 
     if (instance.hostInstance === undefined) {
-      console.error("ShadowGenerator has no light source.")
+      console.error("ShadowGenerator has no light source.");
+      return;
     }
 
     if (instance.customProps.shadowCasters) {
       if (!Array.isArray(instance.customProps.shadowCasters)) {
         console.error("Shadow casters must be an array (of strings).", instance.customProps.shadowCasters)
-        return
+        return;
       }
 
       let shadowCasters: string[] = instance.customProps.shadowCasters.slice(0)

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { storiesOf } from '@storybook/react'
-import 'babylonjs-inspector'
-import { Engine, Scene, Skybox, HemisphericLight, ArcRotateCamera, GUI3DManager, CylinderPanel, HolographicButton } from '../../../dist/react-babylonjs.es5'
-import { Vector3 } from 'babylonjs'
+import '@babylonjs/inspector'
+import { Engine, Scene, Skybox } from '../../../dist/react-babylonjs.es5'
+import { Vector3 } from '@babylonjs/core/Maths/math'
 import '../../style.css'
 
 let globalIndex = 0 // due to closure and how observables are assigned.
@@ -21,17 +21,17 @@ function WithSkybox () {
   return (
     <Engine antialias adaptToDeviceRatio canvasId='babylonJS'>
       <Scene>
-        <HemisphericLight name='hemi-light' intensity={0.7} direction={Vector3.Up()} />
+        <hemisphericLight name='hemi-light' intensity={0.7} direction={Vector3.Up()} />
         <Skybox rootUrl={SkyboxScenes[Math.abs(skyboxIndex) % SkyboxScenes.length].texture} />
-        <ArcRotateCamera target={Vector3.Zero()} radius={10}
+        <arcRotateCamera target={Vector3.Zero()} radius={10}
           alpha={-Math.PI / 2} beta={(Math.PI / 2)} minZ={0.001} wheelPrecision={50}
         />
-        <GUI3DManager name='gui3d'>
-          <CylinderPanel name='panel' margin={0.2}>
+        <gUI3DManager name='gui3d'>
+          <cylinderPanel name='panel' margin={0.2}>
             {
               Array.from(new Array(50), (_, index) => index).map(number => {
                 return (
-                  <HolographicButton
+                  <holographicButton
                     key={`btn-${number}`}
                     name={`btn-name-${number}`}
                     text={`btn-text-${number}`}
@@ -40,8 +40,8 @@ function WithSkybox () {
                 )
               })
             }
-          </CylinderPanel>
-        </GUI3DManager>
+          </cylinderPanel>
+        </gUI3DManager>
       </Scene>
     </Engine>
   )
