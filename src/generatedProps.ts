@@ -1,5 +1,6 @@
 import { Key, ReactNode, Ref } from "react";
 import { CustomProps } from "./CreatedInstance";
+import { DynamicTerrain as ExtensionsDynamicTerrain } from "./extensions/DynamicTerrain";
 import { AbstractScene as BabylonjsCoreAbstractScene } from "@babylonjs/core/abstractScene";
 import { Node as BabylonjsCoreNode } from "@babylonjs/core/node";
 import { Scene as BabylonjsCoreScene } from "@babylonjs/core/scene";
@@ -19,13 +20,13 @@ import { PhysicsRadialImpulseFalloff as BabylonjsCorePhysicsRadialImpulseFalloff
 import { PhysicsImpostor as BabylonjsCorePhysicsImpostor, IPhysicsEnabledObject as BabylonjsCoreIPhysicsEnabledObject, PhysicsImpostorParameters as BabylonjsCorePhysicsImpostorParameters } from "@babylonjs/core/Physics/physicsImpostor";
 import { DepthOfFieldEffectBlurLevel as BabylonjsCoreDepthOfFieldEffectBlurLevel } from "@babylonjs/core/PostProcesses/depthOfFieldEffect";
 import { TonemappingOperator as BabylonjsCoreTonemappingOperator } from "@babylonjs/core/PostProcesses/tonemapPostProcess";
+import { AdvancedDynamicTexture as BabylonjsGuiAdvancedDynamicTexture, IFocusableControl as BabylonjsGuiIFocusableControl } from "@babylonjs/gui/2D/advancedDynamicTexture";
+import { GUI3DManager as BabylonjsGuiGUI3DManager } from "@babylonjs/gui/3D/gui3DManager";
 import { VRExperienceHelper as BabylonjsCoreVRExperienceHelper, OnAfterEnteringVRObservableEvent as BabylonjsCoreOnAfterEnteringVRObservableEvent, VRExperienceHelperOptions as BabylonjsCoreVRExperienceHelperOptions } from "@babylonjs/core/Cameras/VR/vrExperienceHelper";
 import { WebXRState as BabylonjsCoreWebXRState } from "@babylonjs/core/Cameras/XR/webXRExperienceHelper";
 import { PoseEnabledControllerType as BabylonjsCorePoseEnabledControllerType } from "@babylonjs/core/Gamepads/Controllers/poseEnabledController";
 import { ShadowGenerator as BabylonjsCoreShadowGenerator, ICustomShaderOptions as BabylonjsCoreICustomShaderOptions } from "@babylonjs/core/Lights/Shadows/shadowGenerator";
 import { BaseTexture as BabylonjsCoreBaseTexture } from "@babylonjs/core/Materials/Textures/baseTexture";
-import { AdvancedDynamicTexture as BabylonjsGuiAdvancedDynamicTexture, IFocusableControl as BabylonjsGuiIFocusableControl } from "@babylonjs/gui/2D/advancedDynamicTexture";
-import { GUI3DManager as BabylonjsGuiGUI3DManager } from "@babylonjs/gui/3D/gui3DManager";
 import { Control as BabylonjsGuiControl } from "@babylonjs/gui/2D/controls/control";
 import { TextWrapping as BabylonjsGuiTextWrapping, TextBlock as BabylonjsGuiTextBlock } from "@babylonjs/gui/2D/controls/textBlock";
 import { Control3D as BabylonjsGuiControl3D } from "@babylonjs/gui/3D/controls/control3D";
@@ -92,6 +93,7 @@ import { PBRBaseSimpleMaterial as BabylonjsCorePBRBaseSimpleMaterial } from "@ba
 import { PBRMetallicRoughnessMaterial as BabylonjsCorePBRMetallicRoughnessMaterial } from "@babylonjs/core/Materials/PBR/pbrMetallicRoughnessMaterial";
 import { PBRSpecularGlossinessMaterial as BabylonjsCorePBRSpecularGlossinessMaterial } from "@babylonjs/core/Materials/PBR/pbrSpecularGlossinessMaterial";
 import { PBRMaterial as BabylonjsCorePBRMaterial } from "@babylonjs/core/Materials/PBR/pbrMaterial";
+import { FluentMaterial as BabylonjsGuiFluentMaterial } from "@babylonjs/gui/3D/materials/fluentMaterial";
 import { DirectionalLight as BabylonjsCoreDirectionalLight } from "@babylonjs/core/Lights/directionalLight";
 import { PointLight as BabylonjsCorePointLight } from "@babylonjs/core/Lights/pointLight";
 import { SpotLight as BabylonjsCoreSpotLight } from "@babylonjs/core/Lights/spotLight";
@@ -148,13 +150,14 @@ import { RefractionTexture as BabylonjsCoreRefractionTexture } from "@babylonjs/
 import { MultiviewRenderTarget as BabylonjsCoreMultiviewRenderTarget } from "@babylonjs/core/Materials/Textures/MultiviewRenderTarget";
 import { VideoTexture as BabylonjsCoreVideoTexture, VideoTextureSettings as BabylonjsCoreVideoTextureSettings } from "@babylonjs/core/Materials/Textures/videoTexture";
 import { DynamicTexture as BabylonjsCoreDynamicTexture } from "@babylonjs/core/Materials/Textures/dynamicTexture";
+import { ClipboardInfo as BabylonjsCoreClipboardInfo } from "@babylonjs/core/Events/clipboardEvents";
 import { RawTexture3D as BabylonjsCoreRawTexture3D } from "@babylonjs/core/Materials/Textures/rawTexture3D";
 import { ColorGradingTexture as BabylonjsCoreColorGradingTexture } from "@babylonjs/core/Materials/Textures/colorGradingTexture";
 import { EquiRectangularCubeTexture as BabylonjsCoreEquiRectangularCubeTexture } from "@babylonjs/core/Materials/Textures/equiRectangularCubeTexture";
 import { HDRCubeTexture as BabylonjsCoreHDRCubeTexture } from "@babylonjs/core/Materials/Textures/hdrCubeTexture";
 import { HtmlElementTexture as BabylonjsCoreHtmlElementTexture, IHtmlElementTextureOptions as BabylonjsCoreIHtmlElementTextureOptions } from "@babylonjs/core/Materials/Textures/htmlElementTexture";
-import { ClipboardInfo as BabylonjsCoreClipboardInfo } from "@babylonjs/core/Events/clipboardEvents";
 import { PickingInfo as BabylonjsCorePickingInfo } from "@babylonjs/core/Collisions/pickingInfo";
+import { SolidParticleSystem as BabylonjsCoreSolidParticleSystem } from "@babylonjs/core/Particles/solidParticleSystem";
 import { Collider as BabylonjsCoreCollider } from "@babylonjs/core/Collisions/collider";
 import { Ray as BabylonjsCoreRay } from "@babylonjs/core/Culling/ray";
 import { IOfflineProvider as BabylonjsCoreIOfflineProvider } from "@babylonjs/core/Offline/IOfflineProvider";
@@ -239,6 +242,7 @@ declare global {
             pBRMetallicRoughnessMaterial: FiberPBRMetallicRoughnessMaterialProps & FiberPBRMetallicRoughnessMaterialPropsCtor & BabylonNode<BabylonjsCorePBRMetallicRoughnessMaterial>;
             pBRSpecularGlossinessMaterial: FiberPBRSpecularGlossinessMaterialProps & FiberPBRSpecularGlossinessMaterialPropsCtor & BabylonNode<BabylonjsCorePBRSpecularGlossinessMaterial>;
             pBRMaterial: FiberPBRMaterialProps & FiberPBRMaterialPropsCtor & BabylonNode<BabylonjsCorePBRMaterial>;
+            fluentMaterial: FiberFluentMaterialProps & FiberFluentMaterialPropsCtor & BabylonNode<BabylonjsGuiFluentMaterial>;
             light: FiberLightProps & FiberLightPropsCtor & BabylonNode<BabylonjsCoreLight>;
             shadowLight: FiberShadowLightProps & FiberShadowLightPropsCtor & BabylonNode<BabylonjsCoreShadowLight>;
             directionalLight: FiberDirectionalLightProps & FiberDirectionalLightPropsCtor & BabylonNode<BabylonjsCoreDirectionalLight>;
@@ -297,17 +301,18 @@ declare global {
             multiviewRenderTarget: FiberMultiviewRenderTargetProps & FiberMultiviewRenderTargetPropsCtor & BabylonNode<BabylonjsCoreMultiviewRenderTarget>;
             videoTexture: FiberVideoTextureProps & FiberVideoTexturePropsCtor & BabylonNode<BabylonjsCoreVideoTexture>;
             dynamicTexture: FiberDynamicTextureProps & FiberDynamicTexturePropsCtor & BabylonNode<BabylonjsCoreDynamicTexture>;
+            advancedDynamicTexture: FiberAdvancedDynamicTextureProps & FiberAdvancedDynamicTexturePropsCtor & BabylonNode<BabylonjsGuiAdvancedDynamicTexture>;
             rawTexture3D: FiberRawTexture3DProps & FiberRawTexture3DPropsCtor & BabylonNode<BabylonjsCoreRawTexture3D>;
             colorGradingTexture: FiberColorGradingTextureProps & FiberColorGradingTexturePropsCtor & BabylonNode<BabylonjsCoreColorGradingTexture>;
             equiRectangularCubeTexture: FiberEquiRectangularCubeTextureProps & FiberEquiRectangularCubeTexturePropsCtor & BabylonNode<BabylonjsCoreEquiRectangularCubeTexture>;
             hDRCubeTexture: FiberHDRCubeTextureProps & FiberHDRCubeTexturePropsCtor & BabylonNode<BabylonjsCoreHDRCubeTexture>;
             htmlElementTexture: FiberHtmlElementTextureProps & FiberHtmlElementTexturePropsCtor & BabylonNode<BabylonjsCoreHtmlElementTexture>;
-            advancedDynamicTexture: FiberAdvancedDynamicTextureProps & FiberAdvancedDynamicTexturePropsCtor & BabylonNode<BabylonjsGuiAdvancedDynamicTexture>;
             gUI3DManager: FiberGUI3DManagerProps & FiberGUI3DManagerPropsCtor & BabylonNode<BabylonjsGuiGUI3DManager>;
             shadowGenerator: FiberShadowGeneratorProps & FiberShadowGeneratorPropsCtor & BabylonNode<BabylonjsCoreShadowGenerator>;
             environmentHelper: FiberEnvironmentHelperProps & FiberEnvironmentHelperPropsCtor & BabylonNode<BabylonjsCoreEnvironmentHelper>;
             physicsImpostor: FiberPhysicsImpostorProps & FiberPhysicsImpostorPropsCtor & BabylonNode<BabylonjsCorePhysicsImpostor>;
             vRExperienceHelper: FiberVRExperienceHelperProps & FiberVRExperienceHelperPropsCtor & BabylonNode<BabylonjsCoreVRExperienceHelper>;
+            dynamicTerrain: FiberDynamicTerrainProps & FiberDynamicTerrainPropsCtor & BabylonNode<ExtensionsDynamicTerrain>;
         }
     }
 }
@@ -1333,6 +1338,24 @@ export type FiberPBRMaterialProps = {
 export type FiberPBRMaterialPropsCtor = {
     name: string;
 };
+export type FiberFluentMaterialProps = {
+    albedoColor?: BabylonjsCoreColor3;
+    albedoTexture?: BabylonjsCoreBaseTexture;
+    alpha?: number;
+    borderMinValue?: number;
+    borderWidth?: number;
+    edgeSmoothingValue?: number;
+    hoverColor?: BabylonjsCoreColor4;
+    hoverPosition?: BabylonjsCoreVector3;
+    hoverRadius?: number;
+    innerGlowColor?: BabylonjsCoreColor3;
+    innerGlowColorIntensity?: number;
+    renderBorders?: boolean;
+    renderHoverLight?: boolean;
+} & FiberPushMaterialProps;
+export type FiberFluentMaterialPropsCtor = {
+    name: string;
+};
 export type FiberLightProps = {
     diffuse?: BabylonjsCoreColor3;
     excludedMeshes?: BabylonjsCoreAbstractMesh[];
@@ -1940,7 +1963,7 @@ export type FiberTexturePropsCtor = {
     samplingMode?: number;
     onLoad?: () => void;
     onError?: (message?: string, exception?: any) => void;
-    buffer?: string | ArrayBuffer | HTMLImageElement | Blob;
+    buffer?: string | HTMLImageElement | ArrayBuffer | Blob;
     deleteBuffer?: boolean;
     format?: number;
 };
@@ -2109,6 +2132,35 @@ export type FiberDynamicTexturePropsCtor = {
     samplingMode?: number;
     format?: number;
 };
+export type FiberAdvancedDynamicTextureProps = {
+    background?: string;
+    clipboardData?: string;
+    focusedControl?: BabylonjsGuiIFocusableControl;
+    idealHeight?: number;
+    idealWidth?: number;
+    isForeground?: boolean;
+    onBeginLayoutObservable?: any;
+    onBeginRenderObservable?: any;
+    onClipboardCopy?: any;
+    onClipboardCut?: any;
+    onClipboardObservable?: any;
+    onClipboardPaste?: any;
+    onControlPickedObservable?: any;
+    onEndLayoutObservable?: any;
+    onEndRenderObservable?: any;
+    premulAlpha?: boolean;
+    renderAtIdealSize?: boolean;
+    renderScale?: number;
+    useInvalidateRectOptimization?: boolean;
+    useSmallestIdeal?: boolean;
+} & FiberDynamicTextureProps;
+export type FiberAdvancedDynamicTexturePropsCtor = {
+    name: string;
+    width: number;
+    height: number;
+    generateMipMaps?: boolean;
+    samplingMode?: number;
+};
 export type FiberRawTexture3DProps = {
     format?: number;
 } & FiberTextureProps;
@@ -2173,35 +2225,6 @@ export type FiberHtmlElementTexturePropsCtor = {
     name: string;
     element: HTMLVideoElement | HTMLCanvasElement;
     options: BabylonjsCoreIHtmlElementTextureOptions;
-};
-export type FiberAdvancedDynamicTextureProps = {
-    background?: string;
-    clipboardData?: string;
-    focusedControl?: BabylonjsGuiIFocusableControl;
-    idealHeight?: number;
-    idealWidth?: number;
-    isForeground?: boolean;
-    onBeginLayoutObservable?: any;
-    onBeginRenderObservable?: any;
-    onClipboardCopy?: any;
-    onClipboardCut?: any;
-    onClipboardObservable?: any;
-    onClipboardPaste?: any;
-    onControlPickedObservable?: any;
-    onEndLayoutObservable?: any;
-    onEndRenderObservable?: any;
-    premulAlpha?: boolean;
-    renderAtIdealSize?: boolean;
-    renderScale?: number;
-    useInvalidateRectOptimization?: boolean;
-    useSmallestIdeal?: boolean;
-} & FiberDynamicTextureProps;
-export type FiberAdvancedDynamicTexturePropsCtor = {
-    name: string;
-    width: number;
-    height: number;
-    generateMipMaps?: boolean;
-    samplingMode?: number;
 };
 export type FiberGUI3DManagerProps = {
     onPickedPointChangedObservable?: any;
@@ -2307,6 +2330,27 @@ export type FiberVRExperienceHelperProps = {
 } & CustomProps;
 export type FiberVRExperienceHelperPropsCtor = {
     webVROptions?: BabylonjsCoreVRExperienceHelperOptions;
+};
+export type FiberDynamicTerrainProps = {
+    name?: string;
+    shiftFromCamera?: { x: number; z: number; };
+} & CustomProps;
+export type FiberDynamicTerrainPropsCtor = {
+    name: string;
+    terrainSub?: number;
+    mapData?: BabylonjsCoreFloatArray;
+    mapSubX?: number;
+    mapSubZ?: number;
+    mapUVs?: BabylonjsCoreFloatArray;
+    mapColors?: BabylonjsCoreFloatArray;
+    mapNormals?: BabylonjsCoreFloatArray;
+    invertSide?: boolean;
+    camera?: BabylonjsCoreCamera;
+    SPmapData?: number[][] | Float32Array[];
+    sps?: BabylonjsCoreSolidParticleSystem;
+    SPcolorData?: number[][] | Float32Array[];
+    SPuvData?: number[][] | Float32Array[];
+    intializedCallback?: any;
 };
 export type FiberSceneProps = {
     actionManager?: BabylonjsCoreAbstractActionManager;

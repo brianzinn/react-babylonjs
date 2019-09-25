@@ -100,16 +100,12 @@ classesOfInterest.set("ShadowGenerator", undefined)
 classesOfInterest.set("EnvironmentHelper", undefined);
 classesOfInterest.set("PhysicsImpostor", undefined);
 classesOfInterest.set("VRExperienceHelper", undefined);
+classesOfInterest.set("DynamicTerrain", undefined);
 
-/**
- * Generally importAlias is the same as declarationType.  They differ when they are Animation/Animation[], so the declaration includes
- * additional typing for the declaration.
- */
 type ModuleDeclaration = {
   moduleSpecifier: string,
   className: string,
-  importAlias: string,
-  declarationType: string // TODO: is this used/needed?
+  importAlias: string
 };
 
 type FileModuleDeclaration = {
@@ -142,23 +138,30 @@ const getModuleDeclarationFromClassDeclaration = (classDeclaration: ClassDeclara
 
   const match = sourceFile.getFilePath().match(`node_modules/(.*)${sourceFile.getExtension()}`);
 
-  if (match === null || match.length < 2) {
-    throw new Error(`could not find module from ${sourceFile.getFilePath()}`);
-  }
-
-  const moduleSpecifier = match[1]!;
-  const packageName = moduleSpecifier.substr(0, moduleSpecifier.indexOf('/', '@babylonjs/'.length))
   const className = classDeclaration.getName()!;
+  let moduleSpecifier: string;
+  let classAlias: string;
 
-  // ie: '@babylonjs/core' -> BabylonjsCore
-  const aliasPrefix = packageName.substr(1).split('/').map(x => capitalize(x)).join('');
-  const classAlias = `${aliasPrefix}${className}`
+  if (match === null || match.length < 2) {
+    if (className !== 'DynamicTerrain') {
+      throw new Error('Unknown (not from @babylonjs) class being generated:' + className);
+    }
+    // '../src/extensions/DynamicTerrain.ts' == sourceFile.getFilePath();
+    classAlias = 'ExtensionsDynamicTerrain';
+    moduleSpecifier = './extensions/DynamicTerrain';
+  } else {
+    moduleSpecifier = match[1]!;
+    const packageName = moduleSpecifier.substr(0, moduleSpecifier.indexOf('/', '@babylonjs/'.length))
+    // ie: '@babylonjs/core' -> BabylonjsCore
+    const aliasPrefix = packageName.substr(1).split('/').map(x => capitalize(x)).join('');
+    classAlias = `${aliasPrefix}${className}`
+  }
+  
 
   return {
     moduleSpecifier,
     className,
-    importAlias: classAlias,
-    declarationType: classAlias
+    importAlias: classAlias
   };
 }
 
@@ -182,8 +185,6 @@ const addNamedImportToFile = (moduleDeclaration: ModuleDeclaration, targets: Sou
     )
 
     if (match === undefined) {
-      // console.error('not found:', moduleDeclaration.className, 'in -> ', declarationList.map(t => t.moduleDeclaration.className).join(','));
-      
       declarationList.push({
         hostComponent: isHostComponent,
         sourceFile: file,
@@ -239,8 +240,7 @@ const createTypeFromText = (typeText: string, targetFiles: SourceFile[], customP
       const moduleDeclaration: ModuleDeclaration = {
         moduleSpecifier,
         className,
-        importAlias: importAlias,
-        declarationType: classAlias
+        importAlias: importAlias
       };
 
       // This is only to skip unused enumerations like SimplificationType.QUADRATIC.
@@ -266,21 +266,32 @@ const createTypeFromText = (typeText: string, targetFiles: SourceFile[], customP
   return typeText;
 }
 
-const addProject = (packageName: string, sourceFiles: SourceFile[]): void => {
+const addSourceClass = (classDeclaration: ClassDeclaration, sourceFiles: SourceFile[]) => {
+  const className = classDeclaration.getName()
+  if (className !== undefined && classesOfInterest.has(className)) {
+    const moduleDeclaration = getModuleDeclarationFromClassDeclaration(classDeclaration);
+
+    addNamedImportToFile(moduleDeclaration, sourceFiles, true);
+    classesOfInterest.set(className, {
+      classDeclaration,
+      moduleDeclaration
+    });
+  }
+}
+
+const addProject = (packageNames: string[], files: string[], sourceFiles: SourceFile[]): void => {
   const project = new Project({});
-  project.addExistingSourceFiles(path.join(__dirname, '/../node_modules', packageName, '/**/*.d.ts'))
+  packageNames.forEach(packageName => {
+    project.addExistingSourceFiles(path.join(__dirname, '/../node_modules', packageName, '/**/*.d.ts'))
+  })
+  
+  files.forEach(file => {
+    project.addExistingSourceFile(path.join(__dirname, file));
+  })
+
   project.getSourceFiles().forEach((sourceFile: SourceFile) => {
-    const classes = sourceFile.getClasses(); 
-    classes.forEach((classDeclaration: ClassDeclaration) => {
-      const className = classDeclaration.getName()
-      if (className !== undefined && classesOfInterest.has(className)) {
-        const moduleDeclaration = getModuleDeclarationFromClassDeclaration(classDeclaration);
-        addNamedImportToFile(moduleDeclaration, sourceFiles, true);
-        classesOfInterest.set(className, {
-          classDeclaration,
-          moduleDeclaration
-        });
-      }
+    sourceFile.getClasses().forEach((classDeclaration: ClassDeclaration) => {
+      addSourceClass(classDeclaration, sourceFiles);
     });
 
     sourceFile.getNamespaces().forEach((ns: NamespaceDeclaration) => {
@@ -290,6 +301,9 @@ const addProject = (packageName: string, sourceFiles: SourceFile[]): void => {
           monkeyPatchInterfaces.set(interfaceDeclaration.getName(), [interfaceDeclaration])
         }
       })
+      ns.getClasses().forEach((classDeclaration: ClassDeclaration) => {
+        addSourceClass(classDeclaration, sourceFiles);
+      });
     });
 
     const fullyQualifiedPattern: RegExp = /\"([^\"]+)\"\.([^<>,;\|) ]+)/;
@@ -303,6 +317,8 @@ const addProject = (packageName: string, sourceFiles: SourceFile[]): void => {
       }
     });
   })
+
+  console.log('done looping...')
 }
 
 const addMetadata = (classDeclaration: ClassDeclaration, originalClassDeclaration?: ClassDeclaration, metadata?: InstanceMetadataParameter, extraMetadata? : (newClassDeclaration: ClassDeclaration, metadata: CreatedInstanceMetadata, originalClassDeclaration?: ClassDeclaration) => void) => {
@@ -437,6 +453,37 @@ const includeAsConstructorParameter = (parameterType: string): boolean => {
   return parameterType !== 'BabylonjsCoreScene' /* provided by reconciler */
 }
 
+const getExpandedPropsFromParameter = (parameter: ParameterDeclaration, targetFiles: SourceFile[]): GeneratedParameter[] => {
+  const props: GeneratedParameter[] = [];
+
+  parameter.getType().getSymbol()!.getMembers().forEach(member => {
+    let propertyName = member.getName();
+    let internalType = member.getTypeAtLocation(member.getValueDeclaration()!);
+
+    let propertyType = createTypeFromText(internalType.getText(), targetFiles);
+
+    // let questionToken2 = (member.getValueDeclaration()!.compilerNode as any).questionToken;
+    let questionToken = (member.compilerSymbol.valueDeclaration as any).questionToken;
+    
+    props.push({
+      name: propertyName,
+      type: propertyType,
+      optional: questionToken !== undefined
+    })
+  })
+
+  return props;
+}
+
+const parameterShouldBeExpanded = (parameter: ParameterDeclaration): boolean => {
+  const name = parameter.getName()!;
+  const parameterType: string = createTypeFromText(parameter.getType().getText(), []);
+  return name === 'options' &&
+    !parameterType.startsWith('Babylonjs') &&
+    parameter.getType().getSymbol() !== undefined &&
+    parameter.getType().getSymbol()!.getMembers().length > 0;
+}
+
 const addCreateInfoFromFactoryMethod = (method: MethodDeclaration, factoryClass: string, factoryMethod : string, targetClass: ClassDeclaration, namespace: string, generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile) : void => {
   let methodParameters : GeneratedParameter[] = []
   const typeProperties: OptionalKind<PropertySignatureStructure>[] = []
@@ -457,35 +504,17 @@ const addCreateInfoFromFactoryMethod = (method: MethodDeclaration, factoryClass:
       optional
     }
 
-    if (parameterType.startsWith('BabylonjsCore') === false && createMethodParameter.getType().getSymbol() && createMethodParameter.getType().getSymbol()!.getMembers()) {
-        let specialProperties : GeneratedParameter[] = []
+    if (parameterShouldBeExpanded(createMethodParameter)) {
+        let specialProperties : GeneratedParameter[] = getExpandedPropsFromParameter(createMethodParameter, [generatedCodeSourceFile, generatedPropsSourceFile])
         generatedParameter.type = specialProperties;
 
-        // getSymbol()!.getMembers() === getProperties()
-        createMethodParameter.getType().getSymbol()!.getMembers().forEach(member => {
-          let propertyName = member.getName();
-          let internalType = member.getTypeAtLocation(member.getValueDeclaration()!);
-
-          let propertyType = createTypeFromText(internalType.getText(), [generatedCodeSourceFile, generatedPropsSourceFile]);
-
-          // let questionToken2 = (member.getValueDeclaration()!.compilerNode as any).questionToken;
-          let questionToken = (member.compilerSymbol.valueDeclaration as any).questionToken;
-          
-          let generatedSubParameter : GeneratedParameter = {
-            name: propertyName,
-            type: propertyType,
-            optional: questionToken !== undefined
-          }
-
+        specialProperties.forEach(prop => {
           typeProperties.push({
-            name: propertyName,
-            type: propertyType,
+            type: prop.type as string,
+            name: prop.name,
             hasQuestionToken: true // 'options' are always optional from constructor point of view (enforced in IntrinsicType, 'CreateInfo' only generates warnings)
           })
-
-          // conditional breakpoint for inspecting in IDE: factoryMethod === 'CreateSphere'
-          specialProperties.push(generatedSubParameter)
-        })            
+        })
       } else if (includeAsConstructorParameter(parameterType)) {
         typeProperties.push({
           name: parameterName,
@@ -717,14 +746,9 @@ const createClassDeclaration = (classDeclaration: ClassDeclaration, rootBaseClas
   }
 
   const propsHandlersPropertyName = 'propsHandlers';
-
   const rootBaseModuleDeclaration = getModuleDeclarationFromClassDeclaration(rootBaseClass);
-
   const rootBaseClassName = rootBaseClass.getName();
-  // NOTE: AdvancedDynamicTexture has a different namespace than it's root class.
-  // const rootBaseClassNamespace = getNamespace(rootBaseClass)
 
-  // TODO: ensure import to ${rootBaseClassNamespace}.${rootBaseClassName}
   newClassDeclaration.addProperty({
     name: propsHandlersPropertyName,
     type: `PropsHandler<${rootBaseModuleDeclaration.importAlias}, ${ClassNamesPrefix}${rootBaseClassName}Props>[]`,
@@ -928,19 +952,34 @@ const addCreateInfoFromConstructor = (sourceClass: ClassDeclaration, targetClass
         const type: string = createTypeFromText(parameterDeclaration.getType().getText(), [generatedCodeSourceFile, generatedPropsSourceFile]);
         const name = parameterDeclaration.getName()!
         const optional: boolean = parameterDeclaration.isOptional() || forceOptionalParameters.indexOf(name) >= 0
-        constructorArguments.push({
+
+        let generatedParameter : GeneratedParameter = {
           name,
           type,
           optional
-        })
+        }
+    
+        constructorArguments.push(generatedParameter) 
 
-        // TODO: need to remap some properties.  ie: (target: Mesh) to (lockedTargetMeshName: string)
         if (includeAsConstructorParameter(type)) {
-          typeProperties.push({
-            name,
-            type,
-            hasQuestionToken: optional
-          });
+          if (parameterShouldBeExpanded(parameterDeclaration)) {
+            let specialProperties : GeneratedParameter[] = getExpandedPropsFromParameter(parameterDeclaration, [generatedCodeSourceFile, generatedPropsSourceFile])
+            generatedParameter.type = specialProperties;
+
+            specialProperties.forEach(prop => {
+              typeProperties.push({
+                type: prop.type as string,
+                name: prop.name,
+                hasQuestionToken: true // 'options' are always optional from constructor point of view (enforced in IntrinsicType, 'CreateInfo' only generates warnings)
+              })
+            })
+          } else {
+            typeProperties.push({
+              name,
+              type,
+              hasQuestionToken: optional
+            });
+          }
         }
       })
     }
@@ -982,7 +1021,7 @@ const createClassesDerivedFrom = (generatedCodeSourceFile: SourceFile, generated
     const className = classDeclaration.getName()!;
     addHostElement(className, classDeclaration);
 
-    console.warn('creating', className, " base -> ", baseClassDeclaration === undefined ? '<undefined>' : baseClassDeclaration.getName());
+    // console.warn('creating', className, " base -> ", baseClassDeclaration === undefined ? '<undefined>' : baseClassDeclaration.getName());
 
     let baseClassDeclarationForCreate = baseClassDeclaration === undefined ? classDeclaration : baseClassDeclaration
 
@@ -997,7 +1036,7 @@ const createClassesDerivedFrom = (generatedCodeSourceFile: SourceFile, generated
 /**
  * TODO: We should not be generating abstract classes.
  */
-const createClassesInheritedFrom = (generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile, classNamespaceTuple: ClassNameSpaceTuple, metadata?: InstanceMetadataParameter, extra?: (newClassDeclaration: ClassDeclaration, originalClassDeclaration: ClassDeclaration) => void, extraMetadata? : (newClassDeclaration: ClassDeclaration, metadata: CreatedInstanceMetadata, originalClassDeclaration?: ClassDeclaration) => void) : void => {
+const createClassesInheritedFrom = (generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile, classNamespaceTuple: ClassNameSpaceTuple, metadataFromClassName: (classname: string) => InstanceMetadataParameter, extra?: (newClassDeclaration: ClassDeclaration, originalClassDeclaration: ClassDeclaration) => void) : void => {
   const orderedListCreator = new OrderedListCreator();
   
   const baseClassDeclaration = classNamespaceTuple.classDeclaration;
@@ -1017,7 +1056,10 @@ const createClassesInheritedFrom = (generatedCodeSourceFile: SourceFile, generat
     const newClassDeclaration = createClassDeclaration(derivedClassDeclaration, baseClassDeclaration, generatedCodeSourceFile, generatedPropsSourceFile, extra);
     addCreateInfoFromConstructor(derivedClassDeclaration, newClassDeclaration, classNamespaceTuple.moduleDeclaration, generatedCodeSourceFile, generatedPropsSourceFile);
 
-    addMetadata(newClassDeclaration, derivedClassDeclaration, metadata, extraMetadata);
+    // AdvancedDynamicTexture has different metadata than other BaseTexture derived classes.
+    const metadata = metadataFromClassName ? metadataFromClassName(newClassDeclaration.getName()!) : undefined;
+
+    addMetadata(newClassDeclaration, derivedClassDeclaration, metadata);
     console.log(` > ${derivedClassDeclaration.getName()}`)
   });
 }
@@ -1082,11 +1124,8 @@ const generateCode = async () => {
     { overwrite: true }
   );
 
-  const imports: string[] = ["@babylonjs/core", "@babylonjs/gui"];
-  imports.forEach(l => {
-    addProject(l, [generatedCodeSourceFile, generatedPropsSourceFile]);
-  });
-
+  addProject(["@babylonjs/core", "@babylonjs/gui"], ['../src/extensions/DynamicTerrain.ts'], [generatedCodeSourceFile, generatedPropsSourceFile]);
+  
   ENUMS_LIST = Array.from(enumMap.keys());
 
   // These imports need to be totally REDONE and dynamically generated from ES6 locations (probably using a dictionary for uniqueness)
@@ -1181,7 +1220,7 @@ const generateCode = async () => {
   };
 
   if (classesOfInterest.get("Camera") !== undefined) {
-    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Camera")!, { isCamera: true }, extra);
+    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Camera")!, () => ({ isCamera: true }), extra);
   }
 
   if (classesOfInterest.get("MeshBuilder") !== undefined) {
@@ -1189,36 +1228,41 @@ const generateCode = async () => {
   }
 
   if (classesOfInterest.get("Material")) {
-    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Material")!, { isMaterial: true });
+    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Material")!, () => ({ isMaterial: true }));
   }
 
   if (classesOfInterest.get("Light")) {
-    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Light")!, undefined, undefined, (classDeclaration: ClassDeclaration, metadata: CreatedInstanceMetadata, originalClassDeclaration?: ClassDeclaration) => {
-      if (originalClassDeclaration) {
-        // TODO: walk the class hierarchy (or original class) to look for "ShadowLight" instead.
-        switch(originalClassDeclaration.getName()) {
-          case "DirectionalLight":
-          case "PointLight":
-          case "SpotLight":
-          case "ShadowLight": // I think it's abstract.  Anyway, it can still be created.
-            metadata.isShadowLight = true;
-            break;
-        }
+    const fromClassName = (className: string) : InstanceMetadataParameter => {
+      switch(className.substr(ClassNamesPrefix.length)) {
+        case "DirectionalLight":
+        case "PointLight":
+        case "SpotLight":
+        case "ShadowLight": // I think it's abstract.  Anyway, it can still be created.
+            return {isShadowLight: true};
+        default:
+          return {};
       }
-    });
+    }
+    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Light")!, fromClassName, undefined);
   }
 
   if (classesOfInterest.get("Control")) {
-    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Control")!, { isGUI2DControl: true});
+    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Control")!, () => ({ isGUI2DControl: true}));
   }
 
   if (classesOfInterest.get("Control3D")) {
-    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Control3D")!, { isGUI3DControl: true});
+    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Control3D")!, () => ({ isGUI3DControl: true}));
   }
 
   if (classesOfInterest.get("BaseTexture")) {
-    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("BaseTexture")!, {isTexture: true});
-    createSingleClass("AdvancedDynamicTexture", generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("BaseTexture")!.classDeclaration, { isGUI2DControl: true}, () => {return;})
+    const fromClassName = (className: string) : InstanceMetadataParameter => {
+      if (className === "AdvancedDynamicTexture") {
+        return { isGUI2DControl: true};
+      } else {
+        return {isTexture: true};
+      }
+    }
+    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("BaseTexture")!, fromClassName);
   }
   
   createSingleClass("GUI3DManager", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { isGUI3DControl: true }, () => {return;})
@@ -1226,6 +1270,7 @@ const generateCode = async () => {
   createSingleClass("EnvironmentHelper", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { isEnvironment: true })
   createSingleClass("PhysicsImpostor", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true})
   createSingleClass("VRExperienceHelper", generatedCodeSourceFile, generatedPropsSourceFile)
+  createSingleClass("DynamicTerrain", generatedCodeSourceFile, generatedPropsSourceFile)
   
   if (classesOfInterest.get("Scene")) {
     // Scene we only want to generate the handlers. Constructor is very simple - just an Engine
