@@ -22,14 +22,40 @@ export interface InstanceMetadataParameter {
  * Props passed from controls that are not part of generated props and we are handling ourselves
  */
 export type CustomProps = {
-  createForParentMesh?: boolean // to attach an AdvanceDynamicTexture to parent mesh.  ADT.CreateForMesh(parent, ...) (TODO: add 'ByName')
-  childrenAsContent?: boolean // for 3D control ".content" (which is 2D)
-  connectControlNames?: string[] // for VirtualKeyboard (2d input control names)
-  defaultKeyboard?: boolean // for VirtualKeyboard
-  linkToTransformNodeByName?: string // for Control3D, which has position, but not other properties like rotation.
+  /**
+   * to attach an AdvanceDynamicTexture to parent mesh.  ADT.CreateForMesh(parent, ...) (TODO: add 'ByName')
+   */
+  createForParentMesh?: boolean
+  /**
+   * for 3D control ".content" (which is 2D)
+   */
+  childrenAsContent?: boolean
+  /**
+   * for VirtualKeyboard (2d input control names)
+   */
+  connectControlNames?: string[]
+  /**
+   * for VirtualKeyboard
+   */
+  defaultKeyboard?: boolean
+
+  /**
+   * for Control3D, which has position, but not other properties like rotation.
+   */
+  linkToTransformNodeByName?: string
+  /**
+   * List of mesh names to search for, which will be added as shadow casters.
+   */
   shadowCasters?: string[]
+  /**
+   * For attaching the same material multiple meshes (by mesh name)
+   */
   attachToMeshesByName?: string[]
   onControlAdded?: (instance: CreatedInstance<any>) => void
+  /**
+   * Assign to this property on the parent.  Parent property is cleared on umnount.
+   */
+  assignTo?: string
   // TODO: enableInteractions from VRExperienceHelper and add AR!!!
 }
 

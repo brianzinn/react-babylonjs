@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
 import { storiesOf } from '@storybook/react'
-import { Control } from 'babylonjs-gui'
-import {
-  Engine, Scene, ArcRotateCamera, HemisphericLight, Plane, AdvancedDynamicTexture, TextBlock, Rectangle, StackPanel, Button, Box, StandardMaterial, VRExperienceHelper
-} from '../../../dist/react-babylonjs.es5'
+import { Vector3, Color3, Color4, Animation, ExponentialEase, EasingFunction } from '@babylonjs/core'
+import { Control } from '@babylonjs/gui'
+import { Engine, Scene } from '../../../dist/react-babylonjs.es5'
 
-import { Vector3, Color3, Color4, Animation, ExponentialEase, EasingFunction } from 'babylonjs'
 import '../../style.css'
 
 export class With2DUI extends Component {
@@ -134,7 +132,7 @@ export class With2DUI extends Component {
     return (
       <Engine antialias adaptToDeviceRatio canvasId='babylonJS'>
         <Scene clearColor={this.state.sceneClearColor} onMeshPicked={this.meshPicked}>
-          <ArcRotateCamera name='camera1' radius={7} beta={Math.PI / 4} alpha={Math.PI / 2} target={Vector3.Zero()} minZ={0.001} wheelPrecision={30}
+          <arcRotateCamera name='camera1' radius={7} beta={Math.PI / 4} alpha={Math.PI / 2} target={Vector3.Zero()} minZ={0.001} wheelPrecision={30}
             onViewMatrixChangedObservable={(camera) => {
               let { plane } = this.state
 
@@ -147,37 +145,37 @@ export class With2DUI extends Component {
               }
             }}
           />
-          <HemisphericLight name='light1' intensity={0.7} direction={Vector3.Up()} />
-          <Box size={2} name='red box' position={new Vector3(-2.5, 1, 0)}>
-            <StandardMaterial name='red-mat' diffuseColor={Color3.Red()} specularColor={Color3.Black()} />
-          </Box>
-          <Box size={2} name='blue box' position={new Vector3(0, 1, 0)}>
-            <StandardMaterial diffuseColor={Color3.Blue()} specularColor={Color3.Black()} />
-          </Box>
-          <Box size={2} name='green box' position={new Vector3(2.5, 1, 0)}>
-            <StandardMaterial diffuseColor={Color3.Green()} specularColor={Color3.Black()} />
-          </Box>
+          <hemisphericLight name='light1' intensity={0.7} direction={Vector3.Up()} />
+          <box size={2} name='red box' position={new Vector3(-2.5, 1, 0)}>
+            <standardMaterial name='red-mat' diffuseColor={Color3.Red()} specularColor={Color3.Black()} />
+          </box>
+          <box size={2} name='blue box' position={new Vector3(0, 1, 0)}>
+            <standardMaterial diffuseColor={Color3.Blue()} specularColor={Color3.Black()} />
+          </box>
+          <box size={2} name='green box' position={new Vector3(2.5, 1, 0)}>
+            <standardMaterial diffuseColor={Color3.Green()} specularColor={Color3.Black()} />
+          </box>
           {this.state.showModal === true &&
-          <Plane name='dialog' width={3} height={3 * (dialogHeight / dialogWidth)} onCreated={this.setPlane}>
-            <AdvancedDynamicTexture name='dialogTexture' height={1024} width={1024} createForParentMesh>
-              <Rectangle name='rect-1' background='white' color='#666666' height={dialogHeight / dialogWidth} width={1}
+          <plane name='dialog' width={3} height={3 * (dialogHeight / dialogWidth)} onCreated={this.setPlane}>
+            <advancedDynamicTexture name='dialogTexture' height={1024} width={1024} createForParentMesh>
+              <rectangle name='rect-1' background='white' color='#666666' height={dialogHeight / dialogWidth} width={1}
                 scaleY={dialogWidth} scaleX={1} thickness={2} cornerRadius={12} >
-                <StackPanel name='sp-1'>
-                  <Rectangle name='rect-2' height='20%' paddingTop='6%'>
-                    <StackPanel name='sp-2' isVertical={false}>
-                      <TextBlock name='selection-made' text='Selection Made' color='black' fontSize={28} fontStyle='bold'
+                <stackPanel name='sp-1'>
+                  <rectangle name='rect-2' height='20%' paddingTop='6%'>
+                    <stackPanel name='sp-2' isVertical={false}>
+                      <textBlock name='selection-made' text='Selection Made' color='black' fontSize={28} fontStyle='bold'
                         textHorizontalAlignment={Control.HORIZONTAL_ALIGNMENT_LEFT}
                         textVerticalAlignment={Control.VERTICAL_ALIGNMENT_TOP}
                         paddingLeft='2%' paddingTop='6%' width='80%'
                       />
-                      <Button name='close-icon' background='white' paddingLeft='13%' width='18%' height='75%' onPointerDownObservable={this.hideModal.bind(this)}>
-                        <TextBlock text={'\uf00d'} fontFamily='FontAwesome' fontStyle='bold' fontSize={24} color='black' />
-                      </Button>
-                    </StackPanel>
-                  </Rectangle>
-                  <Rectangle name='rect-3' height='60%' thickness={2} color='#EEEEEE'>
-                    <StackPanel name='sp-3'>
-                      <TextBlock name='description' key={`body-${this.state.clickedMeshName}`} text={`You have clicked on '${this.state.clickedMeshName}' .\n....${this.state.allowedMeshes.length} remaining...`}
+                      <babylon-button name='close-icon' background='white' paddingLeft='13%' width='18%' height='75%' onPointerDownObservable={this.hideModal.bind(this)}>
+                        <textBlock text={'\uf00d'} fontFamily='FontAwesome' fontStyle='bold' fontSize={24} color='black' />
+                      </babylon-button>
+                    </stackPanel>
+                  </rectangle>
+                  <rectangle name='rect-3' height='60%' thickness={2} color='#EEEEEE'>
+                    <stackPanel name='sp-3'>
+                      <textBlock name='description' key={`body-${this.state.clickedMeshName}`} text={`You have clicked on '${this.state.clickedMeshName}' .\n....${this.state.allowedMeshes.length} remaining...`}
                         color='black' fontSize={28} textWrapping height='40%'
                         textHorizontalAlignment={Control.HORIZONTAL_ALIGNMENT_LEFT}
                         textVerticalAlignment={Control.VERTICAL_ALIGNMENT_TOP}
@@ -185,30 +183,30 @@ export class With2DUI extends Component {
                       />
                       {
                         this.state.allowedMeshes.map(allowedMesh => (
-                          <TextBlock key={`opt--${this.state.clickedMeshName}-${allowedMesh}`} text={'• ' + allowedMesh} color='black' fontSize={28} height={`${60 / this.state.allowedMeshes.length}%`}
+                          <textBlock key={`opt--${this.state.clickedMeshName}-${allowedMesh}`} text={'• ' + allowedMesh} color='black' fontSize={28} height={`${60 / this.state.allowedMeshes.length}%`}
                             textHorizontalAlignment={Control.HORIZONTAL_ALIGNMENT_LEFT}
                             textVerticalAlignment={Control.VERTICAL_ALIGNMENT_TOP}
                             paddingLeft='6%'
                           />
                         ))
                       }
-                    </StackPanel>
-                  </Rectangle>
-                  <StackPanel name='footer-sp' height='20%' isVertical={false}>
-                    <Button name='cancel-button' background='#6c757d' paddingLeft='56%' width='70%' height='90%' cornerRadius={10} onPointerDownObservable={this.hideModal.bind(this)}>
-                      <TextBlock name='cancel-text' text='Cancel' fontSize={28} fontStyle='bold' color='white' />
-                    </Button>
-                    <Button name='delete-button' background={this.state.clickedMeshColor} paddingLeft='2%' width='28%' height='90%'
+                    </stackPanel>
+                  </rectangle>
+                  <stackPanel name='footer-sp' height='20%' isVertical={false}>
+                    <babylon-button name='cancel-button' background='#6c757d' paddingLeft='56%' width='70%' height='90%' cornerRadius={10} onPointerDownObservable={this.hideModal.bind(this)}>
+                      <textBlock name='cancel-text' text='Cancel' fontSize={28} fontStyle='bold' color='white' />
+                    </babylon-button>
+                    <babylon-button name='delete-button' background={this.state.clickedMeshColor} paddingLeft='2%' width='28%' height='90%'
                       cornerRadius={10} onPointerDownObservable={this.deleteSelectedMesh.bind(this)}>
-                      <TextBlock name='cancel-text' text={`Delete '${this.state.clickedMeshName}'`} fontSize={28} fontStyle='bold' color='white' />
-                    </Button>
-                  </StackPanel>
-                </StackPanel>
-              </Rectangle>
-            </AdvancedDynamicTexture>
-          </Plane>
+                      <textBlock name='cancel-text' text={`Delete '${this.state.clickedMeshName}'`} fontSize={28} fontStyle='bold' color='white' />
+                    </babylon-button>
+                  </stackPanel>
+                </stackPanel>
+              </rectangle>
+            </advancedDynamicTexture>
+          </plane>
           }
-          <VRExperienceHelper webVROptions={{ createDeviceOrientationCamera: false }} enableInteractions />
+          <vRExperienceHelper webVROptions={{ createDeviceOrientationCamera: false }} enableInteractions />
         </Scene>
       </Engine>
     )

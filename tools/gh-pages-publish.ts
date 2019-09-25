@@ -17,7 +17,9 @@ let parsedUrl = url.parse(repoUrl)
 let repository = (parsedUrl.host || "") + (parsedUrl.path || "")
 let ghToken = process.env.GH_TOKEN
 
-// first run 'npm run build-storybook'.  was getting OOM exception with node ver < 12.
+/**
+ * first run 'npm run build-storybook'.  was getting OOM exception with node ver < 12!!!
+ */
 echo("Deploying docs!!!")
 cd("react-babylonjs")
 touch(".nojekyll")

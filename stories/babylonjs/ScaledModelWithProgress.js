@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
-import { Model, Box, StandardMaterial, Mesh, withScene } from '../../dist/react-babylonjs.es5'
-import { Vector3, Matrix, Color3 } from 'babylonjs'
+import { withScene, Model } from '../../dist/react-babylonjs.es5'
+import { Vector3, Matrix, Color3 } from '@babylonjs/core/Maths/math'
 
 // try with later versions of RHL to get hooks working here:
 // const [loadProgress, updateProgress] = useState(0)
@@ -16,8 +16,8 @@ class ScaledModelWithProgress extends Component {
 
   render () {
     return (
-      <React.Fragment>
-        <Model
+      <>
+        <model
           scaleToDimension={this.props.scaleTo}
           onLoadProgress={(evt) => {
             let modelLoadProgress = evt.lengthComputable
@@ -39,19 +39,19 @@ class ScaledModelWithProgress extends Component {
           rotation={this.props.modelRotation}
         />
         {(this.state.loadProgress < 1) &&
-        <Mesh rotation={this.props.progressRotation} position={this.props.center}>
-          <Box key='progress' name='boxProgress' height={this.props.scaleTo / 15} width={this.props.scaleTo} depth={this.props.scaleTo / 30} scaling={new Vector3(this.state.loadProgress, 1, 1)}
+        <mesh name='load-mesh' rotation={this.props.progressRotation} position={this.props.center}>
+          <box key='progress' name='boxProgress' height={this.props.scaleTo / 15} width={this.props.scaleTo} depth={this.props.scaleTo / 30} scaling={new Vector3(this.state.loadProgress, 1, 1)}
             position={new Vector3(this.props.scaleTo / 2, 0, this.props.scaleTo / 60)}
             setPivotMatrix={[ Matrix.Translation(-this.props.scaleTo, 0, 0) ]}
             setPreTransformMatrix={[ Matrix.Translation(-this.props.scaleTo / 2, 0, 0) ]}>
-            <StandardMaterial diffuseColor={this.props.progressBarColor} specularColor={Color3.Black()} />
-          </Box>
-          <Box key='back' name='boxBack' height={this.props.scaleTo / 15} width={this.props.scaleTo} depth={this.props.scaleTo / 30}
+            <standardMaterial name='progress-mat' diffuseColor={this.props.progressBarColor} specularColor={Color3.Black()} />
+          </box>
+          <box key='back' name='boxBack' height={this.props.scaleTo / 15} width={this.props.scaleTo} depth={this.props.scaleTo / 30}
             position={new Vector3(0, 0, this.props.scaleTo / -60)}
           />
-        </Mesh>
+        </mesh>
         }
-      </React.Fragment>
+      </>
     )
   }
 }
