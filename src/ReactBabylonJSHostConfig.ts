@@ -1,6 +1,6 @@
 import ReactReconciler, { HostConfig } from "react-reconciler"
 import { Scene, Engine, Nullable } from '@babylonjs/core'
-import * as BABYLONEXT from "./customComponents/DynamicTerrain"
+import * as BABYLONEXT from "./extensions"
 import * as GENERATED from './generatedCode'
 import * as CUSTOM_HOSTS from "./customHosts"
 import * as CUSTOM_COMPONENTS from "./customComponents"
@@ -228,7 +228,7 @@ const ReactBabylonJSHostConfig: HostConfig<
     }
 
     // so far this is the only non-babylonJS host component, but otherwise a more generic solution will be needed:
-    if (type === "Model") {
+    if (type.toLowerCase() === "model") {
       let createdInstance: CreatedInstance<LoadedModel> = {
         hostInstance: new LoadedModel() /* this is reassigned in Lifecycle Listener */,
         metadata: {
@@ -309,14 +309,14 @@ const ReactBabylonJSHostConfig: HostConfig<
         if(createInfoArgs.namespace.startsWith('@babylonjs/')) {
             const clazz: any = GENERATED.babylonClassFactory(type);
             if (clazz === undefined) {
-              console.error('cannot find (factory):', type);
+              throw new Error(`Cannot generate '${type}' (react-babylonjs):`);
             }
             babylonObject = new clazz(...args)
-        } else if (createInfoArgs.namespace === "BABYLONEXT") {
-            // console.log("creating:", type, ...args) - TODO: fix this with intrinsicTypes
-            babylonObject = new (BABYLONEXT as any)[type](...args)
+        } else if (createInfoArgs.namespace.startsWith('./extensions/')) {
+            const extClassName = properCase(type);
+            babylonObject = new (BABYLONEXT as any)[extClassName](...args)
         } else {
-            console.error("metadata defines (or does not) a namespace that is known", metadata)
+            console.error("metadata defines (or does not) a namespace that is known", createInfoArgs.namespace)
         }
       }
     }
