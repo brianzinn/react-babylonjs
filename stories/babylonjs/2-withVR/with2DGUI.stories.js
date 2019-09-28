@@ -119,9 +119,13 @@ export class With2DUI extends Component {
 
     if (plane._scene && plane._scene.activeCamera) {
       let { activeCamera } = plane._scene
-      let forwardRayDirection = activeCamera.getForwardRay().direction
-      plane.position = activeCamera.position.add(forwardRayDirection.scale(1.5 / activeCamera.fov /* * forwardRay.length */))
-      plane.lookAt(activeCamera.position)
+
+      window.setTimeout(() => {
+        // we only need this hack because of storybook?
+        let forwardRayDirection = activeCamera.getForwardRay().direction
+        plane.position = activeCamera.position.add(forwardRayDirection.scale(1.5 / activeCamera.fov /* * forwardRay.length */))
+        plane.lookAt(activeCamera.position, 0, Math.PI, Math.PI)
+      }, 10)
     }
   }
 
@@ -136,12 +140,10 @@ export class With2DUI extends Component {
             onViewMatrixChangedObservable={(camera) => {
               let { plane } = this.state
 
-              // console.log('camera FOV', camera.fov, camera)
               if (plane) {
                 let forwardRay = camera.getForwardRay()
-
                 plane.position = camera.position.clone().add(forwardRay.direction.scale(1.5 / camera.fov /* * forwardRay.length */))
-                plane.lookAt(camera.position)
+                plane.lookAt(camera.position, 0, Math.PI, Math.PI)
               }
             }}
           />
@@ -156,49 +158,56 @@ export class With2DUI extends Component {
             <standardMaterial diffuseColor={Color3.Green()} specularColor={Color3.Black()} />
           </box>
           {this.state.showModal === true &&
-          <plane name='dialog' width={3} height={3 * (dialogHeight / dialogWidth)} onCreated={this.setPlane}>
+          <plane name='dialog' width={3} height={3 * (dialogHeight / dialogWidth)} onCreated={this.setPlane} rotation={new Vector3(0, Math.PI, 0)}>
             <advancedDynamicTexture name='dialogTexture' height={1024} width={1024} createForParentMesh>
               <rectangle name='rect-1' background='white' color='#666666' height={dialogHeight / dialogWidth} width={1}
                 scaleY={dialogWidth} scaleX={1} thickness={2} cornerRadius={12} >
                 <stackPanel name='sp-1'>
-                  <rectangle name='rect-2' height='20%' paddingTop='6%'>
-                    <stackPanel name='sp-2' isVertical={false}>
-                      <textBlock name='selection-made' text='Selection Made' color='black' fontSize={28} fontStyle='bold'
+                  <rectangle name='header-rectangle' height='70px'
+                    verticalAlignment={Control.HORIZONTAL_ALIGNMENT_CENTER}
+                    horizontalAlignment={Control.HORIZONTAL_ALIGNMENT_LEFT}
+                  >
+                    <stackPanel name='header-stack-panel' isVertical={false} width='100%'>
+                      <textBlock name='selection-made' text='Selection Made' color='black' fontSize={28} fontStyle='bold' paddingLeft='20px'
                         textHorizontalAlignment={Control.HORIZONTAL_ALIGNMENT_LEFT}
-                        textVerticalAlignment={Control.VERTICAL_ALIGNMENT_TOP}
-                        paddingLeft='2%' paddingTop='6%' width='80%'
+                        textVerticalAlignment={Control.VERTICAL_ALIGNMENT_CENTER}
                       />
-                      <babylon-button name='close-icon' background='white' paddingLeft='13%' width='18%' height='75%' onPointerDownObservable={this.hideModal.bind(this)}>
-                        <textBlock text={'\uf00d'} fontFamily='FontAwesome' fontStyle='bold' fontSize={24} color='black' />
+                      <babylon-button name='close-icon' width='1000px' paddingLeft='950px' height='80px' onPointerDownObservable={this.hideModal.bind(this)}>
+                        <textBlock text={'\uf00d'} fontFamily='FontAwesome' fontStyle='bold' fontSize={24} color='black'
+                          textHorizontalAlignment={Control.HORIZONTAL_ALIGNMENT_RIGHT}
+                          textVerticalAlignment={Control.VERTICAL_ALIGNMENT_CENTER}
+                        />
                       </babylon-button>
                     </stackPanel>
                   </rectangle>
-                  <rectangle name='rect-3' height='60%' thickness={2} color='#EEEEEE'>
+                  <rectangle name='body-rectangle' height='200px' thickness={2} color='#EEEEEE'>
                     <stackPanel name='sp-3'>
                       <textBlock name='description' key={`body-${this.state.clickedMeshName}`} text={`You have clicked on '${this.state.clickedMeshName}' .\n....${this.state.allowedMeshes.length} remaining...`}
-                        color='black' fontSize={28} textWrapping height='40%'
+                        color='black' fontSize={28} textWrapping height='100px'
                         textHorizontalAlignment={Control.HORIZONTAL_ALIGNMENT_LEFT}
                         textVerticalAlignment={Control.VERTICAL_ALIGNMENT_TOP}
-                        paddingLeft='2%' paddingTop='6%'
+                        paddingLeft='10px' paddingTop='10px'
                       />
                       {
                         this.state.allowedMeshes.map(allowedMesh => (
-                          <textBlock key={`opt--${this.state.clickedMeshName}-${allowedMesh}`} text={'• ' + allowedMesh} color='black' fontSize={28} height={`${60 / this.state.allowedMeshes.length}%`}
+                          <textBlock key={`opt--${this.state.clickedMeshName}-${allowedMesh}`} text={'• ' + allowedMesh} color='black' fontSize={28} height={`${90 / this.state.allowedMeshes.length}px`}
                             textHorizontalAlignment={Control.HORIZONTAL_ALIGNMENT_LEFT}
                             textVerticalAlignment={Control.VERTICAL_ALIGNMENT_TOP}
-                            paddingLeft='6%'
+                            paddingLeft='20px'
                           />
                         ))
                       }
                     </stackPanel>
                   </rectangle>
-                  <stackPanel name='footer-sp' height='20%' isVertical={false}>
-                    <babylon-button name='cancel-button' background='#6c757d' paddingLeft='56%' width='70%' height='90%' cornerRadius={10} onPointerDownObservable={this.hideModal.bind(this)}>
+                  <stackPanel name='footer-sp' height='80px' paddingTop='10px' paddingBottom='10px' isVertical={false} horizontalAlignment={Control.HORIZONTAL_ALIGNMENT_RIGHT} verticalAlignment={Control.VERTICAL_ALIGNMENT_TOP} >
+                    <babylon-button name='cancel-button' background='#6c757d' width='290px' height='60px' cornerRadius={10} onPointerDownObservable={this.hideModal.bind(this)}>
                       <textBlock name='cancel-text' text='Cancel' fontSize={28} fontStyle='bold' color='white' />
                     </babylon-button>
-                    <babylon-button name='delete-button' background={this.state.clickedMeshColor} paddingLeft='2%' width='28%' height='90%'
+                    <babylon-button name='delete-button' background={this.state.clickedMeshColor} paddingLeft='50px' paddingRight='30px' width='350px' height='60px'
                       cornerRadius={10} onPointerDownObservable={this.deleteSelectedMesh.bind(this)}>
-                      <textBlock name='cancel-text' text={`Delete '${this.state.clickedMeshName}'`} fontSize={28} fontStyle='bold' color='white' />
+                      <textBlock name='cancel-text' text={`Delete '${this.state.clickedMeshName}'`} fontSize={28} fontStyle='bold' color='white' 
+                        textVerticalAlignment={Control.VERTICAL_ALIGNMENT_CENTER}
+                      />
                     </babylon-button>
                   </stackPanel>
                 </stackPanel>
@@ -214,7 +223,7 @@ export class With2DUI extends Component {
 }
 
 export default storiesOf('With VR', module)
-  .addWithJSX('Simple 2D GUI', () => (
+  .add('Simple 2D GUI', () => (
     <div style={{ flex: 1, display: 'flex' }}>
       <With2DUI />
     </div>

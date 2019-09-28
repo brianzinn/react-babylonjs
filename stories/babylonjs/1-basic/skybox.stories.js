@@ -48,7 +48,7 @@ function WithSkybox () {
 }
 
 export default storiesOf('Babylon Basic', module)
-  .addWithJSX('Skybox', () => (
+  .add('Skybox', () => (
     <div style={{ flex: 1, display: 'flex' }}>
       <WithSkybox />
     </div>

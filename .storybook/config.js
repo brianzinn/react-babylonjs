@@ -1,8 +1,5 @@
 import { addParameters, setAddon, configure } from '@storybook/react';
 import { setDefaults } from '@storybook/addon-info';
-import JSXAddon from 'storybook-addon-jsx'
-
-setAddon(JSXAddon)
 
 // addon-info
 setDefaults({

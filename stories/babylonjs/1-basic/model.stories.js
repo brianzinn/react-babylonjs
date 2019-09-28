@@ -171,12 +171,12 @@ class WithModel extends Component {
 }
 
 export default storiesOf('Babylon Basic', module)
-  .addWithJSX('Model', () => (
+  .add('Model', () => (
     <div style={{ flex: 1, display: 'flex' }}>
       <WithModel />
     </div>
   ))
-  .addWithJSX('Model Atom GSAP Tween', () => (
+  .add('Model Atom GSAP Tween', () => (
     <div style={{ flex: 1, display: 'flex' }}>
       <WithReact />
     </div>
