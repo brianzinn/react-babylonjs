@@ -2,7 +2,7 @@ import { CreatedInstance } from "../CreatedInstance"
 import { LifecycleListener } from "../LifecycleListener"
 import { ShadowGenerator, Scene, AbstractMesh } from "@babylonjs/core"
 
-export default class ShadowGeneratorLifecycleListener implements LifecycleListener {
+export default class ShadowGeneratorLifecycleListener implements LifecycleListener<ShadowGenerator> {
   private props: any
   private scene: Scene
 
@@ -11,13 +11,13 @@ export default class ShadowGeneratorLifecycleListener implements LifecycleListen
     this.props = props
   }
 
-  onParented(parent: CreatedInstance<any>, child: CreatedInstance<any>): any {}
+  onParented(parent: CreatedInstance<any>, child: CreatedInstance<any>): any {/* empty */}
 
-  onChildAdded(child: CreatedInstance<any>, parent: CreatedInstance<any>): any {}
+  onChildAdded(child: CreatedInstance<any>, parent: CreatedInstance<any>): any {/* empty */}
 
-  onMount(instance: CreatedInstance<any>): void {
+  onMount(instance: CreatedInstance<ShadowGenerator>): void {
     let tmp: CreatedInstance<any> | null = instance.parent
-    while (tmp != null) {
+    while (tmp !== null) {
       if (tmp.metadata.isShadowLight) {
         // console.log("Creating ShadowGenerator.  size:", this.props.mapSize, "light", tmp.hostInstance)
         instance.hostInstance = new ShadowGenerator(this.props.mapSize, tmp.hostInstance, this.props.useFullFloatFirst)

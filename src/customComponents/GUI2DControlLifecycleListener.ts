@@ -1,19 +1,28 @@
 import { CreatedInstance } from "../CreatedInstance"
 import { LifecycleListener } from "../LifecycleListener"
+import { Control } from '@babylonjs/gui/2D/controls/control'
+import { VirtualKeyboard } from "@babylonjs/gui/2D/controls/virtualKeyboard"
 
-export default class GUI2DControlLifecycleListener implements LifecycleListener {
-  onParented(parent: CreatedInstance<any>, child: CreatedInstance<any>): any {}
+export default class GUI2DControlLifecycleListener implements LifecycleListener<Control> {
+  onParented(parent: CreatedInstance<any>, child: CreatedInstance<any>): any {/* empty */}
 
-  onChildAdded(child: CreatedInstance<any>, parent: CreatedInstance<any>): any {}
+  onChildAdded(child: CreatedInstance<any>, parent: CreatedInstance<any>): any {/* empty */}
 
-  onMount(instance: CreatedInstance<any>): void {
+  onMount(instance?: CreatedInstance<Control>): void {
+    if (instance === undefined) {
+      console.error('Missing instance');
+      return;
+    }
+
     if (instance.customProps.defaultKeyboard === true) {
-      // TODO: Generate from factory method.  VirtualKeyboard.CreateDefaultLayout()
-      instance.hostInstance.addKeysRow(["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "\u2190"])
-      instance.hostInstance.addKeysRow(["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"])
-      instance.hostInstance.addKeysRow(["a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'", "\u21B5"])
-      instance.hostInstance.addKeysRow(["\u21E7", "z", "x", "c", "v", "b", "n", "m", ",", ".", "/"])
-      instance.hostInstance.addKeysRow([" "], [{ width: "200px" }])
+      if (instance.hostInstance instanceof VirtualKeyboard) {
+        // TODO: Generate from factory method.  VirtualKeyboard.CreateDefaultLayout()
+        instance.hostInstance.addKeysRow(["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "\u2190"])
+        instance.hostInstance.addKeysRow(["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"])
+        instance.hostInstance.addKeysRow(["a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'", "\u21B5"])
+        instance.hostInstance.addKeysRow(["\u21E7", "z", "x", "c", "v", "b", "n", "m", ",", ".", "/"])
+        instance.hostInstance.addKeysRow([" "], [{ width: "200px" }])
+      }
     }
 
     if (instance.state && instance.state.added === true) {

@@ -62,7 +62,7 @@ function createCreatedInstance<T, U extends HasPropsHandlers<T, any>>(
   propsHandlers: U,
   metadata: CreatedInstanceMetadata,
   customProps?: CustomProps,
-  lifecycleListener?: LifecycleListener
+  lifecycleListener?: LifecycleListener<T>
 ): CreatedInstance<T> {
   let createdMetadata = metadata
 
@@ -328,7 +328,7 @@ const ReactBabylonJSHostConfig: HostConfig<
 
     const fiberObject: HasPropsHandlers<any, any> = new (GENERATED as any)[`Fiber${underlyingClassName}`]()
 
-    let lifecycleListener: LifecycleListener | undefined = undefined
+    let lifecycleListener: LifecycleListener<any> | undefined = undefined
 
     let customProps: CustomProps = {
       childrenAsContent: props.childrenAsContent === true, // ie: Button3D.container instead of .addControl()
@@ -338,7 +338,8 @@ const ReactBabylonJSHostConfig: HostConfig<
       defaultKeyboard: props.defaultKeyboard === true,
       linkToTransformNodeByName: props.linkToTransformNodeByName,
       shadowCasters: props.shadowCasters,
-      attachToMeshesByName: props.attachToMeshesByName // for materials - otherwise will attach to first parent that accepts materials
+      attachToMeshesByName: props.attachToMeshesByName, // for materials - otherwise will attach to first parent that accepts materials
+      assignTo: props.assignTo // here a lifecycle listener can dynamically attach to another property (ie: Mesh to DynamicTerrain -> 'mesh.material')
     }
 
     // Consider these being dynamically attached to a list, much like PropsHandlers<T>

@@ -1,19 +1,20 @@
 import { Scene, AbstractMesh, Nullable } from "@babylonjs/core"
 import { CreatedInstance } from "../CreatedInstance"
 import { LifecycleListener } from "../LifecycleListener"
+import { Control3D } from '@babylonjs/gui/3D/controls/control3D'
 
-export default class GUI3DControlLifecycleListener implements LifecycleListener {
+export default class GUI3DControlLifecycleListener implements LifecycleListener<Control3D> {
   private scene: Nullable<Scene>
 
   constructor(scene: Nullable<Scene>) {
     this.scene = scene
   }
 
-  onParented(parent: CreatedInstance<any>, child: CreatedInstance<any>): any {}
+  onParented(parent: CreatedInstance<any>, child: CreatedInstance<any>): any {/* empty */}
 
-  onChildAdded(child: CreatedInstance<any>, parent: CreatedInstance<any>): any {}
+  onChildAdded(child: CreatedInstance<any>, parent: CreatedInstance<any>): any {/* empty */}
 
-  onMount(instance: CreatedInstance<any>): void {
+  onMount(instance: CreatedInstance<Control3D>): void {
     if (instance.state && instance.state.added === true) {
       return
     }

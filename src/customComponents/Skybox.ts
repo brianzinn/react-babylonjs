@@ -6,7 +6,7 @@ interface SkyboxProps {
   rootUrl: string
 }
 
-const Skybox: React.SFC<SkyboxProps> = (props: SkyboxProps) => {
+const Skybox: React.FC<SkyboxProps> = (props: SkyboxProps) => {
   return React.createElement("box", { size: 100, infiniteDistance: true, renderingGroupId: 0 }, [
     React.createElement("standardMaterial", { backFaceCulling: false, disableLighting: true }, [
       React.createElement("cubeTexture", {

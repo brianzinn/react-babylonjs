@@ -6,7 +6,7 @@ import { IPhysicsEnabledObject, Nullable, Scene, PhysicsImpostor, PhysicsImposto
  * There is a lot going on in the PhysicsImpostor constructor, so we delay instantiation so that we have a target
  * 'object' before creation.
  */
-export default class PhysicsImpostorLifecycleListener implements LifecycleListener {
+export default class PhysicsImpostorLifecycleListener implements LifecycleListener<PhysicsImpostor> {
 
   private _parent: IPhysicsEnabledObject | undefined;
   private props: any
@@ -27,7 +27,7 @@ export default class PhysicsImpostorLifecycleListener implements LifecycleListen
 
   onChildAdded(child: CreatedInstance<any>, parent: CreatedInstance<any>): any { /* empty */ }
 
-  onMount(instance: CreatedInstance<any>): void {
+  onMount(instance: CreatedInstance<PhysicsImpostor>): void {
     if (this._parent) {
       // these should be set from the props handler.  TODO: test.
       const options: PhysicsImpostorParameters = this.props._options // constructor has a default { mass: 0 }

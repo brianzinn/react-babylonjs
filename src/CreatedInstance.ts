@@ -23,7 +23,7 @@ export interface InstanceMetadataParameter {
  */
 export type CustomProps = {
   /**
-   * to attach an AdvanceDynamicTexture to parent mesh.  ADT.CreateForMesh(parent, ...) (TODO: add 'ByName')
+   * Only applicable for AdvanceDynamicTexture to attach to a mesh.  ADT.CreateForMesh(parent, ...) (TODO: add 'ByName')
    */
   createForParentMesh?: boolean
   /**
@@ -69,7 +69,11 @@ export interface CreatedInstanceMetadata extends InstanceMetadataParameter {
  * The parent/child is part of the Fiber Reconciler and helps attach materials/parenting/cameras/shadows/etc.
  */
 export interface CreatedInstance<T> {
-  hostInstance: T
+  /**
+   * During lifecycle init process for types delaying creation this may be unset (PhysicsImpostor/ShadowGenerator)
+   * The 'hostInstance' may depend on another object (ie: mesh/light source)
+   */
+  hostInstance?: T
   metadata: CreatedInstanceMetadata
   parent: CreatedInstance<any> | null // Not the same as parent in BabylonJS, this is for internal reconciler structure. ie: graph walking
   children: CreatedInstance<any>[]
@@ -77,7 +81,7 @@ export interface CreatedInstance<T> {
   customProps: CustomProps
   // TODO: Consider merging these last 2 into a single class/container.
   propsHandlers?: HasPropsHandlers<T, any> // These are mostly generated
-  lifecycleListener?: LifecycleListener // Only custom types currently support LifecycleListeners (ie: AttachesToParent)
+  lifecycleListener?: LifecycleListener<T> // Only custom types currently support LifecycleListeners (ie: AttachesToParent)
 }
 
 export class CreatedInstanceImpl<T> implements CreatedInstance<T> {
