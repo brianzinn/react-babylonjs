@@ -54,10 +54,9 @@ export const applyUpdateToInstance = (hostInstance: any, update: PropertyUpdate,
     default:
       if (update.type.startsWith("BabylonjsCoreObservable")) {
         // TODO: we want to remove the old prop when changed, so it should be passed along as well.
-        //if (update.prevValue) {
+        // if (update.prevValue) {
         //  babylonObject[update.propertyName].remove(update.prevValue)
-        //}
-
+        // }
         target[update.propertyName].add(update.value)
       } else if (update.type.startsWith("(")) {
         if (typeof target[update.propertyName] === "function") {

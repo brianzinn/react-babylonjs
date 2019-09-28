@@ -1,17 +1,22 @@
 import { CreatedInstance } from "../CreatedInstance"
 import { LifecycleListener } from "../LifecycleListener"
 import { AbstractMesh, Nullable, Scene } from "@babylonjs/core"
-
-export default class GUI3DManagerLifecycleListener implements LifecycleListener {
+import { GUI3DManager } from '@babylonjs/gui/3D/gui3DManager'
+export default class GUI3DManagerLifecycleListener implements LifecycleListener<GUI3DManager> {
   private scene: Scene
 
   constructor(scene: Scene) {
     this.scene = scene
   }
 
-  onParented(parent: CreatedInstance<any>): void {}
-  onChildAdded(child: CreatedInstance<any>): void {}
-  onMount(instance: CreatedInstance<any>): void {
+  onParented(parent: CreatedInstance<any>): void {/* empty */}
+  onChildAdded(child: CreatedInstance<any>): void {/* empty */}
+  onMount(instance?: CreatedInstance<GUI3DManager>): void {
+    if (instance === undefined) {
+      console.error('Missing instance');
+      return;
+    }
+
     this.addControls(instance, instance)
   }
 

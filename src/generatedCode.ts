@@ -16780,6 +16780,7 @@ export class FiberDynamicTerrain implements HasPropsHandlers<ExtensionsDynamicTe
         ]
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
+        "acceptsMaterials": true,
         "className": "FiberDynamicTerrain"
     };
 }

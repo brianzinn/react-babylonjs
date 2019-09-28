@@ -2,7 +2,7 @@ import { CreatedInstance } from "../CreatedInstance"
 import { LifecycleListener } from "../LifecycleListener"
 import { Scene, Camera, Nullable, TargetCamera } from "@babylonjs/core"
 
-export default class CameraLifecycleListener implements LifecycleListener {
+export default class CameraLifecycleListener implements LifecycleListener<Camera> {
   private props: any
   private canvas: HTMLCanvasElement
   private scene: Nullable<Scene>
@@ -13,11 +13,16 @@ export default class CameraLifecycleListener implements LifecycleListener {
     this.scene = scene
   }
 
-  onParented(parent: CreatedInstance<any>, child: CreatedInstance<any>): any {}
+  onParented(parent: CreatedInstance<any>, child: CreatedInstance<any>): any {/* empty */}
 
-  onChildAdded(child: CreatedInstance<any>, parent: CreatedInstance<any>): any {}
+  onChildAdded(child: CreatedInstance<any>, parent: CreatedInstance<any>): any {/* empty */}
 
   onMount(instance: CreatedInstance<any>): void {
+    if (instance.hostInstance === undefined) {
+      console.error('Missing instance');
+      return;
+    }
+
     // prevent default unless explicitly specified.
     const camera = instance.hostInstance as Camera
     const noPreventDefault = this.props.noPreventDefault === false ? false : true

@@ -1270,7 +1270,7 @@ const generateCode = async () => {
   createSingleClass("EnvironmentHelper", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { isEnvironment: true })
   createSingleClass("PhysicsImpostor", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true})
   createSingleClass("VRExperienceHelper", generatedCodeSourceFile, generatedPropsSourceFile)
-  createSingleClass("DynamicTerrain", generatedCodeSourceFile, generatedPropsSourceFile)
+  createSingleClass("DynamicTerrain", generatedCodeSourceFile, generatedPropsSourceFile, undefined, {acceptsMaterials: true})
   
   if (classesOfInterest.get("Scene")) {
     // Scene we only want to generate the handlers. Constructor is very simple - just an Engine

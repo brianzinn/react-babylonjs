@@ -1,9 +1,11 @@
 import { CreatedInstance } from "../CreatedInstance"
 import { LifecycleListener } from "../LifecycleListener"
 import { Color3, Scene, StandardMaterial, Mesh } from "@babylonjs/core"
+import { FiberAdvancedDynamicTextureProps } from "../generatedProps"
+import { AdvancedDynamicTexture } from "@babylonjs/gui/2D/advancedDynamicTexture";
 
-export default class AdvancedDynamicTextureLifecycleListener implements LifecycleListener {
-  private props: any
+export default class AdvancedDynamicTextureLifecycleListener implements LifecycleListener<AdvancedDynamicTexture> {
+  private props: FiberAdvancedDynamicTextureProps;
   private scene: Scene
 
   constructor(scene: Scene, props: any) {
@@ -11,47 +13,53 @@ export default class AdvancedDynamicTextureLifecycleListener implements Lifecycl
     this.props = props
   }
 
-  onParented(parent: CreatedInstance<any>, child: CreatedInstance<any>): any {}
+  onParented(parent: CreatedInstance<any>, child: CreatedInstance<any>): any { /* empty */}
 
-  onChildAdded(child: CreatedInstance<any>, parent: CreatedInstance<any>): any {}
+  onChildAdded(child: CreatedInstance<any>, parent: CreatedInstance<any>): any { /* empty */}
 
-  onMount(instance: CreatedInstance<any>): void {
+  onMount(instance: CreatedInstance<AdvancedDynamicTexture>): void {
     this.addControls(instance)
 
-    if (instance.customProps.createForParentMesh === true) {
+    if (instance.customProps.createForParentMesh) {
       // console.log('for parent mesh', instance.parent ? instance.parent.babylonJsObject : 'error: no parent object')
 
       let mesh: Mesh = instance.parent!.hostInstance // should crawl parent hierarchy for a mesh
       // console.error('we will be attaching the mesh:', mesh.name, mesh);
 
-      var material = new StandardMaterial("AdvancedDynamicTextureMaterial", mesh.getScene())
+      const material = new StandardMaterial("AdvancedDynamicTextureMaterial", mesh.getScene())
       material.backFaceCulling = false
       material.diffuseColor = Color3.Black()
       material.specularColor = Color3.Black()
 
-      if (this.props.onlyAlphaTesting) {
-        material.diffuseTexture = instance.hostInstance
-        material.emissiveTexture = instance.hostInstance
-        instance.hostInstance.hasAlpha = true
+      if(instance.hostInstance === undefined) {
+        console.error('missing instance')
       } else {
-        material.emissiveTexture = instance.hostInstance
-        material.opacityTexture = instance.hostInstance
+        if (this.props.hasAlpha) {
+          material.diffuseTexture = instance.hostInstance
+          material.emissiveTexture = instance.hostInstance
+          instance.hostInstance.hasAlpha = true
+        } else {
+          material.emissiveTexture = instance.hostInstance
+          material.opacityTexture = instance.hostInstance
+        }
       }
 
       mesh.material = material
 
-      let supportPointerMove = this.props.supportPointerMove === true ? true : false
+      // set to true unless explicitly not wanted.
+      // connects the texture to a hosting mesh to enable interactions
+      let supportPointerMove = (this.props as any).supportPointerMove !== false ? true : false
 
-      instance.hostInstance.attachToMesh(mesh, supportPointerMove)
+      instance.hostInstance!.attachToMesh(mesh, supportPointerMove)
     }
   }
 
-  addControls(instance: CreatedInstance<any>) {
+  addControls(instance: CreatedInstance<AdvancedDynamicTexture>) {
     // When there is a panel, it must be added before the children. Otherwise there is no UtilityLayer to attach to.
     // This project before 'react-reconciler' was added from parent up the tree.  'react-reconciler' wants to do the opposite.
     instance.children.forEach(child => {
       if (child.metadata.isGUI2DControl === true) {
-        instance.hostInstance.addControl(child.hostInstance)
+        instance.hostInstance!.addControl(child.hostInstance)
         child.state = { added: true }
       }
     })

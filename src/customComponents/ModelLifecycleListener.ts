@@ -16,9 +16,12 @@ import { CreatedInstance } from "../CreatedInstance"
 import { LifecycleListener } from "../LifecycleListener"
 
 import { LoaderStatus, LoadedModel, ModelPropsHandler } from "../model"
-import { PropertyUpdate, UpdatePayload } from "../PropsHandler"
+import { UpdatePayload } from "../PropsHandler"
 
-export default class ModelLifecycleListener implements LifecycleListener {
+/**
+ * This listener has no underlying babylonjs type.  We are handling loading a 3D model with underlying mesh(es).
+ */
+export default class ModelLifecycleListener implements LifecycleListener<LoadedModel> {
   private props: any
   private scene: Scene
 
@@ -31,7 +34,7 @@ export default class ModelLifecycleListener implements LifecycleListener {
 
   onChildAdded(child: CreatedInstance<any>, parent: CreatedInstance<any>): any { /* empty */}
 
-  onMount(instance: CreatedInstance<any>): void {
+  onMount(instance: CreatedInstance<LoadedModel>): void {
     let loadedModel = new LoadedModel()
 
     loadedModel.status = LoaderStatus.Loading

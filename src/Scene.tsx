@@ -131,12 +131,11 @@ class Scene extends React.Component<SceneProps, any, any> {
       // TODO: console.error if canvas is not attached. runRenderLoop() is expected to be part of onSceneMount().
     }
 
+    // TODO: change enable physics to 'usePhysics' taking an object with a Vector3 and 'any'.
     if (Array.isArray(this.props.enablePhysics)) {
-      console.log('enabling physics')
       this._scene.enablePhysics(this.props.enablePhysics[0], this.props.enablePhysics[1]);
-    } else {
-      console.log('not enabling physics:', this.props.enablePhysics)
     }
+
     const isAsync = false // Disables experimental async rendering
     
     const container: Container = {
