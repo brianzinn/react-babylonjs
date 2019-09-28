@@ -87,7 +87,7 @@ export class WithVR extends Component {
 }
 
 export default storiesOf('With VR', module)
-  .addWithJSX('Simple VR', () => (
+  .add('Simple VR', () => (
     <div style={{ flex: 1, display: 'flex' }}>
       <WithVR />
     </div>

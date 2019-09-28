@@ -1,11 +1,7 @@
 import React, { Component } from 'react'
 import { storiesOf } from '@storybook/react'
-import '@babylonjs/inspector'
-import {
-  Engine, Scene, dynamicTerrain
-} from '../../../dist/react-babylonjs.es5'
+import { Engine, Scene } from '../../../dist/react-babylonjs.es5'
 import { Vector3, Color3, Color4 } from '@babylonjs/core/Maths/math'
-import { StandardMaterial as StandardMaterialJ } from '@babylonjs/core/Materials'
 import '../../style.css'
 
 const xSize = 500
@@ -28,47 +24,21 @@ const getMapData = () => {
   return mapData
 }
 
-export class WithDynamicTerrain extends Component {
-  constructor (props) {
-    super(props)
-    this.sceneFromRef = React.createRef()
-    this.setTerrainRef = element => {
-      const dynamicTerrain = element.hostInstance;
-      dynamicTerrain.mesh.position.z = 0
+const WithDynamicTerrain = () => (
+  <Engine antialias adaptToDeviceRatio canvasId='babylonJS'>
+    <Scene clearColor={new Color4(0.2, 0.4, 0.75, 1.0)}>
+      <hemisphericLight name='light1' intensity={0.7} direction={Vector3.Up()} />
+      <freeCamera name='camera1' position={new Vector3(-50, 10, 0)} setTarget={[new Vector3(-20, 0, 0)]} />
+      <dynamicTerrain name='ContinuousTerrain' mapData={getMapData()} mapSubX={xSize} mapSubZ={zSize} terrainSub={subSize} position={new Vector3(0, 0, 0)}>
+        <standardMaterial name='terrain-material' diffuseColor={Color3.Green()} assignTo='mesh.material' wireframe={true} />
+      </dynamicTerrain>
+    </Scene>
+  </Engine>
+)
 
-      let terrainMaterial = new StandardMaterialJ('tm', this.scene)
-      terrainMaterial.diffuseColor = Color3.Green()
-      terrainMaterial.wireframe = true;
-
-      console.log('scene from ref', this.sceneFromRef.current, this.sceneFromRef)
-
-      // TODO: add 'assignTo' prop
-      dynamicTerrain.mesh.material = terrainMaterial
-    };
-
-    this.scene = null
-    this.onSceneMount = this.onSceneMount.bind(this)
-  }
-
-  onSceneMount (e) {
-    this.scene = e.scene
-  }
-
-  render () {
-    return (
-      <Engine antialias adaptToDeviceRatio canvasId='babylonJS'>
-        <Scene ref={this.sceneFromRef} clearColor={new Color4(0.2, 0.4, 0.75, 1.0)} onSceneMount={this.onSceneMount} >
-          <hemisphericLight name='light1' intensity={0.7} direction={Vector3.Up()} />
-          <freeCamera name='camera1' position={new Vector3(-50, 10, 0)} setTarget={[new Vector3(-20, 0, 0)]} />
-          <dynamicTerrain ref={this.setTerrainRef} name='ContinuousTerrain' mapData={getMapData()} mapSubX={xSize} mapSubZ={zSize} terrainSub={subSize} position={new Vector3(0, 0, 0)} />
-        </Scene>
-      </Engine>
-    )
-  }
-}
 
 export default storiesOf('Babylon Basic', module)
-  .addWithJSX('Dynamic Terrain', () => (
+  .add('Dynamic Terrain', () => (
     <div style={{ flex: 1, display: 'flex' }}>
       <WithDynamicTerrain />
     </div>
