@@ -34,7 +34,7 @@
     "deploy-docs": "ts-node tools/gh-pages-publish",
     "report-coverage": "cat ./coverage/lcov.info | coveralls",
     "storybook": "start-storybook -p 6006 -s ./storyboard-site",
-    "build-storybook": "build-storybook -o react-babylonjs -s ./storyboard-site",
+    "build-storybook": "build-storybook -o storybook-build -s ./storyboard-site",
     "generate-code": "ts-node -P tsconfig.generate.json tools/generate-code"
   },
   "lint-staged": {

@@ -8,5 +8,6 @@ coverage
 compiled
 .awcache
 dist
+storybook-build
 /package-lock.json
 *.lock
