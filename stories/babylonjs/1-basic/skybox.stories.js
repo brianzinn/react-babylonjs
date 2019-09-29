@@ -26,7 +26,7 @@ function WithSkybox () {
         <arcRotateCamera target={Vector3.Zero()} radius={10}
           alpha={-Math.PI / 2} beta={(Math.PI / 2)} minZ={0.001} wheelPrecision={50}
         />
-        <gUI3DManager name='gui3d'>
+        <gui3DManager name='gui3d'>
           <cylinderPanel name='panel' margin={0.2}>
             {
               Array.from(new Array(50), (_, index) => index).map(number => {
@@ -41,7 +41,7 @@ function WithSkybox () {
               })
             }
           </cylinderPanel>
-        </gUI3DManager>
+        </gui3DManager>
       </Scene>
     </Engine>
   )

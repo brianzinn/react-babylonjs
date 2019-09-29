@@ -78,7 +78,7 @@ export class WithVR extends Component {
             />
             <SingleAxisRotateMeshBehavior rpm={4} axis={Axis.Y} />
           </icoSphere>
-          <vRExperienceHelper webVROptions={{ createDeviceOrientationCamera: false }} teleportEnvironmentGround enableInteractions />
+          <vrExperienceHelper webVROptions={{ createDeviceOrientationCamera: false }} teleportEnvironmentGround enableInteractions />
           <environmentHelper options={{ enableGroundShadow: true /* true by default */, groundYBias: 1 }} mainColor={Color3.FromHexString('#74b9ff')} />
         </Scene>
       </Engine>

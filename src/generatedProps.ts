@@ -194,17 +194,17 @@ declare global {
             anaglyphUniversalCamera: FiberAnaglyphUniversalCameraProps & FiberAnaglyphUniversalCameraPropsCtor & BabylonNode<BabylonjsCoreAnaglyphUniversalCamera>;
             stereoscopicUniversalCamera: FiberStereoscopicUniversalCameraProps & FiberStereoscopicUniversalCameraPropsCtor & BabylonNode<BabylonjsCoreStereoscopicUniversalCamera>;
             deviceOrientationCamera: FiberDeviceOrientationCameraProps & FiberDeviceOrientationCameraPropsCtor & BabylonNode<BabylonjsCoreDeviceOrientationCamera>;
-            vRDeviceOrientationFreeCamera: FiberVRDeviceOrientationFreeCameraProps & FiberVRDeviceOrientationFreeCameraPropsCtor & BabylonNode<BabylonjsCoreVRDeviceOrientationFreeCamera>;
-            vRDeviceOrientationGamepadCamera: FiberVRDeviceOrientationGamepadCameraProps & FiberVRDeviceOrientationGamepadCameraPropsCtor & BabylonNode<BabylonjsCoreVRDeviceOrientationGamepadCamera>;
+            vrDeviceOrientationFreeCamera: FiberVRDeviceOrientationFreeCameraProps & FiberVRDeviceOrientationFreeCameraPropsCtor & BabylonNode<BabylonjsCoreVRDeviceOrientationFreeCamera>;
+            vrDeviceOrientationGamepadCamera: FiberVRDeviceOrientationGamepadCameraProps & FiberVRDeviceOrientationGamepadCameraPropsCtor & BabylonNode<BabylonjsCoreVRDeviceOrientationGamepadCamera>;
             anaglyphFreeCamera: FiberAnaglyphFreeCameraProps & FiberAnaglyphFreeCameraPropsCtor & BabylonNode<BabylonjsCoreAnaglyphFreeCamera>;
             stereoscopicFreeCamera: FiberStereoscopicFreeCameraProps & FiberStereoscopicFreeCameraPropsCtor & BabylonNode<BabylonjsCoreStereoscopicFreeCamera>;
             virtualJoysticksCamera: FiberVirtualJoysticksCameraProps & FiberVirtualJoysticksCameraPropsCtor & BabylonNode<BabylonjsCoreVirtualJoysticksCamera>;
-            webVRFreeCamera: FiberWebVRFreeCameraProps & FiberWebVRFreeCameraPropsCtor & BabylonNode<BabylonjsCoreWebVRFreeCamera>;
-            webXRCamera: FiberWebXRCameraProps & FiberWebXRCameraPropsCtor & BabylonNode<BabylonjsCoreWebXRCamera>;
+            webVrFreeCamera: FiberWebVRFreeCameraProps & FiberWebVRFreeCameraPropsCtor & BabylonNode<BabylonjsCoreWebVRFreeCamera>;
+            webXrCamera: FiberWebXRCameraProps & FiberWebXRCameraPropsCtor & BabylonNode<BabylonjsCoreWebXRCamera>;
             arcRotateCamera: FiberArcRotateCameraProps & FiberArcRotateCameraPropsCtor & BabylonNode<BabylonjsCoreArcRotateCamera>;
             anaglyphArcRotateCamera: FiberAnaglyphArcRotateCameraProps & FiberAnaglyphArcRotateCameraPropsCtor & BabylonNode<BabylonjsCoreAnaglyphArcRotateCamera>;
             stereoscopicArcRotateCamera: FiberStereoscopicArcRotateCameraProps & FiberStereoscopicArcRotateCameraPropsCtor & BabylonNode<BabylonjsCoreStereoscopicArcRotateCamera>;
-            vRDeviceOrientationArcRotateCamera: FiberVRDeviceOrientationArcRotateCameraProps & FiberVRDeviceOrientationArcRotateCameraPropsCtor & BabylonNode<BabylonjsCoreVRDeviceOrientationArcRotateCamera>;
+            vrDeviceOrientationArcRotateCamera: FiberVRDeviceOrientationArcRotateCameraProps & FiberVRDeviceOrientationArcRotateCameraPropsCtor & BabylonNode<BabylonjsCoreVRDeviceOrientationArcRotateCamera>;
             flyCamera: FiberFlyCameraProps & FiberFlyCameraPropsCtor & BabylonNode<BabylonjsCoreFlyCamera>;
             followCamera: FiberFollowCameraProps & FiberFollowCameraPropsCtor & BabylonNode<BabylonjsCoreFollowCamera>;
             arcFollowCamera: FiberArcFollowCameraProps & FiberArcFollowCameraPropsCtor & BabylonNode<BabylonjsCoreArcFollowCamera>;
@@ -237,11 +237,11 @@ declare global {
             pushMaterial: FiberPushMaterialProps & FiberPushMaterialPropsCtor & BabylonNode<BabylonjsCorePushMaterial>;
             standardMaterial: FiberStandardMaterialProps & FiberStandardMaterialPropsCtor & BabylonNode<BabylonjsCoreStandardMaterial>;
             backgroundMaterial: FiberBackgroundMaterialProps & FiberBackgroundMaterialPropsCtor & BabylonNode<BabylonjsCoreBackgroundMaterial>;
-            pBRBaseMaterial: FiberPBRBaseMaterialProps & FiberPBRBaseMaterialPropsCtor & BabylonNode<BabylonjsCorePBRBaseMaterial>;
-            pBRBaseSimpleMaterial: FiberPBRBaseSimpleMaterialProps & FiberPBRBaseSimpleMaterialPropsCtor & BabylonNode<BabylonjsCorePBRBaseSimpleMaterial>;
-            pBRMetallicRoughnessMaterial: FiberPBRMetallicRoughnessMaterialProps & FiberPBRMetallicRoughnessMaterialPropsCtor & BabylonNode<BabylonjsCorePBRMetallicRoughnessMaterial>;
-            pBRSpecularGlossinessMaterial: FiberPBRSpecularGlossinessMaterialProps & FiberPBRSpecularGlossinessMaterialPropsCtor & BabylonNode<BabylonjsCorePBRSpecularGlossinessMaterial>;
-            pBRMaterial: FiberPBRMaterialProps & FiberPBRMaterialPropsCtor & BabylonNode<BabylonjsCorePBRMaterial>;
+            pbrBaseMaterial: FiberPBRBaseMaterialProps & FiberPBRBaseMaterialPropsCtor & BabylonNode<BabylonjsCorePBRBaseMaterial>;
+            pbrBaseSimpleMaterial: FiberPBRBaseSimpleMaterialProps & FiberPBRBaseSimpleMaterialPropsCtor & BabylonNode<BabylonjsCorePBRBaseSimpleMaterial>;
+            pbrMetallicRoughnessMaterial: FiberPBRMetallicRoughnessMaterialProps & FiberPBRMetallicRoughnessMaterialPropsCtor & BabylonNode<BabylonjsCorePBRMetallicRoughnessMaterial>;
+            pbrSpecularGlossinessMaterial: FiberPBRSpecularGlossinessMaterialProps & FiberPBRSpecularGlossinessMaterialPropsCtor & BabylonNode<BabylonjsCorePBRSpecularGlossinessMaterial>;
+            pbrMaterial: FiberPBRMaterialProps & FiberPBRMaterialPropsCtor & BabylonNode<BabylonjsCorePBRMaterial>;
             fluentMaterial: FiberFluentMaterialProps & FiberFluentMaterialPropsCtor & BabylonNode<BabylonjsGuiFluentMaterial>;
             light: FiberLightProps & FiberLightPropsCtor & BabylonNode<BabylonjsCoreLight>;
             shadowLight: FiberShadowLightProps & FiberShadowLightPropsCtor & BabylonNode<BabylonjsCoreShadowLight>;
@@ -259,7 +259,7 @@ declare global {
             virtualKeyboard: FiberVirtualKeyboardProps & FiberVirtualKeyboardPropsCtor & BabylonNode<BabylonjsGuiVirtualKeyboard>;
             'babylon-ellipse': FiberEllipseProps & FiberEllipsePropsCtor & BabylonNode<BabylonjsGuiEllipse>;
             grid: FiberGridProps & FiberGridPropsCtor & BabylonNode<BabylonjsGuiGrid>;
-            _ScrollViewerWindow: Fiber_ScrollViewerWindowProps & Fiber_ScrollViewerWindowPropsCtor & BabylonNode<BabylonjsGui_ScrollViewerWindow>;
+            scrollViewerWindow: Fiber_ScrollViewerWindowProps & Fiber_ScrollViewerWindowPropsCtor & BabylonNode<BabylonjsGui_ScrollViewerWindow>;
             textBlock: FiberTextBlockProps & FiberTextBlockPropsCtor & BabylonNode<BabylonjsGuiTextBlock>;
             'babylon-image': FiberImageProps & FiberImagePropsCtor & BabylonNode<BabylonjsGuiImage>;
             checkbox: FiberCheckboxProps & FiberCheckboxPropsCtor & BabylonNode<BabylonjsGuiCheckbox>;
@@ -305,13 +305,13 @@ declare global {
             rawTexture3D: FiberRawTexture3DProps & FiberRawTexture3DPropsCtor & BabylonNode<BabylonjsCoreRawTexture3D>;
             colorGradingTexture: FiberColorGradingTextureProps & FiberColorGradingTexturePropsCtor & BabylonNode<BabylonjsCoreColorGradingTexture>;
             equiRectangularCubeTexture: FiberEquiRectangularCubeTextureProps & FiberEquiRectangularCubeTexturePropsCtor & BabylonNode<BabylonjsCoreEquiRectangularCubeTexture>;
-            hDRCubeTexture: FiberHDRCubeTextureProps & FiberHDRCubeTexturePropsCtor & BabylonNode<BabylonjsCoreHDRCubeTexture>;
+            hdrCubeTexture: FiberHDRCubeTextureProps & FiberHDRCubeTexturePropsCtor & BabylonNode<BabylonjsCoreHDRCubeTexture>;
             htmlElementTexture: FiberHtmlElementTextureProps & FiberHtmlElementTexturePropsCtor & BabylonNode<BabylonjsCoreHtmlElementTexture>;
-            gUI3DManager: FiberGUI3DManagerProps & FiberGUI3DManagerPropsCtor & BabylonNode<BabylonjsGuiGUI3DManager>;
+            gui3DManager: FiberGUI3DManagerProps & FiberGUI3DManagerPropsCtor & BabylonNode<BabylonjsGuiGUI3DManager>;
             shadowGenerator: FiberShadowGeneratorProps & FiberShadowGeneratorPropsCtor & BabylonNode<BabylonjsCoreShadowGenerator>;
             environmentHelper: FiberEnvironmentHelperProps & FiberEnvironmentHelperPropsCtor & BabylonNode<BabylonjsCoreEnvironmentHelper>;
             physicsImpostor: FiberPhysicsImpostorProps & FiberPhysicsImpostorPropsCtor & BabylonNode<BabylonjsCorePhysicsImpostor>;
-            vRExperienceHelper: FiberVRExperienceHelperProps & FiberVRExperienceHelperPropsCtor & BabylonNode<BabylonjsCoreVRExperienceHelper>;
+            vrExperienceHelper: FiberVRExperienceHelperProps & FiberVRExperienceHelperPropsCtor & BabylonNode<BabylonjsCoreVRExperienceHelper>;
             dynamicTerrain: FiberDynamicTerrainProps & FiberDynamicTerrainPropsCtor & BabylonNode<ExtensionsDynamicTerrain>;
         }
     }

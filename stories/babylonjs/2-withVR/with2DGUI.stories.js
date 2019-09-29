@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { storiesOf } from '@storybook/react'
 import { Vector3, Color3, Color4, Animation, ExponentialEase, EasingFunction } from '@babylonjs/core'
 import { Control } from '@babylonjs/gui'
-import { Engine, Scene } from '../../../dist/react-babylonjs.es5'
+import { Engine, Scene, Button } from '../../../dist/react-babylonjs.es5'
 
 import '../../style.css'
 
@@ -200,9 +200,9 @@ export class With2DUI extends Component {
                     </stackPanel>
                   </rectangle>
                   <stackPanel name='footer-sp' height='80px' paddingTop='10px' paddingBottom='10px' isVertical={false} horizontalAlignment={Control.HORIZONTAL_ALIGNMENT_RIGHT} verticalAlignment={Control.VERTICAL_ALIGNMENT_TOP} >
-                    <babylon-button name='cancel-button' background='#6c757d' width='290px' height='60px' cornerRadius={10} onPointerDownObservable={this.hideModal.bind(this)}>
+                    <Button name='cancel-button' background='#6c757d' width='290px' height='60px' cornerRadius={10} onPointerDownObservable={this.hideModal.bind(this)}>
                       <textBlock name='cancel-text' text='Cancel' fontSize={28} fontStyle='bold' color='white' />
-                    </babylon-button>
+                    </Button>
                     <babylon-button name='delete-button' background={this.state.clickedMeshColor} paddingLeft='50px' paddingRight='30px' width='350px' height='60px'
                       cornerRadius={10} onPointerDownObservable={this.deleteSelectedMesh.bind(this)}>
                       <textBlock name='cancel-text' text={`Delete '${this.state.clickedMeshName}'`} fontSize={28} fontStyle='bold' color='white' 
@@ -215,7 +215,7 @@ export class With2DUI extends Component {
             </advancedDynamicTexture>
           </plane>
           }
-          <vRExperienceHelper webVROptions={{ createDeviceOrientationCamera: false }} enableInteractions />
+          <vrExperienceHelper webVROptions={{ createDeviceOrientationCamera: false }} enableInteractions />
         </Scene>
       </Engine>
     )

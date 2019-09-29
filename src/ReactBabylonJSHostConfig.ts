@@ -47,15 +47,6 @@ type HostContext = {} & Container
 type TimeoutHandler = number | undefined
 type NoTimeout = number
 
-/**
- * Has no effect on existing ProperCase, but converts camelCase to ProperCase.
- * 
- * @param value
- */
-const properCase = (value: string): string => {
-    return value.charAt(0).toUpperCase() + value.substring(1);
-}
-
 function createCreatedInstance<T, U extends HasPropsHandlers<T, any>>(
   className: string,
   hostInstance: T,
@@ -246,11 +237,8 @@ const ReactBabylonJSHostConfig: HostConfig<
     }
 
     // some types (ie: button) are called 'babylonjs-button'.
-    const dashIndex = type.indexOf('-');
-    const underlyingClassName: string =  dashIndex > 0
-      ? properCase(type.substr(dashIndex + 1))
-      : properCase(type)
-
+    const underlyingClassName = (GENERATED.intrinsicClassMap as any)[type] || type;
+    
     const classDefinition = (GENERATED as any)[`Fiber${underlyingClassName}`]
 
     if (classDefinition === undefined) {
@@ -313,7 +301,7 @@ const ReactBabylonJSHostConfig: HostConfig<
             }
             babylonObject = new clazz(...args)
         } else if (createInfoArgs.namespace.startsWith('./extensions/')) {
-            const extClassName = properCase(type);
+            const extClassName = (GENERATED.intrinsicClassMap as any)[type] || type;
             babylonObject = new (BABYLONEXT as any)[extClassName](...args)
         } else {
             console.error("metadata defines (or does not) a namespace that is known", createInfoArgs.namespace)

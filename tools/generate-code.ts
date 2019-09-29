@@ -11,6 +11,7 @@ import { Project, ts, Type, VariableDeclarationKind, ClassDeclaration, PropertyD
 import { GeneratedParameter, CreateInfo, CreationType } from "../src/codeGenerationDescriptors";
 import { InstanceMetadataParameter, CreatedInstanceMetadata } from "../src/CreatedInstance"
 const path = require("path");
+import camelCase from "lodash.camelcase"
 
 const ReactReconcilerCreatedInstanceMetadata = "CreatedInstanceMetadata";
 const PropertyUpdateInterface = "PropertyUpdate";
@@ -129,9 +130,6 @@ const capitalize = (value: string) =>  {
  * 
  * @param value
  */
-const camelCase = (value: string): string => {
-  return value.charAt(0).toLowerCase() + value.substring(1);
-}
 
 const getModuleDeclarationFromClassDeclaration = (classDeclaration: ClassDeclaration): ModuleDeclaration => {
   const sourceFile = classDeclaration.getSourceFile();
@@ -317,8 +315,6 @@ const addProject = (packageNames: string[], files: string[], sourceFiles: Source
       }
     });
   })
-
-  console.log('done looping...')
 }
 
 const addMetadata = (classDeclaration: ClassDeclaration, originalClassDeclaration?: ClassDeclaration, metadata?: InstanceMetadataParameter, extraMetadata? : (newClassDeclaration: ClassDeclaration, metadata: CreatedInstanceMetadata, originalClassDeclaration?: ClassDeclaration) => void) => {
@@ -344,26 +340,22 @@ const addMetadata = (classDeclaration: ClassDeclaration, originalClassDeclaratio
   createInfoProperty.setInitializer(JSON.stringify(propertyInit, null, 2))
 }
 
+const createdMeshClasses: string[] = [];
 const createMeshClasses = (generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile) => {
-
   let meshBuilderTuple: ClassNameSpaceTuple = classesOfInterest.get("MeshBuilder")!;
   let meshTuple: ClassNameSpaceTuple = classesOfInterest.get("Mesh")!;
 
   let factoryMethods: MethodDeclaration[] = meshBuilderTuple.classDeclaration.getStaticMethods();
 
-  // console.log(`Creating ${factoryMethods.length} Mesh objects:`)
   factoryMethods.forEach((method: MethodDeclaration) => {
     const methodName: string = method.getName();
-    
     if (methodName && methodName.startsWith('Create') || methodName.startsWith('Extrude')) {
       const factoryType : string = methodName.startsWith('Create')
         ? methodName.substr('Create'.length)
         : methodName; // ie: ExtrudePolygon, ExtrudeShape & ExtrudeShapeCustom
-
+      createdMeshClasses.push(factoryType);
 
       addHostElement(factoryType, meshTuple.classDeclaration);
-
-      console.log(` > ${factoryType}`)
       let newClassDeclaration: ClassDeclaration = addClassDeclarationFromFactoryMethod(generatedCodeSourceFile, factoryType, classesOfInterest.get("Mesh")!.classDeclaration, method);
       const metadata: InstanceMetadataParameter = {
         acceptsMaterials: true,
@@ -373,6 +365,7 @@ const createMeshClasses = (generatedCodeSourceFile: SourceFile, generatedPropsSo
       addMetadata(newClassDeclaration, undefined /* no original class */, metadata)
     }
   });
+  console.log(`MeshBuilder - ${createdMeshClasses.sort((a, b) => a.localeCompare(b)).map(c => classToIntrinsic(c).replace(/['\u2019]/g, '')).join(', ')}`);
 }
 
 const addClassDeclarationFromFactoryMethod = (generatedCodeSourceFile: SourceFile, className: string, classDeclaration: ClassDeclaration, factoryMethod: MethodDeclaration, extra?: (cd: ClassDeclaration) => void) => {
@@ -1018,7 +1011,7 @@ const createClassesDerivedFrom = (generatedCodeSourceFile: SourceFile, generated
     addNamedImportToFile(moduleDeclaration, [generatedCodeSourceFile, generatedPropsSourceFile], false);
 
     const baseClassDeclaration : ClassDeclaration | undefined = i > 0 ? classesToCreate[i - 1] : undefined;
-    const className = classDeclaration.getName()!;
+    const className: string = classDeclaration.getName()!;
     addHostElement(className, classDeclaration);
 
     // console.warn('creating', className, " base -> ", baseClassDeclaration === undefined ? '<undefined>' : baseClassDeclaration.getName());
@@ -1029,8 +1022,9 @@ const createClassesDerivedFrom = (generatedCodeSourceFile: SourceFile, generated
     addCreateInfoFromConstructor(classDeclaration, newClassDeclaration, classNamespaceTuple.moduleDeclaration, generatedCodeSourceFile, generatedPropsSourceFile);
 
     addMetadata(newClassDeclaration, classDeclaration, metadata, extraMetadata);
-    console.log(` > ${className}`)
   }
+
+  console.log(` > ${classesToCreate.map(c => c.getName()!).sort((a, b) => a.localeCompare(b)).map(c => classToIntrinsic(c)).join(', ')}`)
 }
 
 /**
@@ -1048,8 +1042,6 @@ const createClassesInheritedFrom = (generatedCodeSourceFile: SourceFile, generat
 
   orderedListCreator.addDescendantsOrdered([baseClassDeclaration], derivedClassesOrdered)
 
-  console.log(`Building ${derivedClassesOrdered.size} ${baseClassName}s: `)
-
   derivedClassesOrdered.forEach((derivedClassDeclaration: ClassDeclaration) => {    
     addHostElement(derivedClassDeclaration.getName()!, derivedClassDeclaration);
 
@@ -1060,8 +1052,9 @@ const createClassesInheritedFrom = (generatedCodeSourceFile: SourceFile, generat
     const metadata = metadataFromClassName ? metadataFromClassName(newClassDeclaration.getName()!) : undefined;
 
     addMetadata(newClassDeclaration, derivedClassDeclaration, metadata);
-    console.log(` > ${derivedClassDeclaration.getName()}`)
   });
+
+  console.log(`Building ${derivedClassesOrdered.size} ${baseClassName}s: ${(Array.from(derivedClassesOrdered.values())).map(c => c.getName()!).sort((a, b) => a.localeCompare(b)).map(c => classToIntrinsic(c)).join(', ')}`)
 }
 
 const addReactExports = (generatedCodeSourceFile: SourceFile) => {
@@ -1107,7 +1100,7 @@ const createSingleClass = (classOfInterest: string, generatedCodeSourceFile: Sou
 
   addMetadata(newClassDeclaration, classToGenerate.classDeclaration, metadata);
   console.log('Single class added')
-  console.log(` > ${classToGenerate.classDeclaration.getName()}`)
+  console.log(` > ${classToIntrinsic(classToGenerate.classDeclaration.getName()!)}`)
 }
 
 const generateCode = async () => {
@@ -1314,13 +1307,35 @@ const generateCode = async () => {
   // we can do this as long as there are no classes with the same name across imports
   // otherwise we can just use a Set<string> with importalias, but need to generate more metadata.
   // ie: classseMap = { BabylonjsCoreBox, BabylonjsCoreSphere, ... };
+  // We generate both IntrinsicType (ie: arcRotateCamera) and "component" (ie: ArcRotateCamera), but will remove "component" when local JSX is ready.
   generatedCodeSourceFile.addVariableStatement({
     declarationKind: VariableDeclarationKind.Const,
     isExported: false,
     declarations: [{
       name: 'classesMap',
       type: "object",
-      initializer: `{${Array.from(factoryClasses.entries()).map(([alias, className]) => `${classToIntrinsic(className)}: ${alias}`).join(',')}}`
+      initializer: `{\n${Array.from(factoryClasses.entries())
+          .map(([alias, className]) =>
+            `${classToIntrinsic(className)}: ${alias},${className}: ${alias}`)
+          .join(',\n')}}`
+    }]
+  });
+
+  // for going from camelCase on vrExperienceHelper to VRExperienceHelper to locate generated classes.
+  generatedCodeSourceFile.addVariableStatement({
+    declarationKind: VariableDeclarationKind.Const,
+    isExported: true,
+    declarations: [{
+      name: 'intrinsicClassMap',
+      type: "object",
+      initializer: `{\n${Array.from(factoryClasses.entries())
+          .map(([alias, className]) =>
+            `${classToIntrinsic(className)}:'${className}'`)
+          .join(',\n')},
+          ${createdMeshClasses.map(meshName =>
+            `${classToIntrinsic(meshName)}:'${meshName}'`)
+          .join(',\n')}
+        }`
     }]
   });
 
@@ -1337,11 +1352,6 @@ const generateCode = async () => {
   functionDeclaration.setBodyText(writer =>
     writer.writeLine("return (classesMap as any)[importAlias];")
   );
-
-  // TODO: we need to export a factory function like this
-  // export default function babylonClassFactory (importAlias) {
-  //   return classesMap[importAlias];
-  // }
 
   console.log('saving created content...')
 

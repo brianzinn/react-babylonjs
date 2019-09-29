@@ -170,7 +170,7 @@ export class RemixMeshMashup extends Component {
             <hemisphericLight name='light1' intensity={0.7} direction={Vector3.Up()} />
             <arcRotateCamera target={Vector3.Zero()} radius={4} alpha={-Math.PI / 2} beta={(Math.PI / 2)} minZ={0.001} wheelPrecision={30} />
             <mesh name='panelAnchor' position={new Vector3(0, 2, 0)} />
-            <gUI3DManager name='gui3d'>
+            <gui3DManager name='gui3d'>
               <cylinderPanel name='panel' margin={0.2} rows={2} radius={4} linkToTransformNodeByName='panelAnchor'>
                 {
                   this.state.results.map(result => {
@@ -195,7 +195,7 @@ export class RemixMeshMashup extends Component {
                   })
                 }
               </cylinderPanel>
-            </gUI3DManager>
+            </gui3DManager>
             <box height={1 / 8 + 0.1} width={1.1} depth={0.01} position={new Vector3(0, -0.5, -2)}>
               <standardMaterial diffuseColor={Color3.White()} specularColor={Color3.Black()} />
             </box>
@@ -230,7 +230,7 @@ export class RemixMeshMashup extends Component {
             />
             }
 
-            <vRExperienceHelper webVROptions={{ createDeviceOrientationCamera: false }} teleportEnvironmentGround enableInteractions />
+            <vrExperienceHelper webVROptions={{ createDeviceOrientationCamera: false }} teleportEnvironmentGround enableInteractions />
             <environmentHelper enableGroundShadow groundYBias={1} mainColor={Color3.FromHexString('#74b9ff')} />
           </Scene>
         </Engine>
