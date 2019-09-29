@@ -56,7 +56,10 @@ export type CustomProps = {
    * Assign to this property on the parent.  Parent property is cleared on umnount.
    */
   assignTo?: string
-  // TODO: enableInteractions from VRExperienceHelper and add AR!!!
+  /**
+   * for VRExperienceHelper
+   */
+  enableInteractions?: boolean
 }
 
 export interface CreatedInstanceMetadata extends InstanceMetadataParameter {

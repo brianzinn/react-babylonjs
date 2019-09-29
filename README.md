@@ -1,9 +1,9 @@
 # React BabylonJS
-> *react-babylonjs* makes it a snap to integrate BabylonJS with ReactJS
+> *'react-babylonjs'* integrates the BabylonJS real time 3D engine with ReactJS
 
-`react-babylonjs` is a React renderer using the Fiber `react-reconciler` to provide declarative bindings for the BabylonJS 3D Engine.  API is followed thanks to generated code, but also custom props allow you to declaratively add shadows, attach 2D/3D UI to meshes, etc.
+`react-babylonjs` let's you build your scene and components using a familiar declarative structure with the benefits you are used to like reusable components and hooks.  Under the hood it's a React renderer providing declarative bindings for the Fiber `react-reconciler`.  API is mostly covered thanks to generated code, but also custom props allow you to declaratively add shadows, physics, attach 2D/3D UI to meshes, etc.
 
-You can also build your own custom 3D controls with functional components. Context API provides access to Scene/Engine/Canvas without prop drilling.  Last example uses React Hooks.
+You can also build your own custom 3D controls with functional components. Context API provides access to Scene/Engine/Canvas without prop drilling.  Last but not least, you can use hooks!
 
 [![NPM version](http://img.shields.io/npm/v/react-babylonjs.svg?style=flat-square)](https://www.npmjs.com/package/react-babylonjs)
 [![NPM downloads](http://img.shields.io/npm/dm/react-babylonjs.svg?style=flat-square)](https://www.npmjs.com/package/react-babylonjs)
@@ -20,6 +20,8 @@ $ cd <your-project-dir>
 $ yarn add react-babylonjs
 ```
 
+There is a peer dependency on `@babylonjs/core` and if you are building a GUI then `@babylonjs/gui`.
+
 # Usage Styles
 `react-babylonjs` tries to remain unopinionated about how you integrate BabylonJS with ReactJS.  This module provides a 100% declarative option and/or you can customise by adding code.
 ## 100% Declarative add BabylonJS to your project with **zero** code!
@@ -29,38 +31,45 @@ With declarative (JSX) coding and HMR, you experience the same development workf
 ![BabylonJS HMR](https://raw.githubusercontent.com/brianzinn/react-babylonjs/master/media/react-babylonjs-hmr.gif)
 
 # BabylonJS API Support
-1. **Node -> Mesh** - Node, TransformNode, AbstractMesh, Mesh
+1. **Node -> Mesh** - abstractMesh, mesh, node, transformNode
 
-2. **Cameras** - Camera, TargetCamera, ArcRotateCamera, AnaglyphArcRotateCamera, StereoscopicArcRotateCamera, VRDeviceOrientationArcRotateCamera, FlyCamera, FollowCamera, ArcFollowCamera, FreeCamera, DeviceOrientationCamera, VRDeviceOrientationFreeCamera, VRDeviceOrientationGamepadCamera, TouchCamera, UniversalCamera, GamepadCamera, AnaglyphGamepadCamera, StereoscopicGamepadCamera, AnaglyphUniversalCamera, StereoscopicUniversalCamera, VirtualJoysticksCamera, AnaglyphFreeCamera, StereoscopicFreeCamera, WebVRFreeCamera, WebXRCamera
+2. **Cameras** - anaglyphArcRotateCamera, anaglyphFreeCamera, anaglyphGamepadCamera, anaglyphUniversalCamera, arcFollowCamera, arcRotateCamera, camera, deviceOrientationCamera, flyCamera, followCamera, freeCamera, gamepadCamera, stereoscopicArcRotateCamera, stereoscopicFreeCamera, stereoscopicGamepadCamera, stereoscopicUniversalCamera, targetCamera, touchCamera, universalCamera, virtualJoysticksCamera, vrDeviceOrientationArcRotateCamera, vrDeviceOrientationFreeCamera, vrDeviceOrientationGamepadCamera, webVrFreeCamera, webXrCamera
 
-3. **Geometries (meshes)** - Box, Sphere, Disc, IcoSphere, Ribbon, Cylinder, Torus, TorusKnot, LineSystem, Lines, DashedLines, ExtrudeShape, ExtrudeShapeCustom, Lathe, Plane, Ground, TiledGround, GroundFromHeightMap, Polygon, ExtrudePolygon, Tube, Polyhedron, Decal
+3. **Geometries (meshes)** - box, cylinder, dashedLines, decal, disc, extrudePolygon, extrudeShape, extrudeShapeCustom, ground, groundFromHeightMap, icoSphere, lathe, lines, lineSystem, plane, babylon-polygon, polyhedron, ribbon, sphere, tiledGround, torus, torusKnot, tube
+> note: `babylon-polygon` instead of `polygon` due to JSX conflict with `React.SVGProps<SVGPolygonElement>`
 
-4. **Materials** - Material, MultiMaterial, PushMaterial, StandardMaterial, BackgroundMaterial, PBRBaseMaterial, PBRBaseSimpleMaterial, PBRMetallicRoughnessMaterial, PBRSpecularGlossinessMaterial, PBRMaterial, ShaderMaterial
+4. **Materials** - backgroundMaterial, fluentMaterial, material, multiMaterial, pbrBaseMaterial, pbrBaseSimpleMaterial, pbrMaterial, pbrMetallicRoughnessMaterial, pbrSpecularGlossinessMaterial, pushMaterial, shaderMaterial, standardMaterial
 
-5. **Lights** - Light, HemisphericLight, ShadowLight, DirectionalLight, PointLight, SpotLight
+5. **Lights** - directionalLight, hemisphericLight, light, pointLight, shadowLight, spotLight
 
-6. **2D Controls** - Control, Checkbox, ColorPicker, Container, Ellipse, Grid, StackPanel, VirtualKeyboard, Rectangle, Button, SelectionPanel, Image, InputText, InputPassword, Line, MultiLine, RadioButton, TextBlock, DisplayGrid, BaseSlider, Slider, ImageBasedSlider
+6. **Textures** - advancedDynamicTexture, baseTexture, colorGradingTexture, cubeTexture, customProceduralTexture, dynamicTexture, equiRectangularCubeTexture, hdrCubeTexture, htmlElementTexture, mirrorTexture, multiRenderTarget, multiviewRenderTarget, noiseProceduralTexture, proceduralTexture, rawCubeTexture, rawTexture, rawTexture3D, refractionTexture, renderTargetTexture, texture, videoTexture
 
-7. **3D Controls** - Control3D, AbstractButton3D, Button3D, HolographicButton, MeshButton3D, Container3D, StackPanel3D, VolumeBasedPanel, CylinderPanel, PlanePanel, ScatterPanel, SpherePanel
+7. **Others** - dynamicTerrain, environmentHelper, physicsImpostor, shadowGenerator, vrExperienceHelper
 
-8. **Textures** - BaseTexture, ColorGradingTexture, CubeTexture, RawCubeTexture, HDRCubeTexture, Texture, DynamicTexture, RawTexture, RawTexture3D, RenderTargetTexture, MirrorTexture, MultiRenderTarget, RefractionTexture, VideoTexture, ProceduralTexture, CustomProceduralTexture, NoiseProceduralTexture
+## GUI
+1. GUI3DManager
+2. **2D Controls** - scrollViewerWindow, baseSlider, babylon-button/Button, checkbox, colorPicker, container, control, displayGrid, babylon-ellipse/Ellipse, grid, babylon-image/Image, imageBasedSlider, inputPassword, inputText, babylon-line/Line, multiLine, radioButton, rectangle, scrollBar, scrollViewer, selectionPanel, slider, stackPanel, textBlock, virtualKeyboard
+> note: 'babylon-*' for `button`, `ellipse`, `image` & `line` due to JSX conflict with `React.SVGProps<SVGPolygonElement>`, otherwise use the ProperCase equavalent, but you miss editor auto-completion.
 
-9. **Others** - AdvancedDynamicTexture, GUI3DManager, ShadowGenerator, EnvironmentHelper, VRExperienceHelper
+3. **3D Controls** -  abstractButton3D, button3D, container3D, control3D, cylinderPanel, holographicButton, meshButton3D, planePanel, scatterPanel, spherePanel, stackPanel3D, volumeBasedPanel
+
+## Extensions
+1. DynamicTerrain
 
 # Examples
 live demo: [default playground declarative](https://brianzinn.github.io/create-react-app-babylonjs/defaultPlayground)
 
 ```jsx
-import { Scene, FreeCamera, HemisphericLight, Sphere, Ground } from 'react-babylonjs'
-import { Vector3 } from 'babylonjs';
+import { Engine, Scene } from 'react-babylonjs'
+import { Vector3 } from '@babylonjs/core';
 
 const DefaultPlayground = () => (
   <Engine canvasId="sample-canvas">
     <Scene>
-      <FreeCamera name="camera1" position={new Vector3(0, 5, -10)} target={Vector3.Zero()} />
-      <HemisphericLight name="light1" intensity={0.7} direction={Vector3.Up()} />
-      <Sphere name="sphere1" diameter={2} segments={16} position={new Vector3(0, 1, 0)} />
-      <Ground name="ground1" width={6} height={6} subdivisions={2}  />
+      <freeCamera name="camera1" position={new Vector3(0, 5, -10)} target={Vector3.Zero()} />
+      <hemisphericLight name="light1" intensity={0.7} direction={Vector3.Up()} />
+      <sphere name="sphere1" diameter={2} segments={16} position={new Vector3(0, 1, 0)} />
+      <ground name="ground1" width={6} height={6} subdivisions={2}  />
     </Scene>
   </Engine>
 )
