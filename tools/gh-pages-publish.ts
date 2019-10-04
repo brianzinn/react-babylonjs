@@ -21,7 +21,7 @@ let ghToken = process.env.GH_TOKEN
  * first run 'npm run build-storybook'.  was getting OOM exception with node ver < 12!!!
  */
 echo("Deploying docs!!!")
-cd("storybook-builde")
+cd("storybook-static")
 touch(".nojekyll")
 exec("git init")
 exec("git add .")

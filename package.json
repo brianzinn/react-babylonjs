@@ -34,7 +34,7 @@
     "deploy-docs": "ts-node tools/gh-pages-publish",
     "report-coverage": "cat ./coverage/lcov.info | coveralls",
     "storybook": "start-storybook -p 6006 -s ./storyboard-site",
-    "build-storybook": "build-storybook -o storybook-build -s ./storyboard-site",
+    "build-storybook": "build-storybook -o storybook-static -s ./storyboard-site",
     "generate-code": "ts-node -P tsconfig.generate.json tools/generate-code"
   },
   "lint-staged": {
@@ -76,16 +76,17 @@
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
-    "@babylonjs/core": "^4.0.3",
-    "@babylonjs/gui": "^4.0.3",
-    "@babylonjs/inspector": "^4.0.3",
-    "@babylonjs/loaders": "^4.0.3",
-    "@storybook/addon-actions": "^5.2.1",
-    "@storybook/addon-info": "^5.2.1",
-    "@storybook/addon-links": "^5.2.1",
-    "@storybook/addon-storysource": "^5.2.1",
-    "@storybook/addons": "^5.2.1",
-    "@storybook/react": "^5.2.1",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babylonjs/core": "^4.1.0-alpha.23",
+    "@babylonjs/gui": "^4.1.0-alpha.23",
+    "@babylonjs/inspector": "^4.1.0-alpha.23",
+    "@babylonjs/loaders": "^4.1.0-alpha.23",
+    "@storybook/addon-actions": "^5.1.9",
+    "@storybook/addon-info": "^5.1.9",
+    "@storybook/addon-links": "^5.1.9",
+    "@storybook/addon-storysource": "^5.1.9",
+    "@storybook/addons": "^5.1.9",
+    "@storybook/react": "^5.1.9",
     "@types/jest": "^23.3.12",
     "@types/lodash.camelcase": "^4.3.6",
     "@types/node": "^8.0.0",
@@ -130,6 +131,10 @@
     "validate-commit-msg": "^2.14.0"
   },
   "peerDependencies": {
+    "@babylonjs/core": "4.x",
+    "@babylonjs/gui": "4.x",
+    "@babylonjs/inspector": "4.x",
+    "@babylonjs/loaders": "4.x",
     "react": "16.x",
     "react-dom": "16.x",
     "react-reconciler": "0.x"
