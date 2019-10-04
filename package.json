@@ -1,11 +1,14 @@
 {
   "name": "react-babylonjs",
-  "version": "1.0.5",
-  "description": "ReactJS components for BabylonJS",
+  "version": "2.0.0",
+  "description": "React for BabylonJS",
   "homepage": "https://brianzinn.github.io/react-babylonjs/",
   "keywords": [
+    "3d",
+    "webgl",
     "react",
     "babylonjs",
+    "@babylonjs",
     "react-reconciler"
   ],
   "main": "dist/react-babylonjs.umd.js",
@@ -93,6 +96,7 @@
     "@types/react": "^16.7.20",
     "@types/react-reconciler": "^0.16.0",
     "babel-loader": "^8.0.6",
+    "cannon": "^0.6.2",
     "colors": "^1.3.3",
     "commitizen": "^3.0.5",
     "coveralls": "^3.0.2",
