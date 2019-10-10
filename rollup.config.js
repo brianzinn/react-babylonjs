@@ -8,7 +8,10 @@ const camelCase = require('lodash.camelcase')
 
 const libraryName = 'react-babylonjs'
 
-export default {
+const isProduction = process.env.NODE_ENV === 'production';
+console.log('ENV:', process.env.NODE_ENV)
+
+export default (async () => ({
   input: `compiled/${libraryName}.js`,
   output: [
 	  {
@@ -27,7 +30,7 @@ export default {
   ],
   context: 'window',
   // Indicate here external modules you don't wanna include in your bundle (i.e.: 'lodash')
-  external: [ 'react', 'react-reconciler', 'react-dom', '@babylonjs/core', '@babylonjs/gui', '@babylonjs/loaders'],
+  external: [...Object.keys(pkg.peerDependencies || {})],
   plugins: [
     // Allow bundling cjs modules (unlike webpack, rollup doesn't understand cjs)
     commonjs(),
@@ -38,6 +41,8 @@ export default {
     json(),
 
     // Resolve source maps to the original source
-    sourceMaps()
+    sourceMaps(),
+    // minimize production build
+    isProduction && (await import('rollup-plugin-terser')).terser()
   ]
-}
+}))
