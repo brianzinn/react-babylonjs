@@ -13,10 +13,13 @@ window.CANNON = CANNON;
 const gravityVector = new Vector3(0, -9.81, 0);
 var sphere = null;
 
+/**
+ * clicking button will apply impulse to sphere stright up.
+ */
 const onButtonClicked = () => {
   if (sphere !== null) {
     sphere.physicsImpostor.applyImpulse(
-      new Vector3(0, 10, 0), sphere.getAbsolutePosition()
+      Vector3.Up().scale(10), sphere.getAbsolutePosition()
     )
   }
 }

@@ -1,5 +1,5 @@
 import React, { createContext } from 'react'
-import { Nullable, Engine as BabylonJSEngine, ThinEngine, EngineOptions} from '@babylonjs/core'
+import { Nullable, Engine as BabylonJSEngine, /*ThinEngine,*/ EngineOptions} from '@babylonjs/core'
 
 
 // TODO: copy engineOptions/antialias/etc and canvas options from original Scene.tsx
@@ -92,7 +92,7 @@ class Engine extends React.Component<EngineProps, EngineState> {
       })
     })
 
-    this._engine.onContextLostObservable.add((eventData: ThinEngine) => {
+    this._engine.onContextLostObservable.add((eventData: BabylonJSEngine) => {
       console.log('context loss observable from Engine: ', eventData);
     })
 
