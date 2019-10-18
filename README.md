@@ -309,7 +309,7 @@ const DemoComponent = ({ scene, engine, canvas }} => {
 export default withBabylonJS(withScene(DemoComponent))
 ```
 
-### direct consmuer
+### direct Consmuer
 
 ```jsx
 import { WithSceneContext } from 'react-babylonjs'
@@ -322,7 +322,8 @@ const DemoComponent = ({ scene }} => {
     <div>See console</div>
   )
 }
-export default withBabylonJS(withScene(DemoComponent))
+
+export default () => (<WithSceneContext>{DemoComponent}</WithSceneContext>)
 ```
 
 ## Major Release History
