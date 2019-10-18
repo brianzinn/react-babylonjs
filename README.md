@@ -274,7 +274,7 @@ const App: React.FC = () => {
 import { useBabylonEngine, useBabylonCanvas, useBabylonScene } from 'react-react-babylonjs'
 
 // later inside a functional component:
-const engine = useBabylonEngine{}
+const engine = useBabylonEngine()
 const canvas = useBabylonCanvas()
 const scene = useBabylonScene()
 ````
