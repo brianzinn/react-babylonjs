@@ -264,10 +264,21 @@ const App: React.FC = () => {
         </ground>
         <vrExperienceHelper webVROptions={{ createDeviceOrientationCamera: false }} enableInteractions={true} />
       </Scene>
-    </EngineWithContext>
+    </Engine>
   );
 }
 ```
+
+```jsx
+// use Hooks to get engine/canvas/scene 
+import { useBabylonEngine, useBabylonCanvas, useBabylonScene } from 'react-react-babylonjs'
+
+// later inside a functional component:
+const engine = useBabylonEngine{}
+const canvas = useBabylonCanvas()
+const scene = useBabylonScene()
+````
+
 
 ## Major Release History
 > v1.0.0 (2018-11-29) - Add code generation, HoC, context provider
