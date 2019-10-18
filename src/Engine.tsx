@@ -1,4 +1,4 @@
-import React, { createContext } from 'react'
+import React, { createContext, useContext } from 'react'
 import { Nullable, Engine as BabylonJSEngine, /*ThinEngine,*/ EngineOptions} from '@babylonjs/core'
 
 
@@ -33,6 +33,9 @@ export function withBabylonJS<
     );
   };
 }
+
+export const useBabylonEngine = () => useContext(BabylonJSContext).engine
+export const useBabylonCanvas = () => useContext(BabylonJSContext).canvas
 
 type EngineProps = {
   babylonJSContext: WithBabylonJSContext,
