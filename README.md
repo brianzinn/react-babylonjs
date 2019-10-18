@@ -269,16 +269,61 @@ const App: React.FC = () => {
 }
 ```
 
+## Using context
+
+If you need to do something fancy with `scene`, `canvas`, or `engine`, there are a few ways:
+
+### react hooks
+
 ```jsx
 // use Hooks to get engine/canvas/scene 
-import { useBabylonEngine, useBabylonCanvas, useBabylonScene } from 'react-react-babylonjs'
+import { useBabylonEngine, useBabylonCanvas, useBabylonScene } from 'react-babylonjs'
 
 // later inside a functional component:
-const engine = useBabylonEngine()
-const canvas = useBabylonCanvas()
-const scene = useBabylonScene()
+
+export default () => {
+  const engine = useBabylonEngine()
+  const canvas = useBabylonCanvas()
+  const scene = useBabylonScene()
+  console.log({ engine, canvas, scene })
+  
+  return (
+    <div>See console</div>
+  )
+}
+
 ````
 
+### HOC
+
+```jsx
+import { withBabylonJS, withScene } from 'react-babylonjs'
+
+const DemoComponent = ({ scene, engine, canvas }} => {
+  console.log({ scene, engine, canvas })
+  return (
+    <div>See console</div>
+  )
+}
+
+export default withBabylonJS(withScene(DemoComponent))
+```
+
+### direct consmuer
+
+```jsx
+import { WithSceneContext } from 'react-babylonjs'
+
+const DemoComponent = ({ scene }} => {
+  const engine = scene.getEngine()
+  const canvas = engine.getCanvas()
+  console.log({ scene, engine, canvas })
+  return (
+    <div>See console</div>
+  )
+}
+export default withBabylonJS(withScene(DemoComponent))
+```
 
 ## Major Release History
 > v1.0.0 (2018-11-29) - Add code generation, HoC, context provider
