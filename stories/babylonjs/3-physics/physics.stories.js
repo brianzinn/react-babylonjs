@@ -74,7 +74,7 @@ const BouncyPlayground = () => {
     )
 }
 
-export default storiesOf('Physics + Hooks', module)
+export default storiesOf('Physics and Hooks', module)
   .add('Bouncy Playground', () => (
     <div style={{ flex: 1, display: 'flex' }}>
       <BouncyPlayground />
