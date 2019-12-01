@@ -446,7 +446,7 @@ const ReactBabylonJSHostConfig: HostConfig<
   },
 
   canHydrateInstance: (instance: any, type: string, props: Props): null | CreatedInstance<any> => {
-    console.log("canHydrateInstance", instance, type, props)
+    // console.log("canHydrateInstance", instance, type, props)
     return null
   },
 
