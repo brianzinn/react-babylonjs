@@ -20,7 +20,7 @@ $ cd <your-project-dir>
 $ yarn add react-babylonjs
 ```
 
-`react-babylonjs` *v2+* relies on the **ES6** `@babylonjs/*` NPMs.  If you are want to use the `babylonjs` NPM then use the last *v1.x* of `react-babylonjs`.
+`react-babylonjs` *v2+* relies on the **ES6** `@babylonjs/*` NPMs.  If you are want to use the `babylonjs` NPM then use the last *v1.x* of `react-babylonjs` (ie: yarn add react-babylonjs@1.0.3).
 
 # Usage Styles
 `react-babylonjs` tries to remain unopinionated about how you integrate BabylonJS with React.  This module provides a 100% declarative option and/or you can customise by adding code.
@@ -203,7 +203,7 @@ function NonDeclarative() {
 ```
 
 ## Hooks, Shadows and Physics (and optionally TypeScript, too)
-You can declaratively use many features together - here only the button click handler actually has any code - and we have declarative Physics, GUI, Lighting and Shadows.  demo: [Bouncy demo](https://brianzinn.github.io/react-babylonjs/?path=/story/physics-hooks--bouncy-playground)
+You can declaratively use many features together - here only the button click handler actually has any code - and we have declarative Physics, GUI, Lighting and Shadows.  demo: [Bouncy demo](https://brianzinn.github.io/react-babylonjs/?path=/story/physics-and-hooks--bouncy-playground)
 ```jsx
 import React, { useCallback } from 'react';
 /// full code at https://github.com/brianzinn/create-react-app-typescript-babylonjs
