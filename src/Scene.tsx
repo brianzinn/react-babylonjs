@@ -5,7 +5,7 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React, { createContext } from 'react';
+import React, { createContext, useContext } from 'react';
 import ReactReconciler from "react-reconciler";
 
 import { WithBabylonJSContext, withBabylonJS } from './Engine';
@@ -34,6 +34,9 @@ export const SceneContext = createContext<WithSceneContext>({
   canvas: null,
   scene: null
 })
+
+
+export const useBabylonScene = () => useContext(SceneContext).scene
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
