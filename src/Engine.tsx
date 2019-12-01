@@ -15,8 +15,6 @@ export const BabylonJSContext = createContext<WithBabylonJSContext>({
   canvas: null
 })
 
-export const BabylonJSContextConsumer = BabylonJSContext.Consumer
-
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
 export function withBabylonJS<
@@ -34,8 +32,8 @@ export function withBabylonJS<
   };
 }
 
-export const useBabylonEngine = () => useContext(BabylonJSContext).engine
-export const useBabylonCanvas = () => useContext(BabylonJSContext).canvas
+export const useBabylonEngine = (): Nullable<BabylonJSEngine> => useContext(BabylonJSContext).engine
+export const useBabylonCanvas = (): Nullable<HTMLCanvasElement | WebGLRenderingContext> => useContext(BabylonJSContext).canvas
 
 type EngineProps = {
   babylonJSContext: WithBabylonJSContext,

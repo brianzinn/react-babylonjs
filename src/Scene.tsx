@@ -5,11 +5,11 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React, { createContext, useContext } from 'react';
-import ReactReconciler from "react-reconciler";
+import React, { createContext, useContext, useEffect, useState, useRef } from 'react';
+import ReactReconciler, { Reconciler } from "react-reconciler";
 
-import { WithBabylonJSContext, withBabylonJS } from './Engine';
-import { Scene as BabylonJSScene, Engine as BabylonJSEngine, Nullable, AbstractMesh, PointerInfo, PointerEventTypes, SceneOptions, Observer } from '@babylonjs/core';
+import { WithBabylonJSContext, withBabylonJS, BabylonJSContext } from './Engine';
+import { Scene as BabylonJSScene, Engine as BabylonJSEngine, Nullable, AbstractMesh, PointerInfo, PointerEventTypes, SceneOptions, Observer, EventState } from '@babylonjs/core';
 
 import { applyUpdateToInstance } from "./UpdateInstance";
 import ReactBabylonJSHostConfig, { Container } from './ReactBabylonJSHostConfig';
@@ -21,6 +21,7 @@ export interface WithSceneContext {
   engine: Nullable<BabylonJSEngine>
   canvas: Nullable<HTMLCanvasElement | WebGLRenderingContext>
   scene: Nullable<BabylonJSScene>
+  sceneReady: boolean
 }
 
 export declare type SceneEventArgs = {
@@ -32,9 +33,9 @@ export declare type SceneEventArgs = {
 export const SceneContext = createContext<WithSceneContext>({
   engine: null,
   canvas: null,
-  scene: null
+  scene: null,
+  sceneReady: false
 })
-
 
 export const useBabylonScene = () => useContext(SceneContext).scene
 
@@ -62,89 +63,74 @@ type SceneProps = {
   onScenePointerUp?: (evt: PointerInfo, scene: BabylonJSScene) => void
   onScenePointerMove?: (evt: PointerInfo, scene: BabylonJSScene) => void
   onSceneMount?: (sceneEventArgs: SceneEventArgs) => void
+  children: any,
   sceneOptions?: SceneOptions
 } & FiberSceneProps
 
-class Scene extends React.Component<SceneProps, any, any> {
-  private _scene: Nullable<BabylonJSScene> = null;
-  private _pointerDownObservable: Nullable<Observer<PointerInfo>> = null;
-  private _pointerUpObservable: Nullable<Observer<PointerInfo>> = null;
-  private _pointerMoveObservable: Nullable<Observer<PointerInfo>> = null;
+const usePrevious = <T extends any>(value: T) => {
+  const ref = useRef<T>();
+  useEffect(() => {
+    ref.current = value;
+  });
+  return ref.current;
+};
 
-  private _fiberRoot?: ReactReconciler.FiberRoot;
-  private _reactReconcilerBabylonJs = ReactReconciler(ReactBabylonJSHostConfig)
-  private _propsHandler = new FiberScenePropsHandler();
+const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
+  const { engine } = useContext(BabylonJSContext)
 
-  componentDidMount() {
-    const { babylonJSContext } = this.props
-    
-    if (!babylonJSContext) {
-      // we could try to create one here with existing props (ie: backwards compat?)
-      console.error('You are creating a scene without an Engine.  \'SceneOnly\' will only work as a child of Engine, use \'Scene\' otherwise.')
-      return
+  const [propsHandler]= useState(new FiberScenePropsHandler());
+  const [sceneReady, setSceneReady] = useState(false);
+  const [scene, setScene] = useState<Nullable<BabylonJSScene>>(null)
+  const [fiberRoot, setFiberRoot] = useState<any>(null);
+
+  // TODO: make this strongly typed
+  const [renderer, setRenderer] = useState<Nullable<Reconciler<any, any, any, any>>>(null);
+  const prevProps = usePrevious<FiberSceneProps>(props);
+
+  useEffect(() => {
+    if (engine === null || scene === null || renderer === null || prevProps === undefined) {
+      return;
     }
-      
-    const { engine /*, canvas */ } = babylonJSContext;
-
-    this._scene = new BabylonJSScene(engine!, this.props.sceneOptions)
-    const updates : UpdatePayload = this._propsHandler.getPropertyUpdates(this._scene, {}, this.props as any, this._scene)
+    const updates : UpdatePayload = propsHandler.getPropertyUpdates(scene, prevProps, props, scene)
     if (updates !== null) {
       updates.forEach(propertyUpdate => {
-        applyUpdateToInstance(this._scene, propertyUpdate, 'scene')
+        applyUpdateToInstance(scene, propertyUpdate, 'scene')
       })
     }
 
-    // TODO: Add keypress and other PointerEventTypes:
-    this._pointerDownObservable = this._scene.onPointerObservable.add((evt: PointerInfo) => {
+    renderer.updateContainer(
+      <SceneContext.Provider value={{ engine: props.babylonJSContext.engine, canvas: props.babylonJSContext.canvas, scene, sceneReady }}>
+        {props.children}
+      </SceneContext.Provider>,
+      fiberRoot,
+      undefined,
+      () => { /* called after container is updated.  we may want an external observable here */ }
+    )
+  })
 
-      if(typeof this.props.onScenePointerDown === 'function') {
-        this.props.onScenePointerDown(evt, this._scene!)
-      }
+  useEffect(() => {
+    // const onSceneReady = (eventData: BabylonJSScene, eventState: EventState) => {
+    //   setSceneReady(true);
+    // }
 
-      if (evt && evt.pickInfo && evt.pickInfo.hit && evt.pickInfo.pickedMesh) {
-        let mesh = evt.pickInfo.pickedMesh
+    const scene = new BabylonJSScene(engine!, props.sceneOptions)
 
-        if (typeof this.props.onMeshPicked === 'function') {
-          this.props.onMeshPicked(mesh, this._scene!)
-        } else {
-          // console.log('onMeshPicked not being called')
-        }
-      }
-    }, PointerEventTypes.POINTERDOWN);
-
-    // can only be assigned on init
-    if(typeof this.props.onScenePointerUp === 'function') {
-      this._pointerUpObservable = this._scene.onPointerObservable.add((evt: PointerInfo) => { 
-        this.props.onScenePointerUp!(evt, this._scene!)
-      }, PointerEventTypes.POINTERUP)
-    };
-
-    // can only be assigned on init
-    if(typeof this.props.onScenePointerMove === 'function') {
-      this._pointerMoveObservable = this._scene.onPointerObservable.add((evt: PointerInfo) => { 
-        this.props.onScenePointerMove!(evt, this._scene!)
-      }, PointerEventTypes.POINTERMOVE)
-    };
-
-    if (typeof this.props.onSceneMount === 'function') {
-      this.props.onSceneMount({
-          scene: this._scene,
-          canvas: this._scene.getEngine().getRenderingCanvas()!
-      });
-      // TODO: console.error if canvas is not attached. runRenderLoop() is expected to be part of onSceneMount().
+    // const onReadyObservable: Nullable<Observer<BabylonJSScene>> = scene.onReadyObservable.add(onSceneReady);
+    if (scene.isReady()) {
+      // scene.onReadyObservable.remove(onReadyObservable);
+      setSceneReady(true)
+    } else {
+      console.error('Scene is not ready. Report issue in react-babylonjs repo')
     }
 
-    // TODO: change enable physics to 'usePhysics' taking an object with a Vector3 and 'any'.
-    if (Array.isArray(this.props.enablePhysics)) {
-      this._scene.enablePhysics(this.props.enablePhysics[0], this.props.enablePhysics[1]);
-    }
+    setScene(scene);
 
     const isAsync = false // Disables experimental async rendering
-    
+  
     const container: Container = {
-      engine: this.props.babylonJSContext.engine,
-      canvas: this.props.babylonJSContext.canvas,
-      scene: this._scene,
+      engine: props.babylonJSContext.engine,
+      canvas: props.babylonJSContext.canvas,
+      scene: scene,
       rootInstance: {
         hostInstance: null,
         children: [],
@@ -156,64 +142,97 @@ class Scene extends React.Component<SceneProps, any, any> {
       }
     }
 
-    this._fiberRoot = this._reactReconcilerBabylonJs.createContainer(container, isAsync, false /* hydrate true == better HMR? */)
-  
-    this._reactReconcilerBabylonJs.injectIntoDevTools({
+    const renderer = ReactReconciler(ReactBabylonJSHostConfig);
+    setRenderer(renderer)
+    const fiberRoot = renderer.createContainer(container, isAsync, false /* hydrate true == better HMR? */)
+    setFiberRoot(fiberRoot);
+
+    renderer.injectIntoDevTools({
       bundleType: process.env.NODE_ENV === 'production' ? 0 : 1,
-      version: '1.0.3',
+      version: '2.0.0',
       rendererPackageName: 'react-babylonjs'
     })
 
+    const pointerDownObservable: Nullable<Observer<PointerInfo>> = scene.onPointerObservable.add(
+      (evt: PointerInfo) => {
+        if(typeof props.onScenePointerDown === 'function') {
+          props.onScenePointerDown(evt, scene)
+        }
+
+        if (evt && evt.pickInfo && evt.pickInfo.hit && evt.pickInfo.pickedMesh) {
+          let mesh = evt.pickInfo.pickedMesh
+          if (typeof props.onMeshPicked === 'function') {
+            props.onMeshPicked(mesh, scene)
+          } else {
+            // console.log('onMeshPicked not being called')
+          }
+        }
+      },
+      PointerEventTypes.POINTERDOWN
+    );
+
+    // can only be assigned on init
+    let pointerUpObservable: Nullable<Observer<PointerInfo>> = null;
+    if(typeof props.onScenePointerUp === 'function') {
+      pointerUpObservable = scene.onPointerObservable.add(
+        (evt: PointerInfo) => { 
+          props.onScenePointerUp!(evt, scene)
+        },
+        PointerEventTypes.POINTERUP
+      )
+    };
+
+    // can only be assigned on init
+    let pointerMoveObservable: Nullable<Observer<PointerInfo>> = null;
+    if(typeof props.onScenePointerMove === 'function') {
+      pointerMoveObservable = scene.onPointerObservable.add(
+        (evt: PointerInfo) => { 
+          props.onScenePointerMove!(evt, scene)
+        },
+        PointerEventTypes.POINTERMOVE)
+    };
+
+    if (typeof props.onSceneMount === 'function') {
+      props.onSceneMount({
+          scene: scene,
+          canvas: scene.getEngine().getRenderingCanvas()!
+      });
+      // TODO: console.error if canvas is not attached. runRenderLoop() is expected to be part of onSceneMount().
+    }
+
+    // TODO: change enable physics to 'usePhysics' taking an object with a Vector3 and 'any'.
+    // NOTE: must be enabled for updating container (cannot add impostors w/o physics enabled)
+    if (Array.isArray(props.enablePhysics)) {
+      scene.enablePhysics(props.enablePhysics[0], props.enablePhysics[1]);
+    }
+
     // update the root Container
-    // console.log("updating rootContainer (1) reactElement")
-    return this._reactReconcilerBabylonJs.updateContainer(
-      <SceneContext.Provider value={{ engine: this.props.babylonJSContext.engine, canvas: this.props.babylonJSContext.canvas, scene: this._scene }}>
-        {this.props.children}
-      </SceneContext.Provider>, this._fiberRoot, undefined /* TODO: try to dual-write for screen readers */, () => { /* empty */}
+    renderer.updateContainer(
+      <SceneContext.Provider value={{ engine: props.babylonJSContext.engine, canvas: props.babylonJSContext.canvas, scene, sceneReady }}>
+        {props.children}
+      </SceneContext.Provider>, fiberRoot, undefined, () => { /* empty */}
     )
-  }
 
-  componentDidUpdate (prevProps: any, prevState: any) {
-    const updates : UpdatePayload = this._propsHandler.getPropertyUpdates(this._scene!, prevProps, this.props as any, this._scene!)
-    if (updates !== null) {
-      updates.forEach(propertyUpdate => {
-        applyUpdateToInstance(this._scene, propertyUpdate, 'scene')
-      })
-    }
+    return () => {
+      if (pointerDownObservable) {
+        scene.onPointerObservable.remove(pointerDownObservable);
+      }
+  
+      if (pointerUpObservable) {
+        scene.onPointerObservable.remove(pointerUpObservable);
+      }
+  
+      if (pointerMoveObservable) {
+        scene.onPointerObservable.remove(pointerMoveObservable);
+      }
 
-    // In the docs it is mentioned that shouldComponentUpdate() may be treated as a hint one day
-    // avoid shouldComponentUpdate() => false, looks okay, but prop changes will lag behind 1 update.
-    this._reactReconcilerBabylonJs.updateContainer(
-      <SceneContext.Provider value={{ engine: this.props.babylonJSContext.engine, canvas: this.props.babylonJSContext.canvas, scene: this._scene }}>
-        {this.props.children}
-      </SceneContext.Provider>,
-      this._fiberRoot!,
-      undefined,
-      () => { /* called after container is updated.  we may want an external observable here */ }
-    )
-  }
+      scene.dispose();
+      }
+    },
+    [/* no deps, so called only on un/mount */]
+  )
 
-  componentWillUnmount () {
-    if (this._pointerDownObservable) {
-      this._scene!.onPointerObservable.remove(this._pointerDownObservable);
-    }
-
-    if (this._pointerUpObservable) {
-      this._scene!.onPointerObservable.remove(this._pointerUpObservable);
-    }
-
-    if (this._pointerMoveObservable) {
-      this._scene!.onPointerObservable.remove(this._pointerMoveObservable);
-    }
-    this._scene!.dispose()
-  }
-
-  render () {
-    return null;
-  }
+  return null;
 }
 
-// TODO: export a SceneOnly without engine and have this class create a default engine when not present.
-
-// for backwards compatibility we export a scene with an Engine.  Engine is only needed with multi-scene.
 export default withBabylonJS(Scene)
