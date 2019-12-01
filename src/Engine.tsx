@@ -32,8 +32,8 @@ export function withBabylonJS<
   };
 }
 
-export const useBabylonEngine = () => useContext(BabylonJSContext).engine
-export const useBabylonCanvas = () => useContext(BabylonJSContext).canvas
+export const useBabylonEngine = (): Nullable<BabylonJSEngine> => useContext(BabylonJSContext).engine
+export const useBabylonCanvas = (): Nullable<HTMLCanvasElement | WebGLRenderingContext> => useContext(BabylonJSContext).canvas
 
 type EngineProps = {
   babylonJSContext: WithBabylonJSContext,

@@ -37,6 +37,8 @@ export const SceneContext = createContext<WithSceneContext>({
   sceneReady: false
 })
 
+export const useBabylonScene = () => useContext(SceneContext).scene
+
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
 export function withScene<
