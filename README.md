@@ -264,9 +264,66 @@ const App: React.FC = () => {
         </ground>
         <vrExperienceHelper webVROptions={{ createDeviceOrientationCamera: false }} enableInteractions={true} />
       </Scene>
-    </EngineWithContext>
+    </Engine>
   );
 }
+```
+
+## Using context
+
+If you need to do something fancy with `scene`, `canvas`, or `engine`, there are a few ways:
+
+### react hooks
+
+```jsx
+// use Hooks to get engine/canvas/scene 
+import { useBabylonEngine, useBabylonCanvas, useBabylonScene } from 'react-babylonjs'
+
+// later inside a functional component:
+
+export default () => {
+  const engine = useBabylonEngine()
+  const canvas = useBabylonCanvas()
+  const scene = useBabylonScene()
+  console.log({ engine, canvas, scene })
+  
+  return (
+    <div>See console</div>
+  )
+}
+
+````
+
+### HOC
+
+```jsx
+import { withBabylonJS, withScene } from 'react-babylonjs'
+
+const DemoComponent = ({ scene, engine, canvas }} => {
+  console.log({ scene, engine, canvas })
+  return (
+    <div>See console</div>
+  )
+}
+
+export default withBabylonJS(withScene(DemoComponent))
+```
+
+### direct Consmuer
+
+```jsx
+import { WithSceneContext } from 'react-babylonjs'
+
+const DemoComponent = ({ scene }} => {
+  const engine = scene.getEngine()
+  const canvas = engine.getCanvas()
+  console.log({ scene, engine, canvas })
+  return (
+    <div>See console</div>
+  )
+}
+
+export default () => (<WithSceneContext>{DemoComponent}</WithSceneContext>)
 ```
 
 ## Major Release History
