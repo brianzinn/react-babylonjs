@@ -73,6 +73,19 @@ const addHostElement = (className: string, babylonjsClassDeclaration: ClassDecla
   }
 }
 
+const addCustomHostElement = (className: string, type: string): void => {
+  if (REACT_EXPORTS.has(className)) {
+    console.error('Found existing export:', className); // would happen in BabylonJS added class with same name
+    return;
+  }
+
+  REACT_EXPORTS.add(className);
+  INTRINSIC_ELEMENTS.addProperty({
+    name: classToIntrinsic(className),
+    type
+  } as OptionalKind<PropertySignatureStructure>)
+}
+
 const monkeyPatchInterfaces: Map<string, InterfaceDeclaration[]> = new Map<string, InterfaceDeclaration[]>();
 const enumMap: Map<string, string> = new Map<string, string>();
 let ENUMS_LIST: string[] = [];
@@ -1142,6 +1155,11 @@ const generateCode = async () => {
     namedImports: ['CustomProps']
   })
 
+  generatedPropsSourceFile.addImportDeclaration({
+    moduleSpecifier: './model',
+    namedImports: ['ModelProps']
+  })
+
   const addMeshMetadata = (newClassDeclaration: ClassDeclaration, metadata: CreatedInstanceMetadata, originalClassDeclaration?: ClassDeclaration) => {
     metadata.isMesh = (originalClassDeclaration !== undefined && originalClassDeclaration.getName() === "Mesh")
   }
@@ -1274,6 +1292,10 @@ const generateCode = async () => {
 
     addPropsAndHandlerClasses(generatedCodeSourceFile, generatedPropsSourceFile, className, sceneClassDeclaration, getInstanceProperties(sceneTuple.classDeclaration), getInstanceSetMethods(sceneTuple.classDeclaration), undefined);
   }
+
+  // add our own custom components - needed for TypeScript compatibility:
+  addCustomHostElement('Model', 'ModelProps & BabylonNode<BabylonjsCoreAbstractMesh>');
+
   addReactExports(generatedCodeSourceFile);
 
   generatedCodeSourceFile.addImportDeclaration({
