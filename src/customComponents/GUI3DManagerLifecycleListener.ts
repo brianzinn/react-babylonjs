@@ -64,4 +64,6 @@ export default class GUI3DManagerLifecycleListener implements LifecycleListener<
     // Here we can now do a transform with an anchor point.
     console.error("transform gui3dmanager anchor missing")
   }
+
+  onUnmount(): void { /* empty */ }
 }

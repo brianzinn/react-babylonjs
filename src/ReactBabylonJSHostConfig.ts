@@ -318,6 +318,7 @@ const ReactBabylonJSHostConfig: HostConfig<
 
     let lifecycleListener: LifecycleListener<any> | undefined = undefined
 
+    // TODO: Add these to just the 'type' of component they apply to.
     let customProps: CustomProps = {
       childrenAsContent: props.childrenAsContent === true, // ie: Button3D.container instead of .addControl()
       createForParentMesh: props.createForParentMesh === true, // AdvancedDynamicTexture attached to parent mesh (TODO: add forMeshByName="")
@@ -326,6 +327,7 @@ const ReactBabylonJSHostConfig: HostConfig<
       defaultKeyboard: props.defaultKeyboard === true,
       linkToTransformNodeByName: props.linkToTransformNodeByName,
       shadowCasters: props.shadowCasters,
+      shadowCastersExcluding: props.shadowCastersExcluding,
       attachToMeshesByName: props.attachToMeshesByName, // for materials - otherwise will attach to first parent that accepts materials
       assignTo: props.assignTo // here a lifecycle listener can dynamically attach to another property (ie: Mesh to DynamicTerrain -> 'mesh.material')
     }
@@ -484,6 +486,10 @@ const ReactBabylonJSHostConfig: HostConfig<
   },
 
   removeChildFromContainer(container: Container, child: CreatedInstance<any> | undefined): void {
+    if (child && child.lifecycleListener) {
+      child.lifecycleListener.onUnmount();
+    }
+
     if (child && child.hostInstance && typeof child.hostInstance.dispose === "function") {
       child.hostInstance.dispose()
     }
@@ -491,6 +497,10 @@ const ReactBabylonJSHostConfig: HostConfig<
   },
 
   removeChild(parentInstance: CreatedInstance<any>, child: CreatedInstance<any>) {
+    if (child && child.lifecycleListener) {
+      child.lifecycleListener.onUnmount();
+    }
+
     if (child.metadata.isGUI3DControl === true) {
       console.error("3D remove control not implemented.")
     }

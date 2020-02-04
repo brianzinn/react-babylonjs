@@ -115,4 +115,6 @@ export default class ModelLifecycleListener implements LifecycleListener<LoadedM
       loadedModel.loaderName = "no loader found"
     }
   }
+
+  onUnmount(): void {/* empty */}
 }

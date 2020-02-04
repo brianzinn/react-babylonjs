@@ -18,4 +18,6 @@ export default class VRExperienceHelperLifecycleListener implements LifecycleLis
         instance.hostInstance!.enableInteractions()
     }
   }
+
+  onUnmount(): void {/* empty */}
 }

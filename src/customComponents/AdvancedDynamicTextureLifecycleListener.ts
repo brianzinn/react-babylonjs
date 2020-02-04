@@ -96,4 +96,6 @@ export default class AdvancedDynamicTextureLifecycleListener implements Lifecycl
       )
     )
   }
+
+  onUnmount(): void {/* empty */}
 }

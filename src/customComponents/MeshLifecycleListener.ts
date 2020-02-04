@@ -12,4 +12,5 @@ export default class MeshLifecycleListener implements LifecycleListener<Mesh> {
   }
   onChildAdded(parent: CreatedInstance<any>, child: CreatedInstance<any>) {/* empty */}
   onMount(instance: CreatedInstance<Mesh>) {/* empty */}
+  onUnmount(): void {/* empty */}
 }

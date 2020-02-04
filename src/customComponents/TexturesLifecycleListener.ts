@@ -23,4 +23,5 @@ export default class TexturesLifecycleListener implements LifecycleListener<Text
       tmp = tmp.parent
     }
   }
+  onUnmount(): void {/* empty */}
 }

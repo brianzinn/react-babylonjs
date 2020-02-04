@@ -40,4 +40,6 @@ export default class CameraLifecycleListener implements LifecycleListener<Camera
       }
     }
   }
+
+  onUnmount(): void {/* empty */}
 }
