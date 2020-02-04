@@ -1,2 +1,2 @@
 export { LoaderStatus, LoadedModel } from "./Model"
-export { FiberModel, ModelPropsHandler } from "./ModelProps"
+export { ModelProps, FiberModel, ModelPropsHandler } from "./ModelProps"

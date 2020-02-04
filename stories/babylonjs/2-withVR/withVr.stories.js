@@ -57,7 +57,7 @@ export class WithVR extends Component {
             radius={2} minZ={0.001} wheelPrecision={50} />
 
           <directionalLight name='dl' direction={new Vector3(0, -0.5, 0.5)} position={new Vector3(0, 2, 0.5)}>
-            <shadowGenerator mapSize={1024} useBlurExponentialShadowMap blurKernel={32} shadowCasters={['counterClockwise', 'clockwise', 'BoomBox']} />
+            <shadowGenerator mapSize={1024} useBlurExponentialShadowMap blurKernel={32} shadowCastersExcluding={['gazeTracker', 'BackgroundHelper', 'BackgroundPlane', 'BackgroundSkybox']} />
           </directionalLight>
 
           <icoSphere name='counterClockwise' position={new Vector3(-0.5, 1, 0)} radius={0.2} flat subdivisions={1}>
@@ -79,7 +79,7 @@ export class WithVR extends Component {
             <SingleAxisRotateMeshBehavior rpm={4} axis={Axis.Y} />
           </icoSphere>
           <vrExperienceHelper webVROptions={{ createDeviceOrientationCamera: false }} teleportEnvironmentGround enableInteractions />
-          <environmentHelper options={{ enableGroundShadow: true /* true by default */, groundYBias: 1 }} mainColor={Color3.FromHexString('#74b9ff')} />
+          <environmentHelper options={{ enableGroundShadow: true /* true by default */, groundYBias: 1 }} setMainColor={[Color3.FromHexString('#74b9ff')]} />
         </Scene>
       </Engine>
     )
