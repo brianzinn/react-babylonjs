@@ -29,4 +29,6 @@ export default class EnvironmentHelperLifecycleListener implements LifecycleList
       console.error("need to enable teleportation to ground (also from VRExperienceHelper, so call order has no impact.")
     }
   }
+
+  onUnmount(): void {/* empty */}
 }

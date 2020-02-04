@@ -68,4 +68,6 @@ export default class GUI2DControlLifecycleListener implements LifecycleListener<
       this.addControls(child)
     })
   }
+
+  onUnmount(): void {/* empty */}
 }

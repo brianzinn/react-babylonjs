@@ -30,6 +30,10 @@ export default class HostWithEventsFiber<T> implements LifecycleListener<T> {
     if (props.onMount && typeof props.onMount === "function") {
       this._onMount = props.onMount
     }
+
+    if (props.onUnmount && typeof props.onUnmount === "function") {
+      this._onUnmount = props.onUnmount;
+    }
   }
 
   public onParented(parent: CreatedInstance<any> | undefined) {
@@ -55,4 +59,6 @@ export default class HostWithEventsFiber<T> implements LifecycleListener<T> {
       this._onUnmount(this._scene, this._engine, this._hostContextData)
     }
   }
+
+  public onUnmount(): void {/* empty */}
 }

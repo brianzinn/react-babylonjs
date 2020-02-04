@@ -78,4 +78,6 @@ export default class GUI3DControlLifecycleListener implements LifecycleListener<
       })
     }
   }
+
+  onUnmount(): void {/* empty */}
 }

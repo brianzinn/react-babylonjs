@@ -40,4 +40,6 @@ export default class PhysicsImpostorLifecycleListener implements LifecycleListen
         console.warn('physics impostor not attached to object.')
     }
   }
+
+  onUnmount(): void {/* empty */}
 }

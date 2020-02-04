@@ -73,4 +73,6 @@ export default class MaterialsLifecycleListener implements LifecycleListener<Mat
       }
     }
   }
+
+  onUnmount(): void {/* empty */}
 }

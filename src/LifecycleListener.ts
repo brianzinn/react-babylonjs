@@ -14,4 +14,8 @@ export interface LifecycleListener<T> {
    * Called on GUI controls, once they have been added as a control.
    */
   onAddedAsControl?: (instance: CreatedInstance<T>) => void
+  /**
+   * When hosted instance is unmounted
+   */
+  onUnmount: () => void
 }
