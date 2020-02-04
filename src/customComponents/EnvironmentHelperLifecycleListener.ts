@@ -21,6 +21,7 @@ export default class EnvironmentHelperLifecycleListener implements LifecycleList
       return;
     }
 
+    // for TypeScript people use <... setMainColor={[mainColor]} />
     if (this.props.mainColor) {
       instance.hostInstance.setMainColor(this.props.mainColor)
     }

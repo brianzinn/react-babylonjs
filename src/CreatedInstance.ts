@@ -48,6 +48,10 @@ export type CustomProps = {
    */
   shadowCasters?: string[]
   /**
+   * List of mesh names to exclude from casting shadows (all other meshes by name will cast shadows)
+   */
+  shadowCastersExcluding?: string[]
+  /**
    * For attaching the same material multiple meshes (by mesh name)
    */
   attachToMeshesByName?: string[]

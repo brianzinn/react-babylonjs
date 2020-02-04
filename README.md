@@ -134,7 +134,7 @@ class WithVR extends React.Component
           />
           ...
           <vrExperienceHelper createDeviceOrientationCamera={false} teleportEnvironmentGround={true} />
-          <environmentHelper enableGroundShadow= {true} groundYBias={1} mainColor={Color3.FromHexString("#74b9ff")} />
+          <environmentHelper enableGroundShadow= {true} groundYBias={1}} />
         </Scene>
       </Engine>
     )
