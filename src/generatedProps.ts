@@ -1,5 +1,6 @@
 import { Key, ReactNode, Ref } from "react";
 import { CustomProps } from "./CreatedInstance";
+import { ModelProps } from "./model";
 import { DynamicTerrain as ExtensionsDynamicTerrain } from "./extensions/DynamicTerrain";
 import { AbstractScene as BabylonjsCoreAbstractScene } from "@babylonjs/core/abstractScene";
 import { Node as BabylonjsCoreNode } from "@babylonjs/core/node";
@@ -313,6 +314,7 @@ declare global {
             physicsImpostor: FiberPhysicsImpostorProps & FiberPhysicsImpostorPropsCtor & BabylonNode<BabylonjsCorePhysicsImpostor>;
             vrExperienceHelper: FiberVRExperienceHelperProps & FiberVRExperienceHelperPropsCtor & BabylonNode<BabylonjsCoreVRExperienceHelper>;
             dynamicTerrain: FiberDynamicTerrainProps & FiberDynamicTerrainPropsCtor & BabylonNode<ExtensionsDynamicTerrain>;
+            model: ModelProps & BabylonNode<BabylonjsCoreAbstractMesh>;
         }
     }
 }
