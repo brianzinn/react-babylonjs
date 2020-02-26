@@ -80,10 +80,10 @@
   "devDependencies": {
     "@babel/core": "^7.4.5",
     "@babel/plugin-proposal-class-properties": "^7.5.5",
-    "@babylonjs/core": "^4.0.3",
-    "@babylonjs/gui": "^4.0.3",
-    "@babylonjs/inspector": "^4.0.3",
-    "@babylonjs/loaders": "^4.0.3",
+    "@babylonjs/core": "^4.1.0-rc.9",
+    "@babylonjs/gui": "^4.1.0-rc.9",
+    "@babylonjs/inspector": "^4.1.0-rc.9",
+    "@babylonjs/loaders": "^4.1.0-rc.9",
     "@storybook/addon-actions": "^5.2.3",
     "@storybook/addon-info": "^5.2.3",
     "@storybook/addon-links": "^5.2.3",
@@ -132,7 +132,7 @@
     "tslint-config-prettier": "^1.17.0",
     "tslint-config-standard": "^8.0.1",
     "typedoc": "^0.14.1",
-    "typescript": "~3.1.6",
+    "typescript": "^3.8.2",
     "validate-commit-msg": "^2.14.0"
   },
   "peerDependencies": {

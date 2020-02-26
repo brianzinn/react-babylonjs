@@ -9,5 +9,4 @@ compiled
 .awcache
 dist
 storybook-static
-/package-lock.json
 *.lock

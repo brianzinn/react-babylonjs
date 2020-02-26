@@ -958,15 +958,15 @@ import { IndicesArray, Nullable } from "@babylonjs/core"
     }
 
     /**
-           * Static : Returns a new data map from the passed heightmap image file.  
-           The parameters `width` and `height` (positive floats, default 300) set the map width and height sizes.     
-          * `subX` is the wanted number of points along the map width (default 100).  
-          * `subZ` is the wanted number of points along the map height (default 100).  
-          * The parameter `minHeight` (float, default 0) is the minimum altitude of the map.     
-          * The parameter `maxHeight` (float, default 1) is the maximum altitude of the map.   
+           * Static : Returns a new data map from the passed heightmap image file.
+           The parameters `width` and `height` (positive floats, default 300) set the map width and height sizes.
+          * `subX` is the wanted number of points along the map width (default 100).
+          * `subZ` is the wanted number of points along the map height (default 100).
+          * The parameter `minHeight` (float, default 0) is the minimum altitude of the map.
+          * The parameter `maxHeight` (float, default 1) is the maximum altitude of the map.
           * The parameter `colorFilter` (optional Color3, default (0.3, 0.59, 0.11) ) is the filter to apply to the image pixel colors to compute the height.
-          * `onReady` is an optional callback function, called once the map is computed. It's passed the computed map.  
-          * `scene` is the Scene object whose database will store the downloaded image.  
+          * `onReady` is an optional callback function, called once the map is computed. It's passed the computed map.
+          * `scene` is the Scene object whose database will store the downloaded image.
           */
     public static CreateMapFromHeightMap(
       heightmapURL: string,
@@ -1031,7 +1031,7 @@ import { IndicesArray, Nullable } from "@babylonjs/core"
       const filter = options.colorFilter || new Color3(0.3, 0.59, 0.11)
       const onReady = options.onReady
 
-      const onload = (img: HTMLImageElement) => {
+      const onload = (img: HTMLImageElement | ImageBitmap) => {
         // Getting height map data
         const canvas = document.createElement("canvas")
         const context = canvas.getContext("2d")!
