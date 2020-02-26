@@ -1,5 +1,10 @@
 import React, { createContext, useContext } from 'react'
-import { Nullable, Engine as BabylonJSEngine, /*ThinEngine,*/ EngineOptions} from '@babylonjs/core'
+import {
+  Nullable,
+  Engine as BabylonJSEngine, /*ThinEngine,*/
+  EngineOptions,
+  ThinEngine as BabylonJSThinEngine,
+} from '@babylonjs/core'
 
 
 // TODO: copy engineOptions/antialias/etc and canvas options from original Scene.tsx
@@ -93,7 +98,7 @@ class Engine extends React.Component<EngineProps, EngineState> {
       })
     })
 
-    this._engine.onContextLostObservable.add((eventData: BabylonJSEngine) => {
+    this._engine.onContextLostObservable.add((eventData: BabylonJSThinEngine) => {
       console.log('context loss observable from Engine: ', eventData);
     })
 
@@ -103,7 +108,7 @@ class Engine extends React.Component<EngineProps, EngineState> {
   }
 
   onCanvasRef = (c : HTMLCanvasElement) => {
-    // We are not using the react.createPortal(...), as it adds a ReactDOM dependency, but also 
+    // We are not using the react.createPortal(...), as it adds a ReactDOM dependency, but also
     // it was not flowing the context through to HOCs properly.
     if (this.props.portalCanvas) {
       this._canvas = document.getElementById('portal-canvas') as  HTMLCanvasElement
