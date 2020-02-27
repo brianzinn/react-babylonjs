@@ -270,7 +270,8 @@ const ReactBabylonJSHostConfig: HostConfig<
         let value = props[generatedParameter.name]
         if (value === undefined) {
           // NOTE: we removed the hosted Scene component, which needs (generatedParameter.type == "BabylonjsCoreEngine")
-          if (generatedParameter.type === "BabylonjsCoreScene" || (generatedParameter.type === "any" && generatedParameter.name === "scene")) {
+          // SceneOrEngine type is Scene
+          if (generatedParameter.type.includes("BabylonjsCoreScene") || (generatedParameter.type === "any" && generatedParameter.name === "scene")) {
             // MeshBuild.createSphere(name: string, options: {...}, scene: any)
             // console.log('Assigning scene to:', type, generatedParameter)
             value = scene

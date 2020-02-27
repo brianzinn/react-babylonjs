@@ -2107,7 +2107,6 @@ export type FiberTextureProps = {
 } & FiberBaseTextureProps;
 export type FiberTexturePropsCtor = {
     url: string;
-    sceneOrEngine: BabylonjsCoreScene | BabylonjsCoreThinEngine;
     noMipmap?: boolean;
     invertY?: boolean;
     samplingMode?: number;

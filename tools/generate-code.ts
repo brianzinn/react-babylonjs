@@ -321,6 +321,7 @@ const addSourceClass = (classDeclaration: ClassDeclaration, sourceFiles: SourceF
 
 const addProject = (packageNames: string[], files: string[], sourceFiles: SourceFile[]): void => {
   const project = new Project({});
+
   packageNames.forEach(packageName => {
     project.addExistingSourceFiles(path.join(__dirname, '/../node_modules', packageName, '/**/*.d.ts'))
   })
@@ -331,7 +332,7 @@ const addProject = (packageNames: string[], files: string[], sourceFiles: Source
 
   project.getSourceFiles().forEach((sourceFile: SourceFile) => {
     sourceFile.getClasses().forEach((classDeclaration: ClassDeclaration) => {
-      addSourceClass(classDeclaration, sourceFiles);
+        addSourceClass(classDeclaration, sourceFiles);
     });
 
     sourceFile.getNamespaces().forEach((ns: NamespaceDeclaration) => {
@@ -485,7 +486,8 @@ const addClassDeclarationFromFactoryMethod = (generatedCodeSourceFile: SourceFil
 }
 
 const includeAsConstructorParameter = (parameterType: string): boolean => {
-  return parameterType !== 'BabylonjsCoreScene' /* provided by reconciler */
+  // there is two cases: scene:Scene, sceneOrEngine: Scene|Engine
+  return !parameterType.includes('BabylonjsCoreScene') /* provided by reconciler */
 }
 
 const getExpandedPropsFromParameter = (parameter: ParameterDeclaration, targetFiles: SourceFile[]): GeneratedParameter[] => {
@@ -984,6 +986,7 @@ const addCreateInfoFromConstructor = (sourceClass: ClassDeclaration, targetClass
     }
 
     if (constructorDeclarations.length > 0) {
+      // parse class constructor arguments
       constructorDeclarations[0].getParameters().forEach(parameterDeclaration => {
 
         const type: string = createTypeFromText(parameterDeclaration.getType().getText(), [generatedCodeSourceFile, generatedPropsSourceFile]);
