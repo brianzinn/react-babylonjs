@@ -515,6 +515,7 @@ export class FiberTransformNode implements HasPropsHandlers<BabylonjsCoreNode, F
         ]
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
+        "isTransformNode": true,
         "className": "FiberTransformNode",
         "isMesh": false
     };

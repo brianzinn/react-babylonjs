@@ -1051,6 +1051,7 @@ const createClassesDerivedFrom = (generatedCodeSourceFile: SourceFile, generated
 
   // console.log(`Building ${classesToCreate.length} classes derived from '${className}':`, classesToCreate.map(c => c.getName()))
 
+  // Node, TransformNode, AbsctractMesh, Mesh
   for(let i = 0; i < classesToCreate.length; i++) {
     const classDeclaration = classesToCreate[i]
 
@@ -1068,7 +1069,13 @@ const createClassesDerivedFrom = (generatedCodeSourceFile: SourceFile, generated
     const newClassDeclaration = createClassDeclaration(classDeclaration, baseClassDeclarationForCreate, generatedCodeSourceFile, generatedPropsSourceFile, extra);
     addCreateInfoFromConstructor(classDeclaration, newClassDeclaration, classNamespaceTuple.moduleDeclaration, generatedCodeSourceFile, generatedPropsSourceFile);
 
-    addMetadata(newClassDeclaration, classDeclaration, metadata, extraMetadata);
+    // put it here right?
+    if (className === 'TransformNode') {
+      const transformNodeMetadata ={...metadata, ...{isTransformNode: true}};
+      addMetadata(newClassDeclaration, classDeclaration, transformNodeMetadata, extraMetadata);
+    } else {
+      addMetadata(newClassDeclaration, classDeclaration, metadata, extraMetadata);
+    }
   }
 
   console.log(` > ${classesToCreate.map(c => c.getName()!).sort((a, b) => a.localeCompare(b)).map(c => classToIntrinsic(c)).join(', ')}`)
@@ -1276,9 +1283,6 @@ const generateCode = async () => {
     createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Material")!, () => ({ isMaterial: true }));
   }
 
-  if (classesOfInterest.get("TransformNode")) {
-    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("TransformNode")!, () => ({ isTransformNode: true }));
-  }
 
   if (classesOfInterest.get("Light")) {
     const fromClassName = (className: string) : InstanceMetadataParameter => {
