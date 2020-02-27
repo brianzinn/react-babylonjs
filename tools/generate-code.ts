@@ -83,7 +83,7 @@ const _hostElementMap: Set<string> = new Set<string>();
  * @param className may not exist with an underlying 'type'.  ie: Box, Sphere
  * @param factoryTypeDeclaration
  */
-const addHostElement = (className: string, babylonjsClassDeclaration: ClassDeclaration): void => {
+const addHostElement = (className: string, babylonjsClassDeclaration: ClassDeclaration, keepOriginName = false): void => {
   if (!REACT_EXPORTS.has(className)) {
     REACT_EXPORTS.add(className);
 
@@ -92,13 +92,15 @@ const addHostElement = (className: string, babylonjsClassDeclaration: ClassDecla
 
     const moduleDeclaration = getModuleDeclarationFromClassDeclaration(babylonjsClassDeclaration);
 
-    INTRINSIC_ELEMENTS.addProperty({
-      name: classToIntrinsic(className),
-      type:  intersectionType(
-        intersectionType(`${ClassNamesPrefix}${babylonjsClassDeclaration.getName()}Props`, `${ClassNamesPrefix}${className}PropsCtor`),
-        `BabylonNode<${moduleDeclaration.importAlias}>`
-      )
-    });
+    if (!keepOriginName) {
+      INTRINSIC_ELEMENTS.addProperty({
+        name: classToIntrinsic(className),
+        type:  intersectionType(
+          intersectionType(`${ClassNamesPrefix}${babylonjsClassDeclaration.getName()}Props`, `${ClassNamesPrefix}${className}PropsCtor`),
+          `BabylonNode<${moduleDeclaration.importAlias}>`
+        )
+      });
+    }
   }
 }
 
@@ -383,32 +385,51 @@ const addMetadata = (classDeclaration: ClassDeclaration, originalClassDeclaratio
   createInfoProperty.setInitializer(JSON.stringify(propertyInit, null, 2))
 }
 
-const createdMeshClasses: string[] = [];
-const createMeshClasses = (generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile) => {
-  let meshBuilderTuple: ClassNameSpaceTuple = classesOfInterest.get("MeshBuilder")!;
-  let meshTuple: ClassNameSpaceTuple = classesOfInterest.get("Mesh")!;
+/**
+ * Create Element from static factory function
+ * @param factoryClassName
+ * @param hostClassName
+ * @param prefix
+ * @param keepOriginName
+ * @param metadata
+ * @param generatedCodeSourceFile
+ * @param generatedPropsSourceFile
+ */
+const createFactoryClass = (factoryClassName: string, hostClassName: string, prefix: string, keepOriginName: boolean, metadata: InstanceMetadataParameter, generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile) => {
+  let factoryBuilderTuple: ClassNameSpaceTuple = classesOfInterest.get(factoryClassName)!;
+  let hostTuple: ClassNameSpaceTuple = classesOfInterest.get(hostClassName)!;
 
-  let factoryMethods: MethodDeclaration[] = meshBuilderTuple.classDeclaration.getStaticMethods();
+  let factoryMethods: MethodDeclaration[] = factoryBuilderTuple.classDeclaration.getStaticMethods();
 
   factoryMethods.forEach((method: MethodDeclaration) => {
     const methodName: string = method.getName();
     if (methodName && methodName.startsWith('Create') || methodName.startsWith('Extrude')) {
-      const factoryType : string = methodName.startsWith('Create')
+      let factoryType : string = methodName.startsWith('Create')
         ? methodName.substr('Create'.length)
         : methodName; // ie: ExtrudePolygon, ExtrudeShape & ExtrudeShapeCustom
+      factoryType = prefix + factoryType;
       createdMeshClasses.push(factoryType);
 
-      addHostElement(factoryType, meshTuple.classDeclaration);
-      let newClassDeclaration: ClassDeclaration = addClassDeclarationFromFactoryMethod(generatedCodeSourceFile, factoryType, classesOfInterest.get("Mesh")!.classDeclaration, method);
-      const metadata: InstanceMetadataParameter = {
-        acceptsMaterials: true,
-        isMesh: true
-      };
-      addCreateInfoFromFactoryMethod(method,  camelCase(meshBuilderTuple.classDeclaration.getName()!), methodName, newClassDeclaration, "@babylonjs/core", generatedCodeSourceFile, generatedPropsSourceFile)
+      addHostElement(factoryType, hostTuple.classDeclaration, keepOriginName);
+      let newClassDeclaration: ClassDeclaration = addClassDeclarationFromFactoryMethod(generatedCodeSourceFile, factoryType, classesOfInterest.get(hostClassName)!.classDeclaration, method);
+
+      addCreateInfoFromFactoryMethod(method,  camelCase(factoryBuilderTuple.classDeclaration.getName()!), methodName, newClassDeclaration, "@babylonjs/core", generatedCodeSourceFile, generatedPropsSourceFile)
       addMetadata(newClassDeclaration, undefined /* no original class */, metadata)
     }
   });
-  console.log(`MeshBuilder - ${createdMeshClasses.sort((a, b) => a.localeCompare(b)).map(c => classToIntrinsic(c).replace(/['\u2019]/g, '')).join(', ')}`);
+  console.log(`${factoryClassName} Factory - ${createdMeshClasses.sort((a, b) => a.localeCompare(b)).map(c => classToIntrinsic(c).replace(/['\u2019]/g, '')).join(', ')}`);
+};
+
+const createdMeshClasses: string[] = [];
+const createMeshClasses = (generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile) => {
+  createFactoryClass(
+    'MeshBuilder', 'Mesh', '', false, {
+      acceptsMaterials: true,
+      isMesh: true
+    },
+    generatedCodeSourceFile,
+    generatedPropsSourceFile
+  );
 }
 
 const addClassDeclarationFromFactoryMethod = (generatedCodeSourceFile: SourceFile, className: string, classDeclaration: ClassDeclaration, factoryMethod: MethodDeclaration, extra?: (cd: ClassDeclaration) => void) => {
@@ -1082,9 +1103,15 @@ const createClassesDerivedFrom = (generatedCodeSourceFile: SourceFile, generated
 }
 
 /**
+ * create class from base class
+ * @param generatedCodeSourceFile
+ * @param generatedPropsSourceFile
+ * @param classNamespaceTuple
+ * @param metadataFromClassName
+ * @param extra
  * TODO: We should not be generating abstract classes.
  */
-const createClassesInheritedFrom = (generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile, classNamespaceTuple: ClassNameSpaceTuple, metadataFromClassName: (classname: string) => InstanceMetadataParameter, extra?: (newClassDeclaration: ClassDeclaration, originalClassDeclaration: ClassDeclaration) => void) : void => {
+const createClassesInheritedFrom = (generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile, classNamespaceTuple: ClassNameSpaceTuple, metadataFromClassName: (classname: string) => InstanceMetadataParameter, extra?: (newClassDeclaration: ClassDeclaration, originalClassDeclaration: ClassDeclaration) => void, onAfterClassCreate?: Function) : void => {
   const orderedListCreator = new OrderedListCreator();
 
   const baseClassDeclaration = classNamespaceTuple.classDeclaration;
@@ -1106,6 +1133,8 @@ const createClassesInheritedFrom = (generatedCodeSourceFile: SourceFile, generat
     const metadata = metadataFromClassName ? metadataFromClassName(newClassDeclaration.getName()!) : undefined;
 
     addMetadata(newClassDeclaration, derivedClassDeclaration, metadata);
+
+    onAfterClassCreate && onAfterClassCreate(derivedClassDeclaration);
   });
 
   console.log(`Building ${derivedClassesOrdered.size} ${baseClassName}s: ${(Array.from(derivedClassesOrdered.values())).map(c => c.getName()!).sort((a, b) => a.localeCompare(b)).map(c => classToIntrinsic(c)).join(', ')}`)
@@ -1245,67 +1274,67 @@ const generateCode = async () => {
 
   })
   // This includes Node, which is base class for ie: Camera, Mesh, etc.
-  createClassesDerivedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Mesh")!, {}, undefined, addMeshMetadata)
-
-  const extra = (newClassDeclaration: ClassDeclaration, originalClassDeclaration: ClassDeclaration) => {
-    // consider having targetable as metadata.
-    const targetableCameraName = "TargetCamera";
-
-    let baseDeclaration : ClassDeclaration | undefined = originalClassDeclaration
-    let isTargetable : boolean = false;
-    while(baseDeclaration !== undefined) {
-      if (baseDeclaration.getName() === targetableCameraName) {
-        isTargetable = true;
-        break;
-      }
-
-      baseDeclaration = baseDeclaration.getBaseClass()
-    }
-
-    newClassDeclaration.addProperty({
-      name: 'isTargetable',
-      type: Boolean,
-      scope: Scope.Public,
-      isReadonly: true,
-      initializer: `${isTargetable}`
-    })
-  };
-
-  if (classesOfInterest.get("Camera") !== undefined) {
-    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Camera")!, () => ({ isCamera: true }), extra);
-  }
-
-  if (classesOfInterest.get("MeshBuilder") !== undefined) {
-    createMeshClasses(generatedCodeSourceFile, generatedPropsSourceFile);
-  }
-
-  if (classesOfInterest.get("Material")) {
-    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Material")!, () => ({ isMaterial: true }));
-  }
-
-
-  if (classesOfInterest.get("Light")) {
-    const fromClassName = (className: string) : InstanceMetadataParameter => {
-      switch(className.substr(ClassNamesPrefix.length)) {
-        case "DirectionalLight":
-        case "PointLight":
-        case "SpotLight":
-        case "ShadowLight": // I think it's abstract.  Anyway, it can still be created.
-            return {isShadowLight: true};
-        default:
-          return {};
-      }
-    }
-    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Light")!, fromClassName, undefined);
-  }
-
-  if (classesOfInterest.get("Control")) {
-    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Control")!, () => ({ isGUI2DControl: true}));
-  }
-
-  if (classesOfInterest.get("Control3D")) {
-    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Control3D")!, () => ({ isGUI3DControl: true}));
-  }
+  // createClassesDerivedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Mesh")!, {}, undefined, addMeshMetadata)
+  //
+  // const extra = (newClassDeclaration: ClassDeclaration, originalClassDeclaration: ClassDeclaration) => {
+  //   // consider having targetable as metadata.
+  //   const targetableCameraName = "TargetCamera";
+  //
+  //   let baseDeclaration : ClassDeclaration | undefined = originalClassDeclaration
+  //   let isTargetable : boolean = false;
+  //   while(baseDeclaration !== undefined) {
+  //     if (baseDeclaration.getName() === targetableCameraName) {
+  //       isTargetable = true;
+  //       break;
+  //     }
+  //
+  //     baseDeclaration = baseDeclaration.getBaseClass()
+  //   }
+  //
+  //   newClassDeclaration.addProperty({
+  //     name: 'isTargetable',
+  //     type: Boolean,
+  //     scope: Scope.Public,
+  //     isReadonly: true,
+  //     initializer: `${isTargetable}`
+  //   })
+  // };
+  //
+  // if (classesOfInterest.get("Camera") !== undefined) {
+  //   createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Camera")!, () => ({ isCamera: true }), extra);
+  // }
+  //
+  // if (classesOfInterest.get("MeshBuilder") !== undefined) {
+  //   createMeshClasses(generatedCodeSourceFile, generatedPropsSourceFile);
+  // }
+  //
+  // if (classesOfInterest.get("Material")) {
+  //   createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Material")!, () => ({ isMaterial: true }));
+  // }
+  //
+  //
+  // if (classesOfInterest.get("Light")) {
+  //   const fromClassName = (className: string) : InstanceMetadataParameter => {
+  //     switch(className.substr(ClassNamesPrefix.length)) {
+  //       case "DirectionalLight":
+  //       case "PointLight":
+  //       case "SpotLight":
+  //       case "ShadowLight": // I think it's abstract.  Anyway, it can still be created.
+  //           return {isShadowLight: true};
+  //       default:
+  //         return {};
+  //     }
+  //   }
+  //   createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Light")!, fromClassName, undefined);
+  // }
+  //
+  // if (classesOfInterest.get("Control")) {
+  //   createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Control")!, () => ({ isGUI2DControl: true}));
+  // }
+  //
+  // if (classesOfInterest.get("Control3D")) {
+  //   createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Control3D")!, () => ({ isGUI3DControl: true}));
+  // }
 
   if (classesOfInterest.get("BaseTexture")) {
     const fromClassName = (className: string) : InstanceMetadataParameter => {
@@ -1315,7 +1344,22 @@ const generateCode = async () => {
         return {isTexture: true};
       }
     }
-    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("BaseTexture")!, fromClassName);
+
+    const onTexturesCreate = (classDeclaration: ClassDeclaration) => {
+      if (classDeclaration.getName() === 'FiberAdvancedDynamicTexture') {
+        createFactoryClass(
+          'AdvancedDynamicTexture',
+          'AdvancedDynamicTexture',
+          'ADT', true, {
+             isGUI2DControl: true,
+          },
+          generatedCodeSourceFile,
+          generatedPropsSourceFile,
+        )
+      }
+    };
+
+    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("BaseTexture")!, fromClassName, onTexturesCreate);
   }
 
   createSingleClass("GUI3DManager", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { isGUI3DControl: true }, () => {return;})
