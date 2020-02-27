@@ -1273,6 +1273,10 @@ const generateCode = async () => {
     createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Material")!, () => ({ isMaterial: true }));
   }
 
+  if (classesOfInterest.get("TransformNode")) {
+    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("TransformNode")!, () => ({ isTransformNode: true }));
+  }
+
   if (classesOfInterest.get("Light")) {
     const fromClassName = (className: string) : InstanceMetadataParameter => {
       switch(className.substr(ClassNamesPrefix.length)) {

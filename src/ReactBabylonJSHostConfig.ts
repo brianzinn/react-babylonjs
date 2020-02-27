@@ -238,7 +238,7 @@ const ReactBabylonJSHostConfig: HostConfig<
 
     // some types (ie: button) are called 'babylonjs-button'.
     const underlyingClassName = (GENERATED.intrinsicClassMap as any)[type] || type;
-    
+
     const classDefinition = (GENERATED as any)[`Fiber${underlyingClassName}`]
 
     if (classDefinition === undefined) {
@@ -345,6 +345,8 @@ const ReactBabylonJSHostConfig: HostConfig<
       lifecycleListener = new CUSTOM_COMPONENTS.CameraLifecycleListener(scene, props, canvas as HTMLCanvasElement)
     } else if (metadata.isMesh === true) {
       lifecycleListener = new CUSTOM_COMPONENTS.MeshLifecycleListener()
+    } else if (metadata.isTransformNode === true) {
+      lifecycleListener = new CUSTOM_COMPONENTS.TransformNodeLifecycleListener();
     }
 
     // here we dynamically assign listeners for specific types.

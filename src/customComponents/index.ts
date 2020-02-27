@@ -13,3 +13,4 @@ export { default as Skybox } from "./Skybox"
 export { default as TargetPropsHandler } from "./TargetPropsHandler"
 export { default as TexturesLifecycleListener } from "./TexturesLifecycleListener"
 export { default as VRExperienceHelperLifecycleListener } from "./VRExperienceHelperLifecycleListener"
+export { default as TransformNodeLifecycleListener } from "./TransformNodeLifecycleListener";
