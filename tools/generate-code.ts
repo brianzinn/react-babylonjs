@@ -92,14 +92,14 @@ const addHostElement = (className: string, babylonjsClassDeclaration: ClassDecla
 
     const moduleDeclaration = getModuleDeclarationFromClassDeclaration(babylonjsClassDeclaration);
 
-    INTRINSIC_ELEMENTS.addProperty({
-      name: classToIntrinsic(className),
-      type:  intersectionType(
-        intersectionType(`${ClassNamesPrefix}${babylonjsClassDeclaration.getName()}Props`, `${ClassNamesPrefix}${className}PropsCtor`),
-        `BabylonNode<${moduleDeclaration.importAlias}>`
-      )
-    });
-  }
+      INTRINSIC_ELEMENTS.addProperty({
+        name: classToIntrinsic(className),
+        type:  intersectionType(
+          intersectionType(`${ClassNamesPrefix}${babylonjsClassDeclaration.getName()}Props`, `${ClassNamesPrefix}${className}PropsCtor`),
+          `BabylonNode<${moduleDeclaration.importAlias}>`
+        )
+      });
+    }
 }
 
 const addCustomHostElement = (className: string, type: string): void => {
@@ -144,6 +144,7 @@ classesOfInterest.set("EnvironmentHelper", undefined);
 classesOfInterest.set("PhysicsImpostor", undefined);
 classesOfInterest.set("VRExperienceHelper", undefined);
 classesOfInterest.set("DynamicTerrain", undefined);
+classesOfInterest.set("EffectLayer", undefined);
 
 type ModuleDeclaration = {
   moduleSpecifier: string,
@@ -321,6 +322,7 @@ const addSourceClass = (classDeclaration: ClassDeclaration, sourceFiles: SourceF
 
 const addProject = (packageNames: string[], files: string[], sourceFiles: SourceFile[]): void => {
   const project = new Project({});
+
   packageNames.forEach(packageName => {
     project.addExistingSourceFiles(path.join(__dirname, '/../node_modules', packageName, '/**/*.d.ts'))
   })
@@ -331,7 +333,7 @@ const addProject = (packageNames: string[], files: string[], sourceFiles: Source
 
   project.getSourceFiles().forEach((sourceFile: SourceFile) => {
     sourceFile.getClasses().forEach((classDeclaration: ClassDeclaration) => {
-      addSourceClass(classDeclaration, sourceFiles);
+        addSourceClass(classDeclaration, sourceFiles);
     });
 
     sourceFile.getNamespaces().forEach((ns: NamespaceDeclaration) => {
@@ -382,32 +384,51 @@ const addMetadata = (classDeclaration: ClassDeclaration, originalClassDeclaratio
   createInfoProperty.setInitializer(JSON.stringify(propertyInit, null, 2))
 }
 
-const createdMeshClasses: string[] = [];
-const createMeshClasses = (generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile) => {
-  let meshBuilderTuple: ClassNameSpaceTuple = classesOfInterest.get("MeshBuilder")!;
-  let meshTuple: ClassNameSpaceTuple = classesOfInterest.get("Mesh")!;
+/**
+ * Create Element from static factory function
+ * @param factoryClassName
+ * @param hostClassName
+ * @param prefix
+ * @param keepOriginName
+ * @param metadata
+ * @param generatedCodeSourceFile
+ * @param generatedPropsSourceFile
+ */
+const createFactoryClass = (factoryClassName: string, hostClassName: string, prefix: string, metadata: InstanceMetadataParameter, generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile) => {
+  let factoryBuilderTuple: ClassNameSpaceTuple = classesOfInterest.get(factoryClassName)!;
+  let hostTuple: ClassNameSpaceTuple = classesOfInterest.get(hostClassName)!;
 
-  let factoryMethods: MethodDeclaration[] = meshBuilderTuple.classDeclaration.getStaticMethods();
+  let factoryMethods: MethodDeclaration[] = factoryBuilderTuple.classDeclaration.getStaticMethods();
 
   factoryMethods.forEach((method: MethodDeclaration) => {
     const methodName: string = method.getName();
     if (methodName && methodName.startsWith('Create') || methodName.startsWith('Extrude')) {
-      const factoryType : string = methodName.startsWith('Create')
+      let factoryType : string = methodName.startsWith('Create')
         ? methodName.substr('Create'.length)
         : methodName; // ie: ExtrudePolygon, ExtrudeShape & ExtrudeShapeCustom
+      factoryType = prefix + factoryType;
       createdMeshClasses.push(factoryType);
 
-      addHostElement(factoryType, meshTuple.classDeclaration);
-      let newClassDeclaration: ClassDeclaration = addClassDeclarationFromFactoryMethod(generatedCodeSourceFile, factoryType, classesOfInterest.get("Mesh")!.classDeclaration, method);
-      const metadata: InstanceMetadataParameter = {
-        acceptsMaterials: true,
-        isMesh: true
-      };
-      addCreateInfoFromFactoryMethod(method,  camelCase(meshBuilderTuple.classDeclaration.getName()!), methodName, newClassDeclaration, "@babylonjs/core", generatedCodeSourceFile, generatedPropsSourceFile)
+      addHostElement(factoryType, hostTuple.classDeclaration);
+      let newClassDeclaration: ClassDeclaration = addClassDeclarationFromFactoryMethod(generatedCodeSourceFile, factoryType, classesOfInterest.get(hostClassName)!.classDeclaration, method);
+
+      addCreateInfoFromFactoryMethod(method,  camelCase(factoryBuilderTuple.classDeclaration.getName()!), methodName, newClassDeclaration, "@babylonjs/core", generatedCodeSourceFile, generatedPropsSourceFile)
       addMetadata(newClassDeclaration, undefined /* no original class */, metadata)
     }
   });
-  console.log(`MeshBuilder - ${createdMeshClasses.sort((a, b) => a.localeCompare(b)).map(c => classToIntrinsic(c).replace(/['\u2019]/g, '')).join(', ')}`);
+  console.log(`${factoryClassName} Factory - ${createdMeshClasses.sort((a, b) => a.localeCompare(b)).map(c => classToIntrinsic(c).replace(/['\u2019]/g, '')).join(', ')}`);
+};
+
+const createdMeshClasses: string[] = [];
+const createMeshClasses = (generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile) => {
+  createFactoryClass(
+    'MeshBuilder', 'Mesh', '', {
+      acceptsMaterials: true,
+      isMesh: true
+    },
+    generatedCodeSourceFile,
+    generatedPropsSourceFile
+  );
 }
 
 const addClassDeclarationFromFactoryMethod = (generatedCodeSourceFile: SourceFile, className: string, classDeclaration: ClassDeclaration, factoryMethod: MethodDeclaration, extra?: (cd: ClassDeclaration) => void) => {
@@ -485,7 +506,8 @@ const addClassDeclarationFromFactoryMethod = (generatedCodeSourceFile: SourceFil
 }
 
 const includeAsConstructorParameter = (parameterType: string): boolean => {
-  return parameterType !== 'BabylonjsCoreScene' /* provided by reconciler */
+  // there is two cases: scene:Scene, sceneOrEngine: Scene|Engine
+  return !parameterType.includes('BabylonjsCoreScene') /* provided by reconciler */
 }
 
 const getExpandedPropsFromParameter = (parameter: ParameterDeclaration, targetFiles: SourceFile[]): GeneratedParameter[] => {
@@ -984,6 +1006,7 @@ const addCreateInfoFromConstructor = (sourceClass: ClassDeclaration, targetClass
     }
 
     if (constructorDeclarations.length > 0) {
+      // parse class constructor arguments
       constructorDeclarations[0].getParameters().forEach(parameterDeclaration => {
 
         const type: string = createTypeFromText(parameterDeclaration.getType().getText(), [generatedCodeSourceFile, generatedPropsSourceFile]);
@@ -1048,6 +1071,7 @@ const createClassesDerivedFrom = (generatedCodeSourceFile: SourceFile, generated
 
   // console.log(`Building ${classesToCreate.length} classes derived from '${className}':`, classesToCreate.map(c => c.getName()))
 
+  // Node, TransformNode, AbsctractMesh, Mesh
   for(let i = 0; i < classesToCreate.length; i++) {
     const classDeclaration = classesToCreate[i]
 
@@ -1065,16 +1089,28 @@ const createClassesDerivedFrom = (generatedCodeSourceFile: SourceFile, generated
     const newClassDeclaration = createClassDeclaration(classDeclaration, baseClassDeclarationForCreate, generatedCodeSourceFile, generatedPropsSourceFile, extra);
     addCreateInfoFromConstructor(classDeclaration, newClassDeclaration, classNamespaceTuple.moduleDeclaration, generatedCodeSourceFile, generatedPropsSourceFile);
 
-    addMetadata(newClassDeclaration, classDeclaration, metadata, extraMetadata);
+    // put it here right?
+    if (className === 'TransformNode') {
+      const transformNodeMetadata ={...metadata, ...{isTransformNode: true}};
+      addMetadata(newClassDeclaration, classDeclaration, transformNodeMetadata, extraMetadata);
+    } else {
+      addMetadata(newClassDeclaration, classDeclaration, metadata, extraMetadata);
+    }
   }
 
   console.log(` > ${classesToCreate.map(c => c.getName()!).sort((a, b) => a.localeCompare(b)).map(c => classToIntrinsic(c)).join(', ')}`)
 }
 
 /**
+ * create class from base class
+ * @param generatedCodeSourceFile
+ * @param generatedPropsSourceFile
+ * @param classNamespaceTuple
+ * @param metadataFromClassName
+ * @param extra
  * TODO: We should not be generating abstract classes.
  */
-const createClassesInheritedFrom = (generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile, classNamespaceTuple: ClassNameSpaceTuple, metadataFromClassName: (classname: string) => InstanceMetadataParameter, extra?: (newClassDeclaration: ClassDeclaration, originalClassDeclaration: ClassDeclaration) => void) : void => {
+const createClassesInheritedFrom = (generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile, classNamespaceTuple: ClassNameSpaceTuple, metadataFromClassName: (classname: string) => InstanceMetadataParameter, extra?: (newClassDeclaration: ClassDeclaration, originalClassDeclaration: ClassDeclaration) => void, onAfterClassCreate?: Function) : void => {
   const orderedListCreator = new OrderedListCreator();
 
   const baseClassDeclaration = classNamespaceTuple.classDeclaration;
@@ -1096,6 +1132,8 @@ const createClassesInheritedFrom = (generatedCodeSourceFile: SourceFile, generat
     const metadata = metadataFromClassName ? metadataFromClassName(newClassDeclaration.getName()!) : undefined;
 
     addMetadata(newClassDeclaration, derivedClassDeclaration, metadata);
+
+    onAfterClassCreate && onAfterClassCreate(derivedClassDeclaration);
   });
 
   console.log(`Building ${derivedClassesOrdered.size} ${baseClassName}s: ${(Array.from(derivedClassesOrdered.values())).map(c => c.getName()!).sort((a, b) => a.localeCompare(b)).map(c => classToIntrinsic(c)).join(', ')}`)
@@ -1273,6 +1311,7 @@ const generateCode = async () => {
     createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Material")!, () => ({ isMaterial: true }));
   }
 
+
   if (classesOfInterest.get("Light")) {
     const fromClassName = (className: string) : InstanceMetadataParameter => {
       switch(className.substr(ClassNamesPrefix.length)) {
@@ -1296,6 +1335,11 @@ const generateCode = async () => {
     createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Control3D")!, () => ({ isGUI3DControl: true}));
   }
 
+
+  if (classesOfInterest.get("EffectLayer")) {
+    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("EffectLayer")!, () => ({ isEffectLayer: true}));
+  }
+
   if (classesOfInterest.get("BaseTexture")) {
     const fromClassName = (className: string) : InstanceMetadataParameter => {
       if (className === "AdvancedDynamicTexture") {
@@ -1304,7 +1348,22 @@ const generateCode = async () => {
         return {isTexture: true};
       }
     }
-    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("BaseTexture")!, fromClassName);
+
+    const onTexturesCreate = (classDeclaration: ClassDeclaration) => {
+      if (classDeclaration.getName() === 'FiberAdvancedDynamicTexture') {
+        createFactoryClass(
+          'AdvancedDynamicTexture',
+          'AdvancedDynamicTexture',
+          'ADT',  {
+             isTexture: true,
+          },
+          generatedCodeSourceFile,
+          generatedPropsSourceFile,
+        )
+      }
+    };
+
+    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("BaseTexture")!, fromClassName, onTexturesCreate);
   }
 
   createSingleClass("GUI3DManager", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { isGUI3DControl: true }, () => {return;})

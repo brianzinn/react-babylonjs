@@ -4,6 +4,8 @@ import { Color3, Scene, StandardMaterial, Mesh } from "@babylonjs/core"
 import { FiberAdvancedDynamicTextureProps } from "../generatedProps"
 import { AdvancedDynamicTexture } from "@babylonjs/gui/2D/advancedDynamicTexture";
 
+
+
 export default class AdvancedDynamicTextureLifecycleListener implements LifecycleListener<AdvancedDynamicTexture> {
   private props: FiberAdvancedDynamicTextureProps;
   private scene: Scene
@@ -98,4 +100,10 @@ export default class AdvancedDynamicTextureLifecycleListener implements Lifecycl
   }
 
   onUnmount(): void {/* empty */}
+}
+
+export class ADTFullscreenUILifecycleListener extends AdvancedDynamicTextureLifecycleListener {
+  constructor(scene: Scene, props: any) {
+    super(scene, props);
+  }
 }

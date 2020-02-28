@@ -238,7 +238,7 @@ const ReactBabylonJSHostConfig: HostConfig<
 
     // some types (ie: button) are called 'babylonjs-button'.
     const underlyingClassName = (GENERATED.intrinsicClassMap as any)[type] || type;
-    
+
     const classDefinition = (GENERATED as any)[`Fiber${underlyingClassName}`]
 
     if (classDefinition === undefined) {
@@ -270,7 +270,8 @@ const ReactBabylonJSHostConfig: HostConfig<
         let value = props[generatedParameter.name]
         if (value === undefined) {
           // NOTE: we removed the hosted Scene component, which needs (generatedParameter.type == "BabylonjsCoreEngine")
-          if (generatedParameter.type === "BabylonjsCoreScene" || (generatedParameter.type === "any" && generatedParameter.name === "scene")) {
+          // SceneOrEngine type is Scene
+          if (generatedParameter.type.includes("BabylonjsCoreScene") || (generatedParameter.type === "any" && generatedParameter.name === "scene")) {
             // MeshBuild.createSphere(name: string, options: {...}, scene: any)
             // console.log('Assigning scene to:', type, generatedParameter)
             value = scene
@@ -345,6 +346,10 @@ const ReactBabylonJSHostConfig: HostConfig<
       lifecycleListener = new CUSTOM_COMPONENTS.CameraLifecycleListener(scene, props, canvas as HTMLCanvasElement)
     } else if (metadata.isMesh === true) {
       lifecycleListener = new CUSTOM_COMPONENTS.MeshLifecycleListener()
+    } else if (metadata.isTransformNode === true) {
+      lifecycleListener = new CUSTOM_COMPONENTS.TransformNodeLifecycleListener();
+    } else if (metadata.isEffectLayer) {
+      lifecycleListener = new CUSTOM_COMPONENTS.EffectLayerLifecycleListener();
     }
 
     // here we dynamically assign listeners for specific types.

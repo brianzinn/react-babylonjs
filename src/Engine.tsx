@@ -40,8 +40,8 @@ export function withBabylonJS<
 export const useBabylonEngine = (): Nullable<BabylonJSEngine> => useContext(BabylonJSContext).engine
 export const useBabylonCanvas = (): Nullable<HTMLCanvasElement | WebGLRenderingContext> => useContext(BabylonJSContext).canvas
 
-type EngineProps = {
-  babylonJSContext: WithBabylonJSContext,
+export type EngineProps = {
+  babylonJSContext?: WithBabylonJSContext,
   portalCanvas?: HTMLCanvasElement,
   /**
    * true to disable Server Side Rendering
