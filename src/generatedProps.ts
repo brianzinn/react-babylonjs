@@ -2107,7 +2107,6 @@ export type FiberTextureProps = {
 } & FiberBaseTextureProps;
 export type FiberTexturePropsCtor = {
     url: string;
-    sceneOrEngine: BabylonjsCoreScene | BabylonjsCoreThinEngine;
     noMipmap?: boolean;
     invertY?: boolean;
     samplingMode?: number;
@@ -2306,6 +2305,18 @@ export type FiberAdvancedDynamicTextureProps = {
     useInvalidateRectOptimization?: boolean;
     useSmallestIdeal?: boolean;
 } & FiberDynamicTextureProps;
+export type FiberADTForMeshPropsCtor = {
+    mesh: BabylonjsCoreAbstractMesh;
+    width?: number;
+    height?: number;
+    supportPointerMove?: boolean;
+    onlyAlphaTesting?: boolean;
+};
+export type FiberADTFullscreenUIPropsCtor = {
+    name: string;
+    foreground?: boolean;
+    sampling?: number;
+};
 export type FiberAdvancedDynamicTexturePropsCtor = {
     name: string;
     width: number;

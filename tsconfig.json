@@ -3,8 +3,8 @@
         "moduleResolution": "node",
         "target": "es5",
          "lib": ["es2015", "es2016", "es2017", "dom"],
-//        "module": "es2015",
-        "module": "commonjs", // debug
+        "module": "es2015",
+//        "module": "commonjs", // debug
         "jsx": "react",
         "resolveJsonModule": true,
         "esModuleInterop": true,
@@ -22,8 +22,8 @@
         ]
     },
     "include": [
-        "src",
-        "tools" // debug
+        "src"
+//        "tools" // debug
     ]
 }
 

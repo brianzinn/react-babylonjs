@@ -1274,67 +1274,67 @@ const generateCode = async () => {
 
   })
   // This includes Node, which is base class for ie: Camera, Mesh, etc.
-  // createClassesDerivedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Mesh")!, {}, undefined, addMeshMetadata)
-  //
-  // const extra = (newClassDeclaration: ClassDeclaration, originalClassDeclaration: ClassDeclaration) => {
-  //   // consider having targetable as metadata.
-  //   const targetableCameraName = "TargetCamera";
-  //
-  //   let baseDeclaration : ClassDeclaration | undefined = originalClassDeclaration
-  //   let isTargetable : boolean = false;
-  //   while(baseDeclaration !== undefined) {
-  //     if (baseDeclaration.getName() === targetableCameraName) {
-  //       isTargetable = true;
-  //       break;
-  //     }
-  //
-  //     baseDeclaration = baseDeclaration.getBaseClass()
-  //   }
-  //
-  //   newClassDeclaration.addProperty({
-  //     name: 'isTargetable',
-  //     type: Boolean,
-  //     scope: Scope.Public,
-  //     isReadonly: true,
-  //     initializer: `${isTargetable}`
-  //   })
-  // };
-  //
-  // if (classesOfInterest.get("Camera") !== undefined) {
-  //   createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Camera")!, () => ({ isCamera: true }), extra);
-  // }
-  //
-  // if (classesOfInterest.get("MeshBuilder") !== undefined) {
-  //   createMeshClasses(generatedCodeSourceFile, generatedPropsSourceFile);
-  // }
-  //
-  // if (classesOfInterest.get("Material")) {
-  //   createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Material")!, () => ({ isMaterial: true }));
-  // }
-  //
-  //
-  // if (classesOfInterest.get("Light")) {
-  //   const fromClassName = (className: string) : InstanceMetadataParameter => {
-  //     switch(className.substr(ClassNamesPrefix.length)) {
-  //       case "DirectionalLight":
-  //       case "PointLight":
-  //       case "SpotLight":
-  //       case "ShadowLight": // I think it's abstract.  Anyway, it can still be created.
-  //           return {isShadowLight: true};
-  //       default:
-  //         return {};
-  //     }
-  //   }
-  //   createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Light")!, fromClassName, undefined);
-  // }
-  //
-  // if (classesOfInterest.get("Control")) {
-  //   createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Control")!, () => ({ isGUI2DControl: true}));
-  // }
-  //
-  // if (classesOfInterest.get("Control3D")) {
-  //   createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Control3D")!, () => ({ isGUI3DControl: true}));
-  // }
+  createClassesDerivedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Mesh")!, {}, undefined, addMeshMetadata)
+
+  const extra = (newClassDeclaration: ClassDeclaration, originalClassDeclaration: ClassDeclaration) => {
+    // consider having targetable as metadata.
+    const targetableCameraName = "TargetCamera";
+
+    let baseDeclaration : ClassDeclaration | undefined = originalClassDeclaration
+    let isTargetable : boolean = false;
+    while(baseDeclaration !== undefined) {
+      if (baseDeclaration.getName() === targetableCameraName) {
+        isTargetable = true;
+        break;
+      }
+
+      baseDeclaration = baseDeclaration.getBaseClass()
+    }
+
+    newClassDeclaration.addProperty({
+      name: 'isTargetable',
+      type: Boolean,
+      scope: Scope.Public,
+      isReadonly: true,
+      initializer: `${isTargetable}`
+    })
+  };
+
+  if (classesOfInterest.get("Camera") !== undefined) {
+    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Camera")!, () => ({ isCamera: true }), extra);
+  }
+
+  if (classesOfInterest.get("MeshBuilder") !== undefined) {
+    createMeshClasses(generatedCodeSourceFile, generatedPropsSourceFile);
+  }
+
+  if (classesOfInterest.get("Material")) {
+    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Material")!, () => ({ isMaterial: true }));
+  }
+
+
+  if (classesOfInterest.get("Light")) {
+    const fromClassName = (className: string) : InstanceMetadataParameter => {
+      switch(className.substr(ClassNamesPrefix.length)) {
+        case "DirectionalLight":
+        case "PointLight":
+        case "SpotLight":
+        case "ShadowLight": // I think it's abstract.  Anyway, it can still be created.
+            return {isShadowLight: true};
+        default:
+          return {};
+      }
+    }
+    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Light")!, fromClassName, undefined);
+  }
+
+  if (classesOfInterest.get("Control")) {
+    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Control")!, () => ({ isGUI2DControl: true}));
+  }
+
+  if (classesOfInterest.get("Control3D")) {
+    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Control3D")!, () => ({ isGUI3DControl: true}));
+  }
 
   if (classesOfInterest.get("BaseTexture")) {
     const fromClassName = (className: string) : InstanceMetadataParameter => {
