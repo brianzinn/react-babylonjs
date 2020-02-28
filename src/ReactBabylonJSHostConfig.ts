@@ -348,6 +348,8 @@ const ReactBabylonJSHostConfig: HostConfig<
       lifecycleListener = new CUSTOM_COMPONENTS.MeshLifecycleListener()
     } else if (metadata.isTransformNode === true) {
       lifecycleListener = new CUSTOM_COMPONENTS.TransformNodeLifecycleListener();
+    } else if (metadata.isEffectLayer) {
+      lifecycleListener = new CUSTOM_COMPONENTS.EffectLayerLifecycleListener();
     }
 
     // here we dynamically assign listeners for specific types.

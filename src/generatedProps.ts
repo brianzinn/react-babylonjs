@@ -10,6 +10,7 @@ import { DebugLayerTab as BabylonjsCoreDebugLayerTab } from "@babylonjs/core/Deb
 import { DualShockButton as BabylonjsCoreDualShockButton, DualShockDpad as BabylonjsCoreDualShockDpad } from "@babylonjs/core/Gamepads/dualShockGamepad";
 import { Xbox360Button as BabylonjsCoreXbox360Button, Xbox360Dpad as BabylonjsCoreXbox360Dpad } from "@babylonjs/core/Gamepads/xboxGamepad";
 import { EnvironmentHelper as BabylonjsCoreEnvironmentHelper, IEnvironmentHelperOptions as BabylonjsCoreIEnvironmentHelperOptions } from "@babylonjs/core/Helpers/environmentHelper";
+import { EffectLayer as BabylonjsCoreEffectLayer } from "@babylonjs/core/Layers/effectLayer";
 import { Light as BabylonjsCoreLight } from "@babylonjs/core/Lights/light";
 import { SceneLoaderAnimationGroupLoadingMode as BabylonjsCoreSceneLoaderAnimationGroupLoadingMode } from "@babylonjs/core/Loading/sceneLoader";
 import { Material as BabylonjsCoreMaterial } from "@babylonjs/core/Materials/material";
@@ -158,6 +159,8 @@ import { AbstractButton3D as BabylonjsGuiAbstractButton3D } from "@babylonjs/gui
 import { Button3D as BabylonjsGuiButton3D } from "@babylonjs/gui/3D/controls/button3D";
 import { HolographicButton as BabylonjsGuiHolographicButton } from "@babylonjs/gui/3D/controls/holographicButton";
 import { MeshButton3D as BabylonjsGuiMeshButton3D } from "@babylonjs/gui/3D/controls/meshButton3D";
+import { GlowLayer as BabylonjsCoreGlowLayer, IGlowLayerOptions as BabylonjsCoreIGlowLayerOptions } from "@babylonjs/core/Layers/glowLayer";
+import { HighlightLayer as BabylonjsCoreHighlightLayer, IHighlightLayerOptions as BabylonjsCoreIHighlightLayerOptions } from "@babylonjs/core/Layers/highlightLayer";
 import { CubeTexture as BabylonjsCoreCubeTexture } from "@babylonjs/core/Materials/Textures/cubeTexture";
 import { RawCubeTexture as BabylonjsCoreRawCubeTexture } from "@babylonjs/core/Materials/Textures/rawCubeTexture";
 import { ThinEngine as BabylonjsCoreThinEngine } from "@babylonjs/core/Engines/thinEngine";
@@ -314,6 +317,9 @@ declare global {
             button3D: FiberButton3DProps & FiberButton3DPropsCtor & BabylonNode<BabylonjsGuiButton3D>;
             holographicButton: FiberHolographicButtonProps & FiberHolographicButtonPropsCtor & BabylonNode<BabylonjsGuiHolographicButton>;
             meshButton3D: FiberMeshButton3DProps & FiberMeshButton3DPropsCtor & BabylonNode<BabylonjsGuiMeshButton3D>;
+            effectLayer: FiberEffectLayerProps & FiberEffectLayerPropsCtor & BabylonNode<BabylonjsCoreEffectLayer>;
+            glowLayer: FiberGlowLayerProps & FiberGlowLayerPropsCtor & BabylonNode<BabylonjsCoreGlowLayer>;
+            highlightLayer: FiberHighlightLayerProps & FiberHighlightLayerPropsCtor & BabylonNode<BabylonjsCoreHighlightLayer>;
             baseTexture: FiberBaseTextureProps & FiberBaseTexturePropsCtor & BabylonNode<BabylonjsCoreBaseTexture>;
             cubeTexture: FiberCubeTextureProps & FiberCubeTexturePropsCtor & BabylonNode<BabylonjsCoreCubeTexture>;
             rawCubeTexture: FiberRawCubeTextureProps & FiberRawCubeTexturePropsCtor & BabylonNode<BabylonjsCoreRawCubeTexture>;
@@ -2025,6 +2031,45 @@ export type FiberMeshButton3DProps = {} & FiberButton3DProps;
 export type FiberMeshButton3DPropsCtor = {
     mesh: BabylonjsCoreMesh;
     name?: string;
+};
+export type FiberEffectLayerProps = {
+    isEnabled?: boolean;
+    name?: string;
+    neutralColor?: BabylonjsCoreColor4;
+    onAfterComposeObservable?: any;
+    onAfterRenderMeshToEffect?: any;
+    onBeforeComposeObservable?: any;
+    onBeforeRenderMainTextureObservable?: any;
+    onBeforeRenderMeshToEffect?: any;
+    onDisposeObservable?: any;
+    onSizeChangedObservable?: any;
+    renderingGroupId?: number;
+} & CustomProps;
+export type FiberEffectLayerPropsCtor = {
+    name: string;
+};
+export type FiberGlowLayerProps = {
+    blurKernelSize?: number;
+    customEmissiveColorSelector?: (mesh: BabylonjsCoreMesh, subMesh: BabylonjsCoreSubMesh, material: BabylonjsCoreMaterial, result: BabylonjsCoreColor4) => void;
+    customEmissiveTextureSelector?: (mesh: BabylonjsCoreMesh, subMesh: BabylonjsCoreSubMesh, material: BabylonjsCoreMaterial) => BabylonjsCoreTexture;
+    intensity?: number;
+} & FiberEffectLayerProps;
+export type FiberGlowLayerPropsCtor = {
+    name: string;
+    options?: Partial<BabylonjsCoreIGlowLayerOptions>;
+};
+export type FiberHighlightLayerProps = {
+    blurHorizontalSize?: number;
+    blurVerticalSize?: number;
+    innerGlow?: boolean;
+    name?: string;
+    onAfterBlurObservable?: any;
+    onBeforeBlurObservable?: any;
+    outerGlow?: boolean;
+} & FiberEffectLayerProps;
+export type FiberHighlightLayerPropsCtor = {
+    name: string;
+    options?: Partial<BabylonjsCoreIHighlightLayerOptions>;
 };
 export type FiberBaseTextureProps = {
     animations?: BabylonjsCoreAnimation[];

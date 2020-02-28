@@ -11,6 +11,15 @@ import {Control} from '@babylonjs/gui';
  * https://www.babylonjs-playground.com/#3VMTI9#0
  */
 
+/**
+ * TODO: other gui、mesh link、
+ */
+
+/**
+ * 2d GUI demos
+ * @return {*}
+ * @constructor
+ */
 function WithGUI() {
   return (
     <Engine antialias adaptToDeviceRatio canvasId='babylonJS'>

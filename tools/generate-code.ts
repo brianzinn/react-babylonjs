@@ -144,6 +144,7 @@ classesOfInterest.set("EnvironmentHelper", undefined);
 classesOfInterest.set("PhysicsImpostor", undefined);
 classesOfInterest.set("VRExperienceHelper", undefined);
 classesOfInterest.set("DynamicTerrain", undefined);
+classesOfInterest.set("EffectLayer", undefined);
 
 type ModuleDeclaration = {
   moduleSpecifier: string,
@@ -1332,6 +1333,11 @@ const generateCode = async () => {
 
   if (classesOfInterest.get("Control3D")) {
     createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Control3D")!, () => ({ isGUI3DControl: true}));
+  }
+
+
+  if (classesOfInterest.get("EffectLayer")) {
+    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("EffectLayer")!, () => ({ isEffectLayer: true}));
   }
 
   if (classesOfInterest.get("BaseTexture")) {

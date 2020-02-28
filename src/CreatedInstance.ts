@@ -17,6 +17,7 @@ export interface InstanceMetadataParameter {
   isTexture?: boolean
   customType?: boolean // not used by code-gen
   isCamera?: boolean
+  isEffectLayer?: boolean;
 }
 
 /**
