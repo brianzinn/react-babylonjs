@@ -16313,7 +16313,7 @@ export class FiberADTForMesh implements HasPropsHandlers<BabylonjsGuiAdvancedDyn
         ]
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
-        "isGUI2DControl": true,
+        "isTexture": true,
         "className": "FiberADTForMesh"
     };
 }
@@ -16376,7 +16376,7 @@ export class FiberADTFullscreenUI implements HasPropsHandlers<BabylonjsGuiAdvanc
         ]
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
-        "isGUI2DControl": true,
+        "isTexture": true,
         "className": "FiberADTFullscreenUI"
     };
 }

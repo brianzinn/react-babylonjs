@@ -23,7 +23,7 @@
     },
     "include": [
         "src"
-//        "tools" // debug
+//        ,"tools" // debug
     ]
 }
 

@@ -1,4 +1,4 @@
-export { default as AdvancedDynamicTextureLifecycleListener } from "./AdvancedDynamicTextureLifecycleListener"
+export { default as AdvancedDynamicTextureLifecycleListener, ADTFullscreenUILifecycleListener } from "./AdvancedDynamicTextureLifecycleListener"
 export { default as CameraLifecycleListener } from "./CameraLifecycleListener"
 export { default as EnvironmentHelperLifecycleListener } from "./EnvironmentHelperLifecycleListener"
 export { default as GUI2DControlLifecycleListener } from "./GUI2DControlLifecycleListener"

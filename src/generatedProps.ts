@@ -330,6 +330,8 @@ declare global {
             videoTexture: FiberVideoTextureProps & FiberVideoTexturePropsCtor & BabylonNode<BabylonjsCoreVideoTexture>;
             dynamicTexture: FiberDynamicTextureProps & FiberDynamicTexturePropsCtor & BabylonNode<BabylonjsCoreDynamicTexture>;
             advancedDynamicTexture: FiberAdvancedDynamicTextureProps & FiberAdvancedDynamicTexturePropsCtor & BabylonNode<BabylonjsGuiAdvancedDynamicTexture>;
+            adtForMesh: FiberAdvancedDynamicTextureProps & FiberADTForMeshPropsCtor & BabylonNode<BabylonjsGuiAdvancedDynamicTexture>;
+            adtFullscreenUi: FiberAdvancedDynamicTextureProps & FiberADTFullscreenUIPropsCtor & BabylonNode<BabylonjsGuiAdvancedDynamicTexture>;
             rawTexture3D: FiberRawTexture3DProps & FiberRawTexture3DPropsCtor & BabylonNode<BabylonjsCoreRawTexture3D>;
             rawTexture2DArray: FiberRawTexture2DArrayProps & FiberRawTexture2DArrayPropsCtor & BabylonNode<BabylonjsCoreRawTexture2DArray>;
             colorGradingTexture: FiberColorGradingTextureProps & FiberColorGradingTexturePropsCtor & BabylonNode<BabylonjsCoreColorGradingTexture>;

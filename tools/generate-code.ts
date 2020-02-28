@@ -83,7 +83,7 @@ const _hostElementMap: Set<string> = new Set<string>();
  * @param className may not exist with an underlying 'type'.  ie: Box, Sphere
  * @param factoryTypeDeclaration
  */
-const addHostElement = (className: string, babylonjsClassDeclaration: ClassDeclaration, keepOriginName = false): void => {
+const addHostElement = (className: string, babylonjsClassDeclaration: ClassDeclaration): void => {
   if (!REACT_EXPORTS.has(className)) {
     REACT_EXPORTS.add(className);
 
@@ -92,7 +92,6 @@ const addHostElement = (className: string, babylonjsClassDeclaration: ClassDecla
 
     const moduleDeclaration = getModuleDeclarationFromClassDeclaration(babylonjsClassDeclaration);
 
-    if (!keepOriginName) {
       INTRINSIC_ELEMENTS.addProperty({
         name: classToIntrinsic(className),
         type:  intersectionType(
@@ -101,7 +100,6 @@ const addHostElement = (className: string, babylonjsClassDeclaration: ClassDecla
         )
       });
     }
-  }
 }
 
 const addCustomHostElement = (className: string, type: string): void => {
@@ -395,7 +393,7 @@ const addMetadata = (classDeclaration: ClassDeclaration, originalClassDeclaratio
  * @param generatedCodeSourceFile
  * @param generatedPropsSourceFile
  */
-const createFactoryClass = (factoryClassName: string, hostClassName: string, prefix: string, keepOriginName: boolean, metadata: InstanceMetadataParameter, generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile) => {
+const createFactoryClass = (factoryClassName: string, hostClassName: string, prefix: string, metadata: InstanceMetadataParameter, generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile) => {
   let factoryBuilderTuple: ClassNameSpaceTuple = classesOfInterest.get(factoryClassName)!;
   let hostTuple: ClassNameSpaceTuple = classesOfInterest.get(hostClassName)!;
 
@@ -410,7 +408,7 @@ const createFactoryClass = (factoryClassName: string, hostClassName: string, pre
       factoryType = prefix + factoryType;
       createdMeshClasses.push(factoryType);
 
-      addHostElement(factoryType, hostTuple.classDeclaration, keepOriginName);
+      addHostElement(factoryType, hostTuple.classDeclaration);
       let newClassDeclaration: ClassDeclaration = addClassDeclarationFromFactoryMethod(generatedCodeSourceFile, factoryType, classesOfInterest.get(hostClassName)!.classDeclaration, method);
 
       addCreateInfoFromFactoryMethod(method,  camelCase(factoryBuilderTuple.classDeclaration.getName()!), methodName, newClassDeclaration, "@babylonjs/core", generatedCodeSourceFile, generatedPropsSourceFile)
@@ -423,7 +421,7 @@ const createFactoryClass = (factoryClassName: string, hostClassName: string, pre
 const createdMeshClasses: string[] = [];
 const createMeshClasses = (generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile) => {
   createFactoryClass(
-    'MeshBuilder', 'Mesh', '', false, {
+    'MeshBuilder', 'Mesh', '', {
       acceptsMaterials: true,
       isMesh: true
     },
@@ -1350,8 +1348,8 @@ const generateCode = async () => {
         createFactoryClass(
           'AdvancedDynamicTexture',
           'AdvancedDynamicTexture',
-          'ADT', true, {
-             isGUI2DControl: true,
+          'ADT',  {
+             isTexture: true,
           },
           generatedCodeSourceFile,
           generatedPropsSourceFile,
