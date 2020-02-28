@@ -11,6 +11,11 @@ import {Control} from '@babylonjs/gui';
  * https://www.babylonjs-playground.com/#6ZVKE3#0
  */
 
+/**
+ * TODO
+ * loading so slow
+ */
+
 function WithGlowLayer() {
   return (
     <Engine antialias adaptToDeviceRatio canvasId='babylonJS'>
