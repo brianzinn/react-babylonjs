@@ -11,13 +11,15 @@ export default class TexturesLifecycleListener implements LifecycleListener<Text
 
     while (tmp !== null) {
       if (tmp.metadata && tmp.metadata.isMaterial === true) {
+        // why error emit?
         // console.error(
         //   "Skybox specific code.  Assigning reflection texture.  Need custom properties to define which texture/coordinatesMode to apply",
         //   texture,
         //   Texture.SKYBOX_MODE
         // )
-        tmp.hostInstance.reflectionTexture = texture // need a way to assign different textures;
+        // tmp.hostInstance.reflectionTexture = texture // need a way to assign different textures;
         // tmp.hostInstance.reflectionTexture.coordinatesMode = Texture.SKYBOX_MODE
+        tmp.hostInstance.diffuseTexture = texture;
         break
       }
       tmp = tmp.parent
