@@ -42,15 +42,18 @@ export const applyUpdateToInstance = (hostInstance: any, update: PropertyUpdate,
       // console.log(` > ${type}: updating Mesh on:${update.propertyName} to ${update.value}`)
       if (target[update.propertyName] && update.value) {
         if ((target[update.propertyName] as Mesh).uniqueId != update.value.uniqueId) {
-          target[update.propertyName] = update.value
+          target[update.propertyName] = update.value;
         }
       } else {
-        target[update.propertyName] = update.value
+        target[update.propertyName] = update.value;
       }
-      break
+      break;
     case "BabylonjsGuiControl":
-      target[update.propertyName] = update.value
-      break
+      target[update.propertyName] = update.value;
+      break;
+    case "number[]":
+      target[update.propertyName] = update.value;
+      break;
     default:
       if (update.type.startsWith("BabylonjsCoreObservable")) {
         // TODO: we want to remove the old prop when changed, so it should be passed along as well.

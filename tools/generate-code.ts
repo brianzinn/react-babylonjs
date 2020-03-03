@@ -9,7 +9,6 @@
 import {
   Project,
   ts,
-  Type,
   VariableDeclarationKind,
   ClassDeclaration,
   PropertyDeclaration,
@@ -33,7 +32,6 @@ import {
   MethodSignature,
   EnumDeclaration,
   NamespaceDeclaration,
-  JsxAttribute,
   SetAccessorDeclaration
 } from 'ts-morph'
 
@@ -53,7 +51,7 @@ type ClassNameSpaceTuple = {
 
 /**
  * These are required parameters that we defer to after instantion (JSX.IntrinsicElements marked as optional)
- * LifecycleHandler and delay creation will handle these not being set (ie: look at PhysicsImpostr constructor!)
+ * LifecycleHandler and delay creation will handle these not being set (ie: look at PhysicsImposter constructor!)
  */
 const LATE_BOUND_CONSTRUCTOR_PARAMETERS: Map<string, string[]> = new Map<string, string[]>([
   ['PhysicsImpostor', ['object']],
@@ -757,6 +755,13 @@ const writePropertyAsUpdateFunction = (propsProperties: OptionalKind<PropertySig
     case "BabylonjsGuiControl":
       writer.writeLine(`// ${classNameBabylon}.${propertyName} (${type}) sets once:`)
       writer.write(`if (newProps.${propertyName} && (!oldProps.${propertyName}))`).block(() => {
+        writer.writeLine(`updates.push({\npropertyName: '${propertyName}',\nvalue: newProps.${propertyName},\ntype: '${type}'\n});`);
+      });
+      break;
+    case "number[]":
+      writer.writeLine(`// ${classNameBabylon}.${propertyName} (${type}) (just length - missing loop + indexOf comparison):`)
+      writer.write(`if (newProps.${propertyName} && (!oldProps.${propertyName} || oldProps.${propertyName}.length !== newProps.${propertyName}.length))`).block(() => {
+        // TODO: compare indexOf for all entries
         writer.writeLine(`updates.push({\npropertyName: '${propertyName}',\nvalue: newProps.${propertyName},\ntype: '${type}'\n});`);
       });
       break;

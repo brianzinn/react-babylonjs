@@ -498,7 +498,7 @@ const ReactBabylonJSHostConfig: HostConfig<
     if (child && child.hostInstance && typeof child.hostInstance.dispose === "function") {
       child.hostInstance.dispose()
     }
-    console.error("need to remove child from parent (container)")
+    // console.error("need to remove child from parent (container)")
   },
 
   removeChild(parentInstance: CreatedInstance<any>, child: CreatedInstance<any>) {

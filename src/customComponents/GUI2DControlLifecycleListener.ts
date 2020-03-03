@@ -26,7 +26,7 @@ export default class GUI2DControlLifecycleListener implements LifecycleListener<
     }
 
     if (instance.state && instance.state.added === true) {
-      return
+      return;
     }
 
     let addedParent: CreatedInstance<any> | null = null
@@ -57,7 +57,7 @@ export default class GUI2DControlLifecycleListener implements LifecycleListener<
     })
 
     if (instance.customProps.connectControlNames !== undefined && Array.isArray(instance.customProps.connectControlNames)) {
-      let controlNames: string[] = instance.customProps.connectControlNames
+      // let controlNames: string[] = instance.customProps.connectControlNames
       let root = instance
       while (root.parent !== null) {
         root = root.parent
