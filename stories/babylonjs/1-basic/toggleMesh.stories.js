@@ -12,16 +12,12 @@ function WithToggleMesh() {
 
   const scene = useBabylonScene();
   const onClick = (node, b) => {
-    console.log('meshes', scene, scene.meshes);
+    // console.log('meshes', scene.meshes);
     toggleShown(isShown => !isShown)
   };
 
-  const baseUrl = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/'
-
   return (
-
     <>
-
       {
         isShown &&
         <ground name='ground1' width={10} height={6} subdivisions={2}
@@ -39,7 +35,7 @@ function WithToggleMesh() {
         </ground>
       }
 
-      <adtFullscreenUi name='ui1'>
+      <adtFullscreenUi name='ui'>
         <rectangle name="rect" height='50px' width='150px'>
           <rectangle>
             <babylon-button name="close-icon"
