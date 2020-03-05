@@ -1,4 +1,4 @@
-import ReactReconciler, { HostConfig } from "react-reconciler"
+import ReactReconciler, {HostConfig, Reconciler} from "react-reconciler"
 import { Scene, Engine, Nullable } from '@babylonjs/core'
 import * as BABYLONEXT from "./extensions"
 import * as GENERATED from './generatedCode'
@@ -482,7 +482,7 @@ const ReactBabylonJSHostConfig: HostConfig<
     }
   },
 
-  commitUpdate(instance: HostCreatedInstance<any>, updatePayload: UpdatePayload, type: string /* old + new props are extra params here */) {
+  commitUpdate(instance: HostCreatedInstance<any>, updatePayload: UpdatePayload, type: string, oldProps: any, newProps, fiber: ReactReconciler.Fiber) {
     if (updatePayload !== null) {
       updatePayload.forEach((update: PropertyUpdate) => {
         applyUpdateToInstance(instance!.hostInstance, update, type)
