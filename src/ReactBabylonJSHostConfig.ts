@@ -1,4 +1,4 @@
-import ReactReconciler, {HostConfig, Reconciler} from "react-reconciler"
+import ReactReconciler, { HostConfig } from "react-reconciler"
 import { Scene, Engine, Nullable } from '@babylonjs/core'
 import * as BABYLONEXT from "./extensions"
 import * as GENERATED from './generatedCode'
@@ -482,7 +482,7 @@ const ReactBabylonJSHostConfig: HostConfig<
     }
   },
 
-  commitUpdate(instance: HostCreatedInstance<any>, updatePayload: UpdatePayload, type: string, oldProps: any, newProps, fiber: ReactReconciler.Fiber) {
+  commitUpdate(instance: HostCreatedInstance<any>, updatePayload: UpdatePayload, type: string /* old + new props are extra params here */) {
     if (updatePayload !== null) {
       updatePayload.forEach((update: PropertyUpdate) => {
         applyUpdateToInstance(instance!.hostInstance, update, type)
@@ -491,6 +491,7 @@ const ReactBabylonJSHostConfig: HostConfig<
   },
 
   removeChildFromContainer(container: Container, child: CreatedInstance<any> | undefined): void {
+    console.log('removeChildFromContainer', container.rootInstance.children)
     if (child && child.lifecycleListener) {
       child.lifecycleListener.onUnmount();
     }
@@ -498,10 +499,11 @@ const ReactBabylonJSHostConfig: HostConfig<
     if (child && child.hostInstance && typeof child.hostInstance.dispose === "function") {
       child.hostInstance.dispose()
     }
-    console.error("need to remove child from parent (container)")
+    // console.error("need to remove child from parent (container)")
   },
 
   removeChild(parentInstance: CreatedInstance<any>, child: CreatedInstance<any>) {
+    console.log('rc')
     if (child && child.lifecycleListener) {
       child.lifecycleListener.onUnmount();
     }

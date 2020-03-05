@@ -1568,10 +1568,38 @@ export class FiberFreeCameraPropsHandler implements PropsHandler<BabylonjsCoreFr
             });
         }
         // TODO: type: 'BabylonjsCoreFreeCameraInputsManager' property (not coded) BabylonjsCoreFreeCamera.inputs.
-        // TODO: type: 'number[]' property (not coded) BabylonjsCoreFreeCamera.keysDown.
-        // TODO: type: 'number[]' property (not coded) BabylonjsCoreFreeCamera.keysLeft.
-        // TODO: type: 'number[]' property (not coded) BabylonjsCoreFreeCamera.keysRight.
-        // TODO: type: 'number[]' property (not coded) BabylonjsCoreFreeCamera.keysUp.
+        // BabylonjsCoreFreeCamera.keysDown (number[]) (just length - missing loop + indexOf comparison):
+        if (newProps.keysDown && (!oldProps.keysDown || oldProps.keysDown.length !== newProps.keysDown.length)) {
+            updates.push({
+                propertyName: 'keysDown',
+                value: newProps.keysDown,
+                type: 'number[]'
+            });
+        }
+        // BabylonjsCoreFreeCamera.keysLeft (number[]) (just length - missing loop + indexOf comparison):
+        if (newProps.keysLeft && (!oldProps.keysLeft || oldProps.keysLeft.length !== newProps.keysLeft.length)) {
+            updates.push({
+                propertyName: 'keysLeft',
+                value: newProps.keysLeft,
+                type: 'number[]'
+            });
+        }
+        // BabylonjsCoreFreeCamera.keysRight (number[]) (just length - missing loop + indexOf comparison):
+        if (newProps.keysRight && (!oldProps.keysRight || oldProps.keysRight.length !== newProps.keysRight.length)) {
+            updates.push({
+                propertyName: 'keysRight',
+                value: newProps.keysRight,
+                type: 'number[]'
+            });
+        }
+        // BabylonjsCoreFreeCamera.keysUp (number[]) (just length - missing loop + indexOf comparison):
+        if (newProps.keysUp && (!oldProps.keysUp || oldProps.keysUp.length !== newProps.keysUp.length)) {
+            updates.push({
+                propertyName: 'keysUp',
+                value: newProps.keysUp,
+                type: 'number[]'
+            });
+        }
         // xxx-ns-xxx.BabylonjsCoreFreeCamera.onCollide of type '(collidedMesh: BabylonjsCoreAbstractMesh) => void/fn':
         if (oldProps.onCollide === undefined && oldProps.onCollide !== newProps.onCollide) {
             updates.push({
@@ -2892,10 +2920,38 @@ export class FiberArcRotateCameraPropsHandler implements PropsHandler<BabylonjsC
             });
         }
         // TODO: type: 'BabylonjsCoreArcRotateCameraInputsManager' property (not coded) BabylonjsCoreArcRotateCamera.inputs.
-        // TODO: type: 'number[]' property (not coded) BabylonjsCoreArcRotateCamera.keysDown.
-        // TODO: type: 'number[]' property (not coded) BabylonjsCoreArcRotateCamera.keysLeft.
-        // TODO: type: 'number[]' property (not coded) BabylonjsCoreArcRotateCamera.keysRight.
-        // TODO: type: 'number[]' property (not coded) BabylonjsCoreArcRotateCamera.keysUp.
+        // BabylonjsCoreArcRotateCamera.keysDown (number[]) (just length - missing loop + indexOf comparison):
+        if (newProps.keysDown && (!oldProps.keysDown || oldProps.keysDown.length !== newProps.keysDown.length)) {
+            updates.push({
+                propertyName: 'keysDown',
+                value: newProps.keysDown,
+                type: 'number[]'
+            });
+        }
+        // BabylonjsCoreArcRotateCamera.keysLeft (number[]) (just length - missing loop + indexOf comparison):
+        if (newProps.keysLeft && (!oldProps.keysLeft || oldProps.keysLeft.length !== newProps.keysLeft.length)) {
+            updates.push({
+                propertyName: 'keysLeft',
+                value: newProps.keysLeft,
+                type: 'number[]'
+            });
+        }
+        // BabylonjsCoreArcRotateCamera.keysRight (number[]) (just length - missing loop + indexOf comparison):
+        if (newProps.keysRight && (!oldProps.keysRight || oldProps.keysRight.length !== newProps.keysRight.length)) {
+            updates.push({
+                propertyName: 'keysRight',
+                value: newProps.keysRight,
+                type: 'number[]'
+            });
+        }
+        // BabylonjsCoreArcRotateCamera.keysUp (number[]) (just length - missing loop + indexOf comparison):
+        if (newProps.keysUp && (!oldProps.keysUp || oldProps.keysUp.length !== newProps.keysUp.length)) {
+            updates.push({
+                propertyName: 'keysUp',
+                value: newProps.keysUp,
+                type: 'number[]'
+            });
+        }
         // BabylonjsCoreArcRotateCamera.lowerAlphaLimit (number):
         if (oldProps.lowerAlphaLimit !== newProps.lowerAlphaLimit) {
             updates.push({
@@ -3562,12 +3618,54 @@ export class FiberFlyCameraPropsHandler implements PropsHandler<BabylonjsCoreFly
             });
         }
         // TODO: type: 'BabylonjsCoreFlyCameraInputsManager' property (not coded) BabylonjsCoreFlyCamera.inputs.
-        // TODO: type: 'number[]' property (not coded) BabylonjsCoreFlyCamera.keysBackward.
-        // TODO: type: 'number[]' property (not coded) BabylonjsCoreFlyCamera.keysDown.
-        // TODO: type: 'number[]' property (not coded) BabylonjsCoreFlyCamera.keysForward.
-        // TODO: type: 'number[]' property (not coded) BabylonjsCoreFlyCamera.keysLeft.
-        // TODO: type: 'number[]' property (not coded) BabylonjsCoreFlyCamera.keysRight.
-        // TODO: type: 'number[]' property (not coded) BabylonjsCoreFlyCamera.keysUp.
+        // BabylonjsCoreFlyCamera.keysBackward (number[]) (just length - missing loop + indexOf comparison):
+        if (newProps.keysBackward && (!oldProps.keysBackward || oldProps.keysBackward.length !== newProps.keysBackward.length)) {
+            updates.push({
+                propertyName: 'keysBackward',
+                value: newProps.keysBackward,
+                type: 'number[]'
+            });
+        }
+        // BabylonjsCoreFlyCamera.keysDown (number[]) (just length - missing loop + indexOf comparison):
+        if (newProps.keysDown && (!oldProps.keysDown || oldProps.keysDown.length !== newProps.keysDown.length)) {
+            updates.push({
+                propertyName: 'keysDown',
+                value: newProps.keysDown,
+                type: 'number[]'
+            });
+        }
+        // BabylonjsCoreFlyCamera.keysForward (number[]) (just length - missing loop + indexOf comparison):
+        if (newProps.keysForward && (!oldProps.keysForward || oldProps.keysForward.length !== newProps.keysForward.length)) {
+            updates.push({
+                propertyName: 'keysForward',
+                value: newProps.keysForward,
+                type: 'number[]'
+            });
+        }
+        // BabylonjsCoreFlyCamera.keysLeft (number[]) (just length - missing loop + indexOf comparison):
+        if (newProps.keysLeft && (!oldProps.keysLeft || oldProps.keysLeft.length !== newProps.keysLeft.length)) {
+            updates.push({
+                propertyName: 'keysLeft',
+                value: newProps.keysLeft,
+                type: 'number[]'
+            });
+        }
+        // BabylonjsCoreFlyCamera.keysRight (number[]) (just length - missing loop + indexOf comparison):
+        if (newProps.keysRight && (!oldProps.keysRight || oldProps.keysRight.length !== newProps.keysRight.length)) {
+            updates.push({
+                propertyName: 'keysRight',
+                value: newProps.keysRight,
+                type: 'number[]'
+            });
+        }
+        // BabylonjsCoreFlyCamera.keysUp (number[]) (just length - missing loop + indexOf comparison):
+        if (newProps.keysUp && (!oldProps.keysUp || oldProps.keysUp.length !== newProps.keysUp.length)) {
+            updates.push({
+                propertyName: 'keysUp',
+                value: newProps.keysUp,
+                type: 'number[]'
+            });
+        }
         // xxx-ns-xxx.BabylonjsCoreFlyCamera.onCollide of type '(collidedMesh: BabylonjsCoreAbstractMesh) => void/fn':
         if (oldProps.onCollide === undefined && oldProps.onCollide !== newProps.onCollide) {
             updates.push({
@@ -12304,7 +12402,14 @@ export class FiberLinePropsHandler implements PropsHandler<BabylonjsGuiLine, Fib
                 type: 'BabylonjsGuiControl'
             });
         }
-        // TODO: type: 'number[]' property (not coded) BabylonjsGuiLine.dash.
+        // BabylonjsGuiLine.dash (number[]) (just length - missing loop + indexOf comparison):
+        if (newProps.dash && (!oldProps.dash || oldProps.dash.length !== newProps.dash.length)) {
+            updates.push({
+                propertyName: 'dash',
+                value: newProps.dash,
+                type: 'number[]'
+            });
+        }
         // BabylonjsGuiLine.horizontalAlignment (number):
         if (oldProps.horizontalAlignment !== newProps.horizontalAlignment) {
             updates.push({
@@ -12418,7 +12523,14 @@ export class FiberMultiLinePropsHandler implements PropsHandler<BabylonjsGuiMult
     getPropertyUpdates(hostInstance: BabylonjsGuiMultiLine, oldProps: FiberMultiLineProps, newProps: FiberMultiLineProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
         // generated code
         let updates: PropertyUpdate[] = [];
-        // TODO: type: 'number[]' property (not coded) BabylonjsGuiMultiLine.dash.
+        // BabylonjsGuiMultiLine.dash (number[]) (just length - missing loop + indexOf comparison):
+        if (newProps.dash && (!oldProps.dash || oldProps.dash.length !== newProps.dash.length)) {
+            updates.push({
+                propertyName: 'dash',
+                value: newProps.dash,
+                type: 'number[]'
+            });
+        }
         // BabylonjsGuiMultiLine.horizontalAlignment (number):
         if (oldProps.horizontalAlignment !== newProps.horizontalAlignment) {
             updates.push({
@@ -18252,7 +18364,14 @@ export class FiberDynamicTerrainPropsHandler implements PropsHandler<ExtensionsD
                 type: 'boolean'
             });
         }
-        // TODO: type: 'number[]' property (not coded) ExtensionsDynamicTerrain.LODLimits.
+        // ExtensionsDynamicTerrain.LODLimits (number[]) (just length - missing loop + indexOf comparison):
+        if (newProps.LODLimits && (!oldProps.LODLimits || oldProps.LODLimits.length !== newProps.LODLimits.length)) {
+            updates.push({
+                propertyName: 'LODLimits',
+                value: newProps.LODLimits,
+                type: 'number[]'
+            });
+        }
         // ExtensionsDynamicTerrain.LODNegativeX (boolean):
         if (oldProps.LODNegativeX !== newProps.LODNegativeX) {
             updates.push({
