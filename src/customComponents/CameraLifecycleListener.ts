@@ -13,7 +13,13 @@ export default class CameraLifecycleListener implements LifecycleListener<Camera
     this.scene = scene
   }
 
-  onParented(parent: CreatedInstance<any>, child: CreatedInstance<any>): any {/* empty */}
+  onParented(parent: CreatedInstance<any>, child: CreatedInstance<any>): any {
+    if (parent.metadata.isNode && child.metadata.isNode) {
+      // TODO: consider add option for setParent(), which parents and maintains mesh pos/rot in world space
+      // child.hostInstance.setParent(parent.hostInstance)
+      child.hostInstance.parent = parent.hostInstance
+    }
+  }
 
   onChildAdded(child: CreatedInstance<any>, parent: CreatedInstance<any>): any {/* empty */}
 

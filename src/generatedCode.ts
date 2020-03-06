@@ -322,8 +322,8 @@ export class FiberNode implements HasPropsHandlers<BabylonjsCoreNode, FiberNodeP
         ]
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
-        "className": "FiberNode",
-        "isMesh": false
+        "isNode": true,
+        "className": "FiberNode"
     };
 }
 
@@ -518,9 +518,8 @@ export class FiberTransformNode implements HasPropsHandlers<BabylonjsCoreNode, F
         ]
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
-        "isTransformNode": true,
-        "className": "FiberTransformNode",
-        "isMesh": false
+        "isNode": true,
+        "className": "FiberTransformNode"
     };
 }
 
@@ -954,8 +953,8 @@ export class FiberAbstractMesh implements HasPropsHandlers<BabylonjsCoreTransfor
         ]
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
-        "className": "FiberAbstractMesh",
-        "isMesh": false
+        "isNode": true,
+        "className": "FiberAbstractMesh"
     };
 }
 
@@ -1130,8 +1129,8 @@ export class FiberMesh implements HasPropsHandlers<BabylonjsCoreAbstractMesh, Fi
         ]
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
-        "className": "FiberMesh",
-        "isMesh": true
+        "isNode": true,
+        "className": "FiberMesh"
     };
 }
 
@@ -1393,6 +1392,7 @@ export class FiberCamera implements HasPropsHandlers<BabylonjsCoreCamera, FiberC
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "isCamera": true,
+        "isNode": true,
         "className": "FiberCamera"
     };
 }
@@ -1511,6 +1511,7 @@ export class FiberTargetCamera implements HasPropsHandlers<BabylonjsCoreCamera, 
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "isCamera": true,
+        "isNode": true,
         "className": "FiberTargetCamera"
     };
 }
@@ -1668,6 +1669,7 @@ export class FiberFreeCamera implements HasPropsHandlers<BabylonjsCoreCamera, Fi
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "isCamera": true,
+        "isNode": true,
         "className": "FiberFreeCamera"
     };
 }
@@ -1748,6 +1750,7 @@ export class FiberTouchCamera implements HasPropsHandlers<BabylonjsCoreCamera, F
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "isCamera": true,
+        "isNode": true,
         "className": "FiberTouchCamera"
     };
 }
@@ -1829,6 +1832,7 @@ export class FiberUniversalCamera implements HasPropsHandlers<BabylonjsCoreCamer
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "isCamera": true,
+        "isNode": true,
         "className": "FiberUniversalCamera"
     };
 }
@@ -1895,6 +1899,7 @@ export class FiberGamepadCamera implements HasPropsHandlers<BabylonjsCoreCamera,
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "isCamera": true,
+        "isNode": true,
         "className": "FiberGamepadCamera"
     };
 }
@@ -1966,6 +1971,7 @@ export class FiberAnaglyphGamepadCamera implements HasPropsHandlers<BabylonjsCor
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "isCamera": true,
+        "isNode": true,
         "className": "FiberAnaglyphGamepadCamera"
     };
 }
@@ -2042,6 +2048,7 @@ export class FiberStereoscopicGamepadCamera implements HasPropsHandlers<Babylonj
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "isCamera": true,
+        "isNode": true,
         "className": "FiberStereoscopicGamepadCamera"
     };
 }
@@ -2112,6 +2119,7 @@ export class FiberAnaglyphUniversalCamera implements HasPropsHandlers<BabylonjsC
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "isCamera": true,
+        "isNode": true,
         "className": "FiberAnaglyphUniversalCamera"
     };
 }
@@ -2187,6 +2195,7 @@ export class FiberStereoscopicUniversalCamera implements HasPropsHandlers<Babylo
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "isCamera": true,
+        "isNode": true,
         "className": "FiberStereoscopicUniversalCamera"
     };
 }
@@ -2259,6 +2268,7 @@ export class FiberDeviceOrientationCamera implements HasPropsHandlers<BabylonjsC
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "isCamera": true,
+        "isNode": true,
         "className": "FiberDeviceOrientationCamera"
     };
 }
@@ -2333,6 +2343,7 @@ export class FiberVRDeviceOrientationFreeCamera implements HasPropsHandlers<Baby
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "isCamera": true,
+        "isNode": true,
         "className": "FiberVRDeviceOrientationFreeCamera"
     };
 }
@@ -2408,6 +2419,7 @@ export class FiberVRDeviceOrientationGamepadCamera implements HasPropsHandlers<B
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "isCamera": true,
+        "isNode": true,
         "className": "FiberVRDeviceOrientationGamepadCamera"
     };
 }
@@ -2476,6 +2488,7 @@ export class FiberAnaglyphFreeCamera implements HasPropsHandlers<BabylonjsCoreCa
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "isCamera": true,
+        "isNode": true,
         "className": "FiberAnaglyphFreeCamera"
     };
 }
@@ -2549,6 +2562,7 @@ export class FiberStereoscopicFreeCamera implements HasPropsHandlers<BabylonjsCo
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "isCamera": true,
+        "isNode": true,
         "className": "FiberStereoscopicFreeCamera"
     };
 }
@@ -2614,6 +2628,7 @@ export class FiberVirtualJoysticksCamera implements HasPropsHandlers<BabylonjsCo
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "isCamera": true,
+        "isNode": true,
         "className": "FiberVirtualJoysticksCamera"
     };
 }
@@ -2736,6 +2751,7 @@ export class FiberWebVRFreeCamera implements HasPropsHandlers<BabylonjsCoreCamer
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "isCamera": true,
+        "isNode": true,
         "className": "FiberWebVRFreeCamera"
     };
 }
@@ -2815,6 +2831,7 @@ export class FiberWebXRCamera implements HasPropsHandlers<BabylonjsCoreCamera, F
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "isCamera": true,
+        "isNode": true,
         "className": "FiberWebXRCamera"
     };
 }
@@ -3270,6 +3287,7 @@ export class FiberArcRotateCamera implements HasPropsHandlers<BabylonjsCoreCamer
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "isCamera": true,
+        "isNode": true,
         "className": "FiberArcRotateCamera"
     };
 }
@@ -3353,6 +3371,7 @@ export class FiberAnaglyphArcRotateCamera implements HasPropsHandlers<BabylonjsC
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "isCamera": true,
+        "isNode": true,
         "className": "FiberAnaglyphArcRotateCamera"
     };
 }
@@ -3441,6 +3460,7 @@ export class FiberStereoscopicArcRotateCamera implements HasPropsHandlers<Babylo
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "isCamera": true,
+        "isNode": true,
         "className": "FiberStereoscopicArcRotateCamera"
     };
 }
@@ -3529,6 +3549,7 @@ export class FiberVRDeviceOrientationArcRotateCamera implements HasPropsHandlers
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "isCamera": true,
+        "isNode": true,
         "className": "FiberVRDeviceOrientationArcRotateCamera"
     };
 }
@@ -3743,6 +3764,7 @@ export class FiberFlyCamera implements HasPropsHandlers<BabylonjsCoreCamera, Fib
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "isCamera": true,
+        "isNode": true,
         "className": "FiberFlyCamera"
     };
 }
@@ -3901,6 +3923,7 @@ export class FiberFollowCamera implements HasPropsHandlers<BabylonjsCoreCamera, 
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "isCamera": true,
+        "isNode": true,
         "className": "FiberFollowCamera"
     };
 }
@@ -4004,6 +4027,7 @@ export class FiberArcFollowCamera implements HasPropsHandlers<BabylonjsCoreCamer
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "isCamera": true,
+        "isNode": true,
         "className": "FiberArcFollowCamera"
     };
 }
@@ -4116,7 +4140,7 @@ export class FiberBox implements HasPropsHandlers<BabylonjsCoreMesh, FiberMeshPr
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
-        "isMesh": true,
+        "isNode": true,
         "className": "FiberBox"
     };
 }
@@ -4244,7 +4268,7 @@ export class FiberTiledBox implements HasPropsHandlers<BabylonjsCoreMesh, FiberM
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
-        "isMesh": true,
+        "isNode": true,
         "className": "FiberTiledBox"
     };
 }
@@ -4363,7 +4387,7 @@ export class FiberSphere implements HasPropsHandlers<BabylonjsCoreMesh, FiberMes
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
-        "isMesh": true,
+        "isNode": true,
         "className": "FiberSphere"
     };
 }
@@ -4460,7 +4484,7 @@ export class FiberDisc implements HasPropsHandlers<BabylonjsCoreMesh, FiberMeshP
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
-        "isMesh": true,
+        "isNode": true,
         "className": "FiberDisc"
     };
 }
@@ -4573,7 +4597,7 @@ export class FiberIcoSphere implements HasPropsHandlers<BabylonjsCoreMesh, Fiber
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
-        "isMesh": true,
+        "isNode": true,
         "className": "FiberIcoSphere"
     };
 }
@@ -4703,7 +4727,7 @@ export class FiberRibbon implements HasPropsHandlers<BabylonjsCoreMesh, FiberMes
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
-        "isMesh": true,
+        "isNode": true,
         "className": "FiberRibbon"
     };
 }
@@ -4859,7 +4883,7 @@ export class FiberCylinder implements HasPropsHandlers<BabylonjsCoreMesh, FiberM
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
-        "isMesh": true,
+        "isNode": true,
         "className": "FiberCylinder"
     };
 }
@@ -4956,7 +4980,7 @@ export class FiberTorus implements HasPropsHandlers<BabylonjsCoreMesh, FiberMesh
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
-        "isMesh": true,
+        "isNode": true,
         "className": "FiberTorus"
     };
 }
@@ -5069,7 +5093,7 @@ export class FiberTorusKnot implements HasPropsHandlers<BabylonjsCoreMesh, Fiber
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
-        "isMesh": true,
+        "isNode": true,
         "className": "FiberTorusKnot"
     };
 }
@@ -5159,7 +5183,7 @@ export class FiberLineSystem implements HasPropsHandlers<BabylonjsCoreMesh, Fibe
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
-        "isMesh": true,
+        "isNode": true,
         "className": "FiberLineSystem"
     };
 }
@@ -5248,7 +5272,7 @@ export class FiberLines implements HasPropsHandlers<BabylonjsCoreMesh, FiberMesh
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
-        "isMesh": true,
+        "isNode": true,
         "className": "FiberLines"
     };
 }
@@ -5343,7 +5367,7 @@ export class FiberDashedLines implements HasPropsHandlers<BabylonjsCoreMesh, Fib
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
-        "isMesh": true,
+        "isNode": true,
         "className": "FiberDashedLines"
     };
 }
@@ -5465,7 +5489,7 @@ export class FiberExtrudeShape implements HasPropsHandlers<BabylonjsCoreMesh, Fi
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
-        "isMesh": true,
+        "isNode": true,
         "className": "FiberExtrudeShape"
     };
 }
@@ -5602,7 +5626,7 @@ export class FiberExtrudeShapeCustom implements HasPropsHandlers<BabylonjsCoreMe
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
-        "isMesh": true,
+        "isNode": true,
         "className": "FiberExtrudeShapeCustom"
     };
 }
@@ -5730,7 +5754,7 @@ export class FiberLathe implements HasPropsHandlers<BabylonjsCoreMesh, FiberMesh
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
-        "isMesh": true,
+        "isNode": true,
         "className": "FiberLathe"
     };
 }
@@ -5855,7 +5879,7 @@ export class FiberTiledPlane implements HasPropsHandlers<BabylonjsCoreMesh, Fibe
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
-        "isMesh": true,
+        "isNode": true,
         "className": "FiberTiledPlane"
     };
 }
@@ -5957,7 +5981,7 @@ export class FiberPlane implements HasPropsHandlers<BabylonjsCoreMesh, FiberMesh
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
-        "isMesh": true,
+        "isNode": true,
         "className": "FiberPlane"
     };
 }
@@ -6046,7 +6070,7 @@ export class FiberGround implements HasPropsHandlers<BabylonjsCoreMesh, FiberMes
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
-        "isMesh": true,
+        "isNode": true,
         "className": "FiberGround"
     };
 }
@@ -6142,7 +6166,7 @@ export class FiberTiledGround implements HasPropsHandlers<BabylonjsCoreMesh, Fib
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
-        "isMesh": true,
+        "isNode": true,
         "className": "FiberTiledGround"
     };
 }
@@ -6257,7 +6281,7 @@ export class FiberGroundFromHeightMap implements HasPropsHandlers<BabylonjsCoreM
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
-        "isMesh": true,
+        "isNode": true,
         "className": "FiberGroundFromHeightMap"
     };
 }
@@ -6369,7 +6393,7 @@ export class FiberPolygon implements HasPropsHandlers<BabylonjsCoreMesh, FiberMe
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
-        "isMesh": true,
+        "isNode": true,
         "className": "FiberPolygon"
     };
 }
@@ -6476,7 +6500,7 @@ export class FiberExtrudePolygon implements HasPropsHandlers<BabylonjsCoreMesh, 
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
-        "isMesh": true,
+        "isNode": true,
         "className": "FiberExtrudePolygon"
     };
 }
@@ -6605,7 +6629,7 @@ export class FiberTube implements HasPropsHandlers<BabylonjsCoreMesh, FiberMeshP
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
-        "isMesh": true,
+        "isNode": true,
         "className": "FiberTube"
     };
 }
@@ -6737,7 +6761,7 @@ export class FiberPolyhedron implements HasPropsHandlers<BabylonjsCoreMesh, Fibe
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
-        "isMesh": true,
+        "isNode": true,
         "className": "FiberPolyhedron"
     };
 }
@@ -6818,7 +6842,7 @@ export class FiberDecal implements HasPropsHandlers<BabylonjsCoreMesh, FiberMesh
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
-        "isMesh": true,
+        "isNode": true,
         "className": "FiberDecal"
     };
 }
@@ -9443,6 +9467,7 @@ export class FiberLight implements HasPropsHandlers<BabylonjsCoreLight, FiberLig
         ]
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
+        "isNode": true,
         "className": "FiberLight"
     };
 }
@@ -9552,6 +9577,7 @@ export class FiberShadowLight implements HasPropsHandlers<BabylonjsCoreLight, Fi
         "parameters": []
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
+        "isNode": true,
         "isShadowLight": true,
         "className": "FiberShadowLight"
     };
@@ -9648,6 +9674,7 @@ export class FiberDirectionalLight implements HasPropsHandlers<BabylonjsCoreLigh
         ]
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
+        "isNode": true,
         "isShadowLight": true,
         "className": "FiberDirectionalLight"
     };
@@ -9728,6 +9755,7 @@ export class FiberPointLight implements HasPropsHandlers<BabylonjsCoreLight, Fib
         ]
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
+        "isNode": true,
         "isShadowLight": true,
         "className": "FiberPointLight"
     };
@@ -9865,6 +9893,7 @@ export class FiberSpotLight implements HasPropsHandlers<BabylonjsCoreLight, Fibe
         ]
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
+        "isNode": true,
         "isShadowLight": true,
         "className": "FiberSpotLight"
     };
@@ -9950,6 +9979,7 @@ export class FiberHemisphericLight implements HasPropsHandlers<BabylonjsCoreLigh
         ]
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
+        "isNode": true,
         "className": "FiberHemisphericLight"
     };
 }
