@@ -133,7 +133,7 @@
     "tslint-config-prettier": "^1.17.0",
     "tslint-config-standard": "^8.0.1",
     "typedoc": "^0.14.1",
-    "typescript": "^3.8.2",
+    "typescript": "3.8.2",
     "validate-commit-msg": "^2.14.0"
   },
   "peerDependencies": {
