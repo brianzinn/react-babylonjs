@@ -290,4 +290,6 @@ Huge shout out to [Konsumer](https://github.com/konsumer) that brought this proj
 
 Thanks to [seacloud9](https://github.com/seacloud9) for adding storybook (and [GSAP demo](https://brianzinn.github.io/react-babylonjs/?path=/story/babylon-basic--model-atom-gsap-tween)).  Also for adding [dynamic terrain](https://brianzinn.github.io/react-babylonjs/?path=/story/babylon-basic--dynamic-terrain).
 
+Lots of contributions from [hookex](https://github.com/hookex) :)  Proper texture handling [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/textures--image-texture), Node parenting [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/babylon-basic--transformnode) Full Screen GUI [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/gui--gui), Effect Layers [glow demo](https://brianzinn.github.io/react-babylonjs/?path=/story/special-fx--glow-layer).  Additionally help upgrading to 4.1 and reconciler bug fix.
+
 Made with ♥ by Brian Zinn

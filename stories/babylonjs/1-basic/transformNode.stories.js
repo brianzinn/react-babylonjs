@@ -5,17 +5,30 @@ import {Engine, Scene} from '../../../dist/react-babylonjs.es5'
 import {Vector3} from '@babylonjs/core/Maths/math'
 import '../../style.css'
 
+let lastTime = Date.now();
 
 function WithTransformNode() {
   const [position, setPosition] = useState(Vector3.Zero());
   const [rotation, setRotation] = useState(Vector3.Zero());
 
   let timer;
-
+  let direction = 1;
+  
   const animate = _ => {
-    const delta = 0.005;
-    position.x += delta;
-    rotation.y += delta;
+    if (position.x > 1) {
+      direction = -1;
+    } else if (position.x < -1) {
+      direction = 1;
+    }
+    
+    const velocity = 0.005 * direction;
+    position.x += velocity;
+    const rpm = 10;
+    const now = Date.now()
+    const deltaTimeInMillis = now - lastTime;
+    lastTime = now;
+    const rotationRads = ((rpm / 60) * Math.PI * 2 * (deltaTimeInMillis / 1000));
+    rotation.y += rotationRads;
     setPosition(position.clone());
     setRotation(rotation.clone());
     timer = requestAnimationFrame(animate);

@@ -1,7 +1,7 @@
 import React, { createContext, useContext } from 'react'
 import {
   Nullable,
-  Engine as BabylonJSEngine, /*ThinEngine,*/
+  Engine as BabylonJSEngine,
   EngineOptions,
   ThinEngine as BabylonJSThinEngine,
 } from '@babylonjs/core'
