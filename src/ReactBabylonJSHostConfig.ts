@@ -77,7 +77,6 @@ function createCreatedInstance<T, U extends HasPropsHandlers<T, any>>(
 
 /**
  * remove instance's children recursive
- * fix bug: <model> can't be destroyed. Model is rootAbstractMesh and Parent child.
  * I'm not sure that must to recursive, please double check.
  * @param parentInstance
  * @param child
@@ -542,9 +541,13 @@ const ReactBabylonJSHostConfig: HostConfig<
 
   removeChildFromContainer: (container: Container, child: HostCreatedInstance <any> ) => {
     /**
-     * todo: model's root mesh should be destroy.
-     * console.log('removeChildFromContainer', container.rootInstance.children);
+     * To fix two bugs when toggle meshes:
+     * 1.  model's mesh can't be destroyed.
+     * 2. `removeChildFromContainer()` only destroy babylon instance.
+     * The model is rootAbstractMesh's and Parent's child.
+     * `container.rootInstance.children` will be very large after few toggles.
      */
+
     if (child) {
       removeChild(container.rootInstance, child)
     }
