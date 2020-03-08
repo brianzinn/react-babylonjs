@@ -28,7 +28,7 @@ function WithImageTexture() {
         <hemisphericLight name='light1' direction={Vector3.Up()} intensity={0.7}/>
 
         <box name='box'>
-          <standardMaterial name='dog' backFaceCulling={false}>
+          <standardMaterial name='box-mat' backFaceCulling={false}>
             <texture url={url} hasAlpha={true}/>
           </standardMaterial>
         </box>
