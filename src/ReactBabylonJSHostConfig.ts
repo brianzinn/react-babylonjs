@@ -1,5 +1,5 @@
 import ReactReconciler, { HostConfig } from "react-reconciler"
-import { Scene, Engine, Nullable } from '@babylonjs/core'
+import {Scene, Engine, Nullable, Node} from '@babylonjs/core'
 import * as BABYLONEXT from "./extensions"
 import * as GENERATED from './generatedCode'
 import * as CUSTOM_HOSTS from "./customHosts"
@@ -11,6 +11,7 @@ import { HasPropsHandlers, PropertyUpdate, UpdatePayload } from "./PropsHandler"
 import { LifecycleListener } from "./LifecycleListener"
 import { GeneratedParameter, CreateInfo, CreationType } from "./codeGenerationDescriptors"
 import { applyUpdateToInstance } from "./UpdateInstance"
+import {BabylonNode} from "./generatedProps";
 
 // ** TODO: switch to node module 'scheduler', but compiler is not finding 'require()' exports currently...
 type RequestIdleCallbackHandle = any
@@ -71,6 +72,57 @@ function createCreatedInstance<T, U extends HasPropsHandlers<T, any>>(
     lifecycleListener,
     customProps
   } as CreatedInstance<T>
+}
+
+
+/**
+ * remove instance's children recursive
+ * fix bug: <model> can't be destroyed. Model is rootAbstractMesh and Parent child.
+ * I'm not sure that must to recursive, please double check.
+ * @param parentInstance
+ * @param child
+ */
+function removeChild(parentInstance: CreatedInstance<any>, child: CreatedInstance<any>) {
+  if (child) {
+    const {hostInstance} = child;
+
+    if (child.lifecycleListener) {
+      child.lifecycleListener.onUnmount();
+    }
+
+    if (child.metadata.isNode) {
+      (hostInstance as Node).parent = null;
+    } else if (child.metadata.isGUI3DControl === true) {
+      console.error("3D remove control not implemented.")
+    }
+
+    if (parentInstance.metadata && parentInstance.metadata.isGUI2DControl === true && child.metadata.isGUI2DControl === true) {
+      // NOTE: the if statement should be || and we may need to walk the tree to remove.
+      parentInstance.hostInstance.removeControl(child.hostInstance)
+    }
+
+    if(child.children) {
+      removeRecursive(child.children, child);
+    }
+
+    if (typeof child.hostInstance.dispose === "function") {
+      hostInstance.dispose() // TODO: Consider adding metadata/descriptors as some dispose methods have optional args.
+    }
+
+    // fix: old version rootInstance.children was not cleaned, so the children array maybe huge over time
+    parentInstance.children = parentInstance.children.filter(ci => ci !== child)
+    child.parent = null
+  }
+}
+
+/**
+ * remove child recursive
+ */
+function removeRecursive(array: any, parent:any, clone: boolean = false) {
+  if (array) {
+    const target = clone ? [...array] : array;
+    target.forEach((child:any) => removeChild(parent, child));
+  }
 }
 
 const ReactBabylonJSHostConfig: HostConfig<
@@ -346,6 +398,8 @@ const ReactBabylonJSHostConfig: HostConfig<
       lifecycleListener = new CUSTOM_COMPONENTS.CameraLifecycleListener(scene, props, canvas as HTMLCanvasElement)
     } else if (metadata.isNode) {
       lifecycleListener = new CUSTOM_COMPONENTS.NodeLifecycleListener();
+    } else if (metadata.isEffectLayer) {
+      lifecycleListener = new CUSTOM_COMPONENTS.EffectLayerLifecycleListener();
     }
 
     // here we dynamically assign listeners for specific types.
@@ -486,40 +540,16 @@ const ReactBabylonJSHostConfig: HostConfig<
     }
   },
 
-  removeChildFromContainer(container: Container, child: CreatedInstance<any> | undefined): void {
-    console.log('removeChildFromContainer', container.rootInstance.children)
-    if (child && child.lifecycleListener) {
-      child.lifecycleListener.onUnmount();
+  removeChildFromContainer: (container: Container, child: HostCreatedInstance <any> ) => {
+    /**
+     * todo: model's root mesh should be destroy.
+     * console.log('removeChildFromContainer', container.rootInstance.children);
+     */
+    if (child) {
+      removeChild(container.rootInstance, child)
     }
-
-    if (child && child.hostInstance && typeof child.hostInstance.dispose === "function") {
-      child.hostInstance.dispose()
-    }
-    // console.error("need to remove child from parent (container)")
   },
-
-  removeChild(parentInstance: CreatedInstance<any>, child: CreatedInstance<any>) {
-    console.log('rc')
-    if (child && child.lifecycleListener) {
-      child.lifecycleListener.onUnmount();
-    }
-
-    if (child.metadata.isGUI3DControl === true) {
-      console.error("3D remove control not implemented.")
-    }
-
-    if (parentInstance.metadata.isGUI2DControl === true && child.metadata.isGUI2DControl === true) {
-      // NOTE: the if statement should be || and we may need to walk the tree to remove.
-      parentInstance.hostInstance.removeControl(child.hostInstance)
-    }
-
-    if (typeof child.hostInstance.dispose === "function") {
-      child.hostInstance.dispose() // TODO: Consider adding metadata/descriptors as some dispose methods have optional args.
-    }
-
-    parentInstance.children = parentInstance.children.filter(ci => ci !== child)
-    child.parent = null
-  },
+  removeChild,
 
   // text-content nodes are not used.  treated as a leaf node.  children are not traversed.  calls methods like createTextInstance(...)
   shouldSetTextContent: (type: string, props: any) => {
