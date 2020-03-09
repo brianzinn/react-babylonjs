@@ -13,14 +13,14 @@ function WithTransformNode() {
 
   let timer;
   let direction = 1;
-  
+
   const animate = _ => {
     if (position.x > 1) {
       direction = -1;
     } else if (position.x < -1) {
       direction = 1;
     }
-    
+
     const velocity = 0.005 * direction;
     position.x += velocity;
     const rpm = 10;
