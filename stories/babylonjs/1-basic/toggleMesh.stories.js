@@ -37,7 +37,8 @@ function WithToggleMesh() {
             rootUrl={`assets/models/`} sceneFilename='atom.glb'
             progressBarColor={Color3.FromInts(135, 206, 235)}
             center={new Vector3(2, 1, 0)}/>
-        </ground>}
+        </ground>
+      }
 
       <adtFullscreenUi name='ui'>
         <rectangle name="rect" height='50px' width='150px'>

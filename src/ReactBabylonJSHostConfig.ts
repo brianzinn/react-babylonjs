@@ -11,7 +11,6 @@ import { HasPropsHandlers, PropertyUpdate, UpdatePayload } from "./PropsHandler"
 import { LifecycleListener } from "./LifecycleListener"
 import { GeneratedParameter, CreateInfo, CreationType } from "./codeGenerationDescriptors"
 import { applyUpdateToInstance } from "./UpdateInstance"
-import {BabylonNode} from "./generatedProps";
 
 // ** TODO: switch to node module 'scheduler', but compiler is not finding 'require()' exports currently...
 type RequestIdleCallbackHandle = any
@@ -76,8 +75,8 @@ function createCreatedInstance<T, U extends HasPropsHandlers<T, any>>(
 
 
 /**
- * remove instance's children recursive
- * I'm not sure that must to recursive, please double check.
+ * remove instance's children recursively
+ *
  * @param parentInstance
  * @param child
  */
@@ -397,8 +396,6 @@ const ReactBabylonJSHostConfig: HostConfig<
       lifecycleListener = new CUSTOM_COMPONENTS.CameraLifecycleListener(scene, props, canvas as HTMLCanvasElement)
     } else if (metadata.isNode) {
       lifecycleListener = new CUSTOM_COMPONENTS.NodeLifecycleListener();
-    } else if (metadata.isEffectLayer) {
-      lifecycleListener = new CUSTOM_COMPONENTS.EffectLayerLifecycleListener();
     }
 
     // here we dynamically assign listeners for specific types.

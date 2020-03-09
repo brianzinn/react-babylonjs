@@ -28,8 +28,6 @@ function WithGlowLayer() {
   const onCheckboxClicked = (value) => {
     if (glowRef.current) {
       glowRef.current.hostInstance.isEnabled = value;
-    } else {
-      console.error('no ref', glowRef)
     }
   };
 
@@ -39,7 +37,7 @@ function WithGlowLayer() {
         <arcRotateCamera
           name='Camera'
           alpha={2.5}
-          beta={1.5}
+          beta={0.9}
           radius={25}
           lowerRadiusLimit={20}
           upperRadiusLimit={80}
@@ -64,7 +62,7 @@ function WithGlowLayer() {
             <checkbox width='20px' height='20px' isChecked={true} color='green'
               onIsCheckedChangedObservable={onCheckboxClicked}
             />
-            <textBlock text='Glow Enabled' width='180px' marginLeft='5px' color='white'
+            <textBlock text='Glow Enabled' width='180px' paddingLeft='5px' color='white'
               textHorizontalAlignment={Control.HORIZONTAL_ALIGNMENT_LEFT}
             />
           </stackPanel>

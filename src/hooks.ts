@@ -1,7 +1,7 @@
 import { useContext, useEffect } from 'react';
 import { Nullable, Observer, Scene, EventState } from '@babylonjs/core';
 
-import {SceneContext, WithSceneContext} from './Scene'
+import { SceneContext } from './Scene'
 
 export type OnFrameRenderFn = (eventData: Scene, eventState: EventState) => void
 

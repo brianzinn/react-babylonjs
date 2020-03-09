@@ -22,7 +22,7 @@ function WithAnimation() {
     if (groupRef.current) {
       const group = groupRef.current.hostInstance;
       const animations = getSlideUpAnimation(position, -2);
-      const animatable = scene.beginDirectAnimation(group, animations, 0, 60);
+      const animatable = scene.beginDirectAnimation(group, animations, 0, 120, true);
       // console.timeLog('Timing', 'beginAnimation');
     }
   };
@@ -70,6 +70,9 @@ function getSlideUpAnimation(position, offsetY) {
   }, {
     frame: 60,
     value: y
+  }, {
+    frame: 120,
+    value: y + offsetY
   }];
 
   const animation = new Animation(
