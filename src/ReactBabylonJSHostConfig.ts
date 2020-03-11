@@ -1,5 +1,5 @@
 import ReactReconciler, { HostConfig } from "react-reconciler"
-import {Scene, Engine, Nullable, Node} from '@babylonjs/core'
+import { Scene, Engine, Nullable, Node } from '@babylonjs/core'
 import * as BABYLONEXT from "./extensions"
 import * as GENERATED from './generatedCode'
 import * as CUSTOM_HOSTS from "./customHosts"
@@ -11,7 +11,6 @@ import { HasPropsHandlers, PropertyUpdate, UpdatePayload } from "./PropsHandler"
 import { LifecycleListener } from "./LifecycleListener"
 import { GeneratedParameter, CreateInfo, CreationType } from "./codeGenerationDescriptors"
 import { applyUpdateToInstance } from "./UpdateInstance"
-import {BabylonNode} from "./generatedProps";
 
 // ** TODO: switch to node module 'scheduler', but compiler is not finding 'require()' exports currently...
 type RequestIdleCallbackHandle = any
@@ -76,8 +75,8 @@ function createCreatedInstance<T, U extends HasPropsHandlers<T, any>>(
 
 
 /**
- * remove instance's children recursive
- * I'm not sure that must to recursive, please double check.
+ * remove instance's children recursively
+ *
  * @param parentInstance
  * @param child
  */
@@ -553,6 +552,7 @@ const ReactBabylonJSHostConfig: HostConfig<
     if (child) {
       removeChild(container.rootInstance, child)
     }
+    // console.error("need to remove child from parent (container)")
   },
   removeChild,
 

@@ -4,10 +4,11 @@ import {CubeTexture, Texture} from "@babylonjs/core/Materials/Textures"
 interface SkyboxProps {
   // babylonJSContext: PropTypes.any, // To get scene/engine as props via Context API HOC withBabylonJS(Component).
   rootUrl: string
+  size?: number
 }
 
 const Skybox: React.FC<SkyboxProps> = (props: SkyboxProps) => {
-  return React.createElement("box", { size: 100, infiniteDistance: true, renderingGroupId: 0 }, [
+  return React.createElement("box", { size: props.size ?? 100, infiniteDistance: true, renderingGroupId: 0 }, [
     React.createElement("standardMaterial", { backFaceCulling: false, disableLighting: true }, [
       React.createElement("cubeTexture", {
         key: `cube-texture-${props.rootUrl}`, // changing rootUrl will reload the CubeTexture
