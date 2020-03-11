@@ -76,7 +76,6 @@ function createCreatedInstance<T, U extends HasPropsHandlers<T, any>>(
 
 /**
  * remove instance's children recursively
- *
  * @param parentInstance
  * @param child
  */
