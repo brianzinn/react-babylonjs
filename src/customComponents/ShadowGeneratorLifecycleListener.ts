@@ -1,6 +1,8 @@
 import { CreatedInstance } from "../CreatedInstance"
 import { LifecycleListener } from "../LifecycleListener"
 import { ShadowGenerator, Scene, AbstractMesh, Observer, Nullable } from "@babylonjs/core"
+import { PropertyUpdate } from "../PropsHandler"
+import { applyUpdateToInstance } from "../UpdateInstance"
 
 export default class ShadowGeneratorLifecycleListener implements LifecycleListener<ShadowGenerator> {
   private props: any
@@ -85,6 +87,32 @@ export default class ShadowGeneratorLifecycleListener implements LifecycleListen
           instance.hostInstance!.addShadowCaster(mesh);
         }
       })
+    }
+
+    // need to assign deferred props (from delayed creation):
+    if (instance.deferredCreationProps && instance.propsHandlers) {
+      let initPayload: PropertyUpdate[] = []
+      instance.propsHandlers.getPropsHandlers().forEach(propHandler => {
+        // NOTE: this is actually WRONG, because here we want to compare the props with the object.
+        let handlerUpdates: PropertyUpdate[] | null = propHandler.getPropertyUpdates(
+          instance.hostInstance!,
+          {}, // Here we will reapply things like 'name', so perhaps should get default props from 'babylonObject'.
+          instance.deferredCreationProps,
+          this.scene // custom handlers may require scene access.
+        )
+        if (handlerUpdates !== null) {
+          initPayload.push(...handlerUpdates)
+        }
+      })
+
+      if (initPayload.length > 0) {
+        initPayload.forEach(update => {
+          applyUpdateToInstance(instance.hostInstance, update, instance.metadata!.className)
+        })
+      }
+    } else {
+      console.warn('cannot assign deferred props.  they are lost.');
+      instance.deferredCreationProps = undefined;
     }
   }
 

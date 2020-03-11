@@ -33,9 +33,9 @@ export default class PhysicsImpostorLifecycleListener implements LifecycleListen
       const options: PhysicsImpostorParameters = this.props._options // constructor has a default { mass: 0 }
 
       instance.hostInstance = new PhysicsImpostor(this._parent, this.props.type, options, this.scene!);
-        instance.hostInstance.object = this._parent;
-        (this._parent as any).physicsImpostor = instance.hostInstance;
-        
+      instance.hostInstance.object = this._parent;
+      (this._parent as any).physicsImpostor = instance.hostInstance;
+      // TODO: need to assign deferredCreationProps (@see ShadowGeneratorLifecycleListener).
     } else {
         console.warn('physics impostor not attached to object.')
     }

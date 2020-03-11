@@ -90,6 +90,7 @@ export interface CreatedInstance<T> {
   // TODO: Consider merging these last 2 into a single class/container.
   propsHandlers?: HasPropsHandlers<T, any> // These are mostly generated
   lifecycleListener?: LifecycleListener<T> // Only custom types currently support LifecycleListeners (ie: AttachesToParent)
+  deferredCreationProps?: any // deferred props for instance with delayed creation (ie: ShadowGenerator that needs Light).
 }
 
 export class CreatedInstanceImpl<T> implements CreatedInstance<T> {

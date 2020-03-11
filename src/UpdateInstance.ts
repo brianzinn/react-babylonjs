@@ -65,6 +65,10 @@ export const applyUpdateToInstance = (hostInstance: any, update: PropertyUpdate,
         if (typeof target[update.propertyName] === "function") {
           if (Array.isArray(update.value)) {
             target[update.propertyName](...update.value)
+          } else if (Object(update.value) !== update.value) {
+            // primitive, undefined & null.  Comparison is 7x slower than instanceof check,
+            // TODO: should be: update.value === undefined || typeof(update.value) === 'number' || ...
+            target[update.propertyName](update.value)
           } else {
             target[update.propertyName](...Object.values(update.value))
           }

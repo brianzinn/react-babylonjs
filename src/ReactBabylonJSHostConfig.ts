@@ -435,6 +435,8 @@ const ReactBabylonJSHostConfig: HostConfig<
           applyUpdateToInstance(babylonObject, update, type)
         })
       }
+    } else {
+      createdReference.deferredCreationProps = props;
     }
     return createdReference
   },
