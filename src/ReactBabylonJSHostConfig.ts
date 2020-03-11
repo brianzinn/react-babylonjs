@@ -399,6 +399,8 @@ const ReactBabylonJSHostConfig: HostConfig<
       lifecycleListener = new CUSTOM_COMPONENTS.NodeLifecycleListener();
     } else if (metadata.isEffectLayer) {
       lifecycleListener = new CUSTOM_COMPONENTS.EffectLayerLifecycleListener();
+    } else if (metadata.isBehavior) {
+      lifecycleListener = new CUSTOM_COMPONENTS.BehaviorLifecycleListener();
     }
 
     // here we dynamically assign listeners for specific types.
