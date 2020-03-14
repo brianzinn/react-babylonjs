@@ -1,5 +1,6 @@
-import { Vector3, Color3, Color4, Mesh } from '@babylonjs/core'
+import { Vector3, Color3, Color4, Mesh, Scene } from '@babylonjs/core'
 import { PropertyUpdate } from "./PropsHandler"
+import { CreatedInstance } from "./CreatedInstance"
 
 export const applyUpdateToInstance = (hostInstance: any, update: PropertyUpdate, type: string | undefined): void => {
   let target = update.target !== undefined ? hostInstance[update.target] : hostInstance
@@ -79,5 +80,32 @@ export const applyUpdateToInstance = (hostInstance: any, update: PropertyUpdate,
         console.error(`Unhandled property update of type ${update.type}`)
       }
       break
+  }
+}
+
+export const applyPropsToInstance = (instance: CreatedInstance<any>, props: any, scene: Scene) => {
+  if (!instance.propsHandlers) {
+    return;
+  }
+
+  let initPayload: PropertyUpdate[] = []
+  instance.propsHandlers.getPropsHandlers().forEach(propHandler => {
+    // NOTE: this can actually be WRONG, because here we want to compare the props with the object.
+    // This is only needed right after object instantiation.
+    let handlerUpdates: PropertyUpdate[] | null = propHandler.getPropertyUpdates(
+      instance.hostInstance!,
+      {}, // Here we will reapply things like 'name', so we could get default props from 'babylonObject'.
+      props,
+      scene // custom handlers may require scene access.
+    )
+    if (handlerUpdates !== null) {
+      initPayload.push(...handlerUpdates)
+    }
+  })
+
+  if (initPayload.length > 0) {
+    initPayload.forEach(update => {
+      applyUpdateToInstance(instance.hostInstance, update, instance.metadata!.className)
+    })
   }
 }
