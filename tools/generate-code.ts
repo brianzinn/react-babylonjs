@@ -626,8 +626,7 @@ const getInstanceSetMethods = (classDeclaration: ClassDeclaration): MethodDeclar
   let instanceSetMethods: MethodDeclaration[] = []
   classDeclaration.getInstanceMethods().forEach((methodDeclaration: MethodDeclaration) => {
     const methodName = methodDeclaration.getName();
-    // TODO: add ?
-    if (methodName.startsWith("set") || methodName.startsWith('add')) {
+    if (methodName.startsWith("set")) {
       instanceSetMethods.push(methodDeclaration)
     }
   })
