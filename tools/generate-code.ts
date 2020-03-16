@@ -1,11 +1,6 @@
 /**
- * To debug this file using the launch config (Current TS File) need to make 2 changes in tsconfig.json
- * 1. add to include.src "Tools"
- * 2. change compilerOptions.module to "commonjs" (from es2015).
- * I have not investigated a way to do this automatically, but the debugging is extremely helpful with conditional breakpoints with reading ts-simple-ast/ts-morph.
- *
- * "could not resolve entry" is the error, if you forget to switch it back as 'src' and 'tool's will be subdirs in compiled.
- */
+ * To debug code generation use the launch config in VS Code - "Generate Code (debug)"
+  */
 import {
   Project,
   ts,

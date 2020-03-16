@@ -10,7 +10,7 @@ import { CreatedInstance, CreatedInstanceMetadata, CustomProps } from "./Created
 import { HasPropsHandlers, PropertyUpdate, UpdatePayload } from "./PropsHandler"
 import { LifecycleListener } from "./LifecycleListener"
 import { GeneratedParameter, CreateInfo, CreationType } from "./codeGenerationDescriptors"
-import { applyUpdateToInstance } from "./UpdateInstance"
+import { applyUpdateToInstance, applyPropsToInstance } from "./UpdateInstance"
 
 // ** TODO: switch to node module 'scheduler', but compiler is not finding 'require()' exports currently...
 type RequestIdleCallbackHandle = any
@@ -416,25 +416,9 @@ const ReactBabylonJSHostConfig: HostConfig<
     }
 
     if (metadata.delayCreation !== true) {
-      let initPayload: PropertyUpdate[] = []
-      fiberObject.getPropsHandlers().forEach(propHandler => {
-        // NOTE: this is actually WRONG, because here we want to compare the props with the object.
-        let handlerUpdates: PropertyUpdate[] | null = propHandler.getPropertyUpdates(
-          createdReference,
-          {}, // Here we will reapply things like 'name', so perhaps should get default props from 'babylonObject'.
-          props,
-          scene! // custom handlers may require scene access.
-        )
-        if (handlerUpdates !== null) {
-          initPayload.push(...handlerUpdates)
-        }
-      })
-
-      if (initPayload.length > 0) {
-        initPayload.forEach(update => {
-          applyUpdateToInstance(babylonObject, update, type)
-        })
-      }
+      applyPropsToInstance(createdReference, props, scene!);
+    } else {
+      createdReference.deferredCreationProps = props;
     }
     return createdReference
   },
