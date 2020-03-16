@@ -57,7 +57,6 @@ import { AnimatedInputBlockTypes as BabylonjsCoreAnimatedInputBlockTypes } from 
 import { AnimationPropertiesOverride as BabylonjsCoreAnimationPropertiesOverride } from "@babylonjs/core/Animations/animationPropertiesOverride";
 import { Animation as BabylonjsCoreAnimation } from "@babylonjs/core/Animations/animation";
 import { Observable as BabylonjsCoreObservable } from "@babylonjs/core/Misc/observable";
-import { Behavior as BabylonjsCoreBehavior } from "@babylonjs/core/Behaviors/behavior";
 import { TransformNode as BabylonjsCoreTransformNode } from "@babylonjs/core/Meshes/transformNode";
 import { Vector3 as BabylonjsCoreVector3, Quaternion as BabylonjsCoreQuaternion, Matrix as BabylonjsCoreMatrix, Vector2 as BabylonjsCoreVector2, Vector4 as BabylonjsCoreVector4 } from "@babylonjs/core/Maths/math.vector";
 import { DeepImmutableObject as BabylonjsCoreDeepImmutableObject, IndicesArray as BabylonjsCoreIndicesArray, FloatArray as BabylonjsCoreFloatArray } from "@babylonjs/core/types";
@@ -139,7 +138,7 @@ import { SelectionPanel as BabylonjsGuiSelectionPanel, SelectorGroup as Babylonj
 import { ScrollViewer as BabylonjsGuiScrollViewer } from "@babylonjs/gui/2D/controls/scrollViewers/scrollViewer";
 import { Image as BabylonjsGuiImage } from "@babylonjs/gui/2D/controls/image";
 import { StackPanel as BabylonjsGuiStackPanel } from "@babylonjs/gui/2D/controls/stackPanel";
-import { VirtualKeyboard as BabylonjsGuiVirtualKeyboard, KeyPropertySet as BabylonjsGuiKeyPropertySet } from "@babylonjs/gui/2D/controls/virtualKeyboard";
+import { VirtualKeyboard as BabylonjsGuiVirtualKeyboard } from "@babylonjs/gui/2D/controls/virtualKeyboard";
 import { Ellipse as BabylonjsGuiEllipse } from "@babylonjs/gui/2D/controls/ellipse";
 import { Grid as BabylonjsGuiGrid } from "@babylonjs/gui/2D/controls/grid";
 import { _ScrollViewerWindow as BabylonjsGui_ScrollViewerWindow } from "@babylonjs/gui/2D/controls/scrollViewers/scrollViewerWindow";
@@ -149,7 +148,6 @@ import { InputText as BabylonjsGuiInputText } from "@babylonjs/gui/2D/controls/i
 import { InputPassword as BabylonjsGuiInputPassword } from "@babylonjs/gui/2D/controls/inputPassword";
 import { Line as BabylonjsGuiLine } from "@babylonjs/gui/2D/controls/line";
 import { MultiLine as BabylonjsGuiMultiLine } from "@babylonjs/gui/2D/controls/multiLine";
-import { MultiLinePoint as BabylonjsGuiMultiLinePoint } from "@babylonjs/gui/2D/multiLinePoint";
 import { RadioButton as BabylonjsGuiRadioButton } from "@babylonjs/gui/2D/controls/radioButton";
 import { BaseSlider as BabylonjsGuiBaseSlider } from "@babylonjs/gui/2D/controls/sliders/baseSlider";
 import { ScrollBar as BabylonjsGuiScrollBar } from "@babylonjs/gui/2D/controls/sliders/scrollBar";
@@ -179,7 +177,6 @@ import { ProceduralTexture as BabylonjsCoreProceduralTexture } from "@babylonjs/
 import { CustomProceduralTexture as BabylonjsCoreCustomProceduralTexture } from "@babylonjs/core/Materials/Textures/Procedurals/customProceduralTexture";
 import { NoiseProceduralTexture as BabylonjsCoreNoiseProceduralTexture } from "@babylonjs/core/Materials/Textures/Procedurals/noiseProceduralTexture";
 import { Engine as BabylonjsCoreEngine } from "@babylonjs/core/Engines/engine";
-import { PostProcess as BabylonjsCorePostProcess } from "@babylonjs/core/PostProcesses/postProcess";
 import { MirrorTexture as BabylonjsCoreMirrorTexture } from "@babylonjs/core/Materials/Textures/mirrorTexture";
 import { MultiRenderTarget as BabylonjsCoreMultiRenderTarget, IMultiRenderTargetOptions as BabylonjsCoreIMultiRenderTargetOptions } from "@babylonjs/core/Materials/Textures/multiRenderTarget";
 import { RefractionTexture as BabylonjsCoreRefractionTexture } from "@babylonjs/core/Materials/Textures/refractionTexture";
@@ -193,7 +190,6 @@ import { ColorGradingTexture as BabylonjsCoreColorGradingTexture } from "@babylo
 import { EquiRectangularCubeTexture as BabylonjsCoreEquiRectangularCubeTexture } from "@babylonjs/core/Materials/Textures/equiRectangularCubeTexture";
 import { HDRCubeTexture as BabylonjsCoreHDRCubeTexture } from "@babylonjs/core/Materials/Textures/hdrCubeTexture";
 import { HtmlElementTexture as BabylonjsCoreHtmlElementTexture, IHtmlElementTextureOptions as BabylonjsCoreIHtmlElementTextureOptions } from "@babylonjs/core/Materials/Textures/htmlElementTexture";
-import { PhysicsJoint as BabylonjsCorePhysicsJoint } from "@babylonjs/core/Physics/physicsJoint";
 import { PickingInfo as BabylonjsCorePickingInfo } from "@babylonjs/core/Collisions/pickingInfo";
 import { WebXRDefaultExperience as BabylonjsCoreWebXRDefaultExperience } from "@babylonjs/core/XR/webXRDefaultExperience";
 import { SolidParticleSystem as BabylonjsCoreSolidParticleSystem } from "@babylonjs/core/Particles/solidParticleSystem";
@@ -204,9 +200,8 @@ import { RenderingGroupInfo as BabylonjsCoreRenderingGroupInfo } from "@babylonj
 import { Geometry as BabylonjsCoreGeometry } from "@babylonjs/core/Meshes/geometry";
 import { KeyboardInfo as BabylonjsCoreKeyboardInfo, KeyboardInfoPre as BabylonjsCoreKeyboardInfoPre } from "@babylonjs/core/Events/keyboardEvents";
 import { PointerEventTypes as BabylonjsCorePointerEventTypes, PointerInfo as BabylonjsCorePointerInfo, PointerInfoPre as BabylonjsCorePointerInfoPre } from "@babylonjs/core/Events/pointerEvents";
+import { PostProcess as BabylonjsCorePostProcess } from "@babylonjs/core/PostProcesses/postProcess";
 import { PostProcessManager as BabylonjsCorePostProcessManager } from "@babylonjs/core/PostProcesses/postProcessManager";
-import { AnimationGroup as BabylonjsCoreAnimationGroup } from "@babylonjs/core/Animations/animationGroup";
-import { IParticleSystem as BabylonjsCoreIParticleSystem } from "@babylonjs/core/Particles/IParticleSystem";
 import { IPhysicsEnginePlugin as BabylonjsCoreIPhysicsEnginePlugin } from "@babylonjs/core/Physics/IPhysicsEngine";
 
 export class FiberNodePropsHandler implements PropsHandler<BabylonjsCoreNode, FiberNodeProps> {
@@ -281,14 +276,6 @@ export class FiberNodePropsHandler implements PropsHandler<BabylonjsCoreNode, Fi
                 propertyName: 'uniqueId',
                 value: newProps.uniqueId,
                 type: 'number'
-            });
-        }
-        // BabylonjsCoreNode.addBehavior of type '(behavior?: BabylonjsCoreBehavior<BabylonjsCoreNode>, attachImmediately?: boolean) => BabylonjsCoreNode':
-        if (oldProps.addBehavior !== newProps.addBehavior) {
-            updates.push({
-                propertyName: 'addBehavior',
-                value: newProps.addBehavior,
-                type: '(behavior?: BabylonjsCoreBehavior<BabylonjsCoreNode>, attachImmediately?: boolean) => BabylonjsCoreNode'
             });
         }
         // BabylonjsCoreNode.setEnabled of type '(value?: boolean) => void':
@@ -431,14 +418,6 @@ export class FiberTransformNodePropsHandler implements PropsHandler<BabylonjsCor
                 propertyName: 'scalingDeterminant',
                 value: newProps.scalingDeterminant,
                 type: 'number'
-            });
-        }
-        // BabylonjsCoreTransformNode.addRotation of type '(x?: number, y?: number, z?: number) => BabylonjsCoreTransformNode':
-        if (oldProps.addRotation !== newProps.addRotation) {
-            updates.push({
-                propertyName: 'addRotation',
-                value: newProps.addRotation,
-                type: '(x?: number, y?: number, z?: number) => BabylonjsCoreTransformNode'
             });
         }
         // BabylonjsCoreTransformNode.setAbsolutePosition of type '(absolutePosition?: BabylonjsCoreVector3) => BabylonjsCoreTransformNode':
@@ -912,14 +891,6 @@ export class FiberAbstractMeshPropsHandler implements PropsHandler<BabylonjsCore
                 type: 'number'
             });
         }
-        // BabylonjsCoreAbstractMesh.addChild of type '(mesh?: BabylonjsCoreAbstractMesh) => BabylonjsCoreAbstractMesh':
-        if (oldProps.addChild !== newProps.addChild) {
-            updates.push({
-                propertyName: 'addChild',
-                value: newProps.addChild,
-                type: '(mesh?: BabylonjsCoreAbstractMesh) => BabylonjsCoreAbstractMesh'
-            });
-        }
         // BabylonjsCoreAbstractMesh.setBoundingInfo of type '(boundingInfo?: BabylonjsCoreBoundingInfo) => BabylonjsCoreAbstractMesh':
         if (oldProps.setBoundingInfo !== newProps.setBoundingInfo) {
             updates.push({
@@ -1065,22 +1036,6 @@ export class FiberMeshPropsHandler implements PropsHandler<BabylonjsCoreMesh, Fi
                 propertyName: 'overridenInstanceCount',
                 value: newProps.overridenInstanceCount,
                 type: 'number'
-            });
-        }
-        // BabylonjsCoreMesh.addInstance of type '(instance?: BabylonjsCoreInstancedMesh) => void':
-        if (oldProps.addInstance !== newProps.addInstance) {
-            updates.push({
-                propertyName: 'addInstance',
-                value: newProps.addInstance,
-                type: '(instance?: BabylonjsCoreInstancedMesh) => void'
-            });
-        }
-        // BabylonjsCoreMesh.addLODLevel of type '(distance?: number, mesh?: BabylonjsCoreMesh) => BabylonjsCoreMesh':
-        if (oldProps.addLODLevel !== newProps.addLODLevel) {
-            updates.push({
-                propertyName: 'addLODLevel',
-                value: newProps.addLODLevel,
-                type: '(distance?: number, mesh?: BabylonjsCoreMesh) => BabylonjsCoreMesh'
             });
         }
         // BabylonjsCoreMesh.setIndices of type '(indices?: BabylonjsCoreIndicesArray, totalVertices?: number, updatable?: boolean) => BabylonjsCoreAbstractMesh':
@@ -9155,14 +9110,6 @@ export class FiberNodeMaterialPropsHandler implements PropsHandler<BabylonjsCore
             });
         }
         // TODO: type: 'BabylonjsCoreINodeMaterialOptions' property (not coded) BabylonjsCoreNodeMaterial.options.
-        // BabylonjsCoreNodeMaterial.addOutputNode of type '(node?: BabylonjsCoreNodeMaterialBlock) => this':
-        if (oldProps.addOutputNode !== newProps.addOutputNode) {
-            updates.push({
-                propertyName: 'addOutputNode',
-                value: newProps.addOutputNode,
-                type: '(node?: BabylonjsCoreNodeMaterialBlock) => this'
-            });
-        }
         return updates.length === 0 ? null : updates;
     }
 }
@@ -10661,14 +10608,6 @@ export class FiberContainerPropsHandler implements PropsHandler<BabylonjsGuiCont
                 type: 'string'
             });
         }
-        // BabylonjsGuiContainer.addControl of type '(control?: BabylonjsGuiControl) => BabylonjsGuiContainer':
-        if (oldProps.addControl !== newProps.addControl) {
-            updates.push({
-                propertyName: 'addControl',
-                value: newProps.addControl,
-                type: '(control?: BabylonjsGuiControl) => BabylonjsGuiContainer'
-            });
-        }
         return updates.length === 0 ? null : updates;
     }
 }
@@ -10928,38 +10867,6 @@ export class FiberSelectionPanelPropsHandler implements PropsHandler<BabylonjsGu
                 type: 'string'
             });
         }
-        // BabylonjsGuiSelectionPanel.addGroup of type '(group?: BabylonjsGuiSelectorGroup) => void':
-        if (oldProps.addGroup !== newProps.addGroup) {
-            updates.push({
-                propertyName: 'addGroup',
-                value: newProps.addGroup,
-                type: '(group?: BabylonjsGuiSelectorGroup) => void'
-            });
-        }
-        // BabylonjsGuiSelectionPanel.addToGroupCheckbox of type '(groupNb?: number, label?: string, func?: () => void, checked?: boolean) => void':
-        if (oldProps.addToGroupCheckbox !== newProps.addToGroupCheckbox) {
-            updates.push({
-                propertyName: 'addToGroupCheckbox',
-                value: newProps.addToGroupCheckbox,
-                type: '(groupNb?: number, label?: string, func?: () => void, checked?: boolean) => void'
-            });
-        }
-        // BabylonjsGuiSelectionPanel.addToGroupRadio of type '(groupNb?: number, label?: string, func?: () => void, checked?: boolean) => void':
-        if (oldProps.addToGroupRadio !== newProps.addToGroupRadio) {
-            updates.push({
-                propertyName: 'addToGroupRadio',
-                value: newProps.addToGroupRadio,
-                type: '(groupNb?: number, label?: string, func?: () => void, checked?: boolean) => void'
-            });
-        }
-        // BabylonjsGuiSelectionPanel.addToGroupSlider of type '(groupNb?: number, label?: string, func?: () => void, unit?: string, min?: number, max?: number, value?: number, onVal?: (v: number) => number) => void':
-        if (oldProps.addToGroupSlider !== newProps.addToGroupSlider) {
-            updates.push({
-                propertyName: 'addToGroupSlider',
-                value: newProps.addToGroupSlider,
-                type: '(groupNb?: number, label?: string, func?: () => void, unit?: string, min?: number, max?: number, value?: number, onVal?: (v: number) => number) => void'
-            });
-        }
         // BabylonjsGuiSelectionPanel.setHeaderName of type '(label?: string, groupNb?: number) => void':
         if (oldProps.setHeaderName !== newProps.setHeaderName) {
             updates.push({
@@ -11132,14 +11039,6 @@ export class FiberScrollViewerPropsHandler implements PropsHandler<BabylonjsGuiS
                 propertyName: 'wheelPrecision',
                 value: newProps.wheelPrecision,
                 type: 'number'
-            });
-        }
-        // BabylonjsGuiScrollViewer.addControl of type '(control?: BabylonjsGuiControl) => BabylonjsGuiContainer':
-        if (oldProps.addControl !== newProps.addControl) {
-            updates.push({
-                propertyName: 'addControl',
-                value: newProps.addControl,
-                type: '(control?: BabylonjsGuiControl) => BabylonjsGuiContainer'
             });
         }
         // BabylonjsGuiScrollViewer.setBucketSizes of type '(width?: number, height?: number) => void':
@@ -11392,14 +11291,6 @@ export class FiberVirtualKeyboardPropsHandler implements PropsHandler<BabylonjsG
                 type: 'number'
             });
         }
-        // BabylonjsGuiVirtualKeyboard.addKeysRow of type '(keys?: string[], propertySets?: BabylonjsGuiKeyPropertySet[]) => void':
-        if (oldProps.addKeysRow !== newProps.addKeysRow) {
-            updates.push({
-                propertyName: 'addKeysRow',
-                value: newProps.addKeysRow,
-                type: '(keys?: string[], propertySets?: BabylonjsGuiKeyPropertySet[]) => void'
-            });
-        }
         return updates.length === 0 ? null : updates;
     }
 }
@@ -11517,30 +11408,6 @@ export class FiberGridPropsHandler implements PropsHandler<BabylonjsGuiGrid, Fib
                 propertyName: 'name',
                 value: newProps.name,
                 type: 'string'
-            });
-        }
-        // BabylonjsGuiGrid.addColumnDefinition of type '(width?: number, isPixel?: boolean) => BabylonjsGuiGrid':
-        if (oldProps.addColumnDefinition !== newProps.addColumnDefinition) {
-            updates.push({
-                propertyName: 'addColumnDefinition',
-                value: newProps.addColumnDefinition,
-                type: '(width?: number, isPixel?: boolean) => BabylonjsGuiGrid'
-            });
-        }
-        // BabylonjsGuiGrid.addControl of type '(control?: BabylonjsGuiControl, row?: number, column?: number) => BabylonjsGuiGrid':
-        if (oldProps.addControl !== newProps.addControl) {
-            updates.push({
-                propertyName: 'addControl',
-                value: newProps.addControl,
-                type: '(control?: BabylonjsGuiControl, row?: number, column?: number) => BabylonjsGuiGrid'
-            });
-        }
-        // BabylonjsGuiGrid.addRowDefinition of type '(height?: number, isPixel?: boolean) => BabylonjsGuiGrid':
-        if (oldProps.addRowDefinition !== newProps.addRowDefinition) {
-            updates.push({
-                propertyName: 'addRowDefinition',
-                value: newProps.addRowDefinition,
-                type: '(height?: number, isPixel?: boolean) => BabylonjsGuiGrid'
             });
         }
         // BabylonjsGuiGrid.setColumnDefinition of type '(index?: number, width?: number, isPixel?: boolean) => BabylonjsGuiGrid':
@@ -12742,14 +12609,6 @@ export class FiberMultiLinePropsHandler implements PropsHandler<BabylonjsGuiMult
                 type: 'number'
             });
         }
-        // BabylonjsGuiMultiLine.add of type '(items?: (BabylonjsCoreAbstractMesh | BabylonjsGuiControl | { x: string | number; y: string | number; })[]) => BabylonjsGuiMultiLinePoint[]':
-        if (oldProps.add !== newProps.add) {
-            updates.push({
-                propertyName: 'add',
-                value: newProps.add,
-                type: '(items?: (BabylonjsCoreAbstractMesh | BabylonjsGuiControl | { x: string | number; y: string | number; })[]) => BabylonjsGuiMultiLinePoint[]'
-            });
-        }
         return updates.length === 0 ? null : updates;
     }
 }
@@ -13588,14 +13447,6 @@ export class FiberControl3DPropsHandler implements PropsHandler<BabylonjsGuiCont
                 type: 'BabylonjsCoreVector3'
             });
         }
-        // BabylonjsGuiControl3D.addBehavior of type '(behavior?: BabylonjsCoreBehavior<BabylonjsGuiControl3D>) => BabylonjsGuiControl3D':
-        if (oldProps.addBehavior !== newProps.addBehavior) {
-            updates.push({
-                propertyName: 'addBehavior',
-                value: newProps.addBehavior,
-                type: '(behavior?: BabylonjsCoreBehavior<BabylonjsGuiControl3D>) => BabylonjsGuiControl3D'
-            });
-        }
         return updates.length === 0 ? null : updates;
     }
 }
@@ -13650,14 +13501,6 @@ export class FiberContainer3DPropsHandler implements PropsHandler<BabylonjsGuiCo
                 propertyName: 'blockLayout',
                 value: newProps.blockLayout,
                 type: 'boolean'
-            });
-        }
-        // BabylonjsGuiContainer3D.addControl of type '(control?: BabylonjsGuiControl3D) => BabylonjsGuiContainer3D':
-        if (oldProps.addControl !== newProps.addControl) {
-            updates.push({
-                propertyName: 'addControl',
-                value: newProps.addControl,
-                type: '(control?: BabylonjsGuiControl3D) => BabylonjsGuiContainer3D'
             });
         }
         return updates.length === 0 ? null : updates;
@@ -14486,22 +14329,6 @@ export class FiberGlowLayerPropsHandler implements PropsHandler<BabylonjsCoreGlo
                 type: 'number'
             });
         }
-        // BabylonjsCoreGlowLayer.addExcludedMesh of type '(mesh?: BabylonjsCoreMesh) => void':
-        if (oldProps.addExcludedMesh !== newProps.addExcludedMesh) {
-            updates.push({
-                propertyName: 'addExcludedMesh',
-                value: newProps.addExcludedMesh,
-                type: '(mesh?: BabylonjsCoreMesh) => void'
-            });
-        }
-        // BabylonjsCoreGlowLayer.addIncludedOnlyMesh of type '(mesh?: BabylonjsCoreMesh) => void':
-        if (oldProps.addIncludedOnlyMesh !== newProps.addIncludedOnlyMesh) {
-            updates.push({
-                propertyName: 'addIncludedOnlyMesh',
-                value: newProps.addIncludedOnlyMesh,
-                type: '(mesh?: BabylonjsCoreMesh) => void'
-            });
-        }
         return updates.length === 0 ? null : updates;
     }
 }
@@ -14619,22 +14446,6 @@ export class FiberHighlightLayerPropsHandler implements PropsHandler<BabylonjsCo
                 propertyName: 'outerGlow',
                 value: newProps.outerGlow,
                 type: 'boolean'
-            });
-        }
-        // BabylonjsCoreHighlightLayer.addExcludedMesh of type '(mesh?: BabylonjsCoreMesh) => void':
-        if (oldProps.addExcludedMesh !== newProps.addExcludedMesh) {
-            updates.push({
-                propertyName: 'addExcludedMesh',
-                value: newProps.addExcludedMesh,
-                type: '(mesh?: BabylonjsCoreMesh) => void'
-            });
-        }
-        // BabylonjsCoreHighlightLayer.addMesh of type '(mesh?: BabylonjsCoreMesh, color?: BabylonjsCoreColor3, glowEmissiveOnly?: boolean) => void':
-        if (oldProps.addMesh !== newProps.addMesh) {
-            updates.push({
-                propertyName: 'addMesh',
-                value: newProps.addMesh,
-                type: '(mesh?: BabylonjsCoreMesh, color?: BabylonjsCoreColor3, glowEmissiveOnly?: boolean) => void'
             });
         }
         return updates.length === 0 ? null : updates;
@@ -16077,14 +15888,6 @@ export class FiberRenderTargetTexturePropsHandler implements PropsHandler<Babylo
                 type: 'boolean'
             });
         }
-        // BabylonjsCoreRenderTargetTexture.addPostProcess of type '(postProcess?: BabylonjsCorePostProcess) => void':
-        if (oldProps.addPostProcess !== newProps.addPostProcess) {
-            updates.push({
-                propertyName: 'addPostProcess',
-                value: newProps.addPostProcess,
-                type: '(postProcess?: BabylonjsCorePostProcess) => void'
-            });
-        }
         // BabylonjsCoreRenderTargetTexture.setRenderingAutoClearDepthStencil of type '(renderingGroupId?: number, autoClearDepthStencil?: boolean) => void':
         if (oldProps.setRenderingAutoClearDepthStencil !== newProps.setRenderingAutoClearDepthStencil) {
             updates.push({
@@ -16877,14 +16680,6 @@ export class FiberAdvancedDynamicTexturePropsHandler implements PropsHandler<Bab
                 propertyName: 'useSmallestIdeal',
                 value: newProps.useSmallestIdeal,
                 type: 'boolean'
-            });
-        }
-        // BabylonjsGuiAdvancedDynamicTexture.addControl of type '(control?: BabylonjsGuiControl) => BabylonjsGuiAdvancedDynamicTexture':
-        if (oldProps.addControl !== newProps.addControl) {
-            updates.push({
-                propertyName: 'addControl',
-                value: newProps.addControl,
-                type: '(control?: BabylonjsGuiControl) => BabylonjsGuiAdvancedDynamicTexture'
             });
         }
         return updates.length === 0 ? null : updates;
@@ -17686,14 +17481,6 @@ export class FiberGUI3DManagerPropsHandler implements PropsHandler<BabylonjsGuiG
                 type: 'BabylonjsCoreObservable<BabylonjsCoreVector3>'
             });
         }
-        // BabylonjsGuiGUI3DManager.addControl of type '(control?: BabylonjsGuiControl3D) => BabylonjsGuiGUI3DManager':
-        if (oldProps.addControl !== newProps.addControl) {
-            updates.push({
-                propertyName: 'addControl',
-                value: newProps.addControl,
-                type: '(control?: BabylonjsGuiControl3D) => BabylonjsGuiGUI3DManager'
-            });
-        }
         return updates.length === 0 ? null : updates;
     }
 }
@@ -17941,14 +17728,6 @@ export class FiberShadowGeneratorPropsHandler implements PropsHandler<BabylonjsC
                 propertyName: 'usePoissonSampling',
                 value: newProps.usePoissonSampling,
                 type: 'boolean'
-            });
-        }
-        // BabylonjsCoreShadowGenerator.addShadowCaster of type '(mesh?: BabylonjsCoreAbstractMesh, includeDescendants?: boolean) => BabylonjsCoreShadowGenerator':
-        if (oldProps.addShadowCaster !== newProps.addShadowCaster) {
-            updates.push({
-                propertyName: 'addShadowCaster',
-                value: newProps.addShadowCaster,
-                type: '(mesh?: BabylonjsCoreAbstractMesh, includeDescendants?: boolean) => BabylonjsCoreShadowGenerator'
             });
         }
         // BabylonjsCoreShadowGenerator.setDarkness of type '(darkness?: number) => BabylonjsCoreShadowGenerator':
@@ -18205,30 +17984,6 @@ export class FiberPhysicsImpostorPropsHandler implements PropsHandler<BabylonjsC
                 propertyName: 'velocityIterations',
                 value: newProps.velocityIterations,
                 type: 'number'
-            });
-        }
-        // BabylonjsCorePhysicsImpostor.addAnchor of type '(otherImpostor?: BabylonjsCorePhysicsImpostor, width?: number, height?: number, influence?: number, noCollisionBetweenLinkedBodies?: boolean) => BabylonjsCorePhysicsImpostor':
-        if (oldProps.addAnchor !== newProps.addAnchor) {
-            updates.push({
-                propertyName: 'addAnchor',
-                value: newProps.addAnchor,
-                type: '(otherImpostor?: BabylonjsCorePhysicsImpostor, width?: number, height?: number, influence?: number, noCollisionBetweenLinkedBodies?: boolean) => BabylonjsCorePhysicsImpostor'
-            });
-        }
-        // BabylonjsCorePhysicsImpostor.addHook of type '(otherImpostor?: BabylonjsCorePhysicsImpostor, length?: number, influence?: number, noCollisionBetweenLinkedBodies?: boolean) => BabylonjsCorePhysicsImpostor':
-        if (oldProps.addHook !== newProps.addHook) {
-            updates.push({
-                propertyName: 'addHook',
-                value: newProps.addHook,
-                type: '(otherImpostor?: BabylonjsCorePhysicsImpostor, length?: number, influence?: number, noCollisionBetweenLinkedBodies?: boolean) => BabylonjsCorePhysicsImpostor'
-            });
-        }
-        // BabylonjsCorePhysicsImpostor.addJoint of type '(otherImpostor?: BabylonjsCorePhysicsImpostor, joint?: BabylonjsCorePhysicsJoint) => BabylonjsCorePhysicsImpostor':
-        if (oldProps.addJoint !== newProps.addJoint) {
-            updates.push({
-                propertyName: 'addJoint',
-                value: newProps.addJoint,
-                type: '(otherImpostor?: BabylonjsCorePhysicsImpostor, joint?: BabylonjsCorePhysicsJoint) => BabylonjsCorePhysicsImpostor'
             });
         }
         // BabylonjsCorePhysicsImpostor.setAngularVelocity of type '(velocity?: BabylonjsCoreVector3) => void':
@@ -18535,14 +18290,6 @@ export class FiberVRExperienceHelperPropsHandler implements PropsHandler<Babylon
                 propertyName: 'xrTestDone',
                 value: newProps.xrTestDone,
                 type: 'boolean'
-            });
-        }
-        // BabylonjsCoreVRExperienceHelper.addFloorMesh of type '(floorMesh?: BabylonjsCoreMesh) => void':
-        if (oldProps.addFloorMesh !== newProps.addFloorMesh) {
-            updates.push({
-                propertyName: 'addFloorMesh',
-                value: newProps.addFloorMesh,
-                type: '(floorMesh?: BabylonjsCoreMesh) => void'
             });
         }
         // BabylonjsCoreVRExperienceHelper.setGazeColor of type '(color?: BabylonjsCoreColor3, pickedColor?: BabylonjsCoreColor3) => void':
@@ -20433,126 +20180,6 @@ export class FiberScenePropsHandler implements PropsHandler<BabylonjsCoreScene, 
                 propertyName: 'useRightHandedSystem',
                 value: newProps.useRightHandedSystem,
                 type: 'boolean'
-            });
-        }
-        // BabylonjsCoreScene.addActionManager of type '(newActionManager?: BabylonjsCoreAbstractActionManager) => void':
-        if (oldProps.addActionManager !== newProps.addActionManager) {
-            updates.push({
-                propertyName: 'addActionManager',
-                value: newProps.addActionManager,
-                type: '(newActionManager?: BabylonjsCoreAbstractActionManager) => void'
-            });
-        }
-        // BabylonjsCoreScene.addAnimation of type '(newAnimation?: BabylonjsCoreAnimation) => void':
-        if (oldProps.addAnimation !== newProps.addAnimation) {
-            updates.push({
-                propertyName: 'addAnimation',
-                value: newProps.addAnimation,
-                type: '(newAnimation?: BabylonjsCoreAnimation) => void'
-            });
-        }
-        // BabylonjsCoreScene.addAnimationGroup of type '(newAnimationGroup?: BabylonjsCoreAnimationGroup) => void':
-        if (oldProps.addAnimationGroup !== newProps.addAnimationGroup) {
-            updates.push({
-                propertyName: 'addAnimationGroup',
-                value: newProps.addAnimationGroup,
-                type: '(newAnimationGroup?: BabylonjsCoreAnimationGroup) => void'
-            });
-        }
-        // BabylonjsCoreScene.addCamera of type '(newCamera?: BabylonjsCoreCamera) => void':
-        if (oldProps.addCamera !== newProps.addCamera) {
-            updates.push({
-                propertyName: 'addCamera',
-                value: newProps.addCamera,
-                type: '(newCamera?: BabylonjsCoreCamera) => void'
-            });
-        }
-        // BabylonjsCoreScene.addExternalData of type '(key?: string, data?: T) => boolean':
-        if (oldProps.addExternalData !== newProps.addExternalData) {
-            updates.push({
-                propertyName: 'addExternalData',
-                value: newProps.addExternalData,
-                type: '(key?: string, data?: T) => boolean'
-            });
-        }
-        // BabylonjsCoreScene.addGeometry of type '(newGeometry?: BabylonjsCoreGeometry) => void':
-        if (oldProps.addGeometry !== newProps.addGeometry) {
-            updates.push({
-                propertyName: 'addGeometry',
-                value: newProps.addGeometry,
-                type: '(newGeometry?: BabylonjsCoreGeometry) => void'
-            });
-        }
-        // BabylonjsCoreScene.addLight of type '(newLight?: BabylonjsCoreLight) => void':
-        if (oldProps.addLight !== newProps.addLight) {
-            updates.push({
-                propertyName: 'addLight',
-                value: newProps.addLight,
-                type: '(newLight?: BabylonjsCoreLight) => void'
-            });
-        }
-        // BabylonjsCoreScene.addMaterial of type '(newMaterial?: BabylonjsCoreMaterial) => void':
-        if (oldProps.addMaterial !== newProps.addMaterial) {
-            updates.push({
-                propertyName: 'addMaterial',
-                value: newProps.addMaterial,
-                type: '(newMaterial?: BabylonjsCoreMaterial) => void'
-            });
-        }
-        // BabylonjsCoreScene.addMesh of type '(newMesh?: BabylonjsCoreAbstractMesh, recursive?: boolean) => void':
-        if (oldProps.addMesh !== newProps.addMesh) {
-            updates.push({
-                propertyName: 'addMesh',
-                value: newProps.addMesh,
-                type: '(newMesh?: BabylonjsCoreAbstractMesh, recursive?: boolean) => void'
-            });
-        }
-        // BabylonjsCoreScene.addMorphTargetManager of type '(newMorphTargetManager?: BabylonjsCoreMorphTargetManager) => void':
-        if (oldProps.addMorphTargetManager !== newProps.addMorphTargetManager) {
-            updates.push({
-                propertyName: 'addMorphTargetManager',
-                value: newProps.addMorphTargetManager,
-                type: '(newMorphTargetManager?: BabylonjsCoreMorphTargetManager) => void'
-            });
-        }
-        // BabylonjsCoreScene.addMultiMaterial of type '(newMultiMaterial?: BabylonjsCoreMultiMaterial) => void':
-        if (oldProps.addMultiMaterial !== newProps.addMultiMaterial) {
-            updates.push({
-                propertyName: 'addMultiMaterial',
-                value: newProps.addMultiMaterial,
-                type: '(newMultiMaterial?: BabylonjsCoreMultiMaterial) => void'
-            });
-        }
-        // BabylonjsCoreScene.addParticleSystem of type '(newParticleSystem?: BabylonjsCoreIParticleSystem) => void':
-        if (oldProps.addParticleSystem !== newProps.addParticleSystem) {
-            updates.push({
-                propertyName: 'addParticleSystem',
-                value: newProps.addParticleSystem,
-                type: '(newParticleSystem?: BabylonjsCoreIParticleSystem) => void'
-            });
-        }
-        // BabylonjsCoreScene.addSkeleton of type '(newSkeleton?: BabylonjsCoreSkeleton) => void':
-        if (oldProps.addSkeleton !== newProps.addSkeleton) {
-            updates.push({
-                propertyName: 'addSkeleton',
-                value: newProps.addSkeleton,
-                type: '(newSkeleton?: BabylonjsCoreSkeleton) => void'
-            });
-        }
-        // BabylonjsCoreScene.addTexture of type '(newTexture?: BabylonjsCoreBaseTexture) => void':
-        if (oldProps.addTexture !== newProps.addTexture) {
-            updates.push({
-                propertyName: 'addTexture',
-                value: newProps.addTexture,
-                type: '(newTexture?: BabylonjsCoreBaseTexture) => void'
-            });
-        }
-        // BabylonjsCoreScene.addTransformNode of type '(newTransformNode?: BabylonjsCoreTransformNode) => void':
-        if (oldProps.addTransformNode !== newProps.addTransformNode) {
-            updates.push({
-                propertyName: 'addTransformNode',
-                value: newProps.addTransformNode,
-                type: '(newTransformNode?: BabylonjsCoreTransformNode) => void'
             });
         }
         // BabylonjsCoreScene.setActiveCameraByID of type '(id?: string) => BabylonjsCoreCamera':

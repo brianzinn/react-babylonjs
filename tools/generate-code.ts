@@ -1,45 +1,39 @@
 /**
- * To debug this file using the launch config (Current TS File) need to make 2 changes in tsconfig.json
- * 1. add to include.src "Tools"
- * 2. change compilerOptions.module to "commonjs" (from es2015).
- * I have not investigated a way to do this automatically, but the debugging is extremely helpful with conditional breakpoints with reading ts-simple-ast/ts-morph.
- *
- * "could not resolve entry" is the error, if you forget to switch it back as 'src' and 'tool's will be subdirs in compiled.
+ * To debug code generation use the launch config in VS Code - "Generate Code (debug)"
  */
 import {
-  ClassDeclaration,
-  CodeBlockWriter,
-  ConstructorDeclaration,
-  EnumDeclaration,
-  FunctionDeclaration,
-  ImportDeclaration,
-  ImportDeclarationStructure,
-  InterfaceDeclaration,
-  JSDoc,
-  MethodDeclaration,
-  MethodSignature,
-  NamespaceDeclaration,
-  NamespaceDeclarationKind,
-  OptionalKind,
-  ParameterDeclaration,
   Project,
-  PropertyDeclaration,
-  PropertySignatureStructure,
-  Scope,
-  SetAccessorDeclaration,
-  SourceFile,
   ts,
   VariableDeclarationKind,
-  VariableStatement,
+  ClassDeclaration,
+  PropertyDeclaration,
+  CodeBlockWriter,
+  SourceFile,
+  JSDoc,
+  ConstructorDeclaration,
+  Scope,
+  MethodDeclaration,
+  ParameterDeclaration,
   WriterFunction,
-  Writers
+  OptionalKind,
+  PropertySignatureStructure,
+  Writers,
+  ImportDeclarationStructure,
+  ImportDeclaration,
+  FunctionDeclaration,
+  VariableStatement,
+  NamespaceDeclarationKind,
+  InterfaceDeclaration,
+  MethodSignature,
+  EnumDeclaration,
+  NamespaceDeclaration,
+  SetAccessorDeclaration
 } from 'ts-morph'
 
-import {CreateInfo, CreationType, GeneratedParameter} from "../src/codeGenerationDescriptors";
-import {CreatedInstanceMetadata, InstanceMetadataParameter} from "../src/CreatedInstance"
-import camelCase from "lodash.camelcase"
-
+import { GeneratedParameter, CreateInfo, CreationType } from "../src/codeGenerationDescriptors";
+import { InstanceMetadataParameter, CreatedInstanceMetadata } from "../src/CreatedInstance"
 const path = require("path");
+import camelCase from "lodash.camelcase"
 
 const ReactReconcilerCreatedInstanceMetadata = "CreatedInstanceMetadata";
 const PropertyUpdateInterface = "PropertyUpdate";
@@ -87,7 +81,7 @@ const addHostElement = (className: string, babylonjsClassDeclaration: ClassDecla
     REACT_EXPORTS.add(className);
 
     _hostElementMap.add(className); // prevent duplicates
-    const {intersectionType} = Writers;
+    const { intersectionType } = Writers;
 
     const moduleDeclaration = getModuleDeclarationFromClassDeclaration(babylonjsClassDeclaration);
 
@@ -389,7 +383,7 @@ const addMetadata = (classDeclaration: ClassDeclaration, originalClassDeclaratio
     isReadonly: true
   })
 
-  let metadataClone = metadata === undefined ? {} : {...metadata};
+  let metadataClone = metadata === undefined ? {} : { ...metadata };
 
   let propertyInit = {
     ...metadataClone,
@@ -438,9 +432,9 @@ const createdMeshClasses: string[] = [];
 const createMeshClasses = (generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile) => {
   createFactoryClass(
     'MeshBuilder', 'Mesh', '', {
-      acceptsMaterials: true,
-      isNode: true
-    },
+    acceptsMaterials: true,
+    isNode: true
+  },
     generatedCodeSourceFile,
     generatedPropsSourceFile
   );
@@ -646,7 +640,6 @@ const getInstanceProperties = (classDeclaration: ClassDeclaration): (PropertyDec
   // for conditional breakpoints on class: classDeclaration.getName() === "Control";
   classDeclaration.getProperties().forEach(property => {
     let propertyName = property.getName()
-
     if (propertyName[0] === '_') {
       // console.log(` > skipping ${className}.${propertyName} (private/hidden)`)
       return;
@@ -957,8 +950,7 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
     setMethods.sort((a, b) => a.getName().localeCompare(b.getName())).forEach((method: MethodDeclaration) => {
       writeMethodAsUpdateFunction(typeProperties, writer, method, addedMeshMethods, babylonClassDeclaration.importAlias, [generatedCodeSourceFile, generatedPropsSourceFile]);
     })
-    return writer.writeLine("return updates.length === 0 ? null : updates;");
-    ;
+    return writer.writeLine("return updates.length === 0 ? null : updates;");;
   })
 
   if (monkeyPatchInterfaces.has(classNameToGenerate)) {
@@ -998,14 +990,14 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
 }
 
 const writeTypeAlias = (file: SourceFile, name: string, typeProperties: OptionalKind<PropertySignatureStructure>[], intersectsWith?: string): void => {
-  const {intersectionType, objectType} = Writers;
+  const { intersectionType, objectType } = Writers;
 
   // bad hack to get custom props through.  will address soon...
   const intersectsWithType = intersectsWith === undefined
     ? undefined
     : intersectsWith === 'CustomProps' ? 'CustomProps' : `${ClassNamesPrefix}${intersectsWith}Props`;
 
-  const propertiesObject = objectType({properties: typeProperties})
+  const propertiesObject = objectType({ properties: typeProperties })
   const aliasType: WriterFunction = (intersectsWithType !== undefined)
     ? intersectionType(propertiesObject, intersectsWithType)
     : propertiesObject
@@ -1241,13 +1233,13 @@ const generateCode = async () => {
   const generatedCodeSourceFile: SourceFile = exportsProject.createSourceFile(
     `${__dirname}/../src/generatedCode.ts`,
     "",
-    {overwrite: true}
+    { overwrite: true }
   );
 
   const generatedPropsSourceFile: SourceFile = exportsProject.createSourceFile(
     `${__dirname}/../src/generatedProps.ts`,
     "",
-    {overwrite: true}
+    { overwrite: true }
   );
 
   addProject(["@babylonjs/core", "@babylonjs/gui"], ['../src/extensions/DynamicTerrain.ts'], [generatedCodeSourceFile, generatedPropsSourceFile]);
@@ -1349,10 +1341,7 @@ const generateCode = async () => {
   };
 
   if (classesOfInterest.get("Camera") !== undefined) {
-    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Camera")!, () => ({
-      isCamera: true,
-      isNode: true
-    }), extra);
+    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Camera")!, () => ({ isCamera: true, isNode: true }), extra);
   }
 
   if (classesOfInterest.get("MeshBuilder") !== undefined) {
@@ -1360,7 +1349,7 @@ const generateCode = async () => {
   }
 
   if (classesOfInterest.get("Material")) {
-    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Material")!, () => ({isMaterial: true}));
+    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Material")!, () => ({ isMaterial: true }));
   }
 
 
@@ -1383,23 +1372,24 @@ const generateCode = async () => {
   }
 
   if (classesOfInterest.get("Control")) {
-    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Control")!, () => ({isGUI2DControl: true}));
+    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Control")!, () => ({ isGUI2DControl: true }));
   }
 
   if (classesOfInterest.get("Control3D")) {
-    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Control3D")!, () => ({isGUI3DControl: true}));
+    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Control3D")!, () => ({ isGUI3DControl: true }));
   }
 
+
   if (classesOfInterest.get("EffectLayer")) {
-    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("EffectLayer")!, () => ({isEffectLayer: true}));
+    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("EffectLayer")!, () => ({ isEffectLayer: true }));
   }
 
   if (classesOfInterest.get("BaseTexture")) {
     const fromClassName = (className: string): InstanceMetadataParameter => {
       if (className === "AdvancedDynamicTexture") {
-        return {isGUI2DControl: true};
+        return { isGUI2DControl: true };
       } else {
-        return {isTexture: true};
+        return { isTexture: true };
       }
     }
 
@@ -1409,8 +1399,8 @@ const generateCode = async () => {
           'AdvancedDynamicTexture',
           'AdvancedDynamicTexture',
           'ADT', {
-            isTexture: true,
-          },
+          isTexture: true,
+        },
           generatedCodeSourceFile,
           generatedPropsSourceFile,
         )
@@ -1420,17 +1410,12 @@ const generateCode = async () => {
     createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("BaseTexture")!, fromClassName, onTexturesCreate);
   }
 
-
-  createSingleClass("GUI3DManager", generatedCodeSourceFile, generatedPropsSourceFile, undefined, {isGUI3DControl: true}, () => {
-    return;
-  })
-  createSingleClass("ShadowGenerator", generatedCodeSourceFile, generatedPropsSourceFile, undefined, {delayCreation: true}, () => {
-    return;
-  })
-  createSingleClass("EnvironmentHelper", generatedCodeSourceFile, generatedPropsSourceFile, undefined, {isEnvironment: true})
-  createSingleClass("PhysicsImpostor", generatedCodeSourceFile, generatedPropsSourceFile, undefined, {delayCreation: true})
+  createSingleClass("GUI3DManager", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { isGUI3DControl: true }, () => { return; })
+  createSingleClass("ShadowGenerator", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true }, () => { return; })
+  createSingleClass("EnvironmentHelper", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { isEnvironment: true })
+  createSingleClass("PhysicsImpostor", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true })
   createSingleClass("VRExperienceHelper", generatedCodeSourceFile, generatedPropsSourceFile)
-  createSingleClass("DynamicTerrain", generatedCodeSourceFile, generatedPropsSourceFile, undefined, {acceptsMaterials: true})
+  createSingleClass("DynamicTerrain", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { acceptsMaterials: true })
 
   classesOfInterest.forEach((_,className) => {
     if (className.includes('Behavior')) {
@@ -1511,8 +1496,8 @@ const generateCode = async () => {
           `${classToIntrinsic(className)}:'${className}'`)
         .join(',\n')},
           ${createdMeshClasses.map(meshName =>
-        `${classToIntrinsic(meshName)}:'${meshName}'`)
-        .join(',\n')}
+          `${classToIntrinsic(meshName)}:'${meshName}'`)
+          .join(',\n')}
         }`
     }]
   });
