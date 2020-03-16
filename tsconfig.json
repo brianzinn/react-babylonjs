@@ -14,7 +14,7 @@
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
         "declarationDir": "dist/types",
-        "outDir": "compiled",
+        "outDir": "dist",
         "allowUnusedLabels": true,
         "typeRoots": [
           "node_modules/@types"

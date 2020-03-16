@@ -7,7 +7,7 @@ import * as CUSTOM_COMPONENTS from "./customComponents"
 
 import { FiberModel, LoadedModel } from "./model"
 import { CreatedInstance, CreatedInstanceMetadata, CustomProps } from "./CreatedInstance"
-import { HasPropsHandlers, PropertyUpdate, UpdatePayload } from "./PropsHandler"
+import { HasPropsHandlers, PropertyUpdate, UpdatePayload, PropsHandler } from "./PropsHandler"
 import { LifecycleListener } from "./LifecycleListener"
 import { GeneratedParameter, CreateInfo, CreationType } from "./codeGenerationDescriptors"
 import { applyUpdateToInstance, applyPropsToInstance } from "./UpdateInstance"
@@ -47,7 +47,7 @@ type HostContext = {} & Container
 type TimeoutHandler = number | undefined
 type NoTimeout = number
 
-function createCreatedInstance<T, U extends HasPropsHandlers<T, any>>(
+function createCreatedInstance<T, U extends HasPropsHandlers<any>>(
   className: string,
   hostInstance: T,
   propsHandlers: U,
@@ -205,12 +205,10 @@ const ReactBabylonJSHostConfig: HostConfig<
     let updatePayload: PropertyUpdate[] = []
 
     // Only custom types will not have a fiber object to handle props changes
-    instance.propsHandlers!.getPropsHandlers().forEach(propHandler => {
+    instance.propsHandlers!.getPropsHandlers().forEach((propHandler: PropsHandler<any>) => {
       let handlerUpdates: PropertyUpdate[] | null = propHandler.getPropertyUpdates(
-        instance,
         oldProps,
-        newProps,
-        rootContainerInstance.scene!
+        newProps
       )
       if (handlerUpdates !== null) {
         updatePayload.push(...handlerUpdates)
@@ -365,7 +363,7 @@ const ReactBabylonJSHostConfig: HostConfig<
       props.onCreated(babylonObject)
     }
 
-    const fiberObject: HasPropsHandlers<any, any> = new (GENERATED as any)[`Fiber${underlyingClassName}`]()
+    const fiberObject: HasPropsHandlers<any> = new (GENERATED as any)[`Fiber${underlyingClassName}`]()
 
     let lifecycleListener: LifecycleListener<any> | undefined = undefined
 
@@ -416,7 +414,7 @@ const ReactBabylonJSHostConfig: HostConfig<
 
     // Here we dynamically attach known props handlers.  Will be adding more in code generation for GUI - also for lifecycle mgmt.
     if (createdReference.metadata && createdReference.metadata.isTargetable === true) {
-      fiberObject.addPropsHandler(new CUSTOM_COMPONENTS.TargetPropsHandler())
+      fiberObject.addPropsHandler(new CUSTOM_COMPONENTS.TargetPropsHandler(scene!))
     }
 
     if (metadata.delayCreation !== true) {

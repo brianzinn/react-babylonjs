@@ -91,7 +91,7 @@ const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
     if (engine === null || scene === null || renderer === null || prevProps === undefined) {
       return;
     }
-    const updates : UpdatePayload = propsHandler.getPropertyUpdates(scene, prevProps, props, scene)
+    const updates : UpdatePayload = propsHandler.getPropertyUpdates(prevProps, props)
     if (updates !== null) {
       updates.forEach(propertyUpdate => {
         applyUpdateToInstance(scene, propertyUpdate, 'scene')

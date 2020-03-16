@@ -72,7 +72,7 @@ export default class ModelLifecycleListener implements LifecycleListener<LoadedM
         loadedModel.status = LoaderStatus.Loaded
 
         // we want to trigger after mesh is loaded (ie: position/rotation)
-        const updates: UpdatePayload = new ModelPropsHandler().getPropertyUpdates(loadedModel, { rootUrl: "", sceneFilename: "" }, this.props, this.scene)
+        const updates: UpdatePayload = new ModelPropsHandler().getPropertyUpdates({ rootUrl: "", sceneFilename: "" }, this.props)
 
         if (updates !== null) {
           updates.forEach(update => applyUpdateToInstance(instance.hostInstance, update, "model"))

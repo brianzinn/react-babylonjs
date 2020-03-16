@@ -1,6 +1,6 @@
 import React /* , { useState } */ from 'react'
 import { storiesOf } from '@storybook/react'
-import { Engine, Scene } from '../../../dist/react-babylonjs.es5'
+import { Engine, Scene } from '../../../dist/react-babylonjs'
 import { Vector3, Color3 } from '@babylonjs/core/Maths/math'
 import '../../style.css'
 

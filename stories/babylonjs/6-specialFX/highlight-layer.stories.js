@@ -2,7 +2,7 @@ import React, {useEffect, useRef} from 'react'
 import {Control} from '@babylonjs/gui/2D/controls/control'
 import {storiesOf} from '@storybook/react'
 import '@babylonjs/inspector'
-import {Engine, Scene} from '../../../dist/react-babylonjs.es5'
+import {Engine, Scene} from '../../../dist/react-babylonjs'
 import {Color3, Vector3} from '@babylonjs/core/Maths/math'
 import '../../style.css'
 

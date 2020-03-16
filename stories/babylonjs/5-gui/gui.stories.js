@@ -1,7 +1,7 @@
 import React, { useRef, useCallback } from 'react'
 import {storiesOf} from '@storybook/react'
 import '@babylonjs/inspector'
-import {Engine, Scene} from '../../../dist/react-babylonjs.es5'
+import {Engine, Scene} from '../../../dist/react-babylonjs'
 import {Vector3} from '@babylonjs/core/Maths/math'
 import '../../style.css'
 import {Control} from '@babylonjs/gui';

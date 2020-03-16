@@ -25,15 +25,15 @@ export type ModelProps = {
   onCreated?: (rootMesh: AbstractMesh) => void
 }
 
-export class FiberModel extends BasePropsHandler<LoadedModel, ModelProps> {
+export class FiberModel extends BasePropsHandler<ModelProps> {
   constructor() {
     super([new ModelPropsHandler()])
   }
 }
 
-export class ModelPropsHandler implements PropsHandler<LoadedModel, ModelProps> {
-  getPropertyUpdates(hostInstance: LoadedModel, oldProps: ModelProps, newProps: ModelProps, scene: Scene): UpdatePayload {
-    const propsHandlers: PropsHandler<any, any>[] = [
+export class ModelPropsHandler implements PropsHandler<ModelProps> {
+  getPropertyUpdates(oldProps: ModelProps, newProps: ModelProps): UpdatePayload {
+    const propsHandlers: PropsHandler<any>[] = [
       new FiberMeshPropsHandler(),
       new FiberAbstractMeshPropsHandler(),
       new FiberTransformNodePropsHandler(),
@@ -43,7 +43,7 @@ export class ModelPropsHandler implements PropsHandler<LoadedModel, ModelProps> 
     let meshUpdates: PropertyUpdate[] = []
     propsHandlers.forEach(propHandler => {
       // NOTE: this is actually WRONG, because here we want to compare the props with the object.
-      let handlerUpdates: PropertyUpdate[] | null = propHandler.getPropertyUpdates(hostInstance.rootMesh as Mesh, oldProps, newProps, scene)
+      let handlerUpdates: PropertyUpdate[] | null = propHandler.getPropertyUpdates(oldProps, newProps)
       if (handlerUpdates !== null) {
         meshUpdates.push(...handlerUpdates)
       }

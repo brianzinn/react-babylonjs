@@ -469,11 +469,12 @@ const addClassDeclarationFromFactoryMethod = (generatedCodeSourceFile: SourceFil
 
   newClassDeclaration.addProperty({
     name: propsHandlersPropertyName,
-    type: `PropsHandler<${newClassModuleDeclaration.importAlias}, ${ClassNamesPrefix}${propsHandlerBaseName}Props>[]`, // xxx
+    type: `PropsHandler<${ClassNamesPrefix}${propsHandlerBaseName}Props>[]`, // xxx
     scope: Scope.Private
   })
 
-  newClassDeclaration.addImplements(`HasPropsHandlers<${newClassModuleDeclaration.importAlias}, ${ClassNamesPrefix}${propsHandlerBaseName}Props>`)
+  // NOTE: remove <T, U> of ${newClassModuleDeclaration.importAlias}
+  newClassDeclaration.addImplements(`HasPropsHandlers<${ClassNamesPrefix}${propsHandlerBaseName}Props>`)
 
   const newConstructor: ConstructorDeclaration = newClassDeclaration.addConstructor();
   newConstructor.setBodyText((writer: CodeBlockWriter) => {
@@ -489,12 +490,12 @@ const addClassDeclarationFromFactoryMethod = (generatedCodeSourceFile: SourceFil
     writer.writeLine("];")
   })
 
-  let getPropertyUpdatesMethod = newClassDeclaration.addMethod({
+  let getPropsHandlersMethod = newClassDeclaration.addMethod({
     name: "getPropsHandlers",
-    returnType: `PropsHandler<${newClassModuleDeclaration.importAlias}, ${ClassNamesPrefix}${propsHandlerBaseName}Props>[]`
+    returnType: `PropsHandler<${ClassNamesPrefix}${propsHandlerBaseName}Props>[]`
   });
 
-  getPropertyUpdatesMethod.setBodyText(writer => {
+  getPropsHandlersMethod.setBodyText(writer => {
     writer.writeLine("return this.propsHandlers;")
   })
 
@@ -504,7 +505,7 @@ const addClassDeclarationFromFactoryMethod = (generatedCodeSourceFile: SourceFil
   });
   addPropertyHandlerMethod.addParameter({
     name: 'propHandler',
-    type: `PropsHandler<${newClassModuleDeclaration.importAlias}, ${ClassNamesPrefix}${propsHandlerBaseName}Props>`
+    type: `PropsHandler<${ClassNamesPrefix}${propsHandlerBaseName}Props>`
   })
 
   addPropertyHandlerMethod.setBodyText(writer => {
@@ -695,12 +696,7 @@ const getMethodType = (methodDeclaration: MethodDeclaration | MethodSignature, t
   return `(${paramTypes.join(', ')}) => ${returnType}`;
 }
 
-const writeMethodAsUpdateFunction = (propsProperties: OptionalKind<PropertySignatureStructure>[], writer: CodeBlockWriter, method: MethodDeclaration, addedMethods: Set<String>, classNameBabylon: string, targetFiles: SourceFile[]): void => {
-  const type = getMethodType(method, targetFiles);
-
-  if (type === null) {
-    return; // skip
-  }
+const writeMethodAsUpdateFunction = (propsProperties: OptionalKind<PropertySignatureStructure>[], method: MethodDeclaration, type: string): void => {
   const methodName = method.getName()
   // tempting to put the method signature here instead of 'any', but we need to be able to call it like:
   // <camera setTarget={} /> and TODO: figure out how with ie: ((target?: BabylonjsCoreVector3) => void;!!)
@@ -709,23 +705,17 @@ const writeMethodAsUpdateFunction = (propsProperties: OptionalKind<PropertySigna
     type: 'any',
     hasQuestionToken: true
   })
-
-  writer.writeLine(`// ${classNameBabylon}.${methodName} of type '${type}':`)
-  writer.write(`if (oldProps.${methodName} !== newProps.${methodName})`).block(() => {
-    writer.writeLine(`updates.push({\npropertyName: '${methodName}',\nvalue: newProps.${methodName},\ntype: '${type}'\n});`);
-  });
 }
 
-const writePropertyAsUpdateFunction = (propsProperties: OptionalKind<PropertySignatureStructure>[], writer: CodeBlockWriter, property: (PropertyDeclaration | SetAccessorDeclaration), addedProperties: Set<String>, classNameBabylon: string, targetFiles: SourceFile[]) => {
-  const type = createTypeFromText(property.getType().getText(), targetFiles);
-  const propertyName: string = property.getName();
+const writePropertyAsUpdateFunction = (propsProperties: OptionalKind<PropertySignatureStructure>[], type: string, propertyName: string, addedProperties: Set<String>) : boolean => {
+  
   // doesn't really matter if it's 'optional', as nothing is forcing JavaScript users to follow your conventions.
   // const isOptional = property.getQuestionTokenNode();
 
   // TODO: We need to ensure this is for entire hierarchy. ie: 'name' will be saved multiple times on object creation
   if (addedProperties.has(propertyName)) {
     console.log(' >> skipping already existing property (ie: was overridden like Mesh.scaling): ', propertyName);
-    return;
+    return false;
   }
   addedProperties.add(propertyName);
   // console.log(` >> including Mesh.${propertyName} (${type}))`)
@@ -738,57 +728,7 @@ const writePropertyAsUpdateFunction = (propsProperties: OptionalKind<PropertySig
     type: propsType,
     hasQuestionToken: true
   })
-
-  if (propertyName.startsWith('on')) {
-    writer.writeLine(`// ${'xxx-ns-xxx'}.${classNameBabylon}.${propertyName} of type '${type}/fn':`)
-    writer.write(`if (oldProps.${propertyName} === undefined && oldProps.${propertyName} !== newProps.${propertyName})`).block(() => {
-      // We need the oldProps[propertyName] here, since we will want to remove that observable (note they are never equal!)
-      // TODO: search why these functions are never equal and also removing does not work.  ,prevValue: oldProps.${propertyName}
-      writer.writeLine(`updates.push({\npropertyName: '${propertyName}',\nvalue: newProps.${propertyName},\ntype: '${type}'\n});`);
-    });
-    return;
-  }
-
-  switch (type) {
-    case "boolean":
-    case "number":
-    case "string":
-    case "string | number": // TODO: split the string on | and check for primitive types.  or use "any" with deep/shallow equals.
-      writer.writeLine(`// ${classNameBabylon}.${propertyName} (${type}):`)
-      writer.write(`if (oldProps.${propertyName} !== newProps.${propertyName})`).block(() => {
-        writer.writeLine(`updates.push({\npropertyName: '${propertyName}',\nvalue: newProps.${propertyName},\ntype: '${type}'\n});`);
-      });
-      break;
-    case `BabylonjsCoreVector3`:
-    case `BabylonjsCoreColor3`:
-      writer.writeLine(`// ${classNameBabylon}.${propertyName} (${type} uses object equals to find diffs):`)
-      writer.write(`if (newProps.${propertyName} && (!oldProps.${propertyName} || !oldProps.${propertyName}.equals(newProps.${propertyName})))`).block(() => {
-        writer.writeLine(`updates.push({\npropertyName: '${propertyName}',\nvalue: newProps.${propertyName},\ntype: '${type}'\n});`);
-      });
-      break;
-    case `BabylonjsCoreColor4`: // Color4.equals() not added until PR #5517
-      writer.writeLine(`// ${classNameBabylon}.${propertyName} of ${type}.  Color4.equals() not available in BabylonJS < 4:`)
-      writer.write(`if (newProps.${propertyName} && (!oldProps.${propertyName} || oldProps.${propertyName}.r !== newProps.${propertyName}.r || oldProps.${propertyName}.g !== newProps.${propertyName}.g || oldProps.${propertyName}.b !== newProps.${propertyName}.b || oldProps.${propertyName}.a !== newProps.${propertyName}.a))`).block(() => {
-        writer.writeLine(`updates.push({\npropertyName: '${propertyName}',\nvalue: newProps.${propertyName},\ntype: '${type}'\n});`);
-      });
-      break;
-    case "BabylonjsGuiControl":
-      writer.writeLine(`// ${classNameBabylon}.${propertyName} (${type}) sets once:`)
-      writer.write(`if (newProps.${propertyName} && (!oldProps.${propertyName}))`).block(() => {
-        writer.writeLine(`updates.push({\npropertyName: '${propertyName}',\nvalue: newProps.${propertyName},\ntype: '${type}'\n});`);
-      });
-      break;
-    case "number[]":
-      writer.writeLine(`// ${classNameBabylon}.${propertyName} (${type}) (just length - missing loop + indexOf comparison):`)
-      writer.write(`if (newProps.${propertyName} && (!oldProps.${propertyName} || oldProps.${propertyName}.length !== newProps.${propertyName}.length))`).block(() => {
-        // TODO: compare indexOf for all entries
-        writer.writeLine(`updates.push({\npropertyName: '${propertyName}',\nvalue: newProps.${propertyName},\ntype: '${type}'\n});`);
-      });
-      break;
-    default:
-      writer.writeLine(`// TODO: type: '${type}' property (not coded) ${classNameBabylon}.${propertyName}.`);
-      break;
-  }
+  return true;
 }
 
 /**
@@ -835,11 +775,11 @@ const createClassDeclaration = (classDeclaration: ClassDeclaration, rootBaseClas
 
   newClassDeclaration.addProperty({
     name: propsHandlersPropertyName,
-    type: `PropsHandler<${rootBaseModuleDeclaration.importAlias}, ${ClassNamesPrefix}${rootBaseClassName}Props>[]`,
+    type: `PropsHandler<${ClassNamesPrefix}${rootBaseClassName}Props>[]`,
     scope: Scope.Private
   })
 
-  newClassDeclaration.addImplements(`HasPropsHandlers<${rootBaseModuleDeclaration.importAlias}, ${ClassNamesPrefix}${rootBaseClassName}Props>`)
+  newClassDeclaration.addImplements(`HasPropsHandlers<${ClassNamesPrefix}${rootBaseClassName}Props>`)
 
   const newConstructor: ConstructorDeclaration = newClassDeclaration.addConstructor();
   newConstructor.setBodyText((writer: CodeBlockWriter) => {
@@ -857,12 +797,12 @@ const createClassDeclaration = (classDeclaration: ClassDeclaration, rootBaseClas
     writer.writeLine("];")
   })
 
-  let getPropertyUpdatesMethod = newClassDeclaration.addMethod({
+  let getPropsHandlersMethod = newClassDeclaration.addMethod({
     name: "getPropsHandlers",
-    returnType: `PropsHandler<${rootBaseModuleDeclaration.importAlias}, ${ClassNamesPrefix}${rootBaseClassName}Props>[]`
+    returnType: `PropsHandler<${ClassNamesPrefix}${rootBaseClassName}Props>[]`
   });
 
-  getPropertyUpdatesMethod.setBodyText(writer => {
+  getPropsHandlersMethod.setBodyText(writer => {
     writer.writeLine("return this.propsHandlers;")
   })
 
@@ -872,7 +812,7 @@ const createClassDeclaration = (classDeclaration: ClassDeclaration, rootBaseClas
   });
   addPropertyHandlerMethod.addParameter({
     name: 'propHandler',
-    type: `PropsHandler<${rootBaseModuleDeclaration.importAlias}, ${ClassNamesPrefix}${rootBaseClassName}Props>`
+    type: `PropsHandler<${ClassNamesPrefix}${rootBaseClassName}Props>`
   })
 
   addPropertyHandlerMethod.setBodyText(writer => {
@@ -903,7 +843,7 @@ class OrderedListCreator {
  * The odd parameters here 'classNameToGenerate' and 'classNameBabylon' are because we are also inventing classes not based on real BabylonJS objects (ie: Box, Sphere are actually Mesh)
  * It probably looks like we should just pass along the ClassDeclaration...
  */
-const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile, classNameToGenerate: string, babylonClassDeclaration: ModuleDeclaration, propertiesToAdd: (PropertyDeclaration | SetAccessorDeclaration)[], setMethods: MethodDeclaration[], baseClass: ClassDeclaration | undefined) => {
+const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile, classNameToGenerate: string, babylonClassDeclaration: ModuleDeclaration, propertiesToAdd: (PropertyDeclaration | SetAccessorDeclaration)[], setMethods: MethodDeclaration[], baseClass: ClassDeclaration | undefined): void => {
   // console.log('addpropshandlers1:', classNameToGenerate, babylonClassDeclaration.className, babylonClassDeclaration.importAlias);
 
   const typeProperties: OptionalKind<PropertySignatureStructure>[] = []
@@ -913,42 +853,96 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
     isExported: true
   });
 
-  // TODO: ensure ${importedNamespace} has imported base class..
-  classDeclarationPropsHandler.addImplements(`PropsHandler<${babylonClassDeclaration.importAlias}, ${ClassNamesPrefix}${classNameToGenerate}Props>`)
+  // NOTE: removed ${${babylonClassDeclaration.importAlias}} from PropsHandler<T, U>.
+  classDeclarationPropsHandler.addImplements(`PropsHandler<${ClassNamesPrefix}${classNameToGenerate}Props>`)
 
   let getPropertyUpdatesMethod = classDeclarationPropsHandler.addMethod({
     name: "getPropertyUpdates",
     returnType: `${PropertyUpdateInterface}[] | null`
   });
   getPropertyUpdatesMethod.addParameters([{
-    name: "hostInstance",
-    type: babylonClassDeclaration.importAlias
-  }, {
     name: "oldProps",
     type: `${ClassNamesPrefix}${classNameToGenerate}Props`
   }, {
     name: "newProps",
     type: `${ClassNamesPrefix}${classNameToGenerate}Props`
-  }, {
-    name: "scene",
-    type: `${'Babylonjs'}${'Core'}Scene`
   }])
 
   getPropertyUpdatesMethod.setBodyText((writer: CodeBlockWriter) => {
-    writer.writeLine("// generated code")
+    let addedProperties = new Set<string>();
 
-    writer.writeLine(`let updates: ${PropertyUpdateInterface}[] = [];`)
+    type NameAndType = {
+      name: string
+      type: string,
+      skipReason?: string, // TODO: change to enum (or change to unknown: boolean)
+      method?: boolean
+    };
+    const propsToCheck: NameAndType[] = [];
 
-    let addedMeshProperties = new Set<string>();
-    // write Fiber***Props
+
     propertiesToAdd.sort((a, b) => a.getName().localeCompare(b.getName())).forEach((property: (PropertyDeclaration | SetAccessorDeclaration)) => {
-      writePropertyAsUpdateFunction(typeProperties, writer, property, addedMeshProperties, babylonClassDeclaration.importAlias, [generatedCodeSourceFile, generatedPropsSourceFile]);
+      const type = createTypeFromText(property.getType().getText(), [generatedCodeSourceFile, generatedPropsSourceFile]);
+      const propertyName: string = property.getName();
+      
+      const added = writePropertyAsUpdateFunction(typeProperties, type, propertyName, addedProperties);
+
+      if (added === true) {
+        switch (type) {
+          case "boolean":
+          case "number":
+          case "string":
+          case "string | number": // TODO: split the string on | and check for primitive types.  or use "any" with deep/shallow equals.
+          case `BabylonjsCoreVector3`:
+          case `BabylonjsCoreColor3`:
+          case `BabylonjsCoreColor4`: // Color4.equals() not added until PR #5517
+          case "BabylonjsGuiControl":
+          case "number[]":
+            propsToCheck.push({
+              name: propertyName,
+              type,
+            })
+            break;
+          default:
+            propsToCheck.push({
+              name: propertyName,
+              type,
+              skipReason: 'unknown'
+            })
+            break;
+        }
+      }
     })
 
-    let addedMeshMethods = new Set<string>();
     setMethods.sort((a, b) => a.getName().localeCompare(b.getName())).forEach((method: MethodDeclaration) => {
-      writeMethodAsUpdateFunction(typeProperties, writer, method, addedMeshMethods, babylonClassDeclaration.importAlias, [generatedCodeSourceFile, generatedPropsSourceFile]);
+      const type = getMethodType(method, [generatedCodeSourceFile, generatedPropsSourceFile]);
+      if (type !== null) {
+        writeMethodAsUpdateFunction(typeProperties, method, type);
+      
+        propsToCheck.push({
+          name: method.getName(),
+          type,
+          method: true
+        })
+      }
     })
+
+    // TODO: if propsToCheck.length === 0 then just return null.
+    writer.write('const handlerProps: PropToUpdateType[] = [').hangingIndentUnlessBlock(() => {
+      propsToCheck.forEach(propToCheck => {
+        if(propToCheck.skipReason === 'unknown') {
+          writer.writeLine(`// type: '${propToCheck.type}' property (not coded) ${babylonClassDeclaration.importAlias}.${propToCheck.name}.`)
+        } else {
+          const diffInfo = {name: propToCheck.name, type: propToCheck.type} as any;
+          if (propToCheck.method === true) {
+            diffInfo.method = true;
+          }
+          writer.writeLine(JSON.stringify(diffInfo) + ',')
+        }
+      })
+    })
+    writer.writeLine(']')
+
+    writer.writeLine(`let updates: ${PropertyUpdateInterface}[] = getUpdatesFromProps(oldProps, newProps, handlerProps);`)
     return writer.writeLine("return updates.length === 0 ? null : updates;");;
   })
 
@@ -1248,7 +1242,7 @@ const generateCode = async () => {
   // These imports need to be totally REDONE and dynamically generated from ES6 locations (probably using a dictionary for uniqueness)
   generatedCodeSourceFile.addImportDeclaration({
     moduleSpecifier: "./PropsHandler",
-    namedImports: ["PropsHandler", PropertyUpdateInterface, "HasPropsHandlers"]
+    namedImports: ["PropsHandler", PropertyUpdateInterface, "HasPropsHandlers", "getUpdatesFromProps", "PropToUpdateType"]
   })
 
   generatedCodeSourceFile.addImportDeclaration({

@@ -1,6 +1,6 @@
 import React, { useContext, useRef } from 'react'
 import { storiesOf } from '@storybook/react'
-import { Engine, Scene as ReactScene, withScene, BabylonJSContext, SceneContext, useBeforeRender } from '../../../dist/react-babylonjs.es5'
+import { Engine, Scene as ReactScene, withScene, BabylonJSContext, SceneContext, useBeforeRender } from '../../../dist/react-babylonjs'
 import { Vector3, Color3 } from '@babylonjs/core/Maths/math'
 import '../../style.css'
 

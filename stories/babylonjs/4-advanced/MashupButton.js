@@ -1,5 +1,5 @@
 import React from 'react'
-import { withScene } from '../../../dist/react-babylonjs.es5'
+import { withScene } from '../../../dist/react-babylonjs'
 import { Color3 } from '@babylonjs/core/Maths/math'
 
 function onControlAdded (button3d) {

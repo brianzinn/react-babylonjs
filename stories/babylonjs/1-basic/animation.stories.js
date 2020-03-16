@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import { Vector3, Animation, Color3 } from '@babylonjs/core';
 import { storiesOf } from '@storybook/react'
-import { Engine, Scene, useBeforeRender, useBabylonScene } from '../../../dist/react-babylonjs.es5'
+import { Engine, Scene, useBeforeRender, useBabylonScene } from '../../../dist/react-babylonjs'
 import '../../style.css';
 import ScaledModelWithProgress from "../ScaledModelWithProgress";
 

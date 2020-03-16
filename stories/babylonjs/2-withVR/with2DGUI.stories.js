@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { storiesOf } from '@storybook/react'
 import { Vector3, Color3, Color4, Animation, ExponentialEase, EasingFunction } from '@babylonjs/core'
 import { Control } from '@babylonjs/gui'
-import { Engine, Scene, Button } from '../../../dist/react-babylonjs.es5'
+import { Engine, Scene, Button } from '../../../dist/react-babylonjs'
 
 import '../../style.css'
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { storiesOf } from '@storybook/react'
-import { Engine, Scene } from '../../../dist/react-babylonjs.es5'
+import { Engine, Scene } from '../../../dist/react-babylonjs'
 
 import ScaledModelWithProgress from '../ScaledModelWithProgress'
 import SingleAxisRotateMeshBehavior from '../SingleAxisRotateMeshBehavior'
