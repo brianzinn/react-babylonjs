@@ -1,6 +1,6 @@
 /**
  * To debug code generation use the launch config in VS Code - "Generate Code (debug)"
-  */
+ */
 import {
   Project,
   ts,
@@ -138,6 +138,14 @@ classesOfInterest.set("PhysicsImpostor", undefined);
 classesOfInterest.set("VRExperienceHelper", undefined);
 classesOfInterest.set("DynamicTerrain", undefined);
 classesOfInterest.set("EffectLayer", undefined);
+classesOfInterest.set("Behavior", undefined);
+
+/**
+ * In babylon.js, Behavior is a interface, not a class.
+ * Each specific behavior is a separated class.
+ * Add it to classesOfInterest if className includes keyword.
+ */
+const classesOfKeywordInterest = ['Behavior'];
 
 type ModuleDeclaration = {
   moduleSpecifier: string,
@@ -300,9 +308,21 @@ const createTypeFromText = (typeText: string, targetFiles: SourceFile[], customP
   return typeText;
 }
 
+/**
+ * If has interest file, add it's class info to classesOfInterest.
+ * @param classDeclaration
+ * @param sourceFiles
+ */
 const addSourceClass = (classDeclaration: ClassDeclaration, sourceFiles: SourceFile[]) => {
   const className = classDeclaration.getName()
-  if (className !== undefined && classesOfInterest.has(className)) {
+
+  if (className === undefined) {
+    return;
+  }
+
+  const findByKeyword = classesOfKeywordInterest.some(keyword => className.includes(keyword));
+
+  if (classesOfInterest.has(className) || findByKeyword) {
     const moduleDeclaration = getModuleDeclarationFromClassDeclaration(classDeclaration);
 
     addNamedImportToFile(moduleDeclaration, sourceFiles, true);
@@ -592,11 +612,16 @@ const addCreateInfoFromFactoryMethod = (method: MethodDeclaration, factoryClass:
   writeTypeAlias(generatedPropsSourceFile, `${targetClass.getName()}PropsCtor`, typeProperties);
 }
 
+/**
+ * get some methods from babylonjs class
+ * @param classDeclaration
+ */
 const getInstanceSetMethods = (classDeclaration: ClassDeclaration): MethodDeclaration[] => {
   let instanceSetMethods: MethodDeclaration[] = []
   classDeclaration.getInstanceMethods().forEach((methodDeclaration: MethodDeclaration) => {
     const methodName = methodDeclaration.getName();
-    if (methodName.startsWith("set")) {
+    // TODO: add ?
+    if (methodName.startsWith("set") || methodName.startsWith('add')) {
       instanceSetMethods.push(methodDeclaration)
     }
   })
@@ -604,6 +629,10 @@ const getInstanceSetMethods = (classDeclaration: ClassDeclaration): MethodDeclar
   return instanceSetMethods;
 }
 
+/**
+ * get props from babylonjs class
+ * @param classDeclaration
+ */
 const getInstanceProperties = (classDeclaration: ClassDeclaration): (PropertyDeclaration | SetAccessorDeclaration)[] => {
   let result: (PropertyDeclaration | SetAccessorDeclaration)[] = [];
 
@@ -763,7 +792,7 @@ const writePropertyAsUpdateFunction = (propsProperties: OptionalKind<PropertySig
 }
 
 /**
- *
+ * create Fiber***hPropsHandler class
  * @param classDeclaration
  * @param rootBaseClass Base class (or same class if there is no base class).  For factory methods is the class being created.
  * @param moduleDeclaration
@@ -911,6 +940,7 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
     writer.writeLine(`let updates: ${PropertyUpdateInterface}[] = [];`)
 
     let addedMeshProperties = new Set<string>();
+    // write Fiber***Props
     propertiesToAdd.sort((a, b) => a.getName().localeCompare(b.getName())).forEach((property: (PropertyDeclaration | SetAccessorDeclaration)) => {
       writePropertyAsUpdateFunction(typeProperties, writer, property, addedMeshProperties, babylonClassDeclaration.importAlias, [generatedCodeSourceFile, generatedPropsSourceFile]);
     })
@@ -978,6 +1008,14 @@ const writeTypeAlias = (file: SourceFile, name: string, typeProperties: Optional
   })
 }
 
+/**
+ * create Fiber***CtorProps interface from babylonjs class constructor's parameters
+ * @param sourceClass
+ * @param targetClass
+ * @param moduleDeclaration
+ * @param generatedCodeSourceFile
+ * @param generatedPropsSourceFile
+ */
 const addCreateInfoFromConstructor = (sourceClass: ClassDeclaration, targetClass: ClassDeclaration, moduleDeclaration: ModuleDeclaration, generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile): void => {
   // this will allow us to do reflection to create the BabylonJS object from application props.
   const ctorArgsProperty = targetClass.addProperty({
@@ -1053,6 +1091,14 @@ const addCreateInfoFromConstructor = (sourceClass: ClassDeclaration, targetClass
   writeTypeAlias(generatedPropsSourceFile, `${ClassNamesPrefix}${className}PropsCtor`, typeProperties);
 }
 
+/**
+ * create Metadata|ReactHostElement|ConstructorProps from babylonjs class.
+ * @param generatedCodeSourceFile
+ * @param generatedPropsSourceFile
+ * @param classNamespaceTuple
+ * @param metadata
+ * @param extra
+ */
 const createClassesDerivedFrom = (generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile, classNamespaceTuple: ClassNameSpaceTuple, metadata?: InstanceMetadataParameter, extra?: (newClassDeclaration: ClassDeclaration, originalClassDeclaration: ClassDeclaration) => void): void => {
   let classDeclaration: ClassDeclaration | undefined = classNamespaceTuple.classDeclaration;
 
@@ -1086,7 +1132,7 @@ const createClassesDerivedFrom = (generatedCodeSourceFile: SourceFile, generated
     const newClassDeclaration = createClassDeclaration(classDeclaration, baseClassDeclarationForCreate, generatedCodeSourceFile, generatedPropsSourceFile, extra);
     addCreateInfoFromConstructor(classDeclaration, newClassDeclaration, classNamespaceTuple.moduleDeclaration, generatedCodeSourceFile, generatedPropsSourceFile);
 
-    const metadataClone = metadata === undefined ? {} : { ...metadata };   
+    const metadataClone = metadata === undefined ? {} : { ...metadata };
     if (inheritsFromNode) {
       metadataClone.isNode = true;
     }
@@ -1370,6 +1416,13 @@ const generateCode = async () => {
   createSingleClass("VRExperienceHelper", generatedCodeSourceFile, generatedPropsSourceFile)
   createSingleClass("DynamicTerrain", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { acceptsMaterials: true })
 
+  classesOfInterest.forEach((_,className) => {
+    if (className.includes('Behavior')) {
+      createSingleClass(className as string, generatedCodeSourceFile,
+        generatedPropsSourceFile, undefined, {isBehavior: true})
+    }
+  })
+
   if (classesOfInterest.get("Scene")) {
     // Scene we only want to generate the handlers. Constructor is very simple - just an Engine
     const sceneTuple: ClassNameSpaceTuple = classesOfInterest.get("Scene")!
@@ -1478,4 +1531,3 @@ result.then(() => {
 }).catch(reason => {
   console.error('failed:', reason);
 })
- 
