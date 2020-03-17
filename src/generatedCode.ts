@@ -1,6 +1,6 @@
 import { PropsHandler, PropertyUpdate, HasPropsHandlers } from "./PropsHandler";
 import { CreatedInstanceMetadata } from "./CreatedInstance";
-import { FiberNodeProps, FiberTransformNodeProps, FiberAbstractMeshProps, FiberMeshProps, FiberCameraProps, FiberTargetCameraProps, FiberFreeCameraProps, FiberTouchCameraProps, FiberUniversalCameraProps, FiberGamepadCameraProps, FiberAnaglyphGamepadCameraProps, FiberStereoscopicGamepadCameraProps, FiberAnaglyphUniversalCameraProps, FiberStereoscopicUniversalCameraProps, FiberDeviceOrientationCameraProps, FiberVRDeviceOrientationFreeCameraProps, FiberVRDeviceOrientationGamepadCameraProps, FiberAnaglyphFreeCameraProps, FiberStereoscopicFreeCameraProps, FiberVirtualJoysticksCameraProps, FiberWebVRFreeCameraProps, FiberWebXRCameraProps, FiberArcRotateCameraProps, FiberAnaglyphArcRotateCameraProps, FiberStereoscopicArcRotateCameraProps, FiberVRDeviceOrientationArcRotateCameraProps, FiberFlyCameraProps, FiberFollowCameraProps, FiberArcFollowCameraProps, FiberMaterialProps, FiberShaderMaterialProps, FiberMultiMaterialProps, FiberPushMaterialProps, FiberStandardMaterialProps, FiberBackgroundMaterialProps, FiberPBRBaseMaterialProps, FiberPBRBaseSimpleMaterialProps, FiberPBRMetallicRoughnessMaterialProps, FiberPBRSpecularGlossinessMaterialProps, FiberPBRMaterialProps, FiberNodeMaterialProps, FiberFluentMaterialProps, FiberLightProps, FiberShadowLightProps, FiberDirectionalLightProps, FiberPointLightProps, FiberSpotLightProps, FiberHemisphericLightProps, FiberControlProps, FiberContainerProps, FiberRectangleProps, FiberButtonProps, FiberSelectionPanelProps, FiberScrollViewerProps, FiberStackPanelProps, FiberVirtualKeyboardProps, FiberEllipseProps, FiberGridProps, Fiber_ScrollViewerWindowProps, FiberTextBlockProps, FiberImageProps, FiberCheckboxProps, FiberColorPickerProps, FiberInputTextProps, FiberInputPasswordProps, FiberLineProps, FiberMultiLineProps, FiberRadioButtonProps, FiberBaseSliderProps, FiberScrollBarProps, FiberImageScrollBarProps, FiberSliderProps, FiberImageBasedSliderProps, FiberDisplayGridProps, FiberControl3DProps, FiberContainer3DProps, FiberVolumeBasedPanelProps, FiberCylinderPanelProps, FiberPlanePanelProps, FiberScatterPanelProps, FiberSpherePanelProps, FiberStackPanel3DProps, FiberAbstractButton3DProps, FiberButton3DProps, FiberHolographicButtonProps, FiberMeshButton3DProps, FiberEffectLayerProps, FiberGlowLayerProps, FiberHighlightLayerProps, FiberBaseTextureProps, FiberCubeTextureProps, FiberRawCubeTextureProps, FiberTextureProps, FiberRawTextureProps, FiberProceduralTextureProps, FiberCustomProceduralTextureProps, FiberNoiseProceduralTextureProps, FiberRenderTargetTextureProps, FiberMirrorTextureProps, FiberMultiRenderTargetProps, FiberRefractionTextureProps, FiberMultiviewRenderTargetProps, FiberVideoTextureProps, FiberDynamicTextureProps, FiberAdvancedDynamicTextureProps, FiberRawTexture3DProps, FiberRawTexture2DArrayProps, FiberColorGradingTextureProps, FiberEquiRectangularCubeTextureProps, FiberHDRCubeTextureProps, FiberHtmlElementTextureProps, FiberGUI3DManagerProps, FiberShadowGeneratorProps, FiberEnvironmentHelperProps, FiberPhysicsImpostorProps, FiberVRExperienceHelperProps, FiberDynamicTerrainProps, FiberSceneProps } from "./generatedProps";
+import { FiberNodeProps, FiberTransformNodeProps, FiberAbstractMeshProps, FiberMeshProps, FiberCameraProps, FiberTargetCameraProps, FiberFreeCameraProps, FiberTouchCameraProps, FiberUniversalCameraProps, FiberGamepadCameraProps, FiberAnaglyphGamepadCameraProps, FiberStereoscopicGamepadCameraProps, FiberAnaglyphUniversalCameraProps, FiberStereoscopicUniversalCameraProps, FiberDeviceOrientationCameraProps, FiberVRDeviceOrientationFreeCameraProps, FiberVRDeviceOrientationGamepadCameraProps, FiberAnaglyphFreeCameraProps, FiberStereoscopicFreeCameraProps, FiberVirtualJoysticksCameraProps, FiberWebVRFreeCameraProps, FiberWebXRCameraProps, FiberArcRotateCameraProps, FiberAnaglyphArcRotateCameraProps, FiberStereoscopicArcRotateCameraProps, FiberVRDeviceOrientationArcRotateCameraProps, FiberFlyCameraProps, FiberFollowCameraProps, FiberArcFollowCameraProps, FiberMaterialProps, FiberShaderMaterialProps, FiberMultiMaterialProps, FiberPushMaterialProps, FiberStandardMaterialProps, FiberBackgroundMaterialProps, FiberPBRBaseMaterialProps, FiberPBRBaseSimpleMaterialProps, FiberPBRMetallicRoughnessMaterialProps, FiberPBRSpecularGlossinessMaterialProps, FiberPBRMaterialProps, FiberNodeMaterialProps, FiberFluentMaterialProps, FiberLightProps, FiberShadowLightProps, FiberDirectionalLightProps, FiberPointLightProps, FiberSpotLightProps, FiberHemisphericLightProps, FiberControlProps, FiberContainerProps, FiberRectangleProps, FiberButtonProps, FiberSelectionPanelProps, FiberScrollViewerProps, FiberStackPanelProps, FiberVirtualKeyboardProps, FiberEllipseProps, FiberGridProps, Fiber_ScrollViewerWindowProps, FiberTextBlockProps, FiberImageProps, FiberCheckboxProps, FiberColorPickerProps, FiberInputTextProps, FiberInputPasswordProps, FiberLineProps, FiberMultiLineProps, FiberRadioButtonProps, FiberBaseSliderProps, FiberScrollBarProps, FiberImageScrollBarProps, FiberSliderProps, FiberImageBasedSliderProps, FiberDisplayGridProps, FiberControl3DProps, FiberContainer3DProps, FiberVolumeBasedPanelProps, FiberCylinderPanelProps, FiberPlanePanelProps, FiberScatterPanelProps, FiberSpherePanelProps, FiberStackPanel3DProps, FiberAbstractButton3DProps, FiberButton3DProps, FiberHolographicButtonProps, FiberMeshButton3DProps, FiberEffectLayerProps, FiberGlowLayerProps, FiberHighlightLayerProps, FiberBaseTextureProps, FiberCubeTextureProps, FiberRawCubeTextureProps, FiberTextureProps, FiberRawTextureProps, FiberProceduralTextureProps, FiberCustomProceduralTextureProps, FiberNoiseProceduralTextureProps, FiberRenderTargetTextureProps, FiberMirrorTextureProps, FiberMultiRenderTargetProps, FiberRefractionTextureProps, FiberMultiviewRenderTargetProps, FiberVideoTextureProps, FiberDynamicTextureProps, FiberAdvancedDynamicTextureProps, FiberRawTexture3DProps, FiberRawTexture2DArrayProps, FiberColorGradingTextureProps, FiberEquiRectangularCubeTextureProps, FiberHDRCubeTextureProps, FiberHtmlElementTextureProps, FiberGUI3DManagerProps, FiberShadowGeneratorProps, FiberEnvironmentHelperProps, FiberPhysicsImpostorProps, FiberVRExperienceHelperProps, FiberDynamicTerrainProps, FiberAutoRotationBehaviorProps, FiberBouncingBehaviorProps, FiberFramingBehaviorProps, FiberAttachToBoxBehaviorProps, FiberFadeInOutBehaviorProps, FiberMultiPointerScaleBehaviorProps, FiberPointerDragBehaviorProps, FiberSixDofDragBehaviorProps, FiberSceneProps } from "./generatedProps";
 import { DynamicTerrain as ExtensionsDynamicTerrain } from "./extensions/DynamicTerrain";
 import { AbstractScene as BabylonjsCoreAbstractScene } from "@babylonjs/core/abstractScene";
 import { Node as BabylonjsCoreNode } from "@babylonjs/core/node";
@@ -30,6 +30,14 @@ import { TonemappingOperator as BabylonjsCoreTonemappingOperator } from "@babylo
 import { WebXRState as BabylonjsCoreWebXRState } from "@babylonjs/core/XR/webXRTypes";
 import { AdvancedDynamicTexture as BabylonjsGuiAdvancedDynamicTexture, IFocusableControl as BabylonjsGuiIFocusableControl } from "@babylonjs/gui/2D/advancedDynamicTexture";
 import { GUI3DManager as BabylonjsGuiGUI3DManager } from "@babylonjs/gui/3D/gui3DManager";
+import { AutoRotationBehavior as BabylonjsCoreAutoRotationBehavior } from "@babylonjs/core/Behaviors/Cameras/autoRotationBehavior";
+import { BouncingBehavior as BabylonjsCoreBouncingBehavior } from "@babylonjs/core/Behaviors/Cameras/bouncingBehavior";
+import { FramingBehavior as BabylonjsCoreFramingBehavior } from "@babylonjs/core/Behaviors/Cameras/framingBehavior";
+import { AttachToBoxBehavior as BabylonjsCoreAttachToBoxBehavior } from "@babylonjs/core/Behaviors/Meshes/attachToBoxBehavior";
+import { FadeInOutBehavior as BabylonjsCoreFadeInOutBehavior } from "@babylonjs/core/Behaviors/Meshes/fadeInOutBehavior";
+import { MultiPointerScaleBehavior as BabylonjsCoreMultiPointerScaleBehavior } from "@babylonjs/core/Behaviors/Meshes/multiPointerScaleBehavior";
+import { PointerDragBehavior as BabylonjsCorePointerDragBehavior } from "@babylonjs/core/Behaviors/Meshes/pointerDragBehavior";
+import { SixDofDragBehavior as BabylonjsCoreSixDofDragBehavior } from "@babylonjs/core/Behaviors/Meshes/sixDofDragBehavior";
 import { VRExperienceHelper as BabylonjsCoreVRExperienceHelper, OnAfterEnteringVRObservableEvent as BabylonjsCoreOnAfterEnteringVRObservableEvent, VRExperienceHelperOptions as BabylonjsCoreVRExperienceHelperOptions } from "@babylonjs/core/Cameras/VR/vrExperienceHelper";
 import { PoseEnabledControllerType as BabylonjsCorePoseEnabledControllerType } from "@babylonjs/core/Gamepads/Controllers/poseEnabledController";
 import { ShadowGenerator as BabylonjsCoreShadowGenerator, ICustomShaderOptions as BabylonjsCoreICustomShaderOptions } from "@babylonjs/core/Lights/Shadows/shadowGenerator";
@@ -49,6 +57,7 @@ import { AnimatedInputBlockTypes as BabylonjsCoreAnimatedInputBlockTypes } from 
 import { AnimationPropertiesOverride as BabylonjsCoreAnimationPropertiesOverride } from "@babylonjs/core/Animations/animationPropertiesOverride";
 import { Animation as BabylonjsCoreAnimation } from "@babylonjs/core/Animations/animation";
 import { Observable as BabylonjsCoreObservable } from "@babylonjs/core/Misc/observable";
+import { Behavior as BabylonjsCoreBehavior } from "@babylonjs/core/Behaviors/behavior";
 import { TransformNode as BabylonjsCoreTransformNode } from "@babylonjs/core/Meshes/transformNode";
 import { Vector3 as BabylonjsCoreVector3, Quaternion as BabylonjsCoreQuaternion, Matrix as BabylonjsCoreMatrix, Vector2 as BabylonjsCoreVector2, Vector4 as BabylonjsCoreVector4 } from "@babylonjs/core/Maths/math.vector";
 import { DeepImmutableObject as BabylonjsCoreDeepImmutableObject, IndicesArray as BabylonjsCoreIndicesArray, FloatArray as BabylonjsCoreFloatArray } from "@babylonjs/core/types";
@@ -130,7 +139,7 @@ import { SelectionPanel as BabylonjsGuiSelectionPanel, SelectorGroup as Babylonj
 import { ScrollViewer as BabylonjsGuiScrollViewer } from "@babylonjs/gui/2D/controls/scrollViewers/scrollViewer";
 import { Image as BabylonjsGuiImage } from "@babylonjs/gui/2D/controls/image";
 import { StackPanel as BabylonjsGuiStackPanel } from "@babylonjs/gui/2D/controls/stackPanel";
-import { VirtualKeyboard as BabylonjsGuiVirtualKeyboard } from "@babylonjs/gui/2D/controls/virtualKeyboard";
+import { VirtualKeyboard as BabylonjsGuiVirtualKeyboard, KeyPropertySet as BabylonjsGuiKeyPropertySet } from "@babylonjs/gui/2D/controls/virtualKeyboard";
 import { Ellipse as BabylonjsGuiEllipse } from "@babylonjs/gui/2D/controls/ellipse";
 import { Grid as BabylonjsGuiGrid } from "@babylonjs/gui/2D/controls/grid";
 import { _ScrollViewerWindow as BabylonjsGui_ScrollViewerWindow } from "@babylonjs/gui/2D/controls/scrollViewers/scrollViewerWindow";
@@ -140,6 +149,7 @@ import { InputText as BabylonjsGuiInputText } from "@babylonjs/gui/2D/controls/i
 import { InputPassword as BabylonjsGuiInputPassword } from "@babylonjs/gui/2D/controls/inputPassword";
 import { Line as BabylonjsGuiLine } from "@babylonjs/gui/2D/controls/line";
 import { MultiLine as BabylonjsGuiMultiLine } from "@babylonjs/gui/2D/controls/multiLine";
+import { MultiLinePoint as BabylonjsGuiMultiLinePoint } from "@babylonjs/gui/2D/multiLinePoint";
 import { RadioButton as BabylonjsGuiRadioButton } from "@babylonjs/gui/2D/controls/radioButton";
 import { BaseSlider as BabylonjsGuiBaseSlider } from "@babylonjs/gui/2D/controls/sliders/baseSlider";
 import { ScrollBar as BabylonjsGuiScrollBar } from "@babylonjs/gui/2D/controls/sliders/scrollBar";
@@ -169,6 +179,7 @@ import { ProceduralTexture as BabylonjsCoreProceduralTexture } from "@babylonjs/
 import { CustomProceduralTexture as BabylonjsCoreCustomProceduralTexture } from "@babylonjs/core/Materials/Textures/Procedurals/customProceduralTexture";
 import { NoiseProceduralTexture as BabylonjsCoreNoiseProceduralTexture } from "@babylonjs/core/Materials/Textures/Procedurals/noiseProceduralTexture";
 import { Engine as BabylonjsCoreEngine } from "@babylonjs/core/Engines/engine";
+import { PostProcess as BabylonjsCorePostProcess } from "@babylonjs/core/PostProcesses/postProcess";
 import { MirrorTexture as BabylonjsCoreMirrorTexture } from "@babylonjs/core/Materials/Textures/mirrorTexture";
 import { MultiRenderTarget as BabylonjsCoreMultiRenderTarget, IMultiRenderTargetOptions as BabylonjsCoreIMultiRenderTargetOptions } from "@babylonjs/core/Materials/Textures/multiRenderTarget";
 import { RefractionTexture as BabylonjsCoreRefractionTexture } from "@babylonjs/core/Materials/Textures/refractionTexture";
@@ -182,6 +193,7 @@ import { ColorGradingTexture as BabylonjsCoreColorGradingTexture } from "@babylo
 import { EquiRectangularCubeTexture as BabylonjsCoreEquiRectangularCubeTexture } from "@babylonjs/core/Materials/Textures/equiRectangularCubeTexture";
 import { HDRCubeTexture as BabylonjsCoreHDRCubeTexture } from "@babylonjs/core/Materials/Textures/hdrCubeTexture";
 import { HtmlElementTexture as BabylonjsCoreHtmlElementTexture, IHtmlElementTextureOptions as BabylonjsCoreIHtmlElementTextureOptions } from "@babylonjs/core/Materials/Textures/htmlElementTexture";
+import { PhysicsJoint as BabylonjsCorePhysicsJoint } from "@babylonjs/core/Physics/physicsJoint";
 import { PickingInfo as BabylonjsCorePickingInfo } from "@babylonjs/core/Collisions/pickingInfo";
 import { WebXRDefaultExperience as BabylonjsCoreWebXRDefaultExperience } from "@babylonjs/core/XR/webXRDefaultExperience";
 import { SolidParticleSystem as BabylonjsCoreSolidParticleSystem } from "@babylonjs/core/Particles/solidParticleSystem";
@@ -192,8 +204,9 @@ import { RenderingGroupInfo as BabylonjsCoreRenderingGroupInfo } from "@babylonj
 import { Geometry as BabylonjsCoreGeometry } from "@babylonjs/core/Meshes/geometry";
 import { KeyboardInfo as BabylonjsCoreKeyboardInfo, KeyboardInfoPre as BabylonjsCoreKeyboardInfoPre } from "@babylonjs/core/Events/keyboardEvents";
 import { PointerEventTypes as BabylonjsCorePointerEventTypes, PointerInfo as BabylonjsCorePointerInfo, PointerInfoPre as BabylonjsCorePointerInfoPre } from "@babylonjs/core/Events/pointerEvents";
-import { PostProcess as BabylonjsCorePostProcess } from "@babylonjs/core/PostProcesses/postProcess";
 import { PostProcessManager as BabylonjsCorePostProcessManager } from "@babylonjs/core/PostProcesses/postProcessManager";
+import { AnimationGroup as BabylonjsCoreAnimationGroup } from "@babylonjs/core/Animations/animationGroup";
+import { IParticleSystem as BabylonjsCoreIParticleSystem } from "@babylonjs/core/Particles/IParticleSystem";
 import { IPhysicsEnginePlugin as BabylonjsCoreIPhysicsEnginePlugin } from "@babylonjs/core/Physics/IPhysicsEngine";
 
 export class FiberNodePropsHandler implements PropsHandler<BabylonjsCoreNode, FiberNodeProps> {
@@ -268,6 +281,14 @@ export class FiberNodePropsHandler implements PropsHandler<BabylonjsCoreNode, Fi
                 propertyName: 'uniqueId',
                 value: newProps.uniqueId,
                 type: 'number'
+            });
+        }
+        // BabylonjsCoreNode.addBehavior of type '(behavior?: BabylonjsCoreBehavior<BabylonjsCoreNode>, attachImmediately?: boolean) => BabylonjsCoreNode':
+        if (oldProps.addBehavior !== newProps.addBehavior) {
+            updates.push({
+                propertyName: 'addBehavior',
+                value: newProps.addBehavior,
+                type: '(behavior?: BabylonjsCoreBehavior<BabylonjsCoreNode>, attachImmediately?: boolean) => BabylonjsCoreNode'
             });
         }
         // BabylonjsCoreNode.setEnabled of type '(value?: boolean) => void':
@@ -410,6 +431,14 @@ export class FiberTransformNodePropsHandler implements PropsHandler<BabylonjsCor
                 propertyName: 'scalingDeterminant',
                 value: newProps.scalingDeterminant,
                 type: 'number'
+            });
+        }
+        // BabylonjsCoreTransformNode.addRotation of type '(x?: number, y?: number, z?: number) => BabylonjsCoreTransformNode':
+        if (oldProps.addRotation !== newProps.addRotation) {
+            updates.push({
+                propertyName: 'addRotation',
+                value: newProps.addRotation,
+                type: '(x?: number, y?: number, z?: number) => BabylonjsCoreTransformNode'
             });
         }
         // BabylonjsCoreTransformNode.setAbsolutePosition of type '(absolutePosition?: BabylonjsCoreVector3) => BabylonjsCoreTransformNode':
@@ -883,6 +912,14 @@ export class FiberAbstractMeshPropsHandler implements PropsHandler<BabylonjsCore
                 type: 'number'
             });
         }
+        // BabylonjsCoreAbstractMesh.addChild of type '(mesh?: BabylonjsCoreAbstractMesh) => BabylonjsCoreAbstractMesh':
+        if (oldProps.addChild !== newProps.addChild) {
+            updates.push({
+                propertyName: 'addChild',
+                value: newProps.addChild,
+                type: '(mesh?: BabylonjsCoreAbstractMesh) => BabylonjsCoreAbstractMesh'
+            });
+        }
         // BabylonjsCoreAbstractMesh.setBoundingInfo of type '(boundingInfo?: BabylonjsCoreBoundingInfo) => BabylonjsCoreAbstractMesh':
         if (oldProps.setBoundingInfo !== newProps.setBoundingInfo) {
             updates.push({
@@ -1028,6 +1065,22 @@ export class FiberMeshPropsHandler implements PropsHandler<BabylonjsCoreMesh, Fi
                 propertyName: 'overridenInstanceCount',
                 value: newProps.overridenInstanceCount,
                 type: 'number'
+            });
+        }
+        // BabylonjsCoreMesh.addInstance of type '(instance?: BabylonjsCoreInstancedMesh) => void':
+        if (oldProps.addInstance !== newProps.addInstance) {
+            updates.push({
+                propertyName: 'addInstance',
+                value: newProps.addInstance,
+                type: '(instance?: BabylonjsCoreInstancedMesh) => void'
+            });
+        }
+        // BabylonjsCoreMesh.addLODLevel of type '(distance?: number, mesh?: BabylonjsCoreMesh) => BabylonjsCoreMesh':
+        if (oldProps.addLODLevel !== newProps.addLODLevel) {
+            updates.push({
+                propertyName: 'addLODLevel',
+                value: newProps.addLODLevel,
+                type: '(distance?: number, mesh?: BabylonjsCoreMesh) => BabylonjsCoreMesh'
             });
         }
         // BabylonjsCoreMesh.setIndices of type '(indices?: BabylonjsCoreIndicesArray, totalVertices?: number, updatable?: boolean) => BabylonjsCoreAbstractMesh':
@@ -9102,6 +9155,14 @@ export class FiberNodeMaterialPropsHandler implements PropsHandler<BabylonjsCore
             });
         }
         // TODO: type: 'BabylonjsCoreINodeMaterialOptions' property (not coded) BabylonjsCoreNodeMaterial.options.
+        // BabylonjsCoreNodeMaterial.addOutputNode of type '(node?: BabylonjsCoreNodeMaterialBlock) => this':
+        if (oldProps.addOutputNode !== newProps.addOutputNode) {
+            updates.push({
+                propertyName: 'addOutputNode',
+                value: newProps.addOutputNode,
+                type: '(node?: BabylonjsCoreNodeMaterialBlock) => this'
+            });
+        }
         return updates.length === 0 ? null : updates;
     }
 }
@@ -10600,6 +10661,14 @@ export class FiberContainerPropsHandler implements PropsHandler<BabylonjsGuiCont
                 type: 'string'
             });
         }
+        // BabylonjsGuiContainer.addControl of type '(control?: BabylonjsGuiControl) => BabylonjsGuiContainer':
+        if (oldProps.addControl !== newProps.addControl) {
+            updates.push({
+                propertyName: 'addControl',
+                value: newProps.addControl,
+                type: '(control?: BabylonjsGuiControl) => BabylonjsGuiContainer'
+            });
+        }
         return updates.length === 0 ? null : updates;
     }
 }
@@ -10859,6 +10928,38 @@ export class FiberSelectionPanelPropsHandler implements PropsHandler<BabylonjsGu
                 type: 'string'
             });
         }
+        // BabylonjsGuiSelectionPanel.addGroup of type '(group?: BabylonjsGuiSelectorGroup) => void':
+        if (oldProps.addGroup !== newProps.addGroup) {
+            updates.push({
+                propertyName: 'addGroup',
+                value: newProps.addGroup,
+                type: '(group?: BabylonjsGuiSelectorGroup) => void'
+            });
+        }
+        // BabylonjsGuiSelectionPanel.addToGroupCheckbox of type '(groupNb?: number, label?: string, func?: () => void, checked?: boolean) => void':
+        if (oldProps.addToGroupCheckbox !== newProps.addToGroupCheckbox) {
+            updates.push({
+                propertyName: 'addToGroupCheckbox',
+                value: newProps.addToGroupCheckbox,
+                type: '(groupNb?: number, label?: string, func?: () => void, checked?: boolean) => void'
+            });
+        }
+        // BabylonjsGuiSelectionPanel.addToGroupRadio of type '(groupNb?: number, label?: string, func?: () => void, checked?: boolean) => void':
+        if (oldProps.addToGroupRadio !== newProps.addToGroupRadio) {
+            updates.push({
+                propertyName: 'addToGroupRadio',
+                value: newProps.addToGroupRadio,
+                type: '(groupNb?: number, label?: string, func?: () => void, checked?: boolean) => void'
+            });
+        }
+        // BabylonjsGuiSelectionPanel.addToGroupSlider of type '(groupNb?: number, label?: string, func?: () => void, unit?: string, min?: number, max?: number, value?: number, onVal?: (v: number) => number) => void':
+        if (oldProps.addToGroupSlider !== newProps.addToGroupSlider) {
+            updates.push({
+                propertyName: 'addToGroupSlider',
+                value: newProps.addToGroupSlider,
+                type: '(groupNb?: number, label?: string, func?: () => void, unit?: string, min?: number, max?: number, value?: number, onVal?: (v: number) => number) => void'
+            });
+        }
         // BabylonjsGuiSelectionPanel.setHeaderName of type '(label?: string, groupNb?: number) => void':
         if (oldProps.setHeaderName !== newProps.setHeaderName) {
             updates.push({
@@ -11031,6 +11132,14 @@ export class FiberScrollViewerPropsHandler implements PropsHandler<BabylonjsGuiS
                 propertyName: 'wheelPrecision',
                 value: newProps.wheelPrecision,
                 type: 'number'
+            });
+        }
+        // BabylonjsGuiScrollViewer.addControl of type '(control?: BabylonjsGuiControl) => BabylonjsGuiContainer':
+        if (oldProps.addControl !== newProps.addControl) {
+            updates.push({
+                propertyName: 'addControl',
+                value: newProps.addControl,
+                type: '(control?: BabylonjsGuiControl) => BabylonjsGuiContainer'
             });
         }
         // BabylonjsGuiScrollViewer.setBucketSizes of type '(width?: number, height?: number) => void':
@@ -11283,6 +11392,14 @@ export class FiberVirtualKeyboardPropsHandler implements PropsHandler<BabylonjsG
                 type: 'number'
             });
         }
+        // BabylonjsGuiVirtualKeyboard.addKeysRow of type '(keys?: string[], propertySets?: BabylonjsGuiKeyPropertySet[]) => void':
+        if (oldProps.addKeysRow !== newProps.addKeysRow) {
+            updates.push({
+                propertyName: 'addKeysRow',
+                value: newProps.addKeysRow,
+                type: '(keys?: string[], propertySets?: BabylonjsGuiKeyPropertySet[]) => void'
+            });
+        }
         return updates.length === 0 ? null : updates;
     }
 }
@@ -11400,6 +11517,30 @@ export class FiberGridPropsHandler implements PropsHandler<BabylonjsGuiGrid, Fib
                 propertyName: 'name',
                 value: newProps.name,
                 type: 'string'
+            });
+        }
+        // BabylonjsGuiGrid.addColumnDefinition of type '(width?: number, isPixel?: boolean) => BabylonjsGuiGrid':
+        if (oldProps.addColumnDefinition !== newProps.addColumnDefinition) {
+            updates.push({
+                propertyName: 'addColumnDefinition',
+                value: newProps.addColumnDefinition,
+                type: '(width?: number, isPixel?: boolean) => BabylonjsGuiGrid'
+            });
+        }
+        // BabylonjsGuiGrid.addControl of type '(control?: BabylonjsGuiControl, row?: number, column?: number) => BabylonjsGuiGrid':
+        if (oldProps.addControl !== newProps.addControl) {
+            updates.push({
+                propertyName: 'addControl',
+                value: newProps.addControl,
+                type: '(control?: BabylonjsGuiControl, row?: number, column?: number) => BabylonjsGuiGrid'
+            });
+        }
+        // BabylonjsGuiGrid.addRowDefinition of type '(height?: number, isPixel?: boolean) => BabylonjsGuiGrid':
+        if (oldProps.addRowDefinition !== newProps.addRowDefinition) {
+            updates.push({
+                propertyName: 'addRowDefinition',
+                value: newProps.addRowDefinition,
+                type: '(height?: number, isPixel?: boolean) => BabylonjsGuiGrid'
             });
         }
         // BabylonjsGuiGrid.setColumnDefinition of type '(index?: number, width?: number, isPixel?: boolean) => BabylonjsGuiGrid':
@@ -12601,6 +12742,14 @@ export class FiberMultiLinePropsHandler implements PropsHandler<BabylonjsGuiMult
                 type: 'number'
             });
         }
+        // BabylonjsGuiMultiLine.add of type '(items?: (BabylonjsCoreAbstractMesh | BabylonjsGuiControl | { x: string | number; y: string | number; })[]) => BabylonjsGuiMultiLinePoint[]':
+        if (oldProps.add !== newProps.add) {
+            updates.push({
+                propertyName: 'add',
+                value: newProps.add,
+                type: '(items?: (BabylonjsCoreAbstractMesh | BabylonjsGuiControl | { x: string | number; y: string | number; })[]) => BabylonjsGuiMultiLinePoint[]'
+            });
+        }
         return updates.length === 0 ? null : updates;
     }
 }
@@ -13439,6 +13588,14 @@ export class FiberControl3DPropsHandler implements PropsHandler<BabylonjsGuiCont
                 type: 'BabylonjsCoreVector3'
             });
         }
+        // BabylonjsGuiControl3D.addBehavior of type '(behavior?: BabylonjsCoreBehavior<BabylonjsGuiControl3D>) => BabylonjsGuiControl3D':
+        if (oldProps.addBehavior !== newProps.addBehavior) {
+            updates.push({
+                propertyName: 'addBehavior',
+                value: newProps.addBehavior,
+                type: '(behavior?: BabylonjsCoreBehavior<BabylonjsGuiControl3D>) => BabylonjsGuiControl3D'
+            });
+        }
         return updates.length === 0 ? null : updates;
     }
 }
@@ -13493,6 +13650,14 @@ export class FiberContainer3DPropsHandler implements PropsHandler<BabylonjsGuiCo
                 propertyName: 'blockLayout',
                 value: newProps.blockLayout,
                 type: 'boolean'
+            });
+        }
+        // BabylonjsGuiContainer3D.addControl of type '(control?: BabylonjsGuiControl3D) => BabylonjsGuiContainer3D':
+        if (oldProps.addControl !== newProps.addControl) {
+            updates.push({
+                propertyName: 'addControl',
+                value: newProps.addControl,
+                type: '(control?: BabylonjsGuiControl3D) => BabylonjsGuiContainer3D'
             });
         }
         return updates.length === 0 ? null : updates;
@@ -14321,6 +14486,22 @@ export class FiberGlowLayerPropsHandler implements PropsHandler<BabylonjsCoreGlo
                 type: 'number'
             });
         }
+        // BabylonjsCoreGlowLayer.addExcludedMesh of type '(mesh?: BabylonjsCoreMesh) => void':
+        if (oldProps.addExcludedMesh !== newProps.addExcludedMesh) {
+            updates.push({
+                propertyName: 'addExcludedMesh',
+                value: newProps.addExcludedMesh,
+                type: '(mesh?: BabylonjsCoreMesh) => void'
+            });
+        }
+        // BabylonjsCoreGlowLayer.addIncludedOnlyMesh of type '(mesh?: BabylonjsCoreMesh) => void':
+        if (oldProps.addIncludedOnlyMesh !== newProps.addIncludedOnlyMesh) {
+            updates.push({
+                propertyName: 'addIncludedOnlyMesh',
+                value: newProps.addIncludedOnlyMesh,
+                type: '(mesh?: BabylonjsCoreMesh) => void'
+            });
+        }
         return updates.length === 0 ? null : updates;
     }
 }
@@ -14438,6 +14619,22 @@ export class FiberHighlightLayerPropsHandler implements PropsHandler<BabylonjsCo
                 propertyName: 'outerGlow',
                 value: newProps.outerGlow,
                 type: 'boolean'
+            });
+        }
+        // BabylonjsCoreHighlightLayer.addExcludedMesh of type '(mesh?: BabylonjsCoreMesh) => void':
+        if (oldProps.addExcludedMesh !== newProps.addExcludedMesh) {
+            updates.push({
+                propertyName: 'addExcludedMesh',
+                value: newProps.addExcludedMesh,
+                type: '(mesh?: BabylonjsCoreMesh) => void'
+            });
+        }
+        // BabylonjsCoreHighlightLayer.addMesh of type '(mesh?: BabylonjsCoreMesh, color?: BabylonjsCoreColor3, glowEmissiveOnly?: boolean) => void':
+        if (oldProps.addMesh !== newProps.addMesh) {
+            updates.push({
+                propertyName: 'addMesh',
+                value: newProps.addMesh,
+                type: '(mesh?: BabylonjsCoreMesh, color?: BabylonjsCoreColor3, glowEmissiveOnly?: boolean) => void'
             });
         }
         return updates.length === 0 ? null : updates;
@@ -15880,6 +16077,14 @@ export class FiberRenderTargetTexturePropsHandler implements PropsHandler<Babylo
                 type: 'boolean'
             });
         }
+        // BabylonjsCoreRenderTargetTexture.addPostProcess of type '(postProcess?: BabylonjsCorePostProcess) => void':
+        if (oldProps.addPostProcess !== newProps.addPostProcess) {
+            updates.push({
+                propertyName: 'addPostProcess',
+                value: newProps.addPostProcess,
+                type: '(postProcess?: BabylonjsCorePostProcess) => void'
+            });
+        }
         // BabylonjsCoreRenderTargetTexture.setRenderingAutoClearDepthStencil of type '(renderingGroupId?: number, autoClearDepthStencil?: boolean) => void':
         if (oldProps.setRenderingAutoClearDepthStencil !== newProps.setRenderingAutoClearDepthStencil) {
             updates.push({
@@ -16672,6 +16877,14 @@ export class FiberAdvancedDynamicTexturePropsHandler implements PropsHandler<Bab
                 propertyName: 'useSmallestIdeal',
                 value: newProps.useSmallestIdeal,
                 type: 'boolean'
+            });
+        }
+        // BabylonjsGuiAdvancedDynamicTexture.addControl of type '(control?: BabylonjsGuiControl) => BabylonjsGuiAdvancedDynamicTexture':
+        if (oldProps.addControl !== newProps.addControl) {
+            updates.push({
+                propertyName: 'addControl',
+                value: newProps.addControl,
+                type: '(control?: BabylonjsGuiControl) => BabylonjsGuiAdvancedDynamicTexture'
             });
         }
         return updates.length === 0 ? null : updates;
@@ -17473,6 +17686,14 @@ export class FiberGUI3DManagerPropsHandler implements PropsHandler<BabylonjsGuiG
                 type: 'BabylonjsCoreObservable<BabylonjsCoreVector3>'
             });
         }
+        // BabylonjsGuiGUI3DManager.addControl of type '(control?: BabylonjsGuiControl3D) => BabylonjsGuiGUI3DManager':
+        if (oldProps.addControl !== newProps.addControl) {
+            updates.push({
+                propertyName: 'addControl',
+                value: newProps.addControl,
+                type: '(control?: BabylonjsGuiControl3D) => BabylonjsGuiGUI3DManager'
+            });
+        }
         return updates.length === 0 ? null : updates;
     }
 }
@@ -17720,6 +17941,14 @@ export class FiberShadowGeneratorPropsHandler implements PropsHandler<BabylonjsC
                 propertyName: 'usePoissonSampling',
                 value: newProps.usePoissonSampling,
                 type: 'boolean'
+            });
+        }
+        // BabylonjsCoreShadowGenerator.addShadowCaster of type '(mesh?: BabylonjsCoreAbstractMesh, includeDescendants?: boolean) => BabylonjsCoreShadowGenerator':
+        if (oldProps.addShadowCaster !== newProps.addShadowCaster) {
+            updates.push({
+                propertyName: 'addShadowCaster',
+                value: newProps.addShadowCaster,
+                type: '(mesh?: BabylonjsCoreAbstractMesh, includeDescendants?: boolean) => BabylonjsCoreShadowGenerator'
             });
         }
         // BabylonjsCoreShadowGenerator.setDarkness of type '(darkness?: number) => BabylonjsCoreShadowGenerator':
@@ -17976,6 +18205,30 @@ export class FiberPhysicsImpostorPropsHandler implements PropsHandler<BabylonjsC
                 propertyName: 'velocityIterations',
                 value: newProps.velocityIterations,
                 type: 'number'
+            });
+        }
+        // BabylonjsCorePhysicsImpostor.addAnchor of type '(otherImpostor?: BabylonjsCorePhysicsImpostor, width?: number, height?: number, influence?: number, noCollisionBetweenLinkedBodies?: boolean) => BabylonjsCorePhysicsImpostor':
+        if (oldProps.addAnchor !== newProps.addAnchor) {
+            updates.push({
+                propertyName: 'addAnchor',
+                value: newProps.addAnchor,
+                type: '(otherImpostor?: BabylonjsCorePhysicsImpostor, width?: number, height?: number, influence?: number, noCollisionBetweenLinkedBodies?: boolean) => BabylonjsCorePhysicsImpostor'
+            });
+        }
+        // BabylonjsCorePhysicsImpostor.addHook of type '(otherImpostor?: BabylonjsCorePhysicsImpostor, length?: number, influence?: number, noCollisionBetweenLinkedBodies?: boolean) => BabylonjsCorePhysicsImpostor':
+        if (oldProps.addHook !== newProps.addHook) {
+            updates.push({
+                propertyName: 'addHook',
+                value: newProps.addHook,
+                type: '(otherImpostor?: BabylonjsCorePhysicsImpostor, length?: number, influence?: number, noCollisionBetweenLinkedBodies?: boolean) => BabylonjsCorePhysicsImpostor'
+            });
+        }
+        // BabylonjsCorePhysicsImpostor.addJoint of type '(otherImpostor?: BabylonjsCorePhysicsImpostor, joint?: BabylonjsCorePhysicsJoint) => BabylonjsCorePhysicsImpostor':
+        if (oldProps.addJoint !== newProps.addJoint) {
+            updates.push({
+                propertyName: 'addJoint',
+                value: newProps.addJoint,
+                type: '(otherImpostor?: BabylonjsCorePhysicsImpostor, joint?: BabylonjsCorePhysicsJoint) => BabylonjsCorePhysicsImpostor'
             });
         }
         // BabylonjsCorePhysicsImpostor.setAngularVelocity of type '(velocity?: BabylonjsCoreVector3) => void':
@@ -18282,6 +18535,14 @@ export class FiberVRExperienceHelperPropsHandler implements PropsHandler<Babylon
                 propertyName: 'xrTestDone',
                 value: newProps.xrTestDone,
                 type: 'boolean'
+            });
+        }
+        // BabylonjsCoreVRExperienceHelper.addFloorMesh of type '(floorMesh?: BabylonjsCoreMesh) => void':
+        if (oldProps.addFloorMesh !== newProps.addFloorMesh) {
+            updates.push({
+                propertyName: 'addFloorMesh',
+                value: newProps.addFloorMesh,
+                type: '(floorMesh?: BabylonjsCoreMesh) => void'
             });
         }
         // BabylonjsCoreVRExperienceHelper.setGazeColor of type '(color?: BabylonjsCoreColor3, pickedColor?: BabylonjsCoreColor3) => void':
@@ -18623,6 +18884,714 @@ export class FiberDynamicTerrain implements HasPropsHandlers<ExtensionsDynamicTe
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
         "className": "FiberDynamicTerrain"
+    };
+}
+
+export class FiberAutoRotationBehaviorPropsHandler implements PropsHandler<BabylonjsCoreAutoRotationBehavior, FiberAutoRotationBehaviorProps> {
+    getPropertyUpdates(hostInstance: BabylonjsCoreAutoRotationBehavior, oldProps: FiberAutoRotationBehaviorProps, newProps: FiberAutoRotationBehaviorProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
+        // generated code
+        let updates: PropertyUpdate[] = [];
+        // BabylonjsCoreAutoRotationBehavior.idleRotationSpeed (number):
+        if (oldProps.idleRotationSpeed !== newProps.idleRotationSpeed) {
+            updates.push({
+                propertyName: 'idleRotationSpeed',
+                value: newProps.idleRotationSpeed,
+                type: 'number'
+            });
+        }
+        // BabylonjsCoreAutoRotationBehavior.idleRotationSpinupTime (number):
+        if (oldProps.idleRotationSpinupTime !== newProps.idleRotationSpinupTime) {
+            updates.push({
+                propertyName: 'idleRotationSpinupTime',
+                value: newProps.idleRotationSpinupTime,
+                type: 'number'
+            });
+        }
+        // BabylonjsCoreAutoRotationBehavior.idleRotationWaitTime (number):
+        if (oldProps.idleRotationWaitTime !== newProps.idleRotationWaitTime) {
+            updates.push({
+                propertyName: 'idleRotationWaitTime',
+                value: newProps.idleRotationWaitTime,
+                type: 'number'
+            });
+        }
+        // BabylonjsCoreAutoRotationBehavior.zoomStopsAnimation (boolean):
+        if (oldProps.zoomStopsAnimation !== newProps.zoomStopsAnimation) {
+            updates.push({
+                propertyName: 'zoomStopsAnimation',
+                value: newProps.zoomStopsAnimation,
+                type: 'boolean'
+            });
+        }
+        return updates.length === 0 ? null : updates;
+    }
+}
+
+/**
+ * The autoRotation behavior (AutoRotationBehavior) is designed to create a smooth rotation of an ArcRotateCamera when there is no user interaction.
+ *
+ * This code has been generated
+ */
+export class FiberAutoRotationBehavior implements HasPropsHandlers<BabylonjsCoreAutoRotationBehavior, FiberAutoRotationBehaviorProps> {
+    private propsHandlers: PropsHandler<BabylonjsCoreAutoRotationBehavior, FiberAutoRotationBehaviorProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberAutoRotationBehaviorPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<BabylonjsCoreAutoRotationBehavior, FiberAutoRotationBehaviorProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreAutoRotationBehavior, FiberAutoRotationBehaviorProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "AutoRotationBehavior",
+        "namespace": "@babylonjs/core/Behaviors/Cameras/autoRotationBehavior",
+        "parameters": []
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "isBehavior": true,
+        "className": "FiberAutoRotationBehavior"
+    };
+}
+
+export class FiberBouncingBehaviorPropsHandler implements PropsHandler<BabylonjsCoreBouncingBehavior, FiberBouncingBehaviorProps> {
+    getPropertyUpdates(hostInstance: BabylonjsCoreBouncingBehavior, oldProps: FiberBouncingBehaviorProps, newProps: FiberBouncingBehaviorProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
+        // generated code
+        let updates: PropertyUpdate[] = [];
+        // BabylonjsCoreBouncingBehavior.autoTransitionRange (boolean):
+        if (oldProps.autoTransitionRange !== newProps.autoTransitionRange) {
+            updates.push({
+                propertyName: 'autoTransitionRange',
+                value: newProps.autoTransitionRange,
+                type: 'boolean'
+            });
+        }
+        // BabylonjsCoreBouncingBehavior.lowerRadiusTransitionRange (number):
+        if (oldProps.lowerRadiusTransitionRange !== newProps.lowerRadiusTransitionRange) {
+            updates.push({
+                propertyName: 'lowerRadiusTransitionRange',
+                value: newProps.lowerRadiusTransitionRange,
+                type: 'number'
+            });
+        }
+        // BabylonjsCoreBouncingBehavior.transitionDuration (number):
+        if (oldProps.transitionDuration !== newProps.transitionDuration) {
+            updates.push({
+                propertyName: 'transitionDuration',
+                value: newProps.transitionDuration,
+                type: 'number'
+            });
+        }
+        // BabylonjsCoreBouncingBehavior.upperRadiusTransitionRange (number):
+        if (oldProps.upperRadiusTransitionRange !== newProps.upperRadiusTransitionRange) {
+            updates.push({
+                propertyName: 'upperRadiusTransitionRange',
+                value: newProps.upperRadiusTransitionRange,
+                type: 'number'
+            });
+        }
+        return updates.length === 0 ? null : updates;
+    }
+}
+
+/**
+ * Add a bouncing effect to an ArcRotateCamera when reaching a specified minimum and maximum radius
+ *
+ * This code has been generated
+ */
+export class FiberBouncingBehavior implements HasPropsHandlers<BabylonjsCoreBouncingBehavior, FiberBouncingBehaviorProps> {
+    private propsHandlers: PropsHandler<BabylonjsCoreBouncingBehavior, FiberBouncingBehaviorProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberBouncingBehaviorPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<BabylonjsCoreBouncingBehavior, FiberBouncingBehaviorProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreBouncingBehavior, FiberBouncingBehaviorProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "BouncingBehavior",
+        "namespace": "@babylonjs/core/Behaviors/Cameras/bouncingBehavior",
+        "parameters": []
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "isBehavior": true,
+        "className": "FiberBouncingBehavior"
+    };
+}
+
+export class FiberFramingBehaviorPropsHandler implements PropsHandler<BabylonjsCoreFramingBehavior, FiberFramingBehaviorProps> {
+    getPropertyUpdates(hostInstance: BabylonjsCoreFramingBehavior, oldProps: FiberFramingBehaviorProps, newProps: FiberFramingBehaviorProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
+        // generated code
+        let updates: PropertyUpdate[] = [];
+        // BabylonjsCoreFramingBehavior.autoCorrectCameraLimitsAndSensibility (boolean):
+        if (oldProps.autoCorrectCameraLimitsAndSensibility !== newProps.autoCorrectCameraLimitsAndSensibility) {
+            updates.push({
+                propertyName: 'autoCorrectCameraLimitsAndSensibility',
+                value: newProps.autoCorrectCameraLimitsAndSensibility,
+                type: 'boolean'
+            });
+        }
+        // BabylonjsCoreFramingBehavior.defaultElevation (number):
+        if (oldProps.defaultElevation !== newProps.defaultElevation) {
+            updates.push({
+                propertyName: 'defaultElevation',
+                value: newProps.defaultElevation,
+                type: 'number'
+            });
+        }
+        // BabylonjsCoreFramingBehavior.elevationReturnTime (number):
+        if (oldProps.elevationReturnTime !== newProps.elevationReturnTime) {
+            updates.push({
+                propertyName: 'elevationReturnTime',
+                value: newProps.elevationReturnTime,
+                type: 'number'
+            });
+        }
+        // BabylonjsCoreFramingBehavior.elevationReturnWaitTime (number):
+        if (oldProps.elevationReturnWaitTime !== newProps.elevationReturnWaitTime) {
+            updates.push({
+                propertyName: 'elevationReturnWaitTime',
+                value: newProps.elevationReturnWaitTime,
+                type: 'number'
+            });
+        }
+        // BabylonjsCoreFramingBehavior.framingTime (number):
+        if (oldProps.framingTime !== newProps.framingTime) {
+            updates.push({
+                propertyName: 'framingTime',
+                value: newProps.framingTime,
+                type: 'number'
+            });
+        }
+        // BabylonjsCoreFramingBehavior.mode (number):
+        if (oldProps.mode !== newProps.mode) {
+            updates.push({
+                propertyName: 'mode',
+                value: newProps.mode,
+                type: 'number'
+            });
+        }
+        // BabylonjsCoreFramingBehavior.positionScale (number):
+        if (oldProps.positionScale !== newProps.positionScale) {
+            updates.push({
+                propertyName: 'positionScale',
+                value: newProps.positionScale,
+                type: 'number'
+            });
+        }
+        // BabylonjsCoreFramingBehavior.radiusScale (number):
+        if (oldProps.radiusScale !== newProps.radiusScale) {
+            updates.push({
+                propertyName: 'radiusScale',
+                value: newProps.radiusScale,
+                type: 'number'
+            });
+        }
+        // BabylonjsCoreFramingBehavior.zoomStopsAnimation (boolean):
+        if (oldProps.zoomStopsAnimation !== newProps.zoomStopsAnimation) {
+            updates.push({
+                propertyName: 'zoomStopsAnimation',
+                value: newProps.zoomStopsAnimation,
+                type: 'boolean'
+            });
+        }
+        return updates.length === 0 ? null : updates;
+    }
+}
+
+/**
+ * The framing behavior (FramingBehavior) is designed to automatically position an ArcRotateCamera when its target is set to a mesh. It is also useful if you want to prevent the camera to go under a virtual horizontal plane.
+ *
+ * This code has been generated
+ */
+export class FiberFramingBehavior implements HasPropsHandlers<BabylonjsCoreFramingBehavior, FiberFramingBehaviorProps> {
+    private propsHandlers: PropsHandler<BabylonjsCoreFramingBehavior, FiberFramingBehaviorProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberFramingBehaviorPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<BabylonjsCoreFramingBehavior, FiberFramingBehaviorProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreFramingBehavior, FiberFramingBehaviorProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "FramingBehavior",
+        "namespace": "@babylonjs/core/Behaviors/Cameras/framingBehavior",
+        "parameters": []
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "isBehavior": true,
+        "className": "FiberFramingBehavior"
+    };
+}
+
+export class FiberAttachToBoxBehaviorPropsHandler implements PropsHandler<BabylonjsCoreAttachToBoxBehavior, FiberAttachToBoxBehaviorProps> {
+    getPropertyUpdates(hostInstance: BabylonjsCoreAttachToBoxBehavior, oldProps: FiberAttachToBoxBehaviorProps, newProps: FiberAttachToBoxBehaviorProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
+        // generated code
+        let updates: PropertyUpdate[] = [];
+        // BabylonjsCoreAttachToBoxBehavior.distanceAwayFromBottomOfFace (number):
+        if (oldProps.distanceAwayFromBottomOfFace !== newProps.distanceAwayFromBottomOfFace) {
+            updates.push({
+                propertyName: 'distanceAwayFromBottomOfFace',
+                value: newProps.distanceAwayFromBottomOfFace,
+                type: 'number'
+            });
+        }
+        // BabylonjsCoreAttachToBoxBehavior.distanceAwayFromFace (number):
+        if (oldProps.distanceAwayFromFace !== newProps.distanceAwayFromFace) {
+            updates.push({
+                propertyName: 'distanceAwayFromFace',
+                value: newProps.distanceAwayFromFace,
+                type: 'number'
+            });
+        }
+        // BabylonjsCoreAttachToBoxBehavior.name (string):
+        if (oldProps.name !== newProps.name) {
+            updates.push({
+                propertyName: 'name',
+                value: newProps.name,
+                type: 'string'
+            });
+        }
+        // TODO: type: 'any' property (not coded) BabylonjsCoreAttachToBoxBehavior.ui.
+        return updates.length === 0 ? null : updates;
+    }
+}
+
+/**
+ * A behavior that when attached to a mesh will will place a specified node on the meshes face pointing towards the camera
+ *
+ * This code has been generated
+ */
+export class FiberAttachToBoxBehavior implements HasPropsHandlers<BabylonjsCoreAttachToBoxBehavior, FiberAttachToBoxBehaviorProps> {
+    private propsHandlers: PropsHandler<BabylonjsCoreAttachToBoxBehavior, FiberAttachToBoxBehaviorProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberAttachToBoxBehaviorPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<BabylonjsCoreAttachToBoxBehavior, FiberAttachToBoxBehaviorProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreAttachToBoxBehavior, FiberAttachToBoxBehaviorProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "AttachToBoxBehavior",
+        "namespace": "@babylonjs/core/Behaviors/Meshes/attachToBoxBehavior",
+        "parameters": [
+            {
+                "name": "ui",
+                "type": "BabylonjsCoreTransformNode",
+                "optional": false
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "isBehavior": true,
+        "className": "FiberAttachToBoxBehavior"
+    };
+}
+
+export class FiberFadeInOutBehaviorPropsHandler implements PropsHandler<BabylonjsCoreFadeInOutBehavior, FiberFadeInOutBehaviorProps> {
+    getPropertyUpdates(hostInstance: BabylonjsCoreFadeInOutBehavior, oldProps: FiberFadeInOutBehaviorProps, newProps: FiberFadeInOutBehaviorProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
+        // generated code
+        let updates: PropertyUpdate[] = [];
+        // BabylonjsCoreFadeInOutBehavior.delay (number):
+        if (oldProps.delay !== newProps.delay) {
+            updates.push({
+                propertyName: 'delay',
+                value: newProps.delay,
+                type: 'number'
+            });
+        }
+        // BabylonjsCoreFadeInOutBehavior.fadeInTime (number):
+        if (oldProps.fadeInTime !== newProps.fadeInTime) {
+            updates.push({
+                propertyName: 'fadeInTime',
+                value: newProps.fadeInTime,
+                type: 'number'
+            });
+        }
+        return updates.length === 0 ? null : updates;
+    }
+}
+
+/**
+ * A behavior that when attached to a mesh will allow the mesh to fade in and out
+ *
+ * This code has been generated
+ */
+export class FiberFadeInOutBehavior implements HasPropsHandlers<BabylonjsCoreFadeInOutBehavior, FiberFadeInOutBehaviorProps> {
+    private propsHandlers: PropsHandler<BabylonjsCoreFadeInOutBehavior, FiberFadeInOutBehaviorProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberFadeInOutBehaviorPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<BabylonjsCoreFadeInOutBehavior, FiberFadeInOutBehaviorProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreFadeInOutBehavior, FiberFadeInOutBehaviorProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "FadeInOutBehavior",
+        "namespace": "@babylonjs/core/Behaviors/Meshes/fadeInOutBehavior",
+        "parameters": []
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "isBehavior": true,
+        "className": "FiberFadeInOutBehavior"
+    };
+}
+
+export class FiberMultiPointerScaleBehaviorPropsHandler implements PropsHandler<BabylonjsCoreMultiPointerScaleBehavior, FiberMultiPointerScaleBehaviorProps> {
+    getPropertyUpdates(hostInstance: BabylonjsCoreMultiPointerScaleBehavior, oldProps: FiberMultiPointerScaleBehaviorProps, newProps: FiberMultiPointerScaleBehaviorProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
+        // generated code
+        let updates: PropertyUpdate[] = [];
+        return updates.length === 0 ? null : updates;
+    }
+}
+
+/**
+ * A behavior that when attached to a mesh will allow the mesh to be scaled
+ *
+ * This code has been generated
+ */
+export class FiberMultiPointerScaleBehavior implements HasPropsHandlers<BabylonjsCoreMultiPointerScaleBehavior, FiberMultiPointerScaleBehaviorProps> {
+    private propsHandlers: PropsHandler<BabylonjsCoreMultiPointerScaleBehavior, FiberMultiPointerScaleBehaviorProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberMultiPointerScaleBehaviorPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<BabylonjsCoreMultiPointerScaleBehavior, FiberMultiPointerScaleBehaviorProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreMultiPointerScaleBehavior, FiberMultiPointerScaleBehaviorProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "MultiPointerScaleBehavior",
+        "namespace": "@babylonjs/core/Behaviors/Meshes/multiPointerScaleBehavior",
+        "parameters": []
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "isBehavior": true,
+        "className": "FiberMultiPointerScaleBehavior"
+    };
+}
+
+export class FiberPointerDragBehaviorPropsHandler implements PropsHandler<BabylonjsCorePointerDragBehavior, FiberPointerDragBehaviorProps> {
+    getPropertyUpdates(hostInstance: BabylonjsCorePointerDragBehavior, oldProps: FiberPointerDragBehaviorProps, newProps: FiberPointerDragBehaviorProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
+        // generated code
+        let updates: PropertyUpdate[] = [];
+        // TODO: type: 'BabylonjsCoreAbstractMesh' property (not coded) BabylonjsCorePointerDragBehavior.attachedNode.
+        // BabylonjsCorePointerDragBehavior.currentDraggingPointerID (number):
+        if (oldProps.currentDraggingPointerID !== newProps.currentDraggingPointerID) {
+            updates.push({
+                propertyName: 'currentDraggingPointerID',
+                value: newProps.currentDraggingPointerID,
+                type: 'number'
+            });
+        }
+        // BabylonjsCorePointerDragBehavior.detachCameraControls (boolean):
+        if (oldProps.detachCameraControls !== newProps.detachCameraControls) {
+            updates.push({
+                propertyName: 'detachCameraControls',
+                value: newProps.detachCameraControls,
+                type: 'boolean'
+            });
+        }
+        // BabylonjsCorePointerDragBehavior.dragDeltaRatio (number):
+        if (oldProps.dragDeltaRatio !== newProps.dragDeltaRatio) {
+            updates.push({
+                propertyName: 'dragDeltaRatio',
+                value: newProps.dragDeltaRatio,
+                type: 'number'
+            });
+        }
+        // BabylonjsCorePointerDragBehavior.dragging (boolean):
+        if (oldProps.dragging !== newProps.dragging) {
+            updates.push({
+                propertyName: 'dragging',
+                value: newProps.dragging,
+                type: 'boolean'
+            });
+        }
+        // BabylonjsCorePointerDragBehavior.enabled (boolean):
+        if (oldProps.enabled !== newProps.enabled) {
+            updates.push({
+                propertyName: 'enabled',
+                value: newProps.enabled,
+                type: 'boolean'
+            });
+        }
+        // BabylonjsCorePointerDragBehavior.lastDragPosition (BabylonjsCoreVector3 uses object equals to find diffs):
+        if (newProps.lastDragPosition && (!oldProps.lastDragPosition || !oldProps.lastDragPosition.equals(newProps.lastDragPosition))) {
+            updates.push({
+                propertyName: 'lastDragPosition',
+                value: newProps.lastDragPosition,
+                type: 'BabylonjsCoreVector3'
+            });
+        }
+        // BabylonjsCorePointerDragBehavior.maxDragAngle (number):
+        if (oldProps.maxDragAngle !== newProps.maxDragAngle) {
+            updates.push({
+                propertyName: 'maxDragAngle',
+                value: newProps.maxDragAngle,
+                type: 'number'
+            });
+        }
+        // BabylonjsCorePointerDragBehavior.moveAttached (boolean):
+        if (oldProps.moveAttached !== newProps.moveAttached) {
+            updates.push({
+                propertyName: 'moveAttached',
+                value: newProps.moveAttached,
+                type: 'boolean'
+            });
+        }
+        // xxx-ns-xxx.BabylonjsCorePointerDragBehavior.onDragEndObservable of type 'BabylonjsCoreObservable<{ dragPlanePoint: BabylonjsCoreVector3; pointerId: number; }>/fn':
+        if (oldProps.onDragEndObservable === undefined && oldProps.onDragEndObservable !== newProps.onDragEndObservable) {
+            updates.push({
+                propertyName: 'onDragEndObservable',
+                value: newProps.onDragEndObservable,
+                type: 'BabylonjsCoreObservable<{ dragPlanePoint: BabylonjsCoreVector3; pointerId: number; }>'
+            });
+        }
+        // xxx-ns-xxx.BabylonjsCorePointerDragBehavior.onDragObservable of type 'BabylonjsCoreObservable<{ delta: BabylonjsCoreVector3; dragPlanePoint: BabylonjsCoreVector3; dragPlaneNormal: BabylonjsCoreVector3; dragDistance: number; pointerId: number; }>/fn':
+        if (oldProps.onDragObservable === undefined && oldProps.onDragObservable !== newProps.onDragObservable) {
+            updates.push({
+                propertyName: 'onDragObservable',
+                value: newProps.onDragObservable,
+                type: 'BabylonjsCoreObservable<{ delta: BabylonjsCoreVector3; dragPlanePoint: BabylonjsCoreVector3; dragPlaneNormal: BabylonjsCoreVector3; dragDistance: number; pointerId: number; }>'
+            });
+        }
+        // xxx-ns-xxx.BabylonjsCorePointerDragBehavior.onDragStartObservable of type 'BabylonjsCoreObservable<{ dragPlanePoint: BabylonjsCoreVector3; pointerId: number; }>/fn':
+        if (oldProps.onDragStartObservable === undefined && oldProps.onDragStartObservable !== newProps.onDragStartObservable) {
+            updates.push({
+                propertyName: 'onDragStartObservable',
+                value: newProps.onDragStartObservable,
+                type: 'BabylonjsCoreObservable<{ dragPlanePoint: BabylonjsCoreVector3; pointerId: number; }>'
+            });
+        }
+        // TODO: type: '{ dragAxis?: BabylonjsCoreVector3; dragPlaneNormal?: BabylonjsCoreVector3; }' property (not coded) BabylonjsCorePointerDragBehavior.options.
+        // BabylonjsCorePointerDragBehavior.startAndReleaseDragOnPointerEvents (boolean):
+        if (oldProps.startAndReleaseDragOnPointerEvents !== newProps.startAndReleaseDragOnPointerEvents) {
+            updates.push({
+                propertyName: 'startAndReleaseDragOnPointerEvents',
+                value: newProps.startAndReleaseDragOnPointerEvents,
+                type: 'boolean'
+            });
+        }
+        // BabylonjsCorePointerDragBehavior.updateDragPlane (boolean):
+        if (oldProps.updateDragPlane !== newProps.updateDragPlane) {
+            updates.push({
+                propertyName: 'updateDragPlane',
+                value: newProps.updateDragPlane,
+                type: 'boolean'
+            });
+        }
+        // BabylonjsCorePointerDragBehavior.useObjectOrientationForDragging (boolean):
+        if (oldProps.useObjectOrientationForDragging !== newProps.useObjectOrientationForDragging) {
+            updates.push({
+                propertyName: 'useObjectOrientationForDragging',
+                value: newProps.useObjectOrientationForDragging,
+                type: 'boolean'
+            });
+        }
+        // TODO: type: '(targetPosition: BabylonjsCoreVector3) => boolean' property (not coded) BabylonjsCorePointerDragBehavior.validateDrag.
+        return updates.length === 0 ? null : updates;
+    }
+}
+
+/**
+ * A behavior that when attached to a mesh will allow the mesh to be dragged around the screen based on pointer events
+ *
+ * This code has been generated
+ */
+export class FiberPointerDragBehavior implements HasPropsHandlers<BabylonjsCorePointerDragBehavior, FiberPointerDragBehaviorProps> {
+    private propsHandlers: PropsHandler<BabylonjsCorePointerDragBehavior, FiberPointerDragBehaviorProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberPointerDragBehaviorPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<BabylonjsCorePointerDragBehavior, FiberPointerDragBehaviorProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<BabylonjsCorePointerDragBehavior, FiberPointerDragBehaviorProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "PointerDragBehavior",
+        "namespace": "@babylonjs/core/Behaviors/Meshes/pointerDragBehavior",
+        "parameters": [
+            {
+                "name": "options",
+                "type": [
+                    {
+                        "name": "dragAxis",
+                        "type": "BabylonjsCoreVector3",
+                        "optional": true
+                    },
+                    {
+                        "name": "dragPlaneNormal",
+                        "type": "BabylonjsCoreVector3",
+                        "optional": true
+                    }
+                ],
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "isBehavior": true,
+        "className": "FiberPointerDragBehavior"
+    };
+}
+
+export class FiberSixDofDragBehaviorPropsHandler implements PropsHandler<BabylonjsCoreSixDofDragBehavior, FiberSixDofDragBehaviorProps> {
+    getPropertyUpdates(hostInstance: BabylonjsCoreSixDofDragBehavior, oldProps: FiberSixDofDragBehaviorProps, newProps: FiberSixDofDragBehaviorProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
+        // generated code
+        let updates: PropertyUpdate[] = [];
+        // BabylonjsCoreSixDofDragBehavior.currentDraggingPointerID (number):
+        if (oldProps.currentDraggingPointerID !== newProps.currentDraggingPointerID) {
+            updates.push({
+                propertyName: 'currentDraggingPointerID',
+                value: newProps.currentDraggingPointerID,
+                type: 'number'
+            });
+        }
+        // BabylonjsCoreSixDofDragBehavior.detachCameraControls (boolean):
+        if (oldProps.detachCameraControls !== newProps.detachCameraControls) {
+            updates.push({
+                propertyName: 'detachCameraControls',
+                value: newProps.detachCameraControls,
+                type: 'boolean'
+            });
+        }
+        // BabylonjsCoreSixDofDragBehavior.dragDeltaRatio (number):
+        if (oldProps.dragDeltaRatio !== newProps.dragDeltaRatio) {
+            updates.push({
+                propertyName: 'dragDeltaRatio',
+                value: newProps.dragDeltaRatio,
+                type: 'number'
+            });
+        }
+        // BabylonjsCoreSixDofDragBehavior.dragging (boolean):
+        if (oldProps.dragging !== newProps.dragging) {
+            updates.push({
+                propertyName: 'dragging',
+                value: newProps.dragging,
+                type: 'boolean'
+            });
+        }
+        // xxx-ns-xxx.BabylonjsCoreSixDofDragBehavior.onDragEndObservable of type 'BabylonjsCoreObservable<{}>/fn':
+        if (oldProps.onDragEndObservable === undefined && oldProps.onDragEndObservable !== newProps.onDragEndObservable) {
+            updates.push({
+                propertyName: 'onDragEndObservable',
+                value: newProps.onDragEndObservable,
+                type: 'BabylonjsCoreObservable<{}>'
+            });
+        }
+        // xxx-ns-xxx.BabylonjsCoreSixDofDragBehavior.onDragStartObservable of type 'BabylonjsCoreObservable<{}>/fn':
+        if (oldProps.onDragStartObservable === undefined && oldProps.onDragStartObservable !== newProps.onDragStartObservable) {
+            updates.push({
+                propertyName: 'onDragStartObservable',
+                value: newProps.onDragStartObservable,
+                type: 'BabylonjsCoreObservable<{}>'
+            });
+        }
+        // BabylonjsCoreSixDofDragBehavior.rotateDraggedObject (boolean):
+        if (oldProps.rotateDraggedObject !== newProps.rotateDraggedObject) {
+            updates.push({
+                propertyName: 'rotateDraggedObject',
+                value: newProps.rotateDraggedObject,
+                type: 'boolean'
+            });
+        }
+        // TODO: type: 'any' property (not coded) BabylonjsCoreSixDofDragBehavior.zDragFactor.
+        return updates.length === 0 ? null : updates;
+    }
+}
+
+/**
+ * A behavior that when attached to a mesh will allow the mesh to be dragged around based on directions and origin of the pointer's ray
+ *
+ * This code has been generated
+ */
+export class FiberSixDofDragBehavior implements HasPropsHandlers<BabylonjsCoreSixDofDragBehavior, FiberSixDofDragBehaviorProps> {
+    private propsHandlers: PropsHandler<BabylonjsCoreSixDofDragBehavior, FiberSixDofDragBehaviorProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberSixDofDragBehaviorPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<BabylonjsCoreSixDofDragBehavior, FiberSixDofDragBehaviorProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreSixDofDragBehavior, FiberSixDofDragBehaviorProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "SixDofDragBehavior",
+        "namespace": "@babylonjs/core/Behaviors/Meshes/sixDofDragBehavior",
+        "parameters": []
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "isBehavior": true,
+        "className": "FiberSixDofDragBehavior"
     };
 }
 
@@ -19466,6 +20435,126 @@ export class FiberScenePropsHandler implements PropsHandler<BabylonjsCoreScene, 
                 type: 'boolean'
             });
         }
+        // BabylonjsCoreScene.addActionManager of type '(newActionManager?: BabylonjsCoreAbstractActionManager) => void':
+        if (oldProps.addActionManager !== newProps.addActionManager) {
+            updates.push({
+                propertyName: 'addActionManager',
+                value: newProps.addActionManager,
+                type: '(newActionManager?: BabylonjsCoreAbstractActionManager) => void'
+            });
+        }
+        // BabylonjsCoreScene.addAnimation of type '(newAnimation?: BabylonjsCoreAnimation) => void':
+        if (oldProps.addAnimation !== newProps.addAnimation) {
+            updates.push({
+                propertyName: 'addAnimation',
+                value: newProps.addAnimation,
+                type: '(newAnimation?: BabylonjsCoreAnimation) => void'
+            });
+        }
+        // BabylonjsCoreScene.addAnimationGroup of type '(newAnimationGroup?: BabylonjsCoreAnimationGroup) => void':
+        if (oldProps.addAnimationGroup !== newProps.addAnimationGroup) {
+            updates.push({
+                propertyName: 'addAnimationGroup',
+                value: newProps.addAnimationGroup,
+                type: '(newAnimationGroup?: BabylonjsCoreAnimationGroup) => void'
+            });
+        }
+        // BabylonjsCoreScene.addCamera of type '(newCamera?: BabylonjsCoreCamera) => void':
+        if (oldProps.addCamera !== newProps.addCamera) {
+            updates.push({
+                propertyName: 'addCamera',
+                value: newProps.addCamera,
+                type: '(newCamera?: BabylonjsCoreCamera) => void'
+            });
+        }
+        // BabylonjsCoreScene.addExternalData of type '(key?: string, data?: T) => boolean':
+        if (oldProps.addExternalData !== newProps.addExternalData) {
+            updates.push({
+                propertyName: 'addExternalData',
+                value: newProps.addExternalData,
+                type: '(key?: string, data?: T) => boolean'
+            });
+        }
+        // BabylonjsCoreScene.addGeometry of type '(newGeometry?: BabylonjsCoreGeometry) => void':
+        if (oldProps.addGeometry !== newProps.addGeometry) {
+            updates.push({
+                propertyName: 'addGeometry',
+                value: newProps.addGeometry,
+                type: '(newGeometry?: BabylonjsCoreGeometry) => void'
+            });
+        }
+        // BabylonjsCoreScene.addLight of type '(newLight?: BabylonjsCoreLight) => void':
+        if (oldProps.addLight !== newProps.addLight) {
+            updates.push({
+                propertyName: 'addLight',
+                value: newProps.addLight,
+                type: '(newLight?: BabylonjsCoreLight) => void'
+            });
+        }
+        // BabylonjsCoreScene.addMaterial of type '(newMaterial?: BabylonjsCoreMaterial) => void':
+        if (oldProps.addMaterial !== newProps.addMaterial) {
+            updates.push({
+                propertyName: 'addMaterial',
+                value: newProps.addMaterial,
+                type: '(newMaterial?: BabylonjsCoreMaterial) => void'
+            });
+        }
+        // BabylonjsCoreScene.addMesh of type '(newMesh?: BabylonjsCoreAbstractMesh, recursive?: boolean) => void':
+        if (oldProps.addMesh !== newProps.addMesh) {
+            updates.push({
+                propertyName: 'addMesh',
+                value: newProps.addMesh,
+                type: '(newMesh?: BabylonjsCoreAbstractMesh, recursive?: boolean) => void'
+            });
+        }
+        // BabylonjsCoreScene.addMorphTargetManager of type '(newMorphTargetManager?: BabylonjsCoreMorphTargetManager) => void':
+        if (oldProps.addMorphTargetManager !== newProps.addMorphTargetManager) {
+            updates.push({
+                propertyName: 'addMorphTargetManager',
+                value: newProps.addMorphTargetManager,
+                type: '(newMorphTargetManager?: BabylonjsCoreMorphTargetManager) => void'
+            });
+        }
+        // BabylonjsCoreScene.addMultiMaterial of type '(newMultiMaterial?: BabylonjsCoreMultiMaterial) => void':
+        if (oldProps.addMultiMaterial !== newProps.addMultiMaterial) {
+            updates.push({
+                propertyName: 'addMultiMaterial',
+                value: newProps.addMultiMaterial,
+                type: '(newMultiMaterial?: BabylonjsCoreMultiMaterial) => void'
+            });
+        }
+        // BabylonjsCoreScene.addParticleSystem of type '(newParticleSystem?: BabylonjsCoreIParticleSystem) => void':
+        if (oldProps.addParticleSystem !== newProps.addParticleSystem) {
+            updates.push({
+                propertyName: 'addParticleSystem',
+                value: newProps.addParticleSystem,
+                type: '(newParticleSystem?: BabylonjsCoreIParticleSystem) => void'
+            });
+        }
+        // BabylonjsCoreScene.addSkeleton of type '(newSkeleton?: BabylonjsCoreSkeleton) => void':
+        if (oldProps.addSkeleton !== newProps.addSkeleton) {
+            updates.push({
+                propertyName: 'addSkeleton',
+                value: newProps.addSkeleton,
+                type: '(newSkeleton?: BabylonjsCoreSkeleton) => void'
+            });
+        }
+        // BabylonjsCoreScene.addTexture of type '(newTexture?: BabylonjsCoreBaseTexture) => void':
+        if (oldProps.addTexture !== newProps.addTexture) {
+            updates.push({
+                propertyName: 'addTexture',
+                value: newProps.addTexture,
+                type: '(newTexture?: BabylonjsCoreBaseTexture) => void'
+            });
+        }
+        // BabylonjsCoreScene.addTransformNode of type '(newTransformNode?: BabylonjsCoreTransformNode) => void':
+        if (oldProps.addTransformNode !== newProps.addTransformNode) {
+            updates.push({
+                propertyName: 'addTransformNode',
+                value: newProps.addTransformNode,
+                type: '(newTransformNode?: BabylonjsCoreTransformNode) => void'
+            });
+        }
         // BabylonjsCoreScene.setActiveCameraByID of type '(id?: string) => BabylonjsCoreCamera':
         if (oldProps.setActiveCameraByID !== newProps.setActiveCameraByID) {
             updates.push({
@@ -19526,7 +20615,7 @@ export class FiberScenePropsHandler implements PropsHandler<BabylonjsCoreScene, 
     }
 }
 
-export const ADTForMesh: string = 'ADTForMesh', ADTFullscreenUI: string = 'ADTFullscreenUI', AbstractButton3D: string = 'AbstractButton3D', AbstractMesh: string = 'AbstractMesh', AdvancedDynamicTexture: string = 'AdvancedDynamicTexture', AnaglyphArcRotateCamera: string = 'AnaglyphArcRotateCamera', AnaglyphFreeCamera: string = 'AnaglyphFreeCamera', AnaglyphGamepadCamera: string = 'AnaglyphGamepadCamera', AnaglyphUniversalCamera: string = 'AnaglyphUniversalCamera', ArcFollowCamera: string = 'ArcFollowCamera', ArcRotateCamera: string = 'ArcRotateCamera', BackgroundMaterial: string = 'BackgroundMaterial', BaseSlider: string = 'BaseSlider', BaseTexture: string = 'BaseTexture', Box: string = 'Box', Button: string = 'Button', Button3D: string = 'Button3D', Camera: string = 'Camera', Checkbox: string = 'Checkbox', ColorGradingTexture: string = 'ColorGradingTexture', ColorPicker: string = 'ColorPicker', Container: string = 'Container', Container3D: string = 'Container3D', Control: string = 'Control', Control3D: string = 'Control3D', CubeTexture: string = 'CubeTexture', CustomProceduralTexture: string = 'CustomProceduralTexture', Cylinder: string = 'Cylinder', CylinderPanel: string = 'CylinderPanel', DashedLines: string = 'DashedLines', Decal: string = 'Decal', DeviceOrientationCamera: string = 'DeviceOrientationCamera', DirectionalLight: string = 'DirectionalLight', Disc: string = 'Disc', DisplayGrid: string = 'DisplayGrid', DynamicTerrain: string = 'DynamicTerrain', DynamicTexture: string = 'DynamicTexture', EffectLayer: string = 'EffectLayer', Ellipse: string = 'Ellipse', EnvironmentHelper: string = 'EnvironmentHelper', EquiRectangularCubeTexture: string = 'EquiRectangularCubeTexture', ExtrudePolygon: string = 'ExtrudePolygon', ExtrudeShape: string = 'ExtrudeShape', ExtrudeShapeCustom: string = 'ExtrudeShapeCustom', FluentMaterial: string = 'FluentMaterial', FlyCamera: string = 'FlyCamera', FollowCamera: string = 'FollowCamera', FreeCamera: string = 'FreeCamera', GUI3DManager: string = 'GUI3DManager', GamepadCamera: string = 'GamepadCamera', GlowLayer: string = 'GlowLayer', Grid: string = 'Grid', Ground: string = 'Ground', GroundFromHeightMap: string = 'GroundFromHeightMap', HDRCubeTexture: string = 'HDRCubeTexture', HemisphericLight: string = 'HemisphericLight', HighlightLayer: string = 'HighlightLayer', HolographicButton: string = 'HolographicButton', HtmlElementTexture: string = 'HtmlElementTexture', IcoSphere: string = 'IcoSphere', Image: string = 'Image', ImageBasedSlider: string = 'ImageBasedSlider', ImageScrollBar: string = 'ImageScrollBar', InputPassword: string = 'InputPassword', InputText: string = 'InputText', Lathe: string = 'Lathe', Light: string = 'Light', Line: string = 'Line', LineSystem: string = 'LineSystem', Lines: string = 'Lines', Material: string = 'Material', Mesh: string = 'Mesh', MeshButton3D: string = 'MeshButton3D', MirrorTexture: string = 'MirrorTexture', Model: string = 'Model', MultiLine: string = 'MultiLine', MultiMaterial: string = 'MultiMaterial', MultiRenderTarget: string = 'MultiRenderTarget', MultiviewRenderTarget: string = 'MultiviewRenderTarget', Node: string = 'Node', NodeMaterial: string = 'NodeMaterial', NoiseProceduralTexture: string = 'NoiseProceduralTexture', PBRBaseMaterial: string = 'PBRBaseMaterial', PBRBaseSimpleMaterial: string = 'PBRBaseSimpleMaterial', PBRMaterial: string = 'PBRMaterial', PBRMetallicRoughnessMaterial: string = 'PBRMetallicRoughnessMaterial', PBRSpecularGlossinessMaterial: string = 'PBRSpecularGlossinessMaterial', PhysicsImpostor: string = 'PhysicsImpostor', Plane: string = 'Plane', PlanePanel: string = 'PlanePanel', PointLight: string = 'PointLight', Polygon: string = 'Polygon', Polyhedron: string = 'Polyhedron', ProceduralTexture: string = 'ProceduralTexture', PushMaterial: string = 'PushMaterial', RadioButton: string = 'RadioButton', RawCubeTexture: string = 'RawCubeTexture', RawTexture: string = 'RawTexture', RawTexture2DArray: string = 'RawTexture2DArray', RawTexture3D: string = 'RawTexture3D', Rectangle: string = 'Rectangle', RefractionTexture: string = 'RefractionTexture', RenderTargetTexture: string = 'RenderTargetTexture', Ribbon: string = 'Ribbon', ScatterPanel: string = 'ScatterPanel', ScrollBar: string = 'ScrollBar', ScrollViewer: string = 'ScrollViewer', SelectionPanel: string = 'SelectionPanel', ShaderMaterial: string = 'ShaderMaterial', ShadowGenerator: string = 'ShadowGenerator', ShadowLight: string = 'ShadowLight', Slider: string = 'Slider', Sphere: string = 'Sphere', SpherePanel: string = 'SpherePanel', SpotLight: string = 'SpotLight', StackPanel: string = 'StackPanel', StackPanel3D: string = 'StackPanel3D', StandardMaterial: string = 'StandardMaterial', StereoscopicArcRotateCamera: string = 'StereoscopicArcRotateCamera', StereoscopicFreeCamera: string = 'StereoscopicFreeCamera', StereoscopicGamepadCamera: string = 'StereoscopicGamepadCamera', StereoscopicUniversalCamera: string = 'StereoscopicUniversalCamera', TargetCamera: string = 'TargetCamera', TextBlock: string = 'TextBlock', Texture: string = 'Texture', TiledBox: string = 'TiledBox', TiledGround: string = 'TiledGround', TiledPlane: string = 'TiledPlane', Torus: string = 'Torus', TorusKnot: string = 'TorusKnot', TouchCamera: string = 'TouchCamera', TransformNode: string = 'TransformNode', Tube: string = 'Tube', UniversalCamera: string = 'UniversalCamera', VRDeviceOrientationArcRotateCamera: string = 'VRDeviceOrientationArcRotateCamera', VRDeviceOrientationFreeCamera: string = 'VRDeviceOrientationFreeCamera', VRDeviceOrientationGamepadCamera: string = 'VRDeviceOrientationGamepadCamera', VRExperienceHelper: string = 'VRExperienceHelper', VideoTexture: string = 'VideoTexture', VirtualJoysticksCamera: string = 'VirtualJoysticksCamera', VirtualKeyboard: string = 'VirtualKeyboard', VolumeBasedPanel: string = 'VolumeBasedPanel', WebVRFreeCamera: string = 'WebVRFreeCamera', WebXRCamera: string = 'WebXRCamera', _ScrollViewerWindow: string = '_ScrollViewerWindow';
+export const ADTForMesh: string = 'ADTForMesh', ADTFullscreenUI: string = 'ADTFullscreenUI', AbstractButton3D: string = 'AbstractButton3D', AbstractMesh: string = 'AbstractMesh', AdvancedDynamicTexture: string = 'AdvancedDynamicTexture', AnaglyphArcRotateCamera: string = 'AnaglyphArcRotateCamera', AnaglyphFreeCamera: string = 'AnaglyphFreeCamera', AnaglyphGamepadCamera: string = 'AnaglyphGamepadCamera', AnaglyphUniversalCamera: string = 'AnaglyphUniversalCamera', ArcFollowCamera: string = 'ArcFollowCamera', ArcRotateCamera: string = 'ArcRotateCamera', AttachToBoxBehavior: string = 'AttachToBoxBehavior', AutoRotationBehavior: string = 'AutoRotationBehavior', BackgroundMaterial: string = 'BackgroundMaterial', BaseSlider: string = 'BaseSlider', BaseTexture: string = 'BaseTexture', BouncingBehavior: string = 'BouncingBehavior', Box: string = 'Box', Button: string = 'Button', Button3D: string = 'Button3D', Camera: string = 'Camera', Checkbox: string = 'Checkbox', ColorGradingTexture: string = 'ColorGradingTexture', ColorPicker: string = 'ColorPicker', Container: string = 'Container', Container3D: string = 'Container3D', Control: string = 'Control', Control3D: string = 'Control3D', CubeTexture: string = 'CubeTexture', CustomProceduralTexture: string = 'CustomProceduralTexture', Cylinder: string = 'Cylinder', CylinderPanel: string = 'CylinderPanel', DashedLines: string = 'DashedLines', Decal: string = 'Decal', DeviceOrientationCamera: string = 'DeviceOrientationCamera', DirectionalLight: string = 'DirectionalLight', Disc: string = 'Disc', DisplayGrid: string = 'DisplayGrid', DynamicTerrain: string = 'DynamicTerrain', DynamicTexture: string = 'DynamicTexture', EffectLayer: string = 'EffectLayer', Ellipse: string = 'Ellipse', EnvironmentHelper: string = 'EnvironmentHelper', EquiRectangularCubeTexture: string = 'EquiRectangularCubeTexture', ExtrudePolygon: string = 'ExtrudePolygon', ExtrudeShape: string = 'ExtrudeShape', ExtrudeShapeCustom: string = 'ExtrudeShapeCustom', FadeInOutBehavior: string = 'FadeInOutBehavior', FluentMaterial: string = 'FluentMaterial', FlyCamera: string = 'FlyCamera', FollowCamera: string = 'FollowCamera', FramingBehavior: string = 'FramingBehavior', FreeCamera: string = 'FreeCamera', GUI3DManager: string = 'GUI3DManager', GamepadCamera: string = 'GamepadCamera', GlowLayer: string = 'GlowLayer', Grid: string = 'Grid', Ground: string = 'Ground', GroundFromHeightMap: string = 'GroundFromHeightMap', HDRCubeTexture: string = 'HDRCubeTexture', HemisphericLight: string = 'HemisphericLight', HighlightLayer: string = 'HighlightLayer', HolographicButton: string = 'HolographicButton', HtmlElementTexture: string = 'HtmlElementTexture', IcoSphere: string = 'IcoSphere', Image: string = 'Image', ImageBasedSlider: string = 'ImageBasedSlider', ImageScrollBar: string = 'ImageScrollBar', InputPassword: string = 'InputPassword', InputText: string = 'InputText', Lathe: string = 'Lathe', Light: string = 'Light', Line: string = 'Line', LineSystem: string = 'LineSystem', Lines: string = 'Lines', Material: string = 'Material', Mesh: string = 'Mesh', MeshButton3D: string = 'MeshButton3D', MirrorTexture: string = 'MirrorTexture', Model: string = 'Model', MultiLine: string = 'MultiLine', MultiMaterial: string = 'MultiMaterial', MultiPointerScaleBehavior: string = 'MultiPointerScaleBehavior', MultiRenderTarget: string = 'MultiRenderTarget', MultiviewRenderTarget: string = 'MultiviewRenderTarget', Node: string = 'Node', NodeMaterial: string = 'NodeMaterial', NoiseProceduralTexture: string = 'NoiseProceduralTexture', PBRBaseMaterial: string = 'PBRBaseMaterial', PBRBaseSimpleMaterial: string = 'PBRBaseSimpleMaterial', PBRMaterial: string = 'PBRMaterial', PBRMetallicRoughnessMaterial: string = 'PBRMetallicRoughnessMaterial', PBRSpecularGlossinessMaterial: string = 'PBRSpecularGlossinessMaterial', PhysicsImpostor: string = 'PhysicsImpostor', Plane: string = 'Plane', PlanePanel: string = 'PlanePanel', PointLight: string = 'PointLight', PointerDragBehavior: string = 'PointerDragBehavior', Polygon: string = 'Polygon', Polyhedron: string = 'Polyhedron', ProceduralTexture: string = 'ProceduralTexture', PushMaterial: string = 'PushMaterial', RadioButton: string = 'RadioButton', RawCubeTexture: string = 'RawCubeTexture', RawTexture: string = 'RawTexture', RawTexture2DArray: string = 'RawTexture2DArray', RawTexture3D: string = 'RawTexture3D', Rectangle: string = 'Rectangle', RefractionTexture: string = 'RefractionTexture', RenderTargetTexture: string = 'RenderTargetTexture', Ribbon: string = 'Ribbon', ScatterPanel: string = 'ScatterPanel', ScrollBar: string = 'ScrollBar', ScrollViewer: string = 'ScrollViewer', SelectionPanel: string = 'SelectionPanel', ShaderMaterial: string = 'ShaderMaterial', ShadowGenerator: string = 'ShadowGenerator', ShadowLight: string = 'ShadowLight', SixDofDragBehavior: string = 'SixDofDragBehavior', Slider: string = 'Slider', Sphere: string = 'Sphere', SpherePanel: string = 'SpherePanel', SpotLight: string = 'SpotLight', StackPanel: string = 'StackPanel', StackPanel3D: string = 'StackPanel3D', StandardMaterial: string = 'StandardMaterial', StereoscopicArcRotateCamera: string = 'StereoscopicArcRotateCamera', StereoscopicFreeCamera: string = 'StereoscopicFreeCamera', StereoscopicGamepadCamera: string = 'StereoscopicGamepadCamera', StereoscopicUniversalCamera: string = 'StereoscopicUniversalCamera', TargetCamera: string = 'TargetCamera', TextBlock: string = 'TextBlock', Texture: string = 'Texture', TiledBox: string = 'TiledBox', TiledGround: string = 'TiledGround', TiledPlane: string = 'TiledPlane', Torus: string = 'Torus', TorusKnot: string = 'TorusKnot', TouchCamera: string = 'TouchCamera', TransformNode: string = 'TransformNode', Tube: string = 'Tube', UniversalCamera: string = 'UniversalCamera', VRDeviceOrientationArcRotateCamera: string = 'VRDeviceOrientationArcRotateCamera', VRDeviceOrientationFreeCamera: string = 'VRDeviceOrientationFreeCamera', VRDeviceOrientationGamepadCamera: string = 'VRDeviceOrientationGamepadCamera', VRExperienceHelper: string = 'VRExperienceHelper', VideoTexture: string = 'VideoTexture', VirtualJoysticksCamera: string = 'VirtualJoysticksCamera', VirtualKeyboard: string = 'VirtualKeyboard', VolumeBasedPanel: string = 'VolumeBasedPanel', WebVRFreeCamera: string = 'WebVRFreeCamera', WebXRCamera: string = 'WebXRCamera', _ScrollViewerWindow: string = '_ScrollViewerWindow';
 const classesMap: object = {
     dynamicTerrain: ExtensionsDynamicTerrain, DynamicTerrain: ExtensionsDynamicTerrain,
     abstractScene: BabylonjsCoreAbstractScene, AbstractScene: BabylonjsCoreAbstractScene,
@@ -19542,6 +20631,14 @@ const classesMap: object = {
     physicsImpostor: BabylonjsCorePhysicsImpostor, PhysicsImpostor: BabylonjsCorePhysicsImpostor,
     advancedDynamicTexture: BabylonjsGuiAdvancedDynamicTexture, AdvancedDynamicTexture: BabylonjsGuiAdvancedDynamicTexture,
     gui3DManager: BabylonjsGuiGUI3DManager, GUI3DManager: BabylonjsGuiGUI3DManager,
+    autoRotationBehavior: BabylonjsCoreAutoRotationBehavior, AutoRotationBehavior: BabylonjsCoreAutoRotationBehavior,
+    bouncingBehavior: BabylonjsCoreBouncingBehavior, BouncingBehavior: BabylonjsCoreBouncingBehavior,
+    framingBehavior: BabylonjsCoreFramingBehavior, FramingBehavior: BabylonjsCoreFramingBehavior,
+    attachToBoxBehavior: BabylonjsCoreAttachToBoxBehavior, AttachToBoxBehavior: BabylonjsCoreAttachToBoxBehavior,
+    fadeInOutBehavior: BabylonjsCoreFadeInOutBehavior, FadeInOutBehavior: BabylonjsCoreFadeInOutBehavior,
+    multiPointerScaleBehavior: BabylonjsCoreMultiPointerScaleBehavior, MultiPointerScaleBehavior: BabylonjsCoreMultiPointerScaleBehavior,
+    pointerDragBehavior: BabylonjsCorePointerDragBehavior, PointerDragBehavior: BabylonjsCorePointerDragBehavior,
+    sixDofDragBehavior: BabylonjsCoreSixDofDragBehavior, SixDofDragBehavior: BabylonjsCoreSixDofDragBehavior,
     vrExperienceHelper: BabylonjsCoreVRExperienceHelper, VRExperienceHelper: BabylonjsCoreVRExperienceHelper,
     shadowGenerator: BabylonjsCoreShadowGenerator, ShadowGenerator: BabylonjsCoreShadowGenerator,
     baseTexture: BabylonjsCoreBaseTexture, BaseTexture: BabylonjsCoreBaseTexture,
@@ -19664,6 +20761,14 @@ export const intrinsicClassMap: object = {
     physicsImpostor: 'PhysicsImpostor',
     advancedDynamicTexture: 'AdvancedDynamicTexture',
     gui3DManager: 'GUI3DManager',
+    autoRotationBehavior: 'AutoRotationBehavior',
+    bouncingBehavior: 'BouncingBehavior',
+    framingBehavior: 'FramingBehavior',
+    attachToBoxBehavior: 'AttachToBoxBehavior',
+    fadeInOutBehavior: 'FadeInOutBehavior',
+    multiPointerScaleBehavior: 'MultiPointerScaleBehavior',
+    pointerDragBehavior: 'PointerDragBehavior',
+    sixDofDragBehavior: 'SixDofDragBehavior',
     vrExperienceHelper: 'VRExperienceHelper',
     shadowGenerator: 'ShadowGenerator',
     baseTexture: 'BaseTexture',
