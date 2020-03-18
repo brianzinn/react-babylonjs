@@ -1,18 +1,15 @@
 import React from 'react'
 import {storiesOf} from '@storybook/react'
 import '@babylonjs/inspector'
-import {Engine, Scene, Model} from '../../../dist/react-babylonjs.es5'
+import {Engine, Scene, Model} from '../../../dist/react-babylonjs'
 import {Color4, Vector3, Color3} from '@babylonjs/core/Maths/math'
 import '../../style.css'
-import {Control} from '@babylonjs/gui';
 
 /**
  * official examples
  * - https://www.babylonjs-playground.com/#YDO1F#75
  * - https://www.babylonjs-playground.com/#20OAV9#15
  */
-
-
 function WithImageTexture() {
   const url = 'https://upload.wikimedia.org/wikipedia/commons/8/87/Alaskan_Malamute%2BBlank.png';
 

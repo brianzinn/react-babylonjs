@@ -1,7 +1,7 @@
 import React, { useRef } from 'react'
 import {storiesOf} from '@storybook/react'
 import '@babylonjs/inspector'
-import {Engine, Scene, Model} from '../../../dist/react-babylonjs.es5'
+import {Engine, Scene, Model} from '../../../dist/react-babylonjs'
 import {Color3, Color4, Vector3} from '@babylonjs/core/Maths/math'
 import '../../style.css'
 import ScaledModelWithProgress from '../ScaledModelWithProgress'

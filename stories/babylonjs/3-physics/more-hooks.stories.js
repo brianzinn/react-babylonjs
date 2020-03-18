@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react'
-import { Engine, Scene, useBabylonEngine, useBabylonCanvas, useBabylonScene } from '../../../dist/react-babylonjs.es5'
+import { Engine, Scene, useBabylonEngine, useBabylonCanvas, useBabylonScene } from '../../../dist/react-babylonjs'
 import { Vector3 } from '@babylonjs/core'
 
 const MyScene = () => {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { withScene } from '../../dist/react-babylonjs.es5'
+import { withScene } from '../../dist/react-babylonjs'
 import { Vector3, Matrix, Color3 } from '@babylonjs/core/Maths/math'
 
 // try with later versions of RHL to get hooks working here:

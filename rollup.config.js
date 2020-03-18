@@ -1,48 +1,39 @@
-import resolve from 'rollup-plugin-node-resolve'
-import commonjs from 'rollup-plugin-commonjs'
-import sourceMaps from 'rollup-plugin-sourcemaps'
-import json from 'rollup-plugin-json';
+import json from '@rollup/plugin-json';
+import typescript from 'rollup-plugin-typescript2';
 
 const pkg = require('./package.json')
-const camelCase = require('lodash.camelcase')
-
-const libraryName = 'react-babylonjs'
+const libraryName = pkg.name
 
 const isProduction = process.env.NODE_ENV === 'production';
-console.log('ENV:', process.env.NODE_ENV)
+console.log('ENV:', process.env.NODE_ENV, libraryName)
 
-export default (async () => ({
-  input: `compiled/${libraryName}.js`,
-  output: [
-	  {
-      file: pkg.main,
-      name: camelCase(libraryName),
-      format: 'umd',
-      sourcemap: true,
-      globals: {
-        react: 'React'
-      }
-    }, {
+const exportGlobals = {
+  'react': 'React',
+  'react-dom': 'ReactDom',
+  'react-reconciler': 'ReactReconciler',
+  '@babylonjs/core': 'BabylonjsCore'
+}
+
+export default (async () => {
+  
+  const result = {
+    input: `src/${libraryName}.ts`,
+    output: [{
       file: pkg.module,
       format: 'es',
-      sourcemap: true
-    }
-  ],
-  context: 'window',
-  // Indicate here external modules you don't wanna include in your bundle (i.e.: 'lodash')
-  external: [...Object.keys(pkg.peerDependencies || {})],
-  plugins: [
-    // Allow bundling cjs modules (unlike webpack, rollup doesn't understand cjs)
-    commonjs(),
-    // Allow node_modules resolution, so you can use 'external' to control
-    // which external modules to include in the bundle
-    // https://github.com/rollup/rollup-plugin-node-resolve#usage
-    resolve(),
-    json(),
-
-    // Resolve source maps to the original source
-    sourceMaps(),
-    // minimize production build
-    isProduction && (await import('rollup-plugin-terser')).terser()
-  ]
-}))
+      sourcemap: true,
+      globals: exportGlobals,
+    }],
+    context: 'window',
+    // external modules not in bundle (i.e.: 'react')
+    external: [...Object.keys(pkg.peerDependencies || {})],
+    plugins: [
+      json(),
+      typescript(),
+      // minimize production build
+      isProduction && (await import('rollup-plugin-terser')).terser()
+    ]
+  }
+  // console.log(`rollup config:\n -> external \n${JSON.stringify(result.external)}\n ->${JSON.stringify(result.output)}`);
+  return result;
+})

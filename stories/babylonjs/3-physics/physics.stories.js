@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react'
 import "@babylonjs/core/Physics/physicsEngineComponent"  // side-effect adds scene.enablePhysics function
 import { Vector3, Color4, PhysicsImpostor, Mesh, Nullable } from '@babylonjs/core';
 import { CannonJSPlugin } from '@babylonjs/core/Physics/Plugins'
-import { Engine, Scene } from '../../../dist/react-babylonjs.es5'
+import { Engine, Scene } from '../../../dist/react-babylonjs'
 import '../../style.css'
 
 import * as CANNON from 'cannon';

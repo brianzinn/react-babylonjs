@@ -1,102 +1,94 @@
 import { Vector3, Color3, Color4, Mesh, Scene } from '@babylonjs/core'
-import { PropertyUpdate } from "./PropsHandler"
+import { PropertyUpdate, PropsHandler, PropChangeType } from "./PropsHandler"
 import { CreatedInstance } from "./CreatedInstance"
 
 export const applyUpdateToInstance = (hostInstance: any, update: PropertyUpdate, type: string | undefined): void => {
   let target = update.target !== undefined ? hostInstance[update.target] : hostInstance
 
-  switch (update.type) {
-    case "string":
-    case "number":
-    case "boolean":
-    case "string | number": // TODO: string | number is a deficiency in the code generator.  ie: can test for only primitives | and generate update type in code generator
+  switch (update.changeType) {
+    case PropChangeType.Primitive:
+    case PropChangeType.FresnelParameters:
+    case PropChangeType.LambdaExpression:
       // console.log(` > ${type}: updating ${update.type} on ${update.propertyName} to ${update.value}`)
-      target[update.propertyName] = update.value
-      break
-    case "BabylonjsCoreVector3": // TODO: merge with Color3/Color4
+      target[update.propertyName] = update.value;
+      break;
+    case PropChangeType.Vector3:
       if (target[update.propertyName]) {
-        ;(target[update.propertyName] as Vector3).copyFrom(update.value)
+        (target[update.propertyName] as Vector3).copyFrom(update.value);
       } else if (update.value) {
-        target[update.propertyName] = update.value.clone()
+        target[update.propertyName] = update.value.clone();
       } else {
-        target[update.propertyName] = update.value // ie: undefined/null?
+        target[update.propertyName] = update.value; // ie: undefined/null?
       }
       break
-    case "BabylonjsCoreColor3":
-    case "BabylonjsCoreColor4":
+    case PropChangeType.Color3:
+    case PropChangeType.Color4:
       if (target[update.propertyName]) {
-        switch (update.type) {
-          case "BabylonjsCoreColor3":
-            ;(target[update.propertyName] as Color3).copyFrom(update.value)
-            break
-          case "BabylonjsCoreColor4":
-            ;(target[update.propertyName] as Color4).copyFrom(update.value)
-            break
+        switch (update.changeType) {
+          case PropChangeType.Color3:
+            (target[update.propertyName] as Color3).copyFrom(update.value);
+            break;
+          case PropChangeType.Color4:
+            (target[update.propertyName] as Color4).copyFrom(update.value);
+            break;
         }
       } else if (update.value) {
-        target[update.propertyName] = update.value.clone()
-      } else {
-        target[update.propertyName] = update.value
-      }
-      break
-    case "BabylonjsCoreMesh":
-      // console.log(` > ${type}: updating Mesh on:${update.propertyName} to ${update.value}`)
-      if (target[update.propertyName] && update.value) {
-        if ((target[update.propertyName] as Mesh).uniqueId != update.value.uniqueId) {
-          target[update.propertyName] = update.value;
-        }
+        target[update.propertyName] = update.value.clone();;
       } else {
         target[update.propertyName] = update.value;
       }
-      break;
-    case "BabylonjsGuiControl":
+      break
+    case PropChangeType.Control:
       target[update.propertyName] = update.value;
       break;
-    case "number[]":
+    case PropChangeType.NumericArray:
       target[update.propertyName] = update.value;
       break;
-    default:
-      if (update.type.startsWith("BabylonjsCoreObservable")) {
-        // TODO: we want to remove the old prop when changed, so it should be passed along as well.
-        // if (update.prevValue) {
-        //  babylonObject[update.propertyName].remove(update.prevValue)
-        // }
-        target[update.propertyName].add(update.value)
-      } else if (update.type.startsWith("(")) {
-        if (typeof target[update.propertyName] === "function") {
-          if (Array.isArray(update.value)) {
-            target[update.propertyName](...update.value)
-          } else if (Object(update.value) !== update.value) {
-            // primitive, undefined & null.  Comparison is 7x slower than instanceof check,
-            // TODO: should be: update.value === undefined || typeof(update.value) === 'number' || ...
-            target[update.propertyName](update.value)
-          } else {
-            target[update.propertyName](...Object.values(update.value))
-          }
+    case PropChangeType.Observable:
+      target[update.propertyName].add(update.value);
+      break;
+    case PropChangeType.Method:
+      if (typeof target[update.propertyName] === "function") {
+        if (Array.isArray(update.value)) {
+          target[update.propertyName](...update.value)
+        } else if (Object(update.value) !== update.value) {
+          // primitive, undefined & null.  Comparison is 7x slower than instanceof check,
+          // TODO: should be: update.value === undefined || typeof(update.value) === 'number' || ...
+          target[update.propertyName](update.value)
         } else {
-          console.error(`Cannot call [not a function] ${update.propertyName}(...) on:`, update.type, target)
+          // TODO: there is a bug here in that setTarget={new Vector3(0, 1, 0)} will throw an exception...
+          console.error('need to make sure this isn\'t something like a Vector3 before destructuring')
+          target[update.propertyName](...Object.values(update.value))
         }
       } else {
-        console.error(`Unhandled property update of type ${update.type}`)
+        console.error(`Cannot call [not a function] ${update.propertyName}(...) on:`, update.type, target)
       }
-      break
+      break;      
+    default:
+      console.error(`Unhandled property update of type ${update.changeType} -> ${update.type}`);
+      break;
   }
 }
 
-export const applyPropsToInstance = (instance: CreatedInstance<any>, props: any, scene: Scene) => {
+/**
+ * Only applied in this way immediately after instantiation (not on deltas)
+ * 
+ * @param instance 
+ * @param props 
+ * @param scene 
+ */
+export const applyInitialPropsToInstance = (instance: CreatedInstance<any>, props: any, scene: Scene) => {
   if (!instance.propsHandlers) {
     return;
   }
 
   let initPayload: PropertyUpdate[] = []
-  instance.propsHandlers.getPropsHandlers().forEach(propHandler => {
+  instance.propsHandlers.getPropsHandlers().forEach((propHandler: PropsHandler<any>) => {
     // NOTE: this can actually be WRONG, because here we want to compare the props with the object.
     // This is only needed right after object instantiation.
     let handlerUpdates: PropertyUpdate[] | null = propHandler.getPropertyUpdates(
-      instance.hostInstance!,
       {}, // Here we will reapply things like 'name', so we could get default props from 'babylonObject'.
-      props,
-      scene // custom handlers may require scene access.
+      props
     )
     if (handlerUpdates !== null) {
       initPayload.push(...handlerUpdates)

@@ -2,7 +2,7 @@ import React, { Component} from 'react'
 import { TimelineLite } from "gsap/all";
 import { storiesOf } from '@storybook/react'
 import '@babylonjs/inspector'
-import { Engine, Scene, Skybox } from '../../../dist/react-babylonjs.es5'
+import { Engine, Scene, Skybox } from '../../../dist/react-babylonjs'
 import { Vector3, Color3, Color4 } from '@babylonjs/core'
 import { StandardMaterial, FresnelParameters } from '@babylonjs/core/Materials'
 import { CubeTexture } from '@babylonjs/core/Materials/Textures'
@@ -170,7 +170,7 @@ class WithModel extends Component {
   }
 }
 
-export default storiesOf('Babylon Basic', module)
+export default storiesOf('Models', module)
   .add('Model', () => (
     <div style={{ flex: 1, display: 'flex' }}>
       <WithModel />
