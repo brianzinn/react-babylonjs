@@ -44,6 +44,9 @@ type ClassNameSpaceTuple = {
   moduleDeclaration: ModuleDeclaration
 }
 
+// to set onXXX properties.  via onXXX.add(() => void)
+const OBSERVABLE_PATTERN: RegExp = /^BabylonjsCoreObservable<.*>$/;
+
 /**
  * These are required parameters that we defer to after instantion (JSX.IntrinsicElements marked as optional)
  * LifecycleHandler and delay creation will handle these not being set (ie: look at PhysicsImposter constructor!)
@@ -720,8 +723,9 @@ const writePropertyAsUpdateFunction = (propsProperties: OptionalKind<PropertySig
   addedProperties.add(propertyName);
   // console.log(` >> including Mesh.${propertyName} (${type}))`)
 
+  // /^BabylonjsCoreObservable<.*>$/.test(type)
   // cannot set observable types from React.  TODO: track and remove added observables on unmount.
-  const propsType = type.startsWith('BabylonjsCoreObservable') ? 'any' : type;
+  const propsType = OBSERVABLE_PATTERN.test(type) ? 'any' : type;
 
   propsProperties.push({
     name: propertyName,
@@ -770,7 +774,7 @@ const createClassDeclaration = (classDeclaration: ClassDeclaration, rootBaseClas
   }
 
   const propsHandlersPropertyName = 'propsHandlers';
-  const rootBaseModuleDeclaration = getModuleDeclarationFromClassDeclaration(rootBaseClass);
+  // const rootBaseModuleDeclaration = getModuleDeclarationFromClassDeclaration(rootBaseClass);
   const rootBaseClassName = rootBaseClass.getName();
 
   newClassDeclaration.addProperty({
@@ -897,17 +901,30 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
           case `BabylonjsCoreColor4`: // Color4.equals() not added until PR #5517
           case "BabylonjsGuiControl":
           case "number[]":
+          case "BabylonjsCoreFresnelParameters":
             propsToCheck.push({
               name: propertyName,
               type,
             })
             break;
           default:
-            propsToCheck.push({
-              name: propertyName,
-              type,
-              skipReason: 'unknown'
-            })
+            if (OBSERVABLE_PATTERN.test(type)) {
+              propsToCheck.push({
+                name: propertyName,
+                type
+              })
+            } else if (type.startsWith("(")) {
+              propsToCheck.push({
+                name: propertyName,
+                type
+              })
+            } else {
+              propsToCheck.push({
+                name: propertyName,
+                type,
+                skipReason: 'unknown'
+              })
+            }
             break;
         }
       }
@@ -926,24 +943,60 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
       }
     })
 
-    // TODO: if propsToCheck.length === 0 then just return null.
-    writer.write('const handlerProps: PropToUpdateType[] = [').hangingIndentUnlessBlock(() => {
+    if (propsToCheck.filter(p => p.skipReason !== 'unknown').length === 0) {
+      propsToCheck.forEach(propToCheck => {
+        writer.writeLine(`// skipping type: '${propToCheck.type}' property (not coded) ${babylonClassDeclaration.importAlias}.${propToCheck.name}.`)
+      })
+      writer.write('return null; // no props to check')
+    } else {
+      writer.write('const changedProps: PropertyUpdate[] = []');
       propsToCheck.forEach(propToCheck => {
         if(propToCheck.skipReason === 'unknown') {
           writer.writeLine(`// type: '${propToCheck.type}' property (not coded) ${babylonClassDeclaration.importAlias}.${propToCheck.name}.`)
         } else {
-          const diffInfo = {name: propToCheck.name, type: propToCheck.type} as any;
-          if (propToCheck.method === true) {
-            diffInfo.method = true;
+          // if (propToCheck.method === true) 
+          switch(propToCheck.type) {
+            case 'BabylonjsCoreVector3':
+            writer.writeLine(`checkVector3Diff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', '${propToCheck.type}', changedProps)`);
+            break;
+          case 'BabylonjsCoreColor3':
+            writer.writeLine(`checkColor3Diff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', '${propToCheck.type}', changedProps)`);
+            break;
+          case `BabylonjsCoreColor4`: // Color4.equals() not added until PR #5517
+          writer.writeLine(`checkColor4Diff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', '${propToCheck.type}', changedProps)`);
+            break;
+          case "boolean":
+          case "number":
+          case "string":
+          case "string | number":
+            writer.writeLine(`checkPrimitiveDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', '${propToCheck.type}', changedProps)`);
+            break;
+          case "BabylonjsGuiControl":
+            writer.writeLine(`checkControlDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', '${propToCheck.type}', changedProps)`);
+            break;
+          case "number[]":
+            writer.writeLine(`checkNumericArrayDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', '${propToCheck.type}', changedProps)`);
+            break;
+          case "BabylonjsCoreFresnelParameters":
+            writer.writeLine(`checkFresnelParametersDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', '${propToCheck.type}', changedProps)`);
+            break;
+          default:
+            if (OBSERVABLE_PATTERN.test(propToCheck.type)) {
+              writer.writeLine(`checkObservableDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', '${propToCheck.type}', changedProps)`);
+            } else if (propToCheck.method === true) {
+              writer.writeLine(`checkMethodDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', '${propToCheck.type}', changedProps)`)
+            } else if (propToCheck.type.startsWith("(")) {
+              writer.writeLine(`checkLambdaDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', '${propToCheck.type}', changedProps)`)
+            } else {
+              writer.writeLine(`// not found (default): '${propToCheck.type}' property (not coded) ${babylonClassDeclaration.importAlias}.${propToCheck.name}.`)
+            }
+            break;
           }
-          writer.writeLine(JSON.stringify(diffInfo) + ',')
         }
       })
-    })
-    writer.writeLine(']')
 
-    writer.writeLine(`let updates: ${PropertyUpdateInterface}[] = getUpdatesFromProps(oldProps, newProps, handlerProps);`)
-    return writer.writeLine("return updates.length === 0 ? null : updates;");;
+      return writer.writeLine("return changedProps.length === 0 ? null : changedProps;");
+    }
   })
 
   if (monkeyPatchInterfaces.has(classNameToGenerate)) {
@@ -1242,7 +1295,22 @@ const generateCode = async () => {
   // These imports need to be totally REDONE and dynamically generated from ES6 locations (probably using a dictionary for uniqueness)
   generatedCodeSourceFile.addImportDeclaration({
     moduleSpecifier: "./PropsHandler",
-    namedImports: ["PropsHandler", PropertyUpdateInterface, "HasPropsHandlers", "getUpdatesFromProps", "PropToUpdateType"]
+    namedImports: [
+      "PropsHandler",
+      PropertyUpdateInterface,
+      "HasPropsHandlers",
+      // Following imported methods allow strong typing checks on PropsHandlers (and easier to read than code generating + smaller code footprint)
+      "checkVector3Diff",
+      "checkColor3Diff",
+      "checkColor4Diff",
+      "checkControlDiff",
+      "checkPrimitiveDiff",
+      "checkNumericArrayDiff",
+      "checkObservableDiff",
+      "checkMethodDiff",
+      "checkFresnelParametersDiff",
+      "checkLambdaDiff"
+    ]
   })
 
   generatedCodeSourceFile.addImportDeclaration({
@@ -1511,10 +1579,14 @@ const generateCode = async () => {
 
   console.log('saving created content...')
 
-  generatedCodeSourceFile.formatText();
+  generatedCodeSourceFile.formatText({
+    newLineCharacter: '\n'
+  });
   await generatedCodeSourceFile.save();
 
-  generatedPropsSourceFile.formatText();
+  generatedPropsSourceFile.formatText({
+    newLineCharacter: '\n'
+  });
   await generatedPropsSourceFile.save();
 }
 

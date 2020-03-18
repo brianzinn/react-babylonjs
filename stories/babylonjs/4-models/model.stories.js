@@ -170,7 +170,7 @@ class WithModel extends Component {
   }
 }
 
-export default storiesOf('Babylon Basic', module)
+export default storiesOf('Models', module)
   .add('Model', () => (
     <div style={{ flex: 1, display: 'flex' }}>
       <WithModel />

@@ -1,21 +1,25 @@
 import { CreatedInstance } from "../CreatedInstance"
 import { LifecycleListener } from "../LifecycleListener"
-import { Node } from '@babylonjs/core/node'
-import {Behavior, PointerDragBehavior} from "@babylonjs/core";
+import {Behavior, IBehaviorAware, Nullable} from "@babylonjs/core";
 
-type behaviors = Behavior<PointerDragBehavior>;
+export default class BehaviorLifecycleListener implements LifecycleListener<Behavior<any>> {
+  private behaviorAware: Nullable<IBehaviorAware<any>> = null;
+  private behavior: Nullable<Behavior<any>> = null;
 
-export default class BehaviorLifecycleListener implements LifecycleListener<behaviors> {
   onParented(parent: CreatedInstance<any>, child: CreatedInstance<any>) {
-    if (parent.metadata.isNode && child.metadata.isBehavior) {
-      // TODO: consider add option for setParent(), which parents and maintains mesh pos/rot in world space
-      // child.hostInstance.setParent(parent.hostInstance)
-      parent.hostInstance.addBehavior(child.hostInstance)
+    if (parent.metadata.isNode && parent.hostInstance?.addBehavior /* TODO: verify if this needs to be a mesh */ && child.metadata.isBehavior /* always true? */) {
+      parent.hostInstance.addBehavior(child.hostInstance);
+      this.behaviorAware = parent.hostInstance
+      this.behavior = child.hostInstance
+    } else {
+      console.warn('Could not locate IBehaviorAware on Behavior parent.')
     }
   }
   onChildAdded(parent: CreatedInstance<any>, child: CreatedInstance<any>) {/* empty */}
-  onMount(instance: CreatedInstance<behaviors>) {/* empty */}
-  onUnmount(): void {/* empty */}
+  onMount(instance: CreatedInstance<Behavior<any>>) {/* empty */}
+  onUnmount(): void {
+    if (this.behaviorAware) {
+      this.behaviorAware.removeBehavior(this.behavior!);
+    }
+  }
 }
-
-

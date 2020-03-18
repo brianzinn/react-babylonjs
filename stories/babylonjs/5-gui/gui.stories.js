@@ -138,7 +138,7 @@ function WithGUI() {
 }
 
 export default storiesOf('GUI', module)
-  .add('GUI', () => (
+  .add('GUI FullScreen', () => (
     <div style={{flex: 1, display: 'flex'}}>
       <WithGUI/>
     </div>

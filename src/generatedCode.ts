@@ -1,4 +1,4 @@
-import { PropsHandler, PropertyUpdate, HasPropsHandlers } from "./PropsHandler";
+import { PropsHandler, PropertyUpdate, HasPropsHandlers, checkVector3Diff, checkColor3Diff, checkColor4Diff, checkControlDiff, checkPrimitiveDiff, checkNumericArrayDiff, checkObservableDiff, checkMethodDiff, checkFresnelParametersDiff, checkLambdaDiff } from "./PropsHandler";
 import { CreatedInstanceMetadata } from "./CreatedInstance";
 import { FiberNodeProps, FiberTransformNodeProps, FiberAbstractMeshProps, FiberMeshProps, FiberCameraProps, FiberTargetCameraProps, FiberFreeCameraProps, FiberTouchCameraProps, FiberUniversalCameraProps, FiberGamepadCameraProps, FiberAnaglyphGamepadCameraProps, FiberStereoscopicGamepadCameraProps, FiberAnaglyphUniversalCameraProps, FiberStereoscopicUniversalCameraProps, FiberDeviceOrientationCameraProps, FiberVRDeviceOrientationFreeCameraProps, FiberVRDeviceOrientationGamepadCameraProps, FiberAnaglyphFreeCameraProps, FiberStereoscopicFreeCameraProps, FiberVirtualJoysticksCameraProps, FiberWebVRFreeCameraProps, FiberWebXRCameraProps, FiberArcRotateCameraProps, FiberAnaglyphArcRotateCameraProps, FiberStereoscopicArcRotateCameraProps, FiberVRDeviceOrientationArcRotateCameraProps, FiberFlyCameraProps, FiberFollowCameraProps, FiberArcFollowCameraProps, FiberMaterialProps, FiberShaderMaterialProps, FiberMultiMaterialProps, FiberPushMaterialProps, FiberStandardMaterialProps, FiberBackgroundMaterialProps, FiberPBRBaseMaterialProps, FiberPBRBaseSimpleMaterialProps, FiberPBRMetallicRoughnessMaterialProps, FiberPBRSpecularGlossinessMaterialProps, FiberPBRMaterialProps, FiberNodeMaterialProps, FiberFluentMaterialProps, FiberLightProps, FiberShadowLightProps, FiberDirectionalLightProps, FiberPointLightProps, FiberSpotLightProps, FiberHemisphericLightProps, FiberControlProps, FiberContainerProps, FiberRectangleProps, FiberButtonProps, FiberSelectionPanelProps, FiberScrollViewerProps, FiberStackPanelProps, FiberVirtualKeyboardProps, FiberEllipseProps, FiberGridProps, Fiber_ScrollViewerWindowProps, FiberTextBlockProps, FiberImageProps, FiberCheckboxProps, FiberColorPickerProps, FiberInputTextProps, FiberInputPasswordProps, FiberLineProps, FiberMultiLineProps, FiberRadioButtonProps, FiberBaseSliderProps, FiberScrollBarProps, FiberImageScrollBarProps, FiberSliderProps, FiberImageBasedSliderProps, FiberDisplayGridProps, FiberControl3DProps, FiberContainer3DProps, FiberVolumeBasedPanelProps, FiberCylinderPanelProps, FiberPlanePanelProps, FiberScatterPanelProps, FiberSpherePanelProps, FiberStackPanel3DProps, FiberAbstractButton3DProps, FiberButton3DProps, FiberHolographicButtonProps, FiberMeshButton3DProps, FiberEffectLayerProps, FiberGlowLayerProps, FiberHighlightLayerProps, FiberBaseTextureProps, FiberCubeTextureProps, FiberRawCubeTextureProps, FiberTextureProps, FiberRawTextureProps, FiberProceduralTextureProps, FiberCustomProceduralTextureProps, FiberNoiseProceduralTextureProps, FiberRenderTargetTextureProps, FiberMirrorTextureProps, FiberMultiRenderTargetProps, FiberRefractionTextureProps, FiberMultiviewRenderTargetProps, FiberVideoTextureProps, FiberDynamicTextureProps, FiberAdvancedDynamicTextureProps, FiberRawTexture3DProps, FiberRawTexture2DArrayProps, FiberColorGradingTextureProps, FiberEquiRectangularCubeTextureProps, FiberHDRCubeTextureProps, FiberHtmlElementTextureProps, FiberGUI3DManagerProps, FiberShadowGeneratorProps, FiberEnvironmentHelperProps, FiberPhysicsImpostorProps, FiberVRExperienceHelperProps, FiberDynamicTerrainProps, FiberAutoRotationBehaviorProps, FiberBouncingBehaviorProps, FiberFramingBehaviorProps, FiberAttachToBoxBehaviorProps, FiberFadeInOutBehaviorProps, FiberMultiPointerScaleBehaviorProps, FiberPointerDragBehaviorProps, FiberSixDofDragBehaviorProps, FiberSceneProps } from "./generatedProps";
 import { DynamicTerrain as ExtensionsDynamicTerrain } from "./extensions/DynamicTerrain";
@@ -209,97 +209,26 @@ import { AnimationGroup as BabylonjsCoreAnimationGroup } from "@babylonjs/core/A
 import { IParticleSystem as BabylonjsCoreIParticleSystem } from "@babylonjs/core/Particles/IParticleSystem";
 import { IPhysicsEnginePlugin as BabylonjsCoreIPhysicsEnginePlugin } from "@babylonjs/core/Physics/IPhysicsEngine";
 
-export class FiberNodePropsHandler implements PropsHandler<BabylonjsCoreNode, FiberNodeProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreNode, oldProps: FiberNodeProps, newProps: FiberNodeProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // TODO: type: 'BabylonjsCoreAnimationPropertiesOverride' property (not coded) BabylonjsCoreNode.animationPropertiesOverride.
-        // TODO: type: 'BabylonjsCoreAnimation[]' property (not coded) BabylonjsCoreNode.animations.
-        // BabylonjsCoreNode.doNotSerialize (boolean):
-        if (oldProps.doNotSerialize !== newProps.doNotSerialize) {
-            updates.push({
-                propertyName: 'doNotSerialize',
-                value: newProps.doNotSerialize,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreNode.id (string):
-        if (oldProps.id !== newProps.id) {
-            updates.push({
-                propertyName: 'id',
-                value: newProps.id,
-                type: 'string'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreIInspectable[]' property (not coded) BabylonjsCoreNode.inspectableCustomProperties.
-        // TODO: type: 'any' property (not coded) BabylonjsCoreNode.metadata.
-        // BabylonjsCoreNode.name (string):
-        if (oldProps.name !== newProps.name) {
-            updates.push({
-                propertyName: 'name',
-                value: newProps.name,
-                type: 'string'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreNode.onDispose of type '() => void/fn':
-        if (oldProps.onDispose === undefined && oldProps.onDispose !== newProps.onDispose) {
-            updates.push({
-                propertyName: 'onDispose',
-                value: newProps.onDispose,
-                type: '() => void'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreNode.onDisposeObservable of type 'BabylonjsCoreObservable<BabylonjsCoreNode>/fn':
-        if (oldProps.onDisposeObservable === undefined && oldProps.onDisposeObservable !== newProps.onDisposeObservable) {
-            updates.push({
-                propertyName: 'onDisposeObservable',
-                value: newProps.onDisposeObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreNode>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreNode.onReady of type '(node: BabylonjsCoreNode) => void/fn':
-        if (oldProps.onReady === undefined && oldProps.onReady !== newProps.onReady) {
-            updates.push({
-                propertyName: 'onReady',
-                value: newProps.onReady,
-                type: '(node: BabylonjsCoreNode) => void'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreNode' property (not coded) BabylonjsCoreNode.parent.
-        // TODO: type: 'any' property (not coded) BabylonjsCoreNode.reservedDataStore.
-        // BabylonjsCoreNode.state (string):
-        if (oldProps.state !== newProps.state) {
-            updates.push({
-                propertyName: 'state',
-                value: newProps.state,
-                type: 'string'
-            });
-        }
-        // BabylonjsCoreNode.uniqueId (number):
-        if (oldProps.uniqueId !== newProps.uniqueId) {
-            updates.push({
-                propertyName: 'uniqueId',
-                value: newProps.uniqueId,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreNode.addBehavior of type '(behavior?: BabylonjsCoreBehavior<BabylonjsCoreNode>, attachImmediately?: boolean) => BabylonjsCoreNode':
-        if (oldProps.addBehavior !== newProps.addBehavior) {
-            updates.push({
-                propertyName: 'addBehavior',
-                value: newProps.addBehavior,
-                type: '(behavior?: BabylonjsCoreBehavior<BabylonjsCoreNode>, attachImmediately?: boolean) => BabylonjsCoreNode'
-            });
-        }
-        // BabylonjsCoreNode.setEnabled of type '(value?: boolean) => void':
-        if (oldProps.setEnabled !== newProps.setEnabled) {
-            updates.push({
-                propertyName: 'setEnabled',
-                value: newProps.setEnabled,
-                type: '(value?: boolean) => void'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberNodePropsHandler implements PropsHandler<FiberNodeProps> {
+    getPropertyUpdates(oldProps: FiberNodeProps, newProps: FiberNodeProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        // type: 'BabylonjsCoreAnimationPropertiesOverride' property (not coded) BabylonjsCoreNode.animationPropertiesOverride.
+        // type: 'BabylonjsCoreAnimation[]' property (not coded) BabylonjsCoreNode.animations.
+        checkPrimitiveDiff(oldProps.doNotSerialize, newProps.doNotSerialize, 'doNotSerialize', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.id, newProps.id, 'id', 'string', changedProps)
+        // type: 'BabylonjsCoreIInspectable[]' property (not coded) BabylonjsCoreNode.inspectableCustomProperties.
+        // type: 'any' property (not coded) BabylonjsCoreNode.metadata.
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
+        checkLambdaDiff(oldProps.onDispose, newProps.onDispose, 'onDispose', '() => void', changedProps)
+        checkObservableDiff(oldProps.onDisposeObservable, newProps.onDisposeObservable, 'onDisposeObservable', 'BabylonjsCoreObservable<BabylonjsCoreNode>', changedProps)
+        checkLambdaDiff(oldProps.onReady, newProps.onReady, 'onReady', '(node: BabylonjsCoreNode) => void', changedProps)
+        // type: 'BabylonjsCoreNode' property (not coded) BabylonjsCoreNode.parent.
+        // type: 'any' property (not coded) BabylonjsCoreNode.reservedDataStore.
+        checkPrimitiveDiff(oldProps.state, newProps.state, 'state', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.uniqueId, newProps.uniqueId, 'uniqueId', 'number', changedProps)
+        checkMethodDiff(oldProps.addBehavior, newProps.addBehavior, 'addBehavior', '(behavior?: BabylonjsCoreBehavior<BabylonjsCoreNode>, attachImmediately?: boolean) => BabylonjsCoreNode', changedProps)
+        checkMethodDiff(oldProps.setEnabled, newProps.setEnabled, 'setEnabled', '(value?: boolean) => void', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -308,8 +237,8 @@ export class FiberNodePropsHandler implements PropsHandler<BabylonjsCoreNode, Fi
  *
  * This code has been generated
  */
-export class FiberNode implements HasPropsHandlers<BabylonjsCoreNode, FiberNodeProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreNode, FiberNodeProps>[];
+export class FiberNode implements HasPropsHandlers<FiberNodeProps> {
+    private propsHandlers: PropsHandler<FiberNodeProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -317,11 +246,11 @@ export class FiberNode implements HasPropsHandlers<BabylonjsCoreNode, FiberNodeP
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreNode, FiberNodeProps>[] {
+    getPropsHandlers(): PropsHandler<FiberNodeProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreNode, FiberNodeProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberNodeProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -348,156 +277,29 @@ export class FiberNode implements HasPropsHandlers<BabylonjsCoreNode, FiberNodeP
     };
 }
 
-export class FiberTransformNodePropsHandler implements PropsHandler<BabylonjsCoreTransformNode, FiberTransformNodeProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreTransformNode, oldProps: FiberTransformNodeProps, newProps: FiberTransformNodeProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsCoreTransformNode.billboardMode (number):
-        if (oldProps.billboardMode !== newProps.billboardMode) {
-            updates.push({
-                propertyName: 'billboardMode',
-                value: newProps.billboardMode,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreTransformNode.ignoreNonUniformScaling (boolean):
-        if (oldProps.ignoreNonUniformScaling !== newProps.ignoreNonUniformScaling) {
-            updates.push({
-                propertyName: 'ignoreNonUniformScaling',
-                value: newProps.ignoreNonUniformScaling,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreTransformNode.infiniteDistance (boolean):
-        if (oldProps.infiniteDistance !== newProps.infiniteDistance) {
-            updates.push({
-                propertyName: 'infiniteDistance',
-                value: newProps.infiniteDistance,
-                type: 'boolean'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreTransformNode.onAfterWorldMatrixUpdateObservable of type 'BabylonjsCoreObservable<BabylonjsCoreTransformNode>/fn':
-        if (oldProps.onAfterWorldMatrixUpdateObservable === undefined && oldProps.onAfterWorldMatrixUpdateObservable !== newProps.onAfterWorldMatrixUpdateObservable) {
-            updates.push({
-                propertyName: 'onAfterWorldMatrixUpdateObservable',
-                value: newProps.onAfterWorldMatrixUpdateObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreTransformNode>'
-            });
-        }
-        // BabylonjsCoreTransformNode.position (BabylonjsCoreVector3 uses object equals to find diffs):
-        if (newProps.position && (!oldProps.position || !oldProps.position.equals(newProps.position))) {
-            updates.push({
-                propertyName: 'position',
-                value: newProps.position,
-                type: 'BabylonjsCoreVector3'
-            });
-        }
-        // BabylonjsCoreTransformNode.preserveParentRotationForBillboard (boolean):
-        if (oldProps.preserveParentRotationForBillboard !== newProps.preserveParentRotationForBillboard) {
-            updates.push({
-                propertyName: 'preserveParentRotationForBillboard',
-                value: newProps.preserveParentRotationForBillboard,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreTransformNode.reIntegrateRotationIntoRotationQuaternion (boolean):
-        if (oldProps.reIntegrateRotationIntoRotationQuaternion !== newProps.reIntegrateRotationIntoRotationQuaternion) {
-            updates.push({
-                propertyName: 'reIntegrateRotationIntoRotationQuaternion',
-                value: newProps.reIntegrateRotationIntoRotationQuaternion,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreTransformNode.rotation (BabylonjsCoreVector3 uses object equals to find diffs):
-        if (newProps.rotation && (!oldProps.rotation || !oldProps.rotation.equals(newProps.rotation))) {
-            updates.push({
-                propertyName: 'rotation',
-                value: newProps.rotation,
-                type: 'BabylonjsCoreVector3'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreQuaternion' property (not coded) BabylonjsCoreTransformNode.rotationQuaternion.
-        // BabylonjsCoreTransformNode.scaling (BabylonjsCoreVector3 uses object equals to find diffs):
-        if (newProps.scaling && (!oldProps.scaling || !oldProps.scaling.equals(newProps.scaling))) {
-            updates.push({
-                propertyName: 'scaling',
-                value: newProps.scaling,
-                type: 'BabylonjsCoreVector3'
-            });
-        }
-        // BabylonjsCoreTransformNode.scalingDeterminant (number):
-        if (oldProps.scalingDeterminant !== newProps.scalingDeterminant) {
-            updates.push({
-                propertyName: 'scalingDeterminant',
-                value: newProps.scalingDeterminant,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreTransformNode.addRotation of type '(x?: number, y?: number, z?: number) => BabylonjsCoreTransformNode':
-        if (oldProps.addRotation !== newProps.addRotation) {
-            updates.push({
-                propertyName: 'addRotation',
-                value: newProps.addRotation,
-                type: '(x?: number, y?: number, z?: number) => BabylonjsCoreTransformNode'
-            });
-        }
-        // BabylonjsCoreTransformNode.setAbsolutePosition of type '(absolutePosition?: BabylonjsCoreVector3) => BabylonjsCoreTransformNode':
-        if (oldProps.setAbsolutePosition !== newProps.setAbsolutePosition) {
-            updates.push({
-                propertyName: 'setAbsolutePosition',
-                value: newProps.setAbsolutePosition,
-                type: '(absolutePosition?: BabylonjsCoreVector3) => BabylonjsCoreTransformNode'
-            });
-        }
-        // BabylonjsCoreTransformNode.setDirection of type '(localAxis?: BabylonjsCoreVector3, yawCor?: number, pitchCor?: number, rollCor?: number) => BabylonjsCoreTransformNode':
-        if (oldProps.setDirection !== newProps.setDirection) {
-            updates.push({
-                propertyName: 'setDirection',
-                value: newProps.setDirection,
-                type: '(localAxis?: BabylonjsCoreVector3, yawCor?: number, pitchCor?: number, rollCor?: number) => BabylonjsCoreTransformNode'
-            });
-        }
-        // BabylonjsCoreTransformNode.setParent of type '(node?: BabylonjsCoreNode) => BabylonjsCoreTransformNode':
-        if (oldProps.setParent !== newProps.setParent) {
-            updates.push({
-                propertyName: 'setParent',
-                value: newProps.setParent,
-                type: '(node?: BabylonjsCoreNode) => BabylonjsCoreTransformNode'
-            });
-        }
-        // BabylonjsCoreTransformNode.setPivotMatrix of type '(matrix?: BabylonjsCoreDeepImmutableObject<BabylonjsCoreMatrix>, postMultiplyPivotMatrix?: boolean) => BabylonjsCoreTransformNode':
-        if (oldProps.setPivotMatrix !== newProps.setPivotMatrix) {
-            updates.push({
-                propertyName: 'setPivotMatrix',
-                value: newProps.setPivotMatrix,
-                type: '(matrix?: BabylonjsCoreDeepImmutableObject<BabylonjsCoreMatrix>, postMultiplyPivotMatrix?: boolean) => BabylonjsCoreTransformNode'
-            });
-        }
-        // BabylonjsCoreTransformNode.setPivotPoint of type '(point?: BabylonjsCoreVector3, space?: BabylonjsCoreSpace) => BabylonjsCoreTransformNode':
-        if (oldProps.setPivotPoint !== newProps.setPivotPoint) {
-            updates.push({
-                propertyName: 'setPivotPoint',
-                value: newProps.setPivotPoint,
-                type: '(point?: BabylonjsCoreVector3, space?: BabylonjsCoreSpace) => BabylonjsCoreTransformNode'
-            });
-        }
-        // BabylonjsCoreTransformNode.setPositionWithLocalVector of type '(vector3?: BabylonjsCoreVector3) => BabylonjsCoreTransformNode':
-        if (oldProps.setPositionWithLocalVector !== newProps.setPositionWithLocalVector) {
-            updates.push({
-                propertyName: 'setPositionWithLocalVector',
-                value: newProps.setPositionWithLocalVector,
-                type: '(vector3?: BabylonjsCoreVector3) => BabylonjsCoreTransformNode'
-            });
-        }
-        // BabylonjsCoreTransformNode.setPreTransformMatrix of type '(matrix?: BabylonjsCoreMatrix) => BabylonjsCoreTransformNode':
-        if (oldProps.setPreTransformMatrix !== newProps.setPreTransformMatrix) {
-            updates.push({
-                propertyName: 'setPreTransformMatrix',
-                value: newProps.setPreTransformMatrix,
-                type: '(matrix?: BabylonjsCoreMatrix) => BabylonjsCoreTransformNode'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberTransformNodePropsHandler implements PropsHandler<FiberTransformNodeProps> {
+    getPropertyUpdates(oldProps: FiberTransformNodeProps, newProps: FiberTransformNodeProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.billboardMode, newProps.billboardMode, 'billboardMode', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.ignoreNonUniformScaling, newProps.ignoreNonUniformScaling, 'ignoreNonUniformScaling', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.infiniteDistance, newProps.infiniteDistance, 'infiniteDistance', 'boolean', changedProps)
+        checkObservableDiff(oldProps.onAfterWorldMatrixUpdateObservable, newProps.onAfterWorldMatrixUpdateObservable, 'onAfterWorldMatrixUpdateObservable', 'BabylonjsCoreObservable<BabylonjsCoreTransformNode>', changedProps)
+        checkVector3Diff(oldProps.position, newProps.position, 'position', 'BabylonjsCoreVector3', changedProps)
+        checkPrimitiveDiff(oldProps.preserveParentRotationForBillboard, newProps.preserveParentRotationForBillboard, 'preserveParentRotationForBillboard', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.reIntegrateRotationIntoRotationQuaternion, newProps.reIntegrateRotationIntoRotationQuaternion, 'reIntegrateRotationIntoRotationQuaternion', 'boolean', changedProps)
+        checkVector3Diff(oldProps.rotation, newProps.rotation, 'rotation', 'BabylonjsCoreVector3', changedProps)
+        // type: 'BabylonjsCoreQuaternion' property (not coded) BabylonjsCoreTransformNode.rotationQuaternion.
+        checkVector3Diff(oldProps.scaling, newProps.scaling, 'scaling', 'BabylonjsCoreVector3', changedProps)
+        checkPrimitiveDiff(oldProps.scalingDeterminant, newProps.scalingDeterminant, 'scalingDeterminant', 'number', changedProps)
+        checkMethodDiff(oldProps.addRotation, newProps.addRotation, 'addRotation', '(x?: number, y?: number, z?: number) => BabylonjsCoreTransformNode', changedProps)
+        checkMethodDiff(oldProps.setAbsolutePosition, newProps.setAbsolutePosition, 'setAbsolutePosition', '(absolutePosition?: BabylonjsCoreVector3) => BabylonjsCoreTransformNode', changedProps)
+        checkMethodDiff(oldProps.setDirection, newProps.setDirection, 'setDirection', '(localAxis?: BabylonjsCoreVector3, yawCor?: number, pitchCor?: number, rollCor?: number) => BabylonjsCoreTransformNode', changedProps)
+        checkMethodDiff(oldProps.setParent, newProps.setParent, 'setParent', '(node?: BabylonjsCoreNode) => BabylonjsCoreTransformNode', changedProps)
+        checkMethodDiff(oldProps.setPivotMatrix, newProps.setPivotMatrix, 'setPivotMatrix', '(matrix?: BabylonjsCoreDeepImmutableObject<BabylonjsCoreMatrix>, postMultiplyPivotMatrix?: boolean) => BabylonjsCoreTransformNode', changedProps)
+        checkMethodDiff(oldProps.setPivotPoint, newProps.setPivotPoint, 'setPivotPoint', '(point?: BabylonjsCoreVector3, space?: BabylonjsCoreSpace) => BabylonjsCoreTransformNode', changedProps)
+        checkMethodDiff(oldProps.setPositionWithLocalVector, newProps.setPositionWithLocalVector, 'setPositionWithLocalVector', '(vector3?: BabylonjsCoreVector3) => BabylonjsCoreTransformNode', changedProps)
+        checkMethodDiff(oldProps.setPreTransformMatrix, newProps.setPreTransformMatrix, 'setPreTransformMatrix', '(matrix?: BabylonjsCoreMatrix) => BabylonjsCoreTransformNode', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -506,8 +308,8 @@ export class FiberTransformNodePropsHandler implements PropsHandler<BabylonjsCor
  *
  * This code has been generated
  */
-export class FiberTransformNode implements HasPropsHandlers<BabylonjsCoreNode, FiberNodeProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreNode, FiberNodeProps>[];
+export class FiberTransformNode implements HasPropsHandlers<FiberNodeProps> {
+    private propsHandlers: PropsHandler<FiberNodeProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -516,11 +318,11 @@ export class FiberTransformNode implements HasPropsHandlers<BabylonjsCoreNode, F
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreNode, FiberNodeProps>[] {
+    getPropsHandlers(): PropsHandler<FiberNodeProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreNode, FiberNodeProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberNodeProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -552,399 +354,62 @@ export class FiberTransformNode implements HasPropsHandlers<BabylonjsCoreNode, F
     };
 }
 
-export class FiberAbstractMeshPropsHandler implements PropsHandler<BabylonjsCoreAbstractMesh, FiberAbstractMeshProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreAbstractMesh, oldProps: FiberAbstractMeshProps, newProps: FiberAbstractMeshProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // TODO: type: 'BabylonjsCoreAbstractActionManager' property (not coded) BabylonjsCoreAbstractMesh.actionManager.
-        // BabylonjsCoreAbstractMesh.alphaIndex (number):
-        if (oldProps.alphaIndex !== newProps.alphaIndex) {
-            updates.push({
-                propertyName: 'alphaIndex',
-                value: newProps.alphaIndex,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreAbstractMesh.alwaysSelectAsActiveMesh (boolean):
-        if (oldProps.alwaysSelectAsActiveMesh !== newProps.alwaysSelectAsActiveMesh) {
-            updates.push({
-                propertyName: 'alwaysSelectAsActiveMesh',
-                value: newProps.alwaysSelectAsActiveMesh,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreAbstractMesh.applyFog (boolean):
-        if (oldProps.applyFog !== newProps.applyFog) {
-            updates.push({
-                propertyName: 'applyFog',
-                value: newProps.applyFog,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreAbstractMesh.checkCollisions (boolean):
-        if (oldProps.checkCollisions !== newProps.checkCollisions) {
-            updates.push({
-                propertyName: 'checkCollisions',
-                value: newProps.checkCollisions,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreAbstractMesh.collisionGroup (number):
-        if (oldProps.collisionGroup !== newProps.collisionGroup) {
-            updates.push({
-                propertyName: 'collisionGroup',
-                value: newProps.collisionGroup,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreAbstractMesh.collisionMask (number):
-        if (oldProps.collisionMask !== newProps.collisionMask) {
-            updates.push({
-                propertyName: 'collisionMask',
-                value: newProps.collisionMask,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreAbstractMesh.computeBonesUsingShaders (boolean):
-        if (oldProps.computeBonesUsingShaders !== newProps.computeBonesUsingShaders) {
-            updates.push({
-                propertyName: 'computeBonesUsingShaders',
-                value: newProps.computeBonesUsingShaders,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreAbstractMesh.cullingStrategy (number):
-        if (oldProps.cullingStrategy !== newProps.cullingStrategy) {
-            updates.push({
-                propertyName: 'cullingStrategy',
-                value: newProps.cullingStrategy,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreAbstractMesh.definedFacingForward (boolean):
-        if (oldProps.definedFacingForward !== newProps.definedFacingForward) {
-            updates.push({
-                propertyName: 'definedFacingForward',
-                value: newProps.definedFacingForward,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreAbstractMesh.doNotSyncBoundingInfo (boolean):
-        if (oldProps.doNotSyncBoundingInfo !== newProps.doNotSyncBoundingInfo) {
-            updates.push({
-                propertyName: 'doNotSyncBoundingInfo',
-                value: newProps.doNotSyncBoundingInfo,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreAbstractMesh.edgesColor of BabylonjsCoreColor4.  Color4.equals() not available in BabylonJS < 4:
-        if (newProps.edgesColor && (!oldProps.edgesColor || oldProps.edgesColor.r !== newProps.edgesColor.r || oldProps.edgesColor.g !== newProps.edgesColor.g || oldProps.edgesColor.b !== newProps.edgesColor.b || oldProps.edgesColor.a !== newProps.edgesColor.a)) {
-            updates.push({
-                propertyName: 'edgesColor',
-                value: newProps.edgesColor,
-                type: 'BabylonjsCoreColor4'
-            });
-        }
-        // BabylonjsCoreAbstractMesh.edgesWidth (number):
-        if (oldProps.edgesWidth !== newProps.edgesWidth) {
-            updates.push({
-                propertyName: 'edgesWidth',
-                value: newProps.edgesWidth,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreAbstractMesh.ellipsoid (BabylonjsCoreVector3 uses object equals to find diffs):
-        if (newProps.ellipsoid && (!oldProps.ellipsoid || !oldProps.ellipsoid.equals(newProps.ellipsoid))) {
-            updates.push({
-                propertyName: 'ellipsoid',
-                value: newProps.ellipsoid,
-                type: 'BabylonjsCoreVector3'
-            });
-        }
-        // BabylonjsCoreAbstractMesh.ellipsoidOffset (BabylonjsCoreVector3 uses object equals to find diffs):
-        if (newProps.ellipsoidOffset && (!oldProps.ellipsoidOffset || !oldProps.ellipsoidOffset.equals(newProps.ellipsoidOffset))) {
-            updates.push({
-                propertyName: 'ellipsoidOffset',
-                value: newProps.ellipsoidOffset,
-                type: 'BabylonjsCoreVector3'
-            });
-        }
-        // BabylonjsCoreAbstractMesh.enablePointerMoveEvents (boolean):
-        if (oldProps.enablePointerMoveEvents !== newProps.enablePointerMoveEvents) {
-            updates.push({
-                propertyName: 'enablePointerMoveEvents',
-                value: newProps.enablePointerMoveEvents,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreAbstractMesh.facetDepthSortFrom (BabylonjsCoreVector3 uses object equals to find diffs):
-        if (newProps.facetDepthSortFrom && (!oldProps.facetDepthSortFrom || !oldProps.facetDepthSortFrom.equals(newProps.facetDepthSortFrom))) {
-            updates.push({
-                propertyName: 'facetDepthSortFrom',
-                value: newProps.facetDepthSortFrom,
-                type: 'BabylonjsCoreVector3'
-            });
-        }
-        // BabylonjsCoreAbstractMesh.hasVertexAlpha (boolean):
-        if (oldProps.hasVertexAlpha !== newProps.hasVertexAlpha) {
-            updates.push({
-                propertyName: 'hasVertexAlpha',
-                value: newProps.hasVertexAlpha,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreAbstractMesh.isBlocker (boolean):
-        if (oldProps.isBlocker !== newProps.isBlocker) {
-            updates.push({
-                propertyName: 'isBlocker',
-                value: newProps.isBlocker,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreAbstractMesh.isPickable (boolean):
-        if (oldProps.isPickable !== newProps.isPickable) {
-            updates.push({
-                propertyName: 'isPickable',
-                value: newProps.isPickable,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreAbstractMesh.isVisible (boolean):
-        if (oldProps.isVisible !== newProps.isVisible) {
-            updates.push({
-                propertyName: 'isVisible',
-                value: newProps.isVisible,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreAbstractMesh.layerMask (number):
-        if (oldProps.layerMask !== newProps.layerMask) {
-            updates.push({
-                propertyName: 'layerMask',
-                value: newProps.layerMask,
-                type: 'number'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreMaterial' property (not coded) BabylonjsCoreAbstractMesh.material.
-        // BabylonjsCoreAbstractMesh.mustDepthSortFacets (boolean):
-        if (oldProps.mustDepthSortFacets !== newProps.mustDepthSortFacets) {
-            updates.push({
-                propertyName: 'mustDepthSortFacets',
-                value: newProps.mustDepthSortFacets,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreAbstractMesh.numBoneInfluencers (number):
-        if (oldProps.numBoneInfluencers !== newProps.numBoneInfluencers) {
-            updates.push({
-                propertyName: 'numBoneInfluencers',
-                value: newProps.numBoneInfluencers,
-                type: 'number'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreAbstractMesh.onCollide of type '() => void/fn':
-        if (oldProps.onCollide === undefined && oldProps.onCollide !== newProps.onCollide) {
-            updates.push({
-                propertyName: 'onCollide',
-                value: newProps.onCollide,
-                type: '() => void'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreAbstractMesh.onCollideObservable of type 'BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>/fn':
-        if (oldProps.onCollideObservable === undefined && oldProps.onCollideObservable !== newProps.onCollideObservable) {
-            updates.push({
-                propertyName: 'onCollideObservable',
-                value: newProps.onCollideObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreAbstractMesh.onCollisionPositionChange of type '() => void/fn':
-        if (oldProps.onCollisionPositionChange === undefined && oldProps.onCollisionPositionChange !== newProps.onCollisionPositionChange) {
-            updates.push({
-                propertyName: 'onCollisionPositionChange',
-                value: newProps.onCollisionPositionChange,
-                type: '() => void'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreAbstractMesh.onCollisionPositionChangeObservable of type 'BabylonjsCoreObservable<BabylonjsCoreVector3>/fn':
-        if (oldProps.onCollisionPositionChangeObservable === undefined && oldProps.onCollisionPositionChangeObservable !== newProps.onCollisionPositionChangeObservable) {
-            updates.push({
-                propertyName: 'onCollisionPositionChangeObservable',
-                value: newProps.onCollisionPositionChangeObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreVector3>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreAbstractMesh.onMaterialChangedObservable of type 'BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>/fn':
-        if (oldProps.onMaterialChangedObservable === undefined && oldProps.onMaterialChangedObservable !== newProps.onMaterialChangedObservable) {
-            updates.push({
-                propertyName: 'onMaterialChangedObservable',
-                value: newProps.onMaterialChangedObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreAbstractMesh.onRebuildObservable of type 'BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>/fn':
-        if (oldProps.onRebuildObservable === undefined && oldProps.onRebuildObservable !== newProps.onRebuildObservable) {
-            updates.push({
-                propertyName: 'onRebuildObservable',
-                value: newProps.onRebuildObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>'
-            });
-        }
-        // BabylonjsCoreAbstractMesh.outlineColor (BabylonjsCoreColor3 uses object equals to find diffs):
-        if (newProps.outlineColor && (!oldProps.outlineColor || !oldProps.outlineColor.equals(newProps.outlineColor))) {
-            updates.push({
-                propertyName: 'outlineColor',
-                value: newProps.outlineColor,
-                type: 'BabylonjsCoreColor3'
-            });
-        }
-        // BabylonjsCoreAbstractMesh.outlineWidth (number):
-        if (oldProps.outlineWidth !== newProps.outlineWidth) {
-            updates.push({
-                propertyName: 'outlineWidth',
-                value: newProps.outlineWidth,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreAbstractMesh.overlayAlpha (number):
-        if (oldProps.overlayAlpha !== newProps.overlayAlpha) {
-            updates.push({
-                propertyName: 'overlayAlpha',
-                value: newProps.overlayAlpha,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreAbstractMesh.overlayColor (BabylonjsCoreColor3 uses object equals to find diffs):
-        if (newProps.overlayColor && (!oldProps.overlayColor || !oldProps.overlayColor.equals(newProps.overlayColor))) {
-            updates.push({
-                propertyName: 'overlayColor',
-                value: newProps.overlayColor,
-                type: 'BabylonjsCoreColor3'
-            });
-        }
-        // BabylonjsCoreAbstractMesh.partitioningBBoxRatio (number):
-        if (oldProps.partitioningBBoxRatio !== newProps.partitioningBBoxRatio) {
-            updates.push({
-                propertyName: 'partitioningBBoxRatio',
-                value: newProps.partitioningBBoxRatio,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreAbstractMesh.partitioningSubdivisions (number):
-        if (oldProps.partitioningSubdivisions !== newProps.partitioningSubdivisions) {
-            updates.push({
-                propertyName: 'partitioningSubdivisions',
-                value: newProps.partitioningSubdivisions,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreAbstractMesh.receiveShadows (boolean):
-        if (oldProps.receiveShadows !== newProps.receiveShadows) {
-            updates.push({
-                propertyName: 'receiveShadows',
-                value: newProps.receiveShadows,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreAbstractMesh.renderingGroupId (number):
-        if (oldProps.renderingGroupId !== newProps.renderingGroupId) {
-            updates.push({
-                propertyName: 'renderingGroupId',
-                value: newProps.renderingGroupId,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreAbstractMesh.scaling (BabylonjsCoreVector3 uses object equals to find diffs):
-        if (newProps.scaling && (!oldProps.scaling || !oldProps.scaling.equals(newProps.scaling))) {
-            updates.push({
-                propertyName: 'scaling',
-                value: newProps.scaling,
-                type: 'BabylonjsCoreVector3'
-            });
-        }
-        // BabylonjsCoreAbstractMesh.showSubMeshesBoundingBox (boolean):
-        if (oldProps.showSubMeshesBoundingBox !== newProps.showSubMeshesBoundingBox) {
-            updates.push({
-                propertyName: 'showSubMeshesBoundingBox',
-                value: newProps.showSubMeshesBoundingBox,
-                type: 'boolean'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreSkeleton' property (not coded) BabylonjsCoreAbstractMesh.skeleton.
-        // TODO: type: 'BabylonjsCoreSubMesh[]' property (not coded) BabylonjsCoreAbstractMesh.subMeshes.
-        // BabylonjsCoreAbstractMesh.useOctreeForCollisions (boolean):
-        if (oldProps.useOctreeForCollisions !== newProps.useOctreeForCollisions) {
-            updates.push({
-                propertyName: 'useOctreeForCollisions',
-                value: newProps.useOctreeForCollisions,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreAbstractMesh.useOctreeForPicking (boolean):
-        if (oldProps.useOctreeForPicking !== newProps.useOctreeForPicking) {
-            updates.push({
-                propertyName: 'useOctreeForPicking',
-                value: newProps.useOctreeForPicking,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreAbstractMesh.useOctreeForRenderingSelection (boolean):
-        if (oldProps.useOctreeForRenderingSelection !== newProps.useOctreeForRenderingSelection) {
-            updates.push({
-                propertyName: 'useOctreeForRenderingSelection',
-                value: newProps.useOctreeForRenderingSelection,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreAbstractMesh.useVertexColors (boolean):
-        if (oldProps.useVertexColors !== newProps.useVertexColors) {
-            updates.push({
-                propertyName: 'useVertexColors',
-                value: newProps.useVertexColors,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreAbstractMesh.visibility (number):
-        if (oldProps.visibility !== newProps.visibility) {
-            updates.push({
-                propertyName: 'visibility',
-                value: newProps.visibility,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreAbstractMesh.addChild of type '(mesh?: BabylonjsCoreAbstractMesh) => BabylonjsCoreAbstractMesh':
-        if (oldProps.addChild !== newProps.addChild) {
-            updates.push({
-                propertyName: 'addChild',
-                value: newProps.addChild,
-                type: '(mesh?: BabylonjsCoreAbstractMesh) => BabylonjsCoreAbstractMesh'
-            });
-        }
-        // BabylonjsCoreAbstractMesh.setBoundingInfo of type '(boundingInfo?: BabylonjsCoreBoundingInfo) => BabylonjsCoreAbstractMesh':
-        if (oldProps.setBoundingInfo !== newProps.setBoundingInfo) {
-            updates.push({
-                propertyName: 'setBoundingInfo',
-                value: newProps.setBoundingInfo,
-                type: '(boundingInfo?: BabylonjsCoreBoundingInfo) => BabylonjsCoreAbstractMesh'
-            });
-        }
-        // BabylonjsCoreAbstractMesh.setIndices of type '(indices?: BabylonjsCoreIndicesArray, totalVertices?: number) => BabylonjsCoreAbstractMesh':
-        if (oldProps.setIndices !== newProps.setIndices) {
-            updates.push({
-                propertyName: 'setIndices',
-                value: newProps.setIndices,
-                type: '(indices?: BabylonjsCoreIndicesArray, totalVertices?: number) => BabylonjsCoreAbstractMesh'
-            });
-        }
-        // BabylonjsCoreAbstractMesh.setVerticesData of type '(kind?: string, data?: BabylonjsCoreFloatArray, updatable?: boolean, stride?: number) => BabylonjsCoreAbstractMesh':
-        if (oldProps.setVerticesData !== newProps.setVerticesData) {
-            updates.push({
-                propertyName: 'setVerticesData',
-                value: newProps.setVerticesData,
-                type: '(kind?: string, data?: BabylonjsCoreFloatArray, updatable?: boolean, stride?: number) => BabylonjsCoreAbstractMesh'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberAbstractMeshPropsHandler implements PropsHandler<FiberAbstractMeshProps> {
+    getPropertyUpdates(oldProps: FiberAbstractMeshProps, newProps: FiberAbstractMeshProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        // type: 'BabylonjsCoreAbstractActionManager' property (not coded) BabylonjsCoreAbstractMesh.actionManager.
+        checkPrimitiveDiff(oldProps.alphaIndex, newProps.alphaIndex, 'alphaIndex', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.alwaysSelectAsActiveMesh, newProps.alwaysSelectAsActiveMesh, 'alwaysSelectAsActiveMesh', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.applyFog, newProps.applyFog, 'applyFog', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.checkCollisions, newProps.checkCollisions, 'checkCollisions', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.collisionGroup, newProps.collisionGroup, 'collisionGroup', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.collisionMask, newProps.collisionMask, 'collisionMask', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.computeBonesUsingShaders, newProps.computeBonesUsingShaders, 'computeBonesUsingShaders', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.cullingStrategy, newProps.cullingStrategy, 'cullingStrategy', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.definedFacingForward, newProps.definedFacingForward, 'definedFacingForward', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.doNotSyncBoundingInfo, newProps.doNotSyncBoundingInfo, 'doNotSyncBoundingInfo', 'boolean', changedProps)
+        checkColor4Diff(oldProps.edgesColor, newProps.edgesColor, 'edgesColor', 'BabylonjsCoreColor4', changedProps)
+        checkPrimitiveDiff(oldProps.edgesWidth, newProps.edgesWidth, 'edgesWidth', 'number', changedProps)
+        checkVector3Diff(oldProps.ellipsoid, newProps.ellipsoid, 'ellipsoid', 'BabylonjsCoreVector3', changedProps)
+        checkVector3Diff(oldProps.ellipsoidOffset, newProps.ellipsoidOffset, 'ellipsoidOffset', 'BabylonjsCoreVector3', changedProps)
+        checkPrimitiveDiff(oldProps.enablePointerMoveEvents, newProps.enablePointerMoveEvents, 'enablePointerMoveEvents', 'boolean', changedProps)
+        checkVector3Diff(oldProps.facetDepthSortFrom, newProps.facetDepthSortFrom, 'facetDepthSortFrom', 'BabylonjsCoreVector3', changedProps)
+        checkPrimitiveDiff(oldProps.hasVertexAlpha, newProps.hasVertexAlpha, 'hasVertexAlpha', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.isBlocker, newProps.isBlocker, 'isBlocker', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.isPickable, newProps.isPickable, 'isPickable', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.isVisible, newProps.isVisible, 'isVisible', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.layerMask, newProps.layerMask, 'layerMask', 'number', changedProps)
+        // type: 'BabylonjsCoreMaterial' property (not coded) BabylonjsCoreAbstractMesh.material.
+        checkPrimitiveDiff(oldProps.mustDepthSortFacets, newProps.mustDepthSortFacets, 'mustDepthSortFacets', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.numBoneInfluencers, newProps.numBoneInfluencers, 'numBoneInfluencers', 'number', changedProps)
+        checkLambdaDiff(oldProps.onCollide, newProps.onCollide, 'onCollide', '() => void', changedProps)
+        checkObservableDiff(oldProps.onCollideObservable, newProps.onCollideObservable, 'onCollideObservable', 'BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>', changedProps)
+        checkLambdaDiff(oldProps.onCollisionPositionChange, newProps.onCollisionPositionChange, 'onCollisionPositionChange', '() => void', changedProps)
+        checkObservableDiff(oldProps.onCollisionPositionChangeObservable, newProps.onCollisionPositionChangeObservable, 'onCollisionPositionChangeObservable', 'BabylonjsCoreObservable<BabylonjsCoreVector3>', changedProps)
+        checkObservableDiff(oldProps.onMaterialChangedObservable, newProps.onMaterialChangedObservable, 'onMaterialChangedObservable', 'BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>', changedProps)
+        checkObservableDiff(oldProps.onRebuildObservable, newProps.onRebuildObservable, 'onRebuildObservable', 'BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>', changedProps)
+        checkColor3Diff(oldProps.outlineColor, newProps.outlineColor, 'outlineColor', 'BabylonjsCoreColor3', changedProps)
+        checkPrimitiveDiff(oldProps.outlineWidth, newProps.outlineWidth, 'outlineWidth', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.overlayAlpha, newProps.overlayAlpha, 'overlayAlpha', 'number', changedProps)
+        checkColor3Diff(oldProps.overlayColor, newProps.overlayColor, 'overlayColor', 'BabylonjsCoreColor3', changedProps)
+        checkPrimitiveDiff(oldProps.partitioningBBoxRatio, newProps.partitioningBBoxRatio, 'partitioningBBoxRatio', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.partitioningSubdivisions, newProps.partitioningSubdivisions, 'partitioningSubdivisions', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.receiveShadows, newProps.receiveShadows, 'receiveShadows', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.renderingGroupId, newProps.renderingGroupId, 'renderingGroupId', 'number', changedProps)
+        checkVector3Diff(oldProps.scaling, newProps.scaling, 'scaling', 'BabylonjsCoreVector3', changedProps)
+        checkPrimitiveDiff(oldProps.showSubMeshesBoundingBox, newProps.showSubMeshesBoundingBox, 'showSubMeshesBoundingBox', 'boolean', changedProps)
+        // type: 'BabylonjsCoreSkeleton' property (not coded) BabylonjsCoreAbstractMesh.skeleton.
+        // type: 'BabylonjsCoreSubMesh[]' property (not coded) BabylonjsCoreAbstractMesh.subMeshes.
+        checkPrimitiveDiff(oldProps.useOctreeForCollisions, newProps.useOctreeForCollisions, 'useOctreeForCollisions', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.useOctreeForPicking, newProps.useOctreeForPicking, 'useOctreeForPicking', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.useOctreeForRenderingSelection, newProps.useOctreeForRenderingSelection, 'useOctreeForRenderingSelection', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.useVertexColors, newProps.useVertexColors, 'useVertexColors', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.visibility, newProps.visibility, 'visibility', 'number', changedProps)
+        checkMethodDiff(oldProps.addChild, newProps.addChild, 'addChild', '(mesh?: BabylonjsCoreAbstractMesh) => BabylonjsCoreAbstractMesh', changedProps)
+        checkMethodDiff(oldProps.setBoundingInfo, newProps.setBoundingInfo, 'setBoundingInfo', '(boundingInfo?: BabylonjsCoreBoundingInfo) => BabylonjsCoreAbstractMesh', changedProps)
+        checkMethodDiff(oldProps.setIndices, newProps.setIndices, 'setIndices', '(indices?: BabylonjsCoreIndicesArray, totalVertices?: number) => BabylonjsCoreAbstractMesh', changedProps)
+        checkMethodDiff(oldProps.setVerticesData, newProps.setVerticesData, 'setVerticesData', '(kind?: string, data?: BabylonjsCoreFloatArray, updatable?: boolean, stride?: number) => BabylonjsCoreAbstractMesh', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -953,8 +418,8 @@ export class FiberAbstractMeshPropsHandler implements PropsHandler<BabylonjsCore
  *
  * This code has been generated
  */
-export class FiberAbstractMesh implements HasPropsHandlers<BabylonjsCoreTransformNode, FiberTransformNodeProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreTransformNode, FiberTransformNodeProps>[];
+export class FiberAbstractMesh implements HasPropsHandlers<FiberTransformNodeProps> {
+    private propsHandlers: PropsHandler<FiberTransformNodeProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -964,11 +429,11 @@ export class FiberAbstractMesh implements HasPropsHandlers<BabylonjsCoreTransfor
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreTransformNode, FiberTransformNodeProps>[] {
+    getPropsHandlers(): PropsHandler<FiberTransformNodeProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreTransformNode, FiberTransformNodeProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberTransformNodeProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -995,127 +460,28 @@ export class FiberAbstractMesh implements HasPropsHandlers<BabylonjsCoreTransfor
     };
 }
 
-export class FiberMeshPropsHandler implements PropsHandler<BabylonjsCoreMesh, FiberMeshProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreMesh, oldProps: FiberMeshProps, newProps: FiberMeshProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsCoreMesh.delayLoadingFile (string):
-        if (oldProps.delayLoadingFile !== newProps.delayLoadingFile) {
-            updates.push({
-                propertyName: 'delayLoadingFile',
-                value: newProps.delayLoadingFile,
-                type: 'string'
-            });
-        }
-        // BabylonjsCoreMesh.delayLoadState (number):
-        if (oldProps.delayLoadState !== newProps.delayLoadState) {
-            updates.push({
-                propertyName: 'delayLoadState',
-                value: newProps.delayLoadState,
-                type: 'number'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreInstancedMesh[]' property (not coded) BabylonjsCoreMesh.instances.
-        // BabylonjsCoreMesh.isUnIndexed (boolean):
-        if (oldProps.isUnIndexed !== newProps.isUnIndexed) {
-            updates.push({
-                propertyName: 'isUnIndexed',
-                value: newProps.isUnIndexed,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreMesh.manualUpdateOfWorldMatrixInstancedBuffer (boolean):
-        if (oldProps.manualUpdateOfWorldMatrixInstancedBuffer !== newProps.manualUpdateOfWorldMatrixInstancedBuffer) {
-            updates.push({
-                propertyName: 'manualUpdateOfWorldMatrixInstancedBuffer',
-                value: newProps.manualUpdateOfWorldMatrixInstancedBuffer,
-                type: 'boolean'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreMorphTargetManager' property (not coded) BabylonjsCoreMesh.morphTargetManager.
-        // TODO: type: 'any' property (not coded) BabylonjsCoreMesh.normalizeSkinFourWeights.
-        // TODO: type: 'any' property (not coded) BabylonjsCoreMesh.normalizeSkinWeightsAndExtra.
-        // xxx-ns-xxx.BabylonjsCoreMesh.onBeforeDraw of type '() => void/fn':
-        if (oldProps.onBeforeDraw === undefined && oldProps.onBeforeDraw !== newProps.onBeforeDraw) {
-            updates.push({
-                propertyName: 'onBeforeDraw',
-                value: newProps.onBeforeDraw,
-                type: '() => void'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreMesh.onLODLevelSelection of type '(distance: number, mesh: BabylonjsCoreMesh, selectedLevel: BabylonjsCoreMesh) => void/fn':
-        if (oldProps.onLODLevelSelection === undefined && oldProps.onLODLevelSelection !== newProps.onLODLevelSelection) {
-            updates.push({
-                propertyName: 'onLODLevelSelection',
-                value: newProps.onLODLevelSelection,
-                type: '(distance: number, mesh: BabylonjsCoreMesh, selectedLevel: BabylonjsCoreMesh) => void'
-            });
-        }
-        // BabylonjsCoreMesh.overrideMaterialSideOrientation (number):
-        if (oldProps.overrideMaterialSideOrientation !== newProps.overrideMaterialSideOrientation) {
-            updates.push({
-                propertyName: 'overrideMaterialSideOrientation',
-                value: newProps.overrideMaterialSideOrientation,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreMesh.overridenInstanceCount (number):
-        if (oldProps.overridenInstanceCount !== newProps.overridenInstanceCount) {
-            updates.push({
-                propertyName: 'overridenInstanceCount',
-                value: newProps.overridenInstanceCount,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreMesh.addInstance of type '(instance?: BabylonjsCoreInstancedMesh) => void':
-        if (oldProps.addInstance !== newProps.addInstance) {
-            updates.push({
-                propertyName: 'addInstance',
-                value: newProps.addInstance,
-                type: '(instance?: BabylonjsCoreInstancedMesh) => void'
-            });
-        }
-        // BabylonjsCoreMesh.addLODLevel of type '(distance?: number, mesh?: BabylonjsCoreMesh) => BabylonjsCoreMesh':
-        if (oldProps.addLODLevel !== newProps.addLODLevel) {
-            updates.push({
-                propertyName: 'addLODLevel',
-                value: newProps.addLODLevel,
-                type: '(distance?: number, mesh?: BabylonjsCoreMesh) => BabylonjsCoreMesh'
-            });
-        }
-        // BabylonjsCoreMesh.setIndices of type '(indices?: BabylonjsCoreIndicesArray, totalVertices?: number, updatable?: boolean) => BabylonjsCoreAbstractMesh':
-        if (oldProps.setIndices !== newProps.setIndices) {
-            updates.push({
-                propertyName: 'setIndices',
-                value: newProps.setIndices,
-                type: '(indices?: BabylonjsCoreIndicesArray, totalVertices?: number, updatable?: boolean) => BabylonjsCoreAbstractMesh'
-            });
-        }
-        // BabylonjsCoreMesh.setMaterialByID of type '(id?: string) => BabylonjsCoreMesh':
-        if (oldProps.setMaterialByID !== newProps.setMaterialByID) {
-            updates.push({
-                propertyName: 'setMaterialByID',
-                value: newProps.setMaterialByID,
-                type: '(id?: string) => BabylonjsCoreMesh'
-            });
-        }
-        // BabylonjsCoreMesh.setVerticesBuffer of type '(buffer?: BabylonjsCoreVertexBuffer) => BabylonjsCoreMesh':
-        if (oldProps.setVerticesBuffer !== newProps.setVerticesBuffer) {
-            updates.push({
-                propertyName: 'setVerticesBuffer',
-                value: newProps.setVerticesBuffer,
-                type: '(buffer?: BabylonjsCoreVertexBuffer) => BabylonjsCoreMesh'
-            });
-        }
-        // BabylonjsCoreMesh.setVerticesData of type '(kind?: string, data?: BabylonjsCoreFloatArray, updatable?: boolean, stride?: number) => BabylonjsCoreAbstractMesh':
-        if (oldProps.setVerticesData !== newProps.setVerticesData) {
-            updates.push({
-                propertyName: 'setVerticesData',
-                value: newProps.setVerticesData,
-                type: '(kind?: string, data?: BabylonjsCoreFloatArray, updatable?: boolean, stride?: number) => BabylonjsCoreAbstractMesh'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberMeshPropsHandler implements PropsHandler<FiberMeshProps> {
+    getPropertyUpdates(oldProps: FiberMeshProps, newProps: FiberMeshProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.delayLoadingFile, newProps.delayLoadingFile, 'delayLoadingFile', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.delayLoadState, newProps.delayLoadState, 'delayLoadState', 'number', changedProps)
+        // type: 'BabylonjsCoreInstancedMesh[]' property (not coded) BabylonjsCoreMesh.instances.
+        checkPrimitiveDiff(oldProps.isUnIndexed, newProps.isUnIndexed, 'isUnIndexed', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.manualUpdateOfWorldMatrixInstancedBuffer, newProps.manualUpdateOfWorldMatrixInstancedBuffer, 'manualUpdateOfWorldMatrixInstancedBuffer', 'boolean', changedProps)
+        // type: 'BabylonjsCoreMorphTargetManager' property (not coded) BabylonjsCoreMesh.morphTargetManager.
+        // type: 'any' property (not coded) BabylonjsCoreMesh.normalizeSkinFourWeights.
+        // type: 'any' property (not coded) BabylonjsCoreMesh.normalizeSkinWeightsAndExtra.
+        checkLambdaDiff(oldProps.onBeforeDraw, newProps.onBeforeDraw, 'onBeforeDraw', '() => void', changedProps)
+        checkLambdaDiff(oldProps.onLODLevelSelection, newProps.onLODLevelSelection, 'onLODLevelSelection', '(distance: number, mesh: BabylonjsCoreMesh, selectedLevel: BabylonjsCoreMesh) => void', changedProps)
+        checkPrimitiveDiff(oldProps.overrideMaterialSideOrientation, newProps.overrideMaterialSideOrientation, 'overrideMaterialSideOrientation', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.overridenInstanceCount, newProps.overridenInstanceCount, 'overridenInstanceCount', 'number', changedProps)
+        checkMethodDiff(oldProps.addInstance, newProps.addInstance, 'addInstance', '(instance?: BabylonjsCoreInstancedMesh) => void', changedProps)
+        checkMethodDiff(oldProps.addLODLevel, newProps.addLODLevel, 'addLODLevel', '(distance?: number, mesh?: BabylonjsCoreMesh) => BabylonjsCoreMesh', changedProps)
+        checkMethodDiff(oldProps.setIndices, newProps.setIndices, 'setIndices', '(indices?: BabylonjsCoreIndicesArray, totalVertices?: number, updatable?: boolean) => BabylonjsCoreAbstractMesh', changedProps)
+        checkMethodDiff(oldProps.setMaterialByID, newProps.setMaterialByID, 'setMaterialByID', '(id?: string) => BabylonjsCoreMesh', changedProps)
+        checkMethodDiff(oldProps.setVerticesBuffer, newProps.setVerticesBuffer, 'setVerticesBuffer', '(buffer?: BabylonjsCoreVertexBuffer) => BabylonjsCoreMesh', changedProps)
+        checkMethodDiff(oldProps.setVerticesData, newProps.setVerticesData, 'setVerticesData', '(kind?: string, data?: BabylonjsCoreFloatArray, updatable?: boolean, stride?: number) => BabylonjsCoreAbstractMesh', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -1124,8 +490,8 @@ export class FiberMeshPropsHandler implements PropsHandler<BabylonjsCoreMesh, Fi
  *
  * This code has been generated
  */
-export class FiberMesh implements HasPropsHandlers<BabylonjsCoreAbstractMesh, FiberAbstractMeshProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreAbstractMesh, FiberAbstractMeshProps>[];
+export class FiberMesh implements HasPropsHandlers<FiberAbstractMeshProps> {
+    private propsHandlers: PropsHandler<FiberAbstractMeshProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -1136,11 +502,11 @@ export class FiberMesh implements HasPropsHandlers<BabylonjsCoreAbstractMesh, Fi
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreAbstractMesh, FiberAbstractMeshProps>[] {
+    getPropsHandlers(): PropsHandler<FiberAbstractMeshProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreAbstractMesh, FiberAbstractMeshProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberAbstractMeshProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -1187,208 +553,39 @@ export class FiberMesh implements HasPropsHandlers<BabylonjsCoreAbstractMesh, Fi
     };
 }
 
-export class FiberCameraPropsHandler implements PropsHandler<BabylonjsCoreCamera, FiberCameraProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreCamera, oldProps: FiberCameraProps, newProps: FiberCameraProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsCoreCamera.cameraRigMode (number):
-        if (oldProps.cameraRigMode !== newProps.cameraRigMode) {
-            updates.push({
-                propertyName: 'cameraRigMode',
-                value: newProps.cameraRigMode,
-                type: 'number'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreRenderTargetTexture[]' property (not coded) BabylonjsCoreCamera.customRenderTargets.
-        // BabylonjsCoreCamera.fov (number):
-        if (oldProps.fov !== newProps.fov) {
-            updates.push({
-                propertyName: 'fov',
-                value: newProps.fov,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreCamera.fovMode (number):
-        if (oldProps.fovMode !== newProps.fovMode) {
-            updates.push({
-                propertyName: 'fovMode',
-                value: newProps.fovMode,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreCamera.inertia (number):
-        if (oldProps.inertia !== newProps.inertia) {
-            updates.push({
-                propertyName: 'inertia',
-                value: newProps.inertia,
-                type: 'number'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreCameraInputsManager<BabylonjsCoreCamera>' property (not coded) BabylonjsCoreCamera.inputs.
-        // BabylonjsCoreCamera.interaxialDistance (number):
-        if (oldProps.interaxialDistance !== newProps.interaxialDistance) {
-            updates.push({
-                propertyName: 'interaxialDistance',
-                value: newProps.interaxialDistance,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreCamera.isIntermediate (boolean):
-        if (oldProps.isIntermediate !== newProps.isIntermediate) {
-            updates.push({
-                propertyName: 'isIntermediate',
-                value: newProps.isIntermediate,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreCamera.isRigCamera (boolean):
-        if (oldProps.isRigCamera !== newProps.isRigCamera) {
-            updates.push({
-                propertyName: 'isRigCamera',
-                value: newProps.isRigCamera,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreCamera.isStereoscopicSideBySide (boolean):
-        if (oldProps.isStereoscopicSideBySide !== newProps.isStereoscopicSideBySide) {
-            updates.push({
-                propertyName: 'isStereoscopicSideBySide',
-                value: newProps.isStereoscopicSideBySide,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreCamera.layerMask (number):
-        if (oldProps.layerMask !== newProps.layerMask) {
-            updates.push({
-                propertyName: 'layerMask',
-                value: newProps.layerMask,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreCamera.maxZ (number):
-        if (oldProps.maxZ !== newProps.maxZ) {
-            updates.push({
-                propertyName: 'maxZ',
-                value: newProps.maxZ,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreCamera.minZ (number):
-        if (oldProps.minZ !== newProps.minZ) {
-            updates.push({
-                propertyName: 'minZ',
-                value: newProps.minZ,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreCamera.mode (number):
-        if (oldProps.mode !== newProps.mode) {
-            updates.push({
-                propertyName: 'mode',
-                value: newProps.mode,
-                type: 'number'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreCamera.onAfterCheckInputsObservable of type 'BabylonjsCoreObservable<BabylonjsCoreCamera>/fn':
-        if (oldProps.onAfterCheckInputsObservable === undefined && oldProps.onAfterCheckInputsObservable !== newProps.onAfterCheckInputsObservable) {
-            updates.push({
-                propertyName: 'onAfterCheckInputsObservable',
-                value: newProps.onAfterCheckInputsObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreCamera>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreCamera.onProjectionMatrixChangedObservable of type 'BabylonjsCoreObservable<BabylonjsCoreCamera>/fn':
-        if (oldProps.onProjectionMatrixChangedObservable === undefined && oldProps.onProjectionMatrixChangedObservable !== newProps.onProjectionMatrixChangedObservable) {
-            updates.push({
-                propertyName: 'onProjectionMatrixChangedObservable',
-                value: newProps.onProjectionMatrixChangedObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreCamera>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreCamera.onRestoreStateObservable of type 'BabylonjsCoreObservable<BabylonjsCoreCamera>/fn':
-        if (oldProps.onRestoreStateObservable === undefined && oldProps.onRestoreStateObservable !== newProps.onRestoreStateObservable) {
-            updates.push({
-                propertyName: 'onRestoreStateObservable',
-                value: newProps.onRestoreStateObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreCamera>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreCamera.onViewMatrixChangedObservable of type 'BabylonjsCoreObservable<BabylonjsCoreCamera>/fn':
-        if (oldProps.onViewMatrixChangedObservable === undefined && oldProps.onViewMatrixChangedObservable !== newProps.onViewMatrixChangedObservable) {
-            updates.push({
-                propertyName: 'onViewMatrixChangedObservable',
-                value: newProps.onViewMatrixChangedObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreCamera>'
-            });
-        }
-        // BabylonjsCoreCamera.orthoBottom (number):
-        if (oldProps.orthoBottom !== newProps.orthoBottom) {
-            updates.push({
-                propertyName: 'orthoBottom',
-                value: newProps.orthoBottom,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreCamera.orthoLeft (number):
-        if (oldProps.orthoLeft !== newProps.orthoLeft) {
-            updates.push({
-                propertyName: 'orthoLeft',
-                value: newProps.orthoLeft,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreCamera.orthoRight (number):
-        if (oldProps.orthoRight !== newProps.orthoRight) {
-            updates.push({
-                propertyName: 'orthoRight',
-                value: newProps.orthoRight,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreCamera.orthoTop (number):
-        if (oldProps.orthoTop !== newProps.orthoTop) {
-            updates.push({
-                propertyName: 'orthoTop',
-                value: newProps.orthoTop,
-                type: 'number'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreRenderTargetTexture' property (not coded) BabylonjsCoreCamera.outputRenderTarget.
-        // BabylonjsCoreCamera.position (BabylonjsCoreVector3 uses object equals to find diffs):
-        if (newProps.position && (!oldProps.position || !oldProps.position.equals(newProps.position))) {
-            updates.push({
-                propertyName: 'position',
-                value: newProps.position,
-                type: 'BabylonjsCoreVector3'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreCamera' property (not coded) BabylonjsCoreCamera.rigParent.
-        // BabylonjsCoreCamera.upVector (BabylonjsCoreVector3 uses object equals to find diffs):
-        if (newProps.upVector && (!oldProps.upVector || !oldProps.upVector.equals(newProps.upVector))) {
-            updates.push({
-                propertyName: 'upVector',
-                value: newProps.upVector,
-                type: 'BabylonjsCoreVector3'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreViewport' property (not coded) BabylonjsCoreCamera.viewport.
-        // BabylonjsCoreCamera.setCameraRigMode of type '(mode?: number, rigParams?: any) => void':
-        if (oldProps.setCameraRigMode !== newProps.setCameraRigMode) {
-            updates.push({
-                propertyName: 'setCameraRigMode',
-                value: newProps.setCameraRigMode,
-                type: '(mode?: number, rigParams?: any) => void'
-            });
-        }
-        // BabylonjsCoreCamera.setCameraRigParameter of type '(name?: string, value?: any) => void':
-        if (oldProps.setCameraRigParameter !== newProps.setCameraRigParameter) {
-            updates.push({
-                propertyName: 'setCameraRigParameter',
-                value: newProps.setCameraRigParameter,
-                type: '(name?: string, value?: any) => void'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberCameraPropsHandler implements PropsHandler<FiberCameraProps> {
+    getPropertyUpdates(oldProps: FiberCameraProps, newProps: FiberCameraProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.cameraRigMode, newProps.cameraRigMode, 'cameraRigMode', 'number', changedProps)
+        // type: 'BabylonjsCoreRenderTargetTexture[]' property (not coded) BabylonjsCoreCamera.customRenderTargets.
+        checkPrimitiveDiff(oldProps.fov, newProps.fov, 'fov', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.fovMode, newProps.fovMode, 'fovMode', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.inertia, newProps.inertia, 'inertia', 'number', changedProps)
+        // type: 'BabylonjsCoreCameraInputsManager<BabylonjsCoreCamera>' property (not coded) BabylonjsCoreCamera.inputs.
+        checkPrimitiveDiff(oldProps.interaxialDistance, newProps.interaxialDistance, 'interaxialDistance', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.isIntermediate, newProps.isIntermediate, 'isIntermediate', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.isRigCamera, newProps.isRigCamera, 'isRigCamera', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.isStereoscopicSideBySide, newProps.isStereoscopicSideBySide, 'isStereoscopicSideBySide', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.layerMask, newProps.layerMask, 'layerMask', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.maxZ, newProps.maxZ, 'maxZ', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.minZ, newProps.minZ, 'minZ', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.mode, newProps.mode, 'mode', 'number', changedProps)
+        checkObservableDiff(oldProps.onAfterCheckInputsObservable, newProps.onAfterCheckInputsObservable, 'onAfterCheckInputsObservable', 'BabylonjsCoreObservable<BabylonjsCoreCamera>', changedProps)
+        checkObservableDiff(oldProps.onProjectionMatrixChangedObservable, newProps.onProjectionMatrixChangedObservable, 'onProjectionMatrixChangedObservable', 'BabylonjsCoreObservable<BabylonjsCoreCamera>', changedProps)
+        checkObservableDiff(oldProps.onRestoreStateObservable, newProps.onRestoreStateObservable, 'onRestoreStateObservable', 'BabylonjsCoreObservable<BabylonjsCoreCamera>', changedProps)
+        checkObservableDiff(oldProps.onViewMatrixChangedObservable, newProps.onViewMatrixChangedObservable, 'onViewMatrixChangedObservable', 'BabylonjsCoreObservable<BabylonjsCoreCamera>', changedProps)
+        checkPrimitiveDiff(oldProps.orthoBottom, newProps.orthoBottom, 'orthoBottom', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.orthoLeft, newProps.orthoLeft, 'orthoLeft', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.orthoRight, newProps.orthoRight, 'orthoRight', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.orthoTop, newProps.orthoTop, 'orthoTop', 'number', changedProps)
+        // type: 'BabylonjsCoreRenderTargetTexture' property (not coded) BabylonjsCoreCamera.outputRenderTarget.
+        checkVector3Diff(oldProps.position, newProps.position, 'position', 'BabylonjsCoreVector3', changedProps)
+        // type: 'BabylonjsCoreCamera' property (not coded) BabylonjsCoreCamera.rigParent.
+        checkVector3Diff(oldProps.upVector, newProps.upVector, 'upVector', 'BabylonjsCoreVector3', changedProps)
+        // type: 'BabylonjsCoreViewport' property (not coded) BabylonjsCoreCamera.viewport.
+        checkMethodDiff(oldProps.setCameraRigMode, newProps.setCameraRigMode, 'setCameraRigMode', '(mode?: number, rigParams?: any) => void', changedProps)
+        checkMethodDiff(oldProps.setCameraRigParameter, newProps.setCameraRigParameter, 'setCameraRigParameter', '(name?: string, value?: any) => void', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -1397,9 +594,9 @@ export class FiberCameraPropsHandler implements PropsHandler<BabylonjsCoreCamera
  *
  * This code has been generated
  */
-export class FiberCamera implements HasPropsHandlers<BabylonjsCoreCamera, FiberCameraProps> {
+export class FiberCamera implements HasPropsHandlers<FiberCameraProps> {
     public readonly isTargetable = false;
-    private propsHandlers: PropsHandler<BabylonjsCoreCamera, FiberCameraProps>[];
+    private propsHandlers: PropsHandler<FiberCameraProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -1408,11 +605,11 @@ export class FiberCamera implements HasPropsHandlers<BabylonjsCoreCamera, FiberC
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreCamera, FiberCameraProps>[] {
+    getPropsHandlers(): PropsHandler<FiberCameraProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreCamera, FiberCameraProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberCameraProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -1450,62 +647,19 @@ export class FiberCamera implements HasPropsHandlers<BabylonjsCoreCamera, FiberC
     };
 }
 
-export class FiberTargetCameraPropsHandler implements PropsHandler<BabylonjsCoreTargetCamera, FiberTargetCameraProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreTargetCamera, oldProps: FiberTargetCameraProps, newProps: FiberTargetCameraProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsCoreTargetCamera.cameraDirection (BabylonjsCoreVector3 uses object equals to find diffs):
-        if (newProps.cameraDirection && (!oldProps.cameraDirection || !oldProps.cameraDirection.equals(newProps.cameraDirection))) {
-            updates.push({
-                propertyName: 'cameraDirection',
-                value: newProps.cameraDirection,
-                type: 'BabylonjsCoreVector3'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreVector2' property (not coded) BabylonjsCoreTargetCamera.cameraRotation.
-        // TODO: type: 'any' property (not coded) BabylonjsCoreTargetCamera.lockedTarget.
-        // BabylonjsCoreTargetCamera.noRotationConstraint (boolean):
-        if (oldProps.noRotationConstraint !== newProps.noRotationConstraint) {
-            updates.push({
-                propertyName: 'noRotationConstraint',
-                value: newProps.noRotationConstraint,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreTargetCamera.rotation (BabylonjsCoreVector3 uses object equals to find diffs):
-        if (newProps.rotation && (!oldProps.rotation || !oldProps.rotation.equals(newProps.rotation))) {
-            updates.push({
-                propertyName: 'rotation',
-                value: newProps.rotation,
-                type: 'BabylonjsCoreVector3'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreQuaternion' property (not coded) BabylonjsCoreTargetCamera.rotationQuaternion.
-        // BabylonjsCoreTargetCamera.speed (number):
-        if (oldProps.speed !== newProps.speed) {
-            updates.push({
-                propertyName: 'speed',
-                value: newProps.speed,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreTargetCamera.updateUpVectorFromRotation (boolean):
-        if (oldProps.updateUpVectorFromRotation !== newProps.updateUpVectorFromRotation) {
-            updates.push({
-                propertyName: 'updateUpVectorFromRotation',
-                value: newProps.updateUpVectorFromRotation,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreTargetCamera.setTarget of type '(target?: BabylonjsCoreVector3) => void':
-        if (oldProps.setTarget !== newProps.setTarget) {
-            updates.push({
-                propertyName: 'setTarget',
-                value: newProps.setTarget,
-                type: '(target?: BabylonjsCoreVector3) => void'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberTargetCameraPropsHandler implements PropsHandler<FiberTargetCameraProps> {
+    getPropertyUpdates(oldProps: FiberTargetCameraProps, newProps: FiberTargetCameraProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkVector3Diff(oldProps.cameraDirection, newProps.cameraDirection, 'cameraDirection', 'BabylonjsCoreVector3', changedProps)
+        // type: 'BabylonjsCoreVector2' property (not coded) BabylonjsCoreTargetCamera.cameraRotation.
+        // type: 'any' property (not coded) BabylonjsCoreTargetCamera.lockedTarget.
+        checkPrimitiveDiff(oldProps.noRotationConstraint, newProps.noRotationConstraint, 'noRotationConstraint', 'boolean', changedProps)
+        checkVector3Diff(oldProps.rotation, newProps.rotation, 'rotation', 'BabylonjsCoreVector3', changedProps)
+        // type: 'BabylonjsCoreQuaternion' property (not coded) BabylonjsCoreTargetCamera.rotationQuaternion.
+        checkPrimitiveDiff(oldProps.speed, newProps.speed, 'speed', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.updateUpVectorFromRotation, newProps.updateUpVectorFromRotation, 'updateUpVectorFromRotation', 'boolean', changedProps)
+        checkMethodDiff(oldProps.setTarget, newProps.setTarget, 'setTarget', '(target?: BabylonjsCoreVector3) => void', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -1515,9 +669,9 @@ export class FiberTargetCameraPropsHandler implements PropsHandler<BabylonjsCore
  *
  * This code has been generated
  */
-export class FiberTargetCamera implements HasPropsHandlers<BabylonjsCoreCamera, FiberCameraProps> {
+export class FiberTargetCamera implements HasPropsHandlers<FiberCameraProps> {
     public readonly isTargetable = true;
-    private propsHandlers: PropsHandler<BabylonjsCoreCamera, FiberCameraProps>[];
+    private propsHandlers: PropsHandler<FiberCameraProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -1527,11 +681,11 @@ export class FiberTargetCamera implements HasPropsHandlers<BabylonjsCoreCamera, 
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreCamera, FiberCameraProps>[] {
+    getPropsHandlers(): PropsHandler<FiberCameraProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreCamera, FiberCameraProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberCameraProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -1569,100 +723,22 @@ export class FiberTargetCamera implements HasPropsHandlers<BabylonjsCoreCamera, 
     };
 }
 
-export class FiberFreeCameraPropsHandler implements PropsHandler<BabylonjsCoreFreeCamera, FiberFreeCameraProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreFreeCamera, oldProps: FiberFreeCameraProps, newProps: FiberFreeCameraProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsCoreFreeCamera.angularSensibility (number):
-        if (oldProps.angularSensibility !== newProps.angularSensibility) {
-            updates.push({
-                propertyName: 'angularSensibility',
-                value: newProps.angularSensibility,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreFreeCamera.applyGravity (boolean):
-        if (oldProps.applyGravity !== newProps.applyGravity) {
-            updates.push({
-                propertyName: 'applyGravity',
-                value: newProps.applyGravity,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreFreeCamera.checkCollisions (boolean):
-        if (oldProps.checkCollisions !== newProps.checkCollisions) {
-            updates.push({
-                propertyName: 'checkCollisions',
-                value: newProps.checkCollisions,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreFreeCamera.collisionMask (number):
-        if (oldProps.collisionMask !== newProps.collisionMask) {
-            updates.push({
-                propertyName: 'collisionMask',
-                value: newProps.collisionMask,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreFreeCamera.ellipsoid (BabylonjsCoreVector3 uses object equals to find diffs):
-        if (newProps.ellipsoid && (!oldProps.ellipsoid || !oldProps.ellipsoid.equals(newProps.ellipsoid))) {
-            updates.push({
-                propertyName: 'ellipsoid',
-                value: newProps.ellipsoid,
-                type: 'BabylonjsCoreVector3'
-            });
-        }
-        // BabylonjsCoreFreeCamera.ellipsoidOffset (BabylonjsCoreVector3 uses object equals to find diffs):
-        if (newProps.ellipsoidOffset && (!oldProps.ellipsoidOffset || !oldProps.ellipsoidOffset.equals(newProps.ellipsoidOffset))) {
-            updates.push({
-                propertyName: 'ellipsoidOffset',
-                value: newProps.ellipsoidOffset,
-                type: 'BabylonjsCoreVector3'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreFreeCameraInputsManager' property (not coded) BabylonjsCoreFreeCamera.inputs.
-        // BabylonjsCoreFreeCamera.keysDown (number[]) (just length - missing loop + indexOf comparison):
-        if (newProps.keysDown && (!oldProps.keysDown || oldProps.keysDown.length !== newProps.keysDown.length)) {
-            updates.push({
-                propertyName: 'keysDown',
-                value: newProps.keysDown,
-                type: 'number[]'
-            });
-        }
-        // BabylonjsCoreFreeCamera.keysLeft (number[]) (just length - missing loop + indexOf comparison):
-        if (newProps.keysLeft && (!oldProps.keysLeft || oldProps.keysLeft.length !== newProps.keysLeft.length)) {
-            updates.push({
-                propertyName: 'keysLeft',
-                value: newProps.keysLeft,
-                type: 'number[]'
-            });
-        }
-        // BabylonjsCoreFreeCamera.keysRight (number[]) (just length - missing loop + indexOf comparison):
-        if (newProps.keysRight && (!oldProps.keysRight || oldProps.keysRight.length !== newProps.keysRight.length)) {
-            updates.push({
-                propertyName: 'keysRight',
-                value: newProps.keysRight,
-                type: 'number[]'
-            });
-        }
-        // BabylonjsCoreFreeCamera.keysUp (number[]) (just length - missing loop + indexOf comparison):
-        if (newProps.keysUp && (!oldProps.keysUp || oldProps.keysUp.length !== newProps.keysUp.length)) {
-            updates.push({
-                propertyName: 'keysUp',
-                value: newProps.keysUp,
-                type: 'number[]'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreFreeCamera.onCollide of type '(collidedMesh: BabylonjsCoreAbstractMesh) => void/fn':
-        if (oldProps.onCollide === undefined && oldProps.onCollide !== newProps.onCollide) {
-            updates.push({
-                propertyName: 'onCollide',
-                value: newProps.onCollide,
-                type: '(collidedMesh: BabylonjsCoreAbstractMesh) => void'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberFreeCameraPropsHandler implements PropsHandler<FiberFreeCameraProps> {
+    getPropertyUpdates(oldProps: FiberFreeCameraProps, newProps: FiberFreeCameraProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.angularSensibility, newProps.angularSensibility, 'angularSensibility', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.applyGravity, newProps.applyGravity, 'applyGravity', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.checkCollisions, newProps.checkCollisions, 'checkCollisions', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.collisionMask, newProps.collisionMask, 'collisionMask', 'number', changedProps)
+        checkVector3Diff(oldProps.ellipsoid, newProps.ellipsoid, 'ellipsoid', 'BabylonjsCoreVector3', changedProps)
+        checkVector3Diff(oldProps.ellipsoidOffset, newProps.ellipsoidOffset, 'ellipsoidOffset', 'BabylonjsCoreVector3', changedProps)
+        // type: 'BabylonjsCoreFreeCameraInputsManager' property (not coded) BabylonjsCoreFreeCamera.inputs.
+        checkNumericArrayDiff(oldProps.keysDown, newProps.keysDown, 'keysDown', 'number[]', changedProps)
+        checkNumericArrayDiff(oldProps.keysLeft, newProps.keysLeft, 'keysLeft', 'number[]', changedProps)
+        checkNumericArrayDiff(oldProps.keysRight, newProps.keysRight, 'keysRight', 'number[]', changedProps)
+        checkNumericArrayDiff(oldProps.keysUp, newProps.keysUp, 'keysUp', 'number[]', changedProps)
+        checkLambdaDiff(oldProps.onCollide, newProps.onCollide, 'onCollide', '(collidedMesh: BabylonjsCoreAbstractMesh) => void', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -1672,9 +748,9 @@ export class FiberFreeCameraPropsHandler implements PropsHandler<BabylonjsCoreFr
  *
  * This code has been generated
  */
-export class FiberFreeCamera implements HasPropsHandlers<BabylonjsCoreCamera, FiberCameraProps> {
+export class FiberFreeCamera implements HasPropsHandlers<FiberCameraProps> {
     public readonly isTargetable = true;
-    private propsHandlers: PropsHandler<BabylonjsCoreCamera, FiberCameraProps>[];
+    private propsHandlers: PropsHandler<FiberCameraProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -1685,11 +761,11 @@ export class FiberFreeCamera implements HasPropsHandlers<BabylonjsCoreCamera, Fi
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreCamera, FiberCameraProps>[] {
+    getPropsHandlers(): PropsHandler<FiberCameraProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreCamera, FiberCameraProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberCameraProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -1727,27 +803,12 @@ export class FiberFreeCamera implements HasPropsHandlers<BabylonjsCoreCamera, Fi
     };
 }
 
-export class FiberTouchCameraPropsHandler implements PropsHandler<BabylonjsCoreTouchCamera, FiberTouchCameraProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreTouchCamera, oldProps: FiberTouchCameraProps, newProps: FiberTouchCameraProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsCoreTouchCamera.touchAngularSensibility (number):
-        if (oldProps.touchAngularSensibility !== newProps.touchAngularSensibility) {
-            updates.push({
-                propertyName: 'touchAngularSensibility',
-                value: newProps.touchAngularSensibility,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreTouchCamera.touchMoveSensibility (number):
-        if (oldProps.touchMoveSensibility !== newProps.touchMoveSensibility) {
-            updates.push({
-                propertyName: 'touchMoveSensibility',
-                value: newProps.touchMoveSensibility,
-                type: 'number'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberTouchCameraPropsHandler implements PropsHandler<FiberTouchCameraProps> {
+    getPropertyUpdates(oldProps: FiberTouchCameraProps, newProps: FiberTouchCameraProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.touchAngularSensibility, newProps.touchAngularSensibility, 'touchAngularSensibility', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.touchMoveSensibility, newProps.touchMoveSensibility, 'touchMoveSensibility', 'number', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -1757,9 +818,9 @@ export class FiberTouchCameraPropsHandler implements PropsHandler<BabylonjsCoreT
  *
  * This code has been generated
  */
-export class FiberTouchCamera implements HasPropsHandlers<BabylonjsCoreCamera, FiberCameraProps> {
+export class FiberTouchCamera implements HasPropsHandlers<FiberCameraProps> {
     public readonly isTargetable = true;
-    private propsHandlers: PropsHandler<BabylonjsCoreCamera, FiberCameraProps>[];
+    private propsHandlers: PropsHandler<FiberCameraProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -1771,11 +832,11 @@ export class FiberTouchCamera implements HasPropsHandlers<BabylonjsCoreCamera, F
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreCamera, FiberCameraProps>[] {
+    getPropsHandlers(): PropsHandler<FiberCameraProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreCamera, FiberCameraProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberCameraProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -1808,27 +869,12 @@ export class FiberTouchCamera implements HasPropsHandlers<BabylonjsCoreCamera, F
     };
 }
 
-export class FiberUniversalCameraPropsHandler implements PropsHandler<BabylonjsCoreUniversalCamera, FiberUniversalCameraProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreUniversalCamera, oldProps: FiberUniversalCameraProps, newProps: FiberUniversalCameraProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsCoreUniversalCamera.gamepadAngularSensibility (number):
-        if (oldProps.gamepadAngularSensibility !== newProps.gamepadAngularSensibility) {
-            updates.push({
-                propertyName: 'gamepadAngularSensibility',
-                value: newProps.gamepadAngularSensibility,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreUniversalCamera.gamepadMoveSensibility (number):
-        if (oldProps.gamepadMoveSensibility !== newProps.gamepadMoveSensibility) {
-            updates.push({
-                propertyName: 'gamepadMoveSensibility',
-                value: newProps.gamepadMoveSensibility,
-                type: 'number'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberUniversalCameraPropsHandler implements PropsHandler<FiberUniversalCameraProps> {
+    getPropertyUpdates(oldProps: FiberUniversalCameraProps, newProps: FiberUniversalCameraProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.gamepadAngularSensibility, newProps.gamepadAngularSensibility, 'gamepadAngularSensibility', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.gamepadMoveSensibility, newProps.gamepadMoveSensibility, 'gamepadMoveSensibility', 'number', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -1838,9 +884,9 @@ export class FiberUniversalCameraPropsHandler implements PropsHandler<BabylonjsC
  *
  * This code has been generated
  */
-export class FiberUniversalCamera implements HasPropsHandlers<BabylonjsCoreCamera, FiberCameraProps> {
+export class FiberUniversalCamera implements HasPropsHandlers<FiberCameraProps> {
     public readonly isTargetable = true;
-    private propsHandlers: PropsHandler<BabylonjsCoreCamera, FiberCameraProps>[];
+    private propsHandlers: PropsHandler<FiberCameraProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -1853,11 +899,11 @@ export class FiberUniversalCamera implements HasPropsHandlers<BabylonjsCoreCamer
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreCamera, FiberCameraProps>[] {
+    getPropsHandlers(): PropsHandler<FiberCameraProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreCamera, FiberCameraProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberCameraProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -1890,11 +936,9 @@ export class FiberUniversalCamera implements HasPropsHandlers<BabylonjsCoreCamer
     };
 }
 
-export class FiberGamepadCameraPropsHandler implements PropsHandler<BabylonjsCoreGamepadCamera, FiberGamepadCameraProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreGamepadCamera, oldProps: FiberGamepadCameraProps, newProps: FiberGamepadCameraProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        return updates.length === 0 ? null : updates;
+export class FiberGamepadCameraPropsHandler implements PropsHandler<FiberGamepadCameraProps> {
+    getPropertyUpdates(oldProps: FiberGamepadCameraProps, newProps: FiberGamepadCameraProps): PropertyUpdate[] | null {
+        return null; // no props to check
     }
 }
 
@@ -1904,9 +948,9 @@ export class FiberGamepadCameraPropsHandler implements PropsHandler<BabylonjsCor
  *
  * This code has been generated
  */
-export class FiberGamepadCamera implements HasPropsHandlers<BabylonjsCoreCamera, FiberCameraProps> {
+export class FiberGamepadCamera implements HasPropsHandlers<FiberCameraProps> {
     public readonly isTargetable = true;
-    private propsHandlers: PropsHandler<BabylonjsCoreCamera, FiberCameraProps>[];
+    private propsHandlers: PropsHandler<FiberCameraProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -1920,11 +964,11 @@ export class FiberGamepadCamera implements HasPropsHandlers<BabylonjsCoreCamera,
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreCamera, FiberCameraProps>[] {
+    getPropsHandlers(): PropsHandler<FiberCameraProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreCamera, FiberCameraProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberCameraProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -1957,11 +1001,9 @@ export class FiberGamepadCamera implements HasPropsHandlers<BabylonjsCoreCamera,
     };
 }
 
-export class FiberAnaglyphGamepadCameraPropsHandler implements PropsHandler<BabylonjsCoreAnaglyphGamepadCamera, FiberAnaglyphGamepadCameraProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreAnaglyphGamepadCamera, oldProps: FiberAnaglyphGamepadCameraProps, newProps: FiberAnaglyphGamepadCameraProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        return updates.length === 0 ? null : updates;
+export class FiberAnaglyphGamepadCameraPropsHandler implements PropsHandler<FiberAnaglyphGamepadCameraProps> {
+    getPropertyUpdates(oldProps: FiberAnaglyphGamepadCameraProps, newProps: FiberAnaglyphGamepadCameraProps): PropertyUpdate[] | null {
+        return null; // no props to check
     }
 }
 
@@ -1970,9 +1012,9 @@ export class FiberAnaglyphGamepadCameraPropsHandler implements PropsHandler<Baby
  *
  * This code has been generated
  */
-export class FiberAnaglyphGamepadCamera implements HasPropsHandlers<BabylonjsCoreCamera, FiberCameraProps> {
+export class FiberAnaglyphGamepadCamera implements HasPropsHandlers<FiberCameraProps> {
     public readonly isTargetable = true;
-    private propsHandlers: PropsHandler<BabylonjsCoreCamera, FiberCameraProps>[];
+    private propsHandlers: PropsHandler<FiberCameraProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -1987,11 +1029,11 @@ export class FiberAnaglyphGamepadCamera implements HasPropsHandlers<BabylonjsCor
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreCamera, FiberCameraProps>[] {
+    getPropsHandlers(): PropsHandler<FiberCameraProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreCamera, FiberCameraProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberCameraProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -2029,11 +1071,9 @@ export class FiberAnaglyphGamepadCamera implements HasPropsHandlers<BabylonjsCor
     };
 }
 
-export class FiberStereoscopicGamepadCameraPropsHandler implements PropsHandler<BabylonjsCoreStereoscopicGamepadCamera, FiberStereoscopicGamepadCameraProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreStereoscopicGamepadCamera, oldProps: FiberStereoscopicGamepadCameraProps, newProps: FiberStereoscopicGamepadCameraProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        return updates.length === 0 ? null : updates;
+export class FiberStereoscopicGamepadCameraPropsHandler implements PropsHandler<FiberStereoscopicGamepadCameraProps> {
+    getPropertyUpdates(oldProps: FiberStereoscopicGamepadCameraProps, newProps: FiberStereoscopicGamepadCameraProps): PropertyUpdate[] | null {
+        return null; // no props to check
     }
 }
 
@@ -2042,9 +1082,9 @@ export class FiberStereoscopicGamepadCameraPropsHandler implements PropsHandler<
  *
  * This code has been generated
  */
-export class FiberStereoscopicGamepadCamera implements HasPropsHandlers<BabylonjsCoreCamera, FiberCameraProps> {
+export class FiberStereoscopicGamepadCamera implements HasPropsHandlers<FiberCameraProps> {
     public readonly isTargetable = true;
-    private propsHandlers: PropsHandler<BabylonjsCoreCamera, FiberCameraProps>[];
+    private propsHandlers: PropsHandler<FiberCameraProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -2059,11 +1099,11 @@ export class FiberStereoscopicGamepadCamera implements HasPropsHandlers<Babylonj
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreCamera, FiberCameraProps>[] {
+    getPropsHandlers(): PropsHandler<FiberCameraProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreCamera, FiberCameraProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberCameraProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -2106,11 +1146,9 @@ export class FiberStereoscopicGamepadCamera implements HasPropsHandlers<Babylonj
     };
 }
 
-export class FiberAnaglyphUniversalCameraPropsHandler implements PropsHandler<BabylonjsCoreAnaglyphUniversalCamera, FiberAnaglyphUniversalCameraProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreAnaglyphUniversalCamera, oldProps: FiberAnaglyphUniversalCameraProps, newProps: FiberAnaglyphUniversalCameraProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        return updates.length === 0 ? null : updates;
+export class FiberAnaglyphUniversalCameraPropsHandler implements PropsHandler<FiberAnaglyphUniversalCameraProps> {
+    getPropertyUpdates(oldProps: FiberAnaglyphUniversalCameraProps, newProps: FiberAnaglyphUniversalCameraProps): PropertyUpdate[] | null {
+        return null; // no props to check
     }
 }
 
@@ -2119,9 +1157,9 @@ export class FiberAnaglyphUniversalCameraPropsHandler implements PropsHandler<Ba
  *
  * This code has been generated
  */
-export class FiberAnaglyphUniversalCamera implements HasPropsHandlers<BabylonjsCoreCamera, FiberCameraProps> {
+export class FiberAnaglyphUniversalCamera implements HasPropsHandlers<FiberCameraProps> {
     public readonly isTargetable = true;
-    private propsHandlers: PropsHandler<BabylonjsCoreCamera, FiberCameraProps>[];
+    private propsHandlers: PropsHandler<FiberCameraProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -2135,11 +1173,11 @@ export class FiberAnaglyphUniversalCamera implements HasPropsHandlers<BabylonjsC
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreCamera, FiberCameraProps>[] {
+    getPropsHandlers(): PropsHandler<FiberCameraProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreCamera, FiberCameraProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberCameraProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -2177,11 +1215,9 @@ export class FiberAnaglyphUniversalCamera implements HasPropsHandlers<BabylonjsC
     };
 }
 
-export class FiberStereoscopicUniversalCameraPropsHandler implements PropsHandler<BabylonjsCoreStereoscopicUniversalCamera, FiberStereoscopicUniversalCameraProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreStereoscopicUniversalCamera, oldProps: FiberStereoscopicUniversalCameraProps, newProps: FiberStereoscopicUniversalCameraProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        return updates.length === 0 ? null : updates;
+export class FiberStereoscopicUniversalCameraPropsHandler implements PropsHandler<FiberStereoscopicUniversalCameraProps> {
+    getPropertyUpdates(oldProps: FiberStereoscopicUniversalCameraProps, newProps: FiberStereoscopicUniversalCameraProps): PropertyUpdate[] | null {
+        return null; // no props to check
     }
 }
 
@@ -2190,9 +1226,9 @@ export class FiberStereoscopicUniversalCameraPropsHandler implements PropsHandle
  *
  * This code has been generated
  */
-export class FiberStereoscopicUniversalCamera implements HasPropsHandlers<BabylonjsCoreCamera, FiberCameraProps> {
+export class FiberStereoscopicUniversalCamera implements HasPropsHandlers<FiberCameraProps> {
     public readonly isTargetable = true;
-    private propsHandlers: PropsHandler<BabylonjsCoreCamera, FiberCameraProps>[];
+    private propsHandlers: PropsHandler<FiberCameraProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -2206,11 +1242,11 @@ export class FiberStereoscopicUniversalCamera implements HasPropsHandlers<Babylo
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreCamera, FiberCameraProps>[] {
+    getPropsHandlers(): PropsHandler<FiberCameraProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreCamera, FiberCameraProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberCameraProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -2253,19 +1289,11 @@ export class FiberStereoscopicUniversalCamera implements HasPropsHandlers<Babylo
     };
 }
 
-export class FiberDeviceOrientationCameraPropsHandler implements PropsHandler<BabylonjsCoreDeviceOrientationCamera, FiberDeviceOrientationCameraProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreDeviceOrientationCamera, oldProps: FiberDeviceOrientationCameraProps, newProps: FiberDeviceOrientationCameraProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsCoreDeviceOrientationCamera.disablePointerInputWhenUsingDeviceOrientation (boolean):
-        if (oldProps.disablePointerInputWhenUsingDeviceOrientation !== newProps.disablePointerInputWhenUsingDeviceOrientation) {
-            updates.push({
-                propertyName: 'disablePointerInputWhenUsingDeviceOrientation',
-                value: newProps.disablePointerInputWhenUsingDeviceOrientation,
-                type: 'boolean'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberDeviceOrientationCameraPropsHandler implements PropsHandler<FiberDeviceOrientationCameraProps> {
+    getPropertyUpdates(oldProps: FiberDeviceOrientationCameraProps, newProps: FiberDeviceOrientationCameraProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.disablePointerInputWhenUsingDeviceOrientation, newProps.disablePointerInputWhenUsingDeviceOrientation, 'disablePointerInputWhenUsingDeviceOrientation', 'boolean', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -2275,9 +1303,9 @@ export class FiberDeviceOrientationCameraPropsHandler implements PropsHandler<Ba
  *
  * This code has been generated
  */
-export class FiberDeviceOrientationCamera implements HasPropsHandlers<BabylonjsCoreCamera, FiberCameraProps> {
+export class FiberDeviceOrientationCamera implements HasPropsHandlers<FiberCameraProps> {
     public readonly isTargetable = true;
-    private propsHandlers: PropsHandler<BabylonjsCoreCamera, FiberCameraProps>[];
+    private propsHandlers: PropsHandler<FiberCameraProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -2289,11 +1317,11 @@ export class FiberDeviceOrientationCamera implements HasPropsHandlers<BabylonjsC
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreCamera, FiberCameraProps>[] {
+    getPropsHandlers(): PropsHandler<FiberCameraProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreCamera, FiberCameraProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberCameraProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -2326,11 +1354,9 @@ export class FiberDeviceOrientationCamera implements HasPropsHandlers<BabylonjsC
     };
 }
 
-export class FiberVRDeviceOrientationFreeCameraPropsHandler implements PropsHandler<BabylonjsCoreVRDeviceOrientationFreeCamera, FiberVRDeviceOrientationFreeCameraProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreVRDeviceOrientationFreeCamera, oldProps: FiberVRDeviceOrientationFreeCameraProps, newProps: FiberVRDeviceOrientationFreeCameraProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        return updates.length === 0 ? null : updates;
+export class FiberVRDeviceOrientationFreeCameraPropsHandler implements PropsHandler<FiberVRDeviceOrientationFreeCameraProps> {
+    getPropertyUpdates(oldProps: FiberVRDeviceOrientationFreeCameraProps, newProps: FiberVRDeviceOrientationFreeCameraProps): PropertyUpdate[] | null {
+        return null; // no props to check
     }
 }
 
@@ -2339,9 +1365,9 @@ export class FiberVRDeviceOrientationFreeCameraPropsHandler implements PropsHand
  *
  * This code has been generated
  */
-export class FiberVRDeviceOrientationFreeCamera implements HasPropsHandlers<BabylonjsCoreCamera, FiberCameraProps> {
+export class FiberVRDeviceOrientationFreeCamera implements HasPropsHandlers<FiberCameraProps> {
     public readonly isTargetable = true;
-    private propsHandlers: PropsHandler<BabylonjsCoreCamera, FiberCameraProps>[];
+    private propsHandlers: PropsHandler<FiberCameraProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -2354,11 +1380,11 @@ export class FiberVRDeviceOrientationFreeCamera implements HasPropsHandlers<Baby
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreCamera, FiberCameraProps>[] {
+    getPropsHandlers(): PropsHandler<FiberCameraProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreCamera, FiberCameraProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberCameraProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -2401,11 +1427,9 @@ export class FiberVRDeviceOrientationFreeCamera implements HasPropsHandlers<Baby
     };
 }
 
-export class FiberVRDeviceOrientationGamepadCameraPropsHandler implements PropsHandler<BabylonjsCoreVRDeviceOrientationGamepadCamera, FiberVRDeviceOrientationGamepadCameraProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreVRDeviceOrientationGamepadCamera, oldProps: FiberVRDeviceOrientationGamepadCameraProps, newProps: FiberVRDeviceOrientationGamepadCameraProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        return updates.length === 0 ? null : updates;
+export class FiberVRDeviceOrientationGamepadCameraPropsHandler implements PropsHandler<FiberVRDeviceOrientationGamepadCameraProps> {
+    getPropertyUpdates(oldProps: FiberVRDeviceOrientationGamepadCameraProps, newProps: FiberVRDeviceOrientationGamepadCameraProps): PropertyUpdate[] | null {
+        return null; // no props to check
     }
 }
 
@@ -2414,9 +1438,9 @@ export class FiberVRDeviceOrientationGamepadCameraPropsHandler implements PropsH
  *
  * This code has been generated
  */
-export class FiberVRDeviceOrientationGamepadCamera implements HasPropsHandlers<BabylonjsCoreCamera, FiberCameraProps> {
+export class FiberVRDeviceOrientationGamepadCamera implements HasPropsHandlers<FiberCameraProps> {
     public readonly isTargetable = true;
-    private propsHandlers: PropsHandler<BabylonjsCoreCamera, FiberCameraProps>[];
+    private propsHandlers: PropsHandler<FiberCameraProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -2430,11 +1454,11 @@ export class FiberVRDeviceOrientationGamepadCamera implements HasPropsHandlers<B
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreCamera, FiberCameraProps>[] {
+    getPropsHandlers(): PropsHandler<FiberCameraProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreCamera, FiberCameraProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberCameraProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -2477,11 +1501,9 @@ export class FiberVRDeviceOrientationGamepadCamera implements HasPropsHandlers<B
     };
 }
 
-export class FiberAnaglyphFreeCameraPropsHandler implements PropsHandler<BabylonjsCoreAnaglyphFreeCamera, FiberAnaglyphFreeCameraProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreAnaglyphFreeCamera, oldProps: FiberAnaglyphFreeCameraProps, newProps: FiberAnaglyphFreeCameraProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        return updates.length === 0 ? null : updates;
+export class FiberAnaglyphFreeCameraPropsHandler implements PropsHandler<FiberAnaglyphFreeCameraProps> {
+    getPropertyUpdates(oldProps: FiberAnaglyphFreeCameraProps, newProps: FiberAnaglyphFreeCameraProps): PropertyUpdate[] | null {
+        return null; // no props to check
     }
 }
 
@@ -2490,9 +1512,9 @@ export class FiberAnaglyphFreeCameraPropsHandler implements PropsHandler<Babylon
  *
  * This code has been generated
  */
-export class FiberAnaglyphFreeCamera implements HasPropsHandlers<BabylonjsCoreCamera, FiberCameraProps> {
+export class FiberAnaglyphFreeCamera implements HasPropsHandlers<FiberCameraProps> {
     public readonly isTargetable = true;
-    private propsHandlers: PropsHandler<BabylonjsCoreCamera, FiberCameraProps>[];
+    private propsHandlers: PropsHandler<FiberCameraProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -2504,11 +1526,11 @@ export class FiberAnaglyphFreeCamera implements HasPropsHandlers<BabylonjsCoreCa
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreCamera, FiberCameraProps>[] {
+    getPropsHandlers(): PropsHandler<FiberCameraProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreCamera, FiberCameraProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberCameraProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -2546,11 +1568,9 @@ export class FiberAnaglyphFreeCamera implements HasPropsHandlers<BabylonjsCoreCa
     };
 }
 
-export class FiberStereoscopicFreeCameraPropsHandler implements PropsHandler<BabylonjsCoreStereoscopicFreeCamera, FiberStereoscopicFreeCameraProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreStereoscopicFreeCamera, oldProps: FiberStereoscopicFreeCameraProps, newProps: FiberStereoscopicFreeCameraProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        return updates.length === 0 ? null : updates;
+export class FiberStereoscopicFreeCameraPropsHandler implements PropsHandler<FiberStereoscopicFreeCameraProps> {
+    getPropertyUpdates(oldProps: FiberStereoscopicFreeCameraProps, newProps: FiberStereoscopicFreeCameraProps): PropertyUpdate[] | null {
+        return null; // no props to check
     }
 }
 
@@ -2559,9 +1579,9 @@ export class FiberStereoscopicFreeCameraPropsHandler implements PropsHandler<Bab
  *
  * This code has been generated
  */
-export class FiberStereoscopicFreeCamera implements HasPropsHandlers<BabylonjsCoreCamera, FiberCameraProps> {
+export class FiberStereoscopicFreeCamera implements HasPropsHandlers<FiberCameraProps> {
     public readonly isTargetable = true;
-    private propsHandlers: PropsHandler<BabylonjsCoreCamera, FiberCameraProps>[];
+    private propsHandlers: PropsHandler<FiberCameraProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -2573,11 +1593,11 @@ export class FiberStereoscopicFreeCamera implements HasPropsHandlers<BabylonjsCo
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreCamera, FiberCameraProps>[] {
+    getPropsHandlers(): PropsHandler<FiberCameraProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreCamera, FiberCameraProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberCameraProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -2620,11 +1640,9 @@ export class FiberStereoscopicFreeCamera implements HasPropsHandlers<BabylonjsCo
     };
 }
 
-export class FiberVirtualJoysticksCameraPropsHandler implements PropsHandler<BabylonjsCoreVirtualJoysticksCamera, FiberVirtualJoysticksCameraProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreVirtualJoysticksCamera, oldProps: FiberVirtualJoysticksCameraProps, newProps: FiberVirtualJoysticksCameraProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        return updates.length === 0 ? null : updates;
+export class FiberVirtualJoysticksCameraPropsHandler implements PropsHandler<FiberVirtualJoysticksCameraProps> {
+    getPropertyUpdates(oldProps: FiberVirtualJoysticksCameraProps, newProps: FiberVirtualJoysticksCameraProps): PropertyUpdate[] | null {
+        return null; // no props to check
     }
 }
 
@@ -2635,9 +1653,9 @@ export class FiberVirtualJoysticksCameraPropsHandler implements PropsHandler<Bab
  *
  * This code has been generated
  */
-export class FiberVirtualJoysticksCamera implements HasPropsHandlers<BabylonjsCoreCamera, FiberCameraProps> {
+export class FiberVirtualJoysticksCamera implements HasPropsHandlers<FiberCameraProps> {
     public readonly isTargetable = true;
-    private propsHandlers: PropsHandler<BabylonjsCoreCamera, FiberCameraProps>[];
+    private propsHandlers: PropsHandler<FiberCameraProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -2649,11 +1667,11 @@ export class FiberVirtualJoysticksCamera implements HasPropsHandlers<BabylonjsCo
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreCamera, FiberCameraProps>[] {
+    getPropsHandlers(): PropsHandler<FiberCameraProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreCamera, FiberCameraProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberCameraProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -2686,64 +1704,21 @@ export class FiberVirtualJoysticksCamera implements HasPropsHandlers<BabylonjsCo
     };
 }
 
-export class FiberWebVRFreeCameraPropsHandler implements PropsHandler<BabylonjsCoreWebVRFreeCamera, FiberWebVRFreeCameraProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreWebVRFreeCamera, oldProps: FiberWebVRFreeCameraProps, newProps: FiberWebVRFreeCameraProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // TODO: type: 'BabylonjsCoreWebVRController[]' property (not coded) BabylonjsCoreWebVRFreeCamera.controllers.
-        // BabylonjsCoreWebVRFreeCamera.devicePosition (BabylonjsCoreVector3 uses object equals to find diffs):
-        if (newProps.devicePosition && (!oldProps.devicePosition || !oldProps.devicePosition.equals(newProps.devicePosition))) {
-            updates.push({
-                propertyName: 'devicePosition',
-                value: newProps.devicePosition,
-                type: 'BabylonjsCoreVector3'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreQuaternion' property (not coded) BabylonjsCoreWebVRFreeCamera.deviceRotationQuaternion.
-        // BabylonjsCoreWebVRFreeCamera.deviceScaleFactor (number):
-        if (oldProps.deviceScaleFactor !== newProps.deviceScaleFactor) {
-            updates.push({
-                propertyName: 'deviceScaleFactor',
-                value: newProps.deviceScaleFactor,
-                type: 'number'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreWebVRFreeCamera.onControllerMeshLoadedObservable of type 'BabylonjsCoreObservable<BabylonjsCoreWebVRController>/fn':
-        if (oldProps.onControllerMeshLoadedObservable === undefined && oldProps.onControllerMeshLoadedObservable !== newProps.onControllerMeshLoadedObservable) {
-            updates.push({
-                propertyName: 'onControllerMeshLoadedObservable',
-                value: newProps.onControllerMeshLoadedObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreWebVRController>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreWebVRFreeCamera.onControllersAttachedObservable of type 'BabylonjsCoreObservable<BabylonjsCoreWebVRController[]>/fn':
-        if (oldProps.onControllersAttachedObservable === undefined && oldProps.onControllersAttachedObservable !== newProps.onControllersAttachedObservable) {
-            updates.push({
-                propertyName: 'onControllersAttachedObservable',
-                value: newProps.onControllersAttachedObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreWebVRController[]>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreWebVRFreeCamera.onPoseUpdatedFromDeviceObservable of type 'BabylonjsCoreObservable<any>/fn':
-        if (oldProps.onPoseUpdatedFromDeviceObservable === undefined && oldProps.onPoseUpdatedFromDeviceObservable !== newProps.onPoseUpdatedFromDeviceObservable) {
-            updates.push({
-                propertyName: 'onPoseUpdatedFromDeviceObservable',
-                value: newProps.onPoseUpdatedFromDeviceObservable,
-                type: 'BabylonjsCoreObservable<any>'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreDevicePose' property (not coded) BabylonjsCoreWebVRFreeCamera.rawPose.
-        // BabylonjsCoreWebVRFreeCamera.rigParenting (boolean):
-        if (oldProps.rigParenting !== newProps.rigParenting) {
-            updates.push({
-                propertyName: 'rigParenting',
-                value: newProps.rigParenting,
-                type: 'boolean'
-            });
-        }
-        // TODO: type: 'any' property (not coded) BabylonjsCoreWebVRFreeCamera.updateCacheCalled.
-        // TODO: type: 'any' property (not coded) BabylonjsCoreWebVRFreeCamera.webVROptions.
-        return updates.length === 0 ? null : updates;
+export class FiberWebVRFreeCameraPropsHandler implements PropsHandler<FiberWebVRFreeCameraProps> {
+    getPropertyUpdates(oldProps: FiberWebVRFreeCameraProps, newProps: FiberWebVRFreeCameraProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        // type: 'BabylonjsCoreWebVRController[]' property (not coded) BabylonjsCoreWebVRFreeCamera.controllers.
+        checkVector3Diff(oldProps.devicePosition, newProps.devicePosition, 'devicePosition', 'BabylonjsCoreVector3', changedProps)
+        // type: 'BabylonjsCoreQuaternion' property (not coded) BabylonjsCoreWebVRFreeCamera.deviceRotationQuaternion.
+        checkPrimitiveDiff(oldProps.deviceScaleFactor, newProps.deviceScaleFactor, 'deviceScaleFactor', 'number', changedProps)
+        checkObservableDiff(oldProps.onControllerMeshLoadedObservable, newProps.onControllerMeshLoadedObservable, 'onControllerMeshLoadedObservable', 'BabylonjsCoreObservable<BabylonjsCoreWebVRController>', changedProps)
+        checkObservableDiff(oldProps.onControllersAttachedObservable, newProps.onControllersAttachedObservable, 'onControllersAttachedObservable', 'BabylonjsCoreObservable<BabylonjsCoreWebVRController[]>', changedProps)
+        checkObservableDiff(oldProps.onPoseUpdatedFromDeviceObservable, newProps.onPoseUpdatedFromDeviceObservable, 'onPoseUpdatedFromDeviceObservable', 'BabylonjsCoreObservable<any>', changedProps)
+        // type: 'BabylonjsCoreDevicePose' property (not coded) BabylonjsCoreWebVRFreeCamera.rawPose.
+        checkPrimitiveDiff(oldProps.rigParenting, newProps.rigParenting, 'rigParenting', 'boolean', changedProps)
+        // type: 'any' property (not coded) BabylonjsCoreWebVRFreeCamera.updateCacheCalled.
+        // type: 'any' property (not coded) BabylonjsCoreWebVRFreeCamera.webVROptions.
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -2753,9 +1728,9 @@ export class FiberWebVRFreeCameraPropsHandler implements PropsHandler<BabylonjsC
  *
  * This code has been generated
  */
-export class FiberWebVRFreeCamera implements HasPropsHandlers<BabylonjsCoreCamera, FiberCameraProps> {
+export class FiberWebVRFreeCamera implements HasPropsHandlers<FiberCameraProps> {
     public readonly isTargetable = true;
-    private propsHandlers: PropsHandler<BabylonjsCoreCamera, FiberCameraProps>[];
+    private propsHandlers: PropsHandler<FiberCameraProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -2767,11 +1742,11 @@ export class FiberWebVRFreeCamera implements HasPropsHandlers<BabylonjsCoreCamer
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreCamera, FiberCameraProps>[] {
+    getPropsHandlers(): PropsHandler<FiberCameraProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreCamera, FiberCameraProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberCameraProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -2809,27 +1784,12 @@ export class FiberWebVRFreeCamera implements HasPropsHandlers<BabylonjsCoreCamer
     };
 }
 
-export class FiberWebXRCameraPropsHandler implements PropsHandler<BabylonjsCoreWebXRCamera, FiberWebXRCameraProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreWebXRCamera, oldProps: FiberWebXRCameraProps, newProps: FiberWebXRCameraProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsCoreWebXRCamera.compensateOnFirstFrame (boolean):
-        if (oldProps.compensateOnFirstFrame !== newProps.compensateOnFirstFrame) {
-            updates.push({
-                propertyName: 'compensateOnFirstFrame',
-                value: newProps.compensateOnFirstFrame,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreWebXRCamera.setTransformationFromNonVRCamera of type '(otherCamera?: BabylonjsCoreCamera, resetToBaseReferenceSpace?: boolean) => void':
-        if (oldProps.setTransformationFromNonVRCamera !== newProps.setTransformationFromNonVRCamera) {
-            updates.push({
-                propertyName: 'setTransformationFromNonVRCamera',
-                value: newProps.setTransformationFromNonVRCamera,
-                type: '(otherCamera?: BabylonjsCoreCamera, resetToBaseReferenceSpace?: boolean) => void'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberWebXRCameraPropsHandler implements PropsHandler<FiberWebXRCameraProps> {
+    getPropertyUpdates(oldProps: FiberWebXRCameraProps, newProps: FiberWebXRCameraProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.compensateOnFirstFrame, newProps.compensateOnFirstFrame, 'compensateOnFirstFrame', 'boolean', changedProps)
+        checkMethodDiff(oldProps.setTransformationFromNonVRCamera, newProps.setTransformationFromNonVRCamera, 'setTransformationFromNonVRCamera', '(otherCamera?: BabylonjsCoreCamera, resetToBaseReferenceSpace?: boolean) => void', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -2838,9 +1798,9 @@ export class FiberWebXRCameraPropsHandler implements PropsHandler<BabylonjsCoreW
  *
  * This code has been generated
  */
-export class FiberWebXRCamera implements HasPropsHandlers<BabylonjsCoreCamera, FiberCameraProps> {
+export class FiberWebXRCamera implements HasPropsHandlers<FiberCameraProps> {
     public readonly isTargetable = true;
-    private propsHandlers: PropsHandler<BabylonjsCoreCamera, FiberCameraProps>[];
+    private propsHandlers: PropsHandler<FiberCameraProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -2852,11 +1812,11 @@ export class FiberWebXRCamera implements HasPropsHandlers<BabylonjsCoreCamera, F
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreCamera, FiberCameraProps>[] {
+    getPropsHandlers(): PropsHandler<FiberCameraProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreCamera, FiberCameraProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberCameraProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -2889,381 +1849,58 @@ export class FiberWebXRCamera implements HasPropsHandlers<BabylonjsCoreCamera, F
     };
 }
 
-export class FiberArcRotateCameraPropsHandler implements PropsHandler<BabylonjsCoreArcRotateCamera, FiberArcRotateCameraProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreArcRotateCamera, oldProps: FiberArcRotateCameraProps, newProps: FiberArcRotateCameraProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsCoreArcRotateCamera.allowUpsideDown (boolean):
-        if (oldProps.allowUpsideDown !== newProps.allowUpsideDown) {
-            updates.push({
-                propertyName: 'allowUpsideDown',
-                value: newProps.allowUpsideDown,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreArcRotateCamera.alpha (number):
-        if (oldProps.alpha !== newProps.alpha) {
-            updates.push({
-                propertyName: 'alpha',
-                value: newProps.alpha,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreArcRotateCamera.angularSensibilityX (number):
-        if (oldProps.angularSensibilityX !== newProps.angularSensibilityX) {
-            updates.push({
-                propertyName: 'angularSensibilityX',
-                value: newProps.angularSensibilityX,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreArcRotateCamera.angularSensibilityY (number):
-        if (oldProps.angularSensibilityY !== newProps.angularSensibilityY) {
-            updates.push({
-                propertyName: 'angularSensibilityY',
-                value: newProps.angularSensibilityY,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreArcRotateCamera.beta (number):
-        if (oldProps.beta !== newProps.beta) {
-            updates.push({
-                propertyName: 'beta',
-                value: newProps.beta,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreArcRotateCamera.checkCollisions (boolean):
-        if (oldProps.checkCollisions !== newProps.checkCollisions) {
-            updates.push({
-                propertyName: 'checkCollisions',
-                value: newProps.checkCollisions,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreArcRotateCamera.collisionRadius (BabylonjsCoreVector3 uses object equals to find diffs):
-        if (newProps.collisionRadius && (!oldProps.collisionRadius || !oldProps.collisionRadius.equals(newProps.collisionRadius))) {
-            updates.push({
-                propertyName: 'collisionRadius',
-                value: newProps.collisionRadius,
-                type: 'BabylonjsCoreVector3'
-            });
-        }
-        // BabylonjsCoreArcRotateCamera.inertialAlphaOffset (number):
-        if (oldProps.inertialAlphaOffset !== newProps.inertialAlphaOffset) {
-            updates.push({
-                propertyName: 'inertialAlphaOffset',
-                value: newProps.inertialAlphaOffset,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreArcRotateCamera.inertialBetaOffset (number):
-        if (oldProps.inertialBetaOffset !== newProps.inertialBetaOffset) {
-            updates.push({
-                propertyName: 'inertialBetaOffset',
-                value: newProps.inertialBetaOffset,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreArcRotateCamera.inertialPanningX (number):
-        if (oldProps.inertialPanningX !== newProps.inertialPanningX) {
-            updates.push({
-                propertyName: 'inertialPanningX',
-                value: newProps.inertialPanningX,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreArcRotateCamera.inertialPanningY (number):
-        if (oldProps.inertialPanningY !== newProps.inertialPanningY) {
-            updates.push({
-                propertyName: 'inertialPanningY',
-                value: newProps.inertialPanningY,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreArcRotateCamera.inertialRadiusOffset (number):
-        if (oldProps.inertialRadiusOffset !== newProps.inertialRadiusOffset) {
-            updates.push({
-                propertyName: 'inertialRadiusOffset',
-                value: newProps.inertialRadiusOffset,
-                type: 'number'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreArcRotateCameraInputsManager' property (not coded) BabylonjsCoreArcRotateCamera.inputs.
-        // BabylonjsCoreArcRotateCamera.keysDown (number[]) (just length - missing loop + indexOf comparison):
-        if (newProps.keysDown && (!oldProps.keysDown || oldProps.keysDown.length !== newProps.keysDown.length)) {
-            updates.push({
-                propertyName: 'keysDown',
-                value: newProps.keysDown,
-                type: 'number[]'
-            });
-        }
-        // BabylonjsCoreArcRotateCamera.keysLeft (number[]) (just length - missing loop + indexOf comparison):
-        if (newProps.keysLeft && (!oldProps.keysLeft || oldProps.keysLeft.length !== newProps.keysLeft.length)) {
-            updates.push({
-                propertyName: 'keysLeft',
-                value: newProps.keysLeft,
-                type: 'number[]'
-            });
-        }
-        // BabylonjsCoreArcRotateCamera.keysRight (number[]) (just length - missing loop + indexOf comparison):
-        if (newProps.keysRight && (!oldProps.keysRight || oldProps.keysRight.length !== newProps.keysRight.length)) {
-            updates.push({
-                propertyName: 'keysRight',
-                value: newProps.keysRight,
-                type: 'number[]'
-            });
-        }
-        // BabylonjsCoreArcRotateCamera.keysUp (number[]) (just length - missing loop + indexOf comparison):
-        if (newProps.keysUp && (!oldProps.keysUp || oldProps.keysUp.length !== newProps.keysUp.length)) {
-            updates.push({
-                propertyName: 'keysUp',
-                value: newProps.keysUp,
-                type: 'number[]'
-            });
-        }
-        // BabylonjsCoreArcRotateCamera.lowerAlphaLimit (number):
-        if (oldProps.lowerAlphaLimit !== newProps.lowerAlphaLimit) {
-            updates.push({
-                propertyName: 'lowerAlphaLimit',
-                value: newProps.lowerAlphaLimit,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreArcRotateCamera.lowerBetaLimit (number):
-        if (oldProps.lowerBetaLimit !== newProps.lowerBetaLimit) {
-            updates.push({
-                propertyName: 'lowerBetaLimit',
-                value: newProps.lowerBetaLimit,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreArcRotateCamera.lowerRadiusLimit (number):
-        if (oldProps.lowerRadiusLimit !== newProps.lowerRadiusLimit) {
-            updates.push({
-                propertyName: 'lowerRadiusLimit',
-                value: newProps.lowerRadiusLimit,
-                type: 'number'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreArcRotateCamera.onCollide of type '(collidedMesh: BabylonjsCoreAbstractMesh) => void/fn':
-        if (oldProps.onCollide === undefined && oldProps.onCollide !== newProps.onCollide) {
-            updates.push({
-                propertyName: 'onCollide',
-                value: newProps.onCollide,
-                type: '(collidedMesh: BabylonjsCoreAbstractMesh) => void'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreArcRotateCamera.onMeshTargetChangedObservable of type 'BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>/fn':
-        if (oldProps.onMeshTargetChangedObservable === undefined && oldProps.onMeshTargetChangedObservable !== newProps.onMeshTargetChangedObservable) {
-            updates.push({
-                propertyName: 'onMeshTargetChangedObservable',
-                value: newProps.onMeshTargetChangedObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>'
-            });
-        }
-        // BabylonjsCoreArcRotateCamera.panningAxis (BabylonjsCoreVector3 uses object equals to find diffs):
-        if (newProps.panningAxis && (!oldProps.panningAxis || !oldProps.panningAxis.equals(newProps.panningAxis))) {
-            updates.push({
-                propertyName: 'panningAxis',
-                value: newProps.panningAxis,
-                type: 'BabylonjsCoreVector3'
-            });
-        }
-        // BabylonjsCoreArcRotateCamera.panningDistanceLimit (number):
-        if (oldProps.panningDistanceLimit !== newProps.panningDistanceLimit) {
-            updates.push({
-                propertyName: 'panningDistanceLimit',
-                value: newProps.panningDistanceLimit,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreArcRotateCamera.panningInertia (number):
-        if (oldProps.panningInertia !== newProps.panningInertia) {
-            updates.push({
-                propertyName: 'panningInertia',
-                value: newProps.panningInertia,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreArcRotateCamera.panningOriginTarget (BabylonjsCoreVector3 uses object equals to find diffs):
-        if (newProps.panningOriginTarget && (!oldProps.panningOriginTarget || !oldProps.panningOriginTarget.equals(newProps.panningOriginTarget))) {
-            updates.push({
-                propertyName: 'panningOriginTarget',
-                value: newProps.panningOriginTarget,
-                type: 'BabylonjsCoreVector3'
-            });
-        }
-        // BabylonjsCoreArcRotateCamera.panningSensibility (number):
-        if (oldProps.panningSensibility !== newProps.panningSensibility) {
-            updates.push({
-                propertyName: 'panningSensibility',
-                value: newProps.panningSensibility,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreArcRotateCamera.pinchDeltaPercentage (number):
-        if (oldProps.pinchDeltaPercentage !== newProps.pinchDeltaPercentage) {
-            updates.push({
-                propertyName: 'pinchDeltaPercentage',
-                value: newProps.pinchDeltaPercentage,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreArcRotateCamera.pinchPrecision (number):
-        if (oldProps.pinchPrecision !== newProps.pinchPrecision) {
-            updates.push({
-                propertyName: 'pinchPrecision',
-                value: newProps.pinchPrecision,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreArcRotateCamera.pinchToPanMaxDistance (number):
-        if (oldProps.pinchToPanMaxDistance !== newProps.pinchToPanMaxDistance) {
-            updates.push({
-                propertyName: 'pinchToPanMaxDistance',
-                value: newProps.pinchToPanMaxDistance,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreArcRotateCamera.position (BabylonjsCoreVector3 uses object equals to find diffs):
-        if (newProps.position && (!oldProps.position || !oldProps.position.equals(newProps.position))) {
-            updates.push({
-                propertyName: 'position',
-                value: newProps.position,
-                type: 'BabylonjsCoreVector3'
-            });
-        }
-        // BabylonjsCoreArcRotateCamera.radius (number):
-        if (oldProps.radius !== newProps.radius) {
-            updates.push({
-                propertyName: 'radius',
-                value: newProps.radius,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreArcRotateCamera.target (BabylonjsCoreVector3 uses object equals to find diffs):
-        if (newProps.target && (!oldProps.target || !oldProps.target.equals(newProps.target))) {
-            updates.push({
-                propertyName: 'target',
-                value: newProps.target,
-                type: 'BabylonjsCoreVector3'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreVector2' property (not coded) BabylonjsCoreArcRotateCamera.targetScreenOffset.
-        // BabylonjsCoreArcRotateCamera.upperAlphaLimit (number):
-        if (oldProps.upperAlphaLimit !== newProps.upperAlphaLimit) {
-            updates.push({
-                propertyName: 'upperAlphaLimit',
-                value: newProps.upperAlphaLimit,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreArcRotateCamera.upperBetaLimit (number):
-        if (oldProps.upperBetaLimit !== newProps.upperBetaLimit) {
-            updates.push({
-                propertyName: 'upperBetaLimit',
-                value: newProps.upperBetaLimit,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreArcRotateCamera.upperRadiusLimit (number):
-        if (oldProps.upperRadiusLimit !== newProps.upperRadiusLimit) {
-            updates.push({
-                propertyName: 'upperRadiusLimit',
-                value: newProps.upperRadiusLimit,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreArcRotateCamera.upVector (BabylonjsCoreVector3 uses object equals to find diffs):
-        if (newProps.upVector && (!oldProps.upVector || !oldProps.upVector.equals(newProps.upVector))) {
-            updates.push({
-                propertyName: 'upVector',
-                value: newProps.upVector,
-                type: 'BabylonjsCoreVector3'
-            });
-        }
-        // BabylonjsCoreArcRotateCamera.useAutoRotationBehavior (boolean):
-        if (oldProps.useAutoRotationBehavior !== newProps.useAutoRotationBehavior) {
-            updates.push({
-                propertyName: 'useAutoRotationBehavior',
-                value: newProps.useAutoRotationBehavior,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreArcRotateCamera.useBouncingBehavior (boolean):
-        if (oldProps.useBouncingBehavior !== newProps.useBouncingBehavior) {
-            updates.push({
-                propertyName: 'useBouncingBehavior',
-                value: newProps.useBouncingBehavior,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreArcRotateCamera.useFramingBehavior (boolean):
-        if (oldProps.useFramingBehavior !== newProps.useFramingBehavior) {
-            updates.push({
-                propertyName: 'useFramingBehavior',
-                value: newProps.useFramingBehavior,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreArcRotateCamera.useInputToRestoreState (boolean):
-        if (oldProps.useInputToRestoreState !== newProps.useInputToRestoreState) {
-            updates.push({
-                propertyName: 'useInputToRestoreState',
-                value: newProps.useInputToRestoreState,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreArcRotateCamera.useNaturalPinchZoom (boolean):
-        if (oldProps.useNaturalPinchZoom !== newProps.useNaturalPinchZoom) {
-            updates.push({
-                propertyName: 'useNaturalPinchZoom',
-                value: newProps.useNaturalPinchZoom,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreArcRotateCamera.wheelDeltaPercentage (number):
-        if (oldProps.wheelDeltaPercentage !== newProps.wheelDeltaPercentage) {
-            updates.push({
-                propertyName: 'wheelDeltaPercentage',
-                value: newProps.wheelDeltaPercentage,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreArcRotateCamera.wheelPrecision (number):
-        if (oldProps.wheelPrecision !== newProps.wheelPrecision) {
-            updates.push({
-                propertyName: 'wheelPrecision',
-                value: newProps.wheelPrecision,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreArcRotateCamera.zoomOnFactor (number):
-        if (oldProps.zoomOnFactor !== newProps.zoomOnFactor) {
-            updates.push({
-                propertyName: 'zoomOnFactor',
-                value: newProps.zoomOnFactor,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreArcRotateCamera.setPosition of type '(position?: BabylonjsCoreVector3) => void':
-        if (oldProps.setPosition !== newProps.setPosition) {
-            updates.push({
-                propertyName: 'setPosition',
-                value: newProps.setPosition,
-                type: '(position?: BabylonjsCoreVector3) => void'
-            });
-        }
-        // BabylonjsCoreArcRotateCamera.setTarget of type '(target?: BabylonjsCoreAbstractMesh | BabylonjsCoreVector3, toBoundingCenter?: boolean, allowSamePosition?: boolean) => void':
-        if (oldProps.setTarget !== newProps.setTarget) {
-            updates.push({
-                propertyName: 'setTarget',
-                value: newProps.setTarget,
-                type: '(target?: BabylonjsCoreAbstractMesh | BabylonjsCoreVector3, toBoundingCenter?: boolean, allowSamePosition?: boolean) => void'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberArcRotateCameraPropsHandler implements PropsHandler<FiberArcRotateCameraProps> {
+    getPropertyUpdates(oldProps: FiberArcRotateCameraProps, newProps: FiberArcRotateCameraProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.allowUpsideDown, newProps.allowUpsideDown, 'allowUpsideDown', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.alpha, newProps.alpha, 'alpha', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.angularSensibilityX, newProps.angularSensibilityX, 'angularSensibilityX', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.angularSensibilityY, newProps.angularSensibilityY, 'angularSensibilityY', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.beta, newProps.beta, 'beta', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.checkCollisions, newProps.checkCollisions, 'checkCollisions', 'boolean', changedProps)
+        checkVector3Diff(oldProps.collisionRadius, newProps.collisionRadius, 'collisionRadius', 'BabylonjsCoreVector3', changedProps)
+        checkPrimitiveDiff(oldProps.inertialAlphaOffset, newProps.inertialAlphaOffset, 'inertialAlphaOffset', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.inertialBetaOffset, newProps.inertialBetaOffset, 'inertialBetaOffset', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.inertialPanningX, newProps.inertialPanningX, 'inertialPanningX', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.inertialPanningY, newProps.inertialPanningY, 'inertialPanningY', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.inertialRadiusOffset, newProps.inertialRadiusOffset, 'inertialRadiusOffset', 'number', changedProps)
+        // type: 'BabylonjsCoreArcRotateCameraInputsManager' property (not coded) BabylonjsCoreArcRotateCamera.inputs.
+        checkNumericArrayDiff(oldProps.keysDown, newProps.keysDown, 'keysDown', 'number[]', changedProps)
+        checkNumericArrayDiff(oldProps.keysLeft, newProps.keysLeft, 'keysLeft', 'number[]', changedProps)
+        checkNumericArrayDiff(oldProps.keysRight, newProps.keysRight, 'keysRight', 'number[]', changedProps)
+        checkNumericArrayDiff(oldProps.keysUp, newProps.keysUp, 'keysUp', 'number[]', changedProps)
+        checkPrimitiveDiff(oldProps.lowerAlphaLimit, newProps.lowerAlphaLimit, 'lowerAlphaLimit', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.lowerBetaLimit, newProps.lowerBetaLimit, 'lowerBetaLimit', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.lowerRadiusLimit, newProps.lowerRadiusLimit, 'lowerRadiusLimit', 'number', changedProps)
+        checkLambdaDiff(oldProps.onCollide, newProps.onCollide, 'onCollide', '(collidedMesh: BabylonjsCoreAbstractMesh) => void', changedProps)
+        checkObservableDiff(oldProps.onMeshTargetChangedObservable, newProps.onMeshTargetChangedObservable, 'onMeshTargetChangedObservable', 'BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>', changedProps)
+        checkVector3Diff(oldProps.panningAxis, newProps.panningAxis, 'panningAxis', 'BabylonjsCoreVector3', changedProps)
+        checkPrimitiveDiff(oldProps.panningDistanceLimit, newProps.panningDistanceLimit, 'panningDistanceLimit', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.panningInertia, newProps.panningInertia, 'panningInertia', 'number', changedProps)
+        checkVector3Diff(oldProps.panningOriginTarget, newProps.panningOriginTarget, 'panningOriginTarget', 'BabylonjsCoreVector3', changedProps)
+        checkPrimitiveDiff(oldProps.panningSensibility, newProps.panningSensibility, 'panningSensibility', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.pinchDeltaPercentage, newProps.pinchDeltaPercentage, 'pinchDeltaPercentage', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.pinchPrecision, newProps.pinchPrecision, 'pinchPrecision', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.pinchToPanMaxDistance, newProps.pinchToPanMaxDistance, 'pinchToPanMaxDistance', 'number', changedProps)
+        checkVector3Diff(oldProps.position, newProps.position, 'position', 'BabylonjsCoreVector3', changedProps)
+        checkPrimitiveDiff(oldProps.radius, newProps.radius, 'radius', 'number', changedProps)
+        checkVector3Diff(oldProps.target, newProps.target, 'target', 'BabylonjsCoreVector3', changedProps)
+        // type: 'BabylonjsCoreVector2' property (not coded) BabylonjsCoreArcRotateCamera.targetScreenOffset.
+        checkPrimitiveDiff(oldProps.upperAlphaLimit, newProps.upperAlphaLimit, 'upperAlphaLimit', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.upperBetaLimit, newProps.upperBetaLimit, 'upperBetaLimit', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.upperRadiusLimit, newProps.upperRadiusLimit, 'upperRadiusLimit', 'number', changedProps)
+        checkVector3Diff(oldProps.upVector, newProps.upVector, 'upVector', 'BabylonjsCoreVector3', changedProps)
+        checkPrimitiveDiff(oldProps.useAutoRotationBehavior, newProps.useAutoRotationBehavior, 'useAutoRotationBehavior', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.useBouncingBehavior, newProps.useBouncingBehavior, 'useBouncingBehavior', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.useFramingBehavior, newProps.useFramingBehavior, 'useFramingBehavior', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.useInputToRestoreState, newProps.useInputToRestoreState, 'useInputToRestoreState', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.useNaturalPinchZoom, newProps.useNaturalPinchZoom, 'useNaturalPinchZoom', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.wheelDeltaPercentage, newProps.wheelDeltaPercentage, 'wheelDeltaPercentage', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.wheelPrecision, newProps.wheelPrecision, 'wheelPrecision', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.zoomOnFactor, newProps.zoomOnFactor, 'zoomOnFactor', 'number', changedProps)
+        checkMethodDiff(oldProps.setPosition, newProps.setPosition, 'setPosition', '(position?: BabylonjsCoreVector3) => void', changedProps)
+        checkMethodDiff(oldProps.setTarget, newProps.setTarget, 'setTarget', '(target?: BabylonjsCoreAbstractMesh | BabylonjsCoreVector3, toBoundingCenter?: boolean, allowSamePosition?: boolean) => void', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -3275,9 +1912,9 @@ export class FiberArcRotateCameraPropsHandler implements PropsHandler<BabylonjsC
  *
  * This code has been generated
  */
-export class FiberArcRotateCamera implements HasPropsHandlers<BabylonjsCoreCamera, FiberCameraProps> {
+export class FiberArcRotateCamera implements HasPropsHandlers<FiberCameraProps> {
     public readonly isTargetable = true;
-    private propsHandlers: PropsHandler<BabylonjsCoreCamera, FiberCameraProps>[];
+    private propsHandlers: PropsHandler<FiberCameraProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -3288,11 +1925,11 @@ export class FiberArcRotateCamera implements HasPropsHandlers<BabylonjsCoreCamer
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreCamera, FiberCameraProps>[] {
+    getPropsHandlers(): PropsHandler<FiberCameraProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreCamera, FiberCameraProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberCameraProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -3345,11 +1982,9 @@ export class FiberArcRotateCamera implements HasPropsHandlers<BabylonjsCoreCamer
     };
 }
 
-export class FiberAnaglyphArcRotateCameraPropsHandler implements PropsHandler<BabylonjsCoreAnaglyphArcRotateCamera, FiberAnaglyphArcRotateCameraProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreAnaglyphArcRotateCamera, oldProps: FiberAnaglyphArcRotateCameraProps, newProps: FiberAnaglyphArcRotateCameraProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        return updates.length === 0 ? null : updates;
+export class FiberAnaglyphArcRotateCameraPropsHandler implements PropsHandler<FiberAnaglyphArcRotateCameraProps> {
+    getPropertyUpdates(oldProps: FiberAnaglyphArcRotateCameraProps, newProps: FiberAnaglyphArcRotateCameraProps): PropertyUpdate[] | null {
+        return null; // no props to check
     }
 }
 
@@ -3358,9 +1993,9 @@ export class FiberAnaglyphArcRotateCameraPropsHandler implements PropsHandler<Ba
  *
  * This code has been generated
  */
-export class FiberAnaglyphArcRotateCamera implements HasPropsHandlers<BabylonjsCoreCamera, FiberCameraProps> {
+export class FiberAnaglyphArcRotateCamera implements HasPropsHandlers<FiberCameraProps> {
     public readonly isTargetable = true;
-    private propsHandlers: PropsHandler<BabylonjsCoreCamera, FiberCameraProps>[];
+    private propsHandlers: PropsHandler<FiberCameraProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -3372,11 +2007,11 @@ export class FiberAnaglyphArcRotateCamera implements HasPropsHandlers<BabylonjsC
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreCamera, FiberCameraProps>[] {
+    getPropsHandlers(): PropsHandler<FiberCameraProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreCamera, FiberCameraProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberCameraProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -3429,11 +2064,9 @@ export class FiberAnaglyphArcRotateCamera implements HasPropsHandlers<BabylonjsC
     };
 }
 
-export class FiberStereoscopicArcRotateCameraPropsHandler implements PropsHandler<BabylonjsCoreStereoscopicArcRotateCamera, FiberStereoscopicArcRotateCameraProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreStereoscopicArcRotateCamera, oldProps: FiberStereoscopicArcRotateCameraProps, newProps: FiberStereoscopicArcRotateCameraProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        return updates.length === 0 ? null : updates;
+export class FiberStereoscopicArcRotateCameraPropsHandler implements PropsHandler<FiberStereoscopicArcRotateCameraProps> {
+    getPropertyUpdates(oldProps: FiberStereoscopicArcRotateCameraProps, newProps: FiberStereoscopicArcRotateCameraProps): PropertyUpdate[] | null {
+        return null; // no props to check
     }
 }
 
@@ -3442,9 +2075,9 @@ export class FiberStereoscopicArcRotateCameraPropsHandler implements PropsHandle
  *
  * This code has been generated
  */
-export class FiberStereoscopicArcRotateCamera implements HasPropsHandlers<BabylonjsCoreCamera, FiberCameraProps> {
+export class FiberStereoscopicArcRotateCamera implements HasPropsHandlers<FiberCameraProps> {
     public readonly isTargetable = true;
-    private propsHandlers: PropsHandler<BabylonjsCoreCamera, FiberCameraProps>[];
+    private propsHandlers: PropsHandler<FiberCameraProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -3456,11 +2089,11 @@ export class FiberStereoscopicArcRotateCamera implements HasPropsHandlers<Babylo
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreCamera, FiberCameraProps>[] {
+    getPropsHandlers(): PropsHandler<FiberCameraProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreCamera, FiberCameraProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberCameraProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -3518,11 +2151,9 @@ export class FiberStereoscopicArcRotateCamera implements HasPropsHandlers<Babylo
     };
 }
 
-export class FiberVRDeviceOrientationArcRotateCameraPropsHandler implements PropsHandler<BabylonjsCoreVRDeviceOrientationArcRotateCamera, FiberVRDeviceOrientationArcRotateCameraProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreVRDeviceOrientationArcRotateCamera, oldProps: FiberVRDeviceOrientationArcRotateCameraProps, newProps: FiberVRDeviceOrientationArcRotateCameraProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        return updates.length === 0 ? null : updates;
+export class FiberVRDeviceOrientationArcRotateCameraPropsHandler implements PropsHandler<FiberVRDeviceOrientationArcRotateCameraProps> {
+    getPropertyUpdates(oldProps: FiberVRDeviceOrientationArcRotateCameraProps, newProps: FiberVRDeviceOrientationArcRotateCameraProps): PropertyUpdate[] | null {
+        return null; // no props to check
     }
 }
 
@@ -3531,9 +2162,9 @@ export class FiberVRDeviceOrientationArcRotateCameraPropsHandler implements Prop
  *
  * This code has been generated
  */
-export class FiberVRDeviceOrientationArcRotateCamera implements HasPropsHandlers<BabylonjsCoreCamera, FiberCameraProps> {
+export class FiberVRDeviceOrientationArcRotateCamera implements HasPropsHandlers<FiberCameraProps> {
     public readonly isTargetable = true;
-    private propsHandlers: PropsHandler<BabylonjsCoreCamera, FiberCameraProps>[];
+    private propsHandlers: PropsHandler<FiberCameraProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -3545,11 +2176,11 @@ export class FiberVRDeviceOrientationArcRotateCamera implements HasPropsHandlers
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreCamera, FiberCameraProps>[] {
+    getPropsHandlers(): PropsHandler<FiberCameraProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreCamera, FiberCameraProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberCameraProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -3607,157 +2238,30 @@ export class FiberVRDeviceOrientationArcRotateCamera implements HasPropsHandlers
     };
 }
 
-export class FiberFlyCameraPropsHandler implements PropsHandler<BabylonjsCoreFlyCamera, FiberFlyCameraProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreFlyCamera, oldProps: FiberFlyCameraProps, newProps: FiberFlyCameraProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsCoreFlyCamera.angularSensibility (number):
-        if (oldProps.angularSensibility !== newProps.angularSensibility) {
-            updates.push({
-                propertyName: 'angularSensibility',
-                value: newProps.angularSensibility,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreFlyCamera.applyGravity (boolean):
-        if (oldProps.applyGravity !== newProps.applyGravity) {
-            updates.push({
-                propertyName: 'applyGravity',
-                value: newProps.applyGravity,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreFlyCamera.bankedTurn (boolean):
-        if (oldProps.bankedTurn !== newProps.bankedTurn) {
-            updates.push({
-                propertyName: 'bankedTurn',
-                value: newProps.bankedTurn,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreFlyCamera.bankedTurnLimit (number):
-        if (oldProps.bankedTurnLimit !== newProps.bankedTurnLimit) {
-            updates.push({
-                propertyName: 'bankedTurnLimit',
-                value: newProps.bankedTurnLimit,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreFlyCamera.bankedTurnMultiplier (number):
-        if (oldProps.bankedTurnMultiplier !== newProps.bankedTurnMultiplier) {
-            updates.push({
-                propertyName: 'bankedTurnMultiplier',
-                value: newProps.bankedTurnMultiplier,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreFlyCamera.cameraDirection (BabylonjsCoreVector3 uses object equals to find diffs):
-        if (newProps.cameraDirection && (!oldProps.cameraDirection || !oldProps.cameraDirection.equals(newProps.cameraDirection))) {
-            updates.push({
-                propertyName: 'cameraDirection',
-                value: newProps.cameraDirection,
-                type: 'BabylonjsCoreVector3'
-            });
-        }
-        // BabylonjsCoreFlyCamera.checkCollisions (boolean):
-        if (oldProps.checkCollisions !== newProps.checkCollisions) {
-            updates.push({
-                propertyName: 'checkCollisions',
-                value: newProps.checkCollisions,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreFlyCamera.collisionMask (number):
-        if (oldProps.collisionMask !== newProps.collisionMask) {
-            updates.push({
-                propertyName: 'collisionMask',
-                value: newProps.collisionMask,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreFlyCamera.ellipsoid (BabylonjsCoreVector3 uses object equals to find diffs):
-        if (newProps.ellipsoid && (!oldProps.ellipsoid || !oldProps.ellipsoid.equals(newProps.ellipsoid))) {
-            updates.push({
-                propertyName: 'ellipsoid',
-                value: newProps.ellipsoid,
-                type: 'BabylonjsCoreVector3'
-            });
-        }
-        // BabylonjsCoreFlyCamera.ellipsoidOffset (BabylonjsCoreVector3 uses object equals to find diffs):
-        if (newProps.ellipsoidOffset && (!oldProps.ellipsoidOffset || !oldProps.ellipsoidOffset.equals(newProps.ellipsoidOffset))) {
-            updates.push({
-                propertyName: 'ellipsoidOffset',
-                value: newProps.ellipsoidOffset,
-                type: 'BabylonjsCoreVector3'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreFlyCameraInputsManager' property (not coded) BabylonjsCoreFlyCamera.inputs.
-        // BabylonjsCoreFlyCamera.keysBackward (number[]) (just length - missing loop + indexOf comparison):
-        if (newProps.keysBackward && (!oldProps.keysBackward || oldProps.keysBackward.length !== newProps.keysBackward.length)) {
-            updates.push({
-                propertyName: 'keysBackward',
-                value: newProps.keysBackward,
-                type: 'number[]'
-            });
-        }
-        // BabylonjsCoreFlyCamera.keysDown (number[]) (just length - missing loop + indexOf comparison):
-        if (newProps.keysDown && (!oldProps.keysDown || oldProps.keysDown.length !== newProps.keysDown.length)) {
-            updates.push({
-                propertyName: 'keysDown',
-                value: newProps.keysDown,
-                type: 'number[]'
-            });
-        }
-        // BabylonjsCoreFlyCamera.keysForward (number[]) (just length - missing loop + indexOf comparison):
-        if (newProps.keysForward && (!oldProps.keysForward || oldProps.keysForward.length !== newProps.keysForward.length)) {
-            updates.push({
-                propertyName: 'keysForward',
-                value: newProps.keysForward,
-                type: 'number[]'
-            });
-        }
-        // BabylonjsCoreFlyCamera.keysLeft (number[]) (just length - missing loop + indexOf comparison):
-        if (newProps.keysLeft && (!oldProps.keysLeft || oldProps.keysLeft.length !== newProps.keysLeft.length)) {
-            updates.push({
-                propertyName: 'keysLeft',
-                value: newProps.keysLeft,
-                type: 'number[]'
-            });
-        }
-        // BabylonjsCoreFlyCamera.keysRight (number[]) (just length - missing loop + indexOf comparison):
-        if (newProps.keysRight && (!oldProps.keysRight || oldProps.keysRight.length !== newProps.keysRight.length)) {
-            updates.push({
-                propertyName: 'keysRight',
-                value: newProps.keysRight,
-                type: 'number[]'
-            });
-        }
-        // BabylonjsCoreFlyCamera.keysUp (number[]) (just length - missing loop + indexOf comparison):
-        if (newProps.keysUp && (!oldProps.keysUp || oldProps.keysUp.length !== newProps.keysUp.length)) {
-            updates.push({
-                propertyName: 'keysUp',
-                value: newProps.keysUp,
-                type: 'number[]'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreFlyCamera.onCollide of type '(collidedMesh: BabylonjsCoreAbstractMesh) => void/fn':
-        if (oldProps.onCollide === undefined && oldProps.onCollide !== newProps.onCollide) {
-            updates.push({
-                propertyName: 'onCollide',
-                value: newProps.onCollide,
-                type: '(collidedMesh: BabylonjsCoreAbstractMesh) => void'
-            });
-        }
-        // BabylonjsCoreFlyCamera.rollCorrect (number):
-        if (oldProps.rollCorrect !== newProps.rollCorrect) {
-            updates.push({
-                propertyName: 'rollCorrect',
-                value: newProps.rollCorrect,
-                type: 'number'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreQuaternion' property (not coded) BabylonjsCoreFlyCamera.rotationQuaternion.
-        return updates.length === 0 ? null : updates;
+export class FiberFlyCameraPropsHandler implements PropsHandler<FiberFlyCameraProps> {
+    getPropertyUpdates(oldProps: FiberFlyCameraProps, newProps: FiberFlyCameraProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.angularSensibility, newProps.angularSensibility, 'angularSensibility', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.applyGravity, newProps.applyGravity, 'applyGravity', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.bankedTurn, newProps.bankedTurn, 'bankedTurn', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.bankedTurnLimit, newProps.bankedTurnLimit, 'bankedTurnLimit', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.bankedTurnMultiplier, newProps.bankedTurnMultiplier, 'bankedTurnMultiplier', 'number', changedProps)
+        checkVector3Diff(oldProps.cameraDirection, newProps.cameraDirection, 'cameraDirection', 'BabylonjsCoreVector3', changedProps)
+        checkPrimitiveDiff(oldProps.checkCollisions, newProps.checkCollisions, 'checkCollisions', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.collisionMask, newProps.collisionMask, 'collisionMask', 'number', changedProps)
+        checkVector3Diff(oldProps.ellipsoid, newProps.ellipsoid, 'ellipsoid', 'BabylonjsCoreVector3', changedProps)
+        checkVector3Diff(oldProps.ellipsoidOffset, newProps.ellipsoidOffset, 'ellipsoidOffset', 'BabylonjsCoreVector3', changedProps)
+        // type: 'BabylonjsCoreFlyCameraInputsManager' property (not coded) BabylonjsCoreFlyCamera.inputs.
+        checkNumericArrayDiff(oldProps.keysBackward, newProps.keysBackward, 'keysBackward', 'number[]', changedProps)
+        checkNumericArrayDiff(oldProps.keysDown, newProps.keysDown, 'keysDown', 'number[]', changedProps)
+        checkNumericArrayDiff(oldProps.keysForward, newProps.keysForward, 'keysForward', 'number[]', changedProps)
+        checkNumericArrayDiff(oldProps.keysLeft, newProps.keysLeft, 'keysLeft', 'number[]', changedProps)
+        checkNumericArrayDiff(oldProps.keysRight, newProps.keysRight, 'keysRight', 'number[]', changedProps)
+        checkNumericArrayDiff(oldProps.keysUp, newProps.keysUp, 'keysUp', 'number[]', changedProps)
+        checkLambdaDiff(oldProps.onCollide, newProps.onCollide, 'onCollide', '(collidedMesh: BabylonjsCoreAbstractMesh) => void', changedProps)
+        checkPrimitiveDiff(oldProps.rollCorrect, newProps.rollCorrect, 'rollCorrect', 'number', changedProps)
+        // type: 'BabylonjsCoreQuaternion' property (not coded) BabylonjsCoreFlyCamera.rotationQuaternion.
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -3767,9 +2271,9 @@ export class FiberFlyCameraPropsHandler implements PropsHandler<BabylonjsCoreFly
  *
  * This code has been generated
  */
-export class FiberFlyCamera implements HasPropsHandlers<BabylonjsCoreCamera, FiberCameraProps> {
+export class FiberFlyCamera implements HasPropsHandlers<FiberCameraProps> {
     public readonly isTargetable = true;
-    private propsHandlers: PropsHandler<BabylonjsCoreCamera, FiberCameraProps>[];
+    private propsHandlers: PropsHandler<FiberCameraProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -3780,11 +2284,11 @@ export class FiberFlyCamera implements HasPropsHandlers<BabylonjsCoreCamera, Fib
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreCamera, FiberCameraProps>[] {
+    getPropsHandlers(): PropsHandler<FiberCameraProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreCamera, FiberCameraProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberCameraProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -3822,101 +2326,23 @@ export class FiberFlyCamera implements HasPropsHandlers<BabylonjsCoreCamera, Fib
     };
 }
 
-export class FiberFollowCameraPropsHandler implements PropsHandler<BabylonjsCoreFollowCamera, FiberFollowCameraProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreFollowCamera, oldProps: FiberFollowCameraProps, newProps: FiberFollowCameraProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsCoreFollowCamera.cameraAcceleration (number):
-        if (oldProps.cameraAcceleration !== newProps.cameraAcceleration) {
-            updates.push({
-                propertyName: 'cameraAcceleration',
-                value: newProps.cameraAcceleration,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreFollowCamera.heightOffset (number):
-        if (oldProps.heightOffset !== newProps.heightOffset) {
-            updates.push({
-                propertyName: 'heightOffset',
-                value: newProps.heightOffset,
-                type: 'number'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreFollowCameraInputsManager' property (not coded) BabylonjsCoreFollowCamera.inputs.
-        // TODO: type: 'BabylonjsCoreAbstractMesh' property (not coded) BabylonjsCoreFollowCamera.lockedTarget.
-        // BabylonjsCoreFollowCamera.lowerHeightOffsetLimit (number):
-        if (oldProps.lowerHeightOffsetLimit !== newProps.lowerHeightOffsetLimit) {
-            updates.push({
-                propertyName: 'lowerHeightOffsetLimit',
-                value: newProps.lowerHeightOffsetLimit,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreFollowCamera.lowerRadiusLimit (number):
-        if (oldProps.lowerRadiusLimit !== newProps.lowerRadiusLimit) {
-            updates.push({
-                propertyName: 'lowerRadiusLimit',
-                value: newProps.lowerRadiusLimit,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreFollowCamera.lowerRotationOffsetLimit (number):
-        if (oldProps.lowerRotationOffsetLimit !== newProps.lowerRotationOffsetLimit) {
-            updates.push({
-                propertyName: 'lowerRotationOffsetLimit',
-                value: newProps.lowerRotationOffsetLimit,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreFollowCamera.maxCameraSpeed (number):
-        if (oldProps.maxCameraSpeed !== newProps.maxCameraSpeed) {
-            updates.push({
-                propertyName: 'maxCameraSpeed',
-                value: newProps.maxCameraSpeed,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreFollowCamera.radius (number):
-        if (oldProps.radius !== newProps.radius) {
-            updates.push({
-                propertyName: 'radius',
-                value: newProps.radius,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreFollowCamera.rotationOffset (number):
-        if (oldProps.rotationOffset !== newProps.rotationOffset) {
-            updates.push({
-                propertyName: 'rotationOffset',
-                value: newProps.rotationOffset,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreFollowCamera.upperHeightOffsetLimit (number):
-        if (oldProps.upperHeightOffsetLimit !== newProps.upperHeightOffsetLimit) {
-            updates.push({
-                propertyName: 'upperHeightOffsetLimit',
-                value: newProps.upperHeightOffsetLimit,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreFollowCamera.upperRadiusLimit (number):
-        if (oldProps.upperRadiusLimit !== newProps.upperRadiusLimit) {
-            updates.push({
-                propertyName: 'upperRadiusLimit',
-                value: newProps.upperRadiusLimit,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreFollowCamera.upperRotationOffsetLimit (number):
-        if (oldProps.upperRotationOffsetLimit !== newProps.upperRotationOffsetLimit) {
-            updates.push({
-                propertyName: 'upperRotationOffsetLimit',
-                value: newProps.upperRotationOffsetLimit,
-                type: 'number'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberFollowCameraPropsHandler implements PropsHandler<FiberFollowCameraProps> {
+    getPropertyUpdates(oldProps: FiberFollowCameraProps, newProps: FiberFollowCameraProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.cameraAcceleration, newProps.cameraAcceleration, 'cameraAcceleration', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.heightOffset, newProps.heightOffset, 'heightOffset', 'number', changedProps)
+        // type: 'BabylonjsCoreFollowCameraInputsManager' property (not coded) BabylonjsCoreFollowCamera.inputs.
+        // type: 'BabylonjsCoreAbstractMesh' property (not coded) BabylonjsCoreFollowCamera.lockedTarget.
+        checkPrimitiveDiff(oldProps.lowerHeightOffsetLimit, newProps.lowerHeightOffsetLimit, 'lowerHeightOffsetLimit', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.lowerRadiusLimit, newProps.lowerRadiusLimit, 'lowerRadiusLimit', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.lowerRotationOffsetLimit, newProps.lowerRotationOffsetLimit, 'lowerRotationOffsetLimit', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.maxCameraSpeed, newProps.maxCameraSpeed, 'maxCameraSpeed', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.radius, newProps.radius, 'radius', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.rotationOffset, newProps.rotationOffset, 'rotationOffset', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.upperHeightOffsetLimit, newProps.upperHeightOffsetLimit, 'upperHeightOffsetLimit', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.upperRadiusLimit, newProps.upperRadiusLimit, 'upperRadiusLimit', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.upperRotationOffsetLimit, newProps.upperRotationOffsetLimit, 'upperRotationOffsetLimit', 'number', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -3926,9 +2352,9 @@ export class FiberFollowCameraPropsHandler implements PropsHandler<BabylonjsCore
  *
  * This code has been generated
  */
-export class FiberFollowCamera implements HasPropsHandlers<BabylonjsCoreCamera, FiberCameraProps> {
+export class FiberFollowCamera implements HasPropsHandlers<FiberCameraProps> {
     public readonly isTargetable = true;
-    private propsHandlers: PropsHandler<BabylonjsCoreCamera, FiberCameraProps>[];
+    private propsHandlers: PropsHandler<FiberCameraProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -3939,11 +2365,11 @@ export class FiberFollowCamera implements HasPropsHandlers<BabylonjsCoreCamera, 
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreCamera, FiberCameraProps>[] {
+    getPropsHandlers(): PropsHandler<FiberCameraProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreCamera, FiberCameraProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberCameraProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -3981,36 +2407,14 @@ export class FiberFollowCamera implements HasPropsHandlers<BabylonjsCoreCamera, 
     };
 }
 
-export class FiberArcFollowCameraPropsHandler implements PropsHandler<BabylonjsCoreArcFollowCamera, FiberArcFollowCameraProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreArcFollowCamera, oldProps: FiberArcFollowCameraProps, newProps: FiberArcFollowCameraProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsCoreArcFollowCamera.alpha (number):
-        if (oldProps.alpha !== newProps.alpha) {
-            updates.push({
-                propertyName: 'alpha',
-                value: newProps.alpha,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreArcFollowCamera.beta (number):
-        if (oldProps.beta !== newProps.beta) {
-            updates.push({
-                propertyName: 'beta',
-                value: newProps.beta,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreArcFollowCamera.radius (number):
-        if (oldProps.radius !== newProps.radius) {
-            updates.push({
-                propertyName: 'radius',
-                value: newProps.radius,
-                type: 'number'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreAbstractMesh' property (not coded) BabylonjsCoreArcFollowCamera.target.
-        return updates.length === 0 ? null : updates;
+export class FiberArcFollowCameraPropsHandler implements PropsHandler<FiberArcFollowCameraProps> {
+    getPropertyUpdates(oldProps: FiberArcFollowCameraProps, newProps: FiberArcFollowCameraProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.alpha, newProps.alpha, 'alpha', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.beta, newProps.beta, 'beta', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.radius, newProps.radius, 'radius', 'number', changedProps)
+        // type: 'BabylonjsCoreAbstractMesh' property (not coded) BabylonjsCoreArcFollowCamera.target.
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -4020,9 +2424,9 @@ export class FiberArcFollowCameraPropsHandler implements PropsHandler<BabylonjsC
  *
  * This code has been generated
  */
-export class FiberArcFollowCamera implements HasPropsHandlers<BabylonjsCoreCamera, FiberCameraProps> {
+export class FiberArcFollowCamera implements HasPropsHandlers<FiberCameraProps> {
     public readonly isTargetable = true;
-    private propsHandlers: PropsHandler<BabylonjsCoreCamera, FiberCameraProps>[];
+    private propsHandlers: PropsHandler<FiberCameraProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -4033,11 +2437,11 @@ export class FiberArcFollowCamera implements HasPropsHandlers<BabylonjsCoreCamer
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreCamera, FiberCameraProps>[] {
+    getPropsHandlers(): PropsHandler<FiberCameraProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreCamera, FiberCameraProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberCameraProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -4097,8 +2501,8 @@ export class FiberArcFollowCamera implements HasPropsHandlers<BabylonjsCoreCamer
  *
  * This code has been generated
  */
-export class FiberBox implements HasPropsHandlers<BabylonjsCoreMesh, FiberMeshProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreMesh, FiberMeshProps>[];
+export class FiberBox implements HasPropsHandlers<FiberMeshProps> {
+    private propsHandlers: PropsHandler<FiberMeshProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -4109,11 +2513,11 @@ export class FiberBox implements HasPropsHandlers<BabylonjsCoreMesh, FiberMeshPr
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreMesh, FiberMeshProps>[] {
+    getPropsHandlers(): PropsHandler<FiberMeshProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreMesh, FiberMeshProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberMeshProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -4205,8 +2609,8 @@ export class FiberBox implements HasPropsHandlers<BabylonjsCoreMesh, FiberMeshPr
  *
  * This code has been generated
  */
-export class FiberTiledBox implements HasPropsHandlers<BabylonjsCoreMesh, FiberMeshProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreMesh, FiberMeshProps>[];
+export class FiberTiledBox implements HasPropsHandlers<FiberMeshProps> {
+    private propsHandlers: PropsHandler<FiberMeshProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -4217,11 +2621,11 @@ export class FiberTiledBox implements HasPropsHandlers<BabylonjsCoreMesh, FiberM
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreMesh, FiberMeshProps>[] {
+    getPropsHandlers(): PropsHandler<FiberMeshProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreMesh, FiberMeshProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberMeshProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -4339,8 +2743,8 @@ export class FiberTiledBox implements HasPropsHandlers<BabylonjsCoreMesh, FiberM
  *
  * This code has been generated
  */
-export class FiberSphere implements HasPropsHandlers<BabylonjsCoreMesh, FiberMeshProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreMesh, FiberMeshProps>[];
+export class FiberSphere implements HasPropsHandlers<FiberMeshProps> {
+    private propsHandlers: PropsHandler<FiberMeshProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -4351,11 +2755,11 @@ export class FiberSphere implements HasPropsHandlers<BabylonjsCoreMesh, FiberMes
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreMesh, FiberMeshProps>[] {
+    getPropsHandlers(): PropsHandler<FiberMeshProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreMesh, FiberMeshProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberMeshProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -4456,8 +2860,8 @@ export class FiberSphere implements HasPropsHandlers<BabylonjsCoreMesh, FiberMes
  *
  * This code has been generated
  */
-export class FiberDisc implements HasPropsHandlers<BabylonjsCoreMesh, FiberMeshProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreMesh, FiberMeshProps>[];
+export class FiberDisc implements HasPropsHandlers<FiberMeshProps> {
+    private propsHandlers: PropsHandler<FiberMeshProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -4468,11 +2872,11 @@ export class FiberDisc implements HasPropsHandlers<BabylonjsCoreMesh, FiberMeshP
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreMesh, FiberMeshProps>[] {
+    getPropsHandlers(): PropsHandler<FiberMeshProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreMesh, FiberMeshProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberMeshProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -4554,8 +2958,8 @@ export class FiberDisc implements HasPropsHandlers<BabylonjsCoreMesh, FiberMeshP
  *
  * This code has been generated
  */
-export class FiberIcoSphere implements HasPropsHandlers<BabylonjsCoreMesh, FiberMeshProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreMesh, FiberMeshProps>[];
+export class FiberIcoSphere implements HasPropsHandlers<FiberMeshProps> {
+    private propsHandlers: PropsHandler<FiberMeshProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -4566,11 +2970,11 @@ export class FiberIcoSphere implements HasPropsHandlers<BabylonjsCoreMesh, Fiber
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreMesh, FiberMeshProps>[] {
+    getPropsHandlers(): PropsHandler<FiberMeshProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreMesh, FiberMeshProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberMeshProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -4674,8 +3078,8 @@ export class FiberIcoSphere implements HasPropsHandlers<BabylonjsCoreMesh, Fiber
  *
  * This code has been generated
  */
-export class FiberRibbon implements HasPropsHandlers<BabylonjsCoreMesh, FiberMeshProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreMesh, FiberMeshProps>[];
+export class FiberRibbon implements HasPropsHandlers<FiberMeshProps> {
+    private propsHandlers: PropsHandler<FiberMeshProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -4686,11 +3090,11 @@ export class FiberRibbon implements HasPropsHandlers<BabylonjsCoreMesh, FiberMes
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreMesh, FiberMeshProps>[] {
+    getPropsHandlers(): PropsHandler<FiberMeshProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreMesh, FiberMeshProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberMeshProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -4810,8 +3214,8 @@ export class FiberRibbon implements HasPropsHandlers<BabylonjsCoreMesh, FiberMes
  *
  * This code has been generated
  */
-export class FiberCylinder implements HasPropsHandlers<BabylonjsCoreMesh, FiberMeshProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreMesh, FiberMeshProps>[];
+export class FiberCylinder implements HasPropsHandlers<FiberMeshProps> {
+    private propsHandlers: PropsHandler<FiberMeshProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -4822,11 +3226,11 @@ export class FiberCylinder implements HasPropsHandlers<BabylonjsCoreMesh, FiberM
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreMesh, FiberMeshProps>[] {
+    getPropsHandlers(): PropsHandler<FiberMeshProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreMesh, FiberMeshProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberMeshProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -4952,8 +3356,8 @@ export class FiberCylinder implements HasPropsHandlers<BabylonjsCoreMesh, FiberM
  *
  * This code has been generated
  */
-export class FiberTorus implements HasPropsHandlers<BabylonjsCoreMesh, FiberMeshProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreMesh, FiberMeshProps>[];
+export class FiberTorus implements HasPropsHandlers<FiberMeshProps> {
+    private propsHandlers: PropsHandler<FiberMeshProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -4964,11 +3368,11 @@ export class FiberTorus implements HasPropsHandlers<BabylonjsCoreMesh, FiberMesh
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreMesh, FiberMeshProps>[] {
+    getPropsHandlers(): PropsHandler<FiberMeshProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreMesh, FiberMeshProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberMeshProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -5050,8 +3454,8 @@ export class FiberTorus implements HasPropsHandlers<BabylonjsCoreMesh, FiberMesh
  *
  * This code has been generated
  */
-export class FiberTorusKnot implements HasPropsHandlers<BabylonjsCoreMesh, FiberMeshProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreMesh, FiberMeshProps>[];
+export class FiberTorusKnot implements HasPropsHandlers<FiberMeshProps> {
+    private propsHandlers: PropsHandler<FiberMeshProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -5062,11 +3466,11 @@ export class FiberTorusKnot implements HasPropsHandlers<BabylonjsCoreMesh, Fiber
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreMesh, FiberMeshProps>[] {
+    getPropsHandlers(): PropsHandler<FiberMeshProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreMesh, FiberMeshProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberMeshProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -5165,8 +3569,8 @@ export class FiberTorusKnot implements HasPropsHandlers<BabylonjsCoreMesh, Fiber
  *
  * This code has been generated
  */
-export class FiberLineSystem implements HasPropsHandlers<BabylonjsCoreMesh, FiberMeshProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreMesh, FiberMeshProps>[];
+export class FiberLineSystem implements HasPropsHandlers<FiberMeshProps> {
+    private propsHandlers: PropsHandler<FiberMeshProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -5177,11 +3581,11 @@ export class FiberLineSystem implements HasPropsHandlers<BabylonjsCoreMesh, Fibe
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreMesh, FiberMeshProps>[] {
+    getPropsHandlers(): PropsHandler<FiberMeshProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreMesh, FiberMeshProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberMeshProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -5254,8 +3658,8 @@ export class FiberLineSystem implements HasPropsHandlers<BabylonjsCoreMesh, Fibe
  *
  * This code has been generated
  */
-export class FiberLines implements HasPropsHandlers<BabylonjsCoreMesh, FiberMeshProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreMesh, FiberMeshProps>[];
+export class FiberLines implements HasPropsHandlers<FiberMeshProps> {
+    private propsHandlers: PropsHandler<FiberMeshProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -5266,11 +3670,11 @@ export class FiberLines implements HasPropsHandlers<BabylonjsCoreMesh, FiberMesh
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreMesh, FiberMeshProps>[] {
+    getPropsHandlers(): PropsHandler<FiberMeshProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreMesh, FiberMeshProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberMeshProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -5344,8 +3748,8 @@ export class FiberLines implements HasPropsHandlers<BabylonjsCoreMesh, FiberMesh
  *
  * This code has been generated
  */
-export class FiberDashedLines implements HasPropsHandlers<BabylonjsCoreMesh, FiberMeshProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreMesh, FiberMeshProps>[];
+export class FiberDashedLines implements HasPropsHandlers<FiberMeshProps> {
+    private propsHandlers: PropsHandler<FiberMeshProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -5356,11 +3760,11 @@ export class FiberDashedLines implements HasPropsHandlers<BabylonjsCoreMesh, Fib
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreMesh, FiberMeshProps>[] {
+    getPropsHandlers(): PropsHandler<FiberMeshProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreMesh, FiberMeshProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberMeshProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -5441,8 +3845,8 @@ export class FiberDashedLines implements HasPropsHandlers<BabylonjsCoreMesh, Fib
  *
  * This code has been generated
  */
-export class FiberExtrudeShape implements HasPropsHandlers<BabylonjsCoreMesh, FiberMeshProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreMesh, FiberMeshProps>[];
+export class FiberExtrudeShape implements HasPropsHandlers<FiberMeshProps> {
+    private propsHandlers: PropsHandler<FiberMeshProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -5453,11 +3857,11 @@ export class FiberExtrudeShape implements HasPropsHandlers<BabylonjsCoreMesh, Fi
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreMesh, FiberMeshProps>[] {
+    getPropsHandlers(): PropsHandler<FiberMeshProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreMesh, FiberMeshProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberMeshProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -5568,8 +3972,8 @@ export class FiberExtrudeShape implements HasPropsHandlers<BabylonjsCoreMesh, Fi
  *
  * This code has been generated
  */
-export class FiberExtrudeShapeCustom implements HasPropsHandlers<BabylonjsCoreMesh, FiberMeshProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreMesh, FiberMeshProps>[];
+export class FiberExtrudeShapeCustom implements HasPropsHandlers<FiberMeshProps> {
+    private propsHandlers: PropsHandler<FiberMeshProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -5580,11 +3984,11 @@ export class FiberExtrudeShapeCustom implements HasPropsHandlers<BabylonjsCoreMe
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreMesh, FiberMeshProps>[] {
+    getPropsHandlers(): PropsHandler<FiberMeshProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreMesh, FiberMeshProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberMeshProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -5701,8 +4105,8 @@ export class FiberExtrudeShapeCustom implements HasPropsHandlers<BabylonjsCoreMe
  *
  * This code has been generated
  */
-export class FiberLathe implements HasPropsHandlers<BabylonjsCoreMesh, FiberMeshProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreMesh, FiberMeshProps>[];
+export class FiberLathe implements HasPropsHandlers<FiberMeshProps> {
+    private propsHandlers: PropsHandler<FiberMeshProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -5713,11 +4117,11 @@ export class FiberLathe implements HasPropsHandlers<BabylonjsCoreMesh, FiberMesh
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreMesh, FiberMeshProps>[] {
+    getPropsHandlers(): PropsHandler<FiberMeshProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreMesh, FiberMeshProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberMeshProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -5821,8 +4225,8 @@ export class FiberLathe implements HasPropsHandlers<BabylonjsCoreMesh, FiberMesh
  *
  * This code has been generated
  */
-export class FiberTiledPlane implements HasPropsHandlers<BabylonjsCoreMesh, FiberMeshProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreMesh, FiberMeshProps>[];
+export class FiberTiledPlane implements HasPropsHandlers<FiberMeshProps> {
+    private propsHandlers: PropsHandler<FiberMeshProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -5833,11 +4237,11 @@ export class FiberTiledPlane implements HasPropsHandlers<BabylonjsCoreMesh, Fibe
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreMesh, FiberMeshProps>[] {
+    getPropsHandlers(): PropsHandler<FiberMeshProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreMesh, FiberMeshProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberMeshProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -5948,8 +4352,8 @@ export class FiberTiledPlane implements HasPropsHandlers<BabylonjsCoreMesh, Fibe
  *
  * This code has been generated
  */
-export class FiberPlane implements HasPropsHandlers<BabylonjsCoreMesh, FiberMeshProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreMesh, FiberMeshProps>[];
+export class FiberPlane implements HasPropsHandlers<FiberMeshProps> {
+    private propsHandlers: PropsHandler<FiberMeshProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -5960,11 +4364,11 @@ export class FiberPlane implements HasPropsHandlers<BabylonjsCoreMesh, FiberMesh
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreMesh, FiberMeshProps>[] {
+    getPropsHandlers(): PropsHandler<FiberMeshProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreMesh, FiberMeshProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberMeshProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -6047,8 +4451,8 @@ export class FiberPlane implements HasPropsHandlers<BabylonjsCoreMesh, FiberMesh
  *
  * This code has been generated
  */
-export class FiberGround implements HasPropsHandlers<BabylonjsCoreMesh, FiberMeshProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreMesh, FiberMeshProps>[];
+export class FiberGround implements HasPropsHandlers<FiberMeshProps> {
+    private propsHandlers: PropsHandler<FiberMeshProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -6059,11 +4463,11 @@ export class FiberGround implements HasPropsHandlers<BabylonjsCoreMesh, FiberMes
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreMesh, FiberMeshProps>[] {
+    getPropsHandlers(): PropsHandler<FiberMeshProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreMesh, FiberMeshProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberMeshProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -6138,8 +4542,8 @@ export class FiberGround implements HasPropsHandlers<BabylonjsCoreMesh, FiberMes
  *
  * This code has been generated
  */
-export class FiberTiledGround implements HasPropsHandlers<BabylonjsCoreMesh, FiberMeshProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreMesh, FiberMeshProps>[];
+export class FiberTiledGround implements HasPropsHandlers<FiberMeshProps> {
+    private propsHandlers: PropsHandler<FiberMeshProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -6150,11 +4554,11 @@ export class FiberTiledGround implements HasPropsHandlers<BabylonjsCoreMesh, Fib
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreMesh, FiberMeshProps>[] {
+    getPropsHandlers(): PropsHandler<FiberMeshProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreMesh, FiberMeshProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberMeshProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -6238,8 +4642,8 @@ export class FiberTiledGround implements HasPropsHandlers<BabylonjsCoreMesh, Fib
  *
  * This code has been generated
  */
-export class FiberGroundFromHeightMap implements HasPropsHandlers<BabylonjsCoreMesh, FiberMeshProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreMesh, FiberMeshProps>[];
+export class FiberGroundFromHeightMap implements HasPropsHandlers<FiberMeshProps> {
+    private propsHandlers: PropsHandler<FiberMeshProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -6250,11 +4654,11 @@ export class FiberGroundFromHeightMap implements HasPropsHandlers<BabylonjsCoreM
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreMesh, FiberMeshProps>[] {
+    getPropsHandlers(): PropsHandler<FiberMeshProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreMesh, FiberMeshProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberMeshProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -6350,8 +4754,8 @@ export class FiberGroundFromHeightMap implements HasPropsHandlers<BabylonjsCoreM
  *
  * This code has been generated
  */
-export class FiberPolygon implements HasPropsHandlers<BabylonjsCoreMesh, FiberMeshProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreMesh, FiberMeshProps>[];
+export class FiberPolygon implements HasPropsHandlers<FiberMeshProps> {
+    private propsHandlers: PropsHandler<FiberMeshProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -6362,11 +4766,11 @@ export class FiberPolygon implements HasPropsHandlers<BabylonjsCoreMesh, FiberMe
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreMesh, FiberMeshProps>[] {
+    getPropsHandlers(): PropsHandler<FiberMeshProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreMesh, FiberMeshProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberMeshProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -6457,8 +4861,8 @@ export class FiberPolygon implements HasPropsHandlers<BabylonjsCoreMesh, FiberMe
  *
  * This code has been generated
  */
-export class FiberExtrudePolygon implements HasPropsHandlers<BabylonjsCoreMesh, FiberMeshProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreMesh, FiberMeshProps>[];
+export class FiberExtrudePolygon implements HasPropsHandlers<FiberMeshProps> {
+    private propsHandlers: PropsHandler<FiberMeshProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -6469,11 +4873,11 @@ export class FiberExtrudePolygon implements HasPropsHandlers<BabylonjsCoreMesh, 
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreMesh, FiberMeshProps>[] {
+    getPropsHandlers(): PropsHandler<FiberMeshProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreMesh, FiberMeshProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberMeshProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -6576,8 +4980,8 @@ export class FiberExtrudePolygon implements HasPropsHandlers<BabylonjsCoreMesh, 
  *
  * This code has been generated
  */
-export class FiberTube implements HasPropsHandlers<BabylonjsCoreMesh, FiberMeshProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreMesh, FiberMeshProps>[];
+export class FiberTube implements HasPropsHandlers<FiberMeshProps> {
+    private propsHandlers: PropsHandler<FiberMeshProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -6588,11 +4992,11 @@ export class FiberTube implements HasPropsHandlers<BabylonjsCoreMesh, FiberMeshP
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreMesh, FiberMeshProps>[] {
+    getPropsHandlers(): PropsHandler<FiberMeshProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreMesh, FiberMeshProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberMeshProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -6703,8 +5107,8 @@ export class FiberTube implements HasPropsHandlers<BabylonjsCoreMesh, FiberMeshP
  *
  * This code has been generated
  */
-export class FiberPolyhedron implements HasPropsHandlers<BabylonjsCoreMesh, FiberMeshProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreMesh, FiberMeshProps>[];
+export class FiberPolyhedron implements HasPropsHandlers<FiberMeshProps> {
+    private propsHandlers: PropsHandler<FiberMeshProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -6715,11 +5119,11 @@ export class FiberPolyhedron implements HasPropsHandlers<BabylonjsCoreMesh, Fibe
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreMesh, FiberMeshProps>[] {
+    getPropsHandlers(): PropsHandler<FiberMeshProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreMesh, FiberMeshProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberMeshProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -6829,8 +5233,8 @@ export class FiberPolyhedron implements HasPropsHandlers<BabylonjsCoreMesh, Fibe
  *
  * This code has been generated
  */
-export class FiberDecal implements HasPropsHandlers<BabylonjsCoreMesh, FiberMeshProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreMesh, FiberMeshProps>[];
+export class FiberDecal implements HasPropsHandlers<FiberMeshProps> {
+    private propsHandlers: PropsHandler<FiberMeshProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -6841,11 +5245,11 @@ export class FiberDecal implements HasPropsHandlers<BabylonjsCoreMesh, FiberMesh
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreMesh, FiberMeshProps>[] {
+    getPropsHandlers(): PropsHandler<FiberMeshProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreMesh, FiberMeshProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberMeshProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -6900,234 +5304,44 @@ export class FiberDecal implements HasPropsHandlers<BabylonjsCoreMesh, FiberMesh
     };
 }
 
-export class FiberMaterialPropsHandler implements PropsHandler<BabylonjsCoreMaterial, FiberMaterialProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreMaterial, oldProps: FiberMaterialProps, newProps: FiberMaterialProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsCoreMaterial.alpha (number):
-        if (oldProps.alpha !== newProps.alpha) {
-            updates.push({
-                propertyName: 'alpha',
-                value: newProps.alpha,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreMaterial.alphaMode (number):
-        if (oldProps.alphaMode !== newProps.alphaMode) {
-            updates.push({
-                propertyName: 'alphaMode',
-                value: newProps.alphaMode,
-                type: 'number'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreAnimation[]' property (not coded) BabylonjsCoreMaterial.animations.
-        // BabylonjsCoreMaterial.backFaceCulling (boolean):
-        if (oldProps.backFaceCulling !== newProps.backFaceCulling) {
-            updates.push({
-                propertyName: 'backFaceCulling',
-                value: newProps.backFaceCulling,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreMaterial.checkReadyOnEveryCall (boolean):
-        if (oldProps.checkReadyOnEveryCall !== newProps.checkReadyOnEveryCall) {
-            updates.push({
-                propertyName: 'checkReadyOnEveryCall',
-                value: newProps.checkReadyOnEveryCall,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreMaterial.checkReadyOnlyOnce (boolean):
-        if (oldProps.checkReadyOnlyOnce !== newProps.checkReadyOnlyOnce) {
-            updates.push({
-                propertyName: 'checkReadyOnlyOnce',
-                value: newProps.checkReadyOnlyOnce,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreMaterial.depthFunction (number):
-        if (oldProps.depthFunction !== newProps.depthFunction) {
-            updates.push({
-                propertyName: 'depthFunction',
-                value: newProps.depthFunction,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreMaterial.disableDepthWrite (boolean):
-        if (oldProps.disableDepthWrite !== newProps.disableDepthWrite) {
-            updates.push({
-                propertyName: 'disableDepthWrite',
-                value: newProps.disableDepthWrite,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreMaterial.doNotSerialize (boolean):
-        if (oldProps.doNotSerialize !== newProps.doNotSerialize) {
-            updates.push({
-                propertyName: 'doNotSerialize',
-                value: newProps.doNotSerialize,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreMaterial.fillMode (number):
-        if (oldProps.fillMode !== newProps.fillMode) {
-            updates.push({
-                propertyName: 'fillMode',
-                value: newProps.fillMode,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreMaterial.fogEnabled (boolean):
-        if (oldProps.fogEnabled !== newProps.fogEnabled) {
-            updates.push({
-                propertyName: 'fogEnabled',
-                value: newProps.fogEnabled,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreMaterial.forceDepthWrite (boolean):
-        if (oldProps.forceDepthWrite !== newProps.forceDepthWrite) {
-            updates.push({
-                propertyName: 'forceDepthWrite',
-                value: newProps.forceDepthWrite,
-                type: 'boolean'
-            });
-        }
-        // TODO: type: '() => BabylonjsCoreSmartArray<BabylonjsCoreRenderTargetTexture>' property (not coded) BabylonjsCoreMaterial.getRenderTargetTextures.
-        // BabylonjsCoreMaterial.id (string):
-        if (oldProps.id !== newProps.id) {
-            updates.push({
-                propertyName: 'id',
-                value: newProps.id,
-                type: 'string'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreIInspectable[]' property (not coded) BabylonjsCoreMaterial.inspectableCustomProperties.
-        // TODO: type: '{ [id: string]: BabylonjsCoreAbstractMesh; }' property (not coded) BabylonjsCoreMaterial.meshMap.
-        // TODO: type: 'any' property (not coded) BabylonjsCoreMaterial.metadata.
-        // BabylonjsCoreMaterial.name (string):
-        if (oldProps.name !== newProps.name) {
-            updates.push({
-                propertyName: 'name',
-                value: newProps.name,
-                type: 'string'
-            });
-        }
-        // BabylonjsCoreMaterial.needDepthPrePass (boolean):
-        if (oldProps.needDepthPrePass !== newProps.needDepthPrePass) {
-            updates.push({
-                propertyName: 'needDepthPrePass',
-                value: newProps.needDepthPrePass,
-                type: 'boolean'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreMaterial.onBind of type '(Mesh: BabylonjsCoreAbstractMesh) => void/fn':
-        if (oldProps.onBind === undefined && oldProps.onBind !== newProps.onBind) {
-            updates.push({
-                propertyName: 'onBind',
-                value: newProps.onBind,
-                type: '(Mesh: BabylonjsCoreAbstractMesh) => void'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreMaterial.onCompiled of type '(effect: BabylonjsCoreEffect) => void/fn':
-        if (oldProps.onCompiled === undefined && oldProps.onCompiled !== newProps.onCompiled) {
-            updates.push({
-                propertyName: 'onCompiled',
-                value: newProps.onCompiled,
-                type: '(effect: BabylonjsCoreEffect) => void'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreMaterial.onDispose of type '() => void/fn':
-        if (oldProps.onDispose === undefined && oldProps.onDispose !== newProps.onDispose) {
-            updates.push({
-                propertyName: 'onDispose',
-                value: newProps.onDispose,
-                type: '() => void'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreMaterial.onDisposeObservable of type 'BabylonjsCoreObservable<BabylonjsCoreMaterial>/fn':
-        if (oldProps.onDisposeObservable === undefined && oldProps.onDisposeObservable !== newProps.onDisposeObservable) {
-            updates.push({
-                propertyName: 'onDisposeObservable',
-                value: newProps.onDisposeObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreMaterial>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreMaterial.onError of type '(effect: BabylonjsCoreEffect, errors: string) => void/fn':
-        if (oldProps.onError === undefined && oldProps.onError !== newProps.onError) {
-            updates.push({
-                propertyName: 'onError',
-                value: newProps.onError,
-                type: '(effect: BabylonjsCoreEffect, errors: string) => void'
-            });
-        }
-        // BabylonjsCoreMaterial.pointsCloud (boolean):
-        if (oldProps.pointsCloud !== newProps.pointsCloud) {
-            updates.push({
-                propertyName: 'pointsCloud',
-                value: newProps.pointsCloud,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreMaterial.pointSize (number):
-        if (oldProps.pointSize !== newProps.pointSize) {
-            updates.push({
-                propertyName: 'pointSize',
-                value: newProps.pointSize,
-                type: 'number'
-            });
-        }
-        // TODO: type: 'any' property (not coded) BabylonjsCoreMaterial.releaseVertexArrayObject.
-        // TODO: type: 'any' property (not coded) BabylonjsCoreMaterial.reservedDataStore.
-        // BabylonjsCoreMaterial.separateCullingPass (boolean):
-        if (oldProps.separateCullingPass !== newProps.separateCullingPass) {
-            updates.push({
-                propertyName: 'separateCullingPass',
-                value: newProps.separateCullingPass,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreMaterial.sideOrientation (number):
-        if (oldProps.sideOrientation !== newProps.sideOrientation) {
-            updates.push({
-                propertyName: 'sideOrientation',
-                value: newProps.sideOrientation,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreMaterial.state (string):
-        if (oldProps.state !== newProps.state) {
-            updates.push({
-                propertyName: 'state',
-                value: newProps.state,
-                type: 'string'
-            });
-        }
-        // BabylonjsCoreMaterial.uniqueId (number):
-        if (oldProps.uniqueId !== newProps.uniqueId) {
-            updates.push({
-                propertyName: 'uniqueId',
-                value: newProps.uniqueId,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreMaterial.wireframe (boolean):
-        if (oldProps.wireframe !== newProps.wireframe) {
-            updates.push({
-                propertyName: 'wireframe',
-                value: newProps.wireframe,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreMaterial.zOffset (number):
-        if (oldProps.zOffset !== newProps.zOffset) {
-            updates.push({
-                propertyName: 'zOffset',
-                value: newProps.zOffset,
-                type: 'number'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberMaterialPropsHandler implements PropsHandler<FiberMaterialProps> {
+    getPropertyUpdates(oldProps: FiberMaterialProps, newProps: FiberMaterialProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.alpha, newProps.alpha, 'alpha', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.alphaMode, newProps.alphaMode, 'alphaMode', 'number', changedProps)
+        // type: 'BabylonjsCoreAnimation[]' property (not coded) BabylonjsCoreMaterial.animations.
+        checkPrimitiveDiff(oldProps.backFaceCulling, newProps.backFaceCulling, 'backFaceCulling', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.checkReadyOnEveryCall, newProps.checkReadyOnEveryCall, 'checkReadyOnEveryCall', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.checkReadyOnlyOnce, newProps.checkReadyOnlyOnce, 'checkReadyOnlyOnce', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.depthFunction, newProps.depthFunction, 'depthFunction', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.disableDepthWrite, newProps.disableDepthWrite, 'disableDepthWrite', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.doNotSerialize, newProps.doNotSerialize, 'doNotSerialize', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.fillMode, newProps.fillMode, 'fillMode', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.fogEnabled, newProps.fogEnabled, 'fogEnabled', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.forceDepthWrite, newProps.forceDepthWrite, 'forceDepthWrite', 'boolean', changedProps)
+        checkLambdaDiff(oldProps.getRenderTargetTextures, newProps.getRenderTargetTextures, 'getRenderTargetTextures', '() => BabylonjsCoreSmartArray<BabylonjsCoreRenderTargetTexture>', changedProps)
+        checkPrimitiveDiff(oldProps.id, newProps.id, 'id', 'string', changedProps)
+        // type: 'BabylonjsCoreIInspectable[]' property (not coded) BabylonjsCoreMaterial.inspectableCustomProperties.
+        // type: '{ [id: string]: BabylonjsCoreAbstractMesh; }' property (not coded) BabylonjsCoreMaterial.meshMap.
+        // type: 'any' property (not coded) BabylonjsCoreMaterial.metadata.
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.needDepthPrePass, newProps.needDepthPrePass, 'needDepthPrePass', 'boolean', changedProps)
+        checkLambdaDiff(oldProps.onBind, newProps.onBind, 'onBind', '(Mesh: BabylonjsCoreAbstractMesh) => void', changedProps)
+        checkLambdaDiff(oldProps.onCompiled, newProps.onCompiled, 'onCompiled', '(effect: BabylonjsCoreEffect) => void', changedProps)
+        checkLambdaDiff(oldProps.onDispose, newProps.onDispose, 'onDispose', '() => void', changedProps)
+        checkObservableDiff(oldProps.onDisposeObservable, newProps.onDisposeObservable, 'onDisposeObservable', 'BabylonjsCoreObservable<BabylonjsCoreMaterial>', changedProps)
+        checkLambdaDiff(oldProps.onError, newProps.onError, 'onError', '(effect: BabylonjsCoreEffect, errors: string) => void', changedProps)
+        checkPrimitiveDiff(oldProps.pointsCloud, newProps.pointsCloud, 'pointsCloud', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.pointSize, newProps.pointSize, 'pointSize', 'number', changedProps)
+        // type: 'any' property (not coded) BabylonjsCoreMaterial.releaseVertexArrayObject.
+        // type: 'any' property (not coded) BabylonjsCoreMaterial.reservedDataStore.
+        checkPrimitiveDiff(oldProps.separateCullingPass, newProps.separateCullingPass, 'separateCullingPass', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.sideOrientation, newProps.sideOrientation, 'sideOrientation', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.state, newProps.state, 'state', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.uniqueId, newProps.uniqueId, 'uniqueId', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.wireframe, newProps.wireframe, 'wireframe', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.zOffset, newProps.zOffset, 'zOffset', 'number', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -7136,8 +5350,8 @@ export class FiberMaterialPropsHandler implements PropsHandler<BabylonjsCoreMate
  *
  * This code has been generated
  */
-export class FiberMaterial implements HasPropsHandlers<BabylonjsCoreMaterial, FiberMaterialProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreMaterial, FiberMaterialProps>[];
+export class FiberMaterial implements HasPropsHandlers<FiberMaterialProps> {
+    private propsHandlers: PropsHandler<FiberMaterialProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -7145,11 +5359,11 @@ export class FiberMaterial implements HasPropsHandlers<BabylonjsCoreMaterial, Fi
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreMaterial, FiberMaterialProps>[] {
+    getPropsHandlers(): PropsHandler<FiberMaterialProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreMaterial, FiberMaterialProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberMaterialProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -7181,164 +5395,30 @@ export class FiberMaterial implements HasPropsHandlers<BabylonjsCoreMaterial, Fi
     };
 }
 
-export class FiberShaderMaterialPropsHandler implements PropsHandler<BabylonjsCoreShaderMaterial, FiberShaderMaterialProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreShaderMaterial, oldProps: FiberShaderMaterialProps, newProps: FiberShaderMaterialProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // TODO: type: 'any' property (not coded) BabylonjsCoreShaderMaterial.shaderPath.
-        // BabylonjsCoreShaderMaterial.setArray2 of type '(name?: string, value?: number[]) => BabylonjsCoreShaderMaterial':
-        if (oldProps.setArray2 !== newProps.setArray2) {
-            updates.push({
-                propertyName: 'setArray2',
-                value: newProps.setArray2,
-                type: '(name?: string, value?: number[]) => BabylonjsCoreShaderMaterial'
-            });
-        }
-        // BabylonjsCoreShaderMaterial.setArray3 of type '(name?: string, value?: number[]) => BabylonjsCoreShaderMaterial':
-        if (oldProps.setArray3 !== newProps.setArray3) {
-            updates.push({
-                propertyName: 'setArray3',
-                value: newProps.setArray3,
-                type: '(name?: string, value?: number[]) => BabylonjsCoreShaderMaterial'
-            });
-        }
-        // BabylonjsCoreShaderMaterial.setArray4 of type '(name?: string, value?: number[]) => BabylonjsCoreShaderMaterial':
-        if (oldProps.setArray4 !== newProps.setArray4) {
-            updates.push({
-                propertyName: 'setArray4',
-                value: newProps.setArray4,
-                type: '(name?: string, value?: number[]) => BabylonjsCoreShaderMaterial'
-            });
-        }
-        // BabylonjsCoreShaderMaterial.setColor3 of type '(name?: string, value?: BabylonjsCoreColor3) => BabylonjsCoreShaderMaterial':
-        if (oldProps.setColor3 !== newProps.setColor3) {
-            updates.push({
-                propertyName: 'setColor3',
-                value: newProps.setColor3,
-                type: '(name?: string, value?: BabylonjsCoreColor3) => BabylonjsCoreShaderMaterial'
-            });
-        }
-        // BabylonjsCoreShaderMaterial.setColor3Array of type '(name?: string, value?: BabylonjsCoreColor3[]) => BabylonjsCoreShaderMaterial':
-        if (oldProps.setColor3Array !== newProps.setColor3Array) {
-            updates.push({
-                propertyName: 'setColor3Array',
-                value: newProps.setColor3Array,
-                type: '(name?: string, value?: BabylonjsCoreColor3[]) => BabylonjsCoreShaderMaterial'
-            });
-        }
-        // BabylonjsCoreShaderMaterial.setColor4 of type '(name?: string, value?: BabylonjsCoreColor4) => BabylonjsCoreShaderMaterial':
-        if (oldProps.setColor4 !== newProps.setColor4) {
-            updates.push({
-                propertyName: 'setColor4',
-                value: newProps.setColor4,
-                type: '(name?: string, value?: BabylonjsCoreColor4) => BabylonjsCoreShaderMaterial'
-            });
-        }
-        // BabylonjsCoreShaderMaterial.setColor4Array of type '(name?: string, value?: BabylonjsCoreColor4[]) => BabylonjsCoreShaderMaterial':
-        if (oldProps.setColor4Array !== newProps.setColor4Array) {
-            updates.push({
-                propertyName: 'setColor4Array',
-                value: newProps.setColor4Array,
-                type: '(name?: string, value?: BabylonjsCoreColor4[]) => BabylonjsCoreShaderMaterial'
-            });
-        }
-        // BabylonjsCoreShaderMaterial.setFloat of type '(name?: string, value?: number) => BabylonjsCoreShaderMaterial':
-        if (oldProps.setFloat !== newProps.setFloat) {
-            updates.push({
-                propertyName: 'setFloat',
-                value: newProps.setFloat,
-                type: '(name?: string, value?: number) => BabylonjsCoreShaderMaterial'
-            });
-        }
-        // BabylonjsCoreShaderMaterial.setFloats of type '(name?: string, value?: number[]) => BabylonjsCoreShaderMaterial':
-        if (oldProps.setFloats !== newProps.setFloats) {
-            updates.push({
-                propertyName: 'setFloats',
-                value: newProps.setFloats,
-                type: '(name?: string, value?: number[]) => BabylonjsCoreShaderMaterial'
-            });
-        }
-        // BabylonjsCoreShaderMaterial.setInt of type '(name?: string, value?: number) => BabylonjsCoreShaderMaterial':
-        if (oldProps.setInt !== newProps.setInt) {
-            updates.push({
-                propertyName: 'setInt',
-                value: newProps.setInt,
-                type: '(name?: string, value?: number) => BabylonjsCoreShaderMaterial'
-            });
-        }
-        // BabylonjsCoreShaderMaterial.setMatrices of type '(name?: string, value?: BabylonjsCoreMatrix[]) => BabylonjsCoreShaderMaterial':
-        if (oldProps.setMatrices !== newProps.setMatrices) {
-            updates.push({
-                propertyName: 'setMatrices',
-                value: newProps.setMatrices,
-                type: '(name?: string, value?: BabylonjsCoreMatrix[]) => BabylonjsCoreShaderMaterial'
-            });
-        }
-        // BabylonjsCoreShaderMaterial.setMatrix of type '(name?: string, value?: BabylonjsCoreMatrix) => BabylonjsCoreShaderMaterial':
-        if (oldProps.setMatrix !== newProps.setMatrix) {
-            updates.push({
-                propertyName: 'setMatrix',
-                value: newProps.setMatrix,
-                type: '(name?: string, value?: BabylonjsCoreMatrix) => BabylonjsCoreShaderMaterial'
-            });
-        }
-        // BabylonjsCoreShaderMaterial.setMatrix2x2 of type '(name?: string, value?: Float32Array) => BabylonjsCoreShaderMaterial':
-        if (oldProps.setMatrix2x2 !== newProps.setMatrix2x2) {
-            updates.push({
-                propertyName: 'setMatrix2x2',
-                value: newProps.setMatrix2x2,
-                type: '(name?: string, value?: Float32Array) => BabylonjsCoreShaderMaterial'
-            });
-        }
-        // BabylonjsCoreShaderMaterial.setMatrix3x3 of type '(name?: string, value?: Float32Array) => BabylonjsCoreShaderMaterial':
-        if (oldProps.setMatrix3x3 !== newProps.setMatrix3x3) {
-            updates.push({
-                propertyName: 'setMatrix3x3',
-                value: newProps.setMatrix3x3,
-                type: '(name?: string, value?: Float32Array) => BabylonjsCoreShaderMaterial'
-            });
-        }
-        // BabylonjsCoreShaderMaterial.setTexture of type '(name?: string, texture?: BabylonjsCoreTexture) => BabylonjsCoreShaderMaterial':
-        if (oldProps.setTexture !== newProps.setTexture) {
-            updates.push({
-                propertyName: 'setTexture',
-                value: newProps.setTexture,
-                type: '(name?: string, texture?: BabylonjsCoreTexture) => BabylonjsCoreShaderMaterial'
-            });
-        }
-        // BabylonjsCoreShaderMaterial.setTextureArray of type '(name?: string, textures?: BabylonjsCoreTexture[]) => BabylonjsCoreShaderMaterial':
-        if (oldProps.setTextureArray !== newProps.setTextureArray) {
-            updates.push({
-                propertyName: 'setTextureArray',
-                value: newProps.setTextureArray,
-                type: '(name?: string, textures?: BabylonjsCoreTexture[]) => BabylonjsCoreShaderMaterial'
-            });
-        }
-        // BabylonjsCoreShaderMaterial.setVector2 of type '(name?: string, value?: BabylonjsCoreVector2) => BabylonjsCoreShaderMaterial':
-        if (oldProps.setVector2 !== newProps.setVector2) {
-            updates.push({
-                propertyName: 'setVector2',
-                value: newProps.setVector2,
-                type: '(name?: string, value?: BabylonjsCoreVector2) => BabylonjsCoreShaderMaterial'
-            });
-        }
-        // BabylonjsCoreShaderMaterial.setVector3 of type '(name?: string, value?: BabylonjsCoreVector3) => BabylonjsCoreShaderMaterial':
-        if (oldProps.setVector3 !== newProps.setVector3) {
-            updates.push({
-                propertyName: 'setVector3',
-                value: newProps.setVector3,
-                type: '(name?: string, value?: BabylonjsCoreVector3) => BabylonjsCoreShaderMaterial'
-            });
-        }
-        // BabylonjsCoreShaderMaterial.setVector4 of type '(name?: string, value?: BabylonjsCoreVector4) => BabylonjsCoreShaderMaterial':
-        if (oldProps.setVector4 !== newProps.setVector4) {
-            updates.push({
-                propertyName: 'setVector4',
-                value: newProps.setVector4,
-                type: '(name?: string, value?: BabylonjsCoreVector4) => BabylonjsCoreShaderMaterial'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberShaderMaterialPropsHandler implements PropsHandler<FiberShaderMaterialProps> {
+    getPropertyUpdates(oldProps: FiberShaderMaterialProps, newProps: FiberShaderMaterialProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        // type: 'any' property (not coded) BabylonjsCoreShaderMaterial.shaderPath.
+        checkMethodDiff(oldProps.setArray2, newProps.setArray2, 'setArray2', '(name?: string, value?: number[]) => BabylonjsCoreShaderMaterial', changedProps)
+        checkMethodDiff(oldProps.setArray3, newProps.setArray3, 'setArray3', '(name?: string, value?: number[]) => BabylonjsCoreShaderMaterial', changedProps)
+        checkMethodDiff(oldProps.setArray4, newProps.setArray4, 'setArray4', '(name?: string, value?: number[]) => BabylonjsCoreShaderMaterial', changedProps)
+        checkMethodDiff(oldProps.setColor3, newProps.setColor3, 'setColor3', '(name?: string, value?: BabylonjsCoreColor3) => BabylonjsCoreShaderMaterial', changedProps)
+        checkMethodDiff(oldProps.setColor3Array, newProps.setColor3Array, 'setColor3Array', '(name?: string, value?: BabylonjsCoreColor3[]) => BabylonjsCoreShaderMaterial', changedProps)
+        checkMethodDiff(oldProps.setColor4, newProps.setColor4, 'setColor4', '(name?: string, value?: BabylonjsCoreColor4) => BabylonjsCoreShaderMaterial', changedProps)
+        checkMethodDiff(oldProps.setColor4Array, newProps.setColor4Array, 'setColor4Array', '(name?: string, value?: BabylonjsCoreColor4[]) => BabylonjsCoreShaderMaterial', changedProps)
+        checkMethodDiff(oldProps.setFloat, newProps.setFloat, 'setFloat', '(name?: string, value?: number) => BabylonjsCoreShaderMaterial', changedProps)
+        checkMethodDiff(oldProps.setFloats, newProps.setFloats, 'setFloats', '(name?: string, value?: number[]) => BabylonjsCoreShaderMaterial', changedProps)
+        checkMethodDiff(oldProps.setInt, newProps.setInt, 'setInt', '(name?: string, value?: number) => BabylonjsCoreShaderMaterial', changedProps)
+        checkMethodDiff(oldProps.setMatrices, newProps.setMatrices, 'setMatrices', '(name?: string, value?: BabylonjsCoreMatrix[]) => BabylonjsCoreShaderMaterial', changedProps)
+        checkMethodDiff(oldProps.setMatrix, newProps.setMatrix, 'setMatrix', '(name?: string, value?: BabylonjsCoreMatrix) => BabylonjsCoreShaderMaterial', changedProps)
+        checkMethodDiff(oldProps.setMatrix2x2, newProps.setMatrix2x2, 'setMatrix2x2', '(name?: string, value?: Float32Array) => BabylonjsCoreShaderMaterial', changedProps)
+        checkMethodDiff(oldProps.setMatrix3x3, newProps.setMatrix3x3, 'setMatrix3x3', '(name?: string, value?: Float32Array) => BabylonjsCoreShaderMaterial', changedProps)
+        checkMethodDiff(oldProps.setTexture, newProps.setTexture, 'setTexture', '(name?: string, texture?: BabylonjsCoreTexture) => BabylonjsCoreShaderMaterial', changedProps)
+        checkMethodDiff(oldProps.setTextureArray, newProps.setTextureArray, 'setTextureArray', '(name?: string, textures?: BabylonjsCoreTexture[]) => BabylonjsCoreShaderMaterial', changedProps)
+        checkMethodDiff(oldProps.setVector2, newProps.setVector2, 'setVector2', '(name?: string, value?: BabylonjsCoreVector2) => BabylonjsCoreShaderMaterial', changedProps)
+        checkMethodDiff(oldProps.setVector3, newProps.setVector3, 'setVector3', '(name?: string, value?: BabylonjsCoreVector3) => BabylonjsCoreShaderMaterial', changedProps)
+        checkMethodDiff(oldProps.setVector4, newProps.setVector4, 'setVector4', '(name?: string, value?: BabylonjsCoreVector4) => BabylonjsCoreShaderMaterial', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -7349,8 +5429,8 @@ export class FiberShaderMaterialPropsHandler implements PropsHandler<BabylonjsCo
  *
  * This code has been generated
  */
-export class FiberShaderMaterial implements HasPropsHandlers<BabylonjsCoreMaterial, FiberMaterialProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreMaterial, FiberMaterialProps>[];
+export class FiberShaderMaterial implements HasPropsHandlers<FiberMaterialProps> {
+    private propsHandlers: PropsHandler<FiberMaterialProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -7359,11 +5439,11 @@ export class FiberShaderMaterial implements HasPropsHandlers<BabylonjsCoreMateri
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreMaterial, FiberMaterialProps>[] {
+    getPropsHandlers(): PropsHandler<FiberMaterialProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreMaterial, FiberMaterialProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberMaterialProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -7400,12 +5480,10 @@ export class FiberShaderMaterial implements HasPropsHandlers<BabylonjsCoreMateri
     };
 }
 
-export class FiberMultiMaterialPropsHandler implements PropsHandler<BabylonjsCoreMultiMaterial, FiberMultiMaterialProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreMultiMaterial, oldProps: FiberMultiMaterialProps, newProps: FiberMultiMaterialProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // TODO: type: 'BabylonjsCoreMaterial[]' property (not coded) BabylonjsCoreMultiMaterial.subMaterials.
-        return updates.length === 0 ? null : updates;
+export class FiberMultiMaterialPropsHandler implements PropsHandler<FiberMultiMaterialProps> {
+    getPropertyUpdates(oldProps: FiberMultiMaterialProps, newProps: FiberMultiMaterialProps): PropertyUpdate[] | null {
+        // skipping type: 'BabylonjsCoreMaterial[]' property (not coded) BabylonjsCoreMultiMaterial.subMaterials.
+        return null; // no props to check
     }
 }
 
@@ -7415,8 +5493,8 @@ export class FiberMultiMaterialPropsHandler implements PropsHandler<BabylonjsCor
  *
  * This code has been generated
  */
-export class FiberMultiMaterial implements HasPropsHandlers<BabylonjsCoreMaterial, FiberMaterialProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreMaterial, FiberMaterialProps>[];
+export class FiberMultiMaterial implements HasPropsHandlers<FiberMaterialProps> {
+    private propsHandlers: PropsHandler<FiberMaterialProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -7425,11 +5503,11 @@ export class FiberMultiMaterial implements HasPropsHandlers<BabylonjsCoreMateria
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreMaterial, FiberMaterialProps>[] {
+    getPropsHandlers(): PropsHandler<FiberMaterialProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreMaterial, FiberMaterialProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberMaterialProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -7456,19 +5534,11 @@ export class FiberMultiMaterial implements HasPropsHandlers<BabylonjsCoreMateria
     };
 }
 
-export class FiberPushMaterialPropsHandler implements PropsHandler<BabylonjsCorePushMaterial, FiberPushMaterialProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCorePushMaterial, oldProps: FiberPushMaterialProps, newProps: FiberPushMaterialProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsCorePushMaterial.allowShaderHotSwapping (boolean):
-        if (oldProps.allowShaderHotSwapping !== newProps.allowShaderHotSwapping) {
-            updates.push({
-                propertyName: 'allowShaderHotSwapping',
-                value: newProps.allowShaderHotSwapping,
-                type: 'boolean'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberPushMaterialPropsHandler implements PropsHandler<FiberPushMaterialProps> {
+    getPropertyUpdates(oldProps: FiberPushMaterialProps, newProps: FiberPushMaterialProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.allowShaderHotSwapping, newProps.allowShaderHotSwapping, 'allowShaderHotSwapping', 'boolean', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -7477,8 +5547,8 @@ export class FiberPushMaterialPropsHandler implements PropsHandler<BabylonjsCore
  *
  * This code has been generated
  */
-export class FiberPushMaterial implements HasPropsHandlers<BabylonjsCoreMaterial, FiberMaterialProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreMaterial, FiberMaterialProps>[];
+export class FiberPushMaterial implements HasPropsHandlers<FiberMaterialProps> {
+    private propsHandlers: PropsHandler<FiberMaterialProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -7487,11 +5557,11 @@ export class FiberPushMaterial implements HasPropsHandlers<BabylonjsCoreMaterial
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreMaterial, FiberMaterialProps>[] {
+    getPropsHandlers(): PropsHandler<FiberMaterialProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreMaterial, FiberMaterialProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberMaterialProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -7518,373 +5588,71 @@ export class FiberPushMaterial implements HasPropsHandlers<BabylonjsCoreMaterial
     };
 }
 
-export class FiberStandardMaterialPropsHandler implements PropsHandler<BabylonjsCoreStandardMaterial, FiberStandardMaterialProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreStandardMaterial, oldProps: FiberStandardMaterialProps, newProps: FiberStandardMaterialProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsCoreStandardMaterial.alphaCutOff (number):
-        if (oldProps.alphaCutOff !== newProps.alphaCutOff) {
-            updates.push({
-                propertyName: 'alphaCutOff',
-                value: newProps.alphaCutOff,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreStandardMaterial.ambientColor (BabylonjsCoreColor3 uses object equals to find diffs):
-        if (newProps.ambientColor && (!oldProps.ambientColor || !oldProps.ambientColor.equals(newProps.ambientColor))) {
-            updates.push({
-                propertyName: 'ambientColor',
-                value: newProps.ambientColor,
-                type: 'BabylonjsCoreColor3'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreStandardMaterial.ambientTexture.
-        // BabylonjsCoreStandardMaterial.AmbientTextureEnabled (boolean):
-        if (oldProps.AmbientTextureEnabled !== newProps.AmbientTextureEnabled) {
-            updates.push({
-                propertyName: 'AmbientTextureEnabled',
-                value: newProps.AmbientTextureEnabled,
-                type: 'boolean'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreStandardMaterial.bumpTexture.
-        // BabylonjsCoreStandardMaterial.BumpTextureEnabled (boolean):
-        if (oldProps.BumpTextureEnabled !== newProps.BumpTextureEnabled) {
-            updates.push({
-                propertyName: 'BumpTextureEnabled',
-                value: newProps.BumpTextureEnabled,
-                type: 'boolean'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreColorCurves' property (not coded) BabylonjsCoreStandardMaterial.cameraColorCurves.
-        // BabylonjsCoreStandardMaterial.cameraColorCurvesEnabled (boolean):
-        if (oldProps.cameraColorCurvesEnabled !== newProps.cameraColorCurvesEnabled) {
-            updates.push({
-                propertyName: 'cameraColorCurvesEnabled',
-                value: newProps.cameraColorCurvesEnabled,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreStandardMaterial.cameraColorGradingEnabled (boolean):
-        if (oldProps.cameraColorGradingEnabled !== newProps.cameraColorGradingEnabled) {
-            updates.push({
-                propertyName: 'cameraColorGradingEnabled',
-                value: newProps.cameraColorGradingEnabled,
-                type: 'boolean'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreStandardMaterial.cameraColorGradingTexture.
-        // BabylonjsCoreStandardMaterial.cameraContrast (number):
-        if (oldProps.cameraContrast !== newProps.cameraContrast) {
-            updates.push({
-                propertyName: 'cameraContrast',
-                value: newProps.cameraContrast,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreStandardMaterial.cameraExposure (number):
-        if (oldProps.cameraExposure !== newProps.cameraExposure) {
-            updates.push({
-                propertyName: 'cameraExposure',
-                value: newProps.cameraExposure,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreStandardMaterial.cameraToneMappingEnabled (boolean):
-        if (oldProps.cameraToneMappingEnabled !== newProps.cameraToneMappingEnabled) {
-            updates.push({
-                propertyName: 'cameraToneMappingEnabled',
-                value: newProps.cameraToneMappingEnabled,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreStandardMaterial.ColorGradingTextureEnabled (boolean):
-        if (oldProps.ColorGradingTextureEnabled !== newProps.ColorGradingTextureEnabled) {
-            updates.push({
-                propertyName: 'ColorGradingTextureEnabled',
-                value: newProps.ColorGradingTextureEnabled,
-                type: 'boolean'
-            });
-        }
-        // TODO: type: '(shaderName: string, uniforms: string[], uniformBuffers: string[], samplers: string[], defines: BabylonjsCoreStandardMaterialDefines) => string' property (not coded) BabylonjsCoreStandardMaterial.customShaderNameResolve.
-        // BabylonjsCoreStandardMaterial.diffuseColor (BabylonjsCoreColor3 uses object equals to find diffs):
-        if (newProps.diffuseColor && (!oldProps.diffuseColor || !oldProps.diffuseColor.equals(newProps.diffuseColor))) {
-            updates.push({
-                propertyName: 'diffuseColor',
-                value: newProps.diffuseColor,
-                type: 'BabylonjsCoreColor3'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreFresnelParameters' property (not coded) BabylonjsCoreStandardMaterial.diffuseFresnelParameters.
-        // TODO: type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreStandardMaterial.diffuseTexture.
-        // BabylonjsCoreStandardMaterial.DiffuseTextureEnabled (boolean):
-        if (oldProps.DiffuseTextureEnabled !== newProps.DiffuseTextureEnabled) {
-            updates.push({
-                propertyName: 'DiffuseTextureEnabled',
-                value: newProps.DiffuseTextureEnabled,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreStandardMaterial.disableLighting (boolean):
-        if (oldProps.disableLighting !== newProps.disableLighting) {
-            updates.push({
-                propertyName: 'disableLighting',
-                value: newProps.disableLighting,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreStandardMaterial.emissiveColor (BabylonjsCoreColor3 uses object equals to find diffs):
-        if (newProps.emissiveColor && (!oldProps.emissiveColor || !oldProps.emissiveColor.equals(newProps.emissiveColor))) {
-            updates.push({
-                propertyName: 'emissiveColor',
-                value: newProps.emissiveColor,
-                type: 'BabylonjsCoreColor3'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreFresnelParameters' property (not coded) BabylonjsCoreStandardMaterial.emissiveFresnelParameters.
-        // TODO: type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreStandardMaterial.emissiveTexture.
-        // BabylonjsCoreStandardMaterial.EmissiveTextureEnabled (boolean):
-        if (oldProps.EmissiveTextureEnabled !== newProps.EmissiveTextureEnabled) {
-            updates.push({
-                propertyName: 'EmissiveTextureEnabled',
-                value: newProps.EmissiveTextureEnabled,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreStandardMaterial.FresnelEnabled (boolean):
-        if (oldProps.FresnelEnabled !== newProps.FresnelEnabled) {
-            updates.push({
-                propertyName: 'FresnelEnabled',
-                value: newProps.FresnelEnabled,
-                type: 'boolean'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreImageProcessingConfiguration' property (not coded) BabylonjsCoreStandardMaterial.imageProcessingConfiguration.
-        // BabylonjsCoreStandardMaterial.indexOfRefraction (number):
-        if (oldProps.indexOfRefraction !== newProps.indexOfRefraction) {
-            updates.push({
-                propertyName: 'indexOfRefraction',
-                value: newProps.indexOfRefraction,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreStandardMaterial.invertNormalMapX (boolean):
-        if (oldProps.invertNormalMapX !== newProps.invertNormalMapX) {
-            updates.push({
-                propertyName: 'invertNormalMapX',
-                value: newProps.invertNormalMapX,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreStandardMaterial.invertNormalMapY (boolean):
-        if (oldProps.invertNormalMapY !== newProps.invertNormalMapY) {
-            updates.push({
-                propertyName: 'invertNormalMapY',
-                value: newProps.invertNormalMapY,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreStandardMaterial.invertRefractionY (boolean):
-        if (oldProps.invertRefractionY !== newProps.invertRefractionY) {
-            updates.push({
-                propertyName: 'invertRefractionY',
-                value: newProps.invertRefractionY,
-                type: 'boolean'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreStandardMaterial.lightmapTexture.
-        // BabylonjsCoreStandardMaterial.LightmapTextureEnabled (boolean):
-        if (oldProps.LightmapTextureEnabled !== newProps.LightmapTextureEnabled) {
-            updates.push({
-                propertyName: 'LightmapTextureEnabled',
-                value: newProps.LightmapTextureEnabled,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreStandardMaterial.linkEmissiveWithDiffuse (boolean):
-        if (oldProps.linkEmissiveWithDiffuse !== newProps.linkEmissiveWithDiffuse) {
-            updates.push({
-                propertyName: 'linkEmissiveWithDiffuse',
-                value: newProps.linkEmissiveWithDiffuse,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreStandardMaterial.maxSimultaneousLights (number):
-        if (oldProps.maxSimultaneousLights !== newProps.maxSimultaneousLights) {
-            updates.push({
-                propertyName: 'maxSimultaneousLights',
-                value: newProps.maxSimultaneousLights,
-                type: 'number'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreFresnelParameters' property (not coded) BabylonjsCoreStandardMaterial.opacityFresnelParameters.
-        // TODO: type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreStandardMaterial.opacityTexture.
-        // BabylonjsCoreStandardMaterial.OpacityTextureEnabled (boolean):
-        if (oldProps.OpacityTextureEnabled !== newProps.OpacityTextureEnabled) {
-            updates.push({
-                propertyName: 'OpacityTextureEnabled',
-                value: newProps.OpacityTextureEnabled,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreStandardMaterial.parallaxScaleBias (number):
-        if (oldProps.parallaxScaleBias !== newProps.parallaxScaleBias) {
-            updates.push({
-                propertyName: 'parallaxScaleBias',
-                value: newProps.parallaxScaleBias,
-                type: 'number'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreFresnelParameters' property (not coded) BabylonjsCoreStandardMaterial.reflectionFresnelParameters.
-        // TODO: type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreStandardMaterial.reflectionTexture.
-        // BabylonjsCoreStandardMaterial.ReflectionTextureEnabled (boolean):
-        if (oldProps.ReflectionTextureEnabled !== newProps.ReflectionTextureEnabled) {
-            updates.push({
-                propertyName: 'ReflectionTextureEnabled',
-                value: newProps.ReflectionTextureEnabled,
-                type: 'boolean'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreFresnelParameters' property (not coded) BabylonjsCoreStandardMaterial.refractionFresnelParameters.
-        // TODO: type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreStandardMaterial.refractionTexture.
-        // BabylonjsCoreStandardMaterial.RefractionTextureEnabled (boolean):
-        if (oldProps.RefractionTextureEnabled !== newProps.RefractionTextureEnabled) {
-            updates.push({
-                propertyName: 'RefractionTextureEnabled',
-                value: newProps.RefractionTextureEnabled,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreStandardMaterial.roughness (number):
-        if (oldProps.roughness !== newProps.roughness) {
-            updates.push({
-                propertyName: 'roughness',
-                value: newProps.roughness,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreStandardMaterial.specularColor (BabylonjsCoreColor3 uses object equals to find diffs):
-        if (newProps.specularColor && (!oldProps.specularColor || !oldProps.specularColor.equals(newProps.specularColor))) {
-            updates.push({
-                propertyName: 'specularColor',
-                value: newProps.specularColor,
-                type: 'BabylonjsCoreColor3'
-            });
-        }
-        // BabylonjsCoreStandardMaterial.specularPower (number):
-        if (oldProps.specularPower !== newProps.specularPower) {
-            updates.push({
-                propertyName: 'specularPower',
-                value: newProps.specularPower,
-                type: 'number'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreStandardMaterial.specularTexture.
-        // BabylonjsCoreStandardMaterial.SpecularTextureEnabled (boolean):
-        if (oldProps.SpecularTextureEnabled !== newProps.SpecularTextureEnabled) {
-            updates.push({
-                propertyName: 'SpecularTextureEnabled',
-                value: newProps.SpecularTextureEnabled,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreStandardMaterial.twoSidedLighting (boolean):
-        if (oldProps.twoSidedLighting !== newProps.twoSidedLighting) {
-            updates.push({
-                propertyName: 'twoSidedLighting',
-                value: newProps.twoSidedLighting,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreStandardMaterial.useAlphaFromDiffuseTexture (boolean):
-        if (oldProps.useAlphaFromDiffuseTexture !== newProps.useAlphaFromDiffuseTexture) {
-            updates.push({
-                propertyName: 'useAlphaFromDiffuseTexture',
-                value: newProps.useAlphaFromDiffuseTexture,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreStandardMaterial.useEmissiveAsIllumination (boolean):
-        if (oldProps.useEmissiveAsIllumination !== newProps.useEmissiveAsIllumination) {
-            updates.push({
-                propertyName: 'useEmissiveAsIllumination',
-                value: newProps.useEmissiveAsIllumination,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreStandardMaterial.useGlossinessFromSpecularMapAlpha (boolean):
-        if (oldProps.useGlossinessFromSpecularMapAlpha !== newProps.useGlossinessFromSpecularMapAlpha) {
-            updates.push({
-                propertyName: 'useGlossinessFromSpecularMapAlpha',
-                value: newProps.useGlossinessFromSpecularMapAlpha,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreStandardMaterial.useLightmapAsShadowmap (boolean):
-        if (oldProps.useLightmapAsShadowmap !== newProps.useLightmapAsShadowmap) {
-            updates.push({
-                propertyName: 'useLightmapAsShadowmap',
-                value: newProps.useLightmapAsShadowmap,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreStandardMaterial.useLogarithmicDepth (boolean):
-        if (oldProps.useLogarithmicDepth !== newProps.useLogarithmicDepth) {
-            updates.push({
-                propertyName: 'useLogarithmicDepth',
-                value: newProps.useLogarithmicDepth,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreStandardMaterial.useObjectSpaceNormalMap (boolean):
-        if (oldProps.useObjectSpaceNormalMap !== newProps.useObjectSpaceNormalMap) {
-            updates.push({
-                propertyName: 'useObjectSpaceNormalMap',
-                value: newProps.useObjectSpaceNormalMap,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreStandardMaterial.useParallax (boolean):
-        if (oldProps.useParallax !== newProps.useParallax) {
-            updates.push({
-                propertyName: 'useParallax',
-                value: newProps.useParallax,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreStandardMaterial.useParallaxOcclusion (boolean):
-        if (oldProps.useParallaxOcclusion !== newProps.useParallaxOcclusion) {
-            updates.push({
-                propertyName: 'useParallaxOcclusion',
-                value: newProps.useParallaxOcclusion,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreStandardMaterial.useReflectionFresnelFromSpecular (boolean):
-        if (oldProps.useReflectionFresnelFromSpecular !== newProps.useReflectionFresnelFromSpecular) {
-            updates.push({
-                propertyName: 'useReflectionFresnelFromSpecular',
-                value: newProps.useReflectionFresnelFromSpecular,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreStandardMaterial.useReflectionOverAlpha (boolean):
-        if (oldProps.useReflectionOverAlpha !== newProps.useReflectionOverAlpha) {
-            updates.push({
-                propertyName: 'useReflectionOverAlpha',
-                value: newProps.useReflectionOverAlpha,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreStandardMaterial.useSpecularOverAlpha (boolean):
-        if (oldProps.useSpecularOverAlpha !== newProps.useSpecularOverAlpha) {
-            updates.push({
-                propertyName: 'useSpecularOverAlpha',
-                value: newProps.useSpecularOverAlpha,
-                type: 'boolean'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberStandardMaterialPropsHandler implements PropsHandler<FiberStandardMaterialProps> {
+    getPropertyUpdates(oldProps: FiberStandardMaterialProps, newProps: FiberStandardMaterialProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.alphaCutOff, newProps.alphaCutOff, 'alphaCutOff', 'number', changedProps)
+        checkColor3Diff(oldProps.ambientColor, newProps.ambientColor, 'ambientColor', 'BabylonjsCoreColor3', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreStandardMaterial.ambientTexture.
+        checkPrimitiveDiff(oldProps.AmbientTextureEnabled, newProps.AmbientTextureEnabled, 'AmbientTextureEnabled', 'boolean', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreStandardMaterial.bumpTexture.
+        checkPrimitiveDiff(oldProps.BumpTextureEnabled, newProps.BumpTextureEnabled, 'BumpTextureEnabled', 'boolean', changedProps)
+        // type: 'BabylonjsCoreColorCurves' property (not coded) BabylonjsCoreStandardMaterial.cameraColorCurves.
+        checkPrimitiveDiff(oldProps.cameraColorCurvesEnabled, newProps.cameraColorCurvesEnabled, 'cameraColorCurvesEnabled', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.cameraColorGradingEnabled, newProps.cameraColorGradingEnabled, 'cameraColorGradingEnabled', 'boolean', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreStandardMaterial.cameraColorGradingTexture.
+        checkPrimitiveDiff(oldProps.cameraContrast, newProps.cameraContrast, 'cameraContrast', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.cameraExposure, newProps.cameraExposure, 'cameraExposure', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.cameraToneMappingEnabled, newProps.cameraToneMappingEnabled, 'cameraToneMappingEnabled', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.ColorGradingTextureEnabled, newProps.ColorGradingTextureEnabled, 'ColorGradingTextureEnabled', 'boolean', changedProps)
+        checkLambdaDiff(oldProps.customShaderNameResolve, newProps.customShaderNameResolve, 'customShaderNameResolve', '(shaderName: string, uniforms: string[], uniformBuffers: string[], samplers: string[], defines: BabylonjsCoreStandardMaterialDefines) => string', changedProps)
+        checkColor3Diff(oldProps.diffuseColor, newProps.diffuseColor, 'diffuseColor', 'BabylonjsCoreColor3', changedProps)
+        checkFresnelParametersDiff(oldProps.diffuseFresnelParameters, newProps.diffuseFresnelParameters, 'diffuseFresnelParameters', 'BabylonjsCoreFresnelParameters', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreStandardMaterial.diffuseTexture.
+        checkPrimitiveDiff(oldProps.DiffuseTextureEnabled, newProps.DiffuseTextureEnabled, 'DiffuseTextureEnabled', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.disableLighting, newProps.disableLighting, 'disableLighting', 'boolean', changedProps)
+        checkColor3Diff(oldProps.emissiveColor, newProps.emissiveColor, 'emissiveColor', 'BabylonjsCoreColor3', changedProps)
+        checkFresnelParametersDiff(oldProps.emissiveFresnelParameters, newProps.emissiveFresnelParameters, 'emissiveFresnelParameters', 'BabylonjsCoreFresnelParameters', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreStandardMaterial.emissiveTexture.
+        checkPrimitiveDiff(oldProps.EmissiveTextureEnabled, newProps.EmissiveTextureEnabled, 'EmissiveTextureEnabled', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.FresnelEnabled, newProps.FresnelEnabled, 'FresnelEnabled', 'boolean', changedProps)
+        // type: 'BabylonjsCoreImageProcessingConfiguration' property (not coded) BabylonjsCoreStandardMaterial.imageProcessingConfiguration.
+        checkPrimitiveDiff(oldProps.indexOfRefraction, newProps.indexOfRefraction, 'indexOfRefraction', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.invertNormalMapX, newProps.invertNormalMapX, 'invertNormalMapX', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.invertNormalMapY, newProps.invertNormalMapY, 'invertNormalMapY', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.invertRefractionY, newProps.invertRefractionY, 'invertRefractionY', 'boolean', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreStandardMaterial.lightmapTexture.
+        checkPrimitiveDiff(oldProps.LightmapTextureEnabled, newProps.LightmapTextureEnabled, 'LightmapTextureEnabled', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.linkEmissiveWithDiffuse, newProps.linkEmissiveWithDiffuse, 'linkEmissiveWithDiffuse', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.maxSimultaneousLights, newProps.maxSimultaneousLights, 'maxSimultaneousLights', 'number', changedProps)
+        checkFresnelParametersDiff(oldProps.opacityFresnelParameters, newProps.opacityFresnelParameters, 'opacityFresnelParameters', 'BabylonjsCoreFresnelParameters', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreStandardMaterial.opacityTexture.
+        checkPrimitiveDiff(oldProps.OpacityTextureEnabled, newProps.OpacityTextureEnabled, 'OpacityTextureEnabled', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.parallaxScaleBias, newProps.parallaxScaleBias, 'parallaxScaleBias', 'number', changedProps)
+        checkFresnelParametersDiff(oldProps.reflectionFresnelParameters, newProps.reflectionFresnelParameters, 'reflectionFresnelParameters', 'BabylonjsCoreFresnelParameters', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreStandardMaterial.reflectionTexture.
+        checkPrimitiveDiff(oldProps.ReflectionTextureEnabled, newProps.ReflectionTextureEnabled, 'ReflectionTextureEnabled', 'boolean', changedProps)
+        checkFresnelParametersDiff(oldProps.refractionFresnelParameters, newProps.refractionFresnelParameters, 'refractionFresnelParameters', 'BabylonjsCoreFresnelParameters', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreStandardMaterial.refractionTexture.
+        checkPrimitiveDiff(oldProps.RefractionTextureEnabled, newProps.RefractionTextureEnabled, 'RefractionTextureEnabled', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.roughness, newProps.roughness, 'roughness', 'number', changedProps)
+        checkColor3Diff(oldProps.specularColor, newProps.specularColor, 'specularColor', 'BabylonjsCoreColor3', changedProps)
+        checkPrimitiveDiff(oldProps.specularPower, newProps.specularPower, 'specularPower', 'number', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreStandardMaterial.specularTexture.
+        checkPrimitiveDiff(oldProps.SpecularTextureEnabled, newProps.SpecularTextureEnabled, 'SpecularTextureEnabled', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.twoSidedLighting, newProps.twoSidedLighting, 'twoSidedLighting', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.useAlphaFromDiffuseTexture, newProps.useAlphaFromDiffuseTexture, 'useAlphaFromDiffuseTexture', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.useEmissiveAsIllumination, newProps.useEmissiveAsIllumination, 'useEmissiveAsIllumination', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.useGlossinessFromSpecularMapAlpha, newProps.useGlossinessFromSpecularMapAlpha, 'useGlossinessFromSpecularMapAlpha', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.useLightmapAsShadowmap, newProps.useLightmapAsShadowmap, 'useLightmapAsShadowmap', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.useLogarithmicDepth, newProps.useLogarithmicDepth, 'useLogarithmicDepth', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.useObjectSpaceNormalMap, newProps.useObjectSpaceNormalMap, 'useObjectSpaceNormalMap', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.useParallax, newProps.useParallax, 'useParallax', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.useParallaxOcclusion, newProps.useParallaxOcclusion, 'useParallaxOcclusion', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.useReflectionFresnelFromSpecular, newProps.useReflectionFresnelFromSpecular, 'useReflectionFresnelFromSpecular', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.useReflectionOverAlpha, newProps.useReflectionOverAlpha, 'useReflectionOverAlpha', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.useSpecularOverAlpha, newProps.useSpecularOverAlpha, 'useSpecularOverAlpha', 'boolean', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -7894,8 +5662,8 @@ export class FiberStandardMaterialPropsHandler implements PropsHandler<Babylonjs
  *
  * This code has been generated
  */
-export class FiberStandardMaterial implements HasPropsHandlers<BabylonjsCoreMaterial, FiberMaterialProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreMaterial, FiberMaterialProps>[];
+export class FiberStandardMaterial implements HasPropsHandlers<FiberMaterialProps> {
+    private propsHandlers: PropsHandler<FiberMaterialProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -7905,11 +5673,11 @@ export class FiberStandardMaterial implements HasPropsHandlers<BabylonjsCoreMate
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreMaterial, FiberMaterialProps>[] {
+    getPropsHandlers(): PropsHandler<FiberMaterialProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreMaterial, FiberMaterialProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberMaterialProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -7936,217 +5704,41 @@ export class FiberStandardMaterial implements HasPropsHandlers<BabylonjsCoreMate
     };
 }
 
-export class FiberBackgroundMaterialPropsHandler implements PropsHandler<BabylonjsCoreBackgroundMaterial, FiberBackgroundMaterialProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreBackgroundMaterial, oldProps: FiberBackgroundMaterialProps, newProps: FiberBackgroundMaterialProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsCoreBackgroundMaterial._perceptualColor (BabylonjsCoreColor3 uses object equals to find diffs):
-        if (newProps._perceptualColor && (!oldProps._perceptualColor || !oldProps._perceptualColor.equals(newProps._perceptualColor))) {
-            updates.push({
-                propertyName: '_perceptualColor',
-                value: newProps._perceptualColor,
-                type: 'BabylonjsCoreColor3'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreColorCurves' property (not coded) BabylonjsCoreBackgroundMaterial.cameraColorCurves.
-        // BabylonjsCoreBackgroundMaterial.cameraColorCurvesEnabled (boolean):
-        if (oldProps.cameraColorCurvesEnabled !== newProps.cameraColorCurvesEnabled) {
-            updates.push({
-                propertyName: 'cameraColorCurvesEnabled',
-                value: newProps.cameraColorCurvesEnabled,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreBackgroundMaterial.cameraColorGradingEnabled (boolean):
-        if (oldProps.cameraColorGradingEnabled !== newProps.cameraColorGradingEnabled) {
-            updates.push({
-                propertyName: 'cameraColorGradingEnabled',
-                value: newProps.cameraColorGradingEnabled,
-                type: 'boolean'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreBackgroundMaterial.cameraColorGradingTexture.
-        // BabylonjsCoreBackgroundMaterial.cameraContrast (number):
-        if (oldProps.cameraContrast !== newProps.cameraContrast) {
-            updates.push({
-                propertyName: 'cameraContrast',
-                value: newProps.cameraContrast,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreBackgroundMaterial.cameraExposure (number):
-        if (oldProps.cameraExposure !== newProps.cameraExposure) {
-            updates.push({
-                propertyName: 'cameraExposure',
-                value: newProps.cameraExposure,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreBackgroundMaterial.cameraToneMappingEnabled (boolean):
-        if (oldProps.cameraToneMappingEnabled !== newProps.cameraToneMappingEnabled) {
-            updates.push({
-                propertyName: 'cameraToneMappingEnabled',
-                value: newProps.cameraToneMappingEnabled,
-                type: 'boolean'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreBackgroundMaterial.diffuseTexture.
-        // BabylonjsCoreBackgroundMaterial.enableNoise (boolean):
-        if (oldProps.enableNoise !== newProps.enableNoise) {
-            updates.push({
-                propertyName: 'enableNoise',
-                value: newProps.enableNoise,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreBackgroundMaterial.fovMultiplier (number):
-        if (oldProps.fovMultiplier !== newProps.fovMultiplier) {
-            updates.push({
-                propertyName: 'fovMultiplier',
-                value: newProps.fovMultiplier,
-                type: 'number'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreImageProcessingConfiguration' property (not coded) BabylonjsCoreBackgroundMaterial.imageProcessingConfiguration.
-        // BabylonjsCoreBackgroundMaterial.maxSimultaneousLights (number):
-        if (oldProps.maxSimultaneousLights !== newProps.maxSimultaneousLights) {
-            updates.push({
-                propertyName: 'maxSimultaneousLights',
-                value: newProps.maxSimultaneousLights,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreBackgroundMaterial.opacityFresnel (boolean):
-        if (oldProps.opacityFresnel !== newProps.opacityFresnel) {
-            updates.push({
-                propertyName: 'opacityFresnel',
-                value: newProps.opacityFresnel,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreBackgroundMaterial.primaryColor (BabylonjsCoreColor3 uses object equals to find diffs):
-        if (newProps.primaryColor && (!oldProps.primaryColor || !oldProps.primaryColor.equals(newProps.primaryColor))) {
-            updates.push({
-                propertyName: 'primaryColor',
-                value: newProps.primaryColor,
-                type: 'BabylonjsCoreColor3'
-            });
-        }
-        // BabylonjsCoreBackgroundMaterial.primaryColorHighlightLevel (number):
-        if (oldProps.primaryColorHighlightLevel !== newProps.primaryColorHighlightLevel) {
-            updates.push({
-                propertyName: 'primaryColorHighlightLevel',
-                value: newProps.primaryColorHighlightLevel,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreBackgroundMaterial.primaryColorShadowLevel (number):
-        if (oldProps.primaryColorShadowLevel !== newProps.primaryColorShadowLevel) {
-            updates.push({
-                propertyName: 'primaryColorShadowLevel',
-                value: newProps.primaryColorShadowLevel,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreBackgroundMaterial.reflectionAmount (number):
-        if (oldProps.reflectionAmount !== newProps.reflectionAmount) {
-            updates.push({
-                propertyName: 'reflectionAmount',
-                value: newProps.reflectionAmount,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreBackgroundMaterial.reflectionBlur (number):
-        if (oldProps.reflectionBlur !== newProps.reflectionBlur) {
-            updates.push({
-                propertyName: 'reflectionBlur',
-                value: newProps.reflectionBlur,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreBackgroundMaterial.reflectionFalloffDistance (number):
-        if (oldProps.reflectionFalloffDistance !== newProps.reflectionFalloffDistance) {
-            updates.push({
-                propertyName: 'reflectionFalloffDistance',
-                value: newProps.reflectionFalloffDistance,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreBackgroundMaterial.reflectionFresnel (boolean):
-        if (oldProps.reflectionFresnel !== newProps.reflectionFresnel) {
-            updates.push({
-                propertyName: 'reflectionFresnel',
-                value: newProps.reflectionFresnel,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreBackgroundMaterial.reflectionReflectance0 (number):
-        if (oldProps.reflectionReflectance0 !== newProps.reflectionReflectance0) {
-            updates.push({
-                propertyName: 'reflectionReflectance0',
-                value: newProps.reflectionReflectance0,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreBackgroundMaterial.reflectionReflectance90 (number):
-        if (oldProps.reflectionReflectance90 !== newProps.reflectionReflectance90) {
-            updates.push({
-                propertyName: 'reflectionReflectance90',
-                value: newProps.reflectionReflectance90,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreBackgroundMaterial.reflectionStandardFresnelWeight (number):
-        if (oldProps.reflectionStandardFresnelWeight !== newProps.reflectionStandardFresnelWeight) {
-            updates.push({
-                propertyName: 'reflectionStandardFresnelWeight',
-                value: newProps.reflectionStandardFresnelWeight,
-                type: 'number'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreBackgroundMaterial.reflectionTexture.
-        // BabylonjsCoreBackgroundMaterial.sceneCenter (BabylonjsCoreVector3 uses object equals to find diffs):
-        if (newProps.sceneCenter && (!oldProps.sceneCenter || !oldProps.sceneCenter.equals(newProps.sceneCenter))) {
-            updates.push({
-                propertyName: 'sceneCenter',
-                value: newProps.sceneCenter,
-                type: 'BabylonjsCoreVector3'
-            });
-        }
-        // BabylonjsCoreBackgroundMaterial.shadowLevel (number):
-        if (oldProps.shadowLevel !== newProps.shadowLevel) {
-            updates.push({
-                propertyName: 'shadowLevel',
-                value: newProps.shadowLevel,
-                type: 'number'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreIShadowLight[]' property (not coded) BabylonjsCoreBackgroundMaterial.shadowLights.
-        // BabylonjsCoreBackgroundMaterial.switchToBGR (boolean):
-        if (oldProps.switchToBGR !== newProps.switchToBGR) {
-            updates.push({
-                propertyName: 'switchToBGR',
-                value: newProps.switchToBGR,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreBackgroundMaterial.useEquirectangularFOV (boolean):
-        if (oldProps.useEquirectangularFOV !== newProps.useEquirectangularFOV) {
-            updates.push({
-                propertyName: 'useEquirectangularFOV',
-                value: newProps.useEquirectangularFOV,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreBackgroundMaterial.useRGBColor (boolean):
-        if (oldProps.useRGBColor !== newProps.useRGBColor) {
-            updates.push({
-                propertyName: 'useRGBColor',
-                value: newProps.useRGBColor,
-                type: 'boolean'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberBackgroundMaterialPropsHandler implements PropsHandler<FiberBackgroundMaterialProps> {
+    getPropertyUpdates(oldProps: FiberBackgroundMaterialProps, newProps: FiberBackgroundMaterialProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkColor3Diff(oldProps._perceptualColor, newProps._perceptualColor, '_perceptualColor', 'BabylonjsCoreColor3', changedProps)
+        // type: 'BabylonjsCoreColorCurves' property (not coded) BabylonjsCoreBackgroundMaterial.cameraColorCurves.
+        checkPrimitiveDiff(oldProps.cameraColorCurvesEnabled, newProps.cameraColorCurvesEnabled, 'cameraColorCurvesEnabled', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.cameraColorGradingEnabled, newProps.cameraColorGradingEnabled, 'cameraColorGradingEnabled', 'boolean', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreBackgroundMaterial.cameraColorGradingTexture.
+        checkPrimitiveDiff(oldProps.cameraContrast, newProps.cameraContrast, 'cameraContrast', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.cameraExposure, newProps.cameraExposure, 'cameraExposure', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.cameraToneMappingEnabled, newProps.cameraToneMappingEnabled, 'cameraToneMappingEnabled', 'boolean', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreBackgroundMaterial.diffuseTexture.
+        checkPrimitiveDiff(oldProps.enableNoise, newProps.enableNoise, 'enableNoise', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.fovMultiplier, newProps.fovMultiplier, 'fovMultiplier', 'number', changedProps)
+        // type: 'BabylonjsCoreImageProcessingConfiguration' property (not coded) BabylonjsCoreBackgroundMaterial.imageProcessingConfiguration.
+        checkPrimitiveDiff(oldProps.maxSimultaneousLights, newProps.maxSimultaneousLights, 'maxSimultaneousLights', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.opacityFresnel, newProps.opacityFresnel, 'opacityFresnel', 'boolean', changedProps)
+        checkColor3Diff(oldProps.primaryColor, newProps.primaryColor, 'primaryColor', 'BabylonjsCoreColor3', changedProps)
+        checkPrimitiveDiff(oldProps.primaryColorHighlightLevel, newProps.primaryColorHighlightLevel, 'primaryColorHighlightLevel', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.primaryColorShadowLevel, newProps.primaryColorShadowLevel, 'primaryColorShadowLevel', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.reflectionAmount, newProps.reflectionAmount, 'reflectionAmount', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.reflectionBlur, newProps.reflectionBlur, 'reflectionBlur', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.reflectionFalloffDistance, newProps.reflectionFalloffDistance, 'reflectionFalloffDistance', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.reflectionFresnel, newProps.reflectionFresnel, 'reflectionFresnel', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.reflectionReflectance0, newProps.reflectionReflectance0, 'reflectionReflectance0', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.reflectionReflectance90, newProps.reflectionReflectance90, 'reflectionReflectance90', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.reflectionStandardFresnelWeight, newProps.reflectionStandardFresnelWeight, 'reflectionStandardFresnelWeight', 'number', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreBackgroundMaterial.reflectionTexture.
+        checkVector3Diff(oldProps.sceneCenter, newProps.sceneCenter, 'sceneCenter', 'BabylonjsCoreVector3', changedProps)
+        checkPrimitiveDiff(oldProps.shadowLevel, newProps.shadowLevel, 'shadowLevel', 'number', changedProps)
+        // type: 'BabylonjsCoreIShadowLight[]' property (not coded) BabylonjsCoreBackgroundMaterial.shadowLights.
+        checkPrimitiveDiff(oldProps.switchToBGR, newProps.switchToBGR, 'switchToBGR', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.useEquirectangularFOV, newProps.useEquirectangularFOV, 'useEquirectangularFOV', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.useRGBColor, newProps.useRGBColor, 'useRGBColor', 'boolean', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -8155,8 +5747,8 @@ export class FiberBackgroundMaterialPropsHandler implements PropsHandler<Babylon
  *
  * This code has been generated
  */
-export class FiberBackgroundMaterial implements HasPropsHandlers<BabylonjsCoreMaterial, FiberMaterialProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreMaterial, FiberMaterialProps>[];
+export class FiberBackgroundMaterial implements HasPropsHandlers<FiberMaterialProps> {
+    private propsHandlers: PropsHandler<FiberMaterialProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -8166,11 +5758,11 @@ export class FiberBackgroundMaterial implements HasPropsHandlers<BabylonjsCoreMa
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreMaterial, FiberMaterialProps>[] {
+    getPropsHandlers(): PropsHandler<FiberMaterialProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreMaterial, FiberMaterialProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberMaterialProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -8197,38 +5789,16 @@ export class FiberBackgroundMaterial implements HasPropsHandlers<BabylonjsCoreMa
     };
 }
 
-export class FiberPBRBaseMaterialPropsHandler implements PropsHandler<BabylonjsCorePBRBaseMaterial, FiberPBRBaseMaterialProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCorePBRBaseMaterial, oldProps: FiberPBRBaseMaterialProps, newProps: FiberPBRBaseMaterialProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // TODO: type: '(shaderName: string, uniforms: string[], uniformBuffers: string[], samplers: string[], defines: BabylonjsCorePBRMaterialDefines) => string' property (not coded) BabylonjsCorePBRBaseMaterial.customShaderNameResolve.
-        // TODO: type: 'any' property (not coded) BabylonjsCorePBRBaseMaterial.debugFactor.
-        // TODO: type: 'any' property (not coded) BabylonjsCorePBRBaseMaterial.debugLimit.
-        // BabylonjsCorePBRBaseMaterial.debugMode (number):
-        if (oldProps.debugMode !== newProps.debugMode) {
-            updates.push({
-                propertyName: 'debugMode',
-                value: newProps.debugMode,
-                type: 'number'
-            });
-        }
-        // BabylonjsCorePBRBaseMaterial.transparencyMode (number):
-        if (oldProps.transparencyMode !== newProps.transparencyMode) {
-            updates.push({
-                propertyName: 'transparencyMode',
-                value: newProps.transparencyMode,
-                type: 'number'
-            });
-        }
-        // BabylonjsCorePBRBaseMaterial.useLogarithmicDepth (boolean):
-        if (oldProps.useLogarithmicDepth !== newProps.useLogarithmicDepth) {
-            updates.push({
-                propertyName: 'useLogarithmicDepth',
-                value: newProps.useLogarithmicDepth,
-                type: 'boolean'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberPBRBaseMaterialPropsHandler implements PropsHandler<FiberPBRBaseMaterialProps> {
+    getPropertyUpdates(oldProps: FiberPBRBaseMaterialProps, newProps: FiberPBRBaseMaterialProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkLambdaDiff(oldProps.customShaderNameResolve, newProps.customShaderNameResolve, 'customShaderNameResolve', '(shaderName: string, uniforms: string[], uniformBuffers: string[], samplers: string[], defines: BabylonjsCorePBRMaterialDefines) => string', changedProps)
+        // type: 'any' property (not coded) BabylonjsCorePBRBaseMaterial.debugFactor.
+        // type: 'any' property (not coded) BabylonjsCorePBRBaseMaterial.debugLimit.
+        checkPrimitiveDiff(oldProps.debugMode, newProps.debugMode, 'debugMode', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.transparencyMode, newProps.transparencyMode, 'transparencyMode', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.useLogarithmicDepth, newProps.useLogarithmicDepth, 'useLogarithmicDepth', 'boolean', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -8241,8 +5811,8 @@ export class FiberPBRBaseMaterialPropsHandler implements PropsHandler<BabylonjsC
  *
  * This code has been generated
  */
-export class FiberPBRBaseMaterial implements HasPropsHandlers<BabylonjsCoreMaterial, FiberMaterialProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreMaterial, FiberMaterialProps>[];
+export class FiberPBRBaseMaterial implements HasPropsHandlers<FiberMaterialProps> {
+    private propsHandlers: PropsHandler<FiberMaterialProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -8252,11 +5822,11 @@ export class FiberPBRBaseMaterial implements HasPropsHandlers<BabylonjsCoreMater
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreMaterial, FiberMaterialProps>[] {
+    getPropsHandlers(): PropsHandler<FiberMaterialProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreMaterial, FiberMaterialProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberMaterialProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -8283,88 +5853,24 @@ export class FiberPBRBaseMaterial implements HasPropsHandlers<BabylonjsCoreMater
     };
 }
 
-export class FiberPBRBaseSimpleMaterialPropsHandler implements PropsHandler<BabylonjsCorePBRBaseSimpleMaterial, FiberPBRBaseSimpleMaterialProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCorePBRBaseSimpleMaterial, oldProps: FiberPBRBaseSimpleMaterialProps, newProps: FiberPBRBaseSimpleMaterialProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsCorePBRBaseSimpleMaterial.alphaCutOff (number):
-        if (oldProps.alphaCutOff !== newProps.alphaCutOff) {
-            updates.push({
-                propertyName: 'alphaCutOff',
-                value: newProps.alphaCutOff,
-                type: 'number'
-            });
-        }
-        // BabylonjsCorePBRBaseSimpleMaterial.disableLighting (boolean):
-        if (oldProps.disableLighting !== newProps.disableLighting) {
-            updates.push({
-                propertyName: 'disableLighting',
-                value: newProps.disableLighting,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCorePBRBaseSimpleMaterial.doubleSided (boolean):
-        if (oldProps.doubleSided !== newProps.doubleSided) {
-            updates.push({
-                propertyName: 'doubleSided',
-                value: newProps.doubleSided,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCorePBRBaseSimpleMaterial.emissiveColor (BabylonjsCoreColor3 uses object equals to find diffs):
-        if (newProps.emissiveColor && (!oldProps.emissiveColor || !oldProps.emissiveColor.equals(newProps.emissiveColor))) {
-            updates.push({
-                propertyName: 'emissiveColor',
-                value: newProps.emissiveColor,
-                type: 'BabylonjsCoreColor3'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRBaseSimpleMaterial.emissiveTexture.
-        // TODO: type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRBaseSimpleMaterial.environmentTexture.
-        // BabylonjsCorePBRBaseSimpleMaterial.invertNormalMapX (boolean):
-        if (oldProps.invertNormalMapX !== newProps.invertNormalMapX) {
-            updates.push({
-                propertyName: 'invertNormalMapX',
-                value: newProps.invertNormalMapX,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCorePBRBaseSimpleMaterial.invertNormalMapY (boolean):
-        if (oldProps.invertNormalMapY !== newProps.invertNormalMapY) {
-            updates.push({
-                propertyName: 'invertNormalMapY',
-                value: newProps.invertNormalMapY,
-                type: 'boolean'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRBaseSimpleMaterial.lightmapTexture.
-        // BabylonjsCorePBRBaseSimpleMaterial.maxSimultaneousLights (number):
-        if (oldProps.maxSimultaneousLights !== newProps.maxSimultaneousLights) {
-            updates.push({
-                propertyName: 'maxSimultaneousLights',
-                value: newProps.maxSimultaneousLights,
-                type: 'number'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRBaseSimpleMaterial.normalTexture.
-        // BabylonjsCorePBRBaseSimpleMaterial.occlusionStrength (number):
-        if (oldProps.occlusionStrength !== newProps.occlusionStrength) {
-            updates.push({
-                propertyName: 'occlusionStrength',
-                value: newProps.occlusionStrength,
-                type: 'number'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRBaseSimpleMaterial.occlusionTexture.
-        // BabylonjsCorePBRBaseSimpleMaterial.useLightmapAsShadowmap (boolean):
-        if (oldProps.useLightmapAsShadowmap !== newProps.useLightmapAsShadowmap) {
-            updates.push({
-                propertyName: 'useLightmapAsShadowmap',
-                value: newProps.useLightmapAsShadowmap,
-                type: 'boolean'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberPBRBaseSimpleMaterialPropsHandler implements PropsHandler<FiberPBRBaseSimpleMaterialProps> {
+    getPropertyUpdates(oldProps: FiberPBRBaseSimpleMaterialProps, newProps: FiberPBRBaseSimpleMaterialProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.alphaCutOff, newProps.alphaCutOff, 'alphaCutOff', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.disableLighting, newProps.disableLighting, 'disableLighting', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.doubleSided, newProps.doubleSided, 'doubleSided', 'boolean', changedProps)
+        checkColor3Diff(oldProps.emissiveColor, newProps.emissiveColor, 'emissiveColor', 'BabylonjsCoreColor3', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRBaseSimpleMaterial.emissiveTexture.
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRBaseSimpleMaterial.environmentTexture.
+        checkPrimitiveDiff(oldProps.invertNormalMapX, newProps.invertNormalMapX, 'invertNormalMapX', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.invertNormalMapY, newProps.invertNormalMapY, 'invertNormalMapY', 'boolean', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRBaseSimpleMaterial.lightmapTexture.
+        checkPrimitiveDiff(oldProps.maxSimultaneousLights, newProps.maxSimultaneousLights, 'maxSimultaneousLights', 'number', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRBaseSimpleMaterial.normalTexture.
+        checkPrimitiveDiff(oldProps.occlusionStrength, newProps.occlusionStrength, 'occlusionStrength', 'number', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRBaseSimpleMaterial.occlusionTexture.
+        checkPrimitiveDiff(oldProps.useLightmapAsShadowmap, newProps.useLightmapAsShadowmap, 'useLightmapAsShadowmap', 'boolean', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -8376,8 +5882,8 @@ export class FiberPBRBaseSimpleMaterialPropsHandler implements PropsHandler<Baby
  *
  * This code has been generated
  */
-export class FiberPBRBaseSimpleMaterial implements HasPropsHandlers<BabylonjsCoreMaterial, FiberMaterialProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreMaterial, FiberMaterialProps>[];
+export class FiberPBRBaseSimpleMaterial implements HasPropsHandlers<FiberMaterialProps> {
+    private propsHandlers: PropsHandler<FiberMaterialProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -8388,11 +5894,11 @@ export class FiberPBRBaseSimpleMaterial implements HasPropsHandlers<BabylonjsCor
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreMaterial, FiberMaterialProps>[] {
+    getPropsHandlers(): PropsHandler<FiberMaterialProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreMaterial, FiberMaterialProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberMaterialProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -8419,37 +5925,15 @@ export class FiberPBRBaseSimpleMaterial implements HasPropsHandlers<BabylonjsCor
     };
 }
 
-export class FiberPBRMetallicRoughnessMaterialPropsHandler implements PropsHandler<BabylonjsCorePBRMetallicRoughnessMaterial, FiberPBRMetallicRoughnessMaterialProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCorePBRMetallicRoughnessMaterial, oldProps: FiberPBRMetallicRoughnessMaterialProps, newProps: FiberPBRMetallicRoughnessMaterialProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsCorePBRMetallicRoughnessMaterial.baseColor (BabylonjsCoreColor3 uses object equals to find diffs):
-        if (newProps.baseColor && (!oldProps.baseColor || !oldProps.baseColor.equals(newProps.baseColor))) {
-            updates.push({
-                propertyName: 'baseColor',
-                value: newProps.baseColor,
-                type: 'BabylonjsCoreColor3'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMetallicRoughnessMaterial.baseTexture.
-        // BabylonjsCorePBRMetallicRoughnessMaterial.metallic (number):
-        if (oldProps.metallic !== newProps.metallic) {
-            updates.push({
-                propertyName: 'metallic',
-                value: newProps.metallic,
-                type: 'number'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMetallicRoughnessMaterial.metallicRoughnessTexture.
-        // BabylonjsCorePBRMetallicRoughnessMaterial.roughness (number):
-        if (oldProps.roughness !== newProps.roughness) {
-            updates.push({
-                propertyName: 'roughness',
-                value: newProps.roughness,
-                type: 'number'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberPBRMetallicRoughnessMaterialPropsHandler implements PropsHandler<FiberPBRMetallicRoughnessMaterialProps> {
+    getPropertyUpdates(oldProps: FiberPBRMetallicRoughnessMaterialProps, newProps: FiberPBRMetallicRoughnessMaterialProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkColor3Diff(oldProps.baseColor, newProps.baseColor, 'baseColor', 'BabylonjsCoreColor3', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMetallicRoughnessMaterial.baseTexture.
+        checkPrimitiveDiff(oldProps.metallic, newProps.metallic, 'metallic', 'number', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMetallicRoughnessMaterial.metallicRoughnessTexture.
+        checkPrimitiveDiff(oldProps.roughness, newProps.roughness, 'roughness', 'number', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -8461,8 +5945,8 @@ export class FiberPBRMetallicRoughnessMaterialPropsHandler implements PropsHandl
  *
  * This code has been generated
  */
-export class FiberPBRMetallicRoughnessMaterial implements HasPropsHandlers<BabylonjsCoreMaterial, FiberMaterialProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreMaterial, FiberMaterialProps>[];
+export class FiberPBRMetallicRoughnessMaterial implements HasPropsHandlers<FiberMaterialProps> {
+    private propsHandlers: PropsHandler<FiberMaterialProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -8474,11 +5958,11 @@ export class FiberPBRMetallicRoughnessMaterial implements HasPropsHandlers<Babyl
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreMaterial, FiberMaterialProps>[] {
+    getPropsHandlers(): PropsHandler<FiberMaterialProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreMaterial, FiberMaterialProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberMaterialProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -8505,37 +5989,15 @@ export class FiberPBRMetallicRoughnessMaterial implements HasPropsHandlers<Babyl
     };
 }
 
-export class FiberPBRSpecularGlossinessMaterialPropsHandler implements PropsHandler<BabylonjsCorePBRSpecularGlossinessMaterial, FiberPBRSpecularGlossinessMaterialProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCorePBRSpecularGlossinessMaterial, oldProps: FiberPBRSpecularGlossinessMaterialProps, newProps: FiberPBRSpecularGlossinessMaterialProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsCorePBRSpecularGlossinessMaterial.diffuseColor (BabylonjsCoreColor3 uses object equals to find diffs):
-        if (newProps.diffuseColor && (!oldProps.diffuseColor || !oldProps.diffuseColor.equals(newProps.diffuseColor))) {
-            updates.push({
-                propertyName: 'diffuseColor',
-                value: newProps.diffuseColor,
-                type: 'BabylonjsCoreColor3'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRSpecularGlossinessMaterial.diffuseTexture.
-        // BabylonjsCorePBRSpecularGlossinessMaterial.glossiness (number):
-        if (oldProps.glossiness !== newProps.glossiness) {
-            updates.push({
-                propertyName: 'glossiness',
-                value: newProps.glossiness,
-                type: 'number'
-            });
-        }
-        // BabylonjsCorePBRSpecularGlossinessMaterial.specularColor (BabylonjsCoreColor3 uses object equals to find diffs):
-        if (newProps.specularColor && (!oldProps.specularColor || !oldProps.specularColor.equals(newProps.specularColor))) {
-            updates.push({
-                propertyName: 'specularColor',
-                value: newProps.specularColor,
-                type: 'BabylonjsCoreColor3'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRSpecularGlossinessMaterial.specularGlossinessTexture.
-        return updates.length === 0 ? null : updates;
+export class FiberPBRSpecularGlossinessMaterialPropsHandler implements PropsHandler<FiberPBRSpecularGlossinessMaterialProps> {
+    getPropertyUpdates(oldProps: FiberPBRSpecularGlossinessMaterialProps, newProps: FiberPBRSpecularGlossinessMaterialProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkColor3Diff(oldProps.diffuseColor, newProps.diffuseColor, 'diffuseColor', 'BabylonjsCoreColor3', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRSpecularGlossinessMaterial.diffuseTexture.
+        checkPrimitiveDiff(oldProps.glossiness, newProps.glossiness, 'glossiness', 'number', changedProps)
+        checkColor3Diff(oldProps.specularColor, newProps.specularColor, 'specularColor', 'BabylonjsCoreColor3', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRSpecularGlossinessMaterial.specularGlossinessTexture.
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -8547,8 +6009,8 @@ export class FiberPBRSpecularGlossinessMaterialPropsHandler implements PropsHand
  *
  * This code has been generated
  */
-export class FiberPBRSpecularGlossinessMaterial implements HasPropsHandlers<BabylonjsCoreMaterial, FiberMaterialProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreMaterial, FiberMaterialProps>[];
+export class FiberPBRSpecularGlossinessMaterial implements HasPropsHandlers<FiberMaterialProps> {
+    private propsHandlers: PropsHandler<FiberMaterialProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -8560,11 +6022,11 @@ export class FiberPBRSpecularGlossinessMaterial implements HasPropsHandlers<Baby
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreMaterial, FiberMaterialProps>[] {
+    getPropsHandlers(): PropsHandler<FiberMaterialProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreMaterial, FiberMaterialProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberMaterialProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -8591,482 +6053,82 @@ export class FiberPBRSpecularGlossinessMaterial implements HasPropsHandlers<Baby
     };
 }
 
-export class FiberPBRMaterialPropsHandler implements PropsHandler<BabylonjsCorePBRMaterial, FiberPBRMaterialProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCorePBRMaterial, oldProps: FiberPBRMaterialProps, newProps: FiberPBRMaterialProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsCorePBRMaterial.albedoColor (BabylonjsCoreColor3 uses object equals to find diffs):
-        if (newProps.albedoColor && (!oldProps.albedoColor || !oldProps.albedoColor.equals(newProps.albedoColor))) {
-            updates.push({
-                propertyName: 'albedoColor',
-                value: newProps.albedoColor,
-                type: 'BabylonjsCoreColor3'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.albedoTexture.
-        // BabylonjsCorePBRMaterial.alphaCutOff (number):
-        if (oldProps.alphaCutOff !== newProps.alphaCutOff) {
-            updates.push({
-                propertyName: 'alphaCutOff',
-                value: newProps.alphaCutOff,
-                type: 'number'
-            });
-        }
-        // BabylonjsCorePBRMaterial.ambientColor (BabylonjsCoreColor3 uses object equals to find diffs):
-        if (newProps.ambientColor && (!oldProps.ambientColor || !oldProps.ambientColor.equals(newProps.ambientColor))) {
-            updates.push({
-                propertyName: 'ambientColor',
-                value: newProps.ambientColor,
-                type: 'BabylonjsCoreColor3'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.ambientTexture.
-        // BabylonjsCorePBRMaterial.ambientTextureImpactOnAnalyticalLights (number):
-        if (oldProps.ambientTextureImpactOnAnalyticalLights !== newProps.ambientTextureImpactOnAnalyticalLights) {
-            updates.push({
-                propertyName: 'ambientTextureImpactOnAnalyticalLights',
-                value: newProps.ambientTextureImpactOnAnalyticalLights,
-                type: 'number'
-            });
-        }
-        // BabylonjsCorePBRMaterial.ambientTextureStrength (number):
-        if (oldProps.ambientTextureStrength !== newProps.ambientTextureStrength) {
-            updates.push({
-                propertyName: 'ambientTextureStrength',
-                value: newProps.ambientTextureStrength,
-                type: 'number'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.bumpTexture.
-        // TODO: type: 'BabylonjsCoreColorCurves' property (not coded) BabylonjsCorePBRMaterial.cameraColorCurves.
-        // BabylonjsCorePBRMaterial.cameraColorCurvesEnabled (boolean):
-        if (oldProps.cameraColorCurvesEnabled !== newProps.cameraColorCurvesEnabled) {
-            updates.push({
-                propertyName: 'cameraColorCurvesEnabled',
-                value: newProps.cameraColorCurvesEnabled,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCorePBRMaterial.cameraColorGradingEnabled (boolean):
-        if (oldProps.cameraColorGradingEnabled !== newProps.cameraColorGradingEnabled) {
-            updates.push({
-                propertyName: 'cameraColorGradingEnabled',
-                value: newProps.cameraColorGradingEnabled,
-                type: 'boolean'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.cameraColorGradingTexture.
-        // BabylonjsCorePBRMaterial.cameraContrast (number):
-        if (oldProps.cameraContrast !== newProps.cameraContrast) {
-            updates.push({
-                propertyName: 'cameraContrast',
-                value: newProps.cameraContrast,
-                type: 'number'
-            });
-        }
-        // BabylonjsCorePBRMaterial.cameraExposure (number):
-        if (oldProps.cameraExposure !== newProps.cameraExposure) {
-            updates.push({
-                propertyName: 'cameraExposure',
-                value: newProps.cameraExposure,
-                type: 'number'
-            });
-        }
-        // BabylonjsCorePBRMaterial.cameraToneMappingEnabled (boolean):
-        if (oldProps.cameraToneMappingEnabled !== newProps.cameraToneMappingEnabled) {
-            updates.push({
-                propertyName: 'cameraToneMappingEnabled',
-                value: newProps.cameraToneMappingEnabled,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCorePBRMaterial.directIntensity (number):
-        if (oldProps.directIntensity !== newProps.directIntensity) {
-            updates.push({
-                propertyName: 'directIntensity',
-                value: newProps.directIntensity,
-                type: 'number'
-            });
-        }
-        // BabylonjsCorePBRMaterial.disableBumpMap (boolean):
-        if (oldProps.disableBumpMap !== newProps.disableBumpMap) {
-            updates.push({
-                propertyName: 'disableBumpMap',
-                value: newProps.disableBumpMap,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCorePBRMaterial.disableLighting (boolean):
-        if (oldProps.disableLighting !== newProps.disableLighting) {
-            updates.push({
-                propertyName: 'disableLighting',
-                value: newProps.disableLighting,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCorePBRMaterial.emissiveColor (BabylonjsCoreColor3 uses object equals to find diffs):
-        if (newProps.emissiveColor && (!oldProps.emissiveColor || !oldProps.emissiveColor.equals(newProps.emissiveColor))) {
-            updates.push({
-                propertyName: 'emissiveColor',
-                value: newProps.emissiveColor,
-                type: 'BabylonjsCoreColor3'
-            });
-        }
-        // BabylonjsCorePBRMaterial.emissiveIntensity (number):
-        if (oldProps.emissiveIntensity !== newProps.emissiveIntensity) {
-            updates.push({
-                propertyName: 'emissiveIntensity',
-                value: newProps.emissiveIntensity,
-                type: 'number'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.emissiveTexture.
-        // BabylonjsCorePBRMaterial.enableSpecularAntiAliasing (boolean):
-        if (oldProps.enableSpecularAntiAliasing !== newProps.enableSpecularAntiAliasing) {
-            updates.push({
-                propertyName: 'enableSpecularAntiAliasing',
-                value: newProps.enableSpecularAntiAliasing,
-                type: 'boolean'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.environmentBRDFTexture.
-        // BabylonjsCorePBRMaterial.environmentIntensity (number):
-        if (oldProps.environmentIntensity !== newProps.environmentIntensity) {
-            updates.push({
-                propertyName: 'environmentIntensity',
-                value: newProps.environmentIntensity,
-                type: 'number'
-            });
-        }
-        // BabylonjsCorePBRMaterial.forceAlphaTest (boolean):
-        if (oldProps.forceAlphaTest !== newProps.forceAlphaTest) {
-            updates.push({
-                propertyName: 'forceAlphaTest',
-                value: newProps.forceAlphaTest,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCorePBRMaterial.forceIrradianceInFragment (boolean):
-        if (oldProps.forceIrradianceInFragment !== newProps.forceIrradianceInFragment) {
-            updates.push({
-                propertyName: 'forceIrradianceInFragment',
-                value: newProps.forceIrradianceInFragment,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCorePBRMaterial.forceNormalForward (boolean):
-        if (oldProps.forceNormalForward !== newProps.forceNormalForward) {
-            updates.push({
-                propertyName: 'forceNormalForward',
-                value: newProps.forceNormalForward,
-                type: 'boolean'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreImageProcessingConfiguration' property (not coded) BabylonjsCorePBRMaterial.imageProcessingConfiguration.
-        // BabylonjsCorePBRMaterial.indexOfRefraction (number):
-        if (oldProps.indexOfRefraction !== newProps.indexOfRefraction) {
-            updates.push({
-                propertyName: 'indexOfRefraction',
-                value: newProps.indexOfRefraction,
-                type: 'number'
-            });
-        }
-        // BabylonjsCorePBRMaterial.invertNormalMapX (boolean):
-        if (oldProps.invertNormalMapX !== newProps.invertNormalMapX) {
-            updates.push({
-                propertyName: 'invertNormalMapX',
-                value: newProps.invertNormalMapX,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCorePBRMaterial.invertNormalMapY (boolean):
-        if (oldProps.invertNormalMapY !== newProps.invertNormalMapY) {
-            updates.push({
-                propertyName: 'invertNormalMapY',
-                value: newProps.invertNormalMapY,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCorePBRMaterial.invertRefractionY (boolean):
-        if (oldProps.invertRefractionY !== newProps.invertRefractionY) {
-            updates.push({
-                propertyName: 'invertRefractionY',
-                value: newProps.invertRefractionY,
-                type: 'boolean'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.lightmapTexture.
-        // BabylonjsCorePBRMaterial.linkRefractionWithTransparency (boolean):
-        if (oldProps.linkRefractionWithTransparency !== newProps.linkRefractionWithTransparency) {
-            updates.push({
-                propertyName: 'linkRefractionWithTransparency',
-                value: newProps.linkRefractionWithTransparency,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCorePBRMaterial.maxSimultaneousLights (number):
-        if (oldProps.maxSimultaneousLights !== newProps.maxSimultaneousLights) {
-            updates.push({
-                propertyName: 'maxSimultaneousLights',
-                value: newProps.maxSimultaneousLights,
-                type: 'number'
-            });
-        }
-        // BabylonjsCorePBRMaterial.metallic (number):
-        if (oldProps.metallic !== newProps.metallic) {
-            updates.push({
-                propertyName: 'metallic',
-                value: newProps.metallic,
-                type: 'number'
-            });
-        }
-        // BabylonjsCorePBRMaterial.metallicF0Factor (number):
-        if (oldProps.metallicF0Factor !== newProps.metallicF0Factor) {
-            updates.push({
-                propertyName: 'metallicF0Factor',
-                value: newProps.metallicF0Factor,
-                type: 'number'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.metallicTexture.
-        // BabylonjsCorePBRMaterial.microSurface (number):
-        if (oldProps.microSurface !== newProps.microSurface) {
-            updates.push({
-                propertyName: 'microSurface',
-                value: newProps.microSurface,
-                type: 'number'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.microSurfaceTexture.
-        // TODO: type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.opacityTexture.
-        // BabylonjsCorePBRMaterial.parallaxScaleBias (number):
-        if (oldProps.parallaxScaleBias !== newProps.parallaxScaleBias) {
-            updates.push({
-                propertyName: 'parallaxScaleBias',
-                value: newProps.parallaxScaleBias,
-                type: 'number'
-            });
-        }
-        // BabylonjsCorePBRMaterial.reflectionColor (BabylonjsCoreColor3 uses object equals to find diffs):
-        if (newProps.reflectionColor && (!oldProps.reflectionColor || !oldProps.reflectionColor.equals(newProps.reflectionColor))) {
-            updates.push({
-                propertyName: 'reflectionColor',
-                value: newProps.reflectionColor,
-                type: 'BabylonjsCoreColor3'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.reflectionTexture.
-        // BabylonjsCorePBRMaterial.reflectivityColor (BabylonjsCoreColor3 uses object equals to find diffs):
-        if (newProps.reflectivityColor && (!oldProps.reflectivityColor || !oldProps.reflectivityColor.equals(newProps.reflectivityColor))) {
-            updates.push({
-                propertyName: 'reflectivityColor',
-                value: newProps.reflectivityColor,
-                type: 'BabylonjsCoreColor3'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.reflectivityTexture.
-        // TODO: type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.refractionTexture.
-        // BabylonjsCorePBRMaterial.roughness (number):
-        if (oldProps.roughness !== newProps.roughness) {
-            updates.push({
-                propertyName: 'roughness',
-                value: newProps.roughness,
-                type: 'number'
-            });
-        }
-        // BabylonjsCorePBRMaterial.specularIntensity (number):
-        if (oldProps.specularIntensity !== newProps.specularIntensity) {
-            updates.push({
-                propertyName: 'specularIntensity',
-                value: newProps.specularIntensity,
-                type: 'number'
-            });
-        }
-        // BabylonjsCorePBRMaterial.twoSidedLighting (boolean):
-        if (oldProps.twoSidedLighting !== newProps.twoSidedLighting) {
-            updates.push({
-                propertyName: 'twoSidedLighting',
-                value: newProps.twoSidedLighting,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCorePBRMaterial.unlit (boolean):
-        if (oldProps.unlit !== newProps.unlit) {
-            updates.push({
-                propertyName: 'unlit',
-                value: newProps.unlit,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCorePBRMaterial.useAlphaFresnel (boolean):
-        if (oldProps.useAlphaFresnel !== newProps.useAlphaFresnel) {
-            updates.push({
-                propertyName: 'useAlphaFresnel',
-                value: newProps.useAlphaFresnel,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCorePBRMaterial.useAlphaFromAlbedoTexture (boolean):
-        if (oldProps.useAlphaFromAlbedoTexture !== newProps.useAlphaFromAlbedoTexture) {
-            updates.push({
-                propertyName: 'useAlphaFromAlbedoTexture',
-                value: newProps.useAlphaFromAlbedoTexture,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCorePBRMaterial.useAmbientInGrayScale (boolean):
-        if (oldProps.useAmbientInGrayScale !== newProps.useAmbientInGrayScale) {
-            updates.push({
-                propertyName: 'useAmbientInGrayScale',
-                value: newProps.useAmbientInGrayScale,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCorePBRMaterial.useAmbientOcclusionFromMetallicTextureRed (boolean):
-        if (oldProps.useAmbientOcclusionFromMetallicTextureRed !== newProps.useAmbientOcclusionFromMetallicTextureRed) {
-            updates.push({
-                propertyName: 'useAmbientOcclusionFromMetallicTextureRed',
-                value: newProps.useAmbientOcclusionFromMetallicTextureRed,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCorePBRMaterial.useAutoMicroSurfaceFromReflectivityMap (boolean):
-        if (oldProps.useAutoMicroSurfaceFromReflectivityMap !== newProps.useAutoMicroSurfaceFromReflectivityMap) {
-            updates.push({
-                propertyName: 'useAutoMicroSurfaceFromReflectivityMap',
-                value: newProps.useAutoMicroSurfaceFromReflectivityMap,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCorePBRMaterial.useGLTFLightFalloff (boolean):
-        if (oldProps.useGLTFLightFalloff !== newProps.useGLTFLightFalloff) {
-            updates.push({
-                propertyName: 'useGLTFLightFalloff',
-                value: newProps.useGLTFLightFalloff,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCorePBRMaterial.useHorizonOcclusion (boolean):
-        if (oldProps.useHorizonOcclusion !== newProps.useHorizonOcclusion) {
-            updates.push({
-                propertyName: 'useHorizonOcclusion',
-                value: newProps.useHorizonOcclusion,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCorePBRMaterial.useLightmapAsShadowmap (boolean):
-        if (oldProps.useLightmapAsShadowmap !== newProps.useLightmapAsShadowmap) {
-            updates.push({
-                propertyName: 'useLightmapAsShadowmap',
-                value: newProps.useLightmapAsShadowmap,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCorePBRMaterial.useLinearAlphaFresnel (boolean):
-        if (oldProps.useLinearAlphaFresnel !== newProps.useLinearAlphaFresnel) {
-            updates.push({
-                propertyName: 'useLinearAlphaFresnel',
-                value: newProps.useLinearAlphaFresnel,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCorePBRMaterial.useMetallicF0FactorFromMetallicTexture (boolean):
-        if (oldProps.useMetallicF0FactorFromMetallicTexture !== newProps.useMetallicF0FactorFromMetallicTexture) {
-            updates.push({
-                propertyName: 'useMetallicF0FactorFromMetallicTexture',
-                value: newProps.useMetallicF0FactorFromMetallicTexture,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCorePBRMaterial.useMetallnessFromMetallicTextureBlue (boolean):
-        if (oldProps.useMetallnessFromMetallicTextureBlue !== newProps.useMetallnessFromMetallicTextureBlue) {
-            updates.push({
-                propertyName: 'useMetallnessFromMetallicTextureBlue',
-                value: newProps.useMetallnessFromMetallicTextureBlue,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCorePBRMaterial.useMicroSurfaceFromReflectivityMapAlpha (boolean):
-        if (oldProps.useMicroSurfaceFromReflectivityMapAlpha !== newProps.useMicroSurfaceFromReflectivityMapAlpha) {
-            updates.push({
-                propertyName: 'useMicroSurfaceFromReflectivityMapAlpha',
-                value: newProps.useMicroSurfaceFromReflectivityMapAlpha,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCorePBRMaterial.useObjectSpaceNormalMap (boolean):
-        if (oldProps.useObjectSpaceNormalMap !== newProps.useObjectSpaceNormalMap) {
-            updates.push({
-                propertyName: 'useObjectSpaceNormalMap',
-                value: newProps.useObjectSpaceNormalMap,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCorePBRMaterial.useParallax (boolean):
-        if (oldProps.useParallax !== newProps.useParallax) {
-            updates.push({
-                propertyName: 'useParallax',
-                value: newProps.useParallax,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCorePBRMaterial.useParallaxOcclusion (boolean):
-        if (oldProps.useParallaxOcclusion !== newProps.useParallaxOcclusion) {
-            updates.push({
-                propertyName: 'useParallaxOcclusion',
-                value: newProps.useParallaxOcclusion,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCorePBRMaterial.usePhysicalLightFalloff (boolean):
-        if (oldProps.usePhysicalLightFalloff !== newProps.usePhysicalLightFalloff) {
-            updates.push({
-                propertyName: 'usePhysicalLightFalloff',
-                value: newProps.usePhysicalLightFalloff,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCorePBRMaterial.useRadianceOcclusion (boolean):
-        if (oldProps.useRadianceOcclusion !== newProps.useRadianceOcclusion) {
-            updates.push({
-                propertyName: 'useRadianceOcclusion',
-                value: newProps.useRadianceOcclusion,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCorePBRMaterial.useRadianceOverAlpha (boolean):
-        if (oldProps.useRadianceOverAlpha !== newProps.useRadianceOverAlpha) {
-            updates.push({
-                propertyName: 'useRadianceOverAlpha',
-                value: newProps.useRadianceOverAlpha,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCorePBRMaterial.useRoughnessFromMetallicTextureAlpha (boolean):
-        if (oldProps.useRoughnessFromMetallicTextureAlpha !== newProps.useRoughnessFromMetallicTextureAlpha) {
-            updates.push({
-                propertyName: 'useRoughnessFromMetallicTextureAlpha',
-                value: newProps.useRoughnessFromMetallicTextureAlpha,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCorePBRMaterial.useRoughnessFromMetallicTextureGreen (boolean):
-        if (oldProps.useRoughnessFromMetallicTextureGreen !== newProps.useRoughnessFromMetallicTextureGreen) {
-            updates.push({
-                propertyName: 'useRoughnessFromMetallicTextureGreen',
-                value: newProps.useRoughnessFromMetallicTextureGreen,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCorePBRMaterial.useSpecularOverAlpha (boolean):
-        if (oldProps.useSpecularOverAlpha !== newProps.useSpecularOverAlpha) {
-            updates.push({
-                propertyName: 'useSpecularOverAlpha',
-                value: newProps.useSpecularOverAlpha,
-                type: 'boolean'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberPBRMaterialPropsHandler implements PropsHandler<FiberPBRMaterialProps> {
+    getPropertyUpdates(oldProps: FiberPBRMaterialProps, newProps: FiberPBRMaterialProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkColor3Diff(oldProps.albedoColor, newProps.albedoColor, 'albedoColor', 'BabylonjsCoreColor3', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.albedoTexture.
+        checkPrimitiveDiff(oldProps.alphaCutOff, newProps.alphaCutOff, 'alphaCutOff', 'number', changedProps)
+        checkColor3Diff(oldProps.ambientColor, newProps.ambientColor, 'ambientColor', 'BabylonjsCoreColor3', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.ambientTexture.
+        checkPrimitiveDiff(oldProps.ambientTextureImpactOnAnalyticalLights, newProps.ambientTextureImpactOnAnalyticalLights, 'ambientTextureImpactOnAnalyticalLights', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.ambientTextureStrength, newProps.ambientTextureStrength, 'ambientTextureStrength', 'number', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.bumpTexture.
+        // type: 'BabylonjsCoreColorCurves' property (not coded) BabylonjsCorePBRMaterial.cameraColorCurves.
+        checkPrimitiveDiff(oldProps.cameraColorCurvesEnabled, newProps.cameraColorCurvesEnabled, 'cameraColorCurvesEnabled', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.cameraColorGradingEnabled, newProps.cameraColorGradingEnabled, 'cameraColorGradingEnabled', 'boolean', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.cameraColorGradingTexture.
+        checkPrimitiveDiff(oldProps.cameraContrast, newProps.cameraContrast, 'cameraContrast', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.cameraExposure, newProps.cameraExposure, 'cameraExposure', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.cameraToneMappingEnabled, newProps.cameraToneMappingEnabled, 'cameraToneMappingEnabled', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.directIntensity, newProps.directIntensity, 'directIntensity', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.disableBumpMap, newProps.disableBumpMap, 'disableBumpMap', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.disableLighting, newProps.disableLighting, 'disableLighting', 'boolean', changedProps)
+        checkColor3Diff(oldProps.emissiveColor, newProps.emissiveColor, 'emissiveColor', 'BabylonjsCoreColor3', changedProps)
+        checkPrimitiveDiff(oldProps.emissiveIntensity, newProps.emissiveIntensity, 'emissiveIntensity', 'number', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.emissiveTexture.
+        checkPrimitiveDiff(oldProps.enableSpecularAntiAliasing, newProps.enableSpecularAntiAliasing, 'enableSpecularAntiAliasing', 'boolean', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.environmentBRDFTexture.
+        checkPrimitiveDiff(oldProps.environmentIntensity, newProps.environmentIntensity, 'environmentIntensity', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.forceAlphaTest, newProps.forceAlphaTest, 'forceAlphaTest', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.forceIrradianceInFragment, newProps.forceIrradianceInFragment, 'forceIrradianceInFragment', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.forceNormalForward, newProps.forceNormalForward, 'forceNormalForward', 'boolean', changedProps)
+        // type: 'BabylonjsCoreImageProcessingConfiguration' property (not coded) BabylonjsCorePBRMaterial.imageProcessingConfiguration.
+        checkPrimitiveDiff(oldProps.indexOfRefraction, newProps.indexOfRefraction, 'indexOfRefraction', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.invertNormalMapX, newProps.invertNormalMapX, 'invertNormalMapX', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.invertNormalMapY, newProps.invertNormalMapY, 'invertNormalMapY', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.invertRefractionY, newProps.invertRefractionY, 'invertRefractionY', 'boolean', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.lightmapTexture.
+        checkPrimitiveDiff(oldProps.linkRefractionWithTransparency, newProps.linkRefractionWithTransparency, 'linkRefractionWithTransparency', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.maxSimultaneousLights, newProps.maxSimultaneousLights, 'maxSimultaneousLights', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.metallic, newProps.metallic, 'metallic', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.metallicF0Factor, newProps.metallicF0Factor, 'metallicF0Factor', 'number', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.metallicTexture.
+        checkPrimitiveDiff(oldProps.microSurface, newProps.microSurface, 'microSurface', 'number', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.microSurfaceTexture.
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.opacityTexture.
+        checkPrimitiveDiff(oldProps.parallaxScaleBias, newProps.parallaxScaleBias, 'parallaxScaleBias', 'number', changedProps)
+        checkColor3Diff(oldProps.reflectionColor, newProps.reflectionColor, 'reflectionColor', 'BabylonjsCoreColor3', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.reflectionTexture.
+        checkColor3Diff(oldProps.reflectivityColor, newProps.reflectivityColor, 'reflectivityColor', 'BabylonjsCoreColor3', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.reflectivityTexture.
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.refractionTexture.
+        checkPrimitiveDiff(oldProps.roughness, newProps.roughness, 'roughness', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.specularIntensity, newProps.specularIntensity, 'specularIntensity', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.twoSidedLighting, newProps.twoSidedLighting, 'twoSidedLighting', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.unlit, newProps.unlit, 'unlit', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.useAlphaFresnel, newProps.useAlphaFresnel, 'useAlphaFresnel', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.useAlphaFromAlbedoTexture, newProps.useAlphaFromAlbedoTexture, 'useAlphaFromAlbedoTexture', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.useAmbientInGrayScale, newProps.useAmbientInGrayScale, 'useAmbientInGrayScale', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.useAmbientOcclusionFromMetallicTextureRed, newProps.useAmbientOcclusionFromMetallicTextureRed, 'useAmbientOcclusionFromMetallicTextureRed', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.useAutoMicroSurfaceFromReflectivityMap, newProps.useAutoMicroSurfaceFromReflectivityMap, 'useAutoMicroSurfaceFromReflectivityMap', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.useGLTFLightFalloff, newProps.useGLTFLightFalloff, 'useGLTFLightFalloff', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.useHorizonOcclusion, newProps.useHorizonOcclusion, 'useHorizonOcclusion', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.useLightmapAsShadowmap, newProps.useLightmapAsShadowmap, 'useLightmapAsShadowmap', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.useLinearAlphaFresnel, newProps.useLinearAlphaFresnel, 'useLinearAlphaFresnel', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.useMetallicF0FactorFromMetallicTexture, newProps.useMetallicF0FactorFromMetallicTexture, 'useMetallicF0FactorFromMetallicTexture', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.useMetallnessFromMetallicTextureBlue, newProps.useMetallnessFromMetallicTextureBlue, 'useMetallnessFromMetallicTextureBlue', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.useMicroSurfaceFromReflectivityMapAlpha, newProps.useMicroSurfaceFromReflectivityMapAlpha, 'useMicroSurfaceFromReflectivityMapAlpha', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.useObjectSpaceNormalMap, newProps.useObjectSpaceNormalMap, 'useObjectSpaceNormalMap', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.useParallax, newProps.useParallax, 'useParallax', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.useParallaxOcclusion, newProps.useParallaxOcclusion, 'useParallaxOcclusion', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.usePhysicalLightFalloff, newProps.usePhysicalLightFalloff, 'usePhysicalLightFalloff', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.useRadianceOcclusion, newProps.useRadianceOcclusion, 'useRadianceOcclusion', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.useRadianceOverAlpha, newProps.useRadianceOverAlpha, 'useRadianceOverAlpha', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.useRoughnessFromMetallicTextureAlpha, newProps.useRoughnessFromMetallicTextureAlpha, 'useRoughnessFromMetallicTextureAlpha', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.useRoughnessFromMetallicTextureGreen, newProps.useRoughnessFromMetallicTextureGreen, 'useRoughnessFromMetallicTextureGreen', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.useSpecularOverAlpha, newProps.useSpecularOverAlpha, 'useSpecularOverAlpha', 'boolean', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -9079,8 +6141,8 @@ export class FiberPBRMaterialPropsHandler implements PropsHandler<BabylonjsCoreP
  *
  * This code has been generated
  */
-export class FiberPBRMaterial implements HasPropsHandlers<BabylonjsCoreMaterial, FiberMaterialProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreMaterial, FiberMaterialProps>[];
+export class FiberPBRMaterial implements HasPropsHandlers<FiberMaterialProps> {
+    private propsHandlers: PropsHandler<FiberMaterialProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -9091,11 +6153,11 @@ export class FiberPBRMaterial implements HasPropsHandlers<BabylonjsCoreMaterial,
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreMaterial, FiberMaterialProps>[] {
+    getPropsHandlers(): PropsHandler<FiberMaterialProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreMaterial, FiberMaterialProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberMaterialProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -9122,48 +6184,19 @@ export class FiberPBRMaterial implements HasPropsHandlers<BabylonjsCoreMaterial,
     };
 }
 
-export class FiberNodeMaterialPropsHandler implements PropsHandler<BabylonjsCoreNodeMaterial, FiberNodeMaterialProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreNodeMaterial, oldProps: FiberNodeMaterialProps, newProps: FiberNodeMaterialProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // TODO: type: 'BabylonjsCoreNodeMaterialBlock[]' property (not coded) BabylonjsCoreNodeMaterial.attachedBlocks.
-        // TODO: type: 'any' property (not coded) BabylonjsCoreNodeMaterial.BJSNODEMATERIALEDITOR.
-        // TODO: type: 'any' property (not coded) BabylonjsCoreNodeMaterial.editorData.
-        // BabylonjsCoreNodeMaterial.ignoreAlpha (boolean):
-        if (oldProps.ignoreAlpha !== newProps.ignoreAlpha) {
-            updates.push({
-                propertyName: 'ignoreAlpha',
-                value: newProps.ignoreAlpha,
-                type: 'boolean'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreImageProcessingConfiguration' property (not coded) BabylonjsCoreNodeMaterial.imageProcessingConfiguration.
-        // BabylonjsCoreNodeMaterial.maxSimultaneousLights (number):
-        if (oldProps.maxSimultaneousLights !== newProps.maxSimultaneousLights) {
-            updates.push({
-                propertyName: 'maxSimultaneousLights',
-                value: newProps.maxSimultaneousLights,
-                type: 'number'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreNodeMaterial.onBuildObservable of type 'BabylonjsCoreObservable<BabylonjsCoreNodeMaterial>/fn':
-        if (oldProps.onBuildObservable === undefined && oldProps.onBuildObservable !== newProps.onBuildObservable) {
-            updates.push({
-                propertyName: 'onBuildObservable',
-                value: newProps.onBuildObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreNodeMaterial>'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreINodeMaterialOptions' property (not coded) BabylonjsCoreNodeMaterial.options.
-        // BabylonjsCoreNodeMaterial.addOutputNode of type '(node?: BabylonjsCoreNodeMaterialBlock) => this':
-        if (oldProps.addOutputNode !== newProps.addOutputNode) {
-            updates.push({
-                propertyName: 'addOutputNode',
-                value: newProps.addOutputNode,
-                type: '(node?: BabylonjsCoreNodeMaterialBlock) => this'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberNodeMaterialPropsHandler implements PropsHandler<FiberNodeMaterialProps> {
+    getPropertyUpdates(oldProps: FiberNodeMaterialProps, newProps: FiberNodeMaterialProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        // type: 'BabylonjsCoreNodeMaterialBlock[]' property (not coded) BabylonjsCoreNodeMaterial.attachedBlocks.
+        // type: 'any' property (not coded) BabylonjsCoreNodeMaterial.BJSNODEMATERIALEDITOR.
+        // type: 'any' property (not coded) BabylonjsCoreNodeMaterial.editorData.
+        checkPrimitiveDiff(oldProps.ignoreAlpha, newProps.ignoreAlpha, 'ignoreAlpha', 'boolean', changedProps)
+        // type: 'BabylonjsCoreImageProcessingConfiguration' property (not coded) BabylonjsCoreNodeMaterial.imageProcessingConfiguration.
+        checkPrimitiveDiff(oldProps.maxSimultaneousLights, newProps.maxSimultaneousLights, 'maxSimultaneousLights', 'number', changedProps)
+        checkObservableDiff(oldProps.onBuildObservable, newProps.onBuildObservable, 'onBuildObservable', 'BabylonjsCoreObservable<BabylonjsCoreNodeMaterial>', changedProps)
+        // type: 'BabylonjsCoreINodeMaterialOptions' property (not coded) BabylonjsCoreNodeMaterial.options.
+        checkMethodDiff(oldProps.addOutputNode, newProps.addOutputNode, 'addOutputNode', '(node?: BabylonjsCoreNodeMaterialBlock) => this', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -9172,8 +6205,8 @@ export class FiberNodeMaterialPropsHandler implements PropsHandler<BabylonjsCore
  *
  * This code has been generated
  */
-export class FiberNodeMaterial implements HasPropsHandlers<BabylonjsCoreMaterial, FiberMaterialProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreMaterial, FiberMaterialProps>[];
+export class FiberNodeMaterial implements HasPropsHandlers<FiberMaterialProps> {
+    private propsHandlers: PropsHandler<FiberMaterialProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -9183,11 +6216,11 @@ export class FiberNodeMaterial implements HasPropsHandlers<BabylonjsCoreMaterial
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreMaterial, FiberMaterialProps>[] {
+    getPropsHandlers(): PropsHandler<FiberMaterialProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreMaterial, FiberMaterialProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberMaterialProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -9219,108 +6252,23 @@ export class FiberNodeMaterial implements HasPropsHandlers<BabylonjsCoreMaterial
     };
 }
 
-export class FiberFluentMaterialPropsHandler implements PropsHandler<BabylonjsGuiFluentMaterial, FiberFluentMaterialProps> {
-    getPropertyUpdates(hostInstance: BabylonjsGuiFluentMaterial, oldProps: FiberFluentMaterialProps, newProps: FiberFluentMaterialProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsGuiFluentMaterial.albedoColor (BabylonjsCoreColor3 uses object equals to find diffs):
-        if (newProps.albedoColor && (!oldProps.albedoColor || !oldProps.albedoColor.equals(newProps.albedoColor))) {
-            updates.push({
-                propertyName: 'albedoColor',
-                value: newProps.albedoColor,
-                type: 'BabylonjsCoreColor3'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsGuiFluentMaterial.albedoTexture.
-        // BabylonjsGuiFluentMaterial.alpha (number):
-        if (oldProps.alpha !== newProps.alpha) {
-            updates.push({
-                propertyName: 'alpha',
-                value: newProps.alpha,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiFluentMaterial.borderMinValue (number):
-        if (oldProps.borderMinValue !== newProps.borderMinValue) {
-            updates.push({
-                propertyName: 'borderMinValue',
-                value: newProps.borderMinValue,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiFluentMaterial.borderWidth (number):
-        if (oldProps.borderWidth !== newProps.borderWidth) {
-            updates.push({
-                propertyName: 'borderWidth',
-                value: newProps.borderWidth,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiFluentMaterial.edgeSmoothingValue (number):
-        if (oldProps.edgeSmoothingValue !== newProps.edgeSmoothingValue) {
-            updates.push({
-                propertyName: 'edgeSmoothingValue',
-                value: newProps.edgeSmoothingValue,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiFluentMaterial.hoverColor of BabylonjsCoreColor4.  Color4.equals() not available in BabylonJS < 4:
-        if (newProps.hoverColor && (!oldProps.hoverColor || oldProps.hoverColor.r !== newProps.hoverColor.r || oldProps.hoverColor.g !== newProps.hoverColor.g || oldProps.hoverColor.b !== newProps.hoverColor.b || oldProps.hoverColor.a !== newProps.hoverColor.a)) {
-            updates.push({
-                propertyName: 'hoverColor',
-                value: newProps.hoverColor,
-                type: 'BabylonjsCoreColor4'
-            });
-        }
-        // BabylonjsGuiFluentMaterial.hoverPosition (BabylonjsCoreVector3 uses object equals to find diffs):
-        if (newProps.hoverPosition && (!oldProps.hoverPosition || !oldProps.hoverPosition.equals(newProps.hoverPosition))) {
-            updates.push({
-                propertyName: 'hoverPosition',
-                value: newProps.hoverPosition,
-                type: 'BabylonjsCoreVector3'
-            });
-        }
-        // BabylonjsGuiFluentMaterial.hoverRadius (number):
-        if (oldProps.hoverRadius !== newProps.hoverRadius) {
-            updates.push({
-                propertyName: 'hoverRadius',
-                value: newProps.hoverRadius,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiFluentMaterial.innerGlowColor (BabylonjsCoreColor3 uses object equals to find diffs):
-        if (newProps.innerGlowColor && (!oldProps.innerGlowColor || !oldProps.innerGlowColor.equals(newProps.innerGlowColor))) {
-            updates.push({
-                propertyName: 'innerGlowColor',
-                value: newProps.innerGlowColor,
-                type: 'BabylonjsCoreColor3'
-            });
-        }
-        // BabylonjsGuiFluentMaterial.innerGlowColorIntensity (number):
-        if (oldProps.innerGlowColorIntensity !== newProps.innerGlowColorIntensity) {
-            updates.push({
-                propertyName: 'innerGlowColorIntensity',
-                value: newProps.innerGlowColorIntensity,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiFluentMaterial.renderBorders (boolean):
-        if (oldProps.renderBorders !== newProps.renderBorders) {
-            updates.push({
-                propertyName: 'renderBorders',
-                value: newProps.renderBorders,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsGuiFluentMaterial.renderHoverLight (boolean):
-        if (oldProps.renderHoverLight !== newProps.renderHoverLight) {
-            updates.push({
-                propertyName: 'renderHoverLight',
-                value: newProps.renderHoverLight,
-                type: 'boolean'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberFluentMaterialPropsHandler implements PropsHandler<FiberFluentMaterialProps> {
+    getPropertyUpdates(oldProps: FiberFluentMaterialProps, newProps: FiberFluentMaterialProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkColor3Diff(oldProps.albedoColor, newProps.albedoColor, 'albedoColor', 'BabylonjsCoreColor3', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsGuiFluentMaterial.albedoTexture.
+        checkPrimitiveDiff(oldProps.alpha, newProps.alpha, 'alpha', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.borderMinValue, newProps.borderMinValue, 'borderMinValue', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.borderWidth, newProps.borderWidth, 'borderWidth', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.edgeSmoothingValue, newProps.edgeSmoothingValue, 'edgeSmoothingValue', 'number', changedProps)
+        checkColor4Diff(oldProps.hoverColor, newProps.hoverColor, 'hoverColor', 'BabylonjsCoreColor4', changedProps)
+        checkVector3Diff(oldProps.hoverPosition, newProps.hoverPosition, 'hoverPosition', 'BabylonjsCoreVector3', changedProps)
+        checkPrimitiveDiff(oldProps.hoverRadius, newProps.hoverRadius, 'hoverRadius', 'number', changedProps)
+        checkColor3Diff(oldProps.innerGlowColor, newProps.innerGlowColor, 'innerGlowColor', 'BabylonjsCoreColor3', changedProps)
+        checkPrimitiveDiff(oldProps.innerGlowColorIntensity, newProps.innerGlowColorIntensity, 'innerGlowColorIntensity', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.renderBorders, newProps.renderBorders, 'renderBorders', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.renderHoverLight, newProps.renderHoverLight, 'renderHoverLight', 'boolean', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -9329,8 +6277,8 @@ export class FiberFluentMaterialPropsHandler implements PropsHandler<BabylonjsGu
  *
  * This code has been generated
  */
-export class FiberFluentMaterial implements HasPropsHandlers<BabylonjsCoreMaterial, FiberMaterialProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreMaterial, FiberMaterialProps>[];
+export class FiberFluentMaterial implements HasPropsHandlers<FiberMaterialProps> {
+    private propsHandlers: PropsHandler<FiberMaterialProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -9340,11 +6288,11 @@ export class FiberFluentMaterial implements HasPropsHandlers<BabylonjsCoreMateri
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreMaterial, FiberMaterialProps>[] {
+    getPropsHandlers(): PropsHandler<FiberMaterialProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreMaterial, FiberMaterialProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberMaterialProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -9371,117 +6319,25 @@ export class FiberFluentMaterial implements HasPropsHandlers<BabylonjsCoreMateri
     };
 }
 
-export class FiberLightPropsHandler implements PropsHandler<BabylonjsCoreLight, FiberLightProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreLight, oldProps: FiberLightProps, newProps: FiberLightProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsCoreLight.diffuse (BabylonjsCoreColor3 uses object equals to find diffs):
-        if (newProps.diffuse && (!oldProps.diffuse || !oldProps.diffuse.equals(newProps.diffuse))) {
-            updates.push({
-                propertyName: 'diffuse',
-                value: newProps.diffuse,
-                type: 'BabylonjsCoreColor3'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreAbstractMesh[]' property (not coded) BabylonjsCoreLight.excludedMeshes.
-        // BabylonjsCoreLight.excludeWithLayerMask (number):
-        if (oldProps.excludeWithLayerMask !== newProps.excludeWithLayerMask) {
-            updates.push({
-                propertyName: 'excludeWithLayerMask',
-                value: newProps.excludeWithLayerMask,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreLight.falloffType (number):
-        if (oldProps.falloffType !== newProps.falloffType) {
-            updates.push({
-                propertyName: 'falloffType',
-                value: newProps.falloffType,
-                type: 'number'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreAbstractMesh[]' property (not coded) BabylonjsCoreLight.includedOnlyMeshes.
-        // BabylonjsCoreLight.includeOnlyWithLayerMask (number):
-        if (oldProps.includeOnlyWithLayerMask !== newProps.includeOnlyWithLayerMask) {
-            updates.push({
-                propertyName: 'includeOnlyWithLayerMask',
-                value: newProps.includeOnlyWithLayerMask,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreLight.intensity (number):
-        if (oldProps.intensity !== newProps.intensity) {
-            updates.push({
-                propertyName: 'intensity',
-                value: newProps.intensity,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreLight.intensityMode (number):
-        if (oldProps.intensityMode !== newProps.intensityMode) {
-            updates.push({
-                propertyName: 'intensityMode',
-                value: newProps.intensityMode,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreLight.lightmapMode (number):
-        if (oldProps.lightmapMode !== newProps.lightmapMode) {
-            updates.push({
-                propertyName: 'lightmapMode',
-                value: newProps.lightmapMode,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreLight.radius (number):
-        if (oldProps.radius !== newProps.radius) {
-            updates.push({
-                propertyName: 'radius',
-                value: newProps.radius,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreLight.range (number):
-        if (oldProps.range !== newProps.range) {
-            updates.push({
-                propertyName: 'range',
-                value: newProps.range,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreLight.renderPriority (number):
-        if (oldProps.renderPriority !== newProps.renderPriority) {
-            updates.push({
-                propertyName: 'renderPriority',
-                value: newProps.renderPriority,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreLight.shadowEnabled (boolean):
-        if (oldProps.shadowEnabled !== newProps.shadowEnabled) {
-            updates.push({
-                propertyName: 'shadowEnabled',
-                value: newProps.shadowEnabled,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreLight.specular (BabylonjsCoreColor3 uses object equals to find diffs):
-        if (newProps.specular && (!oldProps.specular || !oldProps.specular.equals(newProps.specular))) {
-            updates.push({
-                propertyName: 'specular',
-                value: newProps.specular,
-                type: 'BabylonjsCoreColor3'
-            });
-        }
-        // BabylonjsCoreLight.setEnabled of type '(value?: boolean) => void':
-        if (oldProps.setEnabled !== newProps.setEnabled) {
-            updates.push({
-                propertyName: 'setEnabled',
-                value: newProps.setEnabled,
-                type: '(value?: boolean) => void'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberLightPropsHandler implements PropsHandler<FiberLightProps> {
+    getPropertyUpdates(oldProps: FiberLightProps, newProps: FiberLightProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkColor3Diff(oldProps.diffuse, newProps.diffuse, 'diffuse', 'BabylonjsCoreColor3', changedProps)
+        // type: 'BabylonjsCoreAbstractMesh[]' property (not coded) BabylonjsCoreLight.excludedMeshes.
+        checkPrimitiveDiff(oldProps.excludeWithLayerMask, newProps.excludeWithLayerMask, 'excludeWithLayerMask', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.falloffType, newProps.falloffType, 'falloffType', 'number', changedProps)
+        // type: 'BabylonjsCoreAbstractMesh[]' property (not coded) BabylonjsCoreLight.includedOnlyMeshes.
+        checkPrimitiveDiff(oldProps.includeOnlyWithLayerMask, newProps.includeOnlyWithLayerMask, 'includeOnlyWithLayerMask', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.intensity, newProps.intensity, 'intensity', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.intensityMode, newProps.intensityMode, 'intensityMode', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.lightmapMode, newProps.lightmapMode, 'lightmapMode', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.radius, newProps.radius, 'radius', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.range, newProps.range, 'range', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.renderPriority, newProps.renderPriority, 'renderPriority', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.shadowEnabled, newProps.shadowEnabled, 'shadowEnabled', 'boolean', changedProps)
+        checkColor3Diff(oldProps.specular, newProps.specular, 'specular', 'BabylonjsCoreColor3', changedProps)
+        checkMethodDiff(oldProps.setEnabled, newProps.setEnabled, 'setEnabled', '(value?: boolean) => void', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -9492,8 +6348,8 @@ export class FiberLightPropsHandler implements PropsHandler<BabylonjsCoreLight, 
  *
  * This code has been generated
  */
-export class FiberLight implements HasPropsHandlers<BabylonjsCoreLight, FiberLightProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreLight, FiberLightProps>[];
+export class FiberLight implements HasPropsHandlers<FiberLightProps> {
+    private propsHandlers: PropsHandler<FiberLightProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -9502,11 +6358,11 @@ export class FiberLight implements HasPropsHandlers<BabylonjsCoreLight, FiberLig
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreLight, FiberLightProps>[] {
+    getPropsHandlers(): PropsHandler<FiberLightProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreLight, FiberLightProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberLightProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -9533,76 +6389,19 @@ export class FiberLight implements HasPropsHandlers<BabylonjsCoreLight, FiberLig
     };
 }
 
-export class FiberShadowLightPropsHandler implements PropsHandler<BabylonjsCoreShadowLight, FiberShadowLightProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreShadowLight, oldProps: FiberShadowLightProps, newProps: FiberShadowLightProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // TODO: type: '(viewMatrix: BabylonjsCoreMatrix, renderList: BabylonjsCoreAbstractMesh[], result: BabylonjsCoreMatrix) => void' property (not coded) BabylonjsCoreShadowLight.customProjectionMatrixBuilder.
-        // BabylonjsCoreShadowLight.direction (BabylonjsCoreVector3 uses object equals to find diffs):
-        if (newProps.direction && (!oldProps.direction || !oldProps.direction.equals(newProps.direction))) {
-            updates.push({
-                propertyName: 'direction',
-                value: newProps.direction,
-                type: 'BabylonjsCoreVector3'
-            });
-        }
-        // BabylonjsCoreShadowLight.position (BabylonjsCoreVector3 uses object equals to find diffs):
-        if (newProps.position && (!oldProps.position || !oldProps.position.equals(newProps.position))) {
-            updates.push({
-                propertyName: 'position',
-                value: newProps.position,
-                type: 'BabylonjsCoreVector3'
-            });
-        }
-        // BabylonjsCoreShadowLight.shadowMaxZ (number):
-        if (oldProps.shadowMaxZ !== newProps.shadowMaxZ) {
-            updates.push({
-                propertyName: 'shadowMaxZ',
-                value: newProps.shadowMaxZ,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreShadowLight.shadowMinZ (number):
-        if (oldProps.shadowMinZ !== newProps.shadowMinZ) {
-            updates.push({
-                propertyName: 'shadowMinZ',
-                value: newProps.shadowMinZ,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreShadowLight.transformedDirection (BabylonjsCoreVector3 uses object equals to find diffs):
-        if (newProps.transformedDirection && (!oldProps.transformedDirection || !oldProps.transformedDirection.equals(newProps.transformedDirection))) {
-            updates.push({
-                propertyName: 'transformedDirection',
-                value: newProps.transformedDirection,
-                type: 'BabylonjsCoreVector3'
-            });
-        }
-        // BabylonjsCoreShadowLight.transformedPosition (BabylonjsCoreVector3 uses object equals to find diffs):
-        if (newProps.transformedPosition && (!oldProps.transformedPosition || !oldProps.transformedPosition.equals(newProps.transformedPosition))) {
-            updates.push({
-                propertyName: 'transformedPosition',
-                value: newProps.transformedPosition,
-                type: 'BabylonjsCoreVector3'
-            });
-        }
-        // BabylonjsCoreShadowLight.setDirectionToTarget of type '(target?: BabylonjsCoreVector3) => BabylonjsCoreVector3':
-        if (oldProps.setDirectionToTarget !== newProps.setDirectionToTarget) {
-            updates.push({
-                propertyName: 'setDirectionToTarget',
-                value: newProps.setDirectionToTarget,
-                type: '(target?: BabylonjsCoreVector3) => BabylonjsCoreVector3'
-            });
-        }
-        // BabylonjsCoreShadowLight.setShadowProjectionMatrix of type '(matrix?: BabylonjsCoreMatrix, viewMatrix?: BabylonjsCoreMatrix, renderList?: BabylonjsCoreAbstractMesh[]) => BabylonjsCoreIShadowLight':
-        if (oldProps.setShadowProjectionMatrix !== newProps.setShadowProjectionMatrix) {
-            updates.push({
-                propertyName: 'setShadowProjectionMatrix',
-                value: newProps.setShadowProjectionMatrix,
-                type: '(matrix?: BabylonjsCoreMatrix, viewMatrix?: BabylonjsCoreMatrix, renderList?: BabylonjsCoreAbstractMesh[]) => BabylonjsCoreIShadowLight'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberShadowLightPropsHandler implements PropsHandler<FiberShadowLightProps> {
+    getPropertyUpdates(oldProps: FiberShadowLightProps, newProps: FiberShadowLightProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkLambdaDiff(oldProps.customProjectionMatrixBuilder, newProps.customProjectionMatrixBuilder, 'customProjectionMatrixBuilder', '(viewMatrix: BabylonjsCoreMatrix, renderList: BabylonjsCoreAbstractMesh[], result: BabylonjsCoreMatrix) => void', changedProps)
+        checkVector3Diff(oldProps.direction, newProps.direction, 'direction', 'BabylonjsCoreVector3', changedProps)
+        checkVector3Diff(oldProps.position, newProps.position, 'position', 'BabylonjsCoreVector3', changedProps)
+        checkPrimitiveDiff(oldProps.shadowMaxZ, newProps.shadowMaxZ, 'shadowMaxZ', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.shadowMinZ, newProps.shadowMinZ, 'shadowMinZ', 'number', changedProps)
+        checkVector3Diff(oldProps.transformedDirection, newProps.transformedDirection, 'transformedDirection', 'BabylonjsCoreVector3', changedProps)
+        checkVector3Diff(oldProps.transformedPosition, newProps.transformedPosition, 'transformedPosition', 'BabylonjsCoreVector3', changedProps)
+        checkMethodDiff(oldProps.setDirectionToTarget, newProps.setDirectionToTarget, 'setDirectionToTarget', '(target?: BabylonjsCoreVector3) => BabylonjsCoreVector3', changedProps)
+        checkMethodDiff(oldProps.setShadowProjectionMatrix, newProps.setShadowProjectionMatrix, 'setShadowProjectionMatrix', '(matrix?: BabylonjsCoreMatrix, viewMatrix?: BabylonjsCoreMatrix, renderList?: BabylonjsCoreAbstractMesh[]) => BabylonjsCoreIShadowLight', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -9612,8 +6411,8 @@ export class FiberShadowLightPropsHandler implements PropsHandler<BabylonjsCoreS
  *
  * This code has been generated
  */
-export class FiberShadowLight implements HasPropsHandlers<BabylonjsCoreLight, FiberLightProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreLight, FiberLightProps>[];
+export class FiberShadowLight implements HasPropsHandlers<FiberLightProps> {
+    private propsHandlers: PropsHandler<FiberLightProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -9623,11 +6422,11 @@ export class FiberShadowLight implements HasPropsHandlers<BabylonjsCoreLight, Fi
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreLight, FiberLightProps>[] {
+    getPropsHandlers(): PropsHandler<FiberLightProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreLight, FiberLightProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberLightProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -9644,43 +6443,14 @@ export class FiberShadowLight implements HasPropsHandlers<BabylonjsCoreLight, Fi
     };
 }
 
-export class FiberDirectionalLightPropsHandler implements PropsHandler<BabylonjsCoreDirectionalLight, FiberDirectionalLightProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreDirectionalLight, oldProps: FiberDirectionalLightProps, newProps: FiberDirectionalLightProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsCoreDirectionalLight.autoCalcShadowZBounds (boolean):
-        if (oldProps.autoCalcShadowZBounds !== newProps.autoCalcShadowZBounds) {
-            updates.push({
-                propertyName: 'autoCalcShadowZBounds',
-                value: newProps.autoCalcShadowZBounds,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreDirectionalLight.autoUpdateExtends (boolean):
-        if (oldProps.autoUpdateExtends !== newProps.autoUpdateExtends) {
-            updates.push({
-                propertyName: 'autoUpdateExtends',
-                value: newProps.autoUpdateExtends,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreDirectionalLight.shadowFrustumSize (number):
-        if (oldProps.shadowFrustumSize !== newProps.shadowFrustumSize) {
-            updates.push({
-                propertyName: 'shadowFrustumSize',
-                value: newProps.shadowFrustumSize,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreDirectionalLight.shadowOrthoScale (number):
-        if (oldProps.shadowOrthoScale !== newProps.shadowOrthoScale) {
-            updates.push({
-                propertyName: 'shadowOrthoScale',
-                value: newProps.shadowOrthoScale,
-                type: 'number'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberDirectionalLightPropsHandler implements PropsHandler<FiberDirectionalLightProps> {
+    getPropertyUpdates(oldProps: FiberDirectionalLightProps, newProps: FiberDirectionalLightProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.autoCalcShadowZBounds, newProps.autoCalcShadowZBounds, 'autoCalcShadowZBounds', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.autoUpdateExtends, newProps.autoUpdateExtends, 'autoUpdateExtends', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.shadowFrustumSize, newProps.shadowFrustumSize, 'shadowFrustumSize', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.shadowOrthoScale, newProps.shadowOrthoScale, 'shadowOrthoScale', 'number', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -9692,8 +6462,8 @@ export class FiberDirectionalLightPropsHandler implements PropsHandler<Babylonjs
  *
  * This code has been generated
  */
-export class FiberDirectionalLight implements HasPropsHandlers<BabylonjsCoreLight, FiberLightProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreLight, FiberLightProps>[];
+export class FiberDirectionalLight implements HasPropsHandlers<FiberLightProps> {
+    private propsHandlers: PropsHandler<FiberLightProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -9704,11 +6474,11 @@ export class FiberDirectionalLight implements HasPropsHandlers<BabylonjsCoreLigh
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreLight, FiberLightProps>[] {
+    getPropsHandlers(): PropsHandler<FiberLightProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreLight, FiberLightProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberLightProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -9741,27 +6511,12 @@ export class FiberDirectionalLight implements HasPropsHandlers<BabylonjsCoreLigh
     };
 }
 
-export class FiberPointLightPropsHandler implements PropsHandler<BabylonjsCorePointLight, FiberPointLightProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCorePointLight, oldProps: FiberPointLightProps, newProps: FiberPointLightProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsCorePointLight.direction (BabylonjsCoreVector3 uses object equals to find diffs):
-        if (newProps.direction && (!oldProps.direction || !oldProps.direction.equals(newProps.direction))) {
-            updates.push({
-                propertyName: 'direction',
-                value: newProps.direction,
-                type: 'BabylonjsCoreVector3'
-            });
-        }
-        // BabylonjsCorePointLight.shadowAngle (number):
-        if (oldProps.shadowAngle !== newProps.shadowAngle) {
-            updates.push({
-                propertyName: 'shadowAngle',
-                value: newProps.shadowAngle,
-                type: 'number'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberPointLightPropsHandler implements PropsHandler<FiberPointLightProps> {
+    getPropertyUpdates(oldProps: FiberPointLightProps, newProps: FiberPointLightProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkVector3Diff(oldProps.direction, newProps.direction, 'direction', 'BabylonjsCoreVector3', changedProps)
+        checkPrimitiveDiff(oldProps.shadowAngle, newProps.shadowAngle, 'shadowAngle', 'number', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -9773,8 +6528,8 @@ export class FiberPointLightPropsHandler implements PropsHandler<BabylonjsCorePo
  *
  * This code has been generated
  */
-export class FiberPointLight implements HasPropsHandlers<BabylonjsCoreLight, FiberLightProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreLight, FiberLightProps>[];
+export class FiberPointLight implements HasPropsHandlers<FiberLightProps> {
+    private propsHandlers: PropsHandler<FiberLightProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -9785,11 +6540,11 @@ export class FiberPointLight implements HasPropsHandlers<BabylonjsCoreLight, Fib
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreLight, FiberLightProps>[] {
+    getPropsHandlers(): PropsHandler<FiberLightProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreLight, FiberLightProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberLightProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -9822,68 +6577,18 @@ export class FiberPointLight implements HasPropsHandlers<BabylonjsCoreLight, Fib
     };
 }
 
-export class FiberSpotLightPropsHandler implements PropsHandler<BabylonjsCoreSpotLight, FiberSpotLightProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreSpotLight, oldProps: FiberSpotLightProps, newProps: FiberSpotLightProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsCoreSpotLight.angle (number):
-        if (oldProps.angle !== newProps.angle) {
-            updates.push({
-                propertyName: 'angle',
-                value: newProps.angle,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreSpotLight.exponent (number):
-        if (oldProps.exponent !== newProps.exponent) {
-            updates.push({
-                propertyName: 'exponent',
-                value: newProps.exponent,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreSpotLight.innerAngle (number):
-        if (oldProps.innerAngle !== newProps.innerAngle) {
-            updates.push({
-                propertyName: 'innerAngle',
-                value: newProps.innerAngle,
-                type: 'number'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreSpotLight.projectionTexture.
-        // BabylonjsCoreSpotLight.projectionTextureLightFar (number):
-        if (oldProps.projectionTextureLightFar !== newProps.projectionTextureLightFar) {
-            updates.push({
-                propertyName: 'projectionTextureLightFar',
-                value: newProps.projectionTextureLightFar,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreSpotLight.projectionTextureLightNear (number):
-        if (oldProps.projectionTextureLightNear !== newProps.projectionTextureLightNear) {
-            updates.push({
-                propertyName: 'projectionTextureLightNear',
-                value: newProps.projectionTextureLightNear,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreSpotLight.projectionTextureUpDirection (BabylonjsCoreVector3 uses object equals to find diffs):
-        if (newProps.projectionTextureUpDirection && (!oldProps.projectionTextureUpDirection || !oldProps.projectionTextureUpDirection.equals(newProps.projectionTextureUpDirection))) {
-            updates.push({
-                propertyName: 'projectionTextureUpDirection',
-                value: newProps.projectionTextureUpDirection,
-                type: 'BabylonjsCoreVector3'
-            });
-        }
-        // BabylonjsCoreSpotLight.shadowAngleScale (number):
-        if (oldProps.shadowAngleScale !== newProps.shadowAngleScale) {
-            updates.push({
-                propertyName: 'shadowAngleScale',
-                value: newProps.shadowAngleScale,
-                type: 'number'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberSpotLightPropsHandler implements PropsHandler<FiberSpotLightProps> {
+    getPropertyUpdates(oldProps: FiberSpotLightProps, newProps: FiberSpotLightProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.angle, newProps.angle, 'angle', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.exponent, newProps.exponent, 'exponent', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.innerAngle, newProps.innerAngle, 'innerAngle', 'number', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreSpotLight.projectionTexture.
+        checkPrimitiveDiff(oldProps.projectionTextureLightFar, newProps.projectionTextureLightFar, 'projectionTextureLightFar', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.projectionTextureLightNear, newProps.projectionTextureLightNear, 'projectionTextureLightNear', 'number', changedProps)
+        checkVector3Diff(oldProps.projectionTextureUpDirection, newProps.projectionTextureUpDirection, 'projectionTextureUpDirection', 'BabylonjsCoreVector3', changedProps)
+        checkPrimitiveDiff(oldProps.shadowAngleScale, newProps.shadowAngleScale, 'shadowAngleScale', 'number', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -9896,8 +6601,8 @@ export class FiberSpotLightPropsHandler implements PropsHandler<BabylonjsCoreSpo
  *
  * This code has been generated
  */
-export class FiberSpotLight implements HasPropsHandlers<BabylonjsCoreLight, FiberLightProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreLight, FiberLightProps>[];
+export class FiberSpotLight implements HasPropsHandlers<FiberLightProps> {
+    private propsHandlers: PropsHandler<FiberLightProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -9908,11 +6613,11 @@ export class FiberSpotLight implements HasPropsHandlers<BabylonjsCoreLight, Fibe
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreLight, FiberLightProps>[] {
+    getPropsHandlers(): PropsHandler<FiberLightProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreLight, FiberLightProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberLightProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -9960,35 +6665,13 @@ export class FiberSpotLight implements HasPropsHandlers<BabylonjsCoreLight, Fibe
     };
 }
 
-export class FiberHemisphericLightPropsHandler implements PropsHandler<BabylonjsCoreHemisphericLight, FiberHemisphericLightProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreHemisphericLight, oldProps: FiberHemisphericLightProps, newProps: FiberHemisphericLightProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsCoreHemisphericLight.direction (BabylonjsCoreVector3 uses object equals to find diffs):
-        if (newProps.direction && (!oldProps.direction || !oldProps.direction.equals(newProps.direction))) {
-            updates.push({
-                propertyName: 'direction',
-                value: newProps.direction,
-                type: 'BabylonjsCoreVector3'
-            });
-        }
-        // BabylonjsCoreHemisphericLight.groundColor (BabylonjsCoreColor3 uses object equals to find diffs):
-        if (newProps.groundColor && (!oldProps.groundColor || !oldProps.groundColor.equals(newProps.groundColor))) {
-            updates.push({
-                propertyName: 'groundColor',
-                value: newProps.groundColor,
-                type: 'BabylonjsCoreColor3'
-            });
-        }
-        // BabylonjsCoreHemisphericLight.setDirectionToTarget of type '(target?: BabylonjsCoreVector3) => BabylonjsCoreVector3':
-        if (oldProps.setDirectionToTarget !== newProps.setDirectionToTarget) {
-            updates.push({
-                propertyName: 'setDirectionToTarget',
-                value: newProps.setDirectionToTarget,
-                type: '(target?: BabylonjsCoreVector3) => BabylonjsCoreVector3'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberHemisphericLightPropsHandler implements PropsHandler<FiberHemisphericLightProps> {
+    getPropertyUpdates(oldProps: FiberHemisphericLightProps, newProps: FiberHemisphericLightProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkVector3Diff(oldProps.direction, newProps.direction, 'direction', 'BabylonjsCoreVector3', changedProps)
+        checkColor3Diff(oldProps.groundColor, newProps.groundColor, 'groundColor', 'BabylonjsCoreColor3', changedProps)
+        checkMethodDiff(oldProps.setDirectionToTarget, newProps.setDirectionToTarget, 'setDirectionToTarget', '(target?: BabylonjsCoreVector3) => BabylonjsCoreVector3', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -9998,8 +6681,8 @@ export class FiberHemisphericLightPropsHandler implements PropsHandler<Babylonjs
  *
  * This code has been generated
  */
-export class FiberHemisphericLight implements HasPropsHandlers<BabylonjsCoreLight, FiberLightProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreLight, FiberLightProps>[];
+export class FiberHemisphericLight implements HasPropsHandlers<FiberLightProps> {
+    private propsHandlers: PropsHandler<FiberLightProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -10009,11 +6692,11 @@ export class FiberHemisphericLight implements HasPropsHandlers<BabylonjsCoreLigh
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreLight, FiberLightProps>[] {
+    getPropsHandlers(): PropsHandler<FiberLightProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreLight, FiberLightProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberLightProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -10045,527 +6728,78 @@ export class FiberHemisphericLight implements HasPropsHandlers<BabylonjsCoreLigh
     };
 }
 
-export class FiberControlPropsHandler implements PropsHandler<BabylonjsGuiControl, FiberControlProps> {
-    getPropertyUpdates(hostInstance: BabylonjsGuiControl, oldProps: FiberControlProps, newProps: FiberControlProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsGuiControl.alpha (number):
-        if (oldProps.alpha !== newProps.alpha) {
-            updates.push({
-                propertyName: 'alpha',
-                value: newProps.alpha,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiControl.clipChildren (boolean):
-        if (oldProps.clipChildren !== newProps.clipChildren) {
-            updates.push({
-                propertyName: 'clipChildren',
-                value: newProps.clipChildren,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsGuiControl.clipContent (boolean):
-        if (oldProps.clipContent !== newProps.clipContent) {
-            updates.push({
-                propertyName: 'clipContent',
-                value: newProps.clipContent,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsGuiControl.color (string):
-        if (oldProps.color !== newProps.color) {
-            updates.push({
-                propertyName: 'color',
-                value: newProps.color,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiControl.disabledColor (string):
-        if (oldProps.disabledColor !== newProps.disabledColor) {
-            updates.push({
-                propertyName: 'disabledColor',
-                value: newProps.disabledColor,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiControl.disabledColorItem (string):
-        if (oldProps.disabledColorItem !== newProps.disabledColorItem) {
-            updates.push({
-                propertyName: 'disabledColorItem',
-                value: newProps.disabledColorItem,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiControl.fontFamily (string):
-        if (oldProps.fontFamily !== newProps.fontFamily) {
-            updates.push({
-                propertyName: 'fontFamily',
-                value: newProps.fontFamily,
-                type: 'string'
-            });
-        }
-        // TODO: type: '{ ascent: number; height: number; descent: number; }' property (not coded) BabylonjsGuiControl.fontOffset.
-        // BabylonjsGuiControl.fontSize (string | number):
-        if (oldProps.fontSize !== newProps.fontSize) {
-            updates.push({
-                propertyName: 'fontSize',
-                value: newProps.fontSize,
-                type: 'string | number'
-            });
-        }
-        // BabylonjsGuiControl.fontSizeInPixels (number):
-        if (oldProps.fontSizeInPixels !== newProps.fontSizeInPixels) {
-            updates.push({
-                propertyName: 'fontSizeInPixels',
-                value: newProps.fontSizeInPixels,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiControl.fontStyle (string):
-        if (oldProps.fontStyle !== newProps.fontStyle) {
-            updates.push({
-                propertyName: 'fontStyle',
-                value: newProps.fontStyle,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiControl.fontWeight (string):
-        if (oldProps.fontWeight !== newProps.fontWeight) {
-            updates.push({
-                propertyName: 'fontWeight',
-                value: newProps.fontWeight,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiControl.height (string | number):
-        if (oldProps.height !== newProps.height) {
-            updates.push({
-                propertyName: 'height',
-                value: newProps.height,
-                type: 'string | number'
-            });
-        }
-        // BabylonjsGuiControl.heightInPixels (number):
-        if (oldProps.heightInPixels !== newProps.heightInPixels) {
-            updates.push({
-                propertyName: 'heightInPixels',
-                value: newProps.heightInPixels,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiControl.horizontalAlignment (number):
-        if (oldProps.horizontalAlignment !== newProps.horizontalAlignment) {
-            updates.push({
-                propertyName: 'horizontalAlignment',
-                value: newProps.horizontalAlignment,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiControl.hoverCursor (string):
-        if (oldProps.hoverCursor !== newProps.hoverCursor) {
-            updates.push({
-                propertyName: 'hoverCursor',
-                value: newProps.hoverCursor,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiControl.isEnabled (boolean):
-        if (oldProps.isEnabled !== newProps.isEnabled) {
-            updates.push({
-                propertyName: 'isEnabled',
-                value: newProps.isEnabled,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsGuiControl.isFocusInvisible (boolean):
-        if (oldProps.isFocusInvisible !== newProps.isFocusInvisible) {
-            updates.push({
-                propertyName: 'isFocusInvisible',
-                value: newProps.isFocusInvisible,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsGuiControl.isHighlighted (boolean):
-        if (oldProps.isHighlighted !== newProps.isHighlighted) {
-            updates.push({
-                propertyName: 'isHighlighted',
-                value: newProps.isHighlighted,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsGuiControl.isHitTestVisible (boolean):
-        if (oldProps.isHitTestVisible !== newProps.isHitTestVisible) {
-            updates.push({
-                propertyName: 'isHitTestVisible',
-                value: newProps.isHitTestVisible,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsGuiControl.isPointerBlocker (boolean):
-        if (oldProps.isPointerBlocker !== newProps.isPointerBlocker) {
-            updates.push({
-                propertyName: 'isPointerBlocker',
-                value: newProps.isPointerBlocker,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsGuiControl.isVisible (boolean):
-        if (oldProps.isVisible !== newProps.isVisible) {
-            updates.push({
-                propertyName: 'isVisible',
-                value: newProps.isVisible,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsGuiControl.left (string | number):
-        if (oldProps.left !== newProps.left) {
-            updates.push({
-                propertyName: 'left',
-                value: newProps.left,
-                type: 'string | number'
-            });
-        }
-        // BabylonjsGuiControl.leftInPixels (number):
-        if (oldProps.leftInPixels !== newProps.leftInPixels) {
-            updates.push({
-                propertyName: 'leftInPixels',
-                value: newProps.leftInPixels,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiControl.linkOffsetX (string | number):
-        if (oldProps.linkOffsetX !== newProps.linkOffsetX) {
-            updates.push({
-                propertyName: 'linkOffsetX',
-                value: newProps.linkOffsetX,
-                type: 'string | number'
-            });
-        }
-        // BabylonjsGuiControl.linkOffsetXInPixels (number):
-        if (oldProps.linkOffsetXInPixels !== newProps.linkOffsetXInPixels) {
-            updates.push({
-                propertyName: 'linkOffsetXInPixels',
-                value: newProps.linkOffsetXInPixels,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiControl.linkOffsetY (string | number):
-        if (oldProps.linkOffsetY !== newProps.linkOffsetY) {
-            updates.push({
-                propertyName: 'linkOffsetY',
-                value: newProps.linkOffsetY,
-                type: 'string | number'
-            });
-        }
-        // BabylonjsGuiControl.linkOffsetYInPixels (number):
-        if (oldProps.linkOffsetYInPixels !== newProps.linkOffsetYInPixels) {
-            updates.push({
-                propertyName: 'linkOffsetYInPixels',
-                value: newProps.linkOffsetYInPixels,
-                type: 'number'
-            });
-        }
-        // TODO: type: 'any' property (not coded) BabylonjsGuiControl.metadata.
-        // BabylonjsGuiControl.name (string):
-        if (oldProps.name !== newProps.name) {
-            updates.push({
-                propertyName: 'name',
-                value: newProps.name,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiControl.notRenderable (boolean):
-        if (oldProps.notRenderable !== newProps.notRenderable) {
-            updates.push({
-                propertyName: 'notRenderable',
-                value: newProps.notRenderable,
-                type: 'boolean'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsGuiControl.onAfterDrawObservable of type 'BabylonjsCoreObservable<BabylonjsGuiControl>/fn':
-        if (oldProps.onAfterDrawObservable === undefined && oldProps.onAfterDrawObservable !== newProps.onAfterDrawObservable) {
-            updates.push({
-                propertyName: 'onAfterDrawObservable',
-                value: newProps.onAfterDrawObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsGuiControl>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsGuiControl.onBeforeDrawObservable of type 'BabylonjsCoreObservable<BabylonjsGuiControl>/fn':
-        if (oldProps.onBeforeDrawObservable === undefined && oldProps.onBeforeDrawObservable !== newProps.onBeforeDrawObservable) {
-            updates.push({
-                propertyName: 'onBeforeDrawObservable',
-                value: newProps.onBeforeDrawObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsGuiControl>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsGuiControl.onDirtyObservable of type 'BabylonjsCoreObservable<BabylonjsGuiControl>/fn':
-        if (oldProps.onDirtyObservable === undefined && oldProps.onDirtyObservable !== newProps.onDirtyObservable) {
-            updates.push({
-                propertyName: 'onDirtyObservable',
-                value: newProps.onDirtyObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsGuiControl>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsGuiControl.onPointerClickObservable of type 'BabylonjsCoreObservable<BabylonjsGuiVector2WithInfo>/fn':
-        if (oldProps.onPointerClickObservable === undefined && oldProps.onPointerClickObservable !== newProps.onPointerClickObservable) {
-            updates.push({
-                propertyName: 'onPointerClickObservable',
-                value: newProps.onPointerClickObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsGuiVector2WithInfo>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsGuiControl.onPointerDownObservable of type 'BabylonjsCoreObservable<BabylonjsGuiVector2WithInfo>/fn':
-        if (oldProps.onPointerDownObservable === undefined && oldProps.onPointerDownObservable !== newProps.onPointerDownObservable) {
-            updates.push({
-                propertyName: 'onPointerDownObservable',
-                value: newProps.onPointerDownObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsGuiVector2WithInfo>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsGuiControl.onPointerEnterObservable of type 'BabylonjsCoreObservable<BabylonjsGuiControl>/fn':
-        if (oldProps.onPointerEnterObservable === undefined && oldProps.onPointerEnterObservable !== newProps.onPointerEnterObservable) {
-            updates.push({
-                propertyName: 'onPointerEnterObservable',
-                value: newProps.onPointerEnterObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsGuiControl>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsGuiControl.onPointerMoveObservable of type 'BabylonjsCoreObservable<BabylonjsCoreVector2>/fn':
-        if (oldProps.onPointerMoveObservable === undefined && oldProps.onPointerMoveObservable !== newProps.onPointerMoveObservable) {
-            updates.push({
-                propertyName: 'onPointerMoveObservable',
-                value: newProps.onPointerMoveObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreVector2>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsGuiControl.onPointerOutObservable of type 'BabylonjsCoreObservable<BabylonjsGuiControl>/fn':
-        if (oldProps.onPointerOutObservable === undefined && oldProps.onPointerOutObservable !== newProps.onPointerOutObservable) {
-            updates.push({
-                propertyName: 'onPointerOutObservable',
-                value: newProps.onPointerOutObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsGuiControl>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsGuiControl.onPointerUpObservable of type 'BabylonjsCoreObservable<BabylonjsGuiVector2WithInfo>/fn':
-        if (oldProps.onPointerUpObservable === undefined && oldProps.onPointerUpObservable !== newProps.onPointerUpObservable) {
-            updates.push({
-                propertyName: 'onPointerUpObservable',
-                value: newProps.onPointerUpObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsGuiVector2WithInfo>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsGuiControl.onWheelObservable of type 'BabylonjsCoreObservable<BabylonjsCoreVector2>/fn':
-        if (oldProps.onWheelObservable === undefined && oldProps.onWheelObservable !== newProps.onWheelObservable) {
-            updates.push({
-                propertyName: 'onWheelObservable',
-                value: newProps.onWheelObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreVector2>'
-            });
-        }
-        // BabylonjsGuiControl.paddingBottom (string | number):
-        if (oldProps.paddingBottom !== newProps.paddingBottom) {
-            updates.push({
-                propertyName: 'paddingBottom',
-                value: newProps.paddingBottom,
-                type: 'string | number'
-            });
-        }
-        // BabylonjsGuiControl.paddingBottomInPixels (number):
-        if (oldProps.paddingBottomInPixels !== newProps.paddingBottomInPixels) {
-            updates.push({
-                propertyName: 'paddingBottomInPixels',
-                value: newProps.paddingBottomInPixels,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiControl.paddingLeft (string | number):
-        if (oldProps.paddingLeft !== newProps.paddingLeft) {
-            updates.push({
-                propertyName: 'paddingLeft',
-                value: newProps.paddingLeft,
-                type: 'string | number'
-            });
-        }
-        // BabylonjsGuiControl.paddingLeftInPixels (number):
-        if (oldProps.paddingLeftInPixels !== newProps.paddingLeftInPixels) {
-            updates.push({
-                propertyName: 'paddingLeftInPixels',
-                value: newProps.paddingLeftInPixels,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiControl.paddingRight (string | number):
-        if (oldProps.paddingRight !== newProps.paddingRight) {
-            updates.push({
-                propertyName: 'paddingRight',
-                value: newProps.paddingRight,
-                type: 'string | number'
-            });
-        }
-        // BabylonjsGuiControl.paddingRightInPixels (number):
-        if (oldProps.paddingRightInPixels !== newProps.paddingRightInPixels) {
-            updates.push({
-                propertyName: 'paddingRightInPixels',
-                value: newProps.paddingRightInPixels,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiControl.paddingTop (string | number):
-        if (oldProps.paddingTop !== newProps.paddingTop) {
-            updates.push({
-                propertyName: 'paddingTop',
-                value: newProps.paddingTop,
-                type: 'string | number'
-            });
-        }
-        // BabylonjsGuiControl.paddingTopInPixels (number):
-        if (oldProps.paddingTopInPixels !== newProps.paddingTopInPixels) {
-            updates.push({
-                propertyName: 'paddingTopInPixels',
-                value: newProps.paddingTopInPixels,
-                type: 'number'
-            });
-        }
-        // TODO: type: 'BabylonjsGuiContainer' property (not coded) BabylonjsGuiControl.parent.
-        // BabylonjsGuiControl.rotation (number):
-        if (oldProps.rotation !== newProps.rotation) {
-            updates.push({
-                propertyName: 'rotation',
-                value: newProps.rotation,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiControl.scaleX (number):
-        if (oldProps.scaleX !== newProps.scaleX) {
-            updates.push({
-                propertyName: 'scaleX',
-                value: newProps.scaleX,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiControl.scaleY (number):
-        if (oldProps.scaleY !== newProps.scaleY) {
-            updates.push({
-                propertyName: 'scaleY',
-                value: newProps.scaleY,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiControl.shadowBlur (number):
-        if (oldProps.shadowBlur !== newProps.shadowBlur) {
-            updates.push({
-                propertyName: 'shadowBlur',
-                value: newProps.shadowBlur,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiControl.shadowColor (string):
-        if (oldProps.shadowColor !== newProps.shadowColor) {
-            updates.push({
-                propertyName: 'shadowColor',
-                value: newProps.shadowColor,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiControl.shadowOffsetX (number):
-        if (oldProps.shadowOffsetX !== newProps.shadowOffsetX) {
-            updates.push({
-                propertyName: 'shadowOffsetX',
-                value: newProps.shadowOffsetX,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiControl.shadowOffsetY (number):
-        if (oldProps.shadowOffsetY !== newProps.shadowOffsetY) {
-            updates.push({
-                propertyName: 'shadowOffsetY',
-                value: newProps.shadowOffsetY,
-                type: 'number'
-            });
-        }
-        // TODO: type: 'BabylonjsGuiStyle' property (not coded) BabylonjsGuiControl.style.
-        // BabylonjsGuiControl.top (string | number):
-        if (oldProps.top !== newProps.top) {
-            updates.push({
-                propertyName: 'top',
-                value: newProps.top,
-                type: 'string | number'
-            });
-        }
-        // BabylonjsGuiControl.topInPixels (number):
-        if (oldProps.topInPixels !== newProps.topInPixels) {
-            updates.push({
-                propertyName: 'topInPixels',
-                value: newProps.topInPixels,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiControl.transformCenterX (number):
-        if (oldProps.transformCenterX !== newProps.transformCenterX) {
-            updates.push({
-                propertyName: 'transformCenterX',
-                value: newProps.transformCenterX,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiControl.transformCenterY (number):
-        if (oldProps.transformCenterY !== newProps.transformCenterY) {
-            updates.push({
-                propertyName: 'transformCenterY',
-                value: newProps.transformCenterY,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiControl.uniqueId (number):
-        if (oldProps.uniqueId !== newProps.uniqueId) {
-            updates.push({
-                propertyName: 'uniqueId',
-                value: newProps.uniqueId,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiControl.useBitmapCache (boolean):
-        if (oldProps.useBitmapCache !== newProps.useBitmapCache) {
-            updates.push({
-                propertyName: 'useBitmapCache',
-                value: newProps.useBitmapCache,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsGuiControl.verticalAlignment (number):
-        if (oldProps.verticalAlignment !== newProps.verticalAlignment) {
-            updates.push({
-                propertyName: 'verticalAlignment',
-                value: newProps.verticalAlignment,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiControl.width (string | number):
-        if (oldProps.width !== newProps.width) {
-            updates.push({
-                propertyName: 'width',
-                value: newProps.width,
-                type: 'string | number'
-            });
-        }
-        // BabylonjsGuiControl.widthInPixels (number):
-        if (oldProps.widthInPixels !== newProps.widthInPixels) {
-            updates.push({
-                propertyName: 'widthInPixels',
-                value: newProps.widthInPixels,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiControl.zIndex (number):
-        if (oldProps.zIndex !== newProps.zIndex) {
-            updates.push({
-                propertyName: 'zIndex',
-                value: newProps.zIndex,
-                type: 'number'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberControlPropsHandler implements PropsHandler<FiberControlProps> {
+    getPropertyUpdates(oldProps: FiberControlProps, newProps: FiberControlProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.alpha, newProps.alpha, 'alpha', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.clipChildren, newProps.clipChildren, 'clipChildren', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.clipContent, newProps.clipContent, 'clipContent', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.color, newProps.color, 'color', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.disabledColor, newProps.disabledColor, 'disabledColor', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.disabledColorItem, newProps.disabledColorItem, 'disabledColorItem', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.fontFamily, newProps.fontFamily, 'fontFamily', 'string', changedProps)
+        // type: '{ ascent: number; height: number; descent: number; }' property (not coded) BabylonjsGuiControl.fontOffset.
+        checkPrimitiveDiff(oldProps.fontSize, newProps.fontSize, 'fontSize', 'string | number', changedProps)
+        checkPrimitiveDiff(oldProps.fontSizeInPixels, newProps.fontSizeInPixels, 'fontSizeInPixels', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.fontStyle, newProps.fontStyle, 'fontStyle', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.fontWeight, newProps.fontWeight, 'fontWeight', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.height, newProps.height, 'height', 'string | number', changedProps)
+        checkPrimitiveDiff(oldProps.heightInPixels, newProps.heightInPixels, 'heightInPixels', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.horizontalAlignment, newProps.horizontalAlignment, 'horizontalAlignment', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.hoverCursor, newProps.hoverCursor, 'hoverCursor', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.isEnabled, newProps.isEnabled, 'isEnabled', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.isFocusInvisible, newProps.isFocusInvisible, 'isFocusInvisible', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.isHighlighted, newProps.isHighlighted, 'isHighlighted', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.isHitTestVisible, newProps.isHitTestVisible, 'isHitTestVisible', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.isPointerBlocker, newProps.isPointerBlocker, 'isPointerBlocker', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.isVisible, newProps.isVisible, 'isVisible', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.left, newProps.left, 'left', 'string | number', changedProps)
+        checkPrimitiveDiff(oldProps.leftInPixels, newProps.leftInPixels, 'leftInPixels', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.linkOffsetX, newProps.linkOffsetX, 'linkOffsetX', 'string | number', changedProps)
+        checkPrimitiveDiff(oldProps.linkOffsetXInPixels, newProps.linkOffsetXInPixels, 'linkOffsetXInPixels', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.linkOffsetY, newProps.linkOffsetY, 'linkOffsetY', 'string | number', changedProps)
+        checkPrimitiveDiff(oldProps.linkOffsetYInPixels, newProps.linkOffsetYInPixels, 'linkOffsetYInPixels', 'number', changedProps)
+        // type: 'any' property (not coded) BabylonjsGuiControl.metadata.
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.notRenderable, newProps.notRenderable, 'notRenderable', 'boolean', changedProps)
+        checkObservableDiff(oldProps.onAfterDrawObservable, newProps.onAfterDrawObservable, 'onAfterDrawObservable', 'BabylonjsCoreObservable<BabylonjsGuiControl>', changedProps)
+        checkObservableDiff(oldProps.onBeforeDrawObservable, newProps.onBeforeDrawObservable, 'onBeforeDrawObservable', 'BabylonjsCoreObservable<BabylonjsGuiControl>', changedProps)
+        checkObservableDiff(oldProps.onDirtyObservable, newProps.onDirtyObservable, 'onDirtyObservable', 'BabylonjsCoreObservable<BabylonjsGuiControl>', changedProps)
+        checkObservableDiff(oldProps.onPointerClickObservable, newProps.onPointerClickObservable, 'onPointerClickObservable', 'BabylonjsCoreObservable<BabylonjsGuiVector2WithInfo>', changedProps)
+        checkObservableDiff(oldProps.onPointerDownObservable, newProps.onPointerDownObservable, 'onPointerDownObservable', 'BabylonjsCoreObservable<BabylonjsGuiVector2WithInfo>', changedProps)
+        checkObservableDiff(oldProps.onPointerEnterObservable, newProps.onPointerEnterObservable, 'onPointerEnterObservable', 'BabylonjsCoreObservable<BabylonjsGuiControl>', changedProps)
+        checkObservableDiff(oldProps.onPointerMoveObservable, newProps.onPointerMoveObservable, 'onPointerMoveObservable', 'BabylonjsCoreObservable<BabylonjsCoreVector2>', changedProps)
+        checkObservableDiff(oldProps.onPointerOutObservable, newProps.onPointerOutObservable, 'onPointerOutObservable', 'BabylonjsCoreObservable<BabylonjsGuiControl>', changedProps)
+        checkObservableDiff(oldProps.onPointerUpObservable, newProps.onPointerUpObservable, 'onPointerUpObservable', 'BabylonjsCoreObservable<BabylonjsGuiVector2WithInfo>', changedProps)
+        checkObservableDiff(oldProps.onWheelObservable, newProps.onWheelObservable, 'onWheelObservable', 'BabylonjsCoreObservable<BabylonjsCoreVector2>', changedProps)
+        checkPrimitiveDiff(oldProps.paddingBottom, newProps.paddingBottom, 'paddingBottom', 'string | number', changedProps)
+        checkPrimitiveDiff(oldProps.paddingBottomInPixels, newProps.paddingBottomInPixels, 'paddingBottomInPixels', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.paddingLeft, newProps.paddingLeft, 'paddingLeft', 'string | number', changedProps)
+        checkPrimitiveDiff(oldProps.paddingLeftInPixels, newProps.paddingLeftInPixels, 'paddingLeftInPixels', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.paddingRight, newProps.paddingRight, 'paddingRight', 'string | number', changedProps)
+        checkPrimitiveDiff(oldProps.paddingRightInPixels, newProps.paddingRightInPixels, 'paddingRightInPixels', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.paddingTop, newProps.paddingTop, 'paddingTop', 'string | number', changedProps)
+        checkPrimitiveDiff(oldProps.paddingTopInPixels, newProps.paddingTopInPixels, 'paddingTopInPixels', 'number', changedProps)
+        // type: 'BabylonjsGuiContainer' property (not coded) BabylonjsGuiControl.parent.
+        checkPrimitiveDiff(oldProps.rotation, newProps.rotation, 'rotation', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.scaleX, newProps.scaleX, 'scaleX', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.scaleY, newProps.scaleY, 'scaleY', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.shadowBlur, newProps.shadowBlur, 'shadowBlur', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.shadowColor, newProps.shadowColor, 'shadowColor', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.shadowOffsetX, newProps.shadowOffsetX, 'shadowOffsetX', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.shadowOffsetY, newProps.shadowOffsetY, 'shadowOffsetY', 'number', changedProps)
+        // type: 'BabylonjsGuiStyle' property (not coded) BabylonjsGuiControl.style.
+        checkPrimitiveDiff(oldProps.top, newProps.top, 'top', 'string | number', changedProps)
+        checkPrimitiveDiff(oldProps.topInPixels, newProps.topInPixels, 'topInPixels', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.transformCenterX, newProps.transformCenterX, 'transformCenterX', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.transformCenterY, newProps.transformCenterY, 'transformCenterY', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.uniqueId, newProps.uniqueId, 'uniqueId', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.useBitmapCache, newProps.useBitmapCache, 'useBitmapCache', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.verticalAlignment, newProps.verticalAlignment, 'verticalAlignment', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.width, newProps.width, 'width', 'string | number', changedProps)
+        checkPrimitiveDiff(oldProps.widthInPixels, newProps.widthInPixels, 'widthInPixels', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.zIndex, newProps.zIndex, 'zIndex', 'number', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -10574,8 +6808,8 @@ export class FiberControlPropsHandler implements PropsHandler<BabylonjsGuiContro
  *
  * This code has been generated
  */
-export class FiberControl implements HasPropsHandlers<BabylonjsGuiControl, FiberControlProps> {
-    private propsHandlers: PropsHandler<BabylonjsGuiControl, FiberControlProps>[];
+export class FiberControl implements HasPropsHandlers<FiberControlProps> {
+    private propsHandlers: PropsHandler<FiberControlProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -10583,11 +6817,11 @@ export class FiberControl implements HasPropsHandlers<BabylonjsGuiControl, Fiber
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsGuiControl, FiberControlProps>[] {
+    getPropsHandlers(): PropsHandler<FiberControlProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsGuiControl, FiberControlProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberControlProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -10609,67 +6843,17 @@ export class FiberControl implements HasPropsHandlers<BabylonjsGuiControl, Fiber
     };
 }
 
-export class FiberContainerPropsHandler implements PropsHandler<BabylonjsGuiContainer, FiberContainerProps> {
-    getPropertyUpdates(hostInstance: BabylonjsGuiContainer, oldProps: FiberContainerProps, newProps: FiberContainerProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsGuiContainer.adaptHeightToChildren (boolean):
-        if (oldProps.adaptHeightToChildren !== newProps.adaptHeightToChildren) {
-            updates.push({
-                propertyName: 'adaptHeightToChildren',
-                value: newProps.adaptHeightToChildren,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsGuiContainer.adaptWidthToChildren (boolean):
-        if (oldProps.adaptWidthToChildren !== newProps.adaptWidthToChildren) {
-            updates.push({
-                propertyName: 'adaptWidthToChildren',
-                value: newProps.adaptWidthToChildren,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsGuiContainer.background (string):
-        if (oldProps.background !== newProps.background) {
-            updates.push({
-                propertyName: 'background',
-                value: newProps.background,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiContainer.logLayoutCycleErrors (boolean):
-        if (oldProps.logLayoutCycleErrors !== newProps.logLayoutCycleErrors) {
-            updates.push({
-                propertyName: 'logLayoutCycleErrors',
-                value: newProps.logLayoutCycleErrors,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsGuiContainer.maxLayoutCycle (number):
-        if (oldProps.maxLayoutCycle !== newProps.maxLayoutCycle) {
-            updates.push({
-                propertyName: 'maxLayoutCycle',
-                value: newProps.maxLayoutCycle,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiContainer.name (string):
-        if (oldProps.name !== newProps.name) {
-            updates.push({
-                propertyName: 'name',
-                value: newProps.name,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiContainer.addControl of type '(control?: BabylonjsGuiControl) => BabylonjsGuiContainer':
-        if (oldProps.addControl !== newProps.addControl) {
-            updates.push({
-                propertyName: 'addControl',
-                value: newProps.addControl,
-                type: '(control?: BabylonjsGuiControl) => BabylonjsGuiContainer'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberContainerPropsHandler implements PropsHandler<FiberContainerProps> {
+    getPropertyUpdates(oldProps: FiberContainerProps, newProps: FiberContainerProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.adaptHeightToChildren, newProps.adaptHeightToChildren, 'adaptHeightToChildren', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.adaptWidthToChildren, newProps.adaptWidthToChildren, 'adaptWidthToChildren', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.background, newProps.background, 'background', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.logLayoutCycleErrors, newProps.logLayoutCycleErrors, 'logLayoutCycleErrors', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.maxLayoutCycle, newProps.maxLayoutCycle, 'maxLayoutCycle', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
+        checkMethodDiff(oldProps.addControl, newProps.addControl, 'addControl', '(control?: BabylonjsGuiControl) => BabylonjsGuiContainer', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -10678,8 +6862,8 @@ export class FiberContainerPropsHandler implements PropsHandler<BabylonjsGuiCont
  *
  * This code has been generated
  */
-export class FiberContainer implements HasPropsHandlers<BabylonjsGuiControl, FiberControlProps> {
-    private propsHandlers: PropsHandler<BabylonjsGuiControl, FiberControlProps>[];
+export class FiberContainer implements HasPropsHandlers<FiberControlProps> {
+    private propsHandlers: PropsHandler<FiberControlProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -10688,11 +6872,11 @@ export class FiberContainer implements HasPropsHandlers<BabylonjsGuiControl, Fib
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsGuiControl, FiberControlProps>[] {
+    getPropsHandlers(): PropsHandler<FiberControlProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsGuiControl, FiberControlProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberControlProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -10714,35 +6898,13 @@ export class FiberContainer implements HasPropsHandlers<BabylonjsGuiControl, Fib
     };
 }
 
-export class FiberRectanglePropsHandler implements PropsHandler<BabylonjsGuiRectangle, FiberRectangleProps> {
-    getPropertyUpdates(hostInstance: BabylonjsGuiRectangle, oldProps: FiberRectangleProps, newProps: FiberRectangleProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsGuiRectangle.cornerRadius (number):
-        if (oldProps.cornerRadius !== newProps.cornerRadius) {
-            updates.push({
-                propertyName: 'cornerRadius',
-                value: newProps.cornerRadius,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiRectangle.name (string):
-        if (oldProps.name !== newProps.name) {
-            updates.push({
-                propertyName: 'name',
-                value: newProps.name,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiRectangle.thickness (number):
-        if (oldProps.thickness !== newProps.thickness) {
-            updates.push({
-                propertyName: 'thickness',
-                value: newProps.thickness,
-                type: 'number'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberRectanglePropsHandler implements PropsHandler<FiberRectangleProps> {
+    getPropertyUpdates(oldProps: FiberRectangleProps, newProps: FiberRectangleProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.cornerRadius, newProps.cornerRadius, 'cornerRadius', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.thickness, newProps.thickness, 'thickness', 'number', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -10751,8 +6913,8 @@ export class FiberRectanglePropsHandler implements PropsHandler<BabylonjsGuiRect
  *
  * This code has been generated
  */
-export class FiberRectangle implements HasPropsHandlers<BabylonjsGuiControl, FiberControlProps> {
-    private propsHandlers: PropsHandler<BabylonjsGuiControl, FiberControlProps>[];
+export class FiberRectangle implements HasPropsHandlers<FiberControlProps> {
+    private propsHandlers: PropsHandler<FiberControlProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -10762,11 +6924,11 @@ export class FiberRectangle implements HasPropsHandlers<BabylonjsGuiControl, Fib
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsGuiControl, FiberControlProps>[] {
+    getPropsHandlers(): PropsHandler<FiberControlProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsGuiControl, FiberControlProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberControlProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -10788,31 +6950,16 @@ export class FiberRectangle implements HasPropsHandlers<BabylonjsGuiControl, Fib
     };
 }
 
-export class FiberButtonPropsHandler implements PropsHandler<BabylonjsGuiButton, FiberButtonProps> {
-    getPropertyUpdates(hostInstance: BabylonjsGuiButton, oldProps: FiberButtonProps, newProps: FiberButtonProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsGuiButton.delegatePickingToChildren (boolean):
-        if (oldProps.delegatePickingToChildren !== newProps.delegatePickingToChildren) {
-            updates.push({
-                propertyName: 'delegatePickingToChildren',
-                value: newProps.delegatePickingToChildren,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsGuiButton.name (string):
-        if (oldProps.name !== newProps.name) {
-            updates.push({
-                propertyName: 'name',
-                value: newProps.name,
-                type: 'string'
-            });
-        }
-        // TODO: type: '() => void' property (not coded) BabylonjsGuiButton.pointerDownAnimation.
-        // TODO: type: '() => void' property (not coded) BabylonjsGuiButton.pointerEnterAnimation.
-        // TODO: type: '() => void' property (not coded) BabylonjsGuiButton.pointerOutAnimation.
-        // TODO: type: '() => void' property (not coded) BabylonjsGuiButton.pointerUpAnimation.
-        return updates.length === 0 ? null : updates;
+export class FiberButtonPropsHandler implements PropsHandler<FiberButtonProps> {
+    getPropertyUpdates(oldProps: FiberButtonProps, newProps: FiberButtonProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.delegatePickingToChildren, newProps.delegatePickingToChildren, 'delegatePickingToChildren', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
+        checkLambdaDiff(oldProps.pointerDownAnimation, newProps.pointerDownAnimation, 'pointerDownAnimation', '() => void', changedProps)
+        checkLambdaDiff(oldProps.pointerEnterAnimation, newProps.pointerEnterAnimation, 'pointerEnterAnimation', '() => void', changedProps)
+        checkLambdaDiff(oldProps.pointerOutAnimation, newProps.pointerOutAnimation, 'pointerOutAnimation', '() => void', changedProps)
+        checkLambdaDiff(oldProps.pointerUpAnimation, newProps.pointerUpAnimation, 'pointerUpAnimation', '() => void', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -10821,8 +6968,8 @@ export class FiberButtonPropsHandler implements PropsHandler<BabylonjsGuiButton,
  *
  * This code has been generated
  */
-export class FiberButton implements HasPropsHandlers<BabylonjsGuiControl, FiberControlProps> {
-    private propsHandlers: PropsHandler<BabylonjsGuiControl, FiberControlProps>[];
+export class FiberButton implements HasPropsHandlers<FiberControlProps> {
+    private propsHandlers: PropsHandler<FiberControlProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -10833,11 +6980,11 @@ export class FiberButton implements HasPropsHandlers<BabylonjsGuiControl, FiberC
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsGuiControl, FiberControlProps>[] {
+    getPropsHandlers(): PropsHandler<FiberControlProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsGuiControl, FiberControlProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberControlProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -10859,116 +7006,24 @@ export class FiberButton implements HasPropsHandlers<BabylonjsGuiControl, FiberC
     };
 }
 
-export class FiberSelectionPanelPropsHandler implements PropsHandler<BabylonjsGuiSelectionPanel, FiberSelectionPanelProps> {
-    getPropertyUpdates(hostInstance: BabylonjsGuiSelectionPanel, oldProps: FiberSelectionPanelProps, newProps: FiberSelectionPanelProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsGuiSelectionPanel.barColor (string):
-        if (oldProps.barColor !== newProps.barColor) {
-            updates.push({
-                propertyName: 'barColor',
-                value: newProps.barColor,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiSelectionPanel.barHeight (string):
-        if (oldProps.barHeight !== newProps.barHeight) {
-            updates.push({
-                propertyName: 'barHeight',
-                value: newProps.barHeight,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiSelectionPanel.buttonBackground (string):
-        if (oldProps.buttonBackground !== newProps.buttonBackground) {
-            updates.push({
-                propertyName: 'buttonBackground',
-                value: newProps.buttonBackground,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiSelectionPanel.buttonColor (string):
-        if (oldProps.buttonColor !== newProps.buttonColor) {
-            updates.push({
-                propertyName: 'buttonColor',
-                value: newProps.buttonColor,
-                type: 'string'
-            });
-        }
-        // TODO: type: 'BabylonjsGuiSelectorGroup[]' property (not coded) BabylonjsGuiSelectionPanel.groups.
-        // BabylonjsGuiSelectionPanel.headerColor (string):
-        if (oldProps.headerColor !== newProps.headerColor) {
-            updates.push({
-                propertyName: 'headerColor',
-                value: newProps.headerColor,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiSelectionPanel.labelColor (string):
-        if (oldProps.labelColor !== newProps.labelColor) {
-            updates.push({
-                propertyName: 'labelColor',
-                value: newProps.labelColor,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiSelectionPanel.name (string):
-        if (oldProps.name !== newProps.name) {
-            updates.push({
-                propertyName: 'name',
-                value: newProps.name,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiSelectionPanel.spacerHeight (string):
-        if (oldProps.spacerHeight !== newProps.spacerHeight) {
-            updates.push({
-                propertyName: 'spacerHeight',
-                value: newProps.spacerHeight,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiSelectionPanel.addGroup of type '(group?: BabylonjsGuiSelectorGroup) => void':
-        if (oldProps.addGroup !== newProps.addGroup) {
-            updates.push({
-                propertyName: 'addGroup',
-                value: newProps.addGroup,
-                type: '(group?: BabylonjsGuiSelectorGroup) => void'
-            });
-        }
-        // BabylonjsGuiSelectionPanel.addToGroupCheckbox of type '(groupNb?: number, label?: string, func?: () => void, checked?: boolean) => void':
-        if (oldProps.addToGroupCheckbox !== newProps.addToGroupCheckbox) {
-            updates.push({
-                propertyName: 'addToGroupCheckbox',
-                value: newProps.addToGroupCheckbox,
-                type: '(groupNb?: number, label?: string, func?: () => void, checked?: boolean) => void'
-            });
-        }
-        // BabylonjsGuiSelectionPanel.addToGroupRadio of type '(groupNb?: number, label?: string, func?: () => void, checked?: boolean) => void':
-        if (oldProps.addToGroupRadio !== newProps.addToGroupRadio) {
-            updates.push({
-                propertyName: 'addToGroupRadio',
-                value: newProps.addToGroupRadio,
-                type: '(groupNb?: number, label?: string, func?: () => void, checked?: boolean) => void'
-            });
-        }
-        // BabylonjsGuiSelectionPanel.addToGroupSlider of type '(groupNb?: number, label?: string, func?: () => void, unit?: string, min?: number, max?: number, value?: number, onVal?: (v: number) => number) => void':
-        if (oldProps.addToGroupSlider !== newProps.addToGroupSlider) {
-            updates.push({
-                propertyName: 'addToGroupSlider',
-                value: newProps.addToGroupSlider,
-                type: '(groupNb?: number, label?: string, func?: () => void, unit?: string, min?: number, max?: number, value?: number, onVal?: (v: number) => number) => void'
-            });
-        }
-        // BabylonjsGuiSelectionPanel.setHeaderName of type '(label?: string, groupNb?: number) => void':
-        if (oldProps.setHeaderName !== newProps.setHeaderName) {
-            updates.push({
-                propertyName: 'setHeaderName',
-                value: newProps.setHeaderName,
-                type: '(label?: string, groupNb?: number) => void'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberSelectionPanelPropsHandler implements PropsHandler<FiberSelectionPanelProps> {
+    getPropertyUpdates(oldProps: FiberSelectionPanelProps, newProps: FiberSelectionPanelProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.barColor, newProps.barColor, 'barColor', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.barHeight, newProps.barHeight, 'barHeight', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.buttonBackground, newProps.buttonBackground, 'buttonBackground', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.buttonColor, newProps.buttonColor, 'buttonColor', 'string', changedProps)
+        // type: 'BabylonjsGuiSelectorGroup[]' property (not coded) BabylonjsGuiSelectionPanel.groups.
+        checkPrimitiveDiff(oldProps.headerColor, newProps.headerColor, 'headerColor', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.labelColor, newProps.labelColor, 'labelColor', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.spacerHeight, newProps.spacerHeight, 'spacerHeight', 'string', changedProps)
+        checkMethodDiff(oldProps.addGroup, newProps.addGroup, 'addGroup', '(group?: BabylonjsGuiSelectorGroup) => void', changedProps)
+        checkMethodDiff(oldProps.addToGroupCheckbox, newProps.addToGroupCheckbox, 'addToGroupCheckbox', '(groupNb?: number, label?: string, func?: () => void, checked?: boolean) => void', changedProps)
+        checkMethodDiff(oldProps.addToGroupRadio, newProps.addToGroupRadio, 'addToGroupRadio', '(groupNb?: number, label?: string, func?: () => void, checked?: boolean) => void', changedProps)
+        checkMethodDiff(oldProps.addToGroupSlider, newProps.addToGroupSlider, 'addToGroupSlider', '(groupNb?: number, label?: string, func?: () => void, unit?: string, min?: number, max?: number, value?: number, onVal?: (v: number) => number) => void', changedProps)
+        checkMethodDiff(oldProps.setHeaderName, newProps.setHeaderName, 'setHeaderName', '(label?: string, groupNb?: number) => void', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -10977,8 +7032,8 @@ export class FiberSelectionPanelPropsHandler implements PropsHandler<BabylonjsGu
  *
  * This code has been generated
  */
-export class FiberSelectionPanel implements HasPropsHandlers<BabylonjsGuiControl, FiberControlProps> {
-    private propsHandlers: PropsHandler<BabylonjsGuiControl, FiberControlProps>[];
+export class FiberSelectionPanel implements HasPropsHandlers<FiberControlProps> {
+    private propsHandlers: PropsHandler<FiberControlProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -10989,11 +7044,11 @@ export class FiberSelectionPanel implements HasPropsHandlers<BabylonjsGuiControl
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsGuiControl, FiberControlProps>[] {
+    getPropsHandlers(): PropsHandler<FiberControlProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsGuiControl, FiberControlProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberControlProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -11020,137 +7075,31 @@ export class FiberSelectionPanel implements HasPropsHandlers<BabylonjsGuiControl
     };
 }
 
-export class FiberScrollViewerPropsHandler implements PropsHandler<BabylonjsGuiScrollViewer, FiberScrollViewerProps> {
-    getPropertyUpdates(hostInstance: BabylonjsGuiScrollViewer, oldProps: FiberScrollViewerProps, newProps: FiberScrollViewerProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsGuiScrollViewer.barBackground (string):
-        if (oldProps.barBackground !== newProps.barBackground) {
-            updates.push({
-                propertyName: 'barBackground',
-                value: newProps.barBackground,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiScrollViewer.barColor (string):
-        if (oldProps.barColor !== newProps.barColor) {
-            updates.push({
-                propertyName: 'barColor',
-                value: newProps.barColor,
-                type: 'string'
-            });
-        }
-        // TODO: type: 'BabylonjsGuiImage' property (not coded) BabylonjsGuiScrollViewer.barImage.
-        // BabylonjsGuiScrollViewer.barImageHeight (number):
-        if (oldProps.barImageHeight !== newProps.barImageHeight) {
-            updates.push({
-                propertyName: 'barImageHeight',
-                value: newProps.barImageHeight,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiScrollViewer.barSize (number):
-        if (oldProps.barSize !== newProps.barSize) {
-            updates.push({
-                propertyName: 'barSize',
-                value: newProps.barSize,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiScrollViewer.forceHorizontalBar (boolean):
-        if (oldProps.forceHorizontalBar !== newProps.forceHorizontalBar) {
-            updates.push({
-                propertyName: 'forceHorizontalBar',
-                value: newProps.forceHorizontalBar,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsGuiScrollViewer.forceVerticalBar (boolean):
-        if (oldProps.forceVerticalBar !== newProps.forceVerticalBar) {
-            updates.push({
-                propertyName: 'forceVerticalBar',
-                value: newProps.forceVerticalBar,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsGuiScrollViewer.freezeControls (boolean):
-        if (oldProps.freezeControls !== newProps.freezeControls) {
-            updates.push({
-                propertyName: 'freezeControls',
-                value: newProps.freezeControls,
-                type: 'boolean'
-            });
-        }
-        // TODO: type: 'BabylonjsGuiImage' property (not coded) BabylonjsGuiScrollViewer.horizontalBarImage.
-        // BabylonjsGuiScrollViewer.horizontalBarImageHeight (number):
-        if (oldProps.horizontalBarImageHeight !== newProps.horizontalBarImageHeight) {
-            updates.push({
-                propertyName: 'horizontalBarImageHeight',
-                value: newProps.horizontalBarImageHeight,
-                type: 'number'
-            });
-        }
-        // TODO: type: 'BabylonjsGuiImage' property (not coded) BabylonjsGuiScrollViewer.horizontalThumbImage.
-        // BabylonjsGuiScrollViewer.scrollBackground (string):
-        if (oldProps.scrollBackground !== newProps.scrollBackground) {
-            updates.push({
-                propertyName: 'scrollBackground',
-                value: newProps.scrollBackground,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiScrollViewer.thumbHeight (number):
-        if (oldProps.thumbHeight !== newProps.thumbHeight) {
-            updates.push({
-                propertyName: 'thumbHeight',
-                value: newProps.thumbHeight,
-                type: 'number'
-            });
-        }
-        // TODO: type: 'BabylonjsGuiImage' property (not coded) BabylonjsGuiScrollViewer.thumbImage.
-        // BabylonjsGuiScrollViewer.thumbLength (number):
-        if (oldProps.thumbLength !== newProps.thumbLength) {
-            updates.push({
-                propertyName: 'thumbLength',
-                value: newProps.thumbLength,
-                type: 'number'
-            });
-        }
-        // TODO: type: 'BabylonjsGuiImage' property (not coded) BabylonjsGuiScrollViewer.verticalBarImage.
-        // BabylonjsGuiScrollViewer.verticalBarImageHeight (number):
-        if (oldProps.verticalBarImageHeight !== newProps.verticalBarImageHeight) {
-            updates.push({
-                propertyName: 'verticalBarImageHeight',
-                value: newProps.verticalBarImageHeight,
-                type: 'number'
-            });
-        }
-        // TODO: type: 'BabylonjsGuiImage' property (not coded) BabylonjsGuiScrollViewer.verticalThumbImage.
-        // BabylonjsGuiScrollViewer.wheelPrecision (number):
-        if (oldProps.wheelPrecision !== newProps.wheelPrecision) {
-            updates.push({
-                propertyName: 'wheelPrecision',
-                value: newProps.wheelPrecision,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiScrollViewer.addControl of type '(control?: BabylonjsGuiControl) => BabylonjsGuiContainer':
-        if (oldProps.addControl !== newProps.addControl) {
-            updates.push({
-                propertyName: 'addControl',
-                value: newProps.addControl,
-                type: '(control?: BabylonjsGuiControl) => BabylonjsGuiContainer'
-            });
-        }
-        // BabylonjsGuiScrollViewer.setBucketSizes of type '(width?: number, height?: number) => void':
-        if (oldProps.setBucketSizes !== newProps.setBucketSizes) {
-            updates.push({
-                propertyName: 'setBucketSizes',
-                value: newProps.setBucketSizes,
-                type: '(width?: number, height?: number) => void'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberScrollViewerPropsHandler implements PropsHandler<FiberScrollViewerProps> {
+    getPropertyUpdates(oldProps: FiberScrollViewerProps, newProps: FiberScrollViewerProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.barBackground, newProps.barBackground, 'barBackground', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.barColor, newProps.barColor, 'barColor', 'string', changedProps)
+        // type: 'BabylonjsGuiImage' property (not coded) BabylonjsGuiScrollViewer.barImage.
+        checkPrimitiveDiff(oldProps.barImageHeight, newProps.barImageHeight, 'barImageHeight', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.barSize, newProps.barSize, 'barSize', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.forceHorizontalBar, newProps.forceHorizontalBar, 'forceHorizontalBar', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.forceVerticalBar, newProps.forceVerticalBar, 'forceVerticalBar', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.freezeControls, newProps.freezeControls, 'freezeControls', 'boolean', changedProps)
+        // type: 'BabylonjsGuiImage' property (not coded) BabylonjsGuiScrollViewer.horizontalBarImage.
+        checkPrimitiveDiff(oldProps.horizontalBarImageHeight, newProps.horizontalBarImageHeight, 'horizontalBarImageHeight', 'number', changedProps)
+        // type: 'BabylonjsGuiImage' property (not coded) BabylonjsGuiScrollViewer.horizontalThumbImage.
+        checkPrimitiveDiff(oldProps.scrollBackground, newProps.scrollBackground, 'scrollBackground', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.thumbHeight, newProps.thumbHeight, 'thumbHeight', 'number', changedProps)
+        // type: 'BabylonjsGuiImage' property (not coded) BabylonjsGuiScrollViewer.thumbImage.
+        checkPrimitiveDiff(oldProps.thumbLength, newProps.thumbLength, 'thumbLength', 'number', changedProps)
+        // type: 'BabylonjsGuiImage' property (not coded) BabylonjsGuiScrollViewer.verticalBarImage.
+        checkPrimitiveDiff(oldProps.verticalBarImageHeight, newProps.verticalBarImageHeight, 'verticalBarImageHeight', 'number', changedProps)
+        // type: 'BabylonjsGuiImage' property (not coded) BabylonjsGuiScrollViewer.verticalThumbImage.
+        checkPrimitiveDiff(oldProps.wheelPrecision, newProps.wheelPrecision, 'wheelPrecision', 'number', changedProps)
+        checkMethodDiff(oldProps.addControl, newProps.addControl, 'addControl', '(control?: BabylonjsGuiControl) => BabylonjsGuiContainer', changedProps)
+        checkMethodDiff(oldProps.setBucketSizes, newProps.setBucketSizes, 'setBucketSizes', '(width?: number, height?: number) => void', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -11159,8 +7108,8 @@ export class FiberScrollViewerPropsHandler implements PropsHandler<BabylonjsGuiS
  *
  * This code has been generated
  */
-export class FiberScrollViewer implements HasPropsHandlers<BabylonjsGuiControl, FiberControlProps> {
-    private propsHandlers: PropsHandler<BabylonjsGuiControl, FiberControlProps>[];
+export class FiberScrollViewer implements HasPropsHandlers<FiberControlProps> {
+    private propsHandlers: PropsHandler<FiberControlProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -11171,11 +7120,11 @@ export class FiberScrollViewer implements HasPropsHandlers<BabylonjsGuiControl, 
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsGuiControl, FiberControlProps>[] {
+    getPropsHandlers(): PropsHandler<FiberControlProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsGuiControl, FiberControlProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberControlProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -11202,51 +7151,15 @@ export class FiberScrollViewer implements HasPropsHandlers<BabylonjsGuiControl, 
     };
 }
 
-export class FiberStackPanelPropsHandler implements PropsHandler<BabylonjsGuiStackPanel, FiberStackPanelProps> {
-    getPropertyUpdates(hostInstance: BabylonjsGuiStackPanel, oldProps: FiberStackPanelProps, newProps: FiberStackPanelProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsGuiStackPanel.height (string | number):
-        if (oldProps.height !== newProps.height) {
-            updates.push({
-                propertyName: 'height',
-                value: newProps.height,
-                type: 'string | number'
-            });
-        }
-        // BabylonjsGuiStackPanel.ignoreLayoutWarnings (boolean):
-        if (oldProps.ignoreLayoutWarnings !== newProps.ignoreLayoutWarnings) {
-            updates.push({
-                propertyName: 'ignoreLayoutWarnings',
-                value: newProps.ignoreLayoutWarnings,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsGuiStackPanel.isVertical (boolean):
-        if (oldProps.isVertical !== newProps.isVertical) {
-            updates.push({
-                propertyName: 'isVertical',
-                value: newProps.isVertical,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsGuiStackPanel.name (string):
-        if (oldProps.name !== newProps.name) {
-            updates.push({
-                propertyName: 'name',
-                value: newProps.name,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiStackPanel.width (string | number):
-        if (oldProps.width !== newProps.width) {
-            updates.push({
-                propertyName: 'width',
-                value: newProps.width,
-                type: 'string | number'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberStackPanelPropsHandler implements PropsHandler<FiberStackPanelProps> {
+    getPropertyUpdates(oldProps: FiberStackPanelProps, newProps: FiberStackPanelProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.height, newProps.height, 'height', 'string | number', changedProps)
+        checkPrimitiveDiff(oldProps.ignoreLayoutWarnings, newProps.ignoreLayoutWarnings, 'ignoreLayoutWarnings', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.isVertical, newProps.isVertical, 'isVertical', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.width, newProps.width, 'width', 'string | number', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -11255,8 +7168,8 @@ export class FiberStackPanelPropsHandler implements PropsHandler<BabylonjsGuiSta
  *
  * This code has been generated
  */
-export class FiberStackPanel implements HasPropsHandlers<BabylonjsGuiControl, FiberControlProps> {
-    private propsHandlers: PropsHandler<BabylonjsGuiControl, FiberControlProps>[];
+export class FiberStackPanel implements HasPropsHandlers<FiberControlProps> {
+    private propsHandlers: PropsHandler<FiberControlProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -11266,11 +7179,11 @@ export class FiberStackPanel implements HasPropsHandlers<BabylonjsGuiControl, Fi
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsGuiControl, FiberControlProps>[] {
+    getPropsHandlers(): PropsHandler<FiberControlProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsGuiControl, FiberControlProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberControlProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -11292,115 +7205,23 @@ export class FiberStackPanel implements HasPropsHandlers<BabylonjsGuiControl, Fi
     };
 }
 
-export class FiberVirtualKeyboardPropsHandler implements PropsHandler<BabylonjsGuiVirtualKeyboard, FiberVirtualKeyboardProps> {
-    getPropertyUpdates(hostInstance: BabylonjsGuiVirtualKeyboard, oldProps: FiberVirtualKeyboardProps, newProps: FiberVirtualKeyboardProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsGuiVirtualKeyboard.defaultButtonBackground (string):
-        if (oldProps.defaultButtonBackground !== newProps.defaultButtonBackground) {
-            updates.push({
-                propertyName: 'defaultButtonBackground',
-                value: newProps.defaultButtonBackground,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiVirtualKeyboard.defaultButtonColor (string):
-        if (oldProps.defaultButtonColor !== newProps.defaultButtonColor) {
-            updates.push({
-                propertyName: 'defaultButtonColor',
-                value: newProps.defaultButtonColor,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiVirtualKeyboard.defaultButtonHeight (string):
-        if (oldProps.defaultButtonHeight !== newProps.defaultButtonHeight) {
-            updates.push({
-                propertyName: 'defaultButtonHeight',
-                value: newProps.defaultButtonHeight,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiVirtualKeyboard.defaultButtonPaddingBottom (string):
-        if (oldProps.defaultButtonPaddingBottom !== newProps.defaultButtonPaddingBottom) {
-            updates.push({
-                propertyName: 'defaultButtonPaddingBottom',
-                value: newProps.defaultButtonPaddingBottom,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiVirtualKeyboard.defaultButtonPaddingLeft (string):
-        if (oldProps.defaultButtonPaddingLeft !== newProps.defaultButtonPaddingLeft) {
-            updates.push({
-                propertyName: 'defaultButtonPaddingLeft',
-                value: newProps.defaultButtonPaddingLeft,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiVirtualKeyboard.defaultButtonPaddingRight (string):
-        if (oldProps.defaultButtonPaddingRight !== newProps.defaultButtonPaddingRight) {
-            updates.push({
-                propertyName: 'defaultButtonPaddingRight',
-                value: newProps.defaultButtonPaddingRight,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiVirtualKeyboard.defaultButtonPaddingTop (string):
-        if (oldProps.defaultButtonPaddingTop !== newProps.defaultButtonPaddingTop) {
-            updates.push({
-                propertyName: 'defaultButtonPaddingTop',
-                value: newProps.defaultButtonPaddingTop,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiVirtualKeyboard.defaultButtonWidth (string):
-        if (oldProps.defaultButtonWidth !== newProps.defaultButtonWidth) {
-            updates.push({
-                propertyName: 'defaultButtonWidth',
-                value: newProps.defaultButtonWidth,
-                type: 'string'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsGuiVirtualKeyboard.onKeyPressObservable of type 'BabylonjsCoreObservable<string>/fn':
-        if (oldProps.onKeyPressObservable === undefined && oldProps.onKeyPressObservable !== newProps.onKeyPressObservable) {
-            updates.push({
-                propertyName: 'onKeyPressObservable',
-                value: newProps.onKeyPressObservable,
-                type: 'BabylonjsCoreObservable<string>'
-            });
-        }
-        // BabylonjsGuiVirtualKeyboard.selectedShiftThickness (number):
-        if (oldProps.selectedShiftThickness !== newProps.selectedShiftThickness) {
-            updates.push({
-                propertyName: 'selectedShiftThickness',
-                value: newProps.selectedShiftThickness,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiVirtualKeyboard.shiftButtonColor (string):
-        if (oldProps.shiftButtonColor !== newProps.shiftButtonColor) {
-            updates.push({
-                propertyName: 'shiftButtonColor',
-                value: newProps.shiftButtonColor,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiVirtualKeyboard.shiftState (number):
-        if (oldProps.shiftState !== newProps.shiftState) {
-            updates.push({
-                propertyName: 'shiftState',
-                value: newProps.shiftState,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiVirtualKeyboard.addKeysRow of type '(keys?: string[], propertySets?: BabylonjsGuiKeyPropertySet[]) => void':
-        if (oldProps.addKeysRow !== newProps.addKeysRow) {
-            updates.push({
-                propertyName: 'addKeysRow',
-                value: newProps.addKeysRow,
-                type: '(keys?: string[], propertySets?: BabylonjsGuiKeyPropertySet[]) => void'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberVirtualKeyboardPropsHandler implements PropsHandler<FiberVirtualKeyboardProps> {
+    getPropertyUpdates(oldProps: FiberVirtualKeyboardProps, newProps: FiberVirtualKeyboardProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.defaultButtonBackground, newProps.defaultButtonBackground, 'defaultButtonBackground', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.defaultButtonColor, newProps.defaultButtonColor, 'defaultButtonColor', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.defaultButtonHeight, newProps.defaultButtonHeight, 'defaultButtonHeight', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.defaultButtonPaddingBottom, newProps.defaultButtonPaddingBottom, 'defaultButtonPaddingBottom', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.defaultButtonPaddingLeft, newProps.defaultButtonPaddingLeft, 'defaultButtonPaddingLeft', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.defaultButtonPaddingRight, newProps.defaultButtonPaddingRight, 'defaultButtonPaddingRight', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.defaultButtonPaddingTop, newProps.defaultButtonPaddingTop, 'defaultButtonPaddingTop', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.defaultButtonWidth, newProps.defaultButtonWidth, 'defaultButtonWidth', 'string', changedProps)
+        checkObservableDiff(oldProps.onKeyPressObservable, newProps.onKeyPressObservable, 'onKeyPressObservable', 'BabylonjsCoreObservable<string>', changedProps)
+        checkPrimitiveDiff(oldProps.selectedShiftThickness, newProps.selectedShiftThickness, 'selectedShiftThickness', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.shiftButtonColor, newProps.shiftButtonColor, 'shiftButtonColor', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.shiftState, newProps.shiftState, 'shiftState', 'number', changedProps)
+        checkMethodDiff(oldProps.addKeysRow, newProps.addKeysRow, 'addKeysRow', '(keys?: string[], propertySets?: BabylonjsGuiKeyPropertySet[]) => void', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -11409,8 +7230,8 @@ export class FiberVirtualKeyboardPropsHandler implements PropsHandler<BabylonjsG
  *
  * This code has been generated
  */
-export class FiberVirtualKeyboard implements HasPropsHandlers<BabylonjsGuiControl, FiberControlProps> {
-    private propsHandlers: PropsHandler<BabylonjsGuiControl, FiberControlProps>[];
+export class FiberVirtualKeyboard implements HasPropsHandlers<FiberControlProps> {
+    private propsHandlers: PropsHandler<FiberControlProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -11421,11 +7242,11 @@ export class FiberVirtualKeyboard implements HasPropsHandlers<BabylonjsGuiContro
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsGuiControl, FiberControlProps>[] {
+    getPropsHandlers(): PropsHandler<FiberControlProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsGuiControl, FiberControlProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberControlProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -11441,27 +7262,12 @@ export class FiberVirtualKeyboard implements HasPropsHandlers<BabylonjsGuiContro
     };
 }
 
-export class FiberEllipsePropsHandler implements PropsHandler<BabylonjsGuiEllipse, FiberEllipseProps> {
-    getPropertyUpdates(hostInstance: BabylonjsGuiEllipse, oldProps: FiberEllipseProps, newProps: FiberEllipseProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsGuiEllipse.name (string):
-        if (oldProps.name !== newProps.name) {
-            updates.push({
-                propertyName: 'name',
-                value: newProps.name,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiEllipse.thickness (number):
-        if (oldProps.thickness !== newProps.thickness) {
-            updates.push({
-                propertyName: 'thickness',
-                value: newProps.thickness,
-                type: 'number'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberEllipsePropsHandler implements PropsHandler<FiberEllipseProps> {
+    getPropertyUpdates(oldProps: FiberEllipseProps, newProps: FiberEllipseProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.thickness, newProps.thickness, 'thickness', 'number', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -11470,8 +7276,8 @@ export class FiberEllipsePropsHandler implements PropsHandler<BabylonjsGuiEllips
  *
  * This code has been generated
  */
-export class FiberEllipse implements HasPropsHandlers<BabylonjsGuiControl, FiberControlProps> {
-    private propsHandlers: PropsHandler<BabylonjsGuiControl, FiberControlProps>[];
+export class FiberEllipse implements HasPropsHandlers<FiberControlProps> {
+    private propsHandlers: PropsHandler<FiberControlProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -11481,11 +7287,11 @@ export class FiberEllipse implements HasPropsHandlers<BabylonjsGuiControl, Fiber
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsGuiControl, FiberControlProps>[] {
+    getPropsHandlers(): PropsHandler<FiberControlProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsGuiControl, FiberControlProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberControlProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -11507,59 +7313,16 @@ export class FiberEllipse implements HasPropsHandlers<BabylonjsGuiControl, Fiber
     };
 }
 
-export class FiberGridPropsHandler implements PropsHandler<BabylonjsGuiGrid, FiberGridProps> {
-    getPropertyUpdates(hostInstance: BabylonjsGuiGrid, oldProps: FiberGridProps, newProps: FiberGridProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsGuiGrid.name (string):
-        if (oldProps.name !== newProps.name) {
-            updates.push({
-                propertyName: 'name',
-                value: newProps.name,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiGrid.addColumnDefinition of type '(width?: number, isPixel?: boolean) => BabylonjsGuiGrid':
-        if (oldProps.addColumnDefinition !== newProps.addColumnDefinition) {
-            updates.push({
-                propertyName: 'addColumnDefinition',
-                value: newProps.addColumnDefinition,
-                type: '(width?: number, isPixel?: boolean) => BabylonjsGuiGrid'
-            });
-        }
-        // BabylonjsGuiGrid.addControl of type '(control?: BabylonjsGuiControl, row?: number, column?: number) => BabylonjsGuiGrid':
-        if (oldProps.addControl !== newProps.addControl) {
-            updates.push({
-                propertyName: 'addControl',
-                value: newProps.addControl,
-                type: '(control?: BabylonjsGuiControl, row?: number, column?: number) => BabylonjsGuiGrid'
-            });
-        }
-        // BabylonjsGuiGrid.addRowDefinition of type '(height?: number, isPixel?: boolean) => BabylonjsGuiGrid':
-        if (oldProps.addRowDefinition !== newProps.addRowDefinition) {
-            updates.push({
-                propertyName: 'addRowDefinition',
-                value: newProps.addRowDefinition,
-                type: '(height?: number, isPixel?: boolean) => BabylonjsGuiGrid'
-            });
-        }
-        // BabylonjsGuiGrid.setColumnDefinition of type '(index?: number, width?: number, isPixel?: boolean) => BabylonjsGuiGrid':
-        if (oldProps.setColumnDefinition !== newProps.setColumnDefinition) {
-            updates.push({
-                propertyName: 'setColumnDefinition',
-                value: newProps.setColumnDefinition,
-                type: '(index?: number, width?: number, isPixel?: boolean) => BabylonjsGuiGrid'
-            });
-        }
-        // BabylonjsGuiGrid.setRowDefinition of type '(index?: number, height?: number, isPixel?: boolean) => BabylonjsGuiGrid':
-        if (oldProps.setRowDefinition !== newProps.setRowDefinition) {
-            updates.push({
-                propertyName: 'setRowDefinition',
-                value: newProps.setRowDefinition,
-                type: '(index?: number, height?: number, isPixel?: boolean) => BabylonjsGuiGrid'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberGridPropsHandler implements PropsHandler<FiberGridProps> {
+    getPropertyUpdates(oldProps: FiberGridProps, newProps: FiberGridProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
+        checkMethodDiff(oldProps.addColumnDefinition, newProps.addColumnDefinition, 'addColumnDefinition', '(width?: number, isPixel?: boolean) => BabylonjsGuiGrid', changedProps)
+        checkMethodDiff(oldProps.addControl, newProps.addControl, 'addControl', '(control?: BabylonjsGuiControl, row?: number, column?: number) => BabylonjsGuiGrid', changedProps)
+        checkMethodDiff(oldProps.addRowDefinition, newProps.addRowDefinition, 'addRowDefinition', '(height?: number, isPixel?: boolean) => BabylonjsGuiGrid', changedProps)
+        checkMethodDiff(oldProps.setColumnDefinition, newProps.setColumnDefinition, 'setColumnDefinition', '(index?: number, width?: number, isPixel?: boolean) => BabylonjsGuiGrid', changedProps)
+        checkMethodDiff(oldProps.setRowDefinition, newProps.setRowDefinition, 'setRowDefinition', '(index?: number, height?: number, isPixel?: boolean) => BabylonjsGuiGrid', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -11568,8 +7331,8 @@ export class FiberGridPropsHandler implements PropsHandler<BabylonjsGuiGrid, Fib
  *
  * This code has been generated
  */
-export class FiberGrid implements HasPropsHandlers<BabylonjsGuiControl, FiberControlProps> {
-    private propsHandlers: PropsHandler<BabylonjsGuiControl, FiberControlProps>[];
+export class FiberGrid implements HasPropsHandlers<FiberControlProps> {
+    private propsHandlers: PropsHandler<FiberControlProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -11579,11 +7342,11 @@ export class FiberGrid implements HasPropsHandlers<BabylonjsGuiControl, FiberCon
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsGuiControl, FiberControlProps>[] {
+    getPropsHandlers(): PropsHandler<FiberControlProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsGuiControl, FiberControlProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberControlProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -11605,43 +7368,14 @@ export class FiberGrid implements HasPropsHandlers<BabylonjsGuiControl, FiberCon
     };
 }
 
-export class Fiber_ScrollViewerWindowPropsHandler implements PropsHandler<BabylonjsGui_ScrollViewerWindow, Fiber_ScrollViewerWindowProps> {
-    getPropertyUpdates(hostInstance: BabylonjsGui_ScrollViewerWindow, oldProps: Fiber_ScrollViewerWindowProps, newProps: Fiber_ScrollViewerWindowProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsGui_ScrollViewerWindow.freezeControls (boolean):
-        if (oldProps.freezeControls !== newProps.freezeControls) {
-            updates.push({
-                propertyName: 'freezeControls',
-                value: newProps.freezeControls,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsGui_ScrollViewerWindow.parentClientHeight (number):
-        if (oldProps.parentClientHeight !== newProps.parentClientHeight) {
-            updates.push({
-                propertyName: 'parentClientHeight',
-                value: newProps.parentClientHeight,
-                type: 'number'
-            });
-        }
-        // BabylonjsGui_ScrollViewerWindow.parentClientWidth (number):
-        if (oldProps.parentClientWidth !== newProps.parentClientWidth) {
-            updates.push({
-                propertyName: 'parentClientWidth',
-                value: newProps.parentClientWidth,
-                type: 'number'
-            });
-        }
-        // BabylonjsGui_ScrollViewerWindow.setBucketSizes of type '(width?: number, height?: number) => void':
-        if (oldProps.setBucketSizes !== newProps.setBucketSizes) {
-            updates.push({
-                propertyName: 'setBucketSizes',
-                value: newProps.setBucketSizes,
-                type: '(width?: number, height?: number) => void'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class Fiber_ScrollViewerWindowPropsHandler implements PropsHandler<Fiber_ScrollViewerWindowProps> {
+    getPropertyUpdates(oldProps: Fiber_ScrollViewerWindowProps, newProps: Fiber_ScrollViewerWindowProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.freezeControls, newProps.freezeControls, 'freezeControls', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.parentClientHeight, newProps.parentClientHeight, 'parentClientHeight', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.parentClientWidth, newProps.parentClientWidth, 'parentClientWidth', 'number', changedProps)
+        checkMethodDiff(oldProps.setBucketSizes, newProps.setBucketSizes, 'setBucketSizes', '(width?: number, height?: number) => void', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -11650,8 +7384,8 @@ export class Fiber_ScrollViewerWindowPropsHandler implements PropsHandler<Babylo
  *
  * This code has been generated
  */
-export class Fiber_ScrollViewerWindow implements HasPropsHandlers<BabylonjsGuiControl, FiberControlProps> {
-    private propsHandlers: PropsHandler<BabylonjsGuiControl, FiberControlProps>[];
+export class Fiber_ScrollViewerWindow implements HasPropsHandlers<FiberControlProps> {
+    private propsHandlers: PropsHandler<FiberControlProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -11661,11 +7395,11 @@ export class Fiber_ScrollViewerWindow implements HasPropsHandlers<BabylonjsGuiCo
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsGuiControl, FiberControlProps>[] {
+    getPropsHandlers(): PropsHandler<FiberControlProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsGuiControl, FiberControlProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberControlProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -11687,92 +7421,21 @@ export class Fiber_ScrollViewerWindow implements HasPropsHandlers<BabylonjsGuiCo
     };
 }
 
-export class FiberTextBlockPropsHandler implements PropsHandler<BabylonjsGuiTextBlock, FiberTextBlockProps> {
-    getPropertyUpdates(hostInstance: BabylonjsGuiTextBlock, oldProps: FiberTextBlockProps, newProps: FiberTextBlockProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsGuiTextBlock.lineSpacing (string | number):
-        if (oldProps.lineSpacing !== newProps.lineSpacing) {
-            updates.push({
-                propertyName: 'lineSpacing',
-                value: newProps.lineSpacing,
-                type: 'string | number'
-            });
-        }
-        // BabylonjsGuiTextBlock.name (string):
-        if (oldProps.name !== newProps.name) {
-            updates.push({
-                propertyName: 'name',
-                value: newProps.name,
-                type: 'string'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsGuiTextBlock.onLinesReadyObservable of type 'BabylonjsCoreObservable<BabylonjsGuiTextBlock>/fn':
-        if (oldProps.onLinesReadyObservable === undefined && oldProps.onLinesReadyObservable !== newProps.onLinesReadyObservable) {
-            updates.push({
-                propertyName: 'onLinesReadyObservable',
-                value: newProps.onLinesReadyObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsGuiTextBlock>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsGuiTextBlock.onTextChangedObservable of type 'BabylonjsCoreObservable<BabylonjsGuiTextBlock>/fn':
-        if (oldProps.onTextChangedObservable === undefined && oldProps.onTextChangedObservable !== newProps.onTextChangedObservable) {
-            updates.push({
-                propertyName: 'onTextChangedObservable',
-                value: newProps.onTextChangedObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsGuiTextBlock>'
-            });
-        }
-        // BabylonjsGuiTextBlock.outlineColor (string):
-        if (oldProps.outlineColor !== newProps.outlineColor) {
-            updates.push({
-                propertyName: 'outlineColor',
-                value: newProps.outlineColor,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiTextBlock.outlineWidth (number):
-        if (oldProps.outlineWidth !== newProps.outlineWidth) {
-            updates.push({
-                propertyName: 'outlineWidth',
-                value: newProps.outlineWidth,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiTextBlock.resizeToFit (boolean):
-        if (oldProps.resizeToFit !== newProps.resizeToFit) {
-            updates.push({
-                propertyName: 'resizeToFit',
-                value: newProps.resizeToFit,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsGuiTextBlock.text (string):
-        if (oldProps.text !== newProps.text) {
-            updates.push({
-                propertyName: 'text',
-                value: newProps.text,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiTextBlock.textHorizontalAlignment (number):
-        if (oldProps.textHorizontalAlignment !== newProps.textHorizontalAlignment) {
-            updates.push({
-                propertyName: 'textHorizontalAlignment',
-                value: newProps.textHorizontalAlignment,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiTextBlock.textVerticalAlignment (number):
-        if (oldProps.textVerticalAlignment !== newProps.textVerticalAlignment) {
-            updates.push({
-                propertyName: 'textVerticalAlignment',
-                value: newProps.textVerticalAlignment,
-                type: 'number'
-            });
-        }
-        // TODO: type: 'boolean | BabylonjsGuiTextWrapping' property (not coded) BabylonjsGuiTextBlock.textWrapping.
-        return updates.length === 0 ? null : updates;
+export class FiberTextBlockPropsHandler implements PropsHandler<FiberTextBlockProps> {
+    getPropertyUpdates(oldProps: FiberTextBlockProps, newProps: FiberTextBlockProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.lineSpacing, newProps.lineSpacing, 'lineSpacing', 'string | number', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
+        checkObservableDiff(oldProps.onLinesReadyObservable, newProps.onLinesReadyObservable, 'onLinesReadyObservable', 'BabylonjsCoreObservable<BabylonjsGuiTextBlock>', changedProps)
+        checkObservableDiff(oldProps.onTextChangedObservable, newProps.onTextChangedObservable, 'onTextChangedObservable', 'BabylonjsCoreObservable<BabylonjsGuiTextBlock>', changedProps)
+        checkPrimitiveDiff(oldProps.outlineColor, newProps.outlineColor, 'outlineColor', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.outlineWidth, newProps.outlineWidth, 'outlineWidth', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.resizeToFit, newProps.resizeToFit, 'resizeToFit', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.text, newProps.text, 'text', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.textHorizontalAlignment, newProps.textHorizontalAlignment, 'textHorizontalAlignment', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.textVerticalAlignment, newProps.textVerticalAlignment, 'textVerticalAlignment', 'number', changedProps)
+        // type: 'boolean | BabylonjsGuiTextWrapping' property (not coded) BabylonjsGuiTextBlock.textWrapping.
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -11781,8 +7444,8 @@ export class FiberTextBlockPropsHandler implements PropsHandler<BabylonjsGuiText
  *
  * This code has been generated
  */
-export class FiberTextBlock implements HasPropsHandlers<BabylonjsGuiControl, FiberControlProps> {
-    private propsHandlers: PropsHandler<BabylonjsGuiControl, FiberControlProps>[];
+export class FiberTextBlock implements HasPropsHandlers<FiberControlProps> {
+    private propsHandlers: PropsHandler<FiberControlProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -11791,11 +7454,11 @@ export class FiberTextBlock implements HasPropsHandlers<BabylonjsGuiControl, Fib
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsGuiControl, FiberControlProps>[] {
+    getPropsHandlers(): PropsHandler<FiberControlProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsGuiControl, FiberControlProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberControlProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -11822,164 +7485,30 @@ export class FiberTextBlock implements HasPropsHandlers<BabylonjsGuiControl, Fib
     };
 }
 
-export class FiberImagePropsHandler implements PropsHandler<BabylonjsGuiImage, FiberImageProps> {
-    getPropertyUpdates(hostInstance: BabylonjsGuiImage, oldProps: FiberImageProps, newProps: FiberImageProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsGuiImage.autoScale (boolean):
-        if (oldProps.autoScale !== newProps.autoScale) {
-            updates.push({
-                propertyName: 'autoScale',
-                value: newProps.autoScale,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsGuiImage.cellHeight (number):
-        if (oldProps.cellHeight !== newProps.cellHeight) {
-            updates.push({
-                propertyName: 'cellHeight',
-                value: newProps.cellHeight,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiImage.cellId (number):
-        if (oldProps.cellId !== newProps.cellId) {
-            updates.push({
-                propertyName: 'cellId',
-                value: newProps.cellId,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiImage.cellWidth (number):
-        if (oldProps.cellWidth !== newProps.cellWidth) {
-            updates.push({
-                propertyName: 'cellWidth',
-                value: newProps.cellWidth,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiImage.detectPointerOnOpaqueOnly (boolean):
-        if (oldProps.detectPointerOnOpaqueOnly !== newProps.detectPointerOnOpaqueOnly) {
-            updates.push({
-                propertyName: 'detectPointerOnOpaqueOnly',
-                value: newProps.detectPointerOnOpaqueOnly,
-                type: 'boolean'
-            });
-        }
-        // TODO: type: 'HTMLImageElement' property (not coded) BabylonjsGuiImage.domImage.
-        // BabylonjsGuiImage.name (string):
-        if (oldProps.name !== newProps.name) {
-            updates.push({
-                propertyName: 'name',
-                value: newProps.name,
-                type: 'string'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsGuiImage.onImageLoadedObservable of type 'BabylonjsCoreObservable<BabylonjsGuiImage>/fn':
-        if (oldProps.onImageLoadedObservable === undefined && oldProps.onImageLoadedObservable !== newProps.onImageLoadedObservable) {
-            updates.push({
-                propertyName: 'onImageLoadedObservable',
-                value: newProps.onImageLoadedObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsGuiImage>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsGuiImage.onSVGAttributesComputedObservable of type 'BabylonjsCoreObservable<BabylonjsGuiImage>/fn':
-        if (oldProps.onSVGAttributesComputedObservable === undefined && oldProps.onSVGAttributesComputedObservable !== newProps.onSVGAttributesComputedObservable) {
-            updates.push({
-                propertyName: 'onSVGAttributesComputedObservable',
-                value: newProps.onSVGAttributesComputedObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsGuiImage>'
-            });
-        }
-        // BabylonjsGuiImage.populateNinePatchSlicesFromImage (boolean):
-        if (oldProps.populateNinePatchSlicesFromImage !== newProps.populateNinePatchSlicesFromImage) {
-            updates.push({
-                propertyName: 'populateNinePatchSlicesFromImage',
-                value: newProps.populateNinePatchSlicesFromImage,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsGuiImage.sliceBottom (number):
-        if (oldProps.sliceBottom !== newProps.sliceBottom) {
-            updates.push({
-                propertyName: 'sliceBottom',
-                value: newProps.sliceBottom,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiImage.sliceLeft (number):
-        if (oldProps.sliceLeft !== newProps.sliceLeft) {
-            updates.push({
-                propertyName: 'sliceLeft',
-                value: newProps.sliceLeft,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiImage.sliceRight (number):
-        if (oldProps.sliceRight !== newProps.sliceRight) {
-            updates.push({
-                propertyName: 'sliceRight',
-                value: newProps.sliceRight,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiImage.sliceTop (number):
-        if (oldProps.sliceTop !== newProps.sliceTop) {
-            updates.push({
-                propertyName: 'sliceTop',
-                value: newProps.sliceTop,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiImage.source (string):
-        if (oldProps.source !== newProps.source) {
-            updates.push({
-                propertyName: 'source',
-                value: newProps.source,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiImage.sourceHeight (number):
-        if (oldProps.sourceHeight !== newProps.sourceHeight) {
-            updates.push({
-                propertyName: 'sourceHeight',
-                value: newProps.sourceHeight,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiImage.sourceLeft (number):
-        if (oldProps.sourceLeft !== newProps.sourceLeft) {
-            updates.push({
-                propertyName: 'sourceLeft',
-                value: newProps.sourceLeft,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiImage.sourceTop (number):
-        if (oldProps.sourceTop !== newProps.sourceTop) {
-            updates.push({
-                propertyName: 'sourceTop',
-                value: newProps.sourceTop,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiImage.sourceWidth (number):
-        if (oldProps.sourceWidth !== newProps.sourceWidth) {
-            updates.push({
-                propertyName: 'sourceWidth',
-                value: newProps.sourceWidth,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiImage.stretch (number):
-        if (oldProps.stretch !== newProps.stretch) {
-            updates.push({
-                propertyName: 'stretch',
-                value: newProps.stretch,
-                type: 'number'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberImagePropsHandler implements PropsHandler<FiberImageProps> {
+    getPropertyUpdates(oldProps: FiberImageProps, newProps: FiberImageProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.autoScale, newProps.autoScale, 'autoScale', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.cellHeight, newProps.cellHeight, 'cellHeight', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.cellId, newProps.cellId, 'cellId', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.cellWidth, newProps.cellWidth, 'cellWidth', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.detectPointerOnOpaqueOnly, newProps.detectPointerOnOpaqueOnly, 'detectPointerOnOpaqueOnly', 'boolean', changedProps)
+        // type: 'HTMLImageElement' property (not coded) BabylonjsGuiImage.domImage.
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
+        checkObservableDiff(oldProps.onImageLoadedObservable, newProps.onImageLoadedObservable, 'onImageLoadedObservable', 'BabylonjsCoreObservable<BabylonjsGuiImage>', changedProps)
+        checkObservableDiff(oldProps.onSVGAttributesComputedObservable, newProps.onSVGAttributesComputedObservable, 'onSVGAttributesComputedObservable', 'BabylonjsCoreObservable<BabylonjsGuiImage>', changedProps)
+        checkPrimitiveDiff(oldProps.populateNinePatchSlicesFromImage, newProps.populateNinePatchSlicesFromImage, 'populateNinePatchSlicesFromImage', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.sliceBottom, newProps.sliceBottom, 'sliceBottom', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.sliceLeft, newProps.sliceLeft, 'sliceLeft', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.sliceRight, newProps.sliceRight, 'sliceRight', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.sliceTop, newProps.sliceTop, 'sliceTop', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.source, newProps.source, 'source', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.sourceHeight, newProps.sourceHeight, 'sourceHeight', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.sourceLeft, newProps.sourceLeft, 'sourceLeft', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.sourceTop, newProps.sourceTop, 'sourceTop', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.sourceWidth, newProps.sourceWidth, 'sourceWidth', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.stretch, newProps.stretch, 'stretch', 'number', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -11988,8 +7517,8 @@ export class FiberImagePropsHandler implements PropsHandler<BabylonjsGuiImage, F
  *
  * This code has been generated
  */
-export class FiberImage implements HasPropsHandlers<BabylonjsGuiControl, FiberControlProps> {
-    private propsHandlers: PropsHandler<BabylonjsGuiControl, FiberControlProps>[];
+export class FiberImage implements HasPropsHandlers<FiberControlProps> {
+    private propsHandlers: PropsHandler<FiberControlProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -11998,11 +7527,11 @@ export class FiberImage implements HasPropsHandlers<BabylonjsGuiControl, FiberCo
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsGuiControl, FiberControlProps>[] {
+    getPropsHandlers(): PropsHandler<FiberControlProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsGuiControl, FiberControlProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberControlProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -12029,59 +7558,16 @@ export class FiberImage implements HasPropsHandlers<BabylonjsGuiControl, FiberCo
     };
 }
 
-export class FiberCheckboxPropsHandler implements PropsHandler<BabylonjsGuiCheckbox, FiberCheckboxProps> {
-    getPropertyUpdates(hostInstance: BabylonjsGuiCheckbox, oldProps: FiberCheckboxProps, newProps: FiberCheckboxProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsGuiCheckbox.background (string):
-        if (oldProps.background !== newProps.background) {
-            updates.push({
-                propertyName: 'background',
-                value: newProps.background,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiCheckbox.checkSizeRatio (number):
-        if (oldProps.checkSizeRatio !== newProps.checkSizeRatio) {
-            updates.push({
-                propertyName: 'checkSizeRatio',
-                value: newProps.checkSizeRatio,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiCheckbox.isChecked (boolean):
-        if (oldProps.isChecked !== newProps.isChecked) {
-            updates.push({
-                propertyName: 'isChecked',
-                value: newProps.isChecked,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsGuiCheckbox.name (string):
-        if (oldProps.name !== newProps.name) {
-            updates.push({
-                propertyName: 'name',
-                value: newProps.name,
-                type: 'string'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsGuiCheckbox.onIsCheckedChangedObservable of type 'BabylonjsCoreObservable<boolean>/fn':
-        if (oldProps.onIsCheckedChangedObservable === undefined && oldProps.onIsCheckedChangedObservable !== newProps.onIsCheckedChangedObservable) {
-            updates.push({
-                propertyName: 'onIsCheckedChangedObservable',
-                value: newProps.onIsCheckedChangedObservable,
-                type: 'BabylonjsCoreObservable<boolean>'
-            });
-        }
-        // BabylonjsGuiCheckbox.thickness (number):
-        if (oldProps.thickness !== newProps.thickness) {
-            updates.push({
-                propertyName: 'thickness',
-                value: newProps.thickness,
-                type: 'number'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberCheckboxPropsHandler implements PropsHandler<FiberCheckboxProps> {
+    getPropertyUpdates(oldProps: FiberCheckboxProps, newProps: FiberCheckboxProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.background, newProps.background, 'background', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.checkSizeRatio, newProps.checkSizeRatio, 'checkSizeRatio', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.isChecked, newProps.isChecked, 'isChecked', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
+        checkObservableDiff(oldProps.onIsCheckedChangedObservable, newProps.onIsCheckedChangedObservable, 'onIsCheckedChangedObservable', 'BabylonjsCoreObservable<boolean>', changedProps)
+        checkPrimitiveDiff(oldProps.thickness, newProps.thickness, 'thickness', 'number', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -12090,8 +7576,8 @@ export class FiberCheckboxPropsHandler implements PropsHandler<BabylonjsGuiCheck
  *
  * This code has been generated
  */
-export class FiberCheckbox implements HasPropsHandlers<BabylonjsGuiControl, FiberControlProps> {
-    private propsHandlers: PropsHandler<BabylonjsGuiControl, FiberControlProps>[];
+export class FiberCheckbox implements HasPropsHandlers<FiberControlProps> {
+    private propsHandlers: PropsHandler<FiberControlProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -12100,11 +7586,11 @@ export class FiberCheckbox implements HasPropsHandlers<BabylonjsGuiControl, Fibe
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsGuiControl, FiberControlProps>[] {
+    getPropsHandlers(): PropsHandler<FiberControlProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsGuiControl, FiberControlProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberControlProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -12126,59 +7612,16 @@ export class FiberCheckbox implements HasPropsHandlers<BabylonjsGuiControl, Fibe
     };
 }
 
-export class FiberColorPickerPropsHandler implements PropsHandler<BabylonjsGuiColorPicker, FiberColorPickerProps> {
-    getPropertyUpdates(hostInstance: BabylonjsGuiColorPicker, oldProps: FiberColorPickerProps, newProps: FiberColorPickerProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsGuiColorPicker.height (string | number):
-        if (oldProps.height !== newProps.height) {
-            updates.push({
-                propertyName: 'height',
-                value: newProps.height,
-                type: 'string | number'
-            });
-        }
-        // BabylonjsGuiColorPicker.name (string):
-        if (oldProps.name !== newProps.name) {
-            updates.push({
-                propertyName: 'name',
-                value: newProps.name,
-                type: 'string'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsGuiColorPicker.onValueChangedObservable of type 'BabylonjsCoreObservable<BabylonjsCoreColor3>/fn':
-        if (oldProps.onValueChangedObservable === undefined && oldProps.onValueChangedObservable !== newProps.onValueChangedObservable) {
-            updates.push({
-                propertyName: 'onValueChangedObservable',
-                value: newProps.onValueChangedObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreColor3>'
-            });
-        }
-        // BabylonjsGuiColorPicker.size (string | number):
-        if (oldProps.size !== newProps.size) {
-            updates.push({
-                propertyName: 'size',
-                value: newProps.size,
-                type: 'string | number'
-            });
-        }
-        // BabylonjsGuiColorPicker.value (BabylonjsCoreColor3 uses object equals to find diffs):
-        if (newProps.value && (!oldProps.value || !oldProps.value.equals(newProps.value))) {
-            updates.push({
-                propertyName: 'value',
-                value: newProps.value,
-                type: 'BabylonjsCoreColor3'
-            });
-        }
-        // BabylonjsGuiColorPicker.width (string | number):
-        if (oldProps.width !== newProps.width) {
-            updates.push({
-                propertyName: 'width',
-                value: newProps.width,
-                type: 'string | number'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberColorPickerPropsHandler implements PropsHandler<FiberColorPickerProps> {
+    getPropertyUpdates(oldProps: FiberColorPickerProps, newProps: FiberColorPickerProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.height, newProps.height, 'height', 'string | number', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
+        checkObservableDiff(oldProps.onValueChangedObservable, newProps.onValueChangedObservable, 'onValueChangedObservable', 'BabylonjsCoreObservable<BabylonjsCoreColor3>', changedProps)
+        checkPrimitiveDiff(oldProps.size, newProps.size, 'size', 'string | number', changedProps)
+        checkColor3Diff(oldProps.value, newProps.value, 'value', 'BabylonjsCoreColor3', changedProps)
+        checkPrimitiveDiff(oldProps.width, newProps.width, 'width', 'string | number', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -12187,8 +7630,8 @@ export class FiberColorPickerPropsHandler implements PropsHandler<BabylonjsGuiCo
  *
  * This code has been generated
  */
-export class FiberColorPicker implements HasPropsHandlers<BabylonjsGuiControl, FiberControlProps> {
-    private propsHandlers: PropsHandler<BabylonjsGuiControl, FiberControlProps>[];
+export class FiberColorPicker implements HasPropsHandlers<FiberControlProps> {
+    private propsHandlers: PropsHandler<FiberControlProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -12197,11 +7640,11 @@ export class FiberColorPicker implements HasPropsHandlers<BabylonjsGuiControl, F
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsGuiControl, FiberControlProps>[] {
+    getPropsHandlers(): PropsHandler<FiberControlProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsGuiControl, FiberControlProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberControlProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -12223,251 +7666,40 @@ export class FiberColorPicker implements HasPropsHandlers<BabylonjsGuiControl, F
     };
 }
 
-export class FiberInputTextPropsHandler implements PropsHandler<BabylonjsGuiInputText, FiberInputTextProps> {
-    getPropertyUpdates(hostInstance: BabylonjsGuiInputText, oldProps: FiberInputTextProps, newProps: FiberInputTextProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsGuiInputText.addKey (boolean):
-        if (oldProps.addKey !== newProps.addKey) {
-            updates.push({
-                propertyName: 'addKey',
-                value: newProps.addKey,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsGuiInputText.autoStretchWidth (boolean):
-        if (oldProps.autoStretchWidth !== newProps.autoStretchWidth) {
-            updates.push({
-                propertyName: 'autoStretchWidth',
-                value: newProps.autoStretchWidth,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsGuiInputText.background (string):
-        if (oldProps.background !== newProps.background) {
-            updates.push({
-                propertyName: 'background',
-                value: newProps.background,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiInputText.currentKey (string):
-        if (oldProps.currentKey !== newProps.currentKey) {
-            updates.push({
-                propertyName: 'currentKey',
-                value: newProps.currentKey,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiInputText.deadKey (boolean):
-        if (oldProps.deadKey !== newProps.deadKey) {
-            updates.push({
-                propertyName: 'deadKey',
-                value: newProps.deadKey,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsGuiInputText.disableMobilePrompt (boolean):
-        if (oldProps.disableMobilePrompt !== newProps.disableMobilePrompt) {
-            updates.push({
-                propertyName: 'disableMobilePrompt',
-                value: newProps.disableMobilePrompt,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsGuiInputText.focusedBackground (string):
-        if (oldProps.focusedBackground !== newProps.focusedBackground) {
-            updates.push({
-                propertyName: 'focusedBackground',
-                value: newProps.focusedBackground,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiInputText.focusedColor (string):
-        if (oldProps.focusedColor !== newProps.focusedColor) {
-            updates.push({
-                propertyName: 'focusedColor',
-                value: newProps.focusedColor,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiInputText.highligherOpacity (number):
-        if (oldProps.highligherOpacity !== newProps.highligherOpacity) {
-            updates.push({
-                propertyName: 'highligherOpacity',
-                value: newProps.highligherOpacity,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiInputText.highlightedText (string):
-        if (oldProps.highlightedText !== newProps.highlightedText) {
-            updates.push({
-                propertyName: 'highlightedText',
-                value: newProps.highlightedText,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiInputText.margin (string):
-        if (oldProps.margin !== newProps.margin) {
-            updates.push({
-                propertyName: 'margin',
-                value: newProps.margin,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiInputText.maxWidth (string | number):
-        if (oldProps.maxWidth !== newProps.maxWidth) {
-            updates.push({
-                propertyName: 'maxWidth',
-                value: newProps.maxWidth,
-                type: 'string | number'
-            });
-        }
-        // BabylonjsGuiInputText.name (string):
-        if (oldProps.name !== newProps.name) {
-            updates.push({
-                propertyName: 'name',
-                value: newProps.name,
-                type: 'string'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsGuiInputText.onBeforeKeyAddObservable of type 'BabylonjsCoreObservable<BabylonjsGuiInputText>/fn':
-        if (oldProps.onBeforeKeyAddObservable === undefined && oldProps.onBeforeKeyAddObservable !== newProps.onBeforeKeyAddObservable) {
-            updates.push({
-                propertyName: 'onBeforeKeyAddObservable',
-                value: newProps.onBeforeKeyAddObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsGuiInputText>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsGuiInputText.onBlurObservable of type 'BabylonjsCoreObservable<BabylonjsGuiInputText>/fn':
-        if (oldProps.onBlurObservable === undefined && oldProps.onBlurObservable !== newProps.onBlurObservable) {
-            updates.push({
-                propertyName: 'onBlurObservable',
-                value: newProps.onBlurObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsGuiInputText>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsGuiInputText.onFocusObservable of type 'BabylonjsCoreObservable<BabylonjsGuiInputText>/fn':
-        if (oldProps.onFocusObservable === undefined && oldProps.onFocusObservable !== newProps.onFocusObservable) {
-            updates.push({
-                propertyName: 'onFocusObservable',
-                value: newProps.onFocusObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsGuiInputText>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsGuiInputText.onFocusSelectAll of type 'boolean/fn':
-        if (oldProps.onFocusSelectAll === undefined && oldProps.onFocusSelectAll !== newProps.onFocusSelectAll) {
-            updates.push({
-                propertyName: 'onFocusSelectAll',
-                value: newProps.onFocusSelectAll,
-                type: 'boolean'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsGuiInputText.onKeyboardEventProcessedObservable of type 'BabylonjsCoreObservable<KeyboardEvent>/fn':
-        if (oldProps.onKeyboardEventProcessedObservable === undefined && oldProps.onKeyboardEventProcessedObservable !== newProps.onKeyboardEventProcessedObservable) {
-            updates.push({
-                propertyName: 'onKeyboardEventProcessedObservable',
-                value: newProps.onKeyboardEventProcessedObservable,
-                type: 'BabylonjsCoreObservable<KeyboardEvent>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsGuiInputText.onTextChangedObservable of type 'BabylonjsCoreObservable<BabylonjsGuiInputText>/fn':
-        if (oldProps.onTextChangedObservable === undefined && oldProps.onTextChangedObservable !== newProps.onTextChangedObservable) {
-            updates.push({
-                propertyName: 'onTextChangedObservable',
-                value: newProps.onTextChangedObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsGuiInputText>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsGuiInputText.onTextCopyObservable of type 'BabylonjsCoreObservable<BabylonjsGuiInputText>/fn':
-        if (oldProps.onTextCopyObservable === undefined && oldProps.onTextCopyObservable !== newProps.onTextCopyObservable) {
-            updates.push({
-                propertyName: 'onTextCopyObservable',
-                value: newProps.onTextCopyObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsGuiInputText>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsGuiInputText.onTextCutObservable of type 'BabylonjsCoreObservable<BabylonjsGuiInputText>/fn':
-        if (oldProps.onTextCutObservable === undefined && oldProps.onTextCutObservable !== newProps.onTextCutObservable) {
-            updates.push({
-                propertyName: 'onTextCutObservable',
-                value: newProps.onTextCutObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsGuiInputText>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsGuiInputText.onTextHighlightObservable of type 'BabylonjsCoreObservable<BabylonjsGuiInputText>/fn':
-        if (oldProps.onTextHighlightObservable === undefined && oldProps.onTextHighlightObservable !== newProps.onTextHighlightObservable) {
-            updates.push({
-                propertyName: 'onTextHighlightObservable',
-                value: newProps.onTextHighlightObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsGuiInputText>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsGuiInputText.onTextPasteObservable of type 'BabylonjsCoreObservable<BabylonjsGuiInputText>/fn':
-        if (oldProps.onTextPasteObservable === undefined && oldProps.onTextPasteObservable !== newProps.onTextPasteObservable) {
-            updates.push({
-                propertyName: 'onTextPasteObservable',
-                value: newProps.onTextPasteObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsGuiInputText>'
-            });
-        }
-        // BabylonjsGuiInputText.placeholderColor (string):
-        if (oldProps.placeholderColor !== newProps.placeholderColor) {
-            updates.push({
-                propertyName: 'placeholderColor',
-                value: newProps.placeholderColor,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiInputText.placeholderText (string):
-        if (oldProps.placeholderText !== newProps.placeholderText) {
-            updates.push({
-                propertyName: 'placeholderText',
-                value: newProps.placeholderText,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiInputText.promptMessage (string):
-        if (oldProps.promptMessage !== newProps.promptMessage) {
-            updates.push({
-                propertyName: 'promptMessage',
-                value: newProps.promptMessage,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiInputText.text (string):
-        if (oldProps.text !== newProps.text) {
-            updates.push({
-                propertyName: 'text',
-                value: newProps.text,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiInputText.textHighlightColor (string):
-        if (oldProps.textHighlightColor !== newProps.textHighlightColor) {
-            updates.push({
-                propertyName: 'textHighlightColor',
-                value: newProps.textHighlightColor,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiInputText.thickness (number):
-        if (oldProps.thickness !== newProps.thickness) {
-            updates.push({
-                propertyName: 'thickness',
-                value: newProps.thickness,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiInputText.width (string | number):
-        if (oldProps.width !== newProps.width) {
-            updates.push({
-                propertyName: 'width',
-                value: newProps.width,
-                type: 'string | number'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberInputTextPropsHandler implements PropsHandler<FiberInputTextProps> {
+    getPropertyUpdates(oldProps: FiberInputTextProps, newProps: FiberInputTextProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.addKey, newProps.addKey, 'addKey', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.autoStretchWidth, newProps.autoStretchWidth, 'autoStretchWidth', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.background, newProps.background, 'background', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.currentKey, newProps.currentKey, 'currentKey', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.deadKey, newProps.deadKey, 'deadKey', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.disableMobilePrompt, newProps.disableMobilePrompt, 'disableMobilePrompt', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.focusedBackground, newProps.focusedBackground, 'focusedBackground', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.focusedColor, newProps.focusedColor, 'focusedColor', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.highligherOpacity, newProps.highligherOpacity, 'highligherOpacity', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.highlightedText, newProps.highlightedText, 'highlightedText', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.margin, newProps.margin, 'margin', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.maxWidth, newProps.maxWidth, 'maxWidth', 'string | number', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
+        checkObservableDiff(oldProps.onBeforeKeyAddObservable, newProps.onBeforeKeyAddObservable, 'onBeforeKeyAddObservable', 'BabylonjsCoreObservable<BabylonjsGuiInputText>', changedProps)
+        checkObservableDiff(oldProps.onBlurObservable, newProps.onBlurObservable, 'onBlurObservable', 'BabylonjsCoreObservable<BabylonjsGuiInputText>', changedProps)
+        checkObservableDiff(oldProps.onFocusObservable, newProps.onFocusObservable, 'onFocusObservable', 'BabylonjsCoreObservable<BabylonjsGuiInputText>', changedProps)
+        checkPrimitiveDiff(oldProps.onFocusSelectAll, newProps.onFocusSelectAll, 'onFocusSelectAll', 'boolean', changedProps)
+        checkObservableDiff(oldProps.onKeyboardEventProcessedObservable, newProps.onKeyboardEventProcessedObservable, 'onKeyboardEventProcessedObservable', 'BabylonjsCoreObservable<KeyboardEvent>', changedProps)
+        checkObservableDiff(oldProps.onTextChangedObservable, newProps.onTextChangedObservable, 'onTextChangedObservable', 'BabylonjsCoreObservable<BabylonjsGuiInputText>', changedProps)
+        checkObservableDiff(oldProps.onTextCopyObservable, newProps.onTextCopyObservable, 'onTextCopyObservable', 'BabylonjsCoreObservable<BabylonjsGuiInputText>', changedProps)
+        checkObservableDiff(oldProps.onTextCutObservable, newProps.onTextCutObservable, 'onTextCutObservable', 'BabylonjsCoreObservable<BabylonjsGuiInputText>', changedProps)
+        checkObservableDiff(oldProps.onTextHighlightObservable, newProps.onTextHighlightObservable, 'onTextHighlightObservable', 'BabylonjsCoreObservable<BabylonjsGuiInputText>', changedProps)
+        checkObservableDiff(oldProps.onTextPasteObservable, newProps.onTextPasteObservable, 'onTextPasteObservable', 'BabylonjsCoreObservable<BabylonjsGuiInputText>', changedProps)
+        checkPrimitiveDiff(oldProps.placeholderColor, newProps.placeholderColor, 'placeholderColor', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.placeholderText, newProps.placeholderText, 'placeholderText', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.promptMessage, newProps.promptMessage, 'promptMessage', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.text, newProps.text, 'text', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.textHighlightColor, newProps.textHighlightColor, 'textHighlightColor', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.thickness, newProps.thickness, 'thickness', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.width, newProps.width, 'width', 'string | number', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -12476,8 +7708,8 @@ export class FiberInputTextPropsHandler implements PropsHandler<BabylonjsGuiInpu
  *
  * This code has been generated
  */
-export class FiberInputText implements HasPropsHandlers<BabylonjsGuiControl, FiberControlProps> {
-    private propsHandlers: PropsHandler<BabylonjsGuiControl, FiberControlProps>[];
+export class FiberInputText implements HasPropsHandlers<FiberControlProps> {
+    private propsHandlers: PropsHandler<FiberControlProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -12486,11 +7718,11 @@ export class FiberInputText implements HasPropsHandlers<BabylonjsGuiControl, Fib
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsGuiControl, FiberControlProps>[] {
+    getPropsHandlers(): PropsHandler<FiberControlProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsGuiControl, FiberControlProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberControlProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -12517,11 +7749,9 @@ export class FiberInputText implements HasPropsHandlers<BabylonjsGuiControl, Fib
     };
 }
 
-export class FiberInputPasswordPropsHandler implements PropsHandler<BabylonjsGuiInputPassword, FiberInputPasswordProps> {
-    getPropertyUpdates(hostInstance: BabylonjsGuiInputPassword, oldProps: FiberInputPasswordProps, newProps: FiberInputPasswordProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        return updates.length === 0 ? null : updates;
+export class FiberInputPasswordPropsHandler implements PropsHandler<FiberInputPasswordProps> {
+    getPropertyUpdates(oldProps: FiberInputPasswordProps, newProps: FiberInputPasswordProps): PropertyUpdate[] | null {
+        return null; // no props to check
     }
 }
 
@@ -12530,8 +7760,8 @@ export class FiberInputPasswordPropsHandler implements PropsHandler<BabylonjsGui
  *
  * This code has been generated
  */
-export class FiberInputPassword implements HasPropsHandlers<BabylonjsGuiControl, FiberControlProps> {
-    private propsHandlers: PropsHandler<BabylonjsGuiControl, FiberControlProps>[];
+export class FiberInputPassword implements HasPropsHandlers<FiberControlProps> {
+    private propsHandlers: PropsHandler<FiberControlProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -12541,11 +7771,11 @@ export class FiberInputPassword implements HasPropsHandlers<BabylonjsGuiControl,
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsGuiControl, FiberControlProps>[] {
+    getPropsHandlers(): PropsHandler<FiberControlProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsGuiControl, FiberControlProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberControlProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -12561,91 +7791,20 @@ export class FiberInputPassword implements HasPropsHandlers<BabylonjsGuiControl,
     };
 }
 
-export class FiberLinePropsHandler implements PropsHandler<BabylonjsGuiLine, FiberLineProps> {
-    getPropertyUpdates(hostInstance: BabylonjsGuiLine, oldProps: FiberLineProps, newProps: FiberLineProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsGuiLine.connectedControl (BabylonjsGuiControl) sets once:
-        if (newProps.connectedControl && (!oldProps.connectedControl)) {
-            updates.push({
-                propertyName: 'connectedControl',
-                value: newProps.connectedControl,
-                type: 'BabylonjsGuiControl'
-            });
-        }
-        // BabylonjsGuiLine.dash (number[]) (just length - missing loop + indexOf comparison):
-        if (newProps.dash && (!oldProps.dash || oldProps.dash.length !== newProps.dash.length)) {
-            updates.push({
-                propertyName: 'dash',
-                value: newProps.dash,
-                type: 'number[]'
-            });
-        }
-        // BabylonjsGuiLine.horizontalAlignment (number):
-        if (oldProps.horizontalAlignment !== newProps.horizontalAlignment) {
-            updates.push({
-                propertyName: 'horizontalAlignment',
-                value: newProps.horizontalAlignment,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiLine.lineWidth (number):
-        if (oldProps.lineWidth !== newProps.lineWidth) {
-            updates.push({
-                propertyName: 'lineWidth',
-                value: newProps.lineWidth,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiLine.name (string):
-        if (oldProps.name !== newProps.name) {
-            updates.push({
-                propertyName: 'name',
-                value: newProps.name,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiLine.verticalAlignment (number):
-        if (oldProps.verticalAlignment !== newProps.verticalAlignment) {
-            updates.push({
-                propertyName: 'verticalAlignment',
-                value: newProps.verticalAlignment,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiLine.x1 (string | number):
-        if (oldProps.x1 !== newProps.x1) {
-            updates.push({
-                propertyName: 'x1',
-                value: newProps.x1,
-                type: 'string | number'
-            });
-        }
-        // BabylonjsGuiLine.x2 (string | number):
-        if (oldProps.x2 !== newProps.x2) {
-            updates.push({
-                propertyName: 'x2',
-                value: newProps.x2,
-                type: 'string | number'
-            });
-        }
-        // BabylonjsGuiLine.y1 (string | number):
-        if (oldProps.y1 !== newProps.y1) {
-            updates.push({
-                propertyName: 'y1',
-                value: newProps.y1,
-                type: 'string | number'
-            });
-        }
-        // BabylonjsGuiLine.y2 (string | number):
-        if (oldProps.y2 !== newProps.y2) {
-            updates.push({
-                propertyName: 'y2',
-                value: newProps.y2,
-                type: 'string | number'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberLinePropsHandler implements PropsHandler<FiberLineProps> {
+    getPropertyUpdates(oldProps: FiberLineProps, newProps: FiberLineProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkControlDiff(oldProps.connectedControl, newProps.connectedControl, 'connectedControl', 'BabylonjsGuiControl', changedProps)
+        checkNumericArrayDiff(oldProps.dash, newProps.dash, 'dash', 'number[]', changedProps)
+        checkPrimitiveDiff(oldProps.horizontalAlignment, newProps.horizontalAlignment, 'horizontalAlignment', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.lineWidth, newProps.lineWidth, 'lineWidth', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.verticalAlignment, newProps.verticalAlignment, 'verticalAlignment', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.x1, newProps.x1, 'x1', 'string | number', changedProps)
+        checkPrimitiveDiff(oldProps.x2, newProps.x2, 'x2', 'string | number', changedProps)
+        checkPrimitiveDiff(oldProps.y1, newProps.y1, 'y1', 'string | number', changedProps)
+        checkPrimitiveDiff(oldProps.y2, newProps.y2, 'y2', 'string | number', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -12654,8 +7813,8 @@ export class FiberLinePropsHandler implements PropsHandler<BabylonjsGuiLine, Fib
  *
  * This code has been generated
  */
-export class FiberLine implements HasPropsHandlers<BabylonjsGuiControl, FiberControlProps> {
-    private propsHandlers: PropsHandler<BabylonjsGuiControl, FiberControlProps>[];
+export class FiberLine implements HasPropsHandlers<FiberControlProps> {
+    private propsHandlers: PropsHandler<FiberControlProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -12664,11 +7823,11 @@ export class FiberLine implements HasPropsHandlers<BabylonjsGuiControl, FiberCon
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsGuiControl, FiberControlProps>[] {
+    getPropsHandlers(): PropsHandler<FiberControlProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsGuiControl, FiberControlProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberControlProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -12690,67 +7849,17 @@ export class FiberLine implements HasPropsHandlers<BabylonjsGuiControl, FiberCon
     };
 }
 
-export class FiberMultiLinePropsHandler implements PropsHandler<BabylonjsGuiMultiLine, FiberMultiLineProps> {
-    getPropertyUpdates(hostInstance: BabylonjsGuiMultiLine, oldProps: FiberMultiLineProps, newProps: FiberMultiLineProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsGuiMultiLine.dash (number[]) (just length - missing loop + indexOf comparison):
-        if (newProps.dash && (!oldProps.dash || oldProps.dash.length !== newProps.dash.length)) {
-            updates.push({
-                propertyName: 'dash',
-                value: newProps.dash,
-                type: 'number[]'
-            });
-        }
-        // BabylonjsGuiMultiLine.horizontalAlignment (number):
-        if (oldProps.horizontalAlignment !== newProps.horizontalAlignment) {
-            updates.push({
-                propertyName: 'horizontalAlignment',
-                value: newProps.horizontalAlignment,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiMultiLine.lineWidth (number):
-        if (oldProps.lineWidth !== newProps.lineWidth) {
-            updates.push({
-                propertyName: 'lineWidth',
-                value: newProps.lineWidth,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiMultiLine.name (string):
-        if (oldProps.name !== newProps.name) {
-            updates.push({
-                propertyName: 'name',
-                value: newProps.name,
-                type: 'string'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsGuiMultiLine.onPointUpdate of type '() => void/fn':
-        if (oldProps.onPointUpdate === undefined && oldProps.onPointUpdate !== newProps.onPointUpdate) {
-            updates.push({
-                propertyName: 'onPointUpdate',
-                value: newProps.onPointUpdate,
-                type: '() => void'
-            });
-        }
-        // BabylonjsGuiMultiLine.verticalAlignment (number):
-        if (oldProps.verticalAlignment !== newProps.verticalAlignment) {
-            updates.push({
-                propertyName: 'verticalAlignment',
-                value: newProps.verticalAlignment,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiMultiLine.add of type '(items?: (BabylonjsCoreAbstractMesh | BabylonjsGuiControl | { x: string | number; y: string | number; })[]) => BabylonjsGuiMultiLinePoint[]':
-        if (oldProps.add !== newProps.add) {
-            updates.push({
-                propertyName: 'add',
-                value: newProps.add,
-                type: '(items?: (BabylonjsCoreAbstractMesh | BabylonjsGuiControl | { x: string | number; y: string | number; })[]) => BabylonjsGuiMultiLinePoint[]'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberMultiLinePropsHandler implements PropsHandler<FiberMultiLineProps> {
+    getPropertyUpdates(oldProps: FiberMultiLineProps, newProps: FiberMultiLineProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkNumericArrayDiff(oldProps.dash, newProps.dash, 'dash', 'number[]', changedProps)
+        checkPrimitiveDiff(oldProps.horizontalAlignment, newProps.horizontalAlignment, 'horizontalAlignment', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.lineWidth, newProps.lineWidth, 'lineWidth', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
+        checkLambdaDiff(oldProps.onPointUpdate, newProps.onPointUpdate, 'onPointUpdate', '() => void', changedProps)
+        checkPrimitiveDiff(oldProps.verticalAlignment, newProps.verticalAlignment, 'verticalAlignment', 'number', changedProps)
+        checkMethodDiff(oldProps.add, newProps.add, 'add', '(items?: (BabylonjsCoreAbstractMesh | BabylonjsGuiControl | { x: string | number; y: string | number; })[]) => BabylonjsGuiMultiLinePoint[]', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -12759,8 +7868,8 @@ export class FiberMultiLinePropsHandler implements PropsHandler<BabylonjsGuiMult
  *
  * This code has been generated
  */
-export class FiberMultiLine implements HasPropsHandlers<BabylonjsGuiControl, FiberControlProps> {
-    private propsHandlers: PropsHandler<BabylonjsGuiControl, FiberControlProps>[];
+export class FiberMultiLine implements HasPropsHandlers<FiberControlProps> {
+    private propsHandlers: PropsHandler<FiberControlProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -12769,11 +7878,11 @@ export class FiberMultiLine implements HasPropsHandlers<BabylonjsGuiControl, Fib
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsGuiControl, FiberControlProps>[] {
+    getPropsHandlers(): PropsHandler<FiberControlProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsGuiControl, FiberControlProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberControlProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -12795,67 +7904,17 @@ export class FiberMultiLine implements HasPropsHandlers<BabylonjsGuiControl, Fib
     };
 }
 
-export class FiberRadioButtonPropsHandler implements PropsHandler<BabylonjsGuiRadioButton, FiberRadioButtonProps> {
-    getPropertyUpdates(hostInstance: BabylonjsGuiRadioButton, oldProps: FiberRadioButtonProps, newProps: FiberRadioButtonProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsGuiRadioButton.background (string):
-        if (oldProps.background !== newProps.background) {
-            updates.push({
-                propertyName: 'background',
-                value: newProps.background,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiRadioButton.checkSizeRatio (number):
-        if (oldProps.checkSizeRatio !== newProps.checkSizeRatio) {
-            updates.push({
-                propertyName: 'checkSizeRatio',
-                value: newProps.checkSizeRatio,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiRadioButton.group (string):
-        if (oldProps.group !== newProps.group) {
-            updates.push({
-                propertyName: 'group',
-                value: newProps.group,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiRadioButton.isChecked (boolean):
-        if (oldProps.isChecked !== newProps.isChecked) {
-            updates.push({
-                propertyName: 'isChecked',
-                value: newProps.isChecked,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsGuiRadioButton.name (string):
-        if (oldProps.name !== newProps.name) {
-            updates.push({
-                propertyName: 'name',
-                value: newProps.name,
-                type: 'string'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsGuiRadioButton.onIsCheckedChangedObservable of type 'BabylonjsCoreObservable<boolean>/fn':
-        if (oldProps.onIsCheckedChangedObservable === undefined && oldProps.onIsCheckedChangedObservable !== newProps.onIsCheckedChangedObservable) {
-            updates.push({
-                propertyName: 'onIsCheckedChangedObservable',
-                value: newProps.onIsCheckedChangedObservable,
-                type: 'BabylonjsCoreObservable<boolean>'
-            });
-        }
-        // BabylonjsGuiRadioButton.thickness (number):
-        if (oldProps.thickness !== newProps.thickness) {
-            updates.push({
-                propertyName: 'thickness',
-                value: newProps.thickness,
-                type: 'number'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberRadioButtonPropsHandler implements PropsHandler<FiberRadioButtonProps> {
+    getPropertyUpdates(oldProps: FiberRadioButtonProps, newProps: FiberRadioButtonProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.background, newProps.background, 'background', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.checkSizeRatio, newProps.checkSizeRatio, 'checkSizeRatio', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.group, newProps.group, 'group', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.isChecked, newProps.isChecked, 'isChecked', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
+        checkObservableDiff(oldProps.onIsCheckedChangedObservable, newProps.onIsCheckedChangedObservable, 'onIsCheckedChangedObservable', 'BabylonjsCoreObservable<boolean>', changedProps)
+        checkPrimitiveDiff(oldProps.thickness, newProps.thickness, 'thickness', 'number', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -12864,8 +7923,8 @@ export class FiberRadioButtonPropsHandler implements PropsHandler<BabylonjsGuiRa
  *
  * This code has been generated
  */
-export class FiberRadioButton implements HasPropsHandlers<BabylonjsGuiControl, FiberControlProps> {
-    private propsHandlers: PropsHandler<BabylonjsGuiControl, FiberControlProps>[];
+export class FiberRadioButton implements HasPropsHandlers<FiberControlProps> {
+    private propsHandlers: PropsHandler<FiberControlProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -12874,11 +7933,11 @@ export class FiberRadioButton implements HasPropsHandlers<BabylonjsGuiControl, F
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsGuiControl, FiberControlProps>[] {
+    getPropsHandlers(): PropsHandler<FiberControlProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsGuiControl, FiberControlProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberControlProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -12900,99 +7959,21 @@ export class FiberRadioButton implements HasPropsHandlers<BabylonjsGuiControl, F
     };
 }
 
-export class FiberBaseSliderPropsHandler implements PropsHandler<BabylonjsGuiBaseSlider, FiberBaseSliderProps> {
-    getPropertyUpdates(hostInstance: BabylonjsGuiBaseSlider, oldProps: FiberBaseSliderProps, newProps: FiberBaseSliderProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsGuiBaseSlider.barOffset (string | number):
-        if (oldProps.barOffset !== newProps.barOffset) {
-            updates.push({
-                propertyName: 'barOffset',
-                value: newProps.barOffset,
-                type: 'string | number'
-            });
-        }
-        // BabylonjsGuiBaseSlider.displayThumb (boolean):
-        if (oldProps.displayThumb !== newProps.displayThumb) {
-            updates.push({
-                propertyName: 'displayThumb',
-                value: newProps.displayThumb,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsGuiBaseSlider.isThumbClamped (boolean):
-        if (oldProps.isThumbClamped !== newProps.isThumbClamped) {
-            updates.push({
-                propertyName: 'isThumbClamped',
-                value: newProps.isThumbClamped,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsGuiBaseSlider.isVertical (boolean):
-        if (oldProps.isVertical !== newProps.isVertical) {
-            updates.push({
-                propertyName: 'isVertical',
-                value: newProps.isVertical,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsGuiBaseSlider.maximum (number):
-        if (oldProps.maximum !== newProps.maximum) {
-            updates.push({
-                propertyName: 'maximum',
-                value: newProps.maximum,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiBaseSlider.minimum (number):
-        if (oldProps.minimum !== newProps.minimum) {
-            updates.push({
-                propertyName: 'minimum',
-                value: newProps.minimum,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiBaseSlider.name (string):
-        if (oldProps.name !== newProps.name) {
-            updates.push({
-                propertyName: 'name',
-                value: newProps.name,
-                type: 'string'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsGuiBaseSlider.onValueChangedObservable of type 'BabylonjsCoreObservable<number>/fn':
-        if (oldProps.onValueChangedObservable === undefined && oldProps.onValueChangedObservable !== newProps.onValueChangedObservable) {
-            updates.push({
-                propertyName: 'onValueChangedObservable',
-                value: newProps.onValueChangedObservable,
-                type: 'BabylonjsCoreObservable<number>'
-            });
-        }
-        // BabylonjsGuiBaseSlider.step (number):
-        if (oldProps.step !== newProps.step) {
-            updates.push({
-                propertyName: 'step',
-                value: newProps.step,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiBaseSlider.thumbWidth (string | number):
-        if (oldProps.thumbWidth !== newProps.thumbWidth) {
-            updates.push({
-                propertyName: 'thumbWidth',
-                value: newProps.thumbWidth,
-                type: 'string | number'
-            });
-        }
-        // BabylonjsGuiBaseSlider.value (number):
-        if (oldProps.value !== newProps.value) {
-            updates.push({
-                propertyName: 'value',
-                value: newProps.value,
-                type: 'number'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberBaseSliderPropsHandler implements PropsHandler<FiberBaseSliderProps> {
+    getPropertyUpdates(oldProps: FiberBaseSliderProps, newProps: FiberBaseSliderProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.barOffset, newProps.barOffset, 'barOffset', 'string | number', changedProps)
+        checkPrimitiveDiff(oldProps.displayThumb, newProps.displayThumb, 'displayThumb', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.isThumbClamped, newProps.isThumbClamped, 'isThumbClamped', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.isVertical, newProps.isVertical, 'isVertical', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.maximum, newProps.maximum, 'maximum', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.minimum, newProps.minimum, 'minimum', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
+        checkObservableDiff(oldProps.onValueChangedObservable, newProps.onValueChangedObservable, 'onValueChangedObservable', 'BabylonjsCoreObservable<number>', changedProps)
+        checkPrimitiveDiff(oldProps.step, newProps.step, 'step', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.thumbWidth, newProps.thumbWidth, 'thumbWidth', 'string | number', changedProps)
+        checkPrimitiveDiff(oldProps.value, newProps.value, 'value', 'number', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -13001,8 +7982,8 @@ export class FiberBaseSliderPropsHandler implements PropsHandler<BabylonjsGuiBas
  *
  * This code has been generated
  */
-export class FiberBaseSlider implements HasPropsHandlers<BabylonjsGuiControl, FiberControlProps> {
-    private propsHandlers: PropsHandler<BabylonjsGuiControl, FiberControlProps>[];
+export class FiberBaseSlider implements HasPropsHandlers<FiberControlProps> {
+    private propsHandlers: PropsHandler<FiberControlProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -13011,11 +7992,11 @@ export class FiberBaseSlider implements HasPropsHandlers<BabylonjsGuiControl, Fi
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsGuiControl, FiberControlProps>[] {
+    getPropsHandlers(): PropsHandler<FiberControlProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsGuiControl, FiberControlProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberControlProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -13037,35 +8018,13 @@ export class FiberBaseSlider implements HasPropsHandlers<BabylonjsGuiControl, Fi
     };
 }
 
-export class FiberScrollBarPropsHandler implements PropsHandler<BabylonjsGuiScrollBar, FiberScrollBarProps> {
-    getPropertyUpdates(hostInstance: BabylonjsGuiScrollBar, oldProps: FiberScrollBarProps, newProps: FiberScrollBarProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsGuiScrollBar.background (string):
-        if (oldProps.background !== newProps.background) {
-            updates.push({
-                propertyName: 'background',
-                value: newProps.background,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiScrollBar.borderColor (string):
-        if (oldProps.borderColor !== newProps.borderColor) {
-            updates.push({
-                propertyName: 'borderColor',
-                value: newProps.borderColor,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiScrollBar.name (string):
-        if (oldProps.name !== newProps.name) {
-            updates.push({
-                propertyName: 'name',
-                value: newProps.name,
-                type: 'string'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberScrollBarPropsHandler implements PropsHandler<FiberScrollBarProps> {
+    getPropertyUpdates(oldProps: FiberScrollBarProps, newProps: FiberScrollBarProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.background, newProps.background, 'background', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.borderColor, newProps.borderColor, 'borderColor', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -13074,8 +8033,8 @@ export class FiberScrollBarPropsHandler implements PropsHandler<BabylonjsGuiScro
  *
  * This code has been generated
  */
-export class FiberScrollBar implements HasPropsHandlers<BabylonjsGuiControl, FiberControlProps> {
-    private propsHandlers: PropsHandler<BabylonjsGuiControl, FiberControlProps>[];
+export class FiberScrollBar implements HasPropsHandlers<FiberControlProps> {
+    private propsHandlers: PropsHandler<FiberControlProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -13085,11 +8044,11 @@ export class FiberScrollBar implements HasPropsHandlers<BabylonjsGuiControl, Fib
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsGuiControl, FiberControlProps>[] {
+    getPropsHandlers(): PropsHandler<FiberControlProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsGuiControl, FiberControlProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberControlProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -13111,53 +8070,17 @@ export class FiberScrollBar implements HasPropsHandlers<BabylonjsGuiControl, Fib
     };
 }
 
-export class FiberImageScrollBarPropsHandler implements PropsHandler<BabylonjsGuiImageScrollBar, FiberImageScrollBarProps> {
-    getPropertyUpdates(hostInstance: BabylonjsGuiImageScrollBar, oldProps: FiberImageScrollBarProps, newProps: FiberImageScrollBarProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // TODO: type: 'BabylonjsGuiImage' property (not coded) BabylonjsGuiImageScrollBar.backgroundImage.
-        // BabylonjsGuiImageScrollBar.barImageHeight (number):
-        if (oldProps.barImageHeight !== newProps.barImageHeight) {
-            updates.push({
-                propertyName: 'barImageHeight',
-                value: newProps.barImageHeight,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiImageScrollBar.name (string):
-        if (oldProps.name !== newProps.name) {
-            updates.push({
-                propertyName: 'name',
-                value: newProps.name,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiImageScrollBar.num90RotationInVerticalMode (number):
-        if (oldProps.num90RotationInVerticalMode !== newProps.num90RotationInVerticalMode) {
-            updates.push({
-                propertyName: 'num90RotationInVerticalMode',
-                value: newProps.num90RotationInVerticalMode,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiImageScrollBar.thumbHeight (number):
-        if (oldProps.thumbHeight !== newProps.thumbHeight) {
-            updates.push({
-                propertyName: 'thumbHeight',
-                value: newProps.thumbHeight,
-                type: 'number'
-            });
-        }
-        // TODO: type: 'BabylonjsGuiImage' property (not coded) BabylonjsGuiImageScrollBar.thumbImage.
-        // BabylonjsGuiImageScrollBar.thumbLength (number):
-        if (oldProps.thumbLength !== newProps.thumbLength) {
-            updates.push({
-                propertyName: 'thumbLength',
-                value: newProps.thumbLength,
-                type: 'number'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberImageScrollBarPropsHandler implements PropsHandler<FiberImageScrollBarProps> {
+    getPropertyUpdates(oldProps: FiberImageScrollBarProps, newProps: FiberImageScrollBarProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        // type: 'BabylonjsGuiImage' property (not coded) BabylonjsGuiImageScrollBar.backgroundImage.
+        checkPrimitiveDiff(oldProps.barImageHeight, newProps.barImageHeight, 'barImageHeight', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.num90RotationInVerticalMode, newProps.num90RotationInVerticalMode, 'num90RotationInVerticalMode', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.thumbHeight, newProps.thumbHeight, 'thumbHeight', 'number', changedProps)
+        // type: 'BabylonjsGuiImage' property (not coded) BabylonjsGuiImageScrollBar.thumbImage.
+        checkPrimitiveDiff(oldProps.thumbLength, newProps.thumbLength, 'thumbLength', 'number', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -13166,8 +8089,8 @@ export class FiberImageScrollBarPropsHandler implements PropsHandler<BabylonjsGu
  *
  * This code has been generated
  */
-export class FiberImageScrollBar implements HasPropsHandlers<BabylonjsGuiControl, FiberControlProps> {
-    private propsHandlers: PropsHandler<BabylonjsGuiControl, FiberControlProps>[];
+export class FiberImageScrollBar implements HasPropsHandlers<FiberControlProps> {
+    private propsHandlers: PropsHandler<FiberControlProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -13177,11 +8100,11 @@ export class FiberImageScrollBar implements HasPropsHandlers<BabylonjsGuiControl
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsGuiControl, FiberControlProps>[] {
+    getPropsHandlers(): PropsHandler<FiberControlProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsGuiControl, FiberControlProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberControlProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -13203,51 +8126,15 @@ export class FiberImageScrollBar implements HasPropsHandlers<BabylonjsGuiControl
     };
 }
 
-export class FiberSliderPropsHandler implements PropsHandler<BabylonjsGuiSlider, FiberSliderProps> {
-    getPropertyUpdates(hostInstance: BabylonjsGuiSlider, oldProps: FiberSliderProps, newProps: FiberSliderProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsGuiSlider.background (string):
-        if (oldProps.background !== newProps.background) {
-            updates.push({
-                propertyName: 'background',
-                value: newProps.background,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiSlider.borderColor (string):
-        if (oldProps.borderColor !== newProps.borderColor) {
-            updates.push({
-                propertyName: 'borderColor',
-                value: newProps.borderColor,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiSlider.displayValueBar (boolean):
-        if (oldProps.displayValueBar !== newProps.displayValueBar) {
-            updates.push({
-                propertyName: 'displayValueBar',
-                value: newProps.displayValueBar,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsGuiSlider.isThumbCircle (boolean):
-        if (oldProps.isThumbCircle !== newProps.isThumbCircle) {
-            updates.push({
-                propertyName: 'isThumbCircle',
-                value: newProps.isThumbCircle,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsGuiSlider.name (string):
-        if (oldProps.name !== newProps.name) {
-            updates.push({
-                propertyName: 'name',
-                value: newProps.name,
-                type: 'string'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberSliderPropsHandler implements PropsHandler<FiberSliderProps> {
+    getPropertyUpdates(oldProps: FiberSliderProps, newProps: FiberSliderProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.background, newProps.background, 'background', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.borderColor, newProps.borderColor, 'borderColor', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.displayValueBar, newProps.displayValueBar, 'displayValueBar', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.isThumbCircle, newProps.isThumbCircle, 'isThumbCircle', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -13256,8 +8143,8 @@ export class FiberSliderPropsHandler implements PropsHandler<BabylonjsGuiSlider,
  *
  * This code has been generated
  */
-export class FiberSlider implements HasPropsHandlers<BabylonjsGuiControl, FiberControlProps> {
-    private propsHandlers: PropsHandler<BabylonjsGuiControl, FiberControlProps>[];
+export class FiberSlider implements HasPropsHandlers<FiberControlProps> {
+    private propsHandlers: PropsHandler<FiberControlProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -13267,11 +8154,11 @@ export class FiberSlider implements HasPropsHandlers<BabylonjsGuiControl, FiberC
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsGuiControl, FiberControlProps>[] {
+    getPropsHandlers(): PropsHandler<FiberControlProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsGuiControl, FiberControlProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberControlProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -13293,30 +8180,15 @@ export class FiberSlider implements HasPropsHandlers<BabylonjsGuiControl, FiberC
     };
 }
 
-export class FiberImageBasedSliderPropsHandler implements PropsHandler<BabylonjsGuiImageBasedSlider, FiberImageBasedSliderProps> {
-    getPropertyUpdates(hostInstance: BabylonjsGuiImageBasedSlider, oldProps: FiberImageBasedSliderProps, newProps: FiberImageBasedSliderProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // TODO: type: 'BabylonjsGuiImage' property (not coded) BabylonjsGuiImageBasedSlider.backgroundImage.
-        // BabylonjsGuiImageBasedSlider.displayThumb (boolean):
-        if (oldProps.displayThumb !== newProps.displayThumb) {
-            updates.push({
-                propertyName: 'displayThumb',
-                value: newProps.displayThumb,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsGuiImageBasedSlider.name (string):
-        if (oldProps.name !== newProps.name) {
-            updates.push({
-                propertyName: 'name',
-                value: newProps.name,
-                type: 'string'
-            });
-        }
-        // TODO: type: 'BabylonjsGuiImage' property (not coded) BabylonjsGuiImageBasedSlider.thumbImage.
-        // TODO: type: 'BabylonjsGuiImage' property (not coded) BabylonjsGuiImageBasedSlider.valueBarImage.
-        return updates.length === 0 ? null : updates;
+export class FiberImageBasedSliderPropsHandler implements PropsHandler<FiberImageBasedSliderProps> {
+    getPropertyUpdates(oldProps: FiberImageBasedSliderProps, newProps: FiberImageBasedSliderProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        // type: 'BabylonjsGuiImage' property (not coded) BabylonjsGuiImageBasedSlider.backgroundImage.
+        checkPrimitiveDiff(oldProps.displayThumb, newProps.displayThumb, 'displayThumb', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
+        // type: 'BabylonjsGuiImage' property (not coded) BabylonjsGuiImageBasedSlider.thumbImage.
+        // type: 'BabylonjsGuiImage' property (not coded) BabylonjsGuiImageBasedSlider.valueBarImage.
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -13325,8 +8197,8 @@ export class FiberImageBasedSliderPropsHandler implements PropsHandler<Babylonjs
  *
  * This code has been generated
  */
-export class FiberImageBasedSlider implements HasPropsHandlers<BabylonjsGuiControl, FiberControlProps> {
-    private propsHandlers: PropsHandler<BabylonjsGuiControl, FiberControlProps>[];
+export class FiberImageBasedSlider implements HasPropsHandlers<FiberControlProps> {
+    private propsHandlers: PropsHandler<FiberControlProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -13336,11 +8208,11 @@ export class FiberImageBasedSlider implements HasPropsHandlers<BabylonjsGuiContr
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsGuiControl, FiberControlProps>[] {
+    getPropsHandlers(): PropsHandler<FiberControlProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsGuiControl, FiberControlProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberControlProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -13362,99 +8234,21 @@ export class FiberImageBasedSlider implements HasPropsHandlers<BabylonjsGuiContr
     };
 }
 
-export class FiberDisplayGridPropsHandler implements PropsHandler<BabylonjsGuiDisplayGrid, FiberDisplayGridProps> {
-    getPropertyUpdates(hostInstance: BabylonjsGuiDisplayGrid, oldProps: FiberDisplayGridProps, newProps: FiberDisplayGridProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsGuiDisplayGrid.background (string):
-        if (oldProps.background !== newProps.background) {
-            updates.push({
-                propertyName: 'background',
-                value: newProps.background,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiDisplayGrid.cellHeight (number):
-        if (oldProps.cellHeight !== newProps.cellHeight) {
-            updates.push({
-                propertyName: 'cellHeight',
-                value: newProps.cellHeight,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiDisplayGrid.cellWidth (number):
-        if (oldProps.cellWidth !== newProps.cellWidth) {
-            updates.push({
-                propertyName: 'cellWidth',
-                value: newProps.cellWidth,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiDisplayGrid.displayMajorLines (boolean):
-        if (oldProps.displayMajorLines !== newProps.displayMajorLines) {
-            updates.push({
-                propertyName: 'displayMajorLines',
-                value: newProps.displayMajorLines,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsGuiDisplayGrid.displayMinorLines (boolean):
-        if (oldProps.displayMinorLines !== newProps.displayMinorLines) {
-            updates.push({
-                propertyName: 'displayMinorLines',
-                value: newProps.displayMinorLines,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsGuiDisplayGrid.majorLineColor (string):
-        if (oldProps.majorLineColor !== newProps.majorLineColor) {
-            updates.push({
-                propertyName: 'majorLineColor',
-                value: newProps.majorLineColor,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiDisplayGrid.majorLineFrequency (number):
-        if (oldProps.majorLineFrequency !== newProps.majorLineFrequency) {
-            updates.push({
-                propertyName: 'majorLineFrequency',
-                value: newProps.majorLineFrequency,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiDisplayGrid.majorLineTickness (number):
-        if (oldProps.majorLineTickness !== newProps.majorLineTickness) {
-            updates.push({
-                propertyName: 'majorLineTickness',
-                value: newProps.majorLineTickness,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiDisplayGrid.minorLineColor (string):
-        if (oldProps.minorLineColor !== newProps.minorLineColor) {
-            updates.push({
-                propertyName: 'minorLineColor',
-                value: newProps.minorLineColor,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiDisplayGrid.minorLineTickness (number):
-        if (oldProps.minorLineTickness !== newProps.minorLineTickness) {
-            updates.push({
-                propertyName: 'minorLineTickness',
-                value: newProps.minorLineTickness,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiDisplayGrid.name (string):
-        if (oldProps.name !== newProps.name) {
-            updates.push({
-                propertyName: 'name',
-                value: newProps.name,
-                type: 'string'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberDisplayGridPropsHandler implements PropsHandler<FiberDisplayGridProps> {
+    getPropertyUpdates(oldProps: FiberDisplayGridProps, newProps: FiberDisplayGridProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.background, newProps.background, 'background', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.cellHeight, newProps.cellHeight, 'cellHeight', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.cellWidth, newProps.cellWidth, 'cellWidth', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.displayMajorLines, newProps.displayMajorLines, 'displayMajorLines', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.displayMinorLines, newProps.displayMinorLines, 'displayMinorLines', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.majorLineColor, newProps.majorLineColor, 'majorLineColor', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.majorLineFrequency, newProps.majorLineFrequency, 'majorLineFrequency', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.majorLineTickness, newProps.majorLineTickness, 'majorLineTickness', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.minorLineColor, newProps.minorLineColor, 'minorLineColor', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.minorLineTickness, newProps.minorLineTickness, 'minorLineTickness', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -13463,8 +8257,8 @@ export class FiberDisplayGridPropsHandler implements PropsHandler<BabylonjsGuiDi
  *
  * This code has been generated
  */
-export class FiberDisplayGrid implements HasPropsHandlers<BabylonjsGuiControl, FiberControlProps> {
-    private propsHandlers: PropsHandler<BabylonjsGuiControl, FiberControlProps>[];
+export class FiberDisplayGrid implements HasPropsHandlers<FiberControlProps> {
+    private propsHandlers: PropsHandler<FiberControlProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -13473,11 +8267,11 @@ export class FiberDisplayGrid implements HasPropsHandlers<BabylonjsGuiControl, F
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsGuiControl, FiberControlProps>[] {
+    getPropsHandlers(): PropsHandler<FiberControlProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsGuiControl, FiberControlProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberControlProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -13499,104 +8293,26 @@ export class FiberDisplayGrid implements HasPropsHandlers<BabylonjsGuiControl, F
     };
 }
 
-export class FiberControl3DPropsHandler implements PropsHandler<BabylonjsGuiControl3D, FiberControl3DProps> {
-    getPropertyUpdates(hostInstance: BabylonjsGuiControl3D, oldProps: FiberControl3DProps, newProps: FiberControl3DProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsGuiControl3D.isVisible (boolean):
-        if (oldProps.isVisible !== newProps.isVisible) {
-            updates.push({
-                propertyName: 'isVisible',
-                value: newProps.isVisible,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsGuiControl3D.name (string):
-        if (oldProps.name !== newProps.name) {
-            updates.push({
-                propertyName: 'name',
-                value: newProps.name,
-                type: 'string'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsGuiControl3D.onPointerClickObservable of type 'BabylonjsCoreObservable<BabylonjsGuiVector3WithInfo>/fn':
-        if (oldProps.onPointerClickObservable === undefined && oldProps.onPointerClickObservable !== newProps.onPointerClickObservable) {
-            updates.push({
-                propertyName: 'onPointerClickObservable',
-                value: newProps.onPointerClickObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsGuiVector3WithInfo>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsGuiControl3D.onPointerDownObservable of type 'BabylonjsCoreObservable<BabylonjsGuiVector3WithInfo>/fn':
-        if (oldProps.onPointerDownObservable === undefined && oldProps.onPointerDownObservable !== newProps.onPointerDownObservable) {
-            updates.push({
-                propertyName: 'onPointerDownObservable',
-                value: newProps.onPointerDownObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsGuiVector3WithInfo>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsGuiControl3D.onPointerEnterObservable of type 'BabylonjsCoreObservable<BabylonjsGuiControl3D>/fn':
-        if (oldProps.onPointerEnterObservable === undefined && oldProps.onPointerEnterObservable !== newProps.onPointerEnterObservable) {
-            updates.push({
-                propertyName: 'onPointerEnterObservable',
-                value: newProps.onPointerEnterObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsGuiControl3D>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsGuiControl3D.onPointerMoveObservable of type 'BabylonjsCoreObservable<BabylonjsCoreVector3>/fn':
-        if (oldProps.onPointerMoveObservable === undefined && oldProps.onPointerMoveObservable !== newProps.onPointerMoveObservable) {
-            updates.push({
-                propertyName: 'onPointerMoveObservable',
-                value: newProps.onPointerMoveObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreVector3>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsGuiControl3D.onPointerOutObservable of type 'BabylonjsCoreObservable<BabylonjsGuiControl3D>/fn':
-        if (oldProps.onPointerOutObservable === undefined && oldProps.onPointerOutObservable !== newProps.onPointerOutObservable) {
-            updates.push({
-                propertyName: 'onPointerOutObservable',
-                value: newProps.onPointerOutObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsGuiControl3D>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsGuiControl3D.onPointerUpObservable of type 'BabylonjsCoreObservable<BabylonjsGuiVector3WithInfo>/fn':
-        if (oldProps.onPointerUpObservable === undefined && oldProps.onPointerUpObservable !== newProps.onPointerUpObservable) {
-            updates.push({
-                propertyName: 'onPointerUpObservable',
-                value: newProps.onPointerUpObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsGuiVector3WithInfo>'
-            });
-        }
-        // TODO: type: 'BabylonjsGuiContainer3D' property (not coded) BabylonjsGuiControl3D.parent.
-        // TODO: type: '() => void' property (not coded) BabylonjsGuiControl3D.pointerDownAnimation.
-        // TODO: type: '() => void' property (not coded) BabylonjsGuiControl3D.pointerEnterAnimation.
-        // TODO: type: '() => void' property (not coded) BabylonjsGuiControl3D.pointerOutAnimation.
-        // TODO: type: '() => void' property (not coded) BabylonjsGuiControl3D.pointerUpAnimation.
-        // BabylonjsGuiControl3D.position (BabylonjsCoreVector3 uses object equals to find diffs):
-        if (newProps.position && (!oldProps.position || !oldProps.position.equals(newProps.position))) {
-            updates.push({
-                propertyName: 'position',
-                value: newProps.position,
-                type: 'BabylonjsCoreVector3'
-            });
-        }
-        // BabylonjsGuiControl3D.scaling (BabylonjsCoreVector3 uses object equals to find diffs):
-        if (newProps.scaling && (!oldProps.scaling || !oldProps.scaling.equals(newProps.scaling))) {
-            updates.push({
-                propertyName: 'scaling',
-                value: newProps.scaling,
-                type: 'BabylonjsCoreVector3'
-            });
-        }
-        // BabylonjsGuiControl3D.addBehavior of type '(behavior?: BabylonjsCoreBehavior<BabylonjsGuiControl3D>) => BabylonjsGuiControl3D':
-        if (oldProps.addBehavior !== newProps.addBehavior) {
-            updates.push({
-                propertyName: 'addBehavior',
-                value: newProps.addBehavior,
-                type: '(behavior?: BabylonjsCoreBehavior<BabylonjsGuiControl3D>) => BabylonjsGuiControl3D'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberControl3DPropsHandler implements PropsHandler<FiberControl3DProps> {
+    getPropertyUpdates(oldProps: FiberControl3DProps, newProps: FiberControl3DProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.isVisible, newProps.isVisible, 'isVisible', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
+        checkObservableDiff(oldProps.onPointerClickObservable, newProps.onPointerClickObservable, 'onPointerClickObservable', 'BabylonjsCoreObservable<BabylonjsGuiVector3WithInfo>', changedProps)
+        checkObservableDiff(oldProps.onPointerDownObservable, newProps.onPointerDownObservable, 'onPointerDownObservable', 'BabylonjsCoreObservable<BabylonjsGuiVector3WithInfo>', changedProps)
+        checkObservableDiff(oldProps.onPointerEnterObservable, newProps.onPointerEnterObservable, 'onPointerEnterObservable', 'BabylonjsCoreObservable<BabylonjsGuiControl3D>', changedProps)
+        checkObservableDiff(oldProps.onPointerMoveObservable, newProps.onPointerMoveObservable, 'onPointerMoveObservable', 'BabylonjsCoreObservable<BabylonjsCoreVector3>', changedProps)
+        checkObservableDiff(oldProps.onPointerOutObservable, newProps.onPointerOutObservable, 'onPointerOutObservable', 'BabylonjsCoreObservable<BabylonjsGuiControl3D>', changedProps)
+        checkObservableDiff(oldProps.onPointerUpObservable, newProps.onPointerUpObservable, 'onPointerUpObservable', 'BabylonjsCoreObservable<BabylonjsGuiVector3WithInfo>', changedProps)
+        // type: 'BabylonjsGuiContainer3D' property (not coded) BabylonjsGuiControl3D.parent.
+        checkLambdaDiff(oldProps.pointerDownAnimation, newProps.pointerDownAnimation, 'pointerDownAnimation', '() => void', changedProps)
+        checkLambdaDiff(oldProps.pointerEnterAnimation, newProps.pointerEnterAnimation, 'pointerEnterAnimation', '() => void', changedProps)
+        checkLambdaDiff(oldProps.pointerOutAnimation, newProps.pointerOutAnimation, 'pointerOutAnimation', '() => void', changedProps)
+        checkLambdaDiff(oldProps.pointerUpAnimation, newProps.pointerUpAnimation, 'pointerUpAnimation', '() => void', changedProps)
+        checkVector3Diff(oldProps.position, newProps.position, 'position', 'BabylonjsCoreVector3', changedProps)
+        checkVector3Diff(oldProps.scaling, newProps.scaling, 'scaling', 'BabylonjsCoreVector3', changedProps)
+        checkMethodDiff(oldProps.addBehavior, newProps.addBehavior, 'addBehavior', '(behavior?: BabylonjsCoreBehavior<BabylonjsGuiControl3D>) => BabylonjsGuiControl3D', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -13605,8 +8321,8 @@ export class FiberControl3DPropsHandler implements PropsHandler<BabylonjsGuiCont
  *
  * This code has been generated
  */
-export class FiberControl3D implements HasPropsHandlers<BabylonjsGuiControl3D, FiberControl3DProps> {
-    private propsHandlers: PropsHandler<BabylonjsGuiControl3D, FiberControl3DProps>[];
+export class FiberControl3D implements HasPropsHandlers<FiberControl3DProps> {
+    private propsHandlers: PropsHandler<FiberControl3DProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -13614,11 +8330,11 @@ export class FiberControl3D implements HasPropsHandlers<BabylonjsGuiControl3D, F
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsGuiControl3D, FiberControl3DProps>[] {
+    getPropsHandlers(): PropsHandler<FiberControl3DProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsGuiControl3D, FiberControl3DProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberControl3DProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -13640,27 +8356,12 @@ export class FiberControl3D implements HasPropsHandlers<BabylonjsGuiControl3D, F
     };
 }
 
-export class FiberContainer3DPropsHandler implements PropsHandler<BabylonjsGuiContainer3D, FiberContainer3DProps> {
-    getPropertyUpdates(hostInstance: BabylonjsGuiContainer3D, oldProps: FiberContainer3DProps, newProps: FiberContainer3DProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsGuiContainer3D.blockLayout (boolean):
-        if (oldProps.blockLayout !== newProps.blockLayout) {
-            updates.push({
-                propertyName: 'blockLayout',
-                value: newProps.blockLayout,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsGuiContainer3D.addControl of type '(control?: BabylonjsGuiControl3D) => BabylonjsGuiContainer3D':
-        if (oldProps.addControl !== newProps.addControl) {
-            updates.push({
-                propertyName: 'addControl',
-                value: newProps.addControl,
-                type: '(control?: BabylonjsGuiControl3D) => BabylonjsGuiContainer3D'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberContainer3DPropsHandler implements PropsHandler<FiberContainer3DProps> {
+    getPropertyUpdates(oldProps: FiberContainer3DProps, newProps: FiberContainer3DProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.blockLayout, newProps.blockLayout, 'blockLayout', 'boolean', changedProps)
+        checkMethodDiff(oldProps.addControl, newProps.addControl, 'addControl', '(control?: BabylonjsGuiControl3D) => BabylonjsGuiContainer3D', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -13669,8 +8370,8 @@ export class FiberContainer3DPropsHandler implements PropsHandler<BabylonjsGuiCo
  *
  * This code has been generated
  */
-export class FiberContainer3D implements HasPropsHandlers<BabylonjsGuiControl3D, FiberControl3DProps> {
-    private propsHandlers: PropsHandler<BabylonjsGuiControl3D, FiberControl3DProps>[];
+export class FiberContainer3D implements HasPropsHandlers<FiberControl3DProps> {
+    private propsHandlers: PropsHandler<FiberControl3DProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -13679,11 +8380,11 @@ export class FiberContainer3D implements HasPropsHandlers<BabylonjsGuiControl3D,
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsGuiControl3D, FiberControl3DProps>[] {
+    getPropsHandlers(): PropsHandler<FiberControl3DProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsGuiControl3D, FiberControl3DProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberControl3DProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -13705,43 +8406,14 @@ export class FiberContainer3D implements HasPropsHandlers<BabylonjsGuiControl3D,
     };
 }
 
-export class FiberVolumeBasedPanelPropsHandler implements PropsHandler<BabylonjsGuiVolumeBasedPanel, FiberVolumeBasedPanelProps> {
-    getPropertyUpdates(hostInstance: BabylonjsGuiVolumeBasedPanel, oldProps: FiberVolumeBasedPanelProps, newProps: FiberVolumeBasedPanelProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsGuiVolumeBasedPanel.columns (number):
-        if (oldProps.columns !== newProps.columns) {
-            updates.push({
-                propertyName: 'columns',
-                value: newProps.columns,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiVolumeBasedPanel.margin (number):
-        if (oldProps.margin !== newProps.margin) {
-            updates.push({
-                propertyName: 'margin',
-                value: newProps.margin,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiVolumeBasedPanel.orientation (number):
-        if (oldProps.orientation !== newProps.orientation) {
-            updates.push({
-                propertyName: 'orientation',
-                value: newProps.orientation,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiVolumeBasedPanel.rows (number):
-        if (oldProps.rows !== newProps.rows) {
-            updates.push({
-                propertyName: 'rows',
-                value: newProps.rows,
-                type: 'number'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberVolumeBasedPanelPropsHandler implements PropsHandler<FiberVolumeBasedPanelProps> {
+    getPropertyUpdates(oldProps: FiberVolumeBasedPanelProps, newProps: FiberVolumeBasedPanelProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.columns, newProps.columns, 'columns', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.margin, newProps.margin, 'margin', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.orientation, newProps.orientation, 'orientation', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.rows, newProps.rows, 'rows', 'number', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -13750,8 +8422,8 @@ export class FiberVolumeBasedPanelPropsHandler implements PropsHandler<Babylonjs
  *
  * This code has been generated
  */
-export class FiberVolumeBasedPanel implements HasPropsHandlers<BabylonjsGuiControl3D, FiberControl3DProps> {
-    private propsHandlers: PropsHandler<BabylonjsGuiControl3D, FiberControl3DProps>[];
+export class FiberVolumeBasedPanel implements HasPropsHandlers<FiberControl3DProps> {
+    private propsHandlers: PropsHandler<FiberControl3DProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -13761,11 +8433,11 @@ export class FiberVolumeBasedPanel implements HasPropsHandlers<BabylonjsGuiContr
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsGuiControl3D, FiberControl3DProps>[] {
+    getPropsHandlers(): PropsHandler<FiberControl3DProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsGuiControl3D, FiberControl3DProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberControl3DProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -13781,19 +8453,11 @@ export class FiberVolumeBasedPanel implements HasPropsHandlers<BabylonjsGuiContr
     };
 }
 
-export class FiberCylinderPanelPropsHandler implements PropsHandler<BabylonjsGuiCylinderPanel, FiberCylinderPanelProps> {
-    getPropertyUpdates(hostInstance: BabylonjsGuiCylinderPanel, oldProps: FiberCylinderPanelProps, newProps: FiberCylinderPanelProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsGuiCylinderPanel.radius (number):
-        if (oldProps.radius !== newProps.radius) {
-            updates.push({
-                propertyName: 'radius',
-                value: newProps.radius,
-                type: 'number'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberCylinderPanelPropsHandler implements PropsHandler<FiberCylinderPanelProps> {
+    getPropertyUpdates(oldProps: FiberCylinderPanelProps, newProps: FiberCylinderPanelProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.radius, newProps.radius, 'radius', 'number', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -13802,8 +8466,8 @@ export class FiberCylinderPanelPropsHandler implements PropsHandler<BabylonjsGui
  *
  * This code has been generated
  */
-export class FiberCylinderPanel implements HasPropsHandlers<BabylonjsGuiControl3D, FiberControl3DProps> {
-    private propsHandlers: PropsHandler<BabylonjsGuiControl3D, FiberControl3DProps>[];
+export class FiberCylinderPanel implements HasPropsHandlers<FiberControl3DProps> {
+    private propsHandlers: PropsHandler<FiberControl3DProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -13814,11 +8478,11 @@ export class FiberCylinderPanel implements HasPropsHandlers<BabylonjsGuiControl3
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsGuiControl3D, FiberControl3DProps>[] {
+    getPropsHandlers(): PropsHandler<FiberControl3DProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsGuiControl3D, FiberControl3DProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberControl3DProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -13834,11 +8498,9 @@ export class FiberCylinderPanel implements HasPropsHandlers<BabylonjsGuiControl3
     };
 }
 
-export class FiberPlanePanelPropsHandler implements PropsHandler<BabylonjsGuiPlanePanel, FiberPlanePanelProps> {
-    getPropertyUpdates(hostInstance: BabylonjsGuiPlanePanel, oldProps: FiberPlanePanelProps, newProps: FiberPlanePanelProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        return updates.length === 0 ? null : updates;
+export class FiberPlanePanelPropsHandler implements PropsHandler<FiberPlanePanelProps> {
+    getPropertyUpdates(oldProps: FiberPlanePanelProps, newProps: FiberPlanePanelProps): PropertyUpdate[] | null {
+        return null; // no props to check
     }
 }
 
@@ -13847,8 +8509,8 @@ export class FiberPlanePanelPropsHandler implements PropsHandler<BabylonjsGuiPla
  *
  * This code has been generated
  */
-export class FiberPlanePanel implements HasPropsHandlers<BabylonjsGuiControl3D, FiberControl3DProps> {
-    private propsHandlers: PropsHandler<BabylonjsGuiControl3D, FiberControl3DProps>[];
+export class FiberPlanePanel implements HasPropsHandlers<FiberControl3DProps> {
+    private propsHandlers: PropsHandler<FiberControl3DProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -13859,11 +8521,11 @@ export class FiberPlanePanel implements HasPropsHandlers<BabylonjsGuiControl3D, 
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsGuiControl3D, FiberControl3DProps>[] {
+    getPropsHandlers(): PropsHandler<FiberControl3DProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsGuiControl3D, FiberControl3DProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberControl3DProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -13879,19 +8541,11 @@ export class FiberPlanePanel implements HasPropsHandlers<BabylonjsGuiControl3D, 
     };
 }
 
-export class FiberScatterPanelPropsHandler implements PropsHandler<BabylonjsGuiScatterPanel, FiberScatterPanelProps> {
-    getPropertyUpdates(hostInstance: BabylonjsGuiScatterPanel, oldProps: FiberScatterPanelProps, newProps: FiberScatterPanelProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsGuiScatterPanel.iteration (number):
-        if (oldProps.iteration !== newProps.iteration) {
-            updates.push({
-                propertyName: 'iteration',
-                value: newProps.iteration,
-                type: 'number'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberScatterPanelPropsHandler implements PropsHandler<FiberScatterPanelProps> {
+    getPropertyUpdates(oldProps: FiberScatterPanelProps, newProps: FiberScatterPanelProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.iteration, newProps.iteration, 'iteration', 'number', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -13900,8 +8554,8 @@ export class FiberScatterPanelPropsHandler implements PropsHandler<BabylonjsGuiS
  *
  * This code has been generated
  */
-export class FiberScatterPanel implements HasPropsHandlers<BabylonjsGuiControl3D, FiberControl3DProps> {
-    private propsHandlers: PropsHandler<BabylonjsGuiControl3D, FiberControl3DProps>[];
+export class FiberScatterPanel implements HasPropsHandlers<FiberControl3DProps> {
+    private propsHandlers: PropsHandler<FiberControl3DProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -13912,11 +8566,11 @@ export class FiberScatterPanel implements HasPropsHandlers<BabylonjsGuiControl3D
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsGuiControl3D, FiberControl3DProps>[] {
+    getPropsHandlers(): PropsHandler<FiberControl3DProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsGuiControl3D, FiberControl3DProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberControl3DProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -13932,19 +8586,11 @@ export class FiberScatterPanel implements HasPropsHandlers<BabylonjsGuiControl3D
     };
 }
 
-export class FiberSpherePanelPropsHandler implements PropsHandler<BabylonjsGuiSpherePanel, FiberSpherePanelProps> {
-    getPropertyUpdates(hostInstance: BabylonjsGuiSpherePanel, oldProps: FiberSpherePanelProps, newProps: FiberSpherePanelProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsGuiSpherePanel.radius (number):
-        if (oldProps.radius !== newProps.radius) {
-            updates.push({
-                propertyName: 'radius',
-                value: newProps.radius,
-                type: 'number'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberSpherePanelPropsHandler implements PropsHandler<FiberSpherePanelProps> {
+    getPropertyUpdates(oldProps: FiberSpherePanelProps, newProps: FiberSpherePanelProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.radius, newProps.radius, 'radius', 'number', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -13953,8 +8599,8 @@ export class FiberSpherePanelPropsHandler implements PropsHandler<BabylonjsGuiSp
  *
  * This code has been generated
  */
-export class FiberSpherePanel implements HasPropsHandlers<BabylonjsGuiControl3D, FiberControl3DProps> {
-    private propsHandlers: PropsHandler<BabylonjsGuiControl3D, FiberControl3DProps>[];
+export class FiberSpherePanel implements HasPropsHandlers<FiberControl3DProps> {
+    private propsHandlers: PropsHandler<FiberControl3DProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -13965,11 +8611,11 @@ export class FiberSpherePanel implements HasPropsHandlers<BabylonjsGuiControl3D,
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsGuiControl3D, FiberControl3DProps>[] {
+    getPropsHandlers(): PropsHandler<FiberControl3DProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsGuiControl3D, FiberControl3DProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberControl3DProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -13985,27 +8631,12 @@ export class FiberSpherePanel implements HasPropsHandlers<BabylonjsGuiControl3D,
     };
 }
 
-export class FiberStackPanel3DPropsHandler implements PropsHandler<BabylonjsGuiStackPanel3D, FiberStackPanel3DProps> {
-    getPropertyUpdates(hostInstance: BabylonjsGuiStackPanel3D, oldProps: FiberStackPanel3DProps, newProps: FiberStackPanel3DProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsGuiStackPanel3D.isVertical (boolean):
-        if (oldProps.isVertical !== newProps.isVertical) {
-            updates.push({
-                propertyName: 'isVertical',
-                value: newProps.isVertical,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsGuiStackPanel3D.margin (number):
-        if (oldProps.margin !== newProps.margin) {
-            updates.push({
-                propertyName: 'margin',
-                value: newProps.margin,
-                type: 'number'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberStackPanel3DPropsHandler implements PropsHandler<FiberStackPanel3DProps> {
+    getPropertyUpdates(oldProps: FiberStackPanel3DProps, newProps: FiberStackPanel3DProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.isVertical, newProps.isVertical, 'isVertical', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.margin, newProps.margin, 'margin', 'number', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -14014,8 +8645,8 @@ export class FiberStackPanel3DPropsHandler implements PropsHandler<BabylonjsGuiS
  *
  * This code has been generated
  */
-export class FiberStackPanel3D implements HasPropsHandlers<BabylonjsGuiControl3D, FiberControl3DProps> {
-    private propsHandlers: PropsHandler<BabylonjsGuiControl3D, FiberControl3DProps>[];
+export class FiberStackPanel3D implements HasPropsHandlers<FiberControl3DProps> {
+    private propsHandlers: PropsHandler<FiberControl3DProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -14025,11 +8656,11 @@ export class FiberStackPanel3D implements HasPropsHandlers<BabylonjsGuiControl3D
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsGuiControl3D, FiberControl3DProps>[] {
+    getPropsHandlers(): PropsHandler<FiberControl3DProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsGuiControl3D, FiberControl3DProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberControl3DProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -14051,11 +8682,9 @@ export class FiberStackPanel3D implements HasPropsHandlers<BabylonjsGuiControl3D
     };
 }
 
-export class FiberAbstractButton3DPropsHandler implements PropsHandler<BabylonjsGuiAbstractButton3D, FiberAbstractButton3DProps> {
-    getPropertyUpdates(hostInstance: BabylonjsGuiAbstractButton3D, oldProps: FiberAbstractButton3DProps, newProps: FiberAbstractButton3DProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        return updates.length === 0 ? null : updates;
+export class FiberAbstractButton3DPropsHandler implements PropsHandler<FiberAbstractButton3DProps> {
+    getPropertyUpdates(oldProps: FiberAbstractButton3DProps, newProps: FiberAbstractButton3DProps): PropertyUpdate[] | null {
+        return null; // no props to check
     }
 }
 
@@ -14064,8 +8693,8 @@ export class FiberAbstractButton3DPropsHandler implements PropsHandler<Babylonjs
  *
  * This code has been generated
  */
-export class FiberAbstractButton3D implements HasPropsHandlers<BabylonjsGuiControl3D, FiberControl3DProps> {
-    private propsHandlers: PropsHandler<BabylonjsGuiControl3D, FiberControl3DProps>[];
+export class FiberAbstractButton3D implements HasPropsHandlers<FiberControl3DProps> {
+    private propsHandlers: PropsHandler<FiberControl3DProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -14074,11 +8703,11 @@ export class FiberAbstractButton3D implements HasPropsHandlers<BabylonjsGuiContr
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsGuiControl3D, FiberControl3DProps>[] {
+    getPropsHandlers(): PropsHandler<FiberControl3DProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsGuiControl3D, FiberControl3DProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberControl3DProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -14100,35 +8729,13 @@ export class FiberAbstractButton3D implements HasPropsHandlers<BabylonjsGuiContr
     };
 }
 
-export class FiberButton3DPropsHandler implements PropsHandler<BabylonjsGuiButton3D, FiberButton3DProps> {
-    getPropertyUpdates(hostInstance: BabylonjsGuiButton3D, oldProps: FiberButton3DProps, newProps: FiberButton3DProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsGuiButton3D.content (BabylonjsGuiControl) sets once:
-        if (newProps.content && (!oldProps.content)) {
-            updates.push({
-                propertyName: 'content',
-                value: newProps.content,
-                type: 'BabylonjsGuiControl'
-            });
-        }
-        // BabylonjsGuiButton3D.contentResolution (number):
-        if (oldProps.contentResolution !== newProps.contentResolution) {
-            updates.push({
-                propertyName: 'contentResolution',
-                value: newProps.contentResolution,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiButton3D.contentScaleRatio (number):
-        if (oldProps.contentScaleRatio !== newProps.contentScaleRatio) {
-            updates.push({
-                propertyName: 'contentScaleRatio',
-                value: newProps.contentScaleRatio,
-                type: 'number'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberButton3DPropsHandler implements PropsHandler<FiberButton3DProps> {
+    getPropertyUpdates(oldProps: FiberButton3DProps, newProps: FiberButton3DProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkControlDiff(oldProps.content, newProps.content, 'content', 'BabylonjsGuiControl', changedProps)
+        checkPrimitiveDiff(oldProps.contentResolution, newProps.contentResolution, 'contentResolution', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.contentScaleRatio, newProps.contentScaleRatio, 'contentScaleRatio', 'number', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -14137,8 +8744,8 @@ export class FiberButton3DPropsHandler implements PropsHandler<BabylonjsGuiButto
  *
  * This code has been generated
  */
-export class FiberButton3D implements HasPropsHandlers<BabylonjsGuiControl3D, FiberControl3DProps> {
-    private propsHandlers: PropsHandler<BabylonjsGuiControl3D, FiberControl3DProps>[];
+export class FiberButton3D implements HasPropsHandlers<FiberControl3DProps> {
+    private propsHandlers: PropsHandler<FiberControl3DProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -14148,11 +8755,11 @@ export class FiberButton3D implements HasPropsHandlers<BabylonjsGuiControl3D, Fi
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsGuiControl3D, FiberControl3DProps>[] {
+    getPropsHandlers(): PropsHandler<FiberControl3DProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsGuiControl3D, FiberControl3DProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberControl3DProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -14174,43 +8781,14 @@ export class FiberButton3D implements HasPropsHandlers<BabylonjsGuiControl3D, Fi
     };
 }
 
-export class FiberHolographicButtonPropsHandler implements PropsHandler<BabylonjsGuiHolographicButton, FiberHolographicButtonProps> {
-    getPropertyUpdates(hostInstance: BabylonjsGuiHolographicButton, oldProps: FiberHolographicButtonProps, newProps: FiberHolographicButtonProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsGuiHolographicButton.imageUrl (string):
-        if (oldProps.imageUrl !== newProps.imageUrl) {
-            updates.push({
-                propertyName: 'imageUrl',
-                value: newProps.imageUrl,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiHolographicButton.renderingGroupId (number):
-        if (oldProps.renderingGroupId !== newProps.renderingGroupId) {
-            updates.push({
-                propertyName: 'renderingGroupId',
-                value: newProps.renderingGroupId,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiHolographicButton.text (string):
-        if (oldProps.text !== newProps.text) {
-            updates.push({
-                propertyName: 'text',
-                value: newProps.text,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiHolographicButton.tooltipText (string):
-        if (oldProps.tooltipText !== newProps.tooltipText) {
-            updates.push({
-                propertyName: 'tooltipText',
-                value: newProps.tooltipText,
-                type: 'string'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberHolographicButtonPropsHandler implements PropsHandler<FiberHolographicButtonProps> {
+    getPropertyUpdates(oldProps: FiberHolographicButtonProps, newProps: FiberHolographicButtonProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.imageUrl, newProps.imageUrl, 'imageUrl', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.renderingGroupId, newProps.renderingGroupId, 'renderingGroupId', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.text, newProps.text, 'text', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.tooltipText, newProps.tooltipText, 'tooltipText', 'string', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -14219,8 +8797,8 @@ export class FiberHolographicButtonPropsHandler implements PropsHandler<Babylonj
  *
  * This code has been generated
  */
-export class FiberHolographicButton implements HasPropsHandlers<BabylonjsGuiControl3D, FiberControl3DProps> {
-    private propsHandlers: PropsHandler<BabylonjsGuiControl3D, FiberControl3DProps>[];
+export class FiberHolographicButton implements HasPropsHandlers<FiberControl3DProps> {
+    private propsHandlers: PropsHandler<FiberControl3DProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -14231,11 +8809,11 @@ export class FiberHolographicButton implements HasPropsHandlers<BabylonjsGuiCont
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsGuiControl3D, FiberControl3DProps>[] {
+    getPropsHandlers(): PropsHandler<FiberControl3DProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsGuiControl3D, FiberControl3DProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberControl3DProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -14262,11 +8840,9 @@ export class FiberHolographicButton implements HasPropsHandlers<BabylonjsGuiCont
     };
 }
 
-export class FiberMeshButton3DPropsHandler implements PropsHandler<BabylonjsGuiMeshButton3D, FiberMeshButton3DProps> {
-    getPropertyUpdates(hostInstance: BabylonjsGuiMeshButton3D, oldProps: FiberMeshButton3DProps, newProps: FiberMeshButton3DProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        return updates.length === 0 ? null : updates;
+export class FiberMeshButton3DPropsHandler implements PropsHandler<FiberMeshButton3DProps> {
+    getPropertyUpdates(oldProps: FiberMeshButton3DProps, newProps: FiberMeshButton3DProps): PropertyUpdate[] | null {
+        return null; // no props to check
     }
 }
 
@@ -14275,8 +8851,8 @@ export class FiberMeshButton3DPropsHandler implements PropsHandler<BabylonjsGuiM
  *
  * This code has been generated
  */
-export class FiberMeshButton3D implements HasPropsHandlers<BabylonjsGuiControl3D, FiberControl3DProps> {
-    private propsHandlers: PropsHandler<BabylonjsGuiControl3D, FiberControl3DProps>[];
+export class FiberMeshButton3D implements HasPropsHandlers<FiberControl3DProps> {
+    private propsHandlers: PropsHandler<FiberControl3DProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -14287,11 +8863,11 @@ export class FiberMeshButton3D implements HasPropsHandlers<BabylonjsGuiControl3D
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsGuiControl3D, FiberControl3DProps>[] {
+    getPropsHandlers(): PropsHandler<FiberControl3DProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsGuiControl3D, FiberControl3DProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberControl3DProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -14318,99 +8894,21 @@ export class FiberMeshButton3D implements HasPropsHandlers<BabylonjsGuiControl3D
     };
 }
 
-export class FiberEffectLayerPropsHandler implements PropsHandler<BabylonjsCoreEffectLayer, FiberEffectLayerProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreEffectLayer, oldProps: FiberEffectLayerProps, newProps: FiberEffectLayerProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsCoreEffectLayer.isEnabled (boolean):
-        if (oldProps.isEnabled !== newProps.isEnabled) {
-            updates.push({
-                propertyName: 'isEnabled',
-                value: newProps.isEnabled,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreEffectLayer.name (string):
-        if (oldProps.name !== newProps.name) {
-            updates.push({
-                propertyName: 'name',
-                value: newProps.name,
-                type: 'string'
-            });
-        }
-        // BabylonjsCoreEffectLayer.neutralColor of BabylonjsCoreColor4.  Color4.equals() not available in BabylonJS < 4:
-        if (newProps.neutralColor && (!oldProps.neutralColor || oldProps.neutralColor.r !== newProps.neutralColor.r || oldProps.neutralColor.g !== newProps.neutralColor.g || oldProps.neutralColor.b !== newProps.neutralColor.b || oldProps.neutralColor.a !== newProps.neutralColor.a)) {
-            updates.push({
-                propertyName: 'neutralColor',
-                value: newProps.neutralColor,
-                type: 'BabylonjsCoreColor4'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreEffectLayer.onAfterComposeObservable of type 'BabylonjsCoreObservable<BabylonjsCoreEffectLayer>/fn':
-        if (oldProps.onAfterComposeObservable === undefined && oldProps.onAfterComposeObservable !== newProps.onAfterComposeObservable) {
-            updates.push({
-                propertyName: 'onAfterComposeObservable',
-                value: newProps.onAfterComposeObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreEffectLayer>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreEffectLayer.onAfterRenderMeshToEffect of type 'BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>/fn':
-        if (oldProps.onAfterRenderMeshToEffect === undefined && oldProps.onAfterRenderMeshToEffect !== newProps.onAfterRenderMeshToEffect) {
-            updates.push({
-                propertyName: 'onAfterRenderMeshToEffect',
-                value: newProps.onAfterRenderMeshToEffect,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreEffectLayer.onBeforeComposeObservable of type 'BabylonjsCoreObservable<BabylonjsCoreEffectLayer>/fn':
-        if (oldProps.onBeforeComposeObservable === undefined && oldProps.onBeforeComposeObservable !== newProps.onBeforeComposeObservable) {
-            updates.push({
-                propertyName: 'onBeforeComposeObservable',
-                value: newProps.onBeforeComposeObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreEffectLayer>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreEffectLayer.onBeforeRenderMainTextureObservable of type 'BabylonjsCoreObservable<BabylonjsCoreEffectLayer>/fn':
-        if (oldProps.onBeforeRenderMainTextureObservable === undefined && oldProps.onBeforeRenderMainTextureObservable !== newProps.onBeforeRenderMainTextureObservable) {
-            updates.push({
-                propertyName: 'onBeforeRenderMainTextureObservable',
-                value: newProps.onBeforeRenderMainTextureObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreEffectLayer>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreEffectLayer.onBeforeRenderMeshToEffect of type 'BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>/fn':
-        if (oldProps.onBeforeRenderMeshToEffect === undefined && oldProps.onBeforeRenderMeshToEffect !== newProps.onBeforeRenderMeshToEffect) {
-            updates.push({
-                propertyName: 'onBeforeRenderMeshToEffect',
-                value: newProps.onBeforeRenderMeshToEffect,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreEffectLayer.onDisposeObservable of type 'BabylonjsCoreObservable<BabylonjsCoreEffectLayer>/fn':
-        if (oldProps.onDisposeObservable === undefined && oldProps.onDisposeObservable !== newProps.onDisposeObservable) {
-            updates.push({
-                propertyName: 'onDisposeObservable',
-                value: newProps.onDisposeObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreEffectLayer>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreEffectLayer.onSizeChangedObservable of type 'BabylonjsCoreObservable<BabylonjsCoreEffectLayer>/fn':
-        if (oldProps.onSizeChangedObservable === undefined && oldProps.onSizeChangedObservable !== newProps.onSizeChangedObservable) {
-            updates.push({
-                propertyName: 'onSizeChangedObservable',
-                value: newProps.onSizeChangedObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreEffectLayer>'
-            });
-        }
-        // BabylonjsCoreEffectLayer.renderingGroupId (number):
-        if (oldProps.renderingGroupId !== newProps.renderingGroupId) {
-            updates.push({
-                propertyName: 'renderingGroupId',
-                value: newProps.renderingGroupId,
-                type: 'number'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberEffectLayerPropsHandler implements PropsHandler<FiberEffectLayerProps> {
+    getPropertyUpdates(oldProps: FiberEffectLayerProps, newProps: FiberEffectLayerProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.isEnabled, newProps.isEnabled, 'isEnabled', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
+        checkColor4Diff(oldProps.neutralColor, newProps.neutralColor, 'neutralColor', 'BabylonjsCoreColor4', changedProps)
+        checkObservableDiff(oldProps.onAfterComposeObservable, newProps.onAfterComposeObservable, 'onAfterComposeObservable', 'BabylonjsCoreObservable<BabylonjsCoreEffectLayer>', changedProps)
+        checkObservableDiff(oldProps.onAfterRenderMeshToEffect, newProps.onAfterRenderMeshToEffect, 'onAfterRenderMeshToEffect', 'BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>', changedProps)
+        checkObservableDiff(oldProps.onBeforeComposeObservable, newProps.onBeforeComposeObservable, 'onBeforeComposeObservable', 'BabylonjsCoreObservable<BabylonjsCoreEffectLayer>', changedProps)
+        checkObservableDiff(oldProps.onBeforeRenderMainTextureObservable, newProps.onBeforeRenderMainTextureObservable, 'onBeforeRenderMainTextureObservable', 'BabylonjsCoreObservable<BabylonjsCoreEffectLayer>', changedProps)
+        checkObservableDiff(oldProps.onBeforeRenderMeshToEffect, newProps.onBeforeRenderMeshToEffect, 'onBeforeRenderMeshToEffect', 'BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>', changedProps)
+        checkObservableDiff(oldProps.onDisposeObservable, newProps.onDisposeObservable, 'onDisposeObservable', 'BabylonjsCoreObservable<BabylonjsCoreEffectLayer>', changedProps)
+        checkObservableDiff(oldProps.onSizeChangedObservable, newProps.onSizeChangedObservable, 'onSizeChangedObservable', 'BabylonjsCoreObservable<BabylonjsCoreEffectLayer>', changedProps)
+        checkPrimitiveDiff(oldProps.renderingGroupId, newProps.renderingGroupId, 'renderingGroupId', 'number', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -14424,8 +8922,8 @@ export class FiberEffectLayerPropsHandler implements PropsHandler<BabylonjsCoreE
  *
  * This code has been generated
  */
-export class FiberEffectLayer implements HasPropsHandlers<BabylonjsCoreEffectLayer, FiberEffectLayerProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreEffectLayer, FiberEffectLayerProps>[];
+export class FiberEffectLayer implements HasPropsHandlers<FiberEffectLayerProps> {
+    private propsHandlers: PropsHandler<FiberEffectLayerProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -14433,11 +8931,11 @@ export class FiberEffectLayer implements HasPropsHandlers<BabylonjsCoreEffectLay
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreEffectLayer, FiberEffectLayerProps>[] {
+    getPropsHandlers(): PropsHandler<FiberEffectLayerProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreEffectLayer, FiberEffectLayerProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberEffectLayerProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -14464,45 +8962,16 @@ export class FiberEffectLayer implements HasPropsHandlers<BabylonjsCoreEffectLay
     };
 }
 
-export class FiberGlowLayerPropsHandler implements PropsHandler<BabylonjsCoreGlowLayer, FiberGlowLayerProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreGlowLayer, oldProps: FiberGlowLayerProps, newProps: FiberGlowLayerProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsCoreGlowLayer.blurKernelSize (number):
-        if (oldProps.blurKernelSize !== newProps.blurKernelSize) {
-            updates.push({
-                propertyName: 'blurKernelSize',
-                value: newProps.blurKernelSize,
-                type: 'number'
-            });
-        }
-        // TODO: type: '(mesh: BabylonjsCoreMesh, subMesh: BabylonjsCoreSubMesh, material: BabylonjsCoreMaterial, result: BabylonjsCoreColor4) => void' property (not coded) BabylonjsCoreGlowLayer.customEmissiveColorSelector.
-        // TODO: type: '(mesh: BabylonjsCoreMesh, subMesh: BabylonjsCoreSubMesh, material: BabylonjsCoreMaterial) => BabylonjsCoreTexture' property (not coded) BabylonjsCoreGlowLayer.customEmissiveTextureSelector.
-        // BabylonjsCoreGlowLayer.intensity (number):
-        if (oldProps.intensity !== newProps.intensity) {
-            updates.push({
-                propertyName: 'intensity',
-                value: newProps.intensity,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreGlowLayer.addExcludedMesh of type '(mesh?: BabylonjsCoreMesh) => void':
-        if (oldProps.addExcludedMesh !== newProps.addExcludedMesh) {
-            updates.push({
-                propertyName: 'addExcludedMesh',
-                value: newProps.addExcludedMesh,
-                type: '(mesh?: BabylonjsCoreMesh) => void'
-            });
-        }
-        // BabylonjsCoreGlowLayer.addIncludedOnlyMesh of type '(mesh?: BabylonjsCoreMesh) => void':
-        if (oldProps.addIncludedOnlyMesh !== newProps.addIncludedOnlyMesh) {
-            updates.push({
-                propertyName: 'addIncludedOnlyMesh',
-                value: newProps.addIncludedOnlyMesh,
-                type: '(mesh?: BabylonjsCoreMesh) => void'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberGlowLayerPropsHandler implements PropsHandler<FiberGlowLayerProps> {
+    getPropertyUpdates(oldProps: FiberGlowLayerProps, newProps: FiberGlowLayerProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.blurKernelSize, newProps.blurKernelSize, 'blurKernelSize', 'number', changedProps)
+        checkLambdaDiff(oldProps.customEmissiveColorSelector, newProps.customEmissiveColorSelector, 'customEmissiveColorSelector', '(mesh: BabylonjsCoreMesh, subMesh: BabylonjsCoreSubMesh, material: BabylonjsCoreMaterial, result: BabylonjsCoreColor4) => void', changedProps)
+        checkLambdaDiff(oldProps.customEmissiveTextureSelector, newProps.customEmissiveTextureSelector, 'customEmissiveTextureSelector', '(mesh: BabylonjsCoreMesh, subMesh: BabylonjsCoreSubMesh, material: BabylonjsCoreMaterial) => BabylonjsCoreTexture', changedProps)
+        checkPrimitiveDiff(oldProps.intensity, newProps.intensity, 'intensity', 'number', changedProps)
+        checkMethodDiff(oldProps.addExcludedMesh, newProps.addExcludedMesh, 'addExcludedMesh', '(mesh?: BabylonjsCoreMesh) => void', changedProps)
+        checkMethodDiff(oldProps.addIncludedOnlyMesh, newProps.addIncludedOnlyMesh, 'addIncludedOnlyMesh', '(mesh?: BabylonjsCoreMesh) => void', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -14515,8 +8984,8 @@ export class FiberGlowLayerPropsHandler implements PropsHandler<BabylonjsCoreGlo
  *
  * This code has been generated
  */
-export class FiberGlowLayer implements HasPropsHandlers<BabylonjsCoreEffectLayer, FiberEffectLayerProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreEffectLayer, FiberEffectLayerProps>[];
+export class FiberGlowLayer implements HasPropsHandlers<FiberEffectLayerProps> {
+    private propsHandlers: PropsHandler<FiberEffectLayerProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -14525,11 +8994,11 @@ export class FiberGlowLayer implements HasPropsHandlers<BabylonjsCoreEffectLayer
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreEffectLayer, FiberEffectLayerProps>[] {
+    getPropsHandlers(): PropsHandler<FiberEffectLayerProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreEffectLayer, FiberEffectLayerProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberEffectLayerProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -14561,83 +9030,19 @@ export class FiberGlowLayer implements HasPropsHandlers<BabylonjsCoreEffectLayer
     };
 }
 
-export class FiberHighlightLayerPropsHandler implements PropsHandler<BabylonjsCoreHighlightLayer, FiberHighlightLayerProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreHighlightLayer, oldProps: FiberHighlightLayerProps, newProps: FiberHighlightLayerProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsCoreHighlightLayer.blurHorizontalSize (number):
-        if (oldProps.blurHorizontalSize !== newProps.blurHorizontalSize) {
-            updates.push({
-                propertyName: 'blurHorizontalSize',
-                value: newProps.blurHorizontalSize,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreHighlightLayer.blurVerticalSize (number):
-        if (oldProps.blurVerticalSize !== newProps.blurVerticalSize) {
-            updates.push({
-                propertyName: 'blurVerticalSize',
-                value: newProps.blurVerticalSize,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreHighlightLayer.innerGlow (boolean):
-        if (oldProps.innerGlow !== newProps.innerGlow) {
-            updates.push({
-                propertyName: 'innerGlow',
-                value: newProps.innerGlow,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreHighlightLayer.name (string):
-        if (oldProps.name !== newProps.name) {
-            updates.push({
-                propertyName: 'name',
-                value: newProps.name,
-                type: 'string'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreHighlightLayer.onAfterBlurObservable of type 'BabylonjsCoreObservable<BabylonjsCoreHighlightLayer>/fn':
-        if (oldProps.onAfterBlurObservable === undefined && oldProps.onAfterBlurObservable !== newProps.onAfterBlurObservable) {
-            updates.push({
-                propertyName: 'onAfterBlurObservable',
-                value: newProps.onAfterBlurObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreHighlightLayer>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreHighlightLayer.onBeforeBlurObservable of type 'BabylonjsCoreObservable<BabylonjsCoreHighlightLayer>/fn':
-        if (oldProps.onBeforeBlurObservable === undefined && oldProps.onBeforeBlurObservable !== newProps.onBeforeBlurObservable) {
-            updates.push({
-                propertyName: 'onBeforeBlurObservable',
-                value: newProps.onBeforeBlurObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreHighlightLayer>'
-            });
-        }
-        // BabylonjsCoreHighlightLayer.outerGlow (boolean):
-        if (oldProps.outerGlow !== newProps.outerGlow) {
-            updates.push({
-                propertyName: 'outerGlow',
-                value: newProps.outerGlow,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreHighlightLayer.addExcludedMesh of type '(mesh?: BabylonjsCoreMesh) => void':
-        if (oldProps.addExcludedMesh !== newProps.addExcludedMesh) {
-            updates.push({
-                propertyName: 'addExcludedMesh',
-                value: newProps.addExcludedMesh,
-                type: '(mesh?: BabylonjsCoreMesh) => void'
-            });
-        }
-        // BabylonjsCoreHighlightLayer.addMesh of type '(mesh?: BabylonjsCoreMesh, color?: BabylonjsCoreColor3, glowEmissiveOnly?: boolean) => void':
-        if (oldProps.addMesh !== newProps.addMesh) {
-            updates.push({
-                propertyName: 'addMesh',
-                value: newProps.addMesh,
-                type: '(mesh?: BabylonjsCoreMesh, color?: BabylonjsCoreColor3, glowEmissiveOnly?: boolean) => void'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberHighlightLayerPropsHandler implements PropsHandler<FiberHighlightLayerProps> {
+    getPropertyUpdates(oldProps: FiberHighlightLayerProps, newProps: FiberHighlightLayerProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.blurHorizontalSize, newProps.blurHorizontalSize, 'blurHorizontalSize', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.blurVerticalSize, newProps.blurVerticalSize, 'blurVerticalSize', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.innerGlow, newProps.innerGlow, 'innerGlow', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
+        checkObservableDiff(oldProps.onAfterBlurObservable, newProps.onAfterBlurObservable, 'onAfterBlurObservable', 'BabylonjsCoreObservable<BabylonjsCoreHighlightLayer>', changedProps)
+        checkObservableDiff(oldProps.onBeforeBlurObservable, newProps.onBeforeBlurObservable, 'onBeforeBlurObservable', 'BabylonjsCoreObservable<BabylonjsCoreHighlightLayer>', changedProps)
+        checkPrimitiveDiff(oldProps.outerGlow, newProps.outerGlow, 'outerGlow', 'boolean', changedProps)
+        checkMethodDiff(oldProps.addExcludedMesh, newProps.addExcludedMesh, 'addExcludedMesh', '(mesh?: BabylonjsCoreMesh) => void', changedProps)
+        checkMethodDiff(oldProps.addMesh, newProps.addMesh, 'addMesh', '(mesh?: BabylonjsCoreMesh, color?: BabylonjsCoreColor3, glowEmissiveOnly?: boolean) => void', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -14651,8 +9056,8 @@ export class FiberHighlightLayerPropsHandler implements PropsHandler<BabylonjsCo
  *
  * This code has been generated
  */
-export class FiberHighlightLayer implements HasPropsHandlers<BabylonjsCoreEffectLayer, FiberEffectLayerProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreEffectLayer, FiberEffectLayerProps>[];
+export class FiberHighlightLayer implements HasPropsHandlers<FiberEffectLayerProps> {
+    private propsHandlers: PropsHandler<FiberEffectLayerProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -14661,11 +9066,11 @@ export class FiberHighlightLayer implements HasPropsHandlers<BabylonjsCoreEffect
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreEffectLayer, FiberEffectLayerProps>[] {
+    getPropsHandlers(): PropsHandler<FiberEffectLayerProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreEffectLayer, FiberEffectLayerProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberEffectLayerProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -14697,215 +9102,39 @@ export class FiberHighlightLayer implements HasPropsHandlers<BabylonjsCoreEffect
     };
 }
 
-export class FiberBaseTexturePropsHandler implements PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreBaseTexture, oldProps: FiberBaseTextureProps, newProps: FiberBaseTextureProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // TODO: type: 'BabylonjsCoreAnimation[]' property (not coded) BabylonjsCoreBaseTexture.animations.
-        // BabylonjsCoreBaseTexture.anisotropicFilteringLevel (number):
-        if (oldProps.anisotropicFilteringLevel !== newProps.anisotropicFilteringLevel) {
-            updates.push({
-                propertyName: 'anisotropicFilteringLevel',
-                value: newProps.anisotropicFilteringLevel,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreBaseTexture.coordinatesIndex (number):
-        if (oldProps.coordinatesIndex !== newProps.coordinatesIndex) {
-            updates.push({
-                propertyName: 'coordinatesIndex',
-                value: newProps.coordinatesIndex,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreBaseTexture.coordinatesMode (number):
-        if (oldProps.coordinatesMode !== newProps.coordinatesMode) {
-            updates.push({
-                propertyName: 'coordinatesMode',
-                value: newProps.coordinatesMode,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreBaseTexture.delayLoadState (number):
-        if (oldProps.delayLoadState !== newProps.delayLoadState) {
-            updates.push({
-                propertyName: 'delayLoadState',
-                value: newProps.delayLoadState,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreBaseTexture.gammaSpace (boolean):
-        if (oldProps.gammaSpace !== newProps.gammaSpace) {
-            updates.push({
-                propertyName: 'gammaSpace',
-                value: newProps.gammaSpace,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreBaseTexture.getAlphaFromRGB (boolean):
-        if (oldProps.getAlphaFromRGB !== newProps.getAlphaFromRGB) {
-            updates.push({
-                propertyName: 'getAlphaFromRGB',
-                value: newProps.getAlphaFromRGB,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreBaseTexture.hasAlpha (boolean):
-        if (oldProps.hasAlpha !== newProps.hasAlpha) {
-            updates.push({
-                propertyName: 'hasAlpha',
-                value: newProps.hasAlpha,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreBaseTexture.invertZ (boolean):
-        if (oldProps.invertZ !== newProps.invertZ) {
-            updates.push({
-                propertyName: 'invertZ',
-                value: newProps.invertZ,
-                type: 'boolean'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreBaseTexture.irradianceTexture.
-        // BabylonjsCoreBaseTexture.is2DArray (boolean):
-        if (oldProps.is2DArray !== newProps.is2DArray) {
-            updates.push({
-                propertyName: 'is2DArray',
-                value: newProps.is2DArray,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreBaseTexture.is3D (boolean):
-        if (oldProps.is3D !== newProps.is3D) {
-            updates.push({
-                propertyName: 'is3D',
-                value: newProps.is3D,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreBaseTexture.isCube (boolean):
-        if (oldProps.isCube !== newProps.isCube) {
-            updates.push({
-                propertyName: 'isCube',
-                value: newProps.isCube,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreBaseTexture.isRenderTarget (boolean):
-        if (oldProps.isRenderTarget !== newProps.isRenderTarget) {
-            updates.push({
-                propertyName: 'isRenderTarget',
-                value: newProps.isRenderTarget,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreBaseTexture.isRGBD (boolean):
-        if (oldProps.isRGBD !== newProps.isRGBD) {
-            updates.push({
-                propertyName: 'isRGBD',
-                value: newProps.isRGBD,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreBaseTexture.level (number):
-        if (oldProps.level !== newProps.level) {
-            updates.push({
-                propertyName: 'level',
-                value: newProps.level,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreBaseTexture.linearSpecularLOD (boolean):
-        if (oldProps.linearSpecularLOD !== newProps.linearSpecularLOD) {
-            updates.push({
-                propertyName: 'linearSpecularLOD',
-                value: newProps.linearSpecularLOD,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreBaseTexture.lodGenerationOffset (number):
-        if (oldProps.lodGenerationOffset !== newProps.lodGenerationOffset) {
-            updates.push({
-                propertyName: 'lodGenerationOffset',
-                value: newProps.lodGenerationOffset,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreBaseTexture.lodGenerationScale (number):
-        if (oldProps.lodGenerationScale !== newProps.lodGenerationScale) {
-            updates.push({
-                propertyName: 'lodGenerationScale',
-                value: newProps.lodGenerationScale,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreBaseTexture.lodLevelInAlpha (boolean):
-        if (oldProps.lodLevelInAlpha !== newProps.lodLevelInAlpha) {
-            updates.push({
-                propertyName: 'lodLevelInAlpha',
-                value: newProps.lodLevelInAlpha,
-                type: 'boolean'
-            });
-        }
-        // TODO: type: 'any' property (not coded) BabylonjsCoreBaseTexture.metadata.
-        // BabylonjsCoreBaseTexture.name (string):
-        if (oldProps.name !== newProps.name) {
-            updates.push({
-                propertyName: 'name',
-                value: newProps.name,
-                type: 'string'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreBaseTexture.onDispose of type '() => void/fn':
-        if (oldProps.onDispose === undefined && oldProps.onDispose !== newProps.onDispose) {
-            updates.push({
-                propertyName: 'onDispose',
-                value: newProps.onDispose,
-                type: '() => void'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreBaseTexture.onDisposeObservable of type 'BabylonjsCoreObservable<BabylonjsCoreBaseTexture>/fn':
-        if (oldProps.onDisposeObservable === undefined && oldProps.onDisposeObservable !== newProps.onDisposeObservable) {
-            updates.push({
-                propertyName: 'onDisposeObservable',
-                value: newProps.onDisposeObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreBaseTexture>'
-            });
-        }
-        // TODO: type: 'any' property (not coded) BabylonjsCoreBaseTexture.reservedDataStore.
-        // BabylonjsCoreBaseTexture.uniqueId (number):
-        if (oldProps.uniqueId !== newProps.uniqueId) {
-            updates.push({
-                propertyName: 'uniqueId',
-                value: newProps.uniqueId,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreBaseTexture.wrapR (number):
-        if (oldProps.wrapR !== newProps.wrapR) {
-            updates.push({
-                propertyName: 'wrapR',
-                value: newProps.wrapR,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreBaseTexture.wrapU (number):
-        if (oldProps.wrapU !== newProps.wrapU) {
-            updates.push({
-                propertyName: 'wrapU',
-                value: newProps.wrapU,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreBaseTexture.wrapV (number):
-        if (oldProps.wrapV !== newProps.wrapV) {
-            updates.push({
-                propertyName: 'wrapV',
-                value: newProps.wrapV,
-                type: 'number'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberBaseTexturePropsHandler implements PropsHandler<FiberBaseTextureProps> {
+    getPropertyUpdates(oldProps: FiberBaseTextureProps, newProps: FiberBaseTextureProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        // type: 'BabylonjsCoreAnimation[]' property (not coded) BabylonjsCoreBaseTexture.animations.
+        checkPrimitiveDiff(oldProps.anisotropicFilteringLevel, newProps.anisotropicFilteringLevel, 'anisotropicFilteringLevel', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.coordinatesIndex, newProps.coordinatesIndex, 'coordinatesIndex', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.coordinatesMode, newProps.coordinatesMode, 'coordinatesMode', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.delayLoadState, newProps.delayLoadState, 'delayLoadState', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.gammaSpace, newProps.gammaSpace, 'gammaSpace', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.getAlphaFromRGB, newProps.getAlphaFromRGB, 'getAlphaFromRGB', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.hasAlpha, newProps.hasAlpha, 'hasAlpha', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.invertZ, newProps.invertZ, 'invertZ', 'boolean', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreBaseTexture.irradianceTexture.
+        checkPrimitiveDiff(oldProps.is2DArray, newProps.is2DArray, 'is2DArray', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.is3D, newProps.is3D, 'is3D', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.isCube, newProps.isCube, 'isCube', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.isRenderTarget, newProps.isRenderTarget, 'isRenderTarget', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.isRGBD, newProps.isRGBD, 'isRGBD', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.level, newProps.level, 'level', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.linearSpecularLOD, newProps.linearSpecularLOD, 'linearSpecularLOD', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.lodGenerationOffset, newProps.lodGenerationOffset, 'lodGenerationOffset', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.lodGenerationScale, newProps.lodGenerationScale, 'lodGenerationScale', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.lodLevelInAlpha, newProps.lodLevelInAlpha, 'lodLevelInAlpha', 'boolean', changedProps)
+        // type: 'any' property (not coded) BabylonjsCoreBaseTexture.metadata.
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
+        checkLambdaDiff(oldProps.onDispose, newProps.onDispose, 'onDispose', '() => void', changedProps)
+        checkObservableDiff(oldProps.onDisposeObservable, newProps.onDisposeObservable, 'onDisposeObservable', 'BabylonjsCoreObservable<BabylonjsCoreBaseTexture>', changedProps)
+        // type: 'any' property (not coded) BabylonjsCoreBaseTexture.reservedDataStore.
+        checkPrimitiveDiff(oldProps.uniqueId, newProps.uniqueId, 'uniqueId', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.wrapR, newProps.wrapR, 'wrapR', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.wrapU, newProps.wrapU, 'wrapU', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.wrapV, newProps.wrapV, 'wrapV', 'number', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -14916,8 +9145,8 @@ export class FiberBaseTexturePropsHandler implements PropsHandler<BabylonjsCoreB
  *
  * This code has been generated
  */
-export class FiberBaseTexture implements HasPropsHandlers<BabylonjsCoreBaseTexture, FiberBaseTextureProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>[];
+export class FiberBaseTexture implements HasPropsHandlers<FiberBaseTextureProps> {
+    private propsHandlers: PropsHandler<FiberBaseTextureProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -14925,11 +9154,11 @@ export class FiberBaseTexture implements HasPropsHandlers<BabylonjsCoreBaseTextu
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>[] {
+    getPropsHandlers(): PropsHandler<FiberBaseTextureProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberBaseTextureProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -14951,59 +9180,16 @@ export class FiberBaseTexture implements HasPropsHandlers<BabylonjsCoreBaseTextu
     };
 }
 
-export class FiberCubeTexturePropsHandler implements PropsHandler<BabylonjsCoreCubeTexture, FiberCubeTextureProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreCubeTexture, oldProps: FiberCubeTextureProps, newProps: FiberCubeTextureProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsCoreCubeTexture.boundingBoxPosition (BabylonjsCoreVector3 uses object equals to find diffs):
-        if (newProps.boundingBoxPosition && (!oldProps.boundingBoxPosition || !oldProps.boundingBoxPosition.equals(newProps.boundingBoxPosition))) {
-            updates.push({
-                propertyName: 'boundingBoxPosition',
-                value: newProps.boundingBoxPosition,
-                type: 'BabylonjsCoreVector3'
-            });
-        }
-        // BabylonjsCoreCubeTexture.boundingBoxSize (BabylonjsCoreVector3 uses object equals to find diffs):
-        if (newProps.boundingBoxSize && (!oldProps.boundingBoxSize || !oldProps.boundingBoxSize.equals(newProps.boundingBoxSize))) {
-            updates.push({
-                propertyName: 'boundingBoxSize',
-                value: newProps.boundingBoxSize,
-                type: 'BabylonjsCoreVector3'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreCubeTexture.onLoadObservable of type 'BabylonjsCoreObservable<BabylonjsCoreCubeTexture>/fn':
-        if (oldProps.onLoadObservable === undefined && oldProps.onLoadObservable !== newProps.onLoadObservable) {
-            updates.push({
-                propertyName: 'onLoadObservable',
-                value: newProps.onLoadObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreCubeTexture>'
-            });
-        }
-        // BabylonjsCoreCubeTexture.rotationY (number):
-        if (oldProps.rotationY !== newProps.rotationY) {
-            updates.push({
-                propertyName: 'rotationY',
-                value: newProps.rotationY,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreCubeTexture.url (string):
-        if (oldProps.url !== newProps.url) {
-            updates.push({
-                propertyName: 'url',
-                value: newProps.url,
-                type: 'string'
-            });
-        }
-        // BabylonjsCoreCubeTexture.setReflectionTextureMatrix of type '(value?: BabylonjsCoreMatrix) => void':
-        if (oldProps.setReflectionTextureMatrix !== newProps.setReflectionTextureMatrix) {
-            updates.push({
-                propertyName: 'setReflectionTextureMatrix',
-                value: newProps.setReflectionTextureMatrix,
-                type: '(value?: BabylonjsCoreMatrix) => void'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberCubeTexturePropsHandler implements PropsHandler<FiberCubeTextureProps> {
+    getPropertyUpdates(oldProps: FiberCubeTextureProps, newProps: FiberCubeTextureProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkVector3Diff(oldProps.boundingBoxPosition, newProps.boundingBoxPosition, 'boundingBoxPosition', 'BabylonjsCoreVector3', changedProps)
+        checkVector3Diff(oldProps.boundingBoxSize, newProps.boundingBoxSize, 'boundingBoxSize', 'BabylonjsCoreVector3', changedProps)
+        checkObservableDiff(oldProps.onLoadObservable, newProps.onLoadObservable, 'onLoadObservable', 'BabylonjsCoreObservable<BabylonjsCoreCubeTexture>', changedProps)
+        checkPrimitiveDiff(oldProps.rotationY, newProps.rotationY, 'rotationY', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.url, newProps.url, 'url', 'string', changedProps)
+        checkMethodDiff(oldProps.setReflectionTextureMatrix, newProps.setReflectionTextureMatrix, 'setReflectionTextureMatrix', '(value?: BabylonjsCoreMatrix) => void', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -15012,8 +9198,8 @@ export class FiberCubeTexturePropsHandler implements PropsHandler<BabylonjsCoreC
  *
  * This code has been generated
  */
-export class FiberCubeTexture implements HasPropsHandlers<BabylonjsCoreBaseTexture, FiberBaseTextureProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>[];
+export class FiberCubeTexture implements HasPropsHandlers<FiberBaseTextureProps> {
+    private propsHandlers: PropsHandler<FiberBaseTextureProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -15022,11 +9208,11 @@ export class FiberCubeTexture implements HasPropsHandlers<BabylonjsCoreBaseTextu
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>[] {
+    getPropsHandlers(): PropsHandler<FiberBaseTextureProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberBaseTextureProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -15108,11 +9294,9 @@ export class FiberCubeTexture implements HasPropsHandlers<BabylonjsCoreBaseTextu
     };
 }
 
-export class FiberRawCubeTexturePropsHandler implements PropsHandler<BabylonjsCoreRawCubeTexture, FiberRawCubeTextureProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreRawCubeTexture, oldProps: FiberRawCubeTextureProps, newProps: FiberRawCubeTextureProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        return updates.length === 0 ? null : updates;
+export class FiberRawCubeTexturePropsHandler implements PropsHandler<FiberRawCubeTextureProps> {
+    getPropertyUpdates(oldProps: FiberRawCubeTextureProps, newProps: FiberRawCubeTextureProps): PropertyUpdate[] | null {
+        return null; // no props to check
     }
 }
 
@@ -15121,8 +9305,8 @@ export class FiberRawCubeTexturePropsHandler implements PropsHandler<BabylonjsCo
  *
  * This code has been generated
  */
-export class FiberRawCubeTexture implements HasPropsHandlers<BabylonjsCoreBaseTexture, FiberBaseTextureProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>[];
+export class FiberRawCubeTexture implements HasPropsHandlers<FiberBaseTextureProps> {
+    private propsHandlers: PropsHandler<FiberBaseTextureProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -15132,11 +9316,11 @@ export class FiberRawCubeTexture implements HasPropsHandlers<BabylonjsCoreBaseTe
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>[] {
+    getPropsHandlers(): PropsHandler<FiberBaseTextureProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberBaseTextureProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -15198,116 +9382,24 @@ export class FiberRawCubeTexture implements HasPropsHandlers<BabylonjsCoreBaseTe
     };
 }
 
-export class FiberTexturePropsHandler implements PropsHandler<BabylonjsCoreTexture, FiberTextureProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreTexture, oldProps: FiberTextureProps, newProps: FiberTextureProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // TODO: type: 'BabylonjsCoreIInspectable[]' property (not coded) BabylonjsCoreTexture.inspectableCustomProperties.
-        // BabylonjsCoreTexture.isBlocking (boolean):
-        if (oldProps.isBlocking !== newProps.isBlocking) {
-            updates.push({
-                propertyName: 'isBlocking',
-                value: newProps.isBlocking,
-                type: 'boolean'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreTexture.onLoadObservable of type 'BabylonjsCoreObservable<BabylonjsCoreTexture>/fn':
-        if (oldProps.onLoadObservable === undefined && oldProps.onLoadObservable !== newProps.onLoadObservable) {
-            updates.push({
-                propertyName: 'onLoadObservable',
-                value: newProps.onLoadObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreTexture>'
-            });
-        }
-        // BabylonjsCoreTexture.uAng (number):
-        if (oldProps.uAng !== newProps.uAng) {
-            updates.push({
-                propertyName: 'uAng',
-                value: newProps.uAng,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreTexture.uOffset (number):
-        if (oldProps.uOffset !== newProps.uOffset) {
-            updates.push({
-                propertyName: 'uOffset',
-                value: newProps.uOffset,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreTexture.url (string):
-        if (oldProps.url !== newProps.url) {
-            updates.push({
-                propertyName: 'url',
-                value: newProps.url,
-                type: 'string'
-            });
-        }
-        // BabylonjsCoreTexture.uRotationCenter (number):
-        if (oldProps.uRotationCenter !== newProps.uRotationCenter) {
-            updates.push({
-                propertyName: 'uRotationCenter',
-                value: newProps.uRotationCenter,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreTexture.uScale (number):
-        if (oldProps.uScale !== newProps.uScale) {
-            updates.push({
-                propertyName: 'uScale',
-                value: newProps.uScale,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreTexture.vAng (number):
-        if (oldProps.vAng !== newProps.vAng) {
-            updates.push({
-                propertyName: 'vAng',
-                value: newProps.vAng,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreTexture.vOffset (number):
-        if (oldProps.vOffset !== newProps.vOffset) {
-            updates.push({
-                propertyName: 'vOffset',
-                value: newProps.vOffset,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreTexture.vRotationCenter (number):
-        if (oldProps.vRotationCenter !== newProps.vRotationCenter) {
-            updates.push({
-                propertyName: 'vRotationCenter',
-                value: newProps.vRotationCenter,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreTexture.vScale (number):
-        if (oldProps.vScale !== newProps.vScale) {
-            updates.push({
-                propertyName: 'vScale',
-                value: newProps.vScale,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreTexture.wAng (number):
-        if (oldProps.wAng !== newProps.wAng) {
-            updates.push({
-                propertyName: 'wAng',
-                value: newProps.wAng,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreTexture.wRotationCenter (number):
-        if (oldProps.wRotationCenter !== newProps.wRotationCenter) {
-            updates.push({
-                propertyName: 'wRotationCenter',
-                value: newProps.wRotationCenter,
-                type: 'number'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberTexturePropsHandler implements PropsHandler<FiberTextureProps> {
+    getPropertyUpdates(oldProps: FiberTextureProps, newProps: FiberTextureProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        // type: 'BabylonjsCoreIInspectable[]' property (not coded) BabylonjsCoreTexture.inspectableCustomProperties.
+        checkPrimitiveDiff(oldProps.isBlocking, newProps.isBlocking, 'isBlocking', 'boolean', changedProps)
+        checkObservableDiff(oldProps.onLoadObservable, newProps.onLoadObservable, 'onLoadObservable', 'BabylonjsCoreObservable<BabylonjsCoreTexture>', changedProps)
+        checkPrimitiveDiff(oldProps.uAng, newProps.uAng, 'uAng', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.uOffset, newProps.uOffset, 'uOffset', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.url, newProps.url, 'url', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.uRotationCenter, newProps.uRotationCenter, 'uRotationCenter', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.uScale, newProps.uScale, 'uScale', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.vAng, newProps.vAng, 'vAng', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.vOffset, newProps.vOffset, 'vOffset', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.vRotationCenter, newProps.vRotationCenter, 'vRotationCenter', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.vScale, newProps.vScale, 'vScale', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.wAng, newProps.wAng, 'wAng', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.wRotationCenter, newProps.wRotationCenter, 'wRotationCenter', 'number', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -15316,8 +9408,8 @@ export class FiberTexturePropsHandler implements PropsHandler<BabylonjsCoreTextu
  *
  * This code has been generated
  */
-export class FiberTexture implements HasPropsHandlers<BabylonjsCoreBaseTexture, FiberBaseTextureProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>[];
+export class FiberTexture implements HasPropsHandlers<FiberBaseTextureProps> {
+    private propsHandlers: PropsHandler<FiberBaseTextureProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -15326,11 +9418,11 @@ export class FiberTexture implements HasPropsHandlers<BabylonjsCoreBaseTexture, 
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>[] {
+    getPropsHandlers(): PropsHandler<FiberBaseTextureProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberBaseTextureProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -15402,19 +9494,11 @@ export class FiberTexture implements HasPropsHandlers<BabylonjsCoreBaseTexture, 
     };
 }
 
-export class FiberRawTexturePropsHandler implements PropsHandler<BabylonjsCoreRawTexture, FiberRawTextureProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreRawTexture, oldProps: FiberRawTextureProps, newProps: FiberRawTextureProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsCoreRawTexture.format (number):
-        if (oldProps.format !== newProps.format) {
-            updates.push({
-                propertyName: 'format',
-                value: newProps.format,
-                type: 'number'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberRawTexturePropsHandler implements PropsHandler<FiberRawTextureProps> {
+    getPropertyUpdates(oldProps: FiberRawTextureProps, newProps: FiberRawTextureProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.format, newProps.format, 'format', 'number', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -15425,8 +9509,8 @@ export class FiberRawTexturePropsHandler implements PropsHandler<BabylonjsCoreRa
  *
  * This code has been generated
  */
-export class FiberRawTexture implements HasPropsHandlers<BabylonjsCoreBaseTexture, FiberBaseTextureProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>[];
+export class FiberRawTexture implements HasPropsHandlers<FiberBaseTextureProps> {
+    private propsHandlers: PropsHandler<FiberBaseTextureProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -15436,11 +9520,11 @@ export class FiberRawTexture implements HasPropsHandlers<BabylonjsCoreBaseTextur
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>[] {
+    getPropsHandlers(): PropsHandler<FiberBaseTextureProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberBaseTextureProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -15502,139 +9586,26 @@ export class FiberRawTexture implements HasPropsHandlers<BabylonjsCoreBaseTextur
     };
 }
 
-export class FiberProceduralTexturePropsHandler implements PropsHandler<BabylonjsCoreProceduralTexture, FiberProceduralTextureProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreProceduralTexture, oldProps: FiberProceduralTextureProps, newProps: FiberProceduralTextureProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsCoreProceduralTexture.autoClear (boolean):
-        if (oldProps.autoClear !== newProps.autoClear) {
-            updates.push({
-                propertyName: 'autoClear',
-                value: newProps.autoClear,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreProceduralTexture.isCube (boolean):
-        if (oldProps.isCube !== newProps.isCube) {
-            updates.push({
-                propertyName: 'isCube',
-                value: newProps.isCube,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreProceduralTexture.isEnabled (boolean):
-        if (oldProps.isEnabled !== newProps.isEnabled) {
-            updates.push({
-                propertyName: 'isEnabled',
-                value: newProps.isEnabled,
-                type: 'boolean'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreProceduralTexture.onGenerated of type '() => void/fn':
-        if (oldProps.onGenerated === undefined && oldProps.onGenerated !== newProps.onGenerated) {
-            updates.push({
-                propertyName: 'onGenerated',
-                value: newProps.onGenerated,
-                type: '() => void'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreProceduralTexture.onGeneratedObservable of type 'BabylonjsCoreObservable<BabylonjsCoreProceduralTexture>/fn':
-        if (oldProps.onGeneratedObservable === undefined && oldProps.onGeneratedObservable !== newProps.onGeneratedObservable) {
-            updates.push({
-                propertyName: 'onGeneratedObservable',
-                value: newProps.onGeneratedObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreProceduralTexture>'
-            });
-        }
-        // BabylonjsCoreProceduralTexture.refreshRate (number):
-        if (oldProps.refreshRate !== newProps.refreshRate) {
-            updates.push({
-                propertyName: 'refreshRate',
-                value: newProps.refreshRate,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreProceduralTexture.setColor3 of type '(name?: string, value?: BabylonjsCoreColor3) => BabylonjsCoreProceduralTexture':
-        if (oldProps.setColor3 !== newProps.setColor3) {
-            updates.push({
-                propertyName: 'setColor3',
-                value: newProps.setColor3,
-                type: '(name?: string, value?: BabylonjsCoreColor3) => BabylonjsCoreProceduralTexture'
-            });
-        }
-        // BabylonjsCoreProceduralTexture.setColor4 of type '(name?: string, value?: BabylonjsCoreColor4) => BabylonjsCoreProceduralTexture':
-        if (oldProps.setColor4 !== newProps.setColor4) {
-            updates.push({
-                propertyName: 'setColor4',
-                value: newProps.setColor4,
-                type: '(name?: string, value?: BabylonjsCoreColor4) => BabylonjsCoreProceduralTexture'
-            });
-        }
-        // BabylonjsCoreProceduralTexture.setFloat of type '(name?: string, value?: number) => BabylonjsCoreProceduralTexture':
-        if (oldProps.setFloat !== newProps.setFloat) {
-            updates.push({
-                propertyName: 'setFloat',
-                value: newProps.setFloat,
-                type: '(name?: string, value?: number) => BabylonjsCoreProceduralTexture'
-            });
-        }
-        // BabylonjsCoreProceduralTexture.setFloats of type '(name?: string, value?: number[]) => BabylonjsCoreProceduralTexture':
-        if (oldProps.setFloats !== newProps.setFloats) {
-            updates.push({
-                propertyName: 'setFloats',
-                value: newProps.setFloats,
-                type: '(name?: string, value?: number[]) => BabylonjsCoreProceduralTexture'
-            });
-        }
-        // BabylonjsCoreProceduralTexture.setFragment of type '(fragment?: any) => void':
-        if (oldProps.setFragment !== newProps.setFragment) {
-            updates.push({
-                propertyName: 'setFragment',
-                value: newProps.setFragment,
-                type: '(fragment?: any) => void'
-            });
-        }
-        // BabylonjsCoreProceduralTexture.setInt of type '(name?: string, value?: number) => BabylonjsCoreProceduralTexture':
-        if (oldProps.setInt !== newProps.setInt) {
-            updates.push({
-                propertyName: 'setInt',
-                value: newProps.setInt,
-                type: '(name?: string, value?: number) => BabylonjsCoreProceduralTexture'
-            });
-        }
-        // BabylonjsCoreProceduralTexture.setMatrix of type '(name?: string, value?: BabylonjsCoreMatrix) => BabylonjsCoreProceduralTexture':
-        if (oldProps.setMatrix !== newProps.setMatrix) {
-            updates.push({
-                propertyName: 'setMatrix',
-                value: newProps.setMatrix,
-                type: '(name?: string, value?: BabylonjsCoreMatrix) => BabylonjsCoreProceduralTexture'
-            });
-        }
-        // BabylonjsCoreProceduralTexture.setTexture of type '(name?: string, texture?: BabylonjsCoreTexture) => BabylonjsCoreProceduralTexture':
-        if (oldProps.setTexture !== newProps.setTexture) {
-            updates.push({
-                propertyName: 'setTexture',
-                value: newProps.setTexture,
-                type: '(name?: string, texture?: BabylonjsCoreTexture) => BabylonjsCoreProceduralTexture'
-            });
-        }
-        // BabylonjsCoreProceduralTexture.setVector2 of type '(name?: string, value?: BabylonjsCoreVector2) => BabylonjsCoreProceduralTexture':
-        if (oldProps.setVector2 !== newProps.setVector2) {
-            updates.push({
-                propertyName: 'setVector2',
-                value: newProps.setVector2,
-                type: '(name?: string, value?: BabylonjsCoreVector2) => BabylonjsCoreProceduralTexture'
-            });
-        }
-        // BabylonjsCoreProceduralTexture.setVector3 of type '(name?: string, value?: BabylonjsCoreVector3) => BabylonjsCoreProceduralTexture':
-        if (oldProps.setVector3 !== newProps.setVector3) {
-            updates.push({
-                propertyName: 'setVector3',
-                value: newProps.setVector3,
-                type: '(name?: string, value?: BabylonjsCoreVector3) => BabylonjsCoreProceduralTexture'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberProceduralTexturePropsHandler implements PropsHandler<FiberProceduralTextureProps> {
+    getPropertyUpdates(oldProps: FiberProceduralTextureProps, newProps: FiberProceduralTextureProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.autoClear, newProps.autoClear, 'autoClear', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.isCube, newProps.isCube, 'isCube', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.isEnabled, newProps.isEnabled, 'isEnabled', 'boolean', changedProps)
+        checkLambdaDiff(oldProps.onGenerated, newProps.onGenerated, 'onGenerated', '() => void', changedProps)
+        checkObservableDiff(oldProps.onGeneratedObservable, newProps.onGeneratedObservable, 'onGeneratedObservable', 'BabylonjsCoreObservable<BabylonjsCoreProceduralTexture>', changedProps)
+        checkPrimitiveDiff(oldProps.refreshRate, newProps.refreshRate, 'refreshRate', 'number', changedProps)
+        checkMethodDiff(oldProps.setColor3, newProps.setColor3, 'setColor3', '(name?: string, value?: BabylonjsCoreColor3) => BabylonjsCoreProceduralTexture', changedProps)
+        checkMethodDiff(oldProps.setColor4, newProps.setColor4, 'setColor4', '(name?: string, value?: BabylonjsCoreColor4) => BabylonjsCoreProceduralTexture', changedProps)
+        checkMethodDiff(oldProps.setFloat, newProps.setFloat, 'setFloat', '(name?: string, value?: number) => BabylonjsCoreProceduralTexture', changedProps)
+        checkMethodDiff(oldProps.setFloats, newProps.setFloats, 'setFloats', '(name?: string, value?: number[]) => BabylonjsCoreProceduralTexture', changedProps)
+        checkMethodDiff(oldProps.setFragment, newProps.setFragment, 'setFragment', '(fragment?: any) => void', changedProps)
+        checkMethodDiff(oldProps.setInt, newProps.setInt, 'setInt', '(name?: string, value?: number) => BabylonjsCoreProceduralTexture', changedProps)
+        checkMethodDiff(oldProps.setMatrix, newProps.setMatrix, 'setMatrix', '(name?: string, value?: BabylonjsCoreMatrix) => BabylonjsCoreProceduralTexture', changedProps)
+        checkMethodDiff(oldProps.setTexture, newProps.setTexture, 'setTexture', '(name?: string, texture?: BabylonjsCoreTexture) => BabylonjsCoreProceduralTexture', changedProps)
+        checkMethodDiff(oldProps.setVector2, newProps.setVector2, 'setVector2', '(name?: string, value?: BabylonjsCoreVector2) => BabylonjsCoreProceduralTexture', changedProps)
+        checkMethodDiff(oldProps.setVector3, newProps.setVector3, 'setVector3', '(name?: string, value?: BabylonjsCoreVector3) => BabylonjsCoreProceduralTexture', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -15644,8 +9615,8 @@ export class FiberProceduralTexturePropsHandler implements PropsHandler<Babylonj
  *
  * This code has been generated
  */
-export class FiberProceduralTexture implements HasPropsHandlers<BabylonjsCoreBaseTexture, FiberBaseTextureProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>[];
+export class FiberProceduralTexture implements HasPropsHandlers<FiberBaseTextureProps> {
+    private propsHandlers: PropsHandler<FiberBaseTextureProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -15655,11 +9626,11 @@ export class FiberProceduralTexture implements HasPropsHandlers<BabylonjsCoreBas
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>[] {
+    getPropsHandlers(): PropsHandler<FiberBaseTextureProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberBaseTextureProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -15711,19 +9682,11 @@ export class FiberProceduralTexture implements HasPropsHandlers<BabylonjsCoreBas
     };
 }
 
-export class FiberCustomProceduralTexturePropsHandler implements PropsHandler<BabylonjsCoreCustomProceduralTexture, FiberCustomProceduralTextureProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreCustomProceduralTexture, oldProps: FiberCustomProceduralTextureProps, newProps: FiberCustomProceduralTextureProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsCoreCustomProceduralTexture.animate (boolean):
-        if (oldProps.animate !== newProps.animate) {
-            updates.push({
-                propertyName: 'animate',
-                value: newProps.animate,
-                type: 'boolean'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberCustomProceduralTexturePropsHandler implements PropsHandler<FiberCustomProceduralTextureProps> {
+    getPropertyUpdates(oldProps: FiberCustomProceduralTextureProps, newProps: FiberCustomProceduralTextureProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.animate, newProps.animate, 'animate', 'boolean', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -15733,8 +9696,8 @@ export class FiberCustomProceduralTexturePropsHandler implements PropsHandler<Ba
  *
  * This code has been generated
  */
-export class FiberCustomProceduralTexture implements HasPropsHandlers<BabylonjsCoreBaseTexture, FiberBaseTextureProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>[];
+export class FiberCustomProceduralTexture implements HasPropsHandlers<FiberBaseTextureProps> {
+    private propsHandlers: PropsHandler<FiberBaseTextureProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -15745,11 +9708,11 @@ export class FiberCustomProceduralTexture implements HasPropsHandlers<BabylonjsC
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>[] {
+    getPropsHandlers(): PropsHandler<FiberBaseTextureProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberBaseTextureProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -15796,43 +9759,14 @@ export class FiberCustomProceduralTexture implements HasPropsHandlers<BabylonjsC
     };
 }
 
-export class FiberNoiseProceduralTexturePropsHandler implements PropsHandler<BabylonjsCoreNoiseProceduralTexture, FiberNoiseProceduralTextureProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreNoiseProceduralTexture, oldProps: FiberNoiseProceduralTextureProps, newProps: FiberNoiseProceduralTextureProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsCoreNoiseProceduralTexture.animationSpeedFactor (number):
-        if (oldProps.animationSpeedFactor !== newProps.animationSpeedFactor) {
-            updates.push({
-                propertyName: 'animationSpeedFactor',
-                value: newProps.animationSpeedFactor,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreNoiseProceduralTexture.brightness (number):
-        if (oldProps.brightness !== newProps.brightness) {
-            updates.push({
-                propertyName: 'brightness',
-                value: newProps.brightness,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreNoiseProceduralTexture.octaves (number):
-        if (oldProps.octaves !== newProps.octaves) {
-            updates.push({
-                propertyName: 'octaves',
-                value: newProps.octaves,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreNoiseProceduralTexture.persistence (number):
-        if (oldProps.persistence !== newProps.persistence) {
-            updates.push({
-                propertyName: 'persistence',
-                value: newProps.persistence,
-                type: 'number'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberNoiseProceduralTexturePropsHandler implements PropsHandler<FiberNoiseProceduralTextureProps> {
+    getPropertyUpdates(oldProps: FiberNoiseProceduralTextureProps, newProps: FiberNoiseProceduralTextureProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.animationSpeedFactor, newProps.animationSpeedFactor, 'animationSpeedFactor', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.brightness, newProps.brightness, 'brightness', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.octaves, newProps.octaves, 'octaves', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.persistence, newProps.persistence, 'persistence', 'number', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -15841,8 +9775,8 @@ export class FiberNoiseProceduralTexturePropsHandler implements PropsHandler<Bab
  *
  * This code has been generated
  */
-export class FiberNoiseProceduralTexture implements HasPropsHandlers<BabylonjsCoreBaseTexture, FiberBaseTextureProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>[];
+export class FiberNoiseProceduralTexture implements HasPropsHandlers<FiberBaseTextureProps> {
+    private propsHandlers: PropsHandler<FiberBaseTextureProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -15853,11 +9787,11 @@ export class FiberNoiseProceduralTexture implements HasPropsHandlers<BabylonjsCo
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>[] {
+    getPropsHandlers(): PropsHandler<FiberBaseTextureProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberBaseTextureProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -15899,209 +9833,40 @@ export class FiberNoiseProceduralTexture implements HasPropsHandlers<BabylonjsCo
     };
 }
 
-export class FiberRenderTargetTexturePropsHandler implements PropsHandler<BabylonjsCoreRenderTargetTexture, FiberRenderTargetTextureProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreRenderTargetTexture, oldProps: FiberRenderTargetTextureProps, newProps: FiberRenderTargetTextureProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // TODO: type: 'BabylonjsCoreCamera' property (not coded) BabylonjsCoreRenderTargetTexture.activeCamera.
-        // BabylonjsCoreRenderTargetTexture.boundingBoxPosition (BabylonjsCoreVector3 uses object equals to find diffs):
-        if (newProps.boundingBoxPosition && (!oldProps.boundingBoxPosition || !oldProps.boundingBoxPosition.equals(newProps.boundingBoxPosition))) {
-            updates.push({
-                propertyName: 'boundingBoxPosition',
-                value: newProps.boundingBoxPosition,
-                type: 'BabylonjsCoreVector3'
-            });
-        }
-        // BabylonjsCoreRenderTargetTexture.boundingBoxSize (BabylonjsCoreVector3 uses object equals to find diffs):
-        if (newProps.boundingBoxSize && (!oldProps.boundingBoxSize || !oldProps.boundingBoxSize.equals(newProps.boundingBoxSize))) {
-            updates.push({
-                propertyName: 'boundingBoxSize',
-                value: newProps.boundingBoxSize,
-                type: 'BabylonjsCoreVector3'
-            });
-        }
-        // BabylonjsCoreRenderTargetTexture.clearColor of BabylonjsCoreColor4.  Color4.equals() not available in BabylonJS < 4:
-        if (newProps.clearColor && (!oldProps.clearColor || oldProps.clearColor.r !== newProps.clearColor.r || oldProps.clearColor.g !== newProps.clearColor.g || oldProps.clearColor.b !== newProps.clearColor.b || oldProps.clearColor.a !== newProps.clearColor.a)) {
-            updates.push({
-                propertyName: 'clearColor',
-                value: newProps.clearColor,
-                type: 'BabylonjsCoreColor4'
-            });
-        }
-        // BabylonjsCoreRenderTargetTexture.coordinatesMode (number):
-        if (oldProps.coordinatesMode !== newProps.coordinatesMode) {
-            updates.push({
-                propertyName: 'coordinatesMode',
-                value: newProps.coordinatesMode,
-                type: 'number'
-            });
-        }
-        // TODO: type: '(opaqueSubMeshes: BabylonjsCoreSmartArray<BabylonjsCoreSubMesh>, alphaTestSubMeshes: BabylonjsCoreSmartArray<BabylonjsCoreSubMesh>, transparentSubMeshes: BabylonjsCoreSmartArray<BabylonjsCoreSubMesh>, depthOnlySubMeshes: BabylonjsCoreSmartArray<BabylonjsCoreSubMesh>, beforeTransparents?: () => void) => void' property (not coded) BabylonjsCoreRenderTargetTexture.customRenderFunction.
-        // TODO: type: '(layerOrFace: number, renderList: readonly BabylonjsCoreAbstractMesh[], renderListLength: number) => BabylonjsCoreAbstractMesh[]' property (not coded) BabylonjsCoreRenderTargetTexture.getCustomRenderList.
-        // BabylonjsCoreRenderTargetTexture.ignoreCameraViewport (boolean):
-        if (oldProps.ignoreCameraViewport !== newProps.ignoreCameraViewport) {
-            updates.push({
-                propertyName: 'ignoreCameraViewport',
-                value: newProps.ignoreCameraViewport,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreRenderTargetTexture.isCube (boolean):
-        if (oldProps.isCube !== newProps.isCube) {
-            updates.push({
-                propertyName: 'isCube',
-                value: newProps.isCube,
-                type: 'boolean'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreRenderTargetTexture.onAfterRender of type '(faceIndex: number) => void/fn':
-        if (oldProps.onAfterRender === undefined && oldProps.onAfterRender !== newProps.onAfterRender) {
-            updates.push({
-                propertyName: 'onAfterRender',
-                value: newProps.onAfterRender,
-                type: '(faceIndex: number) => void'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreRenderTargetTexture.onAfterRenderObservable of type 'BabylonjsCoreObservable<number>/fn':
-        if (oldProps.onAfterRenderObservable === undefined && oldProps.onAfterRenderObservable !== newProps.onAfterRenderObservable) {
-            updates.push({
-                propertyName: 'onAfterRenderObservable',
-                value: newProps.onAfterRenderObservable,
-                type: 'BabylonjsCoreObservable<number>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreRenderTargetTexture.onAfterUnbind of type '() => void/fn':
-        if (oldProps.onAfterUnbind === undefined && oldProps.onAfterUnbind !== newProps.onAfterUnbind) {
-            updates.push({
-                propertyName: 'onAfterUnbind',
-                value: newProps.onAfterUnbind,
-                type: '() => void'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreRenderTargetTexture.onAfterUnbindObservable of type 'BabylonjsCoreObservable<BabylonjsCoreRenderTargetTexture>/fn':
-        if (oldProps.onAfterUnbindObservable === undefined && oldProps.onAfterUnbindObservable !== newProps.onAfterUnbindObservable) {
-            updates.push({
-                propertyName: 'onAfterUnbindObservable',
-                value: newProps.onAfterUnbindObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreRenderTargetTexture>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreRenderTargetTexture.onBeforeBindObservable of type 'BabylonjsCoreObservable<BabylonjsCoreRenderTargetTexture>/fn':
-        if (oldProps.onBeforeBindObservable === undefined && oldProps.onBeforeBindObservable !== newProps.onBeforeBindObservable) {
-            updates.push({
-                propertyName: 'onBeforeBindObservable',
-                value: newProps.onBeforeBindObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreRenderTargetTexture>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreRenderTargetTexture.onBeforeRender of type '(faceIndex: number) => void/fn':
-        if (oldProps.onBeforeRender === undefined && oldProps.onBeforeRender !== newProps.onBeforeRender) {
-            updates.push({
-                propertyName: 'onBeforeRender',
-                value: newProps.onBeforeRender,
-                type: '(faceIndex: number) => void'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreRenderTargetTexture.onBeforeRenderObservable of type 'BabylonjsCoreObservable<number>/fn':
-        if (oldProps.onBeforeRenderObservable === undefined && oldProps.onBeforeRenderObservable !== newProps.onBeforeRenderObservable) {
-            updates.push({
-                propertyName: 'onBeforeRenderObservable',
-                value: newProps.onBeforeRenderObservable,
-                type: 'BabylonjsCoreObservable<number>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreRenderTargetTexture.onClear of type '(Engine: BabylonjsCoreEngine) => void/fn':
-        if (oldProps.onClear === undefined && oldProps.onClear !== newProps.onClear) {
-            updates.push({
-                propertyName: 'onClear',
-                value: newProps.onClear,
-                type: '(Engine: BabylonjsCoreEngine) => void'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreRenderTargetTexture.onClearObservable of type 'BabylonjsCoreObservable<BabylonjsCoreEngine>/fn':
-        if (oldProps.onClearObservable === undefined && oldProps.onClearObservable !== newProps.onClearObservable) {
-            updates.push({
-                propertyName: 'onClearObservable',
-                value: newProps.onClearObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreEngine>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreRenderTargetTexture.onResizeObservable of type 'BabylonjsCoreObservable<BabylonjsCoreRenderTargetTexture>/fn':
-        if (oldProps.onResizeObservable === undefined && oldProps.onResizeObservable !== newProps.onResizeObservable) {
-            updates.push({
-                propertyName: 'onResizeObservable',
-                value: newProps.onResizeObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreRenderTargetTexture>'
-            });
-        }
-        // BabylonjsCoreRenderTargetTexture.refreshRate (number):
-        if (oldProps.refreshRate !== newProps.refreshRate) {
-            updates.push({
-                propertyName: 'refreshRate',
-                value: newProps.refreshRate,
-                type: 'number'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreAbstractMesh[]' property (not coded) BabylonjsCoreRenderTargetTexture.renderList.
-        // TODO: type: '(AbstractMesh: BabylonjsCoreAbstractMesh) => boolean' property (not coded) BabylonjsCoreRenderTargetTexture.renderListPredicate.
-        // BabylonjsCoreRenderTargetTexture.renderParticles (boolean):
-        if (oldProps.renderParticles !== newProps.renderParticles) {
-            updates.push({
-                propertyName: 'renderParticles',
-                value: newProps.renderParticles,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreRenderTargetTexture.renderSprites (boolean):
-        if (oldProps.renderSprites !== newProps.renderSprites) {
-            updates.push({
-                propertyName: 'renderSprites',
-                value: newProps.renderSprites,
-                type: 'boolean'
-            });
-        }
-        // TODO: type: 'any' property (not coded) BabylonjsCoreRenderTargetTexture.renderToTarget.
-        // BabylonjsCoreRenderTargetTexture.samples (number):
-        if (oldProps.samples !== newProps.samples) {
-            updates.push({
-                propertyName: 'samples',
-                value: newProps.samples,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreRenderTargetTexture.useCameraPostProcesses (boolean):
-        if (oldProps.useCameraPostProcesses !== newProps.useCameraPostProcesses) {
-            updates.push({
-                propertyName: 'useCameraPostProcesses',
-                value: newProps.useCameraPostProcesses,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreRenderTargetTexture.addPostProcess of type '(postProcess?: BabylonjsCorePostProcess) => void':
-        if (oldProps.addPostProcess !== newProps.addPostProcess) {
-            updates.push({
-                propertyName: 'addPostProcess',
-                value: newProps.addPostProcess,
-                type: '(postProcess?: BabylonjsCorePostProcess) => void'
-            });
-        }
-        // BabylonjsCoreRenderTargetTexture.setRenderingAutoClearDepthStencil of type '(renderingGroupId?: number, autoClearDepthStencil?: boolean) => void':
-        if (oldProps.setRenderingAutoClearDepthStencil !== newProps.setRenderingAutoClearDepthStencil) {
-            updates.push({
-                propertyName: 'setRenderingAutoClearDepthStencil',
-                value: newProps.setRenderingAutoClearDepthStencil,
-                type: '(renderingGroupId?: number, autoClearDepthStencil?: boolean) => void'
-            });
-        }
-        // BabylonjsCoreRenderTargetTexture.setRenderingOrder of type '(renderingGroupId?: number, opaqueSortCompareFn?: (a: BabylonjsCoreSubMesh, b: BabylonjsCoreSubMesh) => number, alphaTestSortCompareFn?: (a: BabylonjsCoreSubMesh, b: BabylonjsCoreSubMesh) => number, transparentSortCompareFn?: (a: BabylonjsCoreSubMesh, b: BabylonjsCoreSubMesh) => number) => void':
-        if (oldProps.setRenderingOrder !== newProps.setRenderingOrder) {
-            updates.push({
-                propertyName: 'setRenderingOrder',
-                value: newProps.setRenderingOrder,
-                type: '(renderingGroupId?: number, opaqueSortCompareFn?: (a: BabylonjsCoreSubMesh, b: BabylonjsCoreSubMesh) => number, alphaTestSortCompareFn?: (a: BabylonjsCoreSubMesh, b: BabylonjsCoreSubMesh) => number, transparentSortCompareFn?: (a: BabylonjsCoreSubMesh, b: BabylonjsCoreSubMesh) => number) => void'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberRenderTargetTexturePropsHandler implements PropsHandler<FiberRenderTargetTextureProps> {
+    getPropertyUpdates(oldProps: FiberRenderTargetTextureProps, newProps: FiberRenderTargetTextureProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        // type: 'BabylonjsCoreCamera' property (not coded) BabylonjsCoreRenderTargetTexture.activeCamera.
+        checkVector3Diff(oldProps.boundingBoxPosition, newProps.boundingBoxPosition, 'boundingBoxPosition', 'BabylonjsCoreVector3', changedProps)
+        checkVector3Diff(oldProps.boundingBoxSize, newProps.boundingBoxSize, 'boundingBoxSize', 'BabylonjsCoreVector3', changedProps)
+        checkColor4Diff(oldProps.clearColor, newProps.clearColor, 'clearColor', 'BabylonjsCoreColor4', changedProps)
+        checkPrimitiveDiff(oldProps.coordinatesMode, newProps.coordinatesMode, 'coordinatesMode', 'number', changedProps)
+        checkLambdaDiff(oldProps.customRenderFunction, newProps.customRenderFunction, 'customRenderFunction', '(opaqueSubMeshes: BabylonjsCoreSmartArray<BabylonjsCoreSubMesh>, alphaTestSubMeshes: BabylonjsCoreSmartArray<BabylonjsCoreSubMesh>, transparentSubMeshes: BabylonjsCoreSmartArray<BabylonjsCoreSubMesh>, depthOnlySubMeshes: BabylonjsCoreSmartArray<BabylonjsCoreSubMesh>, beforeTransparents?: () => void) => void', changedProps)
+        checkLambdaDiff(oldProps.getCustomRenderList, newProps.getCustomRenderList, 'getCustomRenderList', '(layerOrFace: number, renderList: readonly BabylonjsCoreAbstractMesh[], renderListLength: number) => BabylonjsCoreAbstractMesh[]', changedProps)
+        checkPrimitiveDiff(oldProps.ignoreCameraViewport, newProps.ignoreCameraViewport, 'ignoreCameraViewport', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.isCube, newProps.isCube, 'isCube', 'boolean', changedProps)
+        checkLambdaDiff(oldProps.onAfterRender, newProps.onAfterRender, 'onAfterRender', '(faceIndex: number) => void', changedProps)
+        checkObservableDiff(oldProps.onAfterRenderObservable, newProps.onAfterRenderObservable, 'onAfterRenderObservable', 'BabylonjsCoreObservable<number>', changedProps)
+        checkLambdaDiff(oldProps.onAfterUnbind, newProps.onAfterUnbind, 'onAfterUnbind', '() => void', changedProps)
+        checkObservableDiff(oldProps.onAfterUnbindObservable, newProps.onAfterUnbindObservable, 'onAfterUnbindObservable', 'BabylonjsCoreObservable<BabylonjsCoreRenderTargetTexture>', changedProps)
+        checkObservableDiff(oldProps.onBeforeBindObservable, newProps.onBeforeBindObservable, 'onBeforeBindObservable', 'BabylonjsCoreObservable<BabylonjsCoreRenderTargetTexture>', changedProps)
+        checkLambdaDiff(oldProps.onBeforeRender, newProps.onBeforeRender, 'onBeforeRender', '(faceIndex: number) => void', changedProps)
+        checkObservableDiff(oldProps.onBeforeRenderObservable, newProps.onBeforeRenderObservable, 'onBeforeRenderObservable', 'BabylonjsCoreObservable<number>', changedProps)
+        checkLambdaDiff(oldProps.onClear, newProps.onClear, 'onClear', '(Engine: BabylonjsCoreEngine) => void', changedProps)
+        checkObservableDiff(oldProps.onClearObservable, newProps.onClearObservable, 'onClearObservable', 'BabylonjsCoreObservable<BabylonjsCoreEngine>', changedProps)
+        checkObservableDiff(oldProps.onResizeObservable, newProps.onResizeObservable, 'onResizeObservable', 'BabylonjsCoreObservable<BabylonjsCoreRenderTargetTexture>', changedProps)
+        checkPrimitiveDiff(oldProps.refreshRate, newProps.refreshRate, 'refreshRate', 'number', changedProps)
+        // type: 'BabylonjsCoreAbstractMesh[]' property (not coded) BabylonjsCoreRenderTargetTexture.renderList.
+        checkLambdaDiff(oldProps.renderListPredicate, newProps.renderListPredicate, 'renderListPredicate', '(AbstractMesh: BabylonjsCoreAbstractMesh) => boolean', changedProps)
+        checkPrimitiveDiff(oldProps.renderParticles, newProps.renderParticles, 'renderParticles', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.renderSprites, newProps.renderSprites, 'renderSprites', 'boolean', changedProps)
+        // type: 'any' property (not coded) BabylonjsCoreRenderTargetTexture.renderToTarget.
+        checkPrimitiveDiff(oldProps.samples, newProps.samples, 'samples', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.useCameraPostProcesses, newProps.useCameraPostProcesses, 'useCameraPostProcesses', 'boolean', changedProps)
+        checkMethodDiff(oldProps.addPostProcess, newProps.addPostProcess, 'addPostProcess', '(postProcess?: BabylonjsCorePostProcess) => void', changedProps)
+        checkMethodDiff(oldProps.setRenderingAutoClearDepthStencil, newProps.setRenderingAutoClearDepthStencil, 'setRenderingAutoClearDepthStencil', '(renderingGroupId?: number, autoClearDepthStencil?: boolean) => void', changedProps)
+        checkMethodDiff(oldProps.setRenderingOrder, newProps.setRenderingOrder, 'setRenderingOrder', '(renderingGroupId?: number, opaqueSortCompareFn?: (a: BabylonjsCoreSubMesh, b: BabylonjsCoreSubMesh) => number, alphaTestSortCompareFn?: (a: BabylonjsCoreSubMesh, b: BabylonjsCoreSubMesh) => number, transparentSortCompareFn?: (a: BabylonjsCoreSubMesh, b: BabylonjsCoreSubMesh) => number) => void', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -16112,8 +9877,8 @@ export class FiberRenderTargetTexturePropsHandler implements PropsHandler<Babylo
  *
  * This code has been generated
  */
-export class FiberRenderTargetTexture implements HasPropsHandlers<BabylonjsCoreBaseTexture, FiberBaseTextureProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>[];
+export class FiberRenderTargetTexture implements HasPropsHandlers<FiberBaseTextureProps> {
+    private propsHandlers: PropsHandler<FiberBaseTextureProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -16123,11 +9888,11 @@ export class FiberRenderTargetTexture implements HasPropsHandlers<BabylonjsCoreB
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>[] {
+    getPropsHandlers(): PropsHandler<FiberBaseTextureProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberBaseTextureProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -16209,53 +9974,17 @@ export class FiberRenderTargetTexture implements HasPropsHandlers<BabylonjsCoreB
     };
 }
 
-export class FiberMirrorTexturePropsHandler implements PropsHandler<BabylonjsCoreMirrorTexture, FiberMirrorTextureProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreMirrorTexture, oldProps: FiberMirrorTextureProps, newProps: FiberMirrorTextureProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsCoreMirrorTexture.adaptiveBlurKernel (number):
-        if (oldProps.adaptiveBlurKernel !== newProps.adaptiveBlurKernel) {
-            updates.push({
-                propertyName: 'adaptiveBlurKernel',
-                value: newProps.adaptiveBlurKernel,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreMirrorTexture.blurKernel (number):
-        if (oldProps.blurKernel !== newProps.blurKernel) {
-            updates.push({
-                propertyName: 'blurKernel',
-                value: newProps.blurKernel,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreMirrorTexture.blurKernelX (number):
-        if (oldProps.blurKernelX !== newProps.blurKernelX) {
-            updates.push({
-                propertyName: 'blurKernelX',
-                value: newProps.blurKernelX,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreMirrorTexture.blurKernelY (number):
-        if (oldProps.blurKernelY !== newProps.blurKernelY) {
-            updates.push({
-                propertyName: 'blurKernelY',
-                value: newProps.blurKernelY,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreMirrorTexture.blurRatio (number):
-        if (oldProps.blurRatio !== newProps.blurRatio) {
-            updates.push({
-                propertyName: 'blurRatio',
-                value: newProps.blurRatio,
-                type: 'number'
-            });
-        }
-        // TODO: type: 'BabylonjsCorePlane' property (not coded) BabylonjsCoreMirrorTexture.mirrorPlane.
-        // TODO: type: 'any' property (not coded) BabylonjsCoreMirrorTexture.scene.
-        return updates.length === 0 ? null : updates;
+export class FiberMirrorTexturePropsHandler implements PropsHandler<FiberMirrorTextureProps> {
+    getPropertyUpdates(oldProps: FiberMirrorTextureProps, newProps: FiberMirrorTextureProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.adaptiveBlurKernel, newProps.adaptiveBlurKernel, 'adaptiveBlurKernel', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.blurKernel, newProps.blurKernel, 'blurKernel', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.blurKernelX, newProps.blurKernelX, 'blurKernelX', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.blurKernelY, newProps.blurKernelY, 'blurKernelY', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.blurRatio, newProps.blurRatio, 'blurRatio', 'number', changedProps)
+        // type: 'BabylonjsCorePlane' property (not coded) BabylonjsCoreMirrorTexture.mirrorPlane.
+        // type: 'any' property (not coded) BabylonjsCoreMirrorTexture.scene.
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -16267,8 +9996,8 @@ export class FiberMirrorTexturePropsHandler implements PropsHandler<BabylonjsCor
  *
  * This code has been generated
  */
-export class FiberMirrorTexture implements HasPropsHandlers<BabylonjsCoreBaseTexture, FiberBaseTextureProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>[];
+export class FiberMirrorTexture implements HasPropsHandlers<FiberBaseTextureProps> {
+    private propsHandlers: PropsHandler<FiberBaseTextureProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -16279,11 +10008,11 @@ export class FiberMirrorTexture implements HasPropsHandlers<BabylonjsCoreBaseTex
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>[] {
+    getPropsHandlers(): PropsHandler<FiberBaseTextureProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberBaseTextureProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -16335,35 +10064,13 @@ export class FiberMirrorTexture implements HasPropsHandlers<BabylonjsCoreBaseTex
     };
 }
 
-export class FiberMultiRenderTargetPropsHandler implements PropsHandler<BabylonjsCoreMultiRenderTarget, FiberMultiRenderTargetProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreMultiRenderTarget, oldProps: FiberMultiRenderTargetProps, newProps: FiberMultiRenderTargetProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsCoreMultiRenderTarget.samples (number):
-        if (oldProps.samples !== newProps.samples) {
-            updates.push({
-                propertyName: 'samples',
-                value: newProps.samples,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreMultiRenderTarget.wrapU (number):
-        if (oldProps.wrapU !== newProps.wrapU) {
-            updates.push({
-                propertyName: 'wrapU',
-                value: newProps.wrapU,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreMultiRenderTarget.wrapV (number):
-        if (oldProps.wrapV !== newProps.wrapV) {
-            updates.push({
-                propertyName: 'wrapV',
-                value: newProps.wrapV,
-                type: 'number'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberMultiRenderTargetPropsHandler implements PropsHandler<FiberMultiRenderTargetProps> {
+    getPropertyUpdates(oldProps: FiberMultiRenderTargetProps, newProps: FiberMultiRenderTargetProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.samples, newProps.samples, 'samples', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.wrapU, newProps.wrapU, 'wrapU', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.wrapV, newProps.wrapV, 'wrapV', 'number', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -16375,8 +10082,8 @@ export class FiberMultiRenderTargetPropsHandler implements PropsHandler<Babylonj
  *
  * This code has been generated
  */
-export class FiberMultiRenderTarget implements HasPropsHandlers<BabylonjsCoreBaseTexture, FiberBaseTextureProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>[];
+export class FiberMultiRenderTarget implements HasPropsHandlers<FiberBaseTextureProps> {
+    private propsHandlers: PropsHandler<FiberBaseTextureProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -16387,11 +10094,11 @@ export class FiberMultiRenderTarget implements HasPropsHandlers<BabylonjsCoreBas
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>[] {
+    getPropsHandlers(): PropsHandler<FiberBaseTextureProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberBaseTextureProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -16433,20 +10140,12 @@ export class FiberMultiRenderTarget implements HasPropsHandlers<BabylonjsCoreBas
     };
 }
 
-export class FiberRefractionTexturePropsHandler implements PropsHandler<BabylonjsCoreRefractionTexture, FiberRefractionTextureProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreRefractionTexture, oldProps: FiberRefractionTextureProps, newProps: FiberRefractionTextureProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsCoreRefractionTexture.depth (number):
-        if (oldProps.depth !== newProps.depth) {
-            updates.push({
-                propertyName: 'depth',
-                value: newProps.depth,
-                type: 'number'
-            });
-        }
-        // TODO: type: 'BabylonjsCorePlane' property (not coded) BabylonjsCoreRefractionTexture.refractionPlane.
-        return updates.length === 0 ? null : updates;
+export class FiberRefractionTexturePropsHandler implements PropsHandler<FiberRefractionTextureProps> {
+    getPropertyUpdates(oldProps: FiberRefractionTextureProps, newProps: FiberRefractionTextureProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.depth, newProps.depth, 'depth', 'number', changedProps)
+        // type: 'BabylonjsCorePlane' property (not coded) BabylonjsCoreRefractionTexture.refractionPlane.
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -16456,8 +10155,8 @@ export class FiberRefractionTexturePropsHandler implements PropsHandler<Babylonj
  *
  * This code has been generated
  */
-export class FiberRefractionTexture implements HasPropsHandlers<BabylonjsCoreBaseTexture, FiberBaseTextureProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>[];
+export class FiberRefractionTexture implements HasPropsHandlers<FiberBaseTextureProps> {
+    private propsHandlers: PropsHandler<FiberBaseTextureProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -16468,11 +10167,11 @@ export class FiberRefractionTexture implements HasPropsHandlers<BabylonjsCoreBas
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>[] {
+    getPropsHandlers(): PropsHandler<FiberBaseTextureProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberBaseTextureProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -16509,11 +10208,9 @@ export class FiberRefractionTexture implements HasPropsHandlers<BabylonjsCoreBas
     };
 }
 
-export class FiberMultiviewRenderTargetPropsHandler implements PropsHandler<BabylonjsCoreMultiviewRenderTarget, FiberMultiviewRenderTargetProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreMultiviewRenderTarget, oldProps: FiberMultiviewRenderTargetProps, newProps: FiberMultiviewRenderTargetProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        return updates.length === 0 ? null : updates;
+export class FiberMultiviewRenderTargetPropsHandler implements PropsHandler<FiberMultiviewRenderTargetProps> {
+    getPropertyUpdates(oldProps: FiberMultiviewRenderTargetProps, newProps: FiberMultiviewRenderTargetProps): PropertyUpdate[] | null {
+        return null; // no props to check
     }
 }
 
@@ -16522,8 +10219,8 @@ export class FiberMultiviewRenderTargetPropsHandler implements PropsHandler<Baby
  *
  * This code has been generated
  */
-export class FiberMultiviewRenderTarget implements HasPropsHandlers<BabylonjsCoreBaseTexture, FiberBaseTextureProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>[];
+export class FiberMultiviewRenderTarget implements HasPropsHandlers<FiberBaseTextureProps> {
+    private propsHandlers: PropsHandler<FiberBaseTextureProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -16534,11 +10231,11 @@ export class FiberMultiviewRenderTarget implements HasPropsHandlers<BabylonjsCor
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>[] {
+    getPropsHandlers(): PropsHandler<FiberBaseTextureProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberBaseTextureProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -16565,12 +10262,10 @@ export class FiberMultiviewRenderTarget implements HasPropsHandlers<BabylonjsCor
     };
 }
 
-export class FiberVideoTexturePropsHandler implements PropsHandler<BabylonjsCoreVideoTexture, FiberVideoTextureProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreVideoTexture, oldProps: FiberVideoTextureProps, newProps: FiberVideoTextureProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // TODO: type: 'any' property (not coded) BabylonjsCoreVideoTexture.reset.
-        return updates.length === 0 ? null : updates;
+export class FiberVideoTexturePropsHandler implements PropsHandler<FiberVideoTextureProps> {
+    getPropertyUpdates(oldProps: FiberVideoTextureProps, newProps: FiberVideoTextureProps): PropertyUpdate[] | null {
+        // skipping type: 'any' property (not coded) BabylonjsCoreVideoTexture.reset.
+        return null; // no props to check
     }
 }
 
@@ -16580,8 +10275,8 @@ export class FiberVideoTexturePropsHandler implements PropsHandler<BabylonjsCore
  *
  * This code has been generated
  */
-export class FiberVideoTexture implements HasPropsHandlers<BabylonjsCoreBaseTexture, FiberBaseTextureProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>[];
+export class FiberVideoTexture implements HasPropsHandlers<FiberBaseTextureProps> {
+    private propsHandlers: PropsHandler<FiberBaseTextureProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -16591,11 +10286,11 @@ export class FiberVideoTexture implements HasPropsHandlers<BabylonjsCoreBaseText
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>[] {
+    getPropsHandlers(): PropsHandler<FiberBaseTextureProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberBaseTextureProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -16647,11 +10342,9 @@ export class FiberVideoTexture implements HasPropsHandlers<BabylonjsCoreBaseText
     };
 }
 
-export class FiberDynamicTexturePropsHandler implements PropsHandler<BabylonjsCoreDynamicTexture, FiberDynamicTextureProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreDynamicTexture, oldProps: FiberDynamicTextureProps, newProps: FiberDynamicTextureProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        return updates.length === 0 ? null : updates;
+export class FiberDynamicTexturePropsHandler implements PropsHandler<FiberDynamicTextureProps> {
+    getPropertyUpdates(oldProps: FiberDynamicTextureProps, newProps: FiberDynamicTextureProps): PropertyUpdate[] | null {
+        return null; // no props to check
     }
 }
 
@@ -16660,8 +10353,8 @@ export class FiberDynamicTexturePropsHandler implements PropsHandler<BabylonjsCo
  *
  * This code has been generated
  */
-export class FiberDynamicTexture implements HasPropsHandlers<BabylonjsCoreBaseTexture, FiberBaseTextureProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>[];
+export class FiberDynamicTexture implements HasPropsHandlers<FiberBaseTextureProps> {
+    private propsHandlers: PropsHandler<FiberBaseTextureProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -16671,11 +10364,11 @@ export class FiberDynamicTexture implements HasPropsHandlers<BabylonjsCoreBaseTe
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>[] {
+    getPropsHandlers(): PropsHandler<FiberBaseTextureProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberBaseTextureProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -16722,172 +10415,31 @@ export class FiberDynamicTexture implements HasPropsHandlers<BabylonjsCoreBaseTe
     };
 }
 
-export class FiberAdvancedDynamicTexturePropsHandler implements PropsHandler<BabylonjsGuiAdvancedDynamicTexture, FiberAdvancedDynamicTextureProps> {
-    getPropertyUpdates(hostInstance: BabylonjsGuiAdvancedDynamicTexture, oldProps: FiberAdvancedDynamicTextureProps, newProps: FiberAdvancedDynamicTextureProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsGuiAdvancedDynamicTexture.background (string):
-        if (oldProps.background !== newProps.background) {
-            updates.push({
-                propertyName: 'background',
-                value: newProps.background,
-                type: 'string'
-            });
-        }
-        // BabylonjsGuiAdvancedDynamicTexture.clipboardData (string):
-        if (oldProps.clipboardData !== newProps.clipboardData) {
-            updates.push({
-                propertyName: 'clipboardData',
-                value: newProps.clipboardData,
-                type: 'string'
-            });
-        }
-        // TODO: type: 'BabylonjsGuiIFocusableControl' property (not coded) BabylonjsGuiAdvancedDynamicTexture.focusedControl.
-        // BabylonjsGuiAdvancedDynamicTexture.idealHeight (number):
-        if (oldProps.idealHeight !== newProps.idealHeight) {
-            updates.push({
-                propertyName: 'idealHeight',
-                value: newProps.idealHeight,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiAdvancedDynamicTexture.idealWidth (number):
-        if (oldProps.idealWidth !== newProps.idealWidth) {
-            updates.push({
-                propertyName: 'idealWidth',
-                value: newProps.idealWidth,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiAdvancedDynamicTexture.isForeground (boolean):
-        if (oldProps.isForeground !== newProps.isForeground) {
-            updates.push({
-                propertyName: 'isForeground',
-                value: newProps.isForeground,
-                type: 'boolean'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsGuiAdvancedDynamicTexture.onBeginLayoutObservable of type 'BabylonjsCoreObservable<BabylonjsGuiAdvancedDynamicTexture>/fn':
-        if (oldProps.onBeginLayoutObservable === undefined && oldProps.onBeginLayoutObservable !== newProps.onBeginLayoutObservable) {
-            updates.push({
-                propertyName: 'onBeginLayoutObservable',
-                value: newProps.onBeginLayoutObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsGuiAdvancedDynamicTexture>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsGuiAdvancedDynamicTexture.onBeginRenderObservable of type 'BabylonjsCoreObservable<BabylonjsGuiAdvancedDynamicTexture>/fn':
-        if (oldProps.onBeginRenderObservable === undefined && oldProps.onBeginRenderObservable !== newProps.onBeginRenderObservable) {
-            updates.push({
-                propertyName: 'onBeginRenderObservable',
-                value: newProps.onBeginRenderObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsGuiAdvancedDynamicTexture>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsGuiAdvancedDynamicTexture.onClipboardCopy of type 'any/fn':
-        if (oldProps.onClipboardCopy === undefined && oldProps.onClipboardCopy !== newProps.onClipboardCopy) {
-            updates.push({
-                propertyName: 'onClipboardCopy',
-                value: newProps.onClipboardCopy,
-                type: 'any'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsGuiAdvancedDynamicTexture.onClipboardCut of type 'any/fn':
-        if (oldProps.onClipboardCut === undefined && oldProps.onClipboardCut !== newProps.onClipboardCut) {
-            updates.push({
-                propertyName: 'onClipboardCut',
-                value: newProps.onClipboardCut,
-                type: 'any'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsGuiAdvancedDynamicTexture.onClipboardObservable of type 'BabylonjsCoreObservable<BabylonjsCoreClipboardInfo>/fn':
-        if (oldProps.onClipboardObservable === undefined && oldProps.onClipboardObservable !== newProps.onClipboardObservable) {
-            updates.push({
-                propertyName: 'onClipboardObservable',
-                value: newProps.onClipboardObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreClipboardInfo>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsGuiAdvancedDynamicTexture.onClipboardPaste of type 'any/fn':
-        if (oldProps.onClipboardPaste === undefined && oldProps.onClipboardPaste !== newProps.onClipboardPaste) {
-            updates.push({
-                propertyName: 'onClipboardPaste',
-                value: newProps.onClipboardPaste,
-                type: 'any'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsGuiAdvancedDynamicTexture.onControlPickedObservable of type 'BabylonjsCoreObservable<BabylonjsGuiControl>/fn':
-        if (oldProps.onControlPickedObservable === undefined && oldProps.onControlPickedObservable !== newProps.onControlPickedObservable) {
-            updates.push({
-                propertyName: 'onControlPickedObservable',
-                value: newProps.onControlPickedObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsGuiControl>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsGuiAdvancedDynamicTexture.onEndLayoutObservable of type 'BabylonjsCoreObservable<BabylonjsGuiAdvancedDynamicTexture>/fn':
-        if (oldProps.onEndLayoutObservable === undefined && oldProps.onEndLayoutObservable !== newProps.onEndLayoutObservable) {
-            updates.push({
-                propertyName: 'onEndLayoutObservable',
-                value: newProps.onEndLayoutObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsGuiAdvancedDynamicTexture>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsGuiAdvancedDynamicTexture.onEndRenderObservable of type 'BabylonjsCoreObservable<BabylonjsGuiAdvancedDynamicTexture>/fn':
-        if (oldProps.onEndRenderObservable === undefined && oldProps.onEndRenderObservable !== newProps.onEndRenderObservable) {
-            updates.push({
-                propertyName: 'onEndRenderObservable',
-                value: newProps.onEndRenderObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsGuiAdvancedDynamicTexture>'
-            });
-        }
-        // BabylonjsGuiAdvancedDynamicTexture.premulAlpha (boolean):
-        if (oldProps.premulAlpha !== newProps.premulAlpha) {
-            updates.push({
-                propertyName: 'premulAlpha',
-                value: newProps.premulAlpha,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsGuiAdvancedDynamicTexture.renderAtIdealSize (boolean):
-        if (oldProps.renderAtIdealSize !== newProps.renderAtIdealSize) {
-            updates.push({
-                propertyName: 'renderAtIdealSize',
-                value: newProps.renderAtIdealSize,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsGuiAdvancedDynamicTexture.renderScale (number):
-        if (oldProps.renderScale !== newProps.renderScale) {
-            updates.push({
-                propertyName: 'renderScale',
-                value: newProps.renderScale,
-                type: 'number'
-            });
-        }
-        // BabylonjsGuiAdvancedDynamicTexture.useInvalidateRectOptimization (boolean):
-        if (oldProps.useInvalidateRectOptimization !== newProps.useInvalidateRectOptimization) {
-            updates.push({
-                propertyName: 'useInvalidateRectOptimization',
-                value: newProps.useInvalidateRectOptimization,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsGuiAdvancedDynamicTexture.useSmallestIdeal (boolean):
-        if (oldProps.useSmallestIdeal !== newProps.useSmallestIdeal) {
-            updates.push({
-                propertyName: 'useSmallestIdeal',
-                value: newProps.useSmallestIdeal,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsGuiAdvancedDynamicTexture.addControl of type '(control?: BabylonjsGuiControl) => BabylonjsGuiAdvancedDynamicTexture':
-        if (oldProps.addControl !== newProps.addControl) {
-            updates.push({
-                propertyName: 'addControl',
-                value: newProps.addControl,
-                type: '(control?: BabylonjsGuiControl) => BabylonjsGuiAdvancedDynamicTexture'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberAdvancedDynamicTexturePropsHandler implements PropsHandler<FiberAdvancedDynamicTextureProps> {
+    getPropertyUpdates(oldProps: FiberAdvancedDynamicTextureProps, newProps: FiberAdvancedDynamicTextureProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.background, newProps.background, 'background', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.clipboardData, newProps.clipboardData, 'clipboardData', 'string', changedProps)
+        // type: 'BabylonjsGuiIFocusableControl' property (not coded) BabylonjsGuiAdvancedDynamicTexture.focusedControl.
+        checkPrimitiveDiff(oldProps.idealHeight, newProps.idealHeight, 'idealHeight', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.idealWidth, newProps.idealWidth, 'idealWidth', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.isForeground, newProps.isForeground, 'isForeground', 'boolean', changedProps)
+        checkObservableDiff(oldProps.onBeginLayoutObservable, newProps.onBeginLayoutObservable, 'onBeginLayoutObservable', 'BabylonjsCoreObservable<BabylonjsGuiAdvancedDynamicTexture>', changedProps)
+        checkObservableDiff(oldProps.onBeginRenderObservable, newProps.onBeginRenderObservable, 'onBeginRenderObservable', 'BabylonjsCoreObservable<BabylonjsGuiAdvancedDynamicTexture>', changedProps)
+        // type: 'any' property (not coded) BabylonjsGuiAdvancedDynamicTexture.onClipboardCopy.
+        // type: 'any' property (not coded) BabylonjsGuiAdvancedDynamicTexture.onClipboardCut.
+        checkObservableDiff(oldProps.onClipboardObservable, newProps.onClipboardObservable, 'onClipboardObservable', 'BabylonjsCoreObservable<BabylonjsCoreClipboardInfo>', changedProps)
+        // type: 'any' property (not coded) BabylonjsGuiAdvancedDynamicTexture.onClipboardPaste.
+        checkObservableDiff(oldProps.onControlPickedObservable, newProps.onControlPickedObservable, 'onControlPickedObservable', 'BabylonjsCoreObservable<BabylonjsGuiControl>', changedProps)
+        checkObservableDiff(oldProps.onEndLayoutObservable, newProps.onEndLayoutObservable, 'onEndLayoutObservable', 'BabylonjsCoreObservable<BabylonjsGuiAdvancedDynamicTexture>', changedProps)
+        checkObservableDiff(oldProps.onEndRenderObservable, newProps.onEndRenderObservable, 'onEndRenderObservable', 'BabylonjsCoreObservable<BabylonjsGuiAdvancedDynamicTexture>', changedProps)
+        checkPrimitiveDiff(oldProps.premulAlpha, newProps.premulAlpha, 'premulAlpha', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.renderAtIdealSize, newProps.renderAtIdealSize, 'renderAtIdealSize', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.renderScale, newProps.renderScale, 'renderScale', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.useInvalidateRectOptimization, newProps.useInvalidateRectOptimization, 'useInvalidateRectOptimization', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.useSmallestIdeal, newProps.useSmallestIdeal, 'useSmallestIdeal', 'boolean', changedProps)
+        checkMethodDiff(oldProps.addControl, newProps.addControl, 'addControl', '(control?: BabylonjsGuiControl) => BabylonjsGuiAdvancedDynamicTexture', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -16896,8 +10448,8 @@ export class FiberAdvancedDynamicTexturePropsHandler implements PropsHandler<Bab
  *
  * This code has been generated
  */
-export class FiberAdvancedDynamicTexture implements HasPropsHandlers<BabylonjsCoreBaseTexture, FiberBaseTextureProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>[];
+export class FiberAdvancedDynamicTexture implements HasPropsHandlers<FiberBaseTextureProps> {
+    private propsHandlers: PropsHandler<FiberBaseTextureProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -16908,11 +10460,11 @@ export class FiberAdvancedDynamicTexture implements HasPropsHandlers<BabylonjsCo
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>[] {
+    getPropsHandlers(): PropsHandler<FiberBaseTextureProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberBaseTextureProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -16964,8 +10516,8 @@ export class FiberAdvancedDynamicTexture implements HasPropsHandlers<BabylonjsCo
  *
  * This code has been generated
  */
-export class FiberADTForMesh implements HasPropsHandlers<BabylonjsGuiAdvancedDynamicTexture, FiberAdvancedDynamicTextureProps> {
-    private propsHandlers: PropsHandler<BabylonjsGuiAdvancedDynamicTexture, FiberAdvancedDynamicTextureProps>[];
+export class FiberADTForMesh implements HasPropsHandlers<FiberAdvancedDynamicTextureProps> {
+    private propsHandlers: PropsHandler<FiberAdvancedDynamicTextureProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -16976,11 +10528,11 @@ export class FiberADTForMesh implements HasPropsHandlers<BabylonjsGuiAdvancedDyn
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsGuiAdvancedDynamicTexture, FiberAdvancedDynamicTextureProps>[] {
+    getPropsHandlers(): PropsHandler<FiberAdvancedDynamicTextureProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsGuiAdvancedDynamicTexture, FiberAdvancedDynamicTextureProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberAdvancedDynamicTextureProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -17032,8 +10584,8 @@ export class FiberADTForMesh implements HasPropsHandlers<BabylonjsGuiAdvancedDyn
  *
  * This code has been generated
  */
-export class FiberADTFullscreenUI implements HasPropsHandlers<BabylonjsGuiAdvancedDynamicTexture, FiberAdvancedDynamicTextureProps> {
-    private propsHandlers: PropsHandler<BabylonjsGuiAdvancedDynamicTexture, FiberAdvancedDynamicTextureProps>[];
+export class FiberADTFullscreenUI implements HasPropsHandlers<FiberAdvancedDynamicTextureProps> {
+    private propsHandlers: PropsHandler<FiberAdvancedDynamicTextureProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -17044,11 +10596,11 @@ export class FiberADTFullscreenUI implements HasPropsHandlers<BabylonjsGuiAdvanc
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsGuiAdvancedDynamicTexture, FiberAdvancedDynamicTextureProps>[] {
+    getPropsHandlers(): PropsHandler<FiberAdvancedDynamicTextureProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsGuiAdvancedDynamicTexture, FiberAdvancedDynamicTextureProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberAdvancedDynamicTextureProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -17086,19 +10638,11 @@ export class FiberADTFullscreenUI implements HasPropsHandlers<BabylonjsGuiAdvanc
     };
 }
 
-export class FiberRawTexture3DPropsHandler implements PropsHandler<BabylonjsCoreRawTexture3D, FiberRawTexture3DProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreRawTexture3D, oldProps: FiberRawTexture3DProps, newProps: FiberRawTexture3DProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsCoreRawTexture3D.format (number):
-        if (oldProps.format !== newProps.format) {
-            updates.push({
-                propertyName: 'format',
-                value: newProps.format,
-                type: 'number'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberRawTexture3DPropsHandler implements PropsHandler<FiberRawTexture3DProps> {
+    getPropertyUpdates(oldProps: FiberRawTexture3DProps, newProps: FiberRawTexture3DProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.format, newProps.format, 'format', 'number', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -17107,8 +10651,8 @@ export class FiberRawTexture3DPropsHandler implements PropsHandler<BabylonjsCore
  *
  * This code has been generated
  */
-export class FiberRawTexture3D implements HasPropsHandlers<BabylonjsCoreBaseTexture, FiberBaseTextureProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>[];
+export class FiberRawTexture3D implements HasPropsHandlers<FiberBaseTextureProps> {
+    private propsHandlers: PropsHandler<FiberBaseTextureProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -17118,11 +10662,11 @@ export class FiberRawTexture3D implements HasPropsHandlers<BabylonjsCoreBaseText
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>[] {
+    getPropsHandlers(): PropsHandler<FiberBaseTextureProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberBaseTextureProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -17189,19 +10733,11 @@ export class FiberRawTexture3D implements HasPropsHandlers<BabylonjsCoreBaseText
     };
 }
 
-export class FiberRawTexture2DArrayPropsHandler implements PropsHandler<BabylonjsCoreRawTexture2DArray, FiberRawTexture2DArrayProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreRawTexture2DArray, oldProps: FiberRawTexture2DArrayProps, newProps: FiberRawTexture2DArrayProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsCoreRawTexture2DArray.format (number):
-        if (oldProps.format !== newProps.format) {
-            updates.push({
-                propertyName: 'format',
-                value: newProps.format,
-                type: 'number'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberRawTexture2DArrayPropsHandler implements PropsHandler<FiberRawTexture2DArrayProps> {
+    getPropertyUpdates(oldProps: FiberRawTexture2DArrayProps, newProps: FiberRawTexture2DArrayProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.format, newProps.format, 'format', 'number', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -17210,8 +10746,8 @@ export class FiberRawTexture2DArrayPropsHandler implements PropsHandler<Babylonj
  *
  * This code has been generated
  */
-export class FiberRawTexture2DArray implements HasPropsHandlers<BabylonjsCoreBaseTexture, FiberBaseTextureProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>[];
+export class FiberRawTexture2DArray implements HasPropsHandlers<FiberBaseTextureProps> {
+    private propsHandlers: PropsHandler<FiberBaseTextureProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -17221,11 +10757,11 @@ export class FiberRawTexture2DArray implements HasPropsHandlers<BabylonjsCoreBas
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>[] {
+    getPropsHandlers(): PropsHandler<FiberBaseTextureProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberBaseTextureProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -17292,21 +10828,13 @@ export class FiberRawTexture2DArray implements HasPropsHandlers<BabylonjsCoreBas
     };
 }
 
-export class FiberColorGradingTexturePropsHandler implements PropsHandler<BabylonjsCoreColorGradingTexture, FiberColorGradingTextureProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreColorGradingTexture, oldProps: FiberColorGradingTextureProps, newProps: FiberColorGradingTextureProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // TODO: type: 'any' property (not coded) BabylonjsCoreColorGradingTexture.load3dlTexture.
-        // TODO: type: 'any' property (not coded) BabylonjsCoreColorGradingTexture.loadTexture.
-        // BabylonjsCoreColorGradingTexture.url (string):
-        if (oldProps.url !== newProps.url) {
-            updates.push({
-                propertyName: 'url',
-                value: newProps.url,
-                type: 'string'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberColorGradingTexturePropsHandler implements PropsHandler<FiberColorGradingTextureProps> {
+    getPropertyUpdates(oldProps: FiberColorGradingTextureProps, newProps: FiberColorGradingTextureProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        // type: 'any' property (not coded) BabylonjsCoreColorGradingTexture.load3dlTexture.
+        // type: 'any' property (not coded) BabylonjsCoreColorGradingTexture.loadTexture.
+        checkPrimitiveDiff(oldProps.url, newProps.url, 'url', 'string', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -17320,8 +10848,8 @@ export class FiberColorGradingTexturePropsHandler implements PropsHandler<Babylo
  *
  * This code has been generated
  */
-export class FiberColorGradingTexture implements HasPropsHandlers<BabylonjsCoreBaseTexture, FiberBaseTextureProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>[];
+export class FiberColorGradingTexture implements HasPropsHandlers<FiberBaseTextureProps> {
+    private propsHandlers: PropsHandler<FiberBaseTextureProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -17330,11 +10858,11 @@ export class FiberColorGradingTexture implements HasPropsHandlers<BabylonjsCoreB
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>[] {
+    getPropsHandlers(): PropsHandler<FiberBaseTextureProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberBaseTextureProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -17361,30 +10889,15 @@ export class FiberColorGradingTexture implements HasPropsHandlers<BabylonjsCoreB
     };
 }
 
-export class FiberEquiRectangularCubeTexturePropsHandler implements PropsHandler<BabylonjsCoreEquiRectangularCubeTexture, FiberEquiRectangularCubeTextureProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreEquiRectangularCubeTexture, oldProps: FiberEquiRectangularCubeTextureProps, newProps: FiberEquiRectangularCubeTextureProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsCoreEquiRectangularCubeTexture.coordinatesMode (number):
-        if (oldProps.coordinatesMode !== newProps.coordinatesMode) {
-            updates.push({
-                propertyName: 'coordinatesMode',
-                value: newProps.coordinatesMode,
-                type: 'number'
-            });
-        }
-        // TODO: type: 'any' property (not coded) BabylonjsCoreEquiRectangularCubeTexture.getFloat32ArrayFromArrayBuffer.
-        // TODO: type: 'any' property (not coded) BabylonjsCoreEquiRectangularCubeTexture.loadImage.
-        // TODO: type: 'any' property (not coded) BabylonjsCoreEquiRectangularCubeTexture.loadTexture.
-        // BabylonjsCoreEquiRectangularCubeTexture.url (string):
-        if (oldProps.url !== newProps.url) {
-            updates.push({
-                propertyName: 'url',
-                value: newProps.url,
-                type: 'string'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberEquiRectangularCubeTexturePropsHandler implements PropsHandler<FiberEquiRectangularCubeTextureProps> {
+    getPropertyUpdates(oldProps: FiberEquiRectangularCubeTextureProps, newProps: FiberEquiRectangularCubeTextureProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.coordinatesMode, newProps.coordinatesMode, 'coordinatesMode', 'number', changedProps)
+        // type: 'any' property (not coded) BabylonjsCoreEquiRectangularCubeTexture.getFloat32ArrayFromArrayBuffer.
+        // type: 'any' property (not coded) BabylonjsCoreEquiRectangularCubeTexture.loadImage.
+        // type: 'any' property (not coded) BabylonjsCoreEquiRectangularCubeTexture.loadTexture.
+        checkPrimitiveDiff(oldProps.url, newProps.url, 'url', 'string', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -17393,8 +10906,8 @@ export class FiberEquiRectangularCubeTexturePropsHandler implements PropsHandler
  *
  * This code has been generated
  */
-export class FiberEquiRectangularCubeTexture implements HasPropsHandlers<BabylonjsCoreBaseTexture, FiberBaseTextureProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>[];
+export class FiberEquiRectangularCubeTexture implements HasPropsHandlers<FiberBaseTextureProps> {
+    private propsHandlers: PropsHandler<FiberBaseTextureProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -17403,11 +10916,11 @@ export class FiberEquiRectangularCubeTexture implements HasPropsHandlers<Babylon
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>[] {
+    getPropsHandlers(): PropsHandler<FiberBaseTextureProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberBaseTextureProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -17459,68 +10972,18 @@ export class FiberEquiRectangularCubeTexture implements HasPropsHandlers<Babylon
     };
 }
 
-export class FiberHDRCubeTexturePropsHandler implements PropsHandler<BabylonjsCoreHDRCubeTexture, FiberHDRCubeTextureProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreHDRCubeTexture, oldProps: FiberHDRCubeTextureProps, newProps: FiberHDRCubeTextureProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsCoreHDRCubeTexture.boundingBoxPosition (BabylonjsCoreVector3 uses object equals to find diffs):
-        if (newProps.boundingBoxPosition && (!oldProps.boundingBoxPosition || !oldProps.boundingBoxPosition.equals(newProps.boundingBoxPosition))) {
-            updates.push({
-                propertyName: 'boundingBoxPosition',
-                value: newProps.boundingBoxPosition,
-                type: 'BabylonjsCoreVector3'
-            });
-        }
-        // BabylonjsCoreHDRCubeTexture.boundingBoxSize (BabylonjsCoreVector3 uses object equals to find diffs):
-        if (newProps.boundingBoxSize && (!oldProps.boundingBoxSize || !oldProps.boundingBoxSize.equals(newProps.boundingBoxSize))) {
-            updates.push({
-                propertyName: 'boundingBoxSize',
-                value: newProps.boundingBoxSize,
-                type: 'BabylonjsCoreVector3'
-            });
-        }
-        // BabylonjsCoreHDRCubeTexture.coordinatesMode (number):
-        if (oldProps.coordinatesMode !== newProps.coordinatesMode) {
-            updates.push({
-                propertyName: 'coordinatesMode',
-                value: newProps.coordinatesMode,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreHDRCubeTexture.isBlocking (boolean):
-        if (oldProps.isBlocking !== newProps.isBlocking) {
-            updates.push({
-                propertyName: 'isBlocking',
-                value: newProps.isBlocking,
-                type: 'boolean'
-            });
-        }
-        // TODO: type: 'any' property (not coded) BabylonjsCoreHDRCubeTexture.loadTexture.
-        // BabylonjsCoreHDRCubeTexture.rotationY (number):
-        if (oldProps.rotationY !== newProps.rotationY) {
-            updates.push({
-                propertyName: 'rotationY',
-                value: newProps.rotationY,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreHDRCubeTexture.url (string):
-        if (oldProps.url !== newProps.url) {
-            updates.push({
-                propertyName: 'url',
-                value: newProps.url,
-                type: 'string'
-            });
-        }
-        // BabylonjsCoreHDRCubeTexture.setReflectionTextureMatrix of type '(value?: BabylonjsCoreMatrix) => void':
-        if (oldProps.setReflectionTextureMatrix !== newProps.setReflectionTextureMatrix) {
-            updates.push({
-                propertyName: 'setReflectionTextureMatrix',
-                value: newProps.setReflectionTextureMatrix,
-                type: '(value?: BabylonjsCoreMatrix) => void'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberHDRCubeTexturePropsHandler implements PropsHandler<FiberHDRCubeTextureProps> {
+    getPropertyUpdates(oldProps: FiberHDRCubeTextureProps, newProps: FiberHDRCubeTextureProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkVector3Diff(oldProps.boundingBoxPosition, newProps.boundingBoxPosition, 'boundingBoxPosition', 'BabylonjsCoreVector3', changedProps)
+        checkVector3Diff(oldProps.boundingBoxSize, newProps.boundingBoxSize, 'boundingBoxSize', 'BabylonjsCoreVector3', changedProps)
+        checkPrimitiveDiff(oldProps.coordinatesMode, newProps.coordinatesMode, 'coordinatesMode', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.isBlocking, newProps.isBlocking, 'isBlocking', 'boolean', changedProps)
+        // type: 'any' property (not coded) BabylonjsCoreHDRCubeTexture.loadTexture.
+        checkPrimitiveDiff(oldProps.rotationY, newProps.rotationY, 'rotationY', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.url, newProps.url, 'url', 'string', changedProps)
+        checkMethodDiff(oldProps.setReflectionTextureMatrix, newProps.setReflectionTextureMatrix, 'setReflectionTextureMatrix', '(value?: BabylonjsCoreMatrix) => void', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -17532,8 +10995,8 @@ export class FiberHDRCubeTexturePropsHandler implements PropsHandler<BabylonjsCo
  *
  * This code has been generated
  */
-export class FiberHDRCubeTexture implements HasPropsHandlers<BabylonjsCoreBaseTexture, FiberBaseTextureProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>[];
+export class FiberHDRCubeTexture implements HasPropsHandlers<FiberBaseTextureProps> {
+    private propsHandlers: PropsHandler<FiberBaseTextureProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -17542,11 +11005,11 @@ export class FiberHDRCubeTexture implements HasPropsHandlers<BabylonjsCoreBaseTe
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>[] {
+    getPropsHandlers(): PropsHandler<FiberBaseTextureProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberBaseTextureProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -17608,12 +11071,10 @@ export class FiberHDRCubeTexture implements HasPropsHandlers<BabylonjsCoreBaseTe
     };
 }
 
-export class FiberHtmlElementTexturePropsHandler implements PropsHandler<BabylonjsCoreHtmlElementTexture, FiberHtmlElementTextureProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreHtmlElementTexture, oldProps: FiberHtmlElementTextureProps, newProps: FiberHtmlElementTextureProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // TODO: type: 'HTMLVideoElement | HTMLCanvasElement' property (not coded) BabylonjsCoreHtmlElementTexture.element.
-        return updates.length === 0 ? null : updates;
+export class FiberHtmlElementTexturePropsHandler implements PropsHandler<FiberHtmlElementTextureProps> {
+    getPropertyUpdates(oldProps: FiberHtmlElementTextureProps, newProps: FiberHtmlElementTextureProps): PropertyUpdate[] | null {
+        // skipping type: 'HTMLVideoElement | HTMLCanvasElement' property (not coded) BabylonjsCoreHtmlElementTexture.element.
+        return null; // no props to check
     }
 }
 
@@ -17628,8 +11089,8 @@ export class FiberHtmlElementTexturePropsHandler implements PropsHandler<Babylon
  *
  * This code has been generated
  */
-export class FiberHtmlElementTexture implements HasPropsHandlers<BabylonjsCoreBaseTexture, FiberBaseTextureProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>[];
+export class FiberHtmlElementTexture implements HasPropsHandlers<FiberBaseTextureProps> {
+    private propsHandlers: PropsHandler<FiberBaseTextureProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -17638,11 +11099,11 @@ export class FiberHtmlElementTexture implements HasPropsHandlers<BabylonjsCoreBa
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>[] {
+    getPropsHandlers(): PropsHandler<FiberBaseTextureProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreBaseTexture, FiberBaseTextureProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberBaseTextureProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -17674,27 +11135,12 @@ export class FiberHtmlElementTexture implements HasPropsHandlers<BabylonjsCoreBa
     };
 }
 
-export class FiberGUI3DManagerPropsHandler implements PropsHandler<BabylonjsGuiGUI3DManager, FiberGUI3DManagerProps> {
-    getPropertyUpdates(hostInstance: BabylonjsGuiGUI3DManager, oldProps: FiberGUI3DManagerProps, newProps: FiberGUI3DManagerProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // xxx-ns-xxx.BabylonjsGuiGUI3DManager.onPickedPointChangedObservable of type 'BabylonjsCoreObservable<BabylonjsCoreVector3>/fn':
-        if (oldProps.onPickedPointChangedObservable === undefined && oldProps.onPickedPointChangedObservable !== newProps.onPickedPointChangedObservable) {
-            updates.push({
-                propertyName: 'onPickedPointChangedObservable',
-                value: newProps.onPickedPointChangedObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreVector3>'
-            });
-        }
-        // BabylonjsGuiGUI3DManager.addControl of type '(control?: BabylonjsGuiControl3D) => BabylonjsGuiGUI3DManager':
-        if (oldProps.addControl !== newProps.addControl) {
-            updates.push({
-                propertyName: 'addControl',
-                value: newProps.addControl,
-                type: '(control?: BabylonjsGuiControl3D) => BabylonjsGuiGUI3DManager'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberGUI3DManagerPropsHandler implements PropsHandler<FiberGUI3DManagerProps> {
+    getPropertyUpdates(oldProps: FiberGUI3DManagerProps, newProps: FiberGUI3DManagerProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkObservableDiff(oldProps.onPickedPointChangedObservable, newProps.onPickedPointChangedObservable, 'onPickedPointChangedObservable', 'BabylonjsCoreObservable<BabylonjsCoreVector3>', changedProps)
+        checkMethodDiff(oldProps.addControl, newProps.addControl, 'addControl', '(control?: BabylonjsGuiControl3D) => BabylonjsGuiGUI3DManager', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -17703,8 +11149,8 @@ export class FiberGUI3DManagerPropsHandler implements PropsHandler<BabylonjsGuiG
  *
  * This code has been generated
  */
-export class FiberGUI3DManager implements HasPropsHandlers<BabylonjsGuiGUI3DManager, FiberGUI3DManagerProps> {
-    private propsHandlers: PropsHandler<BabylonjsGuiGUI3DManager, FiberGUI3DManagerProps>[];
+export class FiberGUI3DManager implements HasPropsHandlers<FiberGUI3DManagerProps> {
+    private propsHandlers: PropsHandler<FiberGUI3DManagerProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -17712,11 +11158,11 @@ export class FiberGUI3DManager implements HasPropsHandlers<BabylonjsGuiGUI3DMana
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsGuiGUI3DManager, FiberGUI3DManagerProps>[] {
+    getPropsHandlers(): PropsHandler<FiberGUI3DManagerProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsGuiGUI3DManager, FiberGUI3DManagerProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberGUI3DManagerProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -17738,236 +11184,39 @@ export class FiberGUI3DManager implements HasPropsHandlers<BabylonjsGuiGUI3DMana
     };
 }
 
-export class FiberShadowGeneratorPropsHandler implements PropsHandler<BabylonjsCoreShadowGenerator, FiberShadowGeneratorProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreShadowGenerator, oldProps: FiberShadowGeneratorProps, newProps: FiberShadowGeneratorProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsCoreShadowGenerator.bias (number):
-        if (oldProps.bias !== newProps.bias) {
-            updates.push({
-                propertyName: 'bias',
-                value: newProps.bias,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreShadowGenerator.blurBoxOffset (number):
-        if (oldProps.blurBoxOffset !== newProps.blurBoxOffset) {
-            updates.push({
-                propertyName: 'blurBoxOffset',
-                value: newProps.blurBoxOffset,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreShadowGenerator.blurKernel (number):
-        if (oldProps.blurKernel !== newProps.blurKernel) {
-            updates.push({
-                propertyName: 'blurKernel',
-                value: newProps.blurKernel,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreShadowGenerator.blurScale (number):
-        if (oldProps.blurScale !== newProps.blurScale) {
-            updates.push({
-                propertyName: 'blurScale',
-                value: newProps.blurScale,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreShadowGenerator.contactHardeningLightSizeUVRatio (number):
-        if (oldProps.contactHardeningLightSizeUVRatio !== newProps.contactHardeningLightSizeUVRatio) {
-            updates.push({
-                propertyName: 'contactHardeningLightSizeUVRatio',
-                value: newProps.contactHardeningLightSizeUVRatio,
-                type: 'number'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreICustomShaderOptions' property (not coded) BabylonjsCoreShadowGenerator.customShaderOptions.
-        // BabylonjsCoreShadowGenerator.darkness (number):
-        if (oldProps.darkness !== newProps.darkness) {
-            updates.push({
-                propertyName: 'darkness',
-                value: newProps.darkness,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreShadowGenerator.depthScale (number):
-        if (oldProps.depthScale !== newProps.depthScale) {
-            updates.push({
-                propertyName: 'depthScale',
-                value: newProps.depthScale,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreShadowGenerator.filter (number):
-        if (oldProps.filter !== newProps.filter) {
-            updates.push({
-                propertyName: 'filter',
-                value: newProps.filter,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreShadowGenerator.filteringQuality (number):
-        if (oldProps.filteringQuality !== newProps.filteringQuality) {
-            updates.push({
-                propertyName: 'filteringQuality',
-                value: newProps.filteringQuality,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreShadowGenerator.forceBackFacesOnly (boolean):
-        if (oldProps.forceBackFacesOnly !== newProps.forceBackFacesOnly) {
-            updates.push({
-                propertyName: 'forceBackFacesOnly',
-                value: newProps.forceBackFacesOnly,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreShadowGenerator.frustumEdgeFalloff (number):
-        if (oldProps.frustumEdgeFalloff !== newProps.frustumEdgeFalloff) {
-            updates.push({
-                propertyName: 'frustumEdgeFalloff',
-                value: newProps.frustumEdgeFalloff,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreShadowGenerator.normalBias (number):
-        if (oldProps.normalBias !== newProps.normalBias) {
-            updates.push({
-                propertyName: 'normalBias',
-                value: newProps.normalBias,
-                type: 'number'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreShadowGenerator.onAfterShadowMapRenderMeshObservable of type 'BabylonjsCoreObservable<BabylonjsCoreMesh>/fn':
-        if (oldProps.onAfterShadowMapRenderMeshObservable === undefined && oldProps.onAfterShadowMapRenderMeshObservable !== newProps.onAfterShadowMapRenderMeshObservable) {
-            updates.push({
-                propertyName: 'onAfterShadowMapRenderMeshObservable',
-                value: newProps.onAfterShadowMapRenderMeshObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreMesh>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreShadowGenerator.onAfterShadowMapRenderObservable of type 'BabylonjsCoreObservable<BabylonjsCoreEffect>/fn':
-        if (oldProps.onAfterShadowMapRenderObservable === undefined && oldProps.onAfterShadowMapRenderObservable !== newProps.onAfterShadowMapRenderObservable) {
-            updates.push({
-                propertyName: 'onAfterShadowMapRenderObservable',
-                value: newProps.onAfterShadowMapRenderObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreEffect>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreShadowGenerator.onBeforeShadowMapRenderMeshObservable of type 'BabylonjsCoreObservable<BabylonjsCoreMesh>/fn':
-        if (oldProps.onBeforeShadowMapRenderMeshObservable === undefined && oldProps.onBeforeShadowMapRenderMeshObservable !== newProps.onBeforeShadowMapRenderMeshObservable) {
-            updates.push({
-                propertyName: 'onBeforeShadowMapRenderMeshObservable',
-                value: newProps.onBeforeShadowMapRenderMeshObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreMesh>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreShadowGenerator.onBeforeShadowMapRenderObservable of type 'BabylonjsCoreObservable<BabylonjsCoreEffect>/fn':
-        if (oldProps.onBeforeShadowMapRenderObservable === undefined && oldProps.onBeforeShadowMapRenderObservable !== newProps.onBeforeShadowMapRenderObservable) {
-            updates.push({
-                propertyName: 'onBeforeShadowMapRenderObservable',
-                value: newProps.onBeforeShadowMapRenderObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreEffect>'
-            });
-        }
-        // BabylonjsCoreShadowGenerator.transparencyShadow (boolean):
-        if (oldProps.transparencyShadow !== newProps.transparencyShadow) {
-            updates.push({
-                propertyName: 'transparencyShadow',
-                value: newProps.transparencyShadow,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreShadowGenerator.useBlurCloseExponentialShadowMap (boolean):
-        if (oldProps.useBlurCloseExponentialShadowMap !== newProps.useBlurCloseExponentialShadowMap) {
-            updates.push({
-                propertyName: 'useBlurCloseExponentialShadowMap',
-                value: newProps.useBlurCloseExponentialShadowMap,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreShadowGenerator.useBlurExponentialShadowMap (boolean):
-        if (oldProps.useBlurExponentialShadowMap !== newProps.useBlurExponentialShadowMap) {
-            updates.push({
-                propertyName: 'useBlurExponentialShadowMap',
-                value: newProps.useBlurExponentialShadowMap,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreShadowGenerator.useCloseExponentialShadowMap (boolean):
-        if (oldProps.useCloseExponentialShadowMap !== newProps.useCloseExponentialShadowMap) {
-            updates.push({
-                propertyName: 'useCloseExponentialShadowMap',
-                value: newProps.useCloseExponentialShadowMap,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreShadowGenerator.useContactHardeningShadow (boolean):
-        if (oldProps.useContactHardeningShadow !== newProps.useContactHardeningShadow) {
-            updates.push({
-                propertyName: 'useContactHardeningShadow',
-                value: newProps.useContactHardeningShadow,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreShadowGenerator.useExponentialShadowMap (boolean):
-        if (oldProps.useExponentialShadowMap !== newProps.useExponentialShadowMap) {
-            updates.push({
-                propertyName: 'useExponentialShadowMap',
-                value: newProps.useExponentialShadowMap,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreShadowGenerator.useKernelBlur (boolean):
-        if (oldProps.useKernelBlur !== newProps.useKernelBlur) {
-            updates.push({
-                propertyName: 'useKernelBlur',
-                value: newProps.useKernelBlur,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreShadowGenerator.usePercentageCloserFiltering (boolean):
-        if (oldProps.usePercentageCloserFiltering !== newProps.usePercentageCloserFiltering) {
-            updates.push({
-                propertyName: 'usePercentageCloserFiltering',
-                value: newProps.usePercentageCloserFiltering,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreShadowGenerator.usePoissonSampling (boolean):
-        if (oldProps.usePoissonSampling !== newProps.usePoissonSampling) {
-            updates.push({
-                propertyName: 'usePoissonSampling',
-                value: newProps.usePoissonSampling,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreShadowGenerator.addShadowCaster of type '(mesh?: BabylonjsCoreAbstractMesh, includeDescendants?: boolean) => BabylonjsCoreShadowGenerator':
-        if (oldProps.addShadowCaster !== newProps.addShadowCaster) {
-            updates.push({
-                propertyName: 'addShadowCaster',
-                value: newProps.addShadowCaster,
-                type: '(mesh?: BabylonjsCoreAbstractMesh, includeDescendants?: boolean) => BabylonjsCoreShadowGenerator'
-            });
-        }
-        // BabylonjsCoreShadowGenerator.setDarkness of type '(darkness?: number) => BabylonjsCoreShadowGenerator':
-        if (oldProps.setDarkness !== newProps.setDarkness) {
-            updates.push({
-                propertyName: 'setDarkness',
-                value: newProps.setDarkness,
-                type: '(darkness?: number) => BabylonjsCoreShadowGenerator'
-            });
-        }
-        // BabylonjsCoreShadowGenerator.setTransparencyShadow of type '(transparent?: boolean) => BabylonjsCoreShadowGenerator':
-        if (oldProps.setTransparencyShadow !== newProps.setTransparencyShadow) {
-            updates.push({
-                propertyName: 'setTransparencyShadow',
-                value: newProps.setTransparencyShadow,
-                type: '(transparent?: boolean) => BabylonjsCoreShadowGenerator'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberShadowGeneratorPropsHandler implements PropsHandler<FiberShadowGeneratorProps> {
+    getPropertyUpdates(oldProps: FiberShadowGeneratorProps, newProps: FiberShadowGeneratorProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.bias, newProps.bias, 'bias', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.blurBoxOffset, newProps.blurBoxOffset, 'blurBoxOffset', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.blurKernel, newProps.blurKernel, 'blurKernel', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.blurScale, newProps.blurScale, 'blurScale', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.contactHardeningLightSizeUVRatio, newProps.contactHardeningLightSizeUVRatio, 'contactHardeningLightSizeUVRatio', 'number', changedProps)
+        // type: 'BabylonjsCoreICustomShaderOptions' property (not coded) BabylonjsCoreShadowGenerator.customShaderOptions.
+        checkPrimitiveDiff(oldProps.darkness, newProps.darkness, 'darkness', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.depthScale, newProps.depthScale, 'depthScale', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.filter, newProps.filter, 'filter', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.filteringQuality, newProps.filteringQuality, 'filteringQuality', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.forceBackFacesOnly, newProps.forceBackFacesOnly, 'forceBackFacesOnly', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.frustumEdgeFalloff, newProps.frustumEdgeFalloff, 'frustumEdgeFalloff', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.normalBias, newProps.normalBias, 'normalBias', 'number', changedProps)
+        checkObservableDiff(oldProps.onAfterShadowMapRenderMeshObservable, newProps.onAfterShadowMapRenderMeshObservable, 'onAfterShadowMapRenderMeshObservable', 'BabylonjsCoreObservable<BabylonjsCoreMesh>', changedProps)
+        checkObservableDiff(oldProps.onAfterShadowMapRenderObservable, newProps.onAfterShadowMapRenderObservable, 'onAfterShadowMapRenderObservable', 'BabylonjsCoreObservable<BabylonjsCoreEffect>', changedProps)
+        checkObservableDiff(oldProps.onBeforeShadowMapRenderMeshObservable, newProps.onBeforeShadowMapRenderMeshObservable, 'onBeforeShadowMapRenderMeshObservable', 'BabylonjsCoreObservable<BabylonjsCoreMesh>', changedProps)
+        checkObservableDiff(oldProps.onBeforeShadowMapRenderObservable, newProps.onBeforeShadowMapRenderObservable, 'onBeforeShadowMapRenderObservable', 'BabylonjsCoreObservable<BabylonjsCoreEffect>', changedProps)
+        checkPrimitiveDiff(oldProps.transparencyShadow, newProps.transparencyShadow, 'transparencyShadow', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.useBlurCloseExponentialShadowMap, newProps.useBlurCloseExponentialShadowMap, 'useBlurCloseExponentialShadowMap', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.useBlurExponentialShadowMap, newProps.useBlurExponentialShadowMap, 'useBlurExponentialShadowMap', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.useCloseExponentialShadowMap, newProps.useCloseExponentialShadowMap, 'useCloseExponentialShadowMap', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.useContactHardeningShadow, newProps.useContactHardeningShadow, 'useContactHardeningShadow', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.useExponentialShadowMap, newProps.useExponentialShadowMap, 'useExponentialShadowMap', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.useKernelBlur, newProps.useKernelBlur, 'useKernelBlur', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.usePercentageCloserFiltering, newProps.usePercentageCloserFiltering, 'usePercentageCloserFiltering', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.usePoissonSampling, newProps.usePoissonSampling, 'usePoissonSampling', 'boolean', changedProps)
+        checkMethodDiff(oldProps.addShadowCaster, newProps.addShadowCaster, 'addShadowCaster', '(mesh?: BabylonjsCoreAbstractMesh, includeDescendants?: boolean) => BabylonjsCoreShadowGenerator', changedProps)
+        checkMethodDiff(oldProps.setDarkness, newProps.setDarkness, 'setDarkness', '(darkness?: number) => BabylonjsCoreShadowGenerator', changedProps)
+        checkMethodDiff(oldProps.setTransparencyShadow, newProps.setTransparencyShadow, 'setTransparencyShadow', '(transparent?: boolean) => BabylonjsCoreShadowGenerator', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -17978,8 +11227,8 @@ export class FiberShadowGeneratorPropsHandler implements PropsHandler<BabylonjsC
  *
  * This code has been generated
  */
-export class FiberShadowGenerator implements HasPropsHandlers<BabylonjsCoreShadowGenerator, FiberShadowGeneratorProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreShadowGenerator, FiberShadowGeneratorProps>[];
+export class FiberShadowGenerator implements HasPropsHandlers<FiberShadowGeneratorProps> {
+    private propsHandlers: PropsHandler<FiberShadowGeneratorProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -17987,11 +11236,11 @@ export class FiberShadowGenerator implements HasPropsHandlers<BabylonjsCoreShado
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreShadowGenerator, FiberShadowGeneratorProps>[] {
+    getPropsHandlers(): PropsHandler<FiberShadowGeneratorProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreShadowGenerator, FiberShadowGeneratorProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberShadowGeneratorProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -18023,27 +11272,12 @@ export class FiberShadowGenerator implements HasPropsHandlers<BabylonjsCoreShado
     };
 }
 
-export class FiberEnvironmentHelperPropsHandler implements PropsHandler<BabylonjsCoreEnvironmentHelper, FiberEnvironmentHelperProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreEnvironmentHelper, oldProps: FiberEnvironmentHelperProps, newProps: FiberEnvironmentHelperProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // xxx-ns-xxx.BabylonjsCoreEnvironmentHelper.onErrorObservable of type 'BabylonjsCoreObservable<{ message?: string; exception?: any; }>/fn':
-        if (oldProps.onErrorObservable === undefined && oldProps.onErrorObservable !== newProps.onErrorObservable) {
-            updates.push({
-                propertyName: 'onErrorObservable',
-                value: newProps.onErrorObservable,
-                type: 'BabylonjsCoreObservable<{ message?: string; exception?: any; }>'
-            });
-        }
-        // BabylonjsCoreEnvironmentHelper.setMainColor of type '(color?: BabylonjsCoreColor3) => void':
-        if (oldProps.setMainColor !== newProps.setMainColor) {
-            updates.push({
-                propertyName: 'setMainColor',
-                value: newProps.setMainColor,
-                type: '(color?: BabylonjsCoreColor3) => void'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberEnvironmentHelperPropsHandler implements PropsHandler<FiberEnvironmentHelperProps> {
+    getPropertyUpdates(oldProps: FiberEnvironmentHelperProps, newProps: FiberEnvironmentHelperProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkObservableDiff(oldProps.onErrorObservable, newProps.onErrorObservable, 'onErrorObservable', 'BabylonjsCoreObservable<{ message?: string; exception?: any; }>', changedProps)
+        checkMethodDiff(oldProps.setMainColor, newProps.setMainColor, 'setMainColor', '(color?: BabylonjsCoreColor3) => void', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -18054,8 +11288,8 @@ export class FiberEnvironmentHelperPropsHandler implements PropsHandler<Babylonj
  *
  * This code has been generated
  */
-export class FiberEnvironmentHelper implements HasPropsHandlers<BabylonjsCoreEnvironmentHelper, FiberEnvironmentHelperProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreEnvironmentHelper, FiberEnvironmentHelperProps>[];
+export class FiberEnvironmentHelper implements HasPropsHandlers<FiberEnvironmentHelperProps> {
+    private propsHandlers: PropsHandler<FiberEnvironmentHelperProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -18063,11 +11297,11 @@ export class FiberEnvironmentHelper implements HasPropsHandlers<BabylonjsCoreEnv
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreEnvironmentHelper, FiberEnvironmentHelperProps>[] {
+    getPropsHandlers(): PropsHandler<FiberEnvironmentHelperProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreEnvironmentHelper, FiberEnvironmentHelperProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberEnvironmentHelperProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -18094,192 +11328,37 @@ export class FiberEnvironmentHelper implements HasPropsHandlers<BabylonjsCoreEnv
     };
 }
 
-export class FiberPhysicsImpostorPropsHandler implements PropsHandler<BabylonjsCorePhysicsImpostor, FiberPhysicsImpostorProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCorePhysicsImpostor, oldProps: FiberPhysicsImpostorProps, newProps: FiberPhysicsImpostorProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // TODO: type: '() => void' property (not coded) BabylonjsCorePhysicsImpostor.afterStep.
-        // TODO: type: '() => void' property (not coded) BabylonjsCorePhysicsImpostor.beforeStep.
-        // BabylonjsCorePhysicsImpostor.friction (number):
-        if (oldProps.friction !== newProps.friction) {
-            updates.push({
-                propertyName: 'friction',
-                value: newProps.friction,
-                type: 'number'
-            });
-        }
-        // BabylonjsCorePhysicsImpostor.mass (number):
-        if (oldProps.mass !== newProps.mass) {
-            updates.push({
-                propertyName: 'mass',
-                value: newProps.mass,
-                type: 'number'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreIPhysicsEnabledObject' property (not coded) BabylonjsCorePhysicsImpostor.object.
-        // xxx-ns-xxx.BabylonjsCorePhysicsImpostor.onCollide of type '(e: { body: any; }) => void/fn':
-        if (oldProps.onCollide === undefined && oldProps.onCollide !== newProps.onCollide) {
-            updates.push({
-                propertyName: 'onCollide',
-                value: newProps.onCollide,
-                type: '(e: { body: any; }) => void'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCorePhysicsImpostor.onCollideEvent of type '(collider: BabylonjsCorePhysicsImpostor, collidedWith: BabylonjsCorePhysicsImpostor) => void/fn':
-        if (oldProps.onCollideEvent === undefined && oldProps.onCollideEvent !== newProps.onCollideEvent) {
-            updates.push({
-                propertyName: 'onCollideEvent',
-                value: newProps.onCollideEvent,
-                type: '(collider: BabylonjsCorePhysicsImpostor, collidedWith: BabylonjsCorePhysicsImpostor) => void'
-            });
-        }
-        // TODO: type: 'BabylonjsCorePhysicsImpostor' property (not coded) BabylonjsCorePhysicsImpostor.parent.
-        // TODO: type: 'any' property (not coded) BabylonjsCorePhysicsImpostor.physicsBody.
-        // BabylonjsCorePhysicsImpostor.positionIterations (number):
-        if (oldProps.positionIterations !== newProps.positionIterations) {
-            updates.push({
-                propertyName: 'positionIterations',
-                value: newProps.positionIterations,
-                type: 'number'
-            });
-        }
-        // BabylonjsCorePhysicsImpostor.pressure (number):
-        if (oldProps.pressure !== newProps.pressure) {
-            updates.push({
-                propertyName: 'pressure',
-                value: newProps.pressure,
-                type: 'number'
-            });
-        }
-        // BabylonjsCorePhysicsImpostor.restitution (number):
-        if (oldProps.restitution !== newProps.restitution) {
-            updates.push({
-                propertyName: 'restitution',
-                value: newProps.restitution,
-                type: 'number'
-            });
-        }
-        // BabylonjsCorePhysicsImpostor.segments (number):
-        if (oldProps.segments !== newProps.segments) {
-            updates.push({
-                propertyName: 'segments',
-                value: newProps.segments,
-                type: 'number'
-            });
-        }
-        // BabylonjsCorePhysicsImpostor.soft (boolean):
-        if (oldProps.soft !== newProps.soft) {
-            updates.push({
-                propertyName: 'soft',
-                value: newProps.soft,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCorePhysicsImpostor.stiffness (number):
-        if (oldProps.stiffness !== newProps.stiffness) {
-            updates.push({
-                propertyName: 'stiffness',
-                value: newProps.stiffness,
-                type: 'number'
-            });
-        }
-        // BabylonjsCorePhysicsImpostor.type (number):
-        if (oldProps.type !== newProps.type) {
-            updates.push({
-                propertyName: 'type',
-                value: newProps.type,
-                type: 'number'
-            });
-        }
-        // BabylonjsCorePhysicsImpostor.uniqueId (number):
-        if (oldProps.uniqueId !== newProps.uniqueId) {
-            updates.push({
-                propertyName: 'uniqueId',
-                value: newProps.uniqueId,
-                type: 'number'
-            });
-        }
-        // BabylonjsCorePhysicsImpostor.velocityIterations (number):
-        if (oldProps.velocityIterations !== newProps.velocityIterations) {
-            updates.push({
-                propertyName: 'velocityIterations',
-                value: newProps.velocityIterations,
-                type: 'number'
-            });
-        }
-        // BabylonjsCorePhysicsImpostor.addAnchor of type '(otherImpostor?: BabylonjsCorePhysicsImpostor, width?: number, height?: number, influence?: number, noCollisionBetweenLinkedBodies?: boolean) => BabylonjsCorePhysicsImpostor':
-        if (oldProps.addAnchor !== newProps.addAnchor) {
-            updates.push({
-                propertyName: 'addAnchor',
-                value: newProps.addAnchor,
-                type: '(otherImpostor?: BabylonjsCorePhysicsImpostor, width?: number, height?: number, influence?: number, noCollisionBetweenLinkedBodies?: boolean) => BabylonjsCorePhysicsImpostor'
-            });
-        }
-        // BabylonjsCorePhysicsImpostor.addHook of type '(otherImpostor?: BabylonjsCorePhysicsImpostor, length?: number, influence?: number, noCollisionBetweenLinkedBodies?: boolean) => BabylonjsCorePhysicsImpostor':
-        if (oldProps.addHook !== newProps.addHook) {
-            updates.push({
-                propertyName: 'addHook',
-                value: newProps.addHook,
-                type: '(otherImpostor?: BabylonjsCorePhysicsImpostor, length?: number, influence?: number, noCollisionBetweenLinkedBodies?: boolean) => BabylonjsCorePhysicsImpostor'
-            });
-        }
-        // BabylonjsCorePhysicsImpostor.addJoint of type '(otherImpostor?: BabylonjsCorePhysicsImpostor, joint?: BabylonjsCorePhysicsJoint) => BabylonjsCorePhysicsImpostor':
-        if (oldProps.addJoint !== newProps.addJoint) {
-            updates.push({
-                propertyName: 'addJoint',
-                value: newProps.addJoint,
-                type: '(otherImpostor?: BabylonjsCorePhysicsImpostor, joint?: BabylonjsCorePhysicsJoint) => BabylonjsCorePhysicsImpostor'
-            });
-        }
-        // BabylonjsCorePhysicsImpostor.setAngularVelocity of type '(velocity?: BabylonjsCoreVector3) => void':
-        if (oldProps.setAngularVelocity !== newProps.setAngularVelocity) {
-            updates.push({
-                propertyName: 'setAngularVelocity',
-                value: newProps.setAngularVelocity,
-                type: '(velocity?: BabylonjsCoreVector3) => void'
-            });
-        }
-        // BabylonjsCorePhysicsImpostor.setDeltaPosition of type '(position?: BabylonjsCoreVector3) => void':
-        if (oldProps.setDeltaPosition !== newProps.setDeltaPosition) {
-            updates.push({
-                propertyName: 'setDeltaPosition',
-                value: newProps.setDeltaPosition,
-                type: '(position?: BabylonjsCoreVector3) => void'
-            });
-        }
-        // BabylonjsCorePhysicsImpostor.setDeltaRotation of type '(rotation?: BabylonjsCoreQuaternion) => void':
-        if (oldProps.setDeltaRotation !== newProps.setDeltaRotation) {
-            updates.push({
-                propertyName: 'setDeltaRotation',
-                value: newProps.setDeltaRotation,
-                type: '(rotation?: BabylonjsCoreQuaternion) => void'
-            });
-        }
-        // BabylonjsCorePhysicsImpostor.setLinearVelocity of type '(velocity?: BabylonjsCoreVector3) => void':
-        if (oldProps.setLinearVelocity !== newProps.setLinearVelocity) {
-            updates.push({
-                propertyName: 'setLinearVelocity',
-                value: newProps.setLinearVelocity,
-                type: '(velocity?: BabylonjsCoreVector3) => void'
-            });
-        }
-        // BabylonjsCorePhysicsImpostor.setMass of type '(mass?: number) => void':
-        if (oldProps.setMass !== newProps.setMass) {
-            updates.push({
-                propertyName: 'setMass',
-                value: newProps.setMass,
-                type: '(mass?: number) => void'
-            });
-        }
-        // BabylonjsCorePhysicsImpostor.setParam of type '(paramName?: string, value?: number) => void':
-        if (oldProps.setParam !== newProps.setParam) {
-            updates.push({
-                propertyName: 'setParam',
-                value: newProps.setParam,
-                type: '(paramName?: string, value?: number) => void'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberPhysicsImpostorPropsHandler implements PropsHandler<FiberPhysicsImpostorProps> {
+    getPropertyUpdates(oldProps: FiberPhysicsImpostorProps, newProps: FiberPhysicsImpostorProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkLambdaDiff(oldProps.afterStep, newProps.afterStep, 'afterStep', '() => void', changedProps)
+        checkLambdaDiff(oldProps.beforeStep, newProps.beforeStep, 'beforeStep', '() => void', changedProps)
+        checkPrimitiveDiff(oldProps.friction, newProps.friction, 'friction', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.mass, newProps.mass, 'mass', 'number', changedProps)
+        // type: 'BabylonjsCoreIPhysicsEnabledObject' property (not coded) BabylonjsCorePhysicsImpostor.object.
+        checkLambdaDiff(oldProps.onCollide, newProps.onCollide, 'onCollide', '(e: { body: any; }) => void', changedProps)
+        checkLambdaDiff(oldProps.onCollideEvent, newProps.onCollideEvent, 'onCollideEvent', '(collider: BabylonjsCorePhysicsImpostor, collidedWith: BabylonjsCorePhysicsImpostor) => void', changedProps)
+        // type: 'BabylonjsCorePhysicsImpostor' property (not coded) BabylonjsCorePhysicsImpostor.parent.
+        // type: 'any' property (not coded) BabylonjsCorePhysicsImpostor.physicsBody.
+        checkPrimitiveDiff(oldProps.positionIterations, newProps.positionIterations, 'positionIterations', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.pressure, newProps.pressure, 'pressure', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.restitution, newProps.restitution, 'restitution', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.segments, newProps.segments, 'segments', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.soft, newProps.soft, 'soft', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.stiffness, newProps.stiffness, 'stiffness', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.type, newProps.type, 'type', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.uniqueId, newProps.uniqueId, 'uniqueId', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.velocityIterations, newProps.velocityIterations, 'velocityIterations', 'number', changedProps)
+        checkMethodDiff(oldProps.addAnchor, newProps.addAnchor, 'addAnchor', '(otherImpostor?: BabylonjsCorePhysicsImpostor, width?: number, height?: number, influence?: number, noCollisionBetweenLinkedBodies?: boolean) => BabylonjsCorePhysicsImpostor', changedProps)
+        checkMethodDiff(oldProps.addHook, newProps.addHook, 'addHook', '(otherImpostor?: BabylonjsCorePhysicsImpostor, length?: number, influence?: number, noCollisionBetweenLinkedBodies?: boolean) => BabylonjsCorePhysicsImpostor', changedProps)
+        checkMethodDiff(oldProps.addJoint, newProps.addJoint, 'addJoint', '(otherImpostor?: BabylonjsCorePhysicsImpostor, joint?: BabylonjsCorePhysicsJoint) => BabylonjsCorePhysicsImpostor', changedProps)
+        checkMethodDiff(oldProps.setAngularVelocity, newProps.setAngularVelocity, 'setAngularVelocity', '(velocity?: BabylonjsCoreVector3) => void', changedProps)
+        checkMethodDiff(oldProps.setDeltaPosition, newProps.setDeltaPosition, 'setDeltaPosition', '(position?: BabylonjsCoreVector3) => void', changedProps)
+        checkMethodDiff(oldProps.setDeltaRotation, newProps.setDeltaRotation, 'setDeltaRotation', '(rotation?: BabylonjsCoreQuaternion) => void', changedProps)
+        checkMethodDiff(oldProps.setLinearVelocity, newProps.setLinearVelocity, 'setLinearVelocity', '(velocity?: BabylonjsCoreVector3) => void', changedProps)
+        checkMethodDiff(oldProps.setMass, newProps.setMass, 'setMass', '(mass?: number) => void', changedProps)
+        checkMethodDiff(oldProps.setParam, newProps.setParam, 'setParam', '(paramName?: string, value?: number) => void', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -18288,8 +11367,8 @@ export class FiberPhysicsImpostorPropsHandler implements PropsHandler<BabylonjsC
  *
  * This code has been generated
  */
-export class FiberPhysicsImpostor implements HasPropsHandlers<BabylonjsCorePhysicsImpostor, FiberPhysicsImpostorProps> {
-    private propsHandlers: PropsHandler<BabylonjsCorePhysicsImpostor, FiberPhysicsImpostorProps>[];
+export class FiberPhysicsImpostor implements HasPropsHandlers<FiberPhysicsImpostorProps> {
+    private propsHandlers: PropsHandler<FiberPhysicsImpostorProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -18297,11 +11376,11 @@ export class FiberPhysicsImpostor implements HasPropsHandlers<BabylonjsCorePhysi
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCorePhysicsImpostor, FiberPhysicsImpostorProps>[] {
+    getPropsHandlers(): PropsHandler<FiberPhysicsImpostorProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCorePhysicsImpostor, FiberPhysicsImpostorProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberPhysicsImpostorProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -18338,238 +11417,48 @@ export class FiberPhysicsImpostor implements HasPropsHandlers<BabylonjsCorePhysi
     };
 }
 
-export class FiberVRExperienceHelperPropsHandler implements PropsHandler<BabylonjsCoreVRExperienceHelper, FiberVRExperienceHelperProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreVRExperienceHelper, oldProps: FiberVRExperienceHelperProps, newProps: FiberVRExperienceHelperProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // TODO: type: 'any' property (not coded) BabylonjsCoreVRExperienceHelper.beforeRender.
-        // TODO: type: 'any' property (not coded) BabylonjsCoreVRExperienceHelper.completeVRInit.
-        // BabylonjsCoreVRExperienceHelper.displayGaze (boolean):
-        if (oldProps.displayGaze !== newProps.displayGaze) {
-            updates.push({
-                propertyName: 'displayGaze',
-                value: newProps.displayGaze,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreVRExperienceHelper.displayLaserPointer (boolean):
-        if (oldProps.displayLaserPointer !== newProps.displayLaserPointer) {
-            updates.push({
-                propertyName: 'displayLaserPointer',
-                value: newProps.displayLaserPointer,
-                type: 'boolean'
-            });
-        }
-        // TODO: type: 'any' property (not coded) BabylonjsCoreVRExperienceHelper.displayVRButton.
-        // BabylonjsCoreVRExperienceHelper.enableGazeEvenWhenNoPointerLock (boolean):
-        if (oldProps.enableGazeEvenWhenNoPointerLock !== newProps.enableGazeEvenWhenNoPointerLock) {
-            updates.push({
-                propertyName: 'enableGazeEvenWhenNoPointerLock',
-                value: newProps.enableGazeEvenWhenNoPointerLock,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreVRExperienceHelper.exitVROnDoubleTap (boolean):
-        if (oldProps.exitVROnDoubleTap !== newProps.exitVROnDoubleTap) {
-            updates.push({
-                propertyName: 'exitVROnDoubleTap',
-                value: newProps.exitVROnDoubleTap,
-                type: 'boolean'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreMesh' property (not coded) BabylonjsCoreVRExperienceHelper.gazeTrackerMesh.
-        // TODO: type: '(mesh: BabylonjsCoreAbstractMesh) => boolean' property (not coded) BabylonjsCoreVRExperienceHelper.meshSelectionPredicate.
-        // TODO: type: 'any' property (not coded) BabylonjsCoreVRExperienceHelper.moveButtonToBottomRight.
-        // xxx-ns-xxx.BabylonjsCoreVRExperienceHelper.onAfterCameraTeleport of type 'BabylonjsCoreObservable<BabylonjsCoreVector3>/fn':
-        if (oldProps.onAfterCameraTeleport === undefined && oldProps.onAfterCameraTeleport !== newProps.onAfterCameraTeleport) {
-            updates.push({
-                propertyName: 'onAfterCameraTeleport',
-                value: newProps.onAfterCameraTeleport,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreVector3>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreVRExperienceHelper.onAfterEnteringVRObservable of type 'BabylonjsCoreObservable<BabylonjsCoreOnAfterEnteringVRObservableEvent>/fn':
-        if (oldProps.onAfterEnteringVRObservable === undefined && oldProps.onAfterEnteringVRObservable !== newProps.onAfterEnteringVRObservable) {
-            updates.push({
-                propertyName: 'onAfterEnteringVRObservable',
-                value: newProps.onAfterEnteringVRObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreOnAfterEnteringVRObservableEvent>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreVRExperienceHelper.onBeforeCameraTeleport of type 'BabylonjsCoreObservable<BabylonjsCoreVector3>/fn':
-        if (oldProps.onBeforeCameraTeleport === undefined && oldProps.onBeforeCameraTeleport !== newProps.onBeforeCameraTeleport) {
-            updates.push({
-                propertyName: 'onBeforeCameraTeleport',
-                value: newProps.onBeforeCameraTeleport,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreVector3>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreVRExperienceHelper.onControllerMeshLoadedObservable of type 'BabylonjsCoreObservable<BabylonjsCoreWebVRController>/fn':
-        if (oldProps.onControllerMeshLoadedObservable === undefined && oldProps.onControllerMeshLoadedObservable !== newProps.onControllerMeshLoadedObservable) {
-            updates.push({
-                propertyName: 'onControllerMeshLoadedObservable',
-                value: newProps.onControllerMeshLoadedObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreWebVRController>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreVRExperienceHelper.onEnteringVRObservable of type 'BabylonjsCoreObservable<BabylonjsCoreVRExperienceHelper>/fn':
-        if (oldProps.onEnteringVRObservable === undefined && oldProps.onEnteringVRObservable !== newProps.onEnteringVRObservable) {
-            updates.push({
-                propertyName: 'onEnteringVRObservable',
-                value: newProps.onEnteringVRObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreVRExperienceHelper>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreVRExperienceHelper.onExitingVRObservable of type 'BabylonjsCoreObservable<BabylonjsCoreVRExperienceHelper>/fn':
-        if (oldProps.onExitingVRObservable === undefined && oldProps.onExitingVRObservable !== newProps.onExitingVRObservable) {
-            updates.push({
-                propertyName: 'onExitingVRObservable',
-                value: newProps.onExitingVRObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreVRExperienceHelper>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreVRExperienceHelper.onMeshSelectedWithController of type 'BabylonjsCoreObservable<{ mesh: BabylonjsCoreAbstractMesh; controller: BabylonjsCoreWebVRController; }>/fn':
-        if (oldProps.onMeshSelectedWithController === undefined && oldProps.onMeshSelectedWithController !== newProps.onMeshSelectedWithController) {
-            updates.push({
-                propertyName: 'onMeshSelectedWithController',
-                value: newProps.onMeshSelectedWithController,
-                type: 'BabylonjsCoreObservable<{ mesh: BabylonjsCoreAbstractMesh; controller: BabylonjsCoreWebVRController; }>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreVRExperienceHelper.onNewMeshPicked of type 'BabylonjsCoreObservable<BabylonjsCorePickingInfo>/fn':
-        if (oldProps.onNewMeshPicked === undefined && oldProps.onNewMeshPicked !== newProps.onNewMeshPicked) {
-            updates.push({
-                propertyName: 'onNewMeshPicked',
-                value: newProps.onNewMeshPicked,
-                type: 'BabylonjsCoreObservable<BabylonjsCorePickingInfo>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreVRExperienceHelper.onNewMeshSelected of type 'BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>/fn':
-        if (oldProps.onNewMeshSelected === undefined && oldProps.onNewMeshSelected !== newProps.onNewMeshSelected) {
-            updates.push({
-                propertyName: 'onNewMeshSelected',
-                value: newProps.onNewMeshSelected,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreVRExperienceHelper.onSelectedMeshUnselected of type 'BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>/fn':
-        if (oldProps.onSelectedMeshUnselected === undefined && oldProps.onSelectedMeshUnselected !== newProps.onSelectedMeshUnselected) {
-            updates.push({
-                propertyName: 'onSelectedMeshUnselected',
-                value: newProps.onSelectedMeshUnselected,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreVRExperienceHelper.onVRDisplayChanged of type 'any/fn':
-        if (oldProps.onVRDisplayChanged === undefined && oldProps.onVRDisplayChanged !== newProps.onVRDisplayChanged) {
-            updates.push({
-                propertyName: 'onVRDisplayChanged',
-                value: newProps.onVRDisplayChanged,
-                type: 'any'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreVRExperienceHelper.onVrDisplayPresentChange of type 'any/fn':
-        if (oldProps.onVrDisplayPresentChange === undefined && oldProps.onVrDisplayPresentChange !== newProps.onVrDisplayPresentChange) {
-            updates.push({
-                propertyName: 'onVrDisplayPresentChange',
-                value: newProps.onVrDisplayPresentChange,
-                type: 'any'
-            });
-        }
-        // BabylonjsCoreVRExperienceHelper.position (BabylonjsCoreVector3 uses object equals to find diffs):
-        if (newProps.position && (!oldProps.position || !oldProps.position.equals(newProps.position))) {
-            updates.push({
-                propertyName: 'position',
-                value: newProps.position,
-                type: 'BabylonjsCoreVector3'
-            });
-        }
-        // TODO: type: '(mesh: BabylonjsCoreAbstractMesh) => boolean' property (not coded) BabylonjsCoreVRExperienceHelper.raySelectionPredicate.
-        // BabylonjsCoreVRExperienceHelper.requestPointerLockOnFullScreen (boolean):
-        if (oldProps.requestPointerLockOnFullScreen !== newProps.requestPointerLockOnFullScreen) {
-            updates.push({
-                propertyName: 'requestPointerLockOnFullScreen',
-                value: newProps.requestPointerLockOnFullScreen,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreVRExperienceHelper.teleportationEnabled (boolean):
-        if (oldProps.teleportationEnabled !== newProps.teleportationEnabled) {
-            updates.push({
-                propertyName: 'teleportationEnabled',
-                value: newProps.teleportationEnabled,
-                type: 'boolean'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreMesh' property (not coded) BabylonjsCoreVRExperienceHelper.teleportationTarget.
-        // TODO: type: 'any' property (not coded) BabylonjsCoreVRExperienceHelper.updateButtonVisibility.
-        // BabylonjsCoreVRExperienceHelper.updateControllerLaserColor (boolean):
-        if (oldProps.updateControllerLaserColor !== newProps.updateControllerLaserColor) {
-            updates.push({
-                propertyName: 'updateControllerLaserColor',
-                value: newProps.updateControllerLaserColor,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreVRExperienceHelper.updateGazeTrackerColor (boolean):
-        if (oldProps.updateGazeTrackerColor !== newProps.updateGazeTrackerColor) {
-            updates.push({
-                propertyName: 'updateGazeTrackerColor',
-                value: newProps.updateGazeTrackerColor,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreVRExperienceHelper.updateGazeTrackerScale (boolean):
-        if (oldProps.updateGazeTrackerScale !== newProps.updateGazeTrackerScale) {
-            updates.push({
-                propertyName: 'updateGazeTrackerScale',
-                value: newProps.updateGazeTrackerScale,
-                type: 'boolean'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreVRExperienceHelperOptions' property (not coded) BabylonjsCoreVRExperienceHelper.webVROptions.
-        // TODO: type: 'BabylonjsCoreWebXRDefaultExperience' property (not coded) BabylonjsCoreVRExperienceHelper.xr.
-        // BabylonjsCoreVRExperienceHelper.xrTestDone (boolean):
-        if (oldProps.xrTestDone !== newProps.xrTestDone) {
-            updates.push({
-                propertyName: 'xrTestDone',
-                value: newProps.xrTestDone,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreVRExperienceHelper.addFloorMesh of type '(floorMesh?: BabylonjsCoreMesh) => void':
-        if (oldProps.addFloorMesh !== newProps.addFloorMesh) {
-            updates.push({
-                propertyName: 'addFloorMesh',
-                value: newProps.addFloorMesh,
-                type: '(floorMesh?: BabylonjsCoreMesh) => void'
-            });
-        }
-        // BabylonjsCoreVRExperienceHelper.setGazeColor of type '(color?: BabylonjsCoreColor3, pickedColor?: BabylonjsCoreColor3) => void':
-        if (oldProps.setGazeColor !== newProps.setGazeColor) {
-            updates.push({
-                propertyName: 'setGazeColor',
-                value: newProps.setGazeColor,
-                type: '(color?: BabylonjsCoreColor3, pickedColor?: BabylonjsCoreColor3) => void'
-            });
-        }
-        // BabylonjsCoreVRExperienceHelper.setLaserColor of type '(color?: BabylonjsCoreColor3, pickedColor?: BabylonjsCoreColor3) => void':
-        if (oldProps.setLaserColor !== newProps.setLaserColor) {
-            updates.push({
-                propertyName: 'setLaserColor',
-                value: newProps.setLaserColor,
-                type: '(color?: BabylonjsCoreColor3, pickedColor?: BabylonjsCoreColor3) => void'
-            });
-        }
-        // BabylonjsCoreVRExperienceHelper.setLaserLightingState of type '(enabled?: boolean) => void':
-        if (oldProps.setLaserLightingState !== newProps.setLaserLightingState) {
-            updates.push({
-                propertyName: 'setLaserLightingState',
-                value: newProps.setLaserLightingState,
-                type: '(enabled?: boolean) => void'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberVRExperienceHelperPropsHandler implements PropsHandler<FiberVRExperienceHelperProps> {
+    getPropertyUpdates(oldProps: FiberVRExperienceHelperProps, newProps: FiberVRExperienceHelperProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        // type: 'any' property (not coded) BabylonjsCoreVRExperienceHelper.beforeRender.
+        // type: 'any' property (not coded) BabylonjsCoreVRExperienceHelper.completeVRInit.
+        checkPrimitiveDiff(oldProps.displayGaze, newProps.displayGaze, 'displayGaze', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.displayLaserPointer, newProps.displayLaserPointer, 'displayLaserPointer', 'boolean', changedProps)
+        // type: 'any' property (not coded) BabylonjsCoreVRExperienceHelper.displayVRButton.
+        checkPrimitiveDiff(oldProps.enableGazeEvenWhenNoPointerLock, newProps.enableGazeEvenWhenNoPointerLock, 'enableGazeEvenWhenNoPointerLock', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.exitVROnDoubleTap, newProps.exitVROnDoubleTap, 'exitVROnDoubleTap', 'boolean', changedProps)
+        // type: 'BabylonjsCoreMesh' property (not coded) BabylonjsCoreVRExperienceHelper.gazeTrackerMesh.
+        checkLambdaDiff(oldProps.meshSelectionPredicate, newProps.meshSelectionPredicate, 'meshSelectionPredicate', '(mesh: BabylonjsCoreAbstractMesh) => boolean', changedProps)
+        // type: 'any' property (not coded) BabylonjsCoreVRExperienceHelper.moveButtonToBottomRight.
+        checkObservableDiff(oldProps.onAfterCameraTeleport, newProps.onAfterCameraTeleport, 'onAfterCameraTeleport', 'BabylonjsCoreObservable<BabylonjsCoreVector3>', changedProps)
+        checkObservableDiff(oldProps.onAfterEnteringVRObservable, newProps.onAfterEnteringVRObservable, 'onAfterEnteringVRObservable', 'BabylonjsCoreObservable<BabylonjsCoreOnAfterEnteringVRObservableEvent>', changedProps)
+        checkObservableDiff(oldProps.onBeforeCameraTeleport, newProps.onBeforeCameraTeleport, 'onBeforeCameraTeleport', 'BabylonjsCoreObservable<BabylonjsCoreVector3>', changedProps)
+        checkObservableDiff(oldProps.onControllerMeshLoadedObservable, newProps.onControllerMeshLoadedObservable, 'onControllerMeshLoadedObservable', 'BabylonjsCoreObservable<BabylonjsCoreWebVRController>', changedProps)
+        checkObservableDiff(oldProps.onEnteringVRObservable, newProps.onEnteringVRObservable, 'onEnteringVRObservable', 'BabylonjsCoreObservable<BabylonjsCoreVRExperienceHelper>', changedProps)
+        checkObservableDiff(oldProps.onExitingVRObservable, newProps.onExitingVRObservable, 'onExitingVRObservable', 'BabylonjsCoreObservable<BabylonjsCoreVRExperienceHelper>', changedProps)
+        checkObservableDiff(oldProps.onMeshSelectedWithController, newProps.onMeshSelectedWithController, 'onMeshSelectedWithController', 'BabylonjsCoreObservable<{ mesh: BabylonjsCoreAbstractMesh; controller: BabylonjsCoreWebVRController; }>', changedProps)
+        checkObservableDiff(oldProps.onNewMeshPicked, newProps.onNewMeshPicked, 'onNewMeshPicked', 'BabylonjsCoreObservable<BabylonjsCorePickingInfo>', changedProps)
+        checkObservableDiff(oldProps.onNewMeshSelected, newProps.onNewMeshSelected, 'onNewMeshSelected', 'BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>', changedProps)
+        checkObservableDiff(oldProps.onSelectedMeshUnselected, newProps.onSelectedMeshUnselected, 'onSelectedMeshUnselected', 'BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>', changedProps)
+        // type: 'any' property (not coded) BabylonjsCoreVRExperienceHelper.onVRDisplayChanged.
+        // type: 'any' property (not coded) BabylonjsCoreVRExperienceHelper.onVrDisplayPresentChange.
+        checkVector3Diff(oldProps.position, newProps.position, 'position', 'BabylonjsCoreVector3', changedProps)
+        checkLambdaDiff(oldProps.raySelectionPredicate, newProps.raySelectionPredicate, 'raySelectionPredicate', '(mesh: BabylonjsCoreAbstractMesh) => boolean', changedProps)
+        checkPrimitiveDiff(oldProps.requestPointerLockOnFullScreen, newProps.requestPointerLockOnFullScreen, 'requestPointerLockOnFullScreen', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.teleportationEnabled, newProps.teleportationEnabled, 'teleportationEnabled', 'boolean', changedProps)
+        // type: 'BabylonjsCoreMesh' property (not coded) BabylonjsCoreVRExperienceHelper.teleportationTarget.
+        // type: 'any' property (not coded) BabylonjsCoreVRExperienceHelper.updateButtonVisibility.
+        checkPrimitiveDiff(oldProps.updateControllerLaserColor, newProps.updateControllerLaserColor, 'updateControllerLaserColor', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.updateGazeTrackerColor, newProps.updateGazeTrackerColor, 'updateGazeTrackerColor', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.updateGazeTrackerScale, newProps.updateGazeTrackerScale, 'updateGazeTrackerScale', 'boolean', changedProps)
+        // type: 'BabylonjsCoreVRExperienceHelperOptions' property (not coded) BabylonjsCoreVRExperienceHelper.webVROptions.
+        // type: 'BabylonjsCoreWebXRDefaultExperience' property (not coded) BabylonjsCoreVRExperienceHelper.xr.
+        checkPrimitiveDiff(oldProps.xrTestDone, newProps.xrTestDone, 'xrTestDone', 'boolean', changedProps)
+        checkMethodDiff(oldProps.addFloorMesh, newProps.addFloorMesh, 'addFloorMesh', '(floorMesh?: BabylonjsCoreMesh) => void', changedProps)
+        checkMethodDiff(oldProps.setGazeColor, newProps.setGazeColor, 'setGazeColor', '(color?: BabylonjsCoreColor3, pickedColor?: BabylonjsCoreColor3) => void', changedProps)
+        checkMethodDiff(oldProps.setLaserColor, newProps.setLaserColor, 'setLaserColor', '(color?: BabylonjsCoreColor3, pickedColor?: BabylonjsCoreColor3) => void', changedProps)
+        checkMethodDiff(oldProps.setLaserLightingState, newProps.setLaserLightingState, 'setLaserLightingState', '(enabled?: boolean) => void', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -18579,8 +11468,8 @@ export class FiberVRExperienceHelperPropsHandler implements PropsHandler<Babylon
  *
  * This code has been generated
  */
-export class FiberVRExperienceHelper implements HasPropsHandlers<BabylonjsCoreVRExperienceHelper, FiberVRExperienceHelperProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreVRExperienceHelper, FiberVRExperienceHelperProps>[];
+export class FiberVRExperienceHelper implements HasPropsHandlers<FiberVRExperienceHelperProps> {
+    private propsHandlers: PropsHandler<FiberVRExperienceHelperProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -18588,11 +11477,11 @@ export class FiberVRExperienceHelper implements HasPropsHandlers<BabylonjsCoreVR
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreVRExperienceHelper, FiberVRExperienceHelperProps>[] {
+    getPropsHandlers(): PropsHandler<FiberVRExperienceHelperProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreVRExperienceHelper, FiberVRExperienceHelperProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberVRExperienceHelperProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -18618,161 +11507,41 @@ export class FiberVRExperienceHelper implements HasPropsHandlers<BabylonjsCoreVR
     };
 }
 
-export class FiberDynamicTerrainPropsHandler implements PropsHandler<ExtensionsDynamicTerrain, FiberDynamicTerrainProps> {
-    getPropertyUpdates(hostInstance: ExtensionsDynamicTerrain, oldProps: FiberDynamicTerrainProps, newProps: FiberDynamicTerrainProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // TODO: type: 'BabylonjsCoreCamera' property (not coded) ExtensionsDynamicTerrain.camera.
-        // ExtensionsDynamicTerrain.cameraLODCorrection (number):
-        if (oldProps.cameraLODCorrection !== newProps.cameraLODCorrection) {
-            updates.push({
-                propertyName: 'cameraLODCorrection',
-                value: newProps.cameraLODCorrection,
-                type: 'number'
-            });
-        }
-        // ExtensionsDynamicTerrain.computeNormals (boolean):
-        if (oldProps.computeNormals !== newProps.computeNormals) {
-            updates.push({
-                propertyName: 'computeNormals',
-                value: newProps.computeNormals,
-                type: 'boolean'
-            });
-        }
-        // ExtensionsDynamicTerrain.initialLOD (number):
-        if (oldProps.initialLOD !== newProps.initialLOD) {
-            updates.push({
-                propertyName: 'initialLOD',
-                value: newProps.initialLOD,
-                type: 'number'
-            });
-        }
-        // ExtensionsDynamicTerrain.isAlwaysVisible (boolean):
-        if (oldProps.isAlwaysVisible !== newProps.isAlwaysVisible) {
-            updates.push({
-                propertyName: 'isAlwaysVisible',
-                value: newProps.isAlwaysVisible,
-                type: 'boolean'
-            });
-        }
-        // ExtensionsDynamicTerrain.LODLimits (number[]) (just length - missing loop + indexOf comparison):
-        if (newProps.LODLimits && (!oldProps.LODLimits || oldProps.LODLimits.length !== newProps.LODLimits.length)) {
-            updates.push({
-                propertyName: 'LODLimits',
-                value: newProps.LODLimits,
-                type: 'number[]'
-            });
-        }
-        // ExtensionsDynamicTerrain.LODNegativeX (boolean):
-        if (oldProps.LODNegativeX !== newProps.LODNegativeX) {
-            updates.push({
-                propertyName: 'LODNegativeX',
-                value: newProps.LODNegativeX,
-                type: 'boolean'
-            });
-        }
-        // ExtensionsDynamicTerrain.LODNegativeZ (boolean):
-        if (oldProps.LODNegativeZ !== newProps.LODNegativeZ) {
-            updates.push({
-                propertyName: 'LODNegativeZ',
-                value: newProps.LODNegativeZ,
-                type: 'boolean'
-            });
-        }
-        // ExtensionsDynamicTerrain.LODPositiveX (boolean):
-        if (oldProps.LODPositiveX !== newProps.LODPositiveX) {
-            updates.push({
-                propertyName: 'LODPositiveX',
-                value: newProps.LODPositiveX,
-                type: 'boolean'
-            });
-        }
-        // ExtensionsDynamicTerrain.LODPositiveZ (boolean):
-        if (oldProps.LODPositiveZ !== newProps.LODPositiveZ) {
-            updates.push({
-                propertyName: 'LODPositiveZ',
-                value: newProps.LODPositiveZ,
-                type: 'boolean'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreFloatArray' property (not coded) ExtensionsDynamicTerrain.mapColors.
-        // TODO: type: 'BabylonjsCoreFloatArray' property (not coded) ExtensionsDynamicTerrain.mapData.
-        // TODO: type: 'BabylonjsCoreFloatArray' property (not coded) ExtensionsDynamicTerrain.mapNormals.
-        // ExtensionsDynamicTerrain.mapSubX (number):
-        if (oldProps.mapSubX !== newProps.mapSubX) {
-            updates.push({
-                propertyName: 'mapSubX',
-                value: newProps.mapSubX,
-                type: 'number'
-            });
-        }
-        // ExtensionsDynamicTerrain.mapSubZ (number):
-        if (oldProps.mapSubZ !== newProps.mapSubZ) {
-            updates.push({
-                propertyName: 'mapSubZ',
-                value: newProps.mapSubZ,
-                type: 'number'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreFloatArray' property (not coded) ExtensionsDynamicTerrain.mapUVs.
-        // ExtensionsDynamicTerrain.name (string):
-        if (oldProps.name !== newProps.name) {
-            updates.push({
-                propertyName: 'name',
-                value: newProps.name,
-                type: 'string'
-            });
-        }
-        // ExtensionsDynamicTerrain.precomputeNormalsFromMap (boolean):
-        if (oldProps.precomputeNormalsFromMap !== newProps.precomputeNormalsFromMap) {
-            updates.push({
-                propertyName: 'precomputeNormalsFromMap',
-                value: newProps.precomputeNormalsFromMap,
-                type: 'boolean'
-            });
-        }
-        // ExtensionsDynamicTerrain.refreshEveryFrame (boolean):
-        if (oldProps.refreshEveryFrame !== newProps.refreshEveryFrame) {
-            updates.push({
-                propertyName: 'refreshEveryFrame',
-                value: newProps.refreshEveryFrame,
-                type: 'boolean'
-            });
-        }
-        // TODO: type: '{ x: number; z: number; }' property (not coded) ExtensionsDynamicTerrain.shiftFromCamera.
-        // ExtensionsDynamicTerrain.subToleranceX (number):
-        if (oldProps.subToleranceX !== newProps.subToleranceX) {
-            updates.push({
-                propertyName: 'subToleranceX',
-                value: newProps.subToleranceX,
-                type: 'number'
-            });
-        }
-        // ExtensionsDynamicTerrain.subToleranceZ (number):
-        if (oldProps.subToleranceZ !== newProps.subToleranceZ) {
-            updates.push({
-                propertyName: 'subToleranceZ',
-                value: newProps.subToleranceZ,
-                type: 'number'
-            });
-        }
-        // ExtensionsDynamicTerrain.useCustomVertexFunction (boolean):
-        if (oldProps.useCustomVertexFunction !== newProps.useCustomVertexFunction) {
-            updates.push({
-                propertyName: 'useCustomVertexFunction',
-                value: newProps.useCustomVertexFunction,
-                type: 'boolean'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberDynamicTerrainPropsHandler implements PropsHandler<FiberDynamicTerrainProps> {
+    getPropertyUpdates(oldProps: FiberDynamicTerrainProps, newProps: FiberDynamicTerrainProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        // type: 'BabylonjsCoreCamera' property (not coded) ExtensionsDynamicTerrain.camera.
+        checkPrimitiveDiff(oldProps.cameraLODCorrection, newProps.cameraLODCorrection, 'cameraLODCorrection', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.computeNormals, newProps.computeNormals, 'computeNormals', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.initialLOD, newProps.initialLOD, 'initialLOD', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.isAlwaysVisible, newProps.isAlwaysVisible, 'isAlwaysVisible', 'boolean', changedProps)
+        checkNumericArrayDiff(oldProps.LODLimits, newProps.LODLimits, 'LODLimits', 'number[]', changedProps)
+        checkPrimitiveDiff(oldProps.LODNegativeX, newProps.LODNegativeX, 'LODNegativeX', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.LODNegativeZ, newProps.LODNegativeZ, 'LODNegativeZ', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.LODPositiveX, newProps.LODPositiveX, 'LODPositiveX', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.LODPositiveZ, newProps.LODPositiveZ, 'LODPositiveZ', 'boolean', changedProps)
+        // type: 'BabylonjsCoreFloatArray' property (not coded) ExtensionsDynamicTerrain.mapColors.
+        // type: 'BabylonjsCoreFloatArray' property (not coded) ExtensionsDynamicTerrain.mapData.
+        // type: 'BabylonjsCoreFloatArray' property (not coded) ExtensionsDynamicTerrain.mapNormals.
+        checkPrimitiveDiff(oldProps.mapSubX, newProps.mapSubX, 'mapSubX', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.mapSubZ, newProps.mapSubZ, 'mapSubZ', 'number', changedProps)
+        // type: 'BabylonjsCoreFloatArray' property (not coded) ExtensionsDynamicTerrain.mapUVs.
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.precomputeNormalsFromMap, newProps.precomputeNormalsFromMap, 'precomputeNormalsFromMap', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.refreshEveryFrame, newProps.refreshEveryFrame, 'refreshEveryFrame', 'boolean', changedProps)
+        // type: '{ x: number; z: number; }' property (not coded) ExtensionsDynamicTerrain.shiftFromCamera.
+        checkPrimitiveDiff(oldProps.subToleranceX, newProps.subToleranceX, 'subToleranceX', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.subToleranceZ, newProps.subToleranceZ, 'subToleranceZ', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.useCustomVertexFunction, newProps.useCustomVertexFunction, 'useCustomVertexFunction', 'boolean', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
 /**
  * This code has been generated
  */
-export class FiberDynamicTerrain implements HasPropsHandlers<ExtensionsDynamicTerrain, FiberDynamicTerrainProps> {
-    private propsHandlers: PropsHandler<ExtensionsDynamicTerrain, FiberDynamicTerrainProps>[];
+export class FiberDynamicTerrain implements HasPropsHandlers<FiberDynamicTerrainProps> {
+    private propsHandlers: PropsHandler<FiberDynamicTerrainProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -18780,11 +11549,11 @@ export class FiberDynamicTerrain implements HasPropsHandlers<ExtensionsDynamicTe
         ];
     }
 
-    getPropsHandlers(): PropsHandler<ExtensionsDynamicTerrain, FiberDynamicTerrainProps>[] {
+    getPropsHandlers(): PropsHandler<FiberDynamicTerrainProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<ExtensionsDynamicTerrain, FiberDynamicTerrainProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberDynamicTerrainProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -18887,43 +11656,14 @@ export class FiberDynamicTerrain implements HasPropsHandlers<ExtensionsDynamicTe
     };
 }
 
-export class FiberAutoRotationBehaviorPropsHandler implements PropsHandler<BabylonjsCoreAutoRotationBehavior, FiberAutoRotationBehaviorProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreAutoRotationBehavior, oldProps: FiberAutoRotationBehaviorProps, newProps: FiberAutoRotationBehaviorProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsCoreAutoRotationBehavior.idleRotationSpeed (number):
-        if (oldProps.idleRotationSpeed !== newProps.idleRotationSpeed) {
-            updates.push({
-                propertyName: 'idleRotationSpeed',
-                value: newProps.idleRotationSpeed,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreAutoRotationBehavior.idleRotationSpinupTime (number):
-        if (oldProps.idleRotationSpinupTime !== newProps.idleRotationSpinupTime) {
-            updates.push({
-                propertyName: 'idleRotationSpinupTime',
-                value: newProps.idleRotationSpinupTime,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreAutoRotationBehavior.idleRotationWaitTime (number):
-        if (oldProps.idleRotationWaitTime !== newProps.idleRotationWaitTime) {
-            updates.push({
-                propertyName: 'idleRotationWaitTime',
-                value: newProps.idleRotationWaitTime,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreAutoRotationBehavior.zoomStopsAnimation (boolean):
-        if (oldProps.zoomStopsAnimation !== newProps.zoomStopsAnimation) {
-            updates.push({
-                propertyName: 'zoomStopsAnimation',
-                value: newProps.zoomStopsAnimation,
-                type: 'boolean'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberAutoRotationBehaviorPropsHandler implements PropsHandler<FiberAutoRotationBehaviorProps> {
+    getPropertyUpdates(oldProps: FiberAutoRotationBehaviorProps, newProps: FiberAutoRotationBehaviorProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.idleRotationSpeed, newProps.idleRotationSpeed, 'idleRotationSpeed', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.idleRotationSpinupTime, newProps.idleRotationSpinupTime, 'idleRotationSpinupTime', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.idleRotationWaitTime, newProps.idleRotationWaitTime, 'idleRotationWaitTime', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.zoomStopsAnimation, newProps.zoomStopsAnimation, 'zoomStopsAnimation', 'boolean', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -18932,8 +11672,8 @@ export class FiberAutoRotationBehaviorPropsHandler implements PropsHandler<Babyl
  *
  * This code has been generated
  */
-export class FiberAutoRotationBehavior implements HasPropsHandlers<BabylonjsCoreAutoRotationBehavior, FiberAutoRotationBehaviorProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreAutoRotationBehavior, FiberAutoRotationBehaviorProps>[];
+export class FiberAutoRotationBehavior implements HasPropsHandlers<FiberAutoRotationBehaviorProps> {
+    private propsHandlers: PropsHandler<FiberAutoRotationBehaviorProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -18941,11 +11681,11 @@ export class FiberAutoRotationBehavior implements HasPropsHandlers<BabylonjsCore
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreAutoRotationBehavior, FiberAutoRotationBehaviorProps>[] {
+    getPropsHandlers(): PropsHandler<FiberAutoRotationBehaviorProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreAutoRotationBehavior, FiberAutoRotationBehaviorProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberAutoRotationBehaviorProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -18961,43 +11701,14 @@ export class FiberAutoRotationBehavior implements HasPropsHandlers<BabylonjsCore
     };
 }
 
-export class FiberBouncingBehaviorPropsHandler implements PropsHandler<BabylonjsCoreBouncingBehavior, FiberBouncingBehaviorProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreBouncingBehavior, oldProps: FiberBouncingBehaviorProps, newProps: FiberBouncingBehaviorProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsCoreBouncingBehavior.autoTransitionRange (boolean):
-        if (oldProps.autoTransitionRange !== newProps.autoTransitionRange) {
-            updates.push({
-                propertyName: 'autoTransitionRange',
-                value: newProps.autoTransitionRange,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreBouncingBehavior.lowerRadiusTransitionRange (number):
-        if (oldProps.lowerRadiusTransitionRange !== newProps.lowerRadiusTransitionRange) {
-            updates.push({
-                propertyName: 'lowerRadiusTransitionRange',
-                value: newProps.lowerRadiusTransitionRange,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreBouncingBehavior.transitionDuration (number):
-        if (oldProps.transitionDuration !== newProps.transitionDuration) {
-            updates.push({
-                propertyName: 'transitionDuration',
-                value: newProps.transitionDuration,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreBouncingBehavior.upperRadiusTransitionRange (number):
-        if (oldProps.upperRadiusTransitionRange !== newProps.upperRadiusTransitionRange) {
-            updates.push({
-                propertyName: 'upperRadiusTransitionRange',
-                value: newProps.upperRadiusTransitionRange,
-                type: 'number'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberBouncingBehaviorPropsHandler implements PropsHandler<FiberBouncingBehaviorProps> {
+    getPropertyUpdates(oldProps: FiberBouncingBehaviorProps, newProps: FiberBouncingBehaviorProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.autoTransitionRange, newProps.autoTransitionRange, 'autoTransitionRange', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.lowerRadiusTransitionRange, newProps.lowerRadiusTransitionRange, 'lowerRadiusTransitionRange', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.transitionDuration, newProps.transitionDuration, 'transitionDuration', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.upperRadiusTransitionRange, newProps.upperRadiusTransitionRange, 'upperRadiusTransitionRange', 'number', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -19006,8 +11717,8 @@ export class FiberBouncingBehaviorPropsHandler implements PropsHandler<Babylonjs
  *
  * This code has been generated
  */
-export class FiberBouncingBehavior implements HasPropsHandlers<BabylonjsCoreBouncingBehavior, FiberBouncingBehaviorProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreBouncingBehavior, FiberBouncingBehaviorProps>[];
+export class FiberBouncingBehavior implements HasPropsHandlers<FiberBouncingBehaviorProps> {
+    private propsHandlers: PropsHandler<FiberBouncingBehaviorProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -19015,11 +11726,11 @@ export class FiberBouncingBehavior implements HasPropsHandlers<BabylonjsCoreBoun
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreBouncingBehavior, FiberBouncingBehaviorProps>[] {
+    getPropsHandlers(): PropsHandler<FiberBouncingBehaviorProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreBouncingBehavior, FiberBouncingBehaviorProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberBouncingBehaviorProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -19035,83 +11746,19 @@ export class FiberBouncingBehavior implements HasPropsHandlers<BabylonjsCoreBoun
     };
 }
 
-export class FiberFramingBehaviorPropsHandler implements PropsHandler<BabylonjsCoreFramingBehavior, FiberFramingBehaviorProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreFramingBehavior, oldProps: FiberFramingBehaviorProps, newProps: FiberFramingBehaviorProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsCoreFramingBehavior.autoCorrectCameraLimitsAndSensibility (boolean):
-        if (oldProps.autoCorrectCameraLimitsAndSensibility !== newProps.autoCorrectCameraLimitsAndSensibility) {
-            updates.push({
-                propertyName: 'autoCorrectCameraLimitsAndSensibility',
-                value: newProps.autoCorrectCameraLimitsAndSensibility,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreFramingBehavior.defaultElevation (number):
-        if (oldProps.defaultElevation !== newProps.defaultElevation) {
-            updates.push({
-                propertyName: 'defaultElevation',
-                value: newProps.defaultElevation,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreFramingBehavior.elevationReturnTime (number):
-        if (oldProps.elevationReturnTime !== newProps.elevationReturnTime) {
-            updates.push({
-                propertyName: 'elevationReturnTime',
-                value: newProps.elevationReturnTime,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreFramingBehavior.elevationReturnWaitTime (number):
-        if (oldProps.elevationReturnWaitTime !== newProps.elevationReturnWaitTime) {
-            updates.push({
-                propertyName: 'elevationReturnWaitTime',
-                value: newProps.elevationReturnWaitTime,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreFramingBehavior.framingTime (number):
-        if (oldProps.framingTime !== newProps.framingTime) {
-            updates.push({
-                propertyName: 'framingTime',
-                value: newProps.framingTime,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreFramingBehavior.mode (number):
-        if (oldProps.mode !== newProps.mode) {
-            updates.push({
-                propertyName: 'mode',
-                value: newProps.mode,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreFramingBehavior.positionScale (number):
-        if (oldProps.positionScale !== newProps.positionScale) {
-            updates.push({
-                propertyName: 'positionScale',
-                value: newProps.positionScale,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreFramingBehavior.radiusScale (number):
-        if (oldProps.radiusScale !== newProps.radiusScale) {
-            updates.push({
-                propertyName: 'radiusScale',
-                value: newProps.radiusScale,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreFramingBehavior.zoomStopsAnimation (boolean):
-        if (oldProps.zoomStopsAnimation !== newProps.zoomStopsAnimation) {
-            updates.push({
-                propertyName: 'zoomStopsAnimation',
-                value: newProps.zoomStopsAnimation,
-                type: 'boolean'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberFramingBehaviorPropsHandler implements PropsHandler<FiberFramingBehaviorProps> {
+    getPropertyUpdates(oldProps: FiberFramingBehaviorProps, newProps: FiberFramingBehaviorProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.autoCorrectCameraLimitsAndSensibility, newProps.autoCorrectCameraLimitsAndSensibility, 'autoCorrectCameraLimitsAndSensibility', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.defaultElevation, newProps.defaultElevation, 'defaultElevation', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.elevationReturnTime, newProps.elevationReturnTime, 'elevationReturnTime', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.elevationReturnWaitTime, newProps.elevationReturnWaitTime, 'elevationReturnWaitTime', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.framingTime, newProps.framingTime, 'framingTime', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.mode, newProps.mode, 'mode', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.positionScale, newProps.positionScale, 'positionScale', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.radiusScale, newProps.radiusScale, 'radiusScale', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.zoomStopsAnimation, newProps.zoomStopsAnimation, 'zoomStopsAnimation', 'boolean', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -19120,8 +11767,8 @@ export class FiberFramingBehaviorPropsHandler implements PropsHandler<BabylonjsC
  *
  * This code has been generated
  */
-export class FiberFramingBehavior implements HasPropsHandlers<BabylonjsCoreFramingBehavior, FiberFramingBehaviorProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreFramingBehavior, FiberFramingBehaviorProps>[];
+export class FiberFramingBehavior implements HasPropsHandlers<FiberFramingBehaviorProps> {
+    private propsHandlers: PropsHandler<FiberFramingBehaviorProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -19129,11 +11776,11 @@ export class FiberFramingBehavior implements HasPropsHandlers<BabylonjsCoreFrami
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreFramingBehavior, FiberFramingBehaviorProps>[] {
+    getPropsHandlers(): PropsHandler<FiberFramingBehaviorProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreFramingBehavior, FiberFramingBehaviorProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberFramingBehaviorProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -19149,36 +11796,14 @@ export class FiberFramingBehavior implements HasPropsHandlers<BabylonjsCoreFrami
     };
 }
 
-export class FiberAttachToBoxBehaviorPropsHandler implements PropsHandler<BabylonjsCoreAttachToBoxBehavior, FiberAttachToBoxBehaviorProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreAttachToBoxBehavior, oldProps: FiberAttachToBoxBehaviorProps, newProps: FiberAttachToBoxBehaviorProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsCoreAttachToBoxBehavior.distanceAwayFromBottomOfFace (number):
-        if (oldProps.distanceAwayFromBottomOfFace !== newProps.distanceAwayFromBottomOfFace) {
-            updates.push({
-                propertyName: 'distanceAwayFromBottomOfFace',
-                value: newProps.distanceAwayFromBottomOfFace,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreAttachToBoxBehavior.distanceAwayFromFace (number):
-        if (oldProps.distanceAwayFromFace !== newProps.distanceAwayFromFace) {
-            updates.push({
-                propertyName: 'distanceAwayFromFace',
-                value: newProps.distanceAwayFromFace,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreAttachToBoxBehavior.name (string):
-        if (oldProps.name !== newProps.name) {
-            updates.push({
-                propertyName: 'name',
-                value: newProps.name,
-                type: 'string'
-            });
-        }
-        // TODO: type: 'any' property (not coded) BabylonjsCoreAttachToBoxBehavior.ui.
-        return updates.length === 0 ? null : updates;
+export class FiberAttachToBoxBehaviorPropsHandler implements PropsHandler<FiberAttachToBoxBehaviorProps> {
+    getPropertyUpdates(oldProps: FiberAttachToBoxBehaviorProps, newProps: FiberAttachToBoxBehaviorProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.distanceAwayFromBottomOfFace, newProps.distanceAwayFromBottomOfFace, 'distanceAwayFromBottomOfFace', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.distanceAwayFromFace, newProps.distanceAwayFromFace, 'distanceAwayFromFace', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
+        // type: 'any' property (not coded) BabylonjsCoreAttachToBoxBehavior.ui.
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -19187,8 +11812,8 @@ export class FiberAttachToBoxBehaviorPropsHandler implements PropsHandler<Babylo
  *
  * This code has been generated
  */
-export class FiberAttachToBoxBehavior implements HasPropsHandlers<BabylonjsCoreAttachToBoxBehavior, FiberAttachToBoxBehaviorProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreAttachToBoxBehavior, FiberAttachToBoxBehaviorProps>[];
+export class FiberAttachToBoxBehavior implements HasPropsHandlers<FiberAttachToBoxBehaviorProps> {
+    private propsHandlers: PropsHandler<FiberAttachToBoxBehaviorProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -19196,11 +11821,11 @@ export class FiberAttachToBoxBehavior implements HasPropsHandlers<BabylonjsCoreA
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreAttachToBoxBehavior, FiberAttachToBoxBehaviorProps>[] {
+    getPropsHandlers(): PropsHandler<FiberAttachToBoxBehaviorProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreAttachToBoxBehavior, FiberAttachToBoxBehaviorProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberAttachToBoxBehaviorProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -19222,27 +11847,12 @@ export class FiberAttachToBoxBehavior implements HasPropsHandlers<BabylonjsCoreA
     };
 }
 
-export class FiberFadeInOutBehaviorPropsHandler implements PropsHandler<BabylonjsCoreFadeInOutBehavior, FiberFadeInOutBehaviorProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreFadeInOutBehavior, oldProps: FiberFadeInOutBehaviorProps, newProps: FiberFadeInOutBehaviorProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsCoreFadeInOutBehavior.delay (number):
-        if (oldProps.delay !== newProps.delay) {
-            updates.push({
-                propertyName: 'delay',
-                value: newProps.delay,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreFadeInOutBehavior.fadeInTime (number):
-        if (oldProps.fadeInTime !== newProps.fadeInTime) {
-            updates.push({
-                propertyName: 'fadeInTime',
-                value: newProps.fadeInTime,
-                type: 'number'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberFadeInOutBehaviorPropsHandler implements PropsHandler<FiberFadeInOutBehaviorProps> {
+    getPropertyUpdates(oldProps: FiberFadeInOutBehaviorProps, newProps: FiberFadeInOutBehaviorProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.delay, newProps.delay, 'delay', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.fadeInTime, newProps.fadeInTime, 'fadeInTime', 'number', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -19251,8 +11861,8 @@ export class FiberFadeInOutBehaviorPropsHandler implements PropsHandler<Babylonj
  *
  * This code has been generated
  */
-export class FiberFadeInOutBehavior implements HasPropsHandlers<BabylonjsCoreFadeInOutBehavior, FiberFadeInOutBehaviorProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreFadeInOutBehavior, FiberFadeInOutBehaviorProps>[];
+export class FiberFadeInOutBehavior implements HasPropsHandlers<FiberFadeInOutBehaviorProps> {
+    private propsHandlers: PropsHandler<FiberFadeInOutBehaviorProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -19260,11 +11870,11 @@ export class FiberFadeInOutBehavior implements HasPropsHandlers<BabylonjsCoreFad
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreFadeInOutBehavior, FiberFadeInOutBehaviorProps>[] {
+    getPropsHandlers(): PropsHandler<FiberFadeInOutBehaviorProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreFadeInOutBehavior, FiberFadeInOutBehaviorProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberFadeInOutBehaviorProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -19280,11 +11890,9 @@ export class FiberFadeInOutBehavior implements HasPropsHandlers<BabylonjsCoreFad
     };
 }
 
-export class FiberMultiPointerScaleBehaviorPropsHandler implements PropsHandler<BabylonjsCoreMultiPointerScaleBehavior, FiberMultiPointerScaleBehaviorProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreMultiPointerScaleBehavior, oldProps: FiberMultiPointerScaleBehaviorProps, newProps: FiberMultiPointerScaleBehaviorProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        return updates.length === 0 ? null : updates;
+export class FiberMultiPointerScaleBehaviorPropsHandler implements PropsHandler<FiberMultiPointerScaleBehaviorProps> {
+    getPropertyUpdates(oldProps: FiberMultiPointerScaleBehaviorProps, newProps: FiberMultiPointerScaleBehaviorProps): PropertyUpdate[] | null {
+        return null; // no props to check
     }
 }
 
@@ -19293,8 +11901,8 @@ export class FiberMultiPointerScaleBehaviorPropsHandler implements PropsHandler<
  *
  * This code has been generated
  */
-export class FiberMultiPointerScaleBehavior implements HasPropsHandlers<BabylonjsCoreMultiPointerScaleBehavior, FiberMultiPointerScaleBehaviorProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreMultiPointerScaleBehavior, FiberMultiPointerScaleBehaviorProps>[];
+export class FiberMultiPointerScaleBehavior implements HasPropsHandlers<FiberMultiPointerScaleBehaviorProps> {
+    private propsHandlers: PropsHandler<FiberMultiPointerScaleBehaviorProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -19302,11 +11910,11 @@ export class FiberMultiPointerScaleBehavior implements HasPropsHandlers<Babylonj
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreMultiPointerScaleBehavior, FiberMultiPointerScaleBehaviorProps>[] {
+    getPropsHandlers(): PropsHandler<FiberMultiPointerScaleBehaviorProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreMultiPointerScaleBehavior, FiberMultiPointerScaleBehaviorProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberMultiPointerScaleBehaviorProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -19322,126 +11930,27 @@ export class FiberMultiPointerScaleBehavior implements HasPropsHandlers<Babylonj
     };
 }
 
-export class FiberPointerDragBehaviorPropsHandler implements PropsHandler<BabylonjsCorePointerDragBehavior, FiberPointerDragBehaviorProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCorePointerDragBehavior, oldProps: FiberPointerDragBehaviorProps, newProps: FiberPointerDragBehaviorProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // TODO: type: 'BabylonjsCoreAbstractMesh' property (not coded) BabylonjsCorePointerDragBehavior.attachedNode.
-        // BabylonjsCorePointerDragBehavior.currentDraggingPointerID (number):
-        if (oldProps.currentDraggingPointerID !== newProps.currentDraggingPointerID) {
-            updates.push({
-                propertyName: 'currentDraggingPointerID',
-                value: newProps.currentDraggingPointerID,
-                type: 'number'
-            });
-        }
-        // BabylonjsCorePointerDragBehavior.detachCameraControls (boolean):
-        if (oldProps.detachCameraControls !== newProps.detachCameraControls) {
-            updates.push({
-                propertyName: 'detachCameraControls',
-                value: newProps.detachCameraControls,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCorePointerDragBehavior.dragDeltaRatio (number):
-        if (oldProps.dragDeltaRatio !== newProps.dragDeltaRatio) {
-            updates.push({
-                propertyName: 'dragDeltaRatio',
-                value: newProps.dragDeltaRatio,
-                type: 'number'
-            });
-        }
-        // BabylonjsCorePointerDragBehavior.dragging (boolean):
-        if (oldProps.dragging !== newProps.dragging) {
-            updates.push({
-                propertyName: 'dragging',
-                value: newProps.dragging,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCorePointerDragBehavior.enabled (boolean):
-        if (oldProps.enabled !== newProps.enabled) {
-            updates.push({
-                propertyName: 'enabled',
-                value: newProps.enabled,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCorePointerDragBehavior.lastDragPosition (BabylonjsCoreVector3 uses object equals to find diffs):
-        if (newProps.lastDragPosition && (!oldProps.lastDragPosition || !oldProps.lastDragPosition.equals(newProps.lastDragPosition))) {
-            updates.push({
-                propertyName: 'lastDragPosition',
-                value: newProps.lastDragPosition,
-                type: 'BabylonjsCoreVector3'
-            });
-        }
-        // BabylonjsCorePointerDragBehavior.maxDragAngle (number):
-        if (oldProps.maxDragAngle !== newProps.maxDragAngle) {
-            updates.push({
-                propertyName: 'maxDragAngle',
-                value: newProps.maxDragAngle,
-                type: 'number'
-            });
-        }
-        // BabylonjsCorePointerDragBehavior.moveAttached (boolean):
-        if (oldProps.moveAttached !== newProps.moveAttached) {
-            updates.push({
-                propertyName: 'moveAttached',
-                value: newProps.moveAttached,
-                type: 'boolean'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCorePointerDragBehavior.onDragEndObservable of type 'BabylonjsCoreObservable<{ dragPlanePoint: BabylonjsCoreVector3; pointerId: number; }>/fn':
-        if (oldProps.onDragEndObservable === undefined && oldProps.onDragEndObservable !== newProps.onDragEndObservable) {
-            updates.push({
-                propertyName: 'onDragEndObservable',
-                value: newProps.onDragEndObservable,
-                type: 'BabylonjsCoreObservable<{ dragPlanePoint: BabylonjsCoreVector3; pointerId: number; }>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCorePointerDragBehavior.onDragObservable of type 'BabylonjsCoreObservable<{ delta: BabylonjsCoreVector3; dragPlanePoint: BabylonjsCoreVector3; dragPlaneNormal: BabylonjsCoreVector3; dragDistance: number; pointerId: number; }>/fn':
-        if (oldProps.onDragObservable === undefined && oldProps.onDragObservable !== newProps.onDragObservable) {
-            updates.push({
-                propertyName: 'onDragObservable',
-                value: newProps.onDragObservable,
-                type: 'BabylonjsCoreObservable<{ delta: BabylonjsCoreVector3; dragPlanePoint: BabylonjsCoreVector3; dragPlaneNormal: BabylonjsCoreVector3; dragDistance: number; pointerId: number; }>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCorePointerDragBehavior.onDragStartObservable of type 'BabylonjsCoreObservable<{ dragPlanePoint: BabylonjsCoreVector3; pointerId: number; }>/fn':
-        if (oldProps.onDragStartObservable === undefined && oldProps.onDragStartObservable !== newProps.onDragStartObservable) {
-            updates.push({
-                propertyName: 'onDragStartObservable',
-                value: newProps.onDragStartObservable,
-                type: 'BabylonjsCoreObservable<{ dragPlanePoint: BabylonjsCoreVector3; pointerId: number; }>'
-            });
-        }
-        // TODO: type: '{ dragAxis?: BabylonjsCoreVector3; dragPlaneNormal?: BabylonjsCoreVector3; }' property (not coded) BabylonjsCorePointerDragBehavior.options.
-        // BabylonjsCorePointerDragBehavior.startAndReleaseDragOnPointerEvents (boolean):
-        if (oldProps.startAndReleaseDragOnPointerEvents !== newProps.startAndReleaseDragOnPointerEvents) {
-            updates.push({
-                propertyName: 'startAndReleaseDragOnPointerEvents',
-                value: newProps.startAndReleaseDragOnPointerEvents,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCorePointerDragBehavior.updateDragPlane (boolean):
-        if (oldProps.updateDragPlane !== newProps.updateDragPlane) {
-            updates.push({
-                propertyName: 'updateDragPlane',
-                value: newProps.updateDragPlane,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCorePointerDragBehavior.useObjectOrientationForDragging (boolean):
-        if (oldProps.useObjectOrientationForDragging !== newProps.useObjectOrientationForDragging) {
-            updates.push({
-                propertyName: 'useObjectOrientationForDragging',
-                value: newProps.useObjectOrientationForDragging,
-                type: 'boolean'
-            });
-        }
-        // TODO: type: '(targetPosition: BabylonjsCoreVector3) => boolean' property (not coded) BabylonjsCorePointerDragBehavior.validateDrag.
-        return updates.length === 0 ? null : updates;
+export class FiberPointerDragBehaviorPropsHandler implements PropsHandler<FiberPointerDragBehaviorProps> {
+    getPropertyUpdates(oldProps: FiberPointerDragBehaviorProps, newProps: FiberPointerDragBehaviorProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        // type: 'BabylonjsCoreAbstractMesh' property (not coded) BabylonjsCorePointerDragBehavior.attachedNode.
+        checkPrimitiveDiff(oldProps.currentDraggingPointerID, newProps.currentDraggingPointerID, 'currentDraggingPointerID', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.detachCameraControls, newProps.detachCameraControls, 'detachCameraControls', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.dragDeltaRatio, newProps.dragDeltaRatio, 'dragDeltaRatio', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.dragging, newProps.dragging, 'dragging', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.enabled, newProps.enabled, 'enabled', 'boolean', changedProps)
+        checkVector3Diff(oldProps.lastDragPosition, newProps.lastDragPosition, 'lastDragPosition', 'BabylonjsCoreVector3', changedProps)
+        checkPrimitiveDiff(oldProps.maxDragAngle, newProps.maxDragAngle, 'maxDragAngle', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.moveAttached, newProps.moveAttached, 'moveAttached', 'boolean', changedProps)
+        checkObservableDiff(oldProps.onDragEndObservable, newProps.onDragEndObservable, 'onDragEndObservable', 'BabylonjsCoreObservable<{ dragPlanePoint: BabylonjsCoreVector3; pointerId: number; }>', changedProps)
+        checkObservableDiff(oldProps.onDragObservable, newProps.onDragObservable, 'onDragObservable', 'BabylonjsCoreObservable<{ delta: BabylonjsCoreVector3; dragPlanePoint: BabylonjsCoreVector3; dragPlaneNormal: BabylonjsCoreVector3; dragDistance: number; pointerId: number; }>', changedProps)
+        checkObservableDiff(oldProps.onDragStartObservable, newProps.onDragStartObservable, 'onDragStartObservable', 'BabylonjsCoreObservable<{ dragPlanePoint: BabylonjsCoreVector3; pointerId: number; }>', changedProps)
+        // type: '{ dragAxis?: BabylonjsCoreVector3; dragPlaneNormal?: BabylonjsCoreVector3; }' property (not coded) BabylonjsCorePointerDragBehavior.options.
+        checkPrimitiveDiff(oldProps.startAndReleaseDragOnPointerEvents, newProps.startAndReleaseDragOnPointerEvents, 'startAndReleaseDragOnPointerEvents', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.updateDragPlane, newProps.updateDragPlane, 'updateDragPlane', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.useObjectOrientationForDragging, newProps.useObjectOrientationForDragging, 'useObjectOrientationForDragging', 'boolean', changedProps)
+        checkLambdaDiff(oldProps.validateDrag, newProps.validateDrag, 'validateDrag', '(targetPosition: BabylonjsCoreVector3) => boolean', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -19450,8 +11959,8 @@ export class FiberPointerDragBehaviorPropsHandler implements PropsHandler<Babylo
  *
  * This code has been generated
  */
-export class FiberPointerDragBehavior implements HasPropsHandlers<BabylonjsCorePointerDragBehavior, FiberPointerDragBehaviorProps> {
-    private propsHandlers: PropsHandler<BabylonjsCorePointerDragBehavior, FiberPointerDragBehaviorProps>[];
+export class FiberPointerDragBehavior implements HasPropsHandlers<FiberPointerDragBehaviorProps> {
+    private propsHandlers: PropsHandler<FiberPointerDragBehaviorProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -19459,11 +11968,11 @@ export class FiberPointerDragBehavior implements HasPropsHandlers<BabylonjsCoreP
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCorePointerDragBehavior, FiberPointerDragBehaviorProps>[] {
+    getPropsHandlers(): PropsHandler<FiberPointerDragBehaviorProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCorePointerDragBehavior, FiberPointerDragBehaviorProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberPointerDragBehaviorProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -19496,68 +12005,18 @@ export class FiberPointerDragBehavior implements HasPropsHandlers<BabylonjsCoreP
     };
 }
 
-export class FiberSixDofDragBehaviorPropsHandler implements PropsHandler<BabylonjsCoreSixDofDragBehavior, FiberSixDofDragBehaviorProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreSixDofDragBehavior, oldProps: FiberSixDofDragBehaviorProps, newProps: FiberSixDofDragBehaviorProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // BabylonjsCoreSixDofDragBehavior.currentDraggingPointerID (number):
-        if (oldProps.currentDraggingPointerID !== newProps.currentDraggingPointerID) {
-            updates.push({
-                propertyName: 'currentDraggingPointerID',
-                value: newProps.currentDraggingPointerID,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreSixDofDragBehavior.detachCameraControls (boolean):
-        if (oldProps.detachCameraControls !== newProps.detachCameraControls) {
-            updates.push({
-                propertyName: 'detachCameraControls',
-                value: newProps.detachCameraControls,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreSixDofDragBehavior.dragDeltaRatio (number):
-        if (oldProps.dragDeltaRatio !== newProps.dragDeltaRatio) {
-            updates.push({
-                propertyName: 'dragDeltaRatio',
-                value: newProps.dragDeltaRatio,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreSixDofDragBehavior.dragging (boolean):
-        if (oldProps.dragging !== newProps.dragging) {
-            updates.push({
-                propertyName: 'dragging',
-                value: newProps.dragging,
-                type: 'boolean'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreSixDofDragBehavior.onDragEndObservable of type 'BabylonjsCoreObservable<{}>/fn':
-        if (oldProps.onDragEndObservable === undefined && oldProps.onDragEndObservable !== newProps.onDragEndObservable) {
-            updates.push({
-                propertyName: 'onDragEndObservable',
-                value: newProps.onDragEndObservable,
-                type: 'BabylonjsCoreObservable<{}>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreSixDofDragBehavior.onDragStartObservable of type 'BabylonjsCoreObservable<{}>/fn':
-        if (oldProps.onDragStartObservable === undefined && oldProps.onDragStartObservable !== newProps.onDragStartObservable) {
-            updates.push({
-                propertyName: 'onDragStartObservable',
-                value: newProps.onDragStartObservable,
-                type: 'BabylonjsCoreObservable<{}>'
-            });
-        }
-        // BabylonjsCoreSixDofDragBehavior.rotateDraggedObject (boolean):
-        if (oldProps.rotateDraggedObject !== newProps.rotateDraggedObject) {
-            updates.push({
-                propertyName: 'rotateDraggedObject',
-                value: newProps.rotateDraggedObject,
-                type: 'boolean'
-            });
-        }
-        // TODO: type: 'any' property (not coded) BabylonjsCoreSixDofDragBehavior.zDragFactor.
-        return updates.length === 0 ? null : updates;
+export class FiberSixDofDragBehaviorPropsHandler implements PropsHandler<FiberSixDofDragBehaviorProps> {
+    getPropertyUpdates(oldProps: FiberSixDofDragBehaviorProps, newProps: FiberSixDofDragBehaviorProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.currentDraggingPointerID, newProps.currentDraggingPointerID, 'currentDraggingPointerID', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.detachCameraControls, newProps.detachCameraControls, 'detachCameraControls', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.dragDeltaRatio, newProps.dragDeltaRatio, 'dragDeltaRatio', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.dragging, newProps.dragging, 'dragging', 'boolean', changedProps)
+        checkObservableDiff(oldProps.onDragEndObservable, newProps.onDragEndObservable, 'onDragEndObservable', 'BabylonjsCoreObservable<{}>', changedProps)
+        checkObservableDiff(oldProps.onDragStartObservable, newProps.onDragStartObservable, 'onDragStartObservable', 'BabylonjsCoreObservable<{}>', changedProps)
+        checkPrimitiveDiff(oldProps.rotateDraggedObject, newProps.rotateDraggedObject, 'rotateDraggedObject', 'boolean', changedProps)
+        // type: 'any' property (not coded) BabylonjsCoreSixDofDragBehavior.zDragFactor.
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 
@@ -19566,8 +12025,8 @@ export class FiberSixDofDragBehaviorPropsHandler implements PropsHandler<Babylon
  *
  * This code has been generated
  */
-export class FiberSixDofDragBehavior implements HasPropsHandlers<BabylonjsCoreSixDofDragBehavior, FiberSixDofDragBehaviorProps> {
-    private propsHandlers: PropsHandler<BabylonjsCoreSixDofDragBehavior, FiberSixDofDragBehaviorProps>[];
+export class FiberSixDofDragBehavior implements HasPropsHandlers<FiberSixDofDragBehaviorProps> {
+    private propsHandlers: PropsHandler<FiberSixDofDragBehaviorProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -19575,11 +12034,11 @@ export class FiberSixDofDragBehavior implements HasPropsHandlers<BabylonjsCoreSi
         ];
     }
 
-    getPropsHandlers(): PropsHandler<BabylonjsCoreSixDofDragBehavior, FiberSixDofDragBehaviorProps>[] {
+    getPropsHandlers(): PropsHandler<FiberSixDofDragBehaviorProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<BabylonjsCoreSixDofDragBehavior, FiberSixDofDragBehaviorProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberSixDofDragBehaviorProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -19595,1023 +12054,168 @@ export class FiberSixDofDragBehavior implements HasPropsHandlers<BabylonjsCoreSi
     };
 }
 
-export class FiberScenePropsHandler implements PropsHandler<BabylonjsCoreScene, FiberSceneProps> {
-    getPropertyUpdates(hostInstance: BabylonjsCoreScene, oldProps: FiberSceneProps, newProps: FiberSceneProps, scene: BabylonjsCoreScene): PropertyUpdate[] | null {
-        // generated code
-        let updates: PropertyUpdate[] = [];
-        // TODO: type: 'BabylonjsCoreAbstractActionManager' property (not coded) BabylonjsCoreScene.actionManager.
-        // TODO: type: 'BabylonjsCoreCamera' property (not coded) BabylonjsCoreScene.activeCamera.
-        // TODO: type: 'BabylonjsCoreCamera[]' property (not coded) BabylonjsCoreScene.activeCameras.
-        // TODO: type: '() => void' property (not coded) BabylonjsCoreScene.afterCameraRender.
-        // TODO: type: '() => void' property (not coded) BabylonjsCoreScene.afterRender.
-        // BabylonjsCoreScene.ambientColor (BabylonjsCoreColor3 uses object equals to find diffs):
-        if (newProps.ambientColor && (!oldProps.ambientColor || !oldProps.ambientColor.equals(newProps.ambientColor))) {
-            updates.push({
-                propertyName: 'ambientColor',
-                value: newProps.ambientColor,
-                type: 'BabylonjsCoreColor3'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreAnimationPropertiesOverride' property (not coded) BabylonjsCoreScene.animationPropertiesOverride.
-        // BabylonjsCoreScene.animationsEnabled (boolean):
-        if (oldProps.animationsEnabled !== newProps.animationsEnabled) {
-            updates.push({
-                propertyName: 'animationsEnabled',
-                value: newProps.animationsEnabled,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreScene.animationTimeScale (number):
-        if (oldProps.animationTimeScale !== newProps.animationTimeScale) {
-            updates.push({
-                propertyName: 'animationTimeScale',
-                value: newProps.animationTimeScale,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreScene.autoClear (boolean):
-        if (oldProps.autoClear !== newProps.autoClear) {
-            updates.push({
-                propertyName: 'autoClear',
-                value: newProps.autoClear,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreScene.autoClearDepthAndStencil (boolean):
-        if (oldProps.autoClearDepthAndStencil !== newProps.autoClearDepthAndStencil) {
-            updates.push({
-                propertyName: 'autoClearDepthAndStencil',
-                value: newProps.autoClearDepthAndStencil,
-                type: 'boolean'
-            });
-        }
-        // TODO: type: '() => void' property (not coded) BabylonjsCoreScene.beforeCameraRender.
-        // TODO: type: '() => void' property (not coded) BabylonjsCoreScene.beforeRender.
-        // BabylonjsCoreScene.blockfreeActiveMeshesAndRenderingGroups (boolean):
-        if (oldProps.blockfreeActiveMeshesAndRenderingGroups !== newProps.blockfreeActiveMeshesAndRenderingGroups) {
-            updates.push({
-                propertyName: 'blockfreeActiveMeshesAndRenderingGroups',
-                value: newProps.blockfreeActiveMeshesAndRenderingGroups,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreScene.blockMaterialDirtyMechanism (boolean):
-        if (oldProps.blockMaterialDirtyMechanism !== newProps.blockMaterialDirtyMechanism) {
-            updates.push({
-                propertyName: 'blockMaterialDirtyMechanism',
-                value: newProps.blockMaterialDirtyMechanism,
-                type: 'boolean'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreCamera' property (not coded) BabylonjsCoreScene.cameraToUseForPointers.
-        // BabylonjsCoreScene.clearColor of BabylonjsCoreColor4.  Color4.equals() not available in BabylonJS < 4:
-        if (newProps.clearColor && (!oldProps.clearColor || oldProps.clearColor.r !== newProps.clearColor.r || oldProps.clearColor.g !== newProps.clearColor.g || oldProps.clearColor.b !== newProps.clearColor.b || oldProps.clearColor.a !== newProps.clearColor.a)) {
-            updates.push({
-                propertyName: 'clearColor',
-                value: newProps.clearColor,
-                type: 'BabylonjsCoreColor4'
-            });
-        }
-        // TODO: type: 'BabylonjsCorePlane' property (not coded) BabylonjsCoreScene.clipPlane.
-        // TODO: type: 'BabylonjsCorePlane' property (not coded) BabylonjsCoreScene.clipPlane2.
-        // TODO: type: 'BabylonjsCorePlane' property (not coded) BabylonjsCoreScene.clipPlane3.
-        // TODO: type: 'BabylonjsCorePlane' property (not coded) BabylonjsCoreScene.clipPlane4.
-        // TODO: type: 'BabylonjsCorePlane' property (not coded) BabylonjsCoreScene.clipPlane5.
-        // TODO: type: 'BabylonjsCorePlane' property (not coded) BabylonjsCoreScene.clipPlane6.
-        // BabylonjsCoreScene.collisionsEnabled (boolean):
-        if (oldProps.collisionsEnabled !== newProps.collisionsEnabled) {
-            updates.push({
-                propertyName: 'collisionsEnabled',
-                value: newProps.collisionsEnabled,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreScene.constantlyUpdateMeshUnderPointer (boolean):
-        if (oldProps.constantlyUpdateMeshUnderPointer !== newProps.constantlyUpdateMeshUnderPointer) {
-            updates.push({
-                propertyName: 'constantlyUpdateMeshUnderPointer',
-                value: newProps.constantlyUpdateMeshUnderPointer,
-                type: 'boolean'
-            });
-        }
-        // TODO: type: '(mesh: BabylonjsCoreAbstractMesh, camera: BabylonjsCoreCamera) => BabylonjsCoreAbstractMesh' property (not coded) BabylonjsCoreScene.customLODSelector.
-        // TODO: type: 'BabylonjsCoreRenderTargetTexture[]' property (not coded) BabylonjsCoreScene.customRenderTargets.
-        // BabylonjsCoreScene.defaultCursor (string):
-        if (oldProps.defaultCursor !== newProps.defaultCursor) {
-            updates.push({
-                propertyName: 'defaultCursor',
-                value: newProps.defaultCursor,
-                type: 'string'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreMaterial' property (not coded) BabylonjsCoreScene.defaultMaterial.
-        // TODO: type: 'RegExp[]' property (not coded) BabylonjsCoreScene.disableOfflineSupportExceptionRules.
-        // BabylonjsCoreScene.dispatchAllSubMeshesOfActiveMeshes (boolean):
-        if (oldProps.dispatchAllSubMeshesOfActiveMeshes !== newProps.dispatchAllSubMeshesOfActiveMeshes) {
-            updates.push({
-                propertyName: 'dispatchAllSubMeshesOfActiveMeshes',
-                value: newProps.dispatchAllSubMeshesOfActiveMeshes,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreScene.doNotHandleCursors (boolean):
-        if (oldProps.doNotHandleCursors !== newProps.doNotHandleCursors) {
-            updates.push({
-                propertyName: 'doNotHandleCursors',
-                value: newProps.doNotHandleCursors,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreScene.DoubleClickDelay (number):
-        if (oldProps.DoubleClickDelay !== newProps.DoubleClickDelay) {
-            updates.push({
-                propertyName: 'DoubleClickDelay',
-                value: newProps.DoubleClickDelay,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreScene.DragMovementThreshold (number):
-        if (oldProps.DragMovementThreshold !== newProps.DragMovementThreshold) {
-            updates.push({
-                propertyName: 'DragMovementThreshold',
-                value: newProps.DragMovementThreshold,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreScene.dumpNextRenderTargets (boolean):
-        if (oldProps.dumpNextRenderTargets !== newProps.dumpNextRenderTargets) {
-            updates.push({
-                propertyName: 'dumpNextRenderTargets',
-                value: newProps.dumpNextRenderTargets,
-                type: 'boolean'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreScene.environmentBRDFTexture.
-        // BabylonjsCoreScene.environmentIntensity (number):
-        if (oldProps.environmentIntensity !== newProps.environmentIntensity) {
-            updates.push({
-                propertyName: 'environmentIntensity',
-                value: newProps.environmentIntensity,
-                type: 'number'
-            });
-        }
-        // TODO: type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreScene.environmentTexture.
-        // BabylonjsCoreScene.ExclusiveDoubleClickMode (boolean):
-        if (oldProps.ExclusiveDoubleClickMode !== newProps.ExclusiveDoubleClickMode) {
-            updates.push({
-                propertyName: 'ExclusiveDoubleClickMode',
-                value: newProps.ExclusiveDoubleClickMode,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreScene.fogColor (BabylonjsCoreColor3 uses object equals to find diffs):
-        if (newProps.fogColor && (!oldProps.fogColor || !oldProps.fogColor.equals(newProps.fogColor))) {
-            updates.push({
-                propertyName: 'fogColor',
-                value: newProps.fogColor,
-                type: 'BabylonjsCoreColor3'
-            });
-        }
-        // BabylonjsCoreScene.fogDensity (number):
-        if (oldProps.fogDensity !== newProps.fogDensity) {
-            updates.push({
-                propertyName: 'fogDensity',
-                value: newProps.fogDensity,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreScene.fogEnabled (boolean):
-        if (oldProps.fogEnabled !== newProps.fogEnabled) {
-            updates.push({
-                propertyName: 'fogEnabled',
-                value: newProps.fogEnabled,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreScene.fogEnd (number):
-        if (oldProps.fogEnd !== newProps.fogEnd) {
-            updates.push({
-                propertyName: 'fogEnd',
-                value: newProps.fogEnd,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreScene.fogMode (number):
-        if (oldProps.fogMode !== newProps.fogMode) {
-            updates.push({
-                propertyName: 'fogMode',
-                value: newProps.fogMode,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreScene.fogStart (number):
-        if (oldProps.fogStart !== newProps.fogStart) {
-            updates.push({
-                propertyName: 'fogStart',
-                value: newProps.fogStart,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreScene.forcePointsCloud (boolean):
-        if (oldProps.forcePointsCloud !== newProps.forcePointsCloud) {
-            updates.push({
-                propertyName: 'forcePointsCloud',
-                value: newProps.forcePointsCloud,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreScene.forceWireframe (boolean):
-        if (oldProps.forceWireframe !== newProps.forceWireframe) {
-            updates.push({
-                propertyName: 'forceWireframe',
-                value: newProps.forceWireframe,
-                type: 'boolean'
-            });
-        }
-        // TODO: type: 'any' property (not coded) BabylonjsCoreScene.geometriesByUniqueId.
-        // TODO: type: '() => BabylonjsCoreISmartArrayLike<BabylonjsCoreAbstractMesh>' property (not coded) BabylonjsCoreScene.getActiveMeshCandidates.
-        // TODO: type: '(mesh: BabylonjsCoreAbstractMesh) => BabylonjsCoreISmartArrayLike<BabylonjsCoreSubMesh>' property (not coded) BabylonjsCoreScene.getActiveSubMeshCandidates.
-        // TODO: type: '(mesh: BabylonjsCoreAbstractMesh, collider: BabylonjsCoreCollider) => BabylonjsCoreISmartArrayLike<BabylonjsCoreSubMesh>' property (not coded) BabylonjsCoreScene.getCollidingSubMeshCandidates.
-        // TODO: type: '() => number' property (not coded) BabylonjsCoreScene.getDeterministicFrameTime.
-        // TODO: type: '(mesh: BabylonjsCoreAbstractMesh, localRay: BabylonjsCoreRay) => BabylonjsCoreISmartArrayLike<BabylonjsCoreSubMesh>' property (not coded) BabylonjsCoreScene.getIntersectingSubMeshCandidates.
-        // BabylonjsCoreScene.gravity (BabylonjsCoreVector3 uses object equals to find diffs):
-        if (newProps.gravity && (!oldProps.gravity || !oldProps.gravity.equals(newProps.gravity))) {
-            updates.push({
-                propertyName: 'gravity',
-                value: newProps.gravity,
-                type: 'BabylonjsCoreVector3'
-            });
-        }
-        // BabylonjsCoreScene.hoverCursor (string):
-        if (oldProps.hoverCursor !== newProps.hoverCursor) {
-            updates.push({
-                propertyName: 'hoverCursor',
-                value: newProps.hoverCursor,
-                type: 'string'
-            });
-        }
-        // TODO: type: 'String[]' property (not coded) BabylonjsCoreScene.importedMeshesFiles.
-        // BabylonjsCoreScene.lensFlaresEnabled (boolean):
-        if (oldProps.lensFlaresEnabled !== newProps.lensFlaresEnabled) {
-            updates.push({
-                propertyName: 'lensFlaresEnabled',
-                value: newProps.lensFlaresEnabled,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreScene.lightsEnabled (boolean):
-        if (oldProps.lightsEnabled !== newProps.lightsEnabled) {
-            updates.push({
-                propertyName: 'lightsEnabled',
-                value: newProps.lightsEnabled,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreScene.loadingPluginName (string):
-        if (oldProps.loadingPluginName !== newProps.loadingPluginName) {
-            updates.push({
-                propertyName: 'loadingPluginName',
-                value: newProps.loadingPluginName,
-                type: 'string'
-            });
-        }
-        // BabylonjsCoreScene.LongPressDelay (number):
-        if (oldProps.LongPressDelay !== newProps.LongPressDelay) {
-            updates.push({
-                propertyName: 'LongPressDelay',
-                value: newProps.LongPressDelay,
-                type: 'number'
-            });
-        }
-        // TODO: type: 'any' property (not coded) BabylonjsCoreScene.metadata.
-        // TODO: type: 'BabylonjsCoreIOfflineProvider' property (not coded) BabylonjsCoreScene.offlineProvider.
-        // xxx-ns-xxx.BabylonjsCoreScene.onActiveCameraChanged of type 'BabylonjsCoreObservable<BabylonjsCoreScene>/fn':
-        if (oldProps.onActiveCameraChanged === undefined && oldProps.onActiveCameraChanged !== newProps.onActiveCameraChanged) {
-            updates.push({
-                propertyName: 'onActiveCameraChanged',
-                value: newProps.onActiveCameraChanged,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreScene>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreScene.onAfterActiveMeshesEvaluationObservable of type 'BabylonjsCoreObservable<BabylonjsCoreScene>/fn':
-        if (oldProps.onAfterActiveMeshesEvaluationObservable === undefined && oldProps.onAfterActiveMeshesEvaluationObservable !== newProps.onAfterActiveMeshesEvaluationObservable) {
-            updates.push({
-                propertyName: 'onAfterActiveMeshesEvaluationObservable',
-                value: newProps.onAfterActiveMeshesEvaluationObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreScene>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreScene.onAfterAnimationsObservable of type 'BabylonjsCoreObservable<BabylonjsCoreScene>/fn':
-        if (oldProps.onAfterAnimationsObservable === undefined && oldProps.onAfterAnimationsObservable !== newProps.onAfterAnimationsObservable) {
-            updates.push({
-                propertyName: 'onAfterAnimationsObservable',
-                value: newProps.onAfterAnimationsObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreScene>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreScene.onAfterCameraRenderObservable of type 'BabylonjsCoreObservable<BabylonjsCoreCamera>/fn':
-        if (oldProps.onAfterCameraRenderObservable === undefined && oldProps.onAfterCameraRenderObservable !== newProps.onAfterCameraRenderObservable) {
-            updates.push({
-                propertyName: 'onAfterCameraRenderObservable',
-                value: newProps.onAfterCameraRenderObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreCamera>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreScene.onAfterDrawPhaseObservable of type 'BabylonjsCoreObservable<BabylonjsCoreScene>/fn':
-        if (oldProps.onAfterDrawPhaseObservable === undefined && oldProps.onAfterDrawPhaseObservable !== newProps.onAfterDrawPhaseObservable) {
-            updates.push({
-                propertyName: 'onAfterDrawPhaseObservable',
-                value: newProps.onAfterDrawPhaseObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreScene>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreScene.onAfterParticlesRenderingObservable of type 'BabylonjsCoreObservable<BabylonjsCoreScene>/fn':
-        if (oldProps.onAfterParticlesRenderingObservable === undefined && oldProps.onAfterParticlesRenderingObservable !== newProps.onAfterParticlesRenderingObservable) {
-            updates.push({
-                propertyName: 'onAfterParticlesRenderingObservable',
-                value: newProps.onAfterParticlesRenderingObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreScene>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreScene.onAfterRenderCameraObservable of type 'BabylonjsCoreObservable<BabylonjsCoreCamera>/fn':
-        if (oldProps.onAfterRenderCameraObservable === undefined && oldProps.onAfterRenderCameraObservable !== newProps.onAfterRenderCameraObservable) {
-            updates.push({
-                propertyName: 'onAfterRenderCameraObservable',
-                value: newProps.onAfterRenderCameraObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreCamera>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreScene.onAfterRenderingGroupObservable of type 'BabylonjsCoreObservable<BabylonjsCoreRenderingGroupInfo>/fn':
-        if (oldProps.onAfterRenderingGroupObservable === undefined && oldProps.onAfterRenderingGroupObservable !== newProps.onAfterRenderingGroupObservable) {
-            updates.push({
-                propertyName: 'onAfterRenderingGroupObservable',
-                value: newProps.onAfterRenderingGroupObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreRenderingGroupInfo>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreScene.onAfterRenderObservable of type 'BabylonjsCoreObservable<BabylonjsCoreScene>/fn':
-        if (oldProps.onAfterRenderObservable === undefined && oldProps.onAfterRenderObservable !== newProps.onAfterRenderObservable) {
-            updates.push({
-                propertyName: 'onAfterRenderObservable',
-                value: newProps.onAfterRenderObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreScene>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreScene.onAfterRenderTargetsRenderObservable of type 'BabylonjsCoreObservable<BabylonjsCoreScene>/fn':
-        if (oldProps.onAfterRenderTargetsRenderObservable === undefined && oldProps.onAfterRenderTargetsRenderObservable !== newProps.onAfterRenderTargetsRenderObservable) {
-            updates.push({
-                propertyName: 'onAfterRenderTargetsRenderObservable',
-                value: newProps.onAfterRenderTargetsRenderObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreScene>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreScene.onAfterStepObservable of type 'BabylonjsCoreObservable<BabylonjsCoreScene>/fn':
-        if (oldProps.onAfterStepObservable === undefined && oldProps.onAfterStepObservable !== newProps.onAfterStepObservable) {
-            updates.push({
-                propertyName: 'onAfterStepObservable',
-                value: newProps.onAfterStepObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreScene>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreScene.onAnimationFileImportedObservable of type 'BabylonjsCoreObservable<BabylonjsCoreScene>/fn':
-        if (oldProps.onAnimationFileImportedObservable === undefined && oldProps.onAnimationFileImportedObservable !== newProps.onAnimationFileImportedObservable) {
-            updates.push({
-                propertyName: 'onAnimationFileImportedObservable',
-                value: newProps.onAnimationFileImportedObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreScene>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreScene.onBeforeActiveMeshesEvaluationObservable of type 'BabylonjsCoreObservable<BabylonjsCoreScene>/fn':
-        if (oldProps.onBeforeActiveMeshesEvaluationObservable === undefined && oldProps.onBeforeActiveMeshesEvaluationObservable !== newProps.onBeforeActiveMeshesEvaluationObservable) {
-            updates.push({
-                propertyName: 'onBeforeActiveMeshesEvaluationObservable',
-                value: newProps.onBeforeActiveMeshesEvaluationObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreScene>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreScene.onBeforeAnimationsObservable of type 'BabylonjsCoreObservable<BabylonjsCoreScene>/fn':
-        if (oldProps.onBeforeAnimationsObservable === undefined && oldProps.onBeforeAnimationsObservable !== newProps.onBeforeAnimationsObservable) {
-            updates.push({
-                propertyName: 'onBeforeAnimationsObservable',
-                value: newProps.onBeforeAnimationsObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreScene>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreScene.onBeforeCameraRenderObservable of type 'BabylonjsCoreObservable<BabylonjsCoreCamera>/fn':
-        if (oldProps.onBeforeCameraRenderObservable === undefined && oldProps.onBeforeCameraRenderObservable !== newProps.onBeforeCameraRenderObservable) {
-            updates.push({
-                propertyName: 'onBeforeCameraRenderObservable',
-                value: newProps.onBeforeCameraRenderObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreCamera>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreScene.onBeforeDrawPhaseObservable of type 'BabylonjsCoreObservable<BabylonjsCoreScene>/fn':
-        if (oldProps.onBeforeDrawPhaseObservable === undefined && oldProps.onBeforeDrawPhaseObservable !== newProps.onBeforeDrawPhaseObservable) {
-            updates.push({
-                propertyName: 'onBeforeDrawPhaseObservable',
-                value: newProps.onBeforeDrawPhaseObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreScene>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreScene.onBeforeParticlesRenderingObservable of type 'BabylonjsCoreObservable<BabylonjsCoreScene>/fn':
-        if (oldProps.onBeforeParticlesRenderingObservable === undefined && oldProps.onBeforeParticlesRenderingObservable !== newProps.onBeforeParticlesRenderingObservable) {
-            updates.push({
-                propertyName: 'onBeforeParticlesRenderingObservable',
-                value: newProps.onBeforeParticlesRenderingObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreScene>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreScene.onBeforeRenderingGroupObservable of type 'BabylonjsCoreObservable<BabylonjsCoreRenderingGroupInfo>/fn':
-        if (oldProps.onBeforeRenderingGroupObservable === undefined && oldProps.onBeforeRenderingGroupObservable !== newProps.onBeforeRenderingGroupObservable) {
-            updates.push({
-                propertyName: 'onBeforeRenderingGroupObservable',
-                value: newProps.onBeforeRenderingGroupObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreRenderingGroupInfo>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreScene.onBeforeRenderObservable of type 'BabylonjsCoreObservable<BabylonjsCoreScene>/fn':
-        if (oldProps.onBeforeRenderObservable === undefined && oldProps.onBeforeRenderObservable !== newProps.onBeforeRenderObservable) {
-            updates.push({
-                propertyName: 'onBeforeRenderObservable',
-                value: newProps.onBeforeRenderObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreScene>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreScene.onBeforeRenderTargetsRenderObservable of type 'BabylonjsCoreObservable<BabylonjsCoreScene>/fn':
-        if (oldProps.onBeforeRenderTargetsRenderObservable === undefined && oldProps.onBeforeRenderTargetsRenderObservable !== newProps.onBeforeRenderTargetsRenderObservable) {
-            updates.push({
-                propertyName: 'onBeforeRenderTargetsRenderObservable',
-                value: newProps.onBeforeRenderTargetsRenderObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreScene>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreScene.onBeforeStepObservable of type 'BabylonjsCoreObservable<BabylonjsCoreScene>/fn':
-        if (oldProps.onBeforeStepObservable === undefined && oldProps.onBeforeStepObservable !== newProps.onBeforeStepObservable) {
-            updates.push({
-                propertyName: 'onBeforeStepObservable',
-                value: newProps.onBeforeStepObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreScene>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreScene.onCameraRemovedObservable of type 'BabylonjsCoreObservable<BabylonjsCoreCamera>/fn':
-        if (oldProps.onCameraRemovedObservable === undefined && oldProps.onCameraRemovedObservable !== newProps.onCameraRemovedObservable) {
-            updates.push({
-                propertyName: 'onCameraRemovedObservable',
-                value: newProps.onCameraRemovedObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreCamera>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreScene.onDataLoadedObservable of type 'BabylonjsCoreObservable<BabylonjsCoreScene>/fn':
-        if (oldProps.onDataLoadedObservable === undefined && oldProps.onDataLoadedObservable !== newProps.onDataLoadedObservable) {
-            updates.push({
-                propertyName: 'onDataLoadedObservable',
-                value: newProps.onDataLoadedObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreScene>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreScene.onDispose of type '() => void/fn':
-        if (oldProps.onDispose === undefined && oldProps.onDispose !== newProps.onDispose) {
-            updates.push({
-                propertyName: 'onDispose',
-                value: newProps.onDispose,
-                type: '() => void'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreScene.onDisposeObservable of type 'BabylonjsCoreObservable<BabylonjsCoreScene>/fn':
-        if (oldProps.onDisposeObservable === undefined && oldProps.onDisposeObservable !== newProps.onDisposeObservable) {
-            updates.push({
-                propertyName: 'onDisposeObservable',
-                value: newProps.onDisposeObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreScene>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreScene.onGeometryRemovedObservable of type 'BabylonjsCoreObservable<BabylonjsCoreGeometry>/fn':
-        if (oldProps.onGeometryRemovedObservable === undefined && oldProps.onGeometryRemovedObservable !== newProps.onGeometryRemovedObservable) {
-            updates.push({
-                propertyName: 'onGeometryRemovedObservable',
-                value: newProps.onGeometryRemovedObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreGeometry>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreScene.onKeyboardObservable of type 'BabylonjsCoreObservable<BabylonjsCoreKeyboardInfo>/fn':
-        if (oldProps.onKeyboardObservable === undefined && oldProps.onKeyboardObservable !== newProps.onKeyboardObservable) {
-            updates.push({
-                propertyName: 'onKeyboardObservable',
-                value: newProps.onKeyboardObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreKeyboardInfo>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreScene.onLightRemovedObservable of type 'BabylonjsCoreObservable<BabylonjsCoreLight>/fn':
-        if (oldProps.onLightRemovedObservable === undefined && oldProps.onLightRemovedObservable !== newProps.onLightRemovedObservable) {
-            updates.push({
-                propertyName: 'onLightRemovedObservable',
-                value: newProps.onLightRemovedObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreLight>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreScene.onMaterialRemovedObservable of type 'BabylonjsCoreObservable<BabylonjsCoreMaterial>/fn':
-        if (oldProps.onMaterialRemovedObservable === undefined && oldProps.onMaterialRemovedObservable !== newProps.onMaterialRemovedObservable) {
-            updates.push({
-                propertyName: 'onMaterialRemovedObservable',
-                value: newProps.onMaterialRemovedObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreMaterial>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreScene.onMeshImportedObservable of type 'BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>/fn':
-        if (oldProps.onMeshImportedObservable === undefined && oldProps.onMeshImportedObservable !== newProps.onMeshImportedObservable) {
-            updates.push({
-                propertyName: 'onMeshImportedObservable',
-                value: newProps.onMeshImportedObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreScene.onMeshRemovedObservable of type 'BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>/fn':
-        if (oldProps.onMeshRemovedObservable === undefined && oldProps.onMeshRemovedObservable !== newProps.onMeshRemovedObservable) {
-            updates.push({
-                propertyName: 'onMeshRemovedObservable',
-                value: newProps.onMeshRemovedObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreScene.onNewCameraAddedObservable of type 'BabylonjsCoreObservable<BabylonjsCoreCamera>/fn':
-        if (oldProps.onNewCameraAddedObservable === undefined && oldProps.onNewCameraAddedObservable !== newProps.onNewCameraAddedObservable) {
-            updates.push({
-                propertyName: 'onNewCameraAddedObservable',
-                value: newProps.onNewCameraAddedObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreCamera>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreScene.onNewGeometryAddedObservable of type 'BabylonjsCoreObservable<BabylonjsCoreGeometry>/fn':
-        if (oldProps.onNewGeometryAddedObservable === undefined && oldProps.onNewGeometryAddedObservable !== newProps.onNewGeometryAddedObservable) {
-            updates.push({
-                propertyName: 'onNewGeometryAddedObservable',
-                value: newProps.onNewGeometryAddedObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreGeometry>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreScene.onNewLightAddedObservable of type 'BabylonjsCoreObservable<BabylonjsCoreLight>/fn':
-        if (oldProps.onNewLightAddedObservable === undefined && oldProps.onNewLightAddedObservable !== newProps.onNewLightAddedObservable) {
-            updates.push({
-                propertyName: 'onNewLightAddedObservable',
-                value: newProps.onNewLightAddedObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreLight>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreScene.onNewMaterialAddedObservable of type 'BabylonjsCoreObservable<BabylonjsCoreMaterial>/fn':
-        if (oldProps.onNewMaterialAddedObservable === undefined && oldProps.onNewMaterialAddedObservable !== newProps.onNewMaterialAddedObservable) {
-            updates.push({
-                propertyName: 'onNewMaterialAddedObservable',
-                value: newProps.onNewMaterialAddedObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreMaterial>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreScene.onNewMeshAddedObservable of type 'BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>/fn':
-        if (oldProps.onNewMeshAddedObservable === undefined && oldProps.onNewMeshAddedObservable !== newProps.onNewMeshAddedObservable) {
-            updates.push({
-                propertyName: 'onNewMeshAddedObservable',
-                value: newProps.onNewMeshAddedObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreScene.onNewSkeletonAddedObservable of type 'BabylonjsCoreObservable<BabylonjsCoreSkeleton>/fn':
-        if (oldProps.onNewSkeletonAddedObservable === undefined && oldProps.onNewSkeletonAddedObservable !== newProps.onNewSkeletonAddedObservable) {
-            updates.push({
-                propertyName: 'onNewSkeletonAddedObservable',
-                value: newProps.onNewSkeletonAddedObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreSkeleton>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreScene.onNewTextureAddedObservable of type 'BabylonjsCoreObservable<BabylonjsCoreBaseTexture>/fn':
-        if (oldProps.onNewTextureAddedObservable === undefined && oldProps.onNewTextureAddedObservable !== newProps.onNewTextureAddedObservable) {
-            updates.push({
-                propertyName: 'onNewTextureAddedObservable',
-                value: newProps.onNewTextureAddedObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreBaseTexture>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreScene.onNewTransformNodeAddedObservable of type 'BabylonjsCoreObservable<BabylonjsCoreTransformNode>/fn':
-        if (oldProps.onNewTransformNodeAddedObservable === undefined && oldProps.onNewTransformNodeAddedObservable !== newProps.onNewTransformNodeAddedObservable) {
-            updates.push({
-                propertyName: 'onNewTransformNodeAddedObservable',
-                value: newProps.onNewTransformNodeAddedObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreTransformNode>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreScene.onPointerDown of type '(evt: PointerEvent, pickInfo: BabylonjsCorePickingInfo, type: BabylonjsCorePointerEventTypes) => void/fn':
-        if (oldProps.onPointerDown === undefined && oldProps.onPointerDown !== newProps.onPointerDown) {
-            updates.push({
-                propertyName: 'onPointerDown',
-                value: newProps.onPointerDown,
-                type: '(evt: PointerEvent, pickInfo: BabylonjsCorePickingInfo, type: BabylonjsCorePointerEventTypes) => void'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreScene.onPointerMove of type '(evt: PointerEvent, pickInfo: BabylonjsCorePickingInfo, type: BabylonjsCorePointerEventTypes) => void/fn':
-        if (oldProps.onPointerMove === undefined && oldProps.onPointerMove !== newProps.onPointerMove) {
-            updates.push({
-                propertyName: 'onPointerMove',
-                value: newProps.onPointerMove,
-                type: '(evt: PointerEvent, pickInfo: BabylonjsCorePickingInfo, type: BabylonjsCorePointerEventTypes) => void'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreScene.onPointerObservable of type 'BabylonjsCoreObservable<BabylonjsCorePointerInfo>/fn':
-        if (oldProps.onPointerObservable === undefined && oldProps.onPointerObservable !== newProps.onPointerObservable) {
-            updates.push({
-                propertyName: 'onPointerObservable',
-                value: newProps.onPointerObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCorePointerInfo>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreScene.onPointerPick of type '(evt: PointerEvent, pickInfo: BabylonjsCorePickingInfo) => void/fn':
-        if (oldProps.onPointerPick === undefined && oldProps.onPointerPick !== newProps.onPointerPick) {
-            updates.push({
-                propertyName: 'onPointerPick',
-                value: newProps.onPointerPick,
-                type: '(evt: PointerEvent, pickInfo: BabylonjsCorePickingInfo) => void'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreScene.onPointerUp of type '(evt: PointerEvent, pickInfo: BabylonjsCorePickingInfo, type: BabylonjsCorePointerEventTypes) => void/fn':
-        if (oldProps.onPointerUp === undefined && oldProps.onPointerUp !== newProps.onPointerUp) {
-            updates.push({
-                propertyName: 'onPointerUp',
-                value: newProps.onPointerUp,
-                type: '(evt: PointerEvent, pickInfo: BabylonjsCorePickingInfo, type: BabylonjsCorePointerEventTypes) => void'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreScene.onPreKeyboardObservable of type 'BabylonjsCoreObservable<BabylonjsCoreKeyboardInfoPre>/fn':
-        if (oldProps.onPreKeyboardObservable === undefined && oldProps.onPreKeyboardObservable !== newProps.onPreKeyboardObservable) {
-            updates.push({
-                propertyName: 'onPreKeyboardObservable',
-                value: newProps.onPreKeyboardObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreKeyboardInfoPre>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreScene.onPrePointerObservable of type 'BabylonjsCoreObservable<BabylonjsCorePointerInfoPre>/fn':
-        if (oldProps.onPrePointerObservable === undefined && oldProps.onPrePointerObservable !== newProps.onPrePointerObservable) {
-            updates.push({
-                propertyName: 'onPrePointerObservable',
-                value: newProps.onPrePointerObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCorePointerInfoPre>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreScene.onReadyObservable of type 'BabylonjsCoreObservable<BabylonjsCoreScene>/fn':
-        if (oldProps.onReadyObservable === undefined && oldProps.onReadyObservable !== newProps.onReadyObservable) {
-            updates.push({
-                propertyName: 'onReadyObservable',
-                value: newProps.onReadyObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreScene>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreScene.onSkeletonRemovedObservable of type 'BabylonjsCoreObservable<BabylonjsCoreSkeleton>/fn':
-        if (oldProps.onSkeletonRemovedObservable === undefined && oldProps.onSkeletonRemovedObservable !== newProps.onSkeletonRemovedObservable) {
-            updates.push({
-                propertyName: 'onSkeletonRemovedObservable',
-                value: newProps.onSkeletonRemovedObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreSkeleton>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreScene.onTextureRemovedObservable of type 'BabylonjsCoreObservable<BabylonjsCoreBaseTexture>/fn':
-        if (oldProps.onTextureRemovedObservable === undefined && oldProps.onTextureRemovedObservable !== newProps.onTextureRemovedObservable) {
-            updates.push({
-                propertyName: 'onTextureRemovedObservable',
-                value: newProps.onTextureRemovedObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreBaseTexture>'
-            });
-        }
-        // xxx-ns-xxx.BabylonjsCoreScene.onTransformNodeRemovedObservable of type 'BabylonjsCoreObservable<BabylonjsCoreTransformNode>/fn':
-        if (oldProps.onTransformNodeRemovedObservable === undefined && oldProps.onTransformNodeRemovedObservable !== newProps.onTransformNodeRemovedObservable) {
-            updates.push({
-                propertyName: 'onTransformNodeRemovedObservable',
-                value: newProps.onTransformNodeRemovedObservable,
-                type: 'BabylonjsCoreObservable<BabylonjsCoreTransformNode>'
-            });
-        }
-        // BabylonjsCoreScene.particlesEnabled (boolean):
-        if (oldProps.particlesEnabled !== newProps.particlesEnabled) {
-            updates.push({
-                propertyName: 'particlesEnabled',
-                value: newProps.particlesEnabled,
-                type: 'boolean'
-            });
-        }
-        // TODO: type: '(Mesh: BabylonjsCoreAbstractMesh) => boolean' property (not coded) BabylonjsCoreScene.pointerDownPredicate.
-        // TODO: type: '(Mesh: BabylonjsCoreAbstractMesh) => boolean' property (not coded) BabylonjsCoreScene.pointerMovePredicate.
-        // TODO: type: '(Mesh: BabylonjsCoreAbstractMesh) => boolean' property (not coded) BabylonjsCoreScene.pointerUpPredicate.
-        // BabylonjsCoreScene.pointerX (number):
-        if (oldProps.pointerX !== newProps.pointerX) {
-            updates.push({
-                propertyName: 'pointerX',
-                value: newProps.pointerX,
-                type: 'number'
-            });
-        }
-        // BabylonjsCoreScene.pointerY (number):
-        if (oldProps.pointerY !== newProps.pointerY) {
-            updates.push({
-                propertyName: 'pointerY',
-                value: newProps.pointerY,
-                type: 'number'
-            });
-        }
-        // TODO: type: 'BabylonjsCorePostProcess[]' property (not coded) BabylonjsCoreScene.postProcesses.
-        // BabylonjsCoreScene.postProcessesEnabled (boolean):
-        if (oldProps.postProcessesEnabled !== newProps.postProcessesEnabled) {
-            updates.push({
-                propertyName: 'postProcessesEnabled',
-                value: newProps.postProcessesEnabled,
-                type: 'boolean'
-            });
-        }
-        // TODO: type: 'BabylonjsCorePostProcessManager' property (not coded) BabylonjsCoreScene.postProcessManager.
-        // BabylonjsCoreScene.preventDefaultOnPointerDown (boolean):
-        if (oldProps.preventDefaultOnPointerDown !== newProps.preventDefaultOnPointerDown) {
-            updates.push({
-                propertyName: 'preventDefaultOnPointerDown',
-                value: newProps.preventDefaultOnPointerDown,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreScene.preventDefaultOnPointerUp (boolean):
-        if (oldProps.preventDefaultOnPointerUp !== newProps.preventDefaultOnPointerUp) {
-            updates.push({
-                propertyName: 'preventDefaultOnPointerUp',
-                value: newProps.preventDefaultOnPointerUp,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreScene.probesEnabled (boolean):
-        if (oldProps.probesEnabled !== newProps.probesEnabled) {
-            updates.push({
-                propertyName: 'probesEnabled',
-                value: newProps.probesEnabled,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreScene.proceduralTexturesEnabled (boolean):
-        if (oldProps.proceduralTexturesEnabled !== newProps.proceduralTexturesEnabled) {
-            updates.push({
-                propertyName: 'proceduralTexturesEnabled',
-                value: newProps.proceduralTexturesEnabled,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreScene.renderTargetsEnabled (boolean):
-        if (oldProps.renderTargetsEnabled !== newProps.renderTargetsEnabled) {
-            updates.push({
-                propertyName: 'renderTargetsEnabled',
-                value: newProps.renderTargetsEnabled,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreScene.requireLightSorting (boolean):
-        if (oldProps.requireLightSorting !== newProps.requireLightSorting) {
-            updates.push({
-                propertyName: 'requireLightSorting',
-                value: newProps.requireLightSorting,
-                type: 'boolean'
-            });
-        }
-        // TODO: type: 'any' property (not coded) BabylonjsCoreScene.reservedDataStore.
-        // BabylonjsCoreScene.shadowsEnabled (boolean):
-        if (oldProps.shadowsEnabled !== newProps.shadowsEnabled) {
-            updates.push({
-                propertyName: 'shadowsEnabled',
-                value: newProps.shadowsEnabled,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreScene.skeletonsEnabled (boolean):
-        if (oldProps.skeletonsEnabled !== newProps.skeletonsEnabled) {
-            updates.push({
-                propertyName: 'skeletonsEnabled',
-                value: newProps.skeletonsEnabled,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreScene.skipFrustumClipping (boolean):
-        if (oldProps.skipFrustumClipping !== newProps.skipFrustumClipping) {
-            updates.push({
-                propertyName: 'skipFrustumClipping',
-                value: newProps.skipFrustumClipping,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreScene.spritesEnabled (boolean):
-        if (oldProps.spritesEnabled !== newProps.spritesEnabled) {
-            updates.push({
-                propertyName: 'spritesEnabled',
-                value: newProps.spritesEnabled,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreScene.texturesEnabled (boolean):
-        if (oldProps.texturesEnabled !== newProps.texturesEnabled) {
-            updates.push({
-                propertyName: 'texturesEnabled',
-                value: newProps.texturesEnabled,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreScene.useConstantAnimationDeltaTime (boolean):
-        if (oldProps.useConstantAnimationDeltaTime !== newProps.useConstantAnimationDeltaTime) {
-            updates.push({
-                propertyName: 'useConstantAnimationDeltaTime',
-                value: newProps.useConstantAnimationDeltaTime,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreScene.useDelayedTextureLoading (boolean):
-        if (oldProps.useDelayedTextureLoading !== newProps.useDelayedTextureLoading) {
-            updates.push({
-                propertyName: 'useDelayedTextureLoading',
-                value: newProps.useDelayedTextureLoading,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreScene.useRightHandedSystem (boolean):
-        if (oldProps.useRightHandedSystem !== newProps.useRightHandedSystem) {
-            updates.push({
-                propertyName: 'useRightHandedSystem',
-                value: newProps.useRightHandedSystem,
-                type: 'boolean'
-            });
-        }
-        // BabylonjsCoreScene.addActionManager of type '(newActionManager?: BabylonjsCoreAbstractActionManager) => void':
-        if (oldProps.addActionManager !== newProps.addActionManager) {
-            updates.push({
-                propertyName: 'addActionManager',
-                value: newProps.addActionManager,
-                type: '(newActionManager?: BabylonjsCoreAbstractActionManager) => void'
-            });
-        }
-        // BabylonjsCoreScene.addAnimation of type '(newAnimation?: BabylonjsCoreAnimation) => void':
-        if (oldProps.addAnimation !== newProps.addAnimation) {
-            updates.push({
-                propertyName: 'addAnimation',
-                value: newProps.addAnimation,
-                type: '(newAnimation?: BabylonjsCoreAnimation) => void'
-            });
-        }
-        // BabylonjsCoreScene.addAnimationGroup of type '(newAnimationGroup?: BabylonjsCoreAnimationGroup) => void':
-        if (oldProps.addAnimationGroup !== newProps.addAnimationGroup) {
-            updates.push({
-                propertyName: 'addAnimationGroup',
-                value: newProps.addAnimationGroup,
-                type: '(newAnimationGroup?: BabylonjsCoreAnimationGroup) => void'
-            });
-        }
-        // BabylonjsCoreScene.addCamera of type '(newCamera?: BabylonjsCoreCamera) => void':
-        if (oldProps.addCamera !== newProps.addCamera) {
-            updates.push({
-                propertyName: 'addCamera',
-                value: newProps.addCamera,
-                type: '(newCamera?: BabylonjsCoreCamera) => void'
-            });
-        }
-        // BabylonjsCoreScene.addExternalData of type '(key?: string, data?: T) => boolean':
-        if (oldProps.addExternalData !== newProps.addExternalData) {
-            updates.push({
-                propertyName: 'addExternalData',
-                value: newProps.addExternalData,
-                type: '(key?: string, data?: T) => boolean'
-            });
-        }
-        // BabylonjsCoreScene.addGeometry of type '(newGeometry?: BabylonjsCoreGeometry) => void':
-        if (oldProps.addGeometry !== newProps.addGeometry) {
-            updates.push({
-                propertyName: 'addGeometry',
-                value: newProps.addGeometry,
-                type: '(newGeometry?: BabylonjsCoreGeometry) => void'
-            });
-        }
-        // BabylonjsCoreScene.addLight of type '(newLight?: BabylonjsCoreLight) => void':
-        if (oldProps.addLight !== newProps.addLight) {
-            updates.push({
-                propertyName: 'addLight',
-                value: newProps.addLight,
-                type: '(newLight?: BabylonjsCoreLight) => void'
-            });
-        }
-        // BabylonjsCoreScene.addMaterial of type '(newMaterial?: BabylonjsCoreMaterial) => void':
-        if (oldProps.addMaterial !== newProps.addMaterial) {
-            updates.push({
-                propertyName: 'addMaterial',
-                value: newProps.addMaterial,
-                type: '(newMaterial?: BabylonjsCoreMaterial) => void'
-            });
-        }
-        // BabylonjsCoreScene.addMesh of type '(newMesh?: BabylonjsCoreAbstractMesh, recursive?: boolean) => void':
-        if (oldProps.addMesh !== newProps.addMesh) {
-            updates.push({
-                propertyName: 'addMesh',
-                value: newProps.addMesh,
-                type: '(newMesh?: BabylonjsCoreAbstractMesh, recursive?: boolean) => void'
-            });
-        }
-        // BabylonjsCoreScene.addMorphTargetManager of type '(newMorphTargetManager?: BabylonjsCoreMorphTargetManager) => void':
-        if (oldProps.addMorphTargetManager !== newProps.addMorphTargetManager) {
-            updates.push({
-                propertyName: 'addMorphTargetManager',
-                value: newProps.addMorphTargetManager,
-                type: '(newMorphTargetManager?: BabylonjsCoreMorphTargetManager) => void'
-            });
-        }
-        // BabylonjsCoreScene.addMultiMaterial of type '(newMultiMaterial?: BabylonjsCoreMultiMaterial) => void':
-        if (oldProps.addMultiMaterial !== newProps.addMultiMaterial) {
-            updates.push({
-                propertyName: 'addMultiMaterial',
-                value: newProps.addMultiMaterial,
-                type: '(newMultiMaterial?: BabylonjsCoreMultiMaterial) => void'
-            });
-        }
-        // BabylonjsCoreScene.addParticleSystem of type '(newParticleSystem?: BabylonjsCoreIParticleSystem) => void':
-        if (oldProps.addParticleSystem !== newProps.addParticleSystem) {
-            updates.push({
-                propertyName: 'addParticleSystem',
-                value: newProps.addParticleSystem,
-                type: '(newParticleSystem?: BabylonjsCoreIParticleSystem) => void'
-            });
-        }
-        // BabylonjsCoreScene.addSkeleton of type '(newSkeleton?: BabylonjsCoreSkeleton) => void':
-        if (oldProps.addSkeleton !== newProps.addSkeleton) {
-            updates.push({
-                propertyName: 'addSkeleton',
-                value: newProps.addSkeleton,
-                type: '(newSkeleton?: BabylonjsCoreSkeleton) => void'
-            });
-        }
-        // BabylonjsCoreScene.addTexture of type '(newTexture?: BabylonjsCoreBaseTexture) => void':
-        if (oldProps.addTexture !== newProps.addTexture) {
-            updates.push({
-                propertyName: 'addTexture',
-                value: newProps.addTexture,
-                type: '(newTexture?: BabylonjsCoreBaseTexture) => void'
-            });
-        }
-        // BabylonjsCoreScene.addTransformNode of type '(newTransformNode?: BabylonjsCoreTransformNode) => void':
-        if (oldProps.addTransformNode !== newProps.addTransformNode) {
-            updates.push({
-                propertyName: 'addTransformNode',
-                value: newProps.addTransformNode,
-                type: '(newTransformNode?: BabylonjsCoreTransformNode) => void'
-            });
-        }
-        // BabylonjsCoreScene.setActiveCameraByID of type '(id?: string) => BabylonjsCoreCamera':
-        if (oldProps.setActiveCameraByID !== newProps.setActiveCameraByID) {
-            updates.push({
-                propertyName: 'setActiveCameraByID',
-                value: newProps.setActiveCameraByID,
-                type: '(id?: string) => BabylonjsCoreCamera'
-            });
-        }
-        // BabylonjsCoreScene.setActiveCameraByName of type '(name?: string) => BabylonjsCoreCamera':
-        if (oldProps.setActiveCameraByName !== newProps.setActiveCameraByName) {
-            updates.push({
-                propertyName: 'setActiveCameraByName',
-                value: newProps.setActiveCameraByName,
-                type: '(name?: string) => BabylonjsCoreCamera'
-            });
-        }
-        // BabylonjsCoreScene.setPointerOverMesh of type '(mesh?: BabylonjsCoreAbstractMesh) => void':
-        if (oldProps.setPointerOverMesh !== newProps.setPointerOverMesh) {
-            updates.push({
-                propertyName: 'setPointerOverMesh',
-                value: newProps.setPointerOverMesh,
-                type: '(mesh?: BabylonjsCoreAbstractMesh) => void'
-            });
-        }
-        // BabylonjsCoreScene.setRenderingAutoClearDepthStencil of type '(renderingGroupId?: number, autoClearDepthStencil?: boolean, depth?: boolean, stencil?: boolean) => void':
-        if (oldProps.setRenderingAutoClearDepthStencil !== newProps.setRenderingAutoClearDepthStencil) {
-            updates.push({
-                propertyName: 'setRenderingAutoClearDepthStencil',
-                value: newProps.setRenderingAutoClearDepthStencil,
-                type: '(renderingGroupId?: number, autoClearDepthStencil?: boolean, depth?: boolean, stencil?: boolean) => void'
-            });
-        }
-        // BabylonjsCoreScene.setRenderingOrder of type '(renderingGroupId?: number, opaqueSortCompareFn?: (a: BabylonjsCoreSubMesh, b: BabylonjsCoreSubMesh) => number, alphaTestSortCompareFn?: (a: BabylonjsCoreSubMesh, b: BabylonjsCoreSubMesh) => number, transparentSortCompareFn?: (a: BabylonjsCoreSubMesh, b: BabylonjsCoreSubMesh) => number) => void':
-        if (oldProps.setRenderingOrder !== newProps.setRenderingOrder) {
-            updates.push({
-                propertyName: 'setRenderingOrder',
-                value: newProps.setRenderingOrder,
-                type: '(renderingGroupId?: number, opaqueSortCompareFn?: (a: BabylonjsCoreSubMesh, b: BabylonjsCoreSubMesh) => number, alphaTestSortCompareFn?: (a: BabylonjsCoreSubMesh, b: BabylonjsCoreSubMesh) => number, transparentSortCompareFn?: (a: BabylonjsCoreSubMesh, b: BabylonjsCoreSubMesh) => number) => void'
-            });
-        }
-        // BabylonjsCoreScene.setStepId of type '(newStepId?: number) => void':
-        if (oldProps.setStepId !== newProps.setStepId) {
-            updates.push({
-                propertyName: 'setStepId',
-                value: newProps.setStepId,
-                type: '(newStepId?: number) => void'
-            });
-        }
-        // BabylonjsCoreScene.setTransformMatrix of type '(viewL?: BabylonjsCoreMatrix, projectionL?: BabylonjsCoreMatrix, viewR?: BabylonjsCoreMatrix, projectionR?: BabylonjsCoreMatrix) => void':
-        if (oldProps.setTransformMatrix !== newProps.setTransformMatrix) {
-            updates.push({
-                propertyName: 'setTransformMatrix',
-                value: newProps.setTransformMatrix,
-                type: '(viewL?: BabylonjsCoreMatrix, projectionL?: BabylonjsCoreMatrix, viewR?: BabylonjsCoreMatrix, projectionR?: BabylonjsCoreMatrix) => void'
-            });
-        }
-        return updates.length === 0 ? null : updates;
+export class FiberScenePropsHandler implements PropsHandler<FiberSceneProps> {
+    getPropertyUpdates(oldProps: FiberSceneProps, newProps: FiberSceneProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        // type: 'BabylonjsCoreAbstractActionManager' property (not coded) BabylonjsCoreScene.actionManager.
+        // type: 'BabylonjsCoreCamera' property (not coded) BabylonjsCoreScene.activeCamera.
+        // type: 'BabylonjsCoreCamera[]' property (not coded) BabylonjsCoreScene.activeCameras.
+        checkLambdaDiff(oldProps.afterCameraRender, newProps.afterCameraRender, 'afterCameraRender', '() => void', changedProps)
+        checkLambdaDiff(oldProps.afterRender, newProps.afterRender, 'afterRender', '() => void', changedProps)
+        checkColor3Diff(oldProps.ambientColor, newProps.ambientColor, 'ambientColor', 'BabylonjsCoreColor3', changedProps)
+        // type: 'BabylonjsCoreAnimationPropertiesOverride' property (not coded) BabylonjsCoreScene.animationPropertiesOverride.
+        checkPrimitiveDiff(oldProps.animationsEnabled, newProps.animationsEnabled, 'animationsEnabled', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.animationTimeScale, newProps.animationTimeScale, 'animationTimeScale', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.autoClear, newProps.autoClear, 'autoClear', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.autoClearDepthAndStencil, newProps.autoClearDepthAndStencil, 'autoClearDepthAndStencil', 'boolean', changedProps)
+        checkLambdaDiff(oldProps.beforeCameraRender, newProps.beforeCameraRender, 'beforeCameraRender', '() => void', changedProps)
+        checkLambdaDiff(oldProps.beforeRender, newProps.beforeRender, 'beforeRender', '() => void', changedProps)
+        checkPrimitiveDiff(oldProps.blockfreeActiveMeshesAndRenderingGroups, newProps.blockfreeActiveMeshesAndRenderingGroups, 'blockfreeActiveMeshesAndRenderingGroups', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.blockMaterialDirtyMechanism, newProps.blockMaterialDirtyMechanism, 'blockMaterialDirtyMechanism', 'boolean', changedProps)
+        // type: 'BabylonjsCoreCamera' property (not coded) BabylonjsCoreScene.cameraToUseForPointers.
+        checkColor4Diff(oldProps.clearColor, newProps.clearColor, 'clearColor', 'BabylonjsCoreColor4', changedProps)
+        // type: 'BabylonjsCorePlane' property (not coded) BabylonjsCoreScene.clipPlane.
+        // type: 'BabylonjsCorePlane' property (not coded) BabylonjsCoreScene.clipPlane2.
+        // type: 'BabylonjsCorePlane' property (not coded) BabylonjsCoreScene.clipPlane3.
+        // type: 'BabylonjsCorePlane' property (not coded) BabylonjsCoreScene.clipPlane4.
+        // type: 'BabylonjsCorePlane' property (not coded) BabylonjsCoreScene.clipPlane5.
+        // type: 'BabylonjsCorePlane' property (not coded) BabylonjsCoreScene.clipPlane6.
+        checkPrimitiveDiff(oldProps.collisionsEnabled, newProps.collisionsEnabled, 'collisionsEnabled', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.constantlyUpdateMeshUnderPointer, newProps.constantlyUpdateMeshUnderPointer, 'constantlyUpdateMeshUnderPointer', 'boolean', changedProps)
+        checkLambdaDiff(oldProps.customLODSelector, newProps.customLODSelector, 'customLODSelector', '(mesh: BabylonjsCoreAbstractMesh, camera: BabylonjsCoreCamera) => BabylonjsCoreAbstractMesh', changedProps)
+        // type: 'BabylonjsCoreRenderTargetTexture[]' property (not coded) BabylonjsCoreScene.customRenderTargets.
+        checkPrimitiveDiff(oldProps.defaultCursor, newProps.defaultCursor, 'defaultCursor', 'string', changedProps)
+        // type: 'BabylonjsCoreMaterial' property (not coded) BabylonjsCoreScene.defaultMaterial.
+        // type: 'RegExp[]' property (not coded) BabylonjsCoreScene.disableOfflineSupportExceptionRules.
+        checkPrimitiveDiff(oldProps.dispatchAllSubMeshesOfActiveMeshes, newProps.dispatchAllSubMeshesOfActiveMeshes, 'dispatchAllSubMeshesOfActiveMeshes', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.doNotHandleCursors, newProps.doNotHandleCursors, 'doNotHandleCursors', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.DoubleClickDelay, newProps.DoubleClickDelay, 'DoubleClickDelay', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.DragMovementThreshold, newProps.DragMovementThreshold, 'DragMovementThreshold', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.dumpNextRenderTargets, newProps.dumpNextRenderTargets, 'dumpNextRenderTargets', 'boolean', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreScene.environmentBRDFTexture.
+        checkPrimitiveDiff(oldProps.environmentIntensity, newProps.environmentIntensity, 'environmentIntensity', 'number', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreScene.environmentTexture.
+        checkPrimitiveDiff(oldProps.ExclusiveDoubleClickMode, newProps.ExclusiveDoubleClickMode, 'ExclusiveDoubleClickMode', 'boolean', changedProps)
+        checkColor3Diff(oldProps.fogColor, newProps.fogColor, 'fogColor', 'BabylonjsCoreColor3', changedProps)
+        checkPrimitiveDiff(oldProps.fogDensity, newProps.fogDensity, 'fogDensity', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.fogEnabled, newProps.fogEnabled, 'fogEnabled', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.fogEnd, newProps.fogEnd, 'fogEnd', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.fogMode, newProps.fogMode, 'fogMode', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.fogStart, newProps.fogStart, 'fogStart', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.forcePointsCloud, newProps.forcePointsCloud, 'forcePointsCloud', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.forceWireframe, newProps.forceWireframe, 'forceWireframe', 'boolean', changedProps)
+        // type: 'any' property (not coded) BabylonjsCoreScene.geometriesByUniqueId.
+        checkLambdaDiff(oldProps.getActiveMeshCandidates, newProps.getActiveMeshCandidates, 'getActiveMeshCandidates', '() => BabylonjsCoreISmartArrayLike<BabylonjsCoreAbstractMesh>', changedProps)
+        checkLambdaDiff(oldProps.getActiveSubMeshCandidates, newProps.getActiveSubMeshCandidates, 'getActiveSubMeshCandidates', '(mesh: BabylonjsCoreAbstractMesh) => BabylonjsCoreISmartArrayLike<BabylonjsCoreSubMesh>', changedProps)
+        checkLambdaDiff(oldProps.getCollidingSubMeshCandidates, newProps.getCollidingSubMeshCandidates, 'getCollidingSubMeshCandidates', '(mesh: BabylonjsCoreAbstractMesh, collider: BabylonjsCoreCollider) => BabylonjsCoreISmartArrayLike<BabylonjsCoreSubMesh>', changedProps)
+        checkLambdaDiff(oldProps.getDeterministicFrameTime, newProps.getDeterministicFrameTime, 'getDeterministicFrameTime', '() => number', changedProps)
+        checkLambdaDiff(oldProps.getIntersectingSubMeshCandidates, newProps.getIntersectingSubMeshCandidates, 'getIntersectingSubMeshCandidates', '(mesh: BabylonjsCoreAbstractMesh, localRay: BabylonjsCoreRay) => BabylonjsCoreISmartArrayLike<BabylonjsCoreSubMesh>', changedProps)
+        checkVector3Diff(oldProps.gravity, newProps.gravity, 'gravity', 'BabylonjsCoreVector3', changedProps)
+        checkPrimitiveDiff(oldProps.hoverCursor, newProps.hoverCursor, 'hoverCursor', 'string', changedProps)
+        // type: 'String[]' property (not coded) BabylonjsCoreScene.importedMeshesFiles.
+        checkPrimitiveDiff(oldProps.lensFlaresEnabled, newProps.lensFlaresEnabled, 'lensFlaresEnabled', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.lightsEnabled, newProps.lightsEnabled, 'lightsEnabled', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.loadingPluginName, newProps.loadingPluginName, 'loadingPluginName', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.LongPressDelay, newProps.LongPressDelay, 'LongPressDelay', 'number', changedProps)
+        // type: 'any' property (not coded) BabylonjsCoreScene.metadata.
+        // type: 'BabylonjsCoreIOfflineProvider' property (not coded) BabylonjsCoreScene.offlineProvider.
+        checkObservableDiff(oldProps.onActiveCameraChanged, newProps.onActiveCameraChanged, 'onActiveCameraChanged', 'BabylonjsCoreObservable<BabylonjsCoreScene>', changedProps)
+        checkObservableDiff(oldProps.onAfterActiveMeshesEvaluationObservable, newProps.onAfterActiveMeshesEvaluationObservable, 'onAfterActiveMeshesEvaluationObservable', 'BabylonjsCoreObservable<BabylonjsCoreScene>', changedProps)
+        checkObservableDiff(oldProps.onAfterAnimationsObservable, newProps.onAfterAnimationsObservable, 'onAfterAnimationsObservable', 'BabylonjsCoreObservable<BabylonjsCoreScene>', changedProps)
+        checkObservableDiff(oldProps.onAfterCameraRenderObservable, newProps.onAfterCameraRenderObservable, 'onAfterCameraRenderObservable', 'BabylonjsCoreObservable<BabylonjsCoreCamera>', changedProps)
+        checkObservableDiff(oldProps.onAfterDrawPhaseObservable, newProps.onAfterDrawPhaseObservable, 'onAfterDrawPhaseObservable', 'BabylonjsCoreObservable<BabylonjsCoreScene>', changedProps)
+        checkObservableDiff(oldProps.onAfterParticlesRenderingObservable, newProps.onAfterParticlesRenderingObservable, 'onAfterParticlesRenderingObservable', 'BabylonjsCoreObservable<BabylonjsCoreScene>', changedProps)
+        checkObservableDiff(oldProps.onAfterRenderCameraObservable, newProps.onAfterRenderCameraObservable, 'onAfterRenderCameraObservable', 'BabylonjsCoreObservable<BabylonjsCoreCamera>', changedProps)
+        checkObservableDiff(oldProps.onAfterRenderingGroupObservable, newProps.onAfterRenderingGroupObservable, 'onAfterRenderingGroupObservable', 'BabylonjsCoreObservable<BabylonjsCoreRenderingGroupInfo>', changedProps)
+        checkObservableDiff(oldProps.onAfterRenderObservable, newProps.onAfterRenderObservable, 'onAfterRenderObservable', 'BabylonjsCoreObservable<BabylonjsCoreScene>', changedProps)
+        checkObservableDiff(oldProps.onAfterRenderTargetsRenderObservable, newProps.onAfterRenderTargetsRenderObservable, 'onAfterRenderTargetsRenderObservable', 'BabylonjsCoreObservable<BabylonjsCoreScene>', changedProps)
+        checkObservableDiff(oldProps.onAfterStepObservable, newProps.onAfterStepObservable, 'onAfterStepObservable', 'BabylonjsCoreObservable<BabylonjsCoreScene>', changedProps)
+        checkObservableDiff(oldProps.onAnimationFileImportedObservable, newProps.onAnimationFileImportedObservable, 'onAnimationFileImportedObservable', 'BabylonjsCoreObservable<BabylonjsCoreScene>', changedProps)
+        checkObservableDiff(oldProps.onBeforeActiveMeshesEvaluationObservable, newProps.onBeforeActiveMeshesEvaluationObservable, 'onBeforeActiveMeshesEvaluationObservable', 'BabylonjsCoreObservable<BabylonjsCoreScene>', changedProps)
+        checkObservableDiff(oldProps.onBeforeAnimationsObservable, newProps.onBeforeAnimationsObservable, 'onBeforeAnimationsObservable', 'BabylonjsCoreObservable<BabylonjsCoreScene>', changedProps)
+        checkObservableDiff(oldProps.onBeforeCameraRenderObservable, newProps.onBeforeCameraRenderObservable, 'onBeforeCameraRenderObservable', 'BabylonjsCoreObservable<BabylonjsCoreCamera>', changedProps)
+        checkObservableDiff(oldProps.onBeforeDrawPhaseObservable, newProps.onBeforeDrawPhaseObservable, 'onBeforeDrawPhaseObservable', 'BabylonjsCoreObservable<BabylonjsCoreScene>', changedProps)
+        checkObservableDiff(oldProps.onBeforeParticlesRenderingObservable, newProps.onBeforeParticlesRenderingObservable, 'onBeforeParticlesRenderingObservable', 'BabylonjsCoreObservable<BabylonjsCoreScene>', changedProps)
+        checkObservableDiff(oldProps.onBeforeRenderingGroupObservable, newProps.onBeforeRenderingGroupObservable, 'onBeforeRenderingGroupObservable', 'BabylonjsCoreObservable<BabylonjsCoreRenderingGroupInfo>', changedProps)
+        checkObservableDiff(oldProps.onBeforeRenderObservable, newProps.onBeforeRenderObservable, 'onBeforeRenderObservable', 'BabylonjsCoreObservable<BabylonjsCoreScene>', changedProps)
+        checkObservableDiff(oldProps.onBeforeRenderTargetsRenderObservable, newProps.onBeforeRenderTargetsRenderObservable, 'onBeforeRenderTargetsRenderObservable', 'BabylonjsCoreObservable<BabylonjsCoreScene>', changedProps)
+        checkObservableDiff(oldProps.onBeforeStepObservable, newProps.onBeforeStepObservable, 'onBeforeStepObservable', 'BabylonjsCoreObservable<BabylonjsCoreScene>', changedProps)
+        checkObservableDiff(oldProps.onCameraRemovedObservable, newProps.onCameraRemovedObservable, 'onCameraRemovedObservable', 'BabylonjsCoreObservable<BabylonjsCoreCamera>', changedProps)
+        checkObservableDiff(oldProps.onDataLoadedObservable, newProps.onDataLoadedObservable, 'onDataLoadedObservable', 'BabylonjsCoreObservable<BabylonjsCoreScene>', changedProps)
+        checkLambdaDiff(oldProps.onDispose, newProps.onDispose, 'onDispose', '() => void', changedProps)
+        checkObservableDiff(oldProps.onDisposeObservable, newProps.onDisposeObservable, 'onDisposeObservable', 'BabylonjsCoreObservable<BabylonjsCoreScene>', changedProps)
+        checkObservableDiff(oldProps.onGeometryRemovedObservable, newProps.onGeometryRemovedObservable, 'onGeometryRemovedObservable', 'BabylonjsCoreObservable<BabylonjsCoreGeometry>', changedProps)
+        checkObservableDiff(oldProps.onKeyboardObservable, newProps.onKeyboardObservable, 'onKeyboardObservable', 'BabylonjsCoreObservable<BabylonjsCoreKeyboardInfo>', changedProps)
+        checkObservableDiff(oldProps.onLightRemovedObservable, newProps.onLightRemovedObservable, 'onLightRemovedObservable', 'BabylonjsCoreObservable<BabylonjsCoreLight>', changedProps)
+        checkObservableDiff(oldProps.onMaterialRemovedObservable, newProps.onMaterialRemovedObservable, 'onMaterialRemovedObservable', 'BabylonjsCoreObservable<BabylonjsCoreMaterial>', changedProps)
+        checkObservableDiff(oldProps.onMeshImportedObservable, newProps.onMeshImportedObservable, 'onMeshImportedObservable', 'BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>', changedProps)
+        checkObservableDiff(oldProps.onMeshRemovedObservable, newProps.onMeshRemovedObservable, 'onMeshRemovedObservable', 'BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>', changedProps)
+        checkObservableDiff(oldProps.onNewCameraAddedObservable, newProps.onNewCameraAddedObservable, 'onNewCameraAddedObservable', 'BabylonjsCoreObservable<BabylonjsCoreCamera>', changedProps)
+        checkObservableDiff(oldProps.onNewGeometryAddedObservable, newProps.onNewGeometryAddedObservable, 'onNewGeometryAddedObservable', 'BabylonjsCoreObservable<BabylonjsCoreGeometry>', changedProps)
+        checkObservableDiff(oldProps.onNewLightAddedObservable, newProps.onNewLightAddedObservable, 'onNewLightAddedObservable', 'BabylonjsCoreObservable<BabylonjsCoreLight>', changedProps)
+        checkObservableDiff(oldProps.onNewMaterialAddedObservable, newProps.onNewMaterialAddedObservable, 'onNewMaterialAddedObservable', 'BabylonjsCoreObservable<BabylonjsCoreMaterial>', changedProps)
+        checkObservableDiff(oldProps.onNewMeshAddedObservable, newProps.onNewMeshAddedObservable, 'onNewMeshAddedObservable', 'BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>', changedProps)
+        checkObservableDiff(oldProps.onNewSkeletonAddedObservable, newProps.onNewSkeletonAddedObservable, 'onNewSkeletonAddedObservable', 'BabylonjsCoreObservable<BabylonjsCoreSkeleton>', changedProps)
+        checkObservableDiff(oldProps.onNewTextureAddedObservable, newProps.onNewTextureAddedObservable, 'onNewTextureAddedObservable', 'BabylonjsCoreObservable<BabylonjsCoreBaseTexture>', changedProps)
+        checkObservableDiff(oldProps.onNewTransformNodeAddedObservable, newProps.onNewTransformNodeAddedObservable, 'onNewTransformNodeAddedObservable', 'BabylonjsCoreObservable<BabylonjsCoreTransformNode>', changedProps)
+        checkLambdaDiff(oldProps.onPointerDown, newProps.onPointerDown, 'onPointerDown', '(evt: PointerEvent, pickInfo: BabylonjsCorePickingInfo, type: BabylonjsCorePointerEventTypes) => void', changedProps)
+        checkLambdaDiff(oldProps.onPointerMove, newProps.onPointerMove, 'onPointerMove', '(evt: PointerEvent, pickInfo: BabylonjsCorePickingInfo, type: BabylonjsCorePointerEventTypes) => void', changedProps)
+        checkObservableDiff(oldProps.onPointerObservable, newProps.onPointerObservable, 'onPointerObservable', 'BabylonjsCoreObservable<BabylonjsCorePointerInfo>', changedProps)
+        checkLambdaDiff(oldProps.onPointerPick, newProps.onPointerPick, 'onPointerPick', '(evt: PointerEvent, pickInfo: BabylonjsCorePickingInfo) => void', changedProps)
+        checkLambdaDiff(oldProps.onPointerUp, newProps.onPointerUp, 'onPointerUp', '(evt: PointerEvent, pickInfo: BabylonjsCorePickingInfo, type: BabylonjsCorePointerEventTypes) => void', changedProps)
+        checkObservableDiff(oldProps.onPreKeyboardObservable, newProps.onPreKeyboardObservable, 'onPreKeyboardObservable', 'BabylonjsCoreObservable<BabylonjsCoreKeyboardInfoPre>', changedProps)
+        checkObservableDiff(oldProps.onPrePointerObservable, newProps.onPrePointerObservable, 'onPrePointerObservable', 'BabylonjsCoreObservable<BabylonjsCorePointerInfoPre>', changedProps)
+        checkObservableDiff(oldProps.onReadyObservable, newProps.onReadyObservable, 'onReadyObservable', 'BabylonjsCoreObservable<BabylonjsCoreScene>', changedProps)
+        checkObservableDiff(oldProps.onSkeletonRemovedObservable, newProps.onSkeletonRemovedObservable, 'onSkeletonRemovedObservable', 'BabylonjsCoreObservable<BabylonjsCoreSkeleton>', changedProps)
+        checkObservableDiff(oldProps.onTextureRemovedObservable, newProps.onTextureRemovedObservable, 'onTextureRemovedObservable', 'BabylonjsCoreObservable<BabylonjsCoreBaseTexture>', changedProps)
+        checkObservableDiff(oldProps.onTransformNodeRemovedObservable, newProps.onTransformNodeRemovedObservable, 'onTransformNodeRemovedObservable', 'BabylonjsCoreObservable<BabylonjsCoreTransformNode>', changedProps)
+        checkPrimitiveDiff(oldProps.particlesEnabled, newProps.particlesEnabled, 'particlesEnabled', 'boolean', changedProps)
+        checkLambdaDiff(oldProps.pointerDownPredicate, newProps.pointerDownPredicate, 'pointerDownPredicate', '(Mesh: BabylonjsCoreAbstractMesh) => boolean', changedProps)
+        checkLambdaDiff(oldProps.pointerMovePredicate, newProps.pointerMovePredicate, 'pointerMovePredicate', '(Mesh: BabylonjsCoreAbstractMesh) => boolean', changedProps)
+        checkLambdaDiff(oldProps.pointerUpPredicate, newProps.pointerUpPredicate, 'pointerUpPredicate', '(Mesh: BabylonjsCoreAbstractMesh) => boolean', changedProps)
+        checkPrimitiveDiff(oldProps.pointerX, newProps.pointerX, 'pointerX', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.pointerY, newProps.pointerY, 'pointerY', 'number', changedProps)
+        // type: 'BabylonjsCorePostProcess[]' property (not coded) BabylonjsCoreScene.postProcesses.
+        checkPrimitiveDiff(oldProps.postProcessesEnabled, newProps.postProcessesEnabled, 'postProcessesEnabled', 'boolean', changedProps)
+        // type: 'BabylonjsCorePostProcessManager' property (not coded) BabylonjsCoreScene.postProcessManager.
+        checkPrimitiveDiff(oldProps.preventDefaultOnPointerDown, newProps.preventDefaultOnPointerDown, 'preventDefaultOnPointerDown', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.preventDefaultOnPointerUp, newProps.preventDefaultOnPointerUp, 'preventDefaultOnPointerUp', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.probesEnabled, newProps.probesEnabled, 'probesEnabled', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.proceduralTexturesEnabled, newProps.proceduralTexturesEnabled, 'proceduralTexturesEnabled', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.renderTargetsEnabled, newProps.renderTargetsEnabled, 'renderTargetsEnabled', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.requireLightSorting, newProps.requireLightSorting, 'requireLightSorting', 'boolean', changedProps)
+        // type: 'any' property (not coded) BabylonjsCoreScene.reservedDataStore.
+        checkPrimitiveDiff(oldProps.shadowsEnabled, newProps.shadowsEnabled, 'shadowsEnabled', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.skeletonsEnabled, newProps.skeletonsEnabled, 'skeletonsEnabled', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.skipFrustumClipping, newProps.skipFrustumClipping, 'skipFrustumClipping', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.spritesEnabled, newProps.spritesEnabled, 'spritesEnabled', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.texturesEnabled, newProps.texturesEnabled, 'texturesEnabled', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.useConstantAnimationDeltaTime, newProps.useConstantAnimationDeltaTime, 'useConstantAnimationDeltaTime', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.useDelayedTextureLoading, newProps.useDelayedTextureLoading, 'useDelayedTextureLoading', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.useRightHandedSystem, newProps.useRightHandedSystem, 'useRightHandedSystem', 'boolean', changedProps)
+        checkMethodDiff(oldProps.addActionManager, newProps.addActionManager, 'addActionManager', '(newActionManager?: BabylonjsCoreAbstractActionManager) => void', changedProps)
+        checkMethodDiff(oldProps.addAnimation, newProps.addAnimation, 'addAnimation', '(newAnimation?: BabylonjsCoreAnimation) => void', changedProps)
+        checkMethodDiff(oldProps.addAnimationGroup, newProps.addAnimationGroup, 'addAnimationGroup', '(newAnimationGroup?: BabylonjsCoreAnimationGroup) => void', changedProps)
+        checkMethodDiff(oldProps.addCamera, newProps.addCamera, 'addCamera', '(newCamera?: BabylonjsCoreCamera) => void', changedProps)
+        checkMethodDiff(oldProps.addExternalData, newProps.addExternalData, 'addExternalData', '(key?: string, data?: T) => boolean', changedProps)
+        checkMethodDiff(oldProps.addGeometry, newProps.addGeometry, 'addGeometry', '(newGeometry?: BabylonjsCoreGeometry) => void', changedProps)
+        checkMethodDiff(oldProps.addLight, newProps.addLight, 'addLight', '(newLight?: BabylonjsCoreLight) => void', changedProps)
+        checkMethodDiff(oldProps.addMaterial, newProps.addMaterial, 'addMaterial', '(newMaterial?: BabylonjsCoreMaterial) => void', changedProps)
+        checkMethodDiff(oldProps.addMesh, newProps.addMesh, 'addMesh', '(newMesh?: BabylonjsCoreAbstractMesh, recursive?: boolean) => void', changedProps)
+        checkMethodDiff(oldProps.addMorphTargetManager, newProps.addMorphTargetManager, 'addMorphTargetManager', '(newMorphTargetManager?: BabylonjsCoreMorphTargetManager) => void', changedProps)
+        checkMethodDiff(oldProps.addMultiMaterial, newProps.addMultiMaterial, 'addMultiMaterial', '(newMultiMaterial?: BabylonjsCoreMultiMaterial) => void', changedProps)
+        checkMethodDiff(oldProps.addParticleSystem, newProps.addParticleSystem, 'addParticleSystem', '(newParticleSystem?: BabylonjsCoreIParticleSystem) => void', changedProps)
+        checkMethodDiff(oldProps.addSkeleton, newProps.addSkeleton, 'addSkeleton', '(newSkeleton?: BabylonjsCoreSkeleton) => void', changedProps)
+        checkMethodDiff(oldProps.addTexture, newProps.addTexture, 'addTexture', '(newTexture?: BabylonjsCoreBaseTexture) => void', changedProps)
+        checkMethodDiff(oldProps.addTransformNode, newProps.addTransformNode, 'addTransformNode', '(newTransformNode?: BabylonjsCoreTransformNode) => void', changedProps)
+        checkMethodDiff(oldProps.setActiveCameraByID, newProps.setActiveCameraByID, 'setActiveCameraByID', '(id?: string) => BabylonjsCoreCamera', changedProps)
+        checkMethodDiff(oldProps.setActiveCameraByName, newProps.setActiveCameraByName, 'setActiveCameraByName', '(name?: string) => BabylonjsCoreCamera', changedProps)
+        checkMethodDiff(oldProps.setPointerOverMesh, newProps.setPointerOverMesh, 'setPointerOverMesh', '(mesh?: BabylonjsCoreAbstractMesh) => void', changedProps)
+        checkMethodDiff(oldProps.setRenderingAutoClearDepthStencil, newProps.setRenderingAutoClearDepthStencil, 'setRenderingAutoClearDepthStencil', '(renderingGroupId?: number, autoClearDepthStencil?: boolean, depth?: boolean, stencil?: boolean) => void', changedProps)
+        checkMethodDiff(oldProps.setRenderingOrder, newProps.setRenderingOrder, 'setRenderingOrder', '(renderingGroupId?: number, opaqueSortCompareFn?: (a: BabylonjsCoreSubMesh, b: BabylonjsCoreSubMesh) => number, alphaTestSortCompareFn?: (a: BabylonjsCoreSubMesh, b: BabylonjsCoreSubMesh) => number, transparentSortCompareFn?: (a: BabylonjsCoreSubMesh, b: BabylonjsCoreSubMesh) => number) => void', changedProps)
+        checkMethodDiff(oldProps.setStepId, newProps.setStepId, 'setStepId', '(newStepId?: number) => void', changedProps)
+        checkMethodDiff(oldProps.setTransformMatrix, newProps.setTransformMatrix, 'setTransformMatrix', '(viewL?: BabylonjsCoreMatrix, projectionL?: BabylonjsCoreMatrix, viewR?: BabylonjsCoreMatrix, projectionR?: BabylonjsCoreMatrix) => void', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
     }
 }
 

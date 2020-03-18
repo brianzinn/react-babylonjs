@@ -10,7 +10,7 @@ import { CreatedInstance, CreatedInstanceMetadata, CustomProps } from "./Created
 import { HasPropsHandlers, PropertyUpdate, UpdatePayload, PropsHandler } from "./PropsHandler"
 import { LifecycleListener } from "./LifecycleListener"
 import { GeneratedParameter, CreateInfo, CreationType } from "./codeGenerationDescriptors"
-import { applyUpdateToInstance, applyPropsToInstance } from "./UpdateInstance"
+import { applyUpdateToInstance, applyInitialPropsToInstance } from "./UpdateInstance"
 
 // ** TODO: switch to node module 'scheduler', but compiler is not finding 'require()' exports currently...
 type RequestIdleCallbackHandle = any
@@ -394,8 +394,6 @@ const ReactBabylonJSHostConfig: HostConfig<
       lifecycleListener = new CUSTOM_COMPONENTS.CameraLifecycleListener(scene, props, canvas as HTMLCanvasElement)
     } else if (metadata.isNode) {
       lifecycleListener = new CUSTOM_COMPONENTS.NodeLifecycleListener();
-    } else if (metadata.isEffectLayer) {
-      lifecycleListener = new CUSTOM_COMPONENTS.EffectLayerLifecycleListener();
     } else if (metadata.isBehavior) {
       lifecycleListener = new CUSTOM_COMPONENTS.BehaviorLifecycleListener();
     }
@@ -418,7 +416,7 @@ const ReactBabylonJSHostConfig: HostConfig<
     }
 
     if (metadata.delayCreation !== true) {
-      applyPropsToInstance(createdReference, props, scene!);
+      applyInitialPropsToInstance(createdReference, props, scene!);
     } else {
       createdReference.deferredCreationProps = props;
     }

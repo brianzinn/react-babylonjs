@@ -23,10 +23,10 @@ export default (async () => {
       format: 'es',
       sourcemap: true,
       globals: exportGlobals,
-      // external modules not in bundle (i.e.: 'react')
-      external: [...Object.keys(pkg.peerDependencies || {})],
     }],
     context: 'window',
+    // external modules not in bundle (i.e.: 'react')
+    external: [...Object.keys(pkg.peerDependencies || {})],
     plugins: [
       json(),
       typescript(),
@@ -34,6 +34,6 @@ export default (async () => {
       isProduction && (await import('rollup-plugin-terser')).terser()
     ]
   }
-  console.log(`rollup config:\n -> external \n${JSON.stringify(result.external)}\n ->${JSON.stringify(result.output)}`);
+  // console.log(`rollup config:\n -> external \n${JSON.stringify(result.external)}\n ->${JSON.stringify(result.output)}`);
   return result;
 })

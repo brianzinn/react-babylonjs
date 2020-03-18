@@ -15,5 +15,4 @@ export {default as TargetPropsHandler} from "./TargetPropsHandler"
 export {default as TexturesLifecycleListener} from "./TexturesLifecycleListener"
 export {default as VRExperienceHelperLifecycleListener} from "./VRExperienceHelperLifecycleListener"
 export {default as NodeLifecycleListener} from "./NodeLifecycleListener";
-export {default as EffectLayerLifecycleListener} from "./EffectLayerLifecycleListener";
 export {default as BehaviorLifecycleListener} from "./BehaviorsLifecycleListener";

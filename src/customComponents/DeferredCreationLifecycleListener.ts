@@ -2,7 +2,7 @@ import { CreatedInstance } from "../CreatedInstance"
 import { LifecycleListener } from "../LifecycleListener"
 import { Scene, Nullable } from "@babylonjs/core"
 import { PropertyUpdate } from "../PropsHandler"
-import { applyUpdateToInstance, applyPropsToInstance } from "../UpdateInstance"
+import { applyUpdateToInstance, applyInitialPropsToInstance } from "../UpdateInstance"
 
 export default abstract class DeferredCreationLifecycleListener<T> implements LifecycleListener<T> {
 
@@ -24,7 +24,7 @@ export default abstract class DeferredCreationLifecycleListener<T> implements Li
     } else {
         // Meed to assign deferred props (from delayed creation) or they are lost:
         if (instance.deferredCreationProps && instance.propsHandlers) {
-            applyPropsToInstance(instance, instance.deferredCreationProps, this.scene);
+            applyInitialPropsToInstance(instance, instance.deferredCreationProps, this.scene);
         } else {
         console.warn('cannot assign deferred props.  they are lost.');
         }

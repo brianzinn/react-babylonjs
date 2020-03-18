@@ -35,7 +35,7 @@
     "test:prod": "npm run lint && npm run test -- --coverage --no-cache",
     "deploy-docs": "ts-node tools/gh-pages-publish",
     "report-coverage": "cat ./coverage/lcov.info | coveralls",
-    "storybook": "rollup -c rollup-storybook.config.js && start-storybook -p 6006 -s ./storyboard-site",
+    "storybook": " cross-env NODE_ENV=development rollup -c && start-storybook -p 6006 -s ./storyboard-site",
     "build-storybook": "build-storybook -o storybook-static -s ./storyboard-site",
     "generate-code": "ts-node -P tsconfig.generate.json tools/generate-code"
   },

@@ -222,8 +222,8 @@ export class With2DUI extends Component {
   }
 }
 
-export default storiesOf('With VR', module)
-  .add('Simple 2D GUI', () => (
+export default storiesOf('GUI', module)
+  .add('2D GUI on Plane', () => (
     <div style={{ flex: 1, display: 'flex' }}>
       <With2DUI />
     </div>
