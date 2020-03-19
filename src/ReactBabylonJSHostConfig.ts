@@ -1,6 +1,5 @@
 import ReactReconciler, { HostConfig } from "react-reconciler"
 import {Scene, Engine, Nullable, Node} from '@babylonjs/core'
-
 import * as BABYLONEXT from "./extensions"
 import * as GENERATED from './generatedCode'
 import * as CUSTOM_HOSTS from "./customHosts"
@@ -338,7 +337,9 @@ const ReactBabylonJSHostConfig: HostConfig<
     })
 
     let babylonObject: any | undefined = undefined
+
     if (createInfoArgs.creationType === CreationType.FactoryMethod) {
+      // console.warn(`creating from Factory: ${createInfoArgs.libraryLocation}.${createInfoArgs.factoryMethod}(...args).  args:`, args)
       babylonObject = GENERATED.babylonClassFactory(createInfoArgs.libraryLocation)[createInfoArgs.factoryMethod!](...args)
     } else {
       if (metadata.delayCreation !== true) {
