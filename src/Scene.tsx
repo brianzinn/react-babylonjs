@@ -5,7 +5,14 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React, { createContext, useContext, useEffect, useState, useRef } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  useRef,
+  useLayoutEffect
+} from 'react';
 import ReactReconciler, { Reconciler } from "react-reconciler";
 
 import { WithBabylonJSContext, withBabylonJS, BabylonJSContext } from './Engine';
@@ -87,7 +94,7 @@ const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
   const [renderer, setRenderer] = useState<Nullable<Reconciler<any, any, any, any>>>(null);
   const prevProps = usePrevious<FiberSceneProps>(props);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (engine === null || scene === null || renderer === null || prevProps === undefined) {
       return;
     }
@@ -126,7 +133,7 @@ const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
     setScene(scene);
 
     const isAsync = false // Disables experimental async rendering
-  
+
     const container: Container = {
       engine: props.babylonJSContext.engine,
       canvas: props.babylonJSContext.canvas,
@@ -175,7 +182,7 @@ const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
     let pointerUpObservable: Nullable<Observer<PointerInfo>> = null;
     if(typeof props.onScenePointerUp === 'function') {
       pointerUpObservable = scene.onPointerObservable.add(
-        (evt: PointerInfo) => { 
+        (evt: PointerInfo) => {
           props.onScenePointerUp!(evt, scene)
         },
         PointerEventTypes.POINTERUP
@@ -186,7 +193,7 @@ const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
     let pointerMoveObservable: Nullable<Observer<PointerInfo>> = null;
     if(typeof props.onScenePointerMove === 'function') {
       pointerMoveObservable = scene.onPointerObservable.add(
-        (evt: PointerInfo) => { 
+        (evt: PointerInfo) => {
           props.onScenePointerMove!(evt, scene)
         },
         PointerEventTypes.POINTERMOVE)
@@ -217,11 +224,11 @@ const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
       if (pointerDownObservable) {
         scene.onPointerObservable.remove(pointerDownObservable);
       }
-  
+
       if (pointerUpObservable) {
         scene.onPointerObservable.remove(pointerUpObservable);
       }
-  
+
       if (pointerMoveObservable) {
         scene.onPointerObservable.remove(pointerMoveObservable);
       }
