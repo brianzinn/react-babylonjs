@@ -1,5 +1,5 @@
 import ReactReconciler, { HostConfig } from "react-reconciler"
-import {Scene, Engine, Nullable, Node} from '@babylonjs/core'
+import {Scene, Engine, Nullable, Node, Mesh} from '@babylonjs/core'
 
 import * as BABYLONEXT from "./extensions"
 import * as GENERATED from './generatedCode'

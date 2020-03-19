@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react'
 import { storiesOf } from '@storybook/react'
 import '@babylonjs/inspector'
-import { Engine, Scene } from '../../../dist/react-babylonjs.es5'
-import { Vector3, Color3, CSG, Mesh } from '@babylonjs/core'
+import { Engine, Scene } from '../../../dist/react-babylonjs'
+import { Vector3, Color3, CSG, Mesh, MeshBuilder, StandardMaterial } from '@babylonjs/core'
 import * as Earcut from 'earcut';
 import "@babylonjs/core/Meshes/meshBuilder";
 import '../../style.css'
@@ -35,20 +35,34 @@ var holes = [
     ]
 ];
 
+let scene = null;
+const onSceneMounted = (sceneEventArgs) => {
+    scene = sceneEventArgs.scene;
+}
+
 const Shapes = () => {
     const ref = useCallback(node => {
         if (node) {
-            console.log(node);
-            console.log(node.hostInstance.constructor, typeof node.hostInstance)
-            console.log(Mesh.constructor, typeof Mesh)
-            console.log(node.hostInstance instanceof Mesh)
-            // const csg = CSG.FromMesh(node.hostInstance);
+            const csg = CSG.FromMesh(node.hostInstance);
+            console.log('csg:', csg);
+            const sphere = MeshBuilder.CreateSphere('circle', {
+                diameter: 3
+            }, scene);
+            sphere.position.x -= 2
+            let res = csg.subtract(CSG.FromMesh(sphere))
+
+            let csgMeshMaterial = new StandardMaterial('material01', scene);
+            csgMeshMaterial.diffuseColor = Color3.Yellow()
+            csgMeshMaterial.specularColor = Color3.Black()
+            let mesh = res.toMesh('base', csgMeshMaterial, scene, false);
+            mesh.position.y += 4;
+            sphere.dispose()
         }
     }, []);
     
     return (
         <Engine antialias adaptToDeviceRatio canvasId='babylonJS'>
-            <Scene>
+            <Scene onSceneMount={onSceneMounted}>
                 <arcRotateCamera name='camera1' alpha={1/4 * Math.PI} beta={1/4 * Math.PI} radius={20.0} target={Vector3.Zero()} minZ={0.001} />
                 <hemisphericLight name='light1' intensity={0.7} direction={Vector3.Up()} />
                 <extrudePolygon
@@ -60,7 +74,7 @@ const Shapes = () => {
                     sideOrientation= {Mesh.DOUBLESIDE}
                     earcutInjection={Earcut}
                 >
-                    <standardMaterial name='starMaterial' diffuseColor={Color3.Green()} specularColor={Color3.Black()} />
+                    <standardMaterial name='starMaterial' diffuseColor={Color3.Red()} specularColor={Color3.Black()} />
                 </extrudePolygon>
             </Scene>
         </Engine>
@@ -68,7 +82,7 @@ const Shapes = () => {
 }
 
 export default storiesOf('Babylon Basic', module)
-  .add('Shapes', () => (
+  .add('Extrude Shapes + CSG', () => (
     <div style={{ flex: 1, display: 'flex' }}>
       <Shapes />
     </div>
