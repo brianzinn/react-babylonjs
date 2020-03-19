@@ -417,6 +417,7 @@ export type FiberTransformNodeProps = {
     setPivotPoint?: any;
     setPositionWithLocalVector?: any;
     setPreTransformMatrix?: any;
+    translate?: any;
 } & FiberNodeProps;
 export type FiberTransformNodePropsCtor = {
     name: string;

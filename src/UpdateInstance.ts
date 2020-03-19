@@ -9,6 +9,7 @@ export const applyUpdateToInstance = (hostInstance: any, update: PropertyUpdate,
     case PropChangeType.Primitive:
     case PropChangeType.FresnelParameters:
     case PropChangeType.LambdaExpression:
+    case PropChangeType.Texture:
       // console.log(` > ${type}: updating ${update.type} on ${update.propertyName} to ${update.value}`)
       target[update.propertyName] = update.value;
       break;

@@ -1,6 +1,6 @@
 import { Vector3, Color3, Color4 } from '@babylonjs/core/Maths/math'
 import { Control } from '@babylonjs/gui/2D/controls/control'
-import { Observable, FresnelParameters } from '@babylonjs/core'
+import { Observable, FresnelParameters, BaseTexture } from '@babylonjs/core'
 import { type } from 'os'
 
 // TODO: type/value need to be joined, as the method will have multiple.
@@ -37,6 +37,7 @@ export enum PropChangeType {
   Method = "Method",
   LambdaExpression = "LambdaExpression",
   FresnelParameters = "FresnelParameters",
+  Texture = "Texture"
 }
 
 export const checkVector3Diff = (oldProp: Vector3 | undefined, newProp: Vector3 | undefined, propertyName: string, propertyType: string, changedProps: PropertyUpdate[]): void => {
@@ -124,6 +125,18 @@ export const checkPrimitiveDiff = (oldProp: PrimitiveType, newProp: PrimitiveTyp
       propertyName,
       type: propertyType,
       changeType: PropChangeType.Primitive,
+      value: newProp
+    })
+  }
+}
+
+export const checkTextureDiff = (oldProp: BaseTexture | undefined, newProp: BaseTexture | undefined, propertyName: string, propertyType: string, changedProps: PropertyUpdate[]): void => {
+  if (newProp !== oldProp) {
+    console.log('pushing texture:', propertyName, propertyType)
+    changedProps.push({
+      propertyName,
+      type: propertyType,
+      changeType: PropChangeType.Texture,
       value: newProp
     })
   }

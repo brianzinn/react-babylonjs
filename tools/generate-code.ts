@@ -625,7 +625,7 @@ const getInstanceSetMethods = (classDeclaration: ClassDeclaration): MethodDeclar
   classDeclaration.getInstanceMethods().forEach((methodDeclaration: MethodDeclaration) => {
     const methodName = methodDeclaration.getName();
     // TODO: add ?
-    if (methodName.startsWith("set") || methodName.startsWith('add')) {
+    if (methodName.startsWith("set") || methodName.startsWith('add') || methodName === "translate") {
       instanceSetMethods.push(methodDeclaration)
     }
   })
@@ -902,6 +902,7 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
           case "BabylonjsGuiControl":
           case "number[]":
           case "BabylonjsCoreFresnelParameters":
+          case "BabylonjsCoreBaseTexture":
             propsToCheck.push({
               name: propertyName,
               type,
@@ -979,6 +980,9 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
             break;
           case "BabylonjsCoreFresnelParameters":
             writer.writeLine(`checkFresnelParametersDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', '${propToCheck.type}', changedProps)`);
+            break;
+          case "BabylonjsCoreBaseTexture":
+            writer.writeLine(`checkTextureDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', '${propToCheck.type}', changedProps)`)
             break;
           default:
             if (OBSERVABLE_PATTERN.test(propToCheck.type)) {
@@ -1309,7 +1313,8 @@ const generateCode = async () => {
       "checkObservableDiff",
       "checkMethodDiff",
       "checkFresnelParametersDiff",
-      "checkLambdaDiff"
+      "checkLambdaDiff",
+      "checkTextureDiff"
     ]
   })
 
