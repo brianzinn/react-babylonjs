@@ -89,7 +89,7 @@ export interface CreatedInstance<T> {
   state?: any
   customProps: CustomProps
   // TODO: Consider merging these last 2 into a single class/container.
-  propsHandlers?: HasPropsHandlers<T, any> // These are mostly generated
+  propsHandlers?: HasPropsHandlers<T> // These are mostly generated
   lifecycleListener?: LifecycleListener<T> // Only custom types currently support LifecycleListeners (ie: AttachesToParent)
   deferredCreationProps?: any // deferred props for instance with delayed creation (ie: ShadowGenerator that needs Light).
 }
@@ -99,10 +99,10 @@ export class CreatedInstanceImpl<T> implements CreatedInstance<T> {
   public readonly metadata: CreatedInstanceMetadata
   public parent: CreatedInstance<any> | null = null // Not the same as parent in BabylonJS, this is for internal reconciler structure. ie: graph walking
   public children: CreatedInstance<any>[] = []
-  public propsHandlers: HasPropsHandlers<T, any>
+  public propsHandlers: HasPropsHandlers<T>
   public customProps: CustomProps
 
-  constructor(hostInstance: T, metadata: CreatedInstanceMetadata, fiberObject: HasPropsHandlers<T, any>, customProps: CustomProps) {
+  constructor(hostInstance: T, metadata: CreatedInstanceMetadata, fiberObject: HasPropsHandlers<T>, customProps: CustomProps) {
     this.hostInstance = hostInstance
     this.metadata = metadata
     this.propsHandlers = fiberObject

@@ -275,7 +275,7 @@ const ReactBabylonJSHostConfig: HostConfig<
         },
         parent: null,
         children: [],
-        propsHandlers: new FiberModel(),
+        propsHandlers: new FiberModel() as any,
         lifecycleListener: new CUSTOM_COMPONENTS.ModelLifecycleListener(scene! /* should always be available */, props),
         customProps: {}
       }

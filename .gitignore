@@ -9,3 +9,4 @@ compiled
 dist
 storybook-static
 *.lock
+debug/
