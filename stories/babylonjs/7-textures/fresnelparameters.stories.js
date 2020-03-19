@@ -10,7 +10,7 @@ import { FresnelParameters } from '@babylonjs/core'
  * Insipration Playground: https://www.babylonjs-playground.com/#AQZJ4C#0
  */
 export const WithFresnelParameters= () => {
-    let sunnyDatRootUrl = 'assets/textures/TropicalSunnyDay'
+    let sunnyDayRootUrl = 'assets/textures/TropicalSunnyDay'
     return (
         <Engine antialias adaptToDeviceRatio canvasId='babylonJS'>
         <Scene>
@@ -21,7 +21,7 @@ export const WithFresnelParameters= () => {
             />
 
             <pointLight name="Omni0" position={new Vector3(-17.6, 18.8, -49.9)} />
-            <Skybox rootUrl={sunnyDatRootUrl} />
+            <Skybox rootUrl={sunnyDayRootUrl} />
 
             <sphere name='sphere1' position={Vector3.Zero()} segments={32} diameter={3}>
                 <standardMaterial name='material1' alpha={0.2} specularPower={16}
@@ -42,7 +42,7 @@ export const WithFresnelParameters= () => {
                         power: 4
                     })}
                 >
-                    <cubeTexture assignTo="reflectionTexture" rootUrl={sunnyDatRootUrl} />
+                    <cubeTexture assignTo="reflectionTexture" rootUrl={sunnyDayRootUrl} />
                 </standardMaterial>
             </sphere>
 
@@ -65,7 +65,7 @@ export const WithFresnelParameters= () => {
                         power: 4
                     })}
                 >
-                    <cubeTexture assignTo="reflectionTexture" rootUrl={sunnyDatRootUrl} />
+                    <cubeTexture assignTo="reflectionTexture" rootUrl={sunnyDayRootUrl} />
                 </standardMaterial>
             </sphere>
 
@@ -103,7 +103,7 @@ export const WithFresnelParameters= () => {
                         power: 4
                     })}
                 >
-                    <cubeTexture assignTo="reflectionTexture" rootUrl={sunnyDatRootUrl} />
+                    <cubeTexture assignTo="reflectionTexture" rootUrl={sunnyDayRootUrl} />
                 </standardMaterial>
             </sphere>
 
@@ -119,7 +119,7 @@ export const WithFresnelParameters= () => {
                         power: 2
                     })}
                 >
-                    <cubeTexture level={0.5} assignTo="reflectionTexture" rootUrl={sunnyDatRootUrl} />
+                    <cubeTexture level={0.5} assignTo="reflectionTexture" rootUrl={sunnyDayRootUrl} />
                 </standardMaterial>
             </sphere>
         </Scene>
