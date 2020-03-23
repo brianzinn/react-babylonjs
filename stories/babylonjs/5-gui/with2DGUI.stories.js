@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { storiesOf } from '@storybook/react'
-import { Vector3, Color3, Color4, Animation, ExponentialEase, EasingFunction } from '@babylonjs/core'
+import { Vector3, Color3, Color4, Animation, ExponentialEase, EasingFunction, Texture } from '@babylonjs/core'
 import { Control } from '@babylonjs/gui'
-import { Engine, Scene, Button } from '../../../dist/react-babylonjs'
+import { Engine, Scene } from '../../../dist/react-babylonjs'
 
 import '../../style.css'
 
@@ -159,7 +159,13 @@ export class With2DUI extends Component {
           </box>
           {this.state.showModal === true &&
           <plane name='dialog' width={3} height={3 * (dialogHeight / dialogWidth)} onCreated={this.setPlane} rotation={new Vector3(0, Math.PI, 0)}>
-            <advancedDynamicTexture name='dialogTexture' height={1024} width={1024} createForParentMesh>
+            <advancedDynamicTexture
+              name='dialogTexture'
+              height={1024} width={1024}
+              createForParentMesh
+              generateMipMaps={true}
+              samplingMode={Texture.TRILINEAR_SAMPLINGMODE}
+            >
               <rectangle name='rect-1' background='white' color='#666666' height={dialogHeight / dialogWidth} width={1}
                 scaleY={dialogWidth} scaleX={1} thickness={2} cornerRadius={12} >
                 <stackPanel name='sp-1'>
@@ -200,9 +206,9 @@ export class With2DUI extends Component {
                     </stackPanel>
                   </rectangle>
                   <stackPanel name='footer-sp' height='80px' paddingTop='10px' paddingBottom='10px' isVertical={false} horizontalAlignment={Control.HORIZONTAL_ALIGNMENT_RIGHT} verticalAlignment={Control.VERTICAL_ALIGNMENT_TOP} >
-                    <Button name='cancel-button' background='#6c757d' width='290px' height='60px' cornerRadius={10} onPointerDownObservable={this.hideModal.bind(this)}>
+                    <babylon-button name='cancel-button' background='#6c757d' width='290px' height='60px' cornerRadius={10} onPointerDownObservable={this.hideModal.bind(this)}>
                       <textBlock name='cancel-text' text='Cancel' fontSize={28} fontStyle='bold' color='white' />
-                    </Button>
+                    </babylon-button>
                     <babylon-button name='delete-button' background={this.state.clickedMeshColor} paddingLeft='50px' paddingRight='30px' width='350px' height='60px'
                       cornerRadius={10} onPointerDownObservable={this.deleteSelectedMesh.bind(this)}>
                       <textBlock name='cancel-text' text={`Delete '${this.state.clickedMeshName}'`} fontSize={28} fontStyle='bold' color='white' 
