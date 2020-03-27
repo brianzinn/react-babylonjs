@@ -2,6 +2,7 @@ import { useContext, useEffect } from 'react';
 import { Nullable, Observer, Scene, EventState } from '@babylonjs/core';
 
 import { SceneContext } from './Scene'
+import { ICustomPropsHandler, CustomPropsHandler } from './PropsHandler';
 
 export type OnFrameRenderFn = (eventData: Scene, eventState: EventState) => void
 
@@ -22,4 +23,15 @@ export function useBeforeRender(callback: OnFrameRenderFn, mask?: number, insert
             }
         }
     })
+}
+
+export function useCustomPropsHandler(propsHandler: ICustomPropsHandler<any, any>/*, deps?: React.DependencyList | undefined*/): void {
+    // running inside useEffect is too late for initial props
+    CustomPropsHandler.RegisterPropsHandler(propsHandler);
+    useEffect(() => {
+        return () => {
+            // console.warn('de-registering on unmount', propsHandler.name);
+            CustomPropsHandler.UnregisterPropsHandler(propsHandler);
+        }
+    }, [])
 }
