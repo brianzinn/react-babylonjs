@@ -4,6 +4,7 @@ import {
   Engine as BabylonJSEngine,
   EngineOptions,
   ThinEngine as BabylonJSThinEngine,
+  Observable,
 } from '@babylonjs/core'
 
 
@@ -64,7 +65,8 @@ export type EngineProps = {
    * Useful if you want to attach CSS to the canvas by css #id selector.
    */
   canvasId?: string,
-  debug?: boolean
+  debug?: boolean,
+  // onCreated?: (engine: Engine) => void
 }
 
 export type EngineState = {
@@ -75,6 +77,8 @@ class Engine extends React.Component<EngineProps, EngineState> {
 
   private _engine?: Nullable<BabylonJSEngine> = null;
   private _canvas: Nullable<HTMLCanvasElement | WebGLRenderingContext> = null;
+
+  public onEndRenderLoopObservable: Observable<BabylonJSEngine> = new Observable<BabylonJSEngine>();
 
   constructor(props: EngineProps) {
     super(props);
@@ -96,6 +100,9 @@ class Engine extends React.Component<EngineProps, EngineState> {
       this._engine!.scenes.forEach(scene => {
         scene.render()
       })
+      if (this.onEndRenderLoopObservable.hasObservers()) {
+        this.onEndRenderLoopObservable.notifyObservers(this._engine!);
+      }
     })
 
     this._engine.onContextLostObservable.add((eventData: BabylonJSThinEngine) => {
