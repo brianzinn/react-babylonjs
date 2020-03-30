@@ -78,6 +78,7 @@ class Engine extends React.Component<EngineProps, EngineState> {
   private _engine?: Nullable<BabylonJSEngine> = null;
   private _canvas: Nullable<HTMLCanvasElement | WebGLRenderingContext> = null;
 
+  public onBeforeRenderLoopObservable: Observable<BabylonJSEngine> = new Observable<BabylonJSEngine>();
   public onEndRenderLoopObservable: Observable<BabylonJSEngine> = new Observable<BabylonJSEngine>();
 
   constructor(props: EngineProps) {
@@ -97,6 +98,9 @@ class Engine extends React.Component<EngineProps, EngineState> {
     )
 
     this._engine.runRenderLoop(() => {
+      if (this.onBeforeRenderLoopObservable.hasObservers()) {
+        this.onBeforeRenderLoopObservable.notifyObservers(this._engine!);
+      }
       this._engine!.scenes.forEach(scene => {
         scene.render()
       })

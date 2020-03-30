@@ -1,9 +1,11 @@
+const path = require('path');
+
 module.exports = {
     stories: ['../stories/**/*.stories.[tj]s'],
     addons: [
-        '@storybook/addon-actions',
-        '@storybook/addon-links',
-        '@storybook/addon-storysource',
+        '@storybook/addon-actions/register',
+        '@storybook/addon-links/register',
+        '@storybook/addon-storysource/register',
     ],
     webpackFinal: async (config, { configType }) => {
         config.module.rules.push({
@@ -11,7 +13,7 @@ module.exports = {
             loaders: [require.resolve('@storybook/source-loader')],
             enforce: 'pre',
           });
-        console.log('added source loader to webpack config')
+        console.log(`added source loader to '${configType}' webpack config`);
         // Return the altered config
         return config;
     },
