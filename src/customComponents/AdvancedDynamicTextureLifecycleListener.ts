@@ -7,8 +7,8 @@ import { AdvancedDynamicTexture } from "@babylonjs/gui/2D/advancedDynamicTexture
 
 
 export default class AdvancedDynamicTextureLifecycleListener implements LifecycleListener<AdvancedDynamicTexture> {
-  private props: FiberAdvancedDynamicTextureProps;
-  private scene: Scene
+  protected props: FiberAdvancedDynamicTextureProps;
+  protected scene: Scene
 
   constructor(scene: Scene, props: any) {
     this.scene = scene
@@ -102,8 +102,7 @@ export default class AdvancedDynamicTextureLifecycleListener implements Lifecycl
   onUnmount(): void {/* empty */}
 }
 
-export class ADTFullscreenUILifecycleListener extends AdvancedDynamicTextureLifecycleListener {
-  constructor(scene: Scene, props: any) {
-    super(scene, props);
-  }
-}
+/**
+ * This is attached by convention in react-reconciler HostConfig.
+ */
+export class ADTFullscreenUILifecycleListener extends AdvancedDynamicTextureLifecycleListener {/* empty */}
