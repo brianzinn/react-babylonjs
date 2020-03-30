@@ -1,5 +1,5 @@
-import {Effect, StandardMaterial, CustomProceduralTexture} from "@babylonjs/core";
-// shader toy fragment example
+import {Effect} from "@babylonjs/core";
+// register shader toy fragment example
 // https://www.shadertoy.com/view/4l2XWh
 Effect.ShadersStore.shaderToyPixelShader = `
             uniform float time;
@@ -171,11 +171,3 @@ Effect.ShadersStore.shaderToyPixelShader = `
                 gl_FragColor = vec4(color, 1);
             }
 `;
-
-export const shaderToyMaterial =  (scene) => {
-    return new StandardMaterial("shaderToyMat", scene);
-};
-
-export const shaderToyProcText =  (scene) => {
-    return new CustomProceduralTexture("shaderToytext", "shaderToy", 512, scene);
-};
