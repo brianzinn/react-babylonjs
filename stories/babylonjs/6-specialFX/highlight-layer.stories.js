@@ -6,20 +6,26 @@ import {Engine, Scene} from '../../../dist/react-babylonjs'
 import {Color3, Vector3} from '@babylonjs/core/Maths/math'
 import '../../style.css'
 
+function useHighlight() {
+
+}
+
 /**
  * TODO
  * alpha mesh highlight
  */
 
 function WithHighlightLayer() {
-  const boxRef = useRef(null);
   const highlightLayerEL = useRef(null);
+  const sphereRef = useRef(null);
+  const boxRef = useRef(null);
 
   useEffect(() => {
-    if (highlightLayerEL.current, boxRef.current) {
-      highlightLayerEL.current.hostInstance.addMesh(boxRef.current.hostInstance, Color3.Green());
+    if (highlightLayerEL.current, sphereRef.current) {
+      highlightLayerEL.current.hostInstance.addMesh(sphereRef.current.hostInstance, Color3.Green());
+      highlightLayerEL.current.hostInstance.addExcludedMesh(boxRef.current.hostInstance, Color3.Green());
     }
-  }, [boxRef.current, highlightLayerEL.current])
+  }, [sphereRef.current, highlightLayerEL.current, boxRef.current])
 
   const onCheckboxClicked = (value) => {
     if (highlightLayerEL.current) {
@@ -31,8 +37,11 @@ function WithHighlightLayer() {
     <>
       <freeCamera name='camera1' position={new Vector3(0, 5, -10)} setTarget={[Vector3.Zero()]} />
       <hemisphericLight name='light1' intensity={0.7} direction={Vector3.Up()} />
-      <sphere name='sphere1' ref={boxRef} diameter={2} segments={16} position={new Vector3(0, 1, 0)} />
-      <ground name='ground1' width={6} height={6} subdivisions={2} />
+      <sphere name='sphere1' ref={sphereRef} diameter={2} segments={16} position={new Vector3(-2, 1, 0)} />
+      <box name='box' ref={boxRef} width={1.5} height={1.5} depth={1.5}
+           position={new Vector3(2, 0.75, 0)} visibility={0.6}>
+      </box>
+      <ground name='ground1' width={10} height={6} subdivisions={2} />
       <highlightLayer name='hl' ref={highlightLayerEL} />
       <adtFullscreenUi name='ui1'>
           <stackPanel
