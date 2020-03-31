@@ -30,15 +30,15 @@ With declarative (TSX/JSX) coding and HMR, you experience the same development w
 
 ![BabylonJS HMR](https://raw.githubusercontent.com/brianzinn/react-babylonjs/master/media/react-babylonjs-hmr.gif)
 
-# BabylonJS API Support
+# @babylonjs/core API Support
 1. **Node -> Mesh** - abstractMesh, mesh, node, transformNode
 
 2. **Cameras** - anaglyphArcRotateCamera, anaglyphFreeCamera, anaglyphGamepadCamera, anaglyphUniversalCamera, arcFollowCamera, arcRotateCamera, camera, deviceOrientationCamera, flyCamera, followCamera, freeCamera, gamepadCamera, stereoscopicArcRotateCamera, stereoscopicFreeCamera, stereoscopicGamepadCamera, stereoscopicUniversalCamera, targetCamera, touchCamera, universalCamera, virtualJoysticksCamera, vrDeviceOrientationArcRotateCamera, vrDeviceOrientationFreeCamera, vrDeviceOrientationGamepadCamera, webVrFreeCamera, webXrCamera
 
-3. **Geometries (meshes)** - box, cylinder, dashedLines, decal, disc, extrudePolygon, extrudeShape, extrudeShapeCustom, ground, groundFromHeightMap, icoSphere, lathe, lines, lineSystem, plane, babylon-polygon, polyhedron, ribbon, sphere, tiledBox, tiledGround, tiledPlane, torus, torusKnot, tube
+3. **Geometries (meshes)** - box, cylinder, dashedLines, decal, disc, extrudePolygon, extrudeShape, extrudeShapeCustom, ground, groundFromHeightMap, icoSphere, lathe, lines, lineSystem, plane, babylon-polygon/Polygon, polyhedron, ribbon, sphere, tiledBox, tiledGround, tiledPlane, torus, torusKnot, tube
 > note: `babylon-polygon` instead of `polygon` due to JSX conflict with `React.SVGProps<SVGPolygonElement>`
 
-4. **Materials** - backgroundMaterial, fluentMaterial, material, multiMaterial, pbrBaseMaterial, pbrBaseSimpleMaterial, pbrMaterial, pbrMetallicRoughnessMaterial, pbrSpecularGlossinessMaterial, pushMaterial, shaderMaterial, standardMaterial
+4. **Materials** - backgroundMaterial, fluentMaterial, material, multiMaterial, nodeMaterial, pbrBaseMaterial, pbrBaseSimpleMaterial, pbrMaterial, pbrMetallicRoughnessMaterial, pbrSpecularGlossinessMaterial, pushMaterial, shaderMaterial, standardMaterial
 
 5. **Lights** - directionalLight, hemisphericLight, light, pointLight, shadowLight, spotLight
 
@@ -46,9 +46,11 @@ With declarative (TSX/JSX) coding and HMR, you experience the same development w
 
 7. **EffectLayers** - effectLayer, glowLayer, highlightLayer
 
-8. **Others** - dynamicTerrain, environmentHelper, physicsImpostor, shadowGenerator, vrExperienceHelper
+8. **Behaviors** - autoRotationBehavior, bouncingBehavior, framingBehavior, attachToBoxBehavior, fadeInOutBehavior, multiPointerScaleBehavior, pointerDragBehavior, sixDofDragBehavior
 
-## GUI
+9. **Others** - environmentHelper, physicsImpostor, shadowGenerator, vrExperienceHelper
+
+## @babylonjs/gui
 1. GUI3DManager
 2. **2D Controls** - scrollViewerWindow, baseSlider, babylon-button/Button, checkbox, colorPicker, container, control, displayGrid, babylon-ellipse/Ellipse, grid, babylon-image/Image, imageBasedSlider, imageScrollBar, inputPassword, inputText, babylon-line/Line, multiLine, radioButton, rectangle, scrollBar, scrollViewer, selectionPanel, slider, stackPanel, textBlock, virtualKeyboard
 > note: 'babylon-*' for `button`, `ellipse`, `image` & `line` due to JSX conflict with `React.SVGProps<T>`, otherwise use the ProperCase equavalent, but you miss editor auto-completion.
@@ -56,7 +58,7 @@ With declarative (TSX/JSX) coding and HMR, you experience the same development w
 3. **3D Controls** -  abstractButton3D, button3D, container3D, control3D, cylinderPanel, holographicButton, meshButton3D, planePanel, scatterPanel, spherePanel, stackPanel3D, volumeBasedPanel
 
 ## Extensions (new in 2.0)
-1. DynamicTerrain
+1. dynamicTerrain
 
 # Examples
 live demo: [default playground declarative](https://brianzinn.github.io/react-babylonjs/?path=/story/babylon-basic--default-playground)
@@ -89,11 +91,11 @@ class WithProps extends React.Component
     return (
       <Engine canvasId="sample-canvas">
         <Scene>
-          <FreeCamera name="camera1" position={new Vector3(0, 5, -10)} target={Vector3.Zero()} />
-          <HemisphericLight name="light1" intensity={this.state.intensity} direction={Vector3.Up()} />
-          <Box name="box" size={4} position={new Vector3(0, 1, 0)}>
+          <freeCamera name="camera1" position={new Vector3(0, 5, -10)} target={Vector3.Zero()} />
+          <hemisphericLight name="light1" intensity={this.state.intensity} direction={Vector3.Up()} />
+          <box name="box" size={4} position={new Vector3(0, 1, 0)}>
             <RotateMeshBehavior radians={this.state.clockwiseChecked ? 0.01 : -0.01} axis={Axis.Y} />
-          </Box>
+          </box>
         </Scene>
       </Engine>
     )
@@ -105,49 +107,44 @@ OK, optional code needed for rotating model via interactions!
 
 live demo: [VR + 3D model](https://brianzinn.github.io/react-babylonjs/?path=/story/with-vr--simple-vr)
 
-inspiration playground: https://playground.babylonjs.com/#TAFSN0#2
+[inspiration playground](https://playground.babylonjs.com/#TAFSN0#2)
 
 Click on the IcoSpheres to rotate the Ghetto Blaster different directions.  You can also use prop flow direct to components if you update state externally.
 
 The **&lt;vrExperienceHelper /&gt;** tag adds button to view in VR headsets!
 ```jsx
-class WithVR extends React.Component
-{
-  render() {
-    return (
-      <Engine canvasId="sample-canvas">
-        <Scene onMeshPicked={this.onMeshPicked}>
-          <arcRotateCamera name="arc" target={new Vector3(0, 1, 0)} minZ={0.001}
-            alpha={-Math.PI / 2} beta={(0.5 + (Math.PI / 4))} radius={2} />
+const WithVR = (props) => (
+  <Engine canvasId="sample-canvas">
+    <Scene onMeshPicked={this.onMeshPicked}>
+      <arcRotateCamera name="arc" target={new Vector3(0, 1, 0)} minZ={0.001}
+        alpha={-Math.PI / 2} beta={(0.5 + (Math.PI / 4))} radius={2} />
 
-          <directionalLight name="dl" direction={new Vector3(0, -0.5, 0.5)} position={new Vector3(0, 2, 0.5)}>
-            <shadowGenerator mapSize={1024} useBlurExponentialShadowMap={true} blurKernel={32}
-              shadowCasters={"counterClockwise", "clockwise", "BoomBox"]} />
-          </directionalLight>
+      <directionalLight name="dl" direction={new Vector3(0, -0.5, 0.5)} position={new Vector3(0, 2, 0.5)}>
+        <shadowGenerator mapSize={1024} useBlurExponentialShadowMap={true} blurKernel={32}
+          shadowCasters={"counterClockwise", "clockwise", "BoomBox"]} />
+      </directionalLight>
 
-          <icoSphere name="counterClockwise" position={new Vector3(-0.5, 1, 0)} radius={0.2} flat={true} subdivisions={1}>
-            <atandardMaterial diffuseColor={Color3.Yellow()} specularColor={Color3.Black()} />
-            <RotateMeshBehavior radians={0.01} axis={Axis.Y} />
-          </icoSphere>
-          <Model
-            rotation={new Vector3(0, this.state.modelRotationY, 0)} position={new Vector3(0, 1, 0)}
-            rootUrl={`${baseUrl}BoomBox/glTF/`} sceneFilename="BoomBox.gltf"
-            scaling={new Vector3(20, 20, 20)}
-          />
-          ...
-          <vrExperienceHelper createDeviceOrientationCamera={false} teleportEnvironmentGround={true} />
-          <environmentHelper enableGroundShadow= {true} groundYBias={1}} />
-        </Scene>
-      </Engine>
-    )
-  }
-}
+      <icoSphere name="counterClockwise" position={new Vector3(-0.5, 1, 0)} radius={0.2} flat={true} subdivisions={1}>
+        <atandardMaterial diffuseColor={Color3.Yellow()} specularColor={Color3.Black()} />
+        <RotateMeshBehavior radians={0.01} axis={Axis.Y} />
+      </icoSphere>
+      <Model
+        rotation={new Vector3(0, this.state.modelRotationY, 0)} position={new Vector3(0, 1, 0)}
+        rootUrl={`${baseUrl}BoomBox/glTF/`} sceneFilename="BoomBox.gltf"
+        scaling={new Vector3(20, 20, 20)}
+      />
+      ...
+      <vrExperienceHelper createDeviceOrientationCamera={false} teleportEnvironmentGround={true} />
+      <environmentHelper enableGroundShadow= {true} groundYBias={1}} />
+    </Scene>
+  </Engine>
+)
 ```
 
 ## 2D/3D UI
-Write declaratively your UI structure.  You can dynamically add/remove in React, but use key property if you do.  Here in GUI is where declarative excels over imperative -- `react-babylonjs` takes care of addControl()/removeControl() order of 3D GUI operations (with manager) and updating based on props/state (ie: text) seamlessly.
+Write declaratively your UI structure.  You can dynamically add/remove in React, but use key property if you do.  Here in GUI is where declarative excels over imperative :) `react-babylonjs` takes care of addControl()/removeControl() and order of 3D GUI operations (with manager) and updating based on props/state.
 
-Full example: [with 2D UI](https://brianzinn.github.io/react-babylonjs/?path=/story/with-vr--simple-2d-gui)
+Full example: [2D UI to Plane](https://brianzinn.github.io/react-babylonjs/?path=/story/gui--with-2-dui)
 ```jsx
 <plane>
   <advancedDynamicTexture createForParentMesh={true}>
@@ -205,7 +202,7 @@ function NonDeclarative() {
 ```
 
 ## Hooks, Shadows and Physics (and optionally TypeScript, too)
-You can declaratively use many features together - here only the button click handler actually has any code - and we have declarative Physics, GUI, Lighting and Shadows.  demo: [Bouncy demo](https://brianzinn.github.io/react-babylonjs/?path=/story/physics-and-hooks--bouncy-playground)
+You can declaratively use many features together - here only the button click handler actually has any code - and we have declarative Physics, GUI, Lighting and Shadows.  demo: [Bouncy demo](https://brianzinn.github.io/react-babylonjs/?path=/story/physics-and-hooks--bouncy-playground-story)
 ```jsx
 import React, { useCallback } from 'react';
 /// full code at https://github.com/brianzinn/create-react-app-typescript-babylonjs
@@ -276,6 +273,8 @@ const App: React.FC = () => {
 
 > v2.0.1 (2019-10-09) - Switch to @babylonjs/* NPM. Add intrinsic elements, physics and dynamic terrain.
 
+> v2.1.0 (2020-03-21) - NPM distro reduced size has only module.  Add behaviors, effects and more demos (ie: custom props [chroma.js](https://brianzinn.github.io/react-babylonjs/?path=/story/integrations--chroma-js-props)).
+
 ## Breaking Changes
  > 0.x to 1.0 ([List](breaking-changes-0.x-to-1.0.md))
  
@@ -290,8 +289,8 @@ const App: React.FC = () => {
 ## Contributors
 Huge shout out to [Konsumer](https://github.com/konsumer) that brought this project to the next level. The ideas and code sandboxes from issue #6 inspired the code generation and HOC + Context API integration.
 
-Thanks to [seacloud9](https://github.com/seacloud9) for adding storybook (and [GSAP demo](https://brianzinn.github.io/react-babylonjs/?path=/story/babylon-basic--model-atom-gsap-tween)).  Also for adding [dynamic terrain](https://brianzinn.github.io/react-babylonjs/?path=/story/babylon-basic--dynamic-terrain).
+Thanks to [seacloud9](https://github.com/seacloud9) for adding storybook (and [GSAP demo](https://brianzinn.github.io/react-babylonjs/?path=/story/integrations--gsap-timeline)).  Also for adding [dynamic terrain](https://brianzinn.github.io/react-babylonjs/?path=/story/babylon-basic--dynamic-terrain).  Ported a branch of his into a [PIXI demo](https://brianzinn.github.io/react-babylonjs/?path=/story/integrations--pixi-story).
 
-Lots of contributions from [hookex](https://github.com/hookex) :)  Proper texture handling [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/textures--image-texture), Node parenting [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/babylon-basic--transformnode) Full Screen GUI [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/gui--gui), Effect Layers [glow demo](https://brianzinn.github.io/react-babylonjs/?path=/story/special-fx--glow-layer).  Additionally help upgrading to 4.1 and reconciler bug fix.
+Lots of contributions from [hookex](https://github.com/hookex) :)  Proper texture handling [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/textures--image-texture), Node parenting [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/babylon-basic--transform-node) Full Screen GUI [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/gui--gui-full-screen), Effect Layers [glow demo](https://brianzinn.github.io/react-babylonjs/?path=/story/special-fx--glow-layer) and behaviors [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/behaviors--pointer-drag-behavior).
 
 Made with ♥ by Brian Zinn
