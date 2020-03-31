@@ -1,7 +1,7 @@
 import { LifecycleListener } from "../LifecycleListener"
 import { CreatedInstance } from "../CreatedInstance"
 import { Texture } from '@babylonjs/core'
-import {assignProperty} from "../utils/property.unit";
+import {assignProperty} from "../helper/property";
 
 export default class TexturesLifecycleListener implements LifecycleListener<Texture> {
   onParented(parent: CreatedInstance<any>) {/* empty */}

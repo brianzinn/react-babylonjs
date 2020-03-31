@@ -116,6 +116,7 @@ export function useClick(onClick: EventFunc): [MutableRefObject<CreatedInstance<
       if (!mesh.actionManager) {
         mesh.actionManager = new ActionManager(mesh.getScene());
       }
+      console.log('123123', ref.current)
 
       mesh.actionManager.registerAction(
         new ExecuteCodeAction(
