@@ -70,10 +70,16 @@ export interface EventFunc {
   (ev: ActionEvent): void;
 }
 
-export function useHover(over?: EventFunc, out?: EventFunc): [MutableRefObject<CreatedInstance<Mesh|null>>, boolean] {
+/**
+ * hover hook
+ * TODO: support UI
+ * @param over
+ * @param out
+ */
+export function useHover(over?: EventFunc, out?: EventFunc): [MutableRefObject<CreatedInstance<Mesh | null>>, boolean] {
   const [value, setValue] = useState(false);
 
-  const ref = useRef<CreatedInstance<Mesh>>(null) as MutableRefObject<CreatedInstance<Mesh|null>>;
+  const ref = useRef<CreatedInstance<Mesh>>(null) as MutableRefObject<CreatedInstance<Mesh | null>>;
 
   useEffect(() => {
     if (ref.current) {
@@ -101,13 +107,18 @@ export function useHover(over?: EventFunc, out?: EventFunc): [MutableRefObject<C
         )
       );
     }
-  }, [ref.current])
+  }, [ref.current]);
+  // todo: if use ref.current as dep,  duplicate register action.
 
   return [ref, value];
 }
 
-export function useClick(onClick: EventFunc): [MutableRefObject<CreatedInstance<Mesh|null>>]{
-  const ref = useRef<CreatedInstance<Mesh>>(null) as MutableRefObject<CreatedInstance<Mesh|null>>;
+/**
+ * TODO: support UI
+ * @param onClick
+ */
+export function useClick(onClick: EventFunc): [MutableRefObject<CreatedInstance<Mesh | null>>] {
+  const ref = useRef<CreatedInstance<Mesh>>(null) as MutableRefObject<CreatedInstance<Mesh | null>>;
 
   useEffect(() => {
     if (ref.current) {
@@ -116,7 +127,6 @@ export function useClick(onClick: EventFunc): [MutableRefObject<CreatedInstance<
       if (!mesh.actionManager) {
         mesh.actionManager = new ActionManager(mesh.getScene());
       }
-      console.log('123123', ref.current)
 
       mesh.actionManager.registerAction(
         new ExecuteCodeAction(
@@ -126,7 +136,8 @@ export function useClick(onClick: EventFunc): [MutableRefObject<CreatedInstance<
         )
       );
     }
-  }, [ref.current])
+  }, [ref]);
+  // todo: if use ref.current as dep,  duplicate register action.
 
   return [ref];
 }
