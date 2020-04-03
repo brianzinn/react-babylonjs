@@ -10,6 +10,7 @@ export interface InstanceMetadataParameter {
   isEnvironment?: boolean // to find ground for Teleportation (not using a registry - one time cost)
   isTargetable?: boolean // will attach a target props handler
   isNode?: boolean; // Camera, Light, TransformNode (Bone) - Used for parenting.
+  isMesh?: boolean; // needed for hover and adding action manager
   isMaterial?: boolean // indicates a custom component created by end-user has been created
   isGUI3DControl?: boolean // does not work with 2D
   isGUI2DControl?: boolean // does not work with 3D
