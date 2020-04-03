@@ -26,12 +26,6 @@ function WithUseClick() {
     setColor(Color3.FromArray(color))
   });
 
-  const ref1 = useRef(null);
-  useEffect(() => {
-  }, [ref1.current]);
-
-  ref1.current = 1;
-
   return <sphere name='sphere1' ref={ref}
                  diameter={2} segments={16}
                  position={new Vector3(0, 1, 0)}>
