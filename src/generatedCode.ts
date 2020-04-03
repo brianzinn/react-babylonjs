@@ -2599,6 +2599,7 @@ export class FiberBox implements HasPropsHandlers<FiberMeshProps> {
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
         "isNode": true,
+        "isMesh": true,
         "className": "FiberBox"
     };
 }
@@ -2727,6 +2728,7 @@ export class FiberTiledBox implements HasPropsHandlers<FiberMeshProps> {
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
         "isNode": true,
+        "isMesh": true,
         "className": "FiberTiledBox"
     };
 }
@@ -2846,6 +2848,7 @@ export class FiberSphere implements HasPropsHandlers<FiberMeshProps> {
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
         "isNode": true,
+        "isMesh": true,
         "className": "FiberSphere"
     };
 }
@@ -2943,6 +2946,7 @@ export class FiberDisc implements HasPropsHandlers<FiberMeshProps> {
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
         "isNode": true,
+        "isMesh": true,
         "className": "FiberDisc"
     };
 }
@@ -3056,6 +3060,7 @@ export class FiberIcoSphere implements HasPropsHandlers<FiberMeshProps> {
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
         "isNode": true,
+        "isMesh": true,
         "className": "FiberIcoSphere"
     };
 }
@@ -3186,6 +3191,7 @@ export class FiberRibbon implements HasPropsHandlers<FiberMeshProps> {
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
         "isNode": true,
+        "isMesh": true,
         "className": "FiberRibbon"
     };
 }
@@ -3342,6 +3348,7 @@ export class FiberCylinder implements HasPropsHandlers<FiberMeshProps> {
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
         "isNode": true,
+        "isMesh": true,
         "className": "FiberCylinder"
     };
 }
@@ -3439,6 +3446,7 @@ export class FiberTorus implements HasPropsHandlers<FiberMeshProps> {
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
         "isNode": true,
+        "isMesh": true,
         "className": "FiberTorus"
     };
 }
@@ -3552,6 +3560,7 @@ export class FiberTorusKnot implements HasPropsHandlers<FiberMeshProps> {
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
         "isNode": true,
+        "isMesh": true,
         "className": "FiberTorusKnot"
     };
 }
@@ -3642,6 +3651,7 @@ export class FiberLineSystem implements HasPropsHandlers<FiberMeshProps> {
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
         "isNode": true,
+        "isMesh": true,
         "className": "FiberLineSystem"
     };
 }
@@ -3731,6 +3741,7 @@ export class FiberLines implements HasPropsHandlers<FiberMeshProps> {
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
         "isNode": true,
+        "isMesh": true,
         "className": "FiberLines"
     };
 }
@@ -3826,6 +3837,7 @@ export class FiberDashedLines implements HasPropsHandlers<FiberMeshProps> {
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
         "isNode": true,
+        "isMesh": true,
         "className": "FiberDashedLines"
     };
 }
@@ -3948,6 +3960,7 @@ export class FiberExtrudeShape implements HasPropsHandlers<FiberMeshProps> {
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
         "isNode": true,
+        "isMesh": true,
         "className": "FiberExtrudeShape"
     };
 }
@@ -4085,6 +4098,7 @@ export class FiberExtrudeShapeCustom implements HasPropsHandlers<FiberMeshProps>
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
         "isNode": true,
+        "isMesh": true,
         "className": "FiberExtrudeShapeCustom"
     };
 }
@@ -4213,6 +4227,7 @@ export class FiberLathe implements HasPropsHandlers<FiberMeshProps> {
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
         "isNode": true,
+        "isMesh": true,
         "className": "FiberLathe"
     };
 }
@@ -4338,6 +4353,7 @@ export class FiberTiledPlane implements HasPropsHandlers<FiberMeshProps> {
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
         "isNode": true,
+        "isMesh": true,
         "className": "FiberTiledPlane"
     };
 }
@@ -4440,6 +4456,7 @@ export class FiberPlane implements HasPropsHandlers<FiberMeshProps> {
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
         "isNode": true,
+        "isMesh": true,
         "className": "FiberPlane"
     };
 }
@@ -4529,6 +4546,7 @@ export class FiberGround implements HasPropsHandlers<FiberMeshProps> {
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
         "isNode": true,
+        "isMesh": true,
         "className": "FiberGround"
     };
 }
@@ -4625,6 +4643,7 @@ export class FiberTiledGround implements HasPropsHandlers<FiberMeshProps> {
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
         "isNode": true,
+        "isMesh": true,
         "className": "FiberTiledGround"
     };
 }
@@ -4740,6 +4759,7 @@ export class FiberGroundFromHeightMap implements HasPropsHandlers<FiberMeshProps
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
         "isNode": true,
+        "isMesh": true,
         "className": "FiberGroundFromHeightMap"
     };
 }
@@ -4852,6 +4872,7 @@ export class FiberPolygon implements HasPropsHandlers<FiberMeshProps> {
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
         "isNode": true,
+        "isMesh": true,
         "className": "FiberPolygon"
     };
 }
@@ -4959,6 +4980,7 @@ export class FiberExtrudePolygon implements HasPropsHandlers<FiberMeshProps> {
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
         "isNode": true,
+        "isMesh": true,
         "className": "FiberExtrudePolygon"
     };
 }
@@ -5088,6 +5110,7 @@ export class FiberTube implements HasPropsHandlers<FiberMeshProps> {
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
         "isNode": true,
+        "isMesh": true,
         "className": "FiberTube"
     };
 }
@@ -5220,6 +5243,7 @@ export class FiberPolyhedron implements HasPropsHandlers<FiberMeshProps> {
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
         "isNode": true,
+        "isMesh": true,
         "className": "FiberPolyhedron"
     };
 }
@@ -5301,6 +5325,7 @@ export class FiberDecal implements HasPropsHandlers<FiberMeshProps> {
     public static readonly Metadata: CreatedInstanceMetadata = {
         "acceptsMaterials": true,
         "isNode": true,
+        "isMesh": true,
         "className": "FiberDecal"
     };
 }

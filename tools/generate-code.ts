@@ -436,7 +436,8 @@ const createMeshClasses = (generatedCodeSourceFile: SourceFile, generatedPropsSo
   createFactoryClass(
     'MeshBuilder', 'Mesh', '', {
     acceptsMaterials: true,
-    isNode: true
+    isNode: true,
+    isMesh: true
   },
     generatedCodeSourceFile,
     generatedPropsSourceFile
