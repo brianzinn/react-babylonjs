@@ -64,7 +64,7 @@ export const applyUpdateToInstance = (hostInstance: any, update: PropertyUpdate,
       } else {
         console.error(`Cannot call [not a function] ${update.propertyName}(...) on:`, update.type, target)
       }
-      break;      
+      break;
     default:
       console.error(`Unhandled property update of type ${update.changeType} -> ${update.type}`);
       break;
@@ -73,12 +73,12 @@ export const applyUpdateToInstance = (hostInstance: any, update: PropertyUpdate,
 
 /**
  * Only applied in this way immediately after instantiation (not on deltas)
- * 
- * @param instance 
- * @param props 
- * @param scene 
+ *
+ * @param instance
+ * @param props
+ * @param scene
  */
-export const applyInitialPropsToInstance = (instance: CreatedInstance<any>, props: any, scene: Scene) => {
+export const applyInitialPropsToInstance = (instance: CreatedInstance<any>, props: any) => {
   if (!instance.propsHandlers) {
     return;
   }

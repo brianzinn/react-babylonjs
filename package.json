@@ -141,7 +141,11 @@
     "tslint-config-standard": "^8.0.1",
     "typedoc": "^0.14.1",
     "typescript": "3.8.2",
-    "validate-commit-msg": "^2.14.0"
+    "validate-commit-msg": "^2.14.0",
+    "@react-spring/addons": "^9.0.0-beta.33",
+    "@react-spring/animated": "^9.0.0-beta.33",
+    "@react-spring/core": "9.0.0-beta.30",
+    "@react-spring/shared": "^9.0.0-beta.33"
   },
   "peerDependencies": {
     "@babylonjs/core": "4.x",
@@ -150,6 +154,10 @@
     "@babylonjs/loaders": "4.x",
     "react": "16.x",
     "react-dom": "16.x",
-    "react-reconciler": "0.x"
+    "react-reconciler": "0.x",
+    "@react-spring/addons": "^9.0.0-beta.33",
+    "@react-spring/animated": "^9.0.0-beta.33",
+    "@react-spring/core": "9.0.0-beta.30",
+    "@react-spring/shared": "^9.0.0-beta.33"
   }
 }

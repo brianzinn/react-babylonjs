@@ -8,3 +8,6 @@ export { default as Engine, withBabylonJS, BabylonJSContext, useBabylonEngine, u
 export { default as Scene, withScene, WithSceneContext, SceneContext, SceneEventArgs, useBabylonScene } from "./Scene";
 
 export { HostWithEvents } from "./customHosts";
+
+// TODO:
+export * from './plugins/react-babylon-spring';

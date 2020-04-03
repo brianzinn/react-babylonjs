@@ -1,6 +1,7 @@
 import { Vector3, Color3, Color4 } from '@babylonjs/core/Maths/math'
 import { Control } from '@babylonjs/gui/2D/controls/control'
 import { Observable, FresnelParameters, BaseTexture, Nullable } from '@babylonjs/core'
+import {isEqual} from "./helper/is";
 
 // TODO: type/value need to be joined, as the method will have multiple.
 export interface PropertyUpdate {
@@ -44,12 +45,12 @@ export interface ICustomPropsHandler<T, U> {
    * The type of prop (ie: Vector3, Color3) to register for
    */
   readonly propChangeType: string;
-  
+
   /**
    * Can be used to influence the ordering the handler fires compared to other custom handlers.
    * @todo not implemented (future enhancement)
    */
-  readonly order: number;
+  readonly order?: number;
 
   /**
    * Like a visitor, except if 'true' is returned the call chain is broken.
@@ -70,7 +71,7 @@ export class CustomPropsHandler {
 
   /**
    * Register a new props handler
-   * 
+   *
    * @param handler to register for props (a handler can only be registered once per )
    * @returns a reference that can be used to unregister.
    */
@@ -96,7 +97,7 @@ export class CustomPropsHandler {
   /**
    * Unregister a props handler that was previously registered.
    *
-   * @param propsHandler 
+   * @param propsHandler
    *
    * @returns if the props handler was found and unregistered
    */
@@ -173,7 +174,7 @@ export const checkVector3Diff = (oldProp: Vector3 | undefined, newProp: Vector3 
     return;
   }
 
-  if (newProp && (!oldProp || !oldProp.equals(newProp))) {
+  if (newProp && (!oldProp || !isEqual(newProp, oldProp))) {
     changedProps.push({
       propertyName,
       type: propertyType,
@@ -187,8 +188,8 @@ export const checkColor3Diff = (oldProp: Color3 | undefined, newProp: Color3 | u
   if (handledCustomProp(PropChangeType.Color3, oldProp, newProp, propertyName, propertyType, changedProps)) {
     return;
   }
-  
-  if (newProp && (!oldProp || !oldProp.equals(newProp))) {
+
+  if (newProp && (!oldProp || !isEqual(newProp, oldProp))) {
     changedProps.push({
       propertyName,
       type: propertyType,
@@ -202,7 +203,7 @@ export const checkColor4Diff = (oldProp: Color4 | undefined, newProp: Color4 | u
   if (handledCustomProp(PropChangeType.Color4, oldProp, newProp, propertyName, propertyType, changedProps)) {
     return;
   }
-  
+
   // Color4.equals() not added until PR #5517
   if (newProp && (!oldProp || oldProp.r !== newProp.r || oldProp.g !== newProp.g || oldProp.b !== newProp.b || oldProp.a !== newProp.a)) {
     changedProps.push({
@@ -309,7 +310,7 @@ export const checkObservableDiff = (oldProp: Observable<any>, newProp: Observabl
 /**
  * This method differs from the rest in that we need to pass in a list of arguments.  Can be done by using:
  * 1. an array to signify each parameter (or Object.values(...)).
- * 
+ *
  * @param oldProp value of method (array, object, primitive, etc.)
  * @param newProp value of method (array, object, primitive, etc.)
  * @param propertyName name of property for diff
