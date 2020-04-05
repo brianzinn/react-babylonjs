@@ -125,7 +125,7 @@ const WithVR = (props) => (
       </directionalLight>
 
       <icoSphere name="counterClockwise" position={new Vector3(-0.5, 1, 0)} radius={0.2} flat={true} subdivisions={1}>
-        <atandardMaterial diffuseColor={Color3.Yellow()} specularColor={Color3.Black()} />
+        <standardMaterial diffuseColor={Color3.Yellow()} specularColor={Color3.Black()} />
         <RotateMeshBehavior radians={0.01} axis={Axis.Y} />
       </icoSphere>
       <Model
@@ -150,9 +150,9 @@ Full example: [2D UI to Plane](https://brianzinn.github.io/react-babylonjs/?path
   <advancedDynamicTexture createForParentMesh={true}>
     <rectangle height="60%" thickness={2} color="#EEEEEE">
       <stackPanel>
-        <Text text={`You have clicked on '${this.state.clickedMeshName}' ...`} />
+        <textBlock  text={`You have clicked on '${this.state.clickedMeshName}' ...`} />
         {this.state.allowedMeshes.map(allowedMesh => (
-          <Text key={...} text={'• ' + allowedMesh} color="black" fontSize={28} height="20%" />
+          <textBlock  key={...} text={'• ' + allowedMesh} color="black" fontSize={28} height="20%" />
         ))}
       </stackPanel>
     </rectangle>
@@ -167,7 +167,6 @@ This is a more advanced and still a typical scanario and allows more control and
 // If you import Scene from 'babylonjs' then make sure to alias one of them.
 import React, { Component } from 'react'
 import { Scene } from 'react-babylonjs'
-// imports from @babylonjs
 
 function meshPicked(mesh) {
   console.log('mesh picked:', mesh)
@@ -216,7 +215,6 @@ const onButtonClicked = () => {
 }
 
 const App: React.FC = () => {
-
   const sphereRef = useCallback(node => {
     sphere = node.hostInstance;
   }, []);
@@ -224,18 +222,17 @@ const App: React.FC = () => {
   return (
     <Engine antialias={true} adaptToDeviceRatio={true} canvasId="sample-canvas">
       <Scene enablePhysics={[gravityVector, new CannonJSPlugin()]}>
-        
         <arcRotateCamera name="arc" target={ new Vector3(0, 1, 0) }
-              alpha={-Math.PI / 2} beta={(0.5 + (Math.PI / 4))}
-              radius={4} minZ={0.001} wheelPrecision={50} 
-              lowerRadiusLimit={8} upperRadiusLimit={20} upperBetaLimit={Math.PI / 2}
-              />
+          alpha={-Math.PI / 2} beta={(0.5 + (Math.PI / 4))}
+          radius={4} minZ={0.001} wheelPrecision={50} 
+          lowerRadiusLimit={8} upperRadiusLimit={20} upperBetaLimit={Math.PI / 2}
+        />
         <hemisphericLight name='hemi' direction={new Vector3(0, -1, 0)} intensity={0.8} />
         <directionalLight name="shadow-light" setDirectionToTarget={[Vector3.Zero()]} direction={Vector3.Zero()} position = {new Vector3(-40, 30, -40)}
           intensity={0.4} shadowMinZ={1} shadowMaxZ={2500}>
           <shadowGenerator mapSize={1024} useBlurExponentialShadowMap={true} blurKernel={32}
             shadowCasters={["sphere1", "dialog"]} forceBackFacesOnly={true} depthScale={100}
-            />
+          />
         </directionalLight>
         <sphere ref={sphereRef} name="sphere1" diameter={2} segments={16} position={new Vector3(0, 2.5, 0)}>
           <physicsImpostor type={PhysicsImpostor.SphereImpostor} _options={{
