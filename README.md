@@ -273,7 +273,9 @@ const App: React.FC = () => {
 
 > v2.0.1 (2019-10-09) - Switch to @babylonjs/* NPM. Add intrinsic elements, physics and dynamic terrain.
 
-> v2.1.0 (2020-03-21) - NPM distro reduced size has only module.  Add behaviors, effects and more demos (ie: custom props [chroma.js](https://brianzinn.github.io/react-babylonjs/?path=/story/integrations--chroma-js-props)).
+> v2.1.0 (2020-03-21) - NPM distro reduced size has only module.  Add [behaviors](https://brianzinn.github.io/react-babylonjs/?path=/story/behaviors--drag-n-drop), effects (ie: [glow](https://brianzinn.github.io/react-babylonjs/?path=/story/special-fx--glow-layer)), CustomProps (ie: [chroma.js](https://brianzinn.github.io/react-babylonjs/?path=/story/integrations--chroma-js-props)).
+
+> v2.2.0 (2020-04-04) - Added support for `react-spring` [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/integrations--react-spring)
 
 ## Breaking Changes
  > 0.x to 1.0 ([List](breaking-changes-0.x-to-1.0.md))
