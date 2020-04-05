@@ -1,4 +1,4 @@
-import { Vector3, Color3, Color4, Mesh, Scene } from '@babylonjs/core'
+import { Vector3, Color3, Color4 } from '@babylonjs/core'
 import { PropertyUpdate, PropsHandler, PropChangeType } from "./PropsHandler"
 import { CreatedInstance } from "./CreatedInstance"
 
@@ -83,6 +83,7 @@ export const applyInitialPropsToInstance = (instance: CreatedInstance<any>, prop
     return;
   }
 
+  // console.log('applying initial props:', props);
   let initPayload: PropertyUpdate[] = []
   instance.propsHandlers.getPropsHandlers().forEach((propHandler: PropsHandler<any>) => {
     // NOTE: this can actually be WRONG, because here we want to compare the props with the object.

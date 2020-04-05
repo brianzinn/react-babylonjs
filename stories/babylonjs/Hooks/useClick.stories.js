@@ -1,10 +1,10 @@
-import React, {useEffect, useRef, useState} from 'react'
+import React, {useState} from 'react'
 import {Engine, Scene, useClick} from '../../../dist/react-babylonjs'
 import {Vector3} from '@babylonjs/core/Maths/math'
 import '../../style.css'
 import {Color3} from "@babylonjs/core/Maths/math.color";
 
-export default {title: 'Events'};
+export default {title: 'Hooks'};
 
 const getRandomColor = (function () {
   // const Colors = ['#4F86EC', '#D9503F', '#F2BD42', '#58A55C'];
@@ -27,7 +27,7 @@ function WithUseClick() {
   });
 
   return <sphere name='sphere1' ref={ref}
-                 diameter={2} segments={16}
+                 diameter={2} segments={32}
                  position={new Vector3(0, 1, 0)}>
     <standardMaterial  name='mat' diffuseColor={color}/>
   </sphere>
@@ -45,3 +45,7 @@ export const UseClickEvent = () => (
     </Engine>
   </div>
 );
+
+UseClickEvent.story = {
+  name: 'useClick'
+}

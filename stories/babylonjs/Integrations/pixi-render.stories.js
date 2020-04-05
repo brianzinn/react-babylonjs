@@ -158,5 +158,5 @@ export const PIXIStory = () => {
 }
 
 PIXIStory.story = {
-  name: 'PIXI'
+  name: 'PixiJS v5'
 }

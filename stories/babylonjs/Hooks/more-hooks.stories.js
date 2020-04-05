@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react'
 import { Engine, Scene, useBabylonEngine, useBabylonCanvas, useBabylonScene } from '../../../dist/react-babylonjs'
 import { Vector3 } from '@babylonjs/core'
 
-export default { title: 'Physics and Hooks' };
+export default { title: 'Hooks' };
 
 const MyScene = () => {
     const engine = useBabylonEngine();
@@ -48,3 +48,7 @@ export const ConvenienceHooks = () => (
         <RenderHooks x={5} />
     </div>
 )
+
+ConvenienceHooks.story = {
+    name: 'engine/canvas/scene'
+}

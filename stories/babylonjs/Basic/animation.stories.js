@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
-import { Vector3, Animation, Color3 } from '@babylonjs/core';
-import { Engine, Scene, useBeforeRender, useBabylonScene } from '../../../dist/react-babylonjs'
+import { Vector3, Animation } from '@babylonjs/core';
+import { Engine, Scene, useBabylonScene } from '../../../dist/react-babylonjs'
 import '../../style.css';
 
 export default { title: 'Babylon Basic' };
