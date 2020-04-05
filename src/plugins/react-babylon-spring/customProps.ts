@@ -1,5 +1,4 @@
 import {
-  CustomPropsHandler,
   ICustomPropsHandler,
   PropChangeType,
   PropertyUpdateProcessResult
@@ -13,7 +12,7 @@ function parseRgbaString(rgba: string): number[] {
 
 const Key = 'react-babylon-spring';
 
-class CustomColor3StringHandler implements ICustomPropsHandler<string, Color3> {
+export class CustomColor3StringHandler implements ICustomPropsHandler<string, Color3> {
   get name() {
     return `${Key}:Color3String`
   }
@@ -36,7 +35,7 @@ class CustomColor3StringHandler implements ICustomPropsHandler<string, Color3> {
   }
 }
 
-class CustomColor3ArrayHandler implements ICustomPropsHandler<number[], Color3> {
+export class CustomColor3ArrayHandler implements ICustomPropsHandler<number[], Color3> {
   get name() {
     return `${Key}:Color3Array`
   }
@@ -70,7 +69,7 @@ class CustomColor3ArrayHandler implements ICustomPropsHandler<number[], Color3> 
   }
 }
 
-class CustomColor4StringHandler implements ICustomPropsHandler<string, Color4> {
+export class CustomColor4StringHandler implements ICustomPropsHandler<string, Color4> {
 
   get name() {
     return `${Key}:Color4String`
@@ -96,7 +95,7 @@ class CustomColor4StringHandler implements ICustomPropsHandler<string, Color4> {
 }
 
 
-class CustomVector3ArrayHandler implements ICustomPropsHandler<number[], Vector3> {
+export class CustomVector3ArrayHandler implements ICustomPropsHandler<number[], Vector3> {
   get name() {
     return `${Key}:Vector3Array`
   }
@@ -129,8 +128,10 @@ class CustomVector3ArrayHandler implements ICustomPropsHandler<number[], Vector3
   }
 }
 
-CustomPropsHandler.RegisterPropsHandler(new CustomColor3StringHandler());
-CustomPropsHandler.RegisterPropsHandler(new CustomColor3ArrayHandler());
-CustomPropsHandler.RegisterPropsHandler(new CustomColor4StringHandler());
-CustomPropsHandler.RegisterPropsHandler(new CustomVector3ArrayHandler());
+// May be useful to include where they can be ES6 loaded via side-effect.
+// ie: import 'react-babylonjs/plugins/handlers'
+// CustomPropsHandler.RegisterPropsHandler(new CustomColor3StringHandler());
+// CustomPropsHandler.RegisterPropsHandler(new CustomColor3ArrayHandler());
+// CustomPropsHandler.RegisterPropsHandler(new CustomColor4StringHandler());
+// CustomPropsHandler.RegisterPropsHandler(new CustomVector3ArrayHandler());
 

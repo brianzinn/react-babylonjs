@@ -1,7 +1,7 @@
 import {Globals} from '@react-spring/core';
 import {createStringInterpolator} from '@react-spring/shared/stringInterpolation';
 import {applyInitialPropsToInstance} from "../../UpdateInstance";
-import './custormProps';
+import './customProps';
 
 Globals.assign({
   defaultElement: 'transformNode',
@@ -17,6 +17,5 @@ Globals.assign({
 });
 
 export * from './animated';
+export * from './customProps';
 export * from '@react-spring/core';
-
-

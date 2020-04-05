@@ -9,5 +9,4 @@ export { default as Scene, withScene, WithSceneContext, SceneContext, SceneEvent
 
 export { HostWithEvents } from "./customHosts";
 
-// TODO:
 export * from './plugins/react-babylon-spring';

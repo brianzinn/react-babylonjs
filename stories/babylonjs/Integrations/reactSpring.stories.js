@@ -1,5 +1,16 @@
 import React from 'react'
-import {Engine, Scene, useHover, useSprings, useSpring, a} from '../../../dist/react-babylonjs'
+import {
+  Engine,
+  Scene,
+  useHover,
+  useSprings,
+  useSpring,
+  a, // "animated" versions of all react-babylonjs objects
+  useCustomPropsHandler,
+  CustomColor3ArrayHandler,
+  CustomColor3StringHandler,
+  CustomVector3ArrayHandler
+} from '../../../dist/react-babylonjs'
 import { Vector3, Color3 } from '@babylonjs/core/Maths/math';
 import '../../style.css'
 
@@ -25,7 +36,11 @@ function getCyclePosition(i, blankRadius) {
   return [x, z];
 }
 
-function WithSpring() {
+const WithSpring = () => {
+  useCustomPropsHandler(new CustomColor3ArrayHandler());
+  useCustomPropsHandler(new CustomColor3StringHandler());
+  useCustomPropsHandler(new CustomVector3ArrayHandler());
+
   const [props, set] = useSprings(100, i => {
     const [x, z] = getCyclePosition(i, 30);
 
@@ -87,7 +102,7 @@ function WithSpring() {
 
 
       <sphere ref={ref} name='' diameter={40} position={new Vector3(0, 20, 0)}>
-        <standardMaterial name='' diffuseColor={new Color3(0.3, 0.6, 0.9)}/>
+        <standardMaterial name='' diffuseColor={new Color3(0.3, 0.6, 0.9)} alpha={0.8} />
       </sphere>
 
       <ground name='ground1' width={1000} height={1000} subdivisions={2}/>
@@ -105,3 +120,6 @@ export const ReactSpring = () => (
   </div>
 );
 
+ReactSpring.story = {
+  name: 'react-spring'
+}
