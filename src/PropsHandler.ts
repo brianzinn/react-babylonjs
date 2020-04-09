@@ -1,7 +1,6 @@
 import { Vector3, Color3, Color4 } from '@babylonjs/core/Maths/math'
 import { Control } from '@babylonjs/gui/2D/controls/control'
 import { Observable, FresnelParameters, BaseTexture, Nullable } from '@babylonjs/core'
-import {isEqual} from "./helper/is";
 
 // TODO: type/value need to be joined, as the method will have multiple.
 export interface PropertyUpdate {
@@ -25,6 +24,11 @@ export interface HasPropsHandlers<U> {
   getPropsHandlers(): PropsHandler<U>[]
   addPropsHandler(propHandler: PropsHandler<U>): void
 }
+
+// internal
+type HandlerUpdateProcessResult<T> = {
+  accepted: boolean
+} & PropertyUpdateProcessResult<T>;
 
 export type PropertyUpdateProcessResult<T> = {
   processed: boolean,
@@ -122,22 +126,44 @@ export class CustomPropsHandler {
     return true;
   }
 
-  public static HandlePropsChange(propsChangeType: PropChangeType, oldProp: any, newProp: any): PropertyUpdateProcessResult<any> {
+  private static NOT_ACCEPTED: Readonly<HandlerUpdateProcessResult<any>> = Object.freeze({
+    accepted: false,
+    processed: false,
+    value: null
+  });
+
+  private static ACCEPTED_NOT_PROCSSED: Readonly<HandlerUpdateProcessResult<any>> = Object.freeze({
+    accepted: true,
+    processed: false,
+    value: null
+  });
+
+  public static HandlePropsChange(propsChangeType: PropChangeType, oldProp: any, newProp: any): Readonly<HandlerUpdateProcessResult<any>> {
     const registeredHandlers: ICustomPropsHandler<any, any>[] = CustomPropsHandler._registeredPropsHandlers[propsChangeType];
-    const notProcessed: PropertyUpdateProcessResult<any> = { processed: false, value: null};
     if (registeredHandlers === undefined) {
-      return notProcessed;
+      return CustomPropsHandler.NOT_ACCEPTED;
     }
 
+    let accepted = false;
     for (const handler of registeredHandlers) {
       if (handler.accept(newProp)) {
+        accepted = true;
         const propertyUpdatedProcessResult: PropertyUpdateProcessResult<any> = handler.process(oldProp, newProp);
-        // console.log(`handler '${handler.name}'custom prop processing result:`, propertyUpdatedProcessResult);
-        return propertyUpdatedProcessResult;
+        // console.log(`handler '${handler.name}'custom prop processing result:`, oldProp, newProp, propertyUpdatedProcessResult);
+        // give other custom handlers (if any) the opportunity to handle
+        if (propertyUpdatedProcessResult.processed) {
+          return {
+            accepted: true,
+            processed: true,
+            value: propertyUpdatedProcessResult.value
+          };
+        }
       }
     }
 
-    return notProcessed;
+    return accepted
+      ? CustomPropsHandler.ACCEPTED_NOT_PROCSSED
+      : CustomPropsHandler.NOT_ACCEPTED;
   }
 }
 
@@ -155,156 +181,188 @@ export enum PropChangeType {
   Texture = "Texture"
 }
 
-const handledCustomProp = (changeType: PropChangeType, oldProp: any, newProp: any, propertyName: string, propertyType: string, changedProps: PropertyUpdate[]): boolean => {
-  const processedResult = CustomPropsHandler.HandlePropsChange(changeType, oldProp, newProp);
-  if (processedResult.processed) {
-    // console.log(`handled ${PropChangeType.Color3} on ${propertyName} - bypassing built-in handler - new Value: ${JSON.stringify(processedResult.value ?? {})}`);
-    changedProps.push({
-      propertyName,
-      type: propertyType,
-      changeType,
-      value: processedResult.value!
-    })
+/**
+ * Encapsulates common error handling and handling of registered custom prop handlers.
+ */
+function propertyCheck<T> (
+  oldProp: T | undefined,
+  newProp: T | undefined,
+  propertyName: string,
+  propertyType: string,
+  propChangeType: PropChangeType,
+  changedProps: PropertyUpdate[],
+  templateMethod: (oldProp: T | undefined, newProp: T | undefined, changedProps: PropertyUpdate[]) => void ): void
+{
+  try {
+    const processedResult = CustomPropsHandler.HandlePropsChange(propChangeType, oldProp, newProp);
+    if (processedResult.accepted) {
+      if (processedResult.processed) {
+        // console.log(`handled ${propChangeType} on ${propertyName} by custom handler - new Value: ${JSON.stringify(processedResult.value ?? {})}`);
+        changedProps.push({
+          propertyName,
+          type: propertyType,
+          changeType: propChangeType,
+          value: processedResult.value!
+        })
+      }
+
+      // we assume any custom handler that 'accepts' a property does not want to pass
+      // down to built-in handler.  ie: [] -> Vector3 would fail.
+      return;
+    }
+
+    templateMethod(oldProp, newProp, changedProps);
+  } catch (e) {
+    console.error(`Unable to update '${propertyName}' with ${propChangeType}:`, newProp);
+    console.error(e);
   }
-  return processedResult.processed;
 }
 
 export const checkVector3Diff = (oldProp: Vector3 | undefined, newProp: Vector3 | undefined, propertyName: string, propertyType: string, changedProps: PropertyUpdate[]): void => {
-  if (handledCustomProp(PropChangeType.Vector3, oldProp, newProp, propertyName, propertyType, changedProps)) {
-    return;
-  }
-
-  if (newProp && (!oldProp || !isEqual(newProp, oldProp))) {
-    changedProps.push({
-      propertyName,
-      type: propertyType,
-      changeType: PropChangeType.Vector3,
-      value: newProp
-    })
-  }
+  propertyCheck<Vector3>(oldProp, newProp, propertyName, propertyType, PropChangeType.Vector3, changedProps, (oldProp, newProp, changedProps) => {
+    if (newProp && (!oldProp || !newProp.equals(oldProp))) {
+      changedProps.push({
+        propertyName,
+        type: propertyType,
+        changeType: PropChangeType.Vector3,
+        value: newProp
+      })
+    }
+  });
 }
 
 export const checkColor3Diff = (oldProp: Color3 | undefined, newProp: Color3 | undefined, propertyName: string, propertyType: string, changedProps: PropertyUpdate[]): void => {
-  if (handledCustomProp(PropChangeType.Color3, oldProp, newProp, propertyName, propertyType, changedProps)) {
-    return;
-  }
-
-  if (newProp && (!oldProp || !isEqual(newProp, oldProp))) {
-    changedProps.push({
-      propertyName,
-      type: propertyType,
-      changeType: PropChangeType.Color3,
-      value: newProp
-    })
-  }
+  propertyCheck<Color3>(oldProp, newProp, propertyName, propertyType, PropChangeType.Color3, changedProps, (oldProp, newProp, changedProps) => {
+    if (newProp && (!oldProp || !newProp.equals(oldProp))) {
+      changedProps.push({
+        propertyName,
+        type: propertyType,
+        changeType: PropChangeType.Color3,
+        value: newProp
+      })
+    }
+  })
 }
 
 export const checkColor4Diff = (oldProp: Color4 | undefined, newProp: Color4 | undefined, propertyName: string, propertyType: string, changedProps: PropertyUpdate[]): void => {
-  if (handledCustomProp(PropChangeType.Color4, oldProp, newProp, propertyName, propertyType, changedProps)) {
-    return;
-  }
-
-  // Color4.equals() not added until PR #5517
-  if (newProp && (!oldProp || oldProp.r !== newProp.r || oldProp.g !== newProp.g || oldProp.b !== newProp.b || oldProp.a !== newProp.a)) {
-    changedProps.push({
-      propertyName,
-      type: propertyType,
-      changeType: PropChangeType.Color4,
-      value: newProp
-    })
-  }
+  propertyCheck<Color4>(oldProp, newProp, propertyName, propertyType, PropChangeType.Color4, changedProps, (oldProp, newProp, changedProps) => {
+    // Color4.equals() not added until PR #5517
+    if (newProp && (!oldProp || oldProp.r !== newProp.r || oldProp.g !== newProp.g || oldProp.b !== newProp.b || oldProp.a !== newProp.a)) {
+      changedProps.push({
+        propertyName,
+        type: propertyType,
+        changeType: PropChangeType.Color4,
+        value: newProp
+      })
+    }
+  })
 }
 
 export const checkFresnelParametersDiff = (oldProp: FresnelParameters | undefined, newProp: FresnelParameters | undefined, propertyName: string, propertyType: string, changedProps: PropertyUpdate[]): void => {
-  // FresnelParameters.equals() not added until PR #7818 (https://github.com/BabylonJS/Babylon.js/pull/7818)
-  if (newProp /* won't clear the property value */ && (
-      !oldProp ||
-      oldProp.bias !== newProp.bias ||
-      oldProp.power !== newProp.power ||
-      (!oldProp.leftColor || !oldProp.leftColor.equals(newProp.leftColor)) ||
-      (!oldProp.rightColor || !oldProp.rightColor.equals(newProp.rightColor)) ||
-      oldProp.isEnabled !== newProp.isEnabled
-      )
-  ) {
-    changedProps.push({
-      propertyName,
-      type: propertyType,
-      changeType: PropChangeType.FresnelParameters,
-      value: newProp
-    })
-  }
+  propertyCheck<FresnelParameters>(oldProp, newProp, propertyName, propertyType, PropChangeType.FresnelParameters, changedProps, (oldProp, newProp, changedProps) => {
+    // FresnelParameters.equals() not added until PR #7818 (https://github.com/BabylonJS/Babylon.js/pull/7818)
+    if (newProp /* won't clear the property value */ && (
+        !oldProp ||
+        oldProp.bias !== newProp.bias ||
+        oldProp.power !== newProp.power ||
+        (!oldProp.leftColor || !oldProp.leftColor.equals(newProp.leftColor)) ||
+        (!oldProp.rightColor || !oldProp.rightColor.equals(newProp.rightColor)) ||
+        oldProp.isEnabled !== newProp.isEnabled
+        )
+    )
+    {
+      changedProps.push({
+        propertyName,
+        type: propertyType,
+        changeType: PropChangeType.FresnelParameters,
+        value: newProp
+      })
+    }
+  })
 }
 
 export const checkLambdaDiff = (oldProp: any | undefined, newProp: any | undefined, propertyName: string, propertyType: string, changedProps: PropertyUpdate[]): void => {
-  if (newProp !== oldProp) {
-    changedProps.push({
-      propertyName,
-      type: propertyType,
-      changeType: PropChangeType.LambdaExpression,
-      value: newProp
-    })
-  }
+  propertyCheck<any>(oldProp, newProp, propertyName, propertyType, PropChangeType.LambdaExpression, changedProps, (oldProp, newProp, changedProps) => {
+    if (newProp !== oldProp) {
+      changedProps.push({
+        propertyName,
+        type: propertyType,
+        changeType: PropChangeType.LambdaExpression,
+        value: newProp
+      })
+    }
+  })
 }
 
 export const checkControlDiff = (oldProp: Control | undefined, newProp: Control | undefined, propertyName: string, propertyType: string, changedProps: PropertyUpdate[]): void => {
-  // only sets once
-  if (newProp && !oldProp) {
-    changedProps.push({
-      propertyName,
-      type: propertyType,
-      changeType: PropChangeType.Control,
-      value: newProp
-    })
-  }
+  propertyCheck<Control>(oldProp, newProp, propertyName, propertyType, PropChangeType.Control, changedProps, (oldProp, newProp, changedProps) => {
+    // only sets once
+    if (newProp && !oldProp) {
+      changedProps.push({
+        propertyName,
+        type: propertyType,
+        changeType: PropChangeType.Control,
+        value: newProp
+      })
+    }
+  })
 }
 
 export type PrimitiveType = string | number | undefined | null | boolean;
 
-export const checkPrimitiveDiff = (oldProp: PrimitiveType, newProp: PrimitiveType, propertyName: string, propertyType: string, changedProps: PropertyUpdate[]): void => {
-  if (newProp !== oldProp) {
-    changedProps.push({
-      propertyName,
-      type: propertyType,
-      changeType: PropChangeType.Primitive,
-      value: newProp
-    })
-  }
+export const checkPrimitiveDiff = (oldProp: PrimitiveType | undefined, newProp: PrimitiveType | undefined, propertyName: string, propertyType: string, changedProps: PropertyUpdate[]): void => {
+  propertyCheck<PrimitiveType>(oldProp, newProp, propertyName, propertyType, PropChangeType.Primitive, changedProps, (oldProp, newProp, changedProps) => {
+    if (newProp !== oldProp) {
+      changedProps.push({
+        propertyName,
+        type: propertyType,
+        changeType: PropChangeType.Primitive,
+        value: newProp
+      })
+    }
+  })
 }
 
 export const checkTextureDiff = (oldProp: BaseTexture | undefined, newProp: BaseTexture | undefined, propertyName: string, propertyType: string, changedProps: PropertyUpdate[]): void => {
-  if (newProp !== oldProp) {
-    console.log('pushing texture:', propertyName, propertyType)
-    changedProps.push({
-      propertyName,
-      type: propertyType,
-      changeType: PropChangeType.Texture,
-      value: newProp
-    })
-  }
+  propertyCheck<BaseTexture>(oldProp, newProp, propertyName, propertyType, PropChangeType.Texture, changedProps, (oldProp, newProp, changedProps) => {
+    if (newProp !== oldProp) {
+      console.log('pushing texture:', propertyName, propertyType)
+      changedProps.push({
+        propertyName,
+        type: propertyType,
+        changeType: PropChangeType.Texture,
+        value: newProp
+      })
+    }
+  })
 }
 
 export const checkNumericArrayDiff = (oldProp: number[] | undefined, newProp: number[] | undefined, propertyName: string, propertyType: string, changedProps: PropertyUpdate[]): void => {
-  // just length - missing loop + indexOf comparison (or deepEquals())
-  if (newProp && (!oldProp || oldProp.length !== newProp.length)) {
-    changedProps.push({
-      propertyName,
-      type: propertyType,
-      changeType: PropChangeType.NumericArray,
-      value: newProp
-    })
-  }
+  propertyCheck<number[]>(oldProp, newProp, propertyName, propertyType, PropChangeType.NumericArray, changedProps, (oldProp, newProp, changedProps) => {
+    // just length - missing loop + indexOf comparison (or deepEquals())
+    if (newProp && (!oldProp || oldProp.length !== newProp.length)) {
+      changedProps.push({
+        propertyName,
+        type: propertyType,
+        changeType: PropChangeType.NumericArray,
+        value: newProp
+      })
+    }
+  })
 }
 
-export const checkObservableDiff = (oldProp: Observable<any>, newProp: Observable<any>, propertyName: string, propertyType: string, changedProps: PropertyUpdate[]): void => {
-  // if it starts with 'on' then we have different handling.
-  if (oldProp === undefined && oldProp !== newProp) {
-    changedProps.push({
-      propertyName,
-      type: propertyType,
-      changeType: PropChangeType.Observable,
-      value: newProp
-    })
-  }
+export const checkObservableDiff = (oldProp: Observable<any> | undefined, newProp: Observable<any> | undefined, propertyName: string, propertyType: string, changedProps: PropertyUpdate[]): void => {
+  propertyCheck<Observable<any>>(oldProp, newProp, propertyName, propertyType, PropChangeType.Observable, changedProps, (oldProp, newProp, changedProps) => {
+    // if it starts with 'on' then we have different handling.
+    if (oldProp === undefined && oldProp !== newProp) {
+      changedProps.push({
+        propertyName,
+        type: propertyType,
+        changeType: PropChangeType.Observable,
+        value: newProp
+      })
+    }
+  })
 }
 
 /**

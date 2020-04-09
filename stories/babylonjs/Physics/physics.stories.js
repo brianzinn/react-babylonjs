@@ -9,7 +9,7 @@ import '../../style.css'
 import * as CANNON from 'cannon';
 window.CANNON = CANNON;
 
-export default { title: 'Physics and Hooks' };
+export default { title: 'Physics' };
 
 // The TypeScript version of this story has it's own repo
 const gravityVector = new Vector3(0, -9.81, 0);

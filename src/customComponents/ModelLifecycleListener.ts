@@ -23,14 +23,17 @@ import { UpdatePayload } from "../PropsHandler"
  */
 export default class ModelLifecycleListener implements LifecycleListener<LoadedModel> {
   private props: any
-  private scene: Scene
+  private scene: Scene;
+  private parent: CreatedInstance<any> | null = null;
 
   constructor(scene: Scene, props: any) {
     this.props = props
     this.scene = scene
   }
 
-  onParented(parent: CreatedInstance<any>, child: CreatedInstance<any>): any { /* empty */}
+  onParented(parent: CreatedInstance<any>, child: CreatedInstance<any>): any {
+    this.parent = parent;
+  }
 
   onChildAdded(child: CreatedInstance<any>, parent: CreatedInstance<any>): any { /* empty */}
 
@@ -46,8 +49,10 @@ export default class ModelLifecycleListener implements LifecycleListener<LoadedM
       this.props.sceneFilename,
       this.scene,
       (meshes: AbstractMesh[], particleSystems: IParticleSystem[], skeletons: Skeleton[], animationGroups: AnimationGroup[]): void => {
-        loadedModel.rootMesh = new AbstractMesh(this.props.sceneFilename + "-root-model", this.scene)
+        loadedModel.rootMesh = new AbstractMesh(this.props.sceneFilename + "-root-model")
         loadedModel.rootMesh.alwaysSelectAsActiveMesh = true
+        loadedModel.rootMesh.parent = this.parent?.hostInstance;
+
 
         loadedModel.meshes = []
         meshes.forEach(mesh => {

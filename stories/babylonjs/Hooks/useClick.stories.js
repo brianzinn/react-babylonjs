@@ -4,7 +4,7 @@ import {Vector3} from '@babylonjs/core/Maths/math'
 import '../../style.css'
 import {Color3} from "@babylonjs/core/Maths/math.color";
 
-export default {title: 'Events'};
+export default {title: 'Hooks'};
 
 const getRandomColor = (function () {
   // const Colors = ['#4F86EC', '#D9503F', '#F2BD42', '#58A55C'];
@@ -12,7 +12,6 @@ const getRandomColor = (function () {
 
   let i = 0;
   return () => {
-    console.log('i', i)
     i++;
     return Colors[i % Colors.length];
   }
@@ -24,14 +23,13 @@ function WithUseClick() {
   const [color, setColor] = useState(initialColor);
   const [ref] = useClick(_ => {
     const color = getRandomColor();
-    console.log('click', color);
     setColor(Color3.FromArray(color))
   });
 
   return <sphere name='sphere1' ref={ref}
-                 diameter={2} segments={16}
+                 diameter={2} segments={32}
                  position={new Vector3(0, 1, 0)}>
-    <standardMaterial name='mat' diffuseColor={color}/>
+    <standardMaterial  name='mat' diffuseColor={color}/>
   </sphere>
 }
 
@@ -46,4 +44,8 @@ export const UseClickEvent = () => (
       </Scene>
     </Engine>
   </div>
-)
+);
+
+UseClickEvent.story = {
+  name: 'useClick'
+}

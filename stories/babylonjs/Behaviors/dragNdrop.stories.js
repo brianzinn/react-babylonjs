@@ -1,4 +1,4 @@
-import React /* , { useState } */ from 'react'
+import React from 'react'
 import { Engine, Scene } from '../../../dist/react-babylonjs'
 import { Vector3, Color3 } from '@babylonjs/core/Maths/math'
 import '../../style.css'
@@ -48,5 +48,12 @@ export const DragNDrop = () => (
 )
 
 DragNDrop.story = {
-  name: "Drag 'n' Drop"
+  name: "Drag 'n' Drop",
+  parameters: {
+    notes: {
+      markdown: `Often the declarative version can be much simpler!  
+      
+      Here is the reference playground: [link](https://www.babylonjs.com/demos/dragndrop/dragdrop.js)`
+    }
+  }
 }

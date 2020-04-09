@@ -87,3 +87,11 @@ export const ExtrudeShapesPlusCSG = () => (
         <Shapes />
     </div>
 )
+
+ExtrudeShapesPlusCSG.story = {
+    name: 'Extrude (+CSG)',
+    parameters:
+    {
+        notes: 'Extrude Shape and *Constructive Solid Geometry* (CSG).  There are no plans to integrate CSG declaratively yet.'
+    }
+}

@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { storiesOf } from '@storybook/react'
 import { Engine, Scene } from '../../../dist/react-babylonjs'
 
 import ScaledModelWithProgress from '../ScaledModelWithProgress'
@@ -7,7 +6,7 @@ import SingleAxisRotateMeshBehavior from '../SingleAxisRotateMeshBehavior'
 import { Vector3, Color3, Axis } from '@babylonjs/core/Maths/math'
 import '../../style.css'
 
-export default { title: 'With VR' };
+export default { title: 'VR' };
 
 class WithVR extends Component {
   constructor () {
@@ -93,3 +92,15 @@ export const SimpleVR = () => (
     <WithVR />
   </div>
 )
+
+SimpleVR.story = {
+  name: 'VR',
+  parameters: {
+    notes: {
+      markdown: `Click on ICO spheres to rotate ghettoblaster model (clockwise/counter-clockwise).
+      
+        ##In VR mode
+        Use your hand-held controls to click ICO spheres and teleport by clicking on the ground.`
+    }
+  }
+}

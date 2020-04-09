@@ -1,6 +1,6 @@
 {
   "name": "react-babylonjs",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "React for BabylonJS",
   "homepage": "https://brianzinn.github.io/react-babylonjs/",
   "keywords": [
@@ -85,11 +85,16 @@
     "@babylonjs/loaders": "^4.1.0",
     "@babylonjs/procedural-textures": "^4.1.0",
     "@inlet/react-pixi": "^1.2.8",
+    "@react-spring/addons": "^9.0.0-beta.33",
+    "@react-spring/animated": "^9.0.0-beta.33",
+    "@react-spring/core": "9.0.0-beta.30",
+    "@react-spring/shared": "^9.0.0-beta.33",
     "@rollup/plugin-json": "^4.0.2",
     "@rollup/plugin-typescript": "^4.0.0",
     "@storybook/addon-actions": "^5.3.17",
     "@storybook/addon-info": "^5.3.17",
     "@storybook/addon-links": "^5.3.17",
+    "@storybook/addon-notes": "5.3.17",
     "@storybook/addon-storysource": "^5.3.17",
     "@storybook/addons": "^5.3.17",
     "@storybook/react": "^5.3.17",
@@ -141,23 +146,19 @@
     "tslint-config-standard": "^8.0.1",
     "typedoc": "^0.14.1",
     "typescript": "3.8.2",
-    "validate-commit-msg": "^2.14.0",
-    "@react-spring/addons": "^9.0.0-beta.33",
-    "@react-spring/animated": "^9.0.0-beta.33",
-    "@react-spring/core": "9.0.0-beta.30",
-    "@react-spring/shared": "^9.0.0-beta.33"
+    "validate-commit-msg": "^2.14.0"
   },
   "peerDependencies": {
     "@babylonjs/core": "4.x",
     "@babylonjs/gui": "4.x",
     "@babylonjs/inspector": "4.x",
     "@babylonjs/loaders": "4.x",
+    "@react-spring/addons": "9.x",
+    "@react-spring/animated": "9.x",
+    "@react-spring/core": "9.x",
+    "@react-spring/shared": "9.x",
     "react": "16.x",
     "react-dom": "16.x",
-    "react-reconciler": "0.x",
-    "@react-spring/addons": "^9.0.0-beta.33",
-    "@react-spring/animated": "^9.0.0-beta.33",
-    "@react-spring/core": "9.0.0-beta.30",
-    "@react-spring/shared": "^9.0.0-beta.33"
+    "react-reconciler": "0.x"
   }
 }

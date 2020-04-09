@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Vector3, Color3 } from '@babylonjs/core';
 import { Control } from '@babylonjs/gui';
-import { Engine, Scene, PropChangeType, CustomPropsHandler } from '../../../dist/react-babylonjs'
+import { Engine, Scene, PropChangeType, useCustomPropsHandler } from '../../../dist/react-babylonjs'
 import '../../style.css';
 import chroma, { Color } from 'chroma-js'
 
@@ -59,15 +59,7 @@ const distance = (alpha, beta) => {
  * But this story works well，Animation is smooth。
  */
 function WithCustomColors(props) {
-  // useCustomPropsHandler(new ChromajsColor3PropsHandler());
-  const handlerRef = CustomPropsHandler.RegisterPropsHandler(new ChromajsColor3PropsHandler());
-  useEffect(() => {
-      return () => {
-          console.error('de-registering on unmount??', handlerRef.name);
-          CustomPropsHandler.UnregisterPropsHandler(handlerRef);
-      }
-  }, [])
-
+  useCustomPropsHandler(new ChromajsColor3PropsHandler());
   const degreeIncrements = (360 / SQUARES_PER_CIRCLE);
 
   return (
@@ -130,7 +122,7 @@ function WithCustomColors(props) {
   )
 }
 
-export const chromaJSProps = () =>
+export const ChromaJSProps = () =>
   <div style={{ flex: 1, display: 'flex' }}>
     <Engine antialias adaptToDeviceRatio canvasId='babylonJS'>
       <Scene>
@@ -141,4 +133,8 @@ export const chromaJSProps = () =>
       </Scene>
     </Engine>
   </div>
+
+ChromaJSProps.story = {
+  name: 'chroma-js'
+}
 
