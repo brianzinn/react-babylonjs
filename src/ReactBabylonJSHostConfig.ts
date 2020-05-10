@@ -429,9 +429,9 @@ const ReactBabylonJSHostConfig: HostConfig<
     return false
   },
 
-  hideInstance(instance: CreatedInstance<any>) {},
-  
-  unhideInstance(instance: CreatedInstance<any>, props: Props) {},
+  hideInstance(instance: HostCreatedInstance<any>) {},
+
+  unhideInstance(instance: HostCreatedInstance<any>, props: Props) {},
 
   createTextInstance: (): any => {
     return undefined
