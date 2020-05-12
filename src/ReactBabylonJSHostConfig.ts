@@ -135,7 +135,10 @@ const ReactBabylonJSHostConfig: HostConfig<
   {},
   TimeoutHandler,
   NoTimeout
-> = {
+> & {
+   hideInstance: (instance: HostCreatedInstance<any>) => void;
+   unhideInstance: (instance: HostCreatedInstance<any>, props:Props) => void;
+} = {
   // This has the reconciler include in call chain ie: appendChild, removeChild
   get supportsMutation(): boolean {
     return true
@@ -425,6 +428,10 @@ const ReactBabylonJSHostConfig: HostConfig<
   shouldDeprioritizeSubtree: (type: string, props: Props): boolean => {
     return false
   },
+
+  hideInstance(instance: HostCreatedInstance<any>) {},
+
+  unhideInstance(instance: HostCreatedInstance<any>, props: Props) {},
 
   createTextInstance: (): any => {
     return undefined
