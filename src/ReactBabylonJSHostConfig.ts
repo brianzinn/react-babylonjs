@@ -291,7 +291,8 @@ const ReactBabylonJSHostConfig: HostConfig<
       let createdInstance: CreatedInstance<Node> = {
         hostInstance: props.object,
         metadata: {
-          className: "primitive"
+          className: "primitive",
+          isNode: true,
         },
         parent: null,
         children: [],
