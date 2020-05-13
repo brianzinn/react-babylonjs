@@ -1,5 +1,5 @@
 import ReactReconciler, { HostConfig } from "react-reconciler"
-import {Scene, Engine, Nullable, Node} from '@babylonjs/core'
+import {Scene, Engine, Nullable, Node, Mesh} from '@babylonjs/core'
 import * as BABYLONEXT from "./extensions"
 import * as GENERATED from './generatedCode'
 import * as CUSTOM_HOSTS from "./customHosts"
@@ -11,6 +11,7 @@ import { HasPropsHandlers, PropertyUpdate, UpdatePayload, PropsHandler } from ".
 import { LifecycleListener } from "./LifecycleListener"
 import { GeneratedParameter, CreateInfo, CreationType } from "./codeGenerationDescriptors"
 import { applyUpdateToInstance, applyInitialPropsToInstance } from "./UpdateInstance"
+import {FiberMeshPropsHandler, FiberNode, FiberNodePropsHandler} from "./generatedCode";
 
 // ** TODO: switch to node module 'scheduler', but compiler is not finding 'require()' exports currently...
 type RequestIdleCallbackHandle = any
@@ -279,6 +280,23 @@ const ReactBabylonJSHostConfig: HostConfig<
         children: [],
         propsHandlers: new FiberModel() as any,
         lifecycleListener: new CUSTOM_COMPONENTS.ModelLifecycleListener(scene! /* should always be available */, props),
+        customProps: {}
+      }
+
+      // onCreated and other lifecycle hooks are not called for built-in host
+      return createdInstance
+    }
+
+    if (type === 'primitive') {
+      let createdInstance: CreatedInstance<Node> = {
+        hostInstance: props.object,
+        metadata: {
+          className: "primitive"
+        },
+        parent: null,
+        children: [],
+        propsHandlers: new FiberNode() as any,
+        lifecycleListener: new CUSTOM_COMPONENTS.NodeLifecycleListener(),
         customProps: {}
       }
 
