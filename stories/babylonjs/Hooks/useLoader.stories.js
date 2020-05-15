@@ -10,7 +10,13 @@ function GlTF() {
   const [loaded, {meshes}] = useLoader(url);
 
   if (loaded && meshes.length > 1) {
-    return <primitive object={meshes[1].clone()} position={new Vector3(0, 2, 0)}/>
+    const mesh = meshes[1];
+    mesh.isVisible = false;
+
+    const clonedMesh = mesh.clone();
+    clonedMesh.isVisible = true;
+
+    return <primitive object={clonedMesh} position={new Vector3(0, 2, 0)}/>
   }
 
   return  null;

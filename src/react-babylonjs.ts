@@ -6,7 +6,7 @@ export * from "./customComponents"; // TODO: Except for Skybox - these should no
 export * from "./PropsHandler";
 
 export { default as Engine, withBabylonJS, BabylonJSContext, useBabylonEngine, useBabylonCanvas } from "./Engine";
-export { default as Scene, withScene, WithSceneContext, SceneContext, SceneEventArgs, useBabylonScene } from "./Scene";
+export { default as Scene, withScene, WithSceneContext, SceneContext, SceneEventArgs, useBabylonScene, useEngine } from "./Scene";
 
 export { HostWithEvents } from "./customHosts";
 

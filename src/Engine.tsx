@@ -102,7 +102,10 @@ class Engine extends React.Component<EngineProps, EngineState> {
         this.onBeforeRenderLoopObservable.notifyObservers(this._engine!);
       }
       this._engine!.scenes.forEach(scene => {
-        scene.render()
+        // todo
+        if (scene.cameras.length) {
+          scene.render()
+        }
       })
       if (this.onEndRenderLoopObservable.hasObservers()) {
         this.onEndRenderLoopObservable.notifyObservers(this._engine!);

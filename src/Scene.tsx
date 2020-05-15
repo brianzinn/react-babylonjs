@@ -47,6 +47,8 @@ export const SceneContext = createContext<WithSceneContext>({
 })
 
 export const useBabylonScene = () => useContext(SceneContext).scene
+// TODO: useBabylonEngine is null
+export const useEngine = () => useContext(SceneContext).engine
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
