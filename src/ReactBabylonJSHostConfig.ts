@@ -305,10 +305,6 @@ const ReactBabylonJSHostConfig: HostConfig<
     //   return createdInstance
     // }
 
-    if (type === 'primitive') {
-      debugger
-    }
-
     // some types (ie: button) are called 'babylonjs-button'.
     const underlyingClassName = (GENERATED.intrinsicClassMap as any)[type] || type;
 

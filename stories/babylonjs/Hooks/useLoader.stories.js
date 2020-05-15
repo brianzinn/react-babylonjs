@@ -9,14 +9,20 @@ function GlTF() {
   let url = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Box/glTF/Box.gltf';
   const [loaded, {meshes}] = useLoader(url);
 
-  if (loaded && meshes.length > 1) {
-    const mesh = meshes[1];
-    mesh.isVisible = false;
+  const mesh = useMemo(() => {
+    if (loaded && meshes.length > 1) {
+      const mesh = meshes[1];
+      mesh.isVisible = false;
 
-    const clonedMesh = mesh.clone();
-    clonedMesh.isVisible = true;
+      const clonedMesh = mesh.clone();
+      clonedMesh.isVisible = true;
 
-    return <primitive object={clonedMesh} position={new Vector3(0, 2, 0)}/>
+      return mesh;
+    }
+  }, [loaded]);
+
+  if (mesh) {
+    return <primitive object={mesh} position={new Vector3(0, 0, 0)}/>
   }
 
   return  null;
