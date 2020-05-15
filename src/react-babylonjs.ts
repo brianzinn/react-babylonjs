@@ -1,7 +1,7 @@
 export * from "./generatedCode";
 export * from "./generatedProps";
 export * from "./hooks";
-export * from "./hookes/useLoader"
+export * from "./hooks/useLoader"
 export * from "./customComponents"; // TODO: Except for Skybox - these should not be exported.  they are internal.
 export * from "./PropsHandler";
 
