@@ -287,22 +287,26 @@ const ReactBabylonJSHostConfig: HostConfig<
       return createdInstance
     }
 
-    if (type === 'primitive') {
-      let createdInstance: CreatedInstance<Node> = {
-        hostInstance: props.object,
-        metadata: {
-          className: "primitive",
-          isNode: true,
-        },
-        parent: null,
-        children: [],
-        propsHandlers: new FiberNode() as any,
-        lifecycleListener: new CUSTOM_COMPONENTS.NodeLifecycleListener(),
-        customProps: {}
-      }
+    // if (type === 'primitive') {
+    //   let createdInstance: CreatedInstance<Node> = {
+    //     hostInstance: props.object,
+    //     metadata: {
+    //       className: "primitive",
+    //       isNode: true,
+    //     },
+    //     parent: null,
+    //     children: [],
+    //     propsHandlers: new FiberNode() as any,
+    //     lifecycleListener: new CUSTOM_COMPONENTS.NodeLifecycleListener(),
+    //     customProps: {}
+    //   }
+    //
+    //   // onCreated and other lifecycle hooks are not called for built-in host
+    //   return createdInstance
+    // }
 
-      // onCreated and other lifecycle hooks are not called for built-in host
-      return createdInstance
+    if (type === 'primitive') {
+      debugger
     }
 
     // some types (ie: button) are called 'babylonjs-button'.
@@ -359,7 +363,9 @@ const ReactBabylonJSHostConfig: HostConfig<
 
     let babylonObject: any | undefined = undefined
 
-    if (createInfoArgs.creationType === CreationType.FactoryMethod) {
+    if (type === 'primitive') {
+      babylonObject = props.object;
+    } else if (createInfoArgs.creationType === CreationType.FactoryMethod) {
       // console.warn(`creating from Factory: ${createInfoArgs.libraryLocation}.${createInfoArgs.factoryMethod}(...args).  args:`, args)
       babylonObject = GENERATED.babylonClassFactory(createInfoArgs.libraryLocation)[createInfoArgs.factoryMethod!](...args)
     } else {

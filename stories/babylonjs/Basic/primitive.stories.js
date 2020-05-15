@@ -10,12 +10,14 @@ function WithPrimitive(props) {
 
   const mesh = useMemo(() => {
     const mesh = Mesh.CreateSphere('sphere', 16, 2);
-    mesh.position = new Vector3(0, 1, 0);
+    mesh.position = new Vector3(0, 2, 0);
     return mesh;
   }, [])
 
 
-  return <primitive object={mesh}/>
+  return <transformNode position={new Vector3(2, 0, 0)}>
+    <primitive object={mesh}/>
+  </transformNode>
 }
 
 export const Primitive = () => (

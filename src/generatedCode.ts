@@ -277,8 +277,49 @@ export class FiberNode implements HasPropsHandlers<FiberNodeProps> {
     };
 }
 
+
+export class FiberPrimitive implements HasPropsHandlers<FiberNodeProps> {
+  private propsHandlers: PropsHandler<FiberNodeProps>[];
+
+  constructor() {
+    this.propsHandlers = [
+      new FiberNodePropsHandler()
+    ];
+  }
+
+  getPropsHandlers(): PropsHandler<FiberNodeProps>[] {
+    return this.propsHandlers;
+  }
+
+  addPropsHandler(propHandler: PropsHandler<FiberNodeProps>): void {
+    this.propsHandlers.push(propHandler);
+  }
+
+  public static readonly CreateInfo = {
+    "creationType": "Constructor",
+    "libraryLocation": "Node",
+    "namespace": "@babylonjs/core/Meshes/mesh",
+    "parameters": [
+      {
+        "name": "name",
+        "type": "string",
+        "optional": false
+      },
+      {
+        "name": "scene",
+        "type": "BabylonjsCoreScene",
+        "optional": true
+      }
+    ]
+  };
+  public static readonly Metadata: CreatedInstanceMetadata = {
+    "isNode": true,
+    "className": "FiberPrimitive"
+  };
+}
+
 export class FiberTransformNodePropsHandler implements PropsHandler<FiberTransformNodeProps> {
-    getPropertyUpdates(oldProps: FiberTransformNodeProps, newProps: FiberTransformNodeProps): PropertyUpdate[] | null {
+  getPropertyUpdates(oldProps: FiberTransformNodeProps, newProps: FiberTransformNodeProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
         checkPrimitiveDiff(oldProps.billboardMode, newProps.billboardMode, 'billboardMode', 'number', changedProps)
         checkPrimitiveDiff(oldProps.ignoreNonUniformScaling, newProps.ignoreNonUniformScaling, 'ignoreNonUniformScaling', 'boolean', changedProps)
@@ -12531,7 +12572,8 @@ export const intrinsicClassMap: object = {
     tiledPlane: 'TiledPlane',
     torus: 'Torus',
     torusKnot: 'TorusKnot',
-    tube: 'Tube'
+    tube: 'Tube',
+    primitive: 'Primitive',
 };
 
 export function babylonClassFactory(importAlias: string): any {

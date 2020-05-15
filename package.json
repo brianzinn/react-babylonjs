@@ -28,7 +28,7 @@
   "scripts": {
     "lint": "tslint -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
     "prebuild": "rimraf dist",
-    "build": "cross-env NODE_ENV=production rollup -c",
+    "build": "cross-env  rollup -c",
     "start": "tsc-watch --onSuccess \"rollup -c\"",
     "test": "jest",
     "test:watch": "jest --watch",
