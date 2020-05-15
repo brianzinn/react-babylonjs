@@ -1,4 +1,5 @@
 import {
+  CustomPropsHandler,
   ICustomPropsHandler,
   PropChangeType,
   PropertyUpdateProcessResult
@@ -130,8 +131,8 @@ export class CustomVector3ArrayHandler implements ICustomPropsHandler<number[], 
 
 // May be useful to include where they can be ES6 loaded via side-effect.
 // ie: import 'react-babylonjs/plugins/handlers'
-// CustomPropsHandler.RegisterPropsHandler(new CustomColor3StringHandler());
-// CustomPropsHandler.RegisterPropsHandler(new CustomColor3ArrayHandler());
-// CustomPropsHandler.RegisterPropsHandler(new CustomColor4StringHandler());
-// CustomPropsHandler.RegisterPropsHandler(new CustomVector3ArrayHandler());
+CustomPropsHandler.RegisterPropsHandler(new CustomColor3StringHandler());
+CustomPropsHandler.RegisterPropsHandler(new CustomColor3ArrayHandler());
+CustomPropsHandler.RegisterPropsHandler(new CustomColor4StringHandler());
+CustomPropsHandler.RegisterPropsHandler(new CustomVector3ArrayHandler());
 
