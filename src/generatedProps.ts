@@ -373,7 +373,6 @@ declare global {
             sixDofDragBehavior: FiberSixDofDragBehaviorProps & FiberSixDofDragBehaviorPropsCtor & BabylonNode<BabylonjsCoreSixDofDragBehavior>;
             model: ModelProps & BabylonNode<BabylonjsCoreAbstractMesh>;
             primitive: {object: BabylonjsCoreMesh} & FiberNodeProps & FiberNodePropsCtor & BabylonNode<BabylonjsCoreNode>;
-            instance: {mesh: BabylonjsCoreMesh} & Fib
         }
     }
 }

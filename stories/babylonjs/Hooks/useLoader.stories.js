@@ -5,26 +5,21 @@ import '../../style.css'
 
 export default { title: 'Hooks' };
 
-function WithPrimitive({position}) {
-  const scene = useBabylonScene();
-
-  // const mesh = useMemo(() => {
-  //   const mesh = Mesh.CreateSphere('sphere', 16, 2);
-  //   mesh.position = new Vector3(0, 2, 0);
-  //   return mesh;
-  // }, [])
-
+function GlTF() {
   let url = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Box/glTF/Box.gltf';
   const [loaded, {meshes}] = useLoader(url);
 
-  console.log(loaded, meshes)
-
   if (loaded && meshes.length > 1) {
-    return <transformNode position={position}>
-      <primitive object={meshes[1].clone()} position={new Vector3(0, 2, 0)}/>
-    </transformNode>
+    return <primitive object={meshes[1].clone()} position={new Vector3(0, 2, 0)}/>
   }
-  return null;
+
+  return  null;
+}
+
+function WithPrimitive({position}) {
+  return <transformNode name='group' position={position}>
+    <GlTF/>
+  </transformNode>;
 }
 
 export const UseLoader = () => (
