@@ -365,6 +365,7 @@ const ReactBabylonJSHostConfig: HostConfig<
 
     if (type === 'primitive') {
       babylonObject = props.object;
+      debugger
     } else if (createInfoArgs.creationType === CreationType.FactoryMethod) {
       // console.warn(`creating from Factory: ${createInfoArgs.libraryLocation}.${createInfoArgs.factoryMethod}(...args).  args:`, args)
       babylonObject = GENERATED.babylonClassFactory(createInfoArgs.libraryLocation)[createInfoArgs.factoryMethod!](...args)

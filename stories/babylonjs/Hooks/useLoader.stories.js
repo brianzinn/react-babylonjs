@@ -14,15 +14,14 @@ function WithPrimitive(props) {
   //   return mesh;
   // }, [])
 
-  let url = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/BoomBox/glTF/BoomBox.gltf';
+  let url = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Box/glTF/Box.gltf';
   const [loaded, {meshes}] = useLoader(url);
 
   console.log(loaded, meshes)
 
   if (loaded && meshes.length > 1) {
     return <transformNode position={new Vector3(2, 0, 0)}>
-      <primitive object={meshes[0]}/>
-      <primitive object={meshes[1]}/>
+      <primitive name='pri2' key='pri2' object={meshes[1]} position={new Vector3(0, 2, 0)}/>
     </transformNode>
   }
   return null;
