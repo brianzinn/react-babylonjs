@@ -5,7 +5,7 @@ import '../../style.css'
 
 export default { title: 'Hooks' };
 
-function WithPrimitive(props) {
+function WithPrimitive({position}) {
   const scene = useBabylonScene();
 
   // const mesh = useMemo(() => {
@@ -20,8 +20,8 @@ function WithPrimitive(props) {
   console.log(loaded, meshes)
 
   if (loaded && meshes.length > 1) {
-    return <transformNode position={new Vector3(2, 0, 0)}>
-      <primitive name='pri2' key='pri2' object={meshes[1]} position={new Vector3(0, 2, 0)}/>
+    return <transformNode position={position}>
+      <primitive object={meshes[1].clone()} position={new Vector3(0, 2, 0)}/>
     </transformNode>
   }
   return null;
@@ -33,7 +33,8 @@ export const UseLoader = () => (
       <Scene>
         <freeCamera name='camera1' position={new Vector3(0, 5, -10)} setTarget={[Vector3.Zero()]} />
         <hemisphericLight name='light1' intensity={0.7} direction={Vector3.Up()} />
-        <WithPrimitive/>
+        <WithPrimitive position={new Vector3(2, 0, 0)}/>
+        <WithPrimitive position={new Vector3(-2, 0, 0)}/>
         <ground name='ground1' width={6} height={6} subdivisions={2} />
       </Scene>
     </Engine>

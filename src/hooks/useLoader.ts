@@ -28,7 +28,7 @@ const memoImportMesh = memo(importMesh);
  */
 export function useLoader(url: string): [boolean, LoaderResult] {
   const scene = useBabylonScene();
-  console.log('scene', scene)
+  console.log('useLoader', scene)
   const [loaded, setLoaded] = useState<boolean>(false);
   const [results, setResults] = useState<LoaderResult>({
     meshes: [],
