@@ -75,8 +75,8 @@ export type EngineState = {
 
 class Engine extends React.Component<EngineProps, EngineState> {
 
-  private _engine?: Nullable<BabylonJSEngine> = null;
-  private _canvas: Nullable<HTMLCanvasElement | WebGLRenderingContext> = null;
+  private engine?: Nullable<BabylonJSEngine> = null;
+  private canvas: Nullable<HTMLCanvasElement | WebGLRenderingContext> = null;
 
   public onBeforeRenderLoopObservable: Observable<BabylonJSEngine> = new Observable<BabylonJSEngine>();
   public onEndRenderLoopObservable: Observable<BabylonJSEngine> = new Observable<BabylonJSEngine>();
@@ -90,26 +90,26 @@ class Engine extends React.Component<EngineProps, EngineState> {
   }
 
   componentDidMount() {
-    this._engine = new BabylonJSEngine(
-      this._canvas,
+    this.engine = new BabylonJSEngine(
+      this.canvas,
       this.props.antialias === true ? true : false, // default false
       this.props.engineOptions,
       this.props.adaptToDeviceRatio === true ? true : false // default false
     )
 
-    this._engine.runRenderLoop(() => {
+    this.engine.runRenderLoop(() => {
       if (this.onBeforeRenderLoopObservable.hasObservers()) {
-        this.onBeforeRenderLoopObservable.notifyObservers(this._engine!);
+        this.onBeforeRenderLoopObservable.notifyObservers(this.engine!);
       }
-      this._engine!.scenes.forEach(scene => {
+      this.engine!.scenes.forEach(scene => {
         scene.render()
       })
       if (this.onEndRenderLoopObservable.hasObservers()) {
-        this.onEndRenderLoopObservable.notifyObservers(this._engine!);
+        this.onEndRenderLoopObservable.notifyObservers(this.engine!);
       }
     })
 
-    this._engine.onContextLostObservable.add((eventData: BabylonJSThinEngine) => {
+    this.engine.onContextLostObservable.add((eventData: BabylonJSThinEngine) => {
       console.log('context loss observable from Engine: ', eventData);
     })
 
@@ -122,13 +122,13 @@ class Engine extends React.Component<EngineProps, EngineState> {
     // We are not using the react.createPortal(...), as it adds a ReactDOM dependency, but also
     // it was not flowing the context through to HOCs properly.
     if (this.props.portalCanvas) {
-      this._canvas = document.getElementById('portal-canvas') as  HTMLCanvasElement
-      console.error('set canvas', this._canvas);
+      this.canvas = document.getElementById('portal-canvas') as  HTMLCanvasElement
+      console.error('set canvas', this.canvas);
     } else {
       if (c) { // null when called from unmountComponent()
         // c.addEventListener('mouseover', this.focus)
         // c.addEventListener('mouseout', this.blur)
-        this._canvas = c
+        this.canvas = c
       }
     }
     // console.error('onCanvas:', c); // trying to diagnose why HMR keep rebuilding entire Scene!  Look at ProxyComponent v4.
@@ -136,6 +136,10 @@ class Engine extends React.Component<EngineProps, EngineState> {
 
   componentWillUnmount () {
     window.removeEventListener('resize', this.onResizeWindow);
+    if (this.engine != null) {
+      this.engine?.dispose();
+      this.engine = null;
+    }
   }
 
   render () {
@@ -168,9 +172,9 @@ class Engine extends React.Component<EngineProps, EngineState> {
     }
 
     // TODO: this.props.portalCanvas does not need to render a canvas.
-    return <BabylonJSContext.Provider value={{ engine: this._engine!, canvas: this._canvas}}>
+    return <BabylonJSContext.Provider value={{ engine: this.engine!, canvas: this.canvas}}>
       <canvas {...opts} ref={this.onCanvasRef}>
-      {this._engine !== null &&
+      {this.engine !== null &&
         this.props.children
       }
       </canvas>
@@ -178,8 +182,8 @@ class Engine extends React.Component<EngineProps, EngineState> {
   }
 
   onResizeWindow = () => {
-    if (this._engine) {
-      this._engine.resize()
+    if (this.engine) {
+      this.engine.resize()
     }
   }
 }
