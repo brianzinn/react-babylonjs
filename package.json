@@ -13,6 +13,7 @@
     "react-reconciler"
   ],
   "module": "dist/react-babylonjs.js",
+  "type": "module",
   "typings": "dist/react-babylonjs.d.ts",
   "files": [
     "dist"
