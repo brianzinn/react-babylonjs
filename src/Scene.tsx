@@ -223,7 +223,9 @@ const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
           scene.onPointerObservable.remove(pointerMoveObservable);
         }
 
-        scene.dispose();
+        if (scene.isDisposed === false) {
+          scene.dispose();
+        }
       }
     },
     [/* no deps, so called only on un/mount */]
