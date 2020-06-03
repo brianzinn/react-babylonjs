@@ -1,7 +1,8 @@
 export * from "./generatedCode";
 export * from "./generatedProps";
 export * from "./hooks";
-export * from "./customComponents"; // TODO: Except for Skybox - these should not be exported.  they are internal.
+export { useLoader } from './hooks/useLoader'
+export * from "./customComponents";
 export * from "./PropsHandler";
 export { applyInitialPropsToInstance } from './UpdateInstance'; // Imported by react-babylonjs-spring
 

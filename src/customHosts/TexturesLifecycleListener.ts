@@ -13,7 +13,7 @@ export default class TexturesLifecycleListener implements LifecycleListener<Text
     let tmp: CreatedInstance<any> | null = instance.parent
 
     while (tmp !== null) {
-      if (tmp.metadata && tmp.metadata.isMaterial === true) {
+      if (tmp.metadata && (tmp.metadata.isMaterial === true || tmp.metadata.className === 'Model')) {
         if (assignTo) {
           assignProperty(texture, tmp.hostInstance, assignTo);
         } else {

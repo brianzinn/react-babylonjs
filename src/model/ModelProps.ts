@@ -1,8 +1,8 @@
-import { Scene, Vector3, SceneLoaderProgressEvent, AbstractMesh, Mesh } from "@babylonjs/core"
-import { LoadedModel } from "./Model"
-import { FiberMeshPropsHandler, FiberAbstractMeshPropsHandler, FiberTransformNodePropsHandler, FiberNodePropsHandler } from "../generatedCode"
-import BasePropsHandler from "../BasePropsHandler"
-import { UpdatePayload, PropsHandler, PropertyUpdate } from "../PropsHandler"
+import { Vector3, SceneLoaderProgressEvent, AbstractMesh } from "@babylonjs/core";
+import { LoadedModel } from "../customHosts/LoadedModel";
+import { FiberMeshPropsHandler, FiberAbstractMeshPropsHandler, FiberTransformNodePropsHandler, FiberNodePropsHandler } from "../generatedCode";
+import BasePropsHandler from "../BasePropsHandler";
+import { UpdatePayload, PropsHandler, PropertyUpdate } from "../PropsHandler";
 
 export type ModelProps = {
   meshNames?: any

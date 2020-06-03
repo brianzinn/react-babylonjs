@@ -86,8 +86,15 @@ class WithModel extends Component {
             onModelLoaded={this.onModelLoaded}
           />
 
-          <ScaledModelWithProgress rootUrl={`${baseUrl}Avocado/glTF/`} sceneFilename='Avocado.gltf' scaleTo={this.state.avocadoScaling}
-            progressBarColor={Color3.FromInts(255, 165, 0)} center={new Vector3(-2.5, this.state.avocadoYPos, 0)}
+          {/*<React.Suspense fallback={<box />}>
+              <Model rootUrl={`${baseUrl}Avocado/glTF/`} sceneFilename='Avocado.gltf' />
+          </React.Suspense>
+          */}
+
+          <ScaledModelWithProgress rootUrl={`${baseUrl}Avocado/glTF/`} sceneFilename='Avocado.gltf'
+            scaleTo={this.state.avocadoScaling}
+            progressBarColor={Color3.FromInts(255, 165, 0)}
+            center={new Vector3(-2.5, this.state.avocadoYPos, 0)}
           />
         </Scene>
       </Engine>
@@ -95,8 +102,12 @@ class WithModel extends Component {
   }
 }
 
-export const Model = () => (
+export const ModelStory = () => (
   <div style={{ flex: 1, display: 'flex' }}>
     <WithModel />
   </div>
 )
+
+ModelStory.story = {
+  name: '3D-Model'
+}

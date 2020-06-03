@@ -132,3 +132,7 @@ export const FresnelParametersStory = () => (
         <WithFresnelParameters />
     </div>
 )
+
+FresnelParametersStory.story = {
+    name: 'Fresnel Parameters'
+}

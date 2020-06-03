@@ -3,7 +3,6 @@ import {Scene, Engine, Nullable, Node} from '@babylonjs/core'
 import * as BABYLONEXT from "./extensions"
 import * as GENERATED from './generatedCode'
 import * as CUSTOM_HOSTS from "./customHosts"
-import * as CUSTOM_COMPONENTS from "./customComponents"
 
 import { FiberModel, LoadedModel } from "./model"
 import { CreatedInstance, CreatedInstanceMetadata, CustomProps } from "./CreatedInstance"
@@ -278,7 +277,7 @@ const ReactBabylonJSHostConfig: HostConfig<
         parent: null,
         children: [],
         propsHandlers: new FiberModel() as any,
-        lifecycleListener: new CUSTOM_COMPONENTS.ModelLifecycleListener(scene! /* should always be available */, props),
+        lifecycleListener: new CUSTOM_HOSTS.ModelLifecycleListener(scene! /* should always be available */, props),
         customProps: {}
       }
 
@@ -385,25 +384,25 @@ const ReactBabylonJSHostConfig: HostConfig<
 
     // Consider these being dynamically attached to a list, much like PropsHandlers<T>
     if (metadata.isMaterial === true) {
-      lifecycleListener = new CUSTOM_COMPONENTS.MaterialsLifecycleListener()
+      lifecycleListener = new CUSTOM_HOSTS.MaterialsLifecycleListener()
     } else if (metadata.isGUI3DControl === true) {
-      lifecycleListener = new CUSTOM_COMPONENTS.GUI3DControlLifecycleListener(scene)
+      lifecycleListener = new CUSTOM_HOSTS.GUI3DControlLifecycleListener(scene)
     } else if (metadata.isGUI2DControl === true) {
-      lifecycleListener = new CUSTOM_COMPONENTS.GUI2DControlLifecycleListener()
+      lifecycleListener = new CUSTOM_HOSTS.GUI2DControlLifecycleListener()
     } else if (metadata.isTexture === true) {
-      lifecycleListener = new CUSTOM_COMPONENTS.TexturesLifecycleListener()
+      lifecycleListener = new CUSTOM_HOSTS.TexturesLifecycleListener()
     } else if (metadata.isCamera === true) {
-      lifecycleListener = new CUSTOM_COMPONENTS.CameraLifecycleListener(scene, props, canvas as HTMLCanvasElement)
+      lifecycleListener = new CUSTOM_HOSTS.CameraLifecycleListener(scene, props, canvas as HTMLCanvasElement)
     } else if (metadata.isNode) {
-      lifecycleListener = new CUSTOM_COMPONENTS.NodeLifecycleListener();
+      lifecycleListener = new CUSTOM_HOSTS.NodeLifecycleListener();
     } else if (metadata.isBehavior) {
-      lifecycleListener = new CUSTOM_COMPONENTS.BehaviorLifecycleListener();
+      lifecycleListener = new CUSTOM_HOSTS.BehaviorLifecycleListener();
     }
 
     // here we dynamically assign listeners for specific types.
     // TODO: need to double-check because we are using 'camelCase'
-    if ((CUSTOM_COMPONENTS as any)[underlyingClassName + "LifecycleListener"] !== undefined) {
-      lifecycleListener = new (CUSTOM_COMPONENTS as any)[underlyingClassName + "LifecycleListener"](scene, props)
+    if ((CUSTOM_HOSTS as any)[underlyingClassName + "LifecycleListener"] !== undefined) {
+      lifecycleListener = new (CUSTOM_HOSTS as any)[underlyingClassName + "LifecycleListener"](scene, props)
     }
 
     let createdReference = createCreatedInstance(underlyingClassName, babylonObject, fiberObject, metadata, customProps, lifecycleListener)
@@ -414,7 +413,7 @@ const ReactBabylonJSHostConfig: HostConfig<
 
     // Here we dynamically attach known props handlers.  Will be adding more in code generation for GUI - also for lifecycle mgmt.
     if (createdReference.metadata && createdReference.metadata.isTargetable === true) {
-      fiberObject.addPropsHandler(new CUSTOM_COMPONENTS.TargetPropsHandler(scene!))
+      fiberObject.addPropsHandler(new CUSTOM_HOSTS.TargetPropsHandler(scene!))
     }
 
     if (metadata.delayCreation !== true) {
