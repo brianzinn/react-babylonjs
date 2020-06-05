@@ -12,3 +12,6 @@ export { default as Scene, withScene, WithSceneContext, SceneContext, SceneEvent
 export { HostWithEvents } from "./customHosts";
 
 export * from './model';
+
+export {EngineProps} from './Engine';
+export {CreatedInstance} from './CreatedInstance';
