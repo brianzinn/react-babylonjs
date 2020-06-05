@@ -9,15 +9,15 @@ You can also build your own custom 3D controls with functional components. Conte
 [![NPM downloads](http://img.shields.io/npm/dm/react-babylonjs.svg?style=flat-square)](https://www.npmjs.com/package/react-babylonjs)
 
 ## How to Install
-
+Until I fix issue #69 on latest 2.2, please install version 2.1.0.
 ```sh
 $ cd <your-project-dir>
-$ npm install react-babylonjs --save
+$ npm i react-babylonjs@2.1.0
 ```
 OR
 ```sh
 $ cd <your-project-dir>
-$ yarn add react-babylonjs
+$ yarn add react-babylonjs@2.1.0
 ```
 
 `react-babylonjs` *v2+* relies on the **ES6** `@babylonjs/*` NPMs.  If you are want to use the `babylonjs` NPM then use the last *v1.x* of `react-babylonjs` (ie: yarn add react-babylonjs@1.0.3).

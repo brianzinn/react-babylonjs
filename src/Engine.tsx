@@ -136,8 +136,9 @@ class Engine extends React.Component<EngineProps, EngineState> {
 
   componentWillUnmount () {
     window.removeEventListener('resize', this.onResizeWindow);
-    if (this.engine != null) {
-      this.engine?.dispose();
+
+    if (this.engine !== null) {
+      this.engine!.dispose();
       this.engine = null;
     }
   }

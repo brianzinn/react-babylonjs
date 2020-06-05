@@ -153,7 +153,7 @@ export const useHover = (over?: HoverType, out?: HoverType): [MutableRefObject<C
             if (observer2dGuiEnter !== null) {
               const control = ref.current.hostInstance as Control;
               control.onPointerEnterObservable.remove(observer2dGuiEnter);
-              control.onPointerOutObservable.remove(observer2dGuiEnter);
+              control.onPointerOutObservable.remove(observer2dGuiOut);
               observer2dGuiEnter = null;
               observer2dGuiOut = null;
             }
