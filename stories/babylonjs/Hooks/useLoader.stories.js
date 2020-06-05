@@ -6,7 +6,7 @@ import '../../style.css'
 export default { title: 'Hooks' };
 
 const MemoGlTF = ({ position }) => {
-    let url = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Box/glTF/Box.gltf';
+    const url = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Box/glTF/Box.gltf';
     const [loaded, { meshes }] = useLoader(url);
 
     useMemo(() => {

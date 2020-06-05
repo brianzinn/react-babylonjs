@@ -1,6 +1,6 @@
 {
   "name": "react-babylonjs",
-  "version": "2.2.1-beta.2",
+  "version": "2.2.1",
   "description": "React for Babylon.js",
   "homepage": "https://brianzinn.github.io/react-babylonjs/",
   "keywords": [
@@ -64,7 +64,6 @@
     "@storybook/theming": "^5.3.17",
     "@types/lodash.camelcase": "^4.3.6",
     "@types/node": "^8.0.0",
-    "@types/pixi.js": "^5.0.0",
     "@types/react": "^16.7.20",
     "@types/react-reconciler": "^0.16.0",
     "babel-loader": "^8.1.0",
