@@ -1,5 +1,6 @@
 const path = require('path');
 
+
 module.exports = {
     stories: ['../stories/**/*.stories.[tj]s'],
     addons: [
