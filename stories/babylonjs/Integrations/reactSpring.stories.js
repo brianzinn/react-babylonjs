@@ -3,15 +3,10 @@ import {
   Engine,
   Scene,
   useHover,
-  useSprings,
-  useSpring,
-  a, // "animated" versions of all react-babylonjs objects
   useCustomPropsHandler,
-  CustomColor3ArrayHandler,
-  CustomColor3StringHandler,
-  CustomVector3ArrayHandler
 } from '../../../dist/react-babylonjs'
 import { Vector3, Color3 } from '@babylonjs/core/Maths/math';
+import {useSprings, useSpring, animated} from 'react-babylon-spring';
 import '../../style.css'
 
 export default {title: 'Integrations'};
@@ -37,10 +32,6 @@ function getCyclePosition(i, blankRadius) {
 }
 
 const WithSpring = () => {
-  useCustomPropsHandler(new CustomColor3ArrayHandler());
-  useCustomPropsHandler(new CustomColor3StringHandler());
-  useCustomPropsHandler(new CustomVector3ArrayHandler());
-
   const [props, set] = useSprings(100, i => {
     const [x, z] = getCyclePosition(i, 30);
 
@@ -90,15 +81,15 @@ const WithSpring = () => {
       <freeCamera name='camera1' position={new Vector3(0, 200, -200)} setTarget={[Vector3.Zero()]}/>
       <hemisphericLight name='light1' intensity={0.7} direction={Vector3.Up()}/>
 
-      <a.transformNode name='' rotation={groupProps.rotation}>
+      <animated.transformNode name='' rotation={groupProps.rotation}>
         {
           props.map(({position, color}, i) =>
-            <a.box key={i} name='' width={6} height={16} depth={6} position={position}>
-              <a.standardMaterial name='' diffuseColor={color}/>
-            </a.box>
+            <animated.box key={i} name='' width={6} height={16} depth={6} position={position}>
+              <animated.standardMaterial name='' diffuseColor={color}/>
+            </animated.box>
           )
         }
-      </a.transformNode>
+      </animated.transformNode>
 
 
       <sphere ref={ref} name='' diameter={40} position={new Vector3(0, 20, 0)}>

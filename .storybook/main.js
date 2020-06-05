@@ -10,7 +10,9 @@ module.exports = {
         '@storybook/addon-notes/register',
     ],
     webpackFinal: async (config, { configType }) => {
-        config.module.rules.push({
+      config.resolve.alias['react-babylonjs'] = path.resolve(__dirname, '../dist/react-babylonjs')
+
+      config.module.rules.push({
             test: /\.stories\.jsx?$/,
             loaders: [require.resolve('@storybook/source-loader')],
             enforce: 'pre',
