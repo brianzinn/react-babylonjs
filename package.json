@@ -1,6 +1,6 @@
 {
   "name": "react-babylonjs",
-  "version": "2.2.5",
+  "version": "2.2.1",
   "description": "React for Babylon.js",
   "homepage": "https://brianzinn.github.io/react-babylonjs/",
   "keywords": [
@@ -13,6 +13,7 @@
     "react-reconciler"
   ],
   "module": "dist/react-babylonjs.js",
+  "type": "module",
   "typings": "dist/react-babylonjs.d.ts",
   "files": [
     "dist"
@@ -29,7 +30,7 @@
   "scripts": {
     "lint": "tslint -t codeFrame 'src/**/*.ts'",
     "prebuild": "rimraf dist",
-    "build": "cross-env  rollup -c",
+    "build": "cross-env NODE_ENV=production rollup -c",
     "start": "tsc-watch --onSuccess \"rollup -c\"",
     "deploy-docs": "ts-node tools/gh-pages-publish",
     "storybook": "start-storybook -p 6006 -s ./storyboard-site",
