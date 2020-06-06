@@ -278,7 +278,7 @@ export class FiberNode implements HasPropsHandlers<FiberNodeProps> {
 }
 
 export class FiberTransformNodePropsHandler implements PropsHandler<FiberTransformNodeProps> {
-    getPropertyUpdates(oldProps: FiberTransformNodeProps, newProps: FiberTransformNodeProps): PropertyUpdate[] | null {
+  getPropertyUpdates(oldProps: FiberTransformNodeProps, newProps: FiberTransformNodeProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
         checkPrimitiveDiff(oldProps.billboardMode, newProps.billboardMode, 'billboardMode', 'number', changedProps)
         checkPrimitiveDiff(oldProps.ignoreNonUniformScaling, newProps.ignoreNonUniformScaling, 'ignoreNonUniformScaling', 'boolean', changedProps)

@@ -46,7 +46,10 @@ export const SceneContext = createContext<WithSceneContext>({
   sceneReady: false
 })
 
+
+export const useBabylonEngine = (): Nullable<BabylonJSEngine>=> useContext(SceneContext).engine
 export const useBabylonScene = () => useContext(SceneContext).scene
+export const useBabylonCanvas = (): Nullable<HTMLCanvasElement | WebGLRenderingContext> => useContext(SceneContext).canvas
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 

@@ -482,9 +482,18 @@ const ReactBabylonJSHostConfig: HostConfig<
     }
   },
 
+  // TODO: refactor with appendInitialChild
   appendChild: (parent: CreatedInstance<any>, child: CreatedInstance<any>): void => {
     parent.children.push(child)
     child.parent = parent
+
+    if (child && child.lifecycleListener && child.lifecycleListener.onParented) {
+      child.lifecycleListener.onParented(parent!, child)
+    }
+
+    if (parent && parent.lifecycleListener && parent.lifecycleListener.onChildAdded) {
+      parent.lifecycleListener.onChildAdded(child, parent)
+    }
   },
 
   canHydrateInstance: (instance: any, type: string, props: Props): null | CreatedInstance<any> => {

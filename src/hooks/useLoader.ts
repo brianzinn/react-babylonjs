@@ -34,10 +34,10 @@ const importMesh = (meshNames: any, rootUrl: string, sceneFilename: string | und
 /**
  * Same parameters as SceneLoader.ImportMesh (see docs)
  *
- * @param rootUrl 
- * @param sceneFilename 
- * @param pluginExtension 
- * @param meshNames 
+ * @param rootUrl
+ * @param sceneFilename
+ * @param pluginExtension
+ * @param meshNames
  */
 export const useLoader = (rootUrl: string, sceneFilename?: string, pluginExtension?: string, meshNames?: any): [boolean, LoaderResult] => {
   const scene = useBabylonScene();
