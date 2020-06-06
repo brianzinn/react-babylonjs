@@ -1,5 +1,5 @@
 import ReactReconciler, { HostConfig } from "react-reconciler"
-import {Scene, Engine, Nullable, Node, Mesh} from '@babylonjs/core'
+import {Scene, Engine, Nullable, Node} from '@babylonjs/core'
 import * as BABYLONEXT from "./extensions"
 import * as GENERATED from './generatedCode'
 import * as CUSTOM_HOSTS from "./customHosts"
@@ -10,7 +10,6 @@ import { HasPropsHandlers, PropertyUpdate, UpdatePayload, PropsHandler } from ".
 import { LifecycleListener } from "./LifecycleListener"
 import { GeneratedParameter, CreateInfo, CreationType } from "./codeGenerationDescriptors"
 import { applyUpdateToInstance, applyInitialPropsToInstance } from "./UpdateInstance"
-import {FiberMeshPropsHandler, FiberNode, FiberNodePropsHandler} from "./generatedCode";
 
 // ** TODO: switch to node module 'scheduler', but compiler is not finding 'require()' exports currently...
 type RequestIdleCallbackHandle = any
@@ -286,24 +285,6 @@ const ReactBabylonJSHostConfig: HostConfig<
       return createdInstance
     }
 
-    // if (type === 'primitive') {
-    //   let createdInstance: CreatedInstance<Node> = {
-    //     hostInstance: props.object,
-    //     metadata: {
-    //       className: "primitive",
-    //       isNode: true,
-    //     },
-    //     parent: null,
-    //     children: [],
-    //     propsHandlers: new FiberNode() as any,
-    //     lifecycleListener: new CUSTOM_COMPONENTS.NodeLifecycleListener(),
-    //     customProps: {}
-    //   }
-    //
-    //   // onCreated and other lifecycle hooks are not called for built-in host
-    //   return createdInstance
-    // }
-
     // some types (ie: button) are called 'babylonjs-button'.
     const underlyingClassName = (GENERATED.intrinsicClassMap as any)[type] || type;
 
@@ -358,10 +339,7 @@ const ReactBabylonJSHostConfig: HostConfig<
 
     let babylonObject: any | undefined = undefined
 
-    if (type === 'primitive') {
-      babylonObject = props.object;
-      debugger
-    } else if (createInfoArgs.creationType === CreationType.FactoryMethod) {
+    if (createInfoArgs.creationType === CreationType.FactoryMethod) {
       // console.warn(`creating from Factory: ${createInfoArgs.libraryLocation}.${createInfoArgs.factoryMethod}(...args).  args:`, args)
       babylonObject = GENERATED.babylonClassFactory(createInfoArgs.libraryLocation)[createInfoArgs.factoryMethod!](...args)
     } else {

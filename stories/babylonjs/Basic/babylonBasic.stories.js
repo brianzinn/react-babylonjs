@@ -5,8 +5,6 @@ import '../../style.css'
 
 export default { title: 'Babylon Basic' };
 
-
-
 export const DefaultPlayground = () => (
   <div style={{ flex: 1, display: 'flex' }}>
     <Engine antialias adaptToDeviceRatio canvasId='babylonJS' >
