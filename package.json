@@ -12,7 +12,9 @@
     "@babylonjs",
     "react-reconciler"
   ],
+  "main": "dist/react-babylonjs.js",
   "module": "dist/react-babylonjs.js",
+  "esnext": "dist/react-babylonjs.js",
   "type": "module",
   "typings": "dist/react-babylonjs.d.ts",
   "files": [
