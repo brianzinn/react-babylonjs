@@ -27,11 +27,15 @@ import {
   MethodSignature,
   EnumDeclaration,
   NamespaceDeclaration,
-  SetAccessorDeclaration
+  SetAccessorDeclaration,
+  Type,
+  TypeGuards,
+  Node,
+  SyntaxKind,
 } from 'ts-morph'
 
 import { GeneratedParameter, CreateInfo, CreationType } from "../src/codeGenerationDescriptors";
-import { InstanceMetadataParameter, CreatedInstanceMetadata } from "../src/CreatedInstance"
+import { InstanceMetadataParameter } from "../src/CreatedInstance"
 const path = require("path");
 import camelCase from "lodash.camelcase"
 
@@ -44,7 +48,7 @@ type ClassNameSpaceTuple = {
   moduleDeclaration: ModuleDeclaration
 }
 
-// to set onXXX properties.  via onXXX.add(() => void)
+// to set onXXX properties.  via onXXX.add(() => void).  TODO: use TypeGuards.isTypeReferenceNode(...) and check type
 const OBSERVABLE_PATTERN: RegExp = /^BabylonjsCoreObservable<.*>$/;
 
 /**
@@ -711,6 +715,9 @@ const writeMethodAsUpdateFunction = (propsProperties: OptionalKind<PropertySigna
   })
 }
 
+/**
+ * Returns false when a property has already been declared (ie: a subclass will override a method and create duplicates)
+ */
 const writePropertyAsUpdateFunction = (propsProperties: OptionalKind<PropertySignatureStructure>[], type: string, propertyName: string, addedProperties: Set<String>) : boolean => {
   
   // doesn't really matter if it's 'optional', as nothing is forcing JavaScript users to follow your conventions.
@@ -844,6 +851,41 @@ class OrderedListCreator {
   }
 }
 
+function isPrimitiveType(node: Node<ts.Node>): boolean {
+
+  // getting some weird nodes on especially boolean | import(".../@babylonjs/gui/2D/controls/textBlock").TextWrapping
+  if (typeof node.getKind !== 'function') {
+    return false;
+  }
+
+  const isTypeRef = TypeGuards.isTypeReferenceNode(node);
+  if (isTypeRef && node.getText().startsWith("Null")) {
+    const firstNode: Node<ts.Node> | undefined = node.forEachDescendantAsArray().find(desc => !TypeGuards.isIdentifier(desc));
+    if (firstNode === undefined) {
+      return false;
+    }
+    node = firstNode;
+  }
+
+  const type: Type = node.getType();
+
+  return  (
+      type.isNumber() ||
+      type.isNumberLiteral() ||
+      type.isString() ||
+      type.isStringLiteral() ||
+      type.isBoolean() ||
+      type.isBooleanLiteral() ||
+      type.isEnum() || // enums --> string | number
+      type.isEnumLiteral() ||
+      type.isUndefined() // ie: string | undefined
+  );
+}
+
+const isQuestionToken = (node: Node<ts.Node>): boolean => {
+  return typeof node.getKind !== 'function' || (node.compilerNode && node.getKind() === SyntaxKind.QuestionToken);
+}
+
 /**
  * The odd parameters here 'classNameToGenerate' and 'classNameBabylon' are because we are also inventing classes not based on real BabylonJS objects (ie: Box, Sphere are actually Mesh)
  * It probably looks like we should just pass along the ClassDeclaration...
@@ -876,58 +918,90 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
   getPropertyUpdatesMethod.setBodyText((writer: CodeBlockWriter) => {
     let addedProperties = new Set<string>();
 
+    // These properties break out to specific method handlers
+    type PropertyKind = 'BabylonjsCoreBaseTexture' | 'BabylonjsCoreColor3' | 'BabylonjsCoreColor4' | 'BabylonjsCoreVector3' | 'BabylonjsCoreFresnelParameters' | 'BabylonjsGuiControl' |
+     'number[]' | 'lambda' | 'observable' | 'method' | 'primitive';
     type NameAndType = {
       name: string
       type: string,
-      skipReason?: string, // TODO: change to enum (or change to unknown: boolean)
-      method?: boolean
+      propertyKind: PropertyKind | undefined
     };
     const propsToCheck: NameAndType[] = [];
-
 
     propertiesToAdd.sort((a, b) => a.getName().localeCompare(b.getName())).forEach((property: (PropertyDeclaration | SetAccessorDeclaration)) => {
       const type = createTypeFromText(property.getType().getText(), [generatedCodeSourceFile, generatedPropsSourceFile]);
       const propertyName: string = property.getName();
-      
+
       const added = writePropertyAsUpdateFunction(typeProperties, type, propertyName, addedProperties);
 
+      let allPrimitives: boolean = false;
+
+      const propertyDescendantsParametersAndExpressions = property.forEachDescendantAsArray().filter(desc =>
+        !TypeGuards.isIdentifier(desc) &&
+        !TypeGuards.isUnionTypeNode(desc) &&
+        !TypeGuards.isIntersectionTypeNode(desc) &&
+        !isQuestionToken(desc) && 
+        desc.getKind() !== SyntaxKind.PublicKeyword &&
+        desc.getKind() !== SyntaxKind.StaticKeyword // allow static setters (ie: AmbientTextureEnabled)
+      );
+      const paramDeclaration: ParameterDeclaration | undefined = TypeGuards.isParameterDeclaration(propertyDescendantsParametersAndExpressions[0])
+        ? propertyDescendantsParametersAndExpressions[0] as ParameterDeclaration
+        : undefined;
+
+      if (paramDeclaration !== undefined) {
+        const paramDescendants =  paramDeclaration.forEachDescendantAsArray();
+        const expressions: Node<ts.Node>[] =paramDescendants.filter(desc => !TypeGuards.isIdentifier(desc) && !TypeGuards.isUnionTypeNode(desc));
+        allPrimitives = expressions.reduce<boolean>((result, expression) => result && isPrimitiveType(expression), true);
+     } else {
+        if (propertyDescendantsParametersAndExpressions.every(desc => TypeGuards.isExpression(desc) || TypeGuards.isTypeReferenceNode(desc) /* ie: Nullable<> */)) {
+          allPrimitives = propertyDescendantsParametersAndExpressions.reduce<boolean>((result, expression) => result && isPrimitiveType(expression), true);
+        }
+      }
+
       if (added === true) {
-        switch (type) {
-          case "boolean":
-          case "number":
-          case "string":
-          case "string | number": // TODO: split the string on | and check for primitive types.  or use "any" with deep/shallow equals.
-          case `BabylonjsCoreVector3`:
-          case `BabylonjsCoreColor3`:
-          case `BabylonjsCoreColor4`: // Color4.equals() not added until PR #5517
-          case "BabylonjsGuiControl":
-          case "number[]":
-          case "BabylonjsCoreFresnelParameters":
-          case "BabylonjsCoreBaseTexture":
-            propsToCheck.push({
-              name: propertyName,
-              type,
-            })
-            break;
-          default:
-            if (OBSERVABLE_PATTERN.test(type)) {
-              propsToCheck.push({
-                name: propertyName,
-                type
-              })
-            } else if (type.startsWith("(")) {
-              propsToCheck.push({
-                name: propertyName,
-                type
-              })
-            } else {
+        if (allPrimitives) {
+          propsToCheck.push({
+            name: propertyName,
+            type,
+            propertyKind: 'primitive'
+          })
+        } else {
+          switch (type) {
+            case 'BabylonjsCoreBaseTexture':
+            case 'BabylonjsCoreColor3':
+            case 'BabylonjsCoreColor4': // Color4.equals() not added until PR #5517
+            case 'BabylonjsCoreVector3':
+            case 'BabylonjsCoreFresnelParameters':
+            case 'BabylonjsGuiControl':
+            case 'number[]':
               propsToCheck.push({
                 name: propertyName,
                 type,
-                skipReason: 'unknown'
-              })
-            }
-            break;
+                propertyKind: type
+              });
+              break;
+            default:
+              if (OBSERVABLE_PATTERN.test(type)) {
+                propsToCheck.push({
+                  name: propertyName,
+                  type,
+                  propertyKind: 'observable'
+                });
+              } else if (type.startsWith("(")) { // TODO: check with TypeGuards.isFunctionExpression
+                propsToCheck.push({
+                  name: propertyName,
+                  type,
+                  propertyKind: 'lambda'
+                });
+              } else {
+                propsToCheck.push({
+                  name: propertyName,
+                  type,
+                  propertyKind: undefined
+                })
+              }
+              break;
+          }
         }
       }
     })
@@ -936,16 +1010,16 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
       const type = getMethodType(method, [generatedCodeSourceFile, generatedPropsSourceFile]);
       if (type !== null) {
         writeMethodAsUpdateFunction(typeProperties, method, type);
-      
+
         propsToCheck.push({
           name: method.getName(),
           type,
-          method: true
+          propertyKind: 'method'
         })
       }
     })
 
-    if (propsToCheck.filter(p => p.skipReason !== 'unknown').length === 0) {
+    if (propsToCheck.filter(p => p.propertyKind !== undefined).length === 0) {
       propsToCheck.forEach(propToCheck => {
         writer.writeLine(`// skipping type: '${propToCheck.type}' property (not coded) ${babylonClassDeclaration.importAlias}.${propToCheck.name}.`)
       })
@@ -953,11 +1027,11 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
     } else {
       writer.write('const changedProps: PropertyUpdate[] = []');
       propsToCheck.forEach(propToCheck => {
-        if(propToCheck.skipReason === 'unknown') {
+        if(propToCheck.propertyKind === undefined) {
           writer.writeLine(`// type: '${propToCheck.type}' property (not coded) ${babylonClassDeclaration.importAlias}.${propToCheck.name}.`)
         } else {
           // if (propToCheck.method === true) 
-          switch(propToCheck.type) {
+          switch(propToCheck.propertyKind) {
             case 'BabylonjsCoreVector3':
             writer.writeLine(`checkVector3Diff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', '${propToCheck.type}', changedProps)`);
             break;
@@ -965,12 +1039,9 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
             writer.writeLine(`checkColor3Diff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', '${propToCheck.type}', changedProps)`);
             break;
           case `BabylonjsCoreColor4`: // Color4.equals() not added until PR #5517
-          writer.writeLine(`checkColor4Diff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', '${propToCheck.type}', changedProps)`);
+            writer.writeLine(`checkColor4Diff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', '${propToCheck.type}', changedProps)`);
             break;
-          case "boolean":
-          case "number":
-          case "string":
-          case "string | number":
+          case "primitive":
             writer.writeLine(`checkPrimitiveDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', '${propToCheck.type}', changedProps)`);
             break;
           case "BabylonjsGuiControl":
@@ -985,16 +1056,17 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
           case "BabylonjsCoreBaseTexture":
             writer.writeLine(`checkTextureDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', '${propToCheck.type}', changedProps)`)
             break;
+          case "observable":
+            writer.writeLine(`checkObservableDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', '${propToCheck.type}', changedProps)`);
+            break;
+          case "lambda":
+            writer.writeLine(`checkLambdaDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', '${propToCheck.type}', changedProps)`)
+            break;
+          case "method":
+            writer.writeLine(`checkMethodDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', '${propToCheck.type}', changedProps)`)
+            break;
           default:
-            if (OBSERVABLE_PATTERN.test(propToCheck.type)) {
-              writer.writeLine(`checkObservableDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', '${propToCheck.type}', changedProps)`);
-            } else if (propToCheck.method === true) {
-              writer.writeLine(`checkMethodDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', '${propToCheck.type}', changedProps)`)
-            } else if (propToCheck.type.startsWith("(")) {
-              writer.writeLine(`checkLambdaDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', '${propToCheck.type}', changedProps)`)
-            } else {
-              writer.writeLine(`// not found (default): '${propToCheck.type}' property (not coded) ${babylonClassDeclaration.importAlias}.${propToCheck.name}.`)
-            }
+            writer.writeLine(`// not found (default): '${propToCheck.type}' property (not coded) ${babylonClassDeclaration.importAlias}.${propToCheck.name}.`)
             break;
           }
         }

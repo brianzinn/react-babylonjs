@@ -278,7 +278,7 @@ export class FiberNode implements HasPropsHandlers<FiberNodeProps> {
 }
 
 export class FiberTransformNodePropsHandler implements PropsHandler<FiberTransformNodeProps> {
-  getPropertyUpdates(oldProps: FiberTransformNodeProps, newProps: FiberTransformNodeProps): PropertyUpdate[] | null {
+    getPropertyUpdates(oldProps: FiberTransformNodeProps, newProps: FiberTransformNodeProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
         checkPrimitiveDiff(oldProps.billboardMode, newProps.billboardMode, 'billboardMode', 'number', changedProps)
         checkPrimitiveDiff(oldProps.ignoreNonUniformScaling, newProps.ignoreNonUniformScaling, 'ignoreNonUniformScaling', 'boolean', changedProps)
@@ -7460,7 +7460,7 @@ export class FiberTextBlockPropsHandler implements PropsHandler<FiberTextBlockPr
         checkPrimitiveDiff(oldProps.text, newProps.text, 'text', 'string', changedProps)
         checkPrimitiveDiff(oldProps.textHorizontalAlignment, newProps.textHorizontalAlignment, 'textHorizontalAlignment', 'number', changedProps)
         checkPrimitiveDiff(oldProps.textVerticalAlignment, newProps.textVerticalAlignment, 'textVerticalAlignment', 'number', changedProps)
-        // type: 'boolean | BabylonjsGuiTextWrapping' property (not coded) BabylonjsGuiTextBlock.textWrapping.
+        checkPrimitiveDiff(oldProps.textWrapping, newProps.textWrapping, 'textWrapping', 'boolean | BabylonjsGuiTextWrapping', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }

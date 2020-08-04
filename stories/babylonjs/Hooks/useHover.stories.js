@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import {Engine, Scene, useHover} from '../../../dist/react-babylonjs'
 import {Vector3} from '@babylonjs/core/Maths/math'
 import {Control} from '@babylonjs/gui/2D/controls/control';
+import { TextWrapping} from '@babylonjs/gui/2D/controls'
 import '../../style.css'
 
 export default {title: 'Hooks'};
@@ -39,9 +40,11 @@ const WithUseHoverGui = () => {
     <stackPanel verticalAlignment={Control.VERTICAL_ALIGNMENT_TOP}>
       <rectangle ref={rectRef} background={color} name="rect" height='50px' width='150px'>
         <rectangle>
-          <textBlock text={isHovered ? 'hovered' : 'not hovered'}
+          <textBlock text={isHovered ? 'hovered' : 'not\nhovered'}
                       fontFamily="FontAwesome" fontStyle="bold"
-                      fontSize={20} color="black"/>
+                      fontSize={20} color="black"
+                      textWrapping={TextWrapping.WordWrap}
+                      />
         </rectangle>
       </rectangle>
     </stackPanel>
