@@ -1,10 +1,8 @@
-import { Vector3, Color3, Color4 } from '@babylonjs/core/Maths/math'
+import { Vector3, Color3, Color4, Quaternion } from '@babylonjs/core/Maths/math'
 import { Control } from '@babylonjs/gui/2D/controls/control'
 import { Observable, FresnelParameters, BaseTexture, Nullable } from '@babylonjs/core'
 
-// TODO: type/value need to be joined, as the method will have multiple.
 export interface PropertyUpdate {
-  type: string
   value: any
   propertyName: string,
   changeType: PropChangeType,
@@ -168,17 +166,18 @@ export class CustomPropsHandler {
 }
 
 export enum PropChangeType {
-  Primitive = "Primitive",
-  Vector3 = "Vector3",
-  Color3 = "Color3",
-  Color4 = "Color4",
-  Control = "Control",
-  NumericArray = "NumericArray",
-  Observable = "Observable",
-  Method = "Method",
-  LambdaExpression = "LambdaExpression",
-  FresnelParameters = "FresnelParameters",
-  Texture = "Texture"
+  Color3 = 'Color3',
+  Color4 = 'Color4',
+  Control = 'Control',
+  FresnelParameters = 'FresnelParameters',
+  LambdaExpression = 'LambdaExpression',
+  Method = 'Method',
+  NumericArray = 'NumericArray',
+  Observable = 'Observable',
+  Primitive = 'Primitive',
+  Quaternion = 'Quaternion',
+  Texture = 'Texture',
+  Vector3 = 'Vector3',
 }
 
 /**
@@ -188,7 +187,6 @@ function propertyCheck<T> (
   oldProp: T | undefined,
   newProp: T | undefined,
   propertyName: string,
-  propertyType: string,
   propChangeType: PropChangeType,
   changedProps: PropertyUpdate[],
   templateMethod: (oldProp: T | undefined, newProp: T | undefined, changedProps: PropertyUpdate[]) => void ): void
@@ -200,7 +198,6 @@ function propertyCheck<T> (
         // console.log(`handled ${propChangeType} on ${propertyName} by custom handler - new Value: ${JSON.stringify(processedResult.value ?? {})}`);
         changedProps.push({
           propertyName,
-          type: propertyType,
           changeType: propChangeType,
           value: processedResult.value!
         })
@@ -218,12 +215,24 @@ function propertyCheck<T> (
   }
 }
 
-export const checkVector3Diff = (oldProp: Vector3 | undefined, newProp: Vector3 | undefined, propertyName: string, propertyType: string, changedProps: PropertyUpdate[]): void => {
-  propertyCheck<Vector3>(oldProp, newProp, propertyName, propertyType, PropChangeType.Vector3, changedProps, (oldProp, newProp, changedProps) => {
+export const checkQuaternionDiff = (oldProp: Quaternion | undefined, newProp: Quaternion | undefined, propertyName: string, changedProps: PropertyUpdate[]): void => {
+  propertyCheck<Quaternion>(oldProp, newProp, propertyName, PropChangeType.Quaternion, changedProps, (oldProp, newProp, changedProps) => {
+    // going with equals (also has method equalsWithEpsilon)
     if (newProp && (!oldProp || !newProp.equals(oldProp))) {
       changedProps.push({
         propertyName,
-        type: propertyType,
+        changeType: PropChangeType.Quaternion,
+        value: newProp
+      })
+    }
+  });
+}
+
+export const checkVector3Diff = (oldProp: Vector3 | undefined, newProp: Vector3 | undefined, propertyName: string, changedProps: PropertyUpdate[]): void => {
+  propertyCheck<Vector3>(oldProp, newProp, propertyName, PropChangeType.Vector3, changedProps, (oldProp, newProp, changedProps) => {
+    if (newProp && (!oldProp || !newProp.equals(oldProp))) {
+      changedProps.push({
+        propertyName,
         changeType: PropChangeType.Vector3,
         value: newProp
       })
@@ -231,12 +240,11 @@ export const checkVector3Diff = (oldProp: Vector3 | undefined, newProp: Vector3 
   });
 }
 
-export const checkColor3Diff = (oldProp: Color3 | undefined, newProp: Color3 | undefined, propertyName: string, propertyType: string, changedProps: PropertyUpdate[]): void => {
-  propertyCheck<Color3>(oldProp, newProp, propertyName, propertyType, PropChangeType.Color3, changedProps, (oldProp, newProp, changedProps) => {
+export const checkColor3Diff = (oldProp: Color3 | undefined, newProp: Color3 | undefined, propertyName: string, changedProps: PropertyUpdate[]): void => {
+  propertyCheck<Color3>(oldProp, newProp, propertyName, PropChangeType.Color3, changedProps, (oldProp, newProp, changedProps) => {
     if (newProp && (!oldProp || !newProp.equals(oldProp))) {
       changedProps.push({
         propertyName,
-        type: propertyType,
         changeType: PropChangeType.Color3,
         value: newProp
       })
@@ -244,13 +252,12 @@ export const checkColor3Diff = (oldProp: Color3 | undefined, newProp: Color3 | u
   })
 }
 
-export const checkColor4Diff = (oldProp: Color4 | undefined, newProp: Color4 | undefined, propertyName: string, propertyType: string, changedProps: PropertyUpdate[]): void => {
-  propertyCheck<Color4>(oldProp, newProp, propertyName, propertyType, PropChangeType.Color4, changedProps, (oldProp, newProp, changedProps) => {
+export const checkColor4Diff = (oldProp: Color4 | undefined, newProp: Color4 | undefined, propertyName: string, changedProps: PropertyUpdate[]): void => {
+  propertyCheck<Color4>(oldProp, newProp, propertyName, PropChangeType.Color4, changedProps, (oldProp, newProp, changedProps) => {
     // Color4.equals() not added until PR #5517
     if (newProp && (!oldProp || oldProp.r !== newProp.r || oldProp.g !== newProp.g || oldProp.b !== newProp.b || oldProp.a !== newProp.a)) {
       changedProps.push({
         propertyName,
-        type: propertyType,
         changeType: PropChangeType.Color4,
         value: newProp
       })
@@ -258,8 +265,8 @@ export const checkColor4Diff = (oldProp: Color4 | undefined, newProp: Color4 | u
   })
 }
 
-export const checkFresnelParametersDiff = (oldProp: FresnelParameters | undefined, newProp: FresnelParameters | undefined, propertyName: string, propertyType: string, changedProps: PropertyUpdate[]): void => {
-  propertyCheck<FresnelParameters>(oldProp, newProp, propertyName, propertyType, PropChangeType.FresnelParameters, changedProps, (oldProp, newProp, changedProps) => {
+export const checkFresnelParametersDiff = (oldProp: FresnelParameters | undefined, newProp: FresnelParameters | undefined, propertyName: string, changedProps: PropertyUpdate[]): void => {
+  propertyCheck<FresnelParameters>(oldProp, newProp, propertyName, PropChangeType.FresnelParameters, changedProps, (oldProp, newProp, changedProps) => {
     // FresnelParameters.equals() not added until PR #7818 (https://github.com/BabylonJS/Babylon.js/pull/7818)
     if (newProp /* won't clear the property value */ && (
         !oldProp ||
@@ -273,7 +280,6 @@ export const checkFresnelParametersDiff = (oldProp: FresnelParameters | undefine
     {
       changedProps.push({
         propertyName,
-        type: propertyType,
         changeType: PropChangeType.FresnelParameters,
         value: newProp
       })
@@ -281,12 +287,11 @@ export const checkFresnelParametersDiff = (oldProp: FresnelParameters | undefine
   })
 }
 
-export const checkLambdaDiff = (oldProp: any | undefined, newProp: any | undefined, propertyName: string, propertyType: string, changedProps: PropertyUpdate[]): void => {
-  propertyCheck<any>(oldProp, newProp, propertyName, propertyType, PropChangeType.LambdaExpression, changedProps, (oldProp, newProp, changedProps) => {
+export const checkLambdaDiff = (oldProp: any | undefined, newProp: any | undefined, propertyName: string, changedProps: PropertyUpdate[]): void => {
+  propertyCheck<any>(oldProp, newProp, propertyName, PropChangeType.LambdaExpression, changedProps, (oldProp, newProp, changedProps) => {
     if (newProp !== oldProp) {
       changedProps.push({
         propertyName,
-        type: propertyType,
         changeType: PropChangeType.LambdaExpression,
         value: newProp
       })
@@ -294,13 +299,12 @@ export const checkLambdaDiff = (oldProp: any | undefined, newProp: any | undefin
   })
 }
 
-export const checkControlDiff = (oldProp: Control | undefined, newProp: Control | undefined, propertyName: string, propertyType: string, changedProps: PropertyUpdate[]): void => {
-  propertyCheck<Control>(oldProp, newProp, propertyName, propertyType, PropChangeType.Control, changedProps, (oldProp, newProp, changedProps) => {
+export const checkControlDiff = (oldProp: Control | undefined, newProp: Control | undefined, propertyName: string, changedProps: PropertyUpdate[]): void => {
+  propertyCheck<Control>(oldProp, newProp, propertyName, PropChangeType.Control, changedProps, (oldProp, newProp, changedProps) => {
     // only sets once
     if (newProp && !oldProp) {
       changedProps.push({
         propertyName,
-        type: propertyType,
         changeType: PropChangeType.Control,
         value: newProp
       })
@@ -310,12 +314,11 @@ export const checkControlDiff = (oldProp: Control | undefined, newProp: Control 
 
 export type PrimitiveType = string | number | undefined | null | boolean;
 
-export const checkPrimitiveDiff = (oldProp: PrimitiveType | undefined, newProp: PrimitiveType | undefined, propertyName: string, propertyType: string, changedProps: PropertyUpdate[]): void => {
-  propertyCheck<PrimitiveType>(oldProp, newProp, propertyName, propertyType, PropChangeType.Primitive, changedProps, (oldProp, newProp, changedProps) => {
+export const checkPrimitiveDiff = (oldProp: PrimitiveType | undefined, newProp: PrimitiveType | undefined, propertyName: string, changedProps: PropertyUpdate[]): void => {
+  propertyCheck<PrimitiveType>(oldProp, newProp, propertyName, PropChangeType.Primitive, changedProps, (oldProp, newProp, changedProps) => {
     if (newProp !== oldProp) {
       changedProps.push({
         propertyName,
-        type: propertyType,
         changeType: PropChangeType.Primitive,
         value: newProp
       })
@@ -323,13 +326,11 @@ export const checkPrimitiveDiff = (oldProp: PrimitiveType | undefined, newProp: 
   })
 }
 
-export const checkTextureDiff = (oldProp: BaseTexture | undefined, newProp: BaseTexture | undefined, propertyName: string, propertyType: string, changedProps: PropertyUpdate[]): void => {
-  propertyCheck<BaseTexture>(oldProp, newProp, propertyName, propertyType, PropChangeType.Texture, changedProps, (oldProp, newProp, changedProps) => {
+export const checkTextureDiff = (oldProp: BaseTexture | undefined, newProp: BaseTexture | undefined, propertyName: string, changedProps: PropertyUpdate[]): void => {
+  propertyCheck<BaseTexture>(oldProp, newProp, propertyName, PropChangeType.Texture, changedProps, (oldProp, newProp, changedProps) => {
     if (newProp !== oldProp) {
-      console.log('pushing texture:', propertyName, propertyType)
       changedProps.push({
         propertyName,
-        type: propertyType,
         changeType: PropChangeType.Texture,
         value: newProp
       })
@@ -337,13 +338,12 @@ export const checkTextureDiff = (oldProp: BaseTexture | undefined, newProp: Base
   })
 }
 
-export const checkNumericArrayDiff = (oldProp: number[] | undefined, newProp: number[] | undefined, propertyName: string, propertyType: string, changedProps: PropertyUpdate[]): void => {
-  propertyCheck<number[]>(oldProp, newProp, propertyName, propertyType, PropChangeType.NumericArray, changedProps, (oldProp, newProp, changedProps) => {
+export const checkNumericArrayDiff = (oldProp: number[] | undefined, newProp: number[] | undefined, propertyName: string, changedProps: PropertyUpdate[]): void => {
+  propertyCheck<number[]>(oldProp, newProp, propertyName, PropChangeType.NumericArray, changedProps, (oldProp, newProp, changedProps) => {
     // just length - missing loop + indexOf comparison (or deepEquals())
     if (newProp && (!oldProp || oldProp.length !== newProp.length)) {
       changedProps.push({
         propertyName,
-        type: propertyType,
         changeType: PropChangeType.NumericArray,
         value: newProp
       })
@@ -351,13 +351,12 @@ export const checkNumericArrayDiff = (oldProp: number[] | undefined, newProp: nu
   })
 }
 
-export const checkObservableDiff = (oldProp: Observable<any> | undefined, newProp: Observable<any> | undefined, propertyName: string, propertyType: string, changedProps: PropertyUpdate[]): void => {
-  propertyCheck<Observable<any>>(oldProp, newProp, propertyName, propertyType, PropChangeType.Observable, changedProps, (oldProp, newProp, changedProps) => {
+export const checkObservableDiff = (oldProp: Observable<any> | undefined, newProp: Observable<any> | undefined, propertyName: string, changedProps: PropertyUpdate[]): void => {
+  propertyCheck<Observable<any>>(oldProp, newProp, propertyName, PropChangeType.Observable, changedProps, (oldProp, newProp, changedProps) => {
     // if it starts with 'on' then we have different handling.
     if (oldProp === undefined && oldProp !== newProp) {
       changedProps.push({
         propertyName,
-        type: propertyType,
         changeType: PropChangeType.Observable,
         value: newProp
       })
@@ -372,14 +371,12 @@ export const checkObservableDiff = (oldProp: Observable<any> | undefined, newPro
  * @param oldProp value of method (array, object, primitive, etc.)
  * @param newProp value of method (array, object, primitive, etc.)
  * @param propertyName name of property for diff
- * @param propertyType signature of method (as string)
  * @param changedProps list to append to when a diff is found
  */
-export const checkMethodDiff = (oldProp: any, newProp: any, propertyName: string, propertyType: string, changedProps: PropertyUpdate[]): void => {
+export const checkMethodDiff = (oldProp: any, newProp: any, propertyName: string, changedProps: PropertyUpdate[]): void => {
   if (oldProp !== newProp) {
     changedProps.push({
       propertyName,
-      type: propertyType,
       changeType: PropChangeType.Method,
       value: newProp
     })

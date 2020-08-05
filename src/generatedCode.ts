@@ -1,4 +1,4 @@
-import { PropsHandler, PropertyUpdate, HasPropsHandlers, checkVector3Diff, checkColor3Diff, checkColor4Diff, checkControlDiff, checkPrimitiveDiff, checkNumericArrayDiff, checkObservableDiff, checkMethodDiff, checkFresnelParametersDiff, checkLambdaDiff, checkTextureDiff } from "./PropsHandler";
+import { PropsHandler, PropertyUpdate, HasPropsHandlers, checkColor3Diff, checkColor4Diff, checkControlDiff, checkFresnelParametersDiff, checkLambdaDiff, checkMethodDiff, checkNumericArrayDiff, checkObservableDiff, checkPrimitiveDiff, checkQuaternionDiff, checkTextureDiff, checkVector3Diff } from "./PropsHandler";
 import { CreatedInstanceMetadata } from "./CreatedInstance";
 import { FiberNodeProps, FiberTransformNodeProps, FiberAbstractMeshProps, FiberMeshProps, FiberCameraProps, FiberTargetCameraProps, FiberFreeCameraProps, FiberTouchCameraProps, FiberUniversalCameraProps, FiberGamepadCameraProps, FiberAnaglyphGamepadCameraProps, FiberStereoscopicGamepadCameraProps, FiberAnaglyphUniversalCameraProps, FiberStereoscopicUniversalCameraProps, FiberDeviceOrientationCameraProps, FiberVRDeviceOrientationFreeCameraProps, FiberVRDeviceOrientationGamepadCameraProps, FiberAnaglyphFreeCameraProps, FiberStereoscopicFreeCameraProps, FiberVirtualJoysticksCameraProps, FiberWebVRFreeCameraProps, FiberWebXRCameraProps, FiberArcRotateCameraProps, FiberAnaglyphArcRotateCameraProps, FiberStereoscopicArcRotateCameraProps, FiberVRDeviceOrientationArcRotateCameraProps, FiberFlyCameraProps, FiberFollowCameraProps, FiberArcFollowCameraProps, FiberMaterialProps, FiberShaderMaterialProps, FiberMultiMaterialProps, FiberPushMaterialProps, FiberStandardMaterialProps, FiberBackgroundMaterialProps, FiberPBRBaseMaterialProps, FiberPBRBaseSimpleMaterialProps, FiberPBRMetallicRoughnessMaterialProps, FiberPBRSpecularGlossinessMaterialProps, FiberPBRMaterialProps, FiberNodeMaterialProps, FiberFluentMaterialProps, FiberLightProps, FiberShadowLightProps, FiberDirectionalLightProps, FiberPointLightProps, FiberSpotLightProps, FiberHemisphericLightProps, FiberControlProps, FiberContainerProps, FiberRectangleProps, FiberButtonProps, FiberSelectionPanelProps, FiberScrollViewerProps, FiberStackPanelProps, FiberVirtualKeyboardProps, FiberEllipseProps, FiberGridProps, Fiber_ScrollViewerWindowProps, FiberTextBlockProps, FiberImageProps, FiberCheckboxProps, FiberColorPickerProps, FiberInputTextProps, FiberInputPasswordProps, FiberLineProps, FiberMultiLineProps, FiberRadioButtonProps, FiberBaseSliderProps, FiberScrollBarProps, FiberImageScrollBarProps, FiberSliderProps, FiberImageBasedSliderProps, FiberDisplayGridProps, FiberControl3DProps, FiberContainer3DProps, FiberVolumeBasedPanelProps, FiberCylinderPanelProps, FiberPlanePanelProps, FiberScatterPanelProps, FiberSpherePanelProps, FiberStackPanel3DProps, FiberAbstractButton3DProps, FiberButton3DProps, FiberHolographicButtonProps, FiberMeshButton3DProps, FiberEffectLayerProps, FiberGlowLayerProps, FiberHighlightLayerProps, FiberBaseTextureProps, FiberCubeTextureProps, FiberRawCubeTextureProps, FiberTextureProps, FiberRawTextureProps, FiberProceduralTextureProps, FiberCustomProceduralTextureProps, FiberNoiseProceduralTextureProps, FiberRenderTargetTextureProps, FiberMirrorTextureProps, FiberMultiRenderTargetProps, FiberRefractionTextureProps, FiberMultiviewRenderTargetProps, FiberVideoTextureProps, FiberDynamicTextureProps, FiberAdvancedDynamicTextureProps, FiberRawTexture3DProps, FiberRawTexture2DArrayProps, FiberColorGradingTextureProps, FiberEquiRectangularCubeTextureProps, FiberHDRCubeTextureProps, FiberHtmlElementTextureProps, FiberGUI3DManagerProps, FiberShadowGeneratorProps, FiberEnvironmentHelperProps, FiberPhysicsImpostorProps, FiberVRExperienceHelperProps, FiberDynamicTerrainProps, FiberAutoRotationBehaviorProps, FiberBouncingBehaviorProps, FiberFramingBehaviorProps, FiberAttachToBoxBehaviorProps, FiberFadeInOutBehaviorProps, FiberMultiPointerScaleBehaviorProps, FiberPointerDragBehaviorProps, FiberSixDofDragBehaviorProps, FiberSceneProps } from "./generatedProps";
 import { DynamicTerrain as ExtensionsDynamicTerrain } from "./extensions/DynamicTerrain";
@@ -214,20 +214,20 @@ export class FiberNodePropsHandler implements PropsHandler<FiberNodeProps> {
         const changedProps: PropertyUpdate[] = []
         // type: 'BabylonjsCoreAnimationPropertiesOverride' property (not coded) BabylonjsCoreNode.animationPropertiesOverride.
         // type: 'BabylonjsCoreAnimation[]' property (not coded) BabylonjsCoreNode.animations.
-        checkPrimitiveDiff(oldProps.doNotSerialize, newProps.doNotSerialize, 'doNotSerialize', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.id, newProps.id, 'id', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.doNotSerialize, newProps.doNotSerialize, 'doNotSerialize', changedProps)
+        checkPrimitiveDiff(oldProps.id, newProps.id, 'id', changedProps)
         // type: 'BabylonjsCoreIInspectable[]' property (not coded) BabylonjsCoreNode.inspectableCustomProperties.
         // type: 'any' property (not coded) BabylonjsCoreNode.metadata.
-        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
-        checkLambdaDiff(oldProps.onDispose, newProps.onDispose, 'onDispose', '() => void', changedProps)
-        checkObservableDiff(oldProps.onDisposeObservable, newProps.onDisposeObservable, 'onDisposeObservable', 'BabylonjsCoreObservable<BabylonjsCoreNode>', changedProps)
-        checkLambdaDiff(oldProps.onReady, newProps.onReady, 'onReady', '(node: BabylonjsCoreNode) => void', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', changedProps)
+        checkLambdaDiff(oldProps.onDispose, newProps.onDispose, 'onDispose', changedProps)
+        checkObservableDiff(oldProps.onDisposeObservable, newProps.onDisposeObservable, 'onDisposeObservable', changedProps)
+        checkLambdaDiff(oldProps.onReady, newProps.onReady, 'onReady', changedProps)
         // type: 'BabylonjsCoreNode' property (not coded) BabylonjsCoreNode.parent.
         // type: 'any' property (not coded) BabylonjsCoreNode.reservedDataStore.
-        checkPrimitiveDiff(oldProps.state, newProps.state, 'state', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.uniqueId, newProps.uniqueId, 'uniqueId', 'number', changedProps)
-        checkMethodDiff(oldProps.addBehavior, newProps.addBehavior, 'addBehavior', '(behavior?: BabylonjsCoreBehavior<BabylonjsCoreNode>, attachImmediately?: boolean) => BabylonjsCoreNode', changedProps)
-        checkMethodDiff(oldProps.setEnabled, newProps.setEnabled, 'setEnabled', '(value?: boolean) => void', changedProps)
+        checkPrimitiveDiff(oldProps.state, newProps.state, 'state', changedProps)
+        checkPrimitiveDiff(oldProps.uniqueId, newProps.uniqueId, 'uniqueId', changedProps)
+        checkMethodDiff(oldProps.addBehavior, newProps.addBehavior, 'addBehavior', changedProps)
+        checkMethodDiff(oldProps.setEnabled, newProps.setEnabled, 'setEnabled', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -280,26 +280,26 @@ export class FiberNode implements HasPropsHandlers<FiberNodeProps> {
 export class FiberTransformNodePropsHandler implements PropsHandler<FiberTransformNodeProps> {
     getPropertyUpdates(oldProps: FiberTransformNodeProps, newProps: FiberTransformNodeProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.billboardMode, newProps.billboardMode, 'billboardMode', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.ignoreNonUniformScaling, newProps.ignoreNonUniformScaling, 'ignoreNonUniformScaling', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.infiniteDistance, newProps.infiniteDistance, 'infiniteDistance', 'boolean', changedProps)
-        checkObservableDiff(oldProps.onAfterWorldMatrixUpdateObservable, newProps.onAfterWorldMatrixUpdateObservable, 'onAfterWorldMatrixUpdateObservable', 'BabylonjsCoreObservable<BabylonjsCoreTransformNode>', changedProps)
-        checkVector3Diff(oldProps.position, newProps.position, 'position', 'BabylonjsCoreVector3', changedProps)
-        checkPrimitiveDiff(oldProps.preserveParentRotationForBillboard, newProps.preserveParentRotationForBillboard, 'preserveParentRotationForBillboard', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.reIntegrateRotationIntoRotationQuaternion, newProps.reIntegrateRotationIntoRotationQuaternion, 'reIntegrateRotationIntoRotationQuaternion', 'boolean', changedProps)
-        checkVector3Diff(oldProps.rotation, newProps.rotation, 'rotation', 'BabylonjsCoreVector3', changedProps)
-        // type: 'BabylonjsCoreQuaternion' property (not coded) BabylonjsCoreTransformNode.rotationQuaternion.
-        checkVector3Diff(oldProps.scaling, newProps.scaling, 'scaling', 'BabylonjsCoreVector3', changedProps)
-        checkPrimitiveDiff(oldProps.scalingDeterminant, newProps.scalingDeterminant, 'scalingDeterminant', 'number', changedProps)
-        checkMethodDiff(oldProps.addRotation, newProps.addRotation, 'addRotation', '(x?: number, y?: number, z?: number) => BabylonjsCoreTransformNode', changedProps)
-        checkMethodDiff(oldProps.setAbsolutePosition, newProps.setAbsolutePosition, 'setAbsolutePosition', '(absolutePosition?: BabylonjsCoreVector3) => BabylonjsCoreTransformNode', changedProps)
-        checkMethodDiff(oldProps.setDirection, newProps.setDirection, 'setDirection', '(localAxis?: BabylonjsCoreVector3, yawCor?: number, pitchCor?: number, rollCor?: number) => BabylonjsCoreTransformNode', changedProps)
-        checkMethodDiff(oldProps.setParent, newProps.setParent, 'setParent', '(node?: BabylonjsCoreNode) => BabylonjsCoreTransformNode', changedProps)
-        checkMethodDiff(oldProps.setPivotMatrix, newProps.setPivotMatrix, 'setPivotMatrix', '(matrix?: BabylonjsCoreDeepImmutableObject<BabylonjsCoreMatrix>, postMultiplyPivotMatrix?: boolean) => BabylonjsCoreTransformNode', changedProps)
-        checkMethodDiff(oldProps.setPivotPoint, newProps.setPivotPoint, 'setPivotPoint', '(point?: BabylonjsCoreVector3, space?: BabylonjsCoreSpace) => BabylonjsCoreTransformNode', changedProps)
-        checkMethodDiff(oldProps.setPositionWithLocalVector, newProps.setPositionWithLocalVector, 'setPositionWithLocalVector', '(vector3?: BabylonjsCoreVector3) => BabylonjsCoreTransformNode', changedProps)
-        checkMethodDiff(oldProps.setPreTransformMatrix, newProps.setPreTransformMatrix, 'setPreTransformMatrix', '(matrix?: BabylonjsCoreMatrix) => BabylonjsCoreTransformNode', changedProps)
-        checkMethodDiff(oldProps.translate, newProps.translate, 'translate', '(axis?: BabylonjsCoreVector3, distance?: number, space?: BabylonjsCoreSpace) => BabylonjsCoreTransformNode', changedProps)
+        checkPrimitiveDiff(oldProps.billboardMode, newProps.billboardMode, 'billboardMode', changedProps)
+        checkPrimitiveDiff(oldProps.ignoreNonUniformScaling, newProps.ignoreNonUniformScaling, 'ignoreNonUniformScaling', changedProps)
+        checkPrimitiveDiff(oldProps.infiniteDistance, newProps.infiniteDistance, 'infiniteDistance', changedProps)
+        checkObservableDiff(oldProps.onAfterWorldMatrixUpdateObservable, newProps.onAfterWorldMatrixUpdateObservable, 'onAfterWorldMatrixUpdateObservable', changedProps)
+        checkVector3Diff(oldProps.position, newProps.position, 'position', changedProps)
+        checkPrimitiveDiff(oldProps.preserveParentRotationForBillboard, newProps.preserveParentRotationForBillboard, 'preserveParentRotationForBillboard', changedProps)
+        checkPrimitiveDiff(oldProps.reIntegrateRotationIntoRotationQuaternion, newProps.reIntegrateRotationIntoRotationQuaternion, 'reIntegrateRotationIntoRotationQuaternion', changedProps)
+        checkVector3Diff(oldProps.rotation, newProps.rotation, 'rotation', changedProps)
+        checkQuaternionDiff(oldProps.rotationQuaternion, newProps.rotationQuaternion, 'rotationQuaternion', changedProps)
+        checkVector3Diff(oldProps.scaling, newProps.scaling, 'scaling', changedProps)
+        checkPrimitiveDiff(oldProps.scalingDeterminant, newProps.scalingDeterminant, 'scalingDeterminant', changedProps)
+        checkMethodDiff(oldProps.addRotation, newProps.addRotation, 'addRotation', changedProps)
+        checkMethodDiff(oldProps.setAbsolutePosition, newProps.setAbsolutePosition, 'setAbsolutePosition', changedProps)
+        checkMethodDiff(oldProps.setDirection, newProps.setDirection, 'setDirection', changedProps)
+        checkMethodDiff(oldProps.setParent, newProps.setParent, 'setParent', changedProps)
+        checkMethodDiff(oldProps.setPivotMatrix, newProps.setPivotMatrix, 'setPivotMatrix', changedProps)
+        checkMethodDiff(oldProps.setPivotPoint, newProps.setPivotPoint, 'setPivotPoint', changedProps)
+        checkMethodDiff(oldProps.setPositionWithLocalVector, newProps.setPositionWithLocalVector, 'setPositionWithLocalVector', changedProps)
+        checkMethodDiff(oldProps.setPreTransformMatrix, newProps.setPreTransformMatrix, 'setPreTransformMatrix', changedProps)
+        checkMethodDiff(oldProps.translate, newProps.translate, 'translate', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -359,57 +359,57 @@ export class FiberAbstractMeshPropsHandler implements PropsHandler<FiberAbstract
     getPropertyUpdates(oldProps: FiberAbstractMeshProps, newProps: FiberAbstractMeshProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
         // type: 'BabylonjsCoreAbstractActionManager' property (not coded) BabylonjsCoreAbstractMesh.actionManager.
-        checkPrimitiveDiff(oldProps.alphaIndex, newProps.alphaIndex, 'alphaIndex', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.alwaysSelectAsActiveMesh, newProps.alwaysSelectAsActiveMesh, 'alwaysSelectAsActiveMesh', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.applyFog, newProps.applyFog, 'applyFog', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.checkCollisions, newProps.checkCollisions, 'checkCollisions', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.collisionGroup, newProps.collisionGroup, 'collisionGroup', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.collisionMask, newProps.collisionMask, 'collisionMask', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.computeBonesUsingShaders, newProps.computeBonesUsingShaders, 'computeBonesUsingShaders', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.cullingStrategy, newProps.cullingStrategy, 'cullingStrategy', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.definedFacingForward, newProps.definedFacingForward, 'definedFacingForward', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.doNotSyncBoundingInfo, newProps.doNotSyncBoundingInfo, 'doNotSyncBoundingInfo', 'boolean', changedProps)
-        checkColor4Diff(oldProps.edgesColor, newProps.edgesColor, 'edgesColor', 'BabylonjsCoreColor4', changedProps)
-        checkPrimitiveDiff(oldProps.edgesWidth, newProps.edgesWidth, 'edgesWidth', 'number', changedProps)
-        checkVector3Diff(oldProps.ellipsoid, newProps.ellipsoid, 'ellipsoid', 'BabylonjsCoreVector3', changedProps)
-        checkVector3Diff(oldProps.ellipsoidOffset, newProps.ellipsoidOffset, 'ellipsoidOffset', 'BabylonjsCoreVector3', changedProps)
-        checkPrimitiveDiff(oldProps.enablePointerMoveEvents, newProps.enablePointerMoveEvents, 'enablePointerMoveEvents', 'boolean', changedProps)
-        checkVector3Diff(oldProps.facetDepthSortFrom, newProps.facetDepthSortFrom, 'facetDepthSortFrom', 'BabylonjsCoreVector3', changedProps)
-        checkPrimitiveDiff(oldProps.hasVertexAlpha, newProps.hasVertexAlpha, 'hasVertexAlpha', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.isBlocker, newProps.isBlocker, 'isBlocker', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.isPickable, newProps.isPickable, 'isPickable', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.isVisible, newProps.isVisible, 'isVisible', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.layerMask, newProps.layerMask, 'layerMask', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.alphaIndex, newProps.alphaIndex, 'alphaIndex', changedProps)
+        checkPrimitiveDiff(oldProps.alwaysSelectAsActiveMesh, newProps.alwaysSelectAsActiveMesh, 'alwaysSelectAsActiveMesh', changedProps)
+        checkPrimitiveDiff(oldProps.applyFog, newProps.applyFog, 'applyFog', changedProps)
+        checkPrimitiveDiff(oldProps.checkCollisions, newProps.checkCollisions, 'checkCollisions', changedProps)
+        checkPrimitiveDiff(oldProps.collisionGroup, newProps.collisionGroup, 'collisionGroup', changedProps)
+        checkPrimitiveDiff(oldProps.collisionMask, newProps.collisionMask, 'collisionMask', changedProps)
+        checkPrimitiveDiff(oldProps.computeBonesUsingShaders, newProps.computeBonesUsingShaders, 'computeBonesUsingShaders', changedProps)
+        checkPrimitiveDiff(oldProps.cullingStrategy, newProps.cullingStrategy, 'cullingStrategy', changedProps)
+        checkPrimitiveDiff(oldProps.definedFacingForward, newProps.definedFacingForward, 'definedFacingForward', changedProps)
+        checkPrimitiveDiff(oldProps.doNotSyncBoundingInfo, newProps.doNotSyncBoundingInfo, 'doNotSyncBoundingInfo', changedProps)
+        checkColor4Diff(oldProps.edgesColor, newProps.edgesColor, 'edgesColor', changedProps)
+        checkPrimitiveDiff(oldProps.edgesWidth, newProps.edgesWidth, 'edgesWidth', changedProps)
+        checkVector3Diff(oldProps.ellipsoid, newProps.ellipsoid, 'ellipsoid', changedProps)
+        checkVector3Diff(oldProps.ellipsoidOffset, newProps.ellipsoidOffset, 'ellipsoidOffset', changedProps)
+        checkPrimitiveDiff(oldProps.enablePointerMoveEvents, newProps.enablePointerMoveEvents, 'enablePointerMoveEvents', changedProps)
+        checkVector3Diff(oldProps.facetDepthSortFrom, newProps.facetDepthSortFrom, 'facetDepthSortFrom', changedProps)
+        checkPrimitiveDiff(oldProps.hasVertexAlpha, newProps.hasVertexAlpha, 'hasVertexAlpha', changedProps)
+        checkPrimitiveDiff(oldProps.isBlocker, newProps.isBlocker, 'isBlocker', changedProps)
+        checkPrimitiveDiff(oldProps.isPickable, newProps.isPickable, 'isPickable', changedProps)
+        checkPrimitiveDiff(oldProps.isVisible, newProps.isVisible, 'isVisible', changedProps)
+        checkPrimitiveDiff(oldProps.layerMask, newProps.layerMask, 'layerMask', changedProps)
         // type: 'BabylonjsCoreMaterial' property (not coded) BabylonjsCoreAbstractMesh.material.
-        checkPrimitiveDiff(oldProps.mustDepthSortFacets, newProps.mustDepthSortFacets, 'mustDepthSortFacets', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.numBoneInfluencers, newProps.numBoneInfluencers, 'numBoneInfluencers', 'number', changedProps)
-        checkLambdaDiff(oldProps.onCollide, newProps.onCollide, 'onCollide', '() => void', changedProps)
-        checkObservableDiff(oldProps.onCollideObservable, newProps.onCollideObservable, 'onCollideObservable', 'BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>', changedProps)
-        checkLambdaDiff(oldProps.onCollisionPositionChange, newProps.onCollisionPositionChange, 'onCollisionPositionChange', '() => void', changedProps)
-        checkObservableDiff(oldProps.onCollisionPositionChangeObservable, newProps.onCollisionPositionChangeObservable, 'onCollisionPositionChangeObservable', 'BabylonjsCoreObservable<BabylonjsCoreVector3>', changedProps)
-        checkObservableDiff(oldProps.onMaterialChangedObservable, newProps.onMaterialChangedObservable, 'onMaterialChangedObservable', 'BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>', changedProps)
-        checkObservableDiff(oldProps.onRebuildObservable, newProps.onRebuildObservable, 'onRebuildObservable', 'BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>', changedProps)
-        checkColor3Diff(oldProps.outlineColor, newProps.outlineColor, 'outlineColor', 'BabylonjsCoreColor3', changedProps)
-        checkPrimitiveDiff(oldProps.outlineWidth, newProps.outlineWidth, 'outlineWidth', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.overlayAlpha, newProps.overlayAlpha, 'overlayAlpha', 'number', changedProps)
-        checkColor3Diff(oldProps.overlayColor, newProps.overlayColor, 'overlayColor', 'BabylonjsCoreColor3', changedProps)
-        checkPrimitiveDiff(oldProps.partitioningBBoxRatio, newProps.partitioningBBoxRatio, 'partitioningBBoxRatio', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.partitioningSubdivisions, newProps.partitioningSubdivisions, 'partitioningSubdivisions', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.receiveShadows, newProps.receiveShadows, 'receiveShadows', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.renderingGroupId, newProps.renderingGroupId, 'renderingGroupId', 'number', changedProps)
-        checkVector3Diff(oldProps.scaling, newProps.scaling, 'scaling', 'BabylonjsCoreVector3', changedProps)
-        checkPrimitiveDiff(oldProps.showSubMeshesBoundingBox, newProps.showSubMeshesBoundingBox, 'showSubMeshesBoundingBox', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.mustDepthSortFacets, newProps.mustDepthSortFacets, 'mustDepthSortFacets', changedProps)
+        checkPrimitiveDiff(oldProps.numBoneInfluencers, newProps.numBoneInfluencers, 'numBoneInfluencers', changedProps)
+        checkLambdaDiff(oldProps.onCollide, newProps.onCollide, 'onCollide', changedProps)
+        checkObservableDiff(oldProps.onCollideObservable, newProps.onCollideObservable, 'onCollideObservable', changedProps)
+        checkLambdaDiff(oldProps.onCollisionPositionChange, newProps.onCollisionPositionChange, 'onCollisionPositionChange', changedProps)
+        checkObservableDiff(oldProps.onCollisionPositionChangeObservable, newProps.onCollisionPositionChangeObservable, 'onCollisionPositionChangeObservable', changedProps)
+        checkObservableDiff(oldProps.onMaterialChangedObservable, newProps.onMaterialChangedObservable, 'onMaterialChangedObservable', changedProps)
+        checkObservableDiff(oldProps.onRebuildObservable, newProps.onRebuildObservable, 'onRebuildObservable', changedProps)
+        checkColor3Diff(oldProps.outlineColor, newProps.outlineColor, 'outlineColor', changedProps)
+        checkPrimitiveDiff(oldProps.outlineWidth, newProps.outlineWidth, 'outlineWidth', changedProps)
+        checkPrimitiveDiff(oldProps.overlayAlpha, newProps.overlayAlpha, 'overlayAlpha', changedProps)
+        checkColor3Diff(oldProps.overlayColor, newProps.overlayColor, 'overlayColor', changedProps)
+        checkPrimitiveDiff(oldProps.partitioningBBoxRatio, newProps.partitioningBBoxRatio, 'partitioningBBoxRatio', changedProps)
+        checkPrimitiveDiff(oldProps.partitioningSubdivisions, newProps.partitioningSubdivisions, 'partitioningSubdivisions', changedProps)
+        checkPrimitiveDiff(oldProps.receiveShadows, newProps.receiveShadows, 'receiveShadows', changedProps)
+        checkPrimitiveDiff(oldProps.renderingGroupId, newProps.renderingGroupId, 'renderingGroupId', changedProps)
+        checkVector3Diff(oldProps.scaling, newProps.scaling, 'scaling', changedProps)
+        checkPrimitiveDiff(oldProps.showSubMeshesBoundingBox, newProps.showSubMeshesBoundingBox, 'showSubMeshesBoundingBox', changedProps)
         // type: 'BabylonjsCoreSkeleton' property (not coded) BabylonjsCoreAbstractMesh.skeleton.
         // type: 'BabylonjsCoreSubMesh[]' property (not coded) BabylonjsCoreAbstractMesh.subMeshes.
-        checkPrimitiveDiff(oldProps.useOctreeForCollisions, newProps.useOctreeForCollisions, 'useOctreeForCollisions', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.useOctreeForPicking, newProps.useOctreeForPicking, 'useOctreeForPicking', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.useOctreeForRenderingSelection, newProps.useOctreeForRenderingSelection, 'useOctreeForRenderingSelection', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.useVertexColors, newProps.useVertexColors, 'useVertexColors', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.visibility, newProps.visibility, 'visibility', 'number', changedProps)
-        checkMethodDiff(oldProps.addChild, newProps.addChild, 'addChild', '(mesh?: BabylonjsCoreAbstractMesh) => BabylonjsCoreAbstractMesh', changedProps)
-        checkMethodDiff(oldProps.setBoundingInfo, newProps.setBoundingInfo, 'setBoundingInfo', '(boundingInfo?: BabylonjsCoreBoundingInfo) => BabylonjsCoreAbstractMesh', changedProps)
-        checkMethodDiff(oldProps.setIndices, newProps.setIndices, 'setIndices', '(indices?: BabylonjsCoreIndicesArray, totalVertices?: number) => BabylonjsCoreAbstractMesh', changedProps)
-        checkMethodDiff(oldProps.setVerticesData, newProps.setVerticesData, 'setVerticesData', '(kind?: string, data?: BabylonjsCoreFloatArray, updatable?: boolean, stride?: number) => BabylonjsCoreAbstractMesh', changedProps)
+        checkPrimitiveDiff(oldProps.useOctreeForCollisions, newProps.useOctreeForCollisions, 'useOctreeForCollisions', changedProps)
+        checkPrimitiveDiff(oldProps.useOctreeForPicking, newProps.useOctreeForPicking, 'useOctreeForPicking', changedProps)
+        checkPrimitiveDiff(oldProps.useOctreeForRenderingSelection, newProps.useOctreeForRenderingSelection, 'useOctreeForRenderingSelection', changedProps)
+        checkPrimitiveDiff(oldProps.useVertexColors, newProps.useVertexColors, 'useVertexColors', changedProps)
+        checkPrimitiveDiff(oldProps.visibility, newProps.visibility, 'visibility', changedProps)
+        checkMethodDiff(oldProps.addChild, newProps.addChild, 'addChild', changedProps)
+        checkMethodDiff(oldProps.setBoundingInfo, newProps.setBoundingInfo, 'setBoundingInfo', changedProps)
+        checkMethodDiff(oldProps.setIndices, newProps.setIndices, 'setIndices', changedProps)
+        checkMethodDiff(oldProps.setVerticesData, newProps.setVerticesData, 'setVerticesData', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -464,24 +464,24 @@ export class FiberAbstractMesh implements HasPropsHandlers<FiberTransformNodePro
 export class FiberMeshPropsHandler implements PropsHandler<FiberMeshProps> {
     getPropertyUpdates(oldProps: FiberMeshProps, newProps: FiberMeshProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.delayLoadingFile, newProps.delayLoadingFile, 'delayLoadingFile', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.delayLoadState, newProps.delayLoadState, 'delayLoadState', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.delayLoadingFile, newProps.delayLoadingFile, 'delayLoadingFile', changedProps)
+        checkPrimitiveDiff(oldProps.delayLoadState, newProps.delayLoadState, 'delayLoadState', changedProps)
         // type: 'BabylonjsCoreInstancedMesh[]' property (not coded) BabylonjsCoreMesh.instances.
-        checkPrimitiveDiff(oldProps.isUnIndexed, newProps.isUnIndexed, 'isUnIndexed', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.manualUpdateOfWorldMatrixInstancedBuffer, newProps.manualUpdateOfWorldMatrixInstancedBuffer, 'manualUpdateOfWorldMatrixInstancedBuffer', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.isUnIndexed, newProps.isUnIndexed, 'isUnIndexed', changedProps)
+        checkPrimitiveDiff(oldProps.manualUpdateOfWorldMatrixInstancedBuffer, newProps.manualUpdateOfWorldMatrixInstancedBuffer, 'manualUpdateOfWorldMatrixInstancedBuffer', changedProps)
         // type: 'BabylonjsCoreMorphTargetManager' property (not coded) BabylonjsCoreMesh.morphTargetManager.
         // type: 'any' property (not coded) BabylonjsCoreMesh.normalizeSkinFourWeights.
         // type: 'any' property (not coded) BabylonjsCoreMesh.normalizeSkinWeightsAndExtra.
-        checkLambdaDiff(oldProps.onBeforeDraw, newProps.onBeforeDraw, 'onBeforeDraw', '() => void', changedProps)
-        checkLambdaDiff(oldProps.onLODLevelSelection, newProps.onLODLevelSelection, 'onLODLevelSelection', '(distance: number, mesh: BabylonjsCoreMesh, selectedLevel: BabylonjsCoreMesh) => void', changedProps)
-        checkPrimitiveDiff(oldProps.overrideMaterialSideOrientation, newProps.overrideMaterialSideOrientation, 'overrideMaterialSideOrientation', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.overridenInstanceCount, newProps.overridenInstanceCount, 'overridenInstanceCount', 'number', changedProps)
-        checkMethodDiff(oldProps.addInstance, newProps.addInstance, 'addInstance', '(instance?: BabylonjsCoreInstancedMesh) => void', changedProps)
-        checkMethodDiff(oldProps.addLODLevel, newProps.addLODLevel, 'addLODLevel', '(distance?: number, mesh?: BabylonjsCoreMesh) => BabylonjsCoreMesh', changedProps)
-        checkMethodDiff(oldProps.setIndices, newProps.setIndices, 'setIndices', '(indices?: BabylonjsCoreIndicesArray, totalVertices?: number, updatable?: boolean) => BabylonjsCoreAbstractMesh', changedProps)
-        checkMethodDiff(oldProps.setMaterialByID, newProps.setMaterialByID, 'setMaterialByID', '(id?: string) => BabylonjsCoreMesh', changedProps)
-        checkMethodDiff(oldProps.setVerticesBuffer, newProps.setVerticesBuffer, 'setVerticesBuffer', '(buffer?: BabylonjsCoreVertexBuffer) => BabylonjsCoreMesh', changedProps)
-        checkMethodDiff(oldProps.setVerticesData, newProps.setVerticesData, 'setVerticesData', '(kind?: string, data?: BabylonjsCoreFloatArray, updatable?: boolean, stride?: number) => BabylonjsCoreAbstractMesh', changedProps)
+        checkLambdaDiff(oldProps.onBeforeDraw, newProps.onBeforeDraw, 'onBeforeDraw', changedProps)
+        checkLambdaDiff(oldProps.onLODLevelSelection, newProps.onLODLevelSelection, 'onLODLevelSelection', changedProps)
+        checkPrimitiveDiff(oldProps.overrideMaterialSideOrientation, newProps.overrideMaterialSideOrientation, 'overrideMaterialSideOrientation', changedProps)
+        checkPrimitiveDiff(oldProps.overridenInstanceCount, newProps.overridenInstanceCount, 'overridenInstanceCount', changedProps)
+        checkMethodDiff(oldProps.addInstance, newProps.addInstance, 'addInstance', changedProps)
+        checkMethodDiff(oldProps.addLODLevel, newProps.addLODLevel, 'addLODLevel', changedProps)
+        checkMethodDiff(oldProps.setIndices, newProps.setIndices, 'setIndices', changedProps)
+        checkMethodDiff(oldProps.setMaterialByID, newProps.setMaterialByID, 'setMaterialByID', changedProps)
+        checkMethodDiff(oldProps.setVerticesBuffer, newProps.setVerticesBuffer, 'setVerticesBuffer', changedProps)
+        checkMethodDiff(oldProps.setVerticesData, newProps.setVerticesData, 'setVerticesData', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -557,35 +557,35 @@ export class FiberMesh implements HasPropsHandlers<FiberAbstractMeshProps> {
 export class FiberCameraPropsHandler implements PropsHandler<FiberCameraProps> {
     getPropertyUpdates(oldProps: FiberCameraProps, newProps: FiberCameraProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.cameraRigMode, newProps.cameraRigMode, 'cameraRigMode', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.cameraRigMode, newProps.cameraRigMode, 'cameraRigMode', changedProps)
         // type: 'BabylonjsCoreRenderTargetTexture[]' property (not coded) BabylonjsCoreCamera.customRenderTargets.
-        checkPrimitiveDiff(oldProps.fov, newProps.fov, 'fov', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.fovMode, newProps.fovMode, 'fovMode', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.inertia, newProps.inertia, 'inertia', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.fov, newProps.fov, 'fov', changedProps)
+        checkPrimitiveDiff(oldProps.fovMode, newProps.fovMode, 'fovMode', changedProps)
+        checkPrimitiveDiff(oldProps.inertia, newProps.inertia, 'inertia', changedProps)
         // type: 'BabylonjsCoreCameraInputsManager<BabylonjsCoreCamera>' property (not coded) BabylonjsCoreCamera.inputs.
-        checkPrimitiveDiff(oldProps.interaxialDistance, newProps.interaxialDistance, 'interaxialDistance', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.isIntermediate, newProps.isIntermediate, 'isIntermediate', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.isRigCamera, newProps.isRigCamera, 'isRigCamera', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.isStereoscopicSideBySide, newProps.isStereoscopicSideBySide, 'isStereoscopicSideBySide', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.layerMask, newProps.layerMask, 'layerMask', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.maxZ, newProps.maxZ, 'maxZ', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.minZ, newProps.minZ, 'minZ', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.mode, newProps.mode, 'mode', 'number', changedProps)
-        checkObservableDiff(oldProps.onAfterCheckInputsObservable, newProps.onAfterCheckInputsObservable, 'onAfterCheckInputsObservable', 'BabylonjsCoreObservable<BabylonjsCoreCamera>', changedProps)
-        checkObservableDiff(oldProps.onProjectionMatrixChangedObservable, newProps.onProjectionMatrixChangedObservable, 'onProjectionMatrixChangedObservable', 'BabylonjsCoreObservable<BabylonjsCoreCamera>', changedProps)
-        checkObservableDiff(oldProps.onRestoreStateObservable, newProps.onRestoreStateObservable, 'onRestoreStateObservable', 'BabylonjsCoreObservable<BabylonjsCoreCamera>', changedProps)
-        checkObservableDiff(oldProps.onViewMatrixChangedObservable, newProps.onViewMatrixChangedObservable, 'onViewMatrixChangedObservable', 'BabylonjsCoreObservable<BabylonjsCoreCamera>', changedProps)
-        checkPrimitiveDiff(oldProps.orthoBottom, newProps.orthoBottom, 'orthoBottom', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.orthoLeft, newProps.orthoLeft, 'orthoLeft', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.orthoRight, newProps.orthoRight, 'orthoRight', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.orthoTop, newProps.orthoTop, 'orthoTop', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.interaxialDistance, newProps.interaxialDistance, 'interaxialDistance', changedProps)
+        checkPrimitiveDiff(oldProps.isIntermediate, newProps.isIntermediate, 'isIntermediate', changedProps)
+        checkPrimitiveDiff(oldProps.isRigCamera, newProps.isRigCamera, 'isRigCamera', changedProps)
+        checkPrimitiveDiff(oldProps.isStereoscopicSideBySide, newProps.isStereoscopicSideBySide, 'isStereoscopicSideBySide', changedProps)
+        checkPrimitiveDiff(oldProps.layerMask, newProps.layerMask, 'layerMask', changedProps)
+        checkPrimitiveDiff(oldProps.maxZ, newProps.maxZ, 'maxZ', changedProps)
+        checkPrimitiveDiff(oldProps.minZ, newProps.minZ, 'minZ', changedProps)
+        checkPrimitiveDiff(oldProps.mode, newProps.mode, 'mode', changedProps)
+        checkObservableDiff(oldProps.onAfterCheckInputsObservable, newProps.onAfterCheckInputsObservable, 'onAfterCheckInputsObservable', changedProps)
+        checkObservableDiff(oldProps.onProjectionMatrixChangedObservable, newProps.onProjectionMatrixChangedObservable, 'onProjectionMatrixChangedObservable', changedProps)
+        checkObservableDiff(oldProps.onRestoreStateObservable, newProps.onRestoreStateObservable, 'onRestoreStateObservable', changedProps)
+        checkObservableDiff(oldProps.onViewMatrixChangedObservable, newProps.onViewMatrixChangedObservable, 'onViewMatrixChangedObservable', changedProps)
+        checkPrimitiveDiff(oldProps.orthoBottom, newProps.orthoBottom, 'orthoBottom', changedProps)
+        checkPrimitiveDiff(oldProps.orthoLeft, newProps.orthoLeft, 'orthoLeft', changedProps)
+        checkPrimitiveDiff(oldProps.orthoRight, newProps.orthoRight, 'orthoRight', changedProps)
+        checkPrimitiveDiff(oldProps.orthoTop, newProps.orthoTop, 'orthoTop', changedProps)
         // type: 'BabylonjsCoreRenderTargetTexture' property (not coded) BabylonjsCoreCamera.outputRenderTarget.
-        checkVector3Diff(oldProps.position, newProps.position, 'position', 'BabylonjsCoreVector3', changedProps)
+        checkVector3Diff(oldProps.position, newProps.position, 'position', changedProps)
         // type: 'BabylonjsCoreCamera' property (not coded) BabylonjsCoreCamera.rigParent.
-        checkVector3Diff(oldProps.upVector, newProps.upVector, 'upVector', 'BabylonjsCoreVector3', changedProps)
+        checkVector3Diff(oldProps.upVector, newProps.upVector, 'upVector', changedProps)
         // type: 'BabylonjsCoreViewport' property (not coded) BabylonjsCoreCamera.viewport.
-        checkMethodDiff(oldProps.setCameraRigMode, newProps.setCameraRigMode, 'setCameraRigMode', '(mode?: number, rigParams?: any) => void', changedProps)
-        checkMethodDiff(oldProps.setCameraRigParameter, newProps.setCameraRigParameter, 'setCameraRigParameter', '(name?: string, value?: any) => void', changedProps)
+        checkMethodDiff(oldProps.setCameraRigMode, newProps.setCameraRigMode, 'setCameraRigMode', changedProps)
+        checkMethodDiff(oldProps.setCameraRigParameter, newProps.setCameraRigParameter, 'setCameraRigParameter', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -651,15 +651,15 @@ export class FiberCamera implements HasPropsHandlers<FiberCameraProps> {
 export class FiberTargetCameraPropsHandler implements PropsHandler<FiberTargetCameraProps> {
     getPropertyUpdates(oldProps: FiberTargetCameraProps, newProps: FiberTargetCameraProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkVector3Diff(oldProps.cameraDirection, newProps.cameraDirection, 'cameraDirection', 'BabylonjsCoreVector3', changedProps)
+        checkVector3Diff(oldProps.cameraDirection, newProps.cameraDirection, 'cameraDirection', changedProps)
         // type: 'BabylonjsCoreVector2' property (not coded) BabylonjsCoreTargetCamera.cameraRotation.
         // type: 'any' property (not coded) BabylonjsCoreTargetCamera.lockedTarget.
-        checkPrimitiveDiff(oldProps.noRotationConstraint, newProps.noRotationConstraint, 'noRotationConstraint', 'boolean', changedProps)
-        checkVector3Diff(oldProps.rotation, newProps.rotation, 'rotation', 'BabylonjsCoreVector3', changedProps)
-        // type: 'BabylonjsCoreQuaternion' property (not coded) BabylonjsCoreTargetCamera.rotationQuaternion.
-        checkPrimitiveDiff(oldProps.speed, newProps.speed, 'speed', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.updateUpVectorFromRotation, newProps.updateUpVectorFromRotation, 'updateUpVectorFromRotation', 'boolean', changedProps)
-        checkMethodDiff(oldProps.setTarget, newProps.setTarget, 'setTarget', '(target?: BabylonjsCoreVector3) => void', changedProps)
+        checkPrimitiveDiff(oldProps.noRotationConstraint, newProps.noRotationConstraint, 'noRotationConstraint', changedProps)
+        checkVector3Diff(oldProps.rotation, newProps.rotation, 'rotation', changedProps)
+        checkQuaternionDiff(oldProps.rotationQuaternion, newProps.rotationQuaternion, 'rotationQuaternion', changedProps)
+        checkPrimitiveDiff(oldProps.speed, newProps.speed, 'speed', changedProps)
+        checkPrimitiveDiff(oldProps.updateUpVectorFromRotation, newProps.updateUpVectorFromRotation, 'updateUpVectorFromRotation', changedProps)
+        checkMethodDiff(oldProps.setTarget, newProps.setTarget, 'setTarget', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -727,18 +727,18 @@ export class FiberTargetCamera implements HasPropsHandlers<FiberCameraProps> {
 export class FiberFreeCameraPropsHandler implements PropsHandler<FiberFreeCameraProps> {
     getPropertyUpdates(oldProps: FiberFreeCameraProps, newProps: FiberFreeCameraProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.angularSensibility, newProps.angularSensibility, 'angularSensibility', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.applyGravity, newProps.applyGravity, 'applyGravity', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.checkCollisions, newProps.checkCollisions, 'checkCollisions', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.collisionMask, newProps.collisionMask, 'collisionMask', 'number', changedProps)
-        checkVector3Diff(oldProps.ellipsoid, newProps.ellipsoid, 'ellipsoid', 'BabylonjsCoreVector3', changedProps)
-        checkVector3Diff(oldProps.ellipsoidOffset, newProps.ellipsoidOffset, 'ellipsoidOffset', 'BabylonjsCoreVector3', changedProps)
+        checkPrimitiveDiff(oldProps.angularSensibility, newProps.angularSensibility, 'angularSensibility', changedProps)
+        checkPrimitiveDiff(oldProps.applyGravity, newProps.applyGravity, 'applyGravity', changedProps)
+        checkPrimitiveDiff(oldProps.checkCollisions, newProps.checkCollisions, 'checkCollisions', changedProps)
+        checkPrimitiveDiff(oldProps.collisionMask, newProps.collisionMask, 'collisionMask', changedProps)
+        checkVector3Diff(oldProps.ellipsoid, newProps.ellipsoid, 'ellipsoid', changedProps)
+        checkVector3Diff(oldProps.ellipsoidOffset, newProps.ellipsoidOffset, 'ellipsoidOffset', changedProps)
         // type: 'BabylonjsCoreFreeCameraInputsManager' property (not coded) BabylonjsCoreFreeCamera.inputs.
-        checkNumericArrayDiff(oldProps.keysDown, newProps.keysDown, 'keysDown', 'number[]', changedProps)
-        checkNumericArrayDiff(oldProps.keysLeft, newProps.keysLeft, 'keysLeft', 'number[]', changedProps)
-        checkNumericArrayDiff(oldProps.keysRight, newProps.keysRight, 'keysRight', 'number[]', changedProps)
-        checkNumericArrayDiff(oldProps.keysUp, newProps.keysUp, 'keysUp', 'number[]', changedProps)
-        checkLambdaDiff(oldProps.onCollide, newProps.onCollide, 'onCollide', '(collidedMesh: BabylonjsCoreAbstractMesh) => void', changedProps)
+        checkNumericArrayDiff(oldProps.keysDown, newProps.keysDown, 'keysDown', changedProps)
+        checkNumericArrayDiff(oldProps.keysLeft, newProps.keysLeft, 'keysLeft', changedProps)
+        checkNumericArrayDiff(oldProps.keysRight, newProps.keysRight, 'keysRight', changedProps)
+        checkNumericArrayDiff(oldProps.keysUp, newProps.keysUp, 'keysUp', changedProps)
+        checkLambdaDiff(oldProps.onCollide, newProps.onCollide, 'onCollide', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -807,8 +807,8 @@ export class FiberFreeCamera implements HasPropsHandlers<FiberCameraProps> {
 export class FiberTouchCameraPropsHandler implements PropsHandler<FiberTouchCameraProps> {
     getPropertyUpdates(oldProps: FiberTouchCameraProps, newProps: FiberTouchCameraProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.touchAngularSensibility, newProps.touchAngularSensibility, 'touchAngularSensibility', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.touchMoveSensibility, newProps.touchMoveSensibility, 'touchMoveSensibility', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.touchAngularSensibility, newProps.touchAngularSensibility, 'touchAngularSensibility', changedProps)
+        checkPrimitiveDiff(oldProps.touchMoveSensibility, newProps.touchMoveSensibility, 'touchMoveSensibility', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -873,8 +873,8 @@ export class FiberTouchCamera implements HasPropsHandlers<FiberCameraProps> {
 export class FiberUniversalCameraPropsHandler implements PropsHandler<FiberUniversalCameraProps> {
     getPropertyUpdates(oldProps: FiberUniversalCameraProps, newProps: FiberUniversalCameraProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.gamepadAngularSensibility, newProps.gamepadAngularSensibility, 'gamepadAngularSensibility', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.gamepadMoveSensibility, newProps.gamepadMoveSensibility, 'gamepadMoveSensibility', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.gamepadAngularSensibility, newProps.gamepadAngularSensibility, 'gamepadAngularSensibility', changedProps)
+        checkPrimitiveDiff(oldProps.gamepadMoveSensibility, newProps.gamepadMoveSensibility, 'gamepadMoveSensibility', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -1293,7 +1293,7 @@ export class FiberStereoscopicUniversalCamera implements HasPropsHandlers<FiberC
 export class FiberDeviceOrientationCameraPropsHandler implements PropsHandler<FiberDeviceOrientationCameraProps> {
     getPropertyUpdates(oldProps: FiberDeviceOrientationCameraProps, newProps: FiberDeviceOrientationCameraProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.disablePointerInputWhenUsingDeviceOrientation, newProps.disablePointerInputWhenUsingDeviceOrientation, 'disablePointerInputWhenUsingDeviceOrientation', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.disablePointerInputWhenUsingDeviceOrientation, newProps.disablePointerInputWhenUsingDeviceOrientation, 'disablePointerInputWhenUsingDeviceOrientation', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -1709,14 +1709,14 @@ export class FiberWebVRFreeCameraPropsHandler implements PropsHandler<FiberWebVR
     getPropertyUpdates(oldProps: FiberWebVRFreeCameraProps, newProps: FiberWebVRFreeCameraProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
         // type: 'BabylonjsCoreWebVRController[]' property (not coded) BabylonjsCoreWebVRFreeCamera.controllers.
-        checkVector3Diff(oldProps.devicePosition, newProps.devicePosition, 'devicePosition', 'BabylonjsCoreVector3', changedProps)
-        // type: 'BabylonjsCoreQuaternion' property (not coded) BabylonjsCoreWebVRFreeCamera.deviceRotationQuaternion.
-        checkPrimitiveDiff(oldProps.deviceScaleFactor, newProps.deviceScaleFactor, 'deviceScaleFactor', 'number', changedProps)
-        checkObservableDiff(oldProps.onControllerMeshLoadedObservable, newProps.onControllerMeshLoadedObservable, 'onControllerMeshLoadedObservable', 'BabylonjsCoreObservable<BabylonjsCoreWebVRController>', changedProps)
-        checkObservableDiff(oldProps.onControllersAttachedObservable, newProps.onControllersAttachedObservable, 'onControllersAttachedObservable', 'BabylonjsCoreObservable<BabylonjsCoreWebVRController[]>', changedProps)
-        checkObservableDiff(oldProps.onPoseUpdatedFromDeviceObservable, newProps.onPoseUpdatedFromDeviceObservable, 'onPoseUpdatedFromDeviceObservable', 'BabylonjsCoreObservable<any>', changedProps)
+        checkVector3Diff(oldProps.devicePosition, newProps.devicePosition, 'devicePosition', changedProps)
+        checkQuaternionDiff(oldProps.deviceRotationQuaternion, newProps.deviceRotationQuaternion, 'deviceRotationQuaternion', changedProps)
+        checkPrimitiveDiff(oldProps.deviceScaleFactor, newProps.deviceScaleFactor, 'deviceScaleFactor', changedProps)
+        checkObservableDiff(oldProps.onControllerMeshLoadedObservable, newProps.onControllerMeshLoadedObservable, 'onControllerMeshLoadedObservable', changedProps)
+        checkObservableDiff(oldProps.onControllersAttachedObservable, newProps.onControllersAttachedObservable, 'onControllersAttachedObservable', changedProps)
+        checkObservableDiff(oldProps.onPoseUpdatedFromDeviceObservable, newProps.onPoseUpdatedFromDeviceObservable, 'onPoseUpdatedFromDeviceObservable', changedProps)
         // type: 'BabylonjsCoreDevicePose' property (not coded) BabylonjsCoreWebVRFreeCamera.rawPose.
-        checkPrimitiveDiff(oldProps.rigParenting, newProps.rigParenting, 'rigParenting', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.rigParenting, newProps.rigParenting, 'rigParenting', changedProps)
         // type: 'any' property (not coded) BabylonjsCoreWebVRFreeCamera.updateCacheCalled.
         // type: 'any' property (not coded) BabylonjsCoreWebVRFreeCamera.webVROptions.
         return changedProps.length === 0 ? null : changedProps;
@@ -1788,8 +1788,8 @@ export class FiberWebVRFreeCamera implements HasPropsHandlers<FiberCameraProps> 
 export class FiberWebXRCameraPropsHandler implements PropsHandler<FiberWebXRCameraProps> {
     getPropertyUpdates(oldProps: FiberWebXRCameraProps, newProps: FiberWebXRCameraProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.compensateOnFirstFrame, newProps.compensateOnFirstFrame, 'compensateOnFirstFrame', 'boolean', changedProps)
-        checkMethodDiff(oldProps.setTransformationFromNonVRCamera, newProps.setTransformationFromNonVRCamera, 'setTransformationFromNonVRCamera', '(otherCamera?: BabylonjsCoreCamera, resetToBaseReferenceSpace?: boolean) => void', changedProps)
+        checkPrimitiveDiff(oldProps.compensateOnFirstFrame, newProps.compensateOnFirstFrame, 'compensateOnFirstFrame', changedProps)
+        checkMethodDiff(oldProps.setTransformationFromNonVRCamera, newProps.setTransformationFromNonVRCamera, 'setTransformationFromNonVRCamera', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -1853,54 +1853,54 @@ export class FiberWebXRCamera implements HasPropsHandlers<FiberCameraProps> {
 export class FiberArcRotateCameraPropsHandler implements PropsHandler<FiberArcRotateCameraProps> {
     getPropertyUpdates(oldProps: FiberArcRotateCameraProps, newProps: FiberArcRotateCameraProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.allowUpsideDown, newProps.allowUpsideDown, 'allowUpsideDown', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.alpha, newProps.alpha, 'alpha', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.angularSensibilityX, newProps.angularSensibilityX, 'angularSensibilityX', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.angularSensibilityY, newProps.angularSensibilityY, 'angularSensibilityY', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.beta, newProps.beta, 'beta', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.checkCollisions, newProps.checkCollisions, 'checkCollisions', 'boolean', changedProps)
-        checkVector3Diff(oldProps.collisionRadius, newProps.collisionRadius, 'collisionRadius', 'BabylonjsCoreVector3', changedProps)
-        checkPrimitiveDiff(oldProps.inertialAlphaOffset, newProps.inertialAlphaOffset, 'inertialAlphaOffset', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.inertialBetaOffset, newProps.inertialBetaOffset, 'inertialBetaOffset', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.inertialPanningX, newProps.inertialPanningX, 'inertialPanningX', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.inertialPanningY, newProps.inertialPanningY, 'inertialPanningY', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.inertialRadiusOffset, newProps.inertialRadiusOffset, 'inertialRadiusOffset', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.allowUpsideDown, newProps.allowUpsideDown, 'allowUpsideDown', changedProps)
+        checkPrimitiveDiff(oldProps.alpha, newProps.alpha, 'alpha', changedProps)
+        checkPrimitiveDiff(oldProps.angularSensibilityX, newProps.angularSensibilityX, 'angularSensibilityX', changedProps)
+        checkPrimitiveDiff(oldProps.angularSensibilityY, newProps.angularSensibilityY, 'angularSensibilityY', changedProps)
+        checkPrimitiveDiff(oldProps.beta, newProps.beta, 'beta', changedProps)
+        checkPrimitiveDiff(oldProps.checkCollisions, newProps.checkCollisions, 'checkCollisions', changedProps)
+        checkVector3Diff(oldProps.collisionRadius, newProps.collisionRadius, 'collisionRadius', changedProps)
+        checkPrimitiveDiff(oldProps.inertialAlphaOffset, newProps.inertialAlphaOffset, 'inertialAlphaOffset', changedProps)
+        checkPrimitiveDiff(oldProps.inertialBetaOffset, newProps.inertialBetaOffset, 'inertialBetaOffset', changedProps)
+        checkPrimitiveDiff(oldProps.inertialPanningX, newProps.inertialPanningX, 'inertialPanningX', changedProps)
+        checkPrimitiveDiff(oldProps.inertialPanningY, newProps.inertialPanningY, 'inertialPanningY', changedProps)
+        checkPrimitiveDiff(oldProps.inertialRadiusOffset, newProps.inertialRadiusOffset, 'inertialRadiusOffset', changedProps)
         // type: 'BabylonjsCoreArcRotateCameraInputsManager' property (not coded) BabylonjsCoreArcRotateCamera.inputs.
-        checkNumericArrayDiff(oldProps.keysDown, newProps.keysDown, 'keysDown', 'number[]', changedProps)
-        checkNumericArrayDiff(oldProps.keysLeft, newProps.keysLeft, 'keysLeft', 'number[]', changedProps)
-        checkNumericArrayDiff(oldProps.keysRight, newProps.keysRight, 'keysRight', 'number[]', changedProps)
-        checkNumericArrayDiff(oldProps.keysUp, newProps.keysUp, 'keysUp', 'number[]', changedProps)
-        checkPrimitiveDiff(oldProps.lowerAlphaLimit, newProps.lowerAlphaLimit, 'lowerAlphaLimit', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.lowerBetaLimit, newProps.lowerBetaLimit, 'lowerBetaLimit', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.lowerRadiusLimit, newProps.lowerRadiusLimit, 'lowerRadiusLimit', 'number', changedProps)
-        checkLambdaDiff(oldProps.onCollide, newProps.onCollide, 'onCollide', '(collidedMesh: BabylonjsCoreAbstractMesh) => void', changedProps)
-        checkObservableDiff(oldProps.onMeshTargetChangedObservable, newProps.onMeshTargetChangedObservable, 'onMeshTargetChangedObservable', 'BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>', changedProps)
-        checkVector3Diff(oldProps.panningAxis, newProps.panningAxis, 'panningAxis', 'BabylonjsCoreVector3', changedProps)
-        checkPrimitiveDiff(oldProps.panningDistanceLimit, newProps.panningDistanceLimit, 'panningDistanceLimit', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.panningInertia, newProps.panningInertia, 'panningInertia', 'number', changedProps)
-        checkVector3Diff(oldProps.panningOriginTarget, newProps.panningOriginTarget, 'panningOriginTarget', 'BabylonjsCoreVector3', changedProps)
-        checkPrimitiveDiff(oldProps.panningSensibility, newProps.panningSensibility, 'panningSensibility', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.pinchDeltaPercentage, newProps.pinchDeltaPercentage, 'pinchDeltaPercentage', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.pinchPrecision, newProps.pinchPrecision, 'pinchPrecision', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.pinchToPanMaxDistance, newProps.pinchToPanMaxDistance, 'pinchToPanMaxDistance', 'number', changedProps)
-        checkVector3Diff(oldProps.position, newProps.position, 'position', 'BabylonjsCoreVector3', changedProps)
-        checkPrimitiveDiff(oldProps.radius, newProps.radius, 'radius', 'number', changedProps)
-        checkVector3Diff(oldProps.target, newProps.target, 'target', 'BabylonjsCoreVector3', changedProps)
+        checkNumericArrayDiff(oldProps.keysDown, newProps.keysDown, 'keysDown', changedProps)
+        checkNumericArrayDiff(oldProps.keysLeft, newProps.keysLeft, 'keysLeft', changedProps)
+        checkNumericArrayDiff(oldProps.keysRight, newProps.keysRight, 'keysRight', changedProps)
+        checkNumericArrayDiff(oldProps.keysUp, newProps.keysUp, 'keysUp', changedProps)
+        checkPrimitiveDiff(oldProps.lowerAlphaLimit, newProps.lowerAlphaLimit, 'lowerAlphaLimit', changedProps)
+        checkPrimitiveDiff(oldProps.lowerBetaLimit, newProps.lowerBetaLimit, 'lowerBetaLimit', changedProps)
+        checkPrimitiveDiff(oldProps.lowerRadiusLimit, newProps.lowerRadiusLimit, 'lowerRadiusLimit', changedProps)
+        checkLambdaDiff(oldProps.onCollide, newProps.onCollide, 'onCollide', changedProps)
+        checkObservableDiff(oldProps.onMeshTargetChangedObservable, newProps.onMeshTargetChangedObservable, 'onMeshTargetChangedObservable', changedProps)
+        checkVector3Diff(oldProps.panningAxis, newProps.panningAxis, 'panningAxis', changedProps)
+        checkPrimitiveDiff(oldProps.panningDistanceLimit, newProps.panningDistanceLimit, 'panningDistanceLimit', changedProps)
+        checkPrimitiveDiff(oldProps.panningInertia, newProps.panningInertia, 'panningInertia', changedProps)
+        checkVector3Diff(oldProps.panningOriginTarget, newProps.panningOriginTarget, 'panningOriginTarget', changedProps)
+        checkPrimitiveDiff(oldProps.panningSensibility, newProps.panningSensibility, 'panningSensibility', changedProps)
+        checkPrimitiveDiff(oldProps.pinchDeltaPercentage, newProps.pinchDeltaPercentage, 'pinchDeltaPercentage', changedProps)
+        checkPrimitiveDiff(oldProps.pinchPrecision, newProps.pinchPrecision, 'pinchPrecision', changedProps)
+        checkPrimitiveDiff(oldProps.pinchToPanMaxDistance, newProps.pinchToPanMaxDistance, 'pinchToPanMaxDistance', changedProps)
+        checkVector3Diff(oldProps.position, newProps.position, 'position', changedProps)
+        checkPrimitiveDiff(oldProps.radius, newProps.radius, 'radius', changedProps)
+        checkVector3Diff(oldProps.target, newProps.target, 'target', changedProps)
         // type: 'BabylonjsCoreVector2' property (not coded) BabylonjsCoreArcRotateCamera.targetScreenOffset.
-        checkPrimitiveDiff(oldProps.upperAlphaLimit, newProps.upperAlphaLimit, 'upperAlphaLimit', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.upperBetaLimit, newProps.upperBetaLimit, 'upperBetaLimit', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.upperRadiusLimit, newProps.upperRadiusLimit, 'upperRadiusLimit', 'number', changedProps)
-        checkVector3Diff(oldProps.upVector, newProps.upVector, 'upVector', 'BabylonjsCoreVector3', changedProps)
-        checkPrimitiveDiff(oldProps.useAutoRotationBehavior, newProps.useAutoRotationBehavior, 'useAutoRotationBehavior', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.useBouncingBehavior, newProps.useBouncingBehavior, 'useBouncingBehavior', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.useFramingBehavior, newProps.useFramingBehavior, 'useFramingBehavior', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.useInputToRestoreState, newProps.useInputToRestoreState, 'useInputToRestoreState', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.useNaturalPinchZoom, newProps.useNaturalPinchZoom, 'useNaturalPinchZoom', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.wheelDeltaPercentage, newProps.wheelDeltaPercentage, 'wheelDeltaPercentage', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.wheelPrecision, newProps.wheelPrecision, 'wheelPrecision', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.zoomOnFactor, newProps.zoomOnFactor, 'zoomOnFactor', 'number', changedProps)
-        checkMethodDiff(oldProps.setPosition, newProps.setPosition, 'setPosition', '(position?: BabylonjsCoreVector3) => void', changedProps)
-        checkMethodDiff(oldProps.setTarget, newProps.setTarget, 'setTarget', '(target?: BabylonjsCoreAbstractMesh | BabylonjsCoreVector3, toBoundingCenter?: boolean, allowSamePosition?: boolean) => void', changedProps)
+        checkPrimitiveDiff(oldProps.upperAlphaLimit, newProps.upperAlphaLimit, 'upperAlphaLimit', changedProps)
+        checkPrimitiveDiff(oldProps.upperBetaLimit, newProps.upperBetaLimit, 'upperBetaLimit', changedProps)
+        checkPrimitiveDiff(oldProps.upperRadiusLimit, newProps.upperRadiusLimit, 'upperRadiusLimit', changedProps)
+        checkVector3Diff(oldProps.upVector, newProps.upVector, 'upVector', changedProps)
+        checkPrimitiveDiff(oldProps.useAutoRotationBehavior, newProps.useAutoRotationBehavior, 'useAutoRotationBehavior', changedProps)
+        checkPrimitiveDiff(oldProps.useBouncingBehavior, newProps.useBouncingBehavior, 'useBouncingBehavior', changedProps)
+        checkPrimitiveDiff(oldProps.useFramingBehavior, newProps.useFramingBehavior, 'useFramingBehavior', changedProps)
+        checkPrimitiveDiff(oldProps.useInputToRestoreState, newProps.useInputToRestoreState, 'useInputToRestoreState', changedProps)
+        checkPrimitiveDiff(oldProps.useNaturalPinchZoom, newProps.useNaturalPinchZoom, 'useNaturalPinchZoom', changedProps)
+        checkPrimitiveDiff(oldProps.wheelDeltaPercentage, newProps.wheelDeltaPercentage, 'wheelDeltaPercentage', changedProps)
+        checkPrimitiveDiff(oldProps.wheelPrecision, newProps.wheelPrecision, 'wheelPrecision', changedProps)
+        checkPrimitiveDiff(oldProps.zoomOnFactor, newProps.zoomOnFactor, 'zoomOnFactor', changedProps)
+        checkMethodDiff(oldProps.setPosition, newProps.setPosition, 'setPosition', changedProps)
+        checkMethodDiff(oldProps.setTarget, newProps.setTarget, 'setTarget', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -2242,26 +2242,26 @@ export class FiberVRDeviceOrientationArcRotateCamera implements HasPropsHandlers
 export class FiberFlyCameraPropsHandler implements PropsHandler<FiberFlyCameraProps> {
     getPropertyUpdates(oldProps: FiberFlyCameraProps, newProps: FiberFlyCameraProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.angularSensibility, newProps.angularSensibility, 'angularSensibility', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.applyGravity, newProps.applyGravity, 'applyGravity', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.bankedTurn, newProps.bankedTurn, 'bankedTurn', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.bankedTurnLimit, newProps.bankedTurnLimit, 'bankedTurnLimit', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.bankedTurnMultiplier, newProps.bankedTurnMultiplier, 'bankedTurnMultiplier', 'number', changedProps)
-        checkVector3Diff(oldProps.cameraDirection, newProps.cameraDirection, 'cameraDirection', 'BabylonjsCoreVector3', changedProps)
-        checkPrimitiveDiff(oldProps.checkCollisions, newProps.checkCollisions, 'checkCollisions', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.collisionMask, newProps.collisionMask, 'collisionMask', 'number', changedProps)
-        checkVector3Diff(oldProps.ellipsoid, newProps.ellipsoid, 'ellipsoid', 'BabylonjsCoreVector3', changedProps)
-        checkVector3Diff(oldProps.ellipsoidOffset, newProps.ellipsoidOffset, 'ellipsoidOffset', 'BabylonjsCoreVector3', changedProps)
+        checkPrimitiveDiff(oldProps.angularSensibility, newProps.angularSensibility, 'angularSensibility', changedProps)
+        checkPrimitiveDiff(oldProps.applyGravity, newProps.applyGravity, 'applyGravity', changedProps)
+        checkPrimitiveDiff(oldProps.bankedTurn, newProps.bankedTurn, 'bankedTurn', changedProps)
+        checkPrimitiveDiff(oldProps.bankedTurnLimit, newProps.bankedTurnLimit, 'bankedTurnLimit', changedProps)
+        checkPrimitiveDiff(oldProps.bankedTurnMultiplier, newProps.bankedTurnMultiplier, 'bankedTurnMultiplier', changedProps)
+        checkVector3Diff(oldProps.cameraDirection, newProps.cameraDirection, 'cameraDirection', changedProps)
+        checkPrimitiveDiff(oldProps.checkCollisions, newProps.checkCollisions, 'checkCollisions', changedProps)
+        checkPrimitiveDiff(oldProps.collisionMask, newProps.collisionMask, 'collisionMask', changedProps)
+        checkVector3Diff(oldProps.ellipsoid, newProps.ellipsoid, 'ellipsoid', changedProps)
+        checkVector3Diff(oldProps.ellipsoidOffset, newProps.ellipsoidOffset, 'ellipsoidOffset', changedProps)
         // type: 'BabylonjsCoreFlyCameraInputsManager' property (not coded) BabylonjsCoreFlyCamera.inputs.
-        checkNumericArrayDiff(oldProps.keysBackward, newProps.keysBackward, 'keysBackward', 'number[]', changedProps)
-        checkNumericArrayDiff(oldProps.keysDown, newProps.keysDown, 'keysDown', 'number[]', changedProps)
-        checkNumericArrayDiff(oldProps.keysForward, newProps.keysForward, 'keysForward', 'number[]', changedProps)
-        checkNumericArrayDiff(oldProps.keysLeft, newProps.keysLeft, 'keysLeft', 'number[]', changedProps)
-        checkNumericArrayDiff(oldProps.keysRight, newProps.keysRight, 'keysRight', 'number[]', changedProps)
-        checkNumericArrayDiff(oldProps.keysUp, newProps.keysUp, 'keysUp', 'number[]', changedProps)
-        checkLambdaDiff(oldProps.onCollide, newProps.onCollide, 'onCollide', '(collidedMesh: BabylonjsCoreAbstractMesh) => void', changedProps)
-        checkPrimitiveDiff(oldProps.rollCorrect, newProps.rollCorrect, 'rollCorrect', 'number', changedProps)
-        // type: 'BabylonjsCoreQuaternion' property (not coded) BabylonjsCoreFlyCamera.rotationQuaternion.
+        checkNumericArrayDiff(oldProps.keysBackward, newProps.keysBackward, 'keysBackward', changedProps)
+        checkNumericArrayDiff(oldProps.keysDown, newProps.keysDown, 'keysDown', changedProps)
+        checkNumericArrayDiff(oldProps.keysForward, newProps.keysForward, 'keysForward', changedProps)
+        checkNumericArrayDiff(oldProps.keysLeft, newProps.keysLeft, 'keysLeft', changedProps)
+        checkNumericArrayDiff(oldProps.keysRight, newProps.keysRight, 'keysRight', changedProps)
+        checkNumericArrayDiff(oldProps.keysUp, newProps.keysUp, 'keysUp', changedProps)
+        checkLambdaDiff(oldProps.onCollide, newProps.onCollide, 'onCollide', changedProps)
+        checkPrimitiveDiff(oldProps.rollCorrect, newProps.rollCorrect, 'rollCorrect', changedProps)
+        checkQuaternionDiff(oldProps.rotationQuaternion, newProps.rotationQuaternion, 'rotationQuaternion', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -2330,19 +2330,19 @@ export class FiberFlyCamera implements HasPropsHandlers<FiberCameraProps> {
 export class FiberFollowCameraPropsHandler implements PropsHandler<FiberFollowCameraProps> {
     getPropertyUpdates(oldProps: FiberFollowCameraProps, newProps: FiberFollowCameraProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.cameraAcceleration, newProps.cameraAcceleration, 'cameraAcceleration', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.heightOffset, newProps.heightOffset, 'heightOffset', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.cameraAcceleration, newProps.cameraAcceleration, 'cameraAcceleration', changedProps)
+        checkPrimitiveDiff(oldProps.heightOffset, newProps.heightOffset, 'heightOffset', changedProps)
         // type: 'BabylonjsCoreFollowCameraInputsManager' property (not coded) BabylonjsCoreFollowCamera.inputs.
         // type: 'BabylonjsCoreAbstractMesh' property (not coded) BabylonjsCoreFollowCamera.lockedTarget.
-        checkPrimitiveDiff(oldProps.lowerHeightOffsetLimit, newProps.lowerHeightOffsetLimit, 'lowerHeightOffsetLimit', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.lowerRadiusLimit, newProps.lowerRadiusLimit, 'lowerRadiusLimit', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.lowerRotationOffsetLimit, newProps.lowerRotationOffsetLimit, 'lowerRotationOffsetLimit', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.maxCameraSpeed, newProps.maxCameraSpeed, 'maxCameraSpeed', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.radius, newProps.radius, 'radius', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.rotationOffset, newProps.rotationOffset, 'rotationOffset', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.upperHeightOffsetLimit, newProps.upperHeightOffsetLimit, 'upperHeightOffsetLimit', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.upperRadiusLimit, newProps.upperRadiusLimit, 'upperRadiusLimit', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.upperRotationOffsetLimit, newProps.upperRotationOffsetLimit, 'upperRotationOffsetLimit', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.lowerHeightOffsetLimit, newProps.lowerHeightOffsetLimit, 'lowerHeightOffsetLimit', changedProps)
+        checkPrimitiveDiff(oldProps.lowerRadiusLimit, newProps.lowerRadiusLimit, 'lowerRadiusLimit', changedProps)
+        checkPrimitiveDiff(oldProps.lowerRotationOffsetLimit, newProps.lowerRotationOffsetLimit, 'lowerRotationOffsetLimit', changedProps)
+        checkPrimitiveDiff(oldProps.maxCameraSpeed, newProps.maxCameraSpeed, 'maxCameraSpeed', changedProps)
+        checkPrimitiveDiff(oldProps.radius, newProps.radius, 'radius', changedProps)
+        checkPrimitiveDiff(oldProps.rotationOffset, newProps.rotationOffset, 'rotationOffset', changedProps)
+        checkPrimitiveDiff(oldProps.upperHeightOffsetLimit, newProps.upperHeightOffsetLimit, 'upperHeightOffsetLimit', changedProps)
+        checkPrimitiveDiff(oldProps.upperRadiusLimit, newProps.upperRadiusLimit, 'upperRadiusLimit', changedProps)
+        checkPrimitiveDiff(oldProps.upperRotationOffsetLimit, newProps.upperRotationOffsetLimit, 'upperRotationOffsetLimit', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -2411,9 +2411,9 @@ export class FiberFollowCamera implements HasPropsHandlers<FiberCameraProps> {
 export class FiberArcFollowCameraPropsHandler implements PropsHandler<FiberArcFollowCameraProps> {
     getPropertyUpdates(oldProps: FiberArcFollowCameraProps, newProps: FiberArcFollowCameraProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.alpha, newProps.alpha, 'alpha', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.beta, newProps.beta, 'beta', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.radius, newProps.radius, 'radius', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.alpha, newProps.alpha, 'alpha', changedProps)
+        checkPrimitiveDiff(oldProps.beta, newProps.beta, 'beta', changedProps)
+        checkPrimitiveDiff(oldProps.radius, newProps.radius, 'radius', changedProps)
         // type: 'BabylonjsCoreAbstractMesh' property (not coded) BabylonjsCoreArcFollowCamera.target.
         return changedProps.length === 0 ? null : changedProps;
     }
@@ -5333,40 +5333,40 @@ export class FiberDecal implements HasPropsHandlers<FiberMeshProps> {
 export class FiberMaterialPropsHandler implements PropsHandler<FiberMaterialProps> {
     getPropertyUpdates(oldProps: FiberMaterialProps, newProps: FiberMaterialProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.alpha, newProps.alpha, 'alpha', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.alphaMode, newProps.alphaMode, 'alphaMode', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.alpha, newProps.alpha, 'alpha', changedProps)
+        checkPrimitiveDiff(oldProps.alphaMode, newProps.alphaMode, 'alphaMode', changedProps)
         // type: 'BabylonjsCoreAnimation[]' property (not coded) BabylonjsCoreMaterial.animations.
-        checkPrimitiveDiff(oldProps.backFaceCulling, newProps.backFaceCulling, 'backFaceCulling', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.checkReadyOnEveryCall, newProps.checkReadyOnEveryCall, 'checkReadyOnEveryCall', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.checkReadyOnlyOnce, newProps.checkReadyOnlyOnce, 'checkReadyOnlyOnce', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.depthFunction, newProps.depthFunction, 'depthFunction', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.disableDepthWrite, newProps.disableDepthWrite, 'disableDepthWrite', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.doNotSerialize, newProps.doNotSerialize, 'doNotSerialize', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.fillMode, newProps.fillMode, 'fillMode', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.fogEnabled, newProps.fogEnabled, 'fogEnabled', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.forceDepthWrite, newProps.forceDepthWrite, 'forceDepthWrite', 'boolean', changedProps)
-        checkLambdaDiff(oldProps.getRenderTargetTextures, newProps.getRenderTargetTextures, 'getRenderTargetTextures', '() => BabylonjsCoreSmartArray<BabylonjsCoreRenderTargetTexture>', changedProps)
-        checkPrimitiveDiff(oldProps.id, newProps.id, 'id', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.backFaceCulling, newProps.backFaceCulling, 'backFaceCulling', changedProps)
+        checkPrimitiveDiff(oldProps.checkReadyOnEveryCall, newProps.checkReadyOnEveryCall, 'checkReadyOnEveryCall', changedProps)
+        checkPrimitiveDiff(oldProps.checkReadyOnlyOnce, newProps.checkReadyOnlyOnce, 'checkReadyOnlyOnce', changedProps)
+        checkPrimitiveDiff(oldProps.depthFunction, newProps.depthFunction, 'depthFunction', changedProps)
+        checkPrimitiveDiff(oldProps.disableDepthWrite, newProps.disableDepthWrite, 'disableDepthWrite', changedProps)
+        checkPrimitiveDiff(oldProps.doNotSerialize, newProps.doNotSerialize, 'doNotSerialize', changedProps)
+        checkPrimitiveDiff(oldProps.fillMode, newProps.fillMode, 'fillMode', changedProps)
+        checkPrimitiveDiff(oldProps.fogEnabled, newProps.fogEnabled, 'fogEnabled', changedProps)
+        checkPrimitiveDiff(oldProps.forceDepthWrite, newProps.forceDepthWrite, 'forceDepthWrite', changedProps)
+        checkLambdaDiff(oldProps.getRenderTargetTextures, newProps.getRenderTargetTextures, 'getRenderTargetTextures', changedProps)
+        checkPrimitiveDiff(oldProps.id, newProps.id, 'id', changedProps)
         // type: 'BabylonjsCoreIInspectable[]' property (not coded) BabylonjsCoreMaterial.inspectableCustomProperties.
         // type: '{ [id: string]: BabylonjsCoreAbstractMesh; }' property (not coded) BabylonjsCoreMaterial.meshMap.
         // type: 'any' property (not coded) BabylonjsCoreMaterial.metadata.
-        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.needDepthPrePass, newProps.needDepthPrePass, 'needDepthPrePass', 'boolean', changedProps)
-        checkLambdaDiff(oldProps.onBind, newProps.onBind, 'onBind', '(Mesh: BabylonjsCoreAbstractMesh) => void', changedProps)
-        checkLambdaDiff(oldProps.onCompiled, newProps.onCompiled, 'onCompiled', '(effect: BabylonjsCoreEffect) => void', changedProps)
-        checkLambdaDiff(oldProps.onDispose, newProps.onDispose, 'onDispose', '() => void', changedProps)
-        checkObservableDiff(oldProps.onDisposeObservable, newProps.onDisposeObservable, 'onDisposeObservable', 'BabylonjsCoreObservable<BabylonjsCoreMaterial>', changedProps)
-        checkLambdaDiff(oldProps.onError, newProps.onError, 'onError', '(effect: BabylonjsCoreEffect, errors: string) => void', changedProps)
-        checkPrimitiveDiff(oldProps.pointsCloud, newProps.pointsCloud, 'pointsCloud', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.pointSize, newProps.pointSize, 'pointSize', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', changedProps)
+        checkPrimitiveDiff(oldProps.needDepthPrePass, newProps.needDepthPrePass, 'needDepthPrePass', changedProps)
+        checkLambdaDiff(oldProps.onBind, newProps.onBind, 'onBind', changedProps)
+        checkLambdaDiff(oldProps.onCompiled, newProps.onCompiled, 'onCompiled', changedProps)
+        checkLambdaDiff(oldProps.onDispose, newProps.onDispose, 'onDispose', changedProps)
+        checkObservableDiff(oldProps.onDisposeObservable, newProps.onDisposeObservable, 'onDisposeObservable', changedProps)
+        checkLambdaDiff(oldProps.onError, newProps.onError, 'onError', changedProps)
+        checkPrimitiveDiff(oldProps.pointsCloud, newProps.pointsCloud, 'pointsCloud', changedProps)
+        checkPrimitiveDiff(oldProps.pointSize, newProps.pointSize, 'pointSize', changedProps)
         // type: 'any' property (not coded) BabylonjsCoreMaterial.releaseVertexArrayObject.
         // type: 'any' property (not coded) BabylonjsCoreMaterial.reservedDataStore.
-        checkPrimitiveDiff(oldProps.separateCullingPass, newProps.separateCullingPass, 'separateCullingPass', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.sideOrientation, newProps.sideOrientation, 'sideOrientation', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.state, newProps.state, 'state', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.uniqueId, newProps.uniqueId, 'uniqueId', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.wireframe, newProps.wireframe, 'wireframe', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.zOffset, newProps.zOffset, 'zOffset', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.separateCullingPass, newProps.separateCullingPass, 'separateCullingPass', changedProps)
+        checkPrimitiveDiff(oldProps.sideOrientation, newProps.sideOrientation, 'sideOrientation', changedProps)
+        checkPrimitiveDiff(oldProps.state, newProps.state, 'state', changedProps)
+        checkPrimitiveDiff(oldProps.uniqueId, newProps.uniqueId, 'uniqueId', changedProps)
+        checkPrimitiveDiff(oldProps.wireframe, newProps.wireframe, 'wireframe', changedProps)
+        checkPrimitiveDiff(oldProps.zOffset, newProps.zOffset, 'zOffset', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -5425,25 +5425,25 @@ export class FiberShaderMaterialPropsHandler implements PropsHandler<FiberShader
     getPropertyUpdates(oldProps: FiberShaderMaterialProps, newProps: FiberShaderMaterialProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
         // type: 'any' property (not coded) BabylonjsCoreShaderMaterial.shaderPath.
-        checkMethodDiff(oldProps.setArray2, newProps.setArray2, 'setArray2', '(name?: string, value?: number[]) => BabylonjsCoreShaderMaterial', changedProps)
-        checkMethodDiff(oldProps.setArray3, newProps.setArray3, 'setArray3', '(name?: string, value?: number[]) => BabylonjsCoreShaderMaterial', changedProps)
-        checkMethodDiff(oldProps.setArray4, newProps.setArray4, 'setArray4', '(name?: string, value?: number[]) => BabylonjsCoreShaderMaterial', changedProps)
-        checkMethodDiff(oldProps.setColor3, newProps.setColor3, 'setColor3', '(name?: string, value?: BabylonjsCoreColor3) => BabylonjsCoreShaderMaterial', changedProps)
-        checkMethodDiff(oldProps.setColor3Array, newProps.setColor3Array, 'setColor3Array', '(name?: string, value?: BabylonjsCoreColor3[]) => BabylonjsCoreShaderMaterial', changedProps)
-        checkMethodDiff(oldProps.setColor4, newProps.setColor4, 'setColor4', '(name?: string, value?: BabylonjsCoreColor4) => BabylonjsCoreShaderMaterial', changedProps)
-        checkMethodDiff(oldProps.setColor4Array, newProps.setColor4Array, 'setColor4Array', '(name?: string, value?: BabylonjsCoreColor4[]) => BabylonjsCoreShaderMaterial', changedProps)
-        checkMethodDiff(oldProps.setFloat, newProps.setFloat, 'setFloat', '(name?: string, value?: number) => BabylonjsCoreShaderMaterial', changedProps)
-        checkMethodDiff(oldProps.setFloats, newProps.setFloats, 'setFloats', '(name?: string, value?: number[]) => BabylonjsCoreShaderMaterial', changedProps)
-        checkMethodDiff(oldProps.setInt, newProps.setInt, 'setInt', '(name?: string, value?: number) => BabylonjsCoreShaderMaterial', changedProps)
-        checkMethodDiff(oldProps.setMatrices, newProps.setMatrices, 'setMatrices', '(name?: string, value?: BabylonjsCoreMatrix[]) => BabylonjsCoreShaderMaterial', changedProps)
-        checkMethodDiff(oldProps.setMatrix, newProps.setMatrix, 'setMatrix', '(name?: string, value?: BabylonjsCoreMatrix) => BabylonjsCoreShaderMaterial', changedProps)
-        checkMethodDiff(oldProps.setMatrix2x2, newProps.setMatrix2x2, 'setMatrix2x2', '(name?: string, value?: Float32Array) => BabylonjsCoreShaderMaterial', changedProps)
-        checkMethodDiff(oldProps.setMatrix3x3, newProps.setMatrix3x3, 'setMatrix3x3', '(name?: string, value?: Float32Array) => BabylonjsCoreShaderMaterial', changedProps)
-        checkMethodDiff(oldProps.setTexture, newProps.setTexture, 'setTexture', '(name?: string, texture?: BabylonjsCoreTexture) => BabylonjsCoreShaderMaterial', changedProps)
-        checkMethodDiff(oldProps.setTextureArray, newProps.setTextureArray, 'setTextureArray', '(name?: string, textures?: BabylonjsCoreTexture[]) => BabylonjsCoreShaderMaterial', changedProps)
-        checkMethodDiff(oldProps.setVector2, newProps.setVector2, 'setVector2', '(name?: string, value?: BabylonjsCoreVector2) => BabylonjsCoreShaderMaterial', changedProps)
-        checkMethodDiff(oldProps.setVector3, newProps.setVector3, 'setVector3', '(name?: string, value?: BabylonjsCoreVector3) => BabylonjsCoreShaderMaterial', changedProps)
-        checkMethodDiff(oldProps.setVector4, newProps.setVector4, 'setVector4', '(name?: string, value?: BabylonjsCoreVector4) => BabylonjsCoreShaderMaterial', changedProps)
+        checkMethodDiff(oldProps.setArray2, newProps.setArray2, 'setArray2', changedProps)
+        checkMethodDiff(oldProps.setArray3, newProps.setArray3, 'setArray3', changedProps)
+        checkMethodDiff(oldProps.setArray4, newProps.setArray4, 'setArray4', changedProps)
+        checkMethodDiff(oldProps.setColor3, newProps.setColor3, 'setColor3', changedProps)
+        checkMethodDiff(oldProps.setColor3Array, newProps.setColor3Array, 'setColor3Array', changedProps)
+        checkMethodDiff(oldProps.setColor4, newProps.setColor4, 'setColor4', changedProps)
+        checkMethodDiff(oldProps.setColor4Array, newProps.setColor4Array, 'setColor4Array', changedProps)
+        checkMethodDiff(oldProps.setFloat, newProps.setFloat, 'setFloat', changedProps)
+        checkMethodDiff(oldProps.setFloats, newProps.setFloats, 'setFloats', changedProps)
+        checkMethodDiff(oldProps.setInt, newProps.setInt, 'setInt', changedProps)
+        checkMethodDiff(oldProps.setMatrices, newProps.setMatrices, 'setMatrices', changedProps)
+        checkMethodDiff(oldProps.setMatrix, newProps.setMatrix, 'setMatrix', changedProps)
+        checkMethodDiff(oldProps.setMatrix2x2, newProps.setMatrix2x2, 'setMatrix2x2', changedProps)
+        checkMethodDiff(oldProps.setMatrix3x3, newProps.setMatrix3x3, 'setMatrix3x3', changedProps)
+        checkMethodDiff(oldProps.setTexture, newProps.setTexture, 'setTexture', changedProps)
+        checkMethodDiff(oldProps.setTextureArray, newProps.setTextureArray, 'setTextureArray', changedProps)
+        checkMethodDiff(oldProps.setVector2, newProps.setVector2, 'setVector2', changedProps)
+        checkMethodDiff(oldProps.setVector3, newProps.setVector3, 'setVector3', changedProps)
+        checkMethodDiff(oldProps.setVector4, newProps.setVector4, 'setVector4', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -5563,7 +5563,7 @@ export class FiberMultiMaterial implements HasPropsHandlers<FiberMaterialProps> 
 export class FiberPushMaterialPropsHandler implements PropsHandler<FiberPushMaterialProps> {
     getPropertyUpdates(oldProps: FiberPushMaterialProps, newProps: FiberPushMaterialProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.allowShaderHotSwapping, newProps.allowShaderHotSwapping, 'allowShaderHotSwapping', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.allowShaderHotSwapping, newProps.allowShaderHotSwapping, 'allowShaderHotSwapping', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -5617,67 +5617,67 @@ export class FiberPushMaterial implements HasPropsHandlers<FiberMaterialProps> {
 export class FiberStandardMaterialPropsHandler implements PropsHandler<FiberStandardMaterialProps> {
     getPropertyUpdates(oldProps: FiberStandardMaterialProps, newProps: FiberStandardMaterialProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.alphaCutOff, newProps.alphaCutOff, 'alphaCutOff', 'number', changedProps)
-        checkColor3Diff(oldProps.ambientColor, newProps.ambientColor, 'ambientColor', 'BabylonjsCoreColor3', changedProps)
-        checkTextureDiff(oldProps.ambientTexture, newProps.ambientTexture, 'ambientTexture', 'BabylonjsCoreBaseTexture', changedProps)
-        checkPrimitiveDiff(oldProps.AmbientTextureEnabled, newProps.AmbientTextureEnabled, 'AmbientTextureEnabled', 'boolean', changedProps)
-        checkTextureDiff(oldProps.bumpTexture, newProps.bumpTexture, 'bumpTexture', 'BabylonjsCoreBaseTexture', changedProps)
-        checkPrimitiveDiff(oldProps.BumpTextureEnabled, newProps.BumpTextureEnabled, 'BumpTextureEnabled', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.alphaCutOff, newProps.alphaCutOff, 'alphaCutOff', changedProps)
+        checkColor3Diff(oldProps.ambientColor, newProps.ambientColor, 'ambientColor', changedProps)
+        checkTextureDiff(oldProps.ambientTexture, newProps.ambientTexture, 'ambientTexture', changedProps)
+        checkPrimitiveDiff(oldProps.AmbientTextureEnabled, newProps.AmbientTextureEnabled, 'AmbientTextureEnabled', changedProps)
+        checkTextureDiff(oldProps.bumpTexture, newProps.bumpTexture, 'bumpTexture', changedProps)
+        checkPrimitiveDiff(oldProps.BumpTextureEnabled, newProps.BumpTextureEnabled, 'BumpTextureEnabled', changedProps)
         // type: 'BabylonjsCoreColorCurves' property (not coded) BabylonjsCoreStandardMaterial.cameraColorCurves.
-        checkPrimitiveDiff(oldProps.cameraColorCurvesEnabled, newProps.cameraColorCurvesEnabled, 'cameraColorCurvesEnabled', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.cameraColorGradingEnabled, newProps.cameraColorGradingEnabled, 'cameraColorGradingEnabled', 'boolean', changedProps)
-        checkTextureDiff(oldProps.cameraColorGradingTexture, newProps.cameraColorGradingTexture, 'cameraColorGradingTexture', 'BabylonjsCoreBaseTexture', changedProps)
-        checkPrimitiveDiff(oldProps.cameraContrast, newProps.cameraContrast, 'cameraContrast', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.cameraExposure, newProps.cameraExposure, 'cameraExposure', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.cameraToneMappingEnabled, newProps.cameraToneMappingEnabled, 'cameraToneMappingEnabled', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.ColorGradingTextureEnabled, newProps.ColorGradingTextureEnabled, 'ColorGradingTextureEnabled', 'boolean', changedProps)
-        checkLambdaDiff(oldProps.customShaderNameResolve, newProps.customShaderNameResolve, 'customShaderNameResolve', '(shaderName: string, uniforms: string[], uniformBuffers: string[], samplers: string[], defines: BabylonjsCoreStandardMaterialDefines) => string', changedProps)
-        checkColor3Diff(oldProps.diffuseColor, newProps.diffuseColor, 'diffuseColor', 'BabylonjsCoreColor3', changedProps)
-        checkFresnelParametersDiff(oldProps.diffuseFresnelParameters, newProps.diffuseFresnelParameters, 'diffuseFresnelParameters', 'BabylonjsCoreFresnelParameters', changedProps)
-        checkTextureDiff(oldProps.diffuseTexture, newProps.diffuseTexture, 'diffuseTexture', 'BabylonjsCoreBaseTexture', changedProps)
-        checkPrimitiveDiff(oldProps.DiffuseTextureEnabled, newProps.DiffuseTextureEnabled, 'DiffuseTextureEnabled', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.disableLighting, newProps.disableLighting, 'disableLighting', 'boolean', changedProps)
-        checkColor3Diff(oldProps.emissiveColor, newProps.emissiveColor, 'emissiveColor', 'BabylonjsCoreColor3', changedProps)
-        checkFresnelParametersDiff(oldProps.emissiveFresnelParameters, newProps.emissiveFresnelParameters, 'emissiveFresnelParameters', 'BabylonjsCoreFresnelParameters', changedProps)
-        checkTextureDiff(oldProps.emissiveTexture, newProps.emissiveTexture, 'emissiveTexture', 'BabylonjsCoreBaseTexture', changedProps)
-        checkPrimitiveDiff(oldProps.EmissiveTextureEnabled, newProps.EmissiveTextureEnabled, 'EmissiveTextureEnabled', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.FresnelEnabled, newProps.FresnelEnabled, 'FresnelEnabled', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.cameraColorCurvesEnabled, newProps.cameraColorCurvesEnabled, 'cameraColorCurvesEnabled', changedProps)
+        checkPrimitiveDiff(oldProps.cameraColorGradingEnabled, newProps.cameraColorGradingEnabled, 'cameraColorGradingEnabled', changedProps)
+        checkTextureDiff(oldProps.cameraColorGradingTexture, newProps.cameraColorGradingTexture, 'cameraColorGradingTexture', changedProps)
+        checkPrimitiveDiff(oldProps.cameraContrast, newProps.cameraContrast, 'cameraContrast', changedProps)
+        checkPrimitiveDiff(oldProps.cameraExposure, newProps.cameraExposure, 'cameraExposure', changedProps)
+        checkPrimitiveDiff(oldProps.cameraToneMappingEnabled, newProps.cameraToneMappingEnabled, 'cameraToneMappingEnabled', changedProps)
+        checkPrimitiveDiff(oldProps.ColorGradingTextureEnabled, newProps.ColorGradingTextureEnabled, 'ColorGradingTextureEnabled', changedProps)
+        checkLambdaDiff(oldProps.customShaderNameResolve, newProps.customShaderNameResolve, 'customShaderNameResolve', changedProps)
+        checkColor3Diff(oldProps.diffuseColor, newProps.diffuseColor, 'diffuseColor', changedProps)
+        checkFresnelParametersDiff(oldProps.diffuseFresnelParameters, newProps.diffuseFresnelParameters, 'diffuseFresnelParameters', changedProps)
+        checkTextureDiff(oldProps.diffuseTexture, newProps.diffuseTexture, 'diffuseTexture', changedProps)
+        checkPrimitiveDiff(oldProps.DiffuseTextureEnabled, newProps.DiffuseTextureEnabled, 'DiffuseTextureEnabled', changedProps)
+        checkPrimitiveDiff(oldProps.disableLighting, newProps.disableLighting, 'disableLighting', changedProps)
+        checkColor3Diff(oldProps.emissiveColor, newProps.emissiveColor, 'emissiveColor', changedProps)
+        checkFresnelParametersDiff(oldProps.emissiveFresnelParameters, newProps.emissiveFresnelParameters, 'emissiveFresnelParameters', changedProps)
+        checkTextureDiff(oldProps.emissiveTexture, newProps.emissiveTexture, 'emissiveTexture', changedProps)
+        checkPrimitiveDiff(oldProps.EmissiveTextureEnabled, newProps.EmissiveTextureEnabled, 'EmissiveTextureEnabled', changedProps)
+        checkPrimitiveDiff(oldProps.FresnelEnabled, newProps.FresnelEnabled, 'FresnelEnabled', changedProps)
         // type: 'BabylonjsCoreImageProcessingConfiguration' property (not coded) BabylonjsCoreStandardMaterial.imageProcessingConfiguration.
-        checkPrimitiveDiff(oldProps.indexOfRefraction, newProps.indexOfRefraction, 'indexOfRefraction', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.invertNormalMapX, newProps.invertNormalMapX, 'invertNormalMapX', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.invertNormalMapY, newProps.invertNormalMapY, 'invertNormalMapY', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.invertRefractionY, newProps.invertRefractionY, 'invertRefractionY', 'boolean', changedProps)
-        checkTextureDiff(oldProps.lightmapTexture, newProps.lightmapTexture, 'lightmapTexture', 'BabylonjsCoreBaseTexture', changedProps)
-        checkPrimitiveDiff(oldProps.LightmapTextureEnabled, newProps.LightmapTextureEnabled, 'LightmapTextureEnabled', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.linkEmissiveWithDiffuse, newProps.linkEmissiveWithDiffuse, 'linkEmissiveWithDiffuse', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.maxSimultaneousLights, newProps.maxSimultaneousLights, 'maxSimultaneousLights', 'number', changedProps)
-        checkFresnelParametersDiff(oldProps.opacityFresnelParameters, newProps.opacityFresnelParameters, 'opacityFresnelParameters', 'BabylonjsCoreFresnelParameters', changedProps)
-        checkTextureDiff(oldProps.opacityTexture, newProps.opacityTexture, 'opacityTexture', 'BabylonjsCoreBaseTexture', changedProps)
-        checkPrimitiveDiff(oldProps.OpacityTextureEnabled, newProps.OpacityTextureEnabled, 'OpacityTextureEnabled', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.parallaxScaleBias, newProps.parallaxScaleBias, 'parallaxScaleBias', 'number', changedProps)
-        checkFresnelParametersDiff(oldProps.reflectionFresnelParameters, newProps.reflectionFresnelParameters, 'reflectionFresnelParameters', 'BabylonjsCoreFresnelParameters', changedProps)
-        checkTextureDiff(oldProps.reflectionTexture, newProps.reflectionTexture, 'reflectionTexture', 'BabylonjsCoreBaseTexture', changedProps)
-        checkPrimitiveDiff(oldProps.ReflectionTextureEnabled, newProps.ReflectionTextureEnabled, 'ReflectionTextureEnabled', 'boolean', changedProps)
-        checkFresnelParametersDiff(oldProps.refractionFresnelParameters, newProps.refractionFresnelParameters, 'refractionFresnelParameters', 'BabylonjsCoreFresnelParameters', changedProps)
-        checkTextureDiff(oldProps.refractionTexture, newProps.refractionTexture, 'refractionTexture', 'BabylonjsCoreBaseTexture', changedProps)
-        checkPrimitiveDiff(oldProps.RefractionTextureEnabled, newProps.RefractionTextureEnabled, 'RefractionTextureEnabled', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.roughness, newProps.roughness, 'roughness', 'number', changedProps)
-        checkColor3Diff(oldProps.specularColor, newProps.specularColor, 'specularColor', 'BabylonjsCoreColor3', changedProps)
-        checkPrimitiveDiff(oldProps.specularPower, newProps.specularPower, 'specularPower', 'number', changedProps)
-        checkTextureDiff(oldProps.specularTexture, newProps.specularTexture, 'specularTexture', 'BabylonjsCoreBaseTexture', changedProps)
-        checkPrimitiveDiff(oldProps.SpecularTextureEnabled, newProps.SpecularTextureEnabled, 'SpecularTextureEnabled', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.twoSidedLighting, newProps.twoSidedLighting, 'twoSidedLighting', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.useAlphaFromDiffuseTexture, newProps.useAlphaFromDiffuseTexture, 'useAlphaFromDiffuseTexture', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.useEmissiveAsIllumination, newProps.useEmissiveAsIllumination, 'useEmissiveAsIllumination', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.useGlossinessFromSpecularMapAlpha, newProps.useGlossinessFromSpecularMapAlpha, 'useGlossinessFromSpecularMapAlpha', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.useLightmapAsShadowmap, newProps.useLightmapAsShadowmap, 'useLightmapAsShadowmap', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.useLogarithmicDepth, newProps.useLogarithmicDepth, 'useLogarithmicDepth', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.useObjectSpaceNormalMap, newProps.useObjectSpaceNormalMap, 'useObjectSpaceNormalMap', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.useParallax, newProps.useParallax, 'useParallax', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.useParallaxOcclusion, newProps.useParallaxOcclusion, 'useParallaxOcclusion', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.useReflectionFresnelFromSpecular, newProps.useReflectionFresnelFromSpecular, 'useReflectionFresnelFromSpecular', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.useReflectionOverAlpha, newProps.useReflectionOverAlpha, 'useReflectionOverAlpha', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.useSpecularOverAlpha, newProps.useSpecularOverAlpha, 'useSpecularOverAlpha', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.indexOfRefraction, newProps.indexOfRefraction, 'indexOfRefraction', changedProps)
+        checkPrimitiveDiff(oldProps.invertNormalMapX, newProps.invertNormalMapX, 'invertNormalMapX', changedProps)
+        checkPrimitiveDiff(oldProps.invertNormalMapY, newProps.invertNormalMapY, 'invertNormalMapY', changedProps)
+        checkPrimitiveDiff(oldProps.invertRefractionY, newProps.invertRefractionY, 'invertRefractionY', changedProps)
+        checkTextureDiff(oldProps.lightmapTexture, newProps.lightmapTexture, 'lightmapTexture', changedProps)
+        checkPrimitiveDiff(oldProps.LightmapTextureEnabled, newProps.LightmapTextureEnabled, 'LightmapTextureEnabled', changedProps)
+        checkPrimitiveDiff(oldProps.linkEmissiveWithDiffuse, newProps.linkEmissiveWithDiffuse, 'linkEmissiveWithDiffuse', changedProps)
+        checkPrimitiveDiff(oldProps.maxSimultaneousLights, newProps.maxSimultaneousLights, 'maxSimultaneousLights', changedProps)
+        checkFresnelParametersDiff(oldProps.opacityFresnelParameters, newProps.opacityFresnelParameters, 'opacityFresnelParameters', changedProps)
+        checkTextureDiff(oldProps.opacityTexture, newProps.opacityTexture, 'opacityTexture', changedProps)
+        checkPrimitiveDiff(oldProps.OpacityTextureEnabled, newProps.OpacityTextureEnabled, 'OpacityTextureEnabled', changedProps)
+        checkPrimitiveDiff(oldProps.parallaxScaleBias, newProps.parallaxScaleBias, 'parallaxScaleBias', changedProps)
+        checkFresnelParametersDiff(oldProps.reflectionFresnelParameters, newProps.reflectionFresnelParameters, 'reflectionFresnelParameters', changedProps)
+        checkTextureDiff(oldProps.reflectionTexture, newProps.reflectionTexture, 'reflectionTexture', changedProps)
+        checkPrimitiveDiff(oldProps.ReflectionTextureEnabled, newProps.ReflectionTextureEnabled, 'ReflectionTextureEnabled', changedProps)
+        checkFresnelParametersDiff(oldProps.refractionFresnelParameters, newProps.refractionFresnelParameters, 'refractionFresnelParameters', changedProps)
+        checkTextureDiff(oldProps.refractionTexture, newProps.refractionTexture, 'refractionTexture', changedProps)
+        checkPrimitiveDiff(oldProps.RefractionTextureEnabled, newProps.RefractionTextureEnabled, 'RefractionTextureEnabled', changedProps)
+        checkPrimitiveDiff(oldProps.roughness, newProps.roughness, 'roughness', changedProps)
+        checkColor3Diff(oldProps.specularColor, newProps.specularColor, 'specularColor', changedProps)
+        checkPrimitiveDiff(oldProps.specularPower, newProps.specularPower, 'specularPower', changedProps)
+        checkTextureDiff(oldProps.specularTexture, newProps.specularTexture, 'specularTexture', changedProps)
+        checkPrimitiveDiff(oldProps.SpecularTextureEnabled, newProps.SpecularTextureEnabled, 'SpecularTextureEnabled', changedProps)
+        checkPrimitiveDiff(oldProps.twoSidedLighting, newProps.twoSidedLighting, 'twoSidedLighting', changedProps)
+        checkPrimitiveDiff(oldProps.useAlphaFromDiffuseTexture, newProps.useAlphaFromDiffuseTexture, 'useAlphaFromDiffuseTexture', changedProps)
+        checkPrimitiveDiff(oldProps.useEmissiveAsIllumination, newProps.useEmissiveAsIllumination, 'useEmissiveAsIllumination', changedProps)
+        checkPrimitiveDiff(oldProps.useGlossinessFromSpecularMapAlpha, newProps.useGlossinessFromSpecularMapAlpha, 'useGlossinessFromSpecularMapAlpha', changedProps)
+        checkPrimitiveDiff(oldProps.useLightmapAsShadowmap, newProps.useLightmapAsShadowmap, 'useLightmapAsShadowmap', changedProps)
+        checkPrimitiveDiff(oldProps.useLogarithmicDepth, newProps.useLogarithmicDepth, 'useLogarithmicDepth', changedProps)
+        checkPrimitiveDiff(oldProps.useObjectSpaceNormalMap, newProps.useObjectSpaceNormalMap, 'useObjectSpaceNormalMap', changedProps)
+        checkPrimitiveDiff(oldProps.useParallax, newProps.useParallax, 'useParallax', changedProps)
+        checkPrimitiveDiff(oldProps.useParallaxOcclusion, newProps.useParallaxOcclusion, 'useParallaxOcclusion', changedProps)
+        checkPrimitiveDiff(oldProps.useReflectionFresnelFromSpecular, newProps.useReflectionFresnelFromSpecular, 'useReflectionFresnelFromSpecular', changedProps)
+        checkPrimitiveDiff(oldProps.useReflectionOverAlpha, newProps.useReflectionOverAlpha, 'useReflectionOverAlpha', changedProps)
+        checkPrimitiveDiff(oldProps.useSpecularOverAlpha, newProps.useSpecularOverAlpha, 'useSpecularOverAlpha', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -5733,37 +5733,37 @@ export class FiberStandardMaterial implements HasPropsHandlers<FiberMaterialProp
 export class FiberBackgroundMaterialPropsHandler implements PropsHandler<FiberBackgroundMaterialProps> {
     getPropertyUpdates(oldProps: FiberBackgroundMaterialProps, newProps: FiberBackgroundMaterialProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkColor3Diff(oldProps._perceptualColor, newProps._perceptualColor, '_perceptualColor', 'BabylonjsCoreColor3', changedProps)
+        checkColor3Diff(oldProps._perceptualColor, newProps._perceptualColor, '_perceptualColor', changedProps)
         // type: 'BabylonjsCoreColorCurves' property (not coded) BabylonjsCoreBackgroundMaterial.cameraColorCurves.
-        checkPrimitiveDiff(oldProps.cameraColorCurvesEnabled, newProps.cameraColorCurvesEnabled, 'cameraColorCurvesEnabled', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.cameraColorGradingEnabled, newProps.cameraColorGradingEnabled, 'cameraColorGradingEnabled', 'boolean', changedProps)
-        checkTextureDiff(oldProps.cameraColorGradingTexture, newProps.cameraColorGradingTexture, 'cameraColorGradingTexture', 'BabylonjsCoreBaseTexture', changedProps)
-        checkPrimitiveDiff(oldProps.cameraContrast, newProps.cameraContrast, 'cameraContrast', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.cameraExposure, newProps.cameraExposure, 'cameraExposure', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.cameraToneMappingEnabled, newProps.cameraToneMappingEnabled, 'cameraToneMappingEnabled', 'boolean', changedProps)
-        checkTextureDiff(oldProps.diffuseTexture, newProps.diffuseTexture, 'diffuseTexture', 'BabylonjsCoreBaseTexture', changedProps)
-        checkPrimitiveDiff(oldProps.enableNoise, newProps.enableNoise, 'enableNoise', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.fovMultiplier, newProps.fovMultiplier, 'fovMultiplier', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.cameraColorCurvesEnabled, newProps.cameraColorCurvesEnabled, 'cameraColorCurvesEnabled', changedProps)
+        checkPrimitiveDiff(oldProps.cameraColorGradingEnabled, newProps.cameraColorGradingEnabled, 'cameraColorGradingEnabled', changedProps)
+        checkTextureDiff(oldProps.cameraColorGradingTexture, newProps.cameraColorGradingTexture, 'cameraColorGradingTexture', changedProps)
+        checkPrimitiveDiff(oldProps.cameraContrast, newProps.cameraContrast, 'cameraContrast', changedProps)
+        checkPrimitiveDiff(oldProps.cameraExposure, newProps.cameraExposure, 'cameraExposure', changedProps)
+        checkPrimitiveDiff(oldProps.cameraToneMappingEnabled, newProps.cameraToneMappingEnabled, 'cameraToneMappingEnabled', changedProps)
+        checkTextureDiff(oldProps.diffuseTexture, newProps.diffuseTexture, 'diffuseTexture', changedProps)
+        checkPrimitiveDiff(oldProps.enableNoise, newProps.enableNoise, 'enableNoise', changedProps)
+        checkPrimitiveDiff(oldProps.fovMultiplier, newProps.fovMultiplier, 'fovMultiplier', changedProps)
         // type: 'BabylonjsCoreImageProcessingConfiguration' property (not coded) BabylonjsCoreBackgroundMaterial.imageProcessingConfiguration.
-        checkPrimitiveDiff(oldProps.maxSimultaneousLights, newProps.maxSimultaneousLights, 'maxSimultaneousLights', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.opacityFresnel, newProps.opacityFresnel, 'opacityFresnel', 'boolean', changedProps)
-        checkColor3Diff(oldProps.primaryColor, newProps.primaryColor, 'primaryColor', 'BabylonjsCoreColor3', changedProps)
-        checkPrimitiveDiff(oldProps.primaryColorHighlightLevel, newProps.primaryColorHighlightLevel, 'primaryColorHighlightLevel', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.primaryColorShadowLevel, newProps.primaryColorShadowLevel, 'primaryColorShadowLevel', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.reflectionAmount, newProps.reflectionAmount, 'reflectionAmount', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.reflectionBlur, newProps.reflectionBlur, 'reflectionBlur', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.reflectionFalloffDistance, newProps.reflectionFalloffDistance, 'reflectionFalloffDistance', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.reflectionFresnel, newProps.reflectionFresnel, 'reflectionFresnel', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.reflectionReflectance0, newProps.reflectionReflectance0, 'reflectionReflectance0', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.reflectionReflectance90, newProps.reflectionReflectance90, 'reflectionReflectance90', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.reflectionStandardFresnelWeight, newProps.reflectionStandardFresnelWeight, 'reflectionStandardFresnelWeight', 'number', changedProps)
-        checkTextureDiff(oldProps.reflectionTexture, newProps.reflectionTexture, 'reflectionTexture', 'BabylonjsCoreBaseTexture', changedProps)
-        checkVector3Diff(oldProps.sceneCenter, newProps.sceneCenter, 'sceneCenter', 'BabylonjsCoreVector3', changedProps)
-        checkPrimitiveDiff(oldProps.shadowLevel, newProps.shadowLevel, 'shadowLevel', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.maxSimultaneousLights, newProps.maxSimultaneousLights, 'maxSimultaneousLights', changedProps)
+        checkPrimitiveDiff(oldProps.opacityFresnel, newProps.opacityFresnel, 'opacityFresnel', changedProps)
+        checkColor3Diff(oldProps.primaryColor, newProps.primaryColor, 'primaryColor', changedProps)
+        checkPrimitiveDiff(oldProps.primaryColorHighlightLevel, newProps.primaryColorHighlightLevel, 'primaryColorHighlightLevel', changedProps)
+        checkPrimitiveDiff(oldProps.primaryColorShadowLevel, newProps.primaryColorShadowLevel, 'primaryColorShadowLevel', changedProps)
+        checkPrimitiveDiff(oldProps.reflectionAmount, newProps.reflectionAmount, 'reflectionAmount', changedProps)
+        checkPrimitiveDiff(oldProps.reflectionBlur, newProps.reflectionBlur, 'reflectionBlur', changedProps)
+        checkPrimitiveDiff(oldProps.reflectionFalloffDistance, newProps.reflectionFalloffDistance, 'reflectionFalloffDistance', changedProps)
+        checkPrimitiveDiff(oldProps.reflectionFresnel, newProps.reflectionFresnel, 'reflectionFresnel', changedProps)
+        checkPrimitiveDiff(oldProps.reflectionReflectance0, newProps.reflectionReflectance0, 'reflectionReflectance0', changedProps)
+        checkPrimitiveDiff(oldProps.reflectionReflectance90, newProps.reflectionReflectance90, 'reflectionReflectance90', changedProps)
+        checkPrimitiveDiff(oldProps.reflectionStandardFresnelWeight, newProps.reflectionStandardFresnelWeight, 'reflectionStandardFresnelWeight', changedProps)
+        checkTextureDiff(oldProps.reflectionTexture, newProps.reflectionTexture, 'reflectionTexture', changedProps)
+        checkVector3Diff(oldProps.sceneCenter, newProps.sceneCenter, 'sceneCenter', changedProps)
+        checkPrimitiveDiff(oldProps.shadowLevel, newProps.shadowLevel, 'shadowLevel', changedProps)
         // type: 'BabylonjsCoreIShadowLight[]' property (not coded) BabylonjsCoreBackgroundMaterial.shadowLights.
-        checkPrimitiveDiff(oldProps.switchToBGR, newProps.switchToBGR, 'switchToBGR', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.useEquirectangularFOV, newProps.useEquirectangularFOV, 'useEquirectangularFOV', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.useRGBColor, newProps.useRGBColor, 'useRGBColor', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.switchToBGR, newProps.switchToBGR, 'switchToBGR', changedProps)
+        checkPrimitiveDiff(oldProps.useEquirectangularFOV, newProps.useEquirectangularFOV, 'useEquirectangularFOV', changedProps)
+        checkPrimitiveDiff(oldProps.useRGBColor, newProps.useRGBColor, 'useRGBColor', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -5818,12 +5818,12 @@ export class FiberBackgroundMaterial implements HasPropsHandlers<FiberMaterialPr
 export class FiberPBRBaseMaterialPropsHandler implements PropsHandler<FiberPBRBaseMaterialProps> {
     getPropertyUpdates(oldProps: FiberPBRBaseMaterialProps, newProps: FiberPBRBaseMaterialProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkLambdaDiff(oldProps.customShaderNameResolve, newProps.customShaderNameResolve, 'customShaderNameResolve', '(shaderName: string, uniforms: string[], uniformBuffers: string[], samplers: string[], defines: BabylonjsCorePBRMaterialDefines) => string', changedProps)
+        checkLambdaDiff(oldProps.customShaderNameResolve, newProps.customShaderNameResolve, 'customShaderNameResolve', changedProps)
         // type: 'any' property (not coded) BabylonjsCorePBRBaseMaterial.debugFactor.
         // type: 'any' property (not coded) BabylonjsCorePBRBaseMaterial.debugLimit.
-        checkPrimitiveDiff(oldProps.debugMode, newProps.debugMode, 'debugMode', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.transparencyMode, newProps.transparencyMode, 'transparencyMode', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.useLogarithmicDepth, newProps.useLogarithmicDepth, 'useLogarithmicDepth', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.debugMode, newProps.debugMode, 'debugMode', changedProps)
+        checkPrimitiveDiff(oldProps.transparencyMode, newProps.transparencyMode, 'transparencyMode', changedProps)
+        checkPrimitiveDiff(oldProps.useLogarithmicDepth, newProps.useLogarithmicDepth, 'useLogarithmicDepth', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -5882,20 +5882,20 @@ export class FiberPBRBaseMaterial implements HasPropsHandlers<FiberMaterialProps
 export class FiberPBRBaseSimpleMaterialPropsHandler implements PropsHandler<FiberPBRBaseSimpleMaterialProps> {
     getPropertyUpdates(oldProps: FiberPBRBaseSimpleMaterialProps, newProps: FiberPBRBaseSimpleMaterialProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.alphaCutOff, newProps.alphaCutOff, 'alphaCutOff', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.disableLighting, newProps.disableLighting, 'disableLighting', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.doubleSided, newProps.doubleSided, 'doubleSided', 'boolean', changedProps)
-        checkColor3Diff(oldProps.emissiveColor, newProps.emissiveColor, 'emissiveColor', 'BabylonjsCoreColor3', changedProps)
-        checkTextureDiff(oldProps.emissiveTexture, newProps.emissiveTexture, 'emissiveTexture', 'BabylonjsCoreBaseTexture', changedProps)
-        checkTextureDiff(oldProps.environmentTexture, newProps.environmentTexture, 'environmentTexture', 'BabylonjsCoreBaseTexture', changedProps)
-        checkPrimitiveDiff(oldProps.invertNormalMapX, newProps.invertNormalMapX, 'invertNormalMapX', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.invertNormalMapY, newProps.invertNormalMapY, 'invertNormalMapY', 'boolean', changedProps)
-        checkTextureDiff(oldProps.lightmapTexture, newProps.lightmapTexture, 'lightmapTexture', 'BabylonjsCoreBaseTexture', changedProps)
-        checkPrimitiveDiff(oldProps.maxSimultaneousLights, newProps.maxSimultaneousLights, 'maxSimultaneousLights', 'number', changedProps)
-        checkTextureDiff(oldProps.normalTexture, newProps.normalTexture, 'normalTexture', 'BabylonjsCoreBaseTexture', changedProps)
-        checkPrimitiveDiff(oldProps.occlusionStrength, newProps.occlusionStrength, 'occlusionStrength', 'number', changedProps)
-        checkTextureDiff(oldProps.occlusionTexture, newProps.occlusionTexture, 'occlusionTexture', 'BabylonjsCoreBaseTexture', changedProps)
-        checkPrimitiveDiff(oldProps.useLightmapAsShadowmap, newProps.useLightmapAsShadowmap, 'useLightmapAsShadowmap', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.alphaCutOff, newProps.alphaCutOff, 'alphaCutOff', changedProps)
+        checkPrimitiveDiff(oldProps.disableLighting, newProps.disableLighting, 'disableLighting', changedProps)
+        checkPrimitiveDiff(oldProps.doubleSided, newProps.doubleSided, 'doubleSided', changedProps)
+        checkColor3Diff(oldProps.emissiveColor, newProps.emissiveColor, 'emissiveColor', changedProps)
+        checkTextureDiff(oldProps.emissiveTexture, newProps.emissiveTexture, 'emissiveTexture', changedProps)
+        checkTextureDiff(oldProps.environmentTexture, newProps.environmentTexture, 'environmentTexture', changedProps)
+        checkPrimitiveDiff(oldProps.invertNormalMapX, newProps.invertNormalMapX, 'invertNormalMapX', changedProps)
+        checkPrimitiveDiff(oldProps.invertNormalMapY, newProps.invertNormalMapY, 'invertNormalMapY', changedProps)
+        checkTextureDiff(oldProps.lightmapTexture, newProps.lightmapTexture, 'lightmapTexture', changedProps)
+        checkPrimitiveDiff(oldProps.maxSimultaneousLights, newProps.maxSimultaneousLights, 'maxSimultaneousLights', changedProps)
+        checkTextureDiff(oldProps.normalTexture, newProps.normalTexture, 'normalTexture', changedProps)
+        checkPrimitiveDiff(oldProps.occlusionStrength, newProps.occlusionStrength, 'occlusionStrength', changedProps)
+        checkTextureDiff(oldProps.occlusionTexture, newProps.occlusionTexture, 'occlusionTexture', changedProps)
+        checkPrimitiveDiff(oldProps.useLightmapAsShadowmap, newProps.useLightmapAsShadowmap, 'useLightmapAsShadowmap', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -5954,11 +5954,11 @@ export class FiberPBRBaseSimpleMaterial implements HasPropsHandlers<FiberMateria
 export class FiberPBRMetallicRoughnessMaterialPropsHandler implements PropsHandler<FiberPBRMetallicRoughnessMaterialProps> {
     getPropertyUpdates(oldProps: FiberPBRMetallicRoughnessMaterialProps, newProps: FiberPBRMetallicRoughnessMaterialProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkColor3Diff(oldProps.baseColor, newProps.baseColor, 'baseColor', 'BabylonjsCoreColor3', changedProps)
-        checkTextureDiff(oldProps.baseTexture, newProps.baseTexture, 'baseTexture', 'BabylonjsCoreBaseTexture', changedProps)
-        checkPrimitiveDiff(oldProps.metallic, newProps.metallic, 'metallic', 'number', changedProps)
-        checkTextureDiff(oldProps.metallicRoughnessTexture, newProps.metallicRoughnessTexture, 'metallicRoughnessTexture', 'BabylonjsCoreBaseTexture', changedProps)
-        checkPrimitiveDiff(oldProps.roughness, newProps.roughness, 'roughness', 'number', changedProps)
+        checkColor3Diff(oldProps.baseColor, newProps.baseColor, 'baseColor', changedProps)
+        checkTextureDiff(oldProps.baseTexture, newProps.baseTexture, 'baseTexture', changedProps)
+        checkPrimitiveDiff(oldProps.metallic, newProps.metallic, 'metallic', changedProps)
+        checkTextureDiff(oldProps.metallicRoughnessTexture, newProps.metallicRoughnessTexture, 'metallicRoughnessTexture', changedProps)
+        checkPrimitiveDiff(oldProps.roughness, newProps.roughness, 'roughness', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -6018,11 +6018,11 @@ export class FiberPBRMetallicRoughnessMaterial implements HasPropsHandlers<Fiber
 export class FiberPBRSpecularGlossinessMaterialPropsHandler implements PropsHandler<FiberPBRSpecularGlossinessMaterialProps> {
     getPropertyUpdates(oldProps: FiberPBRSpecularGlossinessMaterialProps, newProps: FiberPBRSpecularGlossinessMaterialProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkColor3Diff(oldProps.diffuseColor, newProps.diffuseColor, 'diffuseColor', 'BabylonjsCoreColor3', changedProps)
-        checkTextureDiff(oldProps.diffuseTexture, newProps.diffuseTexture, 'diffuseTexture', 'BabylonjsCoreBaseTexture', changedProps)
-        checkPrimitiveDiff(oldProps.glossiness, newProps.glossiness, 'glossiness', 'number', changedProps)
-        checkColor3Diff(oldProps.specularColor, newProps.specularColor, 'specularColor', 'BabylonjsCoreColor3', changedProps)
-        checkTextureDiff(oldProps.specularGlossinessTexture, newProps.specularGlossinessTexture, 'specularGlossinessTexture', 'BabylonjsCoreBaseTexture', changedProps)
+        checkColor3Diff(oldProps.diffuseColor, newProps.diffuseColor, 'diffuseColor', changedProps)
+        checkTextureDiff(oldProps.diffuseTexture, newProps.diffuseTexture, 'diffuseTexture', changedProps)
+        checkPrimitiveDiff(oldProps.glossiness, newProps.glossiness, 'glossiness', changedProps)
+        checkColor3Diff(oldProps.specularColor, newProps.specularColor, 'specularColor', changedProps)
+        checkTextureDiff(oldProps.specularGlossinessTexture, newProps.specularGlossinessTexture, 'specularGlossinessTexture', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -6082,78 +6082,78 @@ export class FiberPBRSpecularGlossinessMaterial implements HasPropsHandlers<Fibe
 export class FiberPBRMaterialPropsHandler implements PropsHandler<FiberPBRMaterialProps> {
     getPropertyUpdates(oldProps: FiberPBRMaterialProps, newProps: FiberPBRMaterialProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkColor3Diff(oldProps.albedoColor, newProps.albedoColor, 'albedoColor', 'BabylonjsCoreColor3', changedProps)
-        checkTextureDiff(oldProps.albedoTexture, newProps.albedoTexture, 'albedoTexture', 'BabylonjsCoreBaseTexture', changedProps)
-        checkPrimitiveDiff(oldProps.alphaCutOff, newProps.alphaCutOff, 'alphaCutOff', 'number', changedProps)
-        checkColor3Diff(oldProps.ambientColor, newProps.ambientColor, 'ambientColor', 'BabylonjsCoreColor3', changedProps)
-        checkTextureDiff(oldProps.ambientTexture, newProps.ambientTexture, 'ambientTexture', 'BabylonjsCoreBaseTexture', changedProps)
-        checkPrimitiveDiff(oldProps.ambientTextureImpactOnAnalyticalLights, newProps.ambientTextureImpactOnAnalyticalLights, 'ambientTextureImpactOnAnalyticalLights', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.ambientTextureStrength, newProps.ambientTextureStrength, 'ambientTextureStrength', 'number', changedProps)
-        checkTextureDiff(oldProps.bumpTexture, newProps.bumpTexture, 'bumpTexture', 'BabylonjsCoreBaseTexture', changedProps)
+        checkColor3Diff(oldProps.albedoColor, newProps.albedoColor, 'albedoColor', changedProps)
+        checkTextureDiff(oldProps.albedoTexture, newProps.albedoTexture, 'albedoTexture', changedProps)
+        checkPrimitiveDiff(oldProps.alphaCutOff, newProps.alphaCutOff, 'alphaCutOff', changedProps)
+        checkColor3Diff(oldProps.ambientColor, newProps.ambientColor, 'ambientColor', changedProps)
+        checkTextureDiff(oldProps.ambientTexture, newProps.ambientTexture, 'ambientTexture', changedProps)
+        checkPrimitiveDiff(oldProps.ambientTextureImpactOnAnalyticalLights, newProps.ambientTextureImpactOnAnalyticalLights, 'ambientTextureImpactOnAnalyticalLights', changedProps)
+        checkPrimitiveDiff(oldProps.ambientTextureStrength, newProps.ambientTextureStrength, 'ambientTextureStrength', changedProps)
+        checkTextureDiff(oldProps.bumpTexture, newProps.bumpTexture, 'bumpTexture', changedProps)
         // type: 'BabylonjsCoreColorCurves' property (not coded) BabylonjsCorePBRMaterial.cameraColorCurves.
-        checkPrimitiveDiff(oldProps.cameraColorCurvesEnabled, newProps.cameraColorCurvesEnabled, 'cameraColorCurvesEnabled', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.cameraColorGradingEnabled, newProps.cameraColorGradingEnabled, 'cameraColorGradingEnabled', 'boolean', changedProps)
-        checkTextureDiff(oldProps.cameraColorGradingTexture, newProps.cameraColorGradingTexture, 'cameraColorGradingTexture', 'BabylonjsCoreBaseTexture', changedProps)
-        checkPrimitiveDiff(oldProps.cameraContrast, newProps.cameraContrast, 'cameraContrast', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.cameraExposure, newProps.cameraExposure, 'cameraExposure', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.cameraToneMappingEnabled, newProps.cameraToneMappingEnabled, 'cameraToneMappingEnabled', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.directIntensity, newProps.directIntensity, 'directIntensity', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.disableBumpMap, newProps.disableBumpMap, 'disableBumpMap', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.disableLighting, newProps.disableLighting, 'disableLighting', 'boolean', changedProps)
-        checkColor3Diff(oldProps.emissiveColor, newProps.emissiveColor, 'emissiveColor', 'BabylonjsCoreColor3', changedProps)
-        checkPrimitiveDiff(oldProps.emissiveIntensity, newProps.emissiveIntensity, 'emissiveIntensity', 'number', changedProps)
-        checkTextureDiff(oldProps.emissiveTexture, newProps.emissiveTexture, 'emissiveTexture', 'BabylonjsCoreBaseTexture', changedProps)
-        checkPrimitiveDiff(oldProps.enableSpecularAntiAliasing, newProps.enableSpecularAntiAliasing, 'enableSpecularAntiAliasing', 'boolean', changedProps)
-        checkTextureDiff(oldProps.environmentBRDFTexture, newProps.environmentBRDFTexture, 'environmentBRDFTexture', 'BabylonjsCoreBaseTexture', changedProps)
-        checkPrimitiveDiff(oldProps.environmentIntensity, newProps.environmentIntensity, 'environmentIntensity', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.forceAlphaTest, newProps.forceAlphaTest, 'forceAlphaTest', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.forceIrradianceInFragment, newProps.forceIrradianceInFragment, 'forceIrradianceInFragment', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.forceNormalForward, newProps.forceNormalForward, 'forceNormalForward', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.cameraColorCurvesEnabled, newProps.cameraColorCurvesEnabled, 'cameraColorCurvesEnabled', changedProps)
+        checkPrimitiveDiff(oldProps.cameraColorGradingEnabled, newProps.cameraColorGradingEnabled, 'cameraColorGradingEnabled', changedProps)
+        checkTextureDiff(oldProps.cameraColorGradingTexture, newProps.cameraColorGradingTexture, 'cameraColorGradingTexture', changedProps)
+        checkPrimitiveDiff(oldProps.cameraContrast, newProps.cameraContrast, 'cameraContrast', changedProps)
+        checkPrimitiveDiff(oldProps.cameraExposure, newProps.cameraExposure, 'cameraExposure', changedProps)
+        checkPrimitiveDiff(oldProps.cameraToneMappingEnabled, newProps.cameraToneMappingEnabled, 'cameraToneMappingEnabled', changedProps)
+        checkPrimitiveDiff(oldProps.directIntensity, newProps.directIntensity, 'directIntensity', changedProps)
+        checkPrimitiveDiff(oldProps.disableBumpMap, newProps.disableBumpMap, 'disableBumpMap', changedProps)
+        checkPrimitiveDiff(oldProps.disableLighting, newProps.disableLighting, 'disableLighting', changedProps)
+        checkColor3Diff(oldProps.emissiveColor, newProps.emissiveColor, 'emissiveColor', changedProps)
+        checkPrimitiveDiff(oldProps.emissiveIntensity, newProps.emissiveIntensity, 'emissiveIntensity', changedProps)
+        checkTextureDiff(oldProps.emissiveTexture, newProps.emissiveTexture, 'emissiveTexture', changedProps)
+        checkPrimitiveDiff(oldProps.enableSpecularAntiAliasing, newProps.enableSpecularAntiAliasing, 'enableSpecularAntiAliasing', changedProps)
+        checkTextureDiff(oldProps.environmentBRDFTexture, newProps.environmentBRDFTexture, 'environmentBRDFTexture', changedProps)
+        checkPrimitiveDiff(oldProps.environmentIntensity, newProps.environmentIntensity, 'environmentIntensity', changedProps)
+        checkPrimitiveDiff(oldProps.forceAlphaTest, newProps.forceAlphaTest, 'forceAlphaTest', changedProps)
+        checkPrimitiveDiff(oldProps.forceIrradianceInFragment, newProps.forceIrradianceInFragment, 'forceIrradianceInFragment', changedProps)
+        checkPrimitiveDiff(oldProps.forceNormalForward, newProps.forceNormalForward, 'forceNormalForward', changedProps)
         // type: 'BabylonjsCoreImageProcessingConfiguration' property (not coded) BabylonjsCorePBRMaterial.imageProcessingConfiguration.
-        checkPrimitiveDiff(oldProps.indexOfRefraction, newProps.indexOfRefraction, 'indexOfRefraction', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.invertNormalMapX, newProps.invertNormalMapX, 'invertNormalMapX', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.invertNormalMapY, newProps.invertNormalMapY, 'invertNormalMapY', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.invertRefractionY, newProps.invertRefractionY, 'invertRefractionY', 'boolean', changedProps)
-        checkTextureDiff(oldProps.lightmapTexture, newProps.lightmapTexture, 'lightmapTexture', 'BabylonjsCoreBaseTexture', changedProps)
-        checkPrimitiveDiff(oldProps.linkRefractionWithTransparency, newProps.linkRefractionWithTransparency, 'linkRefractionWithTransparency', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.maxSimultaneousLights, newProps.maxSimultaneousLights, 'maxSimultaneousLights', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.metallic, newProps.metallic, 'metallic', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.metallicF0Factor, newProps.metallicF0Factor, 'metallicF0Factor', 'number', changedProps)
-        checkTextureDiff(oldProps.metallicTexture, newProps.metallicTexture, 'metallicTexture', 'BabylonjsCoreBaseTexture', changedProps)
-        checkPrimitiveDiff(oldProps.microSurface, newProps.microSurface, 'microSurface', 'number', changedProps)
-        checkTextureDiff(oldProps.microSurfaceTexture, newProps.microSurfaceTexture, 'microSurfaceTexture', 'BabylonjsCoreBaseTexture', changedProps)
-        checkTextureDiff(oldProps.opacityTexture, newProps.opacityTexture, 'opacityTexture', 'BabylonjsCoreBaseTexture', changedProps)
-        checkPrimitiveDiff(oldProps.parallaxScaleBias, newProps.parallaxScaleBias, 'parallaxScaleBias', 'number', changedProps)
-        checkColor3Diff(oldProps.reflectionColor, newProps.reflectionColor, 'reflectionColor', 'BabylonjsCoreColor3', changedProps)
-        checkTextureDiff(oldProps.reflectionTexture, newProps.reflectionTexture, 'reflectionTexture', 'BabylonjsCoreBaseTexture', changedProps)
-        checkColor3Diff(oldProps.reflectivityColor, newProps.reflectivityColor, 'reflectivityColor', 'BabylonjsCoreColor3', changedProps)
-        checkTextureDiff(oldProps.reflectivityTexture, newProps.reflectivityTexture, 'reflectivityTexture', 'BabylonjsCoreBaseTexture', changedProps)
-        checkTextureDiff(oldProps.refractionTexture, newProps.refractionTexture, 'refractionTexture', 'BabylonjsCoreBaseTexture', changedProps)
-        checkPrimitiveDiff(oldProps.roughness, newProps.roughness, 'roughness', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.specularIntensity, newProps.specularIntensity, 'specularIntensity', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.twoSidedLighting, newProps.twoSidedLighting, 'twoSidedLighting', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.unlit, newProps.unlit, 'unlit', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.useAlphaFresnel, newProps.useAlphaFresnel, 'useAlphaFresnel', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.useAlphaFromAlbedoTexture, newProps.useAlphaFromAlbedoTexture, 'useAlphaFromAlbedoTexture', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.useAmbientInGrayScale, newProps.useAmbientInGrayScale, 'useAmbientInGrayScale', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.useAmbientOcclusionFromMetallicTextureRed, newProps.useAmbientOcclusionFromMetallicTextureRed, 'useAmbientOcclusionFromMetallicTextureRed', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.useAutoMicroSurfaceFromReflectivityMap, newProps.useAutoMicroSurfaceFromReflectivityMap, 'useAutoMicroSurfaceFromReflectivityMap', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.useGLTFLightFalloff, newProps.useGLTFLightFalloff, 'useGLTFLightFalloff', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.useHorizonOcclusion, newProps.useHorizonOcclusion, 'useHorizonOcclusion', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.useLightmapAsShadowmap, newProps.useLightmapAsShadowmap, 'useLightmapAsShadowmap', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.useLinearAlphaFresnel, newProps.useLinearAlphaFresnel, 'useLinearAlphaFresnel', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.useMetallicF0FactorFromMetallicTexture, newProps.useMetallicF0FactorFromMetallicTexture, 'useMetallicF0FactorFromMetallicTexture', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.useMetallnessFromMetallicTextureBlue, newProps.useMetallnessFromMetallicTextureBlue, 'useMetallnessFromMetallicTextureBlue', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.useMicroSurfaceFromReflectivityMapAlpha, newProps.useMicroSurfaceFromReflectivityMapAlpha, 'useMicroSurfaceFromReflectivityMapAlpha', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.useObjectSpaceNormalMap, newProps.useObjectSpaceNormalMap, 'useObjectSpaceNormalMap', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.useParallax, newProps.useParallax, 'useParallax', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.useParallaxOcclusion, newProps.useParallaxOcclusion, 'useParallaxOcclusion', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.usePhysicalLightFalloff, newProps.usePhysicalLightFalloff, 'usePhysicalLightFalloff', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.useRadianceOcclusion, newProps.useRadianceOcclusion, 'useRadianceOcclusion', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.useRadianceOverAlpha, newProps.useRadianceOverAlpha, 'useRadianceOverAlpha', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.useRoughnessFromMetallicTextureAlpha, newProps.useRoughnessFromMetallicTextureAlpha, 'useRoughnessFromMetallicTextureAlpha', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.useRoughnessFromMetallicTextureGreen, newProps.useRoughnessFromMetallicTextureGreen, 'useRoughnessFromMetallicTextureGreen', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.useSpecularOverAlpha, newProps.useSpecularOverAlpha, 'useSpecularOverAlpha', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.indexOfRefraction, newProps.indexOfRefraction, 'indexOfRefraction', changedProps)
+        checkPrimitiveDiff(oldProps.invertNormalMapX, newProps.invertNormalMapX, 'invertNormalMapX', changedProps)
+        checkPrimitiveDiff(oldProps.invertNormalMapY, newProps.invertNormalMapY, 'invertNormalMapY', changedProps)
+        checkPrimitiveDiff(oldProps.invertRefractionY, newProps.invertRefractionY, 'invertRefractionY', changedProps)
+        checkTextureDiff(oldProps.lightmapTexture, newProps.lightmapTexture, 'lightmapTexture', changedProps)
+        checkPrimitiveDiff(oldProps.linkRefractionWithTransparency, newProps.linkRefractionWithTransparency, 'linkRefractionWithTransparency', changedProps)
+        checkPrimitiveDiff(oldProps.maxSimultaneousLights, newProps.maxSimultaneousLights, 'maxSimultaneousLights', changedProps)
+        checkPrimitiveDiff(oldProps.metallic, newProps.metallic, 'metallic', changedProps)
+        checkPrimitiveDiff(oldProps.metallicF0Factor, newProps.metallicF0Factor, 'metallicF0Factor', changedProps)
+        checkTextureDiff(oldProps.metallicTexture, newProps.metallicTexture, 'metallicTexture', changedProps)
+        checkPrimitiveDiff(oldProps.microSurface, newProps.microSurface, 'microSurface', changedProps)
+        checkTextureDiff(oldProps.microSurfaceTexture, newProps.microSurfaceTexture, 'microSurfaceTexture', changedProps)
+        checkTextureDiff(oldProps.opacityTexture, newProps.opacityTexture, 'opacityTexture', changedProps)
+        checkPrimitiveDiff(oldProps.parallaxScaleBias, newProps.parallaxScaleBias, 'parallaxScaleBias', changedProps)
+        checkColor3Diff(oldProps.reflectionColor, newProps.reflectionColor, 'reflectionColor', changedProps)
+        checkTextureDiff(oldProps.reflectionTexture, newProps.reflectionTexture, 'reflectionTexture', changedProps)
+        checkColor3Diff(oldProps.reflectivityColor, newProps.reflectivityColor, 'reflectivityColor', changedProps)
+        checkTextureDiff(oldProps.reflectivityTexture, newProps.reflectivityTexture, 'reflectivityTexture', changedProps)
+        checkTextureDiff(oldProps.refractionTexture, newProps.refractionTexture, 'refractionTexture', changedProps)
+        checkPrimitiveDiff(oldProps.roughness, newProps.roughness, 'roughness', changedProps)
+        checkPrimitiveDiff(oldProps.specularIntensity, newProps.specularIntensity, 'specularIntensity', changedProps)
+        checkPrimitiveDiff(oldProps.twoSidedLighting, newProps.twoSidedLighting, 'twoSidedLighting', changedProps)
+        checkPrimitiveDiff(oldProps.unlit, newProps.unlit, 'unlit', changedProps)
+        checkPrimitiveDiff(oldProps.useAlphaFresnel, newProps.useAlphaFresnel, 'useAlphaFresnel', changedProps)
+        checkPrimitiveDiff(oldProps.useAlphaFromAlbedoTexture, newProps.useAlphaFromAlbedoTexture, 'useAlphaFromAlbedoTexture', changedProps)
+        checkPrimitiveDiff(oldProps.useAmbientInGrayScale, newProps.useAmbientInGrayScale, 'useAmbientInGrayScale', changedProps)
+        checkPrimitiveDiff(oldProps.useAmbientOcclusionFromMetallicTextureRed, newProps.useAmbientOcclusionFromMetallicTextureRed, 'useAmbientOcclusionFromMetallicTextureRed', changedProps)
+        checkPrimitiveDiff(oldProps.useAutoMicroSurfaceFromReflectivityMap, newProps.useAutoMicroSurfaceFromReflectivityMap, 'useAutoMicroSurfaceFromReflectivityMap', changedProps)
+        checkPrimitiveDiff(oldProps.useGLTFLightFalloff, newProps.useGLTFLightFalloff, 'useGLTFLightFalloff', changedProps)
+        checkPrimitiveDiff(oldProps.useHorizonOcclusion, newProps.useHorizonOcclusion, 'useHorizonOcclusion', changedProps)
+        checkPrimitiveDiff(oldProps.useLightmapAsShadowmap, newProps.useLightmapAsShadowmap, 'useLightmapAsShadowmap', changedProps)
+        checkPrimitiveDiff(oldProps.useLinearAlphaFresnel, newProps.useLinearAlphaFresnel, 'useLinearAlphaFresnel', changedProps)
+        checkPrimitiveDiff(oldProps.useMetallicF0FactorFromMetallicTexture, newProps.useMetallicF0FactorFromMetallicTexture, 'useMetallicF0FactorFromMetallicTexture', changedProps)
+        checkPrimitiveDiff(oldProps.useMetallnessFromMetallicTextureBlue, newProps.useMetallnessFromMetallicTextureBlue, 'useMetallnessFromMetallicTextureBlue', changedProps)
+        checkPrimitiveDiff(oldProps.useMicroSurfaceFromReflectivityMapAlpha, newProps.useMicroSurfaceFromReflectivityMapAlpha, 'useMicroSurfaceFromReflectivityMapAlpha', changedProps)
+        checkPrimitiveDiff(oldProps.useObjectSpaceNormalMap, newProps.useObjectSpaceNormalMap, 'useObjectSpaceNormalMap', changedProps)
+        checkPrimitiveDiff(oldProps.useParallax, newProps.useParallax, 'useParallax', changedProps)
+        checkPrimitiveDiff(oldProps.useParallaxOcclusion, newProps.useParallaxOcclusion, 'useParallaxOcclusion', changedProps)
+        checkPrimitiveDiff(oldProps.usePhysicalLightFalloff, newProps.usePhysicalLightFalloff, 'usePhysicalLightFalloff', changedProps)
+        checkPrimitiveDiff(oldProps.useRadianceOcclusion, newProps.useRadianceOcclusion, 'useRadianceOcclusion', changedProps)
+        checkPrimitiveDiff(oldProps.useRadianceOverAlpha, newProps.useRadianceOverAlpha, 'useRadianceOverAlpha', changedProps)
+        checkPrimitiveDiff(oldProps.useRoughnessFromMetallicTextureAlpha, newProps.useRoughnessFromMetallicTextureAlpha, 'useRoughnessFromMetallicTextureAlpha', changedProps)
+        checkPrimitiveDiff(oldProps.useRoughnessFromMetallicTextureGreen, newProps.useRoughnessFromMetallicTextureGreen, 'useRoughnessFromMetallicTextureGreen', changedProps)
+        checkPrimitiveDiff(oldProps.useSpecularOverAlpha, newProps.useSpecularOverAlpha, 'useSpecularOverAlpha', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -6216,12 +6216,12 @@ export class FiberNodeMaterialPropsHandler implements PropsHandler<FiberNodeMate
         // type: 'BabylonjsCoreNodeMaterialBlock[]' property (not coded) BabylonjsCoreNodeMaterial.attachedBlocks.
         // type: 'any' property (not coded) BabylonjsCoreNodeMaterial.BJSNODEMATERIALEDITOR.
         // type: 'any' property (not coded) BabylonjsCoreNodeMaterial.editorData.
-        checkPrimitiveDiff(oldProps.ignoreAlpha, newProps.ignoreAlpha, 'ignoreAlpha', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.ignoreAlpha, newProps.ignoreAlpha, 'ignoreAlpha', changedProps)
         // type: 'BabylonjsCoreImageProcessingConfiguration' property (not coded) BabylonjsCoreNodeMaterial.imageProcessingConfiguration.
-        checkPrimitiveDiff(oldProps.maxSimultaneousLights, newProps.maxSimultaneousLights, 'maxSimultaneousLights', 'number', changedProps)
-        checkObservableDiff(oldProps.onBuildObservable, newProps.onBuildObservable, 'onBuildObservable', 'BabylonjsCoreObservable<BabylonjsCoreNodeMaterial>', changedProps)
+        checkPrimitiveDiff(oldProps.maxSimultaneousLights, newProps.maxSimultaneousLights, 'maxSimultaneousLights', changedProps)
+        checkObservableDiff(oldProps.onBuildObservable, newProps.onBuildObservable, 'onBuildObservable', changedProps)
         // type: 'BabylonjsCoreINodeMaterialOptions' property (not coded) BabylonjsCoreNodeMaterial.options.
-        checkMethodDiff(oldProps.addOutputNode, newProps.addOutputNode, 'addOutputNode', '(node?: BabylonjsCoreNodeMaterialBlock) => this', changedProps)
+        checkMethodDiff(oldProps.addOutputNode, newProps.addOutputNode, 'addOutputNode', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -6281,19 +6281,19 @@ export class FiberNodeMaterial implements HasPropsHandlers<FiberMaterialProps> {
 export class FiberFluentMaterialPropsHandler implements PropsHandler<FiberFluentMaterialProps> {
     getPropertyUpdates(oldProps: FiberFluentMaterialProps, newProps: FiberFluentMaterialProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkColor3Diff(oldProps.albedoColor, newProps.albedoColor, 'albedoColor', 'BabylonjsCoreColor3', changedProps)
-        checkTextureDiff(oldProps.albedoTexture, newProps.albedoTexture, 'albedoTexture', 'BabylonjsCoreBaseTexture', changedProps)
-        checkPrimitiveDiff(oldProps.alpha, newProps.alpha, 'alpha', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.borderMinValue, newProps.borderMinValue, 'borderMinValue', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.borderWidth, newProps.borderWidth, 'borderWidth', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.edgeSmoothingValue, newProps.edgeSmoothingValue, 'edgeSmoothingValue', 'number', changedProps)
-        checkColor4Diff(oldProps.hoverColor, newProps.hoverColor, 'hoverColor', 'BabylonjsCoreColor4', changedProps)
-        checkVector3Diff(oldProps.hoverPosition, newProps.hoverPosition, 'hoverPosition', 'BabylonjsCoreVector3', changedProps)
-        checkPrimitiveDiff(oldProps.hoverRadius, newProps.hoverRadius, 'hoverRadius', 'number', changedProps)
-        checkColor3Diff(oldProps.innerGlowColor, newProps.innerGlowColor, 'innerGlowColor', 'BabylonjsCoreColor3', changedProps)
-        checkPrimitiveDiff(oldProps.innerGlowColorIntensity, newProps.innerGlowColorIntensity, 'innerGlowColorIntensity', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.renderBorders, newProps.renderBorders, 'renderBorders', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.renderHoverLight, newProps.renderHoverLight, 'renderHoverLight', 'boolean', changedProps)
+        checkColor3Diff(oldProps.albedoColor, newProps.albedoColor, 'albedoColor', changedProps)
+        checkTextureDiff(oldProps.albedoTexture, newProps.albedoTexture, 'albedoTexture', changedProps)
+        checkPrimitiveDiff(oldProps.alpha, newProps.alpha, 'alpha', changedProps)
+        checkPrimitiveDiff(oldProps.borderMinValue, newProps.borderMinValue, 'borderMinValue', changedProps)
+        checkPrimitiveDiff(oldProps.borderWidth, newProps.borderWidth, 'borderWidth', changedProps)
+        checkPrimitiveDiff(oldProps.edgeSmoothingValue, newProps.edgeSmoothingValue, 'edgeSmoothingValue', changedProps)
+        checkColor4Diff(oldProps.hoverColor, newProps.hoverColor, 'hoverColor', changedProps)
+        checkVector3Diff(oldProps.hoverPosition, newProps.hoverPosition, 'hoverPosition', changedProps)
+        checkPrimitiveDiff(oldProps.hoverRadius, newProps.hoverRadius, 'hoverRadius', changedProps)
+        checkColor3Diff(oldProps.innerGlowColor, newProps.innerGlowColor, 'innerGlowColor', changedProps)
+        checkPrimitiveDiff(oldProps.innerGlowColorIntensity, newProps.innerGlowColorIntensity, 'innerGlowColorIntensity', changedProps)
+        checkPrimitiveDiff(oldProps.renderBorders, newProps.renderBorders, 'renderBorders', changedProps)
+        checkPrimitiveDiff(oldProps.renderHoverLight, newProps.renderHoverLight, 'renderHoverLight', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -6348,21 +6348,21 @@ export class FiberFluentMaterial implements HasPropsHandlers<FiberMaterialProps>
 export class FiberLightPropsHandler implements PropsHandler<FiberLightProps> {
     getPropertyUpdates(oldProps: FiberLightProps, newProps: FiberLightProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkColor3Diff(oldProps.diffuse, newProps.diffuse, 'diffuse', 'BabylonjsCoreColor3', changedProps)
+        checkColor3Diff(oldProps.diffuse, newProps.diffuse, 'diffuse', changedProps)
         // type: 'BabylonjsCoreAbstractMesh[]' property (not coded) BabylonjsCoreLight.excludedMeshes.
-        checkPrimitiveDiff(oldProps.excludeWithLayerMask, newProps.excludeWithLayerMask, 'excludeWithLayerMask', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.falloffType, newProps.falloffType, 'falloffType', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.excludeWithLayerMask, newProps.excludeWithLayerMask, 'excludeWithLayerMask', changedProps)
+        checkPrimitiveDiff(oldProps.falloffType, newProps.falloffType, 'falloffType', changedProps)
         // type: 'BabylonjsCoreAbstractMesh[]' property (not coded) BabylonjsCoreLight.includedOnlyMeshes.
-        checkPrimitiveDiff(oldProps.includeOnlyWithLayerMask, newProps.includeOnlyWithLayerMask, 'includeOnlyWithLayerMask', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.intensity, newProps.intensity, 'intensity', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.intensityMode, newProps.intensityMode, 'intensityMode', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.lightmapMode, newProps.lightmapMode, 'lightmapMode', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.radius, newProps.radius, 'radius', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.range, newProps.range, 'range', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.renderPriority, newProps.renderPriority, 'renderPriority', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.shadowEnabled, newProps.shadowEnabled, 'shadowEnabled', 'boolean', changedProps)
-        checkColor3Diff(oldProps.specular, newProps.specular, 'specular', 'BabylonjsCoreColor3', changedProps)
-        checkMethodDiff(oldProps.setEnabled, newProps.setEnabled, 'setEnabled', '(value?: boolean) => void', changedProps)
+        checkPrimitiveDiff(oldProps.includeOnlyWithLayerMask, newProps.includeOnlyWithLayerMask, 'includeOnlyWithLayerMask', changedProps)
+        checkPrimitiveDiff(oldProps.intensity, newProps.intensity, 'intensity', changedProps)
+        checkPrimitiveDiff(oldProps.intensityMode, newProps.intensityMode, 'intensityMode', changedProps)
+        checkPrimitiveDiff(oldProps.lightmapMode, newProps.lightmapMode, 'lightmapMode', changedProps)
+        checkPrimitiveDiff(oldProps.radius, newProps.radius, 'radius', changedProps)
+        checkPrimitiveDiff(oldProps.range, newProps.range, 'range', changedProps)
+        checkPrimitiveDiff(oldProps.renderPriority, newProps.renderPriority, 'renderPriority', changedProps)
+        checkPrimitiveDiff(oldProps.shadowEnabled, newProps.shadowEnabled, 'shadowEnabled', changedProps)
+        checkColor3Diff(oldProps.specular, newProps.specular, 'specular', changedProps)
+        checkMethodDiff(oldProps.setEnabled, newProps.setEnabled, 'setEnabled', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -6418,15 +6418,15 @@ export class FiberLight implements HasPropsHandlers<FiberLightProps> {
 export class FiberShadowLightPropsHandler implements PropsHandler<FiberShadowLightProps> {
     getPropertyUpdates(oldProps: FiberShadowLightProps, newProps: FiberShadowLightProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkLambdaDiff(oldProps.customProjectionMatrixBuilder, newProps.customProjectionMatrixBuilder, 'customProjectionMatrixBuilder', '(viewMatrix: BabylonjsCoreMatrix, renderList: BabylonjsCoreAbstractMesh[], result: BabylonjsCoreMatrix) => void', changedProps)
-        checkVector3Diff(oldProps.direction, newProps.direction, 'direction', 'BabylonjsCoreVector3', changedProps)
-        checkVector3Diff(oldProps.position, newProps.position, 'position', 'BabylonjsCoreVector3', changedProps)
-        checkPrimitiveDiff(oldProps.shadowMaxZ, newProps.shadowMaxZ, 'shadowMaxZ', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.shadowMinZ, newProps.shadowMinZ, 'shadowMinZ', 'number', changedProps)
-        checkVector3Diff(oldProps.transformedDirection, newProps.transformedDirection, 'transformedDirection', 'BabylonjsCoreVector3', changedProps)
-        checkVector3Diff(oldProps.transformedPosition, newProps.transformedPosition, 'transformedPosition', 'BabylonjsCoreVector3', changedProps)
-        checkMethodDiff(oldProps.setDirectionToTarget, newProps.setDirectionToTarget, 'setDirectionToTarget', '(target?: BabylonjsCoreVector3) => BabylonjsCoreVector3', changedProps)
-        checkMethodDiff(oldProps.setShadowProjectionMatrix, newProps.setShadowProjectionMatrix, 'setShadowProjectionMatrix', '(matrix?: BabylonjsCoreMatrix, viewMatrix?: BabylonjsCoreMatrix, renderList?: BabylonjsCoreAbstractMesh[]) => BabylonjsCoreIShadowLight', changedProps)
+        checkLambdaDiff(oldProps.customProjectionMatrixBuilder, newProps.customProjectionMatrixBuilder, 'customProjectionMatrixBuilder', changedProps)
+        checkVector3Diff(oldProps.direction, newProps.direction, 'direction', changedProps)
+        checkVector3Diff(oldProps.position, newProps.position, 'position', changedProps)
+        checkPrimitiveDiff(oldProps.shadowMaxZ, newProps.shadowMaxZ, 'shadowMaxZ', changedProps)
+        checkPrimitiveDiff(oldProps.shadowMinZ, newProps.shadowMinZ, 'shadowMinZ', changedProps)
+        checkVector3Diff(oldProps.transformedDirection, newProps.transformedDirection, 'transformedDirection', changedProps)
+        checkVector3Diff(oldProps.transformedPosition, newProps.transformedPosition, 'transformedPosition', changedProps)
+        checkMethodDiff(oldProps.setDirectionToTarget, newProps.setDirectionToTarget, 'setDirectionToTarget', changedProps)
+        checkMethodDiff(oldProps.setShadowProjectionMatrix, newProps.setShadowProjectionMatrix, 'setShadowProjectionMatrix', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -6472,10 +6472,10 @@ export class FiberShadowLight implements HasPropsHandlers<FiberLightProps> {
 export class FiberDirectionalLightPropsHandler implements PropsHandler<FiberDirectionalLightProps> {
     getPropertyUpdates(oldProps: FiberDirectionalLightProps, newProps: FiberDirectionalLightProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.autoCalcShadowZBounds, newProps.autoCalcShadowZBounds, 'autoCalcShadowZBounds', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.autoUpdateExtends, newProps.autoUpdateExtends, 'autoUpdateExtends', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.shadowFrustumSize, newProps.shadowFrustumSize, 'shadowFrustumSize', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.shadowOrthoScale, newProps.shadowOrthoScale, 'shadowOrthoScale', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.autoCalcShadowZBounds, newProps.autoCalcShadowZBounds, 'autoCalcShadowZBounds', changedProps)
+        checkPrimitiveDiff(oldProps.autoUpdateExtends, newProps.autoUpdateExtends, 'autoUpdateExtends', changedProps)
+        checkPrimitiveDiff(oldProps.shadowFrustumSize, newProps.shadowFrustumSize, 'shadowFrustumSize', changedProps)
+        checkPrimitiveDiff(oldProps.shadowOrthoScale, newProps.shadowOrthoScale, 'shadowOrthoScale', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -6540,8 +6540,8 @@ export class FiberDirectionalLight implements HasPropsHandlers<FiberLightProps> 
 export class FiberPointLightPropsHandler implements PropsHandler<FiberPointLightProps> {
     getPropertyUpdates(oldProps: FiberPointLightProps, newProps: FiberPointLightProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkVector3Diff(oldProps.direction, newProps.direction, 'direction', 'BabylonjsCoreVector3', changedProps)
-        checkPrimitiveDiff(oldProps.shadowAngle, newProps.shadowAngle, 'shadowAngle', 'number', changedProps)
+        checkVector3Diff(oldProps.direction, newProps.direction, 'direction', changedProps)
+        checkPrimitiveDiff(oldProps.shadowAngle, newProps.shadowAngle, 'shadowAngle', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -6606,14 +6606,14 @@ export class FiberPointLight implements HasPropsHandlers<FiberLightProps> {
 export class FiberSpotLightPropsHandler implements PropsHandler<FiberSpotLightProps> {
     getPropertyUpdates(oldProps: FiberSpotLightProps, newProps: FiberSpotLightProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.angle, newProps.angle, 'angle', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.exponent, newProps.exponent, 'exponent', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.innerAngle, newProps.innerAngle, 'innerAngle', 'number', changedProps)
-        checkTextureDiff(oldProps.projectionTexture, newProps.projectionTexture, 'projectionTexture', 'BabylonjsCoreBaseTexture', changedProps)
-        checkPrimitiveDiff(oldProps.projectionTextureLightFar, newProps.projectionTextureLightFar, 'projectionTextureLightFar', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.projectionTextureLightNear, newProps.projectionTextureLightNear, 'projectionTextureLightNear', 'number', changedProps)
-        checkVector3Diff(oldProps.projectionTextureUpDirection, newProps.projectionTextureUpDirection, 'projectionTextureUpDirection', 'BabylonjsCoreVector3', changedProps)
-        checkPrimitiveDiff(oldProps.shadowAngleScale, newProps.shadowAngleScale, 'shadowAngleScale', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.angle, newProps.angle, 'angle', changedProps)
+        checkPrimitiveDiff(oldProps.exponent, newProps.exponent, 'exponent', changedProps)
+        checkPrimitiveDiff(oldProps.innerAngle, newProps.innerAngle, 'innerAngle', changedProps)
+        checkTextureDiff(oldProps.projectionTexture, newProps.projectionTexture, 'projectionTexture', changedProps)
+        checkPrimitiveDiff(oldProps.projectionTextureLightFar, newProps.projectionTextureLightFar, 'projectionTextureLightFar', changedProps)
+        checkPrimitiveDiff(oldProps.projectionTextureLightNear, newProps.projectionTextureLightNear, 'projectionTextureLightNear', changedProps)
+        checkVector3Diff(oldProps.projectionTextureUpDirection, newProps.projectionTextureUpDirection, 'projectionTextureUpDirection', changedProps)
+        checkPrimitiveDiff(oldProps.shadowAngleScale, newProps.shadowAngleScale, 'shadowAngleScale', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -6694,9 +6694,9 @@ export class FiberSpotLight implements HasPropsHandlers<FiberLightProps> {
 export class FiberHemisphericLightPropsHandler implements PropsHandler<FiberHemisphericLightProps> {
     getPropertyUpdates(oldProps: FiberHemisphericLightProps, newProps: FiberHemisphericLightProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkVector3Diff(oldProps.direction, newProps.direction, 'direction', 'BabylonjsCoreVector3', changedProps)
-        checkColor3Diff(oldProps.groundColor, newProps.groundColor, 'groundColor', 'BabylonjsCoreColor3', changedProps)
-        checkMethodDiff(oldProps.setDirectionToTarget, newProps.setDirectionToTarget, 'setDirectionToTarget', '(target?: BabylonjsCoreVector3) => BabylonjsCoreVector3', changedProps)
+        checkVector3Diff(oldProps.direction, newProps.direction, 'direction', changedProps)
+        checkColor3Diff(oldProps.groundColor, newProps.groundColor, 'groundColor', changedProps)
+        checkMethodDiff(oldProps.setDirectionToTarget, newProps.setDirectionToTarget, 'setDirectionToTarget', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -6757,74 +6757,74 @@ export class FiberHemisphericLight implements HasPropsHandlers<FiberLightProps> 
 export class FiberControlPropsHandler implements PropsHandler<FiberControlProps> {
     getPropertyUpdates(oldProps: FiberControlProps, newProps: FiberControlProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.alpha, newProps.alpha, 'alpha', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.clipChildren, newProps.clipChildren, 'clipChildren', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.clipContent, newProps.clipContent, 'clipContent', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.color, newProps.color, 'color', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.disabledColor, newProps.disabledColor, 'disabledColor', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.disabledColorItem, newProps.disabledColorItem, 'disabledColorItem', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.fontFamily, newProps.fontFamily, 'fontFamily', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.alpha, newProps.alpha, 'alpha', changedProps)
+        checkPrimitiveDiff(oldProps.clipChildren, newProps.clipChildren, 'clipChildren', changedProps)
+        checkPrimitiveDiff(oldProps.clipContent, newProps.clipContent, 'clipContent', changedProps)
+        checkPrimitiveDiff(oldProps.color, newProps.color, 'color', changedProps)
+        checkPrimitiveDiff(oldProps.disabledColor, newProps.disabledColor, 'disabledColor', changedProps)
+        checkPrimitiveDiff(oldProps.disabledColorItem, newProps.disabledColorItem, 'disabledColorItem', changedProps)
+        checkPrimitiveDiff(oldProps.fontFamily, newProps.fontFamily, 'fontFamily', changedProps)
         // type: '{ ascent: number; height: number; descent: number; }' property (not coded) BabylonjsGuiControl.fontOffset.
-        checkPrimitiveDiff(oldProps.fontSize, newProps.fontSize, 'fontSize', 'string | number', changedProps)
-        checkPrimitiveDiff(oldProps.fontSizeInPixels, newProps.fontSizeInPixels, 'fontSizeInPixels', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.fontStyle, newProps.fontStyle, 'fontStyle', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.fontWeight, newProps.fontWeight, 'fontWeight', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.height, newProps.height, 'height', 'string | number', changedProps)
-        checkPrimitiveDiff(oldProps.heightInPixels, newProps.heightInPixels, 'heightInPixels', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.horizontalAlignment, newProps.horizontalAlignment, 'horizontalAlignment', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.hoverCursor, newProps.hoverCursor, 'hoverCursor', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.isEnabled, newProps.isEnabled, 'isEnabled', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.isFocusInvisible, newProps.isFocusInvisible, 'isFocusInvisible', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.isHighlighted, newProps.isHighlighted, 'isHighlighted', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.isHitTestVisible, newProps.isHitTestVisible, 'isHitTestVisible', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.isPointerBlocker, newProps.isPointerBlocker, 'isPointerBlocker', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.isVisible, newProps.isVisible, 'isVisible', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.left, newProps.left, 'left', 'string | number', changedProps)
-        checkPrimitiveDiff(oldProps.leftInPixels, newProps.leftInPixels, 'leftInPixels', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.linkOffsetX, newProps.linkOffsetX, 'linkOffsetX', 'string | number', changedProps)
-        checkPrimitiveDiff(oldProps.linkOffsetXInPixels, newProps.linkOffsetXInPixels, 'linkOffsetXInPixels', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.linkOffsetY, newProps.linkOffsetY, 'linkOffsetY', 'string | number', changedProps)
-        checkPrimitiveDiff(oldProps.linkOffsetYInPixels, newProps.linkOffsetYInPixels, 'linkOffsetYInPixels', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.fontSize, newProps.fontSize, 'fontSize', changedProps)
+        checkPrimitiveDiff(oldProps.fontSizeInPixels, newProps.fontSizeInPixels, 'fontSizeInPixels', changedProps)
+        checkPrimitiveDiff(oldProps.fontStyle, newProps.fontStyle, 'fontStyle', changedProps)
+        checkPrimitiveDiff(oldProps.fontWeight, newProps.fontWeight, 'fontWeight', changedProps)
+        checkPrimitiveDiff(oldProps.height, newProps.height, 'height', changedProps)
+        checkPrimitiveDiff(oldProps.heightInPixels, newProps.heightInPixels, 'heightInPixels', changedProps)
+        checkPrimitiveDiff(oldProps.horizontalAlignment, newProps.horizontalAlignment, 'horizontalAlignment', changedProps)
+        checkPrimitiveDiff(oldProps.hoverCursor, newProps.hoverCursor, 'hoverCursor', changedProps)
+        checkPrimitiveDiff(oldProps.isEnabled, newProps.isEnabled, 'isEnabled', changedProps)
+        checkPrimitiveDiff(oldProps.isFocusInvisible, newProps.isFocusInvisible, 'isFocusInvisible', changedProps)
+        checkPrimitiveDiff(oldProps.isHighlighted, newProps.isHighlighted, 'isHighlighted', changedProps)
+        checkPrimitiveDiff(oldProps.isHitTestVisible, newProps.isHitTestVisible, 'isHitTestVisible', changedProps)
+        checkPrimitiveDiff(oldProps.isPointerBlocker, newProps.isPointerBlocker, 'isPointerBlocker', changedProps)
+        checkPrimitiveDiff(oldProps.isVisible, newProps.isVisible, 'isVisible', changedProps)
+        checkPrimitiveDiff(oldProps.left, newProps.left, 'left', changedProps)
+        checkPrimitiveDiff(oldProps.leftInPixels, newProps.leftInPixels, 'leftInPixels', changedProps)
+        checkPrimitiveDiff(oldProps.linkOffsetX, newProps.linkOffsetX, 'linkOffsetX', changedProps)
+        checkPrimitiveDiff(oldProps.linkOffsetXInPixels, newProps.linkOffsetXInPixels, 'linkOffsetXInPixels', changedProps)
+        checkPrimitiveDiff(oldProps.linkOffsetY, newProps.linkOffsetY, 'linkOffsetY', changedProps)
+        checkPrimitiveDiff(oldProps.linkOffsetYInPixels, newProps.linkOffsetYInPixels, 'linkOffsetYInPixels', changedProps)
         // type: 'any' property (not coded) BabylonjsGuiControl.metadata.
-        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.notRenderable, newProps.notRenderable, 'notRenderable', 'boolean', changedProps)
-        checkObservableDiff(oldProps.onAfterDrawObservable, newProps.onAfterDrawObservable, 'onAfterDrawObservable', 'BabylonjsCoreObservable<BabylonjsGuiControl>', changedProps)
-        checkObservableDiff(oldProps.onBeforeDrawObservable, newProps.onBeforeDrawObservable, 'onBeforeDrawObservable', 'BabylonjsCoreObservable<BabylonjsGuiControl>', changedProps)
-        checkObservableDiff(oldProps.onDirtyObservable, newProps.onDirtyObservable, 'onDirtyObservable', 'BabylonjsCoreObservable<BabylonjsGuiControl>', changedProps)
-        checkObservableDiff(oldProps.onPointerClickObservable, newProps.onPointerClickObservable, 'onPointerClickObservable', 'BabylonjsCoreObservable<BabylonjsGuiVector2WithInfo>', changedProps)
-        checkObservableDiff(oldProps.onPointerDownObservable, newProps.onPointerDownObservable, 'onPointerDownObservable', 'BabylonjsCoreObservable<BabylonjsGuiVector2WithInfo>', changedProps)
-        checkObservableDiff(oldProps.onPointerEnterObservable, newProps.onPointerEnterObservable, 'onPointerEnterObservable', 'BabylonjsCoreObservable<BabylonjsGuiControl>', changedProps)
-        checkObservableDiff(oldProps.onPointerMoveObservable, newProps.onPointerMoveObservable, 'onPointerMoveObservable', 'BabylonjsCoreObservable<BabylonjsCoreVector2>', changedProps)
-        checkObservableDiff(oldProps.onPointerOutObservable, newProps.onPointerOutObservable, 'onPointerOutObservable', 'BabylonjsCoreObservable<BabylonjsGuiControl>', changedProps)
-        checkObservableDiff(oldProps.onPointerUpObservable, newProps.onPointerUpObservable, 'onPointerUpObservable', 'BabylonjsCoreObservable<BabylonjsGuiVector2WithInfo>', changedProps)
-        checkObservableDiff(oldProps.onWheelObservable, newProps.onWheelObservable, 'onWheelObservable', 'BabylonjsCoreObservable<BabylonjsCoreVector2>', changedProps)
-        checkPrimitiveDiff(oldProps.paddingBottom, newProps.paddingBottom, 'paddingBottom', 'string | number', changedProps)
-        checkPrimitiveDiff(oldProps.paddingBottomInPixels, newProps.paddingBottomInPixels, 'paddingBottomInPixels', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.paddingLeft, newProps.paddingLeft, 'paddingLeft', 'string | number', changedProps)
-        checkPrimitiveDiff(oldProps.paddingLeftInPixels, newProps.paddingLeftInPixels, 'paddingLeftInPixels', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.paddingRight, newProps.paddingRight, 'paddingRight', 'string | number', changedProps)
-        checkPrimitiveDiff(oldProps.paddingRightInPixels, newProps.paddingRightInPixels, 'paddingRightInPixels', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.paddingTop, newProps.paddingTop, 'paddingTop', 'string | number', changedProps)
-        checkPrimitiveDiff(oldProps.paddingTopInPixels, newProps.paddingTopInPixels, 'paddingTopInPixels', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', changedProps)
+        checkPrimitiveDiff(oldProps.notRenderable, newProps.notRenderable, 'notRenderable', changedProps)
+        checkObservableDiff(oldProps.onAfterDrawObservable, newProps.onAfterDrawObservable, 'onAfterDrawObservable', changedProps)
+        checkObservableDiff(oldProps.onBeforeDrawObservable, newProps.onBeforeDrawObservable, 'onBeforeDrawObservable', changedProps)
+        checkObservableDiff(oldProps.onDirtyObservable, newProps.onDirtyObservable, 'onDirtyObservable', changedProps)
+        checkObservableDiff(oldProps.onPointerClickObservable, newProps.onPointerClickObservable, 'onPointerClickObservable', changedProps)
+        checkObservableDiff(oldProps.onPointerDownObservable, newProps.onPointerDownObservable, 'onPointerDownObservable', changedProps)
+        checkObservableDiff(oldProps.onPointerEnterObservable, newProps.onPointerEnterObservable, 'onPointerEnterObservable', changedProps)
+        checkObservableDiff(oldProps.onPointerMoveObservable, newProps.onPointerMoveObservable, 'onPointerMoveObservable', changedProps)
+        checkObservableDiff(oldProps.onPointerOutObservable, newProps.onPointerOutObservable, 'onPointerOutObservable', changedProps)
+        checkObservableDiff(oldProps.onPointerUpObservable, newProps.onPointerUpObservable, 'onPointerUpObservable', changedProps)
+        checkObservableDiff(oldProps.onWheelObservable, newProps.onWheelObservable, 'onWheelObservable', changedProps)
+        checkPrimitiveDiff(oldProps.paddingBottom, newProps.paddingBottom, 'paddingBottom', changedProps)
+        checkPrimitiveDiff(oldProps.paddingBottomInPixels, newProps.paddingBottomInPixels, 'paddingBottomInPixels', changedProps)
+        checkPrimitiveDiff(oldProps.paddingLeft, newProps.paddingLeft, 'paddingLeft', changedProps)
+        checkPrimitiveDiff(oldProps.paddingLeftInPixels, newProps.paddingLeftInPixels, 'paddingLeftInPixels', changedProps)
+        checkPrimitiveDiff(oldProps.paddingRight, newProps.paddingRight, 'paddingRight', changedProps)
+        checkPrimitiveDiff(oldProps.paddingRightInPixels, newProps.paddingRightInPixels, 'paddingRightInPixels', changedProps)
+        checkPrimitiveDiff(oldProps.paddingTop, newProps.paddingTop, 'paddingTop', changedProps)
+        checkPrimitiveDiff(oldProps.paddingTopInPixels, newProps.paddingTopInPixels, 'paddingTopInPixels', changedProps)
         // type: 'BabylonjsGuiContainer' property (not coded) BabylonjsGuiControl.parent.
-        checkPrimitiveDiff(oldProps.rotation, newProps.rotation, 'rotation', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.scaleX, newProps.scaleX, 'scaleX', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.scaleY, newProps.scaleY, 'scaleY', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.shadowBlur, newProps.shadowBlur, 'shadowBlur', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.shadowColor, newProps.shadowColor, 'shadowColor', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.shadowOffsetX, newProps.shadowOffsetX, 'shadowOffsetX', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.shadowOffsetY, newProps.shadowOffsetY, 'shadowOffsetY', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.rotation, newProps.rotation, 'rotation', changedProps)
+        checkPrimitiveDiff(oldProps.scaleX, newProps.scaleX, 'scaleX', changedProps)
+        checkPrimitiveDiff(oldProps.scaleY, newProps.scaleY, 'scaleY', changedProps)
+        checkPrimitiveDiff(oldProps.shadowBlur, newProps.shadowBlur, 'shadowBlur', changedProps)
+        checkPrimitiveDiff(oldProps.shadowColor, newProps.shadowColor, 'shadowColor', changedProps)
+        checkPrimitiveDiff(oldProps.shadowOffsetX, newProps.shadowOffsetX, 'shadowOffsetX', changedProps)
+        checkPrimitiveDiff(oldProps.shadowOffsetY, newProps.shadowOffsetY, 'shadowOffsetY', changedProps)
         // type: 'BabylonjsGuiStyle' property (not coded) BabylonjsGuiControl.style.
-        checkPrimitiveDiff(oldProps.top, newProps.top, 'top', 'string | number', changedProps)
-        checkPrimitiveDiff(oldProps.topInPixels, newProps.topInPixels, 'topInPixels', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.transformCenterX, newProps.transformCenterX, 'transformCenterX', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.transformCenterY, newProps.transformCenterY, 'transformCenterY', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.uniqueId, newProps.uniqueId, 'uniqueId', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.useBitmapCache, newProps.useBitmapCache, 'useBitmapCache', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.verticalAlignment, newProps.verticalAlignment, 'verticalAlignment', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.width, newProps.width, 'width', 'string | number', changedProps)
-        checkPrimitiveDiff(oldProps.widthInPixels, newProps.widthInPixels, 'widthInPixels', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.zIndex, newProps.zIndex, 'zIndex', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.top, newProps.top, 'top', changedProps)
+        checkPrimitiveDiff(oldProps.topInPixels, newProps.topInPixels, 'topInPixels', changedProps)
+        checkPrimitiveDiff(oldProps.transformCenterX, newProps.transformCenterX, 'transformCenterX', changedProps)
+        checkPrimitiveDiff(oldProps.transformCenterY, newProps.transformCenterY, 'transformCenterY', changedProps)
+        checkPrimitiveDiff(oldProps.uniqueId, newProps.uniqueId, 'uniqueId', changedProps)
+        checkPrimitiveDiff(oldProps.useBitmapCache, newProps.useBitmapCache, 'useBitmapCache', changedProps)
+        checkPrimitiveDiff(oldProps.verticalAlignment, newProps.verticalAlignment, 'verticalAlignment', changedProps)
+        checkPrimitiveDiff(oldProps.width, newProps.width, 'width', changedProps)
+        checkPrimitiveDiff(oldProps.widthInPixels, newProps.widthInPixels, 'widthInPixels', changedProps)
+        checkPrimitiveDiff(oldProps.zIndex, newProps.zIndex, 'zIndex', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -6872,13 +6872,13 @@ export class FiberControl implements HasPropsHandlers<FiberControlProps> {
 export class FiberContainerPropsHandler implements PropsHandler<FiberContainerProps> {
     getPropertyUpdates(oldProps: FiberContainerProps, newProps: FiberContainerProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.adaptHeightToChildren, newProps.adaptHeightToChildren, 'adaptHeightToChildren', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.adaptWidthToChildren, newProps.adaptWidthToChildren, 'adaptWidthToChildren', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.background, newProps.background, 'background', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.logLayoutCycleErrors, newProps.logLayoutCycleErrors, 'logLayoutCycleErrors', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.maxLayoutCycle, newProps.maxLayoutCycle, 'maxLayoutCycle', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
-        checkMethodDiff(oldProps.addControl, newProps.addControl, 'addControl', '(control?: BabylonjsGuiControl) => BabylonjsGuiContainer', changedProps)
+        checkPrimitiveDiff(oldProps.adaptHeightToChildren, newProps.adaptHeightToChildren, 'adaptHeightToChildren', changedProps)
+        checkPrimitiveDiff(oldProps.adaptWidthToChildren, newProps.adaptWidthToChildren, 'adaptWidthToChildren', changedProps)
+        checkPrimitiveDiff(oldProps.background, newProps.background, 'background', changedProps)
+        checkPrimitiveDiff(oldProps.logLayoutCycleErrors, newProps.logLayoutCycleErrors, 'logLayoutCycleErrors', changedProps)
+        checkPrimitiveDiff(oldProps.maxLayoutCycle, newProps.maxLayoutCycle, 'maxLayoutCycle', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', changedProps)
+        checkMethodDiff(oldProps.addControl, newProps.addControl, 'addControl', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -6927,9 +6927,9 @@ export class FiberContainer implements HasPropsHandlers<FiberControlProps> {
 export class FiberRectanglePropsHandler implements PropsHandler<FiberRectangleProps> {
     getPropertyUpdates(oldProps: FiberRectangleProps, newProps: FiberRectangleProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.cornerRadius, newProps.cornerRadius, 'cornerRadius', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.thickness, newProps.thickness, 'thickness', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.cornerRadius, newProps.cornerRadius, 'cornerRadius', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', changedProps)
+        checkPrimitiveDiff(oldProps.thickness, newProps.thickness, 'thickness', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -6979,12 +6979,12 @@ export class FiberRectangle implements HasPropsHandlers<FiberControlProps> {
 export class FiberButtonPropsHandler implements PropsHandler<FiberButtonProps> {
     getPropertyUpdates(oldProps: FiberButtonProps, newProps: FiberButtonProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.delegatePickingToChildren, newProps.delegatePickingToChildren, 'delegatePickingToChildren', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
-        checkLambdaDiff(oldProps.pointerDownAnimation, newProps.pointerDownAnimation, 'pointerDownAnimation', '() => void', changedProps)
-        checkLambdaDiff(oldProps.pointerEnterAnimation, newProps.pointerEnterAnimation, 'pointerEnterAnimation', '() => void', changedProps)
-        checkLambdaDiff(oldProps.pointerOutAnimation, newProps.pointerOutAnimation, 'pointerOutAnimation', '() => void', changedProps)
-        checkLambdaDiff(oldProps.pointerUpAnimation, newProps.pointerUpAnimation, 'pointerUpAnimation', '() => void', changedProps)
+        checkPrimitiveDiff(oldProps.delegatePickingToChildren, newProps.delegatePickingToChildren, 'delegatePickingToChildren', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', changedProps)
+        checkLambdaDiff(oldProps.pointerDownAnimation, newProps.pointerDownAnimation, 'pointerDownAnimation', changedProps)
+        checkLambdaDiff(oldProps.pointerEnterAnimation, newProps.pointerEnterAnimation, 'pointerEnterAnimation', changedProps)
+        checkLambdaDiff(oldProps.pointerOutAnimation, newProps.pointerOutAnimation, 'pointerOutAnimation', changedProps)
+        checkLambdaDiff(oldProps.pointerUpAnimation, newProps.pointerUpAnimation, 'pointerUpAnimation', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -7035,20 +7035,20 @@ export class FiberButton implements HasPropsHandlers<FiberControlProps> {
 export class FiberSelectionPanelPropsHandler implements PropsHandler<FiberSelectionPanelProps> {
     getPropertyUpdates(oldProps: FiberSelectionPanelProps, newProps: FiberSelectionPanelProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.barColor, newProps.barColor, 'barColor', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.barHeight, newProps.barHeight, 'barHeight', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.buttonBackground, newProps.buttonBackground, 'buttonBackground', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.buttonColor, newProps.buttonColor, 'buttonColor', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.barColor, newProps.barColor, 'barColor', changedProps)
+        checkPrimitiveDiff(oldProps.barHeight, newProps.barHeight, 'barHeight', changedProps)
+        checkPrimitiveDiff(oldProps.buttonBackground, newProps.buttonBackground, 'buttonBackground', changedProps)
+        checkPrimitiveDiff(oldProps.buttonColor, newProps.buttonColor, 'buttonColor', changedProps)
         // type: 'BabylonjsGuiSelectorGroup[]' property (not coded) BabylonjsGuiSelectionPanel.groups.
-        checkPrimitiveDiff(oldProps.headerColor, newProps.headerColor, 'headerColor', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.labelColor, newProps.labelColor, 'labelColor', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.spacerHeight, newProps.spacerHeight, 'spacerHeight', 'string', changedProps)
-        checkMethodDiff(oldProps.addGroup, newProps.addGroup, 'addGroup', '(group?: BabylonjsGuiSelectorGroup) => void', changedProps)
-        checkMethodDiff(oldProps.addToGroupCheckbox, newProps.addToGroupCheckbox, 'addToGroupCheckbox', '(groupNb?: number, label?: string, func?: () => void, checked?: boolean) => void', changedProps)
-        checkMethodDiff(oldProps.addToGroupRadio, newProps.addToGroupRadio, 'addToGroupRadio', '(groupNb?: number, label?: string, func?: () => void, checked?: boolean) => void', changedProps)
-        checkMethodDiff(oldProps.addToGroupSlider, newProps.addToGroupSlider, 'addToGroupSlider', '(groupNb?: number, label?: string, func?: () => void, unit?: string, min?: number, max?: number, value?: number, onVal?: (v: number) => number) => void', changedProps)
-        checkMethodDiff(oldProps.setHeaderName, newProps.setHeaderName, 'setHeaderName', '(label?: string, groupNb?: number) => void', changedProps)
+        checkPrimitiveDiff(oldProps.headerColor, newProps.headerColor, 'headerColor', changedProps)
+        checkPrimitiveDiff(oldProps.labelColor, newProps.labelColor, 'labelColor', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', changedProps)
+        checkPrimitiveDiff(oldProps.spacerHeight, newProps.spacerHeight, 'spacerHeight', changedProps)
+        checkMethodDiff(oldProps.addGroup, newProps.addGroup, 'addGroup', changedProps)
+        checkMethodDiff(oldProps.addToGroupCheckbox, newProps.addToGroupCheckbox, 'addToGroupCheckbox', changedProps)
+        checkMethodDiff(oldProps.addToGroupRadio, newProps.addToGroupRadio, 'addToGroupRadio', changedProps)
+        checkMethodDiff(oldProps.addToGroupSlider, newProps.addToGroupSlider, 'addToGroupSlider', changedProps)
+        checkMethodDiff(oldProps.setHeaderName, newProps.setHeaderName, 'setHeaderName', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -7104,27 +7104,27 @@ export class FiberSelectionPanel implements HasPropsHandlers<FiberControlProps> 
 export class FiberScrollViewerPropsHandler implements PropsHandler<FiberScrollViewerProps> {
     getPropertyUpdates(oldProps: FiberScrollViewerProps, newProps: FiberScrollViewerProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.barBackground, newProps.barBackground, 'barBackground', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.barColor, newProps.barColor, 'barColor', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.barBackground, newProps.barBackground, 'barBackground', changedProps)
+        checkPrimitiveDiff(oldProps.barColor, newProps.barColor, 'barColor', changedProps)
         // type: 'BabylonjsGuiImage' property (not coded) BabylonjsGuiScrollViewer.barImage.
-        checkPrimitiveDiff(oldProps.barImageHeight, newProps.barImageHeight, 'barImageHeight', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.barSize, newProps.barSize, 'barSize', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.forceHorizontalBar, newProps.forceHorizontalBar, 'forceHorizontalBar', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.forceVerticalBar, newProps.forceVerticalBar, 'forceVerticalBar', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.freezeControls, newProps.freezeControls, 'freezeControls', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.barImageHeight, newProps.barImageHeight, 'barImageHeight', changedProps)
+        checkPrimitiveDiff(oldProps.barSize, newProps.barSize, 'barSize', changedProps)
+        checkPrimitiveDiff(oldProps.forceHorizontalBar, newProps.forceHorizontalBar, 'forceHorizontalBar', changedProps)
+        checkPrimitiveDiff(oldProps.forceVerticalBar, newProps.forceVerticalBar, 'forceVerticalBar', changedProps)
+        checkPrimitiveDiff(oldProps.freezeControls, newProps.freezeControls, 'freezeControls', changedProps)
         // type: 'BabylonjsGuiImage' property (not coded) BabylonjsGuiScrollViewer.horizontalBarImage.
-        checkPrimitiveDiff(oldProps.horizontalBarImageHeight, newProps.horizontalBarImageHeight, 'horizontalBarImageHeight', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.horizontalBarImageHeight, newProps.horizontalBarImageHeight, 'horizontalBarImageHeight', changedProps)
         // type: 'BabylonjsGuiImage' property (not coded) BabylonjsGuiScrollViewer.horizontalThumbImage.
-        checkPrimitiveDiff(oldProps.scrollBackground, newProps.scrollBackground, 'scrollBackground', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.thumbHeight, newProps.thumbHeight, 'thumbHeight', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.scrollBackground, newProps.scrollBackground, 'scrollBackground', changedProps)
+        checkPrimitiveDiff(oldProps.thumbHeight, newProps.thumbHeight, 'thumbHeight', changedProps)
         // type: 'BabylonjsGuiImage' property (not coded) BabylonjsGuiScrollViewer.thumbImage.
-        checkPrimitiveDiff(oldProps.thumbLength, newProps.thumbLength, 'thumbLength', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.thumbLength, newProps.thumbLength, 'thumbLength', changedProps)
         // type: 'BabylonjsGuiImage' property (not coded) BabylonjsGuiScrollViewer.verticalBarImage.
-        checkPrimitiveDiff(oldProps.verticalBarImageHeight, newProps.verticalBarImageHeight, 'verticalBarImageHeight', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.verticalBarImageHeight, newProps.verticalBarImageHeight, 'verticalBarImageHeight', changedProps)
         // type: 'BabylonjsGuiImage' property (not coded) BabylonjsGuiScrollViewer.verticalThumbImage.
-        checkPrimitiveDiff(oldProps.wheelPrecision, newProps.wheelPrecision, 'wheelPrecision', 'number', changedProps)
-        checkMethodDiff(oldProps.addControl, newProps.addControl, 'addControl', '(control?: BabylonjsGuiControl) => BabylonjsGuiContainer', changedProps)
-        checkMethodDiff(oldProps.setBucketSizes, newProps.setBucketSizes, 'setBucketSizes', '(width?: number, height?: number) => void', changedProps)
+        checkPrimitiveDiff(oldProps.wheelPrecision, newProps.wheelPrecision, 'wheelPrecision', changedProps)
+        checkMethodDiff(oldProps.addControl, newProps.addControl, 'addControl', changedProps)
+        checkMethodDiff(oldProps.setBucketSizes, newProps.setBucketSizes, 'setBucketSizes', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -7180,11 +7180,11 @@ export class FiberScrollViewer implements HasPropsHandlers<FiberControlProps> {
 export class FiberStackPanelPropsHandler implements PropsHandler<FiberStackPanelProps> {
     getPropertyUpdates(oldProps: FiberStackPanelProps, newProps: FiberStackPanelProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.height, newProps.height, 'height', 'string | number', changedProps)
-        checkPrimitiveDiff(oldProps.ignoreLayoutWarnings, newProps.ignoreLayoutWarnings, 'ignoreLayoutWarnings', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.isVertical, newProps.isVertical, 'isVertical', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.width, newProps.width, 'width', 'string | number', changedProps)
+        checkPrimitiveDiff(oldProps.height, newProps.height, 'height', changedProps)
+        checkPrimitiveDiff(oldProps.ignoreLayoutWarnings, newProps.ignoreLayoutWarnings, 'ignoreLayoutWarnings', changedProps)
+        checkPrimitiveDiff(oldProps.isVertical, newProps.isVertical, 'isVertical', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', changedProps)
+        checkPrimitiveDiff(oldProps.width, newProps.width, 'width', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -7234,19 +7234,19 @@ export class FiberStackPanel implements HasPropsHandlers<FiberControlProps> {
 export class FiberVirtualKeyboardPropsHandler implements PropsHandler<FiberVirtualKeyboardProps> {
     getPropertyUpdates(oldProps: FiberVirtualKeyboardProps, newProps: FiberVirtualKeyboardProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.defaultButtonBackground, newProps.defaultButtonBackground, 'defaultButtonBackground', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.defaultButtonColor, newProps.defaultButtonColor, 'defaultButtonColor', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.defaultButtonHeight, newProps.defaultButtonHeight, 'defaultButtonHeight', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.defaultButtonPaddingBottom, newProps.defaultButtonPaddingBottom, 'defaultButtonPaddingBottom', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.defaultButtonPaddingLeft, newProps.defaultButtonPaddingLeft, 'defaultButtonPaddingLeft', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.defaultButtonPaddingRight, newProps.defaultButtonPaddingRight, 'defaultButtonPaddingRight', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.defaultButtonPaddingTop, newProps.defaultButtonPaddingTop, 'defaultButtonPaddingTop', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.defaultButtonWidth, newProps.defaultButtonWidth, 'defaultButtonWidth', 'string', changedProps)
-        checkObservableDiff(oldProps.onKeyPressObservable, newProps.onKeyPressObservable, 'onKeyPressObservable', 'BabylonjsCoreObservable<string>', changedProps)
-        checkPrimitiveDiff(oldProps.selectedShiftThickness, newProps.selectedShiftThickness, 'selectedShiftThickness', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.shiftButtonColor, newProps.shiftButtonColor, 'shiftButtonColor', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.shiftState, newProps.shiftState, 'shiftState', 'number', changedProps)
-        checkMethodDiff(oldProps.addKeysRow, newProps.addKeysRow, 'addKeysRow', '(keys?: string[], propertySets?: BabylonjsGuiKeyPropertySet[]) => void', changedProps)
+        checkPrimitiveDiff(oldProps.defaultButtonBackground, newProps.defaultButtonBackground, 'defaultButtonBackground', changedProps)
+        checkPrimitiveDiff(oldProps.defaultButtonColor, newProps.defaultButtonColor, 'defaultButtonColor', changedProps)
+        checkPrimitiveDiff(oldProps.defaultButtonHeight, newProps.defaultButtonHeight, 'defaultButtonHeight', changedProps)
+        checkPrimitiveDiff(oldProps.defaultButtonPaddingBottom, newProps.defaultButtonPaddingBottom, 'defaultButtonPaddingBottom', changedProps)
+        checkPrimitiveDiff(oldProps.defaultButtonPaddingLeft, newProps.defaultButtonPaddingLeft, 'defaultButtonPaddingLeft', changedProps)
+        checkPrimitiveDiff(oldProps.defaultButtonPaddingRight, newProps.defaultButtonPaddingRight, 'defaultButtonPaddingRight', changedProps)
+        checkPrimitiveDiff(oldProps.defaultButtonPaddingTop, newProps.defaultButtonPaddingTop, 'defaultButtonPaddingTop', changedProps)
+        checkPrimitiveDiff(oldProps.defaultButtonWidth, newProps.defaultButtonWidth, 'defaultButtonWidth', changedProps)
+        checkObservableDiff(oldProps.onKeyPressObservable, newProps.onKeyPressObservable, 'onKeyPressObservable', changedProps)
+        checkPrimitiveDiff(oldProps.selectedShiftThickness, newProps.selectedShiftThickness, 'selectedShiftThickness', changedProps)
+        checkPrimitiveDiff(oldProps.shiftButtonColor, newProps.shiftButtonColor, 'shiftButtonColor', changedProps)
+        checkPrimitiveDiff(oldProps.shiftState, newProps.shiftState, 'shiftState', changedProps)
+        checkMethodDiff(oldProps.addKeysRow, newProps.addKeysRow, 'addKeysRow', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -7291,8 +7291,8 @@ export class FiberVirtualKeyboard implements HasPropsHandlers<FiberControlProps>
 export class FiberEllipsePropsHandler implements PropsHandler<FiberEllipseProps> {
     getPropertyUpdates(oldProps: FiberEllipseProps, newProps: FiberEllipseProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.thickness, newProps.thickness, 'thickness', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', changedProps)
+        checkPrimitiveDiff(oldProps.thickness, newProps.thickness, 'thickness', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -7342,12 +7342,12 @@ export class FiberEllipse implements HasPropsHandlers<FiberControlProps> {
 export class FiberGridPropsHandler implements PropsHandler<FiberGridProps> {
     getPropertyUpdates(oldProps: FiberGridProps, newProps: FiberGridProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
-        checkMethodDiff(oldProps.addColumnDefinition, newProps.addColumnDefinition, 'addColumnDefinition', '(width?: number, isPixel?: boolean) => BabylonjsGuiGrid', changedProps)
-        checkMethodDiff(oldProps.addControl, newProps.addControl, 'addControl', '(control?: BabylonjsGuiControl, row?: number, column?: number) => BabylonjsGuiGrid', changedProps)
-        checkMethodDiff(oldProps.addRowDefinition, newProps.addRowDefinition, 'addRowDefinition', '(height?: number, isPixel?: boolean) => BabylonjsGuiGrid', changedProps)
-        checkMethodDiff(oldProps.setColumnDefinition, newProps.setColumnDefinition, 'setColumnDefinition', '(index?: number, width?: number, isPixel?: boolean) => BabylonjsGuiGrid', changedProps)
-        checkMethodDiff(oldProps.setRowDefinition, newProps.setRowDefinition, 'setRowDefinition', '(index?: number, height?: number, isPixel?: boolean) => BabylonjsGuiGrid', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', changedProps)
+        checkMethodDiff(oldProps.addColumnDefinition, newProps.addColumnDefinition, 'addColumnDefinition', changedProps)
+        checkMethodDiff(oldProps.addControl, newProps.addControl, 'addControl', changedProps)
+        checkMethodDiff(oldProps.addRowDefinition, newProps.addRowDefinition, 'addRowDefinition', changedProps)
+        checkMethodDiff(oldProps.setColumnDefinition, newProps.setColumnDefinition, 'setColumnDefinition', changedProps)
+        checkMethodDiff(oldProps.setRowDefinition, newProps.setRowDefinition, 'setRowDefinition', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -7397,10 +7397,10 @@ export class FiberGrid implements HasPropsHandlers<FiberControlProps> {
 export class Fiber_ScrollViewerWindowPropsHandler implements PropsHandler<Fiber_ScrollViewerWindowProps> {
     getPropertyUpdates(oldProps: Fiber_ScrollViewerWindowProps, newProps: Fiber_ScrollViewerWindowProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.freezeControls, newProps.freezeControls, 'freezeControls', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.parentClientHeight, newProps.parentClientHeight, 'parentClientHeight', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.parentClientWidth, newProps.parentClientWidth, 'parentClientWidth', 'number', changedProps)
-        checkMethodDiff(oldProps.setBucketSizes, newProps.setBucketSizes, 'setBucketSizes', '(width?: number, height?: number) => void', changedProps)
+        checkPrimitiveDiff(oldProps.freezeControls, newProps.freezeControls, 'freezeControls', changedProps)
+        checkPrimitiveDiff(oldProps.parentClientHeight, newProps.parentClientHeight, 'parentClientHeight', changedProps)
+        checkPrimitiveDiff(oldProps.parentClientWidth, newProps.parentClientWidth, 'parentClientWidth', changedProps)
+        checkMethodDiff(oldProps.setBucketSizes, newProps.setBucketSizes, 'setBucketSizes', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -7450,17 +7450,17 @@ export class Fiber_ScrollViewerWindow implements HasPropsHandlers<FiberControlPr
 export class FiberTextBlockPropsHandler implements PropsHandler<FiberTextBlockProps> {
     getPropertyUpdates(oldProps: FiberTextBlockProps, newProps: FiberTextBlockProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.lineSpacing, newProps.lineSpacing, 'lineSpacing', 'string | number', changedProps)
-        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
-        checkObservableDiff(oldProps.onLinesReadyObservable, newProps.onLinesReadyObservable, 'onLinesReadyObservable', 'BabylonjsCoreObservable<BabylonjsGuiTextBlock>', changedProps)
-        checkObservableDiff(oldProps.onTextChangedObservable, newProps.onTextChangedObservable, 'onTextChangedObservable', 'BabylonjsCoreObservable<BabylonjsGuiTextBlock>', changedProps)
-        checkPrimitiveDiff(oldProps.outlineColor, newProps.outlineColor, 'outlineColor', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.outlineWidth, newProps.outlineWidth, 'outlineWidth', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.resizeToFit, newProps.resizeToFit, 'resizeToFit', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.text, newProps.text, 'text', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.textHorizontalAlignment, newProps.textHorizontalAlignment, 'textHorizontalAlignment', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.textVerticalAlignment, newProps.textVerticalAlignment, 'textVerticalAlignment', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.textWrapping, newProps.textWrapping, 'textWrapping', 'boolean | BabylonjsGuiTextWrapping', changedProps)
+        checkPrimitiveDiff(oldProps.lineSpacing, newProps.lineSpacing, 'lineSpacing', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', changedProps)
+        checkObservableDiff(oldProps.onLinesReadyObservable, newProps.onLinesReadyObservable, 'onLinesReadyObservable', changedProps)
+        checkObservableDiff(oldProps.onTextChangedObservable, newProps.onTextChangedObservable, 'onTextChangedObservable', changedProps)
+        checkPrimitiveDiff(oldProps.outlineColor, newProps.outlineColor, 'outlineColor', changedProps)
+        checkPrimitiveDiff(oldProps.outlineWidth, newProps.outlineWidth, 'outlineWidth', changedProps)
+        checkPrimitiveDiff(oldProps.resizeToFit, newProps.resizeToFit, 'resizeToFit', changedProps)
+        checkPrimitiveDiff(oldProps.text, newProps.text, 'text', changedProps)
+        checkPrimitiveDiff(oldProps.textHorizontalAlignment, newProps.textHorizontalAlignment, 'textHorizontalAlignment', changedProps)
+        checkPrimitiveDiff(oldProps.textVerticalAlignment, newProps.textVerticalAlignment, 'textVerticalAlignment', changedProps)
+        checkPrimitiveDiff(oldProps.textWrapping, newProps.textWrapping, 'textWrapping', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -7514,26 +7514,26 @@ export class FiberTextBlock implements HasPropsHandlers<FiberControlProps> {
 export class FiberImagePropsHandler implements PropsHandler<FiberImageProps> {
     getPropertyUpdates(oldProps: FiberImageProps, newProps: FiberImageProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.autoScale, newProps.autoScale, 'autoScale', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.cellHeight, newProps.cellHeight, 'cellHeight', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.cellId, newProps.cellId, 'cellId', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.cellWidth, newProps.cellWidth, 'cellWidth', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.detectPointerOnOpaqueOnly, newProps.detectPointerOnOpaqueOnly, 'detectPointerOnOpaqueOnly', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.autoScale, newProps.autoScale, 'autoScale', changedProps)
+        checkPrimitiveDiff(oldProps.cellHeight, newProps.cellHeight, 'cellHeight', changedProps)
+        checkPrimitiveDiff(oldProps.cellId, newProps.cellId, 'cellId', changedProps)
+        checkPrimitiveDiff(oldProps.cellWidth, newProps.cellWidth, 'cellWidth', changedProps)
+        checkPrimitiveDiff(oldProps.detectPointerOnOpaqueOnly, newProps.detectPointerOnOpaqueOnly, 'detectPointerOnOpaqueOnly', changedProps)
         // type: 'HTMLImageElement' property (not coded) BabylonjsGuiImage.domImage.
-        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
-        checkObservableDiff(oldProps.onImageLoadedObservable, newProps.onImageLoadedObservable, 'onImageLoadedObservable', 'BabylonjsCoreObservable<BabylonjsGuiImage>', changedProps)
-        checkObservableDiff(oldProps.onSVGAttributesComputedObservable, newProps.onSVGAttributesComputedObservable, 'onSVGAttributesComputedObservable', 'BabylonjsCoreObservable<BabylonjsGuiImage>', changedProps)
-        checkPrimitiveDiff(oldProps.populateNinePatchSlicesFromImage, newProps.populateNinePatchSlicesFromImage, 'populateNinePatchSlicesFromImage', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.sliceBottom, newProps.sliceBottom, 'sliceBottom', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.sliceLeft, newProps.sliceLeft, 'sliceLeft', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.sliceRight, newProps.sliceRight, 'sliceRight', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.sliceTop, newProps.sliceTop, 'sliceTop', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.source, newProps.source, 'source', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.sourceHeight, newProps.sourceHeight, 'sourceHeight', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.sourceLeft, newProps.sourceLeft, 'sourceLeft', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.sourceTop, newProps.sourceTop, 'sourceTop', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.sourceWidth, newProps.sourceWidth, 'sourceWidth', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.stretch, newProps.stretch, 'stretch', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', changedProps)
+        checkObservableDiff(oldProps.onImageLoadedObservable, newProps.onImageLoadedObservable, 'onImageLoadedObservable', changedProps)
+        checkObservableDiff(oldProps.onSVGAttributesComputedObservable, newProps.onSVGAttributesComputedObservable, 'onSVGAttributesComputedObservable', changedProps)
+        checkPrimitiveDiff(oldProps.populateNinePatchSlicesFromImage, newProps.populateNinePatchSlicesFromImage, 'populateNinePatchSlicesFromImage', changedProps)
+        checkPrimitiveDiff(oldProps.sliceBottom, newProps.sliceBottom, 'sliceBottom', changedProps)
+        checkPrimitiveDiff(oldProps.sliceLeft, newProps.sliceLeft, 'sliceLeft', changedProps)
+        checkPrimitiveDiff(oldProps.sliceRight, newProps.sliceRight, 'sliceRight', changedProps)
+        checkPrimitiveDiff(oldProps.sliceTop, newProps.sliceTop, 'sliceTop', changedProps)
+        checkPrimitiveDiff(oldProps.source, newProps.source, 'source', changedProps)
+        checkPrimitiveDiff(oldProps.sourceHeight, newProps.sourceHeight, 'sourceHeight', changedProps)
+        checkPrimitiveDiff(oldProps.sourceLeft, newProps.sourceLeft, 'sourceLeft', changedProps)
+        checkPrimitiveDiff(oldProps.sourceTop, newProps.sourceTop, 'sourceTop', changedProps)
+        checkPrimitiveDiff(oldProps.sourceWidth, newProps.sourceWidth, 'sourceWidth', changedProps)
+        checkPrimitiveDiff(oldProps.stretch, newProps.stretch, 'stretch', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -7587,12 +7587,12 @@ export class FiberImage implements HasPropsHandlers<FiberControlProps> {
 export class FiberCheckboxPropsHandler implements PropsHandler<FiberCheckboxProps> {
     getPropertyUpdates(oldProps: FiberCheckboxProps, newProps: FiberCheckboxProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.background, newProps.background, 'background', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.checkSizeRatio, newProps.checkSizeRatio, 'checkSizeRatio', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.isChecked, newProps.isChecked, 'isChecked', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
-        checkObservableDiff(oldProps.onIsCheckedChangedObservable, newProps.onIsCheckedChangedObservable, 'onIsCheckedChangedObservable', 'BabylonjsCoreObservable<boolean>', changedProps)
-        checkPrimitiveDiff(oldProps.thickness, newProps.thickness, 'thickness', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.background, newProps.background, 'background', changedProps)
+        checkPrimitiveDiff(oldProps.checkSizeRatio, newProps.checkSizeRatio, 'checkSizeRatio', changedProps)
+        checkPrimitiveDiff(oldProps.isChecked, newProps.isChecked, 'isChecked', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', changedProps)
+        checkObservableDiff(oldProps.onIsCheckedChangedObservable, newProps.onIsCheckedChangedObservable, 'onIsCheckedChangedObservable', changedProps)
+        checkPrimitiveDiff(oldProps.thickness, newProps.thickness, 'thickness', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -7641,12 +7641,12 @@ export class FiberCheckbox implements HasPropsHandlers<FiberControlProps> {
 export class FiberColorPickerPropsHandler implements PropsHandler<FiberColorPickerProps> {
     getPropertyUpdates(oldProps: FiberColorPickerProps, newProps: FiberColorPickerProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.height, newProps.height, 'height', 'string | number', changedProps)
-        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
-        checkObservableDiff(oldProps.onValueChangedObservable, newProps.onValueChangedObservable, 'onValueChangedObservable', 'BabylonjsCoreObservable<BabylonjsCoreColor3>', changedProps)
-        checkPrimitiveDiff(oldProps.size, newProps.size, 'size', 'string | number', changedProps)
-        checkColor3Diff(oldProps.value, newProps.value, 'value', 'BabylonjsCoreColor3', changedProps)
-        checkPrimitiveDiff(oldProps.width, newProps.width, 'width', 'string | number', changedProps)
+        checkPrimitiveDiff(oldProps.height, newProps.height, 'height', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', changedProps)
+        checkObservableDiff(oldProps.onValueChangedObservable, newProps.onValueChangedObservable, 'onValueChangedObservable', changedProps)
+        checkPrimitiveDiff(oldProps.size, newProps.size, 'size', changedProps)
+        checkColor3Diff(oldProps.value, newProps.value, 'value', changedProps)
+        checkPrimitiveDiff(oldProps.width, newProps.width, 'width', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -7695,36 +7695,36 @@ export class FiberColorPicker implements HasPropsHandlers<FiberControlProps> {
 export class FiberInputTextPropsHandler implements PropsHandler<FiberInputTextProps> {
     getPropertyUpdates(oldProps: FiberInputTextProps, newProps: FiberInputTextProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.addKey, newProps.addKey, 'addKey', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.autoStretchWidth, newProps.autoStretchWidth, 'autoStretchWidth', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.background, newProps.background, 'background', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.currentKey, newProps.currentKey, 'currentKey', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.deadKey, newProps.deadKey, 'deadKey', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.disableMobilePrompt, newProps.disableMobilePrompt, 'disableMobilePrompt', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.focusedBackground, newProps.focusedBackground, 'focusedBackground', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.focusedColor, newProps.focusedColor, 'focusedColor', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.highligherOpacity, newProps.highligherOpacity, 'highligherOpacity', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.highlightedText, newProps.highlightedText, 'highlightedText', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.margin, newProps.margin, 'margin', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.maxWidth, newProps.maxWidth, 'maxWidth', 'string | number', changedProps)
-        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
-        checkObservableDiff(oldProps.onBeforeKeyAddObservable, newProps.onBeforeKeyAddObservable, 'onBeforeKeyAddObservable', 'BabylonjsCoreObservable<BabylonjsGuiInputText>', changedProps)
-        checkObservableDiff(oldProps.onBlurObservable, newProps.onBlurObservable, 'onBlurObservable', 'BabylonjsCoreObservable<BabylonjsGuiInputText>', changedProps)
-        checkObservableDiff(oldProps.onFocusObservable, newProps.onFocusObservable, 'onFocusObservable', 'BabylonjsCoreObservable<BabylonjsGuiInputText>', changedProps)
-        checkPrimitiveDiff(oldProps.onFocusSelectAll, newProps.onFocusSelectAll, 'onFocusSelectAll', 'boolean', changedProps)
-        checkObservableDiff(oldProps.onKeyboardEventProcessedObservable, newProps.onKeyboardEventProcessedObservable, 'onKeyboardEventProcessedObservable', 'BabylonjsCoreObservable<KeyboardEvent>', changedProps)
-        checkObservableDiff(oldProps.onTextChangedObservable, newProps.onTextChangedObservable, 'onTextChangedObservable', 'BabylonjsCoreObservable<BabylonjsGuiInputText>', changedProps)
-        checkObservableDiff(oldProps.onTextCopyObservable, newProps.onTextCopyObservable, 'onTextCopyObservable', 'BabylonjsCoreObservable<BabylonjsGuiInputText>', changedProps)
-        checkObservableDiff(oldProps.onTextCutObservable, newProps.onTextCutObservable, 'onTextCutObservable', 'BabylonjsCoreObservable<BabylonjsGuiInputText>', changedProps)
-        checkObservableDiff(oldProps.onTextHighlightObservable, newProps.onTextHighlightObservable, 'onTextHighlightObservable', 'BabylonjsCoreObservable<BabylonjsGuiInputText>', changedProps)
-        checkObservableDiff(oldProps.onTextPasteObservable, newProps.onTextPasteObservable, 'onTextPasteObservable', 'BabylonjsCoreObservable<BabylonjsGuiInputText>', changedProps)
-        checkPrimitiveDiff(oldProps.placeholderColor, newProps.placeholderColor, 'placeholderColor', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.placeholderText, newProps.placeholderText, 'placeholderText', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.promptMessage, newProps.promptMessage, 'promptMessage', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.text, newProps.text, 'text', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.textHighlightColor, newProps.textHighlightColor, 'textHighlightColor', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.thickness, newProps.thickness, 'thickness', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.width, newProps.width, 'width', 'string | number', changedProps)
+        checkPrimitiveDiff(oldProps.addKey, newProps.addKey, 'addKey', changedProps)
+        checkPrimitiveDiff(oldProps.autoStretchWidth, newProps.autoStretchWidth, 'autoStretchWidth', changedProps)
+        checkPrimitiveDiff(oldProps.background, newProps.background, 'background', changedProps)
+        checkPrimitiveDiff(oldProps.currentKey, newProps.currentKey, 'currentKey', changedProps)
+        checkPrimitiveDiff(oldProps.deadKey, newProps.deadKey, 'deadKey', changedProps)
+        checkPrimitiveDiff(oldProps.disableMobilePrompt, newProps.disableMobilePrompt, 'disableMobilePrompt', changedProps)
+        checkPrimitiveDiff(oldProps.focusedBackground, newProps.focusedBackground, 'focusedBackground', changedProps)
+        checkPrimitiveDiff(oldProps.focusedColor, newProps.focusedColor, 'focusedColor', changedProps)
+        checkPrimitiveDiff(oldProps.highligherOpacity, newProps.highligherOpacity, 'highligherOpacity', changedProps)
+        checkPrimitiveDiff(oldProps.highlightedText, newProps.highlightedText, 'highlightedText', changedProps)
+        checkPrimitiveDiff(oldProps.margin, newProps.margin, 'margin', changedProps)
+        checkPrimitiveDiff(oldProps.maxWidth, newProps.maxWidth, 'maxWidth', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', changedProps)
+        checkObservableDiff(oldProps.onBeforeKeyAddObservable, newProps.onBeforeKeyAddObservable, 'onBeforeKeyAddObservable', changedProps)
+        checkObservableDiff(oldProps.onBlurObservable, newProps.onBlurObservable, 'onBlurObservable', changedProps)
+        checkObservableDiff(oldProps.onFocusObservable, newProps.onFocusObservable, 'onFocusObservable', changedProps)
+        checkPrimitiveDiff(oldProps.onFocusSelectAll, newProps.onFocusSelectAll, 'onFocusSelectAll', changedProps)
+        checkObservableDiff(oldProps.onKeyboardEventProcessedObservable, newProps.onKeyboardEventProcessedObservable, 'onKeyboardEventProcessedObservable', changedProps)
+        checkObservableDiff(oldProps.onTextChangedObservable, newProps.onTextChangedObservable, 'onTextChangedObservable', changedProps)
+        checkObservableDiff(oldProps.onTextCopyObservable, newProps.onTextCopyObservable, 'onTextCopyObservable', changedProps)
+        checkObservableDiff(oldProps.onTextCutObservable, newProps.onTextCutObservable, 'onTextCutObservable', changedProps)
+        checkObservableDiff(oldProps.onTextHighlightObservable, newProps.onTextHighlightObservable, 'onTextHighlightObservable', changedProps)
+        checkObservableDiff(oldProps.onTextPasteObservable, newProps.onTextPasteObservable, 'onTextPasteObservable', changedProps)
+        checkPrimitiveDiff(oldProps.placeholderColor, newProps.placeholderColor, 'placeholderColor', changedProps)
+        checkPrimitiveDiff(oldProps.placeholderText, newProps.placeholderText, 'placeholderText', changedProps)
+        checkPrimitiveDiff(oldProps.promptMessage, newProps.promptMessage, 'promptMessage', changedProps)
+        checkPrimitiveDiff(oldProps.text, newProps.text, 'text', changedProps)
+        checkPrimitiveDiff(oldProps.textHighlightColor, newProps.textHighlightColor, 'textHighlightColor', changedProps)
+        checkPrimitiveDiff(oldProps.thickness, newProps.thickness, 'thickness', changedProps)
+        checkPrimitiveDiff(oldProps.width, newProps.width, 'width', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -7820,16 +7820,16 @@ export class FiberInputPassword implements HasPropsHandlers<FiberControlProps> {
 export class FiberLinePropsHandler implements PropsHandler<FiberLineProps> {
     getPropertyUpdates(oldProps: FiberLineProps, newProps: FiberLineProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkControlDiff(oldProps.connectedControl, newProps.connectedControl, 'connectedControl', 'BabylonjsGuiControl', changedProps)
-        checkNumericArrayDiff(oldProps.dash, newProps.dash, 'dash', 'number[]', changedProps)
-        checkPrimitiveDiff(oldProps.horizontalAlignment, newProps.horizontalAlignment, 'horizontalAlignment', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.lineWidth, newProps.lineWidth, 'lineWidth', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.verticalAlignment, newProps.verticalAlignment, 'verticalAlignment', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.x1, newProps.x1, 'x1', 'string | number', changedProps)
-        checkPrimitiveDiff(oldProps.x2, newProps.x2, 'x2', 'string | number', changedProps)
-        checkPrimitiveDiff(oldProps.y1, newProps.y1, 'y1', 'string | number', changedProps)
-        checkPrimitiveDiff(oldProps.y2, newProps.y2, 'y2', 'string | number', changedProps)
+        checkControlDiff(oldProps.connectedControl, newProps.connectedControl, 'connectedControl', changedProps)
+        checkNumericArrayDiff(oldProps.dash, newProps.dash, 'dash', changedProps)
+        checkPrimitiveDiff(oldProps.horizontalAlignment, newProps.horizontalAlignment, 'horizontalAlignment', changedProps)
+        checkPrimitiveDiff(oldProps.lineWidth, newProps.lineWidth, 'lineWidth', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', changedProps)
+        checkPrimitiveDiff(oldProps.verticalAlignment, newProps.verticalAlignment, 'verticalAlignment', changedProps)
+        checkPrimitiveDiff(oldProps.x1, newProps.x1, 'x1', changedProps)
+        checkPrimitiveDiff(oldProps.x2, newProps.x2, 'x2', changedProps)
+        checkPrimitiveDiff(oldProps.y1, newProps.y1, 'y1', changedProps)
+        checkPrimitiveDiff(oldProps.y2, newProps.y2, 'y2', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -7878,13 +7878,13 @@ export class FiberLine implements HasPropsHandlers<FiberControlProps> {
 export class FiberMultiLinePropsHandler implements PropsHandler<FiberMultiLineProps> {
     getPropertyUpdates(oldProps: FiberMultiLineProps, newProps: FiberMultiLineProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkNumericArrayDiff(oldProps.dash, newProps.dash, 'dash', 'number[]', changedProps)
-        checkPrimitiveDiff(oldProps.horizontalAlignment, newProps.horizontalAlignment, 'horizontalAlignment', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.lineWidth, newProps.lineWidth, 'lineWidth', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
-        checkLambdaDiff(oldProps.onPointUpdate, newProps.onPointUpdate, 'onPointUpdate', '() => void', changedProps)
-        checkPrimitiveDiff(oldProps.verticalAlignment, newProps.verticalAlignment, 'verticalAlignment', 'number', changedProps)
-        checkMethodDiff(oldProps.add, newProps.add, 'add', '(items?: (BabylonjsCoreAbstractMesh | BabylonjsGuiControl | { x: string | number; y: string | number; })[]) => BabylonjsGuiMultiLinePoint[]', changedProps)
+        checkNumericArrayDiff(oldProps.dash, newProps.dash, 'dash', changedProps)
+        checkPrimitiveDiff(oldProps.horizontalAlignment, newProps.horizontalAlignment, 'horizontalAlignment', changedProps)
+        checkPrimitiveDiff(oldProps.lineWidth, newProps.lineWidth, 'lineWidth', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', changedProps)
+        checkLambdaDiff(oldProps.onPointUpdate, newProps.onPointUpdate, 'onPointUpdate', changedProps)
+        checkPrimitiveDiff(oldProps.verticalAlignment, newProps.verticalAlignment, 'verticalAlignment', changedProps)
+        checkMethodDiff(oldProps.add, newProps.add, 'add', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -7933,13 +7933,13 @@ export class FiberMultiLine implements HasPropsHandlers<FiberControlProps> {
 export class FiberRadioButtonPropsHandler implements PropsHandler<FiberRadioButtonProps> {
     getPropertyUpdates(oldProps: FiberRadioButtonProps, newProps: FiberRadioButtonProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.background, newProps.background, 'background', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.checkSizeRatio, newProps.checkSizeRatio, 'checkSizeRatio', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.group, newProps.group, 'group', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.isChecked, newProps.isChecked, 'isChecked', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
-        checkObservableDiff(oldProps.onIsCheckedChangedObservable, newProps.onIsCheckedChangedObservable, 'onIsCheckedChangedObservable', 'BabylonjsCoreObservable<boolean>', changedProps)
-        checkPrimitiveDiff(oldProps.thickness, newProps.thickness, 'thickness', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.background, newProps.background, 'background', changedProps)
+        checkPrimitiveDiff(oldProps.checkSizeRatio, newProps.checkSizeRatio, 'checkSizeRatio', changedProps)
+        checkPrimitiveDiff(oldProps.group, newProps.group, 'group', changedProps)
+        checkPrimitiveDiff(oldProps.isChecked, newProps.isChecked, 'isChecked', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', changedProps)
+        checkObservableDiff(oldProps.onIsCheckedChangedObservable, newProps.onIsCheckedChangedObservable, 'onIsCheckedChangedObservable', changedProps)
+        checkPrimitiveDiff(oldProps.thickness, newProps.thickness, 'thickness', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -7988,17 +7988,17 @@ export class FiberRadioButton implements HasPropsHandlers<FiberControlProps> {
 export class FiberBaseSliderPropsHandler implements PropsHandler<FiberBaseSliderProps> {
     getPropertyUpdates(oldProps: FiberBaseSliderProps, newProps: FiberBaseSliderProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.barOffset, newProps.barOffset, 'barOffset', 'string | number', changedProps)
-        checkPrimitiveDiff(oldProps.displayThumb, newProps.displayThumb, 'displayThumb', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.isThumbClamped, newProps.isThumbClamped, 'isThumbClamped', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.isVertical, newProps.isVertical, 'isVertical', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.maximum, newProps.maximum, 'maximum', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.minimum, newProps.minimum, 'minimum', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
-        checkObservableDiff(oldProps.onValueChangedObservable, newProps.onValueChangedObservable, 'onValueChangedObservable', 'BabylonjsCoreObservable<number>', changedProps)
-        checkPrimitiveDiff(oldProps.step, newProps.step, 'step', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.thumbWidth, newProps.thumbWidth, 'thumbWidth', 'string | number', changedProps)
-        checkPrimitiveDiff(oldProps.value, newProps.value, 'value', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.barOffset, newProps.barOffset, 'barOffset', changedProps)
+        checkPrimitiveDiff(oldProps.displayThumb, newProps.displayThumb, 'displayThumb', changedProps)
+        checkPrimitiveDiff(oldProps.isThumbClamped, newProps.isThumbClamped, 'isThumbClamped', changedProps)
+        checkPrimitiveDiff(oldProps.isVertical, newProps.isVertical, 'isVertical', changedProps)
+        checkPrimitiveDiff(oldProps.maximum, newProps.maximum, 'maximum', changedProps)
+        checkPrimitiveDiff(oldProps.minimum, newProps.minimum, 'minimum', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', changedProps)
+        checkObservableDiff(oldProps.onValueChangedObservable, newProps.onValueChangedObservable, 'onValueChangedObservable', changedProps)
+        checkPrimitiveDiff(oldProps.step, newProps.step, 'step', changedProps)
+        checkPrimitiveDiff(oldProps.thumbWidth, newProps.thumbWidth, 'thumbWidth', changedProps)
+        checkPrimitiveDiff(oldProps.value, newProps.value, 'value', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -8047,9 +8047,9 @@ export class FiberBaseSlider implements HasPropsHandlers<FiberControlProps> {
 export class FiberScrollBarPropsHandler implements PropsHandler<FiberScrollBarProps> {
     getPropertyUpdates(oldProps: FiberScrollBarProps, newProps: FiberScrollBarProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.background, newProps.background, 'background', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.borderColor, newProps.borderColor, 'borderColor', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.background, newProps.background, 'background', changedProps)
+        checkPrimitiveDiff(oldProps.borderColor, newProps.borderColor, 'borderColor', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -8100,12 +8100,12 @@ export class FiberImageScrollBarPropsHandler implements PropsHandler<FiberImageS
     getPropertyUpdates(oldProps: FiberImageScrollBarProps, newProps: FiberImageScrollBarProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
         // type: 'BabylonjsGuiImage' property (not coded) BabylonjsGuiImageScrollBar.backgroundImage.
-        checkPrimitiveDiff(oldProps.barImageHeight, newProps.barImageHeight, 'barImageHeight', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.num90RotationInVerticalMode, newProps.num90RotationInVerticalMode, 'num90RotationInVerticalMode', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.thumbHeight, newProps.thumbHeight, 'thumbHeight', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.barImageHeight, newProps.barImageHeight, 'barImageHeight', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', changedProps)
+        checkPrimitiveDiff(oldProps.num90RotationInVerticalMode, newProps.num90RotationInVerticalMode, 'num90RotationInVerticalMode', changedProps)
+        checkPrimitiveDiff(oldProps.thumbHeight, newProps.thumbHeight, 'thumbHeight', changedProps)
         // type: 'BabylonjsGuiImage' property (not coded) BabylonjsGuiImageScrollBar.thumbImage.
-        checkPrimitiveDiff(oldProps.thumbLength, newProps.thumbLength, 'thumbLength', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.thumbLength, newProps.thumbLength, 'thumbLength', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -8155,11 +8155,11 @@ export class FiberImageScrollBar implements HasPropsHandlers<FiberControlProps> 
 export class FiberSliderPropsHandler implements PropsHandler<FiberSliderProps> {
     getPropertyUpdates(oldProps: FiberSliderProps, newProps: FiberSliderProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.background, newProps.background, 'background', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.borderColor, newProps.borderColor, 'borderColor', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.displayValueBar, newProps.displayValueBar, 'displayValueBar', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.isThumbCircle, newProps.isThumbCircle, 'isThumbCircle', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.background, newProps.background, 'background', changedProps)
+        checkPrimitiveDiff(oldProps.borderColor, newProps.borderColor, 'borderColor', changedProps)
+        checkPrimitiveDiff(oldProps.displayValueBar, newProps.displayValueBar, 'displayValueBar', changedProps)
+        checkPrimitiveDiff(oldProps.isThumbCircle, newProps.isThumbCircle, 'isThumbCircle', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -8210,8 +8210,8 @@ export class FiberImageBasedSliderPropsHandler implements PropsHandler<FiberImag
     getPropertyUpdates(oldProps: FiberImageBasedSliderProps, newProps: FiberImageBasedSliderProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
         // type: 'BabylonjsGuiImage' property (not coded) BabylonjsGuiImageBasedSlider.backgroundImage.
-        checkPrimitiveDiff(oldProps.displayThumb, newProps.displayThumb, 'displayThumb', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.displayThumb, newProps.displayThumb, 'displayThumb', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', changedProps)
         // type: 'BabylonjsGuiImage' property (not coded) BabylonjsGuiImageBasedSlider.thumbImage.
         // type: 'BabylonjsGuiImage' property (not coded) BabylonjsGuiImageBasedSlider.valueBarImage.
         return changedProps.length === 0 ? null : changedProps;
@@ -8263,17 +8263,17 @@ export class FiberImageBasedSlider implements HasPropsHandlers<FiberControlProps
 export class FiberDisplayGridPropsHandler implements PropsHandler<FiberDisplayGridProps> {
     getPropertyUpdates(oldProps: FiberDisplayGridProps, newProps: FiberDisplayGridProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.background, newProps.background, 'background', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.cellHeight, newProps.cellHeight, 'cellHeight', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.cellWidth, newProps.cellWidth, 'cellWidth', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.displayMajorLines, newProps.displayMajorLines, 'displayMajorLines', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.displayMinorLines, newProps.displayMinorLines, 'displayMinorLines', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.majorLineColor, newProps.majorLineColor, 'majorLineColor', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.majorLineFrequency, newProps.majorLineFrequency, 'majorLineFrequency', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.majorLineTickness, newProps.majorLineTickness, 'majorLineTickness', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.minorLineColor, newProps.minorLineColor, 'minorLineColor', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.minorLineTickness, newProps.minorLineTickness, 'minorLineTickness', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.background, newProps.background, 'background', changedProps)
+        checkPrimitiveDiff(oldProps.cellHeight, newProps.cellHeight, 'cellHeight', changedProps)
+        checkPrimitiveDiff(oldProps.cellWidth, newProps.cellWidth, 'cellWidth', changedProps)
+        checkPrimitiveDiff(oldProps.displayMajorLines, newProps.displayMajorLines, 'displayMajorLines', changedProps)
+        checkPrimitiveDiff(oldProps.displayMinorLines, newProps.displayMinorLines, 'displayMinorLines', changedProps)
+        checkPrimitiveDiff(oldProps.majorLineColor, newProps.majorLineColor, 'majorLineColor', changedProps)
+        checkPrimitiveDiff(oldProps.majorLineFrequency, newProps.majorLineFrequency, 'majorLineFrequency', changedProps)
+        checkPrimitiveDiff(oldProps.majorLineTickness, newProps.majorLineTickness, 'majorLineTickness', changedProps)
+        checkPrimitiveDiff(oldProps.minorLineColor, newProps.minorLineColor, 'minorLineColor', changedProps)
+        checkPrimitiveDiff(oldProps.minorLineTickness, newProps.minorLineTickness, 'minorLineTickness', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -8322,22 +8322,22 @@ export class FiberDisplayGrid implements HasPropsHandlers<FiberControlProps> {
 export class FiberControl3DPropsHandler implements PropsHandler<FiberControl3DProps> {
     getPropertyUpdates(oldProps: FiberControl3DProps, newProps: FiberControl3DProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.isVisible, newProps.isVisible, 'isVisible', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
-        checkObservableDiff(oldProps.onPointerClickObservable, newProps.onPointerClickObservable, 'onPointerClickObservable', 'BabylonjsCoreObservable<BabylonjsGuiVector3WithInfo>', changedProps)
-        checkObservableDiff(oldProps.onPointerDownObservable, newProps.onPointerDownObservable, 'onPointerDownObservable', 'BabylonjsCoreObservable<BabylonjsGuiVector3WithInfo>', changedProps)
-        checkObservableDiff(oldProps.onPointerEnterObservable, newProps.onPointerEnterObservable, 'onPointerEnterObservable', 'BabylonjsCoreObservable<BabylonjsGuiControl3D>', changedProps)
-        checkObservableDiff(oldProps.onPointerMoveObservable, newProps.onPointerMoveObservable, 'onPointerMoveObservable', 'BabylonjsCoreObservable<BabylonjsCoreVector3>', changedProps)
-        checkObservableDiff(oldProps.onPointerOutObservable, newProps.onPointerOutObservable, 'onPointerOutObservable', 'BabylonjsCoreObservable<BabylonjsGuiControl3D>', changedProps)
-        checkObservableDiff(oldProps.onPointerUpObservable, newProps.onPointerUpObservable, 'onPointerUpObservable', 'BabylonjsCoreObservable<BabylonjsGuiVector3WithInfo>', changedProps)
+        checkPrimitiveDiff(oldProps.isVisible, newProps.isVisible, 'isVisible', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', changedProps)
+        checkObservableDiff(oldProps.onPointerClickObservable, newProps.onPointerClickObservable, 'onPointerClickObservable', changedProps)
+        checkObservableDiff(oldProps.onPointerDownObservable, newProps.onPointerDownObservable, 'onPointerDownObservable', changedProps)
+        checkObservableDiff(oldProps.onPointerEnterObservable, newProps.onPointerEnterObservable, 'onPointerEnterObservable', changedProps)
+        checkObservableDiff(oldProps.onPointerMoveObservable, newProps.onPointerMoveObservable, 'onPointerMoveObservable', changedProps)
+        checkObservableDiff(oldProps.onPointerOutObservable, newProps.onPointerOutObservable, 'onPointerOutObservable', changedProps)
+        checkObservableDiff(oldProps.onPointerUpObservable, newProps.onPointerUpObservable, 'onPointerUpObservable', changedProps)
         // type: 'BabylonjsGuiContainer3D' property (not coded) BabylonjsGuiControl3D.parent.
-        checkLambdaDiff(oldProps.pointerDownAnimation, newProps.pointerDownAnimation, 'pointerDownAnimation', '() => void', changedProps)
-        checkLambdaDiff(oldProps.pointerEnterAnimation, newProps.pointerEnterAnimation, 'pointerEnterAnimation', '() => void', changedProps)
-        checkLambdaDiff(oldProps.pointerOutAnimation, newProps.pointerOutAnimation, 'pointerOutAnimation', '() => void', changedProps)
-        checkLambdaDiff(oldProps.pointerUpAnimation, newProps.pointerUpAnimation, 'pointerUpAnimation', '() => void', changedProps)
-        checkVector3Diff(oldProps.position, newProps.position, 'position', 'BabylonjsCoreVector3', changedProps)
-        checkVector3Diff(oldProps.scaling, newProps.scaling, 'scaling', 'BabylonjsCoreVector3', changedProps)
-        checkMethodDiff(oldProps.addBehavior, newProps.addBehavior, 'addBehavior', '(behavior?: BabylonjsCoreBehavior<BabylonjsGuiControl3D>) => BabylonjsGuiControl3D', changedProps)
+        checkLambdaDiff(oldProps.pointerDownAnimation, newProps.pointerDownAnimation, 'pointerDownAnimation', changedProps)
+        checkLambdaDiff(oldProps.pointerEnterAnimation, newProps.pointerEnterAnimation, 'pointerEnterAnimation', changedProps)
+        checkLambdaDiff(oldProps.pointerOutAnimation, newProps.pointerOutAnimation, 'pointerOutAnimation', changedProps)
+        checkLambdaDiff(oldProps.pointerUpAnimation, newProps.pointerUpAnimation, 'pointerUpAnimation', changedProps)
+        checkVector3Diff(oldProps.position, newProps.position, 'position', changedProps)
+        checkVector3Diff(oldProps.scaling, newProps.scaling, 'scaling', changedProps)
+        checkMethodDiff(oldProps.addBehavior, newProps.addBehavior, 'addBehavior', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -8385,8 +8385,8 @@ export class FiberControl3D implements HasPropsHandlers<FiberControl3DProps> {
 export class FiberContainer3DPropsHandler implements PropsHandler<FiberContainer3DProps> {
     getPropertyUpdates(oldProps: FiberContainer3DProps, newProps: FiberContainer3DProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.blockLayout, newProps.blockLayout, 'blockLayout', 'boolean', changedProps)
-        checkMethodDiff(oldProps.addControl, newProps.addControl, 'addControl', '(control?: BabylonjsGuiControl3D) => BabylonjsGuiContainer3D', changedProps)
+        checkPrimitiveDiff(oldProps.blockLayout, newProps.blockLayout, 'blockLayout', changedProps)
+        checkMethodDiff(oldProps.addControl, newProps.addControl, 'addControl', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -8435,10 +8435,10 @@ export class FiberContainer3D implements HasPropsHandlers<FiberControl3DProps> {
 export class FiberVolumeBasedPanelPropsHandler implements PropsHandler<FiberVolumeBasedPanelProps> {
     getPropertyUpdates(oldProps: FiberVolumeBasedPanelProps, newProps: FiberVolumeBasedPanelProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.columns, newProps.columns, 'columns', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.margin, newProps.margin, 'margin', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.orientation, newProps.orientation, 'orientation', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.rows, newProps.rows, 'rows', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.columns, newProps.columns, 'columns', changedProps)
+        checkPrimitiveDiff(oldProps.margin, newProps.margin, 'margin', changedProps)
+        checkPrimitiveDiff(oldProps.orientation, newProps.orientation, 'orientation', changedProps)
+        checkPrimitiveDiff(oldProps.rows, newProps.rows, 'rows', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -8482,7 +8482,7 @@ export class FiberVolumeBasedPanel implements HasPropsHandlers<FiberControl3DPro
 export class FiberCylinderPanelPropsHandler implements PropsHandler<FiberCylinderPanelProps> {
     getPropertyUpdates(oldProps: FiberCylinderPanelProps, newProps: FiberCylinderPanelProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.radius, newProps.radius, 'radius', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.radius, newProps.radius, 'radius', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -8570,7 +8570,7 @@ export class FiberPlanePanel implements HasPropsHandlers<FiberControl3DProps> {
 export class FiberScatterPanelPropsHandler implements PropsHandler<FiberScatterPanelProps> {
     getPropertyUpdates(oldProps: FiberScatterPanelProps, newProps: FiberScatterPanelProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.iteration, newProps.iteration, 'iteration', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.iteration, newProps.iteration, 'iteration', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -8615,7 +8615,7 @@ export class FiberScatterPanel implements HasPropsHandlers<FiberControl3DProps> 
 export class FiberSpherePanelPropsHandler implements PropsHandler<FiberSpherePanelProps> {
     getPropertyUpdates(oldProps: FiberSpherePanelProps, newProps: FiberSpherePanelProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.radius, newProps.radius, 'radius', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.radius, newProps.radius, 'radius', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -8660,8 +8660,8 @@ export class FiberSpherePanel implements HasPropsHandlers<FiberControl3DProps> {
 export class FiberStackPanel3DPropsHandler implements PropsHandler<FiberStackPanel3DProps> {
     getPropertyUpdates(oldProps: FiberStackPanel3DProps, newProps: FiberStackPanel3DProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.isVertical, newProps.isVertical, 'isVertical', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.margin, newProps.margin, 'margin', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.isVertical, newProps.isVertical, 'isVertical', changedProps)
+        checkPrimitiveDiff(oldProps.margin, newProps.margin, 'margin', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -8758,9 +8758,9 @@ export class FiberAbstractButton3D implements HasPropsHandlers<FiberControl3DPro
 export class FiberButton3DPropsHandler implements PropsHandler<FiberButton3DProps> {
     getPropertyUpdates(oldProps: FiberButton3DProps, newProps: FiberButton3DProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkControlDiff(oldProps.content, newProps.content, 'content', 'BabylonjsGuiControl', changedProps)
-        checkPrimitiveDiff(oldProps.contentResolution, newProps.contentResolution, 'contentResolution', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.contentScaleRatio, newProps.contentScaleRatio, 'contentScaleRatio', 'number', changedProps)
+        checkControlDiff(oldProps.content, newProps.content, 'content', changedProps)
+        checkPrimitiveDiff(oldProps.contentResolution, newProps.contentResolution, 'contentResolution', changedProps)
+        checkPrimitiveDiff(oldProps.contentScaleRatio, newProps.contentScaleRatio, 'contentScaleRatio', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -8810,10 +8810,10 @@ export class FiberButton3D implements HasPropsHandlers<FiberControl3DProps> {
 export class FiberHolographicButtonPropsHandler implements PropsHandler<FiberHolographicButtonProps> {
     getPropertyUpdates(oldProps: FiberHolographicButtonProps, newProps: FiberHolographicButtonProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.imageUrl, newProps.imageUrl, 'imageUrl', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.renderingGroupId, newProps.renderingGroupId, 'renderingGroupId', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.text, newProps.text, 'text', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.tooltipText, newProps.tooltipText, 'tooltipText', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.imageUrl, newProps.imageUrl, 'imageUrl', changedProps)
+        checkPrimitiveDiff(oldProps.renderingGroupId, newProps.renderingGroupId, 'renderingGroupId', changedProps)
+        checkPrimitiveDiff(oldProps.text, newProps.text, 'text', changedProps)
+        checkPrimitiveDiff(oldProps.tooltipText, newProps.tooltipText, 'tooltipText', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -8923,17 +8923,17 @@ export class FiberMeshButton3D implements HasPropsHandlers<FiberControl3DProps> 
 export class FiberEffectLayerPropsHandler implements PropsHandler<FiberEffectLayerProps> {
     getPropertyUpdates(oldProps: FiberEffectLayerProps, newProps: FiberEffectLayerProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.isEnabled, newProps.isEnabled, 'isEnabled', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
-        checkColor4Diff(oldProps.neutralColor, newProps.neutralColor, 'neutralColor', 'BabylonjsCoreColor4', changedProps)
-        checkObservableDiff(oldProps.onAfterComposeObservable, newProps.onAfterComposeObservable, 'onAfterComposeObservable', 'BabylonjsCoreObservable<BabylonjsCoreEffectLayer>', changedProps)
-        checkObservableDiff(oldProps.onAfterRenderMeshToEffect, newProps.onAfterRenderMeshToEffect, 'onAfterRenderMeshToEffect', 'BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>', changedProps)
-        checkObservableDiff(oldProps.onBeforeComposeObservable, newProps.onBeforeComposeObservable, 'onBeforeComposeObservable', 'BabylonjsCoreObservable<BabylonjsCoreEffectLayer>', changedProps)
-        checkObservableDiff(oldProps.onBeforeRenderMainTextureObservable, newProps.onBeforeRenderMainTextureObservable, 'onBeforeRenderMainTextureObservable', 'BabylonjsCoreObservable<BabylonjsCoreEffectLayer>', changedProps)
-        checkObservableDiff(oldProps.onBeforeRenderMeshToEffect, newProps.onBeforeRenderMeshToEffect, 'onBeforeRenderMeshToEffect', 'BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>', changedProps)
-        checkObservableDiff(oldProps.onDisposeObservable, newProps.onDisposeObservable, 'onDisposeObservable', 'BabylonjsCoreObservable<BabylonjsCoreEffectLayer>', changedProps)
-        checkObservableDiff(oldProps.onSizeChangedObservable, newProps.onSizeChangedObservable, 'onSizeChangedObservable', 'BabylonjsCoreObservable<BabylonjsCoreEffectLayer>', changedProps)
-        checkPrimitiveDiff(oldProps.renderingGroupId, newProps.renderingGroupId, 'renderingGroupId', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.isEnabled, newProps.isEnabled, 'isEnabled', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', changedProps)
+        checkColor4Diff(oldProps.neutralColor, newProps.neutralColor, 'neutralColor', changedProps)
+        checkObservableDiff(oldProps.onAfterComposeObservable, newProps.onAfterComposeObservable, 'onAfterComposeObservable', changedProps)
+        checkObservableDiff(oldProps.onAfterRenderMeshToEffect, newProps.onAfterRenderMeshToEffect, 'onAfterRenderMeshToEffect', changedProps)
+        checkObservableDiff(oldProps.onBeforeComposeObservable, newProps.onBeforeComposeObservable, 'onBeforeComposeObservable', changedProps)
+        checkObservableDiff(oldProps.onBeforeRenderMainTextureObservable, newProps.onBeforeRenderMainTextureObservable, 'onBeforeRenderMainTextureObservable', changedProps)
+        checkObservableDiff(oldProps.onBeforeRenderMeshToEffect, newProps.onBeforeRenderMeshToEffect, 'onBeforeRenderMeshToEffect', changedProps)
+        checkObservableDiff(oldProps.onDisposeObservable, newProps.onDisposeObservable, 'onDisposeObservable', changedProps)
+        checkObservableDiff(oldProps.onSizeChangedObservable, newProps.onSizeChangedObservable, 'onSizeChangedObservable', changedProps)
+        checkPrimitiveDiff(oldProps.renderingGroupId, newProps.renderingGroupId, 'renderingGroupId', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -8991,12 +8991,12 @@ export class FiberEffectLayer implements HasPropsHandlers<FiberEffectLayerProps>
 export class FiberGlowLayerPropsHandler implements PropsHandler<FiberGlowLayerProps> {
     getPropertyUpdates(oldProps: FiberGlowLayerProps, newProps: FiberGlowLayerProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.blurKernelSize, newProps.blurKernelSize, 'blurKernelSize', 'number', changedProps)
-        checkLambdaDiff(oldProps.customEmissiveColorSelector, newProps.customEmissiveColorSelector, 'customEmissiveColorSelector', '(mesh: BabylonjsCoreMesh, subMesh: BabylonjsCoreSubMesh, material: BabylonjsCoreMaterial, result: BabylonjsCoreColor4) => void', changedProps)
-        checkLambdaDiff(oldProps.customEmissiveTextureSelector, newProps.customEmissiveTextureSelector, 'customEmissiveTextureSelector', '(mesh: BabylonjsCoreMesh, subMesh: BabylonjsCoreSubMesh, material: BabylonjsCoreMaterial) => BabylonjsCoreTexture', changedProps)
-        checkPrimitiveDiff(oldProps.intensity, newProps.intensity, 'intensity', 'number', changedProps)
-        checkMethodDiff(oldProps.addExcludedMesh, newProps.addExcludedMesh, 'addExcludedMesh', '(mesh?: BabylonjsCoreMesh) => void', changedProps)
-        checkMethodDiff(oldProps.addIncludedOnlyMesh, newProps.addIncludedOnlyMesh, 'addIncludedOnlyMesh', '(mesh?: BabylonjsCoreMesh) => void', changedProps)
+        checkPrimitiveDiff(oldProps.blurKernelSize, newProps.blurKernelSize, 'blurKernelSize', changedProps)
+        checkLambdaDiff(oldProps.customEmissiveColorSelector, newProps.customEmissiveColorSelector, 'customEmissiveColorSelector', changedProps)
+        checkLambdaDiff(oldProps.customEmissiveTextureSelector, newProps.customEmissiveTextureSelector, 'customEmissiveTextureSelector', changedProps)
+        checkPrimitiveDiff(oldProps.intensity, newProps.intensity, 'intensity', changedProps)
+        checkMethodDiff(oldProps.addExcludedMesh, newProps.addExcludedMesh, 'addExcludedMesh', changedProps)
+        checkMethodDiff(oldProps.addIncludedOnlyMesh, newProps.addIncludedOnlyMesh, 'addIncludedOnlyMesh', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -9059,15 +9059,15 @@ export class FiberGlowLayer implements HasPropsHandlers<FiberEffectLayerProps> {
 export class FiberHighlightLayerPropsHandler implements PropsHandler<FiberHighlightLayerProps> {
     getPropertyUpdates(oldProps: FiberHighlightLayerProps, newProps: FiberHighlightLayerProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.blurHorizontalSize, newProps.blurHorizontalSize, 'blurHorizontalSize', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.blurVerticalSize, newProps.blurVerticalSize, 'blurVerticalSize', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.innerGlow, newProps.innerGlow, 'innerGlow', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
-        checkObservableDiff(oldProps.onAfterBlurObservable, newProps.onAfterBlurObservable, 'onAfterBlurObservable', 'BabylonjsCoreObservable<BabylonjsCoreHighlightLayer>', changedProps)
-        checkObservableDiff(oldProps.onBeforeBlurObservable, newProps.onBeforeBlurObservable, 'onBeforeBlurObservable', 'BabylonjsCoreObservable<BabylonjsCoreHighlightLayer>', changedProps)
-        checkPrimitiveDiff(oldProps.outerGlow, newProps.outerGlow, 'outerGlow', 'boolean', changedProps)
-        checkMethodDiff(oldProps.addExcludedMesh, newProps.addExcludedMesh, 'addExcludedMesh', '(mesh?: BabylonjsCoreMesh) => void', changedProps)
-        checkMethodDiff(oldProps.addMesh, newProps.addMesh, 'addMesh', '(mesh?: BabylonjsCoreMesh, color?: BabylonjsCoreColor3, glowEmissiveOnly?: boolean) => void', changedProps)
+        checkPrimitiveDiff(oldProps.blurHorizontalSize, newProps.blurHorizontalSize, 'blurHorizontalSize', changedProps)
+        checkPrimitiveDiff(oldProps.blurVerticalSize, newProps.blurVerticalSize, 'blurVerticalSize', changedProps)
+        checkPrimitiveDiff(oldProps.innerGlow, newProps.innerGlow, 'innerGlow', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', changedProps)
+        checkObservableDiff(oldProps.onAfterBlurObservable, newProps.onAfterBlurObservable, 'onAfterBlurObservable', changedProps)
+        checkObservableDiff(oldProps.onBeforeBlurObservable, newProps.onBeforeBlurObservable, 'onBeforeBlurObservable', changedProps)
+        checkPrimitiveDiff(oldProps.outerGlow, newProps.outerGlow, 'outerGlow', changedProps)
+        checkMethodDiff(oldProps.addExcludedMesh, newProps.addExcludedMesh, 'addExcludedMesh', changedProps)
+        checkMethodDiff(oldProps.addMesh, newProps.addMesh, 'addMesh', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -9132,34 +9132,34 @@ export class FiberBaseTexturePropsHandler implements PropsHandler<FiberBaseTextu
     getPropertyUpdates(oldProps: FiberBaseTextureProps, newProps: FiberBaseTextureProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
         // type: 'BabylonjsCoreAnimation[]' property (not coded) BabylonjsCoreBaseTexture.animations.
-        checkPrimitiveDiff(oldProps.anisotropicFilteringLevel, newProps.anisotropicFilteringLevel, 'anisotropicFilteringLevel', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.coordinatesIndex, newProps.coordinatesIndex, 'coordinatesIndex', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.coordinatesMode, newProps.coordinatesMode, 'coordinatesMode', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.delayLoadState, newProps.delayLoadState, 'delayLoadState', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.gammaSpace, newProps.gammaSpace, 'gammaSpace', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.getAlphaFromRGB, newProps.getAlphaFromRGB, 'getAlphaFromRGB', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.hasAlpha, newProps.hasAlpha, 'hasAlpha', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.invertZ, newProps.invertZ, 'invertZ', 'boolean', changedProps)
-        checkTextureDiff(oldProps.irradianceTexture, newProps.irradianceTexture, 'irradianceTexture', 'BabylonjsCoreBaseTexture', changedProps)
-        checkPrimitiveDiff(oldProps.is2DArray, newProps.is2DArray, 'is2DArray', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.is3D, newProps.is3D, 'is3D', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.isCube, newProps.isCube, 'isCube', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.isRenderTarget, newProps.isRenderTarget, 'isRenderTarget', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.isRGBD, newProps.isRGBD, 'isRGBD', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.level, newProps.level, 'level', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.linearSpecularLOD, newProps.linearSpecularLOD, 'linearSpecularLOD', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.lodGenerationOffset, newProps.lodGenerationOffset, 'lodGenerationOffset', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.lodGenerationScale, newProps.lodGenerationScale, 'lodGenerationScale', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.lodLevelInAlpha, newProps.lodLevelInAlpha, 'lodLevelInAlpha', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.anisotropicFilteringLevel, newProps.anisotropicFilteringLevel, 'anisotropicFilteringLevel', changedProps)
+        checkPrimitiveDiff(oldProps.coordinatesIndex, newProps.coordinatesIndex, 'coordinatesIndex', changedProps)
+        checkPrimitiveDiff(oldProps.coordinatesMode, newProps.coordinatesMode, 'coordinatesMode', changedProps)
+        checkPrimitiveDiff(oldProps.delayLoadState, newProps.delayLoadState, 'delayLoadState', changedProps)
+        checkPrimitiveDiff(oldProps.gammaSpace, newProps.gammaSpace, 'gammaSpace', changedProps)
+        checkPrimitiveDiff(oldProps.getAlphaFromRGB, newProps.getAlphaFromRGB, 'getAlphaFromRGB', changedProps)
+        checkPrimitiveDiff(oldProps.hasAlpha, newProps.hasAlpha, 'hasAlpha', changedProps)
+        checkPrimitiveDiff(oldProps.invertZ, newProps.invertZ, 'invertZ', changedProps)
+        checkTextureDiff(oldProps.irradianceTexture, newProps.irradianceTexture, 'irradianceTexture', changedProps)
+        checkPrimitiveDiff(oldProps.is2DArray, newProps.is2DArray, 'is2DArray', changedProps)
+        checkPrimitiveDiff(oldProps.is3D, newProps.is3D, 'is3D', changedProps)
+        checkPrimitiveDiff(oldProps.isCube, newProps.isCube, 'isCube', changedProps)
+        checkPrimitiveDiff(oldProps.isRenderTarget, newProps.isRenderTarget, 'isRenderTarget', changedProps)
+        checkPrimitiveDiff(oldProps.isRGBD, newProps.isRGBD, 'isRGBD', changedProps)
+        checkPrimitiveDiff(oldProps.level, newProps.level, 'level', changedProps)
+        checkPrimitiveDiff(oldProps.linearSpecularLOD, newProps.linearSpecularLOD, 'linearSpecularLOD', changedProps)
+        checkPrimitiveDiff(oldProps.lodGenerationOffset, newProps.lodGenerationOffset, 'lodGenerationOffset', changedProps)
+        checkPrimitiveDiff(oldProps.lodGenerationScale, newProps.lodGenerationScale, 'lodGenerationScale', changedProps)
+        checkPrimitiveDiff(oldProps.lodLevelInAlpha, newProps.lodLevelInAlpha, 'lodLevelInAlpha', changedProps)
         // type: 'any' property (not coded) BabylonjsCoreBaseTexture.metadata.
-        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
-        checkLambdaDiff(oldProps.onDispose, newProps.onDispose, 'onDispose', '() => void', changedProps)
-        checkObservableDiff(oldProps.onDisposeObservable, newProps.onDisposeObservable, 'onDisposeObservable', 'BabylonjsCoreObservable<BabylonjsCoreBaseTexture>', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', changedProps)
+        checkLambdaDiff(oldProps.onDispose, newProps.onDispose, 'onDispose', changedProps)
+        checkObservableDiff(oldProps.onDisposeObservable, newProps.onDisposeObservable, 'onDisposeObservable', changedProps)
         // type: 'any' property (not coded) BabylonjsCoreBaseTexture.reservedDataStore.
-        checkPrimitiveDiff(oldProps.uniqueId, newProps.uniqueId, 'uniqueId', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.wrapR, newProps.wrapR, 'wrapR', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.wrapU, newProps.wrapU, 'wrapU', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.wrapV, newProps.wrapV, 'wrapV', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.uniqueId, newProps.uniqueId, 'uniqueId', changedProps)
+        checkPrimitiveDiff(oldProps.wrapR, newProps.wrapR, 'wrapR', changedProps)
+        checkPrimitiveDiff(oldProps.wrapU, newProps.wrapU, 'wrapU', changedProps)
+        checkPrimitiveDiff(oldProps.wrapV, newProps.wrapV, 'wrapV', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -9209,12 +9209,12 @@ export class FiberBaseTexture implements HasPropsHandlers<FiberBaseTextureProps>
 export class FiberCubeTexturePropsHandler implements PropsHandler<FiberCubeTextureProps> {
     getPropertyUpdates(oldProps: FiberCubeTextureProps, newProps: FiberCubeTextureProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkVector3Diff(oldProps.boundingBoxPosition, newProps.boundingBoxPosition, 'boundingBoxPosition', 'BabylonjsCoreVector3', changedProps)
-        checkVector3Diff(oldProps.boundingBoxSize, newProps.boundingBoxSize, 'boundingBoxSize', 'BabylonjsCoreVector3', changedProps)
-        checkObservableDiff(oldProps.onLoadObservable, newProps.onLoadObservable, 'onLoadObservable', 'BabylonjsCoreObservable<BabylonjsCoreCubeTexture>', changedProps)
-        checkPrimitiveDiff(oldProps.rotationY, newProps.rotationY, 'rotationY', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.url, newProps.url, 'url', 'string', changedProps)
-        checkMethodDiff(oldProps.setReflectionTextureMatrix, newProps.setReflectionTextureMatrix, 'setReflectionTextureMatrix', '(value?: BabylonjsCoreMatrix) => void', changedProps)
+        checkVector3Diff(oldProps.boundingBoxPosition, newProps.boundingBoxPosition, 'boundingBoxPosition', changedProps)
+        checkVector3Diff(oldProps.boundingBoxSize, newProps.boundingBoxSize, 'boundingBoxSize', changedProps)
+        checkObservableDiff(oldProps.onLoadObservable, newProps.onLoadObservable, 'onLoadObservable', changedProps)
+        checkPrimitiveDiff(oldProps.rotationY, newProps.rotationY, 'rotationY', changedProps)
+        checkPrimitiveDiff(oldProps.url, newProps.url, 'url', changedProps)
+        checkMethodDiff(oldProps.setReflectionTextureMatrix, newProps.setReflectionTextureMatrix, 'setReflectionTextureMatrix', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -9412,19 +9412,19 @@ export class FiberTexturePropsHandler implements PropsHandler<FiberTextureProps>
     getPropertyUpdates(oldProps: FiberTextureProps, newProps: FiberTextureProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
         // type: 'BabylonjsCoreIInspectable[]' property (not coded) BabylonjsCoreTexture.inspectableCustomProperties.
-        checkPrimitiveDiff(oldProps.isBlocking, newProps.isBlocking, 'isBlocking', 'boolean', changedProps)
-        checkObservableDiff(oldProps.onLoadObservable, newProps.onLoadObservable, 'onLoadObservable', 'BabylonjsCoreObservable<BabylonjsCoreTexture>', changedProps)
-        checkPrimitiveDiff(oldProps.uAng, newProps.uAng, 'uAng', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.uOffset, newProps.uOffset, 'uOffset', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.url, newProps.url, 'url', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.uRotationCenter, newProps.uRotationCenter, 'uRotationCenter', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.uScale, newProps.uScale, 'uScale', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.vAng, newProps.vAng, 'vAng', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.vOffset, newProps.vOffset, 'vOffset', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.vRotationCenter, newProps.vRotationCenter, 'vRotationCenter', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.vScale, newProps.vScale, 'vScale', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.wAng, newProps.wAng, 'wAng', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.wRotationCenter, newProps.wRotationCenter, 'wRotationCenter', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.isBlocking, newProps.isBlocking, 'isBlocking', changedProps)
+        checkObservableDiff(oldProps.onLoadObservable, newProps.onLoadObservable, 'onLoadObservable', changedProps)
+        checkPrimitiveDiff(oldProps.uAng, newProps.uAng, 'uAng', changedProps)
+        checkPrimitiveDiff(oldProps.uOffset, newProps.uOffset, 'uOffset', changedProps)
+        checkPrimitiveDiff(oldProps.url, newProps.url, 'url', changedProps)
+        checkPrimitiveDiff(oldProps.uRotationCenter, newProps.uRotationCenter, 'uRotationCenter', changedProps)
+        checkPrimitiveDiff(oldProps.uScale, newProps.uScale, 'uScale', changedProps)
+        checkPrimitiveDiff(oldProps.vAng, newProps.vAng, 'vAng', changedProps)
+        checkPrimitiveDiff(oldProps.vOffset, newProps.vOffset, 'vOffset', changedProps)
+        checkPrimitiveDiff(oldProps.vRotationCenter, newProps.vRotationCenter, 'vRotationCenter', changedProps)
+        checkPrimitiveDiff(oldProps.vScale, newProps.vScale, 'vScale', changedProps)
+        checkPrimitiveDiff(oldProps.wAng, newProps.wAng, 'wAng', changedProps)
+        checkPrimitiveDiff(oldProps.wRotationCenter, newProps.wRotationCenter, 'wRotationCenter', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -9523,7 +9523,7 @@ export class FiberTexture implements HasPropsHandlers<FiberBaseTextureProps> {
 export class FiberRawTexturePropsHandler implements PropsHandler<FiberRawTextureProps> {
     getPropertyUpdates(oldProps: FiberRawTextureProps, newProps: FiberRawTextureProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.format, newProps.format, 'format', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.format, newProps.format, 'format', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -9615,22 +9615,22 @@ export class FiberRawTexture implements HasPropsHandlers<FiberBaseTextureProps> 
 export class FiberProceduralTexturePropsHandler implements PropsHandler<FiberProceduralTextureProps> {
     getPropertyUpdates(oldProps: FiberProceduralTextureProps, newProps: FiberProceduralTextureProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.autoClear, newProps.autoClear, 'autoClear', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.isCube, newProps.isCube, 'isCube', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.isEnabled, newProps.isEnabled, 'isEnabled', 'boolean', changedProps)
-        checkLambdaDiff(oldProps.onGenerated, newProps.onGenerated, 'onGenerated', '() => void', changedProps)
-        checkObservableDiff(oldProps.onGeneratedObservable, newProps.onGeneratedObservable, 'onGeneratedObservable', 'BabylonjsCoreObservable<BabylonjsCoreProceduralTexture>', changedProps)
-        checkPrimitiveDiff(oldProps.refreshRate, newProps.refreshRate, 'refreshRate', 'number', changedProps)
-        checkMethodDiff(oldProps.setColor3, newProps.setColor3, 'setColor3', '(name?: string, value?: BabylonjsCoreColor3) => BabylonjsCoreProceduralTexture', changedProps)
-        checkMethodDiff(oldProps.setColor4, newProps.setColor4, 'setColor4', '(name?: string, value?: BabylonjsCoreColor4) => BabylonjsCoreProceduralTexture', changedProps)
-        checkMethodDiff(oldProps.setFloat, newProps.setFloat, 'setFloat', '(name?: string, value?: number) => BabylonjsCoreProceduralTexture', changedProps)
-        checkMethodDiff(oldProps.setFloats, newProps.setFloats, 'setFloats', '(name?: string, value?: number[]) => BabylonjsCoreProceduralTexture', changedProps)
-        checkMethodDiff(oldProps.setFragment, newProps.setFragment, 'setFragment', '(fragment?: any) => void', changedProps)
-        checkMethodDiff(oldProps.setInt, newProps.setInt, 'setInt', '(name?: string, value?: number) => BabylonjsCoreProceduralTexture', changedProps)
-        checkMethodDiff(oldProps.setMatrix, newProps.setMatrix, 'setMatrix', '(name?: string, value?: BabylonjsCoreMatrix) => BabylonjsCoreProceduralTexture', changedProps)
-        checkMethodDiff(oldProps.setTexture, newProps.setTexture, 'setTexture', '(name?: string, texture?: BabylonjsCoreTexture) => BabylonjsCoreProceduralTexture', changedProps)
-        checkMethodDiff(oldProps.setVector2, newProps.setVector2, 'setVector2', '(name?: string, value?: BabylonjsCoreVector2) => BabylonjsCoreProceduralTexture', changedProps)
-        checkMethodDiff(oldProps.setVector3, newProps.setVector3, 'setVector3', '(name?: string, value?: BabylonjsCoreVector3) => BabylonjsCoreProceduralTexture', changedProps)
+        checkPrimitiveDiff(oldProps.autoClear, newProps.autoClear, 'autoClear', changedProps)
+        checkPrimitiveDiff(oldProps.isCube, newProps.isCube, 'isCube', changedProps)
+        checkPrimitiveDiff(oldProps.isEnabled, newProps.isEnabled, 'isEnabled', changedProps)
+        checkLambdaDiff(oldProps.onGenerated, newProps.onGenerated, 'onGenerated', changedProps)
+        checkObservableDiff(oldProps.onGeneratedObservable, newProps.onGeneratedObservable, 'onGeneratedObservable', changedProps)
+        checkPrimitiveDiff(oldProps.refreshRate, newProps.refreshRate, 'refreshRate', changedProps)
+        checkMethodDiff(oldProps.setColor3, newProps.setColor3, 'setColor3', changedProps)
+        checkMethodDiff(oldProps.setColor4, newProps.setColor4, 'setColor4', changedProps)
+        checkMethodDiff(oldProps.setFloat, newProps.setFloat, 'setFloat', changedProps)
+        checkMethodDiff(oldProps.setFloats, newProps.setFloats, 'setFloats', changedProps)
+        checkMethodDiff(oldProps.setFragment, newProps.setFragment, 'setFragment', changedProps)
+        checkMethodDiff(oldProps.setInt, newProps.setInt, 'setInt', changedProps)
+        checkMethodDiff(oldProps.setMatrix, newProps.setMatrix, 'setMatrix', changedProps)
+        checkMethodDiff(oldProps.setTexture, newProps.setTexture, 'setTexture', changedProps)
+        checkMethodDiff(oldProps.setVector2, newProps.setVector2, 'setVector2', changedProps)
+        checkMethodDiff(oldProps.setVector3, newProps.setVector3, 'setVector3', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -9711,7 +9711,7 @@ export class FiberProceduralTexture implements HasPropsHandlers<FiberBaseTexture
 export class FiberCustomProceduralTexturePropsHandler implements PropsHandler<FiberCustomProceduralTextureProps> {
     getPropertyUpdates(oldProps: FiberCustomProceduralTextureProps, newProps: FiberCustomProceduralTextureProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.animate, newProps.animate, 'animate', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.animate, newProps.animate, 'animate', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -9788,10 +9788,10 @@ export class FiberCustomProceduralTexture implements HasPropsHandlers<FiberBaseT
 export class FiberNoiseProceduralTexturePropsHandler implements PropsHandler<FiberNoiseProceduralTextureProps> {
     getPropertyUpdates(oldProps: FiberNoiseProceduralTextureProps, newProps: FiberNoiseProceduralTextureProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.animationSpeedFactor, newProps.animationSpeedFactor, 'animationSpeedFactor', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.brightness, newProps.brightness, 'brightness', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.octaves, newProps.octaves, 'octaves', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.persistence, newProps.persistence, 'persistence', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.animationSpeedFactor, newProps.animationSpeedFactor, 'animationSpeedFactor', changedProps)
+        checkPrimitiveDiff(oldProps.brightness, newProps.brightness, 'brightness', changedProps)
+        checkPrimitiveDiff(oldProps.octaves, newProps.octaves, 'octaves', changedProps)
+        checkPrimitiveDiff(oldProps.persistence, newProps.persistence, 'persistence', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -9863,35 +9863,35 @@ export class FiberRenderTargetTexturePropsHandler implements PropsHandler<FiberR
     getPropertyUpdates(oldProps: FiberRenderTargetTextureProps, newProps: FiberRenderTargetTextureProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
         // type: 'BabylonjsCoreCamera' property (not coded) BabylonjsCoreRenderTargetTexture.activeCamera.
-        checkVector3Diff(oldProps.boundingBoxPosition, newProps.boundingBoxPosition, 'boundingBoxPosition', 'BabylonjsCoreVector3', changedProps)
-        checkVector3Diff(oldProps.boundingBoxSize, newProps.boundingBoxSize, 'boundingBoxSize', 'BabylonjsCoreVector3', changedProps)
-        checkColor4Diff(oldProps.clearColor, newProps.clearColor, 'clearColor', 'BabylonjsCoreColor4', changedProps)
-        checkPrimitiveDiff(oldProps.coordinatesMode, newProps.coordinatesMode, 'coordinatesMode', 'number', changedProps)
-        checkLambdaDiff(oldProps.customRenderFunction, newProps.customRenderFunction, 'customRenderFunction', '(opaqueSubMeshes: BabylonjsCoreSmartArray<BabylonjsCoreSubMesh>, alphaTestSubMeshes: BabylonjsCoreSmartArray<BabylonjsCoreSubMesh>, transparentSubMeshes: BabylonjsCoreSmartArray<BabylonjsCoreSubMesh>, depthOnlySubMeshes: BabylonjsCoreSmartArray<BabylonjsCoreSubMesh>, beforeTransparents?: () => void) => void', changedProps)
-        checkLambdaDiff(oldProps.getCustomRenderList, newProps.getCustomRenderList, 'getCustomRenderList', '(layerOrFace: number, renderList: readonly BabylonjsCoreAbstractMesh[], renderListLength: number) => BabylonjsCoreAbstractMesh[]', changedProps)
-        checkPrimitiveDiff(oldProps.ignoreCameraViewport, newProps.ignoreCameraViewport, 'ignoreCameraViewport', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.isCube, newProps.isCube, 'isCube', 'boolean', changedProps)
-        checkLambdaDiff(oldProps.onAfterRender, newProps.onAfterRender, 'onAfterRender', '(faceIndex: number) => void', changedProps)
-        checkObservableDiff(oldProps.onAfterRenderObservable, newProps.onAfterRenderObservable, 'onAfterRenderObservable', 'BabylonjsCoreObservable<number>', changedProps)
-        checkLambdaDiff(oldProps.onAfterUnbind, newProps.onAfterUnbind, 'onAfterUnbind', '() => void', changedProps)
-        checkObservableDiff(oldProps.onAfterUnbindObservable, newProps.onAfterUnbindObservable, 'onAfterUnbindObservable', 'BabylonjsCoreObservable<BabylonjsCoreRenderTargetTexture>', changedProps)
-        checkObservableDiff(oldProps.onBeforeBindObservable, newProps.onBeforeBindObservable, 'onBeforeBindObservable', 'BabylonjsCoreObservable<BabylonjsCoreRenderTargetTexture>', changedProps)
-        checkLambdaDiff(oldProps.onBeforeRender, newProps.onBeforeRender, 'onBeforeRender', '(faceIndex: number) => void', changedProps)
-        checkObservableDiff(oldProps.onBeforeRenderObservable, newProps.onBeforeRenderObservable, 'onBeforeRenderObservable', 'BabylonjsCoreObservable<number>', changedProps)
-        checkLambdaDiff(oldProps.onClear, newProps.onClear, 'onClear', '(Engine: BabylonjsCoreEngine) => void', changedProps)
-        checkObservableDiff(oldProps.onClearObservable, newProps.onClearObservable, 'onClearObservable', 'BabylonjsCoreObservable<BabylonjsCoreEngine>', changedProps)
-        checkObservableDiff(oldProps.onResizeObservable, newProps.onResizeObservable, 'onResizeObservable', 'BabylonjsCoreObservable<BabylonjsCoreRenderTargetTexture>', changedProps)
-        checkPrimitiveDiff(oldProps.refreshRate, newProps.refreshRate, 'refreshRate', 'number', changedProps)
+        checkVector3Diff(oldProps.boundingBoxPosition, newProps.boundingBoxPosition, 'boundingBoxPosition', changedProps)
+        checkVector3Diff(oldProps.boundingBoxSize, newProps.boundingBoxSize, 'boundingBoxSize', changedProps)
+        checkColor4Diff(oldProps.clearColor, newProps.clearColor, 'clearColor', changedProps)
+        checkPrimitiveDiff(oldProps.coordinatesMode, newProps.coordinatesMode, 'coordinatesMode', changedProps)
+        checkLambdaDiff(oldProps.customRenderFunction, newProps.customRenderFunction, 'customRenderFunction', changedProps)
+        checkLambdaDiff(oldProps.getCustomRenderList, newProps.getCustomRenderList, 'getCustomRenderList', changedProps)
+        checkPrimitiveDiff(oldProps.ignoreCameraViewport, newProps.ignoreCameraViewport, 'ignoreCameraViewport', changedProps)
+        checkPrimitiveDiff(oldProps.isCube, newProps.isCube, 'isCube', changedProps)
+        checkLambdaDiff(oldProps.onAfterRender, newProps.onAfterRender, 'onAfterRender', changedProps)
+        checkObservableDiff(oldProps.onAfterRenderObservable, newProps.onAfterRenderObservable, 'onAfterRenderObservable', changedProps)
+        checkLambdaDiff(oldProps.onAfterUnbind, newProps.onAfterUnbind, 'onAfterUnbind', changedProps)
+        checkObservableDiff(oldProps.onAfterUnbindObservable, newProps.onAfterUnbindObservable, 'onAfterUnbindObservable', changedProps)
+        checkObservableDiff(oldProps.onBeforeBindObservable, newProps.onBeforeBindObservable, 'onBeforeBindObservable', changedProps)
+        checkLambdaDiff(oldProps.onBeforeRender, newProps.onBeforeRender, 'onBeforeRender', changedProps)
+        checkObservableDiff(oldProps.onBeforeRenderObservable, newProps.onBeforeRenderObservable, 'onBeforeRenderObservable', changedProps)
+        checkLambdaDiff(oldProps.onClear, newProps.onClear, 'onClear', changedProps)
+        checkObservableDiff(oldProps.onClearObservable, newProps.onClearObservable, 'onClearObservable', changedProps)
+        checkObservableDiff(oldProps.onResizeObservable, newProps.onResizeObservable, 'onResizeObservable', changedProps)
+        checkPrimitiveDiff(oldProps.refreshRate, newProps.refreshRate, 'refreshRate', changedProps)
         // type: 'BabylonjsCoreAbstractMesh[]' property (not coded) BabylonjsCoreRenderTargetTexture.renderList.
-        checkLambdaDiff(oldProps.renderListPredicate, newProps.renderListPredicate, 'renderListPredicate', '(AbstractMesh: BabylonjsCoreAbstractMesh) => boolean', changedProps)
-        checkPrimitiveDiff(oldProps.renderParticles, newProps.renderParticles, 'renderParticles', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.renderSprites, newProps.renderSprites, 'renderSprites', 'boolean', changedProps)
+        checkLambdaDiff(oldProps.renderListPredicate, newProps.renderListPredicate, 'renderListPredicate', changedProps)
+        checkPrimitiveDiff(oldProps.renderParticles, newProps.renderParticles, 'renderParticles', changedProps)
+        checkPrimitiveDiff(oldProps.renderSprites, newProps.renderSprites, 'renderSprites', changedProps)
         // type: 'any' property (not coded) BabylonjsCoreRenderTargetTexture.renderToTarget.
-        checkPrimitiveDiff(oldProps.samples, newProps.samples, 'samples', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.useCameraPostProcesses, newProps.useCameraPostProcesses, 'useCameraPostProcesses', 'boolean', changedProps)
-        checkMethodDiff(oldProps.addPostProcess, newProps.addPostProcess, 'addPostProcess', '(postProcess?: BabylonjsCorePostProcess) => void', changedProps)
-        checkMethodDiff(oldProps.setRenderingAutoClearDepthStencil, newProps.setRenderingAutoClearDepthStencil, 'setRenderingAutoClearDepthStencil', '(renderingGroupId?: number, autoClearDepthStencil?: boolean) => void', changedProps)
-        checkMethodDiff(oldProps.setRenderingOrder, newProps.setRenderingOrder, 'setRenderingOrder', '(renderingGroupId?: number, opaqueSortCompareFn?: (a: BabylonjsCoreSubMesh, b: BabylonjsCoreSubMesh) => number, alphaTestSortCompareFn?: (a: BabylonjsCoreSubMesh, b: BabylonjsCoreSubMesh) => number, transparentSortCompareFn?: (a: BabylonjsCoreSubMesh, b: BabylonjsCoreSubMesh) => number) => void', changedProps)
+        checkPrimitiveDiff(oldProps.samples, newProps.samples, 'samples', changedProps)
+        checkPrimitiveDiff(oldProps.useCameraPostProcesses, newProps.useCameraPostProcesses, 'useCameraPostProcesses', changedProps)
+        checkMethodDiff(oldProps.addPostProcess, newProps.addPostProcess, 'addPostProcess', changedProps)
+        checkMethodDiff(oldProps.setRenderingAutoClearDepthStencil, newProps.setRenderingAutoClearDepthStencil, 'setRenderingAutoClearDepthStencil', changedProps)
+        checkMethodDiff(oldProps.setRenderingOrder, newProps.setRenderingOrder, 'setRenderingOrder', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -10003,11 +10003,11 @@ export class FiberRenderTargetTexture implements HasPropsHandlers<FiberBaseTextu
 export class FiberMirrorTexturePropsHandler implements PropsHandler<FiberMirrorTextureProps> {
     getPropertyUpdates(oldProps: FiberMirrorTextureProps, newProps: FiberMirrorTextureProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.adaptiveBlurKernel, newProps.adaptiveBlurKernel, 'adaptiveBlurKernel', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.blurKernel, newProps.blurKernel, 'blurKernel', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.blurKernelX, newProps.blurKernelX, 'blurKernelX', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.blurKernelY, newProps.blurKernelY, 'blurKernelY', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.blurRatio, newProps.blurRatio, 'blurRatio', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.adaptiveBlurKernel, newProps.adaptiveBlurKernel, 'adaptiveBlurKernel', changedProps)
+        checkPrimitiveDiff(oldProps.blurKernel, newProps.blurKernel, 'blurKernel', changedProps)
+        checkPrimitiveDiff(oldProps.blurKernelX, newProps.blurKernelX, 'blurKernelX', changedProps)
+        checkPrimitiveDiff(oldProps.blurKernelY, newProps.blurKernelY, 'blurKernelY', changedProps)
+        checkPrimitiveDiff(oldProps.blurRatio, newProps.blurRatio, 'blurRatio', changedProps)
         // type: 'BabylonjsCorePlane' property (not coded) BabylonjsCoreMirrorTexture.mirrorPlane.
         // type: 'any' property (not coded) BabylonjsCoreMirrorTexture.scene.
         return changedProps.length === 0 ? null : changedProps;
@@ -10093,9 +10093,9 @@ export class FiberMirrorTexture implements HasPropsHandlers<FiberBaseTextureProp
 export class FiberMultiRenderTargetPropsHandler implements PropsHandler<FiberMultiRenderTargetProps> {
     getPropertyUpdates(oldProps: FiberMultiRenderTargetProps, newProps: FiberMultiRenderTargetProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.samples, newProps.samples, 'samples', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.wrapU, newProps.wrapU, 'wrapU', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.wrapV, newProps.wrapV, 'wrapV', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.samples, newProps.samples, 'samples', changedProps)
+        checkPrimitiveDiff(oldProps.wrapU, newProps.wrapU, 'wrapU', changedProps)
+        checkPrimitiveDiff(oldProps.wrapV, newProps.wrapV, 'wrapV', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -10169,7 +10169,7 @@ export class FiberMultiRenderTarget implements HasPropsHandlers<FiberBaseTexture
 export class FiberRefractionTexturePropsHandler implements PropsHandler<FiberRefractionTextureProps> {
     getPropertyUpdates(oldProps: FiberRefractionTextureProps, newProps: FiberRefractionTextureProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.depth, newProps.depth, 'depth', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.depth, newProps.depth, 'depth', changedProps)
         // type: 'BabylonjsCorePlane' property (not coded) BabylonjsCoreRefractionTexture.refractionPlane.
         return changedProps.length === 0 ? null : changedProps;
     }
@@ -10444,27 +10444,27 @@ export class FiberDynamicTexture implements HasPropsHandlers<FiberBaseTexturePro
 export class FiberAdvancedDynamicTexturePropsHandler implements PropsHandler<FiberAdvancedDynamicTextureProps> {
     getPropertyUpdates(oldProps: FiberAdvancedDynamicTextureProps, newProps: FiberAdvancedDynamicTextureProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.background, newProps.background, 'background', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.clipboardData, newProps.clipboardData, 'clipboardData', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.background, newProps.background, 'background', changedProps)
+        checkPrimitiveDiff(oldProps.clipboardData, newProps.clipboardData, 'clipboardData', changedProps)
         // type: 'BabylonjsGuiIFocusableControl' property (not coded) BabylonjsGuiAdvancedDynamicTexture.focusedControl.
-        checkPrimitiveDiff(oldProps.idealHeight, newProps.idealHeight, 'idealHeight', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.idealWidth, newProps.idealWidth, 'idealWidth', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.isForeground, newProps.isForeground, 'isForeground', 'boolean', changedProps)
-        checkObservableDiff(oldProps.onBeginLayoutObservable, newProps.onBeginLayoutObservable, 'onBeginLayoutObservable', 'BabylonjsCoreObservable<BabylonjsGuiAdvancedDynamicTexture>', changedProps)
-        checkObservableDiff(oldProps.onBeginRenderObservable, newProps.onBeginRenderObservable, 'onBeginRenderObservable', 'BabylonjsCoreObservable<BabylonjsGuiAdvancedDynamicTexture>', changedProps)
+        checkPrimitiveDiff(oldProps.idealHeight, newProps.idealHeight, 'idealHeight', changedProps)
+        checkPrimitiveDiff(oldProps.idealWidth, newProps.idealWidth, 'idealWidth', changedProps)
+        checkPrimitiveDiff(oldProps.isForeground, newProps.isForeground, 'isForeground', changedProps)
+        checkObservableDiff(oldProps.onBeginLayoutObservable, newProps.onBeginLayoutObservable, 'onBeginLayoutObservable', changedProps)
+        checkObservableDiff(oldProps.onBeginRenderObservable, newProps.onBeginRenderObservable, 'onBeginRenderObservable', changedProps)
         // type: 'any' property (not coded) BabylonjsGuiAdvancedDynamicTexture.onClipboardCopy.
         // type: 'any' property (not coded) BabylonjsGuiAdvancedDynamicTexture.onClipboardCut.
-        checkObservableDiff(oldProps.onClipboardObservable, newProps.onClipboardObservable, 'onClipboardObservable', 'BabylonjsCoreObservable<BabylonjsCoreClipboardInfo>', changedProps)
+        checkObservableDiff(oldProps.onClipboardObservable, newProps.onClipboardObservable, 'onClipboardObservable', changedProps)
         // type: 'any' property (not coded) BabylonjsGuiAdvancedDynamicTexture.onClipboardPaste.
-        checkObservableDiff(oldProps.onControlPickedObservable, newProps.onControlPickedObservable, 'onControlPickedObservable', 'BabylonjsCoreObservable<BabylonjsGuiControl>', changedProps)
-        checkObservableDiff(oldProps.onEndLayoutObservable, newProps.onEndLayoutObservable, 'onEndLayoutObservable', 'BabylonjsCoreObservable<BabylonjsGuiAdvancedDynamicTexture>', changedProps)
-        checkObservableDiff(oldProps.onEndRenderObservable, newProps.onEndRenderObservable, 'onEndRenderObservable', 'BabylonjsCoreObservable<BabylonjsGuiAdvancedDynamicTexture>', changedProps)
-        checkPrimitiveDiff(oldProps.premulAlpha, newProps.premulAlpha, 'premulAlpha', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.renderAtIdealSize, newProps.renderAtIdealSize, 'renderAtIdealSize', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.renderScale, newProps.renderScale, 'renderScale', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.useInvalidateRectOptimization, newProps.useInvalidateRectOptimization, 'useInvalidateRectOptimization', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.useSmallestIdeal, newProps.useSmallestIdeal, 'useSmallestIdeal', 'boolean', changedProps)
-        checkMethodDiff(oldProps.addControl, newProps.addControl, 'addControl', '(control?: BabylonjsGuiControl) => BabylonjsGuiAdvancedDynamicTexture', changedProps)
+        checkObservableDiff(oldProps.onControlPickedObservable, newProps.onControlPickedObservable, 'onControlPickedObservable', changedProps)
+        checkObservableDiff(oldProps.onEndLayoutObservable, newProps.onEndLayoutObservable, 'onEndLayoutObservable', changedProps)
+        checkObservableDiff(oldProps.onEndRenderObservable, newProps.onEndRenderObservable, 'onEndRenderObservable', changedProps)
+        checkPrimitiveDiff(oldProps.premulAlpha, newProps.premulAlpha, 'premulAlpha', changedProps)
+        checkPrimitiveDiff(oldProps.renderAtIdealSize, newProps.renderAtIdealSize, 'renderAtIdealSize', changedProps)
+        checkPrimitiveDiff(oldProps.renderScale, newProps.renderScale, 'renderScale', changedProps)
+        checkPrimitiveDiff(oldProps.useInvalidateRectOptimization, newProps.useInvalidateRectOptimization, 'useInvalidateRectOptimization', changedProps)
+        checkPrimitiveDiff(oldProps.useSmallestIdeal, newProps.useSmallestIdeal, 'useSmallestIdeal', changedProps)
+        checkMethodDiff(oldProps.addControl, newProps.addControl, 'addControl', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -10667,7 +10667,7 @@ export class FiberADTFullscreenUI implements HasPropsHandlers<FiberAdvancedDynam
 export class FiberRawTexture3DPropsHandler implements PropsHandler<FiberRawTexture3DProps> {
     getPropertyUpdates(oldProps: FiberRawTexture3DProps, newProps: FiberRawTexture3DProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.format, newProps.format, 'format', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.format, newProps.format, 'format', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -10762,7 +10762,7 @@ export class FiberRawTexture3D implements HasPropsHandlers<FiberBaseTextureProps
 export class FiberRawTexture2DArrayPropsHandler implements PropsHandler<FiberRawTexture2DArrayProps> {
     getPropertyUpdates(oldProps: FiberRawTexture2DArrayProps, newProps: FiberRawTexture2DArrayProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.format, newProps.format, 'format', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.format, newProps.format, 'format', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -10859,7 +10859,7 @@ export class FiberColorGradingTexturePropsHandler implements PropsHandler<FiberC
         const changedProps: PropertyUpdate[] = []
         // type: 'any' property (not coded) BabylonjsCoreColorGradingTexture.load3dlTexture.
         // type: 'any' property (not coded) BabylonjsCoreColorGradingTexture.loadTexture.
-        checkPrimitiveDiff(oldProps.url, newProps.url, 'url', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.url, newProps.url, 'url', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -10918,11 +10918,11 @@ export class FiberColorGradingTexture implements HasPropsHandlers<FiberBaseTextu
 export class FiberEquiRectangularCubeTexturePropsHandler implements PropsHandler<FiberEquiRectangularCubeTextureProps> {
     getPropertyUpdates(oldProps: FiberEquiRectangularCubeTextureProps, newProps: FiberEquiRectangularCubeTextureProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.coordinatesMode, newProps.coordinatesMode, 'coordinatesMode', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.coordinatesMode, newProps.coordinatesMode, 'coordinatesMode', changedProps)
         // type: 'any' property (not coded) BabylonjsCoreEquiRectangularCubeTexture.getFloat32ArrayFromArrayBuffer.
         // type: 'any' property (not coded) BabylonjsCoreEquiRectangularCubeTexture.loadImage.
         // type: 'any' property (not coded) BabylonjsCoreEquiRectangularCubeTexture.loadTexture.
-        checkPrimitiveDiff(oldProps.url, newProps.url, 'url', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.url, newProps.url, 'url', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -11001,14 +11001,14 @@ export class FiberEquiRectangularCubeTexture implements HasPropsHandlers<FiberBa
 export class FiberHDRCubeTexturePropsHandler implements PropsHandler<FiberHDRCubeTextureProps> {
     getPropertyUpdates(oldProps: FiberHDRCubeTextureProps, newProps: FiberHDRCubeTextureProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkVector3Diff(oldProps.boundingBoxPosition, newProps.boundingBoxPosition, 'boundingBoxPosition', 'BabylonjsCoreVector3', changedProps)
-        checkVector3Diff(oldProps.boundingBoxSize, newProps.boundingBoxSize, 'boundingBoxSize', 'BabylonjsCoreVector3', changedProps)
-        checkPrimitiveDiff(oldProps.coordinatesMode, newProps.coordinatesMode, 'coordinatesMode', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.isBlocking, newProps.isBlocking, 'isBlocking', 'boolean', changedProps)
+        checkVector3Diff(oldProps.boundingBoxPosition, newProps.boundingBoxPosition, 'boundingBoxPosition', changedProps)
+        checkVector3Diff(oldProps.boundingBoxSize, newProps.boundingBoxSize, 'boundingBoxSize', changedProps)
+        checkPrimitiveDiff(oldProps.coordinatesMode, newProps.coordinatesMode, 'coordinatesMode', changedProps)
+        checkPrimitiveDiff(oldProps.isBlocking, newProps.isBlocking, 'isBlocking', changedProps)
         // type: 'any' property (not coded) BabylonjsCoreHDRCubeTexture.loadTexture.
-        checkPrimitiveDiff(oldProps.rotationY, newProps.rotationY, 'rotationY', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.url, newProps.url, 'url', 'string', changedProps)
-        checkMethodDiff(oldProps.setReflectionTextureMatrix, newProps.setReflectionTextureMatrix, 'setReflectionTextureMatrix', '(value?: BabylonjsCoreMatrix) => void', changedProps)
+        checkPrimitiveDiff(oldProps.rotationY, newProps.rotationY, 'rotationY', changedProps)
+        checkPrimitiveDiff(oldProps.url, newProps.url, 'url', changedProps)
+        checkMethodDiff(oldProps.setReflectionTextureMatrix, newProps.setReflectionTextureMatrix, 'setReflectionTextureMatrix', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -11164,8 +11164,8 @@ export class FiberHtmlElementTexture implements HasPropsHandlers<FiberBaseTextur
 export class FiberGUI3DManagerPropsHandler implements PropsHandler<FiberGUI3DManagerProps> {
     getPropertyUpdates(oldProps: FiberGUI3DManagerProps, newProps: FiberGUI3DManagerProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkObservableDiff(oldProps.onPickedPointChangedObservable, newProps.onPickedPointChangedObservable, 'onPickedPointChangedObservable', 'BabylonjsCoreObservable<BabylonjsCoreVector3>', changedProps)
-        checkMethodDiff(oldProps.addControl, newProps.addControl, 'addControl', '(control?: BabylonjsGuiControl3D) => BabylonjsGuiGUI3DManager', changedProps)
+        checkObservableDiff(oldProps.onPickedPointChangedObservable, newProps.onPickedPointChangedObservable, 'onPickedPointChangedObservable', changedProps)
+        checkMethodDiff(oldProps.addControl, newProps.addControl, 'addControl', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -11213,35 +11213,35 @@ export class FiberGUI3DManager implements HasPropsHandlers<FiberGUI3DManagerProp
 export class FiberShadowGeneratorPropsHandler implements PropsHandler<FiberShadowGeneratorProps> {
     getPropertyUpdates(oldProps: FiberShadowGeneratorProps, newProps: FiberShadowGeneratorProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.bias, newProps.bias, 'bias', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.blurBoxOffset, newProps.blurBoxOffset, 'blurBoxOffset', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.blurKernel, newProps.blurKernel, 'blurKernel', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.blurScale, newProps.blurScale, 'blurScale', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.contactHardeningLightSizeUVRatio, newProps.contactHardeningLightSizeUVRatio, 'contactHardeningLightSizeUVRatio', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.bias, newProps.bias, 'bias', changedProps)
+        checkPrimitiveDiff(oldProps.blurBoxOffset, newProps.blurBoxOffset, 'blurBoxOffset', changedProps)
+        checkPrimitiveDiff(oldProps.blurKernel, newProps.blurKernel, 'blurKernel', changedProps)
+        checkPrimitiveDiff(oldProps.blurScale, newProps.blurScale, 'blurScale', changedProps)
+        checkPrimitiveDiff(oldProps.contactHardeningLightSizeUVRatio, newProps.contactHardeningLightSizeUVRatio, 'contactHardeningLightSizeUVRatio', changedProps)
         // type: 'BabylonjsCoreICustomShaderOptions' property (not coded) BabylonjsCoreShadowGenerator.customShaderOptions.
-        checkPrimitiveDiff(oldProps.darkness, newProps.darkness, 'darkness', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.depthScale, newProps.depthScale, 'depthScale', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.filter, newProps.filter, 'filter', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.filteringQuality, newProps.filteringQuality, 'filteringQuality', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.forceBackFacesOnly, newProps.forceBackFacesOnly, 'forceBackFacesOnly', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.frustumEdgeFalloff, newProps.frustumEdgeFalloff, 'frustumEdgeFalloff', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.normalBias, newProps.normalBias, 'normalBias', 'number', changedProps)
-        checkObservableDiff(oldProps.onAfterShadowMapRenderMeshObservable, newProps.onAfterShadowMapRenderMeshObservable, 'onAfterShadowMapRenderMeshObservable', 'BabylonjsCoreObservable<BabylonjsCoreMesh>', changedProps)
-        checkObservableDiff(oldProps.onAfterShadowMapRenderObservable, newProps.onAfterShadowMapRenderObservable, 'onAfterShadowMapRenderObservable', 'BabylonjsCoreObservable<BabylonjsCoreEffect>', changedProps)
-        checkObservableDiff(oldProps.onBeforeShadowMapRenderMeshObservable, newProps.onBeforeShadowMapRenderMeshObservable, 'onBeforeShadowMapRenderMeshObservable', 'BabylonjsCoreObservable<BabylonjsCoreMesh>', changedProps)
-        checkObservableDiff(oldProps.onBeforeShadowMapRenderObservable, newProps.onBeforeShadowMapRenderObservable, 'onBeforeShadowMapRenderObservable', 'BabylonjsCoreObservable<BabylonjsCoreEffect>', changedProps)
-        checkPrimitiveDiff(oldProps.transparencyShadow, newProps.transparencyShadow, 'transparencyShadow', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.useBlurCloseExponentialShadowMap, newProps.useBlurCloseExponentialShadowMap, 'useBlurCloseExponentialShadowMap', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.useBlurExponentialShadowMap, newProps.useBlurExponentialShadowMap, 'useBlurExponentialShadowMap', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.useCloseExponentialShadowMap, newProps.useCloseExponentialShadowMap, 'useCloseExponentialShadowMap', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.useContactHardeningShadow, newProps.useContactHardeningShadow, 'useContactHardeningShadow', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.useExponentialShadowMap, newProps.useExponentialShadowMap, 'useExponentialShadowMap', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.useKernelBlur, newProps.useKernelBlur, 'useKernelBlur', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.usePercentageCloserFiltering, newProps.usePercentageCloserFiltering, 'usePercentageCloserFiltering', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.usePoissonSampling, newProps.usePoissonSampling, 'usePoissonSampling', 'boolean', changedProps)
-        checkMethodDiff(oldProps.addShadowCaster, newProps.addShadowCaster, 'addShadowCaster', '(mesh?: BabylonjsCoreAbstractMesh, includeDescendants?: boolean) => BabylonjsCoreShadowGenerator', changedProps)
-        checkMethodDiff(oldProps.setDarkness, newProps.setDarkness, 'setDarkness', '(darkness?: number) => BabylonjsCoreShadowGenerator', changedProps)
-        checkMethodDiff(oldProps.setTransparencyShadow, newProps.setTransparencyShadow, 'setTransparencyShadow', '(transparent?: boolean) => BabylonjsCoreShadowGenerator', changedProps)
+        checkPrimitiveDiff(oldProps.darkness, newProps.darkness, 'darkness', changedProps)
+        checkPrimitiveDiff(oldProps.depthScale, newProps.depthScale, 'depthScale', changedProps)
+        checkPrimitiveDiff(oldProps.filter, newProps.filter, 'filter', changedProps)
+        checkPrimitiveDiff(oldProps.filteringQuality, newProps.filteringQuality, 'filteringQuality', changedProps)
+        checkPrimitiveDiff(oldProps.forceBackFacesOnly, newProps.forceBackFacesOnly, 'forceBackFacesOnly', changedProps)
+        checkPrimitiveDiff(oldProps.frustumEdgeFalloff, newProps.frustumEdgeFalloff, 'frustumEdgeFalloff', changedProps)
+        checkPrimitiveDiff(oldProps.normalBias, newProps.normalBias, 'normalBias', changedProps)
+        checkObservableDiff(oldProps.onAfterShadowMapRenderMeshObservable, newProps.onAfterShadowMapRenderMeshObservable, 'onAfterShadowMapRenderMeshObservable', changedProps)
+        checkObservableDiff(oldProps.onAfterShadowMapRenderObservable, newProps.onAfterShadowMapRenderObservable, 'onAfterShadowMapRenderObservable', changedProps)
+        checkObservableDiff(oldProps.onBeforeShadowMapRenderMeshObservable, newProps.onBeforeShadowMapRenderMeshObservable, 'onBeforeShadowMapRenderMeshObservable', changedProps)
+        checkObservableDiff(oldProps.onBeforeShadowMapRenderObservable, newProps.onBeforeShadowMapRenderObservable, 'onBeforeShadowMapRenderObservable', changedProps)
+        checkPrimitiveDiff(oldProps.transparencyShadow, newProps.transparencyShadow, 'transparencyShadow', changedProps)
+        checkPrimitiveDiff(oldProps.useBlurCloseExponentialShadowMap, newProps.useBlurCloseExponentialShadowMap, 'useBlurCloseExponentialShadowMap', changedProps)
+        checkPrimitiveDiff(oldProps.useBlurExponentialShadowMap, newProps.useBlurExponentialShadowMap, 'useBlurExponentialShadowMap', changedProps)
+        checkPrimitiveDiff(oldProps.useCloseExponentialShadowMap, newProps.useCloseExponentialShadowMap, 'useCloseExponentialShadowMap', changedProps)
+        checkPrimitiveDiff(oldProps.useContactHardeningShadow, newProps.useContactHardeningShadow, 'useContactHardeningShadow', changedProps)
+        checkPrimitiveDiff(oldProps.useExponentialShadowMap, newProps.useExponentialShadowMap, 'useExponentialShadowMap', changedProps)
+        checkPrimitiveDiff(oldProps.useKernelBlur, newProps.useKernelBlur, 'useKernelBlur', changedProps)
+        checkPrimitiveDiff(oldProps.usePercentageCloserFiltering, newProps.usePercentageCloserFiltering, 'usePercentageCloserFiltering', changedProps)
+        checkPrimitiveDiff(oldProps.usePoissonSampling, newProps.usePoissonSampling, 'usePoissonSampling', changedProps)
+        checkMethodDiff(oldProps.addShadowCaster, newProps.addShadowCaster, 'addShadowCaster', changedProps)
+        checkMethodDiff(oldProps.setDarkness, newProps.setDarkness, 'setDarkness', changedProps)
+        checkMethodDiff(oldProps.setTransparencyShadow, newProps.setTransparencyShadow, 'setTransparencyShadow', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -11301,8 +11301,8 @@ export class FiberShadowGenerator implements HasPropsHandlers<FiberShadowGenerat
 export class FiberEnvironmentHelperPropsHandler implements PropsHandler<FiberEnvironmentHelperProps> {
     getPropertyUpdates(oldProps: FiberEnvironmentHelperProps, newProps: FiberEnvironmentHelperProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkObservableDiff(oldProps.onErrorObservable, newProps.onErrorObservable, 'onErrorObservable', 'BabylonjsCoreObservable<{ message?: string; exception?: any; }>', changedProps)
-        checkMethodDiff(oldProps.setMainColor, newProps.setMainColor, 'setMainColor', '(color?: BabylonjsCoreColor3) => void', changedProps)
+        checkObservableDiff(oldProps.onErrorObservable, newProps.onErrorObservable, 'onErrorObservable', changedProps)
+        checkMethodDiff(oldProps.setMainColor, newProps.setMainColor, 'setMainColor', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -11357,33 +11357,33 @@ export class FiberEnvironmentHelper implements HasPropsHandlers<FiberEnvironment
 export class FiberPhysicsImpostorPropsHandler implements PropsHandler<FiberPhysicsImpostorProps> {
     getPropertyUpdates(oldProps: FiberPhysicsImpostorProps, newProps: FiberPhysicsImpostorProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkLambdaDiff(oldProps.afterStep, newProps.afterStep, 'afterStep', '() => void', changedProps)
-        checkLambdaDiff(oldProps.beforeStep, newProps.beforeStep, 'beforeStep', '() => void', changedProps)
-        checkPrimitiveDiff(oldProps.friction, newProps.friction, 'friction', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.mass, newProps.mass, 'mass', 'number', changedProps)
+        checkLambdaDiff(oldProps.afterStep, newProps.afterStep, 'afterStep', changedProps)
+        checkLambdaDiff(oldProps.beforeStep, newProps.beforeStep, 'beforeStep', changedProps)
+        checkPrimitiveDiff(oldProps.friction, newProps.friction, 'friction', changedProps)
+        checkPrimitiveDiff(oldProps.mass, newProps.mass, 'mass', changedProps)
         // type: 'BabylonjsCoreIPhysicsEnabledObject' property (not coded) BabylonjsCorePhysicsImpostor.object.
-        checkLambdaDiff(oldProps.onCollide, newProps.onCollide, 'onCollide', '(e: { body: any; }) => void', changedProps)
-        checkLambdaDiff(oldProps.onCollideEvent, newProps.onCollideEvent, 'onCollideEvent', '(collider: BabylonjsCorePhysicsImpostor, collidedWith: BabylonjsCorePhysicsImpostor) => void', changedProps)
+        checkLambdaDiff(oldProps.onCollide, newProps.onCollide, 'onCollide', changedProps)
+        checkLambdaDiff(oldProps.onCollideEvent, newProps.onCollideEvent, 'onCollideEvent', changedProps)
         // type: 'BabylonjsCorePhysicsImpostor' property (not coded) BabylonjsCorePhysicsImpostor.parent.
         // type: 'any' property (not coded) BabylonjsCorePhysicsImpostor.physicsBody.
-        checkPrimitiveDiff(oldProps.positionIterations, newProps.positionIterations, 'positionIterations', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.pressure, newProps.pressure, 'pressure', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.restitution, newProps.restitution, 'restitution', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.segments, newProps.segments, 'segments', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.soft, newProps.soft, 'soft', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.stiffness, newProps.stiffness, 'stiffness', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.type, newProps.type, 'type', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.uniqueId, newProps.uniqueId, 'uniqueId', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.velocityIterations, newProps.velocityIterations, 'velocityIterations', 'number', changedProps)
-        checkMethodDiff(oldProps.addAnchor, newProps.addAnchor, 'addAnchor', '(otherImpostor?: BabylonjsCorePhysicsImpostor, width?: number, height?: number, influence?: number, noCollisionBetweenLinkedBodies?: boolean) => BabylonjsCorePhysicsImpostor', changedProps)
-        checkMethodDiff(oldProps.addHook, newProps.addHook, 'addHook', '(otherImpostor?: BabylonjsCorePhysicsImpostor, length?: number, influence?: number, noCollisionBetweenLinkedBodies?: boolean) => BabylonjsCorePhysicsImpostor', changedProps)
-        checkMethodDiff(oldProps.addJoint, newProps.addJoint, 'addJoint', '(otherImpostor?: BabylonjsCorePhysicsImpostor, joint?: BabylonjsCorePhysicsJoint) => BabylonjsCorePhysicsImpostor', changedProps)
-        checkMethodDiff(oldProps.setAngularVelocity, newProps.setAngularVelocity, 'setAngularVelocity', '(velocity?: BabylonjsCoreVector3) => void', changedProps)
-        checkMethodDiff(oldProps.setDeltaPosition, newProps.setDeltaPosition, 'setDeltaPosition', '(position?: BabylonjsCoreVector3) => void', changedProps)
-        checkMethodDiff(oldProps.setDeltaRotation, newProps.setDeltaRotation, 'setDeltaRotation', '(rotation?: BabylonjsCoreQuaternion) => void', changedProps)
-        checkMethodDiff(oldProps.setLinearVelocity, newProps.setLinearVelocity, 'setLinearVelocity', '(velocity?: BabylonjsCoreVector3) => void', changedProps)
-        checkMethodDiff(oldProps.setMass, newProps.setMass, 'setMass', '(mass?: number) => void', changedProps)
-        checkMethodDiff(oldProps.setParam, newProps.setParam, 'setParam', '(paramName?: string, value?: number) => void', changedProps)
+        checkPrimitiveDiff(oldProps.positionIterations, newProps.positionIterations, 'positionIterations', changedProps)
+        checkPrimitiveDiff(oldProps.pressure, newProps.pressure, 'pressure', changedProps)
+        checkPrimitiveDiff(oldProps.restitution, newProps.restitution, 'restitution', changedProps)
+        checkPrimitiveDiff(oldProps.segments, newProps.segments, 'segments', changedProps)
+        checkPrimitiveDiff(oldProps.soft, newProps.soft, 'soft', changedProps)
+        checkPrimitiveDiff(oldProps.stiffness, newProps.stiffness, 'stiffness', changedProps)
+        checkPrimitiveDiff(oldProps.type, newProps.type, 'type', changedProps)
+        checkPrimitiveDiff(oldProps.uniqueId, newProps.uniqueId, 'uniqueId', changedProps)
+        checkPrimitiveDiff(oldProps.velocityIterations, newProps.velocityIterations, 'velocityIterations', changedProps)
+        checkMethodDiff(oldProps.addAnchor, newProps.addAnchor, 'addAnchor', changedProps)
+        checkMethodDiff(oldProps.addHook, newProps.addHook, 'addHook', changedProps)
+        checkMethodDiff(oldProps.addJoint, newProps.addJoint, 'addJoint', changedProps)
+        checkMethodDiff(oldProps.setAngularVelocity, newProps.setAngularVelocity, 'setAngularVelocity', changedProps)
+        checkMethodDiff(oldProps.setDeltaPosition, newProps.setDeltaPosition, 'setDeltaPosition', changedProps)
+        checkMethodDiff(oldProps.setDeltaRotation, newProps.setDeltaRotation, 'setDeltaRotation', changedProps)
+        checkMethodDiff(oldProps.setLinearVelocity, newProps.setLinearVelocity, 'setLinearVelocity', changedProps)
+        checkMethodDiff(oldProps.setMass, newProps.setMass, 'setMass', changedProps)
+        checkMethodDiff(oldProps.setParam, newProps.setParam, 'setParam', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -11448,42 +11448,42 @@ export class FiberVRExperienceHelperPropsHandler implements PropsHandler<FiberVR
         const changedProps: PropertyUpdate[] = []
         // type: 'any' property (not coded) BabylonjsCoreVRExperienceHelper.beforeRender.
         // type: 'any' property (not coded) BabylonjsCoreVRExperienceHelper.completeVRInit.
-        checkPrimitiveDiff(oldProps.displayGaze, newProps.displayGaze, 'displayGaze', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.displayLaserPointer, newProps.displayLaserPointer, 'displayLaserPointer', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.displayGaze, newProps.displayGaze, 'displayGaze', changedProps)
+        checkPrimitiveDiff(oldProps.displayLaserPointer, newProps.displayLaserPointer, 'displayLaserPointer', changedProps)
         // type: 'any' property (not coded) BabylonjsCoreVRExperienceHelper.displayVRButton.
-        checkPrimitiveDiff(oldProps.enableGazeEvenWhenNoPointerLock, newProps.enableGazeEvenWhenNoPointerLock, 'enableGazeEvenWhenNoPointerLock', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.exitVROnDoubleTap, newProps.exitVROnDoubleTap, 'exitVROnDoubleTap', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.enableGazeEvenWhenNoPointerLock, newProps.enableGazeEvenWhenNoPointerLock, 'enableGazeEvenWhenNoPointerLock', changedProps)
+        checkPrimitiveDiff(oldProps.exitVROnDoubleTap, newProps.exitVROnDoubleTap, 'exitVROnDoubleTap', changedProps)
         // type: 'BabylonjsCoreMesh' property (not coded) BabylonjsCoreVRExperienceHelper.gazeTrackerMesh.
-        checkLambdaDiff(oldProps.meshSelectionPredicate, newProps.meshSelectionPredicate, 'meshSelectionPredicate', '(mesh: BabylonjsCoreAbstractMesh) => boolean', changedProps)
+        checkLambdaDiff(oldProps.meshSelectionPredicate, newProps.meshSelectionPredicate, 'meshSelectionPredicate', changedProps)
         // type: 'any' property (not coded) BabylonjsCoreVRExperienceHelper.moveButtonToBottomRight.
-        checkObservableDiff(oldProps.onAfterCameraTeleport, newProps.onAfterCameraTeleport, 'onAfterCameraTeleport', 'BabylonjsCoreObservable<BabylonjsCoreVector3>', changedProps)
-        checkObservableDiff(oldProps.onAfterEnteringVRObservable, newProps.onAfterEnteringVRObservable, 'onAfterEnteringVRObservable', 'BabylonjsCoreObservable<BabylonjsCoreOnAfterEnteringVRObservableEvent>', changedProps)
-        checkObservableDiff(oldProps.onBeforeCameraTeleport, newProps.onBeforeCameraTeleport, 'onBeforeCameraTeleport', 'BabylonjsCoreObservable<BabylonjsCoreVector3>', changedProps)
-        checkObservableDiff(oldProps.onControllerMeshLoadedObservable, newProps.onControllerMeshLoadedObservable, 'onControllerMeshLoadedObservable', 'BabylonjsCoreObservable<BabylonjsCoreWebVRController>', changedProps)
-        checkObservableDiff(oldProps.onEnteringVRObservable, newProps.onEnteringVRObservable, 'onEnteringVRObservable', 'BabylonjsCoreObservable<BabylonjsCoreVRExperienceHelper>', changedProps)
-        checkObservableDiff(oldProps.onExitingVRObservable, newProps.onExitingVRObservable, 'onExitingVRObservable', 'BabylonjsCoreObservable<BabylonjsCoreVRExperienceHelper>', changedProps)
-        checkObservableDiff(oldProps.onMeshSelectedWithController, newProps.onMeshSelectedWithController, 'onMeshSelectedWithController', 'BabylonjsCoreObservable<{ mesh: BabylonjsCoreAbstractMesh; controller: BabylonjsCoreWebVRController; }>', changedProps)
-        checkObservableDiff(oldProps.onNewMeshPicked, newProps.onNewMeshPicked, 'onNewMeshPicked', 'BabylonjsCoreObservable<BabylonjsCorePickingInfo>', changedProps)
-        checkObservableDiff(oldProps.onNewMeshSelected, newProps.onNewMeshSelected, 'onNewMeshSelected', 'BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>', changedProps)
-        checkObservableDiff(oldProps.onSelectedMeshUnselected, newProps.onSelectedMeshUnselected, 'onSelectedMeshUnselected', 'BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>', changedProps)
+        checkObservableDiff(oldProps.onAfterCameraTeleport, newProps.onAfterCameraTeleport, 'onAfterCameraTeleport', changedProps)
+        checkObservableDiff(oldProps.onAfterEnteringVRObservable, newProps.onAfterEnteringVRObservable, 'onAfterEnteringVRObservable', changedProps)
+        checkObservableDiff(oldProps.onBeforeCameraTeleport, newProps.onBeforeCameraTeleport, 'onBeforeCameraTeleport', changedProps)
+        checkObservableDiff(oldProps.onControllerMeshLoadedObservable, newProps.onControllerMeshLoadedObservable, 'onControllerMeshLoadedObservable', changedProps)
+        checkObservableDiff(oldProps.onEnteringVRObservable, newProps.onEnteringVRObservable, 'onEnteringVRObservable', changedProps)
+        checkObservableDiff(oldProps.onExitingVRObservable, newProps.onExitingVRObservable, 'onExitingVRObservable', changedProps)
+        checkObservableDiff(oldProps.onMeshSelectedWithController, newProps.onMeshSelectedWithController, 'onMeshSelectedWithController', changedProps)
+        checkObservableDiff(oldProps.onNewMeshPicked, newProps.onNewMeshPicked, 'onNewMeshPicked', changedProps)
+        checkObservableDiff(oldProps.onNewMeshSelected, newProps.onNewMeshSelected, 'onNewMeshSelected', changedProps)
+        checkObservableDiff(oldProps.onSelectedMeshUnselected, newProps.onSelectedMeshUnselected, 'onSelectedMeshUnselected', changedProps)
         // type: 'any' property (not coded) BabylonjsCoreVRExperienceHelper.onVRDisplayChanged.
         // type: 'any' property (not coded) BabylonjsCoreVRExperienceHelper.onVrDisplayPresentChange.
-        checkVector3Diff(oldProps.position, newProps.position, 'position', 'BabylonjsCoreVector3', changedProps)
-        checkLambdaDiff(oldProps.raySelectionPredicate, newProps.raySelectionPredicate, 'raySelectionPredicate', '(mesh: BabylonjsCoreAbstractMesh) => boolean', changedProps)
-        checkPrimitiveDiff(oldProps.requestPointerLockOnFullScreen, newProps.requestPointerLockOnFullScreen, 'requestPointerLockOnFullScreen', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.teleportationEnabled, newProps.teleportationEnabled, 'teleportationEnabled', 'boolean', changedProps)
+        checkVector3Diff(oldProps.position, newProps.position, 'position', changedProps)
+        checkLambdaDiff(oldProps.raySelectionPredicate, newProps.raySelectionPredicate, 'raySelectionPredicate', changedProps)
+        checkPrimitiveDiff(oldProps.requestPointerLockOnFullScreen, newProps.requestPointerLockOnFullScreen, 'requestPointerLockOnFullScreen', changedProps)
+        checkPrimitiveDiff(oldProps.teleportationEnabled, newProps.teleportationEnabled, 'teleportationEnabled', changedProps)
         // type: 'BabylonjsCoreMesh' property (not coded) BabylonjsCoreVRExperienceHelper.teleportationTarget.
         // type: 'any' property (not coded) BabylonjsCoreVRExperienceHelper.updateButtonVisibility.
-        checkPrimitiveDiff(oldProps.updateControllerLaserColor, newProps.updateControllerLaserColor, 'updateControllerLaserColor', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.updateGazeTrackerColor, newProps.updateGazeTrackerColor, 'updateGazeTrackerColor', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.updateGazeTrackerScale, newProps.updateGazeTrackerScale, 'updateGazeTrackerScale', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.updateControllerLaserColor, newProps.updateControllerLaserColor, 'updateControllerLaserColor', changedProps)
+        checkPrimitiveDiff(oldProps.updateGazeTrackerColor, newProps.updateGazeTrackerColor, 'updateGazeTrackerColor', changedProps)
+        checkPrimitiveDiff(oldProps.updateGazeTrackerScale, newProps.updateGazeTrackerScale, 'updateGazeTrackerScale', changedProps)
         // type: 'BabylonjsCoreVRExperienceHelperOptions' property (not coded) BabylonjsCoreVRExperienceHelper.webVROptions.
         // type: 'BabylonjsCoreWebXRDefaultExperience' property (not coded) BabylonjsCoreVRExperienceHelper.xr.
-        checkPrimitiveDiff(oldProps.xrTestDone, newProps.xrTestDone, 'xrTestDone', 'boolean', changedProps)
-        checkMethodDiff(oldProps.addFloorMesh, newProps.addFloorMesh, 'addFloorMesh', '(floorMesh?: BabylonjsCoreMesh) => void', changedProps)
-        checkMethodDiff(oldProps.setGazeColor, newProps.setGazeColor, 'setGazeColor', '(color?: BabylonjsCoreColor3, pickedColor?: BabylonjsCoreColor3) => void', changedProps)
-        checkMethodDiff(oldProps.setLaserColor, newProps.setLaserColor, 'setLaserColor', '(color?: BabylonjsCoreColor3, pickedColor?: BabylonjsCoreColor3) => void', changedProps)
-        checkMethodDiff(oldProps.setLaserLightingState, newProps.setLaserLightingState, 'setLaserLightingState', '(enabled?: boolean) => void', changedProps)
+        checkPrimitiveDiff(oldProps.xrTestDone, newProps.xrTestDone, 'xrTestDone', changedProps)
+        checkMethodDiff(oldProps.addFloorMesh, newProps.addFloorMesh, 'addFloorMesh', changedProps)
+        checkMethodDiff(oldProps.setGazeColor, newProps.setGazeColor, 'setGazeColor', changedProps)
+        checkMethodDiff(oldProps.setLaserColor, newProps.setLaserColor, 'setLaserColor', changedProps)
+        checkMethodDiff(oldProps.setLaserLightingState, newProps.setLaserLightingState, 'setLaserLightingState', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -11537,28 +11537,28 @@ export class FiberDynamicTerrainPropsHandler implements PropsHandler<FiberDynami
     getPropertyUpdates(oldProps: FiberDynamicTerrainProps, newProps: FiberDynamicTerrainProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
         // type: 'BabylonjsCoreCamera' property (not coded) ExtensionsDynamicTerrain.camera.
-        checkPrimitiveDiff(oldProps.cameraLODCorrection, newProps.cameraLODCorrection, 'cameraLODCorrection', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.computeNormals, newProps.computeNormals, 'computeNormals', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.initialLOD, newProps.initialLOD, 'initialLOD', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.isAlwaysVisible, newProps.isAlwaysVisible, 'isAlwaysVisible', 'boolean', changedProps)
-        checkNumericArrayDiff(oldProps.LODLimits, newProps.LODLimits, 'LODLimits', 'number[]', changedProps)
-        checkPrimitiveDiff(oldProps.LODNegativeX, newProps.LODNegativeX, 'LODNegativeX', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.LODNegativeZ, newProps.LODNegativeZ, 'LODNegativeZ', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.LODPositiveX, newProps.LODPositiveX, 'LODPositiveX', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.LODPositiveZ, newProps.LODPositiveZ, 'LODPositiveZ', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.cameraLODCorrection, newProps.cameraLODCorrection, 'cameraLODCorrection', changedProps)
+        checkPrimitiveDiff(oldProps.computeNormals, newProps.computeNormals, 'computeNormals', changedProps)
+        checkPrimitiveDiff(oldProps.initialLOD, newProps.initialLOD, 'initialLOD', changedProps)
+        checkPrimitiveDiff(oldProps.isAlwaysVisible, newProps.isAlwaysVisible, 'isAlwaysVisible', changedProps)
+        checkNumericArrayDiff(oldProps.LODLimits, newProps.LODLimits, 'LODLimits', changedProps)
+        checkPrimitiveDiff(oldProps.LODNegativeX, newProps.LODNegativeX, 'LODNegativeX', changedProps)
+        checkPrimitiveDiff(oldProps.LODNegativeZ, newProps.LODNegativeZ, 'LODNegativeZ', changedProps)
+        checkPrimitiveDiff(oldProps.LODPositiveX, newProps.LODPositiveX, 'LODPositiveX', changedProps)
+        checkPrimitiveDiff(oldProps.LODPositiveZ, newProps.LODPositiveZ, 'LODPositiveZ', changedProps)
         // type: 'BabylonjsCoreFloatArray' property (not coded) ExtensionsDynamicTerrain.mapColors.
         // type: 'BabylonjsCoreFloatArray' property (not coded) ExtensionsDynamicTerrain.mapData.
         // type: 'BabylonjsCoreFloatArray' property (not coded) ExtensionsDynamicTerrain.mapNormals.
-        checkPrimitiveDiff(oldProps.mapSubX, newProps.mapSubX, 'mapSubX', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.mapSubZ, newProps.mapSubZ, 'mapSubZ', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.mapSubX, newProps.mapSubX, 'mapSubX', changedProps)
+        checkPrimitiveDiff(oldProps.mapSubZ, newProps.mapSubZ, 'mapSubZ', changedProps)
         // type: 'BabylonjsCoreFloatArray' property (not coded) ExtensionsDynamicTerrain.mapUVs.
-        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.precomputeNormalsFromMap, newProps.precomputeNormalsFromMap, 'precomputeNormalsFromMap', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.refreshEveryFrame, newProps.refreshEveryFrame, 'refreshEveryFrame', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', changedProps)
+        checkPrimitiveDiff(oldProps.precomputeNormalsFromMap, newProps.precomputeNormalsFromMap, 'precomputeNormalsFromMap', changedProps)
+        checkPrimitiveDiff(oldProps.refreshEveryFrame, newProps.refreshEveryFrame, 'refreshEveryFrame', changedProps)
         // type: '{ x: number; z: number; }' property (not coded) ExtensionsDynamicTerrain.shiftFromCamera.
-        checkPrimitiveDiff(oldProps.subToleranceX, newProps.subToleranceX, 'subToleranceX', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.subToleranceZ, newProps.subToleranceZ, 'subToleranceZ', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.useCustomVertexFunction, newProps.useCustomVertexFunction, 'useCustomVertexFunction', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.subToleranceX, newProps.subToleranceX, 'subToleranceX', changedProps)
+        checkPrimitiveDiff(oldProps.subToleranceZ, newProps.subToleranceZ, 'subToleranceZ', changedProps)
+        checkPrimitiveDiff(oldProps.useCustomVertexFunction, newProps.useCustomVertexFunction, 'useCustomVertexFunction', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -11685,10 +11685,10 @@ export class FiberDynamicTerrain implements HasPropsHandlers<FiberDynamicTerrain
 export class FiberAutoRotationBehaviorPropsHandler implements PropsHandler<FiberAutoRotationBehaviorProps> {
     getPropertyUpdates(oldProps: FiberAutoRotationBehaviorProps, newProps: FiberAutoRotationBehaviorProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.idleRotationSpeed, newProps.idleRotationSpeed, 'idleRotationSpeed', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.idleRotationSpinupTime, newProps.idleRotationSpinupTime, 'idleRotationSpinupTime', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.idleRotationWaitTime, newProps.idleRotationWaitTime, 'idleRotationWaitTime', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.zoomStopsAnimation, newProps.zoomStopsAnimation, 'zoomStopsAnimation', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.idleRotationSpeed, newProps.idleRotationSpeed, 'idleRotationSpeed', changedProps)
+        checkPrimitiveDiff(oldProps.idleRotationSpinupTime, newProps.idleRotationSpinupTime, 'idleRotationSpinupTime', changedProps)
+        checkPrimitiveDiff(oldProps.idleRotationWaitTime, newProps.idleRotationWaitTime, 'idleRotationWaitTime', changedProps)
+        checkPrimitiveDiff(oldProps.zoomStopsAnimation, newProps.zoomStopsAnimation, 'zoomStopsAnimation', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -11730,10 +11730,10 @@ export class FiberAutoRotationBehavior implements HasPropsHandlers<FiberAutoRota
 export class FiberBouncingBehaviorPropsHandler implements PropsHandler<FiberBouncingBehaviorProps> {
     getPropertyUpdates(oldProps: FiberBouncingBehaviorProps, newProps: FiberBouncingBehaviorProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.autoTransitionRange, newProps.autoTransitionRange, 'autoTransitionRange', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.lowerRadiusTransitionRange, newProps.lowerRadiusTransitionRange, 'lowerRadiusTransitionRange', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.transitionDuration, newProps.transitionDuration, 'transitionDuration', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.upperRadiusTransitionRange, newProps.upperRadiusTransitionRange, 'upperRadiusTransitionRange', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.autoTransitionRange, newProps.autoTransitionRange, 'autoTransitionRange', changedProps)
+        checkPrimitiveDiff(oldProps.lowerRadiusTransitionRange, newProps.lowerRadiusTransitionRange, 'lowerRadiusTransitionRange', changedProps)
+        checkPrimitiveDiff(oldProps.transitionDuration, newProps.transitionDuration, 'transitionDuration', changedProps)
+        checkPrimitiveDiff(oldProps.upperRadiusTransitionRange, newProps.upperRadiusTransitionRange, 'upperRadiusTransitionRange', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -11775,15 +11775,15 @@ export class FiberBouncingBehavior implements HasPropsHandlers<FiberBouncingBeha
 export class FiberFramingBehaviorPropsHandler implements PropsHandler<FiberFramingBehaviorProps> {
     getPropertyUpdates(oldProps: FiberFramingBehaviorProps, newProps: FiberFramingBehaviorProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.autoCorrectCameraLimitsAndSensibility, newProps.autoCorrectCameraLimitsAndSensibility, 'autoCorrectCameraLimitsAndSensibility', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.defaultElevation, newProps.defaultElevation, 'defaultElevation', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.elevationReturnTime, newProps.elevationReturnTime, 'elevationReturnTime', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.elevationReturnWaitTime, newProps.elevationReturnWaitTime, 'elevationReturnWaitTime', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.framingTime, newProps.framingTime, 'framingTime', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.mode, newProps.mode, 'mode', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.positionScale, newProps.positionScale, 'positionScale', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.radiusScale, newProps.radiusScale, 'radiusScale', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.zoomStopsAnimation, newProps.zoomStopsAnimation, 'zoomStopsAnimation', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.autoCorrectCameraLimitsAndSensibility, newProps.autoCorrectCameraLimitsAndSensibility, 'autoCorrectCameraLimitsAndSensibility', changedProps)
+        checkPrimitiveDiff(oldProps.defaultElevation, newProps.defaultElevation, 'defaultElevation', changedProps)
+        checkPrimitiveDiff(oldProps.elevationReturnTime, newProps.elevationReturnTime, 'elevationReturnTime', changedProps)
+        checkPrimitiveDiff(oldProps.elevationReturnWaitTime, newProps.elevationReturnWaitTime, 'elevationReturnWaitTime', changedProps)
+        checkPrimitiveDiff(oldProps.framingTime, newProps.framingTime, 'framingTime', changedProps)
+        checkPrimitiveDiff(oldProps.mode, newProps.mode, 'mode', changedProps)
+        checkPrimitiveDiff(oldProps.positionScale, newProps.positionScale, 'positionScale', changedProps)
+        checkPrimitiveDiff(oldProps.radiusScale, newProps.radiusScale, 'radiusScale', changedProps)
+        checkPrimitiveDiff(oldProps.zoomStopsAnimation, newProps.zoomStopsAnimation, 'zoomStopsAnimation', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -11825,9 +11825,9 @@ export class FiberFramingBehavior implements HasPropsHandlers<FiberFramingBehavi
 export class FiberAttachToBoxBehaviorPropsHandler implements PropsHandler<FiberAttachToBoxBehaviorProps> {
     getPropertyUpdates(oldProps: FiberAttachToBoxBehaviorProps, newProps: FiberAttachToBoxBehaviorProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.distanceAwayFromBottomOfFace, newProps.distanceAwayFromBottomOfFace, 'distanceAwayFromBottomOfFace', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.distanceAwayFromFace, newProps.distanceAwayFromFace, 'distanceAwayFromFace', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.distanceAwayFromBottomOfFace, newProps.distanceAwayFromBottomOfFace, 'distanceAwayFromBottomOfFace', changedProps)
+        checkPrimitiveDiff(oldProps.distanceAwayFromFace, newProps.distanceAwayFromFace, 'distanceAwayFromFace', changedProps)
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', changedProps)
         // type: 'any' property (not coded) BabylonjsCoreAttachToBoxBehavior.ui.
         return changedProps.length === 0 ? null : changedProps;
     }
@@ -11876,8 +11876,8 @@ export class FiberAttachToBoxBehavior implements HasPropsHandlers<FiberAttachToB
 export class FiberFadeInOutBehaviorPropsHandler implements PropsHandler<FiberFadeInOutBehaviorProps> {
     getPropertyUpdates(oldProps: FiberFadeInOutBehaviorProps, newProps: FiberFadeInOutBehaviorProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.delay, newProps.delay, 'delay', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.fadeInTime, newProps.fadeInTime, 'fadeInTime', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.delay, newProps.delay, 'delay', changedProps)
+        checkPrimitiveDiff(oldProps.fadeInTime, newProps.fadeInTime, 'fadeInTime', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -11960,22 +11960,22 @@ export class FiberPointerDragBehaviorPropsHandler implements PropsHandler<FiberP
     getPropertyUpdates(oldProps: FiberPointerDragBehaviorProps, newProps: FiberPointerDragBehaviorProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
         // type: 'BabylonjsCoreAbstractMesh' property (not coded) BabylonjsCorePointerDragBehavior.attachedNode.
-        checkPrimitiveDiff(oldProps.currentDraggingPointerID, newProps.currentDraggingPointerID, 'currentDraggingPointerID', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.detachCameraControls, newProps.detachCameraControls, 'detachCameraControls', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.dragDeltaRatio, newProps.dragDeltaRatio, 'dragDeltaRatio', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.dragging, newProps.dragging, 'dragging', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.enabled, newProps.enabled, 'enabled', 'boolean', changedProps)
-        checkVector3Diff(oldProps.lastDragPosition, newProps.lastDragPosition, 'lastDragPosition', 'BabylonjsCoreVector3', changedProps)
-        checkPrimitiveDiff(oldProps.maxDragAngle, newProps.maxDragAngle, 'maxDragAngle', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.moveAttached, newProps.moveAttached, 'moveAttached', 'boolean', changedProps)
-        checkObservableDiff(oldProps.onDragEndObservable, newProps.onDragEndObservable, 'onDragEndObservable', 'BabylonjsCoreObservable<{ dragPlanePoint: BabylonjsCoreVector3; pointerId: number; }>', changedProps)
-        checkObservableDiff(oldProps.onDragObservable, newProps.onDragObservable, 'onDragObservable', 'BabylonjsCoreObservable<{ delta: BabylonjsCoreVector3; dragPlanePoint: BabylonjsCoreVector3; dragPlaneNormal: BabylonjsCoreVector3; dragDistance: number; pointerId: number; }>', changedProps)
-        checkObservableDiff(oldProps.onDragStartObservable, newProps.onDragStartObservable, 'onDragStartObservable', 'BabylonjsCoreObservable<{ dragPlanePoint: BabylonjsCoreVector3; pointerId: number; }>', changedProps)
+        checkPrimitiveDiff(oldProps.currentDraggingPointerID, newProps.currentDraggingPointerID, 'currentDraggingPointerID', changedProps)
+        checkPrimitiveDiff(oldProps.detachCameraControls, newProps.detachCameraControls, 'detachCameraControls', changedProps)
+        checkPrimitiveDiff(oldProps.dragDeltaRatio, newProps.dragDeltaRatio, 'dragDeltaRatio', changedProps)
+        checkPrimitiveDiff(oldProps.dragging, newProps.dragging, 'dragging', changedProps)
+        checkPrimitiveDiff(oldProps.enabled, newProps.enabled, 'enabled', changedProps)
+        checkVector3Diff(oldProps.lastDragPosition, newProps.lastDragPosition, 'lastDragPosition', changedProps)
+        checkPrimitiveDiff(oldProps.maxDragAngle, newProps.maxDragAngle, 'maxDragAngle', changedProps)
+        checkPrimitiveDiff(oldProps.moveAttached, newProps.moveAttached, 'moveAttached', changedProps)
+        checkObservableDiff(oldProps.onDragEndObservable, newProps.onDragEndObservable, 'onDragEndObservable', changedProps)
+        checkObservableDiff(oldProps.onDragObservable, newProps.onDragObservable, 'onDragObservable', changedProps)
+        checkObservableDiff(oldProps.onDragStartObservable, newProps.onDragStartObservable, 'onDragStartObservable', changedProps)
         // type: '{ dragAxis?: BabylonjsCoreVector3; dragPlaneNormal?: BabylonjsCoreVector3; }' property (not coded) BabylonjsCorePointerDragBehavior.options.
-        checkPrimitiveDiff(oldProps.startAndReleaseDragOnPointerEvents, newProps.startAndReleaseDragOnPointerEvents, 'startAndReleaseDragOnPointerEvents', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.updateDragPlane, newProps.updateDragPlane, 'updateDragPlane', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.useObjectOrientationForDragging, newProps.useObjectOrientationForDragging, 'useObjectOrientationForDragging', 'boolean', changedProps)
-        checkLambdaDiff(oldProps.validateDrag, newProps.validateDrag, 'validateDrag', '(targetPosition: BabylonjsCoreVector3) => boolean', changedProps)
+        checkPrimitiveDiff(oldProps.startAndReleaseDragOnPointerEvents, newProps.startAndReleaseDragOnPointerEvents, 'startAndReleaseDragOnPointerEvents', changedProps)
+        checkPrimitiveDiff(oldProps.updateDragPlane, newProps.updateDragPlane, 'updateDragPlane', changedProps)
+        checkPrimitiveDiff(oldProps.useObjectOrientationForDragging, newProps.useObjectOrientationForDragging, 'useObjectOrientationForDragging', changedProps)
+        checkLambdaDiff(oldProps.validateDrag, newProps.validateDrag, 'validateDrag', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -12034,13 +12034,13 @@ export class FiberPointerDragBehavior implements HasPropsHandlers<FiberPointerDr
 export class FiberSixDofDragBehaviorPropsHandler implements PropsHandler<FiberSixDofDragBehaviorProps> {
     getPropertyUpdates(oldProps: FiberSixDofDragBehaviorProps, newProps: FiberSixDofDragBehaviorProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        checkPrimitiveDiff(oldProps.currentDraggingPointerID, newProps.currentDraggingPointerID, 'currentDraggingPointerID', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.detachCameraControls, newProps.detachCameraControls, 'detachCameraControls', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.dragDeltaRatio, newProps.dragDeltaRatio, 'dragDeltaRatio', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.dragging, newProps.dragging, 'dragging', 'boolean', changedProps)
-        checkObservableDiff(oldProps.onDragEndObservable, newProps.onDragEndObservable, 'onDragEndObservable', 'BabylonjsCoreObservable<{}>', changedProps)
-        checkObservableDiff(oldProps.onDragStartObservable, newProps.onDragStartObservable, 'onDragStartObservable', 'BabylonjsCoreObservable<{}>', changedProps)
-        checkPrimitiveDiff(oldProps.rotateDraggedObject, newProps.rotateDraggedObject, 'rotateDraggedObject', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.currentDraggingPointerID, newProps.currentDraggingPointerID, 'currentDraggingPointerID', changedProps)
+        checkPrimitiveDiff(oldProps.detachCameraControls, newProps.detachCameraControls, 'detachCameraControls', changedProps)
+        checkPrimitiveDiff(oldProps.dragDeltaRatio, newProps.dragDeltaRatio, 'dragDeltaRatio', changedProps)
+        checkPrimitiveDiff(oldProps.dragging, newProps.dragging, 'dragging', changedProps)
+        checkObservableDiff(oldProps.onDragEndObservable, newProps.onDragEndObservable, 'onDragEndObservable', changedProps)
+        checkObservableDiff(oldProps.onDragStartObservable, newProps.onDragStartObservable, 'onDragStartObservable', changedProps)
+        checkPrimitiveDiff(oldProps.rotateDraggedObject, newProps.rotateDraggedObject, 'rotateDraggedObject', changedProps)
         // type: 'any' property (not coded) BabylonjsCoreSixDofDragBehavior.zDragFactor.
         return changedProps.length === 0 ? null : changedProps;
     }
@@ -12086,161 +12086,161 @@ export class FiberScenePropsHandler implements PropsHandler<FiberSceneProps> {
         // type: 'BabylonjsCoreAbstractActionManager' property (not coded) BabylonjsCoreScene.actionManager.
         // type: 'BabylonjsCoreCamera' property (not coded) BabylonjsCoreScene.activeCamera.
         // type: 'BabylonjsCoreCamera[]' property (not coded) BabylonjsCoreScene.activeCameras.
-        checkLambdaDiff(oldProps.afterCameraRender, newProps.afterCameraRender, 'afterCameraRender', '() => void', changedProps)
-        checkLambdaDiff(oldProps.afterRender, newProps.afterRender, 'afterRender', '() => void', changedProps)
-        checkColor3Diff(oldProps.ambientColor, newProps.ambientColor, 'ambientColor', 'BabylonjsCoreColor3', changedProps)
+        checkLambdaDiff(oldProps.afterCameraRender, newProps.afterCameraRender, 'afterCameraRender', changedProps)
+        checkLambdaDiff(oldProps.afterRender, newProps.afterRender, 'afterRender', changedProps)
+        checkColor3Diff(oldProps.ambientColor, newProps.ambientColor, 'ambientColor', changedProps)
         // type: 'BabylonjsCoreAnimationPropertiesOverride' property (not coded) BabylonjsCoreScene.animationPropertiesOverride.
-        checkPrimitiveDiff(oldProps.animationsEnabled, newProps.animationsEnabled, 'animationsEnabled', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.animationTimeScale, newProps.animationTimeScale, 'animationTimeScale', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.autoClear, newProps.autoClear, 'autoClear', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.autoClearDepthAndStencil, newProps.autoClearDepthAndStencil, 'autoClearDepthAndStencil', 'boolean', changedProps)
-        checkLambdaDiff(oldProps.beforeCameraRender, newProps.beforeCameraRender, 'beforeCameraRender', '() => void', changedProps)
-        checkLambdaDiff(oldProps.beforeRender, newProps.beforeRender, 'beforeRender', '() => void', changedProps)
-        checkPrimitiveDiff(oldProps.blockfreeActiveMeshesAndRenderingGroups, newProps.blockfreeActiveMeshesAndRenderingGroups, 'blockfreeActiveMeshesAndRenderingGroups', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.blockMaterialDirtyMechanism, newProps.blockMaterialDirtyMechanism, 'blockMaterialDirtyMechanism', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.animationsEnabled, newProps.animationsEnabled, 'animationsEnabled', changedProps)
+        checkPrimitiveDiff(oldProps.animationTimeScale, newProps.animationTimeScale, 'animationTimeScale', changedProps)
+        checkPrimitiveDiff(oldProps.autoClear, newProps.autoClear, 'autoClear', changedProps)
+        checkPrimitiveDiff(oldProps.autoClearDepthAndStencil, newProps.autoClearDepthAndStencil, 'autoClearDepthAndStencil', changedProps)
+        checkLambdaDiff(oldProps.beforeCameraRender, newProps.beforeCameraRender, 'beforeCameraRender', changedProps)
+        checkLambdaDiff(oldProps.beforeRender, newProps.beforeRender, 'beforeRender', changedProps)
+        checkPrimitiveDiff(oldProps.blockfreeActiveMeshesAndRenderingGroups, newProps.blockfreeActiveMeshesAndRenderingGroups, 'blockfreeActiveMeshesAndRenderingGroups', changedProps)
+        checkPrimitiveDiff(oldProps.blockMaterialDirtyMechanism, newProps.blockMaterialDirtyMechanism, 'blockMaterialDirtyMechanism', changedProps)
         // type: 'BabylonjsCoreCamera' property (not coded) BabylonjsCoreScene.cameraToUseForPointers.
-        checkColor4Diff(oldProps.clearColor, newProps.clearColor, 'clearColor', 'BabylonjsCoreColor4', changedProps)
+        checkColor4Diff(oldProps.clearColor, newProps.clearColor, 'clearColor', changedProps)
         // type: 'BabylonjsCorePlane' property (not coded) BabylonjsCoreScene.clipPlane.
         // type: 'BabylonjsCorePlane' property (not coded) BabylonjsCoreScene.clipPlane2.
         // type: 'BabylonjsCorePlane' property (not coded) BabylonjsCoreScene.clipPlane3.
         // type: 'BabylonjsCorePlane' property (not coded) BabylonjsCoreScene.clipPlane4.
         // type: 'BabylonjsCorePlane' property (not coded) BabylonjsCoreScene.clipPlane5.
         // type: 'BabylonjsCorePlane' property (not coded) BabylonjsCoreScene.clipPlane6.
-        checkPrimitiveDiff(oldProps.collisionsEnabled, newProps.collisionsEnabled, 'collisionsEnabled', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.constantlyUpdateMeshUnderPointer, newProps.constantlyUpdateMeshUnderPointer, 'constantlyUpdateMeshUnderPointer', 'boolean', changedProps)
-        checkLambdaDiff(oldProps.customLODSelector, newProps.customLODSelector, 'customLODSelector', '(mesh: BabylonjsCoreAbstractMesh, camera: BabylonjsCoreCamera) => BabylonjsCoreAbstractMesh', changedProps)
+        checkPrimitiveDiff(oldProps.collisionsEnabled, newProps.collisionsEnabled, 'collisionsEnabled', changedProps)
+        checkPrimitiveDiff(oldProps.constantlyUpdateMeshUnderPointer, newProps.constantlyUpdateMeshUnderPointer, 'constantlyUpdateMeshUnderPointer', changedProps)
+        checkLambdaDiff(oldProps.customLODSelector, newProps.customLODSelector, 'customLODSelector', changedProps)
         // type: 'BabylonjsCoreRenderTargetTexture[]' property (not coded) BabylonjsCoreScene.customRenderTargets.
-        checkPrimitiveDiff(oldProps.defaultCursor, newProps.defaultCursor, 'defaultCursor', 'string', changedProps)
+        checkPrimitiveDiff(oldProps.defaultCursor, newProps.defaultCursor, 'defaultCursor', changedProps)
         // type: 'BabylonjsCoreMaterial' property (not coded) BabylonjsCoreScene.defaultMaterial.
         // type: 'RegExp[]' property (not coded) BabylonjsCoreScene.disableOfflineSupportExceptionRules.
-        checkPrimitiveDiff(oldProps.dispatchAllSubMeshesOfActiveMeshes, newProps.dispatchAllSubMeshesOfActiveMeshes, 'dispatchAllSubMeshesOfActiveMeshes', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.doNotHandleCursors, newProps.doNotHandleCursors, 'doNotHandleCursors', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.DoubleClickDelay, newProps.DoubleClickDelay, 'DoubleClickDelay', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.DragMovementThreshold, newProps.DragMovementThreshold, 'DragMovementThreshold', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.dumpNextRenderTargets, newProps.dumpNextRenderTargets, 'dumpNextRenderTargets', 'boolean', changedProps)
-        checkTextureDiff(oldProps.environmentBRDFTexture, newProps.environmentBRDFTexture, 'environmentBRDFTexture', 'BabylonjsCoreBaseTexture', changedProps)
-        checkPrimitiveDiff(oldProps.environmentIntensity, newProps.environmentIntensity, 'environmentIntensity', 'number', changedProps)
-        checkTextureDiff(oldProps.environmentTexture, newProps.environmentTexture, 'environmentTexture', 'BabylonjsCoreBaseTexture', changedProps)
-        checkPrimitiveDiff(oldProps.ExclusiveDoubleClickMode, newProps.ExclusiveDoubleClickMode, 'ExclusiveDoubleClickMode', 'boolean', changedProps)
-        checkColor3Diff(oldProps.fogColor, newProps.fogColor, 'fogColor', 'BabylonjsCoreColor3', changedProps)
-        checkPrimitiveDiff(oldProps.fogDensity, newProps.fogDensity, 'fogDensity', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.fogEnabled, newProps.fogEnabled, 'fogEnabled', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.fogEnd, newProps.fogEnd, 'fogEnd', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.fogMode, newProps.fogMode, 'fogMode', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.fogStart, newProps.fogStart, 'fogStart', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.forcePointsCloud, newProps.forcePointsCloud, 'forcePointsCloud', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.forceWireframe, newProps.forceWireframe, 'forceWireframe', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.dispatchAllSubMeshesOfActiveMeshes, newProps.dispatchAllSubMeshesOfActiveMeshes, 'dispatchAllSubMeshesOfActiveMeshes', changedProps)
+        checkPrimitiveDiff(oldProps.doNotHandleCursors, newProps.doNotHandleCursors, 'doNotHandleCursors', changedProps)
+        checkPrimitiveDiff(oldProps.DoubleClickDelay, newProps.DoubleClickDelay, 'DoubleClickDelay', changedProps)
+        checkPrimitiveDiff(oldProps.DragMovementThreshold, newProps.DragMovementThreshold, 'DragMovementThreshold', changedProps)
+        checkPrimitiveDiff(oldProps.dumpNextRenderTargets, newProps.dumpNextRenderTargets, 'dumpNextRenderTargets', changedProps)
+        checkTextureDiff(oldProps.environmentBRDFTexture, newProps.environmentBRDFTexture, 'environmentBRDFTexture', changedProps)
+        checkPrimitiveDiff(oldProps.environmentIntensity, newProps.environmentIntensity, 'environmentIntensity', changedProps)
+        checkTextureDiff(oldProps.environmentTexture, newProps.environmentTexture, 'environmentTexture', changedProps)
+        checkPrimitiveDiff(oldProps.ExclusiveDoubleClickMode, newProps.ExclusiveDoubleClickMode, 'ExclusiveDoubleClickMode', changedProps)
+        checkColor3Diff(oldProps.fogColor, newProps.fogColor, 'fogColor', changedProps)
+        checkPrimitiveDiff(oldProps.fogDensity, newProps.fogDensity, 'fogDensity', changedProps)
+        checkPrimitiveDiff(oldProps.fogEnabled, newProps.fogEnabled, 'fogEnabled', changedProps)
+        checkPrimitiveDiff(oldProps.fogEnd, newProps.fogEnd, 'fogEnd', changedProps)
+        checkPrimitiveDiff(oldProps.fogMode, newProps.fogMode, 'fogMode', changedProps)
+        checkPrimitiveDiff(oldProps.fogStart, newProps.fogStart, 'fogStart', changedProps)
+        checkPrimitiveDiff(oldProps.forcePointsCloud, newProps.forcePointsCloud, 'forcePointsCloud', changedProps)
+        checkPrimitiveDiff(oldProps.forceWireframe, newProps.forceWireframe, 'forceWireframe', changedProps)
         // type: 'any' property (not coded) BabylonjsCoreScene.geometriesByUniqueId.
-        checkLambdaDiff(oldProps.getActiveMeshCandidates, newProps.getActiveMeshCandidates, 'getActiveMeshCandidates', '() => BabylonjsCoreISmartArrayLike<BabylonjsCoreAbstractMesh>', changedProps)
-        checkLambdaDiff(oldProps.getActiveSubMeshCandidates, newProps.getActiveSubMeshCandidates, 'getActiveSubMeshCandidates', '(mesh: BabylonjsCoreAbstractMesh) => BabylonjsCoreISmartArrayLike<BabylonjsCoreSubMesh>', changedProps)
-        checkLambdaDiff(oldProps.getCollidingSubMeshCandidates, newProps.getCollidingSubMeshCandidates, 'getCollidingSubMeshCandidates', '(mesh: BabylonjsCoreAbstractMesh, collider: BabylonjsCoreCollider) => BabylonjsCoreISmartArrayLike<BabylonjsCoreSubMesh>', changedProps)
-        checkLambdaDiff(oldProps.getDeterministicFrameTime, newProps.getDeterministicFrameTime, 'getDeterministicFrameTime', '() => number', changedProps)
-        checkLambdaDiff(oldProps.getIntersectingSubMeshCandidates, newProps.getIntersectingSubMeshCandidates, 'getIntersectingSubMeshCandidates', '(mesh: BabylonjsCoreAbstractMesh, localRay: BabylonjsCoreRay) => BabylonjsCoreISmartArrayLike<BabylonjsCoreSubMesh>', changedProps)
-        checkVector3Diff(oldProps.gravity, newProps.gravity, 'gravity', 'BabylonjsCoreVector3', changedProps)
-        checkPrimitiveDiff(oldProps.hoverCursor, newProps.hoverCursor, 'hoverCursor', 'string', changedProps)
+        checkLambdaDiff(oldProps.getActiveMeshCandidates, newProps.getActiveMeshCandidates, 'getActiveMeshCandidates', changedProps)
+        checkLambdaDiff(oldProps.getActiveSubMeshCandidates, newProps.getActiveSubMeshCandidates, 'getActiveSubMeshCandidates', changedProps)
+        checkLambdaDiff(oldProps.getCollidingSubMeshCandidates, newProps.getCollidingSubMeshCandidates, 'getCollidingSubMeshCandidates', changedProps)
+        checkLambdaDiff(oldProps.getDeterministicFrameTime, newProps.getDeterministicFrameTime, 'getDeterministicFrameTime', changedProps)
+        checkLambdaDiff(oldProps.getIntersectingSubMeshCandidates, newProps.getIntersectingSubMeshCandidates, 'getIntersectingSubMeshCandidates', changedProps)
+        checkVector3Diff(oldProps.gravity, newProps.gravity, 'gravity', changedProps)
+        checkPrimitiveDiff(oldProps.hoverCursor, newProps.hoverCursor, 'hoverCursor', changedProps)
         // type: 'String[]' property (not coded) BabylonjsCoreScene.importedMeshesFiles.
-        checkPrimitiveDiff(oldProps.lensFlaresEnabled, newProps.lensFlaresEnabled, 'lensFlaresEnabled', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.lightsEnabled, newProps.lightsEnabled, 'lightsEnabled', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.loadingPluginName, newProps.loadingPluginName, 'loadingPluginName', 'string', changedProps)
-        checkPrimitiveDiff(oldProps.LongPressDelay, newProps.LongPressDelay, 'LongPressDelay', 'number', changedProps)
+        checkPrimitiveDiff(oldProps.lensFlaresEnabled, newProps.lensFlaresEnabled, 'lensFlaresEnabled', changedProps)
+        checkPrimitiveDiff(oldProps.lightsEnabled, newProps.lightsEnabled, 'lightsEnabled', changedProps)
+        checkPrimitiveDiff(oldProps.loadingPluginName, newProps.loadingPluginName, 'loadingPluginName', changedProps)
+        checkPrimitiveDiff(oldProps.LongPressDelay, newProps.LongPressDelay, 'LongPressDelay', changedProps)
         // type: 'any' property (not coded) BabylonjsCoreScene.metadata.
         // type: 'BabylonjsCoreIOfflineProvider' property (not coded) BabylonjsCoreScene.offlineProvider.
-        checkObservableDiff(oldProps.onActiveCameraChanged, newProps.onActiveCameraChanged, 'onActiveCameraChanged', 'BabylonjsCoreObservable<BabylonjsCoreScene>', changedProps)
-        checkObservableDiff(oldProps.onAfterActiveMeshesEvaluationObservable, newProps.onAfterActiveMeshesEvaluationObservable, 'onAfterActiveMeshesEvaluationObservable', 'BabylonjsCoreObservable<BabylonjsCoreScene>', changedProps)
-        checkObservableDiff(oldProps.onAfterAnimationsObservable, newProps.onAfterAnimationsObservable, 'onAfterAnimationsObservable', 'BabylonjsCoreObservable<BabylonjsCoreScene>', changedProps)
-        checkObservableDiff(oldProps.onAfterCameraRenderObservable, newProps.onAfterCameraRenderObservable, 'onAfterCameraRenderObservable', 'BabylonjsCoreObservable<BabylonjsCoreCamera>', changedProps)
-        checkObservableDiff(oldProps.onAfterDrawPhaseObservable, newProps.onAfterDrawPhaseObservable, 'onAfterDrawPhaseObservable', 'BabylonjsCoreObservable<BabylonjsCoreScene>', changedProps)
-        checkObservableDiff(oldProps.onAfterParticlesRenderingObservable, newProps.onAfterParticlesRenderingObservable, 'onAfterParticlesRenderingObservable', 'BabylonjsCoreObservable<BabylonjsCoreScene>', changedProps)
-        checkObservableDiff(oldProps.onAfterRenderCameraObservable, newProps.onAfterRenderCameraObservable, 'onAfterRenderCameraObservable', 'BabylonjsCoreObservable<BabylonjsCoreCamera>', changedProps)
-        checkObservableDiff(oldProps.onAfterRenderingGroupObservable, newProps.onAfterRenderingGroupObservable, 'onAfterRenderingGroupObservable', 'BabylonjsCoreObservable<BabylonjsCoreRenderingGroupInfo>', changedProps)
-        checkObservableDiff(oldProps.onAfterRenderObservable, newProps.onAfterRenderObservable, 'onAfterRenderObservable', 'BabylonjsCoreObservable<BabylonjsCoreScene>', changedProps)
-        checkObservableDiff(oldProps.onAfterRenderTargetsRenderObservable, newProps.onAfterRenderTargetsRenderObservable, 'onAfterRenderTargetsRenderObservable', 'BabylonjsCoreObservable<BabylonjsCoreScene>', changedProps)
-        checkObservableDiff(oldProps.onAfterStepObservable, newProps.onAfterStepObservable, 'onAfterStepObservable', 'BabylonjsCoreObservable<BabylonjsCoreScene>', changedProps)
-        checkObservableDiff(oldProps.onAnimationFileImportedObservable, newProps.onAnimationFileImportedObservable, 'onAnimationFileImportedObservable', 'BabylonjsCoreObservable<BabylonjsCoreScene>', changedProps)
-        checkObservableDiff(oldProps.onBeforeActiveMeshesEvaluationObservable, newProps.onBeforeActiveMeshesEvaluationObservable, 'onBeforeActiveMeshesEvaluationObservable', 'BabylonjsCoreObservable<BabylonjsCoreScene>', changedProps)
-        checkObservableDiff(oldProps.onBeforeAnimationsObservable, newProps.onBeforeAnimationsObservable, 'onBeforeAnimationsObservable', 'BabylonjsCoreObservable<BabylonjsCoreScene>', changedProps)
-        checkObservableDiff(oldProps.onBeforeCameraRenderObservable, newProps.onBeforeCameraRenderObservable, 'onBeforeCameraRenderObservable', 'BabylonjsCoreObservable<BabylonjsCoreCamera>', changedProps)
-        checkObservableDiff(oldProps.onBeforeDrawPhaseObservable, newProps.onBeforeDrawPhaseObservable, 'onBeforeDrawPhaseObservable', 'BabylonjsCoreObservable<BabylonjsCoreScene>', changedProps)
-        checkObservableDiff(oldProps.onBeforeParticlesRenderingObservable, newProps.onBeforeParticlesRenderingObservable, 'onBeforeParticlesRenderingObservable', 'BabylonjsCoreObservable<BabylonjsCoreScene>', changedProps)
-        checkObservableDiff(oldProps.onBeforeRenderingGroupObservable, newProps.onBeforeRenderingGroupObservable, 'onBeforeRenderingGroupObservable', 'BabylonjsCoreObservable<BabylonjsCoreRenderingGroupInfo>', changedProps)
-        checkObservableDiff(oldProps.onBeforeRenderObservable, newProps.onBeforeRenderObservable, 'onBeforeRenderObservable', 'BabylonjsCoreObservable<BabylonjsCoreScene>', changedProps)
-        checkObservableDiff(oldProps.onBeforeRenderTargetsRenderObservable, newProps.onBeforeRenderTargetsRenderObservable, 'onBeforeRenderTargetsRenderObservable', 'BabylonjsCoreObservable<BabylonjsCoreScene>', changedProps)
-        checkObservableDiff(oldProps.onBeforeStepObservable, newProps.onBeforeStepObservable, 'onBeforeStepObservable', 'BabylonjsCoreObservable<BabylonjsCoreScene>', changedProps)
-        checkObservableDiff(oldProps.onCameraRemovedObservable, newProps.onCameraRemovedObservable, 'onCameraRemovedObservable', 'BabylonjsCoreObservable<BabylonjsCoreCamera>', changedProps)
-        checkObservableDiff(oldProps.onDataLoadedObservable, newProps.onDataLoadedObservable, 'onDataLoadedObservable', 'BabylonjsCoreObservable<BabylonjsCoreScene>', changedProps)
-        checkLambdaDiff(oldProps.onDispose, newProps.onDispose, 'onDispose', '() => void', changedProps)
-        checkObservableDiff(oldProps.onDisposeObservable, newProps.onDisposeObservable, 'onDisposeObservable', 'BabylonjsCoreObservable<BabylonjsCoreScene>', changedProps)
-        checkObservableDiff(oldProps.onGeometryRemovedObservable, newProps.onGeometryRemovedObservable, 'onGeometryRemovedObservable', 'BabylonjsCoreObservable<BabylonjsCoreGeometry>', changedProps)
-        checkObservableDiff(oldProps.onKeyboardObservable, newProps.onKeyboardObservable, 'onKeyboardObservable', 'BabylonjsCoreObservable<BabylonjsCoreKeyboardInfo>', changedProps)
-        checkObservableDiff(oldProps.onLightRemovedObservable, newProps.onLightRemovedObservable, 'onLightRemovedObservable', 'BabylonjsCoreObservable<BabylonjsCoreLight>', changedProps)
-        checkObservableDiff(oldProps.onMaterialRemovedObservable, newProps.onMaterialRemovedObservable, 'onMaterialRemovedObservable', 'BabylonjsCoreObservable<BabylonjsCoreMaterial>', changedProps)
-        checkObservableDiff(oldProps.onMeshImportedObservable, newProps.onMeshImportedObservable, 'onMeshImportedObservable', 'BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>', changedProps)
-        checkObservableDiff(oldProps.onMeshRemovedObservable, newProps.onMeshRemovedObservable, 'onMeshRemovedObservable', 'BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>', changedProps)
-        checkObservableDiff(oldProps.onNewCameraAddedObservable, newProps.onNewCameraAddedObservable, 'onNewCameraAddedObservable', 'BabylonjsCoreObservable<BabylonjsCoreCamera>', changedProps)
-        checkObservableDiff(oldProps.onNewGeometryAddedObservable, newProps.onNewGeometryAddedObservable, 'onNewGeometryAddedObservable', 'BabylonjsCoreObservable<BabylonjsCoreGeometry>', changedProps)
-        checkObservableDiff(oldProps.onNewLightAddedObservable, newProps.onNewLightAddedObservable, 'onNewLightAddedObservable', 'BabylonjsCoreObservable<BabylonjsCoreLight>', changedProps)
-        checkObservableDiff(oldProps.onNewMaterialAddedObservable, newProps.onNewMaterialAddedObservable, 'onNewMaterialAddedObservable', 'BabylonjsCoreObservable<BabylonjsCoreMaterial>', changedProps)
-        checkObservableDiff(oldProps.onNewMeshAddedObservable, newProps.onNewMeshAddedObservable, 'onNewMeshAddedObservable', 'BabylonjsCoreObservable<BabylonjsCoreAbstractMesh>', changedProps)
-        checkObservableDiff(oldProps.onNewSkeletonAddedObservable, newProps.onNewSkeletonAddedObservable, 'onNewSkeletonAddedObservable', 'BabylonjsCoreObservable<BabylonjsCoreSkeleton>', changedProps)
-        checkObservableDiff(oldProps.onNewTextureAddedObservable, newProps.onNewTextureAddedObservable, 'onNewTextureAddedObservable', 'BabylonjsCoreObservable<BabylonjsCoreBaseTexture>', changedProps)
-        checkObservableDiff(oldProps.onNewTransformNodeAddedObservable, newProps.onNewTransformNodeAddedObservable, 'onNewTransformNodeAddedObservable', 'BabylonjsCoreObservable<BabylonjsCoreTransformNode>', changedProps)
-        checkLambdaDiff(oldProps.onPointerDown, newProps.onPointerDown, 'onPointerDown', '(evt: PointerEvent, pickInfo: BabylonjsCorePickingInfo, type: BabylonjsCorePointerEventTypes) => void', changedProps)
-        checkLambdaDiff(oldProps.onPointerMove, newProps.onPointerMove, 'onPointerMove', '(evt: PointerEvent, pickInfo: BabylonjsCorePickingInfo, type: BabylonjsCorePointerEventTypes) => void', changedProps)
-        checkObservableDiff(oldProps.onPointerObservable, newProps.onPointerObservable, 'onPointerObservable', 'BabylonjsCoreObservable<BabylonjsCorePointerInfo>', changedProps)
-        checkLambdaDiff(oldProps.onPointerPick, newProps.onPointerPick, 'onPointerPick', '(evt: PointerEvent, pickInfo: BabylonjsCorePickingInfo) => void', changedProps)
-        checkLambdaDiff(oldProps.onPointerUp, newProps.onPointerUp, 'onPointerUp', '(evt: PointerEvent, pickInfo: BabylonjsCorePickingInfo, type: BabylonjsCorePointerEventTypes) => void', changedProps)
-        checkObservableDiff(oldProps.onPreKeyboardObservable, newProps.onPreKeyboardObservable, 'onPreKeyboardObservable', 'BabylonjsCoreObservable<BabylonjsCoreKeyboardInfoPre>', changedProps)
-        checkObservableDiff(oldProps.onPrePointerObservable, newProps.onPrePointerObservable, 'onPrePointerObservable', 'BabylonjsCoreObservable<BabylonjsCorePointerInfoPre>', changedProps)
-        checkObservableDiff(oldProps.onReadyObservable, newProps.onReadyObservable, 'onReadyObservable', 'BabylonjsCoreObservable<BabylonjsCoreScene>', changedProps)
-        checkObservableDiff(oldProps.onSkeletonRemovedObservable, newProps.onSkeletonRemovedObservable, 'onSkeletonRemovedObservable', 'BabylonjsCoreObservable<BabylonjsCoreSkeleton>', changedProps)
-        checkObservableDiff(oldProps.onTextureRemovedObservable, newProps.onTextureRemovedObservable, 'onTextureRemovedObservable', 'BabylonjsCoreObservable<BabylonjsCoreBaseTexture>', changedProps)
-        checkObservableDiff(oldProps.onTransformNodeRemovedObservable, newProps.onTransformNodeRemovedObservable, 'onTransformNodeRemovedObservable', 'BabylonjsCoreObservable<BabylonjsCoreTransformNode>', changedProps)
-        checkPrimitiveDiff(oldProps.particlesEnabled, newProps.particlesEnabled, 'particlesEnabled', 'boolean', changedProps)
-        checkLambdaDiff(oldProps.pointerDownPredicate, newProps.pointerDownPredicate, 'pointerDownPredicate', '(Mesh: BabylonjsCoreAbstractMesh) => boolean', changedProps)
-        checkLambdaDiff(oldProps.pointerMovePredicate, newProps.pointerMovePredicate, 'pointerMovePredicate', '(Mesh: BabylonjsCoreAbstractMesh) => boolean', changedProps)
-        checkLambdaDiff(oldProps.pointerUpPredicate, newProps.pointerUpPredicate, 'pointerUpPredicate', '(Mesh: BabylonjsCoreAbstractMesh) => boolean', changedProps)
-        checkPrimitiveDiff(oldProps.pointerX, newProps.pointerX, 'pointerX', 'number', changedProps)
-        checkPrimitiveDiff(oldProps.pointerY, newProps.pointerY, 'pointerY', 'number', changedProps)
+        checkObservableDiff(oldProps.onActiveCameraChanged, newProps.onActiveCameraChanged, 'onActiveCameraChanged', changedProps)
+        checkObservableDiff(oldProps.onAfterActiveMeshesEvaluationObservable, newProps.onAfterActiveMeshesEvaluationObservable, 'onAfterActiveMeshesEvaluationObservable', changedProps)
+        checkObservableDiff(oldProps.onAfterAnimationsObservable, newProps.onAfterAnimationsObservable, 'onAfterAnimationsObservable', changedProps)
+        checkObservableDiff(oldProps.onAfterCameraRenderObservable, newProps.onAfterCameraRenderObservable, 'onAfterCameraRenderObservable', changedProps)
+        checkObservableDiff(oldProps.onAfterDrawPhaseObservable, newProps.onAfterDrawPhaseObservable, 'onAfterDrawPhaseObservable', changedProps)
+        checkObservableDiff(oldProps.onAfterParticlesRenderingObservable, newProps.onAfterParticlesRenderingObservable, 'onAfterParticlesRenderingObservable', changedProps)
+        checkObservableDiff(oldProps.onAfterRenderCameraObservable, newProps.onAfterRenderCameraObservable, 'onAfterRenderCameraObservable', changedProps)
+        checkObservableDiff(oldProps.onAfterRenderingGroupObservable, newProps.onAfterRenderingGroupObservable, 'onAfterRenderingGroupObservable', changedProps)
+        checkObservableDiff(oldProps.onAfterRenderObservable, newProps.onAfterRenderObservable, 'onAfterRenderObservable', changedProps)
+        checkObservableDiff(oldProps.onAfterRenderTargetsRenderObservable, newProps.onAfterRenderTargetsRenderObservable, 'onAfterRenderTargetsRenderObservable', changedProps)
+        checkObservableDiff(oldProps.onAfterStepObservable, newProps.onAfterStepObservable, 'onAfterStepObservable', changedProps)
+        checkObservableDiff(oldProps.onAnimationFileImportedObservable, newProps.onAnimationFileImportedObservable, 'onAnimationFileImportedObservable', changedProps)
+        checkObservableDiff(oldProps.onBeforeActiveMeshesEvaluationObservable, newProps.onBeforeActiveMeshesEvaluationObservable, 'onBeforeActiveMeshesEvaluationObservable', changedProps)
+        checkObservableDiff(oldProps.onBeforeAnimationsObservable, newProps.onBeforeAnimationsObservable, 'onBeforeAnimationsObservable', changedProps)
+        checkObservableDiff(oldProps.onBeforeCameraRenderObservable, newProps.onBeforeCameraRenderObservable, 'onBeforeCameraRenderObservable', changedProps)
+        checkObservableDiff(oldProps.onBeforeDrawPhaseObservable, newProps.onBeforeDrawPhaseObservable, 'onBeforeDrawPhaseObservable', changedProps)
+        checkObservableDiff(oldProps.onBeforeParticlesRenderingObservable, newProps.onBeforeParticlesRenderingObservable, 'onBeforeParticlesRenderingObservable', changedProps)
+        checkObservableDiff(oldProps.onBeforeRenderingGroupObservable, newProps.onBeforeRenderingGroupObservable, 'onBeforeRenderingGroupObservable', changedProps)
+        checkObservableDiff(oldProps.onBeforeRenderObservable, newProps.onBeforeRenderObservable, 'onBeforeRenderObservable', changedProps)
+        checkObservableDiff(oldProps.onBeforeRenderTargetsRenderObservable, newProps.onBeforeRenderTargetsRenderObservable, 'onBeforeRenderTargetsRenderObservable', changedProps)
+        checkObservableDiff(oldProps.onBeforeStepObservable, newProps.onBeforeStepObservable, 'onBeforeStepObservable', changedProps)
+        checkObservableDiff(oldProps.onCameraRemovedObservable, newProps.onCameraRemovedObservable, 'onCameraRemovedObservable', changedProps)
+        checkObservableDiff(oldProps.onDataLoadedObservable, newProps.onDataLoadedObservable, 'onDataLoadedObservable', changedProps)
+        checkLambdaDiff(oldProps.onDispose, newProps.onDispose, 'onDispose', changedProps)
+        checkObservableDiff(oldProps.onDisposeObservable, newProps.onDisposeObservable, 'onDisposeObservable', changedProps)
+        checkObservableDiff(oldProps.onGeometryRemovedObservable, newProps.onGeometryRemovedObservable, 'onGeometryRemovedObservable', changedProps)
+        checkObservableDiff(oldProps.onKeyboardObservable, newProps.onKeyboardObservable, 'onKeyboardObservable', changedProps)
+        checkObservableDiff(oldProps.onLightRemovedObservable, newProps.onLightRemovedObservable, 'onLightRemovedObservable', changedProps)
+        checkObservableDiff(oldProps.onMaterialRemovedObservable, newProps.onMaterialRemovedObservable, 'onMaterialRemovedObservable', changedProps)
+        checkObservableDiff(oldProps.onMeshImportedObservable, newProps.onMeshImportedObservable, 'onMeshImportedObservable', changedProps)
+        checkObservableDiff(oldProps.onMeshRemovedObservable, newProps.onMeshRemovedObservable, 'onMeshRemovedObservable', changedProps)
+        checkObservableDiff(oldProps.onNewCameraAddedObservable, newProps.onNewCameraAddedObservable, 'onNewCameraAddedObservable', changedProps)
+        checkObservableDiff(oldProps.onNewGeometryAddedObservable, newProps.onNewGeometryAddedObservable, 'onNewGeometryAddedObservable', changedProps)
+        checkObservableDiff(oldProps.onNewLightAddedObservable, newProps.onNewLightAddedObservable, 'onNewLightAddedObservable', changedProps)
+        checkObservableDiff(oldProps.onNewMaterialAddedObservable, newProps.onNewMaterialAddedObservable, 'onNewMaterialAddedObservable', changedProps)
+        checkObservableDiff(oldProps.onNewMeshAddedObservable, newProps.onNewMeshAddedObservable, 'onNewMeshAddedObservable', changedProps)
+        checkObservableDiff(oldProps.onNewSkeletonAddedObservable, newProps.onNewSkeletonAddedObservable, 'onNewSkeletonAddedObservable', changedProps)
+        checkObservableDiff(oldProps.onNewTextureAddedObservable, newProps.onNewTextureAddedObservable, 'onNewTextureAddedObservable', changedProps)
+        checkObservableDiff(oldProps.onNewTransformNodeAddedObservable, newProps.onNewTransformNodeAddedObservable, 'onNewTransformNodeAddedObservable', changedProps)
+        checkLambdaDiff(oldProps.onPointerDown, newProps.onPointerDown, 'onPointerDown', changedProps)
+        checkLambdaDiff(oldProps.onPointerMove, newProps.onPointerMove, 'onPointerMove', changedProps)
+        checkObservableDiff(oldProps.onPointerObservable, newProps.onPointerObservable, 'onPointerObservable', changedProps)
+        checkLambdaDiff(oldProps.onPointerPick, newProps.onPointerPick, 'onPointerPick', changedProps)
+        checkLambdaDiff(oldProps.onPointerUp, newProps.onPointerUp, 'onPointerUp', changedProps)
+        checkObservableDiff(oldProps.onPreKeyboardObservable, newProps.onPreKeyboardObservable, 'onPreKeyboardObservable', changedProps)
+        checkObservableDiff(oldProps.onPrePointerObservable, newProps.onPrePointerObservable, 'onPrePointerObservable', changedProps)
+        checkObservableDiff(oldProps.onReadyObservable, newProps.onReadyObservable, 'onReadyObservable', changedProps)
+        checkObservableDiff(oldProps.onSkeletonRemovedObservable, newProps.onSkeletonRemovedObservable, 'onSkeletonRemovedObservable', changedProps)
+        checkObservableDiff(oldProps.onTextureRemovedObservable, newProps.onTextureRemovedObservable, 'onTextureRemovedObservable', changedProps)
+        checkObservableDiff(oldProps.onTransformNodeRemovedObservable, newProps.onTransformNodeRemovedObservable, 'onTransformNodeRemovedObservable', changedProps)
+        checkPrimitiveDiff(oldProps.particlesEnabled, newProps.particlesEnabled, 'particlesEnabled', changedProps)
+        checkLambdaDiff(oldProps.pointerDownPredicate, newProps.pointerDownPredicate, 'pointerDownPredicate', changedProps)
+        checkLambdaDiff(oldProps.pointerMovePredicate, newProps.pointerMovePredicate, 'pointerMovePredicate', changedProps)
+        checkLambdaDiff(oldProps.pointerUpPredicate, newProps.pointerUpPredicate, 'pointerUpPredicate', changedProps)
+        checkPrimitiveDiff(oldProps.pointerX, newProps.pointerX, 'pointerX', changedProps)
+        checkPrimitiveDiff(oldProps.pointerY, newProps.pointerY, 'pointerY', changedProps)
         // type: 'BabylonjsCorePostProcess[]' property (not coded) BabylonjsCoreScene.postProcesses.
-        checkPrimitiveDiff(oldProps.postProcessesEnabled, newProps.postProcessesEnabled, 'postProcessesEnabled', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.postProcessesEnabled, newProps.postProcessesEnabled, 'postProcessesEnabled', changedProps)
         // type: 'BabylonjsCorePostProcessManager' property (not coded) BabylonjsCoreScene.postProcessManager.
-        checkPrimitiveDiff(oldProps.preventDefaultOnPointerDown, newProps.preventDefaultOnPointerDown, 'preventDefaultOnPointerDown', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.preventDefaultOnPointerUp, newProps.preventDefaultOnPointerUp, 'preventDefaultOnPointerUp', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.probesEnabled, newProps.probesEnabled, 'probesEnabled', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.proceduralTexturesEnabled, newProps.proceduralTexturesEnabled, 'proceduralTexturesEnabled', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.renderTargetsEnabled, newProps.renderTargetsEnabled, 'renderTargetsEnabled', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.requireLightSorting, newProps.requireLightSorting, 'requireLightSorting', 'boolean', changedProps)
+        checkPrimitiveDiff(oldProps.preventDefaultOnPointerDown, newProps.preventDefaultOnPointerDown, 'preventDefaultOnPointerDown', changedProps)
+        checkPrimitiveDiff(oldProps.preventDefaultOnPointerUp, newProps.preventDefaultOnPointerUp, 'preventDefaultOnPointerUp', changedProps)
+        checkPrimitiveDiff(oldProps.probesEnabled, newProps.probesEnabled, 'probesEnabled', changedProps)
+        checkPrimitiveDiff(oldProps.proceduralTexturesEnabled, newProps.proceduralTexturesEnabled, 'proceduralTexturesEnabled', changedProps)
+        checkPrimitiveDiff(oldProps.renderTargetsEnabled, newProps.renderTargetsEnabled, 'renderTargetsEnabled', changedProps)
+        checkPrimitiveDiff(oldProps.requireLightSorting, newProps.requireLightSorting, 'requireLightSorting', changedProps)
         // type: 'any' property (not coded) BabylonjsCoreScene.reservedDataStore.
-        checkPrimitiveDiff(oldProps.shadowsEnabled, newProps.shadowsEnabled, 'shadowsEnabled', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.skeletonsEnabled, newProps.skeletonsEnabled, 'skeletonsEnabled', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.skipFrustumClipping, newProps.skipFrustumClipping, 'skipFrustumClipping', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.spritesEnabled, newProps.spritesEnabled, 'spritesEnabled', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.texturesEnabled, newProps.texturesEnabled, 'texturesEnabled', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.useConstantAnimationDeltaTime, newProps.useConstantAnimationDeltaTime, 'useConstantAnimationDeltaTime', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.useDelayedTextureLoading, newProps.useDelayedTextureLoading, 'useDelayedTextureLoading', 'boolean', changedProps)
-        checkPrimitiveDiff(oldProps.useRightHandedSystem, newProps.useRightHandedSystem, 'useRightHandedSystem', 'boolean', changedProps)
-        checkMethodDiff(oldProps.addActionManager, newProps.addActionManager, 'addActionManager', '(newActionManager?: BabylonjsCoreAbstractActionManager) => void', changedProps)
-        checkMethodDiff(oldProps.addAnimation, newProps.addAnimation, 'addAnimation', '(newAnimation?: BabylonjsCoreAnimation) => void', changedProps)
-        checkMethodDiff(oldProps.addAnimationGroup, newProps.addAnimationGroup, 'addAnimationGroup', '(newAnimationGroup?: BabylonjsCoreAnimationGroup) => void', changedProps)
-        checkMethodDiff(oldProps.addCamera, newProps.addCamera, 'addCamera', '(newCamera?: BabylonjsCoreCamera) => void', changedProps)
-        checkMethodDiff(oldProps.addExternalData, newProps.addExternalData, 'addExternalData', '(key?: string, data?: T) => boolean', changedProps)
-        checkMethodDiff(oldProps.addGeometry, newProps.addGeometry, 'addGeometry', '(newGeometry?: BabylonjsCoreGeometry) => void', changedProps)
-        checkMethodDiff(oldProps.addLight, newProps.addLight, 'addLight', '(newLight?: BabylonjsCoreLight) => void', changedProps)
-        checkMethodDiff(oldProps.addMaterial, newProps.addMaterial, 'addMaterial', '(newMaterial?: BabylonjsCoreMaterial) => void', changedProps)
-        checkMethodDiff(oldProps.addMesh, newProps.addMesh, 'addMesh', '(newMesh?: BabylonjsCoreAbstractMesh, recursive?: boolean) => void', changedProps)
-        checkMethodDiff(oldProps.addMorphTargetManager, newProps.addMorphTargetManager, 'addMorphTargetManager', '(newMorphTargetManager?: BabylonjsCoreMorphTargetManager) => void', changedProps)
-        checkMethodDiff(oldProps.addMultiMaterial, newProps.addMultiMaterial, 'addMultiMaterial', '(newMultiMaterial?: BabylonjsCoreMultiMaterial) => void', changedProps)
-        checkMethodDiff(oldProps.addParticleSystem, newProps.addParticleSystem, 'addParticleSystem', '(newParticleSystem?: BabylonjsCoreIParticleSystem) => void', changedProps)
-        checkMethodDiff(oldProps.addSkeleton, newProps.addSkeleton, 'addSkeleton', '(newSkeleton?: BabylonjsCoreSkeleton) => void', changedProps)
-        checkMethodDiff(oldProps.addTexture, newProps.addTexture, 'addTexture', '(newTexture?: BabylonjsCoreBaseTexture) => void', changedProps)
-        checkMethodDiff(oldProps.addTransformNode, newProps.addTransformNode, 'addTransformNode', '(newTransformNode?: BabylonjsCoreTransformNode) => void', changedProps)
-        checkMethodDiff(oldProps.setActiveCameraByID, newProps.setActiveCameraByID, 'setActiveCameraByID', '(id?: string) => BabylonjsCoreCamera', changedProps)
-        checkMethodDiff(oldProps.setActiveCameraByName, newProps.setActiveCameraByName, 'setActiveCameraByName', '(name?: string) => BabylonjsCoreCamera', changedProps)
-        checkMethodDiff(oldProps.setPointerOverMesh, newProps.setPointerOverMesh, 'setPointerOverMesh', '(mesh?: BabylonjsCoreAbstractMesh) => void', changedProps)
-        checkMethodDiff(oldProps.setRenderingAutoClearDepthStencil, newProps.setRenderingAutoClearDepthStencil, 'setRenderingAutoClearDepthStencil', '(renderingGroupId?: number, autoClearDepthStencil?: boolean, depth?: boolean, stencil?: boolean) => void', changedProps)
-        checkMethodDiff(oldProps.setRenderingOrder, newProps.setRenderingOrder, 'setRenderingOrder', '(renderingGroupId?: number, opaqueSortCompareFn?: (a: BabylonjsCoreSubMesh, b: BabylonjsCoreSubMesh) => number, alphaTestSortCompareFn?: (a: BabylonjsCoreSubMesh, b: BabylonjsCoreSubMesh) => number, transparentSortCompareFn?: (a: BabylonjsCoreSubMesh, b: BabylonjsCoreSubMesh) => number) => void', changedProps)
-        checkMethodDiff(oldProps.setStepId, newProps.setStepId, 'setStepId', '(newStepId?: number) => void', changedProps)
-        checkMethodDiff(oldProps.setTransformMatrix, newProps.setTransformMatrix, 'setTransformMatrix', '(viewL?: BabylonjsCoreMatrix, projectionL?: BabylonjsCoreMatrix, viewR?: BabylonjsCoreMatrix, projectionR?: BabylonjsCoreMatrix) => void', changedProps)
+        checkPrimitiveDiff(oldProps.shadowsEnabled, newProps.shadowsEnabled, 'shadowsEnabled', changedProps)
+        checkPrimitiveDiff(oldProps.skeletonsEnabled, newProps.skeletonsEnabled, 'skeletonsEnabled', changedProps)
+        checkPrimitiveDiff(oldProps.skipFrustumClipping, newProps.skipFrustumClipping, 'skipFrustumClipping', changedProps)
+        checkPrimitiveDiff(oldProps.spritesEnabled, newProps.spritesEnabled, 'spritesEnabled', changedProps)
+        checkPrimitiveDiff(oldProps.texturesEnabled, newProps.texturesEnabled, 'texturesEnabled', changedProps)
+        checkPrimitiveDiff(oldProps.useConstantAnimationDeltaTime, newProps.useConstantAnimationDeltaTime, 'useConstantAnimationDeltaTime', changedProps)
+        checkPrimitiveDiff(oldProps.useDelayedTextureLoading, newProps.useDelayedTextureLoading, 'useDelayedTextureLoading', changedProps)
+        checkPrimitiveDiff(oldProps.useRightHandedSystem, newProps.useRightHandedSystem, 'useRightHandedSystem', changedProps)
+        checkMethodDiff(oldProps.addActionManager, newProps.addActionManager, 'addActionManager', changedProps)
+        checkMethodDiff(oldProps.addAnimation, newProps.addAnimation, 'addAnimation', changedProps)
+        checkMethodDiff(oldProps.addAnimationGroup, newProps.addAnimationGroup, 'addAnimationGroup', changedProps)
+        checkMethodDiff(oldProps.addCamera, newProps.addCamera, 'addCamera', changedProps)
+        checkMethodDiff(oldProps.addExternalData, newProps.addExternalData, 'addExternalData', changedProps)
+        checkMethodDiff(oldProps.addGeometry, newProps.addGeometry, 'addGeometry', changedProps)
+        checkMethodDiff(oldProps.addLight, newProps.addLight, 'addLight', changedProps)
+        checkMethodDiff(oldProps.addMaterial, newProps.addMaterial, 'addMaterial', changedProps)
+        checkMethodDiff(oldProps.addMesh, newProps.addMesh, 'addMesh', changedProps)
+        checkMethodDiff(oldProps.addMorphTargetManager, newProps.addMorphTargetManager, 'addMorphTargetManager', changedProps)
+        checkMethodDiff(oldProps.addMultiMaterial, newProps.addMultiMaterial, 'addMultiMaterial', changedProps)
+        checkMethodDiff(oldProps.addParticleSystem, newProps.addParticleSystem, 'addParticleSystem', changedProps)
+        checkMethodDiff(oldProps.addSkeleton, newProps.addSkeleton, 'addSkeleton', changedProps)
+        checkMethodDiff(oldProps.addTexture, newProps.addTexture, 'addTexture', changedProps)
+        checkMethodDiff(oldProps.addTransformNode, newProps.addTransformNode, 'addTransformNode', changedProps)
+        checkMethodDiff(oldProps.setActiveCameraByID, newProps.setActiveCameraByID, 'setActiveCameraByID', changedProps)
+        checkMethodDiff(oldProps.setActiveCameraByName, newProps.setActiveCameraByName, 'setActiveCameraByName', changedProps)
+        checkMethodDiff(oldProps.setPointerOverMesh, newProps.setPointerOverMesh, 'setPointerOverMesh', changedProps)
+        checkMethodDiff(oldProps.setRenderingAutoClearDepthStencil, newProps.setRenderingAutoClearDepthStencil, 'setRenderingAutoClearDepthStencil', changedProps)
+        checkMethodDiff(oldProps.setRenderingOrder, newProps.setRenderingOrder, 'setRenderingOrder', changedProps)
+        checkMethodDiff(oldProps.setStepId, newProps.setStepId, 'setStepId', changedProps)
+        checkMethodDiff(oldProps.setTransformMatrix, newProps.setTransformMatrix, 'setTransformMatrix', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }

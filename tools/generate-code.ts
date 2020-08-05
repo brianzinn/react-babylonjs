@@ -919,8 +919,8 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
     let addedProperties = new Set<string>();
 
     // These properties break out to specific method handlers
-    type PropertyKind = 'BabylonjsCoreBaseTexture' | 'BabylonjsCoreColor3' | 'BabylonjsCoreColor4' | 'BabylonjsCoreVector3' | 'BabylonjsCoreFresnelParameters' | 'BabylonjsGuiControl' |
-     'number[]' | 'lambda' | 'observable' | 'method' | 'primitive';
+    type PropertyKind = 'BabylonjsCoreBaseTexture' | 'BabylonjsCoreColor3' | 'BabylonjsCoreColor4' | 'BabylonjsCoreVector3' | 'BabylonjsCoreFresnelParameters' | 'BabylonjsCoreQuaternion' |
+      'BabylonjsGuiControl' | 'number[]' | 'lambda' | 'observable' | 'method' | 'primitive';
     type NameAndType = {
       name: string
       type: string,
@@ -972,6 +972,7 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
             case 'BabylonjsCoreColor4': // Color4.equals() not added until PR #5517
             case 'BabylonjsCoreVector3':
             case 'BabylonjsCoreFresnelParameters':
+            case 'BabylonjsCoreQuaternion':
             case 'BabylonjsGuiControl':
             case 'number[]':
               propsToCheck.push({
@@ -1033,37 +1034,40 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
           // if (propToCheck.method === true) 
           switch(propToCheck.propertyKind) {
             case 'BabylonjsCoreVector3':
-            writer.writeLine(`checkVector3Diff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', '${propToCheck.type}', changedProps)`);
+            writer.writeLine(`checkVector3Diff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`);
             break;
           case 'BabylonjsCoreColor3':
-            writer.writeLine(`checkColor3Diff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', '${propToCheck.type}', changedProps)`);
+            writer.writeLine(`checkColor3Diff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`);
             break;
-          case `BabylonjsCoreColor4`: // Color4.equals() not added until PR #5517
-            writer.writeLine(`checkColor4Diff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', '${propToCheck.type}', changedProps)`);
+          case 'BabylonjsCoreColor4': // Color4.equals() not added until PR #5517
+            writer.writeLine(`checkColor4Diff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`);
             break;
-          case "primitive":
-            writer.writeLine(`checkPrimitiveDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', '${propToCheck.type}', changedProps)`);
+          case 'BabylonjsCoreQuaternion':
+            writer.writeLine(`checkQuaternionDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`);
             break;
-          case "BabylonjsGuiControl":
-            writer.writeLine(`checkControlDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', '${propToCheck.type}', changedProps)`);
+          case 'primitive':
+            writer.writeLine(`checkPrimitiveDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`);
             break;
-          case "number[]":
-            writer.writeLine(`checkNumericArrayDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', '${propToCheck.type}', changedProps)`);
+          case 'BabylonjsGuiControl':
+            writer.writeLine(`checkControlDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`);
             break;
-          case "BabylonjsCoreFresnelParameters":
-            writer.writeLine(`checkFresnelParametersDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', '${propToCheck.type}', changedProps)`);
+          case 'number[]':
+            writer.writeLine(`checkNumericArrayDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`);
             break;
-          case "BabylonjsCoreBaseTexture":
-            writer.writeLine(`checkTextureDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', '${propToCheck.type}', changedProps)`)
+          case 'BabylonjsCoreFresnelParameters':
+            writer.writeLine(`checkFresnelParametersDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`);
             break;
-          case "observable":
-            writer.writeLine(`checkObservableDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', '${propToCheck.type}', changedProps)`);
+          case 'BabylonjsCoreBaseTexture':
+            writer.writeLine(`checkTextureDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`)
             break;
-          case "lambda":
-            writer.writeLine(`checkLambdaDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', '${propToCheck.type}', changedProps)`)
+          case 'observable':
+            writer.writeLine(`checkObservableDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`);
             break;
-          case "method":
-            writer.writeLine(`checkMethodDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', '${propToCheck.type}', changedProps)`)
+          case 'lambda':
+            writer.writeLine(`checkLambdaDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`)
+            break;
+          case 'method':
+            writer.writeLine(`checkMethodDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`)
             break;
           default:
             writer.writeLine(`// not found (default): '${propToCheck.type}' property (not coded) ${babylonClassDeclaration.importAlias}.${propToCheck.name}.`)
@@ -1377,17 +1381,18 @@ const generateCode = async () => {
       PropertyUpdateInterface,
       "HasPropsHandlers",
       // Following imported methods allow strong typing checks on PropsHandlers (and easier to read than code generating + smaller code footprint)
-      "checkVector3Diff",
       "checkColor3Diff",
       "checkColor4Diff",
       "checkControlDiff",
-      "checkPrimitiveDiff",
-      "checkNumericArrayDiff",
-      "checkObservableDiff",
-      "checkMethodDiff",
       "checkFresnelParametersDiff",
       "checkLambdaDiff",
-      "checkTextureDiff"
+      "checkMethodDiff",
+      "checkNumericArrayDiff",
+      "checkObservableDiff",
+      "checkPrimitiveDiff",
+      "checkQuaternionDiff",
+      "checkTextureDiff",
+      "checkVector3Diff",
     ]
   })
 

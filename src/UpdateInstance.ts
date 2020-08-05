@@ -1,4 +1,4 @@
-import { Vector3, Color3, Color4 } from '@babylonjs/core'
+import { Vector3, Color3, Color4, Quaternion } from '@babylonjs/core'
 import { PropertyUpdate, PropsHandler, PropChangeType } from "./PropsHandler"
 import { CreatedInstance } from "./CreatedInstance"
 
@@ -62,11 +62,21 @@ export const applyUpdateToInstance = (hostInstance: any, update: PropertyUpdate,
           target[update.propertyName](...Object.values(update.value))
         }
       } else {
-        console.error(`Cannot call [not a function] ${update.propertyName}(...) on:`, update.type, target)
+        console.error(`Cannot call [not a function] ${update.propertyName}(...) on:`, target)
       }
       break;
+    case PropChangeType.Quaternion:
+        console.warn(`quaternion update detected ${update.propertyName} to:`, update.value)
+        if (target[update.propertyName]) {
+          (target[update.propertyName] as Quaternion).copyFrom(update.value);
+        } else if (update.value) {
+          target[update.propertyName] = (update.value as Quaternion).clone();
+        } else {
+          target[update.propertyName] = update.value; // ie: undefined/null?
+        }
+        break
     default:
-      console.error(`Unhandled property update of type ${update.changeType} -> ${update.type}`);
+      console.error(`Unhandled property update of type '${update.changeType}'`);
       break;
   }
 }
