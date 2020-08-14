@@ -384,15 +384,15 @@ const ReactBabylonJSHostConfig: HostConfig<
 
     // Consider these being dynamically attached to a list, much like PropsHandlers<T>
     if (metadata.isMaterial === true) {
-      lifecycleListener = new CUSTOM_HOSTS.MaterialsLifecycleListener()
+      lifecycleListener = new CUSTOM_HOSTS.MaterialsLifecycleListener();
+    } else if (metadata.isTexture === true) { // must be before .isGUI2DControl, since ADT/FullScreenUI declare both.
+      lifecycleListener = new CUSTOM_HOSTS.TexturesLifecycleListener();
     } else if (metadata.isGUI3DControl === true) {
-      lifecycleListener = new CUSTOM_HOSTS.GUI3DControlLifecycleListener(scene)
+      lifecycleListener = new CUSTOM_HOSTS.GUI3DControlLifecycleListener(scene);
     } else if (metadata.isGUI2DControl === true) {
-      lifecycleListener = new CUSTOM_HOSTS.GUI2DControlLifecycleListener()
-    } else if (metadata.isTexture === true) {
-      lifecycleListener = new CUSTOM_HOSTS.TexturesLifecycleListener()
+      lifecycleListener = new CUSTOM_HOSTS.GUI2DControlLifecycleListener();
     } else if (metadata.isCamera === true) {
-      lifecycleListener = new CUSTOM_HOSTS.CameraLifecycleListener(scene, props, canvas as HTMLCanvasElement)
+      lifecycleListener = new CUSTOM_HOSTS.CameraLifecycleListener(scene, props, canvas as HTMLCanvasElement);
     } else if (metadata.isNode) {
       lifecycleListener = new CUSTOM_HOSTS.NodeLifecycleListener();
     } else if (metadata.isBehavior) {
@@ -529,7 +529,11 @@ const ReactBabylonJSHostConfig: HostConfig<
   commitUpdate(instance: HostCreatedInstance<any>, updatePayload: UpdatePayload, type: string /* old + new props are extra params here */) {
     if (updatePayload !== null) {
       updatePayload.forEach((update: PropertyUpdate) => {
-        applyUpdateToInstance(instance!.hostInstance, update, type)
+        if (instance) {
+          applyUpdateToInstance(instance!.hostInstance, update, type)
+        } else {
+          // console.warn("skipped applying update to missing instance...", update, type);
+        }
       })
     }
   },

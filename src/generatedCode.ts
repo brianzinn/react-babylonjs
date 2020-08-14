@@ -10532,6 +10532,7 @@ export class FiberAdvancedDynamicTexture implements HasPropsHandlers<FiberBaseTe
         ]
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
+        "isGUI2DControl": true,
         "isTexture": true,
         "className": "FiberAdvancedDynamicTexture"
     };
@@ -10597,6 +10598,7 @@ export class FiberADTForMesh implements HasPropsHandlers<FiberAdvancedDynamicTex
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "isTexture": true,
+        "isGUI2DControl": true,
         "className": "FiberADTForMesh"
     };
 }
@@ -10660,6 +10662,7 @@ export class FiberADTFullscreenUI implements HasPropsHandlers<FiberAdvancedDynam
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "isTexture": true,
+        "isGUI2DControl": true,
         "className": "FiberADTFullscreenUI"
     };
 }

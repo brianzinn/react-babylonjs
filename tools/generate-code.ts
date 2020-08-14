@@ -718,8 +718,7 @@ const writeMethodAsUpdateFunction = (propsProperties: OptionalKind<PropertySigna
 /**
  * Returns false when a property has already been declared (ie: a subclass will override a method and create duplicates)
  */
-const writePropertyAsUpdateFunction = (propsProperties: OptionalKind<PropertySignatureStructure>[], type: string, propertyName: string, addedProperties: Set<String>) : boolean => {
-  
+const writePropertyAsUpdateFunction = (propsProperties: OptionalKind<PropertySignatureStructure>[], type: string, propertyName: string, addedProperties: Set<String>): boolean => {
   // doesn't really matter if it's 'optional', as nothing is forcing JavaScript users to follow your conventions.
   // const isOptional = property.getQuestionTokenNode();
 
@@ -869,16 +868,16 @@ function isPrimitiveType(node: Node<ts.Node>): boolean {
 
   const type: Type = node.getType();
 
-  return  (
-      type.isNumber() ||
-      type.isNumberLiteral() ||
-      type.isString() ||
-      type.isStringLiteral() ||
-      type.isBoolean() ||
-      type.isBooleanLiteral() ||
-      type.isEnum() || // enums --> string | number
-      type.isEnumLiteral() ||
-      type.isUndefined() // ie: string | undefined
+  return (
+    type.isNumber() ||
+    type.isNumberLiteral() ||
+    type.isString() ||
+    type.isStringLiteral() ||
+    type.isBoolean() ||
+    type.isBooleanLiteral() ||
+    type.isEnum() || // enums --> string | number
+    type.isEnumLiteral() ||
+    type.isUndefined() // ie: string | undefined
   );
 }
 
@@ -940,7 +939,7 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
         !TypeGuards.isIdentifier(desc) &&
         !TypeGuards.isUnionTypeNode(desc) &&
         !TypeGuards.isIntersectionTypeNode(desc) &&
-        !isQuestionToken(desc) && 
+        !isQuestionToken(desc) &&
         desc.getKind() !== SyntaxKind.PublicKeyword &&
         desc.getKind() !== SyntaxKind.StaticKeyword // allow static setters (ie: AmbientTextureEnabled)
       );
@@ -949,10 +948,10 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
         : undefined;
 
       if (paramDeclaration !== undefined) {
-        const paramDescendants =  paramDeclaration.forEachDescendantAsArray();
-        const expressions: Node<ts.Node>[] =paramDescendants.filter(desc => !TypeGuards.isIdentifier(desc) && !TypeGuards.isUnionTypeNode(desc));
+        const paramDescendants = paramDeclaration.forEachDescendantAsArray();
+        const expressions: Node<ts.Node>[] = paramDescendants.filter(desc => !TypeGuards.isIdentifier(desc) && !TypeGuards.isUnionTypeNode(desc));
         allPrimitives = expressions.reduce<boolean>((result, expression) => result && isPrimitiveType(expression), true);
-     } else {
+      } else {
         if (propertyDescendantsParametersAndExpressions.every(desc => TypeGuards.isExpression(desc) || TypeGuards.isTypeReferenceNode(desc) /* ie: Nullable<> */)) {
           allPrimitives = propertyDescendantsParametersAndExpressions.reduce<boolean>((result, expression) => result && isPrimitiveType(expression), true);
         }
@@ -1028,50 +1027,50 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
     } else {
       writer.write('const changedProps: PropertyUpdate[] = []');
       propsToCheck.forEach(propToCheck => {
-        if(propToCheck.propertyKind === undefined) {
+        if (propToCheck.propertyKind === undefined) {
           writer.writeLine(`// type: '${propToCheck.type}' property (not coded) ${babylonClassDeclaration.importAlias}.${propToCheck.name}.`)
         } else {
           // if (propToCheck.method === true) 
-          switch(propToCheck.propertyKind) {
+          switch (propToCheck.propertyKind) {
             case 'BabylonjsCoreVector3':
-            writer.writeLine(`checkVector3Diff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`);
-            break;
-          case 'BabylonjsCoreColor3':
-            writer.writeLine(`checkColor3Diff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`);
-            break;
-          case 'BabylonjsCoreColor4': // Color4.equals() not added until PR #5517
-            writer.writeLine(`checkColor4Diff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`);
-            break;
-          case 'BabylonjsCoreQuaternion':
-            writer.writeLine(`checkQuaternionDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`);
-            break;
-          case 'primitive':
-            writer.writeLine(`checkPrimitiveDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`);
-            break;
-          case 'BabylonjsGuiControl':
-            writer.writeLine(`checkControlDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`);
-            break;
-          case 'number[]':
-            writer.writeLine(`checkNumericArrayDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`);
-            break;
-          case 'BabylonjsCoreFresnelParameters':
-            writer.writeLine(`checkFresnelParametersDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`);
-            break;
-          case 'BabylonjsCoreBaseTexture':
-            writer.writeLine(`checkTextureDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`)
-            break;
-          case 'observable':
-            writer.writeLine(`checkObservableDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`);
-            break;
-          case 'lambda':
-            writer.writeLine(`checkLambdaDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`)
-            break;
-          case 'method':
-            writer.writeLine(`checkMethodDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`)
-            break;
-          default:
-            writer.writeLine(`// not found (default): '${propToCheck.type}' property (not coded) ${babylonClassDeclaration.importAlias}.${propToCheck.name}.`)
-            break;
+              writer.writeLine(`checkVector3Diff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`);
+              break;
+            case 'BabylonjsCoreColor3':
+              writer.writeLine(`checkColor3Diff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`);
+              break;
+            case 'BabylonjsCoreColor4': // Color4.equals() not added until PR #5517
+              writer.writeLine(`checkColor4Diff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`);
+              break;
+            case 'BabylonjsCoreQuaternion':
+              writer.writeLine(`checkQuaternionDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`);
+              break;
+            case 'primitive':
+              writer.writeLine(`checkPrimitiveDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`);
+              break;
+            case 'BabylonjsGuiControl':
+              writer.writeLine(`checkControlDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`);
+              break;
+            case 'number[]':
+              writer.writeLine(`checkNumericArrayDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`);
+              break;
+            case 'BabylonjsCoreFresnelParameters':
+              writer.writeLine(`checkFresnelParametersDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`);
+              break;
+            case 'BabylonjsCoreBaseTexture':
+              writer.writeLine(`checkTextureDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`)
+              break;
+            case 'observable':
+              writer.writeLine(`checkObservableDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`);
+              break;
+            case 'lambda':
+              writer.writeLine(`checkLambdaDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`)
+              break;
+            case 'method':
+              writer.writeLine(`checkMethodDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`)
+              break;
+            default:
+              writer.writeLine(`// not found (default): '${propToCheck.type}' property (not coded) ${babylonClassDeclaration.importAlias}.${propToCheck.name}.`)
+              break;
           }
         }
       })
@@ -1530,21 +1529,26 @@ const generateCode = async () => {
 
   if (classesOfInterest.get("BaseTexture")) {
     const fromClassName = (className: string): InstanceMetadataParameter => {
-      if (className === "AdvancedDynamicTexture") {
-        return { isGUI2DControl: true };
+      if (className === `${ClassNamesPrefix}AdvancedDynamicTexture`) {
+        return {
+          isGUI2DControl: true,
+          isTexture: true
+        };
       } else {
         return { isTexture: true };
       }
     }
 
     const onTexturesCreate = (classDeclaration: ClassDeclaration) => {
-      if (classDeclaration.getName() === 'FiberAdvancedDynamicTexture') {
+      if (classDeclaration.getName() === `${ClassNamesPrefix}AdvancedDynamicTexture`) {
         createFactoryClass(
           'AdvancedDynamicTexture',
           'AdvancedDynamicTexture',
-          'ADT', {
-          isTexture: true,
-        },
+          'ADT',
+          {
+            isTexture: true,
+            isGUI2DControl: true // it's a texture NOT a 2D control. but supports addControl and removeControl (only gets TexturesLifecycleListener)
+          },
           generatedCodeSourceFile,
           generatedPropsSourceFile,
         )
@@ -1561,10 +1565,10 @@ const generateCode = async () => {
   createSingleClass("VRExperienceHelper", generatedCodeSourceFile, generatedPropsSourceFile)
   createSingleClass("DynamicTerrain", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { acceptsMaterials: true })
 
-  classesOfInterest.forEach((_,className) => {
+  classesOfInterest.forEach((_, className) => {
     if (className.includes('Behavior')) {
       createSingleClass(className as string, generatedCodeSourceFile,
-        generatedPropsSourceFile, undefined, {isBehavior: true})
+        generatedPropsSourceFile, undefined, { isBehavior: true })
     }
   })
 

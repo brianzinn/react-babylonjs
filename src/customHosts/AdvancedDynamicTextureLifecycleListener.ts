@@ -20,6 +20,7 @@ export default class AdvancedDynamicTextureLifecycleListener implements Lifecycl
   onChildAdded(child: CreatedInstance<any>, parent: CreatedInstance<any>): any { /* empty */}
 
   onMount(instance: CreatedInstance<AdvancedDynamicTexture>): void {
+    instance.state = {added: true}; // allow children to attach
     this.addControls(instance)
 
     if (instance.customProps.createForParentMesh) {

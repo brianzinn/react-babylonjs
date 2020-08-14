@@ -1,8 +1,7 @@
 import { CreatedInstance } from "../CreatedInstance"
 import { LifecycleListener } from "../LifecycleListener"
 import { Scene, Nullable } from "@babylonjs/core"
-import { PropertyUpdate } from "../PropsHandler"
-import { applyUpdateToInstance, applyInitialPropsToInstance } from "../UpdateInstance"
+import { applyInitialPropsToInstance } from "../UpdateInstance"
 
 export default abstract class DeferredCreationLifecycleListener<T> implements LifecycleListener<T> {
 
