@@ -12,10 +12,9 @@ export default class TargetPropsHandler implements PropsHandler<any> {
     if (!oldProps.lockedTargetMeshName || oldProps.lockedTargetMeshName !== newProps.lockedTargetMeshName) {
       if (typeof newProps.lockedTargetMeshName === "string") {
         propertyUpdates.push({
-          type: "BabylonjsCoreMesh",
-          value: this.scene.getMeshByName(newProps.lockedTargetMeshName),
           changeType: PropChangeType.Primitive,
-          propertyName: "lockedTarget"
+          propertyName: "lockedTarget",
+          value: this.scene.getMeshByName(newProps.lockedTargetMeshName),
         })
       }
     }
