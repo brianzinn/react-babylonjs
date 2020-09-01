@@ -57,7 +57,8 @@ const OBSERVABLE_PATTERN: RegExp = /^BabylonjsCoreObservable<.*>$/;
  */
 const LATE_BOUND_CONSTRUCTOR_PARAMETERS: Map<string, string[]> = new Map<string, string[]>([
   ['PhysicsImpostor', ['object']],
-  ['ShadowGenerator', ['light']]
+  ['ShadowGenerator', ['light']],
+  ['CascadedShadowGenerator', ['light']]
 ]);
 
 console.log('ver:', ts.version);
@@ -140,6 +141,7 @@ classesOfInterest.set("GUI3DManager", undefined);
 classesOfInterest.set("BaseTexture", undefined);
 classesOfInterest.set("AdvancedDynamicTexture", undefined);
 classesOfInterest.set("ShadowGenerator", undefined)
+classesOfInterest.set("CascadedShadowGenerator", undefined)
 classesOfInterest.set("EnvironmentHelper", undefined);
 classesOfInterest.set("PhysicsImpostor", undefined);
 classesOfInterest.set("VRExperienceHelper", undefined);
@@ -1508,6 +1510,9 @@ const generateCode = async () => {
         case "ShadowLight": // I think it's abstract.  Anyway, it can still be created.
           metadata.isShadowLight = true;
           break;
+        case "CascadedShadowLight": // I think it's abstract.  Anyway, it can still be created.
+          metadata.isShadowLight = true;
+          break;
       }
       return metadata;
     }
@@ -1560,6 +1565,7 @@ const generateCode = async () => {
 
   createSingleClass("GUI3DManager", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { isGUI3DControl: true }, () => { return; })
   createSingleClass("ShadowGenerator", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true }, () => { return; })
+  createSingleClass("CascadedShadowGenerator", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true }, () => { return; })
   createSingleClass("EnvironmentHelper", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { isEnvironment: true })
   createSingleClass("PhysicsImpostor", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true })
   createSingleClass("VRExperienceHelper", generatedCodeSourceFile, generatedPropsSourceFile)

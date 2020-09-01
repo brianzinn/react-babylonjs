@@ -40,6 +40,7 @@ import { PointerDragBehavior as BabylonjsCorePointerDragBehavior } from "@babylo
 import { SixDofDragBehavior as BabylonjsCoreSixDofDragBehavior } from "@babylonjs/core/Behaviors/Meshes/sixDofDragBehavior";
 import { VRExperienceHelper as BabylonjsCoreVRExperienceHelper, OnAfterEnteringVRObservableEvent as BabylonjsCoreOnAfterEnteringVRObservableEvent, VRExperienceHelperOptions as BabylonjsCoreVRExperienceHelperOptions } from "@babylonjs/core/Cameras/VR/vrExperienceHelper";
 import { PoseEnabledControllerType as BabylonjsCorePoseEnabledControllerType } from "@babylonjs/core/Gamepads/Controllers/poseEnabledController";
+import { CascadedShadowGenerator as BabylonjsCoreCascadedShadowGenerator } from "@babylonjs/core/Lights/Shadows/cascadedShadowGenerator";
 import { ShadowGenerator as BabylonjsCoreShadowGenerator, ICustomShaderOptions as BabylonjsCoreICustomShaderOptions } from "@babylonjs/core/Lights/Shadows/shadowGenerator";
 import { NodeMaterialConnectionPointCompatibilityStates as BabylonjsCoreNodeMaterialConnectionPointCompatibilityStates, NodeMaterialConnectionPointDirection as BabylonjsCoreNodeMaterialConnectionPointDirection } from "@babylonjs/core/Materials/Node/nodeMaterialBlockConnectionPoint";
 import { BaseTexture as BabylonjsCoreBaseTexture } from "@babylonjs/core/Materials/Textures/baseTexture";
@@ -193,6 +194,7 @@ import { ColorGradingTexture as BabylonjsCoreColorGradingTexture } from "@babylo
 import { EquiRectangularCubeTexture as BabylonjsCoreEquiRectangularCubeTexture } from "@babylonjs/core/Materials/Textures/equiRectangularCubeTexture";
 import { HDRCubeTexture as BabylonjsCoreHDRCubeTexture } from "@babylonjs/core/Materials/Textures/hdrCubeTexture";
 import { HtmlElementTexture as BabylonjsCoreHtmlElementTexture, IHtmlElementTextureOptions as BabylonjsCoreIHtmlElementTextureOptions } from "@babylonjs/core/Materials/Textures/htmlElementTexture";
+import { DepthRenderer as BabylonjsCoreDepthRenderer } from "@babylonjs/core/Rendering/depthRenderer";
 import { PhysicsJoint as BabylonjsCorePhysicsJoint } from "@babylonjs/core/Physics/physicsJoint";
 import { PickingInfo as BabylonjsCorePickingInfo } from "@babylonjs/core/Collisions/pickingInfo";
 import { WebXRDefaultExperience as BabylonjsCoreWebXRDefaultExperience } from "@babylonjs/core/XR/webXRDefaultExperience";
@@ -359,6 +361,7 @@ declare global {
             htmlElementTexture: FiberHtmlElementTextureProps & FiberHtmlElementTexturePropsCtor & BabylonNode<BabylonjsCoreHtmlElementTexture>;
             gui3DManager: FiberGUI3DManagerProps & FiberGUI3DManagerPropsCtor & BabylonNode<BabylonjsGuiGUI3DManager>;
             shadowGenerator: FiberShadowGeneratorProps & FiberShadowGeneratorPropsCtor & BabylonNode<BabylonjsCoreShadowGenerator>;
+            cascadedShadowGenerator: FiberCascadedShadowGeneratorProps & FiberCascadedShadowGeneratorPropsCtor & BabylonNode<BabylonjsCoreCascadedShadowGenerator>;
             environmentHelper: FiberEnvironmentHelperProps & FiberEnvironmentHelperPropsCtor & BabylonNode<BabylonjsCoreEnvironmentHelper>;
             physicsImpostor: FiberPhysicsImpostorProps & FiberPhysicsImpostorPropsCtor & BabylonNode<BabylonjsCorePhysicsImpostor>;
             vrExperienceHelper: FiberVRExperienceHelperProps & FiberVRExperienceHelperPropsCtor & BabylonNode<BabylonjsCoreVRExperienceHelper>;
@@ -2536,6 +2539,27 @@ export type FiberShadowGeneratorProps = {
 export type FiberShadowGeneratorPropsCtor = {
     mapSize: number;
     light?: BabylonjsCoreIShadowLight;
+    usefulFloatFirst?: boolean;
+};
+export type FiberCascadedShadowGeneratorProps = {
+    autoCalcDepthBounds?: boolean;
+    autoCalcDepthBoundsRefreshRate?: number;
+    cascadeBlendPercentage?: number;
+    debug?: boolean;
+    depthClamp?: boolean;
+    freezeShadowCastersBoundingInfo?: boolean;
+    lambda?: number;
+    numCascades?: number;
+    penumbraDarkness?: number;
+    setDepthRenderer?: any;
+    setMinMaxDistance?: any;
+    shadowCastersBoundingInfo?: BabylonjsCoreBoundingInfo;
+    shadowMaxZ?: number;
+    stabilizeCascades?: boolean;
+} & FiberShadowGeneratorProps;
+export type FiberCascadedShadowGeneratorPropsCtor = {
+    mapSize: number;
+    light?: BabylonjsCoreDirectionalLight;
     usefulFloatFirst?: boolean;
 };
 export type FiberEnvironmentHelperProps = {
