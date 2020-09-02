@@ -10,8 +10,15 @@ export const applyUpdateToInstance = (hostInstance: any, update: PropertyUpdate,
     case PropChangeType.FresnelParameters:
     case PropChangeType.LambdaExpression:
     case PropChangeType.Texture:
-      // console.log(` > ${type}: updating ${update.type} on ${update.propertyName} to ${update.value}`)
-      target[update.propertyName] = update.value;
+      // console.log(` > ${type}: updating ${update.changeType} on ${update.propertyName} to ${update.value}`)
+      if (update.propertyName.indexOf('.') !== -1) {
+        const dotProps: string[] = update.propertyName.split('.')
+        const lastProp = dotProps.pop()!;
+        const newTarget = dotProps.reduce((target, prop) => target[prop], target);
+        newTarget[lastProp] = update.value;
+      } else {
+        target[update.propertyName] = update.value;
+      }
       break;
     case PropChangeType.Vector3:
       if (target[update.propertyName]) {

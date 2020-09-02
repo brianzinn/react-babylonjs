@@ -52,6 +52,8 @@ type ClassNameSpaceTuple = {
 // to set onXXX properties.  via onXXX.add(() => void).  TODO: use TypeGuards.isTypeReferenceNode(...) and check type
 const OBSERVABLE_PATTERN: RegExp = /^BabylonjsCoreObservable<.*>$/;
 
+const GENERATE_KEBAB_ACCESSORS = true; // test for Vector3 only currently
+
 /**
  * These are required parameters that we defer to after instantion (JSX.IntrinsicElements marked as optional)
  * LifecycleHandler and delay creation will handle these not being set (ie: look at PhysicsImposter constructor!)
@@ -458,7 +460,7 @@ const addClassDeclarationFromFactoryMethod = (generatedCodeSourceFile: SourceFil
     isExported: true
   });
 
-  const newClassModuleDeclaration = getModuleDeclarationFromClassDeclaration(classDeclaration);
+  // const newClassModuleDeclaration = getModuleDeclarationFromClassDeclaration(classDeclaration);
 
   if (extra !== undefined) {
     extra(newClassDeclaration)
@@ -720,7 +722,8 @@ const writeMethodAsUpdateFunction = (propsProperties: OptionalKind<PropertySigna
 }
 
 /**
- * Returns false when a property has already been declared (ie: a subclass will override a method and create duplicates)
+ * Returns false when a property has already been declared (ie: a subclass will override a method and create duplicates).
+ * side-effect is to update the propsProperties list.
  */
 const writePropertyAsUpdateFunction = (propsProperties: OptionalKind<PropertySignatureStructure>[], type: string, propertyName: string, addedProperties: Set<String>): boolean => {
   // doesn't really matter if it's 'optional', as nothing is forcing JavaScript users to follow your conventions.
@@ -743,6 +746,17 @@ const writePropertyAsUpdateFunction = (propsProperties: OptionalKind<PropertySig
     type: propsType,
     hasQuestionToken: true
   })
+
+  if (GENERATE_KEBAB_ACCESSORS && propsType === 'BabylonjsCoreVector3') {
+    ['x','y','z'].forEach(prop => {
+      propsProperties.push({
+        name: `'${propertyName}-${prop}'`,
+        type: 'number',
+        hasQuestionToken: true
+      })
+    })
+  }
+
   return true;
 }
 
@@ -984,6 +998,16 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
                 type,
                 propertyKind: type
               });
+
+              if (GENERATE_KEBAB_ACCESSORS && type === 'BabylonjsCoreVector3') {
+                ['x','y','z'].forEach(prop => {
+                  propsToCheck.push({
+                    name: `${propertyName}-${prop}`,
+                    type: 'number',
+                    propertyKind: 'primitive'
+                  });
+                })
+              }
               break;
             default:
               if (OBSERVABLE_PATTERN.test(type)) {
@@ -1050,7 +1074,11 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
               writer.writeLine(`checkQuaternionDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`);
               break;
             case 'primitive':
-              writer.writeLine(`checkPrimitiveDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`);
+              if (propToCheck.name.indexOf('-') !== -1) /* ie: 'rotation-x' */ {
+                writer.writeLine(`checkPrimitiveDiff(oldProps['${propToCheck.name}'], newProps['${propToCheck.name}'], '${propToCheck.name.replace(/-/g, '.')}', changedProps)`);
+              } else {
+                writer.writeLine(`checkPrimitiveDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`);
+              }
               break;
             case 'BabylonjsGuiControl':
               writer.writeLine(`checkControlDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`);
@@ -1117,7 +1145,9 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
   const propsClassName = `${ClassNamesPrefix}${classNameToGenerate}Props`;
 
   PROPS_EXPORTS.push(propsClassName);
-  writeTypeAlias(generatedPropsSourceFile, propsClassName, typeProperties.sort((a, b) => a.name.localeCompare(b.name)), intersectsWith);
+  writeTypeAlias(generatedPropsSourceFile, propsClassName, typeProperties.sort((a, b) => 
+    (a.name.startsWith('\'') ? a.name.substr(1) : a.name).localeCompare(b.name.startsWith('\'') ? b.name.substr(1) : b.name)
+  ), intersectsWith);
 }
 
 const writeTypeAlias = (file: SourceFile, name: string, typeProperties: OptionalKind<PropertySignatureStructure>[], intersectsWith?: string): void => {

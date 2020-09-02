@@ -407,11 +407,20 @@ export type FiberTransformNodeProps = {
     infiniteDistance?: boolean;
     onAfterWorldMatrixUpdateObservable?: any;
     position?: BabylonjsCoreVector3;
+    'position-x'?: number;
+    'position-y'?: number;
+    'position-z'?: number;
     preserveParentRotationForBillboard?: boolean;
     reIntegrateRotationIntoRotationQuaternion?: boolean;
     rotation?: BabylonjsCoreVector3;
+    'rotation-x'?: number;
+    'rotation-y'?: number;
+    'rotation-z'?: number;
     rotationQuaternion?: BabylonjsCoreQuaternion;
     scaling?: BabylonjsCoreVector3;
+    'scaling-x'?: number;
+    'scaling-y'?: number;
+    'scaling-z'?: number;
     scalingDeterminant?: number;
     setAbsolutePosition?: any;
     setDirection?: any;
@@ -442,9 +451,18 @@ export type FiberAbstractMeshProps = {
     edgesColor?: BabylonjsCoreColor4;
     edgesWidth?: number;
     ellipsoid?: BabylonjsCoreVector3;
+    'ellipsoid-x'?: number;
+    'ellipsoid-y'?: number;
+    'ellipsoid-z'?: number;
     ellipsoidOffset?: BabylonjsCoreVector3;
+    'ellipsoidOffset-x'?: number;
+    'ellipsoidOffset-y'?: number;
+    'ellipsoidOffset-z'?: number;
     enablePointerMoveEvents?: boolean;
     facetDepthSortFrom?: BabylonjsCoreVector3;
+    'facetDepthSortFrom-x'?: number;
+    'facetDepthSortFrom-y'?: number;
+    'facetDepthSortFrom-z'?: number;
     hasVertexAlpha?: boolean;
     isBlocker?: boolean;
     isPickable?: boolean;
@@ -468,6 +486,9 @@ export type FiberAbstractMeshProps = {
     receiveShadows?: boolean;
     renderingGroupId?: number;
     scaling?: BabylonjsCoreVector3;
+    'scaling-x'?: number;
+    'scaling-y'?: number;
+    'scaling-z'?: number;
     setBoundingInfo?: any;
     setIndices?: any;
     setVerticesData?: any;
@@ -535,10 +556,16 @@ export type FiberCameraProps = {
     orthoTop?: number;
     outputRenderTarget?: BabylonjsCoreRenderTargetTexture;
     position?: BabylonjsCoreVector3;
+    'position-x'?: number;
+    'position-y'?: number;
+    'position-z'?: number;
     rigParent?: BabylonjsCoreCamera;
     setCameraRigMode?: any;
     setCameraRigParameter?: any;
     upVector?: BabylonjsCoreVector3;
+    'upVector-x'?: number;
+    'upVector-y'?: number;
+    'upVector-z'?: number;
     viewport?: BabylonjsCoreViewport;
 } & FiberNodeProps;
 export type FiberCameraPropsCtor = {
@@ -548,10 +575,16 @@ export type FiberCameraPropsCtor = {
 };
 export type FiberTargetCameraProps = {
     cameraDirection?: BabylonjsCoreVector3;
+    'cameraDirection-x'?: number;
+    'cameraDirection-y'?: number;
+    'cameraDirection-z'?: number;
     cameraRotation?: BabylonjsCoreVector2;
     lockedTarget?: any;
     noRotationConstraint?: boolean;
     rotation?: BabylonjsCoreVector3;
+    'rotation-x'?: number;
+    'rotation-y'?: number;
+    'rotation-z'?: number;
     rotationQuaternion?: BabylonjsCoreQuaternion;
     setTarget?: any;
     speed?: number;
@@ -568,7 +601,13 @@ export type FiberFreeCameraProps = {
     checkCollisions?: boolean;
     collisionMask?: number;
     ellipsoid?: BabylonjsCoreVector3;
+    'ellipsoid-x'?: number;
+    'ellipsoid-y'?: number;
+    'ellipsoid-z'?: number;
     ellipsoidOffset?: BabylonjsCoreVector3;
+    'ellipsoidOffset-x'?: number;
+    'ellipsoidOffset-y'?: number;
+    'ellipsoidOffset-z'?: number;
     inputs?: BabylonjsCoreFreeCameraInputsManager;
     keysDown?: number[];
     keysLeft?: number[];
@@ -670,6 +709,9 @@ export type FiberVirtualJoysticksCameraPropsCtor = {
 export type FiberWebVRFreeCameraProps = {
     controllers?: BabylonjsCoreWebVRController[];
     devicePosition?: BabylonjsCoreVector3;
+    'devicePosition-x'?: number;
+    'devicePosition-y'?: number;
+    'devicePosition-z'?: number;
     deviceRotationQuaternion?: BabylonjsCoreQuaternion;
     deviceScaleFactor?: number;
     onControllerMeshLoadedObservable?: any;
@@ -701,6 +743,9 @@ export type FiberArcRotateCameraProps = {
     beta?: number;
     checkCollisions?: boolean;
     collisionRadius?: BabylonjsCoreVector3;
+    'collisionRadius-x'?: number;
+    'collisionRadius-y'?: number;
+    'collisionRadius-z'?: number;
     inertialAlphaOffset?: number;
     inertialBetaOffset?: number;
     inertialPanningX?: number;
@@ -717,23 +762,38 @@ export type FiberArcRotateCameraProps = {
     onCollide?: (collidedMesh: BabylonjsCoreAbstractMesh) => void;
     onMeshTargetChangedObservable?: any;
     panningAxis?: BabylonjsCoreVector3;
+    'panningAxis-x'?: number;
+    'panningAxis-y'?: number;
+    'panningAxis-z'?: number;
     panningDistanceLimit?: number;
     panningInertia?: number;
     panningOriginTarget?: BabylonjsCoreVector3;
+    'panningOriginTarget-x'?: number;
+    'panningOriginTarget-y'?: number;
+    'panningOriginTarget-z'?: number;
     panningSensibility?: number;
     pinchDeltaPercentage?: number;
     pinchPrecision?: number;
     pinchToPanMaxDistance?: number;
     position?: BabylonjsCoreVector3;
+    'position-x'?: number;
+    'position-y'?: number;
+    'position-z'?: number;
     radius?: number;
     setPosition?: any;
     setTarget?: any;
     target?: BabylonjsCoreVector3;
+    'target-x'?: number;
+    'target-y'?: number;
+    'target-z'?: number;
     targetScreenOffset?: BabylonjsCoreVector2;
     upperAlphaLimit?: number;
     upperBetaLimit?: number;
     upperRadiusLimit?: number;
     upVector?: BabylonjsCoreVector3;
+    'upVector-x'?: number;
+    'upVector-y'?: number;
+    'upVector-z'?: number;
     useAutoRotationBehavior?: boolean;
     useBouncingBehavior?: boolean;
     useFramingBehavior?: boolean;
@@ -787,10 +847,19 @@ export type FiberFlyCameraProps = {
     bankedTurnLimit?: number;
     bankedTurnMultiplier?: number;
     cameraDirection?: BabylonjsCoreVector3;
+    'cameraDirection-x'?: number;
+    'cameraDirection-y'?: number;
+    'cameraDirection-z'?: number;
     checkCollisions?: boolean;
     collisionMask?: number;
     ellipsoid?: BabylonjsCoreVector3;
+    'ellipsoid-x'?: number;
+    'ellipsoid-y'?: number;
+    'ellipsoid-z'?: number;
     ellipsoidOffset?: BabylonjsCoreVector3;
+    'ellipsoidOffset-x'?: number;
+    'ellipsoidOffset-y'?: number;
+    'ellipsoidOffset-z'?: number;
     inputs?: BabylonjsCoreFlyCameraInputsManager;
     keysBackward?: number[];
     keysDown?: number[];
@@ -1330,6 +1399,9 @@ export type FiberBackgroundMaterialProps = {
     reflectionStandardFresnelWeight?: number;
     reflectionTexture?: BabylonjsCoreBaseTexture;
     sceneCenter?: BabylonjsCoreVector3;
+    'sceneCenter-x'?: number;
+    'sceneCenter-y'?: number;
+    'sceneCenter-z'?: number;
     shadowLevel?: number;
     shadowLights?: BabylonjsCoreIShadowLight[];
     switchToBGR?: boolean;
@@ -1490,6 +1562,9 @@ export type FiberFluentMaterialProps = {
     edgeSmoothingValue?: number;
     hoverColor?: BabylonjsCoreColor4;
     hoverPosition?: BabylonjsCoreVector3;
+    'hoverPosition-x'?: number;
+    'hoverPosition-y'?: number;
+    'hoverPosition-z'?: number;
     hoverRadius?: number;
     innerGlowColor?: BabylonjsCoreColor3;
     innerGlowColorIntensity?: number;
@@ -1522,13 +1597,25 @@ export type FiberLightPropsCtor = {
 export type FiberShadowLightProps = {
     customProjectionMatrixBuilder?: (viewMatrix: BabylonjsCoreMatrix, renderList: BabylonjsCoreAbstractMesh[], result: BabylonjsCoreMatrix) => void;
     direction?: BabylonjsCoreVector3;
+    'direction-x'?: number;
+    'direction-y'?: number;
+    'direction-z'?: number;
     position?: BabylonjsCoreVector3;
+    'position-x'?: number;
+    'position-y'?: number;
+    'position-z'?: number;
     setDirectionToTarget?: any;
     setShadowProjectionMatrix?: any;
     shadowMaxZ?: number;
     shadowMinZ?: number;
     transformedDirection?: BabylonjsCoreVector3;
+    'transformedDirection-x'?: number;
+    'transformedDirection-y'?: number;
+    'transformedDirection-z'?: number;
     transformedPosition?: BabylonjsCoreVector3;
+    'transformedPosition-x'?: number;
+    'transformedPosition-y'?: number;
+    'transformedPosition-z'?: number;
 } & FiberLightProps;
 export type FiberShadowLightPropsCtor = {};
 export type FiberDirectionalLightProps = {
@@ -1543,6 +1630,9 @@ export type FiberDirectionalLightPropsCtor = {
 };
 export type FiberPointLightProps = {
     direction?: BabylonjsCoreVector3;
+    'direction-x'?: number;
+    'direction-y'?: number;
+    'direction-z'?: number;
     shadowAngle?: number;
 } & FiberShadowLightProps;
 export type FiberPointLightPropsCtor = {
@@ -1557,6 +1647,9 @@ export type FiberSpotLightProps = {
     projectionTextureLightFar?: number;
     projectionTextureLightNear?: number;
     projectionTextureUpDirection?: BabylonjsCoreVector3;
+    'projectionTextureUpDirection-x'?: number;
+    'projectionTextureUpDirection-y'?: number;
+    'projectionTextureUpDirection-z'?: number;
     shadowAngleScale?: number;
 } & FiberShadowLightProps;
 export type FiberSpotLightPropsCtor = {
@@ -1568,6 +1661,9 @@ export type FiberSpotLightPropsCtor = {
 };
 export type FiberHemisphericLightProps = {
     direction?: BabylonjsCoreVector3;
+    'direction-x'?: number;
+    'direction-y'?: number;
+    'direction-z'?: number;
     groundColor?: BabylonjsCoreColor3;
     setDirectionToTarget?: any;
 } & FiberLightProps;
@@ -2009,7 +2105,13 @@ export type FiberControl3DProps = {
     pointerOutAnimation?: () => void;
     pointerUpAnimation?: () => void;
     position?: BabylonjsCoreVector3;
+    'position-x'?: number;
+    'position-y'?: number;
+    'position-z'?: number;
     scaling?: BabylonjsCoreVector3;
+    'scaling-x'?: number;
+    'scaling-y'?: number;
+    'scaling-z'?: number;
 } & CustomProps;
 export type FiberControl3DPropsCtor = {
     name?: string;
@@ -2153,7 +2255,13 @@ export type FiberBaseTextureProps = {
 export type FiberBaseTexturePropsCtor = {};
 export type FiberCubeTextureProps = {
     boundingBoxPosition?: BabylonjsCoreVector3;
+    'boundingBoxPosition-x'?: number;
+    'boundingBoxPosition-y'?: number;
+    'boundingBoxPosition-z'?: number;
     boundingBoxSize?: BabylonjsCoreVector3;
+    'boundingBoxSize-x'?: number;
+    'boundingBoxSize-y'?: number;
+    'boundingBoxSize-z'?: number;
     onLoadObservable?: any;
     rotationY?: number;
     setReflectionTextureMatrix?: any;
@@ -2277,7 +2385,13 @@ export type FiberRenderTargetTextureProps = {
     activeCamera?: BabylonjsCoreCamera;
     addPostProcess?: any;
     boundingBoxPosition?: BabylonjsCoreVector3;
+    'boundingBoxPosition-x'?: number;
+    'boundingBoxPosition-y'?: number;
+    'boundingBoxPosition-z'?: number;
     boundingBoxSize?: BabylonjsCoreVector3;
+    'boundingBoxSize-x'?: number;
+    'boundingBoxSize-y'?: number;
+    'boundingBoxSize-z'?: number;
     clearColor?: BabylonjsCoreColor4;
     coordinatesMode?: number;
     customRenderFunction?: (opaqueSubMeshes: BabylonjsCoreSmartArray<BabylonjsCoreSubMesh>, alphaTestSubMeshes: BabylonjsCoreSmartArray<BabylonjsCoreSubMesh>, transparentSubMeshes: BabylonjsCoreSmartArray<BabylonjsCoreSubMesh>, depthOnlySubMeshes: BabylonjsCoreSmartArray<BabylonjsCoreSubMesh>, beforeTransparents?: () => void) => void;
@@ -2474,7 +2588,13 @@ export type FiberEquiRectangularCubeTexturePropsCtor = {
 };
 export type FiberHDRCubeTextureProps = {
     boundingBoxPosition?: BabylonjsCoreVector3;
+    'boundingBoxPosition-x'?: number;
+    'boundingBoxPosition-y'?: number;
+    'boundingBoxPosition-z'?: number;
     boundingBoxSize?: BabylonjsCoreVector3;
+    'boundingBoxSize-x'?: number;
+    'boundingBoxSize-y'?: number;
+    'boundingBoxSize-z'?: number;
     coordinatesMode?: number;
     isBlocking?: boolean;
     loadTexture?: any;
@@ -2628,6 +2748,9 @@ export type FiberVRExperienceHelperProps = {
     onVRDisplayChanged?: any;
     onVrDisplayPresentChange?: any;
     position?: BabylonjsCoreVector3;
+    'position-x'?: number;
+    'position-y'?: number;
+    'position-z'?: number;
     raySelectionPredicate?: (mesh: BabylonjsCoreAbstractMesh) => boolean;
     requestPointerLockOnFullScreen?: boolean;
     setGazeColor?: any;
@@ -2738,6 +2861,9 @@ export type FiberPointerDragBehaviorProps = {
     dragging?: boolean;
     enabled?: boolean;
     lastDragPosition?: BabylonjsCoreVector3;
+    'lastDragPosition-x'?: number;
+    'lastDragPosition-y'?: number;
+    'lastDragPosition-z'?: number;
     maxDragAngle?: number;
     moveAttached?: boolean;
     onDragEndObservable?: any;
@@ -2836,6 +2962,9 @@ export type FiberSceneProps = {
     getDeterministicFrameTime?: () => number;
     getIntersectingSubMeshCandidates?: (mesh: BabylonjsCoreAbstractMesh, localRay: BabylonjsCoreRay) => BabylonjsCoreISmartArrayLike<BabylonjsCoreSubMesh>;
     gravity?: BabylonjsCoreVector3;
+    'gravity-x'?: number;
+    'gravity-y'?: number;
+    'gravity-z'?: number;
     hoverCursor?: string;
     importedMeshesFiles?: String[];
     lensFlaresEnabled?: boolean;
