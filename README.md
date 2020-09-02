@@ -47,7 +47,7 @@ With declarative (TSX/JSX) coding and HMR, you experience the same development w
 
 8. **Behaviors** - autoRotationBehavior, bouncingBehavior, framingBehavior, attachToBoxBehavior, fadeInOutBehavior, multiPointerScaleBehavior, pointerDragBehavior, sixDofDragBehavior
 
-9. **Others** - environmentHelper, physicsImpostor, shadowGenerator, vrExperienceHelper
+9. **Others** - environmentHelper, physicsImpostor, shadowGenerator, cascadedShadowGenerator, vrExperienceHelper
 
 ## @babylonjs/gui
 1. GUI3DManager
@@ -290,5 +290,7 @@ Huge shout out to [Konsumer](https://github.com/konsumer) that brought this proj
 Thanks to [seacloud9](https://github.com/seacloud9) for adding storybook (and [GSAP demo](https://brianzinn.github.io/react-babylonjs/?path=/story/integrations--gsap-timeline)).  Also for adding [dynamic terrain](https://brianzinn.github.io/react-babylonjs/?path=/story/babylon-basic--dynamic-terrain).  Ported a branch of his into a [PIXI demo](https://brianzinn.github.io/react-babylonjs/?path=/story/integrations--pixi-story).
 
 Lots of contributions from [hookex](https://github.com/hookex) :)  Proper texture handling [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/textures--image-texture), Node parenting [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/babylon-basic--transform-node) Full Screen GUI [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/gui--gui-full-screen), Effect Layers [glow demo](https://brianzinn.github.io/react-babylonjs/?path=/story/special-fx--glow-layer), behaviors [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/behaviors--pointer-drag-behavior), useHover & useClick [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/hooks--use-hover-event) and react-spring integration [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/integrations--react-spring).
+
+[dennemark](https://github.com/dennemark) added Cascaded  Shadow Generator
 
 Made with ♥ by Brian Zinn

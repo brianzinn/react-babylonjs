@@ -11642,9 +11642,7 @@ export class FiberDynamicTerrainPropsHandler implements PropsHandler<FiberDynami
     }
 }
 
-/**
- * This code has been generated
- */
+/** This code has been generated */
 export class FiberDynamicTerrain implements HasPropsHandlers<FiberDynamicTerrainProps> {
     private propsHandlers: PropsHandler<FiberDynamicTerrainProps>[];
 

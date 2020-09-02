@@ -32,6 +32,7 @@ import {
   TypeGuards,
   Node,
   SyntaxKind,
+  FormatCodeSettings,
 } from 'ts-morph'
 
 import { GeneratedParameter, CreateInfo, CreationType } from "../src/codeGenerationDescriptors";
@@ -346,11 +347,11 @@ const addProject = (packageNames: string[], files: string[], sourceFiles: Source
   const project = new Project({});
 
   packageNames.forEach(packageName => {
-    project.addExistingSourceFiles(path.join(__dirname, '/../node_modules', packageName, '/**/*.d.ts'))
+    project.addSourceFilesAtPaths(path.join(__dirname, '/../node_modules', packageName, '/**/*.d.ts'))
   })
 
   files.forEach(file => {
-    project.addExistingSourceFile(path.join(__dirname, file));
+    project.addSourceFilesAtPaths(path.join(__dirname, file));
   })
 
   project.getSourceFiles().forEach((sourceFile: SourceFile) => {
@@ -468,7 +469,8 @@ const addClassDeclarationFromFactoryMethod = (generatedCodeSourceFile: SourceFil
   let jsDocs: JSDoc[] = factoryMethod.getJsDocs();
   const generatedComment = 'This code has been generated'
   if (jsDocs.length > 0) {
-    newClassDeclaration.addJsDoc(jsDocs[0].getComment() + '\n\n' + generatedComment)
+    // .compilerNode.comment was getComment() - seems broken
+    newClassDeclaration.addJsDoc(jsDocs[0].compilerNode.comment + '\n\n' + generatedComment)
   } else {
     newClassDeclaration.addJsDoc(generatedComment)
   }
@@ -777,7 +779,8 @@ const createClassDeclaration = (classDeclaration: ClassDeclaration, rootBaseClas
   let jsDocs: JSDoc[] = classDeclaration.getJsDocs();
   const generatedComment = 'This code has been generated'
   if (jsDocs.length > 0) {
-    newClassDeclaration.addJsDoc(jsDocs[0].getComment() + '\n\n' + generatedComment)
+    // .compilerNode.comment was getComment() - seems broken
+    newClassDeclaration.addJsDoc(jsDocs[0].compilerNode.comment + '\n\n' + generatedComment)
   } else {
     newClassDeclaration.addJsDoc(generatedComment)
   }
@@ -1672,14 +1675,14 @@ const generateCode = async () => {
 
   console.log('saving created content...')
 
-  generatedCodeSourceFile.formatText({
-    newLineCharacter: '\n'
-  });
+  const formatCodeSettings: FormatCodeSettings = {
+    newLineCharacter: '\n',
+  }
+
+  generatedCodeSourceFile.formatText(formatCodeSettings);
   await generatedCodeSourceFile.save();
 
-  generatedPropsSourceFile.formatText({
-    newLineCharacter: '\n'
-  });
+  generatedPropsSourceFile.formatText(formatCodeSettings);
   await generatedPropsSourceFile.save();
 }
 
