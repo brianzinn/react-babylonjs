@@ -83,6 +83,7 @@
     "react-babylon-spring": "^1.0.2",
     "react-dom": "^16.13.1",
     "react-reconciler": "^0.25.1",
+    "react-three-gui": "^0.3.1",
     "rimraf": "^2.6.1",
     "rollup": "^2.0.6",
     "rollup-plugin-terser": "^5.3.0",
