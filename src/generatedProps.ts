@@ -3,7 +3,6 @@ import { CustomProps } from "./CreatedInstance";
 import { ModelProps } from "./model";
 import { DynamicTerrain as ExtensionsDynamicTerrain } from "./extensions/DynamicTerrain";
 import { AbstractScene as BabylonjsCoreAbstractScene } from "@babylonjs/core/abstractScene";
-import { Node as BabylonjsCoreNode } from "@babylonjs/core/node";
 import { Scene as BabylonjsCoreScene } from "@babylonjs/core/scene";
 import { Camera as BabylonjsCoreCamera } from "@babylonjs/core/Cameras/camera";
 import { DebugLayerTab as BabylonjsCoreDebugLayerTab } from "@babylonjs/core/Debug/debugLayer";
@@ -16,8 +15,10 @@ import { SceneLoaderAnimationGroupLoadingMode as BabylonjsCoreSceneLoaderAnimati
 import { Material as BabylonjsCoreMaterial } from "@babylonjs/core/Materials/material";
 import { Space as BabylonjsCoreSpace } from "@babylonjs/core/Maths/math.axis";
 import { Orientation as BabylonjsCoreOrientation } from "@babylonjs/core/Maths/math.path";
+import { AbstractMesh as BabylonjsCoreAbstractMesh } from "@babylonjs/core/Meshes/abstractMesh";
 import { Mesh as BabylonjsCoreMesh } from "@babylonjs/core/Meshes/mesh";
 import { MeshBuilder as BabylonjsCoreMeshBuilder } from "@babylonjs/core/Meshes/meshBuilder";
+import { TransformNode as BabylonjsCoreTransformNode } from "@babylonjs/core/Meshes/transformNode";
 import { AssetTaskState as BabylonjsCoreAssetTaskState } from "@babylonjs/core/Misc/assetsManager";
 import { InspectableType as BabylonjsCoreInspectableType, IInspectable as BabylonjsCoreIInspectable } from "@babylonjs/core/Misc/iInspectable";
 import { JoystickAxis as BabylonjsCoreJoystickAxis } from "@babylonjs/core/Misc/virtualJoystick";
@@ -55,22 +56,24 @@ import { NodeMaterialBlockConnectionPointTypes as BabylonjsCoreNodeMaterialBlock
 import { NodeMaterialBlockTargets as BabylonjsCoreNodeMaterialBlockTargets } from "@babylonjs/core/Materials/Node/Enums/nodeMaterialBlockTargets";
 import { NodeMaterialSystemValues as BabylonjsCoreNodeMaterialSystemValues } from "@babylonjs/core/Materials/Node/Enums/nodeMaterialSystemValues";
 import { AnimatedInputBlockTypes as BabylonjsCoreAnimatedInputBlockTypes } from "@babylonjs/core/Materials/Node/Blocks/Input/animatedInputBlockTypes";
+import { Node as BabylonjsCoreNode } from "@babylonjs/core/node";
 import { AnimationPropertiesOverride as BabylonjsCoreAnimationPropertiesOverride } from "@babylonjs/core/Animations/animationPropertiesOverride";
 import { Animation as BabylonjsCoreAnimation } from "@babylonjs/core/Animations/animation";
 import { Observable as BabylonjsCoreObservable } from "@babylonjs/core/Misc/observable";
 import { Behavior as BabylonjsCoreBehavior } from "@babylonjs/core/Behaviors/behavior";
-import { TransformNode as BabylonjsCoreTransformNode } from "@babylonjs/core/Meshes/transformNode";
 import { Vector3 as BabylonjsCoreVector3, Quaternion as BabylonjsCoreQuaternion, Matrix as BabylonjsCoreMatrix, Vector2 as BabylonjsCoreVector2, Vector4 as BabylonjsCoreVector4 } from "@babylonjs/core/Maths/math.vector";
 import { DeepImmutableObject as BabylonjsCoreDeepImmutableObject, IndicesArray as BabylonjsCoreIndicesArray, FloatArray as BabylonjsCoreFloatArray } from "@babylonjs/core/types";
-import { AbstractMesh as BabylonjsCoreAbstractMesh } from "@babylonjs/core/Meshes/abstractMesh";
 import { AbstractActionManager as BabylonjsCoreAbstractActionManager } from "@babylonjs/core/Actions/abstractActionManager";
 import { Color4 as BabylonjsCoreColor4, Color3 as BabylonjsCoreColor3 } from "@babylonjs/core/Maths/math.color";
 import { Skeleton as BabylonjsCoreSkeleton } from "@babylonjs/core/Bones/skeleton";
 import { SubMesh as BabylonjsCoreSubMesh } from "@babylonjs/core/Meshes/subMesh";
 import { BoundingInfo as BabylonjsCoreBoundingInfo } from "@babylonjs/core/Culling/boundingInfo";
 import { InstancedMesh as BabylonjsCoreInstancedMesh } from "@babylonjs/core/Meshes/instancedMesh";
+import { InstancedLinesMesh as BabylonjsCoreInstancedLinesMesh, LinesMesh as BabylonjsCoreLinesMesh } from "@babylonjs/core/Meshes/linesMesh";
 import { MorphTargetManager as BabylonjsCoreMorphTargetManager } from "@babylonjs/core/Morph/morphTargetManager";
 import { VertexBuffer as BabylonjsCoreVertexBuffer } from "@babylonjs/core/Meshes/buffer";
+import { GroundMesh as BabylonjsCoreGroundMesh } from "@babylonjs/core/Meshes/groundMesh";
+import { TrailMesh as BabylonjsCoreTrailMesh } from "@babylonjs/core/Meshes/trailMesh";
 import { RenderTargetTexture as BabylonjsCoreRenderTargetTexture } from "@babylonjs/core/Materials/Textures/renderTargetTexture";
 import { CameraInputsManager as BabylonjsCoreCameraInputsManager } from "@babylonjs/core/Cameras/cameraInputsManager";
 import { Viewport as BabylonjsCoreViewport } from "@babylonjs/core/Maths/math.viewport";
@@ -104,9 +107,7 @@ import { FlyCamera as BabylonjsCoreFlyCamera } from "@babylonjs/core/Cameras/fly
 import { FlyCameraInputsManager as BabylonjsCoreFlyCameraInputsManager } from "@babylonjs/core/Cameras/flyCameraInputsManager";
 import { FollowCamera as BabylonjsCoreFollowCamera, ArcFollowCamera as BabylonjsCoreArcFollowCamera } from "@babylonjs/core/Cameras/followCamera";
 import { FollowCameraInputsManager as BabylonjsCoreFollowCameraInputsManager } from "@babylonjs/core/Cameras/followCameraInputsManager";
-import { LinesMesh as BabylonjsCoreLinesMesh } from "@babylonjs/core/Meshes/linesMesh";
 import { Plane as BabylonjsCorePlane } from "@babylonjs/core/Maths/math.plane";
-import { GroundMesh as BabylonjsCoreGroundMesh } from "@babylonjs/core/Meshes/groundMesh";
 import { SmartArray as BabylonjsCoreSmartArray, ISmartArrayLike as BabylonjsCoreISmartArrayLike } from "@babylonjs/core/Misc/smartArray";
 import { Effect as BabylonjsCoreEffect } from "@babylonjs/core/Materials/effect";
 import { ShaderMaterial as BabylonjsCoreShaderMaterial, IShaderMaterialOptions as BabylonjsCoreIShaderMaterialOptions } from "@babylonjs/core/Materials/shaderMaterial";
@@ -199,6 +200,7 @@ import { PhysicsJoint as BabylonjsCorePhysicsJoint } from "@babylonjs/core/Physi
 import { PickingInfo as BabylonjsCorePickingInfo } from "@babylonjs/core/Collisions/pickingInfo";
 import { WebXRDefaultExperience as BabylonjsCoreWebXRDefaultExperience } from "@babylonjs/core/XR/webXRDefaultExperience";
 import { SolidParticleSystem as BabylonjsCoreSolidParticleSystem } from "@babylonjs/core/Particles/solidParticleSystem";
+import { IPhysicsEnginePlugin as BabylonjsCoreIPhysicsEnginePlugin } from "@babylonjs/core/Physics/IPhysicsEngine";
 import { Collider as BabylonjsCoreCollider } from "@babylonjs/core/Collisions/collider";
 import { Ray as BabylonjsCoreRay } from "@babylonjs/core/Culling/ray";
 import { IOfflineProvider as BabylonjsCoreIOfflineProvider } from "@babylonjs/core/Offline/IOfflineProvider";
@@ -209,7 +211,6 @@ import { PointerEventTypes as BabylonjsCorePointerEventTypes, PointerInfo as Bab
 import { PostProcessManager as BabylonjsCorePostProcessManager } from "@babylonjs/core/PostProcesses/postProcessManager";
 import { AnimationGroup as BabylonjsCoreAnimationGroup } from "@babylonjs/core/Animations/animationGroup";
 import { IParticleSystem as BabylonjsCoreIParticleSystem } from "@babylonjs/core/Particles/IParticleSystem";
-import { IPhysicsEnginePlugin as BabylonjsCoreIPhysicsEnginePlugin } from "@babylonjs/core/Physics/IPhysicsEngine";
 
 export type BabylonNode<T> = {
     children?: ReactNode;
@@ -224,7 +225,12 @@ declare global {
             node: FiberNodeProps & FiberNodePropsCtor & BabylonNode<BabylonjsCoreNode>;
             transformNode: FiberTransformNodeProps & FiberTransformNodePropsCtor & BabylonNode<BabylonjsCoreTransformNode>;
             abstractMesh: FiberAbstractMeshProps & FiberAbstractMeshPropsCtor & BabylonNode<BabylonjsCoreAbstractMesh>;
+            instancedMesh: FiberInstancedMeshProps & FiberInstancedMeshPropsCtor & BabylonNode<BabylonjsCoreInstancedMesh>;
+            instancedLinesMesh: FiberInstancedLinesMeshProps & FiberInstancedLinesMeshPropsCtor & BabylonNode<BabylonjsCoreInstancedLinesMesh>;
             mesh: FiberMeshProps & FiberMeshPropsCtor & BabylonNode<BabylonjsCoreMesh>;
+            linesMesh: FiberLinesMeshProps & FiberLinesMeshPropsCtor & BabylonNode<BabylonjsCoreLinesMesh>;
+            groundMesh: FiberGroundMeshProps & FiberGroundMeshPropsCtor & BabylonNode<BabylonjsCoreGroundMesh>;
+            trailMesh: FiberTrailMeshProps & FiberTrailMeshPropsCtor & BabylonNode<BabylonjsCoreTrailMesh>;
             camera: FiberCameraProps & FiberCameraPropsCtor & BabylonNode<BabylonjsCoreCamera>;
             targetCamera: FiberTargetCameraProps & FiberTargetCameraPropsCtor & BabylonNode<BabylonjsCoreTargetCamera>;
             freeCamera: FiberFreeCameraProps & FiberFreeCameraPropsCtor & BabylonNode<BabylonjsCoreFreeCamera>;
@@ -464,6 +470,7 @@ export type FiberAbstractMeshProps = {
     'facetDepthSortFrom-y'?: number;
     'facetDepthSortFrom-z'?: number;
     hasVertexAlpha?: boolean;
+    instancedBuffers?: { [key: string]: any; };
     isBlocker?: boolean;
     isPickable?: boolean;
     isVisible?: boolean;
@@ -504,6 +511,22 @@ export type FiberAbstractMeshProps = {
 export type FiberAbstractMeshPropsCtor = {
     name: string;
 };
+export type FiberInstancedMeshProps = {
+    renderingGroupId?: number;
+    setIndices?: any;
+    setVerticesData?: any;
+} & FiberAbstractMeshProps;
+export type FiberInstancedMeshPropsCtor = {
+    name: string;
+    source: BabylonjsCoreMesh;
+};
+export type FiberInstancedLinesMeshProps = {
+    intersectionThreshold?: number;
+} & FiberInstancedMeshProps;
+export type FiberInstancedLinesMeshPropsCtor = {
+    name: string;
+    source: BabylonjsCoreLinesMesh;
+};
 export type FiberMeshProps = {
     addInstance?: any;
     addLODLevel?: any;
@@ -530,6 +553,35 @@ export type FiberMeshPropsCtor = {
     source?: BabylonjsCoreMesh;
     doNotCloneChildren?: boolean;
     clonePhysicsImpostor?: boolean;
+};
+export type FiberLinesMeshProps = {
+    alpha?: number;
+    color?: BabylonjsCoreColor3;
+    color4?: any;
+    intersectionThreshold?: number;
+    material?: BabylonjsCoreMaterial;
+} & FiberMeshProps;
+export type FiberLinesMeshPropsCtor = {
+    name: string;
+    parent?: BabylonjsCoreNode;
+    source?: BabylonjsCoreLinesMesh;
+    doNotCloneChildren?: boolean;
+    useVertexColor?: boolean;
+    useVertexAlpha?: boolean;
+};
+export type FiberGroundMeshProps = {
+    generateOctree?: boolean;
+} & FiberMeshProps;
+export type FiberGroundMeshPropsCtor = {
+    name: string;
+};
+export type FiberTrailMeshProps = {} & FiberMeshProps;
+export type FiberTrailMeshPropsCtor = {
+    name: string;
+    generator: BabylonjsCoreTransformNode;
+    diameter?: number;
+    length?: number;
+    autoStart?: boolean;
 };
 export type FiberCameraProps = {
     cameraRigMode?: number;
@@ -2979,7 +3031,7 @@ export type FiberSceneProps = {
     onAfterCameraRenderObservable?: any;
     onAfterDrawPhaseObservable?: any;
     onAfterParticlesRenderingObservable?: any;
-    onAfterPhysicsObservable?: BabylonjsCoreObservable<BabylonjsCoreScene>;
+    onAfterPhysicsObservable?: any;
     onAfterRenderCameraObservable?: any;
     onAfterRenderingGroupObservable?: any;
     onAfterRenderObservable?: any;
@@ -2991,7 +3043,7 @@ export type FiberSceneProps = {
     onBeforeCameraRenderObservable?: any;
     onBeforeDrawPhaseObservable?: any;
     onBeforeParticlesRenderingObservable?: any;
-    onBeforePhysicsObservable?: BabylonjsCoreObservable<BabylonjsCoreScene>;
+    onBeforePhysicsObservable?: any;
     onBeforeRenderingGroupObservable?: any;
     onBeforeRenderObservable?: any;
     onBeforeRenderTargetsRenderObservable?: any;

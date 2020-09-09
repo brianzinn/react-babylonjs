@@ -1,9 +1,8 @@
-import { PropsHandler, PropertyUpdate, HasPropsHandlers, checkColor3Diff, checkColor4Diff, checkControlDiff, checkFresnelParametersDiff, checkLambdaDiff, checkMethodDiff, checkNumericArrayDiff, checkObservableDiff, checkPrimitiveDiff, checkQuaternionDiff, checkTextureDiff, checkVector3Diff } from "./PropsHandler";
+import { PropsHandler, PropertyUpdate, HasPropsHandlers, checkColor3Diff, checkColor4Diff, checkControlDiff, checkFresnelParametersDiff, checkLambdaDiff, checkMethodDiff, checkNumericArrayDiff, checkObjectDiff, checkObservableDiff, checkPrimitiveDiff, checkQuaternionDiff, checkTextureDiff, checkVector3Diff } from "./PropsHandler";
 import { CreatedInstanceMetadata } from "./CreatedInstance";
-import { FiberNodeProps, FiberTransformNodeProps, FiberAbstractMeshProps, FiberMeshProps, FiberCameraProps, FiberTargetCameraProps, FiberFreeCameraProps, FiberTouchCameraProps, FiberUniversalCameraProps, FiberGamepadCameraProps, FiberAnaglyphGamepadCameraProps, FiberStereoscopicGamepadCameraProps, FiberAnaglyphUniversalCameraProps, FiberStereoscopicUniversalCameraProps, FiberDeviceOrientationCameraProps, FiberVRDeviceOrientationFreeCameraProps, FiberVRDeviceOrientationGamepadCameraProps, FiberAnaglyphFreeCameraProps, FiberStereoscopicFreeCameraProps, FiberVirtualJoysticksCameraProps, FiberWebVRFreeCameraProps, FiberWebXRCameraProps, FiberArcRotateCameraProps, FiberAnaglyphArcRotateCameraProps, FiberStereoscopicArcRotateCameraProps, FiberVRDeviceOrientationArcRotateCameraProps, FiberFlyCameraProps, FiberFollowCameraProps, FiberArcFollowCameraProps, FiberMaterialProps, FiberShaderMaterialProps, FiberMultiMaterialProps, FiberPushMaterialProps, FiberStandardMaterialProps, FiberBackgroundMaterialProps, FiberPBRBaseMaterialProps, FiberPBRBaseSimpleMaterialProps, FiberPBRMetallicRoughnessMaterialProps, FiberPBRSpecularGlossinessMaterialProps, FiberPBRMaterialProps, FiberNodeMaterialProps, FiberFluentMaterialProps, FiberLightProps, FiberShadowLightProps, FiberDirectionalLightProps, FiberPointLightProps, FiberSpotLightProps, FiberHemisphericLightProps, FiberControlProps, FiberContainerProps, FiberRectangleProps, FiberButtonProps, FiberSelectionPanelProps, FiberScrollViewerProps, FiberStackPanelProps, FiberVirtualKeyboardProps, FiberEllipseProps, FiberGridProps, Fiber_ScrollViewerWindowProps, FiberTextBlockProps, FiberImageProps, FiberCheckboxProps, FiberColorPickerProps, FiberInputTextProps, FiberInputPasswordProps, FiberLineProps, FiberMultiLineProps, FiberRadioButtonProps, FiberBaseSliderProps, FiberScrollBarProps, FiberImageScrollBarProps, FiberSliderProps, FiberImageBasedSliderProps, FiberDisplayGridProps, FiberControl3DProps, FiberContainer3DProps, FiberVolumeBasedPanelProps, FiberCylinderPanelProps, FiberPlanePanelProps, FiberScatterPanelProps, FiberSpherePanelProps, FiberStackPanel3DProps, FiberAbstractButton3DProps, FiberButton3DProps, FiberHolographicButtonProps, FiberMeshButton3DProps, FiberEffectLayerProps, FiberGlowLayerProps, FiberHighlightLayerProps, FiberBaseTextureProps, FiberCubeTextureProps, FiberRawCubeTextureProps, FiberTextureProps, FiberRawTextureProps, FiberProceduralTextureProps, FiberCustomProceduralTextureProps, FiberNoiseProceduralTextureProps, FiberRenderTargetTextureProps, FiberMirrorTextureProps, FiberMultiRenderTargetProps, FiberRefractionTextureProps, FiberMultiviewRenderTargetProps, FiberVideoTextureProps, FiberDynamicTextureProps, FiberAdvancedDynamicTextureProps, FiberRawTexture3DProps, FiberRawTexture2DArrayProps, FiberColorGradingTextureProps, FiberEquiRectangularCubeTextureProps, FiberHDRCubeTextureProps, FiberHtmlElementTextureProps, FiberGUI3DManagerProps, FiberShadowGeneratorProps, FiberCascadedShadowGeneratorProps, FiberEnvironmentHelperProps, FiberPhysicsImpostorProps, FiberVRExperienceHelperProps, FiberDynamicTerrainProps, FiberAutoRotationBehaviorProps, FiberBouncingBehaviorProps, FiberFramingBehaviorProps, FiberAttachToBoxBehaviorProps, FiberFadeInOutBehaviorProps, FiberMultiPointerScaleBehaviorProps, FiberPointerDragBehaviorProps, FiberSixDofDragBehaviorProps, FiberSceneProps } from "./generatedProps";
+import { FiberNodeProps, FiberTransformNodeProps, FiberAbstractMeshProps, FiberInstancedMeshProps, FiberInstancedLinesMeshProps, FiberMeshProps, FiberLinesMeshProps, FiberGroundMeshProps, FiberTrailMeshProps, FiberCameraProps, FiberTargetCameraProps, FiberFreeCameraProps, FiberTouchCameraProps, FiberUniversalCameraProps, FiberGamepadCameraProps, FiberAnaglyphGamepadCameraProps, FiberStereoscopicGamepadCameraProps, FiberAnaglyphUniversalCameraProps, FiberStereoscopicUniversalCameraProps, FiberDeviceOrientationCameraProps, FiberVRDeviceOrientationFreeCameraProps, FiberVRDeviceOrientationGamepadCameraProps, FiberAnaglyphFreeCameraProps, FiberStereoscopicFreeCameraProps, FiberVirtualJoysticksCameraProps, FiberWebVRFreeCameraProps, FiberWebXRCameraProps, FiberArcRotateCameraProps, FiberAnaglyphArcRotateCameraProps, FiberStereoscopicArcRotateCameraProps, FiberVRDeviceOrientationArcRotateCameraProps, FiberFlyCameraProps, FiberFollowCameraProps, FiberArcFollowCameraProps, FiberMaterialProps, FiberShaderMaterialProps, FiberMultiMaterialProps, FiberPushMaterialProps, FiberStandardMaterialProps, FiberBackgroundMaterialProps, FiberPBRBaseMaterialProps, FiberPBRBaseSimpleMaterialProps, FiberPBRMetallicRoughnessMaterialProps, FiberPBRSpecularGlossinessMaterialProps, FiberPBRMaterialProps, FiberNodeMaterialProps, FiberFluentMaterialProps, FiberLightProps, FiberShadowLightProps, FiberDirectionalLightProps, FiberPointLightProps, FiberSpotLightProps, FiberHemisphericLightProps, FiberControlProps, FiberContainerProps, FiberRectangleProps, FiberButtonProps, FiberSelectionPanelProps, FiberScrollViewerProps, FiberStackPanelProps, FiberVirtualKeyboardProps, FiberEllipseProps, FiberGridProps, Fiber_ScrollViewerWindowProps, FiberTextBlockProps, FiberImageProps, FiberCheckboxProps, FiberColorPickerProps, FiberInputTextProps, FiberInputPasswordProps, FiberLineProps, FiberMultiLineProps, FiberRadioButtonProps, FiberBaseSliderProps, FiberScrollBarProps, FiberImageScrollBarProps, FiberSliderProps, FiberImageBasedSliderProps, FiberDisplayGridProps, FiberControl3DProps, FiberContainer3DProps, FiberVolumeBasedPanelProps, FiberCylinderPanelProps, FiberPlanePanelProps, FiberScatterPanelProps, FiberSpherePanelProps, FiberStackPanel3DProps, FiberAbstractButton3DProps, FiberButton3DProps, FiberHolographicButtonProps, FiberMeshButton3DProps, FiberEffectLayerProps, FiberGlowLayerProps, FiberHighlightLayerProps, FiberBaseTextureProps, FiberCubeTextureProps, FiberRawCubeTextureProps, FiberTextureProps, FiberRawTextureProps, FiberProceduralTextureProps, FiberCustomProceduralTextureProps, FiberNoiseProceduralTextureProps, FiberRenderTargetTextureProps, FiberMirrorTextureProps, FiberMultiRenderTargetProps, FiberRefractionTextureProps, FiberMultiviewRenderTargetProps, FiberVideoTextureProps, FiberDynamicTextureProps, FiberAdvancedDynamicTextureProps, FiberRawTexture3DProps, FiberRawTexture2DArrayProps, FiberColorGradingTextureProps, FiberEquiRectangularCubeTextureProps, FiberHDRCubeTextureProps, FiberHtmlElementTextureProps, FiberGUI3DManagerProps, FiberShadowGeneratorProps, FiberCascadedShadowGeneratorProps, FiberEnvironmentHelperProps, FiberPhysicsImpostorProps, FiberVRExperienceHelperProps, FiberDynamicTerrainProps, FiberAutoRotationBehaviorProps, FiberBouncingBehaviorProps, FiberFramingBehaviorProps, FiberAttachToBoxBehaviorProps, FiberFadeInOutBehaviorProps, FiberMultiPointerScaleBehaviorProps, FiberPointerDragBehaviorProps, FiberSixDofDragBehaviorProps, FiberSceneProps } from "./generatedProps";
 import { DynamicTerrain as ExtensionsDynamicTerrain } from "./extensions/DynamicTerrain";
 import { AbstractScene as BabylonjsCoreAbstractScene } from "@babylonjs/core/abstractScene";
-import { Node as BabylonjsCoreNode } from "@babylonjs/core/node";
 import { Scene as BabylonjsCoreScene } from "@babylonjs/core/scene";
 import { Camera as BabylonjsCoreCamera } from "@babylonjs/core/Cameras/camera";
 import { DebugLayerTab as BabylonjsCoreDebugLayerTab } from "@babylonjs/core/Debug/debugLayer";
@@ -16,8 +15,10 @@ import { SceneLoaderAnimationGroupLoadingMode as BabylonjsCoreSceneLoaderAnimati
 import { Material as BabylonjsCoreMaterial } from "@babylonjs/core/Materials/material";
 import { Space as BabylonjsCoreSpace } from "@babylonjs/core/Maths/math.axis";
 import { Orientation as BabylonjsCoreOrientation } from "@babylonjs/core/Maths/math.path";
+import { AbstractMesh as BabylonjsCoreAbstractMesh } from "@babylonjs/core/Meshes/abstractMesh";
 import { Mesh as BabylonjsCoreMesh } from "@babylonjs/core/Meshes/mesh";
 import { MeshBuilder as BabylonjsCoreMeshBuilder } from "@babylonjs/core/Meshes/meshBuilder";
+import { TransformNode as BabylonjsCoreTransformNode } from "@babylonjs/core/Meshes/transformNode";
 import { AssetTaskState as BabylonjsCoreAssetTaskState } from "@babylonjs/core/Misc/assetsManager";
 import { InspectableType as BabylonjsCoreInspectableType, IInspectable as BabylonjsCoreIInspectable } from "@babylonjs/core/Misc/iInspectable";
 import { JoystickAxis as BabylonjsCoreJoystickAxis } from "@babylonjs/core/Misc/virtualJoystick";
@@ -55,22 +56,24 @@ import { NodeMaterialBlockConnectionPointTypes as BabylonjsCoreNodeMaterialBlock
 import { NodeMaterialBlockTargets as BabylonjsCoreNodeMaterialBlockTargets } from "@babylonjs/core/Materials/Node/Enums/nodeMaterialBlockTargets";
 import { NodeMaterialSystemValues as BabylonjsCoreNodeMaterialSystemValues } from "@babylonjs/core/Materials/Node/Enums/nodeMaterialSystemValues";
 import { AnimatedInputBlockTypes as BabylonjsCoreAnimatedInputBlockTypes } from "@babylonjs/core/Materials/Node/Blocks/Input/animatedInputBlockTypes";
+import { Node as BabylonjsCoreNode } from "@babylonjs/core/node";
 import { AnimationPropertiesOverride as BabylonjsCoreAnimationPropertiesOverride } from "@babylonjs/core/Animations/animationPropertiesOverride";
 import { Animation as BabylonjsCoreAnimation } from "@babylonjs/core/Animations/animation";
 import { Observable as BabylonjsCoreObservable } from "@babylonjs/core/Misc/observable";
 import { Behavior as BabylonjsCoreBehavior } from "@babylonjs/core/Behaviors/behavior";
-import { TransformNode as BabylonjsCoreTransformNode } from "@babylonjs/core/Meshes/transformNode";
 import { Vector3 as BabylonjsCoreVector3, Quaternion as BabylonjsCoreQuaternion, Matrix as BabylonjsCoreMatrix, Vector2 as BabylonjsCoreVector2, Vector4 as BabylonjsCoreVector4 } from "@babylonjs/core/Maths/math.vector";
 import { DeepImmutableObject as BabylonjsCoreDeepImmutableObject, IndicesArray as BabylonjsCoreIndicesArray, FloatArray as BabylonjsCoreFloatArray } from "@babylonjs/core/types";
-import { AbstractMesh as BabylonjsCoreAbstractMesh } from "@babylonjs/core/Meshes/abstractMesh";
 import { AbstractActionManager as BabylonjsCoreAbstractActionManager } from "@babylonjs/core/Actions/abstractActionManager";
 import { Color4 as BabylonjsCoreColor4, Color3 as BabylonjsCoreColor3 } from "@babylonjs/core/Maths/math.color";
 import { Skeleton as BabylonjsCoreSkeleton } from "@babylonjs/core/Bones/skeleton";
 import { SubMesh as BabylonjsCoreSubMesh } from "@babylonjs/core/Meshes/subMesh";
 import { BoundingInfo as BabylonjsCoreBoundingInfo } from "@babylonjs/core/Culling/boundingInfo";
 import { InstancedMesh as BabylonjsCoreInstancedMesh } from "@babylonjs/core/Meshes/instancedMesh";
+import { InstancedLinesMesh as BabylonjsCoreInstancedLinesMesh, LinesMesh as BabylonjsCoreLinesMesh } from "@babylonjs/core/Meshes/linesMesh";
 import { MorphTargetManager as BabylonjsCoreMorphTargetManager } from "@babylonjs/core/Morph/morphTargetManager";
 import { VertexBuffer as BabylonjsCoreVertexBuffer } from "@babylonjs/core/Meshes/buffer";
+import { GroundMesh as BabylonjsCoreGroundMesh } from "@babylonjs/core/Meshes/groundMesh";
+import { TrailMesh as BabylonjsCoreTrailMesh } from "@babylonjs/core/Meshes/trailMesh";
 import { RenderTargetTexture as BabylonjsCoreRenderTargetTexture } from "@babylonjs/core/Materials/Textures/renderTargetTexture";
 import { CameraInputsManager as BabylonjsCoreCameraInputsManager } from "@babylonjs/core/Cameras/cameraInputsManager";
 import { Viewport as BabylonjsCoreViewport } from "@babylonjs/core/Maths/math.viewport";
@@ -104,9 +107,7 @@ import { FlyCamera as BabylonjsCoreFlyCamera } from "@babylonjs/core/Cameras/fly
 import { FlyCameraInputsManager as BabylonjsCoreFlyCameraInputsManager } from "@babylonjs/core/Cameras/flyCameraInputsManager";
 import { FollowCamera as BabylonjsCoreFollowCamera, ArcFollowCamera as BabylonjsCoreArcFollowCamera } from "@babylonjs/core/Cameras/followCamera";
 import { FollowCameraInputsManager as BabylonjsCoreFollowCameraInputsManager } from "@babylonjs/core/Cameras/followCameraInputsManager";
-import { LinesMesh as BabylonjsCoreLinesMesh } from "@babylonjs/core/Meshes/linesMesh";
 import { Plane as BabylonjsCorePlane } from "@babylonjs/core/Maths/math.plane";
-import { GroundMesh as BabylonjsCoreGroundMesh } from "@babylonjs/core/Meshes/groundMesh";
 import { SmartArray as BabylonjsCoreSmartArray, ISmartArrayLike as BabylonjsCoreISmartArrayLike } from "@babylonjs/core/Misc/smartArray";
 import { Effect as BabylonjsCoreEffect } from "@babylonjs/core/Materials/effect";
 import { ShaderMaterial as BabylonjsCoreShaderMaterial, IShaderMaterialOptions as BabylonjsCoreIShaderMaterialOptions } from "@babylonjs/core/Materials/shaderMaterial";
@@ -199,6 +200,7 @@ import { PhysicsJoint as BabylonjsCorePhysicsJoint } from "@babylonjs/core/Physi
 import { PickingInfo as BabylonjsCorePickingInfo } from "@babylonjs/core/Collisions/pickingInfo";
 import { WebXRDefaultExperience as BabylonjsCoreWebXRDefaultExperience } from "@babylonjs/core/XR/webXRDefaultExperience";
 import { SolidParticleSystem as BabylonjsCoreSolidParticleSystem } from "@babylonjs/core/Particles/solidParticleSystem";
+import { IPhysicsEnginePlugin as BabylonjsCoreIPhysicsEnginePlugin } from "@babylonjs/core/Physics/IPhysicsEngine";
 import { Collider as BabylonjsCoreCollider } from "@babylonjs/core/Collisions/collider";
 import { Ray as BabylonjsCoreRay } from "@babylonjs/core/Culling/ray";
 import { IOfflineProvider as BabylonjsCoreIOfflineProvider } from "@babylonjs/core/Offline/IOfflineProvider";
@@ -209,7 +211,6 @@ import { PointerEventTypes as BabylonjsCorePointerEventTypes, PointerInfo as Bab
 import { PostProcessManager as BabylonjsCorePostProcessManager } from "@babylonjs/core/PostProcesses/postProcessManager";
 import { AnimationGroup as BabylonjsCoreAnimationGroup } from "@babylonjs/core/Animations/animationGroup";
 import { IParticleSystem as BabylonjsCoreIParticleSystem } from "@babylonjs/core/Particles/IParticleSystem";
-import { IPhysicsEnginePlugin as BabylonjsCoreIPhysicsEnginePlugin } from "@babylonjs/core/Physics/IPhysicsEngine";
 
 export class FiberNodePropsHandler implements PropsHandler<FiberNodeProps> {
     getPropertyUpdates(oldProps: FiberNodeProps, newProps: FiberNodeProps): PropertyUpdate[] | null {
@@ -259,7 +260,7 @@ export class FiberNode implements HasPropsHandlers<FiberNodeProps> {
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "Node",
-        "namespace": "@babylonjs/core/Meshes/mesh",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -341,7 +342,7 @@ export class FiberTransformNode implements HasPropsHandlers<FiberNodeProps> {
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "TransformNode",
-        "namespace": "@babylonjs/core/Meshes/mesh",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -396,6 +397,7 @@ export class FiberAbstractMeshPropsHandler implements PropsHandler<FiberAbstract
         checkPrimitiveDiff(oldProps['facetDepthSortFrom-y'], newProps['facetDepthSortFrom-y'], 'facetDepthSortFrom.y', changedProps)
         checkPrimitiveDiff(oldProps['facetDepthSortFrom-z'], newProps['facetDepthSortFrom-z'], 'facetDepthSortFrom.z', changedProps)
         checkPrimitiveDiff(oldProps.hasVertexAlpha, newProps.hasVertexAlpha, 'hasVertexAlpha', changedProps)
+        checkObjectDiff(oldProps.instancedBuffers, newProps.instancedBuffers, 'instancedBuffers', changedProps)
         checkPrimitiveDiff(oldProps.isBlocker, newProps.isBlocker, 'isBlocker', changedProps)
         checkPrimitiveDiff(oldProps.isPickable, newProps.isPickable, 'isPickable', changedProps)
         checkPrimitiveDiff(oldProps.isVisible, newProps.isVisible, 'isVisible', changedProps)
@@ -442,8 +444,8 @@ export class FiberAbstractMeshPropsHandler implements PropsHandler<FiberAbstract
  *
  * This code has been generated
  */
-export class FiberAbstractMesh implements HasPropsHandlers<FiberTransformNodeProps> {
-    private propsHandlers: PropsHandler<FiberTransformNodeProps>[];
+export class FiberAbstractMesh implements HasPropsHandlers<FiberAbstractMeshProps> {
+    private propsHandlers: PropsHandler<FiberAbstractMeshProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -453,18 +455,18 @@ export class FiberAbstractMesh implements HasPropsHandlers<FiberTransformNodePro
         ];
     }
 
-    getPropsHandlers(): PropsHandler<FiberTransformNodeProps>[] {
+    getPropsHandlers(): PropsHandler<FiberAbstractMeshProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<FiberTransformNodeProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberAbstractMeshProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "AbstractMesh",
-        "namespace": "@babylonjs/core/Meshes/mesh",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -481,6 +483,121 @@ export class FiberAbstractMesh implements HasPropsHandlers<FiberTransformNodePro
     public static readonly Metadata: CreatedInstanceMetadata = {
         "isNode": true,
         "className": "FiberAbstractMesh"
+    };
+}
+
+export class FiberInstancedMeshPropsHandler implements PropsHandler<FiberInstancedMeshProps> {
+    getPropertyUpdates(oldProps: FiberInstancedMeshProps, newProps: FiberInstancedMeshProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.renderingGroupId, newProps.renderingGroupId, 'renderingGroupId', changedProps)
+        checkMethodDiff(oldProps.setIndices, newProps.setIndices, 'setIndices', changedProps)
+        checkMethodDiff(oldProps.setVerticesData, newProps.setVerticesData, 'setVerticesData', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
+    }
+}
+
+/**
+ * Creates an instance based on a source mesh.
+ *
+ * This code has been generated
+ */
+export class FiberInstancedMesh implements HasPropsHandlers<FiberAbstractMeshProps> {
+    private propsHandlers: PropsHandler<FiberAbstractMeshProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberInstancedMeshPropsHandler(),
+            new FiberAbstractMeshPropsHandler(),
+            new FiberTransformNodePropsHandler(),
+            new FiberNodePropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberAbstractMeshProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberAbstractMeshProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "InstancedMesh",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "source",
+                "type": "BabylonjsCoreMesh",
+                "optional": false
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "isNode": true,
+        "className": "FiberInstancedMesh"
+    };
+}
+
+export class FiberInstancedLinesMeshPropsHandler implements PropsHandler<FiberInstancedLinesMeshProps> {
+    getPropertyUpdates(oldProps: FiberInstancedLinesMeshProps, newProps: FiberInstancedLinesMeshProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.intersectionThreshold, newProps.intersectionThreshold, 'intersectionThreshold', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
+    }
+}
+
+/**
+ * Creates an instance based on a source LinesMesh
+ *
+ * This code has been generated
+ */
+export class FiberInstancedLinesMesh implements HasPropsHandlers<FiberAbstractMeshProps> {
+    private propsHandlers: PropsHandler<FiberAbstractMeshProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberInstancedLinesMeshPropsHandler(),
+            new FiberInstancedMeshPropsHandler(),
+            new FiberAbstractMeshPropsHandler(),
+            new FiberTransformNodePropsHandler(),
+            new FiberNodePropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberAbstractMeshProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberAbstractMeshProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "InstancedLinesMesh",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "source",
+                "type": "BabylonjsCoreLinesMesh",
+                "optional": false
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "isNode": true,
+        "className": "FiberInstancedLinesMesh"
     };
 }
 
@@ -537,7 +654,7 @@ export class FiberMesh implements HasPropsHandlers<FiberAbstractMeshProps> {
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "Mesh",
-        "namespace": "@babylonjs/core/Meshes/mesh",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -574,6 +691,224 @@ export class FiberMesh implements HasPropsHandlers<FiberAbstractMeshProps> {
     public static readonly Metadata: CreatedInstanceMetadata = {
         "isNode": true,
         "className": "FiberMesh"
+    };
+}
+
+export class FiberLinesMeshPropsHandler implements PropsHandler<FiberLinesMeshProps> {
+    getPropertyUpdates(oldProps: FiberLinesMeshProps, newProps: FiberLinesMeshProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.alpha, newProps.alpha, 'alpha', changedProps)
+        checkColor3Diff(oldProps.color, newProps.color, 'color', changedProps)
+        // type: 'any' property (not coded) BabylonjsCoreLinesMesh.color4.
+        checkPrimitiveDiff(oldProps.intersectionThreshold, newProps.intersectionThreshold, 'intersectionThreshold', changedProps)
+        // type: 'BabylonjsCoreMaterial' property (not coded) BabylonjsCoreLinesMesh.material.
+        return changedProps.length === 0 ? null : changedProps;
+    }
+}
+
+/**
+ * Line mesh
+ *
+ * This code has been generated
+ */
+export class FiberLinesMesh implements HasPropsHandlers<FiberAbstractMeshProps> {
+    private propsHandlers: PropsHandler<FiberAbstractMeshProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberLinesMeshPropsHandler(),
+            new FiberMeshPropsHandler(),
+            new FiberAbstractMeshPropsHandler(),
+            new FiberTransformNodePropsHandler(),
+            new FiberNodePropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberAbstractMeshProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberAbstractMeshProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "LinesMesh",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "scene",
+                "type": "BabylonjsCoreScene",
+                "optional": true
+            },
+            {
+                "name": "parent",
+                "type": "BabylonjsCoreNode",
+                "optional": true
+            },
+            {
+                "name": "source",
+                "type": "BabylonjsCoreLinesMesh",
+                "optional": true
+            },
+            {
+                "name": "doNotCloneChildren",
+                "type": "boolean",
+                "optional": true
+            },
+            {
+                "name": "useVertexColor",
+                "type": "boolean",
+                "optional": true
+            },
+            {
+                "name": "useVertexAlpha",
+                "type": "boolean",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "isNode": true,
+        "className": "FiberLinesMesh"
+    };
+}
+
+export class FiberGroundMeshPropsHandler implements PropsHandler<FiberGroundMeshProps> {
+    getPropertyUpdates(oldProps: FiberGroundMeshProps, newProps: FiberGroundMeshProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.generateOctree, newProps.generateOctree, 'generateOctree', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
+    }
+}
+
+/**
+ * Mesh representing the gorund
+ *
+ * This code has been generated
+ */
+export class FiberGroundMesh implements HasPropsHandlers<FiberAbstractMeshProps> {
+    private propsHandlers: PropsHandler<FiberAbstractMeshProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberGroundMeshPropsHandler(),
+            new FiberMeshPropsHandler(),
+            new FiberAbstractMeshPropsHandler(),
+            new FiberTransformNodePropsHandler(),
+            new FiberNodePropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberAbstractMeshProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberAbstractMeshProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "GroundMesh",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "scene",
+                "type": "BabylonjsCoreScene",
+                "optional": false
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "isNode": true,
+        "className": "FiberGroundMesh"
+    };
+}
+
+export class FiberTrailMeshPropsHandler implements PropsHandler<FiberTrailMeshProps> {
+    getPropertyUpdates(oldProps: FiberTrailMeshProps, newProps: FiberTrailMeshProps): PropertyUpdate[] | null {
+        return null; // no props to check
+    }
+}
+
+/**
+ * Class used to create a trail following a mesh
+ *
+ * This code has been generated
+ */
+export class FiberTrailMesh implements HasPropsHandlers<FiberAbstractMeshProps> {
+    private propsHandlers: PropsHandler<FiberAbstractMeshProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberTrailMeshPropsHandler(),
+            new FiberMeshPropsHandler(),
+            new FiberAbstractMeshPropsHandler(),
+            new FiberTransformNodePropsHandler(),
+            new FiberNodePropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberAbstractMeshProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberAbstractMeshProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "TrailMesh",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "generator",
+                "type": "BabylonjsCoreTransformNode",
+                "optional": false
+            },
+            {
+                "name": "scene",
+                "type": "BabylonjsCoreScene",
+                "optional": false
+            },
+            {
+                "name": "diameter",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "length",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "autoStart",
+                "type": "boolean",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "isNode": true,
+        "className": "FiberTrailMesh"
     };
 }
 
@@ -646,7 +981,7 @@ export class FiberCamera implements HasPropsHandlers<FiberCameraProps> {
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "Camera",
-        "namespace": "@babylonjs/core/Cameras/camera",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -728,7 +1063,7 @@ export class FiberTargetCamera implements HasPropsHandlers<FiberCameraProps> {
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "TargetCamera",
-        "namespace": "@babylonjs/core/Cameras/camera",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -814,7 +1149,7 @@ export class FiberFreeCamera implements HasPropsHandlers<FiberCameraProps> {
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "FreeCamera",
-        "namespace": "@babylonjs/core/Cameras/camera",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -885,7 +1220,7 @@ export class FiberTouchCamera implements HasPropsHandlers<FiberCameraProps> {
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "TouchCamera",
-        "namespace": "@babylonjs/core/Cameras/camera",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -952,7 +1287,7 @@ export class FiberUniversalCamera implements HasPropsHandlers<FiberCameraProps> 
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "UniversalCamera",
-        "namespace": "@babylonjs/core/Cameras/camera",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -1017,7 +1352,7 @@ export class FiberGamepadCamera implements HasPropsHandlers<FiberCameraProps> {
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "GamepadCamera",
-        "namespace": "@babylonjs/core/Cameras/camera",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -1082,7 +1417,7 @@ export class FiberAnaglyphGamepadCamera implements HasPropsHandlers<FiberCameraP
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "AnaglyphGamepadCamera",
-        "namespace": "@babylonjs/core/Cameras/camera",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -1152,7 +1487,7 @@ export class FiberStereoscopicGamepadCamera implements HasPropsHandlers<FiberCam
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "StereoscopicGamepadCamera",
-        "namespace": "@babylonjs/core/Cameras/camera",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -1226,7 +1561,7 @@ export class FiberAnaglyphUniversalCamera implements HasPropsHandlers<FiberCamer
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "AnaglyphUniversalCamera",
-        "namespace": "@babylonjs/core/Cameras/camera",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -1295,7 +1630,7 @@ export class FiberStereoscopicUniversalCamera implements HasPropsHandlers<FiberC
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "StereoscopicUniversalCamera",
-        "namespace": "@babylonjs/core/Cameras/camera",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -1370,7 +1705,7 @@ export class FiberDeviceOrientationCamera implements HasPropsHandlers<FiberCamer
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "DeviceOrientationCamera",
-        "namespace": "@babylonjs/core/Cameras/camera",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -1433,7 +1768,7 @@ export class FiberVRDeviceOrientationFreeCamera implements HasPropsHandlers<Fibe
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "VRDeviceOrientationFreeCamera",
-        "namespace": "@babylonjs/core/Cameras/camera",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -1507,7 +1842,7 @@ export class FiberVRDeviceOrientationGamepadCamera implements HasPropsHandlers<F
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "VRDeviceOrientationGamepadCamera",
-        "namespace": "@babylonjs/core/Cameras/camera",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -1579,7 +1914,7 @@ export class FiberAnaglyphFreeCamera implements HasPropsHandlers<FiberCameraProp
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "AnaglyphFreeCamera",
-        "namespace": "@babylonjs/core/Cameras/camera",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -1646,7 +1981,7 @@ export class FiberStereoscopicFreeCamera implements HasPropsHandlers<FiberCamera
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "StereoscopicFreeCamera",
-        "namespace": "@babylonjs/core/Cameras/camera",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -1720,7 +2055,7 @@ export class FiberVirtualJoysticksCamera implements HasPropsHandlers<FiberCamera
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "VirtualJoysticksCamera",
-        "namespace": "@babylonjs/core/Cameras/camera",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -1798,7 +2133,7 @@ export class FiberWebVRFreeCamera implements HasPropsHandlers<FiberCameraProps> 
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "WebVRFreeCamera",
-        "namespace": "@babylonjs/core/Cameras/camera",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -1868,7 +2203,7 @@ export class FiberWebXRCamera implements HasPropsHandlers<FiberCameraProps> {
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "WebXRCamera",
-        "namespace": "@babylonjs/core/Cameras/camera",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -1999,7 +2334,7 @@ export class FiberArcRotateCamera implements HasPropsHandlers<FiberCameraProps> 
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "ArcRotateCamera",
-        "namespace": "@babylonjs/core/Cameras/camera",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -2081,7 +2416,7 @@ export class FiberAnaglyphArcRotateCamera implements HasPropsHandlers<FiberCamer
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "AnaglyphArcRotateCamera",
-        "namespace": "@babylonjs/core/Cameras/camera",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -2163,7 +2498,7 @@ export class FiberStereoscopicArcRotateCamera implements HasPropsHandlers<FiberC
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "StereoscopicArcRotateCamera",
-        "namespace": "@babylonjs/core/Cameras/camera",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -2250,7 +2585,7 @@ export class FiberVRDeviceOrientationArcRotateCamera implements HasPropsHandlers
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "VRDeviceOrientationArcRotateCamera",
-        "namespace": "@babylonjs/core/Cameras/camera",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -2367,7 +2702,7 @@ export class FiberFlyCamera implements HasPropsHandlers<FiberCameraProps> {
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "FlyCamera",
-        "namespace": "@babylonjs/core/Cameras/camera",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -2448,7 +2783,7 @@ export class FiberFollowCamera implements HasPropsHandlers<FiberCameraProps> {
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "FollowCamera",
-        "namespace": "@babylonjs/core/Cameras/camera",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -2520,7 +2855,7 @@ export class FiberArcFollowCamera implements HasPropsHandlers<FiberCameraProps> 
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "ArcFollowCamera",
-        "namespace": "@babylonjs/core/Cameras/camera",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -5467,7 +5802,7 @@ export class FiberMaterial implements HasPropsHandlers<FiberMaterialProps> {
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "Material",
-        "namespace": "@babylonjs/core/Materials/material",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -5547,7 +5882,7 @@ export class FiberShaderMaterial implements HasPropsHandlers<FiberMaterialProps>
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "ShaderMaterial",
-        "namespace": "@babylonjs/core/Materials/material",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -5611,7 +5946,7 @@ export class FiberMultiMaterial implements HasPropsHandlers<FiberMaterialProps> 
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "MultiMaterial",
-        "namespace": "@babylonjs/core/Materials/material",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -5665,7 +6000,7 @@ export class FiberPushMaterial implements HasPropsHandlers<FiberMaterialProps> {
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "PushMaterial",
-        "namespace": "@babylonjs/core/Materials/material",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -5781,7 +6116,7 @@ export class FiberStandardMaterial implements HasPropsHandlers<FiberMaterialProp
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "StandardMaterial",
-        "namespace": "@babylonjs/core/Materials/material",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -5869,7 +6204,7 @@ export class FiberBackgroundMaterial implements HasPropsHandlers<FiberMaterialPr
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "BackgroundMaterial",
-        "namespace": "@babylonjs/core/Materials/material",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -5933,7 +6268,7 @@ export class FiberPBRBaseMaterial implements HasPropsHandlers<FiberMaterialProps
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "PBRBaseMaterial",
-        "namespace": "@babylonjs/core/Materials/material",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -6005,7 +6340,7 @@ export class FiberPBRBaseSimpleMaterial implements HasPropsHandlers<FiberMateria
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "PBRBaseSimpleMaterial",
-        "namespace": "@babylonjs/core/Materials/material",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -6069,7 +6404,7 @@ export class FiberPBRMetallicRoughnessMaterial implements HasPropsHandlers<Fiber
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "PBRMetallicRoughnessMaterial",
-        "namespace": "@babylonjs/core/Materials/material",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -6133,7 +6468,7 @@ export class FiberPBRSpecularGlossinessMaterial implements HasPropsHandlers<Fibe
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "PBRSpecularGlossinessMaterial",
-        "namespace": "@babylonjs/core/Materials/material",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -6264,7 +6599,7 @@ export class FiberPBRMaterial implements HasPropsHandlers<FiberMaterialProps> {
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "PBRMaterial",
-        "namespace": "@babylonjs/core/Materials/material",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -6327,7 +6662,7 @@ export class FiberNodeMaterial implements HasPropsHandlers<FiberMaterialProps> {
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "NodeMaterial",
-        "namespace": "@babylonjs/core/Materials/material",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -6402,7 +6737,7 @@ export class FiberFluentMaterial implements HasPropsHandlers<FiberMaterialProps>
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "FluentMaterial",
-        "namespace": "@babylonjs/core/Materials/material",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -6472,7 +6807,7 @@ export class FiberLight implements HasPropsHandlers<FiberLightProps> {
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "Light",
-        "namespace": "@babylonjs/core/Lights/light",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -6548,7 +6883,7 @@ export class FiberShadowLight implements HasPropsHandlers<FiberLightProps> {
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "ShadowLight",
-        "namespace": "@babylonjs/core/Lights/light",
+        "namespace": "@babylonjs/core",
         "parameters": []
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
@@ -6600,7 +6935,7 @@ export class FiberDirectionalLight implements HasPropsHandlers<FiberLightProps> 
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "DirectionalLight",
-        "namespace": "@babylonjs/core/Lights/light",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -6669,7 +7004,7 @@ export class FiberPointLight implements HasPropsHandlers<FiberLightProps> {
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "PointLight",
-        "namespace": "@babylonjs/core/Lights/light",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -6745,7 +7080,7 @@ export class FiberSpotLight implements HasPropsHandlers<FiberLightProps> {
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "SpotLight",
-        "namespace": "@babylonjs/core/Lights/light",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -6827,7 +7162,7 @@ export class FiberHemisphericLight implements HasPropsHandlers<FiberLightProps> 
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "HemisphericLight",
-        "namespace": "@babylonjs/core/Lights/light",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -6952,7 +7287,7 @@ export class FiberControl implements HasPropsHandlers<FiberControlProps> {
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "Control",
-        "namespace": "@babylonjs/gui/2D/controls/control",
+        "namespace": "@babylonjs/gui",
         "parameters": [
             {
                 "name": "name",
@@ -7007,7 +7342,7 @@ export class FiberContainer implements HasPropsHandlers<FiberControlProps> {
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "Container",
-        "namespace": "@babylonjs/gui/2D/controls/control",
+        "namespace": "@babylonjs/gui",
         "parameters": [
             {
                 "name": "name",
@@ -7059,7 +7394,7 @@ export class FiberRectangle implements HasPropsHandlers<FiberControlProps> {
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "Rectangle",
-        "namespace": "@babylonjs/gui/2D/controls/control",
+        "namespace": "@babylonjs/gui",
         "parameters": [
             {
                 "name": "name",
@@ -7115,7 +7450,7 @@ export class FiberButton implements HasPropsHandlers<FiberControlProps> {
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "Button",
-        "namespace": "@babylonjs/gui/2D/controls/control",
+        "namespace": "@babylonjs/gui",
         "parameters": [
             {
                 "name": "name",
@@ -7179,7 +7514,7 @@ export class FiberSelectionPanel implements HasPropsHandlers<FiberControlProps> 
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "SelectionPanel",
-        "namespace": "@babylonjs/gui/2D/controls/control",
+        "namespace": "@babylonjs/gui",
         "parameters": [
             {
                 "name": "name",
@@ -7255,7 +7590,7 @@ export class FiberScrollViewer implements HasPropsHandlers<FiberControlProps> {
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "ScrollViewer",
-        "namespace": "@babylonjs/gui/2D/controls/control",
+        "namespace": "@babylonjs/gui",
         "parameters": [
             {
                 "name": "name",
@@ -7314,7 +7649,7 @@ export class FiberStackPanel implements HasPropsHandlers<FiberControlProps> {
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "StackPanel",
-        "namespace": "@babylonjs/gui/2D/controls/control",
+        "namespace": "@babylonjs/gui",
         "parameters": [
             {
                 "name": "name",
@@ -7377,7 +7712,7 @@ export class FiberVirtualKeyboard implements HasPropsHandlers<FiberControlProps>
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "VirtualKeyboard",
-        "namespace": "@babylonjs/gui/2D/controls/control",
+        "namespace": "@babylonjs/gui",
         "parameters": []
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
@@ -7422,7 +7757,7 @@ export class FiberEllipse implements HasPropsHandlers<FiberControlProps> {
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "Ellipse",
-        "namespace": "@babylonjs/gui/2D/controls/control",
+        "namespace": "@babylonjs/gui",
         "parameters": [
             {
                 "name": "name",
@@ -7477,7 +7812,7 @@ export class FiberGrid implements HasPropsHandlers<FiberControlProps> {
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "Grid",
-        "namespace": "@babylonjs/gui/2D/controls/control",
+        "namespace": "@babylonjs/gui",
         "parameters": [
             {
                 "name": "name",
@@ -7530,7 +7865,7 @@ export class Fiber_ScrollViewerWindow implements HasPropsHandlers<FiberControlPr
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "_ScrollViewerWindow",
-        "namespace": "@babylonjs/gui/2D/controls/control",
+        "namespace": "@babylonjs/gui",
         "parameters": [
             {
                 "name": "name",
@@ -7589,7 +7924,7 @@ export class FiberTextBlock implements HasPropsHandlers<FiberControlProps> {
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "TextBlock",
-        "namespace": "@babylonjs/gui/2D/controls/control",
+        "namespace": "@babylonjs/gui",
         "parameters": [
             {
                 "name": "name",
@@ -7662,7 +7997,7 @@ export class FiberImage implements HasPropsHandlers<FiberControlProps> {
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "Image",
-        "namespace": "@babylonjs/gui/2D/controls/control",
+        "namespace": "@babylonjs/gui",
         "parameters": [
             {
                 "name": "name",
@@ -7721,7 +8056,7 @@ export class FiberCheckbox implements HasPropsHandlers<FiberControlProps> {
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "Checkbox",
-        "namespace": "@babylonjs/gui/2D/controls/control",
+        "namespace": "@babylonjs/gui",
         "parameters": [
             {
                 "name": "name",
@@ -7775,7 +8110,7 @@ export class FiberColorPicker implements HasPropsHandlers<FiberControlProps> {
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "ColorPicker",
-        "namespace": "@babylonjs/gui/2D/controls/control",
+        "namespace": "@babylonjs/gui",
         "parameters": [
             {
                 "name": "name",
@@ -7853,7 +8188,7 @@ export class FiberInputText implements HasPropsHandlers<FiberControlProps> {
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "InputText",
-        "namespace": "@babylonjs/gui/2D/controls/control",
+        "namespace": "@babylonjs/gui",
         "parameters": [
             {
                 "name": "name",
@@ -7906,7 +8241,7 @@ export class FiberInputPassword implements HasPropsHandlers<FiberControlProps> {
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "InputPassword",
-        "namespace": "@babylonjs/gui/2D/controls/control",
+        "namespace": "@babylonjs/gui",
         "parameters": []
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
@@ -7958,7 +8293,7 @@ export class FiberLine implements HasPropsHandlers<FiberControlProps> {
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "Line",
-        "namespace": "@babylonjs/gui/2D/controls/control",
+        "namespace": "@babylonjs/gui",
         "parameters": [
             {
                 "name": "name",
@@ -8013,7 +8348,7 @@ export class FiberMultiLine implements HasPropsHandlers<FiberControlProps> {
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "MultiLine",
-        "namespace": "@babylonjs/gui/2D/controls/control",
+        "namespace": "@babylonjs/gui",
         "parameters": [
             {
                 "name": "name",
@@ -8068,7 +8403,7 @@ export class FiberRadioButton implements HasPropsHandlers<FiberControlProps> {
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "RadioButton",
-        "namespace": "@babylonjs/gui/2D/controls/control",
+        "namespace": "@babylonjs/gui",
         "parameters": [
             {
                 "name": "name",
@@ -8127,7 +8462,7 @@ export class FiberBaseSlider implements HasPropsHandlers<FiberControlProps> {
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "BaseSlider",
-        "namespace": "@babylonjs/gui/2D/controls/control",
+        "namespace": "@babylonjs/gui",
         "parameters": [
             {
                 "name": "name",
@@ -8179,7 +8514,7 @@ export class FiberScrollBar implements HasPropsHandlers<FiberControlProps> {
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "ScrollBar",
-        "namespace": "@babylonjs/gui/2D/controls/control",
+        "namespace": "@babylonjs/gui",
         "parameters": [
             {
                 "name": "name",
@@ -8235,7 +8570,7 @@ export class FiberImageScrollBar implements HasPropsHandlers<FiberControlProps> 
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "ImageScrollBar",
-        "namespace": "@babylonjs/gui/2D/controls/control",
+        "namespace": "@babylonjs/gui",
         "parameters": [
             {
                 "name": "name",
@@ -8289,7 +8624,7 @@ export class FiberSlider implements HasPropsHandlers<FiberControlProps> {
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "Slider",
-        "namespace": "@babylonjs/gui/2D/controls/control",
+        "namespace": "@babylonjs/gui",
         "parameters": [
             {
                 "name": "name",
@@ -8343,7 +8678,7 @@ export class FiberImageBasedSlider implements HasPropsHandlers<FiberControlProps
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "ImageBasedSlider",
-        "namespace": "@babylonjs/gui/2D/controls/control",
+        "namespace": "@babylonjs/gui",
         "parameters": [
             {
                 "name": "name",
@@ -8402,7 +8737,7 @@ export class FiberDisplayGrid implements HasPropsHandlers<FiberControlProps> {
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "DisplayGrid",
-        "namespace": "@babylonjs/gui/2D/controls/control",
+        "namespace": "@babylonjs/gui",
         "parameters": [
             {
                 "name": "name",
@@ -8471,7 +8806,7 @@ export class FiberControl3D implements HasPropsHandlers<FiberControl3DProps> {
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "Control3D",
-        "namespace": "@babylonjs/gui/3D/controls/control3D",
+        "namespace": "@babylonjs/gui",
         "parameters": [
             {
                 "name": "name",
@@ -8521,7 +8856,7 @@ export class FiberContainer3D implements HasPropsHandlers<FiberControl3DProps> {
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "Container3D",
-        "namespace": "@babylonjs/gui/3D/controls/control3D",
+        "namespace": "@babylonjs/gui",
         "parameters": [
             {
                 "name": "name",
@@ -8574,7 +8909,7 @@ export class FiberVolumeBasedPanel implements HasPropsHandlers<FiberControl3DPro
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "VolumeBasedPanel",
-        "namespace": "@babylonjs/gui/3D/controls/control3D",
+        "namespace": "@babylonjs/gui",
         "parameters": []
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
@@ -8619,7 +8954,7 @@ export class FiberCylinderPanel implements HasPropsHandlers<FiberControl3DProps>
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "CylinderPanel",
-        "namespace": "@babylonjs/gui/3D/controls/control3D",
+        "namespace": "@babylonjs/gui",
         "parameters": []
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
@@ -8662,7 +8997,7 @@ export class FiberPlanePanel implements HasPropsHandlers<FiberControl3DProps> {
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "PlanePanel",
-        "namespace": "@babylonjs/gui/3D/controls/control3D",
+        "namespace": "@babylonjs/gui",
         "parameters": []
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
@@ -8707,7 +9042,7 @@ export class FiberScatterPanel implements HasPropsHandlers<FiberControl3DProps> 
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "ScatterPanel",
-        "namespace": "@babylonjs/gui/3D/controls/control3D",
+        "namespace": "@babylonjs/gui",
         "parameters": []
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
@@ -8752,7 +9087,7 @@ export class FiberSpherePanel implements HasPropsHandlers<FiberControl3DProps> {
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "SpherePanel",
-        "namespace": "@babylonjs/gui/3D/controls/control3D",
+        "namespace": "@babylonjs/gui",
         "parameters": []
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
@@ -8797,7 +9132,7 @@ export class FiberStackPanel3D implements HasPropsHandlers<FiberControl3DProps> 
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "StackPanel3D",
-        "namespace": "@babylonjs/gui/3D/controls/control3D",
+        "namespace": "@babylonjs/gui",
         "parameters": [
             {
                 "name": "isVertical",
@@ -8844,7 +9179,7 @@ export class FiberAbstractButton3D implements HasPropsHandlers<FiberControl3DPro
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "AbstractButton3D",
-        "namespace": "@babylonjs/gui/3D/controls/control3D",
+        "namespace": "@babylonjs/gui",
         "parameters": [
             {
                 "name": "name",
@@ -8896,7 +9231,7 @@ export class FiberButton3D implements HasPropsHandlers<FiberControl3DProps> {
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "Button3D",
-        "namespace": "@babylonjs/gui/3D/controls/control3D",
+        "namespace": "@babylonjs/gui",
         "parameters": [
             {
                 "name": "name",
@@ -8950,7 +9285,7 @@ export class FiberHolographicButton implements HasPropsHandlers<FiberControl3DPr
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "HolographicButton",
-        "namespace": "@babylonjs/gui/3D/controls/control3D",
+        "namespace": "@babylonjs/gui",
         "parameters": [
             {
                 "name": "name",
@@ -9004,7 +9339,7 @@ export class FiberMeshButton3D implements HasPropsHandlers<FiberControl3DProps> 
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "MeshButton3D",
-        "namespace": "@babylonjs/gui/3D/controls/control3D",
+        "namespace": "@babylonjs/gui",
         "parameters": [
             {
                 "name": "mesh",
@@ -9072,7 +9407,7 @@ export class FiberEffectLayer implements HasPropsHandlers<FiberEffectLayerProps>
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "EffectLayer",
-        "namespace": "@babylonjs/core/Layers/effectLayer",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -9135,7 +9470,7 @@ export class FiberGlowLayer implements HasPropsHandlers<FiberEffectLayerProps> {
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "GlowLayer",
-        "namespace": "@babylonjs/core/Layers/effectLayer",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -9207,7 +9542,7 @@ export class FiberHighlightLayer implements HasPropsHandlers<FiberEffectLayerPro
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "HighlightLayer",
-        "namespace": "@babylonjs/core/Layers/effectLayer",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -9295,7 +9630,7 @@ export class FiberBaseTexture implements HasPropsHandlers<FiberBaseTextureProps>
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "BaseTexture",
-        "namespace": "@babylonjs/core/Materials/Textures/baseTexture",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "scene",
@@ -9355,7 +9690,7 @@ export class FiberCubeTexture implements HasPropsHandlers<FiberBaseTextureProps>
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "CubeTexture",
-        "namespace": "@babylonjs/core/Materials/Textures/baseTexture",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "rootUrl",
@@ -9463,7 +9798,7 @@ export class FiberRawCubeTexture implements HasPropsHandlers<FiberBaseTexturePro
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "RawCubeTexture",
-        "namespace": "@babylonjs/core/Materials/Textures/baseTexture",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "scene",
@@ -9565,7 +9900,7 @@ export class FiberTexture implements HasPropsHandlers<FiberBaseTextureProps> {
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "Texture",
-        "namespace": "@babylonjs/core/Materials/Textures/baseTexture",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "url",
@@ -9667,7 +10002,7 @@ export class FiberRawTexture implements HasPropsHandlers<FiberBaseTextureProps> 
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "RawTexture",
-        "namespace": "@babylonjs/core/Materials/Textures/baseTexture",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "data",
@@ -9773,7 +10108,7 @@ export class FiberProceduralTexture implements HasPropsHandlers<FiberBaseTexture
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "ProceduralTexture",
-        "namespace": "@babylonjs/core/Materials/Textures/baseTexture",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -9855,7 +10190,7 @@ export class FiberCustomProceduralTexture implements HasPropsHandlers<FiberBaseT
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "CustomProceduralTexture",
-        "namespace": "@babylonjs/core/Materials/Textures/baseTexture",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -9934,7 +10269,7 @@ export class FiberNoiseProceduralTexture implements HasPropsHandlers<FiberBaseTe
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "NoiseProceduralTexture",
-        "namespace": "@babylonjs/core/Materials/Textures/baseTexture",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -10041,7 +10376,7 @@ export class FiberRenderTargetTexture implements HasPropsHandlers<FiberBaseTextu
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "RenderTargetTexture",
-        "namespace": "@babylonjs/core/Materials/Textures/baseTexture",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -10161,7 +10496,7 @@ export class FiberMirrorTexture implements HasPropsHandlers<FiberBaseTextureProp
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "MirrorTexture",
-        "namespace": "@babylonjs/core/Materials/Textures/baseTexture",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -10247,7 +10582,7 @@ export class FiberMultiRenderTarget implements HasPropsHandlers<FiberBaseTexture
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "MultiRenderTarget",
-        "namespace": "@babylonjs/core/Materials/Textures/baseTexture",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -10320,7 +10655,7 @@ export class FiberRefractionTexture implements HasPropsHandlers<FiberBaseTexture
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "RefractionTexture",
-        "namespace": "@babylonjs/core/Materials/Textures/baseTexture",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -10384,7 +10719,7 @@ export class FiberMultiviewRenderTarget implements HasPropsHandlers<FiberBaseTex
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "MultiviewRenderTarget",
-        "namespace": "@babylonjs/core/Materials/Textures/baseTexture",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "scene",
@@ -10439,7 +10774,7 @@ export class FiberVideoTexture implements HasPropsHandlers<FiberBaseTextureProps
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "VideoTexture",
-        "namespace": "@babylonjs/core/Materials/Textures/baseTexture",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -10517,7 +10852,7 @@ export class FiberDynamicTexture implements HasPropsHandlers<FiberBaseTexturePro
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "DynamicTexture",
-        "namespace": "@babylonjs/core/Materials/Textures/baseTexture",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -10613,7 +10948,7 @@ export class FiberAdvancedDynamicTexture implements HasPropsHandlers<FiberBaseTe
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "AdvancedDynamicTexture",
-        "namespace": "@babylonjs/core/Materials/Textures/baseTexture",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -10818,7 +11153,7 @@ export class FiberRawTexture3D implements HasPropsHandlers<FiberBaseTextureProps
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "RawTexture3D",
-        "namespace": "@babylonjs/core/Materials/Textures/baseTexture",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "data",
@@ -10913,7 +11248,7 @@ export class FiberRawTexture2DArray implements HasPropsHandlers<FiberBaseTexture
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "RawTexture2DArray",
-        "namespace": "@babylonjs/core/Materials/Textures/baseTexture",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "data",
@@ -11014,7 +11349,7 @@ export class FiberColorGradingTexture implements HasPropsHandlers<FiberBaseTextu
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "ColorGradingTexture",
-        "namespace": "@babylonjs/core/Materials/Textures/baseTexture",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "url",
@@ -11072,7 +11407,7 @@ export class FiberEquiRectangularCubeTexture implements HasPropsHandlers<FiberBa
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "EquiRectangularCubeTexture",
-        "namespace": "@babylonjs/core/Materials/Textures/baseTexture",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "url",
@@ -11167,7 +11502,7 @@ export class FiberHDRCubeTexture implements HasPropsHandlers<FiberBaseTexturePro
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "HDRCubeTexture",
-        "namespace": "@babylonjs/core/Materials/Textures/baseTexture",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "url",
@@ -11261,7 +11596,7 @@ export class FiberHtmlElementTexture implements HasPropsHandlers<FiberBaseTextur
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "HtmlElementTexture",
-        "namespace": "@babylonjs/core/Materials/Textures/baseTexture",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "name",
@@ -11320,7 +11655,7 @@ export class FiberGUI3DManager implements HasPropsHandlers<FiberGUI3DManagerProp
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "GUI3DManager",
-        "namespace": "@babylonjs/gui/3D/gui3DManager",
+        "namespace": "@babylonjs/gui",
         "parameters": [
             {
                 "name": "scene",
@@ -11398,7 +11733,7 @@ export class FiberShadowGenerator implements HasPropsHandlers<FiberShadowGenerat
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "ShadowGenerator",
-        "namespace": "@babylonjs/core/Lights/Shadows/shadowGenerator",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "mapSize",
@@ -11472,7 +11807,7 @@ export class FiberCascadedShadowGenerator implements HasPropsHandlers<FiberCasca
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "CascadedShadowGenerator",
-        "namespace": "@babylonjs/core/Lights/Shadows/cascadedShadowGenerator",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "mapSize",
@@ -11533,7 +11868,7 @@ export class FiberEnvironmentHelper implements HasPropsHandlers<FiberEnvironment
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "EnvironmentHelper",
-        "namespace": "@babylonjs/core/Helpers/environmentHelper",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "options",
@@ -11612,7 +11947,7 @@ export class FiberPhysicsImpostor implements HasPropsHandlers<FiberPhysicsImpost
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "PhysicsImpostor",
-        "namespace": "@babylonjs/core/Physics/physicsImpostor",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "object",
@@ -11716,7 +12051,7 @@ export class FiberVRExperienceHelper implements HasPropsHandlers<FiberVRExperien
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "VRExperienceHelper",
-        "namespace": "@babylonjs/core/Cameras/VR/vrExperienceHelper",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "scene",
@@ -11918,7 +12253,7 @@ export class FiberAutoRotationBehavior implements HasPropsHandlers<FiberAutoRota
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "AutoRotationBehavior",
-        "namespace": "@babylonjs/core/Behaviors/Cameras/autoRotationBehavior",
+        "namespace": "@babylonjs/core",
         "parameters": []
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
@@ -11963,7 +12298,7 @@ export class FiberBouncingBehavior implements HasPropsHandlers<FiberBouncingBeha
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "BouncingBehavior",
-        "namespace": "@babylonjs/core/Behaviors/Cameras/bouncingBehavior",
+        "namespace": "@babylonjs/core",
         "parameters": []
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
@@ -12013,7 +12348,7 @@ export class FiberFramingBehavior implements HasPropsHandlers<FiberFramingBehavi
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "FramingBehavior",
-        "namespace": "@babylonjs/core/Behaviors/Cameras/framingBehavior",
+        "namespace": "@babylonjs/core",
         "parameters": []
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
@@ -12058,7 +12393,7 @@ export class FiberAttachToBoxBehavior implements HasPropsHandlers<FiberAttachToB
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "AttachToBoxBehavior",
-        "namespace": "@babylonjs/core/Behaviors/Meshes/attachToBoxBehavior",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "ui",
@@ -12107,7 +12442,7 @@ export class FiberFadeInOutBehavior implements HasPropsHandlers<FiberFadeInOutBe
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "FadeInOutBehavior",
-        "namespace": "@babylonjs/core/Behaviors/Meshes/fadeInOutBehavior",
+        "namespace": "@babylonjs/core",
         "parameters": []
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
@@ -12147,7 +12482,7 @@ export class FiberMultiPointerScaleBehavior implements HasPropsHandlers<FiberMul
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "MultiPointerScaleBehavior",
-        "namespace": "@babylonjs/core/Behaviors/Meshes/multiPointerScaleBehavior",
+        "namespace": "@babylonjs/core",
         "parameters": []
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
@@ -12208,7 +12543,7 @@ export class FiberPointerDragBehavior implements HasPropsHandlers<FiberPointerDr
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "PointerDragBehavior",
-        "namespace": "@babylonjs/core/Behaviors/Meshes/pointerDragBehavior",
+        "namespace": "@babylonjs/core",
         "parameters": [
             {
                 "name": "options",
@@ -12274,7 +12609,7 @@ export class FiberSixDofDragBehavior implements HasPropsHandlers<FiberSixDofDrag
     public static readonly CreateInfo = {
         "creationType": "Constructor",
         "libraryLocation": "SixDofDragBehavior",
-        "namespace": "@babylonjs/core/Behaviors/Meshes/sixDofDragBehavior",
+        "namespace": "@babylonjs/core",
         "parameters": []
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
@@ -12357,6 +12692,7 @@ export class FiberScenePropsHandler implements PropsHandler<FiberSceneProps> {
         checkObservableDiff(oldProps.onAfterCameraRenderObservable, newProps.onAfterCameraRenderObservable, 'onAfterCameraRenderObservable', changedProps)
         checkObservableDiff(oldProps.onAfterDrawPhaseObservable, newProps.onAfterDrawPhaseObservable, 'onAfterDrawPhaseObservable', changedProps)
         checkObservableDiff(oldProps.onAfterParticlesRenderingObservable, newProps.onAfterParticlesRenderingObservable, 'onAfterParticlesRenderingObservable', changedProps)
+        checkObservableDiff(oldProps.onAfterPhysicsObservable, newProps.onAfterPhysicsObservable, 'onAfterPhysicsObservable', changedProps)
         checkObservableDiff(oldProps.onAfterRenderCameraObservable, newProps.onAfterRenderCameraObservable, 'onAfterRenderCameraObservable', changedProps)
         checkObservableDiff(oldProps.onAfterRenderingGroupObservable, newProps.onAfterRenderingGroupObservable, 'onAfterRenderingGroupObservable', changedProps)
         checkObservableDiff(oldProps.onAfterRenderObservable, newProps.onAfterRenderObservable, 'onAfterRenderObservable', changedProps)
@@ -12368,6 +12704,7 @@ export class FiberScenePropsHandler implements PropsHandler<FiberSceneProps> {
         checkObservableDiff(oldProps.onBeforeCameraRenderObservable, newProps.onBeforeCameraRenderObservable, 'onBeforeCameraRenderObservable', changedProps)
         checkObservableDiff(oldProps.onBeforeDrawPhaseObservable, newProps.onBeforeDrawPhaseObservable, 'onBeforeDrawPhaseObservable', changedProps)
         checkObservableDiff(oldProps.onBeforeParticlesRenderingObservable, newProps.onBeforeParticlesRenderingObservable, 'onBeforeParticlesRenderingObservable', changedProps)
+        checkObservableDiff(oldProps.onBeforePhysicsObservable, newProps.onBeforePhysicsObservable, 'onBeforePhysicsObservable', changedProps)
         checkObservableDiff(oldProps.onBeforeRenderingGroupObservable, newProps.onBeforeRenderingGroupObservable, 'onBeforeRenderingGroupObservable', changedProps)
         checkObservableDiff(oldProps.onBeforeRenderObservable, newProps.onBeforeRenderObservable, 'onBeforeRenderObservable', changedProps)
         checkObservableDiff(oldProps.onBeforeRenderTargetsRenderObservable, newProps.onBeforeRenderTargetsRenderObservable, 'onBeforeRenderTargetsRenderObservable', changedProps)
@@ -12440,6 +12777,8 @@ export class FiberScenePropsHandler implements PropsHandler<FiberSceneProps> {
         checkMethodDiff(oldProps.addSkeleton, newProps.addSkeleton, 'addSkeleton', changedProps)
         checkMethodDiff(oldProps.addTexture, newProps.addTexture, 'addTexture', changedProps)
         checkMethodDiff(oldProps.addTransformNode, newProps.addTransformNode, 'addTransformNode', changedProps)
+        checkMethodDiff(oldProps.deleteCompoundImpostor, newProps.deleteCompoundImpostor, 'deleteCompoundImpostor', changedProps)
+        checkMethodDiff(oldProps.enablePhysics, newProps.enablePhysics, 'enablePhysics', changedProps)
         checkMethodDiff(oldProps.setActiveCameraByID, newProps.setActiveCameraByID, 'setActiveCameraByID', changedProps)
         checkMethodDiff(oldProps.setActiveCameraByName, newProps.setActiveCameraByName, 'setActiveCameraByName', changedProps)
         checkMethodDiff(oldProps.setPointerOverMesh, newProps.setPointerOverMesh, 'setPointerOverMesh', changedProps)
@@ -12451,19 +12790,20 @@ export class FiberScenePropsHandler implements PropsHandler<FiberSceneProps> {
     }
 }
 
-export const ADTForMesh: string = 'ADTForMesh', ADTFullscreenUI: string = 'ADTFullscreenUI', AbstractButton3D: string = 'AbstractButton3D', AbstractMesh: string = 'AbstractMesh', AdvancedDynamicTexture: string = 'AdvancedDynamicTexture', AnaglyphArcRotateCamera: string = 'AnaglyphArcRotateCamera', AnaglyphFreeCamera: string = 'AnaglyphFreeCamera', AnaglyphGamepadCamera: string = 'AnaglyphGamepadCamera', AnaglyphUniversalCamera: string = 'AnaglyphUniversalCamera', ArcFollowCamera: string = 'ArcFollowCamera', ArcRotateCamera: string = 'ArcRotateCamera', AttachToBoxBehavior: string = 'AttachToBoxBehavior', AutoRotationBehavior: string = 'AutoRotationBehavior', BackgroundMaterial: string = 'BackgroundMaterial', BaseSlider: string = 'BaseSlider', BaseTexture: string = 'BaseTexture', BouncingBehavior: string = 'BouncingBehavior', Box: string = 'Box', Button: string = 'Button', Button3D: string = 'Button3D', Camera: string = 'Camera', CascadedShadowGenerator: string = 'CascadedShadowGenerator', Checkbox: string = 'Checkbox', ColorGradingTexture: string = 'ColorGradingTexture', ColorPicker: string = 'ColorPicker', Container: string = 'Container', Container3D: string = 'Container3D', Control: string = 'Control', Control3D: string = 'Control3D', CubeTexture: string = 'CubeTexture', CustomProceduralTexture: string = 'CustomProceduralTexture', Cylinder: string = 'Cylinder', CylinderPanel: string = 'CylinderPanel', DashedLines: string = 'DashedLines', Decal: string = 'Decal', DeviceOrientationCamera: string = 'DeviceOrientationCamera', DirectionalLight: string = 'DirectionalLight', Disc: string = 'Disc', DisplayGrid: string = 'DisplayGrid', DynamicTerrain: string = 'DynamicTerrain', DynamicTexture: string = 'DynamicTexture', EffectLayer: string = 'EffectLayer', Ellipse: string = 'Ellipse', EnvironmentHelper: string = 'EnvironmentHelper', EquiRectangularCubeTexture: string = 'EquiRectangularCubeTexture', ExtrudePolygon: string = 'ExtrudePolygon', ExtrudeShape: string = 'ExtrudeShape', ExtrudeShapeCustom: string = 'ExtrudeShapeCustom', FadeInOutBehavior: string = 'FadeInOutBehavior', FluentMaterial: string = 'FluentMaterial', FlyCamera: string = 'FlyCamera', FollowCamera: string = 'FollowCamera', FramingBehavior: string = 'FramingBehavior', FreeCamera: string = 'FreeCamera', GUI3DManager: string = 'GUI3DManager', GamepadCamera: string = 'GamepadCamera', GlowLayer: string = 'GlowLayer', Grid: string = 'Grid', Ground: string = 'Ground', GroundFromHeightMap: string = 'GroundFromHeightMap', HDRCubeTexture: string = 'HDRCubeTexture', HemisphericLight: string = 'HemisphericLight', HighlightLayer: string = 'HighlightLayer', HolographicButton: string = 'HolographicButton', HtmlElementTexture: string = 'HtmlElementTexture', IcoSphere: string = 'IcoSphere', Image: string = 'Image', ImageBasedSlider: string = 'ImageBasedSlider', ImageScrollBar: string = 'ImageScrollBar', InputPassword: string = 'InputPassword', InputText: string = 'InputText', Lathe: string = 'Lathe', Light: string = 'Light', Line: string = 'Line', LineSystem: string = 'LineSystem', Lines: string = 'Lines', Material: string = 'Material', Mesh: string = 'Mesh', MeshButton3D: string = 'MeshButton3D', MirrorTexture: string = 'MirrorTexture', Model: string = 'Model', MultiLine: string = 'MultiLine', MultiMaterial: string = 'MultiMaterial', MultiPointerScaleBehavior: string = 'MultiPointerScaleBehavior', MultiRenderTarget: string = 'MultiRenderTarget', MultiviewRenderTarget: string = 'MultiviewRenderTarget', Node: string = 'Node', NodeMaterial: string = 'NodeMaterial', NoiseProceduralTexture: string = 'NoiseProceduralTexture', PBRBaseMaterial: string = 'PBRBaseMaterial', PBRBaseSimpleMaterial: string = 'PBRBaseSimpleMaterial', PBRMaterial: string = 'PBRMaterial', PBRMetallicRoughnessMaterial: string = 'PBRMetallicRoughnessMaterial', PBRSpecularGlossinessMaterial: string = 'PBRSpecularGlossinessMaterial', PhysicsImpostor: string = 'PhysicsImpostor', Plane: string = 'Plane', PlanePanel: string = 'PlanePanel', PointLight: string = 'PointLight', PointerDragBehavior: string = 'PointerDragBehavior', Polygon: string = 'Polygon', Polyhedron: string = 'Polyhedron', ProceduralTexture: string = 'ProceduralTexture', PushMaterial: string = 'PushMaterial', RadioButton: string = 'RadioButton', RawCubeTexture: string = 'RawCubeTexture', RawTexture: string = 'RawTexture', RawTexture2DArray: string = 'RawTexture2DArray', RawTexture3D: string = 'RawTexture3D', Rectangle: string = 'Rectangle', RefractionTexture: string = 'RefractionTexture', RenderTargetTexture: string = 'RenderTargetTexture', Ribbon: string = 'Ribbon', ScatterPanel: string = 'ScatterPanel', ScrollBar: string = 'ScrollBar', ScrollViewer: string = 'ScrollViewer', SelectionPanel: string = 'SelectionPanel', ShaderMaterial: string = 'ShaderMaterial', ShadowGenerator: string = 'ShadowGenerator', ShadowLight: string = 'ShadowLight', SixDofDragBehavior: string = 'SixDofDragBehavior', Slider: string = 'Slider', Sphere: string = 'Sphere', SpherePanel: string = 'SpherePanel', SpotLight: string = 'SpotLight', StackPanel: string = 'StackPanel', StackPanel3D: string = 'StackPanel3D', StandardMaterial: string = 'StandardMaterial', StereoscopicArcRotateCamera: string = 'StereoscopicArcRotateCamera', StereoscopicFreeCamera: string = 'StereoscopicFreeCamera', StereoscopicGamepadCamera: string = 'StereoscopicGamepadCamera', StereoscopicUniversalCamera: string = 'StereoscopicUniversalCamera', TargetCamera: string = 'TargetCamera', TextBlock: string = 'TextBlock', Texture: string = 'Texture', TiledBox: string = 'TiledBox', TiledGround: string = 'TiledGround', TiledPlane: string = 'TiledPlane', Torus: string = 'Torus', TorusKnot: string = 'TorusKnot', TouchCamera: string = 'TouchCamera', TransformNode: string = 'TransformNode', Tube: string = 'Tube', UniversalCamera: string = 'UniversalCamera', VRDeviceOrientationArcRotateCamera: string = 'VRDeviceOrientationArcRotateCamera', VRDeviceOrientationFreeCamera: string = 'VRDeviceOrientationFreeCamera', VRDeviceOrientationGamepadCamera: string = 'VRDeviceOrientationGamepadCamera', VRExperienceHelper: string = 'VRExperienceHelper', VideoTexture: string = 'VideoTexture', VirtualJoysticksCamera: string = 'VirtualJoysticksCamera', VirtualKeyboard: string = 'VirtualKeyboard', VolumeBasedPanel: string = 'VolumeBasedPanel', WebVRFreeCamera: string = 'WebVRFreeCamera', WebXRCamera: string = 'WebXRCamera', _ScrollViewerWindow: string = '_ScrollViewerWindow';
+export const ADTForMesh: string = 'ADTForMesh', ADTFullscreenUI: string = 'ADTFullscreenUI', AbstractButton3D: string = 'AbstractButton3D', AbstractMesh: string = 'AbstractMesh', AdvancedDynamicTexture: string = 'AdvancedDynamicTexture', AnaglyphArcRotateCamera: string = 'AnaglyphArcRotateCamera', AnaglyphFreeCamera: string = 'AnaglyphFreeCamera', AnaglyphGamepadCamera: string = 'AnaglyphGamepadCamera', AnaglyphUniversalCamera: string = 'AnaglyphUniversalCamera', ArcFollowCamera: string = 'ArcFollowCamera', ArcRotateCamera: string = 'ArcRotateCamera', AttachToBoxBehavior: string = 'AttachToBoxBehavior', AutoRotationBehavior: string = 'AutoRotationBehavior', BackgroundMaterial: string = 'BackgroundMaterial', BaseSlider: string = 'BaseSlider', BaseTexture: string = 'BaseTexture', BouncingBehavior: string = 'BouncingBehavior', Box: string = 'Box', Button: string = 'Button', Button3D: string = 'Button3D', Camera: string = 'Camera', CascadedShadowGenerator: string = 'CascadedShadowGenerator', Checkbox: string = 'Checkbox', ColorGradingTexture: string = 'ColorGradingTexture', ColorPicker: string = 'ColorPicker', Container: string = 'Container', Container3D: string = 'Container3D', Control: string = 'Control', Control3D: string = 'Control3D', CubeTexture: string = 'CubeTexture', CustomProceduralTexture: string = 'CustomProceduralTexture', Cylinder: string = 'Cylinder', CylinderPanel: string = 'CylinderPanel', DashedLines: string = 'DashedLines', Decal: string = 'Decal', DeviceOrientationCamera: string = 'DeviceOrientationCamera', DirectionalLight: string = 'DirectionalLight', Disc: string = 'Disc', DisplayGrid: string = 'DisplayGrid', DynamicTerrain: string = 'DynamicTerrain', DynamicTexture: string = 'DynamicTexture', EffectLayer: string = 'EffectLayer', Ellipse: string = 'Ellipse', EnvironmentHelper: string = 'EnvironmentHelper', EquiRectangularCubeTexture: string = 'EquiRectangularCubeTexture', ExtrudePolygon: string = 'ExtrudePolygon', ExtrudeShape: string = 'ExtrudeShape', ExtrudeShapeCustom: string = 'ExtrudeShapeCustom', FadeInOutBehavior: string = 'FadeInOutBehavior', FluentMaterial: string = 'FluentMaterial', FlyCamera: string = 'FlyCamera', FollowCamera: string = 'FollowCamera', FramingBehavior: string = 'FramingBehavior', FreeCamera: string = 'FreeCamera', GUI3DManager: string = 'GUI3DManager', GamepadCamera: string = 'GamepadCamera', GlowLayer: string = 'GlowLayer', Grid: string = 'Grid', Ground: string = 'Ground', GroundFromHeightMap: string = 'GroundFromHeightMap', GroundMesh: string = 'GroundMesh', HDRCubeTexture: string = 'HDRCubeTexture', HemisphericLight: string = 'HemisphericLight', HighlightLayer: string = 'HighlightLayer', HolographicButton: string = 'HolographicButton', HtmlElementTexture: string = 'HtmlElementTexture', IcoSphere: string = 'IcoSphere', Image: string = 'Image', ImageBasedSlider: string = 'ImageBasedSlider', ImageScrollBar: string = 'ImageScrollBar', InputPassword: string = 'InputPassword', InputText: string = 'InputText', InstancedLinesMesh: string = 'InstancedLinesMesh', InstancedMesh: string = 'InstancedMesh', Lathe: string = 'Lathe', Light: string = 'Light', Line: string = 'Line', LineSystem: string = 'LineSystem', Lines: string = 'Lines', LinesMesh: string = 'LinesMesh', Material: string = 'Material', Mesh: string = 'Mesh', MeshButton3D: string = 'MeshButton3D', MirrorTexture: string = 'MirrorTexture', Model: string = 'Model', MultiLine: string = 'MultiLine', MultiMaterial: string = 'MultiMaterial', MultiPointerScaleBehavior: string = 'MultiPointerScaleBehavior', MultiRenderTarget: string = 'MultiRenderTarget', MultiviewRenderTarget: string = 'MultiviewRenderTarget', Node: string = 'Node', NodeMaterial: string = 'NodeMaterial', NoiseProceduralTexture: string = 'NoiseProceduralTexture', PBRBaseMaterial: string = 'PBRBaseMaterial', PBRBaseSimpleMaterial: string = 'PBRBaseSimpleMaterial', PBRMaterial: string = 'PBRMaterial', PBRMetallicRoughnessMaterial: string = 'PBRMetallicRoughnessMaterial', PBRSpecularGlossinessMaterial: string = 'PBRSpecularGlossinessMaterial', PhysicsImpostor: string = 'PhysicsImpostor', Plane: string = 'Plane', PlanePanel: string = 'PlanePanel', PointLight: string = 'PointLight', PointerDragBehavior: string = 'PointerDragBehavior', Polygon: string = 'Polygon', Polyhedron: string = 'Polyhedron', ProceduralTexture: string = 'ProceduralTexture', PushMaterial: string = 'PushMaterial', RadioButton: string = 'RadioButton', RawCubeTexture: string = 'RawCubeTexture', RawTexture: string = 'RawTexture', RawTexture2DArray: string = 'RawTexture2DArray', RawTexture3D: string = 'RawTexture3D', Rectangle: string = 'Rectangle', RefractionTexture: string = 'RefractionTexture', RenderTargetTexture: string = 'RenderTargetTexture', Ribbon: string = 'Ribbon', ScatterPanel: string = 'ScatterPanel', ScrollBar: string = 'ScrollBar', ScrollViewer: string = 'ScrollViewer', SelectionPanel: string = 'SelectionPanel', ShaderMaterial: string = 'ShaderMaterial', ShadowGenerator: string = 'ShadowGenerator', ShadowLight: string = 'ShadowLight', SixDofDragBehavior: string = 'SixDofDragBehavior', Slider: string = 'Slider', Sphere: string = 'Sphere', SpherePanel: string = 'SpherePanel', SpotLight: string = 'SpotLight', StackPanel: string = 'StackPanel', StackPanel3D: string = 'StackPanel3D', StandardMaterial: string = 'StandardMaterial', StereoscopicArcRotateCamera: string = 'StereoscopicArcRotateCamera', StereoscopicFreeCamera: string = 'StereoscopicFreeCamera', StereoscopicGamepadCamera: string = 'StereoscopicGamepadCamera', StereoscopicUniversalCamera: string = 'StereoscopicUniversalCamera', TargetCamera: string = 'TargetCamera', TextBlock: string = 'TextBlock', Texture: string = 'Texture', TiledBox: string = 'TiledBox', TiledGround: string = 'TiledGround', TiledPlane: string = 'TiledPlane', Torus: string = 'Torus', TorusKnot: string = 'TorusKnot', TouchCamera: string = 'TouchCamera', TrailMesh: string = 'TrailMesh', TransformNode: string = 'TransformNode', Tube: string = 'Tube', UniversalCamera: string = 'UniversalCamera', VRDeviceOrientationArcRotateCamera: string = 'VRDeviceOrientationArcRotateCamera', VRDeviceOrientationFreeCamera: string = 'VRDeviceOrientationFreeCamera', VRDeviceOrientationGamepadCamera: string = 'VRDeviceOrientationGamepadCamera', VRExperienceHelper: string = 'VRExperienceHelper', VideoTexture: string = 'VideoTexture', VirtualJoysticksCamera: string = 'VirtualJoysticksCamera', VirtualKeyboard: string = 'VirtualKeyboard', VolumeBasedPanel: string = 'VolumeBasedPanel', WebVRFreeCamera: string = 'WebVRFreeCamera', WebXRCamera: string = 'WebXRCamera', _ScrollViewerWindow: string = '_ScrollViewerWindow';
 const classesMap: object = {
     dynamicTerrain: ExtensionsDynamicTerrain, DynamicTerrain: ExtensionsDynamicTerrain,
     abstractScene: BabylonjsCoreAbstractScene, AbstractScene: BabylonjsCoreAbstractScene,
-    node: BabylonjsCoreNode, Node: BabylonjsCoreNode,
     scene: BabylonjsCoreScene, Scene: BabylonjsCoreScene,
     camera: BabylonjsCoreCamera, Camera: BabylonjsCoreCamera,
     environmentHelper: BabylonjsCoreEnvironmentHelper, EnvironmentHelper: BabylonjsCoreEnvironmentHelper,
     effectLayer: BabylonjsCoreEffectLayer, EffectLayer: BabylonjsCoreEffectLayer,
     light: BabylonjsCoreLight, Light: BabylonjsCoreLight,
     material: BabylonjsCoreMaterial, Material: BabylonjsCoreMaterial,
+    abstractMesh: BabylonjsCoreAbstractMesh, AbstractMesh: BabylonjsCoreAbstractMesh,
     mesh: BabylonjsCoreMesh, Mesh: BabylonjsCoreMesh,
     meshBuilder: BabylonjsCoreMeshBuilder, MeshBuilder: BabylonjsCoreMeshBuilder,
+    transformNode: BabylonjsCoreTransformNode, TransformNode: BabylonjsCoreTransformNode,
     physicsImpostor: BabylonjsCorePhysicsImpostor, PhysicsImpostor: BabylonjsCorePhysicsImpostor,
     advancedDynamicTexture: BabylonjsGuiAdvancedDynamicTexture, AdvancedDynamicTexture: BabylonjsGuiAdvancedDynamicTexture,
     gui3DManager: BabylonjsGuiGUI3DManager, GUI3DManager: BabylonjsGuiGUI3DManager,
@@ -12482,8 +12822,12 @@ const classesMap: object = {
     control: BabylonjsGuiControl, Control: BabylonjsGuiControl,
     textBlock: BabylonjsGuiTextBlock, TextBlock: BabylonjsGuiTextBlock,
     control3D: BabylonjsGuiControl3D, Control3D: BabylonjsGuiControl3D,
-    transformNode: BabylonjsCoreTransformNode, TransformNode: BabylonjsCoreTransformNode,
-    abstractMesh: BabylonjsCoreAbstractMesh, AbstractMesh: BabylonjsCoreAbstractMesh,
+    node: BabylonjsCoreNode, Node: BabylonjsCoreNode,
+    instancedMesh: BabylonjsCoreInstancedMesh, InstancedMesh: BabylonjsCoreInstancedMesh,
+    instancedLinesMesh: BabylonjsCoreInstancedLinesMesh, InstancedLinesMesh: BabylonjsCoreInstancedLinesMesh,
+    linesMesh: BabylonjsCoreLinesMesh, LinesMesh: BabylonjsCoreLinesMesh,
+    groundMesh: BabylonjsCoreGroundMesh, GroundMesh: BabylonjsCoreGroundMesh,
+    trailMesh: BabylonjsCoreTrailMesh, TrailMesh: BabylonjsCoreTrailMesh,
     renderTargetTexture: BabylonjsCoreRenderTargetTexture, RenderTargetTexture: BabylonjsCoreRenderTargetTexture,
     targetCamera: BabylonjsCoreTargetCamera, TargetCamera: BabylonjsCoreTargetCamera,
     freeCamera: BabylonjsCoreFreeCamera, FreeCamera: BabylonjsCoreFreeCamera,
@@ -12586,15 +12930,16 @@ const classesMap: object = {
 export const intrinsicClassMap: object = {
     dynamicTerrain: 'DynamicTerrain',
     abstractScene: 'AbstractScene',
-    node: 'Node',
     scene: 'Scene',
     camera: 'Camera',
     environmentHelper: 'EnvironmentHelper',
     effectLayer: 'EffectLayer',
     light: 'Light',
     material: 'Material',
+    abstractMesh: 'AbstractMesh',
     mesh: 'Mesh',
     meshBuilder: 'MeshBuilder',
+    transformNode: 'TransformNode',
     physicsImpostor: 'PhysicsImpostor',
     advancedDynamicTexture: 'AdvancedDynamicTexture',
     gui3DManager: 'GUI3DManager',
@@ -12613,8 +12958,12 @@ export const intrinsicClassMap: object = {
     control: 'Control',
     textBlock: 'TextBlock',
     control3D: 'Control3D',
-    transformNode: 'TransformNode',
-    abstractMesh: 'AbstractMesh',
+    node: 'Node',
+    instancedMesh: 'InstancedMesh',
+    instancedLinesMesh: 'InstancedLinesMesh',
+    linesMesh: 'LinesMesh',
+    groundMesh: 'GroundMesh',
+    trailMesh: 'TrailMesh',
     renderTargetTexture: 'RenderTargetTexture',
     targetCamera: 'TargetCamera',
     freeCamera: 'FreeCamera',

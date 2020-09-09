@@ -30,7 +30,7 @@ With declarative (TSX/JSX) coding and HMR, you experience the same development w
 ![BabylonJS HMR](https://raw.githubusercontent.com/brianzinn/react-babylonjs/master/media/react-babylonjs-hmr.gif)
 
 # @babylonjs/core API Support
-1. **Node -> Mesh** - abstractMesh, mesh, node, transformNode
+1. **Node -> Mesh** - abstractMesh, groundMesh, instancedLinesMesh, instancedMesh, linesMesh, mesh, node, transformNode, trailMesh
 
 2. **Cameras** - anaglyphArcRotateCamera, anaglyphFreeCamera, anaglyphGamepadCamera, anaglyphUniversalCamera, arcFollowCamera, arcRotateCamera, camera, deviceOrientationCamera, flyCamera, followCamera, freeCamera, gamepadCamera, stereoscopicArcRotateCamera, stereoscopicFreeCamera, stereoscopicGamepadCamera, stereoscopicUniversalCamera, targetCamera, touchCamera, universalCamera, virtualJoysticksCamera, vrDeviceOrientationArcRotateCamera, vrDeviceOrientationFreeCamera, vrDeviceOrientationGamepadCamera, webVrFreeCamera, webXrCamera
 

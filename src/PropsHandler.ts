@@ -312,6 +312,18 @@ export const checkControlDiff = (oldProp: Control | undefined, newProp: Control 
   })
 }
 
+export const checkObjectDiff = (oldProp: object | undefined, newProp: object | undefined, propertyName: string, changedProps: PropertyUpdate[]): void => {
+  propertyCheck<object>(oldProp, newProp, propertyName, PropChangeType.Primitive, changedProps, (oldProp, newProp, changedProps) => {
+    if (newProp !== oldProp) {
+      changedProps.push({
+        propertyName,
+        changeType: PropChangeType.Primitive,
+        value: newProp
+      })
+    }
+  })
+}
+
 export type PrimitiveType = string | number | undefined | null | boolean;
 
 export const checkPrimitiveDiff = (oldProp: PrimitiveType | undefined, newProp: PrimitiveType | undefined, propertyName: string, changedProps: PropertyUpdate[]): void => {

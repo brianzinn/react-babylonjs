@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Engine, Scene, useCustomPropsHandler, CustomPropsHandler, PropChangeType } from 'react-babylonjs';
 import { animated as a } from 'react-babylon-spring';
 import { Vector3, Color3, Texture, Mesh } from '@babylonjs/core';
-import { Controls, useControl } from 'react-three-gui';
+import { Controls, useControl, ControlsContext } from 'react-three-gui';
 
 import '../../style.css'
 
@@ -125,18 +125,52 @@ const Box = () => {
 }
 
 export const ReactThreeGui = () => {
+    const [controls, setControls] = React.useState([]);
+    // Persist values between reloads
+    const values = React.useRef(new Map());
+    // GUI control state setters
+    const gui = React.useRef(new Map());
+    // useControl state setters
+    const state = React.useRef(new Map());
+    
+    const context = {
+        values,
+        gui,
+        state,
+        controls,
+        addControl: (control) => {
+            control.id = String(Math.random());
+            setControls(ctrls => {
+                // control.id = control.id ?? String(ctrls.length);
+                return [...ctrls, control];
+            });
+            return control;
+        },
+        removeControl: (ctrl) => {
+            setControls(ctrls => ctrls.filter(c => c.id !== ctrl.id));
+        },
+    };
+
     return (
         <div>
-            <Engine antialias adaptToDeviceRatio canvasId='babylonCanvas'>
-                <Scene>
-                    <pointLight position={new Vector3(0, 2, 2)} intensity={0.2} />
-                    <hemisphericLight name='light1' intensity={0.7} direction={Vector3.Up()} />
-                    <arcRotateCamera name="arc" target={new Vector3(0, 1, 0)} minZ={0.001}
-                        alpha={-Math.PI / 2} beta={(0.5 + (Math.PI / 4))} radius={5} />
-                    <Box />
-                </Scene>
-            </Engine>
-            <Controls />
+            <ControlsContext.Provider value={context}>
+            <ControlsContext.Consumer>
+                {value => (
+                <Engine antialias adaptToDeviceRatio canvasId='babylonCanvas'>
+                    <Scene>
+                        <pointLight position={new Vector3(0, 2, 2)} intensity={0.2} />
+                        <hemisphericLight name='light1' intensity={0.7} direction={Vector3.Up()} />
+                        <arcRotateCamera name="arc" target={new Vector3(0, 1, 0)} minZ={0.001}
+                            alpha={-Math.PI / 2} beta={(0.5 + (Math.PI / 4))} radius={5} />
+                        <ControlsContext.Provider value={value}>
+                            <Box />
+                        </ControlsContext.Provider>
+                    </Scene>
+                </Engine>
+                )}
+                </ControlsContext.Consumer>
+                <Controls />
+            </ControlsContext.Provider>
         </div>
     );
 };

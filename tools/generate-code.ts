@@ -16,6 +16,7 @@ import {
   ParameterDeclaration,
   WriterFunction,
   OptionalKind,
+  PropertySignature,
   PropertySignatureStructure,
   Writers,
   ImportDeclarationStructure,
@@ -128,7 +129,8 @@ const PROPS_EXPORTS: string[] = []; // used to put all props in single import.
 let classesOfInterest: Map<String, ClassNameSpaceTuple | undefined> = new Map<String, ClassNameSpaceTuple | undefined>();
 
 // always needed:
-classesOfInterest.set("Node", undefined)
+classesOfInterest.set("TransformNode", undefined)
+classesOfInterest.set("AbstractMesh", undefined);
 classesOfInterest.set("Mesh", undefined);
 classesOfInterest.set("AbstractScene", undefined);
 classesOfInterest.set("Scene", undefined);
@@ -367,6 +369,9 @@ const addProject = (packageNames: string[], files: string[], sourceFiles: Source
           // adding Scene monkey patch only for now (babylonjs/core/Physics/physicsEngineComponent), but could find way to do all.
           monkeyPatchInterfaces.set(interfaceDeclaration.getName(), [interfaceDeclaration])
         }
+        if (interfaceDeclaration.getName() === 'AbstractMesh' && interfaceDeclaration.getProperties().find(prop => prop.getName() === 'instancedBuffers')) {
+          monkeyPatchInterfaces.set(interfaceDeclaration.getName(), [interfaceDeclaration])
+        }
       })
       ns.getClasses().forEach((classDeclaration: ClassDeclaration) => {
         addSourceClass(classDeclaration, sourceFiles);
@@ -405,6 +410,8 @@ const addMetadata = (classDeclaration: ClassDeclaration, originalClassDeclaratio
   createInfoProperty.setInitializer(JSON.stringify(propertyInit, null, 2))
 }
 
+const createdFactoryClasses: string[] = [];
+
 /**
  * Create Element from static factory function
  * @param factoryClassName
@@ -428,7 +435,7 @@ const createFactoryClass = (factoryClassName: string, hostClassName: string, pre
         ? methodName.substr('Create'.length)
         : methodName; // ie: ExtrudePolygon, ExtrudeShape & ExtrudeShapeCustom
       factoryType = prefix + factoryType;
-      createdMeshClasses.push(factoryType);
+      createdFactoryClasses.push(factoryType);
 
       addHostElement(factoryType, hostTuple.classDeclaration);
       let newClassDeclaration: ClassDeclaration = addClassDeclarationFromFactoryMethod(generatedCodeSourceFile, factoryType, classesOfInterest.get(hostClassName)!.classDeclaration, method);
@@ -437,21 +444,8 @@ const createFactoryClass = (factoryClassName: string, hostClassName: string, pre
       addMetadata(newClassDeclaration, undefined /* no original class */, metadata)
     }
   });
-  console.log(`${factoryClassName} Factory - ${createdMeshClasses.sort((a, b) => a.localeCompare(b)).map(c => classToIntrinsic(c).replace(/['\u2019]/g, '')).join(', ')}`);
+  console.log(`${factoryClassName} Factory - ${createdFactoryClasses.sort((a, b) => a.localeCompare(b)).map(c => classToIntrinsic(c).replace(/['\u2019]/g, '')).join(', ')}`);
 };
-
-const createdMeshClasses: string[] = [];
-const createMeshClasses = (generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile) => {
-  createFactoryClass(
-    'MeshBuilder', 'Mesh', '', {
-    acceptsMaterials: true,
-    isNode: true,
-    isMesh: true
-  },
-    generatedCodeSourceFile,
-    generatedPropsSourceFile
-  );
-}
 
 const addClassDeclarationFromFactoryMethod = (generatedCodeSourceFile: SourceFile, className: string, classDeclaration: ClassDeclaration, factoryMethod: MethodDeclaration, extra?: (cd: ClassDeclaration) => void) => {
 
@@ -710,7 +704,7 @@ const getMethodType = (methodDeclaration: MethodDeclaration | MethodSignature, t
   return `(${paramTypes.join(', ')}) => ${returnType}`;
 }
 
-const writeMethodAsUpdateFunction = (propsProperties: OptionalKind<PropertySignatureStructure>[], method: MethodDeclaration, type: string): void => {
+const writeMethodAsUpdateFunction = (propsProperties: OptionalKind<PropertySignatureStructure>[], method: MethodDeclaration | MethodSignature, type: string): void => {
   const methodName = method.getName()
   // tempting to put the method signature here instead of 'any', but we need to be able to call it like:
   // <camera setTarget={} /> and TODO: figure out how with ie: ((target?: BabylonjsCoreVector3) => void;!!)
@@ -908,7 +902,7 @@ const isQuestionToken = (node: Node<ts.Node>): boolean => {
  * The odd parameters here 'classNameToGenerate' and 'classNameBabylon' are because we are also inventing classes not based on real BabylonJS objects (ie: Box, Sphere are actually Mesh)
  * It probably looks like we should just pass along the ClassDeclaration...
  */
-const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile, classNameToGenerate: string, babylonClassDeclaration: ModuleDeclaration, propertiesToAdd: (PropertyDeclaration | SetAccessorDeclaration)[], setMethods: MethodDeclaration[], baseClass: ClassDeclaration | undefined): void => {
+const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile, classNameToGenerate: string, babylonClassDeclaration: ModuleDeclaration, propertiesToAdd: (PropertyDeclaration | PropertySignature | SetAccessorDeclaration)[], setMethods: (MethodDeclaration | MethodSignature)[], baseClass: ClassDeclaration | undefined): void => {
   // console.log('addpropshandlers1:', classNameToGenerate, babylonClassDeclaration.className, babylonClassDeclaration.importAlias);
 
   const typeProperties: OptionalKind<PropertySignatureStructure>[] = []
@@ -938,7 +932,7 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
 
     // These properties break out to specific method handlers
     type PropertyKind = 'BabylonjsCoreBaseTexture' | 'BabylonjsCoreColor3' | 'BabylonjsCoreColor4' | 'BabylonjsCoreVector3' | 'BabylonjsCoreFresnelParameters' | 'BabylonjsCoreQuaternion' |
-      'BabylonjsGuiControl' | 'number[]' | 'lambda' | 'observable' | 'method' | 'primitive';
+      'BabylonjsGuiControl' | 'number[]' | 'lambda' | 'observable' | 'method' | 'primitive' | 'object';
     type NameAndType = {
       name: string
       type: string,
@@ -946,7 +940,28 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
     };
     const propsToCheck: NameAndType[] = [];
 
-    propertiesToAdd.sort((a, b) => a.getName().localeCompare(b.getName())).forEach((property: (PropertyDeclaration | SetAccessorDeclaration)) => {
+    if (monkeyPatchInterfaces.has(classNameToGenerate)) {
+      console.log(` > patching ${classNameToGenerate} with interface:`)
+      monkeyPatchInterfaces.get(classNameToGenerate)!.forEach((monkeyPatchInterface: InterfaceDeclaration) => {
+        monkeyPatchInterface.getProperties().filter(property => !property.getName().startsWith("_")).forEach(property => {
+          const type = createTypeFromText(property.getType().getText(), [generatedCodeSourceFile, generatedPropsSourceFile]);
+          const propertyName: string = property.getName();
+          console.log(` >> adding property '${propertyName}' -> ${type}`)
+          propertiesToAdd.push(property);
+        })
+        monkeyPatchInterface.getMethods().forEach(method => {
+          const type = getMethodType(method, [generatedCodeSourceFile, generatedPropsSourceFile]);
+  
+          if (type === null) {
+            return; // skip
+          }
+          const methodName = method.getName()
+          setMethods.push(method);
+        })
+      })
+    }
+
+    propertiesToAdd.sort((a, b) => a.getName().localeCompare(b.getName())).forEach((property: (PropertyDeclaration | PropertySignature | SetAccessorDeclaration)) => {
       const type = createTypeFromText(property.getType().getText(), [generatedCodeSourceFile, generatedPropsSourceFile]);
       const propertyName: string = property.getName();
 
@@ -1009,6 +1024,13 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
                 })
               }
               break;
+            case '{ [key: string]: any; }':
+              propsToCheck.push({
+                name: propertyName,
+                type,
+                propertyKind: 'object'
+              });
+              break;
             default:
               if (OBSERVABLE_PATTERN.test(type)) {
                 propsToCheck.push({
@@ -1035,7 +1057,7 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
       }
     })
 
-    setMethods.sort((a, b) => a.getName().localeCompare(b.getName())).forEach((method: MethodDeclaration) => {
+    setMethods.sort((a, b) => a.getName().localeCompare(b.getName())).forEach((method: MethodDeclaration | MethodSignature) => {
       const type = getMethodType(method, [generatedCodeSourceFile, generatedPropsSourceFile]);
       if (type !== null) {
         writeMethodAsUpdateFunction(typeProperties, method, type);
@@ -1046,7 +1068,7 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
           propertyKind: 'method'
         })
       }
-    })
+    });
 
     if (propsToCheck.filter(p => p.propertyKind !== undefined).length === 0) {
       propsToCheck.forEach(propToCheck => {
@@ -1072,6 +1094,9 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
               break;
             case 'BabylonjsCoreQuaternion':
               writer.writeLine(`checkQuaternionDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`);
+              break;
+            case 'object':
+              writer.writeLine(`checkObjectDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`);
               break;
             case 'primitive':
               if (propToCheck.name.indexOf('-') !== -1) /* ie: 'rotation-x' */ {
@@ -1111,34 +1136,6 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
       return writer.writeLine("return changedProps.length === 0 ? null : changedProps;");
     }
   })
-
-  if (monkeyPatchInterfaces.has(classNameToGenerate)) {
-    console.log(` > patching ${classNameToGenerate} with interface:`)
-    monkeyPatchInterfaces.get(classNameToGenerate)!.forEach((monkeyPatchInterface: InterfaceDeclaration) => {
-      monkeyPatchInterface.getProperties().filter(property => !property.getName().startsWith("_")).forEach(property => {
-        const type = createTypeFromText(property.getType().getText(), [generatedCodeSourceFile, generatedPropsSourceFile]);
-        const propertyName: string = property.getName();
-        typeProperties.push({
-          name: propertyName,
-          type: type,
-          hasQuestionToken: true
-        })
-      })
-      monkeyPatchInterface.getMethods().forEach(method => {
-        const type = getMethodType(method, [generatedCodeSourceFile, generatedPropsSourceFile]);
-
-        if (type === null) {
-          return; // skip
-        }
-        const methodName = method.getName()
-        typeProperties.push({
-          name: methodName,
-          type: 'any',
-          hasQuestionToken: true
-        })
-      })
-    })
-  }
 
   // this is temporary, where we give ALL classes these CustomProps.  Will be addressed (ideally we leave intersectsWith here 'undefined' and add ONLY valid props)
   const intersectsWith = baseClass === undefined ? 'CustomProps' : baseClass.getName();
@@ -1241,10 +1238,14 @@ const addCreateInfoFromConstructor = (sourceClass: ClassDeclaration, targetClass
   }
 
   // this is all kind of garbage now... we cannot dynamically generate like we did before :(
+  const moduleSpecifier = moduleDeclaration.moduleSpecifier;
+  const namespace = moduleSpecifier.startsWith('@babylonjs/')
+    ? moduleSpecifier.substr(0, moduleSpecifier.indexOf('/', '@babylonjs/'.length))
+    : moduleSpecifier;
   let value: CreateInfo = {
     creationType: CreationType.Constructor,
     libraryLocation: className!,
-    namespace: moduleDeclaration.moduleSpecifier,
+    namespace,
     parameters: constructorArguments
   }
 
@@ -1422,6 +1423,7 @@ const generateCode = async () => {
       "checkLambdaDiff",
       "checkMethodDiff",
       "checkNumericArrayDiff",
+      "checkObjectDiff",
       "checkObservableDiff",
       "checkPrimitiveDiff",
       "checkQuaternionDiff",
@@ -1492,7 +1494,8 @@ const generateCode = async () => {
 
   })
   // This includes Node, which is base class for ie: Camera, Mesh, etc.
-  createClassesDerivedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Mesh")!, {}, undefined)
+  createClassesDerivedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("TransformNode")!, {}, undefined);
+  createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("AbstractMesh")!, () => ({isNode: true}));
 
   const extra = (newClassDeclaration: ClassDeclaration, originalClassDeclaration: ClassDeclaration) => {
     // consider having targetable as metadata.
@@ -1523,7 +1526,18 @@ const generateCode = async () => {
   }
 
   if (classesOfInterest.get("MeshBuilder") !== undefined) {
-    createMeshClasses(generatedCodeSourceFile, generatedPropsSourceFile);
+    createFactoryClass(
+      "MeshBuilder",
+      "Mesh",
+      "",
+      {
+        acceptsMaterials: true,
+        isNode: true,
+        isMesh: true
+      },
+      generatedCodeSourceFile,
+      generatedPropsSourceFile
+    );
   }
 
   if (classesOfInterest.get("Material")) {
@@ -1682,7 +1696,7 @@ const generateCode = async () => {
         .map(([alias, className]) =>
           `${classToIntrinsic(className)}:'${className}'`)
         .join(',\n')},
-          ${createdMeshClasses.map(meshName =>
+          ${createdFactoryClasses.map(meshName =>
           `${classToIntrinsic(meshName)}:'${meshName}'`)
           .join(',\n')}
         }`
