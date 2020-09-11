@@ -1493,9 +1493,9 @@ const generateCode = async () => {
     name: "IntrinsicElements",
 
   })
-  // This includes Node, which is base class for ie: Camera, Mesh, etc.
-  createClassesDerivedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("TransformNode")!, {}, undefined);
-  createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("AbstractMesh")!, () => ({isNode: true}));
+  // This includes Node, which is base class for ie: Camera, Mesh, etc. (inheriting from Node would add new things like TextureDome)
+  createClassesDerivedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("TransformNode")!, { isNode: true }, undefined);
+  createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("AbstractMesh")!, () => ({isNode: true, acceptsMaterials: true, isMesh: true}));
 
   const extra = (newClassDeclaration: ClassDeclaration, originalClassDeclaration: ClassDeclaration) => {
     // consider having targetable as metadata.
