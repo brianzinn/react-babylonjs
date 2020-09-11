@@ -299,62 +299,75 @@ const ReactBabylonJSHostConfig: HostConfig<
 
     // console.log(`creating: ${createInfoArgs.namespace}.${type}`)
     let generatedParameters: GeneratedParameter[] = createInfoArgs.parameters
-
-    // console.log("generated params:", generatedParameters)
-
-    let args = generatedParameters.map(generatedParameter => {
-      if (Array.isArray(generatedParameter.type)) {
-        // TODO: if all props are missing, warn if main prop (ie: options) is required.
-        let newParameter = {} as any
-        generatedParameter.type.forEach(subParameter => {
-          let subPropValue = props[subParameter.name]
-          if (subPropValue === undefined && subParameter.optional === false && generatedParameter.optional === false) {
-            console.warn("Missing a required secondary property:", subParameter.name)
-          } else {
-            newParameter[subParameter.name] = subPropValue
-          }
-        })
-        return newParameter
-      } else {
-        let value = props[generatedParameter.name]
-        if (value === undefined) {
-          // NOTE: we removed the hosted Scene component, which needs (generatedParameter.type == "BabylonjsCoreEngine")
-          // SceneOrEngine type is Scene
-          if (generatedParameter.type.includes("BabylonjsCoreScene") || (generatedParameter.type === "any" && generatedParameter.name === "scene")) {
-            // MeshBuild.createSphere(name: string, options: {...}, scene: any)
-            // console.log('Assigning scene to:', type, generatedParameter)
-            value = scene
-          } else if (generatedParameter.optional === false) {
-            console.warn(`required parameter for ${type} unassigned -> ${generatedParameter.name}:${generatedParameter.type}`);
-          }
-        }
-
-        if (value === undefined && generatedParameter.optional === false) {
-          console.warn(`On ${type} you are missing a non-optional parameter '${generatedParameter.name}' of type '${generatedParameter.type}'`)
-        }
-
-        return value
-      }
-    })
-
     let babylonObject: any | undefined = undefined
 
-    if (createInfoArgs.creationType === CreationType.FactoryMethod) {
-      // console.warn(`creating from Factory: ${createInfoArgs.libraryLocation}.${createInfoArgs.factoryMethod}(...args).  args:`, args)
-      babylonObject = GENERATED.babylonClassFactory(createInfoArgs.libraryLocation)[createInfoArgs.factoryMethod!](...args)
-    } else {
-      if (metadata.delayCreation !== true) {
-        if(createInfoArgs.namespace.startsWith('@babylonjs/')) {
-            const clazz: any = GENERATED.babylonClassFactory(type);
-            if (clazz === undefined) {
-              throw new Error(`Cannot generate '${type}' (react-babylonjs):`);
-            }
-            babylonObject = new clazz(...args)
-        } else if (createInfoArgs.namespace.startsWith('./extensions/')) {
-            const extClassName = (GENERATED.intrinsicClassMap as any)[type] || type;
-            babylonObject = new (BABYLONEXT as any)[extClassName](...args)
+    if (props.fromInstance !== undefined) {
+      if(createInfoArgs.namespace.startsWith('@babylonjs/')) {
+        const clazz: any = GENERATED.babylonClassFactory(type);
+        // instanceof will check prototype and derived classes (ie: can assign Mesh instance to a Node)
+        if (props.fromInstance instanceof clazz) {
+          babylonObject = props.fromInstance;
         } else {
-            console.error("metadata defines (or does not) a namespace that is known", createInfoArgs.namespace)
+          // prevent assigning incorrect type.
+          console.error('fromInstance wrong type.', props.fromInstance, clazz);
+        }
+      } else {
+        console.error('cannot generate non babylonjs using fromInstance');
+      }
+    } else {
+      // console.log("generated params:", generatedParameters)
+      let args = generatedParameters.map(generatedParameter => {
+        if (Array.isArray(generatedParameter.type)) {
+          // TODO: if all props are missing, warn if main prop (ie: options) is required.
+          let newParameter = {} as any
+          generatedParameter.type.forEach(subParameter => {
+            let subPropValue = props[subParameter.name]
+            if (subPropValue === undefined && subParameter.optional === false && generatedParameter.optional === false) {
+              console.warn("Missing a required secondary property:", subParameter.name)
+            } else {
+              newParameter[subParameter.name] = subPropValue
+            }
+          })
+          return newParameter
+        } else {
+          let value = props[generatedParameter.name]
+          if (value === undefined) {
+            // NOTE: we removed the hosted Scene component, which needs (generatedParameter.type == "BabylonjsCoreEngine")
+            // SceneOrEngine type is Scene
+            if (generatedParameter.type.includes("BabylonjsCoreScene") || (generatedParameter.type === "any" && generatedParameter.name === "scene")) {
+              // MeshBuild.createSphere(name: string, options: {...}, scene: any)
+              // console.log('Assigning scene to:', type, generatedParameter)
+              value = scene
+            } else if (generatedParameter.optional === false) {
+              console.warn(`required parameter for ${type} unassigned -> ${generatedParameter.name}:${generatedParameter.type}`);
+            }
+          }
+
+          if (value === undefined && generatedParameter.optional === false) {
+            console.warn(`On ${type} you are missing a non-optional parameter '${generatedParameter.name}' of type '${generatedParameter.type}'`)
+          }
+
+          return value
+        }
+      })
+
+      if (createInfoArgs.creationType === CreationType.FactoryMethod) {
+        // console.warn(`creating from Factory: ${createInfoArgs.libraryLocation}.${createInfoArgs.factoryMethod}(...args).  args:`, args)
+        babylonObject = GENERATED.babylonClassFactory(createInfoArgs.libraryLocation)[createInfoArgs.factoryMethod!](...args)
+      } else {
+        if (metadata.delayCreation !== true) {
+          if(createInfoArgs.namespace.startsWith('@babylonjs/')) {
+              const clazz: any = GENERATED.babylonClassFactory(type);
+              if (clazz === undefined) {
+                throw new Error(`Cannot generate '${type}' (react-babylonjs):`);
+              }
+              babylonObject = new clazz(...args)
+          } else if (createInfoArgs.namespace.startsWith('./extensions/')) {
+              const extClassName = (GENERATED.intrinsicClassMap as any)[type] || type;
+              babylonObject = new (BABYLONEXT as any)[extClassName](...args)
+          } else {
+              console.error("metadata defines (or does not) a namespace that is known", createInfoArgs.namespace)
+          }
         }
       }
     }

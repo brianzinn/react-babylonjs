@@ -482,6 +482,8 @@ export class FiberAbstractMesh implements HasPropsHandlers<FiberAbstractMeshProp
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "isNode": true,
+        "acceptsMaterials": true,
+        "isMesh": true,
         "className": "FiberAbstractMesh"
     };
 }
@@ -540,6 +542,8 @@ export class FiberInstancedMesh implements HasPropsHandlers<FiberAbstractMeshPro
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "isNode": true,
+        "acceptsMaterials": true,
+        "isMesh": true,
         "className": "FiberInstancedMesh"
     };
 }
@@ -597,6 +601,8 @@ export class FiberInstancedLinesMesh implements HasPropsHandlers<FiberAbstractMe
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "isNode": true,
+        "acceptsMaterials": true,
+        "isMesh": true,
         "className": "FiberInstancedLinesMesh"
     };
 }
@@ -690,6 +696,8 @@ export class FiberMesh implements HasPropsHandlers<FiberAbstractMeshProps> {
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "isNode": true,
+        "acceptsMaterials": true,
+        "isMesh": true,
         "className": "FiberMesh"
     };
 }
@@ -776,6 +784,8 @@ export class FiberLinesMesh implements HasPropsHandlers<FiberAbstractMeshProps> 
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "isNode": true,
+        "acceptsMaterials": true,
+        "isMesh": true,
         "className": "FiberLinesMesh"
     };
 }
@@ -833,6 +843,8 @@ export class FiberGroundMesh implements HasPropsHandlers<FiberAbstractMeshProps>
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "isNode": true,
+        "acceptsMaterials": true,
+        "isMesh": true,
         "className": "FiberGroundMesh"
     };
 }
@@ -908,6 +920,8 @@ export class FiberTrailMesh implements HasPropsHandlers<FiberAbstractMeshProps> 
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "isNode": true,
+        "acceptsMaterials": true,
+        "isMesh": true,
         "className": "FiberTrailMesh"
     };
 }
