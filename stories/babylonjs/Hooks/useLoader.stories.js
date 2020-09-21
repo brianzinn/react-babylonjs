@@ -9,17 +9,11 @@ const MemoGlTF = ({ position }) => {
     const url = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Box/glTF/Box.gltf';
     const [loaded, { meshes }] = useLoader(url);
 
-    useMemo(() => {
-        if (loaded) {
-            // if you need to re-use a mesh - use memoization
-            console.log('different meshes[1].uniqueId:', meshes[1].uniqueId)
+    if (loaded === false) {
+        return null;
+    }
 
-            meshes[1].position = position;
-            return meshes[1];
-        }
-    }, [loaded]);
-
-    return null;
+    return <mesh fromInstance={meshes[1]} position={position}/>;
 }
 
 export const UseLoader = () => (
