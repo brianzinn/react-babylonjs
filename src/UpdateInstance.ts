@@ -1,9 +1,9 @@
-import { Vector3, Color3, Color4, Quaternion } from '@babylonjs/core'
-import { PropertyUpdate, PropsHandler, PropChangeType } from "./PropsHandler"
-import { CreatedInstance } from "./CreatedInstance"
+import { Vector3, Color3, Color4, Quaternion } from '@babylonjs/core';
+import { PropertyUpdate, PropsHandler, PropChangeType } from './PropsHandler';
+import { CreatedInstance } from './CreatedInstance';
 
 export const applyUpdateToInstance = (hostInstance: any, update: PropertyUpdate, type: string | undefined): void => {
-  let target = update.target !== undefined ? hostInstance[update.target] : hostInstance
+  let target = update.target !== undefined ? hostInstance[update.target] : hostInstance;
 
   switch (update.changeType) {
     case PropChangeType.Primitive:
@@ -12,7 +12,7 @@ export const applyUpdateToInstance = (hostInstance: any, update: PropertyUpdate,
     case PropChangeType.Texture:
       // console.log(` > ${type}: updating ${update.changeType} on ${update.propertyName} to ${update.value}`)
       if (update.propertyName.indexOf('.') !== -1) {
-        const dotProps: string[] = update.propertyName.split('.')
+        const dotProps: string[] = update.propertyName.split('.');
         const lastProp = dotProps.pop()!;
         const newTarget = dotProps.reduce((target, prop) => target[prop], target);
         newTarget[lastProp] = update.value;
@@ -28,7 +28,7 @@ export const applyUpdateToInstance = (hostInstance: any, update: PropertyUpdate,
       } else {
         target[update.propertyName] = update.value; // ie: undefined/null?
       }
-      break
+      break;
     case PropChangeType.Color3:
     case PropChangeType.Color4:
       if (target[update.propertyName]) {
@@ -41,11 +41,11 @@ export const applyUpdateToInstance = (hostInstance: any, update: PropertyUpdate,
             break;
         }
       } else if (update.value) {
-        target[update.propertyName] = update.value.clone();;
+        target[update.propertyName] = update.value.clone();
       } else {
         target[update.propertyName] = update.value;
       }
-      break
+      break;
     case PropChangeType.Control:
       target[update.propertyName] = update.value;
       break;
@@ -58,30 +58,30 @@ export const applyUpdateToInstance = (hostInstance: any, update: PropertyUpdate,
     case PropChangeType.Method:
       if (typeof target[update.propertyName] === "function") {
         if (Array.isArray(update.value)) {
-          target[update.propertyName](...update.value)
+          target[update.propertyName](...update.value);
         } else if (Object(update.value) !== update.value) {
           // primitive, undefined & null.  Comparison is 7x slower than instanceof check,
           // TODO: should be: update.value === undefined || typeof(update.value) === 'number' || ...
-          target[update.propertyName](update.value)
+          target[update.propertyName](update.value);
         } else {
           // TODO: there is a bug here in that setTarget={new Vector3(0, 1, 0)} will throw an exception...
           console.error('need to make sure this isn\'t something like a Vector3 before destructuring')
-          target[update.propertyName](...Object.values(update.value))
+          target[update.propertyName](...Object.values(update.value));
         }
       } else {
-        console.error(`Cannot call [not a function] ${update.propertyName}(...) on:`, target)
+        console.error(`Cannot call [not a function] ${update.propertyName}(...) on:`, target);
       }
       break;
     case PropChangeType.Quaternion:
-        console.warn(`quaternion update detected ${update.propertyName} to:`, update.value)
-        if (target[update.propertyName]) {
-          (target[update.propertyName] as Quaternion).copyFrom(update.value);
-        } else if (update.value) {
-          target[update.propertyName] = (update.value as Quaternion).clone();
-        } else {
-          target[update.propertyName] = update.value; // ie: undefined/null?
-        }
-        break
+      // console.warn(`quaternion update detected ${update.propertyName} to:`, update.value)
+      if (target[update.propertyName]) {
+        (target[update.propertyName] as Quaternion).copyFrom(update.value);
+      } else if (update.value) {
+        target[update.propertyName] = (update.value as Quaternion).clone();
+      } else {
+        target[update.propertyName] = update.value; // ie: undefined/null?
+      }
+      break;
     default:
       console.error(`Unhandled property update of type '${update.changeType}'`);
       break;
@@ -108,15 +108,15 @@ export const applyInitialPropsToInstance = (instance: CreatedInstance<any>, prop
     let handlerUpdates: PropertyUpdate[] | null = propHandler.getPropertyUpdates(
       {}, // Here we will reapply things like 'name', so we could get default props from 'babylonObject'.
       props
-    )
+    );
     if (handlerUpdates !== null) {
-      initPayload.push(...handlerUpdates)
+      initPayload.push(...handlerUpdates);
     }
   })
 
   if (initPayload.length > 0) {
     initPayload.forEach(update => {
-      applyUpdateToInstance(instance.hostInstance, update, instance.metadata!.className)
+      applyUpdateToInstance(instance.hostInstance, update, instance.metadata!.className);
     })
   }
 }

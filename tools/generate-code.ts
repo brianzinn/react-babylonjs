@@ -30,7 +30,6 @@ import {
   NamespaceDeclaration,
   SetAccessorDeclaration,
   Type,
-  TypeGuards,
   Node,
   SyntaxKind,
   FormatCodeSettings,
@@ -153,6 +152,7 @@ classesOfInterest.set("VRExperienceHelper", undefined);
 classesOfInterest.set("DynamicTerrain", undefined);
 classesOfInterest.set("EffectLayer", undefined);
 classesOfInterest.set("Behavior", undefined);
+classesOfInterest.set("PointsCloudSystem", undefined);
 
 /**
  * In babylon.js, Behavior is a interface, not a class.
@@ -630,7 +630,7 @@ const getInstanceSetMethods = (classDeclaration: ClassDeclaration): MethodDeclar
   classDeclaration.getInstanceMethods().forEach((methodDeclaration: MethodDeclaration) => {
     const methodName = methodDeclaration.getName();
     // TODO: add ?
-    if (methodName.startsWith("set") || methodName.startsWith('add') || methodName === "translate") {
+    if (methodName.startsWith('set') || methodName.startsWith('add') || methodName === 'translate') {
       instanceSetMethods.push(methodDeclaration)
     }
   })
@@ -870,9 +870,9 @@ function isPrimitiveType(node: Node<ts.Node>): boolean {
     return false;
   }
 
-  const isTypeRef = TypeGuards.isTypeReferenceNode(node);
+  const isTypeRef = Node.isTypeReferenceNode(node);
   if (isTypeRef && node.getText().startsWith("Null")) {
-    const firstNode: Node<ts.Node> | undefined = node.forEachDescendantAsArray().find(desc => !TypeGuards.isIdentifier(desc));
+    const firstNode: Node<ts.Node> | undefined = node.forEachDescendantAsArray().find(desc => !Node.isIdentifier(desc));
     if (firstNode === undefined) {
       return false;
     }
@@ -970,23 +970,23 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
       let allPrimitives: boolean = false;
 
       const propertyDescendantsParametersAndExpressions = property.forEachDescendantAsArray().filter(desc =>
-        !TypeGuards.isIdentifier(desc) &&
-        !TypeGuards.isUnionTypeNode(desc) &&
-        !TypeGuards.isIntersectionTypeNode(desc) &&
+        !Node.isIdentifier(desc) &&
+        !Node.isUnionTypeNode(desc) &&
+        !Node.isIntersectionTypeNode(desc) &&
         !isQuestionToken(desc) &&
         desc.getKind() !== SyntaxKind.PublicKeyword &&
         desc.getKind() !== SyntaxKind.StaticKeyword // allow static setters (ie: AmbientTextureEnabled)
       );
-      const paramDeclaration: ParameterDeclaration | undefined = TypeGuards.isParameterDeclaration(propertyDescendantsParametersAndExpressions[0])
+      const paramDeclaration: ParameterDeclaration | undefined = Node.isParameterDeclaration(propertyDescendantsParametersAndExpressions[0])
         ? propertyDescendantsParametersAndExpressions[0] as ParameterDeclaration
         : undefined;
 
       if (paramDeclaration !== undefined) {
         const paramDescendants = paramDeclaration.forEachDescendantAsArray();
-        const expressions: Node<ts.Node>[] = paramDescendants.filter(desc => !TypeGuards.isIdentifier(desc) && !TypeGuards.isUnionTypeNode(desc));
+        const expressions: Node<ts.Node>[] = paramDescendants.filter(desc => !Node.isIdentifier(desc) && !Node.isUnionTypeNode(desc));
         allPrimitives = expressions.reduce<boolean>((result, expression) => result && isPrimitiveType(expression), true);
       } else {
-        if (propertyDescendantsParametersAndExpressions.every(desc => TypeGuards.isExpression(desc) || TypeGuards.isTypeReferenceNode(desc) /* ie: Nullable<> */)) {
+        if (propertyDescendantsParametersAndExpressions.every(desc => Node.isExpression(desc) || Node.isTypeReferenceNode(desc) /* ie: Nullable<> */)) {
           allPrimitives = propertyDescendantsParametersAndExpressions.reduce<boolean>((result, expression) => result && isPrimitiveType(expression), true);
         }
       }
@@ -1610,25 +1610,26 @@ const generateCode = async () => {
     createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("BaseTexture")!, fromClassName, onTexturesCreate);
   }
 
-  createSingleClass("GUI3DManager", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { isGUI3DControl: true }, () => { return; })
-  createSingleClass("ShadowGenerator", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true }, () => { return; })
-  createSingleClass("CascadedShadowGenerator", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true }, () => { return; })
-  createSingleClass("EnvironmentHelper", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { isEnvironment: true })
-  createSingleClass("PhysicsImpostor", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true })
-  createSingleClass("VRExperienceHelper", generatedCodeSourceFile, generatedPropsSourceFile)
-  createSingleClass("DynamicTerrain", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { acceptsMaterials: true })
+  createSingleClass("GUI3DManager", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { isGUI3DControl: true }, () => { return; });
+  createSingleClass("ShadowGenerator", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true }, () => { return; });
+  createSingleClass("CascadedShadowGenerator", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true }, () => { return; });
+  createSingleClass("EnvironmentHelper", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { isEnvironment: true });
+  createSingleClass("PhysicsImpostor", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true });
+  createSingleClass("VRExperienceHelper", generatedCodeSourceFile, generatedPropsSourceFile);
+  createSingleClass("DynamicTerrain", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { acceptsMaterials: true });
+  createSingleClass("PointsCloudSystem", generatedCodeSourceFile, generatedPropsSourceFile);
 
   classesOfInterest.forEach((_, className) => {
     if (className.includes('Behavior')) {
       createSingleClass(className as string, generatedCodeSourceFile,
         generatedPropsSourceFile, undefined, { isBehavior: true })
     }
-  })
+  });
 
   if (classesOfInterest.get("Scene")) {
     // Scene we only want to generate the handlers. Constructor is very simple - just an Engine
-    const sceneTuple: ClassNameSpaceTuple = classesOfInterest.get("Scene")!
-    const className: string = sceneTuple.classDeclaration.getName()!
+    const sceneTuple: ClassNameSpaceTuple = classesOfInterest.get("Scene")!;
+    const className: string = sceneTuple.classDeclaration.getName()!;
 
     const sceneClassDeclaration = getModuleDeclarationFromClassDeclaration(sceneTuple.classDeclaration);
 
@@ -1643,7 +1644,7 @@ const generateCode = async () => {
   generatedCodeSourceFile.addImportDeclaration({
     moduleSpecifier: "./generatedProps",
     namedImports: PROPS_EXPORTS
-  })
+  });
 
   // Need a set, since 'hostComponent' is set in both files.
   const factoryClasses: Map<string, string> = new Map<string, string>();
@@ -1653,13 +1654,13 @@ const generateCode = async () => {
       const sourceFile: SourceFile = fileModuleDeclarations[0].sourceFile;
       const importDeclaration: ImportDeclaration = sourceFile.addImportDeclaration({
         moduleSpecifier: fileModuleDeclarations[0].moduleDeclaration.moduleSpecifier
-      } as ImportDeclarationStructure)
+      } as ImportDeclarationStructure);
 
       fileModuleDeclarations.forEach((fileModuleDeclaration: FileModuleDeclaration) => {
         importDeclaration.addNamedImport({
           name: fileModuleDeclaration.moduleDeclaration.className,
           alias: fileModuleDeclaration.moduleDeclaration.importAlias
-        })
+        });
 
         if (fileModuleDeclaration.hostComponent && !factoryClasses.has(fileModuleDeclaration.moduleDeclaration.importAlias)) {
           factoryClasses.set(fileModuleDeclaration.moduleDeclaration.importAlias, fileModuleDeclaration.moduleDeclaration.className);

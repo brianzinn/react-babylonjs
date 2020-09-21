@@ -22,7 +22,7 @@ import { TransformNode as BabylonjsCoreTransformNode } from "@babylonjs/core/Mes
 import { AssetTaskState as BabylonjsCoreAssetTaskState } from "@babylonjs/core/Misc/assetsManager";
 import { InspectableType as BabylonjsCoreInspectableType, IInspectable as BabylonjsCoreIInspectable } from "@babylonjs/core/Misc/iInspectable";
 import { JoystickAxis as BabylonjsCoreJoystickAxis } from "@babylonjs/core/Misc/virtualJoystick";
-import { PointColor as BabylonjsCorePointColor } from "@babylonjs/core/Particles/pointsCloudSystem";
+import { PointsCloudSystem as BabylonjsCorePointsCloudSystem, PointColor as BabylonjsCorePointColor } from "@babylonjs/core/Particles/pointsCloudSystem";
 import { SubEmitterType as BabylonjsCoreSubEmitterType } from "@babylonjs/core/Particles/subEmitter";
 import { PhysicsRadialImpulseFalloff as BabylonjsCorePhysicsRadialImpulseFalloff, PhysicsUpdraftMode as BabylonjsCorePhysicsUpdraftMode } from "@babylonjs/core/Physics/physicsHelper";
 import { PhysicsImpostor as BabylonjsCorePhysicsImpostor, IPhysicsEnabledObject as BabylonjsCoreIPhysicsEnabledObject, PhysicsImpostorParameters as BabylonjsCorePhysicsImpostorParameters } from "@babylonjs/core/Physics/physicsImpostor";
@@ -200,6 +200,7 @@ import { PhysicsJoint as BabylonjsCorePhysicsJoint } from "@babylonjs/core/Physi
 import { PickingInfo as BabylonjsCorePickingInfo } from "@babylonjs/core/Collisions/pickingInfo";
 import { WebXRDefaultExperience as BabylonjsCoreWebXRDefaultExperience } from "@babylonjs/core/XR/webXRDefaultExperience";
 import { SolidParticleSystem as BabylonjsCoreSolidParticleSystem } from "@babylonjs/core/Particles/solidParticleSystem";
+import { CloudPoint as BabylonjsCoreCloudPoint } from "@babylonjs/core/Particles/cloudPoint";
 import { IPhysicsEnginePlugin as BabylonjsCoreIPhysicsEnginePlugin } from "@babylonjs/core/Physics/IPhysicsEngine";
 import { Collider as BabylonjsCoreCollider } from "@babylonjs/core/Collisions/collider";
 import { Ray as BabylonjsCoreRay } from "@babylonjs/core/Culling/ray";
@@ -372,6 +373,7 @@ declare global {
             physicsImpostor: FiberPhysicsImpostorProps & FiberPhysicsImpostorPropsCtor & BabylonNode<BabylonjsCorePhysicsImpostor>;
             vrExperienceHelper: FiberVRExperienceHelperProps & FiberVRExperienceHelperPropsCtor & BabylonNode<BabylonjsCoreVRExperienceHelper>;
             dynamicTerrain: FiberDynamicTerrainProps & FiberDynamicTerrainPropsCtor & BabylonNode<ExtensionsDynamicTerrain>;
+            pointsCloudSystem: FiberPointsCloudSystemProps & FiberPointsCloudSystemPropsCtor & BabylonNode<BabylonjsCorePointsCloudSystem>;
             autoRotationBehavior: FiberAutoRotationBehaviorProps & FiberAutoRotationBehaviorPropsCtor & BabylonNode<BabylonjsCoreAutoRotationBehavior>;
             bouncingBehavior: FiberBouncingBehaviorProps & FiberBouncingBehaviorPropsCtor & BabylonNode<BabylonjsCoreBouncingBehavior>;
             framingBehavior: FiberFramingBehaviorProps & FiberFramingBehaviorPropsCtor & BabylonNode<BabylonjsCoreFramingBehavior>;
@@ -2862,6 +2864,29 @@ export type FiberDynamicTerrainPropsCtor = {
     SPcolorData?: number[][] | Float32Array[];
     SPuvData?: number[][] | Float32Array[];
     intializedCallback?: any;
+};
+export type FiberPointsCloudSystemProps = {
+    addPoints?: any;
+    addSurfacePoints?: any;
+    addVolumePoints?: any;
+    computeBoundingBox?: boolean;
+    computeParticleColor?: boolean;
+    computeParticleRotation?: boolean;
+    computeParticleTexture?: boolean;
+    counter?: number;
+    isAlwaysVisible?: boolean;
+    mesh?: BabylonjsCoreMesh;
+    name?: string;
+    nbParticles?: number;
+    particles?: BabylonjsCoreCloudPoint[];
+    setParticles?: any;
+    setVisibilityBox?: any;
+    vars?: any;
+} & CustomProps;
+export type FiberPointsCloudSystemPropsCtor = {
+    name: string;
+    pointSize: number;
+    updatable?: boolean;
 };
 export type FiberAutoRotationBehaviorProps = {
     idleRotationSpeed?: number;

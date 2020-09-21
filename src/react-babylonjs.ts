@@ -1,7 +1,7 @@
 export * from "./generatedCode";
 export * from "./generatedProps";
 export * from "./hooks";
-export { useLoader } from './hooks/useLoader'
+export * from './hooks/index'
 export * from "./customComponents";
 export * from "./PropsHandler";
 export { applyInitialPropsToInstance } from './UpdateInstance'; // Imported by react-babylonjs-spring
