@@ -1,4 +1,4 @@
-name: make_release
+name: make_patch_release
 
 on:
   workflow_dispatch:
@@ -15,13 +15,20 @@ jobs:
         with:
           node-version: '12.x'
           registry-url: 'https://registry.npmjs.org'
+          scope: brianzinn
+          
+      - name: Configure git
+        run: |
+          git config user.email "github@wakeskate.com"
+          git config user.name "Brian Zinn"
 
       - name: install-build
         run: |
           yarn install
           yarn build
-
-      - name: publish
-        run: npm publish
+      - run: npm version patch -m "Release %s :package:"
+      - run: git push && git push --tags
+      - name: publish-npm
+        run: npm publish --access public
         env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
