@@ -2,6 +2,11 @@ name: make_patch_release
 
 on:
   workflow_dispatch:
+    inputs:
+      npmVersion:
+        description: 'NPM Version (<newversion> | major | minor | patch | premajor | preminor | prepatch | prerelease | ...)'
+        required: true
+        default: 'patch'
 # push:
 #    branches: [ master ]
   
@@ -26,7 +31,8 @@ jobs:
         run: |
           yarn install
           yarn build
-      - run: npm version patch -m "Release %s :package:"
+      - run echo "${{ github.event.inputs.npmVersion }}"
+      - run: npm version ${{ github.event.inputs.npmVersion }} -m "Release %s :package:"
       - run: git push && git push --tags
       - name: publish-npm
         run: npm publish --access public
