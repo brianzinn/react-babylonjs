@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { AbstractAssetTask, AssetsManager, EventState, IAssetsProgressEvent, Nullable, Scene } from "@babylonjs/core";
 import { useBabylonScene } from "../Scene";
+import { isNullOrUndefined } from 'util';
 
 export enum TaskType {
     Binary = 'Binary',
@@ -54,6 +55,17 @@ export type AssetManagerOptions = {
     scene?: Scene
 }
 
+const getTaskKey = (task: Task): string | undefined => {
+    switch(task.taskType) {
+        case TaskType.Binary:
+            return `binary:${task.url}`;
+        case TaskType.Mesh:
+            return `mesh:${task.rootUrl}/${task.sceneFilename}`
+        default:
+            console.error(`unsupported task type in: ${JSON.stringify(task)}`);
+    }
+}
+
 /**
  * This has limited functionality, since it only works for binary assets currently.
  * 
@@ -64,6 +76,9 @@ export type AssetManagerOptions = {
 const useAssetManagerWithCache = () => {
     // we need our own memoized cache. useMemo, useState, etc. fail miserably - throwing a promise forces the component to remount.
     const suspenseCache: Record<string, () => Nullable<AbstractAssetTask[]>> = {};
+
+    // TODO: do we need this?
+    const completedCache: Record<string, AbstractAssetTask> = {};
 
     return (tasks: Task[], options?: AssetManagerOptions) => {
         const hookScene = useBabylonScene();
@@ -83,29 +98,49 @@ const useAssetManagerWithCache = () => {
                 throw new Error('useAssetManager can only be used inside a Scene component (or pass scene as a prop)')
             }
 
-            const assetManager: AssetsManager = new AssetsManager(opts.scene || hookScene!);
+            const newRequests: Map<AbstractAssetTask, Task> = new Map<AbstractAssetTask, Task>();
 
+            const assetManager: AssetsManager = new AssetsManager(opts.scene || hookScene!);
+            const cachedTasks: any[] = [];
             tasks.forEach(task => {
-                switch (task.taskType) {
-                    case TaskType.Binary:
-                        assetManager.addBinaryFileTask(task.name, task.url);
-                        break;
-                    case TaskType.Mesh:
-                        assetManager.addMeshTask(`${task.sceneFilename}`, task.meshesNames, task.rootUrl, task.sceneFilename);
-                        break;
-                    default:
-                        throw new Error(`Only binary/mesh supported currently.  'taskType' found on ${JSON.stringify(task)}`);
+                const key = getTaskKey(task);
+                if (key !== undefined && suspenseCache[key]) {
+                    cachedTasks.push(suspenseCache[key]);
+                } else {
+                    switch (task.taskType) {
+                        case TaskType.Binary:
+                            const binaryTask = assetManager.addBinaryFileTask(task.name, task.url);
+                            newRequests.set(binaryTask, task);
+                            break;
+                        case TaskType.Mesh:
+                            const meshTask = assetManager.addMeshTask(`${task.sceneFilename}`, task.meshesNames, task.rootUrl, task.sceneFilename);
+                            newRequests.set(meshTask, task);
+                            break;
+                        default:
+                            throw new Error(`Only binary/mesh supported currently.  'taskType' found on ${JSON.stringify(task)}`);
+                    }
                 }
             })
 
-            const taskPromise = new Promise<AbstractAssetTask[]>((resolve, reject) => {
+            const taskPromise = (tasks.length === cachedTasks.length)
+                ? new Promise<AbstractAssetTask[]>(resolve => resolve(cachedTasks))
+                : new Promise<AbstractAssetTask[]>((resolve, reject) => {
                 let failed = false
                 assetManager.useDefaultLoadingScreen = opts.useDefaultLoadingScreen;
                 assetManager.onFinish = (tasks: AbstractAssetTask[]) => {
+                    // whether it failed or not - we cache all results
+                    tasks.forEach(task => {
+                        if (newRequests.has(task)) {
+                            // NOTE: we can skip caching failed requests (ie: due to temporary outage / 500)
+                            const originalTask: Task = newRequests.get(task)!;
+                            const key = getTaskKey(originalTask)!;
+                            completedCache[key] = task;
+                        }
+                    })
                     if (failed === false) {
-                        // setTimeout(() => { /* for testing delays */
-                        resolve(tasks);
-                        // }, 3000);
+                        // include cached ones as well.
+                        const allTasks = tasks.concat(cachedTasks);
+                        resolve(allTasks);
                     }
                 };
 
