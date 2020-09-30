@@ -630,7 +630,7 @@ const getInstanceSetMethods = (classDeclaration: ClassDeclaration): MethodDeclar
   classDeclaration.getInstanceMethods().forEach((methodDeclaration: MethodDeclaration) => {
     const methodName = methodDeclaration.getName();
     // TODO: add ?
-    if (methodName.startsWith('set') || methodName.startsWith('add') || methodName === 'translate') {
+    if (methodName.startsWith('set') || methodName.startsWith('add') || methodName.startsWith('enable') || methodName === 'translate') {
       instanceSetMethods.push(methodDeclaration)
     }
   })

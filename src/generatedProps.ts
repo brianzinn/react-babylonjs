@@ -39,7 +39,7 @@ import { FadeInOutBehavior as BabylonjsCoreFadeInOutBehavior } from "@babylonjs/
 import { MultiPointerScaleBehavior as BabylonjsCoreMultiPointerScaleBehavior } from "@babylonjs/core/Behaviors/Meshes/multiPointerScaleBehavior";
 import { PointerDragBehavior as BabylonjsCorePointerDragBehavior } from "@babylonjs/core/Behaviors/Meshes/pointerDragBehavior";
 import { SixDofDragBehavior as BabylonjsCoreSixDofDragBehavior } from "@babylonjs/core/Behaviors/Meshes/sixDofDragBehavior";
-import { VRExperienceHelper as BabylonjsCoreVRExperienceHelper, OnAfterEnteringVRObservableEvent as BabylonjsCoreOnAfterEnteringVRObservableEvent, VRExperienceHelperOptions as BabylonjsCoreVRExperienceHelperOptions } from "@babylonjs/core/Cameras/VR/vrExperienceHelper";
+import { VRExperienceHelper as BabylonjsCoreVRExperienceHelper, OnAfterEnteringVRObservableEvent as BabylonjsCoreOnAfterEnteringVRObservableEvent, VRExperienceHelperOptions as BabylonjsCoreVRExperienceHelperOptions, VRTeleportationOptions as BabylonjsCoreVRTeleportationOptions } from "@babylonjs/core/Cameras/VR/vrExperienceHelper";
 import { PoseEnabledControllerType as BabylonjsCorePoseEnabledControllerType } from "@babylonjs/core/Gamepads/Controllers/poseEnabledController";
 import { CascadedShadowGenerator as BabylonjsCoreCascadedShadowGenerator } from "@babylonjs/core/Lights/Shadows/cascadedShadowGenerator";
 import { ShadowGenerator as BabylonjsCoreShadowGenerator, ICustomShaderOptions as BabylonjsCoreICustomShaderOptions } from "@babylonjs/core/Lights/Shadows/shadowGenerator";
@@ -466,6 +466,7 @@ export type FiberAbstractMeshProps = {
     'ellipsoidOffset-x'?: number;
     'ellipsoidOffset-y'?: number;
     'ellipsoidOffset-z'?: number;
+    enableEdgesRendering?: any;
     enablePointerMoveEvents?: boolean;
     facetDepthSortFrom?: BabylonjsCoreVector3;
     'facetDepthSortFrom-x'?: number;
@@ -723,6 +724,7 @@ export type FiberStereoscopicUniversalCameraPropsCtor = {
 };
 export type FiberDeviceOrientationCameraProps = {
     disablePointerInputWhenUsingDeviceOrientation?: boolean;
+    enableHorizontalDragging?: any;
 } & FiberFreeCameraProps;
 export type FiberDeviceOrientationCameraPropsCtor = {
     name: string;
@@ -2785,6 +2787,7 @@ export type FiberVRExperienceHelperProps = {
     displayLaserPointer?: boolean;
     displayVRButton?: any;
     enableGazeEvenWhenNoPointerLock?: boolean;
+    enableTeleportation?: any;
     exitVROnDoubleTap?: boolean;
     gazeTrackerMesh?: BabylonjsCoreMesh;
     meshSelectionPredicate?: (mesh: BabylonjsCoreAbstractMesh) => boolean;

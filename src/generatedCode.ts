@@ -39,7 +39,7 @@ import { FadeInOutBehavior as BabylonjsCoreFadeInOutBehavior } from "@babylonjs/
 import { MultiPointerScaleBehavior as BabylonjsCoreMultiPointerScaleBehavior } from "@babylonjs/core/Behaviors/Meshes/multiPointerScaleBehavior";
 import { PointerDragBehavior as BabylonjsCorePointerDragBehavior } from "@babylonjs/core/Behaviors/Meshes/pointerDragBehavior";
 import { SixDofDragBehavior as BabylonjsCoreSixDofDragBehavior } from "@babylonjs/core/Behaviors/Meshes/sixDofDragBehavior";
-import { VRExperienceHelper as BabylonjsCoreVRExperienceHelper, OnAfterEnteringVRObservableEvent as BabylonjsCoreOnAfterEnteringVRObservableEvent, VRExperienceHelperOptions as BabylonjsCoreVRExperienceHelperOptions } from "@babylonjs/core/Cameras/VR/vrExperienceHelper";
+import { VRExperienceHelper as BabylonjsCoreVRExperienceHelper, OnAfterEnteringVRObservableEvent as BabylonjsCoreOnAfterEnteringVRObservableEvent, VRExperienceHelperOptions as BabylonjsCoreVRExperienceHelperOptions, VRTeleportationOptions as BabylonjsCoreVRTeleportationOptions } from "@babylonjs/core/Cameras/VR/vrExperienceHelper";
 import { PoseEnabledControllerType as BabylonjsCorePoseEnabledControllerType } from "@babylonjs/core/Gamepads/Controllers/poseEnabledController";
 import { CascadedShadowGenerator as BabylonjsCoreCascadedShadowGenerator } from "@babylonjs/core/Lights/Shadows/cascadedShadowGenerator";
 import { ShadowGenerator as BabylonjsCoreShadowGenerator, ICustomShaderOptions as BabylonjsCoreICustomShaderOptions } from "@babylonjs/core/Lights/Shadows/shadowGenerator";
@@ -433,6 +433,7 @@ export class FiberAbstractMeshPropsHandler implements PropsHandler<FiberAbstract
         checkPrimitiveDiff(oldProps.useVertexColors, newProps.useVertexColors, 'useVertexColors', changedProps)
         checkPrimitiveDiff(oldProps.visibility, newProps.visibility, 'visibility', changedProps)
         checkMethodDiff(oldProps.addChild, newProps.addChild, 'addChild', changedProps)
+        checkMethodDiff(oldProps.enableEdgesRendering, newProps.enableEdgesRendering, 'enableEdgesRendering', changedProps)
         checkMethodDiff(oldProps.setBoundingInfo, newProps.setBoundingInfo, 'setBoundingInfo', changedProps)
         checkMethodDiff(oldProps.setIndices, newProps.setIndices, 'setIndices', changedProps)
         checkMethodDiff(oldProps.setVerticesData, newProps.setVerticesData, 'setVerticesData', changedProps)
@@ -1685,6 +1686,7 @@ export class FiberDeviceOrientationCameraPropsHandler implements PropsHandler<Fi
     getPropertyUpdates(oldProps: FiberDeviceOrientationCameraProps, newProps: FiberDeviceOrientationCameraProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
         checkPrimitiveDiff(oldProps.disablePointerInputWhenUsingDeviceOrientation, newProps.disablePointerInputWhenUsingDeviceOrientation, 'disablePointerInputWhenUsingDeviceOrientation', changedProps)
+        checkMethodDiff(oldProps.enableHorizontalDragging, newProps.enableHorizontalDragging, 'enableHorizontalDragging', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -12033,6 +12035,7 @@ export class FiberVRExperienceHelperPropsHandler implements PropsHandler<FiberVR
         // type: 'BabylonjsCoreWebXRDefaultExperience' property (not coded) BabylonjsCoreVRExperienceHelper.xr.
         checkPrimitiveDiff(oldProps.xrTestDone, newProps.xrTestDone, 'xrTestDone', changedProps)
         checkMethodDiff(oldProps.addFloorMesh, newProps.addFloorMesh, 'addFloorMesh', changedProps)
+        checkMethodDiff(oldProps.enableTeleportation, newProps.enableTeleportation, 'enableTeleportation', changedProps)
         checkMethodDiff(oldProps.setGazeColor, newProps.setGazeColor, 'setGazeColor', changedProps)
         checkMethodDiff(oldProps.setLaserColor, newProps.setLaserColor, 'setLaserColor', changedProps)
         checkMethodDiff(oldProps.setLaserLightingState, newProps.setLaserLightingState, 'setLaserLightingState', changedProps)
