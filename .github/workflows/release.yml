@@ -1,4 +1,4 @@
-name: make_patch_release
+name: make_release
 
 on:
   workflow_dispatch:
@@ -32,7 +32,7 @@ jobs:
           yarn install
           yarn build
       - run echo "${{ github.event.inputs.npmVersion }}"
-      - run: npm version ${{ github.event.inputs.npmVersion }} -m "Release %s :package:"
+      - run: npm version github.event.inputs.npmVersion -m "Release %s :package:"
       - run: git push && git push --tags
       - name: publish-npm
         run: npm publish --access public
