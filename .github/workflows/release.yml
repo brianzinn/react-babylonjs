@@ -31,7 +31,7 @@ jobs:
         run: |
           yarn install
           yarn build
-      - run echo "${{ github.event.inputs.npmVersion }}"
+      - run: echo "version -- ${{ github.event.inputs.npmVersion }}"
       - run: npm version github.event.inputs.npmVersion -m "Release %s :package:"
       - run: git push && git push --tags
       - name: publish-npm
