@@ -1,10 +1,42 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import '@babylonjs/inspector'
-import {Engine, Scene, Model} from '../../../dist/react-babylonjs'
-import {Color4, Vector3, Color3} from '@babylonjs/core/Maths/math'
+import { Engine, Scene, TaskType, useAssetManager } from '../../../dist/react-babylonjs'
+import { Color4, Vector3, Color3 } from '@babylonjs/core/Maths/math'
 import '../../style.css'
 
 export default { title: 'Textures' };
+
+const textureAssets = [
+  { taskType: TaskType.Texture, url: 'https://upload.wikimedia.org/wikipedia/commons/8/87/Alaskan_Malamute%2BBlank.png', name: 'malamute' },
+  { taskType: TaskType.Texture, url: 'assets/textures/grass.png', name: 'grass' },
+  { taskType: TaskType.Texture, url: 'http://i.imgur.com/wGyk6os.png', name: 'bump' }
+];
+
+const Shapes = () => {
+  const [result] = useAssetManager(textureAssets, {
+    useDefaultLoadingScreen: true
+  });
+
+  return (
+    <>
+      <sphere name="sphere" position={new Vector3(-1.5, 0, 0)}>
+        <standardMaterial name='grass'>
+          <texture fromInstance={result.map['grass'].texture} assignTo="emissiveTexture" />
+        </standardMaterial>
+      </sphere>
+      <box name='box'>
+        <standardMaterial name='dog' backFaceCulling={false}>
+          <texture fromInstance={result.map['malamute'].texture} assignTo="diffuseTexture" hasAlpha={true} />
+        </standardMaterial>
+      </box>
+      <sphere name="sphere" position={new Vector3(1.5, 0, 0)}>
+        <standardMaterial name='bump' diffuseColor={Color3.Green()}>
+          <texture fromInstance={result.map['bump'].texture} assignTo="bumpTexture" />
+        </standardMaterial>
+      </sphere>
+    </>
+  )
+}
 
 /**
  * official examples
@@ -12,8 +44,6 @@ export default { title: 'Textures' };
  * - https://www.babylonjs-playground.com/#20OAV9#15
  */
 function WithImageTexture() {
-  const url = 'https://upload.wikimedia.org/wikipedia/commons/8/87/Alaskan_Malamute%2BBlank.png';
-
   return (
     <Engine antialias adaptToDeviceRatio canvasId='babylonJS'>
       <Scene clearColor={new Color4(0.02, 0.022, 0.02, 1)}>
@@ -33,29 +63,16 @@ function WithImageTexture() {
           specular={Color3.Green()}
           groundColor={Color3.Green()}
         />
-
-        <sphere name="sphere" position={new Vector3(-1.5, 0, 0)}>
-          <standardMaterial>
-            <texture assignTo="emissiveTexture" url={'assets/textures/grass.png'} />
-          </standardMaterial>
-        </sphere>
-        <box name='box'>
-          <standardMaterial name='dog' backFaceCulling={false}>
-            <texture assignTo="diffuseTexture" url={url} hasAlpha={true} />
-          </standardMaterial>
-        </box>
-        <sphere name="sphere" position={new Vector3(1.5, 0, 0)}>
-          <standardMaterial diffuseColor={Color3.Green()}>
-            <texture assignTo="bumpTexture" url={'http://i.imgur.com/wGyk6os.png'} />
-          </standardMaterial>
-        </sphere>
+        <Suspense fallback={null}>
+          <Shapes />
+        </Suspense>
       </Scene>
     </Engine>
   )
 }
 
 export const ImageTexture = () => (
-  <div style={{flex: 1, display: 'flex'}}>
-    <WithImageTexture/>
+  <div style={{ flex: 1, display: 'flex' }}>
+    <WithImageTexture />
   </div>
 )

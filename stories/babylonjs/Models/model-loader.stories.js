@@ -10,7 +10,7 @@ const baseUrl = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Mode
 
 const modelAssetTasks = [
   { taskType: TaskType.Mesh, rootUrl: `${baseUrl}BoomBox/glTF/`, sceneFilename: 'BoomBox.gltf', name: 'boombox' },
-  { taskType: TaskType.Mesh, rootUrl: `${baseUrl}Avocado/glTF/`, sceneFilename: 'Avocado.gltf', name: 'boombox' }
+  { taskType: TaskType.Mesh, rootUrl: `${baseUrl}Avocado/glTF/`, sceneFilename: 'Avocado.gltf', name: 'avocado' }
 ];
 
 const MyFallback = () => {
@@ -37,6 +37,9 @@ const MyFallback = () => {
             {eventData !== undefined &&
               <textBlock text={`${eventData.totalCount-eventData.remainingCount}/${eventData.totalCount}`} fontStyle="bold" fontSize={20} color="white"/>
             }
+            {eventData === undefined &&
+              <textBlock text='0/2' fontStyle="bold" fontSize={20} color="white"/>
+            }
           </rectangle>
         </rectangle>
     </adtFullscreenUi>
@@ -49,11 +52,11 @@ const MyModels = () => {
 
   useMemo(() => {
     console.log('Loaded Tasks', result);
-    const boomboxTask = result.find(t => t.name === 'BoomBox.gltf');
+    const boomboxTask = result.map['boombox'];
     boomboxTask.loadedMeshes[0].position = new Vector3(2.5, 0, 0);
     boomboxTask.loadedMeshes[1].scaling = new Vector3(20, 20, 20);
 
-    const avocadoTask = result.find(t => t.name === 'Avocado.gltf');
+    const avocadoTask = result.map['avocado'];
     avocadoTask.loadedMeshes[0].position = new Vector3(-2.5, 0, 0);
     avocadoTask.loadedMeshes[1].scaling = new Vector3(20, 20, 20);
   });

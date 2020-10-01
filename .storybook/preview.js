@@ -1,7 +1,7 @@
-import { addParameters, setAddon, configure } from '@storybook/react';
+import { addParameters } from '@storybook/react';
 import { setDefaults } from '@storybook/addon-info';
 
-// addon-info
+// // addon-info
 setDefaults({
   header: false, // Toggles display of header with component name and description
 });

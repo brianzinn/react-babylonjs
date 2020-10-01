@@ -1,28 +1,37 @@
 import React, { useContext, useState } from 'react';
-import { AbstractAssetTask, AssetsManager, EventState, IAssetsProgressEvent, Nullable, Scene } from "@babylonjs/core";
+import { AbstractAssetTask, AssetsManager, EventState, IAssetsProgressEvent, Nullable, Scene, TextureAssetTask } from "@babylonjs/core";
 import { useBabylonScene } from "../Scene";
-import { isNullOrUndefined } from 'util';
 
 export enum TaskType {
     Binary = 'Binary',
-    Mesh = 'Mesh'
+    Mesh = 'Mesh',
+    Texture = 'Texture'
 }
 
 export type BinaryTask = {
-    taskType: TaskType.Binary,
-    name: string,
+    taskType: TaskType.Binary
+    name: string
     url: string
 }
 
 export type MeshTask = {
-    taskType: TaskType.Mesh,
-    name: string,
-    meshesNames: any,
-    rootUrl: string,
+    taskType: TaskType.Mesh
+    name: string
+    meshesNames: any
+    rootUrl: string
     sceneFilename: string
 }
 
-export type Task = BinaryTask | MeshTask
+export type TextureTask = {
+    taskType: TaskType.Texture
+    name: string
+    url: string
+    noMipmap?: boolean
+    invertY?: boolean
+    samplingMode?: number
+}
+
+export type Task = BinaryTask | MeshTask | TextureTask;
 
 export type AssetManagerContextType = {
     updateProgress: (progress: AssetManagerProgressType) => void
@@ -60,47 +69,79 @@ const getTaskKey = (task: Task): string | undefined => {
         case TaskType.Binary:
             return `binary:${task.url}`;
         case TaskType.Mesh:
-            return `mesh:${task.rootUrl}/${task.sceneFilename}`
+            return `mesh:${task.rootUrl}/${task.sceneFilename}`;
+        case TaskType.Texture:
+            return `texture:${task.url}`
         default:
-            console.error(`unsupported task type in: ${JSON.stringify(task)}`);
+            throw new Error(`Unknown task type: ${JSON.stringify(task)}`);
     }
 }
 
+type AssetManagerResult = {
+    tasks: AbstractAssetTask[],
+    map: Record<string, AbstractAssetTask>
+}
+
 /**
- * This has limited functionality, since it only works for binary assets currently.
- * 
+ * This has limited functionality and only works for limited asset types.
+ *
  * This is an experimental API and *WILL* change.
- * 
- * onProgress() cannot be reported through the Suspense boundary without context, so thought needed on how to accomplish progress indicator in fallback.
  */
 const useAssetManagerWithCache = () => {
     // we need our own memoized cache. useMemo, useState, etc. fail miserably - throwing a promise forces the component to remount.
-    const suspenseCache: Record<string, () => Nullable<AbstractAssetTask[]>> = {};
+    let suspenseCache: Record<string, () => Nullable<AssetManagerResult>> = {};
+    let suspenseScene: Nullable<Scene> = null;
 
-    // TODO: do we need this?
-    const completedCache: Record<string, AbstractAssetTask> = {};
+    let tasksCompletedCache: Record<string, AbstractAssetTask> = {};
 
     return (tasks: Task[], options?: AssetManagerOptions) => {
         const hookScene = useBabylonScene();
+        const opts = options || {
+            useDefaultLoadingScreen: false
+        };
+
+        if (opts.scene === undefined && hookScene === null) {
+            throw new Error('useAssetManager can only be used inside a Scene component (or pass scene as a prop)')
+        }
 
         const assetManagerContext = useContext<AssetManagerContextType>(AssetManagerContext);
+        const scene = opts.scene || hookScene!;
 
-        const createGetAssets = (tasks: Task[]): () => Nullable<AbstractAssetTask[]> => {
+        if (suspenseScene == null) {
+            suspenseScene = scene;
+        } else {
+            if (suspenseScene !== scene) {
+                // console.log('new scene detected - clearing useAssetManager cache');
+                // new scene detected.  clearing all caches.
+                suspenseCache = {};
+                // NOTE: could keep meshes with mesh.serialize and Mesh.Parse
+                // Need to research how to do with textures, etc.
+                // browser cache should make the load fast in most cases
+                tasksCompletedCache = {};
+                suspenseScene = scene;
+            }
+        }
+        // invalidate cache with objects from another scene
+        // Object.getOwnPropertyNames(tasksCompletedCache).forEach(propertyName => {
+        //     const task: AbstractAssetTask = tasksCompletedCache[propertyName];
+        //     if (task instanceof TextureAssetTask) {
+        //         if (task.texture.getScene() !== scene) {
+        //             console.log(`clearing ${task.name} from cache (different scene)`);
+        //             delete tasksCompletedCache[propertyName];
+        //         } else {
+        //             console.log(`scane scene ${task.name}`, scene, task.texture.getScene());
+        //         }
+        //     }
+        // });
+
+        const createGetAssets = (tasks: Task[]): () => Nullable<AssetManagerResult> => {
             if (!Array.isArray(tasks)) {
                 throw new Error('Asset Manager tasks must be an array')
             }
 
-            const opts = options || {
-                useDefaultLoadingScreen: false
-            };
-
-            if (opts.scene === undefined && hookScene === null) {
-                throw new Error('useAssetManager can only be used inside a Scene component (or pass scene as a prop)')
-            }
-
             const newRequests: Map<AbstractAssetTask, Task> = new Map<AbstractAssetTask, Task>();
 
-            const assetManager: AssetsManager = new AssetsManager(opts.scene || hookScene!);
+            const assetManager: AssetsManager = new AssetsManager(scene);
             const cachedTasks: any[] = [];
             tasks.forEach(task => {
                 const key = getTaskKey(task);
@@ -113,8 +154,12 @@ const useAssetManagerWithCache = () => {
                             newRequests.set(binaryTask, task);
                             break;
                         case TaskType.Mesh:
-                            const meshTask = assetManager.addMeshTask(`${task.sceneFilename}`, task.meshesNames, task.rootUrl, task.sceneFilename);
+                            const meshTask = assetManager.addMeshTask(task.name, task.meshesNames, task.rootUrl, task.sceneFilename);
                             newRequests.set(meshTask, task);
+                            break;
+                        case TaskType.Texture:
+                            const textureTask: TextureAssetTask = assetManager.addTextureTask(task.name, task.url, task.noMipmap, task.invertY, task.samplingMode);
+                            newRequests.set(textureTask, task);
                             break;
                         default:
                             throw new Error(`Only binary/mesh supported currently.  'taskType' found on ${JSON.stringify(task)}`);
@@ -122,9 +167,17 @@ const useAssetManagerWithCache = () => {
                 }
             })
 
+            const createResultFromTasks = (tasks: AbstractAssetTask[]): AssetManagerResult => {
+                const map = tasks.reduce<Record<string, AbstractAssetTask>>((prev: Record<string, AbstractAssetTask>, cur: AbstractAssetTask) => {
+                    prev[cur.name] = cur
+                    return prev;
+                }, {});
+                return { tasks, map};
+            }
+
             const taskPromise = (tasks.length === cachedTasks.length)
-                ? new Promise<AbstractAssetTask[]>(resolve => resolve(cachedTasks))
-                : new Promise<AbstractAssetTask[]>((resolve, reject) => {
+                ? new Promise<AssetManagerResult>(resolve => resolve(createResultFromTasks(cachedTasks)))
+                : new Promise<AssetManagerResult>((resolve, reject) => {
                 let failed = false
                 assetManager.useDefaultLoadingScreen = opts.useDefaultLoadingScreen;
                 assetManager.onFinish = (tasks: AbstractAssetTask[]) => {
@@ -134,13 +187,13 @@ const useAssetManagerWithCache = () => {
                             // NOTE: we can skip caching failed requests (ie: due to temporary outage / 500)
                             const originalTask: Task = newRequests.get(task)!;
                             const key = getTaskKey(originalTask)!;
-                            completedCache[key] = task;
+                            tasksCompletedCache[key] = task;
                         }
                     })
                     if (failed === false) {
                         // include cached ones as well.
-                        const allTasks = tasks.concat(cachedTasks);
-                        resolve(allTasks);
+                        const result = createResultFromTasks(tasks.concat(cachedTasks));
+                        resolve(result);
                     }
                 };
 
@@ -159,7 +212,7 @@ const useAssetManagerWithCache = () => {
                 assetManager.load();
             });
 
-            let result: Nullable<AbstractAssetTask[]> = null;
+            let result: Nullable<AssetManagerResult> = null;
             let error: Nullable<Error> = null;
             let suspender: Nullable<Promise<void>> = (async () => {
                 try {
@@ -189,7 +242,7 @@ const useAssetManagerWithCache = () => {
             suspenseCache[key] = createGetAssets(tasks);
         }
 
-        const fn: () => Nullable<AbstractAssetTask[]> = suspenseCache[key];
+        const fn: () => Nullable<AssetManagerResult> = suspenseCache[key];
         return [fn()];
     }
 }
