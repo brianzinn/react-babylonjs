@@ -1,13 +1,12 @@
 const path = require('path');
 
-
+// can add mdx now for Docs...
 module.exports = {
     stories: ['../stories/**/*.stories.[tj]s'],
     addons: [
         '@storybook/addon-actions/register',
-        '@storybook/addon-links/register',
         '@storybook/addon-storysource/register',
-        // '@storybook/addon-notes/register',
+        '@storybook/addon-docs',
     ],
     webpackFinal: async (config, { configType }) => {
       config.resolve.alias['react-babylonjs'] = path.resolve(__dirname, '../dist/react-babylonjs')

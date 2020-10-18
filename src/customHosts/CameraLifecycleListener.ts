@@ -31,11 +31,14 @@ export default class CameraLifecycleListener implements LifecycleListener<Camera
 
     // prevent default unless explicitly specified.
     const camera = instance.hostInstance as Camera
-    const noPreventDefault = this.props.noPreventDefault === false ? false : true
+    const noPreventDefault = this.props.noPreventDefault === false ? false : true;
 
     // console.log("camera.attachControl:", camera, this.canvas, noPreventDefault)
     // should be a custom property for autoAttaching?  Will be an issue for multiple cameras.
-    camera.attachControl(this.canvas, noPreventDefault)
+    // https://github.com/BabylonJS/Babylon.js/pull/9192 (keep canvas to work with < 4.2 beta-13)
+    // NEW missing parameters: useCtrlForPanning: boolean | number = true, panningMouseButton: number = 2
+    // wait for next beta to get those parameters (remove 'as any') :)
+    (camera as any).attachControl(this.canvas, noPreventDefault, this.props.useCtrlForPanning || true, this.props.panningMouseButton);
 
     if (instance.metadata.isTargetable && this.props.lockedTargetMeshName) {
       if (this.scene === null) {

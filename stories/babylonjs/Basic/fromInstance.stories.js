@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react'
 import { Engine, Scene, useBabylonScene } from '../../../dist/react-babylonjs'
-import { Vector3, Color3, Color4, MeshBuilder } from '@babylonjs/core'
+import { Vector3, Color3, MeshBuilder } from '@babylonjs/core'
 import '../../style.css'
 
 export default { title: 'Babylon Basic' };
@@ -29,8 +29,6 @@ export const FromInstance = () => {
     const addRotation = () => {
       setRotation((state) => new Vector3(0, rotation.y + Math.PI / 4, 0));
     };
-
-    
 
     return (
       <div className="App">

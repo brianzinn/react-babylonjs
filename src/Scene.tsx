@@ -8,7 +8,7 @@
 import React, { createContext, useContext, useEffect, useRef, useState, MutableRefObject } from 'react';
 import ReactReconciler, { Reconciler } from "react-reconciler";
 
-import { BabylonJSContext, withBabylonJS, WithBabylonJSContext } from './Engine';
+import { IEngineCanvasContext, EngineCanvasContext, withEngineCanvasContext } from './Engine';
 import {
   AbstractMesh,
   Engine as BabylonJSEngine,
@@ -66,7 +66,7 @@ export function withScene<P extends { sceneContext: WithSceneContext },
 }
 
 type SceneProps = {
-  babylonJSContext: WithBabylonJSContext
+  engineCanvasContext: IEngineCanvasContext
   onMeshPicked?: (mesh: AbstractMesh, scene: BabylonJSScene) => void
   onScenePointerDown?: (evt: PointerInfo, scene: BabylonJSScene) => void
   onScenePointerUp?: (evt: PointerInfo, scene: BabylonJSScene) => void
@@ -89,7 +89,7 @@ const updateScene = (props: SceneProps, prevPropsRef: MutableRefObject<Partial<S
 }
 
 const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
-  const { engine } = useContext(BabylonJSContext)
+  const { engine } = useContext(EngineCanvasContext)
 
   const [propsHandler] = useState(new FiberScenePropsHandler());
   const [sceneReady, setSceneReady] = useState(false);
@@ -118,8 +118,8 @@ const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
     const isAsync = false // Disables experimental async rendering
 
     const container: Container = {
-      engine: props.babylonJSContext.engine,
-      canvas: props.babylonJSContext.canvas,
+      engine: props.engineCanvasContext.engine,
+      canvas: props.engineCanvasContext.canvas,
       scene: scene,
       rootInstance: {
         hostInstance: null,
@@ -199,8 +199,8 @@ const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
     // update the root Container
     renderer.updateContainer(
       <SceneContext.Provider value={{
-        engine: props.babylonJSContext.engine,
-        canvas: props.babylonJSContext.canvas,
+        engine: props.engineCanvasContext.engine,
+        canvas: props.engineCanvasContext.canvas,
         scene,
         sceneReady
       }}>
@@ -240,8 +240,8 @@ const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
 
     renderer.updateContainer(
       <SceneContext.Provider value={{
-        engine: props.babylonJSContext.engine,
-        canvas: props.babylonJSContext.canvas,
+        engine: props.engineCanvasContext.engine,
+        canvas: props.engineCanvasContext.canvas,
         scene,
         sceneReady
       }}>
@@ -256,4 +256,4 @@ const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
   return null;
 };
 
-export default withBabylonJS(Scene)
+export default withEngineCanvasContext(Scene)

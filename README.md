@@ -34,7 +34,7 @@ With declarative (TSX/JSX) coding and HMR, you experience the same development w
 
 2. **Cameras** - anaglyphArcRotateCamera, anaglyphFreeCamera, anaglyphGamepadCamera, anaglyphUniversalCamera, arcFollowCamera, arcRotateCamera, camera, deviceOrientationCamera, flyCamera, followCamera, freeCamera, gamepadCamera, stereoscopicArcRotateCamera, stereoscopicFreeCamera, stereoscopicGamepadCamera, stereoscopicUniversalCamera, targetCamera, touchCamera, universalCamera, virtualJoysticksCamera, vrDeviceOrientationArcRotateCamera, vrDeviceOrientationFreeCamera, vrDeviceOrientationGamepadCamera, webVrFreeCamera, webXrCamera
 
-3. **Geometries (meshes)** - box, cylinder, dashedLines, decal, disc, extrudePolygon, extrudeShape, extrudeShapeCustom, ground, groundFromHeightMap, icoSphere, lathe, lines, lineSystem, plane, babylon-polygon/Polygon, polyhedron, ribbon, sphere, tiledBox, tiledGround, tiledPlane, torus, torusKnot, tube
+3. **Geometries (meshes)** - box, capsule, cylinder, dashedLines, decal, disc, extrudePolygon, extrudeShape, extrudeShapeCustom, ground, groundFromHeightMap, icoSphere, lathe, lines, lineSystem, plane, babylon-polygon/Polygon, polyhedron, ribbon, sphere, tiledBox, tiledGround, tiledPlane, torus, torusKnot, tube
 > note: `babylon-polygon` instead of `polygon` due to JSX conflict with `React.SVGProps<SVGPolygonElement>`
 
 4. **Materials** - backgroundMaterial, fluentMaterial, material, multiMaterial, nodeMaterial, pbrBaseMaterial, pbrBaseSimpleMaterial, pbrMaterial, pbrMetallicRoughnessMaterial, pbrSpecularGlossinessMaterial, pushMaterial, shaderMaterial, standardMaterial
@@ -47,7 +47,7 @@ With declarative (TSX/JSX) coding and HMR, you experience the same development w
 
 8. **Behaviors** - autoRotationBehavior, bouncingBehavior, framingBehavior, attachToBoxBehavior, fadeInOutBehavior, multiPointerScaleBehavior, pointerDragBehavior, sixDofDragBehavior
 
-9. **Others** - environmentHelper, physicsImpostor, shadowGenerator, cascadedShadowGenerator, vrExperienceHelper
+9. **Others** - adtForMesh, adtFullscreenUi, environmentHelper, physicsImpostor, pointsCloudSystem, shadowGenerator, cascadedShadowGenerator, vrExperienceHelper
 
 ## @babylonjs/gui
 1. GUI3DManager
