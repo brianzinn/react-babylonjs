@@ -52,7 +52,7 @@ With declarative (TSX/JSX) coding and HMR, you experience the same development w
 ## @babylonjs/gui
 1. GUI3DManager
 2. **2D Controls** - scrollViewerWindow, baseSlider, babylon-button/Button, checkbox, colorPicker, container, control, displayGrid, babylon-ellipse/Ellipse, grid, babylon-image/Image, imageBasedSlider, imageScrollBar, inputPassword, inputText, babylon-line/Line, multiLine, radioButton, rectangle, scrollBar, scrollViewer, selectionPanel, slider, stackPanel, textBlock, virtualKeyboard
-> note: 'babylon-*' for `button`, `ellipse`, `image` & `line` due to JSX conflict with `React.SVGProps<T>`, otherwise use the ProperCase equavalent, but you miss editor auto-completion.
+> note: 'babylon-*' for `button`, `ellipse`, `image` & `line` due to JSX conflict with `React.SVGProps<T>`, otherwise use the ProperCase equivalent, but you miss editor auto-completion.
 
 3. **3D Controls** -  abstractButton3D, button3D, container3D, control3D, cylinderPanel, holographicButton, meshButton3D, planePanel, scatterPanel, spherePanel, stackPanel3D, volumeBasedPanel
 
@@ -272,6 +272,8 @@ const App: React.FC = () => {
 > v2.1.0 (2020-03-21) - NPM distro reduced size has only module.  Add [behaviors](https://brianzinn.github.io/react-babylonjs/?path=/story/behaviors--drag-n-drop), effects (ie: [glow](https://brianzinn.github.io/react-babylonjs/?path=/story/special-fx--glow-layer)), CustomProps (ie: [chroma.js](https://brianzinn.github.io/react-babylonjs/?path=/story/integrations--chroma-js-props)).
 
 > v2.2.0 (2020-04-04) - Added support for `react-spring` [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/integrations--react-spring)
+
+> v3.0.0 (2020-??-??) - Lots of pending work on master for upcoming 3.0 release.  Work is on master branch and is for loading assets primarily and React.Suspense support (follow along in issues #81 and #87).
 
 ## Breaking Changes
  > 0.x to 1.0 ([List](breaking-changes-0.x-to-1.0.md))

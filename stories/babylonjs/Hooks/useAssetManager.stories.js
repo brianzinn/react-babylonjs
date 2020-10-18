@@ -22,7 +22,7 @@ const MyPCS = () => {
 
   useMemo(() => {
     if (result && pcs) {
-      const floats = new Float32Array(result[0].data);
+      const floats = new Float32Array(result.tasks[0].data);
       const POINTS_PER_FLOAT = 4;
       const numPoints = floats.length / POINTS_PER_FLOAT;
 
