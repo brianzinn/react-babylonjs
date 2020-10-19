@@ -1,17 +1,11 @@
-/**
- * react-babylonjs
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
-
-import React, { createContext, useContext, useEffect, useRef, useState, MutableRefObject } from 'react';
+import React, { useContext, useEffect, useRef, useState, MutableRefObject } from 'react';
 import ReactReconciler, { Reconciler } from "react-reconciler";
 
-import { IEngineCanvasContext, EngineCanvasContext, withEngineCanvasContext } from './Engine';
+import { EngineCanvasContextType, EngineCanvasContext, withEngineCanvasContext, SceneContext } from 'babylonjs-hook';
+
 import {
   AbstractMesh,
-  Engine as BabylonJSEngine,
+  Engine,
   Nullable,
   Observer,
   PointerEventTypes,
@@ -26,47 +20,16 @@ import { FiberScenePropsHandler } from './generatedCode';
 import { FiberSceneProps } from './generatedProps';
 import { UpdatePayload } from './PropsHandler';
 
-export interface WithSceneContext {
-  engine: Nullable<BabylonJSEngine>
-  canvas: Nullable<HTMLCanvasElement | WebGLRenderingContext>
-  scene: Nullable<BabylonJSScene>
-  sceneReady: boolean
-}
 
 export declare type SceneEventArgs = {
   scene: BabylonJSScene;
   canvas: HTMLCanvasElement;
 };
 
-// TODO: build a fallback mechanism when typeof React.createContext !== 'function'
-export const SceneContext = createContext<WithSceneContext>({
-  engine: null,
-  canvas: null,
-  scene: null,
-  sceneReady: false
-})
-
-export const useBabylonEngine = (): Nullable<BabylonJSEngine> => useContext(SceneContext).engine
-export const useBabylonScene = () => useContext(SceneContext).scene
-export const useBabylonCanvas = (): Nullable<HTMLCanvasElement | WebGLRenderingContext> => useContext(SceneContext).canvas
-
-type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
-
-export function withScene<P extends { sceneContext: WithSceneContext },
-  R = Omit<P, 'sceneContext'>>(
-    Component: React.ComponentClass<P> | React.FunctionComponent<P>
-  ): React.FunctionComponent<R> {
-  return function BoundComponent(props: R) {
-    return (
-      <SceneContext.Consumer>
-        {ctx => <Component {...props as any} sceneContext={ctx} />}
-      </SceneContext.Consumer>
-    );
-  };
-}
+export const useScene = () => useContext(SceneContext).scene;
 
 type SceneProps = {
-  engineCanvasContext: IEngineCanvasContext
+  engineCanvasContext: EngineCanvasContextType
   onMeshPicked?: (mesh: AbstractMesh, scene: BabylonJSScene) => void
   onScenePointerDown?: (evt: PointerInfo, scene: BabylonJSScene) => void
   onScenePointerUp?: (evt: PointerInfo, scene: BabylonJSScene) => void
@@ -199,8 +162,6 @@ const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
     // update the root Container
     renderer.updateContainer(
       <SceneContext.Provider value={{
-        engine: props.engineCanvasContext.engine,
-        canvas: props.engineCanvasContext.canvas,
         scene,
         sceneReady
       }}>
@@ -240,8 +201,6 @@ const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
 
     renderer.updateContainer(
       <SceneContext.Provider value={{
-        engine: props.engineCanvasContext.engine,
-        canvas: props.engineCanvasContext.canvas,
         scene,
         sceneReady
       }}>

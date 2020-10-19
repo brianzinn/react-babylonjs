@@ -1,8 +1,7 @@
-import {MutableRefObject, useContext, useEffect, useRef, useState} from 'react';
+import {MutableRefObject, useEffect, useRef, useState} from 'react';
 import {
   Nullable,
   Observer,
-  Scene,
   EventState,
   ActionManager,
   ActionEvent,
@@ -10,52 +9,10 @@ import {
   Mesh,
   IAction,
 } from '@babylonjs/core';
-
 import {Control} from '@babylonjs/gui/2D/controls/control';
 
-import { SceneContext } from './Scene'
 import { ICustomPropsHandler, CustomPropsHandler } from './PropsHandler';
 import {CreatedInstance} from "./CreatedInstance";
-
-export type OnFrameRenderFn = (eventData: Scene, eventState: EventState) => void
-
-export function useBeforeRender(callback: OnFrameRenderFn, mask?: number, insertFirst?: boolean, callOnce?: boolean): void {
-    const {scene, sceneReady } = useContext(SceneContext);
-
-    useEffect(() => {
-        if (sceneReady !== true || scene === null) {
-            return;
-        }
-
-        const unregisterOnFirstCall: boolean = callOnce === true;
-        const sceneObserver: Nullable<Observer<Scene>> = scene.onBeforeRenderObservable.add(callback, mask, insertFirst, undefined, unregisterOnFirstCall);
-
-        if (unregisterOnFirstCall !== true) {
-            return () => {
-                scene.onBeforeRenderObservable.remove(sceneObserver);
-            }
-        }
-    })
-}
-
-export function useAfterRender(callback: OnFrameRenderFn, mask?: number, insertFirst?: boolean, callOnce?: boolean): void {
-    const {scene, sceneReady } = useContext(SceneContext);
-
-    useEffect(() => {
-        if (sceneReady !== true || scene === null) {
-            return;
-        }
-
-        const unregisterOnFirstCall: boolean = callOnce === true;
-        const sceneObserver: Nullable<Observer<Scene>> = scene.onAfterRenderObservable.add(callback, mask, insertFirst, undefined, unregisterOnFirstCall);
-
-        if (unregisterOnFirstCall !== true) {
-            return () => {
-                scene.onAfterRenderObservable.remove(sceneObserver);
-            }
-        }
-    })
-}
 
 export const useCustomPropsHandler = (propsHandler: ICustomPropsHandler<any, any>/*, deps?: React.DependencyList | undefined*/): void => {
     const firstRun = useRef<boolean>(true);

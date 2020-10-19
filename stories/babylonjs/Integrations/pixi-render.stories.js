@@ -2,7 +2,7 @@ import React, { useRef, useCallback, useState, useEffect } from 'react';
 import * as PIXI from 'pixi.js';
 import { Vector2, Vector3, Color3, Mesh } from '@babylonjs/core';
 import { render as PixiRender, Text } from '@inlet/react-pixi'
-import { Engine, Scene, useBabylonScene } from '../../../dist/react-babylonjs';
+import { Engine, Scene, useScene } from '../../../dist/react-babylonjs';
 import '../../style.css';
 
 import {postSpectacularGradient, retroGoldGradient} from './pixi-styles';
@@ -20,7 +20,7 @@ let time = 0;
 function ScenePIXI(props) {
   const beforeMount = useRef(false);
   const pixiRefs = useRef(undefined);
-  const scene = useBabylonScene();
+  const scene = useScene();
 
   if (beforeMount.current === false) {
     beforeMount.current = true;

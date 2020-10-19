@@ -1,51 +1,19 @@
-import React, { createContext } from 'react'
+import React, { useContext } from 'react'
 import {
   Nullable,
-  Engine as BabylonJSEngine,
+  Engine,
   EngineOptions,
   ThinEngine as BabylonJSThinEngine,
   Observable,
 } from '@babylonjs/core'
 
+import { EngineCanvasContextType, EngineCanvasContext } from 'babylonjs-hook';
 
-// TODO: copy engineOptions/antialias/etc and canvas options from original Scene.tsx
-export interface IEngineCanvasContext {
-  engine: Nullable<BabylonJSEngine>
-  canvas: Nullable<HTMLCanvasElement | WebGLRenderingContext>
-}
-
-// TODO: build a fallback mechanism when typeof React.createContext !== 'function'
-// this will allow (16.0 <= react versions < 16.3) to work.
-export const EngineCanvasContext = createContext<IEngineCanvasContext>({
-  engine: null,
-  canvas: null
-})
-
-type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
-
-export function withEngineCanvasContext<
-  P extends { engineCanvasContext: IEngineCanvasContext },
-  R = Omit<P, 'engineCanvasContext'>
-  >(
-  Component: React.ComponentClass<P> | React.FunctionComponent<P>
-  ): React.FunctionComponent<R> {
-  return function BoundComponent(props: R) {
-    return (
-      <EngineCanvasContext.Consumer>
-        {ctx => <Component {...props as any} engineCanvasContext={ctx} />}
-      </EngineCanvasContext.Consumer>
-    );
-  };
-}
-
-/**
- * Not exporting useEngine, since 'babylonjs-hook' provides access to scene, which has engine + canvas access.
- * Anybody wanting access to engine will need to useContext(...);
- */
-/* export const useEngine = (): Nullable<BabylonJSEngine> => useContext(EngineCanvasContext).engine */
+export const useCanvas = (): Nullable<HTMLCanvasElement | WebGLRenderingContext> => useContext(EngineCanvasContext).canvas;
+export const useEngine = (): Nullable<Engine> => useContext(EngineCanvasContext).engine;
 
 export type EngineProps = {
-  engineCanvasContext?: IEngineCanvasContext,
+  engineCanvasContext?: EngineCanvasContextType,
   portalCanvas?: HTMLCanvasElement,
   /**
    * true to disable Server Side Rendering
@@ -76,13 +44,13 @@ export type EngineState = {
   canRender: boolean
 }
 
-class Engine extends React.Component<EngineProps, EngineState> {
+class ReactBabylonjsEngine extends React.Component<EngineProps, EngineState> {
 
-  private engine?: Nullable<BabylonJSEngine> = null;
+  private engine: Nullable<Engine> = null;
   private canvas: Nullable<HTMLCanvasElement | WebGLRenderingContext> = null;
 
-  public onBeforeRenderLoopObservable: Observable<BabylonJSEngine> = new Observable<BabylonJSEngine>();
-  public onEndRenderLoopObservable: Observable<BabylonJSEngine> = new Observable<BabylonJSEngine>();
+  public onBeforeRenderLoopObservable: Observable<Engine> = new Observable<Engine>();
+  public onEndRenderLoopObservable: Observable<Engine> = new Observable<Engine>();
 
   constructor(props: EngineProps) {
     super(props);
@@ -93,7 +61,7 @@ class Engine extends React.Component<EngineProps, EngineState> {
   }
 
   componentDidMount() {
-    this.engine = new BabylonJSEngine(
+    this.engine = new Engine(
       this.canvas,
       this.props.antialias === true ? true : false, // default false
       this.props.engineOptions,
@@ -176,7 +144,7 @@ class Engine extends React.Component<EngineProps, EngineState> {
     }
 
     // TODO: this.props.portalCanvas does not need to render a canvas.
-    return <EngineCanvasContext.Provider value={{ engine: this.engine!, canvas: this.canvas}}>
+    return <EngineCanvasContext.Provider value={{ engine: this.engine, canvas: this.canvas}}>
       <canvas {...opts} ref={this.onCanvasRef}>
       {this.engine !== null &&
         this.props.children
@@ -192,4 +160,4 @@ class Engine extends React.Component<EngineProps, EngineState> {
   }
 }
 
-export default Engine
+export default ReactBabylonjsEngine

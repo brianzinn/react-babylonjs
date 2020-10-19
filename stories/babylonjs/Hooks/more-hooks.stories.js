@@ -1,13 +1,13 @@
 import React from 'react';
-import { Engine, Scene, useBabylonEngine, useBabylonCanvas, useBabylonScene } from '../../../dist/react-babylonjs'
+import { Engine, Scene, useEngine, useCanvas, useScene } from '../../../dist/react-babylonjs'
 import { Vector3 } from '@babylonjs/core'
 
 export default { title: 'Hooks' };
 
 const MyScene = () => {
-    const engine = useBabylonEngine();
-    const canvas = useBabylonCanvas();
-    const scene = useBabylonScene();
+    const engine = useEngine();
+    const canvas = useCanvas();
+    const scene = useScene();
 
     // engine and canvas are null.  they are not currently bridged.
     // https://github.com/konvajs/react-konva/issues/188#issuecomment-478302062
@@ -23,8 +23,8 @@ const MyScene = () => {
 }
 
 const EngineChild = () => {
-    const engine = useBabylonEngine();
-    const canvas = useBabylonCanvas();
+    const engine = useEngine();
+    const canvas = useCanvas();
 
     console.log('EngineChild', { engine, canvas});
     return null;
