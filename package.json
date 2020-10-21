@@ -1,6 +1,6 @@
 {
   "name": "react-babylonjs",
-  "version": "2.2.14",
+  "version": "3.0.0",
   "description": "React for Babylon.js",
   "homepage": "https://brianzinn.github.io/react-babylonjs/",
   "keywords": [
@@ -45,6 +45,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.12.1",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
     "@babylonjs/core": "^4.2.0-beta.13",
     "@babylonjs/gui": "^4.2.0-beta.13",
     "@babylonjs/inspector": "^4.2.0-beta.13",
@@ -104,6 +105,5 @@
   },
   "dependencies": {
     "react-reconciler": "^0.26.1"
-    "@babel/plugin-proposal-class-properties": "^7.12.1"
   }
 }
