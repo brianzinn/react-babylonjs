@@ -62,7 +62,7 @@ export type CustomProps = {
   /**
    * Assign to this property on the parent.  Parent property is cleared on umnount.
    */
-  assignTo?: string
+  assignTo?: string | string[]
   /**
    * for VRExperienceHelper
    */

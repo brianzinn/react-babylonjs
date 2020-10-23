@@ -2,6 +2,7 @@ import { CreatedInstance } from "../CreatedInstance"
 import { LifecycleListener } from "../LifecycleListener"
 import { Scene, AbstractMesh } from "@babylonjs/core"
 import { Material } from '@babylonjs/core/Materials'
+import { assignProperty } from "../helper/property"
 
 export default class MaterialsLifecycleListener implements LifecycleListener<Material> {
   onCreated(instance: CreatedInstance<Material>, scene: Scene) {
@@ -49,21 +50,7 @@ export default class MaterialsLifecycleListener implements LifecycleListener<Mat
       while (tmp !== null) {
         if (tmp.metadata && tmp.metadata.acceptsMaterials === true) {
           if (instance.customProps.assignTo) {
-            const propsList: string[] = instance.customProps.assignTo.split('.');
-            let propToAssign = tmp.hostInstance;
-            propsList.forEach((prop: string, index: number) => {
-              if (propToAssign[prop] === undefined) {
-                // create property if it doesn't exist.
-                console.warn('Assign to created property', prop, 'on', propToAssign)
-                propToAssign[prop] = {}
-              }
-
-              if (index === propsList.length - 1) {
-                propToAssign[prop] = material;
-              } else {
-                propToAssign = propToAssign[prop]
-              }
-            })
+            assignProperty(material, tmp.hostInstance, instance.customProps.assignTo);
           } else {
             tmp.hostInstance.material = material
           }
