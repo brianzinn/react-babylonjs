@@ -219,6 +219,18 @@ const ReactBabylonJSHostConfig: HostConfig<
     return updatePayload.length === 0 ? null : updatePayload
   },
 
+  insertBefore(parentInstance: HostCreatedInstance<any>, child: CreatedInstance<any> | undefined, beforeChild: {} | CreatedInstance<any> | undefined): void {
+    let index: number = 0;
+    if (parentInstance && beforeChild !== undefined) {
+      index = parentInstance.children.indexOf(beforeChild as CreatedInstance<any>);
+    }
+
+    if (parentInstance && child !== undefined) {
+      child.parent = parentInstance;
+      parentInstance.children.splice(index, 0, child);
+    }
+  },
+
   /**
    * This is called when something is dynamically added to root (not on initial appendChildToContainer)
    */
