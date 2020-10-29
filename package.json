@@ -67,7 +67,7 @@
     "@types/lodash.camelcase": "^4.3.6",
     "@types/node": "^8.0.0",
     "@types/react": "^16.7.20",
-    "@types/react-reconciler": "^0.16.0",
+    "@types/react-reconciler": "^0.18.0",
     "babel-loader": "^8.1.0",
     "cannon": "^0.6.2",
     "chroma-js": "^2.1.0",
@@ -83,7 +83,6 @@
     "react": "^16.13.1",
     "react-babylon-spring": "^1.0.2",
     "react-dom": "^16.13.1",
-    "react-reconciler": "^0.25.1",
     "react-three-gui": "^0.3.1",
     "rimraf": "^2.6.1",
     "rollup": "^2.0.6",
@@ -104,8 +103,10 @@
     "@babylonjs/gui": "4.x",
     "@babylonjs/inspector": "4.x",
     "@babylonjs/loaders": "4.x",
-    "react": "16.x",
-    "react-dom": "16.x",
-    "react-reconciler": "0.x"
+    "react": ">=16",
+    "react-dom": ">=16"
+  },
+  "dependencies": {
+    "react-reconciler": "^0.26.1"
   }
 }

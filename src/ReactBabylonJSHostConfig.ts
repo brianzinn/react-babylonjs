@@ -137,6 +137,7 @@ const ReactBabylonJSHostConfig: HostConfig<
 > & {
    hideInstance: (instance: HostCreatedInstance<any>) => void;
    unhideInstance: (instance: HostCreatedInstance<any>, props:Props) => void;
+   clearContainer: (container: Container) => void;
 } = {
   // This has the reconciler include in call chain ie: appendChild, removeChild
   get supportsMutation(): boolean {
@@ -217,6 +218,10 @@ const ReactBabylonJSHostConfig: HostConfig<
     })
 
     return updatePayload.length === 0 ? null : updatePayload
+  },
+
+  clearContainer(container: Container): void {
+    container.rootInstance.children.splice(0);
   },
 
   insertBefore(parentInstance: HostCreatedInstance<any>, child: CreatedInstance<any> | undefined, beforeChild: {} | CreatedInstance<any> | undefined): void {
