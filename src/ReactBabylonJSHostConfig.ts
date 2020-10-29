@@ -248,7 +248,6 @@ const ReactBabylonJSHostConfig: HostConfig<
     container.rootInstance.children.splice(0);
   },
 
-
   insertBefore(parentInstance: HostCreatedInstance<any>, child: CreatedInstance<any> | undefined, beforeChild: {} | CreatedInstance<any> | undefined): void {
     let index: number = 0;
     if (parentInstance && beforeChild !== undefined) {
