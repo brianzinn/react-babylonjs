@@ -454,18 +454,18 @@ const ReactBabylonJSHostConfig: HostConfig<
     // here we dynamically assign listeners for specific types.
     // TODO: need to double-check because we are using 'camelCase'
     if ((CUSTOM_HOSTS as any)[underlyingClassName + "LifecycleListener"] !== undefined) {
-      lifecycleListener = new (CUSTOM_HOSTS as any)[underlyingClassName + "LifecycleListener"](scene, props)
+      lifecycleListener = new (CUSTOM_HOSTS as any)[underlyingClassName + "LifecycleListener"](scene, props);
     }
 
-    let createdReference = createCreatedInstance(underlyingClassName, babylonObject, fiberObject, metadata, customProps, lifecycleListener)
+    let createdReference = createCreatedInstance(underlyingClassName, babylonObject, fiberObject, metadata, customProps, lifecycleListener);
 
     if (lifecycleListener && lifecycleListener.onCreated) {
-      lifecycleListener.onCreated(createdReference, scene!)
+      lifecycleListener.onCreated(createdReference, scene!);
     }
 
     // Here we dynamically attach known props handlers.  Will be adding more in code generation for GUI - also for lifecycle mgmt.
     if (createdReference.metadata && createdReference.metadata.isTargetable === true) {
-      fiberObject.addPropsHandler(new CUSTOM_HOSTS.TargetPropsHandler(scene!))
+      fiberObject.addPropsHandler(new CUSTOM_HOSTS.TargetPropsHandler(scene!));
     }
 
     if (metadata.delayCreation !== true) {
@@ -473,43 +473,40 @@ const ReactBabylonJSHostConfig: HostConfig<
     } else {
       createdReference.deferredCreationProps = props;
     }
-    return createdReference
+    return createdReference;
   },
 
   shouldDeprioritizeSubtree: (type: string, props: Props): boolean => {
-    return false
+    return false;
   },
 
-  hideInstance(instance: HostCreatedInstance<any>) {},
+  hideInstance(instance: HostCreatedInstance<any>): void {},
 
-  unhideInstance(instance: HostCreatedInstance<any>, props: Props) {},
+  unhideInstance(instance: HostCreatedInstance<any>, props: Props): void {},
 
-  createTextInstance: (text: string): any => {
-    console.warn(`you have text that will be ignored ${text} (unsupported in react-babylonjs)`)
-    return undefined
-  },
+  createTextInstance (text: string): any {},
 
   scheduleDeferredCallback(callback: (deadline: RequestIdleCallbackDeadline) => void, opts?: RequestIdleCallbackOptions | undefined): any {
     return window.requestIdleCallback(callback, opts) // ReactDOMHostConfig has: unstable_scheduleCallback as scheduleDeferredCallback
   },
 
   cancelDeferredCallback(handle: any): void {
-    return window.cancelIdleCallback(handle)
+    return window.cancelIdleCallback(handle);
   },
 
   setTimeout(handler: (...args: any[]) => void, timeout: number): TimeoutHandler {
-    return window.setTimeout(handler)
+    return window.setTimeout(handler);
   },
 
   clearTimeout(handle?: number | undefined): void {
-    window.clearTimeout(handle)
+    window.clearTimeout(handle);
   },
 
   // https://github.com/facebook/react/blob/master/packages/react-dom/src/client/ReactDOMHostConfig.js#L288
   noTimeout: -1,
 
   // Called based on return value of: finalizeInitialChildren.  in-memory render tree created, but not yet attached.
-  prepareForCommit: (containerInfo: Container): void => { /* empty */ },
+  prepareForCommit: (containerInfo: Container) => { return null; },
 
   // Called after the in-memory tree has been committed (ie: after attaching again to root element)
   resetAfterCommit: (containerInfo: Container): void => { /* empty */ },
