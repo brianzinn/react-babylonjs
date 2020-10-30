@@ -1,15 +1,15 @@
-import ReactReconciler, { HostConfig } from "react-reconciler"
-import {Scene, Engine, Nullable, Node} from '@babylonjs/core'
-import * as BABYLONEXT from "./extensions"
-import * as GENERATED from './generatedCode'
-import * as CUSTOM_HOSTS from "./customHosts"
+import ReactReconciler, { HostConfig } from 'react-reconciler';
+import {Scene, Engine, Nullable, Node} from '@babylonjs/core';
+import * as BABYLONEXT from './extensions';
+import * as GENERATED from './generatedCode';
+import * as CUSTOM_HOSTS from './customHosts';
 
-import { FiberModel, LoadedModel } from "./model"
-import { CreatedInstance, CreatedInstanceMetadata, CustomProps } from "./CreatedInstance"
-import { HasPropsHandlers, PropertyUpdate, UpdatePayload, PropsHandler } from "./PropsHandler"
-import { LifecycleListener } from "./LifecycleListener"
-import { GeneratedParameter, CreateInfo, CreationType } from "./codeGenerationDescriptors"
-import { applyUpdateToInstance, applyInitialPropsToInstance } from "./UpdateInstance"
+import { FiberModel, LoadedModel } from "./model";
+import { CreatedInstance, CreatedInstanceMetadata, CustomProps } from './CreatedInstance';
+import { HasPropsHandlers, PropertyUpdate, UpdatePayload, PropsHandler } from './PropsHandler';
+import { LifecycleListener } from "./LifecycleListener";
+import { GeneratedParameter, CreateInfo, CreationType } from './codeGenerationDescriptors';
+import { applyUpdateToInstance, applyInitialPropsToInstance } from './UpdateInstance';
 
 // ** TODO: switch to node module 'scheduler', but compiler is not finding 'require()' exports currently...
 type RequestIdleCallbackHandle = any
@@ -114,10 +114,35 @@ function removeChild(parentInstance: CreatedInstance<any>, child: CreatedInstanc
 /**
  * remove child recursive
  */
-function removeRecursive(array: any, parent:any, clone: boolean = false) {
+function removeRecursive(array: any, parent:any, clone: boolean = false): void {
   if (array) {
     const target = clone ? [...array] : array;
     target.forEach((child:any) => removeChild(parent, child));
+  }
+}
+
+function addChild(parent: CreatedInstance<any> | undefined, child: CreatedInstance<any>, childIndex?: number): void {
+  if (parent) {
+    if (!child) {
+      console.error('undefined child', parent);
+    } else {
+      // doubly linking child to parent
+      parent.children.push(child) // TODO: need to remove from children as well when removing.
+      child.parent = parent
+    }
+  }
+  
+  if (parent) {
+    parent.children.push(child);
+    child.parent = parent!;
+  }
+
+  if (child && child.lifecycleListener && child.lifecycleListener.onParented) {
+    child.lifecycleListener.onParented(parent!, child)
+  }
+
+  if (parent && parent.lifecycleListener && parent.lifecycleListener.onChildAdded) {
+    parent.lifecycleListener.onChildAdded(child, parent)
   }
 }
 
@@ -224,16 +249,13 @@ const ReactBabylonJSHostConfig: HostConfig<
     container.rootInstance.children.splice(0);
   },
 
-  insertBefore(parentInstance: HostCreatedInstance<any>, child: CreatedInstance<any> | undefined, beforeChild: {} | CreatedInstance<any> | undefined): void {
-    let index: number = 0;
+  insertBefore(parentInstance: HostCreatedInstance<any>, child: CreatedInstance<any>, beforeChild: {} | CreatedInstance<any> | undefined): void {
+    let index: number | undefined = undefined;
     if (parentInstance && beforeChild !== undefined) {
       index = parentInstance.children.indexOf(beforeChild as CreatedInstance<any>);
     }
 
-    if (parentInstance && child !== undefined) {
-      child.parent = parentInstance;
-      parentInstance.children.splice(index, 0, child);
-    }
+    addChild(parentInstance, child, index);
   },
 
   /**
@@ -462,7 +484,8 @@ const ReactBabylonJSHostConfig: HostConfig<
 
   unhideInstance(instance: HostCreatedInstance<any>, props: Props) {},
 
-  createTextInstance: (): any => {
+  createTextInstance: (text: string): any => {
+    console.warn(`you have text that will be ignored ${text} (unsupported in react-babylonjs)`)
     return undefined
   },
 
@@ -493,37 +516,12 @@ const ReactBabylonJSHostConfig: HostConfig<
 
   appendInitialChild: (parent: HostCreatedInstance<any>, child: CreatedInstance<any>) => {
     // Here we are traversing downwards.  Beyond parent has not been initialized, but all children have been.
-    if (parent) {
-      if (!child) {
-        console.error('undefined child', parent);
-      } else {
-        // doubly linking child to parent
-        parent.children.push(child) // TODO: need to remove from children as well when removing.
-        child.parent = parent
-      }
-    }
-
-    if (child && child.lifecycleListener && child.lifecycleListener.onParented) {
-      child.lifecycleListener.onParented(parent!, child)
-    }
-
-    if (parent && parent.lifecycleListener && parent.lifecycleListener.onChildAdded) {
-      parent.lifecycleListener.onChildAdded(child, parent)
-    }
+    addChild(parent, child);
   },
 
   // TODO: refactor with appendInitialChild
   appendChild: (parent: CreatedInstance<any>, child: CreatedInstance<any>): void => {
-    parent.children.push(child)
-    child.parent = parent
-
-    if (child && child.lifecycleListener && child.lifecycleListener.onParented) {
-      child.lifecycleListener.onParented(parent!, child)
-    }
-
-    if (parent && parent.lifecycleListener && parent.lifecycleListener.onChildAdded) {
-      parent.lifecycleListener.onChildAdded(child, parent)
-    }
+    addChild(parent, child);
   },
 
   canHydrateInstance: (instance: any, type: string, props: Props): null | CreatedInstance<any> => {
