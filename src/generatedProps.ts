@@ -1,6 +1,5 @@
 import { Key, ReactNode, Ref } from "react";
 import { CustomProps } from "./CreatedInstance";
-import { ModelProps } from "./model";
 import { DynamicTerrain as ExtensionsDynamicTerrain } from "./extensions/DynamicTerrain";
 import { AbstractScene as BabylonjsCoreAbstractScene } from "@babylonjs/core/abstractScene";
 import { Scene as BabylonjsCoreScene } from "@babylonjs/core/scene";
@@ -72,6 +71,7 @@ import { AbstractActionManager as BabylonjsCoreAbstractActionManager } from "@ba
 import { Color4 as BabylonjsCoreColor4, Color3 as BabylonjsCoreColor3 } from "@babylonjs/core/Maths/math.color";
 import { Skeleton as BabylonjsCoreSkeleton } from "@babylonjs/core/Bones/skeleton";
 import { SubMesh as BabylonjsCoreSubMesh } from "@babylonjs/core/Meshes/subMesh";
+import { IEdgesRendererOptions as BabylonjsCoreIEdgesRendererOptions } from "@babylonjs/core/Rendering/edgesRenderer";
 import { BoundingInfo as BabylonjsCoreBoundingInfo } from "@babylonjs/core/Culling/boundingInfo";
 import { InstancedMesh as BabylonjsCoreInstancedMesh } from "@babylonjs/core/Meshes/instancedMesh";
 import { InstancedLinesMesh as BabylonjsCoreInstancedLinesMesh, LinesMesh as BabylonjsCoreLinesMesh } from "@babylonjs/core/Meshes/linesMesh";
@@ -370,6 +370,7 @@ declare global {
             dynamicTexture: FiberDynamicTextureProps & FiberDynamicTexturePropsCtor & BabylonNode<BabylonjsCoreDynamicTexture>;
             advancedDynamicTexture: FiberAdvancedDynamicTextureProps & FiberAdvancedDynamicTexturePropsCtor & BabylonNode<BabylonjsGuiAdvancedDynamicTexture>;
             adtForMesh: FiberAdvancedDynamicTextureProps & FiberADTForMeshPropsCtor & BabylonNode<BabylonjsGuiAdvancedDynamicTexture>;
+            adtForMeshTexture: FiberAdvancedDynamicTextureProps & FiberADTForMeshTexturePropsCtor & BabylonNode<BabylonjsGuiAdvancedDynamicTexture>;
             adtFullscreenUi: FiberAdvancedDynamicTextureProps & FiberADTFullscreenUIPropsCtor & BabylonNode<BabylonjsGuiAdvancedDynamicTexture>;
             rawTexture2DArray: FiberRawTexture2DArrayProps & FiberRawTexture2DArrayPropsCtor & BabylonNode<BabylonjsCoreRawTexture2DArray>;
             rawTexture3D: FiberRawTexture3DProps & FiberRawTexture3DPropsCtor & BabylonNode<BabylonjsCoreRawTexture3D>;
@@ -393,7 +394,6 @@ declare global {
             multiPointerScaleBehavior: FiberMultiPointerScaleBehaviorProps & FiberMultiPointerScaleBehaviorPropsCtor & BabylonNode<BabylonjsCoreMultiPointerScaleBehavior>;
             pointerDragBehavior: FiberPointerDragBehaviorProps & FiberPointerDragBehaviorPropsCtor & BabylonNode<BabylonjsCorePointerDragBehavior>;
             sixDofDragBehavior: FiberSixDofDragBehaviorProps & FiberSixDofDragBehaviorPropsCtor & BabylonNode<BabylonjsCoreSixDofDragBehavior>;
-            model: ModelProps & BabylonNode<BabylonjsCoreAbstractMesh>;
         }
     }
 }
@@ -2331,7 +2331,6 @@ export type FiberBaseTextureProps = {
     anisotropicFilteringLevel?: number;
     coordinatesIndex?: number;
     coordinatesMode?: number;
-    delayLoadState?: number;
     gammaSpace?: boolean;
     getAlphaFromRGB?: boolean;
     hasAlpha?: boolean;
@@ -2356,7 +2355,7 @@ export type FiberBaseTextureProps = {
     wrapR?: number;
     wrapU?: number;
     wrapV?: number;
-} & CustomProps;
+} & FiberThinTextureProps;
 export type FiberBaseTexturePropsCtor = {};
 export type FiberCubeTextureProps = {
     boundingBoxPosition?: BabylonjsCoreVector3;
@@ -2633,6 +2632,13 @@ export type FiberADTForMeshPropsCtor = {
     height?: number;
     supportPointerMove?: boolean;
     onlyAlphaTesting?: boolean;
+    invertY?: boolean;
+};
+export type FiberADTForMeshTexturePropsCtor = {
+    mesh: BabylonjsCoreAbstractMesh;
+    width?: number;
+    height?: number;
+    supportPointerMove?: boolean;
     invertY?: boolean;
 };
 export type FiberADTFullscreenUIPropsCtor = {
@@ -3024,6 +3030,7 @@ export type FiberSixDofDragBehaviorProps = {
     dragDeltaRatio?: number;
     dragging?: boolean;
     onDragEndObservable?: any;
+    onDragObservable?: any;
     onDragStartObservable?: any;
     rotateDraggedObject?: boolean;
     zDragFactor?: any;
@@ -3145,11 +3152,13 @@ export type FiberSceneProps = {
     onMaterialRemovedObservable?: any;
     onMeshImportedObservable?: any;
     onMeshRemovedObservable?: any;
+    onMultiMaterialRemovedObservable?: any;
     onNewCameraAddedObservable?: any;
     onNewGeometryAddedObservable?: any;
     onNewLightAddedObservable?: any;
     onNewMaterialAddedObservable?: any;
     onNewMeshAddedObservable?: any;
+    onNewMultiMaterialAddedObservable?: any;
     onNewSkeletonAddedObservable?: any;
     onNewTextureAddedObservable?: any;
     onNewTransformNodeAddedObservable?: any;

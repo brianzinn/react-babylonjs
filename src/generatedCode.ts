@@ -72,6 +72,7 @@ import { AbstractActionManager as BabylonjsCoreAbstractActionManager } from "@ba
 import { Color4 as BabylonjsCoreColor4, Color3 as BabylonjsCoreColor3 } from "@babylonjs/core/Maths/math.color";
 import { Skeleton as BabylonjsCoreSkeleton } from "@babylonjs/core/Bones/skeleton";
 import { SubMesh as BabylonjsCoreSubMesh } from "@babylonjs/core/Meshes/subMesh";
+import { IEdgesRendererOptions as BabylonjsCoreIEdgesRendererOptions } from "@babylonjs/core/Rendering/edgesRenderer";
 import { BoundingInfo as BabylonjsCoreBoundingInfo } from "@babylonjs/core/Culling/boundingInfo";
 import { InstancedMesh as BabylonjsCoreInstancedMesh } from "@babylonjs/core/Meshes/instancedMesh";
 import { InstancedLinesMesh as BabylonjsCoreInstancedLinesMesh, LinesMesh as BabylonjsCoreLinesMesh } from "@babylonjs/core/Meshes/linesMesh";
@@ -9707,7 +9708,6 @@ export class FiberBaseTexturePropsHandler implements PropsHandler<FiberBaseTextu
         checkPrimitiveDiff(oldProps.anisotropicFilteringLevel, newProps.anisotropicFilteringLevel, 'anisotropicFilteringLevel', changedProps)
         checkPrimitiveDiff(oldProps.coordinatesIndex, newProps.coordinatesIndex, 'coordinatesIndex', changedProps)
         checkPrimitiveDiff(oldProps.coordinatesMode, newProps.coordinatesMode, 'coordinatesMode', changedProps)
-        checkPrimitiveDiff(oldProps.delayLoadState, newProps.delayLoadState, 'delayLoadState', changedProps)
         checkPrimitiveDiff(oldProps.gammaSpace, newProps.gammaSpace, 'gammaSpace', changedProps)
         checkPrimitiveDiff(oldProps.getAlphaFromRGB, newProps.getAlphaFromRGB, 'getAlphaFromRGB', changedProps)
         checkPrimitiveDiff(oldProps.hasAlpha, newProps.hasAlpha, 'hasAlpha', changedProps)
@@ -9748,7 +9748,8 @@ export class FiberBaseTexture implements HasPropsHandlers<FiberBaseTextureProps>
 
     constructor() {
         this.propsHandlers = [
-            new FiberBaseTexturePropsHandler()
+            new FiberBaseTexturePropsHandler(),
+            new FiberThinTexturePropsHandler()
         ];
     }
 
@@ -9808,7 +9809,8 @@ export class FiberCubeTexture implements HasPropsHandlers<FiberBaseTextureProps>
     constructor() {
         this.propsHandlers = [
             new FiberCubeTexturePropsHandler(),
-            new FiberBaseTexturePropsHandler()
+            new FiberBaseTexturePropsHandler(),
+            new FiberThinTexturePropsHandler()
         ];
     }
 
@@ -9921,7 +9923,8 @@ export class FiberRawCubeTexture implements HasPropsHandlers<FiberBaseTexturePro
         this.propsHandlers = [
             new FiberRawCubeTexturePropsHandler(),
             new FiberCubeTexturePropsHandler(),
-            new FiberBaseTexturePropsHandler()
+            new FiberBaseTexturePropsHandler(),
+            new FiberThinTexturePropsHandler()
         ];
     }
 
@@ -10024,7 +10027,8 @@ export class FiberTexture implements HasPropsHandlers<FiberBaseTextureProps> {
     constructor() {
         this.propsHandlers = [
             new FiberTexturePropsHandler(),
-            new FiberBaseTexturePropsHandler()
+            new FiberBaseTexturePropsHandler(),
+            new FiberThinTexturePropsHandler()
         ];
     }
 
@@ -10131,7 +10135,8 @@ export class FiberRawTexture implements HasPropsHandlers<FiberBaseTextureProps> 
         this.propsHandlers = [
             new FiberRawTexturePropsHandler(),
             new FiberTexturePropsHandler(),
-            new FiberBaseTexturePropsHandler()
+            new FiberBaseTexturePropsHandler(),
+            new FiberThinTexturePropsHandler()
         ];
     }
 
@@ -10238,7 +10243,8 @@ export class FiberProceduralTexture implements HasPropsHandlers<FiberBaseTexture
         this.propsHandlers = [
             new FiberProceduralTexturePropsHandler(),
             new FiberTexturePropsHandler(),
-            new FiberBaseTexturePropsHandler()
+            new FiberBaseTexturePropsHandler(),
+            new FiberThinTexturePropsHandler()
         ];
     }
 
@@ -10325,7 +10331,8 @@ export class FiberCustomProceduralTexture implements HasPropsHandlers<FiberBaseT
             new FiberCustomProceduralTexturePropsHandler(),
             new FiberProceduralTexturePropsHandler(),
             new FiberTexturePropsHandler(),
-            new FiberBaseTexturePropsHandler()
+            new FiberBaseTexturePropsHandler(),
+            new FiberThinTexturePropsHandler()
         ];
     }
 
@@ -10405,7 +10412,8 @@ export class FiberNoiseProceduralTexture implements HasPropsHandlers<FiberBaseTe
             new FiberNoiseProceduralTexturePropsHandler(),
             new FiberProceduralTexturePropsHandler(),
             new FiberTexturePropsHandler(),
-            new FiberBaseTexturePropsHandler()
+            new FiberBaseTexturePropsHandler(),
+            new FiberThinTexturePropsHandler()
         ];
     }
 
@@ -10511,7 +10519,8 @@ export class FiberRenderTargetTexture implements HasPropsHandlers<FiberBaseTextu
         this.propsHandlers = [
             new FiberRenderTargetTexturePropsHandler(),
             new FiberTexturePropsHandler(),
-            new FiberBaseTexturePropsHandler()
+            new FiberBaseTexturePropsHandler(),
+            new FiberThinTexturePropsHandler()
         ];
     }
 
@@ -10631,7 +10640,8 @@ export class FiberMirrorTexture implements HasPropsHandlers<FiberBaseTextureProp
             new FiberMirrorTexturePropsHandler(),
             new FiberRenderTargetTexturePropsHandler(),
             new FiberTexturePropsHandler(),
-            new FiberBaseTexturePropsHandler()
+            new FiberBaseTexturePropsHandler(),
+            new FiberThinTexturePropsHandler()
         ];
     }
 
@@ -10717,7 +10727,8 @@ export class FiberMultiRenderTarget implements HasPropsHandlers<FiberBaseTexture
             new FiberMultiRenderTargetPropsHandler(),
             new FiberRenderTargetTexturePropsHandler(),
             new FiberTexturePropsHandler(),
-            new FiberBaseTexturePropsHandler()
+            new FiberBaseTexturePropsHandler(),
+            new FiberThinTexturePropsHandler()
         ];
     }
 
@@ -10790,7 +10801,8 @@ export class FiberRefractionTexture implements HasPropsHandlers<FiberBaseTexture
             new FiberRefractionTexturePropsHandler(),
             new FiberRenderTargetTexturePropsHandler(),
             new FiberTexturePropsHandler(),
-            new FiberBaseTexturePropsHandler()
+            new FiberBaseTexturePropsHandler(),
+            new FiberThinTexturePropsHandler()
         ];
     }
 
@@ -10854,7 +10866,8 @@ export class FiberMultiviewRenderTarget implements HasPropsHandlers<FiberBaseTex
             new FiberMultiviewRenderTargetPropsHandler(),
             new FiberRenderTargetTexturePropsHandler(),
             new FiberTexturePropsHandler(),
-            new FiberBaseTexturePropsHandler()
+            new FiberBaseTexturePropsHandler(),
+            new FiberThinTexturePropsHandler()
         ];
     }
 
@@ -10909,7 +10922,8 @@ export class FiberVideoTexture implements HasPropsHandlers<FiberBaseTextureProps
         this.propsHandlers = [
             new FiberVideoTexturePropsHandler(),
             new FiberTexturePropsHandler(),
-            new FiberBaseTexturePropsHandler()
+            new FiberBaseTexturePropsHandler(),
+            new FiberThinTexturePropsHandler()
         ];
     }
 
@@ -10987,7 +11001,8 @@ export class FiberDynamicTexture implements HasPropsHandlers<FiberBaseTexturePro
         this.propsHandlers = [
             new FiberDynamicTexturePropsHandler(),
             new FiberTexturePropsHandler(),
-            new FiberBaseTexturePropsHandler()
+            new FiberBaseTexturePropsHandler(),
+            new FiberThinTexturePropsHandler()
         ];
     }
 
@@ -11088,7 +11103,8 @@ export class FiberAdvancedDynamicTexture implements HasPropsHandlers<FiberBaseTe
             new FiberAdvancedDynamicTexturePropsHandler(),
             new FiberDynamicTexturePropsHandler(),
             new FiberTexturePropsHandler(),
-            new FiberBaseTexturePropsHandler()
+            new FiberBaseTexturePropsHandler(),
+            new FiberThinTexturePropsHandler()
         ];
     }
 
@@ -11163,6 +11179,7 @@ export class FiberADTForMesh implements HasPropsHandlers<FiberAdvancedDynamicTex
             , new FiberDynamicTexturePropsHandler()
             , new FiberTexturePropsHandler()
             , new FiberBaseTexturePropsHandler()
+            , new FiberThinTexturePropsHandler()
         ];
     }
 
@@ -11220,6 +11237,72 @@ export class FiberADTForMesh implements HasPropsHandlers<FiberAdvancedDynamicTex
 }
 
 /**
+ * Creates a new AdvancedDynamicTexture in projected mode (ie. attached to a mesh) BUT do not create a new material for the mesh. You will be responsible for connecting the texture
+ *
+ * This code has been generated
+ */
+export class FiberADTForMeshTexture implements HasPropsHandlers<FiberAdvancedDynamicTextureProps> {
+    private propsHandlers: PropsHandler<FiberAdvancedDynamicTextureProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberAdvancedDynamicTexturePropsHandler()
+            , new FiberDynamicTexturePropsHandler()
+            , new FiberTexturePropsHandler()
+            , new FiberBaseTexturePropsHandler()
+            , new FiberThinTexturePropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberAdvancedDynamicTextureProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberAdvancedDynamicTextureProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "FactoryMethod",
+        "libraryLocation": "advancedDynamicTexture",
+        "namespace": "@babylonjs/core",
+        "factoryMethod": "CreateForMeshTexture",
+        "parameters": [
+            {
+                "name": "mesh",
+                "type": "BabylonjsCoreAbstractMesh",
+                "optional": false
+            },
+            {
+                "name": "width",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "height",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "supportPointerMove",
+                "type": "boolean",
+                "optional": true
+            },
+            {
+                "name": "invertY",
+                "type": "boolean",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "isTexture": true,
+        "isGUI2DControl": true,
+        "className": "FiberADTForMeshTexture"
+    };
+}
+
+/**
  * Creates a new AdvancedDynamicTexture in fullscreen mode.
  * In this mode the texture will rely on a layer for its rendering.
  * This allows it to be treated like any other layer.
@@ -11237,6 +11320,7 @@ export class FiberADTFullscreenUI implements HasPropsHandlers<FiberAdvancedDynam
             , new FiberDynamicTexturePropsHandler()
             , new FiberTexturePropsHandler()
             , new FiberBaseTexturePropsHandler()
+            , new FiberThinTexturePropsHandler()
         ];
     }
 
@@ -11303,7 +11387,8 @@ export class FiberRawTexture2DArray implements HasPropsHandlers<FiberBaseTexture
         this.propsHandlers = [
             new FiberRawTexture2DArrayPropsHandler(),
             new FiberTexturePropsHandler(),
-            new FiberBaseTexturePropsHandler()
+            new FiberBaseTexturePropsHandler(),
+            new FiberThinTexturePropsHandler()
         ];
     }
 
@@ -11398,7 +11483,8 @@ export class FiberRawTexture3D implements HasPropsHandlers<FiberBaseTextureProps
         this.propsHandlers = [
             new FiberRawTexture3DPropsHandler(),
             new FiberTexturePropsHandler(),
-            new FiberBaseTexturePropsHandler()
+            new FiberBaseTexturePropsHandler(),
+            new FiberThinTexturePropsHandler()
         ];
     }
 
@@ -11499,7 +11585,8 @@ export class FiberColorGradingTexture implements HasPropsHandlers<FiberBaseTextu
     constructor() {
         this.propsHandlers = [
             new FiberColorGradingTexturePropsHandler(),
-            new FiberBaseTexturePropsHandler()
+            new FiberBaseTexturePropsHandler(),
+            new FiberThinTexturePropsHandler()
         ];
     }
 
@@ -11561,7 +11648,8 @@ export class FiberEquiRectangularCubeTexture implements HasPropsHandlers<FiberBa
     constructor() {
         this.propsHandlers = [
             new FiberEquiRectangularCubeTexturePropsHandler(),
-            new FiberBaseTexturePropsHandler()
+            new FiberBaseTexturePropsHandler(),
+            new FiberThinTexturePropsHandler()
         ];
     }
 
@@ -11655,7 +11743,8 @@ export class FiberHDRCubeTexture implements HasPropsHandlers<FiberBaseTexturePro
     constructor() {
         this.propsHandlers = [
             new FiberHDRCubeTexturePropsHandler(),
-            new FiberBaseTexturePropsHandler()
+            new FiberBaseTexturePropsHandler(),
+            new FiberThinTexturePropsHandler()
         ];
     }
 
@@ -11749,7 +11838,8 @@ export class FiberHtmlElementTexture implements HasPropsHandlers<FiberBaseTextur
     constructor() {
         this.propsHandlers = [
             new FiberHtmlElementTexturePropsHandler(),
-            new FiberBaseTexturePropsHandler()
+            new FiberBaseTexturePropsHandler(),
+            new FiberThinTexturePropsHandler()
         ];
     }
 
@@ -12838,6 +12928,7 @@ export class FiberSixDofDragBehaviorPropsHandler implements PropsHandler<FiberSi
         checkPrimitiveDiff(oldProps.dragDeltaRatio, newProps.dragDeltaRatio, 'dragDeltaRatio', changedProps)
         checkPrimitiveDiff(oldProps.dragging, newProps.dragging, 'dragging', changedProps)
         checkObservableDiff(oldProps.onDragEndObservable, newProps.onDragEndObservable, 'onDragEndObservable', changedProps)
+        checkObservableDiff(oldProps.onDragObservable, newProps.onDragObservable, 'onDragObservable', changedProps)
         checkObservableDiff(oldProps.onDragStartObservable, newProps.onDragStartObservable, 'onDragStartObservable', changedProps)
         checkPrimitiveDiff(oldProps.rotateDraggedObject, newProps.rotateDraggedObject, 'rotateDraggedObject', changedProps)
         // type: 'any' property (not coded) BabylonjsCoreSixDofDragBehavior.zDragFactor.
@@ -12980,11 +13071,13 @@ export class FiberScenePropsHandler implements PropsHandler<FiberSceneProps> {
         checkObservableDiff(oldProps.onMaterialRemovedObservable, newProps.onMaterialRemovedObservable, 'onMaterialRemovedObservable', changedProps)
         checkObservableDiff(oldProps.onMeshImportedObservable, newProps.onMeshImportedObservable, 'onMeshImportedObservable', changedProps)
         checkObservableDiff(oldProps.onMeshRemovedObservable, newProps.onMeshRemovedObservable, 'onMeshRemovedObservable', changedProps)
+        checkObservableDiff(oldProps.onMultiMaterialRemovedObservable, newProps.onMultiMaterialRemovedObservable, 'onMultiMaterialRemovedObservable', changedProps)
         checkObservableDiff(oldProps.onNewCameraAddedObservable, newProps.onNewCameraAddedObservable, 'onNewCameraAddedObservable', changedProps)
         checkObservableDiff(oldProps.onNewGeometryAddedObservable, newProps.onNewGeometryAddedObservable, 'onNewGeometryAddedObservable', changedProps)
         checkObservableDiff(oldProps.onNewLightAddedObservable, newProps.onNewLightAddedObservable, 'onNewLightAddedObservable', changedProps)
         checkObservableDiff(oldProps.onNewMaterialAddedObservable, newProps.onNewMaterialAddedObservable, 'onNewMaterialAddedObservable', changedProps)
         checkObservableDiff(oldProps.onNewMeshAddedObservable, newProps.onNewMeshAddedObservable, 'onNewMeshAddedObservable', changedProps)
+        checkObservableDiff(oldProps.onNewMultiMaterialAddedObservable, newProps.onNewMultiMaterialAddedObservable, 'onNewMultiMaterialAddedObservable', changedProps)
         checkObservableDiff(oldProps.onNewSkeletonAddedObservable, newProps.onNewSkeletonAddedObservable, 'onNewSkeletonAddedObservable', changedProps)
         checkObservableDiff(oldProps.onNewTextureAddedObservable, newProps.onNewTextureAddedObservable, 'onNewTextureAddedObservable', changedProps)
         checkObservableDiff(oldProps.onNewTransformNodeAddedObservable, newProps.onNewTransformNodeAddedObservable, 'onNewTransformNodeAddedObservable', changedProps)
@@ -13052,7 +13145,7 @@ export class FiberScenePropsHandler implements PropsHandler<FiberSceneProps> {
     }
 }
 
-export const ADTForMesh: string = 'ADTForMesh', ADTFullscreenUI: string = 'ADTFullscreenUI', AbstractButton3D: string = 'AbstractButton3D', AbstractMesh: string = 'AbstractMesh', AdvancedDynamicTexture: string = 'AdvancedDynamicTexture', AnaglyphArcRotateCamera: string = 'AnaglyphArcRotateCamera', AnaglyphFreeCamera: string = 'AnaglyphFreeCamera', AnaglyphGamepadCamera: string = 'AnaglyphGamepadCamera', AnaglyphUniversalCamera: string = 'AnaglyphUniversalCamera', ArcFollowCamera: string = 'ArcFollowCamera', ArcRotateCamera: string = 'ArcRotateCamera', AttachToBoxBehavior: string = 'AttachToBoxBehavior', AutoRotationBehavior: string = 'AutoRotationBehavior', BackgroundMaterial: string = 'BackgroundMaterial', BaseSlider: string = 'BaseSlider', BaseTexture: string = 'BaseTexture', BouncingBehavior: string = 'BouncingBehavior', Box: string = 'Box', Button: string = 'Button', Button3D: string = 'Button3D', Camera: string = 'Camera', Capsule: string = 'Capsule', CascadedShadowGenerator: string = 'CascadedShadowGenerator', Checkbox: string = 'Checkbox', ColorGradingTexture: string = 'ColorGradingTexture', ColorPicker: string = 'ColorPicker', Container: string = 'Container', Container3D: string = 'Container3D', Control: string = 'Control', Control3D: string = 'Control3D', CubeTexture: string = 'CubeTexture', CustomProceduralTexture: string = 'CustomProceduralTexture', Cylinder: string = 'Cylinder', CylinderPanel: string = 'CylinderPanel', DashedLines: string = 'DashedLines', Decal: string = 'Decal', DeviceOrientationCamera: string = 'DeviceOrientationCamera', DirectionalLight: string = 'DirectionalLight', Disc: string = 'Disc', DisplayGrid: string = 'DisplayGrid', DynamicTerrain: string = 'DynamicTerrain', DynamicTexture: string = 'DynamicTexture', EffectLayer: string = 'EffectLayer', Ellipse: string = 'Ellipse', EnvironmentHelper: string = 'EnvironmentHelper', EquiRectangularCubeTexture: string = 'EquiRectangularCubeTexture', ExtrudePolygon: string = 'ExtrudePolygon', ExtrudeShape: string = 'ExtrudeShape', ExtrudeShapeCustom: string = 'ExtrudeShapeCustom', FadeInOutBehavior: string = 'FadeInOutBehavior', FluentMaterial: string = 'FluentMaterial', FlyCamera: string = 'FlyCamera', FollowCamera: string = 'FollowCamera', FramingBehavior: string = 'FramingBehavior', FreeCamera: string = 'FreeCamera', GUI3DManager: string = 'GUI3DManager', GamepadCamera: string = 'GamepadCamera', GlowLayer: string = 'GlowLayer', Grid: string = 'Grid', Ground: string = 'Ground', GroundFromHeightMap: string = 'GroundFromHeightMap', GroundMesh: string = 'GroundMesh', HDRCubeTexture: string = 'HDRCubeTexture', HemisphericLight: string = 'HemisphericLight', HighlightLayer: string = 'HighlightLayer', HolographicButton: string = 'HolographicButton', HtmlElementTexture: string = 'HtmlElementTexture', IcoSphere: string = 'IcoSphere', Image: string = 'Image', ImageBasedSlider: string = 'ImageBasedSlider', ImageScrollBar: string = 'ImageScrollBar', InputPassword: string = 'InputPassword', InputText: string = 'InputText', InstancedLinesMesh: string = 'InstancedLinesMesh', InstancedMesh: string = 'InstancedMesh', Lathe: string = 'Lathe', Light: string = 'Light', Line: string = 'Line', LineSystem: string = 'LineSystem', Lines: string = 'Lines', LinesMesh: string = 'LinesMesh', Material: string = 'Material', Mesh: string = 'Mesh', MeshButton3D: string = 'MeshButton3D', MirrorTexture: string = 'MirrorTexture', Model: string = 'Model', MultiLine: string = 'MultiLine', MultiMaterial: string = 'MultiMaterial', MultiPointerScaleBehavior: string = 'MultiPointerScaleBehavior', MultiRenderTarget: string = 'MultiRenderTarget', MultiviewRenderTarget: string = 'MultiviewRenderTarget', Node: string = 'Node', NodeMaterial: string = 'NodeMaterial', NoiseProceduralTexture: string = 'NoiseProceduralTexture', PBRBaseMaterial: string = 'PBRBaseMaterial', PBRBaseSimpleMaterial: string = 'PBRBaseSimpleMaterial', PBRMaterial: string = 'PBRMaterial', PBRMetallicRoughnessMaterial: string = 'PBRMetallicRoughnessMaterial', PBRSpecularGlossinessMaterial: string = 'PBRSpecularGlossinessMaterial', PhysicsImpostor: string = 'PhysicsImpostor', Plane: string = 'Plane', PlanePanel: string = 'PlanePanel', PointLight: string = 'PointLight', PointerDragBehavior: string = 'PointerDragBehavior', PointsCloudSystem: string = 'PointsCloudSystem', Polygon: string = 'Polygon', Polyhedron: string = 'Polyhedron', ProceduralTexture: string = 'ProceduralTexture', PushMaterial: string = 'PushMaterial', RadioButton: string = 'RadioButton', RawCubeTexture: string = 'RawCubeTexture', RawTexture: string = 'RawTexture', RawTexture2DArray: string = 'RawTexture2DArray', RawTexture3D: string = 'RawTexture3D', Rectangle: string = 'Rectangle', RefractionTexture: string = 'RefractionTexture', RenderTargetTexture: string = 'RenderTargetTexture', Ribbon: string = 'Ribbon', ScatterPanel: string = 'ScatterPanel', ScrollBar: string = 'ScrollBar', ScrollViewer: string = 'ScrollViewer', SelectionPanel: string = 'SelectionPanel', ShaderMaterial: string = 'ShaderMaterial', ShadowGenerator: string = 'ShadowGenerator', ShadowLight: string = 'ShadowLight', SixDofDragBehavior: string = 'SixDofDragBehavior', Slider: string = 'Slider', Sphere: string = 'Sphere', SpherePanel: string = 'SpherePanel', SpotLight: string = 'SpotLight', StackPanel: string = 'StackPanel', StackPanel3D: string = 'StackPanel3D', StandardMaterial: string = 'StandardMaterial', StereoscopicArcRotateCamera: string = 'StereoscopicArcRotateCamera', StereoscopicFreeCamera: string = 'StereoscopicFreeCamera', StereoscopicGamepadCamera: string = 'StereoscopicGamepadCamera', StereoscopicUniversalCamera: string = 'StereoscopicUniversalCamera', TargetCamera: string = 'TargetCamera', TextBlock: string = 'TextBlock', Texture: string = 'Texture', TiledBox: string = 'TiledBox', TiledGround: string = 'TiledGround', TiledPlane: string = 'TiledPlane', Torus: string = 'Torus', TorusKnot: string = 'TorusKnot', TouchCamera: string = 'TouchCamera', TrailMesh: string = 'TrailMesh', TransformNode: string = 'TransformNode', Tube: string = 'Tube', UniversalCamera: string = 'UniversalCamera', VRDeviceOrientationArcRotateCamera: string = 'VRDeviceOrientationArcRotateCamera', VRDeviceOrientationFreeCamera: string = 'VRDeviceOrientationFreeCamera', VRDeviceOrientationGamepadCamera: string = 'VRDeviceOrientationGamepadCamera', VRExperienceHelper: string = 'VRExperienceHelper', VideoTexture: string = 'VideoTexture', VirtualJoysticksCamera: string = 'VirtualJoysticksCamera', VirtualKeyboard: string = 'VirtualKeyboard', VolumeBasedPanel: string = 'VolumeBasedPanel', WebVRFreeCamera: string = 'WebVRFreeCamera', WebXRCamera: string = 'WebXRCamera', _ScrollViewerWindow: string = '_ScrollViewerWindow';
+export const ADTForMesh: string = 'ADTForMesh', ADTForMeshTexture: string = 'ADTForMeshTexture', ADTFullscreenUI: string = 'ADTFullscreenUI', AbstractButton3D: string = 'AbstractButton3D', AbstractMesh: string = 'AbstractMesh', AdvancedDynamicTexture: string = 'AdvancedDynamicTexture', AnaglyphArcRotateCamera: string = 'AnaglyphArcRotateCamera', AnaglyphFreeCamera: string = 'AnaglyphFreeCamera', AnaglyphGamepadCamera: string = 'AnaglyphGamepadCamera', AnaglyphUniversalCamera: string = 'AnaglyphUniversalCamera', ArcFollowCamera: string = 'ArcFollowCamera', ArcRotateCamera: string = 'ArcRotateCamera', AttachToBoxBehavior: string = 'AttachToBoxBehavior', AutoRotationBehavior: string = 'AutoRotationBehavior', BackgroundMaterial: string = 'BackgroundMaterial', BaseSlider: string = 'BaseSlider', BaseTexture: string = 'BaseTexture', BouncingBehavior: string = 'BouncingBehavior', Box: string = 'Box', Button: string = 'Button', Button3D: string = 'Button3D', Camera: string = 'Camera', Capsule: string = 'Capsule', CascadedShadowGenerator: string = 'CascadedShadowGenerator', Checkbox: string = 'Checkbox', ColorGradingTexture: string = 'ColorGradingTexture', ColorPicker: string = 'ColorPicker', Container: string = 'Container', Container3D: string = 'Container3D', Control: string = 'Control', Control3D: string = 'Control3D', CubeTexture: string = 'CubeTexture', CustomProceduralTexture: string = 'CustomProceduralTexture', Cylinder: string = 'Cylinder', CylinderPanel: string = 'CylinderPanel', DashedLines: string = 'DashedLines', Decal: string = 'Decal', DeviceOrientationCamera: string = 'DeviceOrientationCamera', DirectionalLight: string = 'DirectionalLight', Disc: string = 'Disc', DisplayGrid: string = 'DisplayGrid', DynamicTerrain: string = 'DynamicTerrain', DynamicTexture: string = 'DynamicTexture', EffectLayer: string = 'EffectLayer', Ellipse: string = 'Ellipse', EnvironmentHelper: string = 'EnvironmentHelper', EquiRectangularCubeTexture: string = 'EquiRectangularCubeTexture', ExtrudePolygon: string = 'ExtrudePolygon', ExtrudeShape: string = 'ExtrudeShape', ExtrudeShapeCustom: string = 'ExtrudeShapeCustom', FadeInOutBehavior: string = 'FadeInOutBehavior', FluentMaterial: string = 'FluentMaterial', FlyCamera: string = 'FlyCamera', FollowCamera: string = 'FollowCamera', FramingBehavior: string = 'FramingBehavior', FreeCamera: string = 'FreeCamera', GUI3DManager: string = 'GUI3DManager', GamepadCamera: string = 'GamepadCamera', GlowLayer: string = 'GlowLayer', Grid: string = 'Grid', Ground: string = 'Ground', GroundFromHeightMap: string = 'GroundFromHeightMap', GroundMesh: string = 'GroundMesh', HDRCubeTexture: string = 'HDRCubeTexture', HemisphericLight: string = 'HemisphericLight', HighlightLayer: string = 'HighlightLayer', HolographicButton: string = 'HolographicButton', HtmlElementTexture: string = 'HtmlElementTexture', IcoSphere: string = 'IcoSphere', Image: string = 'Image', ImageBasedSlider: string = 'ImageBasedSlider', ImageScrollBar: string = 'ImageScrollBar', InputPassword: string = 'InputPassword', InputText: string = 'InputText', InstancedLinesMesh: string = 'InstancedLinesMesh', InstancedMesh: string = 'InstancedMesh', Lathe: string = 'Lathe', Light: string = 'Light', Line: string = 'Line', LineSystem: string = 'LineSystem', Lines: string = 'Lines', LinesMesh: string = 'LinesMesh', Material: string = 'Material', Mesh: string = 'Mesh', MeshButton3D: string = 'MeshButton3D', MirrorTexture: string = 'MirrorTexture', MultiLine: string = 'MultiLine', MultiMaterial: string = 'MultiMaterial', MultiPointerScaleBehavior: string = 'MultiPointerScaleBehavior', MultiRenderTarget: string = 'MultiRenderTarget', MultiviewRenderTarget: string = 'MultiviewRenderTarget', Node: string = 'Node', NodeMaterial: string = 'NodeMaterial', NoiseProceduralTexture: string = 'NoiseProceduralTexture', PBRBaseMaterial: string = 'PBRBaseMaterial', PBRBaseSimpleMaterial: string = 'PBRBaseSimpleMaterial', PBRMaterial: string = 'PBRMaterial', PBRMetallicRoughnessMaterial: string = 'PBRMetallicRoughnessMaterial', PBRSpecularGlossinessMaterial: string = 'PBRSpecularGlossinessMaterial', PhysicsImpostor: string = 'PhysicsImpostor', Plane: string = 'Plane', PlanePanel: string = 'PlanePanel', PointLight: string = 'PointLight', PointerDragBehavior: string = 'PointerDragBehavior', PointsCloudSystem: string = 'PointsCloudSystem', Polygon: string = 'Polygon', Polyhedron: string = 'Polyhedron', ProceduralTexture: string = 'ProceduralTexture', PushMaterial: string = 'PushMaterial', RadioButton: string = 'RadioButton', RawCubeTexture: string = 'RawCubeTexture', RawTexture: string = 'RawTexture', RawTexture2DArray: string = 'RawTexture2DArray', RawTexture3D: string = 'RawTexture3D', Rectangle: string = 'Rectangle', RefractionTexture: string = 'RefractionTexture', RenderTargetTexture: string = 'RenderTargetTexture', Ribbon: string = 'Ribbon', ScatterPanel: string = 'ScatterPanel', ScrollBar: string = 'ScrollBar', ScrollViewer: string = 'ScrollViewer', SelectionPanel: string = 'SelectionPanel', ShaderMaterial: string = 'ShaderMaterial', ShadowGenerator: string = 'ShadowGenerator', ShadowLight: string = 'ShadowLight', SixDofDragBehavior: string = 'SixDofDragBehavior', Slider: string = 'Slider', Sphere: string = 'Sphere', SpherePanel: string = 'SpherePanel', SpotLight: string = 'SpotLight', StackPanel: string = 'StackPanel', StackPanel3D: string = 'StackPanel3D', StandardMaterial: string = 'StandardMaterial', StereoscopicArcRotateCamera: string = 'StereoscopicArcRotateCamera', StereoscopicFreeCamera: string = 'StereoscopicFreeCamera', StereoscopicGamepadCamera: string = 'StereoscopicGamepadCamera', StereoscopicUniversalCamera: string = 'StereoscopicUniversalCamera', TargetCamera: string = 'TargetCamera', TextBlock: string = 'TextBlock', Texture: string = 'Texture', TiledBox: string = 'TiledBox', TiledGround: string = 'TiledGround', TiledPlane: string = 'TiledPlane', Torus: string = 'Torus', TorusKnot: string = 'TorusKnot', TouchCamera: string = 'TouchCamera', TrailMesh: string = 'TrailMesh', TransformNode: string = 'TransformNode', Tube: string = 'Tube', UniversalCamera: string = 'UniversalCamera', VRDeviceOrientationArcRotateCamera: string = 'VRDeviceOrientationArcRotateCamera', VRDeviceOrientationFreeCamera: string = 'VRDeviceOrientationFreeCamera', VRDeviceOrientationGamepadCamera: string = 'VRDeviceOrientationGamepadCamera', VRExperienceHelper: string = 'VRExperienceHelper', VideoTexture: string = 'VideoTexture', VirtualJoysticksCamera: string = 'VirtualJoysticksCamera', VirtualKeyboard: string = 'VirtualKeyboard', VolumeBasedPanel: string = 'VolumeBasedPanel', WebVRFreeCamera: string = 'WebVRFreeCamera', WebXRCamera: string = 'WebXRCamera', _ScrollViewerWindow: string = '_ScrollViewerWindow';
 const classesMap: object = {
     dynamicTerrain: ExtensionsDynamicTerrain, DynamicTerrain: ExtensionsDynamicTerrain,
     abstractScene: BabylonjsCoreAbstractScene, AbstractScene: BabylonjsCoreAbstractScene,
@@ -13326,8 +13419,6 @@ export const intrinsicClassMap: object = {
     equiRectangularCubeTexture: 'EquiRectangularCubeTexture',
     hdrCubeTexture: 'HDRCubeTexture',
     htmlElementTexture: 'HtmlElementTexture',
-    adtForMesh: 'ADTForMesh',
-    adtFullscreenUi: 'ADTFullscreenUI',
     box: 'Box',
     capsule: 'Capsule',
     cylinder: 'Cylinder',
@@ -13353,7 +13444,10 @@ export const intrinsicClassMap: object = {
     tiledPlane: 'TiledPlane',
     torus: 'Torus',
     torusKnot: 'TorusKnot',
-    tube: 'Tube'
+    tube: 'Tube',
+    adtForMesh: 'ADTForMesh',
+    adtForMeshTexture: 'ADTForMeshTexture',
+    adtFullscreenUi: 'ADTFullscreenUI'
 };
 
 export function babylonClassFactory(importAlias: string): any {

@@ -248,16 +248,13 @@ const ReactBabylonJSHostConfig: HostConfig<
     container.rootInstance.children.splice(0);
   },
 
-  insertBefore(parentInstance: HostCreatedInstance<any>, child: CreatedInstance<any> | undefined, beforeChild: {} | CreatedInstance<any> | undefined): void {
-    let index: number = 0;
+  insertBefore(parentInstance: HostCreatedInstance<any>, child: CreatedInstance<any>, beforeChild: {} | CreatedInstance<any> | undefined): void {
+    let index: number | undefined = undefined;
     if (parentInstance && beforeChild !== undefined) {
       index = parentInstance.children.indexOf(beforeChild as CreatedInstance<any>);
     }
 
-    if (parentInstance && child !== undefined) {
-      child.parent = parentInstance;
-      parentInstance.children.splice(index, 0, child);
-    }
+    addChild(parentInstance, child, index);
   },
 
   /**
@@ -487,7 +484,10 @@ const ReactBabylonJSHostConfig: HostConfig<
 
   unhideInstance(instance: HostCreatedInstance<any>, props: Props): void {},
 
-  createTextInstance (text: string): any {},
+  createTextInstance: (text: string): any => {
+    console.warn(`you have text that will be ignored ${text} (unsupported in react-babylonjs)`)
+    return undefined
+  },
 
   scheduleDeferredCallback(callback: (deadline: RequestIdleCallbackDeadline) => void, opts?: RequestIdleCallbackOptions | undefined): any {
     return window.requestIdleCallback(callback, opts) // ReactDOMHostConfig has: unstable_scheduleCallback as scheduleDeferredCallback
