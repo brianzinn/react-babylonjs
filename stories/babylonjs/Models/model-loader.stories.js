@@ -82,7 +82,6 @@ const MyModels = () => {
 }
 
 const MyScene = () => {
-
   return (
     <Engine antialias adaptToDeviceRatio canvasId='babylonJS'>
       <Scene>
