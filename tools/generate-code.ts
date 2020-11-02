@@ -143,7 +143,7 @@ classesOfInterest.set("Light", undefined);
 classesOfInterest.set("Control", undefined);
 classesOfInterest.set("Control3D", undefined);
 classesOfInterest.set("GUI3DManager", undefined);
-classesOfInterest.set("BaseTexture", undefined);
+classesOfInterest.set("ThinTexture", undefined);
 classesOfInterest.set("AdvancedDynamicTexture", undefined);
 classesOfInterest.set("ShadowGenerator", undefined)
 classesOfInterest.set("CascadedShadowGenerator", undefined)
@@ -933,7 +933,7 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
     let addedProperties = new Set<string>();
 
     // These properties break out to specific method handlers
-    type PropertyKind = 'BabylonjsCoreBaseTexture' | 'BabylonjsCoreColor3' | 'BabylonjsCoreColor4' | 'BabylonjsCoreVector3' | 'BabylonjsCoreFresnelParameters' | 'BabylonjsCoreQuaternion' |
+    type PropertyKind = 'BabylonjsCoreThinTexture' | 'BabylonjsCoreColor3' | 'BabylonjsCoreColor4' | 'BabylonjsCoreVector3' | 'BabylonjsCoreFresnelParameters' | 'BabylonjsCoreQuaternion' |
       'BabylonjsGuiControl' | 'number[]' | 'lambda' | 'observable' | 'method' | 'primitive' | 'object';
     type NameAndType = {
       name: string
@@ -1002,7 +1002,7 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
           })
         } else {
           switch (type) {
-            case 'BabylonjsCoreBaseTexture':
+            case 'BabylonjsCoreThinTexture':
             case 'BabylonjsCoreColor3':
             case 'BabylonjsCoreColor4': // Color4.equals() not added until PR #5517
             case 'BabylonjsCoreVector3':
@@ -1116,7 +1116,7 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
             case 'BabylonjsCoreFresnelParameters':
               writer.writeLine(`checkFresnelParametersDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`);
               break;
-            case 'BabylonjsCoreBaseTexture':
+            case 'BabylonjsCoreThinTexture':
               writer.writeLine(`checkTextureDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`)
               break;
             case 'observable':
@@ -1335,7 +1335,7 @@ const createClassesInheritedFrom = (generatedCodeSourceFile: SourceFile, generat
     const newClassDeclaration = createClassDeclaration(derivedClassDeclaration, baseClassDeclaration, generatedCodeSourceFile, generatedPropsSourceFile, extra);
     addCreateInfoFromConstructor(derivedClassDeclaration, newClassDeclaration, classNamespaceTuple.moduleDeclaration, generatedCodeSourceFile, generatedPropsSourceFile);
 
-    // AdvancedDynamicTexture has different metadata than other BaseTexture derived classes.
+    // AdvancedDynamicTexture has different metadata than other Thin/BaseTexture derived classes.
     const metadata: InstanceMetadataParameter | undefined = metadataFromClassName ? metadataFromClassName(newClassDeclaration.getName()!) : undefined;
 
     addMetadata(newClassDeclaration, derivedClassDeclaration, metadata);
@@ -1577,7 +1577,7 @@ const generateCode = async () => {
     createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("EffectLayer")!, () => ({ isEffectLayer: true }));
   }
 
-  if (classesOfInterest.get("BaseTexture")) {
+  if (classesOfInterest.get("ThinTexture")) {
     const fromClassName = (className: string): InstanceMetadataParameter => {
       if (className === `${ClassNamesPrefix}AdvancedDynamicTexture`) {
         return {
@@ -1605,7 +1605,7 @@ const generateCode = async () => {
       }
     };
 
-    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("BaseTexture")!, fromClassName, onTexturesCreate);
+    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("ThinTexture")!, fromClassName, onTexturesCreate);
   }
 
   createSingleClass("GUI3DManager", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { isGUI3DControl: true }, () => { return; });

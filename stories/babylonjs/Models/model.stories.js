@@ -6,7 +6,6 @@ import { ActionManager, SetValueAction } from '@babylonjs/core/Actions';
 import { SceneLoaderContextProvider } from 'react-babylonjs-loaders';
 
 import ScaledModelWithProgress from '../ScaledModelWithProgress';
-import ProgressFallback from '../ProgressFallback';
 
 import '../../style.css';
 
@@ -85,21 +84,21 @@ class WithModel extends Component {
           <arcRotateCamera name='camera1' alpha={Math.PI / 2} beta={Math.PI / 2} radius={9.0} target={Vector3.Zero()} minZ={0.001} />
           <hemisphericLight name='light1' intensity={0.7} direction={Vector3.Up()} />
 
-          {/* <ScaledModelWithProgress rootUrl={`${baseUrl}BoomBox/glTF/`} sceneFilename='BoomBox.gltf' scaleTo={3}
+          <ScaledModelWithProgress rootUrl={`${baseUrl}BoomBox/glTF/`} sceneFilename='BoomBox.gltf' scaleTo={3}
             progressBarColor={Color3.FromInts(255, 165, 0)} center={new Vector3(2.5, 0, 0)}
             onModelLoaded={this.onModelLoaded}
-          /> */}
+          />
 
           {/*<React.Suspense fallback={<box />}>
               <Model rootUrl={`${baseUrl}Avocado/glTF/`} sceneFilename='Avocado.gltf' />
           </React.Suspense>
           */}
 
-        <SceneLoaderContextProvider>
+          {/* <SceneLoaderContextProvider>
             <Suspense fallback= {<ProgressFallback progressBarColor={Color3.FromInts(255, 165, 0)} center={new Vector3(2.5, 0, 0)} rotation={Vector3.Zero()} scaleTo={3} />}>
                 <ScaledModelWithProgress position={sceneLoaderPosition} rootUrl={`${baseUrl}Avocado/glTF/`} sceneFilename='Avocado.gltf' />
             </Suspense>
-          </SceneLoaderContextProvider>
+          </SceneLoaderContextProvider> */}
 
           {/* <ScaledModelWithProgress rootUrl={`${baseUrl}Avocado/glTF/`} sceneFilename='Avocado.gltf'
             scaleTo={this.state.avocadoScaling}

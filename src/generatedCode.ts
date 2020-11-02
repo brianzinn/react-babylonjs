@@ -1,6 +1,6 @@
 import { PropsHandler, PropertyUpdate, HasPropsHandlers, checkColor3Diff, checkColor4Diff, checkControlDiff, checkFresnelParametersDiff, checkLambdaDiff, checkMethodDiff, checkNumericArrayDiff, checkObjectDiff, checkObservableDiff, checkPrimitiveDiff, checkQuaternionDiff, checkTextureDiff, checkVector3Diff } from "./PropsHandler";
 import { CreatedInstanceMetadata } from "./CreatedInstance";
-import { FiberNodeProps, FiberTransformNodeProps, FiberAbstractMeshProps, FiberInstancedMeshProps, FiberInstancedLinesMeshProps, FiberMeshProps, FiberLinesMeshProps, FiberGroundMeshProps, FiberTrailMeshProps, FiberCameraProps, FiberTargetCameraProps, FiberFreeCameraProps, FiberTouchCameraProps, FiberUniversalCameraProps, FiberGamepadCameraProps, FiberAnaglyphGamepadCameraProps, FiberStereoscopicGamepadCameraProps, FiberAnaglyphUniversalCameraProps, FiberStereoscopicUniversalCameraProps, FiberDeviceOrientationCameraProps, FiberVRDeviceOrientationFreeCameraProps, FiberVRDeviceOrientationGamepadCameraProps, FiberAnaglyphFreeCameraProps, FiberStereoscopicFreeCameraProps, FiberVirtualJoysticksCameraProps, FiberWebVRFreeCameraProps, FiberWebXRCameraProps, FiberArcRotateCameraProps, FiberAnaglyphArcRotateCameraProps, FiberStereoscopicArcRotateCameraProps, FiberVRDeviceOrientationArcRotateCameraProps, FiberFlyCameraProps, FiberFollowCameraProps, FiberArcFollowCameraProps, FiberMaterialProps, FiberPushMaterialProps, FiberNodeMaterialProps, FiberStandardMaterialProps, FiberBackgroundMaterialProps, FiberPBRBaseMaterialProps, FiberPBRBaseSimpleMaterialProps, FiberPBRMetallicRoughnessMaterialProps, FiberPBRSpecularGlossinessMaterialProps, FiberPBRMaterialProps, FiberFluentMaterialProps, FiberShaderMaterialProps, FiberMultiMaterialProps, FiberLightProps, FiberShadowLightProps, FiberDirectionalLightProps, FiberPointLightProps, FiberSpotLightProps, FiberHemisphericLightProps, FiberControlProps, FiberContainerProps, FiberRectangleProps, FiberButtonProps, FiberSelectionPanelProps, FiberScrollViewerProps, FiberStackPanelProps, FiberVirtualKeyboardProps, FiberEllipseProps, FiberGridProps, Fiber_ScrollViewerWindowProps, FiberTextBlockProps, FiberImageProps, FiberCheckboxProps, FiberColorPickerProps, FiberInputTextProps, FiberInputPasswordProps, FiberLineProps, FiberMultiLineProps, FiberRadioButtonProps, FiberBaseSliderProps, FiberScrollBarProps, FiberImageScrollBarProps, FiberSliderProps, FiberImageBasedSliderProps, FiberDisplayGridProps, FiberControl3DProps, FiberContainer3DProps, FiberVolumeBasedPanelProps, FiberCylinderPanelProps, FiberPlanePanelProps, FiberScatterPanelProps, FiberSpherePanelProps, FiberStackPanel3DProps, FiberAbstractButton3DProps, FiberButton3DProps, FiberHolographicButtonProps, FiberMeshButton3DProps, FiberEffectLayerProps, FiberGlowLayerProps, FiberHighlightLayerProps, FiberBaseTextureProps, FiberCubeTextureProps, FiberRawCubeTextureProps, FiberTextureProps, FiberRawTextureProps, FiberProceduralTextureProps, FiberCustomProceduralTextureProps, FiberNoiseProceduralTextureProps, FiberRenderTargetTextureProps, FiberMirrorTextureProps, FiberMultiRenderTargetProps, FiberRefractionTextureProps, FiberMultiviewRenderTargetProps, FiberVideoTextureProps, FiberDynamicTextureProps, FiberAdvancedDynamicTextureProps, FiberRawTexture2DArrayProps, FiberRawTexture3DProps, FiberColorGradingTextureProps, FiberEquiRectangularCubeTextureProps, FiberHDRCubeTextureProps, FiberHtmlElementTextureProps, FiberGUI3DManagerProps, FiberShadowGeneratorProps, FiberCascadedShadowGeneratorProps, FiberEnvironmentHelperProps, FiberPhysicsImpostorProps, FiberVRExperienceHelperProps, FiberDynamicTerrainProps, FiberPointsCloudSystemProps, FiberAutoRotationBehaviorProps, FiberBouncingBehaviorProps, FiberFramingBehaviorProps, FiberAttachToBoxBehaviorProps, FiberFadeInOutBehaviorProps, FiberMultiPointerScaleBehaviorProps, FiberPointerDragBehaviorProps, FiberSixDofDragBehaviorProps, FiberSceneProps } from "./generatedProps";
+import { FiberNodeProps, FiberTransformNodeProps, FiberAbstractMeshProps, FiberInstancedMeshProps, FiberInstancedLinesMeshProps, FiberMeshProps, FiberLinesMeshProps, FiberGroundMeshProps, FiberTrailMeshProps, FiberCameraProps, FiberTargetCameraProps, FiberFreeCameraProps, FiberTouchCameraProps, FiberUniversalCameraProps, FiberGamepadCameraProps, FiberAnaglyphGamepadCameraProps, FiberStereoscopicGamepadCameraProps, FiberAnaglyphUniversalCameraProps, FiberStereoscopicUniversalCameraProps, FiberDeviceOrientationCameraProps, FiberVRDeviceOrientationFreeCameraProps, FiberVRDeviceOrientationGamepadCameraProps, FiberAnaglyphFreeCameraProps, FiberStereoscopicFreeCameraProps, FiberVirtualJoysticksCameraProps, FiberWebVRFreeCameraProps, FiberWebXRCameraProps, FiberArcRotateCameraProps, FiberAnaglyphArcRotateCameraProps, FiberStereoscopicArcRotateCameraProps, FiberVRDeviceOrientationArcRotateCameraProps, FiberFlyCameraProps, FiberFollowCameraProps, FiberArcFollowCameraProps, FiberMaterialProps, FiberPushMaterialProps, FiberNodeMaterialProps, FiberStandardMaterialProps, FiberBackgroundMaterialProps, FiberPBRBaseMaterialProps, FiberPBRBaseSimpleMaterialProps, FiberPBRMetallicRoughnessMaterialProps, FiberPBRSpecularGlossinessMaterialProps, FiberPBRMaterialProps, FiberFluentMaterialProps, FiberShaderMaterialProps, FiberMultiMaterialProps, FiberLightProps, FiberShadowLightProps, FiberDirectionalLightProps, FiberPointLightProps, FiberSpotLightProps, FiberHemisphericLightProps, FiberControlProps, FiberContainerProps, FiberRectangleProps, FiberButtonProps, FiberSelectionPanelProps, FiberScrollViewerProps, FiberStackPanelProps, FiberVirtualKeyboardProps, FiberEllipseProps, FiberGridProps, Fiber_ScrollViewerWindowProps, FiberTextBlockProps, FiberImageProps, FiberCheckboxProps, FiberColorPickerProps, FiberInputTextProps, FiberInputPasswordProps, FiberLineProps, FiberMultiLineProps, FiberRadioButtonProps, FiberBaseSliderProps, FiberScrollBarProps, FiberImageScrollBarProps, FiberSliderProps, FiberImageBasedSliderProps, FiberDisplayGridProps, FiberControl3DProps, FiberContainer3DProps, FiberVolumeBasedPanelProps, FiberCylinderPanelProps, FiberPlanePanelProps, FiberScatterPanelProps, FiberSpherePanelProps, FiberStackPanel3DProps, FiberAbstractButton3DProps, FiberButton3DProps, FiberHolographicButtonProps, FiberMeshButton3DProps, FiberEffectLayerProps, FiberGlowLayerProps, FiberHighlightLayerProps, FiberThinTextureProps, FiberBaseTextureProps, FiberCubeTextureProps, FiberRawCubeTextureProps, FiberTextureProps, FiberRawTextureProps, FiberProceduralTextureProps, FiberCustomProceduralTextureProps, FiberNoiseProceduralTextureProps, FiberRenderTargetTextureProps, FiberMirrorTextureProps, FiberMultiRenderTargetProps, FiberRefractionTextureProps, FiberMultiviewRenderTargetProps, FiberVideoTextureProps, FiberDynamicTextureProps, FiberAdvancedDynamicTextureProps, FiberRawTexture2DArrayProps, FiberRawTexture3DProps, FiberColorGradingTextureProps, FiberEquiRectangularCubeTextureProps, FiberHDRCubeTextureProps, FiberHtmlElementTextureProps, FiberGUI3DManagerProps, FiberShadowGeneratorProps, FiberCascadedShadowGeneratorProps, FiberEnvironmentHelperProps, FiberPhysicsImpostorProps, FiberVRExperienceHelperProps, FiberDynamicTerrainProps, FiberPointsCloudSystemProps, FiberAutoRotationBehaviorProps, FiberBouncingBehaviorProps, FiberFramingBehaviorProps, FiberAttachToBoxBehaviorProps, FiberFadeInOutBehaviorProps, FiberMultiPointerScaleBehaviorProps, FiberPointerDragBehaviorProps, FiberSixDofDragBehaviorProps, FiberSceneProps } from "./generatedProps";
 import { DynamicTerrain as ExtensionsDynamicTerrain } from "./extensions/DynamicTerrain";
 import { AbstractScene as BabylonjsCoreAbstractScene } from "@babylonjs/core/abstractScene";
 import { Scene as BabylonjsCoreScene } from "@babylonjs/core/scene";
@@ -47,8 +47,8 @@ import { CascadedShadowGenerator as BabylonjsCoreCascadedShadowGenerator } from 
 import { ShadowGenerator as BabylonjsCoreShadowGenerator, ICustomShaderOptions as BabylonjsCoreICustomShaderOptions } from "@babylonjs/core/Lights/Shadows/shadowGenerator";
 import { NodeMaterialConnectionPointCompatibilityStates as BabylonjsCoreNodeMaterialConnectionPointCompatibilityStates, NodeMaterialConnectionPointDirection as BabylonjsCoreNodeMaterialConnectionPointDirection } from "@babylonjs/core/Materials/Node/nodeMaterialBlockConnectionPoint";
 import { PropertyTypeForEdition as BabylonjsCorePropertyTypeForEdition } from "@babylonjs/core/Materials/Node/nodeMaterialDecorator";
-import { BaseTexture as BabylonjsCoreBaseTexture } from "@babylonjs/core/Materials/Textures/baseTexture";
-import { InternalTextureSource as BabylonjsCoreInternalTextureSource } from "@babylonjs/core/Materials/Textures/internalTexture";
+import { InternalTextureSource as BabylonjsCoreInternalTextureSource, InternalTexture as BabylonjsCoreInternalTexture } from "@babylonjs/core/Materials/Textures/internalTexture";
+import { ThinTexture as BabylonjsCoreThinTexture } from "@babylonjs/core/Materials/Textures/thinTexture";
 import { HandPart as BabylonjsCoreHandPart } from "@babylonjs/core/XR/features/WebXRHandTracking";
 import { Control as BabylonjsGuiControl } from "@babylonjs/gui/2D/controls/control";
 import { TextWrapping as BabylonjsGuiTextWrapping, TextBlock as BabylonjsGuiTextBlock } from "@babylonjs/gui/2D/controls/textBlock";
@@ -125,6 +125,7 @@ import { NodeMaterial as BabylonjsCoreNodeMaterial, INodeMaterialOptions as Baby
 import { NodeMaterialBlock as BabylonjsCoreNodeMaterialBlock } from "@babylonjs/core/Materials/Node/nodeMaterialBlock";
 import { ImageProcessingConfiguration as BabylonjsCoreImageProcessingConfiguration } from "@babylonjs/core/Materials/imageProcessingConfiguration";
 import { StandardMaterial as BabylonjsCoreStandardMaterial } from "@babylonjs/core/Materials/standardMaterial";
+import { BaseTexture as BabylonjsCoreBaseTexture } from "@babylonjs/core/Materials/Textures/baseTexture";
 import { ColorCurves as BabylonjsCoreColorCurves } from "@babylonjs/core/Materials/colorCurves";
 import { FresnelParameters as BabylonjsCoreFresnelParameters } from "@babylonjs/core/Materials/fresnelParameters";
 import { BackgroundMaterial as BabylonjsCoreBackgroundMaterial } from "@babylonjs/core/Materials/Background/backgroundMaterial";
@@ -6078,14 +6079,14 @@ export class FiberStandardMaterialPropsHandler implements PropsHandler<FiberStan
         const changedProps: PropertyUpdate[] = []
         checkPrimitiveDiff(oldProps.alphaCutOff, newProps.alphaCutOff, 'alphaCutOff', changedProps)
         checkColor3Diff(oldProps.ambientColor, newProps.ambientColor, 'ambientColor', changedProps)
-        checkTextureDiff(oldProps.ambientTexture, newProps.ambientTexture, 'ambientTexture', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreStandardMaterial.ambientTexture.
         checkPrimitiveDiff(oldProps.AmbientTextureEnabled, newProps.AmbientTextureEnabled, 'AmbientTextureEnabled', changedProps)
-        checkTextureDiff(oldProps.bumpTexture, newProps.bumpTexture, 'bumpTexture', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreStandardMaterial.bumpTexture.
         checkPrimitiveDiff(oldProps.BumpTextureEnabled, newProps.BumpTextureEnabled, 'BumpTextureEnabled', changedProps)
         // type: 'BabylonjsCoreColorCurves' property (not coded) BabylonjsCoreStandardMaterial.cameraColorCurves.
         checkPrimitiveDiff(oldProps.cameraColorCurvesEnabled, newProps.cameraColorCurvesEnabled, 'cameraColorCurvesEnabled', changedProps)
         checkPrimitiveDiff(oldProps.cameraColorGradingEnabled, newProps.cameraColorGradingEnabled, 'cameraColorGradingEnabled', changedProps)
-        checkTextureDiff(oldProps.cameraColorGradingTexture, newProps.cameraColorGradingTexture, 'cameraColorGradingTexture', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreStandardMaterial.cameraColorGradingTexture.
         checkPrimitiveDiff(oldProps.cameraContrast, newProps.cameraContrast, 'cameraContrast', changedProps)
         checkPrimitiveDiff(oldProps.cameraExposure, newProps.cameraExposure, 'cameraExposure', changedProps)
         checkPrimitiveDiff(oldProps.cameraToneMappingEnabled, newProps.cameraToneMappingEnabled, 'cameraToneMappingEnabled', changedProps)
@@ -6093,12 +6094,12 @@ export class FiberStandardMaterialPropsHandler implements PropsHandler<FiberStan
         checkPrimitiveDiff(oldProps.DetailTextureEnabled, newProps.DetailTextureEnabled, 'DetailTextureEnabled', changedProps)
         checkColor3Diff(oldProps.diffuseColor, newProps.diffuseColor, 'diffuseColor', changedProps)
         checkFresnelParametersDiff(oldProps.diffuseFresnelParameters, newProps.diffuseFresnelParameters, 'diffuseFresnelParameters', changedProps)
-        checkTextureDiff(oldProps.diffuseTexture, newProps.diffuseTexture, 'diffuseTexture', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreStandardMaterial.diffuseTexture.
         checkPrimitiveDiff(oldProps.DiffuseTextureEnabled, newProps.DiffuseTextureEnabled, 'DiffuseTextureEnabled', changedProps)
         checkPrimitiveDiff(oldProps.disableLighting, newProps.disableLighting, 'disableLighting', changedProps)
         checkColor3Diff(oldProps.emissiveColor, newProps.emissiveColor, 'emissiveColor', changedProps)
         checkFresnelParametersDiff(oldProps.emissiveFresnelParameters, newProps.emissiveFresnelParameters, 'emissiveFresnelParameters', changedProps)
-        checkTextureDiff(oldProps.emissiveTexture, newProps.emissiveTexture, 'emissiveTexture', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreStandardMaterial.emissiveTexture.
         checkPrimitiveDiff(oldProps.EmissiveTextureEnabled, newProps.EmissiveTextureEnabled, 'EmissiveTextureEnabled', changedProps)
         checkPrimitiveDiff(oldProps.FresnelEnabled, newProps.FresnelEnabled, 'FresnelEnabled', changedProps)
         // type: 'BabylonjsCoreImageProcessingConfiguration' property (not coded) BabylonjsCoreStandardMaterial.imageProcessingConfiguration.
@@ -6106,24 +6107,24 @@ export class FiberStandardMaterialPropsHandler implements PropsHandler<FiberStan
         checkPrimitiveDiff(oldProps.invertNormalMapX, newProps.invertNormalMapX, 'invertNormalMapX', changedProps)
         checkPrimitiveDiff(oldProps.invertNormalMapY, newProps.invertNormalMapY, 'invertNormalMapY', changedProps)
         checkPrimitiveDiff(oldProps.invertRefractionY, newProps.invertRefractionY, 'invertRefractionY', changedProps)
-        checkTextureDiff(oldProps.lightmapTexture, newProps.lightmapTexture, 'lightmapTexture', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreStandardMaterial.lightmapTexture.
         checkPrimitiveDiff(oldProps.LightmapTextureEnabled, newProps.LightmapTextureEnabled, 'LightmapTextureEnabled', changedProps)
         checkPrimitiveDiff(oldProps.linkEmissiveWithDiffuse, newProps.linkEmissiveWithDiffuse, 'linkEmissiveWithDiffuse', changedProps)
         checkPrimitiveDiff(oldProps.maxSimultaneousLights, newProps.maxSimultaneousLights, 'maxSimultaneousLights', changedProps)
         checkFresnelParametersDiff(oldProps.opacityFresnelParameters, newProps.opacityFresnelParameters, 'opacityFresnelParameters', changedProps)
-        checkTextureDiff(oldProps.opacityTexture, newProps.opacityTexture, 'opacityTexture', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreStandardMaterial.opacityTexture.
         checkPrimitiveDiff(oldProps.OpacityTextureEnabled, newProps.OpacityTextureEnabled, 'OpacityTextureEnabled', changedProps)
         checkPrimitiveDiff(oldProps.parallaxScaleBias, newProps.parallaxScaleBias, 'parallaxScaleBias', changedProps)
         checkFresnelParametersDiff(oldProps.reflectionFresnelParameters, newProps.reflectionFresnelParameters, 'reflectionFresnelParameters', changedProps)
-        checkTextureDiff(oldProps.reflectionTexture, newProps.reflectionTexture, 'reflectionTexture', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreStandardMaterial.reflectionTexture.
         checkPrimitiveDiff(oldProps.ReflectionTextureEnabled, newProps.ReflectionTextureEnabled, 'ReflectionTextureEnabled', changedProps)
         checkFresnelParametersDiff(oldProps.refractionFresnelParameters, newProps.refractionFresnelParameters, 'refractionFresnelParameters', changedProps)
-        checkTextureDiff(oldProps.refractionTexture, newProps.refractionTexture, 'refractionTexture', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreStandardMaterial.refractionTexture.
         checkPrimitiveDiff(oldProps.RefractionTextureEnabled, newProps.RefractionTextureEnabled, 'RefractionTextureEnabled', changedProps)
         checkPrimitiveDiff(oldProps.roughness, newProps.roughness, 'roughness', changedProps)
         checkColor3Diff(oldProps.specularColor, newProps.specularColor, 'specularColor', changedProps)
         checkPrimitiveDiff(oldProps.specularPower, newProps.specularPower, 'specularPower', changedProps)
-        checkTextureDiff(oldProps.specularTexture, newProps.specularTexture, 'specularTexture', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreStandardMaterial.specularTexture.
         checkPrimitiveDiff(oldProps.SpecularTextureEnabled, newProps.SpecularTextureEnabled, 'SpecularTextureEnabled', changedProps)
         checkPrimitiveDiff(oldProps.twoSidedLighting, newProps.twoSidedLighting, 'twoSidedLighting', changedProps)
         checkPrimitiveDiff(oldProps.useAlphaFromDiffuseTexture, newProps.useAlphaFromDiffuseTexture, 'useAlphaFromDiffuseTexture', changedProps)
@@ -6196,11 +6197,11 @@ export class FiberBackgroundMaterialPropsHandler implements PropsHandler<FiberBa
         // type: 'BabylonjsCoreColorCurves' property (not coded) BabylonjsCoreBackgroundMaterial.cameraColorCurves.
         checkPrimitiveDiff(oldProps.cameraColorCurvesEnabled, newProps.cameraColorCurvesEnabled, 'cameraColorCurvesEnabled', changedProps)
         checkPrimitiveDiff(oldProps.cameraColorGradingEnabled, newProps.cameraColorGradingEnabled, 'cameraColorGradingEnabled', changedProps)
-        checkTextureDiff(oldProps.cameraColorGradingTexture, newProps.cameraColorGradingTexture, 'cameraColorGradingTexture', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreBackgroundMaterial.cameraColorGradingTexture.
         checkPrimitiveDiff(oldProps.cameraContrast, newProps.cameraContrast, 'cameraContrast', changedProps)
         checkPrimitiveDiff(oldProps.cameraExposure, newProps.cameraExposure, 'cameraExposure', changedProps)
         checkPrimitiveDiff(oldProps.cameraToneMappingEnabled, newProps.cameraToneMappingEnabled, 'cameraToneMappingEnabled', changedProps)
-        checkTextureDiff(oldProps.diffuseTexture, newProps.diffuseTexture, 'diffuseTexture', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreBackgroundMaterial.diffuseTexture.
         checkPrimitiveDiff(oldProps.enableNoise, newProps.enableNoise, 'enableNoise', changedProps)
         checkPrimitiveDiff(oldProps.fovMultiplier, newProps.fovMultiplier, 'fovMultiplier', changedProps)
         // type: 'BabylonjsCoreImageProcessingConfiguration' property (not coded) BabylonjsCoreBackgroundMaterial.imageProcessingConfiguration.
@@ -6216,7 +6217,7 @@ export class FiberBackgroundMaterialPropsHandler implements PropsHandler<FiberBa
         checkPrimitiveDiff(oldProps.reflectionReflectance0, newProps.reflectionReflectance0, 'reflectionReflectance0', changedProps)
         checkPrimitiveDiff(oldProps.reflectionReflectance90, newProps.reflectionReflectance90, 'reflectionReflectance90', changedProps)
         checkPrimitiveDiff(oldProps.reflectionStandardFresnelWeight, newProps.reflectionStandardFresnelWeight, 'reflectionStandardFresnelWeight', changedProps)
-        checkTextureDiff(oldProps.reflectionTexture, newProps.reflectionTexture, 'reflectionTexture', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreBackgroundMaterial.reflectionTexture.
         checkVector3Diff(oldProps.sceneCenter, newProps.sceneCenter, 'sceneCenter', changedProps)
         checkPrimitiveDiff(oldProps['sceneCenter-x'], newProps['sceneCenter-x'], 'sceneCenter.x', changedProps)
         checkPrimitiveDiff(oldProps['sceneCenter-y'], newProps['sceneCenter-y'], 'sceneCenter.y', changedProps)
@@ -6350,15 +6351,15 @@ export class FiberPBRBaseSimpleMaterialPropsHandler implements PropsHandler<Fibe
         checkPrimitiveDiff(oldProps.disableLighting, newProps.disableLighting, 'disableLighting', changedProps)
         checkPrimitiveDiff(oldProps.doubleSided, newProps.doubleSided, 'doubleSided', changedProps)
         checkColor3Diff(oldProps.emissiveColor, newProps.emissiveColor, 'emissiveColor', changedProps)
-        checkTextureDiff(oldProps.emissiveTexture, newProps.emissiveTexture, 'emissiveTexture', changedProps)
-        checkTextureDiff(oldProps.environmentTexture, newProps.environmentTexture, 'environmentTexture', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRBaseSimpleMaterial.emissiveTexture.
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRBaseSimpleMaterial.environmentTexture.
         checkPrimitiveDiff(oldProps.invertNormalMapX, newProps.invertNormalMapX, 'invertNormalMapX', changedProps)
         checkPrimitiveDiff(oldProps.invertNormalMapY, newProps.invertNormalMapY, 'invertNormalMapY', changedProps)
-        checkTextureDiff(oldProps.lightmapTexture, newProps.lightmapTexture, 'lightmapTexture', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRBaseSimpleMaterial.lightmapTexture.
         checkPrimitiveDiff(oldProps.maxSimultaneousLights, newProps.maxSimultaneousLights, 'maxSimultaneousLights', changedProps)
-        checkTextureDiff(oldProps.normalTexture, newProps.normalTexture, 'normalTexture', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRBaseSimpleMaterial.normalTexture.
         checkPrimitiveDiff(oldProps.occlusionStrength, newProps.occlusionStrength, 'occlusionStrength', changedProps)
-        checkTextureDiff(oldProps.occlusionTexture, newProps.occlusionTexture, 'occlusionTexture', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRBaseSimpleMaterial.occlusionTexture.
         checkPrimitiveDiff(oldProps.useLightmapAsShadowmap, newProps.useLightmapAsShadowmap, 'useLightmapAsShadowmap', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
@@ -6419,9 +6420,9 @@ export class FiberPBRMetallicRoughnessMaterialPropsHandler implements PropsHandl
     getPropertyUpdates(oldProps: FiberPBRMetallicRoughnessMaterialProps, newProps: FiberPBRMetallicRoughnessMaterialProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
         checkColor3Diff(oldProps.baseColor, newProps.baseColor, 'baseColor', changedProps)
-        checkTextureDiff(oldProps.baseTexture, newProps.baseTexture, 'baseTexture', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMetallicRoughnessMaterial.baseTexture.
         checkPrimitiveDiff(oldProps.metallic, newProps.metallic, 'metallic', changedProps)
-        checkTextureDiff(oldProps.metallicRoughnessTexture, newProps.metallicRoughnessTexture, 'metallicRoughnessTexture', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMetallicRoughnessMaterial.metallicRoughnessTexture.
         checkPrimitiveDiff(oldProps.roughness, newProps.roughness, 'roughness', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
@@ -6483,10 +6484,10 @@ export class FiberPBRSpecularGlossinessMaterialPropsHandler implements PropsHand
     getPropertyUpdates(oldProps: FiberPBRSpecularGlossinessMaterialProps, newProps: FiberPBRSpecularGlossinessMaterialProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
         checkColor3Diff(oldProps.diffuseColor, newProps.diffuseColor, 'diffuseColor', changedProps)
-        checkTextureDiff(oldProps.diffuseTexture, newProps.diffuseTexture, 'diffuseTexture', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRSpecularGlossinessMaterial.diffuseTexture.
         checkPrimitiveDiff(oldProps.glossiness, newProps.glossiness, 'glossiness', changedProps)
         checkColor3Diff(oldProps.specularColor, newProps.specularColor, 'specularColor', changedProps)
-        checkTextureDiff(oldProps.specularGlossinessTexture, newProps.specularGlossinessTexture, 'specularGlossinessTexture', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRSpecularGlossinessMaterial.specularGlossinessTexture.
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -6547,17 +6548,17 @@ export class FiberPBRMaterialPropsHandler implements PropsHandler<FiberPBRMateri
     getPropertyUpdates(oldProps: FiberPBRMaterialProps, newProps: FiberPBRMaterialProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
         checkColor3Diff(oldProps.albedoColor, newProps.albedoColor, 'albedoColor', changedProps)
-        checkTextureDiff(oldProps.albedoTexture, newProps.albedoTexture, 'albedoTexture', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.albedoTexture.
         checkPrimitiveDiff(oldProps.alphaCutOff, newProps.alphaCutOff, 'alphaCutOff', changedProps)
         checkColor3Diff(oldProps.ambientColor, newProps.ambientColor, 'ambientColor', changedProps)
-        checkTextureDiff(oldProps.ambientTexture, newProps.ambientTexture, 'ambientTexture', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.ambientTexture.
         checkPrimitiveDiff(oldProps.ambientTextureImpactOnAnalyticalLights, newProps.ambientTextureImpactOnAnalyticalLights, 'ambientTextureImpactOnAnalyticalLights', changedProps)
         checkPrimitiveDiff(oldProps.ambientTextureStrength, newProps.ambientTextureStrength, 'ambientTextureStrength', changedProps)
-        checkTextureDiff(oldProps.bumpTexture, newProps.bumpTexture, 'bumpTexture', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.bumpTexture.
         // type: 'BabylonjsCoreColorCurves' property (not coded) BabylonjsCorePBRMaterial.cameraColorCurves.
         checkPrimitiveDiff(oldProps.cameraColorCurvesEnabled, newProps.cameraColorCurvesEnabled, 'cameraColorCurvesEnabled', changedProps)
         checkPrimitiveDiff(oldProps.cameraColorGradingEnabled, newProps.cameraColorGradingEnabled, 'cameraColorGradingEnabled', changedProps)
-        checkTextureDiff(oldProps.cameraColorGradingTexture, newProps.cameraColorGradingTexture, 'cameraColorGradingTexture', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.cameraColorGradingTexture.
         checkPrimitiveDiff(oldProps.cameraContrast, newProps.cameraContrast, 'cameraContrast', changedProps)
         checkPrimitiveDiff(oldProps.cameraExposure, newProps.cameraExposure, 'cameraExposure', changedProps)
         checkPrimitiveDiff(oldProps.cameraToneMappingEnabled, newProps.cameraToneMappingEnabled, 'cameraToneMappingEnabled', changedProps)
@@ -6566,9 +6567,9 @@ export class FiberPBRMaterialPropsHandler implements PropsHandler<FiberPBRMateri
         checkPrimitiveDiff(oldProps.disableLighting, newProps.disableLighting, 'disableLighting', changedProps)
         checkColor3Diff(oldProps.emissiveColor, newProps.emissiveColor, 'emissiveColor', changedProps)
         checkPrimitiveDiff(oldProps.emissiveIntensity, newProps.emissiveIntensity, 'emissiveIntensity', changedProps)
-        checkTextureDiff(oldProps.emissiveTexture, newProps.emissiveTexture, 'emissiveTexture', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.emissiveTexture.
         checkPrimitiveDiff(oldProps.enableSpecularAntiAliasing, newProps.enableSpecularAntiAliasing, 'enableSpecularAntiAliasing', changedProps)
-        checkTextureDiff(oldProps.environmentBRDFTexture, newProps.environmentBRDFTexture, 'environmentBRDFTexture', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.environmentBRDFTexture.
         checkPrimitiveDiff(oldProps.environmentIntensity, newProps.environmentIntensity, 'environmentIntensity', changedProps)
         checkPrimitiveDiff(oldProps.forceAlphaTest, newProps.forceAlphaTest, 'forceAlphaTest', changedProps)
         checkPrimitiveDiff(oldProps.forceIrradianceInFragment, newProps.forceIrradianceInFragment, 'forceIrradianceInFragment', changedProps)
@@ -6578,23 +6579,23 @@ export class FiberPBRMaterialPropsHandler implements PropsHandler<FiberPBRMateri
         checkPrimitiveDiff(oldProps.invertNormalMapX, newProps.invertNormalMapX, 'invertNormalMapX', changedProps)
         checkPrimitiveDiff(oldProps.invertNormalMapY, newProps.invertNormalMapY, 'invertNormalMapY', changedProps)
         checkPrimitiveDiff(oldProps.invertRefractionY, newProps.invertRefractionY, 'invertRefractionY', changedProps)
-        checkTextureDiff(oldProps.lightmapTexture, newProps.lightmapTexture, 'lightmapTexture', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.lightmapTexture.
         checkPrimitiveDiff(oldProps.linkRefractionWithTransparency, newProps.linkRefractionWithTransparency, 'linkRefractionWithTransparency', changedProps)
         checkPrimitiveDiff(oldProps.maxSimultaneousLights, newProps.maxSimultaneousLights, 'maxSimultaneousLights', changedProps)
         checkPrimitiveDiff(oldProps.metallic, newProps.metallic, 'metallic', changedProps)
         checkPrimitiveDiff(oldProps.metallicF0Factor, newProps.metallicF0Factor, 'metallicF0Factor', changedProps)
         checkColor3Diff(oldProps.metallicReflectanceColor, newProps.metallicReflectanceColor, 'metallicReflectanceColor', changedProps)
-        checkTextureDiff(oldProps.metallicReflectanceTexture, newProps.metallicReflectanceTexture, 'metallicReflectanceTexture', changedProps)
-        checkTextureDiff(oldProps.metallicTexture, newProps.metallicTexture, 'metallicTexture', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.metallicReflectanceTexture.
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.metallicTexture.
         checkPrimitiveDiff(oldProps.microSurface, newProps.microSurface, 'microSurface', changedProps)
-        checkTextureDiff(oldProps.microSurfaceTexture, newProps.microSurfaceTexture, 'microSurfaceTexture', changedProps)
-        checkTextureDiff(oldProps.opacityTexture, newProps.opacityTexture, 'opacityTexture', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.microSurfaceTexture.
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.opacityTexture.
         checkPrimitiveDiff(oldProps.parallaxScaleBias, newProps.parallaxScaleBias, 'parallaxScaleBias', changedProps)
         checkColor3Diff(oldProps.reflectionColor, newProps.reflectionColor, 'reflectionColor', changedProps)
-        checkTextureDiff(oldProps.reflectionTexture, newProps.reflectionTexture, 'reflectionTexture', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.reflectionTexture.
         checkColor3Diff(oldProps.reflectivityColor, newProps.reflectivityColor, 'reflectivityColor', changedProps)
-        checkTextureDiff(oldProps.reflectivityTexture, newProps.reflectivityTexture, 'reflectivityTexture', changedProps)
-        checkTextureDiff(oldProps.refractionTexture, newProps.refractionTexture, 'refractionTexture', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.reflectivityTexture.
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.refractionTexture.
         checkPrimitiveDiff(oldProps.roughness, newProps.roughness, 'roughness', changedProps)
         checkPrimitiveDiff(oldProps.specularIntensity, newProps.specularIntensity, 'specularIntensity', changedProps)
         checkPrimitiveDiff(oldProps.twoSidedLighting, newProps.twoSidedLighting, 'twoSidedLighting', changedProps)
@@ -6679,7 +6680,7 @@ export class FiberFluentMaterialPropsHandler implements PropsHandler<FiberFluent
     getPropertyUpdates(oldProps: FiberFluentMaterialProps, newProps: FiberFluentMaterialProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
         checkColor3Diff(oldProps.albedoColor, newProps.albedoColor, 'albedoColor', changedProps)
-        checkTextureDiff(oldProps.albedoTexture, newProps.albedoTexture, 'albedoTexture', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsGuiFluentMaterial.albedoTexture.
         checkPrimitiveDiff(oldProps.borderMinValue, newProps.borderMinValue, 'borderMinValue', changedProps)
         checkPrimitiveDiff(oldProps.borderWidth, newProps.borderWidth, 'borderWidth', changedProps)
         checkPrimitiveDiff(oldProps.edgeSmoothingValue, newProps.edgeSmoothingValue, 'edgeSmoothingValue', changedProps)
@@ -7163,7 +7164,7 @@ export class FiberSpotLightPropsHandler implements PropsHandler<FiberSpotLightPr
         checkPrimitiveDiff(oldProps.angle, newProps.angle, 'angle', changedProps)
         checkPrimitiveDiff(oldProps.exponent, newProps.exponent, 'exponent', changedProps)
         checkPrimitiveDiff(oldProps.innerAngle, newProps.innerAngle, 'innerAngle', changedProps)
-        checkTextureDiff(oldProps.projectionTexture, newProps.projectionTexture, 'projectionTexture', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreSpotLight.projectionTexture.
         checkPrimitiveDiff(oldProps.projectionTextureLightFar, newProps.projectionTextureLightFar, 'projectionTextureLightFar', changedProps)
         checkPrimitiveDiff(oldProps.projectionTextureLightNear, newProps.projectionTextureLightNear, 'projectionTextureLightNear', changedProps)
         checkVector3Diff(oldProps.projectionTextureUpDirection, newProps.projectionTextureUpDirection, 'projectionTextureUpDirection', changedProps)
@@ -9701,6 +9702,62 @@ export class FiberHighlightLayer implements HasPropsHandlers<FiberEffectLayerPro
     };
 }
 
+export class FiberThinTexturePropsHandler implements PropsHandler<FiberThinTextureProps> {
+    getPropertyUpdates(oldProps: FiberThinTextureProps, newProps: FiberThinTextureProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.anisotropicFilteringLevel, newProps.anisotropicFilteringLevel, 'anisotropicFilteringLevel', changedProps)
+        checkPrimitiveDiff(oldProps.delayLoadState, newProps.delayLoadState, 'delayLoadState', changedProps)
+        checkPrimitiveDiff(oldProps.is2DArray, newProps.is2DArray, 'is2DArray', changedProps)
+        checkPrimitiveDiff(oldProps.is3D, newProps.is3D, 'is3D', changedProps)
+        checkPrimitiveDiff(oldProps.isCube, newProps.isCube, 'isCube', changedProps)
+        checkPrimitiveDiff(oldProps.wrapR, newProps.wrapR, 'wrapR', changedProps)
+        checkPrimitiveDiff(oldProps.wrapU, newProps.wrapU, 'wrapU', changedProps)
+        checkPrimitiveDiff(oldProps.wrapV, newProps.wrapV, 'wrapV', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
+    }
+}
+
+/**
+ * Base class of all the textures in babylon.
+ * It groups all the common properties required to work with Thin Engine.
+ *
+ * This code has been generated
+ */
+export class FiberThinTexture implements HasPropsHandlers<FiberThinTextureProps> {
+    private propsHandlers: PropsHandler<FiberThinTextureProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberThinTexturePropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberThinTextureProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberThinTextureProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "ThinTexture",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "internalTexture",
+                "type": "BabylonjsCoreInternalTexture",
+                "optional": false
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "isTexture": true,
+        "className": "FiberThinTexture"
+    };
+}
+
 export class FiberBaseTexturePropsHandler implements PropsHandler<FiberBaseTextureProps> {
     getPropertyUpdates(oldProps: FiberBaseTextureProps, newProps: FiberBaseTextureProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
@@ -9712,7 +9769,7 @@ export class FiberBaseTexturePropsHandler implements PropsHandler<FiberBaseTextu
         checkPrimitiveDiff(oldProps.getAlphaFromRGB, newProps.getAlphaFromRGB, 'getAlphaFromRGB', changedProps)
         checkPrimitiveDiff(oldProps.hasAlpha, newProps.hasAlpha, 'hasAlpha', changedProps)
         checkPrimitiveDiff(oldProps.invertZ, newProps.invertZ, 'invertZ', changedProps)
-        checkTextureDiff(oldProps.irradianceTexture, newProps.irradianceTexture, 'irradianceTexture', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreBaseTexture.irradianceTexture.
         checkPrimitiveDiff(oldProps.is2DArray, newProps.is2DArray, 'is2DArray', changedProps)
         checkPrimitiveDiff(oldProps.is3D, newProps.is3D, 'is3D', changedProps)
         checkPrimitiveDiff(oldProps.isCube, newProps.isCube, 'isCube', changedProps)
@@ -9743,8 +9800,8 @@ export class FiberBaseTexturePropsHandler implements PropsHandler<FiberBaseTextu
  *
  * This code has been generated
  */
-export class FiberBaseTexture implements HasPropsHandlers<FiberBaseTextureProps> {
-    private propsHandlers: PropsHandler<FiberBaseTextureProps>[];
+export class FiberBaseTexture implements HasPropsHandlers<FiberThinTextureProps> {
+    private propsHandlers: PropsHandler<FiberThinTextureProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -9753,11 +9810,11 @@ export class FiberBaseTexture implements HasPropsHandlers<FiberBaseTextureProps>
         ];
     }
 
-    getPropsHandlers(): PropsHandler<FiberBaseTextureProps>[] {
+    getPropsHandlers(): PropsHandler<FiberThinTextureProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<FiberBaseTextureProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberThinTextureProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -9803,8 +9860,8 @@ export class FiberCubeTexturePropsHandler implements PropsHandler<FiberCubeTextu
  *
  * This code has been generated
  */
-export class FiberCubeTexture implements HasPropsHandlers<FiberBaseTextureProps> {
-    private propsHandlers: PropsHandler<FiberBaseTextureProps>[];
+export class FiberCubeTexture implements HasPropsHandlers<FiberThinTextureProps> {
+    private propsHandlers: PropsHandler<FiberThinTextureProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -9814,11 +9871,11 @@ export class FiberCubeTexture implements HasPropsHandlers<FiberBaseTextureProps>
         ];
     }
 
-    getPropsHandlers(): PropsHandler<FiberBaseTextureProps>[] {
+    getPropsHandlers(): PropsHandler<FiberThinTextureProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<FiberBaseTextureProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberThinTextureProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -9916,8 +9973,8 @@ export class FiberRawCubeTexturePropsHandler implements PropsHandler<FiberRawCub
  *
  * This code has been generated
  */
-export class FiberRawCubeTexture implements HasPropsHandlers<FiberBaseTextureProps> {
-    private propsHandlers: PropsHandler<FiberBaseTextureProps>[];
+export class FiberRawCubeTexture implements HasPropsHandlers<FiberThinTextureProps> {
+    private propsHandlers: PropsHandler<FiberThinTextureProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -9928,11 +9985,11 @@ export class FiberRawCubeTexture implements HasPropsHandlers<FiberBaseTexturePro
         ];
     }
 
-    getPropsHandlers(): PropsHandler<FiberBaseTextureProps>[] {
+    getPropsHandlers(): PropsHandler<FiberThinTextureProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<FiberBaseTextureProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberThinTextureProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -10021,8 +10078,8 @@ export class FiberTexturePropsHandler implements PropsHandler<FiberTextureProps>
  *
  * This code has been generated
  */
-export class FiberTexture implements HasPropsHandlers<FiberBaseTextureProps> {
-    private propsHandlers: PropsHandler<FiberBaseTextureProps>[];
+export class FiberTexture implements HasPropsHandlers<FiberThinTextureProps> {
+    private propsHandlers: PropsHandler<FiberThinTextureProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -10032,11 +10089,11 @@ export class FiberTexture implements HasPropsHandlers<FiberBaseTextureProps> {
         ];
     }
 
-    getPropsHandlers(): PropsHandler<FiberBaseTextureProps>[] {
+    getPropsHandlers(): PropsHandler<FiberThinTextureProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<FiberBaseTextureProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberThinTextureProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -10128,8 +10185,8 @@ export class FiberRawTexturePropsHandler implements PropsHandler<FiberRawTexture
  *
  * This code has been generated
  */
-export class FiberRawTexture implements HasPropsHandlers<FiberBaseTextureProps> {
-    private propsHandlers: PropsHandler<FiberBaseTextureProps>[];
+export class FiberRawTexture implements HasPropsHandlers<FiberThinTextureProps> {
+    private propsHandlers: PropsHandler<FiberThinTextureProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -10140,11 +10197,11 @@ export class FiberRawTexture implements HasPropsHandlers<FiberBaseTextureProps> 
         ];
     }
 
-    getPropsHandlers(): PropsHandler<FiberBaseTextureProps>[] {
+    getPropsHandlers(): PropsHandler<FiberThinTextureProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<FiberBaseTextureProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberThinTextureProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -10236,8 +10293,8 @@ export class FiberProceduralTexturePropsHandler implements PropsHandler<FiberPro
  *
  * This code has been generated
  */
-export class FiberProceduralTexture implements HasPropsHandlers<FiberBaseTextureProps> {
-    private propsHandlers: PropsHandler<FiberBaseTextureProps>[];
+export class FiberProceduralTexture implements HasPropsHandlers<FiberThinTextureProps> {
+    private propsHandlers: PropsHandler<FiberThinTextureProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -10248,11 +10305,11 @@ export class FiberProceduralTexture implements HasPropsHandlers<FiberBaseTexture
         ];
     }
 
-    getPropsHandlers(): PropsHandler<FiberBaseTextureProps>[] {
+    getPropsHandlers(): PropsHandler<FiberThinTextureProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<FiberBaseTextureProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberThinTextureProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -10323,8 +10380,8 @@ export class FiberCustomProceduralTexturePropsHandler implements PropsHandler<Fi
  *
  * This code has been generated
  */
-export class FiberCustomProceduralTexture implements HasPropsHandlers<FiberBaseTextureProps> {
-    private propsHandlers: PropsHandler<FiberBaseTextureProps>[];
+export class FiberCustomProceduralTexture implements HasPropsHandlers<FiberThinTextureProps> {
+    private propsHandlers: PropsHandler<FiberThinTextureProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -10336,11 +10393,11 @@ export class FiberCustomProceduralTexture implements HasPropsHandlers<FiberBaseT
         ];
     }
 
-    getPropsHandlers(): PropsHandler<FiberBaseTextureProps>[] {
+    getPropsHandlers(): PropsHandler<FiberThinTextureProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<FiberBaseTextureProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberThinTextureProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -10404,8 +10461,8 @@ export class FiberNoiseProceduralTexturePropsHandler implements PropsHandler<Fib
  *
  * This code has been generated
  */
-export class FiberNoiseProceduralTexture implements HasPropsHandlers<FiberBaseTextureProps> {
-    private propsHandlers: PropsHandler<FiberBaseTextureProps>[];
+export class FiberNoiseProceduralTexture implements HasPropsHandlers<FiberThinTextureProps> {
+    private propsHandlers: PropsHandler<FiberThinTextureProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -10417,11 +10474,11 @@ export class FiberNoiseProceduralTexture implements HasPropsHandlers<FiberBaseTe
         ];
     }
 
-    getPropsHandlers(): PropsHandler<FiberBaseTextureProps>[] {
+    getPropsHandlers(): PropsHandler<FiberThinTextureProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<FiberBaseTextureProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberThinTextureProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -10512,8 +10569,8 @@ export class FiberRenderTargetTexturePropsHandler implements PropsHandler<FiberR
  *
  * This code has been generated
  */
-export class FiberRenderTargetTexture implements HasPropsHandlers<FiberBaseTextureProps> {
-    private propsHandlers: PropsHandler<FiberBaseTextureProps>[];
+export class FiberRenderTargetTexture implements HasPropsHandlers<FiberThinTextureProps> {
+    private propsHandlers: PropsHandler<FiberThinTextureProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -10524,11 +10581,11 @@ export class FiberRenderTargetTexture implements HasPropsHandlers<FiberBaseTextu
         ];
     }
 
-    getPropsHandlers(): PropsHandler<FiberBaseTextureProps>[] {
+    getPropsHandlers(): PropsHandler<FiberThinTextureProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<FiberBaseTextureProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberThinTextureProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -10632,8 +10689,8 @@ export class FiberMirrorTexturePropsHandler implements PropsHandler<FiberMirrorT
  *
  * This code has been generated
  */
-export class FiberMirrorTexture implements HasPropsHandlers<FiberBaseTextureProps> {
-    private propsHandlers: PropsHandler<FiberBaseTextureProps>[];
+export class FiberMirrorTexture implements HasPropsHandlers<FiberThinTextureProps> {
+    private propsHandlers: PropsHandler<FiberThinTextureProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -10645,11 +10702,11 @@ export class FiberMirrorTexture implements HasPropsHandlers<FiberBaseTextureProp
         ];
     }
 
-    getPropsHandlers(): PropsHandler<FiberBaseTextureProps>[] {
+    getPropsHandlers(): PropsHandler<FiberThinTextureProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<FiberBaseTextureProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberThinTextureProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -10719,8 +10776,8 @@ export class FiberMultiRenderTargetPropsHandler implements PropsHandler<FiberMul
  *
  * This code has been generated
  */
-export class FiberMultiRenderTarget implements HasPropsHandlers<FiberBaseTextureProps> {
-    private propsHandlers: PropsHandler<FiberBaseTextureProps>[];
+export class FiberMultiRenderTarget implements HasPropsHandlers<FiberThinTextureProps> {
+    private propsHandlers: PropsHandler<FiberThinTextureProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -10732,11 +10789,11 @@ export class FiberMultiRenderTarget implements HasPropsHandlers<FiberBaseTexture
         ];
     }
 
-    getPropsHandlers(): PropsHandler<FiberBaseTextureProps>[] {
+    getPropsHandlers(): PropsHandler<FiberThinTextureProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<FiberBaseTextureProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberThinTextureProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -10793,8 +10850,8 @@ export class FiberRefractionTexturePropsHandler implements PropsHandler<FiberRef
  *
  * This code has been generated
  */
-export class FiberRefractionTexture implements HasPropsHandlers<FiberBaseTextureProps> {
-    private propsHandlers: PropsHandler<FiberBaseTextureProps>[];
+export class FiberRefractionTexture implements HasPropsHandlers<FiberThinTextureProps> {
+    private propsHandlers: PropsHandler<FiberThinTextureProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -10806,11 +10863,11 @@ export class FiberRefractionTexture implements HasPropsHandlers<FiberBaseTexture
         ];
     }
 
-    getPropsHandlers(): PropsHandler<FiberBaseTextureProps>[] {
+    getPropsHandlers(): PropsHandler<FiberThinTextureProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<FiberBaseTextureProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberThinTextureProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -10858,8 +10915,8 @@ export class FiberMultiviewRenderTargetPropsHandler implements PropsHandler<Fibe
  *
  * This code has been generated
  */
-export class FiberMultiviewRenderTarget implements HasPropsHandlers<FiberBaseTextureProps> {
-    private propsHandlers: PropsHandler<FiberBaseTextureProps>[];
+export class FiberMultiviewRenderTarget implements HasPropsHandlers<FiberThinTextureProps> {
+    private propsHandlers: PropsHandler<FiberThinTextureProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -10871,11 +10928,11 @@ export class FiberMultiviewRenderTarget implements HasPropsHandlers<FiberBaseTex
         ];
     }
 
-    getPropsHandlers(): PropsHandler<FiberBaseTextureProps>[] {
+    getPropsHandlers(): PropsHandler<FiberThinTextureProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<FiberBaseTextureProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberThinTextureProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -10915,8 +10972,8 @@ export class FiberVideoTexturePropsHandler implements PropsHandler<FiberVideoTex
  *
  * This code has been generated
  */
-export class FiberVideoTexture implements HasPropsHandlers<FiberBaseTextureProps> {
-    private propsHandlers: PropsHandler<FiberBaseTextureProps>[];
+export class FiberVideoTexture implements HasPropsHandlers<FiberThinTextureProps> {
+    private propsHandlers: PropsHandler<FiberThinTextureProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -10927,11 +10984,11 @@ export class FiberVideoTexture implements HasPropsHandlers<FiberBaseTextureProps
         ];
     }
 
-    getPropsHandlers(): PropsHandler<FiberBaseTextureProps>[] {
+    getPropsHandlers(): PropsHandler<FiberThinTextureProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<FiberBaseTextureProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberThinTextureProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -10994,8 +11051,8 @@ export class FiberDynamicTexturePropsHandler implements PropsHandler<FiberDynami
  *
  * This code has been generated
  */
-export class FiberDynamicTexture implements HasPropsHandlers<FiberBaseTextureProps> {
-    private propsHandlers: PropsHandler<FiberBaseTextureProps>[];
+export class FiberDynamicTexture implements HasPropsHandlers<FiberThinTextureProps> {
+    private propsHandlers: PropsHandler<FiberThinTextureProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -11006,11 +11063,11 @@ export class FiberDynamicTexture implements HasPropsHandlers<FiberBaseTexturePro
         ];
     }
 
-    getPropsHandlers(): PropsHandler<FiberBaseTextureProps>[] {
+    getPropsHandlers(): PropsHandler<FiberThinTextureProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<FiberBaseTextureProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberThinTextureProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -11095,8 +11152,8 @@ export class FiberAdvancedDynamicTexturePropsHandler implements PropsHandler<Fib
  *
  * This code has been generated
  */
-export class FiberAdvancedDynamicTexture implements HasPropsHandlers<FiberBaseTextureProps> {
-    private propsHandlers: PropsHandler<FiberBaseTextureProps>[];
+export class FiberAdvancedDynamicTexture implements HasPropsHandlers<FiberThinTextureProps> {
+    private propsHandlers: PropsHandler<FiberThinTextureProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -11108,11 +11165,11 @@ export class FiberAdvancedDynamicTexture implements HasPropsHandlers<FiberBaseTe
         ];
     }
 
-    getPropsHandlers(): PropsHandler<FiberBaseTextureProps>[] {
+    getPropsHandlers(): PropsHandler<FiberThinTextureProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<FiberBaseTextureProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberThinTextureProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -11380,8 +11437,8 @@ export class FiberRawTexture2DArrayPropsHandler implements PropsHandler<FiberRaw
  *
  * This code has been generated
  */
-export class FiberRawTexture2DArray implements HasPropsHandlers<FiberBaseTextureProps> {
-    private propsHandlers: PropsHandler<FiberBaseTextureProps>[];
+export class FiberRawTexture2DArray implements HasPropsHandlers<FiberThinTextureProps> {
+    private propsHandlers: PropsHandler<FiberThinTextureProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -11392,11 +11449,11 @@ export class FiberRawTexture2DArray implements HasPropsHandlers<FiberBaseTexture
         ];
     }
 
-    getPropsHandlers(): PropsHandler<FiberBaseTextureProps>[] {
+    getPropsHandlers(): PropsHandler<FiberThinTextureProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<FiberBaseTextureProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberThinTextureProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -11476,8 +11533,8 @@ export class FiberRawTexture3DPropsHandler implements PropsHandler<FiberRawTextu
  *
  * This code has been generated
  */
-export class FiberRawTexture3D implements HasPropsHandlers<FiberBaseTextureProps> {
-    private propsHandlers: PropsHandler<FiberBaseTextureProps>[];
+export class FiberRawTexture3D implements HasPropsHandlers<FiberThinTextureProps> {
+    private propsHandlers: PropsHandler<FiberThinTextureProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -11488,11 +11545,11 @@ export class FiberRawTexture3D implements HasPropsHandlers<FiberBaseTextureProps
         ];
     }
 
-    getPropsHandlers(): PropsHandler<FiberBaseTextureProps>[] {
+    getPropsHandlers(): PropsHandler<FiberThinTextureProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<FiberBaseTextureProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberThinTextureProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -11579,8 +11636,8 @@ export class FiberColorGradingTexturePropsHandler implements PropsHandler<FiberC
  *
  * This code has been generated
  */
-export class FiberColorGradingTexture implements HasPropsHandlers<FiberBaseTextureProps> {
-    private propsHandlers: PropsHandler<FiberBaseTextureProps>[];
+export class FiberColorGradingTexture implements HasPropsHandlers<FiberThinTextureProps> {
+    private propsHandlers: PropsHandler<FiberThinTextureProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -11590,11 +11647,11 @@ export class FiberColorGradingTexture implements HasPropsHandlers<FiberBaseTextu
         ];
     }
 
-    getPropsHandlers(): PropsHandler<FiberBaseTextureProps>[] {
+    getPropsHandlers(): PropsHandler<FiberThinTextureProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<FiberBaseTextureProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberThinTextureProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -11642,8 +11699,8 @@ export class FiberEquiRectangularCubeTexturePropsHandler implements PropsHandler
  *
  * This code has been generated
  */
-export class FiberEquiRectangularCubeTexture implements HasPropsHandlers<FiberBaseTextureProps> {
-    private propsHandlers: PropsHandler<FiberBaseTextureProps>[];
+export class FiberEquiRectangularCubeTexture implements HasPropsHandlers<FiberThinTextureProps> {
+    private propsHandlers: PropsHandler<FiberThinTextureProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -11653,11 +11710,11 @@ export class FiberEquiRectangularCubeTexture implements HasPropsHandlers<FiberBa
         ];
     }
 
-    getPropsHandlers(): PropsHandler<FiberBaseTextureProps>[] {
+    getPropsHandlers(): PropsHandler<FiberThinTextureProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<FiberBaseTextureProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberThinTextureProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -11737,8 +11794,8 @@ export class FiberHDRCubeTexturePropsHandler implements PropsHandler<FiberHDRCub
  *
  * This code has been generated
  */
-export class FiberHDRCubeTexture implements HasPropsHandlers<FiberBaseTextureProps> {
-    private propsHandlers: PropsHandler<FiberBaseTextureProps>[];
+export class FiberHDRCubeTexture implements HasPropsHandlers<FiberThinTextureProps> {
+    private propsHandlers: PropsHandler<FiberThinTextureProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -11748,11 +11805,11 @@ export class FiberHDRCubeTexture implements HasPropsHandlers<FiberBaseTexturePro
         ];
     }
 
-    getPropsHandlers(): PropsHandler<FiberBaseTextureProps>[] {
+    getPropsHandlers(): PropsHandler<FiberThinTextureProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<FiberBaseTextureProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberThinTextureProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -11832,8 +11889,8 @@ export class FiberHtmlElementTexturePropsHandler implements PropsHandler<FiberHt
  *
  * This code has been generated
  */
-export class FiberHtmlElementTexture implements HasPropsHandlers<FiberBaseTextureProps> {
-    private propsHandlers: PropsHandler<FiberBaseTextureProps>[];
+export class FiberHtmlElementTexture implements HasPropsHandlers<FiberThinTextureProps> {
+    private propsHandlers: PropsHandler<FiberThinTextureProps>[];
 
     constructor() {
         this.propsHandlers = [
@@ -11843,11 +11900,11 @@ export class FiberHtmlElementTexture implements HasPropsHandlers<FiberBaseTextur
         ];
     }
 
-    getPropsHandlers(): PropsHandler<FiberBaseTextureProps>[] {
+    getPropsHandlers(): PropsHandler<FiberThinTextureProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<FiberBaseTextureProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberThinTextureProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -13008,9 +13065,9 @@ export class FiberScenePropsHandler implements PropsHandler<FiberSceneProps> {
         checkPrimitiveDiff(oldProps.DoubleClickDelay, newProps.DoubleClickDelay, 'DoubleClickDelay', changedProps)
         checkPrimitiveDiff(oldProps.DragMovementThreshold, newProps.DragMovementThreshold, 'DragMovementThreshold', changedProps)
         checkPrimitiveDiff(oldProps.dumpNextRenderTargets, newProps.dumpNextRenderTargets, 'dumpNextRenderTargets', changedProps)
-        checkTextureDiff(oldProps.environmentBRDFTexture, newProps.environmentBRDFTexture, 'environmentBRDFTexture', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreScene.environmentBRDFTexture.
         checkPrimitiveDiff(oldProps.environmentIntensity, newProps.environmentIntensity, 'environmentIntensity', changedProps)
-        checkTextureDiff(oldProps.environmentTexture, newProps.environmentTexture, 'environmentTexture', changedProps)
+        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreScene.environmentTexture.
         checkPrimitiveDiff(oldProps.ExclusiveDoubleClickMode, newProps.ExclusiveDoubleClickMode, 'ExclusiveDoubleClickMode', changedProps)
         checkColor3Diff(oldProps.fogColor, newProps.fogColor, 'fogColor', changedProps)
         checkPrimitiveDiff(oldProps.fogDensity, newProps.fogDensity, 'fogDensity', changedProps)
@@ -13145,7 +13202,7 @@ export class FiberScenePropsHandler implements PropsHandler<FiberSceneProps> {
     }
 }
 
-export const ADTForMesh: string = 'ADTForMesh', ADTForMeshTexture: string = 'ADTForMeshTexture', ADTFullscreenUI: string = 'ADTFullscreenUI', AbstractButton3D: string = 'AbstractButton3D', AbstractMesh: string = 'AbstractMesh', AdvancedDynamicTexture: string = 'AdvancedDynamicTexture', AnaglyphArcRotateCamera: string = 'AnaglyphArcRotateCamera', AnaglyphFreeCamera: string = 'AnaglyphFreeCamera', AnaglyphGamepadCamera: string = 'AnaglyphGamepadCamera', AnaglyphUniversalCamera: string = 'AnaglyphUniversalCamera', ArcFollowCamera: string = 'ArcFollowCamera', ArcRotateCamera: string = 'ArcRotateCamera', AttachToBoxBehavior: string = 'AttachToBoxBehavior', AutoRotationBehavior: string = 'AutoRotationBehavior', BackgroundMaterial: string = 'BackgroundMaterial', BaseSlider: string = 'BaseSlider', BaseTexture: string = 'BaseTexture', BouncingBehavior: string = 'BouncingBehavior', Box: string = 'Box', Button: string = 'Button', Button3D: string = 'Button3D', Camera: string = 'Camera', Capsule: string = 'Capsule', CascadedShadowGenerator: string = 'CascadedShadowGenerator', Checkbox: string = 'Checkbox', ColorGradingTexture: string = 'ColorGradingTexture', ColorPicker: string = 'ColorPicker', Container: string = 'Container', Container3D: string = 'Container3D', Control: string = 'Control', Control3D: string = 'Control3D', CubeTexture: string = 'CubeTexture', CustomProceduralTexture: string = 'CustomProceduralTexture', Cylinder: string = 'Cylinder', CylinderPanel: string = 'CylinderPanel', DashedLines: string = 'DashedLines', Decal: string = 'Decal', DeviceOrientationCamera: string = 'DeviceOrientationCamera', DirectionalLight: string = 'DirectionalLight', Disc: string = 'Disc', DisplayGrid: string = 'DisplayGrid', DynamicTerrain: string = 'DynamicTerrain', DynamicTexture: string = 'DynamicTexture', EffectLayer: string = 'EffectLayer', Ellipse: string = 'Ellipse', EnvironmentHelper: string = 'EnvironmentHelper', EquiRectangularCubeTexture: string = 'EquiRectangularCubeTexture', ExtrudePolygon: string = 'ExtrudePolygon', ExtrudeShape: string = 'ExtrudeShape', ExtrudeShapeCustom: string = 'ExtrudeShapeCustom', FadeInOutBehavior: string = 'FadeInOutBehavior', FluentMaterial: string = 'FluentMaterial', FlyCamera: string = 'FlyCamera', FollowCamera: string = 'FollowCamera', FramingBehavior: string = 'FramingBehavior', FreeCamera: string = 'FreeCamera', GUI3DManager: string = 'GUI3DManager', GamepadCamera: string = 'GamepadCamera', GlowLayer: string = 'GlowLayer', Grid: string = 'Grid', Ground: string = 'Ground', GroundFromHeightMap: string = 'GroundFromHeightMap', GroundMesh: string = 'GroundMesh', HDRCubeTexture: string = 'HDRCubeTexture', HemisphericLight: string = 'HemisphericLight', HighlightLayer: string = 'HighlightLayer', HolographicButton: string = 'HolographicButton', HtmlElementTexture: string = 'HtmlElementTexture', IcoSphere: string = 'IcoSphere', Image: string = 'Image', ImageBasedSlider: string = 'ImageBasedSlider', ImageScrollBar: string = 'ImageScrollBar', InputPassword: string = 'InputPassword', InputText: string = 'InputText', InstancedLinesMesh: string = 'InstancedLinesMesh', InstancedMesh: string = 'InstancedMesh', Lathe: string = 'Lathe', Light: string = 'Light', Line: string = 'Line', LineSystem: string = 'LineSystem', Lines: string = 'Lines', LinesMesh: string = 'LinesMesh', Material: string = 'Material', Mesh: string = 'Mesh', MeshButton3D: string = 'MeshButton3D', MirrorTexture: string = 'MirrorTexture', MultiLine: string = 'MultiLine', MultiMaterial: string = 'MultiMaterial', MultiPointerScaleBehavior: string = 'MultiPointerScaleBehavior', MultiRenderTarget: string = 'MultiRenderTarget', MultiviewRenderTarget: string = 'MultiviewRenderTarget', Node: string = 'Node', NodeMaterial: string = 'NodeMaterial', NoiseProceduralTexture: string = 'NoiseProceduralTexture', PBRBaseMaterial: string = 'PBRBaseMaterial', PBRBaseSimpleMaterial: string = 'PBRBaseSimpleMaterial', PBRMaterial: string = 'PBRMaterial', PBRMetallicRoughnessMaterial: string = 'PBRMetallicRoughnessMaterial', PBRSpecularGlossinessMaterial: string = 'PBRSpecularGlossinessMaterial', PhysicsImpostor: string = 'PhysicsImpostor', Plane: string = 'Plane', PlanePanel: string = 'PlanePanel', PointLight: string = 'PointLight', PointerDragBehavior: string = 'PointerDragBehavior', PointsCloudSystem: string = 'PointsCloudSystem', Polygon: string = 'Polygon', Polyhedron: string = 'Polyhedron', ProceduralTexture: string = 'ProceduralTexture', PushMaterial: string = 'PushMaterial', RadioButton: string = 'RadioButton', RawCubeTexture: string = 'RawCubeTexture', RawTexture: string = 'RawTexture', RawTexture2DArray: string = 'RawTexture2DArray', RawTexture3D: string = 'RawTexture3D', Rectangle: string = 'Rectangle', RefractionTexture: string = 'RefractionTexture', RenderTargetTexture: string = 'RenderTargetTexture', Ribbon: string = 'Ribbon', ScatterPanel: string = 'ScatterPanel', ScrollBar: string = 'ScrollBar', ScrollViewer: string = 'ScrollViewer', SelectionPanel: string = 'SelectionPanel', ShaderMaterial: string = 'ShaderMaterial', ShadowGenerator: string = 'ShadowGenerator', ShadowLight: string = 'ShadowLight', SixDofDragBehavior: string = 'SixDofDragBehavior', Slider: string = 'Slider', Sphere: string = 'Sphere', SpherePanel: string = 'SpherePanel', SpotLight: string = 'SpotLight', StackPanel: string = 'StackPanel', StackPanel3D: string = 'StackPanel3D', StandardMaterial: string = 'StandardMaterial', StereoscopicArcRotateCamera: string = 'StereoscopicArcRotateCamera', StereoscopicFreeCamera: string = 'StereoscopicFreeCamera', StereoscopicGamepadCamera: string = 'StereoscopicGamepadCamera', StereoscopicUniversalCamera: string = 'StereoscopicUniversalCamera', TargetCamera: string = 'TargetCamera', TextBlock: string = 'TextBlock', Texture: string = 'Texture', TiledBox: string = 'TiledBox', TiledGround: string = 'TiledGround', TiledPlane: string = 'TiledPlane', Torus: string = 'Torus', TorusKnot: string = 'TorusKnot', TouchCamera: string = 'TouchCamera', TrailMesh: string = 'TrailMesh', TransformNode: string = 'TransformNode', Tube: string = 'Tube', UniversalCamera: string = 'UniversalCamera', VRDeviceOrientationArcRotateCamera: string = 'VRDeviceOrientationArcRotateCamera', VRDeviceOrientationFreeCamera: string = 'VRDeviceOrientationFreeCamera', VRDeviceOrientationGamepadCamera: string = 'VRDeviceOrientationGamepadCamera', VRExperienceHelper: string = 'VRExperienceHelper', VideoTexture: string = 'VideoTexture', VirtualJoysticksCamera: string = 'VirtualJoysticksCamera', VirtualKeyboard: string = 'VirtualKeyboard', VolumeBasedPanel: string = 'VolumeBasedPanel', WebVRFreeCamera: string = 'WebVRFreeCamera', WebXRCamera: string = 'WebXRCamera', _ScrollViewerWindow: string = '_ScrollViewerWindow';
+export const ADTForMesh: string = 'ADTForMesh', ADTForMeshTexture: string = 'ADTForMeshTexture', ADTFullscreenUI: string = 'ADTFullscreenUI', AbstractButton3D: string = 'AbstractButton3D', AbstractMesh: string = 'AbstractMesh', AdvancedDynamicTexture: string = 'AdvancedDynamicTexture', AnaglyphArcRotateCamera: string = 'AnaglyphArcRotateCamera', AnaglyphFreeCamera: string = 'AnaglyphFreeCamera', AnaglyphGamepadCamera: string = 'AnaglyphGamepadCamera', AnaglyphUniversalCamera: string = 'AnaglyphUniversalCamera', ArcFollowCamera: string = 'ArcFollowCamera', ArcRotateCamera: string = 'ArcRotateCamera', AttachToBoxBehavior: string = 'AttachToBoxBehavior', AutoRotationBehavior: string = 'AutoRotationBehavior', BackgroundMaterial: string = 'BackgroundMaterial', BaseSlider: string = 'BaseSlider', BaseTexture: string = 'BaseTexture', BouncingBehavior: string = 'BouncingBehavior', Box: string = 'Box', Button: string = 'Button', Button3D: string = 'Button3D', Camera: string = 'Camera', Capsule: string = 'Capsule', CascadedShadowGenerator: string = 'CascadedShadowGenerator', Checkbox: string = 'Checkbox', ColorGradingTexture: string = 'ColorGradingTexture', ColorPicker: string = 'ColorPicker', Container: string = 'Container', Container3D: string = 'Container3D', Control: string = 'Control', Control3D: string = 'Control3D', CubeTexture: string = 'CubeTexture', CustomProceduralTexture: string = 'CustomProceduralTexture', Cylinder: string = 'Cylinder', CylinderPanel: string = 'CylinderPanel', DashedLines: string = 'DashedLines', Decal: string = 'Decal', DeviceOrientationCamera: string = 'DeviceOrientationCamera', DirectionalLight: string = 'DirectionalLight', Disc: string = 'Disc', DisplayGrid: string = 'DisplayGrid', DynamicTerrain: string = 'DynamicTerrain', DynamicTexture: string = 'DynamicTexture', EffectLayer: string = 'EffectLayer', Ellipse: string = 'Ellipse', EnvironmentHelper: string = 'EnvironmentHelper', EquiRectangularCubeTexture: string = 'EquiRectangularCubeTexture', ExtrudePolygon: string = 'ExtrudePolygon', ExtrudeShape: string = 'ExtrudeShape', ExtrudeShapeCustom: string = 'ExtrudeShapeCustom', FadeInOutBehavior: string = 'FadeInOutBehavior', FluentMaterial: string = 'FluentMaterial', FlyCamera: string = 'FlyCamera', FollowCamera: string = 'FollowCamera', FramingBehavior: string = 'FramingBehavior', FreeCamera: string = 'FreeCamera', GUI3DManager: string = 'GUI3DManager', GamepadCamera: string = 'GamepadCamera', GlowLayer: string = 'GlowLayer', Grid: string = 'Grid', Ground: string = 'Ground', GroundFromHeightMap: string = 'GroundFromHeightMap', GroundMesh: string = 'GroundMesh', HDRCubeTexture: string = 'HDRCubeTexture', HemisphericLight: string = 'HemisphericLight', HighlightLayer: string = 'HighlightLayer', HolographicButton: string = 'HolographicButton', HtmlElementTexture: string = 'HtmlElementTexture', IcoSphere: string = 'IcoSphere', Image: string = 'Image', ImageBasedSlider: string = 'ImageBasedSlider', ImageScrollBar: string = 'ImageScrollBar', InputPassword: string = 'InputPassword', InputText: string = 'InputText', InstancedLinesMesh: string = 'InstancedLinesMesh', InstancedMesh: string = 'InstancedMesh', Lathe: string = 'Lathe', Light: string = 'Light', Line: string = 'Line', LineSystem: string = 'LineSystem', Lines: string = 'Lines', LinesMesh: string = 'LinesMesh', Material: string = 'Material', Mesh: string = 'Mesh', MeshButton3D: string = 'MeshButton3D', MirrorTexture: string = 'MirrorTexture', MultiLine: string = 'MultiLine', MultiMaterial: string = 'MultiMaterial', MultiPointerScaleBehavior: string = 'MultiPointerScaleBehavior', MultiRenderTarget: string = 'MultiRenderTarget', MultiviewRenderTarget: string = 'MultiviewRenderTarget', Node: string = 'Node', NodeMaterial: string = 'NodeMaterial', NoiseProceduralTexture: string = 'NoiseProceduralTexture', PBRBaseMaterial: string = 'PBRBaseMaterial', PBRBaseSimpleMaterial: string = 'PBRBaseSimpleMaterial', PBRMaterial: string = 'PBRMaterial', PBRMetallicRoughnessMaterial: string = 'PBRMetallicRoughnessMaterial', PBRSpecularGlossinessMaterial: string = 'PBRSpecularGlossinessMaterial', PhysicsImpostor: string = 'PhysicsImpostor', Plane: string = 'Plane', PlanePanel: string = 'PlanePanel', PointLight: string = 'PointLight', PointerDragBehavior: string = 'PointerDragBehavior', PointsCloudSystem: string = 'PointsCloudSystem', Polygon: string = 'Polygon', Polyhedron: string = 'Polyhedron', ProceduralTexture: string = 'ProceduralTexture', PushMaterial: string = 'PushMaterial', RadioButton: string = 'RadioButton', RawCubeTexture: string = 'RawCubeTexture', RawTexture: string = 'RawTexture', RawTexture2DArray: string = 'RawTexture2DArray', RawTexture3D: string = 'RawTexture3D', Rectangle: string = 'Rectangle', RefractionTexture: string = 'RefractionTexture', RenderTargetTexture: string = 'RenderTargetTexture', Ribbon: string = 'Ribbon', ScatterPanel: string = 'ScatterPanel', ScrollBar: string = 'ScrollBar', ScrollViewer: string = 'ScrollViewer', SelectionPanel: string = 'SelectionPanel', ShaderMaterial: string = 'ShaderMaterial', ShadowGenerator: string = 'ShadowGenerator', ShadowLight: string = 'ShadowLight', SixDofDragBehavior: string = 'SixDofDragBehavior', Slider: string = 'Slider', Sphere: string = 'Sphere', SpherePanel: string = 'SpherePanel', SpotLight: string = 'SpotLight', StackPanel: string = 'StackPanel', StackPanel3D: string = 'StackPanel3D', StandardMaterial: string = 'StandardMaterial', StereoscopicArcRotateCamera: string = 'StereoscopicArcRotateCamera', StereoscopicFreeCamera: string = 'StereoscopicFreeCamera', StereoscopicGamepadCamera: string = 'StereoscopicGamepadCamera', StereoscopicUniversalCamera: string = 'StereoscopicUniversalCamera', TargetCamera: string = 'TargetCamera', TextBlock: string = 'TextBlock', Texture: string = 'Texture', ThinTexture: string = 'ThinTexture', TiledBox: string = 'TiledBox', TiledGround: string = 'TiledGround', TiledPlane: string = 'TiledPlane', Torus: string = 'Torus', TorusKnot: string = 'TorusKnot', TouchCamera: string = 'TouchCamera', TrailMesh: string = 'TrailMesh', TransformNode: string = 'TransformNode', Tube: string = 'Tube', UniversalCamera: string = 'UniversalCamera', VRDeviceOrientationArcRotateCamera: string = 'VRDeviceOrientationArcRotateCamera', VRDeviceOrientationFreeCamera: string = 'VRDeviceOrientationFreeCamera', VRDeviceOrientationGamepadCamera: string = 'VRDeviceOrientationGamepadCamera', VRExperienceHelper: string = 'VRExperienceHelper', VideoTexture: string = 'VideoTexture', VirtualJoysticksCamera: string = 'VirtualJoysticksCamera', VirtualKeyboard: string = 'VirtualKeyboard', VolumeBasedPanel: string = 'VolumeBasedPanel', WebVRFreeCamera: string = 'WebVRFreeCamera', WebXRCamera: string = 'WebXRCamera', _ScrollViewerWindow: string = '_ScrollViewerWindow';
 const classesMap: object = {
     dynamicTerrain: ExtensionsDynamicTerrain, DynamicTerrain: ExtensionsDynamicTerrain,
     abstractScene: BabylonjsCoreAbstractScene, AbstractScene: BabylonjsCoreAbstractScene,
@@ -13174,7 +13231,7 @@ const classesMap: object = {
     vrExperienceHelper: BabylonjsCoreVRExperienceHelper, VRExperienceHelper: BabylonjsCoreVRExperienceHelper,
     cascadedShadowGenerator: BabylonjsCoreCascadedShadowGenerator, CascadedShadowGenerator: BabylonjsCoreCascadedShadowGenerator,
     shadowGenerator: BabylonjsCoreShadowGenerator, ShadowGenerator: BabylonjsCoreShadowGenerator,
-    baseTexture: BabylonjsCoreBaseTexture, BaseTexture: BabylonjsCoreBaseTexture,
+    thinTexture: BabylonjsCoreThinTexture, ThinTexture: BabylonjsCoreThinTexture,
     control: BabylonjsGuiControl, Control: BabylonjsGuiControl,
     textBlock: BabylonjsGuiTextBlock, TextBlock: BabylonjsGuiTextBlock,
     control3D: BabylonjsGuiControl3D, Control3D: BabylonjsGuiControl3D,
@@ -13212,6 +13269,7 @@ const classesMap: object = {
     pushMaterial: BabylonjsCorePushMaterial, PushMaterial: BabylonjsCorePushMaterial,
     nodeMaterial: BabylonjsCoreNodeMaterial, NodeMaterial: BabylonjsCoreNodeMaterial,
     standardMaterial: BabylonjsCoreStandardMaterial, StandardMaterial: BabylonjsCoreStandardMaterial,
+    baseTexture: BabylonjsCoreBaseTexture, BaseTexture: BabylonjsCoreBaseTexture,
     backgroundMaterial: BabylonjsCoreBackgroundMaterial, BackgroundMaterial: BabylonjsCoreBackgroundMaterial,
     shadowLight: BabylonjsCoreShadowLight, ShadowLight: BabylonjsCoreShadowLight,
     pbrBaseMaterial: BabylonjsCorePBRBaseMaterial, PBRBaseMaterial: BabylonjsCorePBRBaseMaterial,
@@ -13311,7 +13369,7 @@ export const intrinsicClassMap: object = {
     vrExperienceHelper: 'VRExperienceHelper',
     cascadedShadowGenerator: 'CascadedShadowGenerator',
     shadowGenerator: 'ShadowGenerator',
-    baseTexture: 'BaseTexture',
+    thinTexture: 'ThinTexture',
     control: 'Control',
     textBlock: 'TextBlock',
     control3D: 'Control3D',
@@ -13349,6 +13407,7 @@ export const intrinsicClassMap: object = {
     pushMaterial: 'PushMaterial',
     nodeMaterial: 'NodeMaterial',
     standardMaterial: 'StandardMaterial',
+    baseTexture: 'BaseTexture',
     backgroundMaterial: 'BackgroundMaterial',
     shadowLight: 'ShadowLight',
     pbrBaseMaterial: 'PBRBaseMaterial',

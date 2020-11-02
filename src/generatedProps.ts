@@ -46,8 +46,8 @@ import { CascadedShadowGenerator as BabylonjsCoreCascadedShadowGenerator } from 
 import { ShadowGenerator as BabylonjsCoreShadowGenerator, ICustomShaderOptions as BabylonjsCoreICustomShaderOptions } from "@babylonjs/core/Lights/Shadows/shadowGenerator";
 import { NodeMaterialConnectionPointCompatibilityStates as BabylonjsCoreNodeMaterialConnectionPointCompatibilityStates, NodeMaterialConnectionPointDirection as BabylonjsCoreNodeMaterialConnectionPointDirection } from "@babylonjs/core/Materials/Node/nodeMaterialBlockConnectionPoint";
 import { PropertyTypeForEdition as BabylonjsCorePropertyTypeForEdition } from "@babylonjs/core/Materials/Node/nodeMaterialDecorator";
-import { BaseTexture as BabylonjsCoreBaseTexture } from "@babylonjs/core/Materials/Textures/baseTexture";
-import { InternalTextureSource as BabylonjsCoreInternalTextureSource } from "@babylonjs/core/Materials/Textures/internalTexture";
+import { InternalTextureSource as BabylonjsCoreInternalTextureSource, InternalTexture as BabylonjsCoreInternalTexture } from "@babylonjs/core/Materials/Textures/internalTexture";
+import { ThinTexture as BabylonjsCoreThinTexture } from "@babylonjs/core/Materials/Textures/thinTexture";
 import { HandPart as BabylonjsCoreHandPart } from "@babylonjs/core/XR/features/WebXRHandTracking";
 import { Control as BabylonjsGuiControl } from "@babylonjs/gui/2D/controls/control";
 import { TextWrapping as BabylonjsGuiTextWrapping, TextBlock as BabylonjsGuiTextBlock } from "@babylonjs/gui/2D/controls/textBlock";
@@ -124,6 +124,7 @@ import { NodeMaterial as BabylonjsCoreNodeMaterial, INodeMaterialOptions as Baby
 import { NodeMaterialBlock as BabylonjsCoreNodeMaterialBlock } from "@babylonjs/core/Materials/Node/nodeMaterialBlock";
 import { ImageProcessingConfiguration as BabylonjsCoreImageProcessingConfiguration } from "@babylonjs/core/Materials/imageProcessingConfiguration";
 import { StandardMaterial as BabylonjsCoreStandardMaterial } from "@babylonjs/core/Materials/standardMaterial";
+import { BaseTexture as BabylonjsCoreBaseTexture } from "@babylonjs/core/Materials/Textures/baseTexture";
 import { ColorCurves as BabylonjsCoreColorCurves } from "@babylonjs/core/Materials/colorCurves";
 import { FresnelParameters as BabylonjsCoreFresnelParameters } from "@babylonjs/core/Materials/fresnelParameters";
 import { BackgroundMaterial as BabylonjsCoreBackgroundMaterial } from "@babylonjs/core/Materials/Background/backgroundMaterial";
@@ -353,6 +354,7 @@ declare global {
             effectLayer: FiberEffectLayerProps & FiberEffectLayerPropsCtor & BabylonNode<BabylonjsCoreEffectLayer>;
             glowLayer: FiberGlowLayerProps & FiberGlowLayerPropsCtor & BabylonNode<BabylonjsCoreGlowLayer>;
             highlightLayer: FiberHighlightLayerProps & FiberHighlightLayerPropsCtor & BabylonNode<BabylonjsCoreHighlightLayer>;
+            thinTexture: FiberThinTextureProps & FiberThinTexturePropsCtor & BabylonNode<BabylonjsCoreThinTexture>;
             baseTexture: FiberBaseTextureProps & FiberBaseTexturePropsCtor & BabylonNode<BabylonjsCoreBaseTexture>;
             cubeTexture: FiberCubeTextureProps & FiberCubeTexturePropsCtor & BabylonNode<BabylonjsCoreCubeTexture>;
             rawCubeTexture: FiberRawCubeTextureProps & FiberRawCubeTexturePropsCtor & BabylonNode<BabylonjsCoreRawCubeTexture>;
@@ -2325,6 +2327,19 @@ export type FiberHighlightLayerProps = {
 export type FiberHighlightLayerPropsCtor = {
     name: string;
     options?: Partial<BabylonjsCoreIHighlightLayerOptions>;
+};
+export type FiberThinTextureProps = {
+    anisotropicFilteringLevel?: number;
+    delayLoadState?: number;
+    is2DArray?: boolean;
+    is3D?: boolean;
+    isCube?: boolean;
+    wrapR?: number;
+    wrapU?: number;
+    wrapV?: number;
+} & CustomProps;
+export type FiberThinTexturePropsCtor = {
+    internalTexture: BabylonjsCoreInternalTexture;
 };
 export type FiberBaseTextureProps = {
     animations?: BabylonjsCoreAnimation[];

@@ -55,6 +55,7 @@
     "@rollup/plugin-json": "^4.0.2",
     "@rollup/plugin-typescript": "^4.0.0",
     "@storybook/addon-actions": "^6.0.27",
+    "@storybook/addon-docs": "^6.0.28",
     "@storybook/addon-links": "^6.0.27",
     "@storybook/addon-storysource": "^6.0.27",
     "@storybook/addons": "^6.0.27",
@@ -66,7 +67,6 @@
     "@types/react": "^16.9.55",
     "@types/react-reconciler": "^0.18.0",
     "babel-loader": "^8.1.0",
-    "babylonjs-hook": "^0.0.9",
     "cannon": "^0.6.2",
     "chroma-js": "^2.1.0",
     "cross-env": "^7.0.0",
@@ -80,6 +80,7 @@
     "prettier": "^1.15.3",
     "react": "^17.0.1",
     "react-babylon-spring": "^1.0.2",
+    "react-babylonjs-loaders": "^0.0.5",
     "react-dom": "^17.0.1",
     "react-three-gui": "^0.3.1",
     "rimraf": "^2.6.1",
@@ -99,11 +100,11 @@
   "peerDependencies": {
     "@babylonjs/core": "4.x",
     "@babylonjs/gui": "4.x",
-	"babylonjs-hook": ">0.0.8",
     "react": ">=17",
     "react-dom": ">=17"
   },
   "dependencies": {
+    "babylonjs-hook": ">0.0.8",
     "react-reconciler": "^0.26.1"
   }
 }
