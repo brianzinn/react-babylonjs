@@ -1,0 +1,39 @@
+name: make-pre-release
+
+on:
+  workflow_dispatch:
+    inputs:
+      preId:
+        description: 'Pre-release identifier (alpha | beta | rc)'
+        required: true
+        default: 'beta'
+# push:
+#    branches: [ master ]
+  
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+          registry-url: 'https://registry.npmjs.org'
+          scope: brianzinn
+          
+      - name: Configure git
+        run: |
+          git config user.email "github@wakeskate.com"
+          git config user.name "Brian Zinn"
+      - name: install-build
+        run: |
+          yarn install
+          yarn build
+      - run: echo "prerelease identifier -- ${{ github.event.inputs.preId }}"
+      - run: npm version prerelease --preid=${{ github.event.inputs.preId }} -m "release %s :package:"
+      - run: git push && git push --tags
+      - name: publish-npm
+        run: npm publish --tag ${{ github.event.inputs.preId }} --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
