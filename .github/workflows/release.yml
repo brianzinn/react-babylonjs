@@ -32,7 +32,7 @@ jobs:
           yarn install
           yarn build
       - run: echo "version -- ${{ github.event.inputs.npmVersion }}"
-      - run: npm version patch -m "release %s :package:"
+      - run: npm version ${{ github.event.inputs.npmVersion }} -m "release %s :package:"
       - run: git push && git push --tags
       - name: publish-npm
         run: npm publish --access public
