@@ -1,4 +1,4 @@
-import { Vector3, SceneLoaderProgressEvent, AbstractMesh } from "@babylonjs/core";
+import { Vector3, ISceneLoaderProgressEvent, AbstractMesh } from "@babylonjs/core";
 import { LoadedModel } from "../customHosts/LoadedModel";
 import { FiberMeshPropsHandler, FiberAbstractMeshPropsHandler, FiberTransformNodePropsHandler, FiberNodePropsHandler } from "../generatedCode";
 import BasePropsHandler from "../BasePropsHandler";
@@ -21,7 +21,7 @@ export type ModelProps = {
   scaleToDimension?: number
   onModelLoaded?: (model: LoadedModel) => void
   onModelError?: (model: LoadedModel) => void
-  onLoadProgress?: (event: SceneLoaderProgressEvent) => void
+  onLoadProgress?: (event: ISceneLoaderProgressEvent) => void
   onCreated?: (rootMesh: AbstractMesh) => void
 }
 

@@ -1,4 +1,4 @@
-import { IParticleSystem, Skeleton, AnimationGroup, AbstractMesh, Nullable, Vector3, BoundingInfo, SceneLoaderProgressEvent } from "@babylonjs/core"
+import { IParticleSystem, Skeleton, AnimationGroup, AbstractMesh, Nullable, Vector3, BoundingInfo, ISceneLoaderProgressEvent } from "@babylonjs/core"
 import "@babylonjs/loaders"
 
 export enum LoaderStatus {

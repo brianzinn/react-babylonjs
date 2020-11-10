@@ -8,7 +8,7 @@ import {
   Nullable,
   ISceneLoaderPlugin,
   ISceneLoaderPluginAsync,
-  SceneLoaderProgressEvent
+  ISceneLoaderProgressEvent
 } from "@babylonjs/core"
 import "@babylonjs/loaders"
 import { applyUpdateToInstance } from "../UpdateInstance"
@@ -99,7 +99,7 @@ export default class ModelLifecycleListener implements LifecycleListener<LoadedM
           }
         }
       },
-      (event: SceneLoaderProgressEvent): void => {
+      (event: ISceneLoaderProgressEvent): void => {
         if (this.props.onLoadProgress) {
           this.props.onLoadProgress(event)
         }
