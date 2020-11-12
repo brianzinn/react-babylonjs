@@ -35,7 +35,7 @@ jobs:
         run: |
           yarn install
           yarn build
-      - run: npm version ${{ github.event.inputs.npmVersion }} -m "release %s :package:\u0020${{ github.event.inputs.comment }}"
+      - run: npm version ${{ github.event.inputs.npmVersion }} -m "release %s :package:&#x20;${{ github.event.inputs.comment }}"
       - run: git push && git push --tags
       - name: publish-npm
         run: npm publish --access public
