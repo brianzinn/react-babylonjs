@@ -7,6 +7,10 @@ on:
         description: 'NPM Version (<newversion> | major | minor | patch | premajor | preminor | prepatch | prerelease | ...)'
         required: true
         default: 'patch'
+      comment:
+        description: 'Added to end of commit message and annotated git tag'
+        required: true
+        default: ' ()'
 # push:
 #    branches: [ master ]
   
@@ -31,8 +35,7 @@ jobs:
         run: |
           yarn install
           yarn build
-      - run: echo "version -- ${{ github.event.inputs.npmVersion }}"
-      - run: npm version ${{ github.event.inputs.npmVersion }} -m "release %s :package:"
+      - run: npm version ${{ github.event.inputs.npmVersion }} -m "release %s :package:\u0020${{ github.event.inputs.comment }}"
       - run: git push && git push --tags
       - name: publish-npm
         run: npm publish --access public
