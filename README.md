@@ -273,7 +273,9 @@ const App: React.FC = () => {
 
 > v2.2.0 (2020-04-04) - Added support for `react-spring` [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/integrations--react-spring)
 
-> v3.0.0 (2020-??-??) - Lots of pending work on master for upcoming 3.0 release.  Work is on master branch and is for loading assets primarily and React.Suspense support (follow along in issues #81 and #87).
+> v2.2+ ([Changelog](CHANGELOG.md))
+
+> v3.0.0 (2020-??-??) - Lots of pending work on v3 branch and a beta @next.  Some work is on master branch for loading assets and React.Suspense support (follow along in issues #81 and #87).
 
 ## Breaking Changes
  > 0.x to 1.0 ([List](breaking-changes-0.x-to-1.0.md))
