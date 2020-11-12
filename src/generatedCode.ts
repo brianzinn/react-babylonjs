@@ -6079,14 +6079,14 @@ export class FiberStandardMaterialPropsHandler implements PropsHandler<FiberStan
         const changedProps: PropertyUpdate[] = []
         checkPrimitiveDiff(oldProps.alphaCutOff, newProps.alphaCutOff, 'alphaCutOff', changedProps)
         checkColor3Diff(oldProps.ambientColor, newProps.ambientColor, 'ambientColor', changedProps)
-        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreStandardMaterial.ambientTexture.
+        checkTextureDiff(oldProps.ambientTexture, newProps.ambientTexture, 'ambientTexture', changedProps)
         checkPrimitiveDiff(oldProps.AmbientTextureEnabled, newProps.AmbientTextureEnabled, 'AmbientTextureEnabled', changedProps)
-        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreStandardMaterial.bumpTexture.
+        checkTextureDiff(oldProps.bumpTexture, newProps.bumpTexture, 'bumpTexture', changedProps)
         checkPrimitiveDiff(oldProps.BumpTextureEnabled, newProps.BumpTextureEnabled, 'BumpTextureEnabled', changedProps)
         // type: 'BabylonjsCoreColorCurves' property (not coded) BabylonjsCoreStandardMaterial.cameraColorCurves.
         checkPrimitiveDiff(oldProps.cameraColorCurvesEnabled, newProps.cameraColorCurvesEnabled, 'cameraColorCurvesEnabled', changedProps)
         checkPrimitiveDiff(oldProps.cameraColorGradingEnabled, newProps.cameraColorGradingEnabled, 'cameraColorGradingEnabled', changedProps)
-        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreStandardMaterial.cameraColorGradingTexture.
+        checkTextureDiff(oldProps.cameraColorGradingTexture, newProps.cameraColorGradingTexture, 'cameraColorGradingTexture', changedProps)
         checkPrimitiveDiff(oldProps.cameraContrast, newProps.cameraContrast, 'cameraContrast', changedProps)
         checkPrimitiveDiff(oldProps.cameraExposure, newProps.cameraExposure, 'cameraExposure', changedProps)
         checkPrimitiveDiff(oldProps.cameraToneMappingEnabled, newProps.cameraToneMappingEnabled, 'cameraToneMappingEnabled', changedProps)
@@ -6094,12 +6094,12 @@ export class FiberStandardMaterialPropsHandler implements PropsHandler<FiberStan
         checkPrimitiveDiff(oldProps.DetailTextureEnabled, newProps.DetailTextureEnabled, 'DetailTextureEnabled', changedProps)
         checkColor3Diff(oldProps.diffuseColor, newProps.diffuseColor, 'diffuseColor', changedProps)
         checkFresnelParametersDiff(oldProps.diffuseFresnelParameters, newProps.diffuseFresnelParameters, 'diffuseFresnelParameters', changedProps)
-        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreStandardMaterial.diffuseTexture.
+        checkTextureDiff(oldProps.diffuseTexture, newProps.diffuseTexture, 'diffuseTexture', changedProps)
         checkPrimitiveDiff(oldProps.DiffuseTextureEnabled, newProps.DiffuseTextureEnabled, 'DiffuseTextureEnabled', changedProps)
         checkPrimitiveDiff(oldProps.disableLighting, newProps.disableLighting, 'disableLighting', changedProps)
         checkColor3Diff(oldProps.emissiveColor, newProps.emissiveColor, 'emissiveColor', changedProps)
         checkFresnelParametersDiff(oldProps.emissiveFresnelParameters, newProps.emissiveFresnelParameters, 'emissiveFresnelParameters', changedProps)
-        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreStandardMaterial.emissiveTexture.
+        checkTextureDiff(oldProps.emissiveTexture, newProps.emissiveTexture, 'emissiveTexture', changedProps)
         checkPrimitiveDiff(oldProps.EmissiveTextureEnabled, newProps.EmissiveTextureEnabled, 'EmissiveTextureEnabled', changedProps)
         checkPrimitiveDiff(oldProps.FresnelEnabled, newProps.FresnelEnabled, 'FresnelEnabled', changedProps)
         // type: 'BabylonjsCoreImageProcessingConfiguration' property (not coded) BabylonjsCoreStandardMaterial.imageProcessingConfiguration.
@@ -6107,24 +6107,24 @@ export class FiberStandardMaterialPropsHandler implements PropsHandler<FiberStan
         checkPrimitiveDiff(oldProps.invertNormalMapX, newProps.invertNormalMapX, 'invertNormalMapX', changedProps)
         checkPrimitiveDiff(oldProps.invertNormalMapY, newProps.invertNormalMapY, 'invertNormalMapY', changedProps)
         checkPrimitiveDiff(oldProps.invertRefractionY, newProps.invertRefractionY, 'invertRefractionY', changedProps)
-        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreStandardMaterial.lightmapTexture.
+        checkTextureDiff(oldProps.lightmapTexture, newProps.lightmapTexture, 'lightmapTexture', changedProps)
         checkPrimitiveDiff(oldProps.LightmapTextureEnabled, newProps.LightmapTextureEnabled, 'LightmapTextureEnabled', changedProps)
         checkPrimitiveDiff(oldProps.linkEmissiveWithDiffuse, newProps.linkEmissiveWithDiffuse, 'linkEmissiveWithDiffuse', changedProps)
         checkPrimitiveDiff(oldProps.maxSimultaneousLights, newProps.maxSimultaneousLights, 'maxSimultaneousLights', changedProps)
         checkFresnelParametersDiff(oldProps.opacityFresnelParameters, newProps.opacityFresnelParameters, 'opacityFresnelParameters', changedProps)
-        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreStandardMaterial.opacityTexture.
+        checkTextureDiff(oldProps.opacityTexture, newProps.opacityTexture, 'opacityTexture', changedProps)
         checkPrimitiveDiff(oldProps.OpacityTextureEnabled, newProps.OpacityTextureEnabled, 'OpacityTextureEnabled', changedProps)
         checkPrimitiveDiff(oldProps.parallaxScaleBias, newProps.parallaxScaleBias, 'parallaxScaleBias', changedProps)
         checkFresnelParametersDiff(oldProps.reflectionFresnelParameters, newProps.reflectionFresnelParameters, 'reflectionFresnelParameters', changedProps)
-        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreStandardMaterial.reflectionTexture.
+        checkTextureDiff(oldProps.reflectionTexture, newProps.reflectionTexture, 'reflectionTexture', changedProps)
         checkPrimitiveDiff(oldProps.ReflectionTextureEnabled, newProps.ReflectionTextureEnabled, 'ReflectionTextureEnabled', changedProps)
         checkFresnelParametersDiff(oldProps.refractionFresnelParameters, newProps.refractionFresnelParameters, 'refractionFresnelParameters', changedProps)
-        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreStandardMaterial.refractionTexture.
+        checkTextureDiff(oldProps.refractionTexture, newProps.refractionTexture, 'refractionTexture', changedProps)
         checkPrimitiveDiff(oldProps.RefractionTextureEnabled, newProps.RefractionTextureEnabled, 'RefractionTextureEnabled', changedProps)
         checkPrimitiveDiff(oldProps.roughness, newProps.roughness, 'roughness', changedProps)
         checkColor3Diff(oldProps.specularColor, newProps.specularColor, 'specularColor', changedProps)
         checkPrimitiveDiff(oldProps.specularPower, newProps.specularPower, 'specularPower', changedProps)
-        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreStandardMaterial.specularTexture.
+        checkTextureDiff(oldProps.specularTexture, newProps.specularTexture, 'specularTexture', changedProps)
         checkPrimitiveDiff(oldProps.SpecularTextureEnabled, newProps.SpecularTextureEnabled, 'SpecularTextureEnabled', changedProps)
         checkPrimitiveDiff(oldProps.twoSidedLighting, newProps.twoSidedLighting, 'twoSidedLighting', changedProps)
         checkPrimitiveDiff(oldProps.useAlphaFromDiffuseTexture, newProps.useAlphaFromDiffuseTexture, 'useAlphaFromDiffuseTexture', changedProps)
@@ -6197,11 +6197,11 @@ export class FiberBackgroundMaterialPropsHandler implements PropsHandler<FiberBa
         // type: 'BabylonjsCoreColorCurves' property (not coded) BabylonjsCoreBackgroundMaterial.cameraColorCurves.
         checkPrimitiveDiff(oldProps.cameraColorCurvesEnabled, newProps.cameraColorCurvesEnabled, 'cameraColorCurvesEnabled', changedProps)
         checkPrimitiveDiff(oldProps.cameraColorGradingEnabled, newProps.cameraColorGradingEnabled, 'cameraColorGradingEnabled', changedProps)
-        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreBackgroundMaterial.cameraColorGradingTexture.
+        checkTextureDiff(oldProps.cameraColorGradingTexture, newProps.cameraColorGradingTexture, 'cameraColorGradingTexture', changedProps)
         checkPrimitiveDiff(oldProps.cameraContrast, newProps.cameraContrast, 'cameraContrast', changedProps)
         checkPrimitiveDiff(oldProps.cameraExposure, newProps.cameraExposure, 'cameraExposure', changedProps)
         checkPrimitiveDiff(oldProps.cameraToneMappingEnabled, newProps.cameraToneMappingEnabled, 'cameraToneMappingEnabled', changedProps)
-        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreBackgroundMaterial.diffuseTexture.
+        checkTextureDiff(oldProps.diffuseTexture, newProps.diffuseTexture, 'diffuseTexture', changedProps)
         checkPrimitiveDiff(oldProps.enableNoise, newProps.enableNoise, 'enableNoise', changedProps)
         checkPrimitiveDiff(oldProps.fovMultiplier, newProps.fovMultiplier, 'fovMultiplier', changedProps)
         // type: 'BabylonjsCoreImageProcessingConfiguration' property (not coded) BabylonjsCoreBackgroundMaterial.imageProcessingConfiguration.
@@ -6217,7 +6217,7 @@ export class FiberBackgroundMaterialPropsHandler implements PropsHandler<FiberBa
         checkPrimitiveDiff(oldProps.reflectionReflectance0, newProps.reflectionReflectance0, 'reflectionReflectance0', changedProps)
         checkPrimitiveDiff(oldProps.reflectionReflectance90, newProps.reflectionReflectance90, 'reflectionReflectance90', changedProps)
         checkPrimitiveDiff(oldProps.reflectionStandardFresnelWeight, newProps.reflectionStandardFresnelWeight, 'reflectionStandardFresnelWeight', changedProps)
-        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreBackgroundMaterial.reflectionTexture.
+        checkTextureDiff(oldProps.reflectionTexture, newProps.reflectionTexture, 'reflectionTexture', changedProps)
         checkVector3Diff(oldProps.sceneCenter, newProps.sceneCenter, 'sceneCenter', changedProps)
         checkPrimitiveDiff(oldProps['sceneCenter-x'], newProps['sceneCenter-x'], 'sceneCenter.x', changedProps)
         checkPrimitiveDiff(oldProps['sceneCenter-y'], newProps['sceneCenter-y'], 'sceneCenter.y', changedProps)
@@ -6351,15 +6351,15 @@ export class FiberPBRBaseSimpleMaterialPropsHandler implements PropsHandler<Fibe
         checkPrimitiveDiff(oldProps.disableLighting, newProps.disableLighting, 'disableLighting', changedProps)
         checkPrimitiveDiff(oldProps.doubleSided, newProps.doubleSided, 'doubleSided', changedProps)
         checkColor3Diff(oldProps.emissiveColor, newProps.emissiveColor, 'emissiveColor', changedProps)
-        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRBaseSimpleMaterial.emissiveTexture.
-        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRBaseSimpleMaterial.environmentTexture.
+        checkTextureDiff(oldProps.emissiveTexture, newProps.emissiveTexture, 'emissiveTexture', changedProps)
+        checkTextureDiff(oldProps.environmentTexture, newProps.environmentTexture, 'environmentTexture', changedProps)
         checkPrimitiveDiff(oldProps.invertNormalMapX, newProps.invertNormalMapX, 'invertNormalMapX', changedProps)
         checkPrimitiveDiff(oldProps.invertNormalMapY, newProps.invertNormalMapY, 'invertNormalMapY', changedProps)
-        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRBaseSimpleMaterial.lightmapTexture.
+        checkTextureDiff(oldProps.lightmapTexture, newProps.lightmapTexture, 'lightmapTexture', changedProps)
         checkPrimitiveDiff(oldProps.maxSimultaneousLights, newProps.maxSimultaneousLights, 'maxSimultaneousLights', changedProps)
-        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRBaseSimpleMaterial.normalTexture.
+        checkTextureDiff(oldProps.normalTexture, newProps.normalTexture, 'normalTexture', changedProps)
         checkPrimitiveDiff(oldProps.occlusionStrength, newProps.occlusionStrength, 'occlusionStrength', changedProps)
-        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRBaseSimpleMaterial.occlusionTexture.
+        checkTextureDiff(oldProps.occlusionTexture, newProps.occlusionTexture, 'occlusionTexture', changedProps)
         checkPrimitiveDiff(oldProps.useLightmapAsShadowmap, newProps.useLightmapAsShadowmap, 'useLightmapAsShadowmap', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
@@ -6420,9 +6420,9 @@ export class FiberPBRMetallicRoughnessMaterialPropsHandler implements PropsHandl
     getPropertyUpdates(oldProps: FiberPBRMetallicRoughnessMaterialProps, newProps: FiberPBRMetallicRoughnessMaterialProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
         checkColor3Diff(oldProps.baseColor, newProps.baseColor, 'baseColor', changedProps)
-        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMetallicRoughnessMaterial.baseTexture.
+        checkTextureDiff(oldProps.baseTexture, newProps.baseTexture, 'baseTexture', changedProps)
         checkPrimitiveDiff(oldProps.metallic, newProps.metallic, 'metallic', changedProps)
-        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMetallicRoughnessMaterial.metallicRoughnessTexture.
+        checkTextureDiff(oldProps.metallicRoughnessTexture, newProps.metallicRoughnessTexture, 'metallicRoughnessTexture', changedProps)
         checkPrimitiveDiff(oldProps.roughness, newProps.roughness, 'roughness', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
@@ -6484,10 +6484,10 @@ export class FiberPBRSpecularGlossinessMaterialPropsHandler implements PropsHand
     getPropertyUpdates(oldProps: FiberPBRSpecularGlossinessMaterialProps, newProps: FiberPBRSpecularGlossinessMaterialProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
         checkColor3Diff(oldProps.diffuseColor, newProps.diffuseColor, 'diffuseColor', changedProps)
-        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRSpecularGlossinessMaterial.diffuseTexture.
+        checkTextureDiff(oldProps.diffuseTexture, newProps.diffuseTexture, 'diffuseTexture', changedProps)
         checkPrimitiveDiff(oldProps.glossiness, newProps.glossiness, 'glossiness', changedProps)
         checkColor3Diff(oldProps.specularColor, newProps.specularColor, 'specularColor', changedProps)
-        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRSpecularGlossinessMaterial.specularGlossinessTexture.
+        checkTextureDiff(oldProps.specularGlossinessTexture, newProps.specularGlossinessTexture, 'specularGlossinessTexture', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
 }
@@ -6548,17 +6548,17 @@ export class FiberPBRMaterialPropsHandler implements PropsHandler<FiberPBRMateri
     getPropertyUpdates(oldProps: FiberPBRMaterialProps, newProps: FiberPBRMaterialProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
         checkColor3Diff(oldProps.albedoColor, newProps.albedoColor, 'albedoColor', changedProps)
-        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.albedoTexture.
+        checkTextureDiff(oldProps.albedoTexture, newProps.albedoTexture, 'albedoTexture', changedProps)
         checkPrimitiveDiff(oldProps.alphaCutOff, newProps.alphaCutOff, 'alphaCutOff', changedProps)
         checkColor3Diff(oldProps.ambientColor, newProps.ambientColor, 'ambientColor', changedProps)
-        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.ambientTexture.
+        checkTextureDiff(oldProps.ambientTexture, newProps.ambientTexture, 'ambientTexture', changedProps)
         checkPrimitiveDiff(oldProps.ambientTextureImpactOnAnalyticalLights, newProps.ambientTextureImpactOnAnalyticalLights, 'ambientTextureImpactOnAnalyticalLights', changedProps)
         checkPrimitiveDiff(oldProps.ambientTextureStrength, newProps.ambientTextureStrength, 'ambientTextureStrength', changedProps)
-        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.bumpTexture.
+        checkTextureDiff(oldProps.bumpTexture, newProps.bumpTexture, 'bumpTexture', changedProps)
         // type: 'BabylonjsCoreColorCurves' property (not coded) BabylonjsCorePBRMaterial.cameraColorCurves.
         checkPrimitiveDiff(oldProps.cameraColorCurvesEnabled, newProps.cameraColorCurvesEnabled, 'cameraColorCurvesEnabled', changedProps)
         checkPrimitiveDiff(oldProps.cameraColorGradingEnabled, newProps.cameraColorGradingEnabled, 'cameraColorGradingEnabled', changedProps)
-        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.cameraColorGradingTexture.
+        checkTextureDiff(oldProps.cameraColorGradingTexture, newProps.cameraColorGradingTexture, 'cameraColorGradingTexture', changedProps)
         checkPrimitiveDiff(oldProps.cameraContrast, newProps.cameraContrast, 'cameraContrast', changedProps)
         checkPrimitiveDiff(oldProps.cameraExposure, newProps.cameraExposure, 'cameraExposure', changedProps)
         checkPrimitiveDiff(oldProps.cameraToneMappingEnabled, newProps.cameraToneMappingEnabled, 'cameraToneMappingEnabled', changedProps)
@@ -6567,9 +6567,9 @@ export class FiberPBRMaterialPropsHandler implements PropsHandler<FiberPBRMateri
         checkPrimitiveDiff(oldProps.disableLighting, newProps.disableLighting, 'disableLighting', changedProps)
         checkColor3Diff(oldProps.emissiveColor, newProps.emissiveColor, 'emissiveColor', changedProps)
         checkPrimitiveDiff(oldProps.emissiveIntensity, newProps.emissiveIntensity, 'emissiveIntensity', changedProps)
-        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.emissiveTexture.
+        checkTextureDiff(oldProps.emissiveTexture, newProps.emissiveTexture, 'emissiveTexture', changedProps)
         checkPrimitiveDiff(oldProps.enableSpecularAntiAliasing, newProps.enableSpecularAntiAliasing, 'enableSpecularAntiAliasing', changedProps)
-        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.environmentBRDFTexture.
+        checkTextureDiff(oldProps.environmentBRDFTexture, newProps.environmentBRDFTexture, 'environmentBRDFTexture', changedProps)
         checkPrimitiveDiff(oldProps.environmentIntensity, newProps.environmentIntensity, 'environmentIntensity', changedProps)
         checkPrimitiveDiff(oldProps.forceAlphaTest, newProps.forceAlphaTest, 'forceAlphaTest', changedProps)
         checkPrimitiveDiff(oldProps.forceIrradianceInFragment, newProps.forceIrradianceInFragment, 'forceIrradianceInFragment', changedProps)
@@ -6579,23 +6579,23 @@ export class FiberPBRMaterialPropsHandler implements PropsHandler<FiberPBRMateri
         checkPrimitiveDiff(oldProps.invertNormalMapX, newProps.invertNormalMapX, 'invertNormalMapX', changedProps)
         checkPrimitiveDiff(oldProps.invertNormalMapY, newProps.invertNormalMapY, 'invertNormalMapY', changedProps)
         checkPrimitiveDiff(oldProps.invertRefractionY, newProps.invertRefractionY, 'invertRefractionY', changedProps)
-        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.lightmapTexture.
+        checkTextureDiff(oldProps.lightmapTexture, newProps.lightmapTexture, 'lightmapTexture', changedProps)
         checkPrimitiveDiff(oldProps.linkRefractionWithTransparency, newProps.linkRefractionWithTransparency, 'linkRefractionWithTransparency', changedProps)
         checkPrimitiveDiff(oldProps.maxSimultaneousLights, newProps.maxSimultaneousLights, 'maxSimultaneousLights', changedProps)
         checkPrimitiveDiff(oldProps.metallic, newProps.metallic, 'metallic', changedProps)
         checkPrimitiveDiff(oldProps.metallicF0Factor, newProps.metallicF0Factor, 'metallicF0Factor', changedProps)
         checkColor3Diff(oldProps.metallicReflectanceColor, newProps.metallicReflectanceColor, 'metallicReflectanceColor', changedProps)
-        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.metallicReflectanceTexture.
-        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.metallicTexture.
+        checkTextureDiff(oldProps.metallicReflectanceTexture, newProps.metallicReflectanceTexture, 'metallicReflectanceTexture', changedProps)
+        checkTextureDiff(oldProps.metallicTexture, newProps.metallicTexture, 'metallicTexture', changedProps)
         checkPrimitiveDiff(oldProps.microSurface, newProps.microSurface, 'microSurface', changedProps)
-        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.microSurfaceTexture.
-        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.opacityTexture.
+        checkTextureDiff(oldProps.microSurfaceTexture, newProps.microSurfaceTexture, 'microSurfaceTexture', changedProps)
+        checkTextureDiff(oldProps.opacityTexture, newProps.opacityTexture, 'opacityTexture', changedProps)
         checkPrimitiveDiff(oldProps.parallaxScaleBias, newProps.parallaxScaleBias, 'parallaxScaleBias', changedProps)
         checkColor3Diff(oldProps.reflectionColor, newProps.reflectionColor, 'reflectionColor', changedProps)
-        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.reflectionTexture.
+        checkTextureDiff(oldProps.reflectionTexture, newProps.reflectionTexture, 'reflectionTexture', changedProps)
         checkColor3Diff(oldProps.reflectivityColor, newProps.reflectivityColor, 'reflectivityColor', changedProps)
-        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.reflectivityTexture.
-        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCorePBRMaterial.refractionTexture.
+        checkTextureDiff(oldProps.reflectivityTexture, newProps.reflectivityTexture, 'reflectivityTexture', changedProps)
+        checkTextureDiff(oldProps.refractionTexture, newProps.refractionTexture, 'refractionTexture', changedProps)
         checkPrimitiveDiff(oldProps.roughness, newProps.roughness, 'roughness', changedProps)
         checkPrimitiveDiff(oldProps.specularIntensity, newProps.specularIntensity, 'specularIntensity', changedProps)
         checkPrimitiveDiff(oldProps.twoSidedLighting, newProps.twoSidedLighting, 'twoSidedLighting', changedProps)
@@ -6680,7 +6680,7 @@ export class FiberFluentMaterialPropsHandler implements PropsHandler<FiberFluent
     getPropertyUpdates(oldProps: FiberFluentMaterialProps, newProps: FiberFluentMaterialProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
         checkColor3Diff(oldProps.albedoColor, newProps.albedoColor, 'albedoColor', changedProps)
-        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsGuiFluentMaterial.albedoTexture.
+        checkTextureDiff(oldProps.albedoTexture, newProps.albedoTexture, 'albedoTexture', changedProps)
         checkPrimitiveDiff(oldProps.borderMinValue, newProps.borderMinValue, 'borderMinValue', changedProps)
         checkPrimitiveDiff(oldProps.borderWidth, newProps.borderWidth, 'borderWidth', changedProps)
         checkPrimitiveDiff(oldProps.edgeSmoothingValue, newProps.edgeSmoothingValue, 'edgeSmoothingValue', changedProps)
@@ -7164,7 +7164,7 @@ export class FiberSpotLightPropsHandler implements PropsHandler<FiberSpotLightPr
         checkPrimitiveDiff(oldProps.angle, newProps.angle, 'angle', changedProps)
         checkPrimitiveDiff(oldProps.exponent, newProps.exponent, 'exponent', changedProps)
         checkPrimitiveDiff(oldProps.innerAngle, newProps.innerAngle, 'innerAngle', changedProps)
-        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreSpotLight.projectionTexture.
+        checkTextureDiff(oldProps.projectionTexture, newProps.projectionTexture, 'projectionTexture', changedProps)
         checkPrimitiveDiff(oldProps.projectionTextureLightFar, newProps.projectionTextureLightFar, 'projectionTextureLightFar', changedProps)
         checkPrimitiveDiff(oldProps.projectionTextureLightNear, newProps.projectionTextureLightNear, 'projectionTextureLightNear', changedProps)
         checkVector3Diff(oldProps.projectionTextureUpDirection, newProps.projectionTextureUpDirection, 'projectionTextureUpDirection', changedProps)
@@ -9769,7 +9769,7 @@ export class FiberBaseTexturePropsHandler implements PropsHandler<FiberBaseTextu
         checkPrimitiveDiff(oldProps.getAlphaFromRGB, newProps.getAlphaFromRGB, 'getAlphaFromRGB', changedProps)
         checkPrimitiveDiff(oldProps.hasAlpha, newProps.hasAlpha, 'hasAlpha', changedProps)
         checkPrimitiveDiff(oldProps.invertZ, newProps.invertZ, 'invertZ', changedProps)
-        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreBaseTexture.irradianceTexture.
+        checkTextureDiff(oldProps.irradianceTexture, newProps.irradianceTexture, 'irradianceTexture', changedProps)
         checkPrimitiveDiff(oldProps.is2DArray, newProps.is2DArray, 'is2DArray', changedProps)
         checkPrimitiveDiff(oldProps.is3D, newProps.is3D, 'is3D', changedProps)
         checkPrimitiveDiff(oldProps.isCube, newProps.isCube, 'isCube', changedProps)
@@ -13067,9 +13067,9 @@ export class FiberScenePropsHandler implements PropsHandler<FiberSceneProps> {
         checkPrimitiveDiff(oldProps.DoubleClickDelay, newProps.DoubleClickDelay, 'DoubleClickDelay', changedProps)
         checkPrimitiveDiff(oldProps.DragMovementThreshold, newProps.DragMovementThreshold, 'DragMovementThreshold', changedProps)
         checkPrimitiveDiff(oldProps.dumpNextRenderTargets, newProps.dumpNextRenderTargets, 'dumpNextRenderTargets', changedProps)
-        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreScene.environmentBRDFTexture.
+        checkTextureDiff(oldProps.environmentBRDFTexture, newProps.environmentBRDFTexture, 'environmentBRDFTexture', changedProps)
         checkPrimitiveDiff(oldProps.environmentIntensity, newProps.environmentIntensity, 'environmentIntensity', changedProps)
-        // type: 'BabylonjsCoreBaseTexture' property (not coded) BabylonjsCoreScene.environmentTexture.
+        checkTextureDiff(oldProps.environmentTexture, newProps.environmentTexture, 'environmentTexture', changedProps)
         checkPrimitiveDiff(oldProps.ExclusiveDoubleClickMode, newProps.ExclusiveDoubleClickMode, 'ExclusiveDoubleClickMode', changedProps)
         checkColor3Diff(oldProps.fogColor, newProps.fogColor, 'fogColor', changedProps)
         checkPrimitiveDiff(oldProps.fogDensity, newProps.fogDensity, 'fogDensity', changedProps)

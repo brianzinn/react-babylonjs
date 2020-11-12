@@ -124,7 +124,7 @@ const enumMap: Map<string, string> = new Map<string, string>();
 let ENUMS_LIST: string[] = [];
 const PROPS_EXPORTS: string[] = []; // used to put all props in single import.
 
-// These are the base/factory classes we used to generate everything.  Comment them out to skip generation (you must keep "Node", though)
+// These are the base/factory classes we used to generate everything.
 let classesOfInterest: Map<String, ClassNameSpaceTuple | undefined> = new Map<String, ClassNameSpaceTuple | undefined>();
 
 // always needed:
@@ -134,10 +134,10 @@ classesOfInterest.set("Mesh", undefined);
 classesOfInterest.set("AbstractScene", undefined);
 classesOfInterest.set("Scene", undefined);
 
-// decides what is generated
+// decides what is generated (useful to remove some to speed up debugging)
 classesOfInterest.set("Camera", undefined);
-classesOfInterest.set("Material", undefined);
 classesOfInterest.set("MeshBuilder", undefined)
+classesOfInterest.set("Material", undefined);
 classesOfInterest.set("Light", undefined);
 classesOfInterest.set("Control", undefined);
 classesOfInterest.set("Control3D", undefined);
@@ -151,7 +151,7 @@ classesOfInterest.set("PhysicsImpostor", undefined);
 classesOfInterest.set("VRExperienceHelper", undefined);
 classesOfInterest.set("DynamicTerrain", undefined);
 classesOfInterest.set("EffectLayer", undefined);
-classesOfInterest.set("Behavior", undefined);
+classesOfInterest.set("Behavior", undefined); // TODO: remove this.
 classesOfInterest.set("PointsCloudSystem", undefined);
 
 /**
@@ -931,7 +931,7 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
     let addedProperties = new Set<string>();
 
     // These properties break out to specific method handlers
-    type PropertyKind = 'BabylonjsCoreThinTexture' | 'BabylonjsCoreColor3' | 'BabylonjsCoreColor4' | 'BabylonjsCoreVector3' | 'BabylonjsCoreFresnelParameters' | 'BabylonjsCoreQuaternion' |
+    type PropertyKind = 'BabylonjsCoreBaseTexture' | 'BabylonjsCoreColor3' | 'BabylonjsCoreColor4' | 'BabylonjsCoreVector3' | 'BabylonjsCoreFresnelParameters' | 'BabylonjsCoreQuaternion' |
       'BabylonjsGuiControl' | 'number[]' | 'lambda' | 'observable' | 'method' | 'primitive' | 'object';
     type NameAndType = {
       name: string
@@ -955,7 +955,7 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
           if (type === null) {
             return; // skip
           }
-          const methodName = method.getName()
+          // const methodName = method.getName()
           setMethods.push(method);
         })
       })
@@ -1000,7 +1000,7 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
           })
         } else {
           switch (type) {
-            case 'BabylonjsCoreThinTexture':
+            case 'BabylonjsCoreBaseTexture':
             case 'BabylonjsCoreColor3':
             case 'BabylonjsCoreColor4': // Color4.equals() not added until PR #5517
             case 'BabylonjsCoreVector3':
@@ -1114,7 +1114,7 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
             case 'BabylonjsCoreFresnelParameters':
               writer.writeLine(`checkFresnelParametersDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`);
               break;
-            case 'BabylonjsCoreThinTexture':
+            case 'BabylonjsCoreBaseTexture':
               writer.writeLine(`checkTextureDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`)
               break;
             case 'observable':
