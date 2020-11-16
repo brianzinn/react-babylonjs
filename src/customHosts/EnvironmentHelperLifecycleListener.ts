@@ -1,5 +1,5 @@
-import { Scene, VRExperienceHelper, EnvironmentHelper } from "@babylonjs/core"
-import { CreatedInstance } from "../CreatedInstance"
+import { Scene, EnvironmentHelper } from "@babylonjs/core"
+import { DecoratedInstance } from "../DecoratedInstance"
 import { LifecycleListener } from "../LifecycleListener"
 
 export default class EnvironmentHelperLifecycleListener implements LifecycleListener<EnvironmentHelper> {
@@ -11,19 +11,19 @@ export default class EnvironmentHelperLifecycleListener implements LifecycleList
     this.props = props
   }
 
-  onParented(parent: CreatedInstance<any>, child: CreatedInstance<any>): any {/* empty */}
+  onParented(parent: DecoratedInstance<any>, child: DecoratedInstance<any>): any {/* empty */}
 
-  onChildAdded(child: CreatedInstance<any>, parent: CreatedInstance<any>): any {/* empty */}
+  onChildAdded(child: DecoratedInstance<any>, parent: DecoratedInstance<any>): any {/* empty */}
 
-  onMount(instance: CreatedInstance<EnvironmentHelper>): void {
-    if (instance.hostInstance === undefined) {
+  onMount(instance: DecoratedInstance<EnvironmentHelper>): void {
+    if (instance === undefined) {
       console.error('Missing instance');
       return;
     }
 
     // for TypeScript people use <... setMainColor={[mainColor]} />
     if (this.props.mainColor) {
-      instance.hostInstance.setMainColor(this.props.mainColor)
+      instance.setMainColor(this.props.mainColor)
     }
 
     if (this.props.teleportEnvironmentGround) {

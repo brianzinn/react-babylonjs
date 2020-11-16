@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useRef, useState, MutableRefObject } from 'react';
 import ReactReconciler, { Reconciler } from "react-reconciler";
 
-import { EngineCanvasContextType, EngineCanvasContext, withEngineCanvasContext, SceneContext } from 'babylonjs-hook';
+import { EngineCanvasContextType, EngineCanvasContext, withEngineCanvasContext } from './hooks/engine';
+import { SceneContext } from './hooks/scene';
 
 import {
   AbstractMesh,
-  Engine,
   Nullable,
   Observer,
   PointerEventTypes,
@@ -20,13 +20,10 @@ import { FiberScenePropsHandler } from './generatedCode';
 import { FiberSceneProps } from './generatedProps';
 import { UpdatePayload } from './PropsHandler';
 
-
 export declare type SceneEventArgs = {
   scene: BabylonJSScene;
   canvas: HTMLCanvasElement;
 };
-
-export const useScene = () => useContext(SceneContext).scene;
 
 type SceneProps = {
   engineCanvasContext: EngineCanvasContextType
@@ -64,13 +61,16 @@ const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
 
   const prevPropsRef: MutableRefObject<Partial<SceneProps>> = useRef<Partial<SceneProps>>({});
 
+  console.log('rendering scene.');
+
   // initialize babylon scene
   useEffect(() => {
     const scene = new BabylonJSScene(engine!, props.sceneOptions)
     // const onReadyObservable: Nullable<Observer<BabylonJSScene>> = scene.onReadyObservable.add(onSceneReady);
-    if (scene.isReady()) {
+    const sceneIsReady = scene.isReady();
+    if (sceneIsReady) {
       // scene.onReadyObservable.remove(onReadyObservable);
-      setSceneReady(true)
+      setSceneReady(true); // this does not flow and cause a re-render
     } else {
       console.error('Scene is not ready. Report issue in react-babylonjs repo')
     }
@@ -85,13 +85,14 @@ const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
       canvas: props.engineCanvasContext.canvas,
       scene: scene,
       rootInstance: {
-        hostInstance: null,
-        children: [],
-        parent: null,
-        metadata: {
-          className: "root"
-        },
-        customProps: {}
+        __rbs: {
+          children: [],
+          parent: null,
+          metadata: {
+            className: "root"
+          },
+          customProps: {}
+        }
       }
     }
 
@@ -132,7 +133,7 @@ const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
           props.onScenePointerUp!(evt, scene)
         },
         PointerEventTypes.POINTERUP
-      )
+      );
     }
 
     // can only be assigned on init
@@ -142,7 +143,8 @@ const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
         (evt: PointerInfo) => {
           props.onScenePointerMove!(evt, scene);
         },
-        PointerEventTypes.POINTERMOVE)
+        PointerEventTypes.POINTERMOVE
+      );
     }
 
     if (typeof props.onSceneMount === 'function') {
@@ -159,11 +161,13 @@ const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
       scene.enablePhysics(props.enablePhysics[0], props.enablePhysics[1]);
     }
 
+    console.log('updating container', scene, sceneReady, sceneIsReady);
+
     // update the root Container
     renderer.updateContainer(
       <SceneContext.Provider value={{
         scene,
-        sceneReady
+        sceneReady: sceneIsReady
       }}>
         {props.children}
       </SceneContext.Provider>, fiberRoot, undefined, () => { /* empty */
@@ -199,6 +203,7 @@ const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
 
     updateScene(props, prevPropsRef, scene, propsHandler);
 
+    console.log('rendering scene after update.', sceneReady);
     renderer.updateContainer(
       <SceneContext.Provider value={{
         scene,

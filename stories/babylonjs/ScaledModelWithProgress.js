@@ -1,6 +1,6 @@
 import React, { Suspense, useContext, useEffect } from 'react'
 import { useSceneLoader, SceneLoaderContextProvider, SceneLoaderContext } from 'react-babylonjs-loaders';
-import { SceneContext } from 'babylonjs-hook';
+import { SceneContext } from '../../dist/react-babylonjs';
 
 import { Vector3, Matrix, Color3 } from '@babylonjs/core/Maths/math'
 
@@ -65,11 +65,11 @@ const ScaledModelWithProgress = (props) => {
   console.log('scene context:', sceneContext);
 
   return (
-  <SceneLoaderContextProvider>
-    <Suspense fallback= {<ProgressFallback progressBarColor={props.progressBarColor} center={props.center} rotation={props.rotation} scaleTo={props.scaleTo} />}>
-        <MyModel position={props.center} rootUrl={props.rootUrl} sceneFilename={props.sceneFilename} scaleTo={props.scaleTo} />
-    </Suspense>
-  </SceneLoaderContextProvider>
+    <SceneLoaderContextProvider>
+      <Suspense fallback= {<ProgressFallback progressBarColor={props.progressBarColor} center={props.center} rotation={props.rotation} scaleTo={props.scaleTo} />}>
+          <MyModel position={props.center} rootUrl={props.rootUrl} sceneFilename={props.sceneFilename} scaleTo={props.scaleTo} />
+      </Suspense>
+    </SceneLoaderContextProvider>
   )
 }
 

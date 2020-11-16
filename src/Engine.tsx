@@ -1,16 +1,13 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import {
   Nullable,
   Engine,
   EngineOptions,
-  ThinEngine as BabylonJSThinEngine,
+  ThinEngine,
   Observable,
 } from '@babylonjs/core'
 
-import { EngineCanvasContextType, EngineCanvasContext } from 'babylonjs-hook';
-
-export const useCanvas = (): Nullable<HTMLCanvasElement | WebGLRenderingContext> => useContext(EngineCanvasContext).canvas;
-export const useEngine = (): Nullable<Engine> => useContext(EngineCanvasContext).engine;
+import { EngineCanvasContextType, EngineCanvasContext } from './hooks/engine';
 
 export type EngineProps = {
   engineCanvasContext?: EngineCanvasContextType,
@@ -80,7 +77,7 @@ class ReactBabylonjsEngine extends React.Component<EngineProps, EngineState> {
       }
     })
 
-    this.engine.onContextLostObservable.add((eventData: BabylonJSThinEngine) => {
+    this.engine.onContextLostObservable.add((eventData: ThinEngine) => {
       console.log('context loss observable from Engine: ', eventData);
     })
 

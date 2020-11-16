@@ -1,5 +1,5 @@
 import { PropsHandler, PropertyUpdate, HasPropsHandlers, checkColor3Diff, checkColor4Diff, checkControlDiff, checkFresnelParametersDiff, checkLambdaDiff, checkMethodDiff, checkNumericArrayDiff, checkObjectDiff, checkObservableDiff, checkPrimitiveDiff, checkQuaternionDiff, checkTextureDiff, checkVector3Diff } from "./PropsHandler";
-import { CreatedInstanceMetadata } from "./CreatedInstance";
+import { HostInstanceMetadata } from "./DecoratedInstance";
 import { FiberNodeProps, FiberTransformNodeProps, FiberAbstractMeshProps, FiberInstancedMeshProps, FiberInstancedLinesMeshProps, FiberMeshProps, FiberLinesMeshProps, FiberGroundMeshProps, FiberTrailMeshProps, FiberCameraProps, FiberTargetCameraProps, FiberFreeCameraProps, FiberTouchCameraProps, FiberUniversalCameraProps, FiberGamepadCameraProps, FiberAnaglyphGamepadCameraProps, FiberStereoscopicGamepadCameraProps, FiberAnaglyphUniversalCameraProps, FiberStereoscopicUniversalCameraProps, FiberDeviceOrientationCameraProps, FiberVRDeviceOrientationFreeCameraProps, FiberVRDeviceOrientationGamepadCameraProps, FiberAnaglyphFreeCameraProps, FiberStereoscopicFreeCameraProps, FiberVirtualJoysticksCameraProps, FiberWebVRFreeCameraProps, FiberWebXRCameraProps, FiberArcRotateCameraProps, FiberAnaglyphArcRotateCameraProps, FiberStereoscopicArcRotateCameraProps, FiberVRDeviceOrientationArcRotateCameraProps, FiberFlyCameraProps, FiberFollowCameraProps, FiberArcFollowCameraProps, FiberMaterialProps, FiberPushMaterialProps, FiberNodeMaterialProps, FiberStandardMaterialProps, FiberBackgroundMaterialProps, FiberPBRBaseMaterialProps, FiberPBRBaseSimpleMaterialProps, FiberPBRMetallicRoughnessMaterialProps, FiberPBRSpecularGlossinessMaterialProps, FiberPBRMaterialProps, FiberFluentMaterialProps, FiberShaderMaterialProps, FiberMultiMaterialProps, FiberLightProps, FiberShadowLightProps, FiberDirectionalLightProps, FiberPointLightProps, FiberSpotLightProps, FiberHemisphericLightProps, FiberControlProps, FiberContainerProps, FiberRectangleProps, FiberButtonProps, FiberSelectionPanelProps, FiberScrollViewerProps, FiberStackPanelProps, FiberVirtualKeyboardProps, FiberEllipseProps, FiberGridProps, Fiber_ScrollViewerWindowProps, FiberTextBlockProps, FiberImageProps, FiberCheckboxProps, FiberColorPickerProps, FiberInputTextProps, FiberInputPasswordProps, FiberLineProps, FiberMultiLineProps, FiberRadioButtonProps, FiberBaseSliderProps, FiberScrollBarProps, FiberImageScrollBarProps, FiberSliderProps, FiberImageBasedSliderProps, FiberDisplayGridProps, FiberControl3DProps, FiberContainer3DProps, FiberVolumeBasedPanelProps, FiberCylinderPanelProps, FiberPlanePanelProps, FiberScatterPanelProps, FiberSpherePanelProps, FiberStackPanel3DProps, FiberAbstractButton3DProps, FiberButton3DProps, FiberHolographicButtonProps, FiberMeshButton3DProps, FiberEffectLayerProps, FiberGlowLayerProps, FiberHighlightLayerProps, FiberThinTextureProps, FiberBaseTextureProps, FiberCubeTextureProps, FiberRawCubeTextureProps, FiberTextureProps, FiberRawTextureProps, FiberProceduralTextureProps, FiberCustomProceduralTextureProps, FiberNoiseProceduralTextureProps, FiberRenderTargetTextureProps, FiberMirrorTextureProps, FiberMultiRenderTargetProps, FiberRefractionTextureProps, FiberMultiviewRenderTargetProps, FiberVideoTextureProps, FiberDynamicTextureProps, FiberAdvancedDynamicTextureProps, FiberRawTexture2DArrayProps, FiberRawTexture3DProps, FiberColorGradingTextureProps, FiberEquiRectangularCubeTextureProps, FiberHDRCubeTextureProps, FiberHtmlElementTextureProps, FiberGUI3DManagerProps, FiberShadowGeneratorProps, FiberCascadedShadowGeneratorProps, FiberEnvironmentHelperProps, FiberPhysicsImpostorProps, FiberVRExperienceHelperProps, FiberDynamicTerrainProps, FiberPointsCloudSystemProps, FiberAutoRotationBehaviorProps, FiberBouncingBehaviorProps, FiberFramingBehaviorProps, FiberAttachToBoxBehaviorProps, FiberFadeInOutBehaviorProps, FiberMultiPointerScaleBehaviorProps, FiberPointerDragBehaviorProps, FiberSixDofDragBehaviorProps, FiberSceneProps } from "./generatedProps";
 import { DynamicTerrain as ExtensionsDynamicTerrain } from "./extensions/DynamicTerrain";
 import { AbstractScene as BabylonjsCoreAbstractScene } from "@babylonjs/core/abstractScene";
@@ -287,7 +287,7 @@ export class FiberNode implements HasPropsHandlers<FiberNodeProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isNode": true,
         "className": "FiberNode"
     };
@@ -374,7 +374,7 @@ export class FiberTransformNode implements HasPropsHandlers<FiberNodeProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isNode": true,
         "className": "FiberTransformNode"
     };
@@ -496,7 +496,7 @@ export class FiberAbstractMesh implements HasPropsHandlers<FiberAbstractMeshProp
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isNode": true,
         "acceptsMaterials": true,
         "isMesh": true,
@@ -556,7 +556,7 @@ export class FiberInstancedMesh implements HasPropsHandlers<FiberAbstractMeshPro
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isNode": true,
         "acceptsMaterials": true,
         "isMesh": true,
@@ -615,7 +615,7 @@ export class FiberInstancedLinesMesh implements HasPropsHandlers<FiberAbstractMe
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isNode": true,
         "acceptsMaterials": true,
         "isMesh": true,
@@ -711,7 +711,7 @@ export class FiberMesh implements HasPropsHandlers<FiberAbstractMeshProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isNode": true,
         "acceptsMaterials": true,
         "isMesh": true,
@@ -799,7 +799,7 @@ export class FiberLinesMesh implements HasPropsHandlers<FiberAbstractMeshProps> 
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isNode": true,
         "acceptsMaterials": true,
         "isMesh": true,
@@ -858,7 +858,7 @@ export class FiberGroundMesh implements HasPropsHandlers<FiberAbstractMeshProps>
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isNode": true,
         "acceptsMaterials": true,
         "isMesh": true,
@@ -935,7 +935,7 @@ export class FiberTrailMesh implements HasPropsHandlers<FiberAbstractMeshProps> 
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isNode": true,
         "acceptsMaterials": true,
         "isMesh": true,
@@ -1036,7 +1036,7 @@ export class FiberCamera implements HasPropsHandlers<FiberCameraProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isCamera": true,
         "isNode": true,
         "className": "FiberCamera"
@@ -1125,7 +1125,7 @@ export class FiberTargetCamera implements HasPropsHandlers<FiberCameraProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isCamera": true,
         "isNode": true,
         "className": "FiberTargetCamera"
@@ -1213,7 +1213,7 @@ export class FiberFreeCamera implements HasPropsHandlers<FiberCameraProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isCamera": true,
         "isNode": true,
         "className": "FiberFreeCamera"
@@ -1279,7 +1279,7 @@ export class FiberTouchCamera implements HasPropsHandlers<FiberCameraProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isCamera": true,
         "isNode": true,
         "className": "FiberTouchCamera"
@@ -1346,7 +1346,7 @@ export class FiberUniversalCamera implements HasPropsHandlers<FiberCameraProps> 
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isCamera": true,
         "isNode": true,
         "className": "FiberUniversalCamera"
@@ -1411,7 +1411,7 @@ export class FiberGamepadCamera implements HasPropsHandlers<FiberCameraProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isCamera": true,
         "isNode": true,
         "className": "FiberGamepadCamera"
@@ -1481,7 +1481,7 @@ export class FiberAnaglyphGamepadCamera implements HasPropsHandlers<FiberCameraP
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isCamera": true,
         "isNode": true,
         "className": "FiberAnaglyphGamepadCamera"
@@ -1556,7 +1556,7 @@ export class FiberStereoscopicGamepadCamera implements HasPropsHandlers<FiberCam
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isCamera": true,
         "isNode": true,
         "className": "FiberStereoscopicGamepadCamera"
@@ -1625,7 +1625,7 @@ export class FiberAnaglyphUniversalCamera implements HasPropsHandlers<FiberCamer
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isCamera": true,
         "isNode": true,
         "className": "FiberAnaglyphUniversalCamera"
@@ -1699,7 +1699,7 @@ export class FiberStereoscopicUniversalCamera implements HasPropsHandlers<FiberC
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isCamera": true,
         "isNode": true,
         "className": "FiberStereoscopicUniversalCamera"
@@ -1765,7 +1765,7 @@ export class FiberDeviceOrientationCamera implements HasPropsHandlers<FiberCamer
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isCamera": true,
         "isNode": true,
         "className": "FiberDeviceOrientationCamera"
@@ -1838,7 +1838,7 @@ export class FiberVRDeviceOrientationFreeCamera implements HasPropsHandlers<Fibe
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isCamera": true,
         "isNode": true,
         "className": "FiberVRDeviceOrientationFreeCamera"
@@ -1912,7 +1912,7 @@ export class FiberVRDeviceOrientationGamepadCamera implements HasPropsHandlers<F
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isCamera": true,
         "isNode": true,
         "className": "FiberVRDeviceOrientationGamepadCamera"
@@ -1979,7 +1979,7 @@ export class FiberAnaglyphFreeCamera implements HasPropsHandlers<FiberCameraProp
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isCamera": true,
         "isNode": true,
         "className": "FiberAnaglyphFreeCamera"
@@ -2051,7 +2051,7 @@ export class FiberStereoscopicFreeCamera implements HasPropsHandlers<FiberCamera
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isCamera": true,
         "isNode": true,
         "className": "FiberStereoscopicFreeCamera"
@@ -2115,7 +2115,7 @@ export class FiberVirtualJoysticksCamera implements HasPropsHandlers<FiberCamera
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isCamera": true,
         "isNode": true,
         "className": "FiberVirtualJoysticksCamera"
@@ -2198,7 +2198,7 @@ export class FiberWebVRFreeCamera implements HasPropsHandlers<FiberCameraProps> 
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isCamera": true,
         "isNode": true,
         "className": "FiberWebVRFreeCamera"
@@ -2266,7 +2266,7 @@ export class FiberWebXRCamera implements HasPropsHandlers<FiberCameraProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isCamera": true,
         "isNode": true,
         "className": "FiberWebXRCamera"
@@ -2417,7 +2417,7 @@ export class FiberArcRotateCamera implements HasPropsHandlers<FiberCameraProps> 
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isCamera": true,
         "isNode": true,
         "className": "FiberArcRotateCamera"
@@ -2499,7 +2499,7 @@ export class FiberAnaglyphArcRotateCamera implements HasPropsHandlers<FiberCamer
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isCamera": true,
         "isNode": true,
         "className": "FiberAnaglyphArcRotateCamera"
@@ -2586,7 +2586,7 @@ export class FiberStereoscopicArcRotateCamera implements HasPropsHandlers<FiberC
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isCamera": true,
         "isNode": true,
         "className": "FiberStereoscopicArcRotateCamera"
@@ -2673,7 +2673,7 @@ export class FiberVRDeviceOrientationArcRotateCamera implements HasPropsHandlers
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isCamera": true,
         "isNode": true,
         "className": "FiberVRDeviceOrientationArcRotateCamera"
@@ -2770,7 +2770,7 @@ export class FiberFlyCamera implements HasPropsHandlers<FiberCameraProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isCamera": true,
         "isNode": true,
         "className": "FiberFlyCamera"
@@ -2851,7 +2851,7 @@ export class FiberFollowCamera implements HasPropsHandlers<FiberCameraProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isCamera": true,
         "isNode": true,
         "className": "FiberFollowCamera"
@@ -2932,7 +2932,7 @@ export class FiberArcFollowCamera implements HasPropsHandlers<FiberCameraProps> 
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isCamera": true,
         "isNode": true,
         "className": "FiberArcFollowCamera"
@@ -3060,7 +3060,7 @@ export class FiberBox implements HasPropsHandlers<FiberMeshProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "acceptsMaterials": true,
         "isNode": true,
         "isMesh": true,
@@ -3189,7 +3189,7 @@ export class FiberTiledBox implements HasPropsHandlers<FiberMeshProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "acceptsMaterials": true,
         "isNode": true,
         "isMesh": true,
@@ -3309,7 +3309,7 @@ export class FiberSphere implements HasPropsHandlers<FiberMeshProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "acceptsMaterials": true,
         "isNode": true,
         "isMesh": true,
@@ -3407,7 +3407,7 @@ export class FiberDisc implements HasPropsHandlers<FiberMeshProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "acceptsMaterials": true,
         "isNode": true,
         "isMesh": true,
@@ -3521,7 +3521,7 @@ export class FiberIcoSphere implements HasPropsHandlers<FiberMeshProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "acceptsMaterials": true,
         "isNode": true,
         "isMesh": true,
@@ -3652,7 +3652,7 @@ export class FiberRibbon implements HasPropsHandlers<FiberMeshProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "acceptsMaterials": true,
         "isNode": true,
         "isMesh": true,
@@ -3809,7 +3809,7 @@ export class FiberCylinder implements HasPropsHandlers<FiberMeshProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "acceptsMaterials": true,
         "isNode": true,
         "isMesh": true,
@@ -3907,7 +3907,7 @@ export class FiberTorus implements HasPropsHandlers<FiberMeshProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "acceptsMaterials": true,
         "isNode": true,
         "isMesh": true,
@@ -4021,7 +4021,7 @@ export class FiberTorusKnot implements HasPropsHandlers<FiberMeshProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "acceptsMaterials": true,
         "isNode": true,
         "isMesh": true,
@@ -4112,7 +4112,7 @@ export class FiberLineSystem implements HasPropsHandlers<FiberMeshProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "acceptsMaterials": true,
         "isNode": true,
         "isMesh": true,
@@ -4202,7 +4202,7 @@ export class FiberLines implements HasPropsHandlers<FiberMeshProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "acceptsMaterials": true,
         "isNode": true,
         "isMesh": true,
@@ -4298,7 +4298,7 @@ export class FiberDashedLines implements HasPropsHandlers<FiberMeshProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "acceptsMaterials": true,
         "isNode": true,
         "isMesh": true,
@@ -4421,7 +4421,7 @@ export class FiberExtrudeShape implements HasPropsHandlers<FiberMeshProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "acceptsMaterials": true,
         "isNode": true,
         "isMesh": true,
@@ -4559,7 +4559,7 @@ export class FiberExtrudeShapeCustom implements HasPropsHandlers<FiberMeshProps>
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "acceptsMaterials": true,
         "isNode": true,
         "isMesh": true,
@@ -4688,7 +4688,7 @@ export class FiberLathe implements HasPropsHandlers<FiberMeshProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "acceptsMaterials": true,
         "isNode": true,
         "isMesh": true,
@@ -4814,7 +4814,7 @@ export class FiberTiledPlane implements HasPropsHandlers<FiberMeshProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "acceptsMaterials": true,
         "isNode": true,
         "isMesh": true,
@@ -4917,7 +4917,7 @@ export class FiberPlane implements HasPropsHandlers<FiberMeshProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "acceptsMaterials": true,
         "isNode": true,
         "isMesh": true,
@@ -5007,7 +5007,7 @@ export class FiberGround implements HasPropsHandlers<FiberMeshProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "acceptsMaterials": true,
         "isNode": true,
         "isMesh": true,
@@ -5104,7 +5104,7 @@ export class FiberTiledGround implements HasPropsHandlers<FiberMeshProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "acceptsMaterials": true,
         "isNode": true,
         "isMesh": true,
@@ -5220,7 +5220,7 @@ export class FiberGroundFromHeightMap implements HasPropsHandlers<FiberMeshProps
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "acceptsMaterials": true,
         "isNode": true,
         "isMesh": true,
@@ -5333,7 +5333,7 @@ export class FiberPolygon implements HasPropsHandlers<FiberMeshProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "acceptsMaterials": true,
         "isNode": true,
         "isMesh": true,
@@ -5446,7 +5446,7 @@ export class FiberExtrudePolygon implements HasPropsHandlers<FiberMeshProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "acceptsMaterials": true,
         "isNode": true,
         "isMesh": true,
@@ -5576,7 +5576,7 @@ export class FiberTube implements HasPropsHandlers<FiberMeshProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "acceptsMaterials": true,
         "isNode": true,
         "isMesh": true,
@@ -5709,7 +5709,7 @@ export class FiberPolyhedron implements HasPropsHandlers<FiberMeshProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "acceptsMaterials": true,
         "isNode": true,
         "isMesh": true,
@@ -5791,7 +5791,7 @@ export class FiberDecal implements HasPropsHandlers<FiberMeshProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "acceptsMaterials": true,
         "isNode": true,
         "isMesh": true,
@@ -5847,7 +5847,7 @@ export class FiberCapsule implements HasPropsHandlers<FiberMeshProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "acceptsMaterials": true,
         "isNode": true,
         "isMesh": true,
@@ -5946,7 +5946,7 @@ export class FiberMaterial implements HasPropsHandlers<FiberMaterialProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isMaterial": true,
         "className": "FiberMaterial"
     };
@@ -5998,7 +5998,7 @@ export class FiberPushMaterial implements HasPropsHandlers<FiberMaterialProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isMaterial": true,
         "className": "FiberPushMaterial"
     };
@@ -6068,7 +6068,7 @@ export class FiberNodeMaterial implements HasPropsHandlers<FiberMaterialProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isMaterial": true,
         "className": "FiberNodeMaterial"
     };
@@ -6184,7 +6184,7 @@ export class FiberStandardMaterial implements HasPropsHandlers<FiberMaterialProp
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isMaterial": true,
         "className": "FiberStandardMaterial"
     };
@@ -6273,7 +6273,7 @@ export class FiberBackgroundMaterial implements HasPropsHandlers<FiberMaterialPr
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isMaterial": true,
         "className": "FiberBackgroundMaterial"
     };
@@ -6338,7 +6338,7 @@ export class FiberPBRBaseMaterial implements HasPropsHandlers<FiberMaterialProps
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isMaterial": true,
         "className": "FiberPBRBaseMaterial"
     };
@@ -6410,7 +6410,7 @@ export class FiberPBRBaseSimpleMaterial implements HasPropsHandlers<FiberMateria
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isMaterial": true,
         "className": "FiberPBRBaseSimpleMaterial"
     };
@@ -6474,7 +6474,7 @@ export class FiberPBRMetallicRoughnessMaterial implements HasPropsHandlers<Fiber
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isMaterial": true,
         "className": "FiberPBRMetallicRoughnessMaterial"
     };
@@ -6538,7 +6538,7 @@ export class FiberPBRSpecularGlossinessMaterial implements HasPropsHandlers<Fibe
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isMaterial": true,
         "className": "FiberPBRSpecularGlossinessMaterial"
     };
@@ -6670,7 +6670,7 @@ export class FiberPBRMaterial implements HasPropsHandlers<FiberMaterialProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isMaterial": true,
         "className": "FiberPBRMaterial"
     };
@@ -6739,7 +6739,7 @@ export class FiberFluentMaterial implements HasPropsHandlers<FiberMaterialProps>
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isMaterial": true,
         "className": "FiberFluentMaterial"
     };
@@ -6825,7 +6825,7 @@ export class FiberShaderMaterial implements HasPropsHandlers<FiberMaterialProps>
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isMaterial": true,
         "className": "FiberShaderMaterial"
     };
@@ -6879,7 +6879,7 @@ export class FiberMultiMaterial implements HasPropsHandlers<FiberMaterialProps> 
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isMaterial": true,
         "className": "FiberMultiMaterial"
     };
@@ -6949,7 +6949,7 @@ export class FiberLight implements HasPropsHandlers<FiberLightProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isNode": true,
         "className": "FiberLight"
     };
@@ -7014,7 +7014,7 @@ export class FiberShadowLight implements HasPropsHandlers<FiberLightProps> {
         "namespace": "@babylonjs/core",
         "parameters": []
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isNode": true,
         "isShadowLight": true,
         "className": "FiberShadowLight"
@@ -7082,7 +7082,7 @@ export class FiberDirectionalLight implements HasPropsHandlers<FiberLightProps> 
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isNode": true,
         "isShadowLight": true,
         "className": "FiberDirectionalLight"
@@ -7151,7 +7151,7 @@ export class FiberPointLight implements HasPropsHandlers<FiberLightProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isNode": true,
         "isShadowLight": true,
         "className": "FiberPointLight"
@@ -7242,7 +7242,7 @@ export class FiberSpotLight implements HasPropsHandlers<FiberLightProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isNode": true,
         "isShadowLight": true,
         "className": "FiberSpotLight"
@@ -7309,7 +7309,7 @@ export class FiberHemisphericLight implements HasPropsHandlers<FiberLightProps> 
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isNode": true,
         "className": "FiberHemisphericLight"
     };
@@ -7426,7 +7426,7 @@ export class FiberControl implements HasPropsHandlers<FiberControlProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isGUI2DControl": true,
         "className": "FiberControl"
     };
@@ -7481,7 +7481,7 @@ export class FiberContainer implements HasPropsHandlers<FiberControlProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isGUI2DControl": true,
         "className": "FiberContainer"
     };
@@ -7533,7 +7533,7 @@ export class FiberRectangle implements HasPropsHandlers<FiberControlProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isGUI2DControl": true,
         "className": "FiberRectangle"
     };
@@ -7589,7 +7589,7 @@ export class FiberButton implements HasPropsHandlers<FiberControlProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isGUI2DControl": true,
         "className": "FiberButton"
     };
@@ -7658,7 +7658,7 @@ export class FiberSelectionPanel implements HasPropsHandlers<FiberControlProps> 
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isGUI2DControl": true,
         "className": "FiberSelectionPanel"
     };
@@ -7734,7 +7734,7 @@ export class FiberScrollViewer implements HasPropsHandlers<FiberControlProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isGUI2DControl": true,
         "className": "FiberScrollViewer"
     };
@@ -7788,7 +7788,7 @@ export class FiberStackPanel implements HasPropsHandlers<FiberControlProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isGUI2DControl": true,
         "className": "FiberStackPanel"
     };
@@ -7845,7 +7845,7 @@ export class FiberVirtualKeyboard implements HasPropsHandlers<FiberControlProps>
         "namespace": "@babylonjs/gui",
         "parameters": []
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isGUI2DControl": true,
         "className": "FiberVirtualKeyboard"
     };
@@ -7896,7 +7896,7 @@ export class FiberEllipse implements HasPropsHandlers<FiberControlProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isGUI2DControl": true,
         "className": "FiberEllipse"
     };
@@ -7951,7 +7951,7 @@ export class FiberGrid implements HasPropsHandlers<FiberControlProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isGUI2DControl": true,
         "className": "FiberGrid"
     };
@@ -8004,7 +8004,7 @@ export class Fiber_ScrollViewerWindow implements HasPropsHandlers<FiberControlPr
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isGUI2DControl": true,
         "className": "Fiber_ScrollViewerWindow"
     };
@@ -8071,7 +8071,7 @@ export class FiberTextBlock implements HasPropsHandlers<FiberControlProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isGUI2DControl": true,
         "className": "FiberTextBlock"
     };
@@ -8144,7 +8144,7 @@ export class FiberImage implements HasPropsHandlers<FiberControlProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isGUI2DControl": true,
         "className": "FiberImage"
     };
@@ -8198,7 +8198,7 @@ export class FiberCheckbox implements HasPropsHandlers<FiberControlProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isGUI2DControl": true,
         "className": "FiberCheckbox"
     };
@@ -8252,7 +8252,7 @@ export class FiberColorPicker implements HasPropsHandlers<FiberControlProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isGUI2DControl": true,
         "className": "FiberColorPicker"
     };
@@ -8335,7 +8335,7 @@ export class FiberInputText implements HasPropsHandlers<FiberControlProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isGUI2DControl": true,
         "className": "FiberInputText"
     };
@@ -8377,7 +8377,7 @@ export class FiberInputPassword implements HasPropsHandlers<FiberControlProps> {
         "namespace": "@babylonjs/gui",
         "parameters": []
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isGUI2DControl": true,
         "className": "FiberInputPassword"
     };
@@ -8435,7 +8435,7 @@ export class FiberLine implements HasPropsHandlers<FiberControlProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isGUI2DControl": true,
         "className": "FiberLine"
     };
@@ -8490,7 +8490,7 @@ export class FiberMultiLine implements HasPropsHandlers<FiberControlProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isGUI2DControl": true,
         "className": "FiberMultiLine"
     };
@@ -8545,7 +8545,7 @@ export class FiberRadioButton implements HasPropsHandlers<FiberControlProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isGUI2DControl": true,
         "className": "FiberRadioButton"
     };
@@ -8604,7 +8604,7 @@ export class FiberBaseSlider implements HasPropsHandlers<FiberControlProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isGUI2DControl": true,
         "className": "FiberBaseSlider"
     };
@@ -8656,7 +8656,7 @@ export class FiberScrollBar implements HasPropsHandlers<FiberControlProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isGUI2DControl": true,
         "className": "FiberScrollBar"
     };
@@ -8712,7 +8712,7 @@ export class FiberImageScrollBar implements HasPropsHandlers<FiberControlProps> 
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isGUI2DControl": true,
         "className": "FiberImageScrollBar"
     };
@@ -8767,7 +8767,7 @@ export class FiberSlider implements HasPropsHandlers<FiberControlProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isGUI2DControl": true,
         "className": "FiberSlider"
     };
@@ -8821,7 +8821,7 @@ export class FiberImageBasedSlider implements HasPropsHandlers<FiberControlProps
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isGUI2DControl": true,
         "className": "FiberImageBasedSlider"
     };
@@ -8880,7 +8880,7 @@ export class FiberDisplayGrid implements HasPropsHandlers<FiberControlProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isGUI2DControl": true,
         "className": "FiberDisplayGrid"
     };
@@ -8949,7 +8949,7 @@ export class FiberControl3D implements HasPropsHandlers<FiberControl3DProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isGUI3DControl": true,
         "className": "FiberControl3D"
     };
@@ -8999,7 +8999,7 @@ export class FiberContainer3D implements HasPropsHandlers<FiberControl3DProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isGUI3DControl": true,
         "className": "FiberContainer3D"
     };
@@ -9046,7 +9046,7 @@ export class FiberVolumeBasedPanel implements HasPropsHandlers<FiberControl3DPro
         "namespace": "@babylonjs/gui",
         "parameters": []
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isGUI3DControl": true,
         "className": "FiberVolumeBasedPanel"
     };
@@ -9091,7 +9091,7 @@ export class FiberCylinderPanel implements HasPropsHandlers<FiberControl3DProps>
         "namespace": "@babylonjs/gui",
         "parameters": []
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isGUI3DControl": true,
         "className": "FiberCylinderPanel"
     };
@@ -9134,7 +9134,7 @@ export class FiberPlanePanel implements HasPropsHandlers<FiberControl3DProps> {
         "namespace": "@babylonjs/gui",
         "parameters": []
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isGUI3DControl": true,
         "className": "FiberPlanePanel"
     };
@@ -9179,7 +9179,7 @@ export class FiberScatterPanel implements HasPropsHandlers<FiberControl3DProps> 
         "namespace": "@babylonjs/gui",
         "parameters": []
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isGUI3DControl": true,
         "className": "FiberScatterPanel"
     };
@@ -9224,7 +9224,7 @@ export class FiberSpherePanel implements HasPropsHandlers<FiberControl3DProps> {
         "namespace": "@babylonjs/gui",
         "parameters": []
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isGUI3DControl": true,
         "className": "FiberSpherePanel"
     };
@@ -9275,7 +9275,7 @@ export class FiberStackPanel3D implements HasPropsHandlers<FiberControl3DProps> 
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isGUI3DControl": true,
         "className": "FiberStackPanel3D"
     };
@@ -9322,7 +9322,7 @@ export class FiberAbstractButton3D implements HasPropsHandlers<FiberControl3DPro
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isGUI3DControl": true,
         "className": "FiberAbstractButton3D"
     };
@@ -9374,7 +9374,7 @@ export class FiberButton3D implements HasPropsHandlers<FiberControl3DProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isGUI3DControl": true,
         "className": "FiberButton3D"
     };
@@ -9433,7 +9433,7 @@ export class FiberHolographicButton implements HasPropsHandlers<FiberControl3DPr
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isGUI3DControl": true,
         "className": "FiberHolographicButton"
     };
@@ -9487,7 +9487,7 @@ export class FiberMeshButton3D implements HasPropsHandlers<FiberControl3DProps> 
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isGUI3DControl": true,
         "className": "FiberMeshButton3D"
     };
@@ -9556,7 +9556,7 @@ export class FiberEffectLayer implements HasPropsHandlers<FiberEffectLayerProps>
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isEffectLayer": true,
         "className": "FiberEffectLayer"
     };
@@ -9624,7 +9624,7 @@ export class FiberGlowLayer implements HasPropsHandlers<FiberEffectLayerProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isEffectLayer": true,
         "className": "FiberGlowLayer"
     };
@@ -9696,7 +9696,7 @@ export class FiberHighlightLayer implements HasPropsHandlers<FiberEffectLayerPro
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isEffectLayer": true,
         "className": "FiberHighlightLayer"
     };
@@ -9752,7 +9752,7 @@ export class FiberThinTexture implements HasPropsHandlers<FiberThinTextureProps>
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isTexture": true,
         "className": "FiberThinTexture"
     };
@@ -9830,7 +9830,7 @@ export class FiberBaseTexture implements HasPropsHandlers<FiberThinTextureProps>
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isTexture": true,
         "className": "FiberBaseTexture"
     };
@@ -9956,7 +9956,7 @@ export class FiberCubeTexture implements HasPropsHandlers<FiberThinTextureProps>
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isTexture": true,
         "className": "FiberCubeTexture"
     };
@@ -10045,7 +10045,7 @@ export class FiberRawCubeTexture implements HasPropsHandlers<FiberThinTexturePro
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isTexture": true,
         "className": "FiberRawCubeTexture"
     };
@@ -10164,7 +10164,7 @@ export class FiberTexture implements HasPropsHandlers<FiberThinTextureProps> {
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isTexture": true,
         "className": "FiberTexture"
     };
@@ -10257,7 +10257,7 @@ export class FiberRawTexture implements HasPropsHandlers<FiberThinTextureProps> 
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isTexture": true,
         "className": "FiberRawTexture"
     };
@@ -10360,7 +10360,7 @@ export class FiberProceduralTexture implements HasPropsHandlers<FiberThinTexture
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isTexture": true,
         "className": "FiberProceduralTexture"
     };
@@ -10438,7 +10438,7 @@ export class FiberCustomProceduralTexture implements HasPropsHandlers<FiberThinT
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isTexture": true,
         "className": "FiberCustomProceduralTexture"
     };
@@ -10514,7 +10514,7 @@ export class FiberNoiseProceduralTexture implements HasPropsHandlers<FiberThinTe
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isTexture": true,
         "className": "FiberNoiseProceduralTexture"
     };
@@ -10661,7 +10661,7 @@ export class FiberRenderTargetTexture implements HasPropsHandlers<FiberThinTextu
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isTexture": true,
         "className": "FiberRenderTargetTexture"
     };
@@ -10752,7 +10752,7 @@ export class FiberMirrorTexture implements HasPropsHandlers<FiberThinTextureProp
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isTexture": true,
         "className": "FiberMirrorTexture"
     };
@@ -10829,7 +10829,7 @@ export class FiberMultiRenderTarget implements HasPropsHandlers<FiberThinTexture
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isTexture": true,
         "className": "FiberMultiRenderTarget"
     };
@@ -10898,7 +10898,7 @@ export class FiberRefractionTexture implements HasPropsHandlers<FiberThinTexture
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isTexture": true,
         "className": "FiberRefractionTexture"
     };
@@ -10953,7 +10953,7 @@ export class FiberMultiviewRenderTarget implements HasPropsHandlers<FiberThinTex
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isTexture": true,
         "className": "FiberMultiviewRenderTarget"
     };
@@ -11034,7 +11034,7 @@ export class FiberVideoTexture implements HasPropsHandlers<FiberThinTextureProps
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isTexture": true,
         "className": "FiberVideoTexture"
     };
@@ -11113,7 +11113,7 @@ export class FiberDynamicTexture implements HasPropsHandlers<FiberThinTexturePro
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isTexture": true,
         "className": "FiberDynamicTexture"
     };
@@ -11122,6 +11122,7 @@ export class FiberDynamicTexture implements HasPropsHandlers<FiberThinTexturePro
 export class FiberAdvancedDynamicTexturePropsHandler implements PropsHandler<FiberAdvancedDynamicTextureProps> {
     getPropertyUpdates(oldProps: FiberAdvancedDynamicTextureProps, newProps: FiberAdvancedDynamicTextureProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.applyYInversionOnUpdate, newProps.applyYInversionOnUpdate, 'applyYInversionOnUpdate', changedProps)
         checkPrimitiveDiff(oldProps.background, newProps.background, 'background', changedProps)
         checkPrimitiveDiff(oldProps.clipboardData, newProps.clipboardData, 'clipboardData', changedProps)
         // type: 'BabylonjsGuiIFocusableControl' property (not coded) BabylonjsGuiAdvancedDynamicTexture.focusedControl.
@@ -11215,7 +11216,7 @@ export class FiberAdvancedDynamicTexture implements HasPropsHandlers<FiberThinTe
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isGUI2DControl": true,
         "isTexture": true,
         "className": "FiberAdvancedDynamicTexture"
@@ -11286,7 +11287,7 @@ export class FiberADTForMesh implements HasPropsHandlers<FiberAdvancedDynamicTex
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isTexture": true,
         "isGUI2DControl": true,
         "className": "FiberADTForMesh"
@@ -11352,7 +11353,7 @@ export class FiberADTForMeshTexture implements HasPropsHandlers<FiberAdvancedDyn
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isTexture": true,
         "isGUI2DControl": true,
         "className": "FiberADTForMeshTexture"
@@ -11417,7 +11418,7 @@ export class FiberADTFullscreenUI implements HasPropsHandlers<FiberAdvancedDynam
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isTexture": true,
         "isGUI2DControl": true,
         "className": "FiberADTFullscreenUI"
@@ -11514,7 +11515,7 @@ export class FiberRawTexture2DArray implements HasPropsHandlers<FiberThinTexture
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isTexture": true,
         "className": "FiberRawTexture2DArray"
     };
@@ -11610,7 +11611,7 @@ export class FiberRawTexture3D implements HasPropsHandlers<FiberThinTextureProps
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isTexture": true,
         "className": "FiberRawTexture3D"
     };
@@ -11677,7 +11678,7 @@ export class FiberColorGradingTexture implements HasPropsHandlers<FiberThinTextu
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isTexture": true,
         "className": "FiberColorGradingTexture"
     };
@@ -11760,7 +11761,7 @@ export class FiberEquiRectangularCubeTexture implements HasPropsHandlers<FiberTh
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isTexture": true,
         "className": "FiberEquiRectangularCubeTexture"
     };
@@ -11865,7 +11866,7 @@ export class FiberHDRCubeTexture implements HasPropsHandlers<FiberThinTexturePro
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isTexture": true,
         "className": "FiberHDRCubeTexture"
     };
@@ -11930,7 +11931,7 @@ export class FiberHtmlElementTexture implements HasPropsHandlers<FiberThinTextur
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isTexture": true,
         "className": "FiberHtmlElementTexture"
     };
@@ -11979,7 +11980,7 @@ export class FiberGUI3DManager implements HasPropsHandlers<FiberGUI3DManagerProp
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isGUI3DControl": true,
         "className": "FiberGUI3DManager"
     };
@@ -11993,6 +11994,7 @@ export class FiberShadowGeneratorPropsHandler implements PropsHandler<FiberShado
         checkPrimitiveDiff(oldProps.blurKernel, newProps.blurKernel, 'blurKernel', changedProps)
         checkPrimitiveDiff(oldProps.blurScale, newProps.blurScale, 'blurScale', changedProps)
         checkPrimitiveDiff(oldProps.contactHardeningLightSizeUVRatio, newProps.contactHardeningLightSizeUVRatio, 'contactHardeningLightSizeUVRatio', changedProps)
+        checkLambdaDiff(oldProps.customAllowRendering, newProps.customAllowRendering, 'customAllowRendering', changedProps)
         // type: 'BabylonjsCoreICustomShaderOptions' property (not coded) BabylonjsCoreShadowGenerator.customShaderOptions.
         checkPrimitiveDiff(oldProps.darkness, newProps.darkness, 'darkness', changedProps)
         checkPrimitiveDiff(oldProps.depthScale, newProps.depthScale, 'depthScale', changedProps)
@@ -12070,7 +12072,7 @@ export class FiberShadowGenerator implements HasPropsHandlers<FiberShadowGenerat
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "delayCreation": true,
         "className": "FiberShadowGenerator"
     };
@@ -12144,7 +12146,7 @@ export class FiberCascadedShadowGenerator implements HasPropsHandlers<FiberCasca
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "delayCreation": true,
         "className": "FiberCascadedShadowGenerator"
     };
@@ -12200,7 +12202,7 @@ export class FiberEnvironmentHelper implements HasPropsHandlers<FiberEnvironment
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isEnvironment": true,
         "className": "FiberEnvironmentHelper"
     };
@@ -12289,7 +12291,7 @@ export class FiberPhysicsImpostor implements HasPropsHandlers<FiberPhysicsImpost
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "delayCreation": true,
         "className": "FiberPhysicsImpostor"
     };
@@ -12384,7 +12386,7 @@ export class FiberVRExperienceHelper implements HasPropsHandlers<FiberVRExperien
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "className": "FiberVRExperienceHelper"
     };
 }
@@ -12530,7 +12532,7 @@ export class FiberDynamicTerrain implements HasPropsHandlers<FiberDynamicTerrain
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "acceptsMaterials": true,
         "className": "FiberDynamicTerrain"
     };
@@ -12620,7 +12622,7 @@ export class FiberPointsCloudSystem implements HasPropsHandlers<FiberPointsCloud
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "className": "FiberPointsCloudSystem"
     };
 }
@@ -12664,7 +12666,7 @@ export class FiberAutoRotationBehavior implements HasPropsHandlers<FiberAutoRota
         "namespace": "@babylonjs/core",
         "parameters": []
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isBehavior": true,
         "className": "FiberAutoRotationBehavior"
     };
@@ -12709,7 +12711,7 @@ export class FiberBouncingBehavior implements HasPropsHandlers<FiberBouncingBeha
         "namespace": "@babylonjs/core",
         "parameters": []
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isBehavior": true,
         "className": "FiberBouncingBehavior"
     };
@@ -12759,7 +12761,7 @@ export class FiberFramingBehavior implements HasPropsHandlers<FiberFramingBehavi
         "namespace": "@babylonjs/core",
         "parameters": []
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isBehavior": true,
         "className": "FiberFramingBehavior"
     };
@@ -12810,7 +12812,7 @@ export class FiberAttachToBoxBehavior implements HasPropsHandlers<FiberAttachToB
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isBehavior": true,
         "className": "FiberAttachToBoxBehavior"
     };
@@ -12853,7 +12855,7 @@ export class FiberFadeInOutBehavior implements HasPropsHandlers<FiberFadeInOutBe
         "namespace": "@babylonjs/core",
         "parameters": []
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isBehavior": true,
         "className": "FiberFadeInOutBehavior"
     };
@@ -12893,7 +12895,7 @@ export class FiberMultiPointerScaleBehavior implements HasPropsHandlers<FiberMul
         "namespace": "@babylonjs/core",
         "parameters": []
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isBehavior": true,
         "className": "FiberMultiPointerScaleBehavior"
     };
@@ -12971,7 +12973,7 @@ export class FiberPointerDragBehavior implements HasPropsHandlers<FiberPointerDr
             }
         ]
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isBehavior": true,
         "className": "FiberPointerDragBehavior"
     };
@@ -13021,7 +13023,7 @@ export class FiberSixDofDragBehavior implements HasPropsHandlers<FiberSixDofDrag
         "namespace": "@babylonjs/core",
         "parameters": []
     };
-    public static readonly Metadata: CreatedInstanceMetadata = {
+    public static readonly Metadata: HostInstanceMetadata = {
         "isBehavior": true,
         "className": "FiberSixDofDragBehavior"
     };

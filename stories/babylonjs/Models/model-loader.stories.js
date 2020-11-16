@@ -1,7 +1,6 @@
 import React, { Suspense, useRef, useContext, useMemo } from 'react';
 import '@babylonjs/inspector';
-import { Engine, Scene } from '../../../dist/react-babylonjs';
-import { useBeforeRender } from 'babylonjs-hook';
+import { Engine, Scene, useBeforeRender } from '../../../dist/react-babylonjs';
 import { TaskType, AssetManagerContextProvider, AssetManagerContext, useAssetManager } from 'react-babylonjs-loaders';
 import { Vector3 } from '@babylonjs/core';
 import { Control } from '@babylonjs/gui';
@@ -29,8 +28,8 @@ const MyFallback = () => {
       var deltaTimeInMillis = scene.getEngine().getDeltaTime();
 
       const rpm = 10;
-      boxRef.current.hostInstance.rotation.x = Math.PI / 4;
-      boxRef.current.hostInstance.rotation.y += ((rpm / 60) * Math.PI * 2 * (deltaTimeInMillis / 1000));
+      boxRef.current.rotation.x = Math.PI / 4;
+      boxRef.current.rotation.y += ((rpm / 60) * Math.PI * 2 * (deltaTimeInMillis / 1000));
     }
   })
 

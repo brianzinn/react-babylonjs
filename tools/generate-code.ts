@@ -36,11 +36,11 @@ import {
 } from 'ts-morph'
 
 import { GeneratedParameter, CreateInfo, CreationType } from "../src/codeGenerationDescriptors";
-import { InstanceMetadataParameter } from "../src/CreatedInstance"
+import { InstanceMetadataParameter } from "../src/DecoratedInstance"
 const path = require("path");
 import camelCase from "lodash.camelcase"
 
-const ReactReconcilerCreatedInstanceMetadata = "CreatedInstanceMetadata";
+const ReactReconcilerHostInstanceMetadata = "HostInstanceMetadata";
 const PropertyUpdateInterface = "PropertyUpdate";
 const ClassNamesPrefix = 'Fiber';
 
@@ -395,7 +395,7 @@ const addProject = (packageNames: string[], files: string[], sourceFiles: Source
 const addMetadata = (classDeclaration: ClassDeclaration, originalClassDeclaration?: ClassDeclaration, metadata?: InstanceMetadataParameter) => {
   const createInfoProperty = classDeclaration.addProperty({
     name: 'Metadata',
-    type: ReactReconcilerCreatedInstanceMetadata,
+    type: ReactReconcilerHostInstanceMetadata,
     scope: Scope.Public,
     isStatic: true,
     isReadonly: true
@@ -694,7 +694,7 @@ const getMethodType = (methodDeclaration: MethodDeclaration | MethodSignature, t
   params.forEach(param => {
     let type: string = createTypeFromText(param.getType().getText(), targetFiles);
 
-    const questionToken = param.hasQuestionToken ? '?' : ''
+    const questionToken = param.hasQuestionToken() ? '?' : ''
     const paramName: string | undefined = param.getName();
     paramTypes.push(`${paramName}${questionToken}: ${type}`)
   })
@@ -1435,8 +1435,8 @@ const generateCode = async () => {
   })
 
   generatedCodeSourceFile.addImportDeclaration({
-    moduleSpecifier: "./CreatedInstance",
-    namedImports: [ReactReconcilerCreatedInstanceMetadata]
+    moduleSpecifier: "./DecoratedInstance",
+    namedImports: [ReactReconcilerHostInstanceMetadata]
   });
 
   generatedPropsSourceFile.addImportDeclaration({
@@ -1445,7 +1445,7 @@ const generateCode = async () => {
   });
 
   generatedPropsSourceFile.addImportDeclaration({
-    moduleSpecifier: './CreatedInstance',
+    moduleSpecifier: './DecoratedInstance',
     namedImports: ['CustomProps']
   });
 

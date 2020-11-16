@@ -1,4 +1,4 @@
-import { CreatedInstance } from "../CreatedInstance"
+import { DecoratedInstance } from "../DecoratedInstance"
 import { LifecycleListener } from "../LifecycleListener"
 import {Behavior, IBehaviorAware, Nullable} from "@babylonjs/core";
 
@@ -6,17 +6,17 @@ export default class BehaviorLifecycleListener implements LifecycleListener<Beha
   private behaviorAware: Nullable<IBehaviorAware<any>> = null;
   private behavior: Nullable<Behavior<any>> = null;
 
-  onParented(parent: CreatedInstance<any>, child: CreatedInstance<any>) {
-    if (parent.metadata.isNode && parent.hostInstance?.addBehavior /* TODO: verify if this needs to be a mesh */ && child.metadata.isBehavior /* always true? */) {
-      parent.hostInstance.addBehavior(child.hostInstance);
-      this.behaviorAware = parent.hostInstance
-      this.behavior = child.hostInstance
+  onParented(parent: DecoratedInstance<unknown>, child: DecoratedInstance<unknown>) {
+    if (parent.__rbs.metadata.isNode && (parent as any).addBehavior /* TODO: verify if this needs to be a mesh */ && child.__rbs.metadata.isBehavior /* always true? */) {
+      (parent as any).addBehavior(child);
+      this.behaviorAware = parent as any as IBehaviorAware<any>;
+      this.behavior = child as any as Behavior<any>;
     } else {
       console.warn('Could not locate IBehaviorAware on Behavior parent.')
     }
   }
-  onChildAdded(parent: CreatedInstance<any>, child: CreatedInstance<any>) {/* empty */}
-  onMount(instance: CreatedInstance<Behavior<any>>) {/* empty */}
+  onChildAdded(parent: DecoratedInstance<any>, child: DecoratedInstance<any>) {/* empty */}
+  onMount(instance: DecoratedInstance<Behavior<any>>) {/* empty */}
   onUnmount(): void {
     if (this.behaviorAware) {
       this.behaviorAware.removeBehavior(this.behavior!);

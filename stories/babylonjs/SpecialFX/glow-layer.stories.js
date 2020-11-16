@@ -28,7 +28,7 @@ function WithGlowLayer() {
 
   const onCheckboxClicked = (value) => {
     if (glowRef.current) {
-      glowRef.current.hostInstance.isEnabled = value;
+      glowRef.current.isEnabled = value;
     }
   };
 

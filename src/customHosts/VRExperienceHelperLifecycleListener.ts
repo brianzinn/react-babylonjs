@@ -1,5 +1,5 @@
 import { LifecycleListener } from "../LifecycleListener"
-import { CreatedInstance } from "../CreatedInstance"
+import { DecoratedInstance } from "../DecoratedInstance"
 import { VRExperienceHelper } from "@babylonjs/core"
 
 export default class VRExperienceHelperLifecycleListener implements LifecycleListener<VRExperienceHelper> {
@@ -9,13 +9,13 @@ export default class VRExperienceHelperLifecycleListener implements LifecycleLis
     this.props = props
   }
 
-  onParented(parent: CreatedInstance<any>, child: CreatedInstance<any>): any {/* empty */}
+  onParented(parent: DecoratedInstance<any>, child: DecoratedInstance<any>): any {/* empty */}
 
-  onChildAdded(child: CreatedInstance<any>, parent: CreatedInstance<any>): any {/* empty */}
+  onChildAdded(child: DecoratedInstance<any>, parent: DecoratedInstance<any>): any {/* empty */}
 
-  onMount(instance: CreatedInstance<VRExperienceHelper>): void {
+  onMount(instance: DecoratedInstance<VRExperienceHelper>): void {
     if (this.props.enableInteractions) {
-        instance.hostInstance!.enableInteractions()
+        instance.enableInteractions()
     }
   }
 

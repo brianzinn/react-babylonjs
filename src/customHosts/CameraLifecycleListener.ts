@@ -1,4 +1,4 @@
-import { CreatedInstance } from "../CreatedInstance"
+import { DecoratedInstance } from "../DecoratedInstance"
 import { LifecycleListener } from "../LifecycleListener"
 import { Scene, Camera, Nullable, TargetCamera } from "@babylonjs/core"
 
@@ -13,24 +13,27 @@ export default class CameraLifecycleListener implements LifecycleListener<Camera
     this.scene = scene
   }
 
-  onParented(parent: CreatedInstance<any>, child: CreatedInstance<any>): any {
-    if (parent.metadata.isNode && child.metadata.isNode) {
+  onParented(parent: DecoratedInstance<unknown>, child: DecoratedInstance<unknown>): any {
+    console.log('camera parented:', parent, child);
+    if (parent.__rbs.metadata.isNode && child.__rbs.metadata.isNode) {
       // TODO: consider add option for setParent(), which parents and maintains mesh pos/rot in world space
-      // child.hostInstance.setParent(parent.hostInstance)
-      child.hostInstance.parent = parent.hostInstance
+      // child.setParent(parent)
+      child.__rbs.parent = parent;
     }
   }
 
-  onChildAdded(child: CreatedInstance<any>, parent: CreatedInstance<any>): any {/* empty */}
+  onChildAdded(child: DecoratedInstance<unknown>, parent: DecoratedInstance<unknown>): any {/* empty */}
 
-  onMount(instance: CreatedInstance<any>): void {
-    if (instance.hostInstance === undefined) {
+  onMount(instance: DecoratedInstance<any>): void {
+    if (instance === undefined) {
       console.error('Missing instance');
       return;
     }
 
+    console.log('camera mounted:', instance);
+
     // prevent default unless explicitly specified.
-    const camera = instance.hostInstance as Camera
+    const camera = instance as any as Camera
     const noPreventDefault = this.props.noPreventDefault === false ? false : true;
 
     // console.log("camera.attachControl:", camera, this.canvas, noPreventDefault)
@@ -40,7 +43,7 @@ export default class CameraLifecycleListener implements LifecycleListener<Camera
     // wait for next beta to get those parameters (remove 'as any') :)
     (camera as any).attachControl(this.canvas, noPreventDefault, this.props.useCtrlForPanning || true, this.props.panningMouseButton);
 
-    if (instance.metadata.isTargetable && this.props.lockedTargetMeshName) {
+    if (instance.__rbs.metadata.isTargetable && this.props.lockedTargetMeshName) {
       if (this.scene === null) {
         console.error("no scene for targeting")
       } else {

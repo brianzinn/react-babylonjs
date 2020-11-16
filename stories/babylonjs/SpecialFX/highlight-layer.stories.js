@@ -18,13 +18,13 @@ function WithHighlightLayer() {
 
   useEffect(() => {
     if (highlightLayerEL.current, boxRef.current) {
-      highlightLayerEL.current.hostInstance.addMesh(boxRef.current.hostInstance, Color3.Green());
+      highlightLayerEL.current.addMesh(boxRef.current, Color3.Green());
     }
   }, [boxRef.current, highlightLayerEL.current])
 
   const onCheckboxClicked = (value) => {
     if (highlightLayerEL.current) {
-      highlightLayerEL.current.hostInstance.isEnabled = value;
+      highlightLayerEL.current.isEnabled = value;
     }
   };
 

@@ -215,7 +215,7 @@ const onButtonClicked = () => {
 
 const App: React.FC = () => {
   const sphereRef = useCallback(node => {
-    sphere = node.hostInstance;
+    sphere = node;
   }, []);
 
   return (

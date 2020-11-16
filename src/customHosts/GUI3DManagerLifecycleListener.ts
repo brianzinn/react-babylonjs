@@ -1,7 +1,8 @@
-import { CreatedInstance } from "../CreatedInstance"
+import { DecoratedInstance } from "../DecoratedInstance"
 import { LifecycleListener } from "../LifecycleListener"
 import { AbstractMesh, Nullable, Scene } from "@babylonjs/core"
 import { GUI3DManager } from '@babylonjs/gui/3D/gui3DManager'
+import { Control3D } from "@babylonjs/gui/3D/controls"
 export default class GUI3DManagerLifecycleListener implements LifecycleListener<GUI3DManager> {
   private scene: Scene
 
@@ -9,9 +10,9 @@ export default class GUI3DManagerLifecycleListener implements LifecycleListener<
     this.scene = scene
   }
 
-  onParented(parent: CreatedInstance<any>): void {/* empty */}
-  onChildAdded(child: CreatedInstance<any>): void {/* empty */}
-  onMount(instance?: CreatedInstance<GUI3DManager>): void {
+  onParented(parent: DecoratedInstance<any>): void {/* empty */}
+  onChildAdded(child: DecoratedInstance<any>): void {/* empty */}
+  onMount(instance?: DecoratedInstance<GUI3DManager>): void {
     if (instance === undefined) {
       console.error('Missing instance');
       return;
@@ -23,27 +24,27 @@ export default class GUI3DManagerLifecycleListener implements LifecycleListener<
   /**
    * We may have BoundComponents inbetween gui3d controls.
    */
-  addControls(instance: CreatedInstance<any>, last3DGuiControl: CreatedInstance<any>) {
+  addControls(instance: DecoratedInstance<any>, last3DGuiControl: DecoratedInstance<any>) {
     // When there is a panel, it must be added before the children. Otherwise there is no UtilityLayer to attach to.
     // This project before 'react-reconciler' was added from parent up the tree.  'react-reconciler' wants to do the opposite.
-    instance.children.forEach((child: CreatedInstance<any>) => {
-      if (child.metadata.isGUI3DControl === true) {
-        if (last3DGuiControl.customProps.childrenAsContent === true) {
-          last3DGuiControl.hostInstance.content = child.hostInstance
-          child.state = { added: true, content: true }
+    instance.__rbs.children.forEach((child: DecoratedInstance<unknown>) => {
+      if (child.__rbs.metadata.isGUI3DControl === true) {
+        if (last3DGuiControl.__rbs.customProps.childrenAsContent === true) {
+          (last3DGuiControl as any).content = child;
+          child.__rbs.state = { added: true, content: true }
         } else {
-          last3DGuiControl.hostInstance.addControl(child.hostInstance)
-          child.state = { added: true }
+          (last3DGuiControl as any).addControl(child)
+          child.__rbs.state = { added: true }
 
-          // NOTE: this must be called after .addControl(child.hostInstance).
-          if (child.customProps.linkToTransformNodeByName) {
-            const toLinkTo: Nullable<AbstractMesh> = this.scene.getMeshByName(child.customProps.linkToTransformNodeByName)
+          // NOTE: this must be called after .addControl(child).
+          if (child.__rbs.customProps.linkToTransformNodeByName) {
+            const toLinkTo: Nullable<AbstractMesh> = this.scene.getMeshByName(child.__rbs.customProps.linkToTransformNodeByName)
             if (toLinkTo !== null) {
-              child.hostInstance.linkToTransformNode(toLinkTo)
+              (child as any).linkToTransformNode(toLinkTo)
             } else {
               console.error(
                 "linkToTransformNode cannot find ",
-                instance.customProps.linkToTransformNodeByName,
+                instance.__rbs.customProps.linkToTransformNodeByName,
                 " and does not have a scene listener for added meshes.  Declare earlier or add an issue on github."
               )
             }
@@ -51,12 +52,12 @@ export default class GUI3DManagerLifecycleListener implements LifecycleListener<
         }
       }
 
-      if (child.state && child.state.added === true && child.customProps.onControlAdded) {
-        child.customProps.onControlAdded(child)
+      if (child.__rbs.state && child.__rbs.state.added === true && child.__rbs.customProps.onControlAdded) {
+        child.__rbs.customProps.onControlAdded(child)
       }
 
-      if (!child.state || child.state.content !== true) {
-        const last3d: CreatedInstance<any> = child.metadata.isGUI3DControl === true ? child : last3DGuiControl
+      if (!child.__rbs.state || child.__rbs.state.content !== true) {
+        const last3d: DecoratedInstance<any> = child.__rbs.metadata.isGUI3DControl === true ? child : last3DGuiControl
         this.addControls(child, last3d)
       }
     })

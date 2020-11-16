@@ -1,6 +1,6 @@
 import { Vector3, Color3, Color4, Quaternion } from '@babylonjs/core';
 import { PropertyUpdate, PropsHandler, PropChangeType } from './PropsHandler';
-import { CreatedInstance } from './CreatedInstance';
+import { DecoratedInstance } from './DecoratedInstance';
 
 export const applyUpdateToInstance = (hostInstance: any, update: PropertyUpdate, type: string | undefined): void => {
   let target = update.target !== undefined ? hostInstance[update.target] : hostInstance;
@@ -95,14 +95,14 @@ export const applyUpdateToInstance = (hostInstance: any, update: PropertyUpdate,
  * @param props
  * @param scene
  */
-export const applyInitialPropsToInstance = (instance: CreatedInstance<any>, props: any) => {
-  if (!instance.propsHandlers) {
+export const applyInitialPropsToInstance = (instance: DecoratedInstance<any>, props: any) => {
+  if (!instance.__rbs.propsHandlers) {
     return;
   }
 
   // console.log('applying initial props:', props);
   let initPayload: PropertyUpdate[] = []
-  instance.propsHandlers.getPropsHandlers().forEach((propHandler: PropsHandler<any>) => {
+  instance.__rbs.propsHandlers.getPropsHandlers().forEach((propHandler: PropsHandler<any>) => {
     // NOTE: this can actually be WRONG, because here we want to compare the props with the object.
     // This is only needed right after object instantiation.
     let handlerUpdates: PropertyUpdate[] | null = propHandler.getPropertyUpdates(
@@ -116,7 +116,7 @@ export const applyInitialPropsToInstance = (instance: CreatedInstance<any>, prop
 
   if (initPayload.length > 0) {
     initPayload.forEach(update => {
-      applyUpdateToInstance(instance.hostInstance, update, instance.metadata!.className);
+      applyUpdateToInstance(instance, update, instance.__rbs.metadata!.className);
     })
   }
 }

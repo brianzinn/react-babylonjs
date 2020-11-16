@@ -1,4 +1,4 @@
-import { CreatedInstance } from "../CreatedInstance"
+import { DecoratedInstance } from "../DecoratedInstance"
 import { Scene, AbstractMesh, Observer, Nullable, DirectionalLight, ShadowGenerator } from "@babylonjs/core"
 import DeferredCreationLifecycleListener from "./DeferredCreationLifecycleListener"
 
@@ -18,72 +18,73 @@ export default abstract class BaseShadowGeneratorLifecycleListener<T extends Sha
 
   abstract get generatorType(): string;
 
-  createInstance = (instance: CreatedInstance<T>, scene: Scene, props: any) : Nullable<T> => {
-    let tmp: CreatedInstance<any> | null = instance.parent;
+  createInstance = (instance: DecoratedInstance<T>, scene: Scene, props: any) : Nullable<T> => {
+    let tmp: DecoratedInstance<unknown> | null = instance.__rbs.parent;
     let result: Nullable<T> = null;
 
     while (tmp !== null) {
-      if (tmp.metadata.isShadowLight) {
-        // console.log(`Creating ${this.generatorType}  size: ${props.mapSize} with light`, tmp.hostInstance);
-        instance.hostInstance = result = this.createShadowGenerator(props.mapSize, tmp.hostInstance, props.useFullFloatFirst);
-        break
+      if (tmp.__rbs.metadata.isShadowLight) {
+        // console.log(`Creating ${this.generatorType}  size: ${props.mapSize} with light`, tmp);
+        result = this.createShadowGenerator(props.mapSize, tmp as DecoratedInstance<DirectionalLight>, props.useFullFloatFirst);
+        Object.assign(instance, result);
+        break;
       }
-      tmp = tmp.parent
+      tmp = tmp.__rbs.parent
     }
 
-    if (instance.hostInstance === undefined) {
+    if (instance === undefined) {
       console.error(`${this.generatorType} has no light source.`);
       return null;
     }
 
-    if (instance.customProps.shadowCasters) {
-      if (!Array.isArray(instance.customProps.shadowCasters)) {
-        console.error("Shadow casters must be an array (of strings).", instance.customProps.shadowCasters);
+    if (instance.__rbs.customProps.shadowCasters) {
+      if (!Array.isArray(instance.__rbs.customProps.shadowCasters)) {
+        console.error("Shadow casters must be an array (of strings).", instance.__rbs.customProps.shadowCasters);
         return null;
       }
 
-      let shadowCasters: string[] = instance.customProps.shadowCasters;
+      let shadowCasters: string[] = instance.__rbs.customProps.shadowCasters;
 
       // TODO: also need a listener for models or if we want to add a predicate:
       this.onMeshAddedObservable = scene.onNewMeshAddedObservable.add((mesh: AbstractMesh) => {
         if (shadowCasters.indexOf(mesh.name) >= 0) {
-          instance.hostInstance!.addShadowCaster(mesh);
+          instance.addShadowCaster(mesh);
         }
       })
 
       this.onMeshRemovedObservable = scene.onMeshRemovedObservable.add((mesh: AbstractMesh) => {
         if (shadowCasters.indexOf(mesh.name) >= 0) {
-          instance.hostInstance!.removeShadowCaster(mesh);
+          instance.removeShadowCaster(mesh);
         }
       });
 
       scene.meshes.forEach((mesh: AbstractMesh) => {
         if (shadowCasters.indexOf(mesh.name) >= 0) {
-          instance.hostInstance!.addShadowCaster(mesh);
+          instance.addShadowCaster(mesh);
         }
       })
-    } else if (instance.customProps.shadowCastersExcluding) {
-      if (!Array.isArray(instance.customProps.shadowCastersExcluding)) {
-        console.error("Shadow casters excluding must be an array (of strings).", instance.customProps.shadowCastersExcluding);
+    } else if (instance.__rbs.customProps.shadowCastersExcluding) {
+      if (!Array.isArray(instance.__rbs.customProps.shadowCastersExcluding)) {
+        console.error("Shadow casters excluding must be an array (of strings).", instance.__rbs.customProps.shadowCastersExcluding);
       } else {
-        let shadowCastersExcluding: string[] = instance.customProps.shadowCastersExcluding;
+        let shadowCastersExcluding: string[] = instance.__rbs.customProps.shadowCastersExcluding;
 
         // TODO: also need a listener for models or if we want to add a predicate:
         this.onMeshAddedObservable = scene.onNewMeshAddedObservable.add((mesh: AbstractMesh) => {
           if (shadowCastersExcluding.indexOf(mesh.name) === -1) {
-            instance.hostInstance!.addShadowCaster(mesh);
+            instance.addShadowCaster(mesh);
           }
         })
         
         this.onMeshRemovedObservable = scene.onMeshRemovedObservable.add((mesh: AbstractMesh) => {
           if (shadowCastersExcluding.indexOf(mesh.name) === -1) {
-            instance.hostInstance!.removeShadowCaster(mesh);
+            instance.removeShadowCaster(mesh);
           }
         });
 
         scene.meshes.forEach((mesh: AbstractMesh) => {
           if (shadowCastersExcluding.indexOf(mesh.name) === -1) {
-            instance.hostInstance!.addShadowCaster(mesh);
+            instance.addShadowCaster(mesh);
           }
         })
       }
@@ -92,9 +93,9 @@ export default abstract class BaseShadowGeneratorLifecycleListener<T extends Sha
     return result;
   }
 
-  onParented(parent: CreatedInstance<any>, child: CreatedInstance<any>): any {/* empty */}
+  onParented(parent: DecoratedInstance<any>, child: DecoratedInstance<any>): any {/* empty */}
 
-  onChildAdded(child: CreatedInstance<any>, parent: CreatedInstance<any>): any {/* empty */}
+  onChildAdded(child: DecoratedInstance<any>, parent: DecoratedInstance<any>): any {/* empty */}
 
   onUnmount(): void {
     if (this.onMeshAddedObservable !== null) {

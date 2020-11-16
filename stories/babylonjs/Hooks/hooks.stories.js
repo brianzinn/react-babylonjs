@@ -24,7 +24,7 @@ const RotatingBoxScene = (props) => {
       var deltaTimeInMillis = scene.getEngine().getDeltaTime();
 
       const rpm = props.rpm || 10;
-      boxRef.current.hostInstance.rotation.y += ((rpm / 60) * Math.PI * 2 * (deltaTimeInMillis / 1000));
+      boxRef.current.rotation.y += ((rpm / 60) * Math.PI * 2 * (deltaTimeInMillis / 1000));
     }
   })
 

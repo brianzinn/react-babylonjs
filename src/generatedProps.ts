@@ -1,5 +1,5 @@
 import { Key, ReactNode, Ref } from "react";
-import { CustomProps } from "./CreatedInstance";
+import { CustomProps } from "./DecoratedInstance";
 import { DynamicTerrain as ExtensionsDynamicTerrain } from "./extensions/DynamicTerrain";
 import { AbstractScene as BabylonjsCoreAbstractScene } from "@babylonjs/core/abstractScene";
 import { Scene as BabylonjsCoreScene } from "@babylonjs/core/scene";
@@ -2620,6 +2620,7 @@ export type FiberDynamicTexturePropsCtor = {
 };
 export type FiberAdvancedDynamicTextureProps = {
     addControl?: any;
+    applyYInversionOnUpdate?: boolean;
     background?: string;
     clipboardData?: string;
     focusedControl?: BabylonjsGuiIFocusableControl;
@@ -2765,6 +2766,7 @@ export type FiberShadowGeneratorProps = {
     blurKernel?: number;
     blurScale?: number;
     contactHardeningLightSizeUVRatio?: number;
+    customAllowRendering?: (subMesh: BabylonjsCoreSubMesh) => boolean;
     customShaderOptions?: BabylonjsCoreICustomShaderOptions;
     darkness?: number;
     depthScale?: number;

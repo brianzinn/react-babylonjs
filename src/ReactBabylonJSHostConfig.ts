@@ -4,7 +4,7 @@ import * as BABYLONEXT from './extensions';
 import * as GENERATED from './generatedCode';
 import * as CUSTOM_HOSTS from './customHosts';
 
-import { CreatedInstance, CreatedInstanceMetadata, CustomProps } from './CreatedInstance';
+import { HostInstanceMetadata, CustomProps, DecoratedInstance, ReactBabylonState } from './DecoratedInstance';
 import { HasPropsHandlers, PropertyUpdate, UpdatePayload, PropsHandler } from './PropsHandler';
 import { LifecycleListener } from "./LifecycleListener";
 import { GeneratedParameter, CreateInfo, CreationType } from './codeGenerationDescriptors';
@@ -28,7 +28,7 @@ declare global {
 }
 // ** END WINDOW
 
-type HostCreatedInstance<T> = CreatedInstance<T> | undefined
+type HostCreatedInstance<T> = DecoratedInstance<T> | undefined
 
 type Props = {
   scene: Scene
@@ -38,37 +38,39 @@ export type Container = {
   engine: Nullable<Engine>
   canvas: Nullable<HTMLCanvasElement | WebGLRenderingContext>
   scene: Nullable<Scene>
-  rootInstance: CreatedInstance<any>
+  rootInstance: DecoratedInstance<unknown>
 }
 
 type HostContext = {} & Container
 type TimeoutHandler = number | undefined
 type NoTimeout = number
 
-function createCreatedInstance<T, U extends HasPropsHandlers<any>>(
-  className: string,
+function decorateHostInstance<T, U extends HasPropsHandlers<any>>(
   hostInstance: T,
   propsHandlers: U,
-  metadata: CreatedInstanceMetadata,
-  customProps?: CustomProps,
+  metadata: HostInstanceMetadata,
+  customProps: CustomProps,
   lifecycleListener?: LifecycleListener<T>
-): CreatedInstance<T> {
+): DecoratedInstance<T> {
   let createdMetadata = metadata
 
-  // TODO: move how this is generated as a boolean to a metadata on objects themselves (and the next 3 lines!).
+  // TODO: move how this is generated as a boolean to a metadata on objects themselves!
   if ((propsHandlers as any).isTargetable === true) {
     createdMetadata.isTargetable = true
   }
 
-  return {
-    hostInstance,
+  const reactBabylonState: ReactBabylonState<T> = {
     metadata: createdMetadata,
     parent: null, // set later in lifecycle
     children: [], // set later in lifecycle
     propsHandlers,
     lifecycleListener,
     customProps
-  } as CreatedInstance<T>
+  };
+
+  (hostInstance as DecoratedInstance<T>).__rbs = reactBabylonState;
+
+  return hostInstance as DecoratedInstance<T>;
 }
 
 /**
@@ -77,36 +79,35 @@ function createCreatedInstance<T, U extends HasPropsHandlers<any>>(
  * @param parentInstance
  * @param child
  */
-function removeChild(parentInstance: CreatedInstance<any>, child: CreatedInstance<any>) {
+function removeChild(parentInstance: DecoratedInstance<unknown>, child: DecoratedInstance<unknown>) {
   if (child) {
-    const {hostInstance} = child;
 
-    if (child.lifecycleListener) {
-      child.lifecycleListener.onUnmount();
+    if (child.__rbs.lifecycleListener) {
+      child.__rbs.lifecycleListener.onUnmount();
     }
 
-    if (child.metadata.isNode) {
-      (hostInstance as Node).parent = null;
-    } else if (child.metadata.isGUI3DControl === true) {
-      console.error("3D remove control not implemented.")
+    if (child.__rbs.metadata.isNode) {
+      (child as any as Node).parent = null;
+    } else if (child.__rbs.metadata.isGUI3DControl === true) {
+      console.error("3D remove control not implemented.");
     }
 
-    if (parentInstance.metadata && parentInstance.metadata.isGUI2DControl === true && child.metadata.isGUI2DControl === true) {
+    if (parentInstance.__rbs.metadata && parentInstance.__rbs.metadata.isGUI2DControl === true && child.__rbs.metadata.isGUI2DControl === true) {
       // NOTE: the if statement should be || and we may need to walk the tree to remove.
-      parentInstance.hostInstance.removeControl(child.hostInstance)
+      (parentInstance as any).removeControl(child);
     }
 
-    if(child.children) {
-      removeRecursive(child.children, child);
+    if(child.__rbs.children) {
+      removeRecursive(child.__rbs.children, child);
     }
 
-    if (typeof child.hostInstance.dispose === "function") {
-      hostInstance.dispose() // TODO: Consider adding metadata/descriptors as some dispose methods have optional args.
+    if (typeof (child as any).dispose === "function") {
+      (child as any).dispose() // TODO: Consider adding metadata/descriptors as some dispose methods have optional args.
     }
 
     // fix: old version rootInstance.children was not cleaned, so the children array maybe huge over time
-    parentInstance.children = parentInstance.children.filter(ci => ci !== child)
-    child.parent = null
+    parentInstance.__rbs.children = parentInstance.__rbs.children.filter(ci => ci !== child)
+    child.__rbs.parent = null
   }
 }
 
@@ -120,28 +121,28 @@ function removeRecursive(array: any, parent:any, clone: boolean = false): void {
   }
 }
 
-function addChild(parent: CreatedInstance<any> | undefined, child: CreatedInstance<any>, childIndex?: number): void {
+function addChild(parent: DecoratedInstance<unknown> | undefined, child: DecoratedInstance<unknown>, childIndex?: number): void {
   if (parent) {
     if (!child) {
       console.error('undefined child', parent);
     } else {
       // doubly linking child to parent
-      parent.children.push(child) // TODO: need to remove from children as well when removing.
-      child.parent = parent
+      parent.__rbs.children.push(child) // TODO: need to remove from children as well when removing.
+      child.__rbs.parent = parent
     }
   }
   
   if (parent) {
-    parent.children.push(child);
-    child.parent = parent!;
+    parent.__rbs.children.push(child);
+    child.__rbs.parent = parent!;
   }
 
-  if (child && child.lifecycleListener && child.lifecycleListener.onParented) {
-    child.lifecycleListener.onParented(parent!, child)
+  if (child && child.__rbs.lifecycleListener && child.__rbs.lifecycleListener.onParented) {
+    child.__rbs.lifecycleListener.onParented(parent!, child)
   }
 
-  if (parent && parent.lifecycleListener && parent.lifecycleListener.onChildAdded) {
-    parent.lifecycleListener.onChildAdded(child, parent)
+  if (parent && parent.__rbs.lifecycleListener && parent.__rbs.lifecycleListener.onChildAdded) {
+    parent.__rbs.lifecycleListener.onChildAdded(child, parent)
   }
 }
 
@@ -200,15 +201,16 @@ const ReactBabylonJSHostConfig: HostConfig<
       engine: rootContainerInstance.engine,
       scene: rootContainerInstance.scene,
       rootInstance: {
-        hostInstance: undefined,
-        metadata: {
-          className: "rootContainer",
-          namespace: "ignore"
-        },
-        parent: null,
-        children: [], // we add root notes here
-        customProps: {}
-      } as CreatedInstance<any>
+        __rbs: {
+          metadata: {
+            className: "rootContainer",
+            namespace: "ignore"
+          },
+          parent: null,
+          children: [], // we add root notes here
+          customProps: {}
+        }
+      } as DecoratedInstance<unknown>
     }
   },
 
@@ -218,20 +220,20 @@ const ReactBabylonJSHostConfig: HostConfig<
   },
 
   prepareUpdate(
-    instance: HostCreatedInstance<any>,
+    instance: HostCreatedInstance<unknown>,
     type: string,
     oldProps: Props,
     newProps: Props,
     rootContainerInstance: Container,
     hostContext: HostContext
   ): UpdatePayload {
-    if (!instance || (instance.metadata && instance.metadata.customType === true)) {
+    if (!instance || (instance.__rbs.metadata && instance.__rbs.metadata.customType === true)) {
       return null
     }
     let updatePayload: PropertyUpdate[] = []
 
     // Only custom types will not have a fiber object to handle props changes
-    instance.propsHandlers!.getPropsHandlers().forEach((propHandler: PropsHandler<any>) => {
+    instance.__rbs.propsHandlers!.getPropsHandlers().forEach((propHandler: PropsHandler<any>) => {
       let handlerUpdates: PropertyUpdate[] | null = propHandler.getPropertyUpdates(
         oldProps,
         newProps
@@ -245,13 +247,13 @@ const ReactBabylonJSHostConfig: HostConfig<
   },
 
   clearContainer(container: Container): void {
-    container.rootInstance.children.splice(0);
+    container.rootInstance.__rbs.children.splice(0);
   },
 
-  insertBefore(parentInstance: HostCreatedInstance<any>, child: CreatedInstance<any>, beforeChild: {} | CreatedInstance<any> | undefined): void {
+  insertBefore(parentInstance: HostCreatedInstance<unknown>, child: DecoratedInstance<unknown>, beforeChild: {} | DecoratedInstance<unknown> | undefined): void {
     let index: number | undefined = undefined;
     if (parentInstance && beforeChild !== undefined) {
-      index = parentInstance.children.indexOf(beforeChild as CreatedInstance<any>);
+      index = parentInstance.__rbs.children.indexOf(beforeChild as DecoratedInstance<any>);
     }
 
     addChild(parentInstance, child, index);
@@ -260,12 +262,12 @@ const ReactBabylonJSHostConfig: HostConfig<
   /**
    * This is called when something is dynamically added to root (not on initial appendChildToContainer)
    */
-  insertInContainerBefore(container: Container, child: CreatedInstance<any>, beforeChild: CreatedInstance<any>) {
+  insertInContainerBefore(container: Container, child: DecoratedInstance<unknown>, beforeChild: DecoratedInstance<unknown>) {
     // same implementation as appendChildToContainer
     if (child) {
       // doubly link child to root.  we don't care about order - ie: 'beforeChild'
-      container.rootInstance.children.push(child)
-      child.parent = container.rootInstance
+      container.rootInstance.__rbs.children.push(child)
+      child.__rbs.parent = container.rootInstance
     } else {
       console.error("insertInContainerBefore. No child:", child)
     }
@@ -277,12 +279,14 @@ const ReactBabylonJSHostConfig: HostConfig<
     rootContainerInstance: Container,
     hostContext: HostContext,
     internalInstanceHandle: Object
-  ): CreatedInstance<any> | undefined => {
+  ): DecoratedInstance<unknown> | undefined => {
     // TODO: Make a registry like React Native host config or just build a map in /customHosts/index.ts.
     const customTypes: string[] = [CUSTOM_HOSTS.HostWithEvents]
 
     // TODO: Check source for difference between hostContext and rootContainerInstance.
     const { canvas, engine, scene } = rootContainerInstance
+
+    console.log('createInstance: 1 creating:', type);
 
     if (customTypes.indexOf(type) !== -1) {
       let metadata = {
@@ -291,14 +295,15 @@ const ReactBabylonJSHostConfig: HostConfig<
         ...props.metadata
       }
 
-      let createdInstance: CreatedInstance<null> = {
-        hostInstance: null,
-        metadata,
-        parent: null,
-        children: [],
-        propsHandlers: undefined,
-        customProps: {},
-        lifecycleListener: new (CUSTOM_HOSTS as any)[type + "Fiber"](scene, engine, props)
+      let createdInstance: DecoratedInstance<unknown> = {
+        __rbs: {
+          metadata,
+          parent: null,
+          children: [],
+          propsHandlers: undefined,
+          customProps: {},
+          lifecycleListener: new (CUSTOM_HOSTS as any)[type + "Fiber"](scene, engine, props)
+        }
       }
 
       // onCreated and other lifecycle hooks are not called for built-in host
@@ -334,7 +339,7 @@ const ReactBabylonJSHostConfig: HostConfig<
     }
 
     let createInfoArgs: CreateInfo = classDefinition.CreateInfo
-    let metadata: CreatedInstanceMetadata = classDefinition.Metadata
+    let metadata: HostInstanceMetadata = classDefinition.Metadata
 
     // console.log(`creating: ${createInfoArgs.namespace}.${type}`)
     let generatedParameters: GeneratedParameter[] = createInfoArgs.parameters
@@ -457,21 +462,23 @@ const ReactBabylonJSHostConfig: HostConfig<
       lifecycleListener = new (CUSTOM_HOSTS as any)[underlyingClassName + "LifecycleListener"](scene, props);
     }
 
-    let createdReference = createCreatedInstance(underlyingClassName, babylonObject, fiberObject, metadata, customProps, lifecycleListener);
+    let createdReference: DecoratedInstance<unknown> = decorateHostInstance(babylonObject, fiberObject, metadata, customProps, lifecycleListener);
+
+    console.log('createInstance created:', createdReference);
 
     if (lifecycleListener && lifecycleListener.onCreated) {
       lifecycleListener.onCreated(createdReference, scene!);
     }
 
     // Here we dynamically attach known props handlers.  Will be adding more in code generation for GUI - also for lifecycle mgmt.
-    if (createdReference.metadata && createdReference.metadata.isTargetable === true) {
+    if (createdReference.__rbs.metadata && createdReference.__rbs.metadata.isTargetable === true) {
       fiberObject.addPropsHandler(new CUSTOM_HOSTS.TargetPropsHandler(scene!));
     }
 
     if (metadata.delayCreation !== true) {
       applyInitialPropsToInstance(createdReference, props);
     } else {
-      createdReference.deferredCreationProps = props;
+      createdReference.__rbs.deferredCreationProps = props;
     }
     return createdReference;
   },
@@ -514,17 +521,17 @@ const ReactBabylonJSHostConfig: HostConfig<
   // Called after the in-memory tree has been committed (ie: after attaching again to root element)
   resetAfterCommit: (containerInfo: Container): void => { /* empty */ },
 
-  appendInitialChild: (parent: HostCreatedInstance<any>, child: CreatedInstance<any>) => {
+  appendInitialChild: (parent: HostCreatedInstance<any>, child: DecoratedInstance<unknown>) => {
     // Here we are traversing downwards.  Beyond parent has not been initialized, but all children have been.
     addChild(parent, child);
   },
 
   // TODO: refactor with appendInitialChild
-  appendChild: (parent: CreatedInstance<any>, child: CreatedInstance<any>): void => {
+  appendChild: (parent: DecoratedInstance<unknown>, child: DecoratedInstance<unknown>): void => {
     addChild(parent, child);
   },
 
-  canHydrateInstance: (instance: any, type: string, props: Props): null | CreatedInstance<any> => {
+  canHydrateInstance: (instance: any, type: string, props: Props): null | DecoratedInstance<unknown> => {
     // console.log("canHydrateInstance", instance, type, props)
     return null
   },
@@ -537,36 +544,37 @@ const ReactBabylonJSHostConfig: HostConfig<
     return true /* callCommitMountForThisInstance */
   },
 
-  commitMount: (instance: HostCreatedInstance<any>, type: string, newProps: any, internalInstanceHandle: ReactReconciler.Fiber): void => {
-    if (instance && instance.lifecycleListener && instance.lifecycleListener.onMount) {
-      instance.lifecycleListener.onMount(instance)
+  commitMount: (instance: HostCreatedInstance<unknown>, type: string, newProps: any, internalInstanceHandle: ReactReconciler.Fiber): void => {
+    if (instance && instance.__rbs && instance.__rbs.lifecycleListener && instance.__rbs.lifecycleListener.onMount) {
+      instance.__rbs.lifecycleListener.onMount(instance)
     }
   },
 
   // NOTE: only called if supportsMutation = true;
   // ReactDOM uses this for attaching child nodes to root DOM.  For us we want to link the all parts of tree together for tree crawling.
   // same implementation as insertInContainerBefore
-  appendChildToContainer: (container: Container, child: HostCreatedInstance<any>): void => {
+  appendChildToContainer: (container: Container, child: HostCreatedInstance<unknown>): void => {
     if (child) {
       // doubly link child to root
-      container.rootInstance.children.push(child)
-      child.parent = container.rootInstance
+      container.rootInstance.__rbs.children.push(child)
+      child.__rbs.parent = container.rootInstance
     }
   },
 
-  commitUpdate(instance: HostCreatedInstance<any>, updatePayload: UpdatePayload, type: string /* old + new props are extra params here */) {
+  commitUpdate(instance: HostCreatedInstance<unknown>, updatePayload: UpdatePayload, type: string /* old + new props are extra params here */) {
+    console.log('committing update:', instance, updatePayload, type);
     if (updatePayload !== null) {
       updatePayload.forEach((update: PropertyUpdate) => {
         if (instance) {
-          applyUpdateToInstance(instance!.hostInstance, update, type)
+          applyUpdateToInstance(instance, update, type)
         } else {
-          // console.warn("skipped applying update to missing instance...", update, type);
+          console.warn("skipped applying update to missing instance...", update, type);
         }
       })
     }
   },
 
-  removeChildFromContainer: (container: Container, child: HostCreatedInstance <any> ) => {
+  removeChildFromContainer: (container: Container, child: HostCreatedInstance <unknown> ) => {
     /**
      * To fix two bugs when toggle meshes:
      * 1.  model's mesh can't be destroyed.
