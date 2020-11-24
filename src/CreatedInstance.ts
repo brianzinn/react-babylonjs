@@ -1,3 +1,4 @@
+import { Mesh } from "@babylonjs/core"
 import { LifecycleListener } from "./LifecycleListener"
 import { HasPropsHandlers } from "./PropsHandler"
 
@@ -19,6 +20,7 @@ export interface InstanceMetadataParameter {
   isCamera?: boolean
   isEffectLayer?: boolean;
   isBehavior?: boolean;
+
 }
 
 /**
@@ -67,6 +69,14 @@ export type CustomProps = {
    * for VRExperienceHelper
    */
   enableInteractions?: boolean
+  /**
+   * allows components to use instances of objects created non-declaratively
+   */
+  fromInstance?: any
+  /**
+   * for instancedMesh
+   */
+  source?: Mesh
 }
 
 export interface CreatedInstanceMetadata extends InstanceMetadataParameter {
