@@ -75,13 +75,13 @@ function WithGUI() {
       const line = lineRef.current
       
       try {
-        line.hostInstance.linkWithMesh(sphere7Ref.current.hostInstance);
-        line.hostInstance.connectedControl = label7Ref.current.hostInstance;
+        line.linkWithMesh(sphere7Ref.current);
+        line.connectedControl = label7Ref.current;
 
         
         [1,2,3,4,5,6].forEach((i) => {
           const lookup = refLookup[i.toString()];
-          lookup.label.current.hostInstance.linkWithMesh(lookup.sphere.current.hostInstance)
+          lookup.label.current.linkWithMesh(lookup.sphere.current)
         })
       } catch (e) {
         console.error(e)

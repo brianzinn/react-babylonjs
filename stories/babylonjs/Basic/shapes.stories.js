@@ -44,7 +44,7 @@ const onSceneMounted = (sceneEventArgs) => {
 const Shapes = () => {
     const ref = useCallback(node => {
         if (node) {
-            const csg = CSG.FromMesh(node.hostInstance);
+            const csg = CSG.FromMesh(node);
             console.log('csg:', csg);
             const sphere = MeshBuilder.CreateSphere('circle', {
                 diameter: 3

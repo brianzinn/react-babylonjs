@@ -1,5 +1,5 @@
 import ReactReconciler, { HostConfig } from 'react-reconciler';
-import {Scene, Engine, Nullable, Node} from '@babylonjs/core';
+import {Scene, Engine, Nullable, Node, InspectableType, IInspectable} from '@babylonjs/core';
 import * as BABYLONEXT from './extensions';
 import * as GENERATED from './generatedCode';
 import * as CUSTOM_HOSTS from './customHosts';
@@ -183,14 +183,14 @@ const ReactBabylonJSHostConfig: HostConfig<
     return false
   },
 
-  // TODO: see if this will allow ie: improved HMR support.  Need to implement a lot of currently optional methods.
+  // TODO: see if this will allow ie: improved HMR/fast refresh support.  Need to implement a lot of currently optional methods.
   get supportsHydration(): boolean {
     return false
   },
 
-  // this enables refs
+  // enables refs to the Babylon hosted instance
   getPublicInstance: (instance: any) => {
-    return instance
+    return instance?.hostInstance;
   },
 
   getRootHostContext: (rootContainerInstance: Container): HostContext => {
@@ -473,6 +473,21 @@ const ReactBabylonJSHostConfig: HostConfig<
     } else {
       createdReference.deferredCreationProps = props;
     }
+
+    // TODO: make this an opt-in -- testing inspectable metadata (and our Custom Props, which we want to be more specific to Type):
+    Object.defineProperty(createdReference.hostInstance, 'metadata-className', {
+      get() { return createdReference.metadata.className; },
+      enumerable: true,
+      configurable: true
+    });
+    babylonObject.inspectableCustomProperties = [
+      {
+          label: "React class",
+          propertyName: "metadata-className",
+          type: InspectableType.String,
+      }
+    ] as IInspectable[];
+
     return createdReference;
   },
 

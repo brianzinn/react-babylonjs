@@ -19,7 +19,7 @@ function WithAnimation() {
 
   const playAnimation = () => {
     if (groupRef.current) {
-      const group = groupRef.current.hostInstance;
+      const group = groupRef.current;
       const animations = getSlideUpAnimation(position, -2);
       const animatable = scene.beginDirectAnimation(group, animations, 0, 120, true);
       // console.timeLog('Timing', 'beginAnimation');

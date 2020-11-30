@@ -11,10 +11,10 @@ function Block({ children, offset, factor, ...props }) {
   offset = offset !== undefined ? offset : parentOffset
   const ref = useRef()
   useBeforeRender((scene) => {
-    if(ref.current && ref.current.hostInstance.position){
-        const curY = ref.current.hostInstance.position.y;
+    if(ref.current && ref.current.position){
+        const curY = ref.current.position.y;
         const curTop = state.top.current;
-        ref.current.hostInstance.position.y = lerp(curY, (curTop / state.zoom) * factor, 0.1);
+        ref.current.position.y = lerp(curY, (curTop / state.zoom) * factor, 0.1);
     }
   });
 

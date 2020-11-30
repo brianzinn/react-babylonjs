@@ -23,7 +23,7 @@ function ScenePIXI(props) {
   if (beforeMount.current === false) {
     beforeMount.current = true;
     const engine = scene.getEngine();
-    //scene.debugLayer.show();
+    scene.debugLayer.show();
     const options = {
       autoStart: false,
       clearBeforeRender: false,

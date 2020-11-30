@@ -28,7 +28,7 @@ const onButtonClicked = () => {
 
 const BouncyPlayground = () => {
     const sphereRef = useCallback(node => {
-        sphere = node.hostInstance;
+        sphere = node;
     }, []);
 
     return (
