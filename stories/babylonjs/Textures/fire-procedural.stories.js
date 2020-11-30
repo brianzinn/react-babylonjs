@@ -17,7 +17,7 @@ const onSceneMounted = (sceneEventArgs) => {
 function WithFireProcedural() {
     const ref = useCallback(node => {
         const fireTexture = new FireProceduralTexture("fire", 256, scene);
-        const fireMaterial = node.hostInstance;
+        const fireMaterial = node;
         fireMaterial.diffuseTexture = fireTexture;
         fireMaterial.opacityTexture = fireTexture;
     }, []);

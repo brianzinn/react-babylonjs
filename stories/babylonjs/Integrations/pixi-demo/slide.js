@@ -20,7 +20,7 @@ function CustomPlaneBlock(props){
     const observable = scene.onBeforeRenderObservable.add((scene) => {
       if (scene !== null && planeRef !== null) {
         time += scene.getEngine().getDeltaTime();
-        const shMat = planeRef.current.hostInstance.material 
+        const shMat = planeRef.current.material 
         shMat.setFloat("time", time);
         const { pages, top } = state;
         shMat.setFloat("scale", lerp(shMat._floats.scale, offsetFactor - top.current / ((pages - 1) * viewportHeight), 0.1));

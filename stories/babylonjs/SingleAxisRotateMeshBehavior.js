@@ -12,7 +12,7 @@ class SingleAxisRotateMeshBehavior extends Component {
     return (<HostWithEvents {...this.props} onParented={(scene, engine, parent) => {
       this.scene = scene
       this.handler = scene.onBeforeRenderObservable.add(() => {
-        // TODO: if parent.hostInstance.rotationQuaternion then .rotate(xxx, axis)
+        // TODO: if parent.rotationQuaternion then .rotate(xxx, axis)
         switch (this.props.axis) {
           case Axis.X:
             this.rotationProperty = 'x'
@@ -25,7 +25,7 @@ class SingleAxisRotateMeshBehavior extends Component {
             break
         }
         let deltaTimeInMillis = engine.getDeltaTime()
-        parent.hostInstance.rotation[this.rotationProperty] += ((this.props.rpm / 60) * Math.PI * 2 * (deltaTimeInMillis / 1000))
+        parent.rotation[this.rotationProperty] += ((this.props.rpm / 60) * Math.PI * 2 * (deltaTimeInMillis / 1000))
       })
     }
 
