@@ -692,7 +692,7 @@ const getMethodType = (methodDeclaration: MethodDeclaration | MethodSignature, t
   params.forEach(param => {
     let type: string = createTypeFromText(param.getType().getText(), targetFiles);
 
-    const questionToken = param.hasQuestionToken ? '?' : ''
+    const questionToken = param.hasQuestionToken() ? '?' : ''
     const paramName: string | undefined = param.getName();
     paramTypes.push(`${paramName}${questionToken}: ${type}`)
   })
