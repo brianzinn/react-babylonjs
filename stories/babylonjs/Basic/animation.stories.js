@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import { Vector3, Animation } from '@babylonjs/core';
-import { Engine, Scene, useBabylonScene } from '../../../dist/react-babylonjs'
+import { Engine, Scene, useScene } from '../../../dist/react-babylonjs'
 import '../../style.css';
 
 export default { title: 'Babylon Basic' };
@@ -13,7 +13,7 @@ function WithAnimation() {
   // console.time('Timing');
 
   const groupRef = useRef(null);
-  const scene = useBabylonScene();
+  const scene = useScene();
 
   const position = Vector3.Zero();
 

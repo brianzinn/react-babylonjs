@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Engine, Scene, useBabylonScene} from '../../../dist/react-babylonjs'
+import {Engine, Scene, useScene} from '../../../dist/react-babylonjs'
 import {Vector3} from '@babylonjs/core/Maths/math'
 import '../../style.css'
 import {Color3} from "@babylonjs/core";
@@ -8,7 +8,7 @@ export default { title: 'Babylon Basic' };
 
 const FullScreenButton = (props) => {
   const [currentShape, setCurrentShape] = props.shapeState;
-  const scene = useBabylonScene();
+  const scene = useScene();
   scene.debugLayer.show();
 	const onClick = _ => {
 		setCurrentShape(currentShape => {

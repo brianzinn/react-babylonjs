@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
-import { AbstractAssetTask, AssetsManager, EventState, IAssetsProgressEvent, Nullable, Scene, TextureAssetTask } from "@babylonjs/core";
-import { useBabylonScene } from "../Scene";
+import { AbstractAssetTask, AssetsManager, EventState, IAssetsProgressEvent, Nullable, Scene, TextureAssetTask } from '@babylonjs/core';
+import { useScene } from '../scene';
 
 export enum TaskType {
     Binary = 'Binary',
@@ -17,7 +17,7 @@ export type BinaryTask = {
 export type MeshTask = {
     taskType: TaskType.Mesh
     name: string
-    meshesNames: any
+    meshesNames?: any
     rootUrl: string
     sceneFilename: string
 }
@@ -47,7 +47,7 @@ export type AssetManagerProgressType = {
 
 export type AssetManagerContextProviderProps = {
     startProgress?: AssetManagerProgressType,
-    children: any,
+    children: React.ReactNode,
 }
 
 export const AssetManagerContextProvider: React.FC<AssetManagerContextProviderProps> =  (props: AssetManagerContextProviderProps) => {
@@ -59,7 +59,7 @@ export const AssetManagerContextProvider: React.FC<AssetManagerContextProviderPr
 }
 
 export type AssetManagerOptions = {
-    useDefaultLoadingScreen: boolean,
+    useDefaultLoadingScreen?: boolean,
     reportProgress?: boolean, // TODO: improve name.  this is the opt-out of reporting (can trigger many re-renders).
     scene?: Scene
 }
@@ -79,33 +79,34 @@ const getTaskKey = (task: Task): string | undefined => {
 
 type AssetManagerResult = {
     tasks: AbstractAssetTask[],
-    map: Record<string, AbstractAssetTask>
+    taskNameMap: Record<string, AbstractAssetTask>
 }
 
 /**
  * This has limited functionality and only works for limited asset types.
  *
  * This is an experimental API and *WILL* change.
+ * TODO: function signature is not any.
  */
-const useAssetManagerWithCache = () => {
+const useAssetManagerWithCache = (): (tasks: Task[], options?: AssetManagerOptions) => AssetManagerResult => {
     // we need our own memoized cache. useMemo, useState, etc. fail miserably - throwing a promise forces the component to remount.
-    let suspenseCache: Record<string, () => Nullable<AssetManagerResult>> = {};
+    let suspenseCache: Record<string, () => AssetManagerResult> = {};
     let suspenseScene: Nullable<Scene> = null;
 
     let tasksCompletedCache: Record<string, AbstractAssetTask> = {};
 
-    return (tasks: Task[], options?: AssetManagerOptions) => {
-        const hookScene = useBabylonScene();
+    return (tasks: Task[], options?: AssetManagerOptions): AssetManagerResult => {
+        const hookScene = useScene();
         const opts = options || {
             useDefaultLoadingScreen: false
         };
 
         if (opts.scene === undefined && hookScene === null) {
-            throw new Error('useAssetManager can only be used inside a Scene component (or pass scene as a prop)')
+            throw new Error('useAssetManager can only be used inside a Scene component (or pass scene as an option)')
         }
 
         const assetManagerContext = useContext<AssetManagerContextType>(AssetManagerContext);
-        const scene = opts.scene || hookScene!;
+        const scene: Scene = opts.scene || hookScene!;
 
         if (suspenseScene == null) {
             suspenseScene = scene;
@@ -134,7 +135,7 @@ const useAssetManagerWithCache = () => {
         //     }
         // });
 
-        const createGetAssets = (tasks: Task[]): () => Nullable<AssetManagerResult> => {
+        const createGetAssets = (tasks: Task[]): () => AssetManagerResult => {
             if (!Array.isArray(tasks)) {
                 throw new Error('Asset Manager tasks must be an array')
             }
@@ -168,18 +169,18 @@ const useAssetManagerWithCache = () => {
             })
 
             const createResultFromTasks = (tasks: AbstractAssetTask[]): AssetManagerResult => {
-                const map = tasks.reduce<Record<string, AbstractAssetTask>>((prev: Record<string, AbstractAssetTask>, cur: AbstractAssetTask) => {
+                const taskNameMap = tasks.reduce<Record<string, AbstractAssetTask>>((prev: Record<string, AbstractAssetTask>, cur: AbstractAssetTask) => {
                     prev[cur.name] = cur
                     return prev;
                 }, {});
-                return { tasks, map};
+                return { tasks, taskNameMap};
             }
 
             const taskPromise = (tasks.length === cachedTasks.length)
                 ? new Promise<AssetManagerResult>(resolve => resolve(createResultFromTasks(cachedTasks)))
                 : new Promise<AssetManagerResult>((resolve, reject) => {
                 let failed = false
-                assetManager.useDefaultLoadingScreen = opts.useDefaultLoadingScreen;
+                assetManager.useDefaultLoadingScreen = opts.useDefaultLoadingScreen ?? false;
                 assetManager.onFinish = (tasks: AbstractAssetTask[]) => {
                     // whether it failed or not - we cache all results
                     tasks.forEach(task => {
@@ -199,7 +200,6 @@ const useAssetManagerWithCache = () => {
 
                 if (opts.reportProgress !== false && assetManagerContext !== undefined) {
                     assetManager.onProgressObservable.add((eventData: IAssetsProgressEvent, eventState: EventState) => {
-                        // console.log('progress update received:', eventData, eventState);
                         assetManagerContext!.updateProgress({eventData, eventState});
                     })
                 }
@@ -212,7 +212,7 @@ const useAssetManagerWithCache = () => {
                 assetManager.load();
             });
 
-            let result: Nullable<AssetManagerResult> = null;
+            let result: AssetManagerResult;
             let error: Nullable<Error> = null;
             let suspender: Nullable<Promise<void>> = (async () => {
                 try {
@@ -242,8 +242,7 @@ const useAssetManagerWithCache = () => {
             suspenseCache[key] = createGetAssets(tasks);
         }
 
-        const fn: () => Nullable<AssetManagerResult> = suspenseCache[key];
-        return [fn()];
+        return suspenseCache[key]();
     }
 }
 
