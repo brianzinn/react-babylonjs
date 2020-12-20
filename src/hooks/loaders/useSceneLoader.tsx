@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { SceneLoader, Scene, Nullable, ISceneLoaderPlugin, ISceneLoaderPluginAsync, AbstractMesh, IParticleSystem, Skeleton, AnimationGroup, ISceneLoaderProgressEvent } from '@babylonjs/core';
 import { useScene } from '../scene';
 
-import { ILoadedModel, LoadedModel, LoaderStatus } from './LoadedModel';
+import { ILoadedModel, LoadedModel, LoaderStatus } from './loadedModel';
 
 export type SceneLoaderContextType = {
     updateProgress: (progress: ISceneLoaderProgressEvent) => void
