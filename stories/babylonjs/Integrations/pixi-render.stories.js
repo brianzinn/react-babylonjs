@@ -3,7 +3,7 @@ import React, { useRef, useCallback, useState, useEffect } from 'react';
 import * as PIXI from 'pixi.js';
 import { Vector3, Color3 } from '@babylonjs/core';
 import { render as PixiRender, Text } from '@inlet/react-pixi'
-import { Engine, Scene, useBabylonScene } from '../../../dist/react-babylonjs';
+import { Engine, Scene, useScene } from '../../../dist/react-babylonjs';
 import '@babylonjs/inspector'
 import {postSpectacularGradient, retroGoldGradient} from './pixi-demo/pixi-styles';
 import './pixi-demo/shaders'; // side-effect of registering a pixel shader
@@ -18,7 +18,7 @@ let time = 0;
 function ScenePIXI(props) {
   const beforeMount = useRef(false);
   const pixiRefs = useRef(undefined);
-  const scene = useBabylonScene();
+  const scene = useScene();
   scene.clearColor = Color3.FromHexString('#04005E');
   if (beforeMount.current === false) {
     beforeMount.current = true;

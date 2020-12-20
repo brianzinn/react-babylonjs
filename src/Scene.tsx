@@ -1,17 +1,6 @@
-/**
- * react-babylonjs
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
-
-import React, { createContext, useContext, useEffect, useRef, useState, MutableRefObject } from 'react';
-import ReactReconciler, { Reconciler } from "react-reconciler";
-
-import { BabylonJSContext, withBabylonJS, WithBabylonJSContext } from './Engine';
+import React, { useContext, useEffect, useRef, useState, MutableRefObject } from 'react';
 import {
   AbstractMesh,
-  Engine as BabylonJSEngine,
   Nullable,
   Observer,
   PointerEventTypes,
@@ -20,53 +9,22 @@ import {
   SceneOptions
 } from '@babylonjs/core';
 
+import { EngineCanvasContextType, EngineCanvasContext, withEngineCanvasContext } from './hooks/engine';
+import { SceneContext } from './hooks/scene';
 import { applyUpdateToInstance } from "./UpdateInstance";
-import ReactBabylonJSHostConfig, { Container } from './ReactBabylonJSHostConfig';
+import { createReconciler, ReconcilerInstance } from './render';
 import { FiberScenePropsHandler } from './generatedCode';
 import { FiberSceneProps } from './generatedProps';
 import { UpdatePayload } from './PropsHandler';
-
-export interface WithSceneContext {
-  engine: Nullable<BabylonJSEngine>
-  canvas: Nullable<HTMLCanvasElement | WebGLRenderingContext>
-  scene: Nullable<BabylonJSScene>
-  sceneReady: boolean
-}
+import { Container } from './ReactBabylonJSHostConfig';
 
 export declare type SceneEventArgs = {
   scene: BabylonJSScene;
   canvas: HTMLCanvasElement;
 };
 
-// TODO: build a fallback mechanism when typeof React.createContext !== 'function'
-export const SceneContext = createContext<WithSceneContext>({
-  engine: null,
-  canvas: null,
-  scene: null,
-  sceneReady: false
-})
-
-export const useBabylonEngine = (): Nullable<BabylonJSEngine> => useContext(SceneContext).engine
-export const useBabylonScene = () => useContext(SceneContext).scene
-export const useBabylonCanvas = (): Nullable<HTMLCanvasElement | WebGLRenderingContext> => useContext(SceneContext).canvas
-
-type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
-
-export function withScene<P extends { sceneContext: WithSceneContext },
-  R = Omit<P, 'sceneContext'>>(
-    Component: React.ComponentClass<P> | React.FunctionComponent<P>
-  ): React.FunctionComponent<R> {
-  return function BoundComponent(props: R) {
-    return (
-      <SceneContext.Consumer>
-        {ctx => <Component {...props as any} sceneContext={ctx} />}
-      </SceneContext.Consumer>
-    );
-  };
-}
-
 type SceneProps = {
-  babylonJSContext: WithBabylonJSContext
+  engineCanvasContext: EngineCanvasContextType
   onMeshPicked?: (mesh: AbstractMesh, scene: BabylonJSScene) => void
   onScenePointerDown?: (evt: PointerInfo, scene: BabylonJSScene) => void
   onScenePointerUp?: (evt: PointerInfo, scene: BabylonJSScene) => void
@@ -89,15 +47,15 @@ const updateScene = (props: SceneProps, prevPropsRef: MutableRefObject<Partial<S
 }
 
 const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
-  const { engine } = useContext(BabylonJSContext)
+  const { engine } = useContext(EngineCanvasContext)
 
   const [propsHandler] = useState(new FiberScenePropsHandler());
   const [sceneReady, setSceneReady] = useState(false);
   const [scene, setScene] = useState<Nullable<BabylonJSScene>>(null)
-  const [fiberRoot, setFiberRoot] = useState<any>(null);
 
   // TODO: make this strongly typed
-  const [renderer, setRenderer] = useState<Nullable<Reconciler<any, any, any, any>>>(null);
+  const reconcilerRef = useRef<Nullable<ReconcilerInstance>>(null);
+  const containerRef = useRef<Container | null>(null);
 
   const prevPropsRef: MutableRefObject<Partial<SceneProps>> = useRef<Partial<SceneProps>>({});
 
@@ -105,9 +63,10 @@ const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
   useEffect(() => {
     const scene = new BabylonJSScene(engine!, props.sceneOptions)
     // const onReadyObservable: Nullable<Observer<BabylonJSScene>> = scene.onReadyObservable.add(onSceneReady);
-    if (scene.isReady()) {
+    const sceneIsReady = scene.isReady();
+    if (sceneIsReady) {
       // scene.onReadyObservable.remove(onReadyObservable);
-      setSceneReady(true)
+      setSceneReady(true); // this does not flow and cause a re-render
     } else {
       console.error('Scene is not ready. Report issue in react-babylonjs repo')
     }
@@ -115,11 +74,8 @@ const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
     setScene(scene);
     updateScene(props, prevPropsRef, scene, propsHandler);
 
-    const isAsync = false // Disables experimental async rendering
-
+    // TODO: try to move the scene to parentComponent in updateContainer
     const container: Container = {
-      engine: props.babylonJSContext.engine,
-      canvas: props.babylonJSContext.canvas,
       scene: scene,
       rootInstance: {
         hostInstance: null,
@@ -130,18 +86,12 @@ const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
         },
         customProps: {}
       }
-    }
+    };
 
-    const renderer = ReactReconciler(ReactBabylonJSHostConfig);
-    setRenderer(renderer);
-    const fiberRoot = renderer.createContainer(container, isAsync, false /* hydrate true == better HMR? */);
-    setFiberRoot(fiberRoot);
+    containerRef.current = container;
 
-    renderer.injectIntoDevTools({
-      bundleType: process.env.NODE_ENV === 'production' ? 0 : 1,
-      version: '2.0.0',
-      rendererPackageName: 'react-babylonjs'
-    });
+    const reconciler = createReconciler({});
+    reconcilerRef.current = reconciler;
 
     const pointerDownObservable: Nullable<Observer<PointerInfo>> = scene.onPointerObservable.add(
       (evt: PointerInfo) => {
@@ -169,7 +119,7 @@ const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
           props.onScenePointerUp!(evt, scene)
         },
         PointerEventTypes.POINTERUP
-      )
+      );
     }
 
     // can only be assigned on init
@@ -179,7 +129,8 @@ const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
         (evt: PointerInfo) => {
           props.onScenePointerMove!(evt, scene);
         },
-        PointerEventTypes.POINTERMOVE)
+        PointerEventTypes.POINTERMOVE
+      );
     }
 
     if (typeof props.onSceneMount === 'function') {
@@ -196,18 +147,15 @@ const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
       scene.enablePhysics(props.enablePhysics[0], props.enablePhysics[1]);
     }
 
-    // update the root Container
-    renderer.updateContainer(
+    const sceneGraph = (
       <SceneContext.Provider value={{
-        engine: props.babylonJSContext.engine,
-        canvas: props.babylonJSContext.canvas,
         scene,
-        sceneReady
+        sceneReady: sceneIsReady
       }}>
         {props.children}
-      </SceneContext.Provider>, fiberRoot, undefined, () => { /* empty */
-      }
-    );
+      </SceneContext.Provider>
+    )
+    reconciler.render(sceneGraph, container, () => { /* empty for now */ }, null)
 
     return () => {
       if (pointerDownObservable) {
@@ -225,6 +173,11 @@ const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
       if (scene.isDisposed === false) {
         scene.dispose();
       }
+
+      // clear renderer element
+      reconciler.render(null, containerRef.current!, () => { /* empty */ }, null);
+      reconcilerRef.current = null;
+      containerRef.current = null;
     }
   },
     [/* no deps, so called only on un/mount */]
@@ -232,28 +185,24 @@ const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
 
   // update babylon scene
   useEffect(() => {
-    if (engine === null || scene === null || renderer === null) {
+    if (engine === null || scene === null || reconcilerRef.current === null) {
       return;
     }
 
     updateScene(props, prevPropsRef, scene, propsHandler);
 
-    renderer.updateContainer(
+    const sceneGraph = (
       <SceneContext.Provider value={{
-        engine: props.babylonJSContext.engine,
-        canvas: props.babylonJSContext.canvas,
         scene,
         sceneReady
       }}>
         {props.children}
-      </SceneContext.Provider>,
-      fiberRoot,
-      undefined,
-      () => { /* called after container is updated.  we may want an external observable here */ }
-    );
+      </SceneContext.Provider>
+    )
+    reconcilerRef.current!.render(sceneGraph, containerRef.current!, () => { /* ignored */}, null);
   });
 
   return null;
 };
 
-export default withBabylonJS(Scene)
+export default withEngineCanvasContext(Scene);

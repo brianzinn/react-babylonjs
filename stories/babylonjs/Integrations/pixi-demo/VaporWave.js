@@ -1,7 +1,7 @@
 
 import React, { useEffect } from 'react';
 import { Vector2, Mesh } from '@babylonjs/core';
-import { useBabylonScene } from '../../../../dist/react-babylonjs';
+import { useScene } from '../../../../dist/react-babylonjs';
 import './shaders';
 let customProceduralTexture = null;
 let time = 0;
@@ -11,7 +11,7 @@ const onCustomProceduralTextureCreated = (cpt) => {
 }
 
 const VaporWave = (props) => {
-    const scene = useBabylonScene();
+    const scene = useScene();
     useEffect(() => {
         const observable = scene.onBeforeRenderObservable.add((scene) => {
           if (scene !== null && customProceduralTexture !== null) {

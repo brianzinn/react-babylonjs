@@ -10,7 +10,7 @@ const pointCloudAssets = [{ taskType: TaskType.Binary, url: 'assets/kitti/000000
 
 const MyPCS = () => {
   const pcsRef = useRef(null);
-  const [result] = useAssetManager(pointCloudAssets);
+  const result = useAssetManager(pointCloudAssets);
   const [pcs, setPcs] = useState(null);
   const [pcsMesh, setPcsMesh] = useState(null);
 
