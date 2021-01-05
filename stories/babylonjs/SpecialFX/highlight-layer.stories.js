@@ -17,8 +17,8 @@ function WithHighlightLayer() {
   const highlightLayerEL = useRef(null);
 
   useEffect(() => {
-    if (highlightLayerEL.current, boxRef.current) {
-      highlightLayerEL.current.addMesh(boxRef.current.Color3.Green());
+    if (highlightLayerEL.current && boxRef.current) {
+      highlightLayerEL.current.addMesh(boxRef.current, Color3.Green());
     }
   }, [boxRef.current, highlightLayerEL.current])
 

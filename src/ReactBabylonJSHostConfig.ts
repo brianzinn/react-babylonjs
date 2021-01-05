@@ -99,7 +99,7 @@ function removeChild(parentInstance: CreatedInstance<any>, child: CreatedInstanc
       removeRecursive(child.children, child);
     }
 
-    if (typeof child.hostInstance.dispose === "function") {
+    if (child.hostInstance && typeof child.hostInstance.dispose === "function") {
       hostInstance.dispose() // TODO: Consider adding metadata/descriptors as some dispose methods have optional args.
     }
 
