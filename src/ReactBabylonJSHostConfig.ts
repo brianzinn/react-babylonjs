@@ -1,10 +1,9 @@
 import ReactReconciler, { HostConfig } from 'react-reconciler';
-import {Scene, Engine, Nullable, Node, InspectableType, IInspectable} from '@babylonjs/core';
+import {Scene, Nullable, Node, InspectableType, IInspectable} from '@babylonjs/core';
 import * as BABYLONEXT from './extensions';
 import * as GENERATED from './generatedCode';
 import * as CUSTOM_HOSTS from './customHosts';
 
-import { FiberModel, LoadedModel } from "./model";
 import { CreatedInstance, CreatedInstanceMetadata, CustomProps } from './CreatedInstance';
 import { HasPropsHandlers, PropertyUpdate, UpdatePayload, PropsHandler } from './PropsHandler';
 import { LifecycleListener } from "./LifecycleListener";
@@ -288,25 +287,6 @@ const ReactBabylonJSHostConfig: HostConfig<
 
       // onCreated and other lifecycle hooks are not called for built-in host
       return createdInstance
-    }
-
-    // so far this is the only non-babylonJS host component, but otherwise a more generic solution will be needed:
-    if (type.toLowerCase() === "model") {
-      // let createdInstance: CreatedInstance<LoadedModel> = {
-      //   hostInstance: new LoadedModel() /* this is reassigned in Lifecycle Listener */,
-      //   metadata: {
-      //     className: "Model"
-      //   },
-      //   parent: null,
-      //   children: [],
-      //   propsHandlers: new FiberModel() as any,
-      //   lifecycleListener: new CUSTOM_HOSTS.ModelLifecycleListener(scene! /* should always be available */, props),
-      //   customProps: {}
-      // }
-
-      // // onCreated and other lifecycle hooks are not called for built-in host
-      // return createdInstance;
-      throw new Error('need to re-add <model ..> support still..');
     }
 
     // some types (ie: button) are called 'babylonjs-button'.
