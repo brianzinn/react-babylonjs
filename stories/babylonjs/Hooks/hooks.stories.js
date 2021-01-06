@@ -1,14 +1,12 @@
 import React, { useContext, useRef } from 'react'
-import { Engine, Scene as ReactScene, withScene, BabylonJSContext, SceneContext, useBeforeRender } from '../../../dist/react-babylonjs'
+import { Engine, Scene, EngineCanvasContext , SceneContext, useBeforeRender } from '../../../dist/react-babylonjs'
 import { Vector3, Color3 } from '@babylonjs/core/Maths/math'
 import '../../style.css'
 
 export default { title: 'Hooks' };
 
-const Scene = withScene(ReactScene)
-
 const ContextLogger = (props, context) => {
-  const ctx = useContext(BabylonJSContext)
+  const ctx = useContext(EngineCanvasContext)
   console.log(`ctx-logger "${props.id}" BabylonJSContext is:`, ctx)
 
   const ctx2 = useContext(SceneContext)

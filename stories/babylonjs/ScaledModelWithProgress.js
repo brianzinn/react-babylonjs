@@ -66,7 +66,7 @@ const ProgressFallback = (props) => {
 const ScaledModelWithProgress = (props) => {
   return (
     <SceneLoaderContextProvider>
-      <Suspense fallback= {<ProgressFallback progressBarColor={props.progressBarColor} center={props.center} rotation={props.rotation} scaleTo={props.scaleTo} />}>
+      <Suspense fallback= {<ProgressFallback progressBarColor={props.progressBarColor} rotation={props.progressRotation ?? props.modelRotation} center={props.center} scaleTo={props.scaleTo} />}>
           <MyModel position={props.center} rootUrl={props.rootUrl} sceneFilename={props.sceneFilename} scaleTo={props.scaleTo} rotation={props.modelRotation} onModelLoaded={props.onModelLoaded} />
       </Suspense>
     </SceneLoaderContextProvider>

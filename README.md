@@ -1,9 +1,9 @@
 # React BabylonJS
 > *'react-babylonjs'* integrates the BabylonJS real time 3D engine with React
 
-`react-babylonjs` lets you build your scene and components using a familiar declarative structure with the benefits you are used to like reusable components and hooks.  Under the hood it's a React renderer providing declarative bindings for the Fiber `react-reconciler`.  Babylon's API is mostly covered thanks to code generation, but also custom props allow you to declaratively add shadows, physics, attach 2D/3D UI to meshes, etc.
+`react-babylonjs` lets you build your scene and components using a familiar declarative structure with the benefits you are used to like reusable components and hooks.  Under the hood it's a React renderer providing declarative bindings for the Fiber `react-reconciler`.  Babylon's API is mostly covered thanks to code generation, but also custom props allow you to declaratively add shadows, physics, attach 2D/3D UI to meshes, 3D models, etc.
 
-You can also build your own custom 3D controls with functional components. Context API provides access to Scene/Engine/Canvas without prop drilling.  Last but not least, you can use hooks for stateless components!
+Fully supports hooks.  Full support for TypeScript with auto-completion on elements and compile time checks.  Context API provides access to Scene/Engine/Canvas without prop drilling.
 
 [![NPM version](http://img.shields.io/npm/v/react-babylonjs.svg?style=flat-square)](https://www.npmjs.com/package/react-babylonjs)
 [![NPM downloads](http://img.shields.io/npm/dm/react-babylonjs.svg?style=flat-square)](https://www.npmjs.com/package/react-babylonjs)
@@ -11,15 +11,15 @@ You can also build your own custom 3D controls with functional components. Conte
 ## How to Install
 ```sh
 $ cd <your-project-dir>
-$ npm i react-babylonjs
+$ npm i react-babylonjs @babylonjs/core @babylonjs/gui
 ```
 OR
 ```sh
 $ cd <your-project-dir>
-$ yarn add react-babylonjs
+$ yarn add react-babylonjs @babylonjs/core @babylonjs/gui
 ```
 
-`react-babylonjs` *v2+* relies on the **ES6** `@babylonjs/*` NPMs.  If you are want to use the `babylonjs` NPM then use the last *v1.x* of `react-babylonjs` (ie: yarn add react-babylonjs@1.0.3).
+`react-babylonjs` *v2+* uses the **ES6** `@babylonjs/*` NPMs
 
 # Usage Styles
 `react-babylonjs` tries to remain unopinionated about how you integrate BabylonJS with React.  This module provides a 100% declarative option and/or you can customise by adding code.
@@ -79,124 +79,48 @@ const DefaultPlayground = () => (
 
 export default DefaultPlayground
 ```
-## 100% declarative with state/props flow.  Code to manage props (or state).
-You can easily control BabylonJS properties with state or (redux) props.  This sample uses state to control the light intensity and direction of rotation.
-live demo: [with props](https://brianzinn.github.io/create-react-app-babylonjs/withProps)
+
+## Access Scene with a hook.
+Due to how switching renderers does not flow context across renderer boundaries (am investigating other ways like memo) the `useScene` hook needs to be declared inside of the `Scene` component.
+
 ```jsx
-class WithProps extends React.Component 
-{
-  ...
-  render() {
-    return (
-      <Engine canvasId="sample-canvas">
-        <Scene>
-          <freeCamera name="camera1" position={new Vector3(0, 5, -10)} target={Vector3.Zero()} />
-          <hemisphericLight name="light1" intensity={this.state.intensity} direction={Vector3.Up()} />
-          <box name="box" size={4} position={new Vector3(0, 1, 0)}>
-            <RotateMeshBehavior radians={this.state.clockwiseChecked ? 0.01 : -0.01} axis={Axis.Y} />
-          </box>
-        </Scene>
-      </Engine>
-    )
-  }
-}
-```
-## 100% declarative VR, 3D models and shadows
-OK, optional code needed for rotating model via interactions!
+const rpm = 5;
+const MovingBox = (props) => {
+  // access Babylon Scene object
+  const scene = useScene();
+  // direct access refs to Babylon objects
+  const boxRef = useRef(null);
 
-live demo: [VR + 3D model](https://brianzinn.github.io/react-babylonjs/?path=/story/with-vr--simple-vr)
+  // there is also a built-in hook called useBeforeRender/useAfterRender hooks do the same with less code:
+  useEffect(() => {
+    if (boxRef.current) {
+      const handler = scene.registerBeforeRender(() => {
+        let deltaTimeInMillis = scene.getEngine().getDeltaTime();
+        boxRef.current.rotation[props.rotationAxis] += ((rpm / 60) * Math.PI * 2 * (deltaTimeInMillis / 1000))
+      })
+      return (() => {
+        scene.unregisterBeforeRender(handler);
+      })
+    }
+  }, [boxRef.current]);
 
-[inspiration playground](https://playground.babylonjs.com/#TAFSN0#2)
-
-Click on the IcoSpheres to rotate the Ghetto Blaster different directions.  You can also use prop flow direct to components if you update state externally.
-
-The **&lt;vrExperienceHelper /&gt;** tag adds button to view in VR headsets!
-```jsx
-const WithVR = (props) => (
-  <Engine canvasId="sample-canvas">
-    <Scene onMeshPicked={this.onMeshPicked}>
-      <arcRotateCamera name="arc" target={new Vector3(0, 1, 0)} minZ={0.001}
-        alpha={-Math.PI / 2} beta={(0.5 + (Math.PI / 4))} radius={2} />
-
-      <directionalLight name="dl" direction={new Vector3(0, -0.5, 0.5)} position={new Vector3(0, 2, 0.5)}>
-        <shadowGenerator mapSize={1024} useBlurExponentialShadowMap={true} blurKernel={32}
-          shadowCasters={"counterClockwise", "clockwise", "BoomBox"]} />
-      </directionalLight>
-
-      <icoSphere name="counterClockwise" position={new Vector3(-0.5, 1, 0)} radius={0.2} flat={true} subdivisions={1}>
-        <standardMaterial diffuseColor={Color3.Yellow()} specularColor={Color3.Black()} />
-        <RotateMeshBehavior radians={0.01} axis={Axis.Y} />
-      </icoSphere>
-      <Model
-        rotation={new Vector3(0, this.state.modelRotationY, 0)} position={new Vector3(0, 1, 0)}
-        rootUrl={`${baseUrl}BoomBox/glTF/`} sceneFilename="BoomBox.gltf"
-        scaling={new Vector3(20, 20, 20)}
-      />
-      ...
-      <vrExperienceHelper createDeviceOrientationCamera={false} teleportEnvironmentGround={true} />
-      <environmentHelper enableGroundShadow= {true} groundYBias={1}} />
-    </Scene>
-  </Engine>
-)
-```
-
-## 2D/3D UI
-Write declaratively your UI structure.  You can dynamically add/remove in React, but use key property if you do.  Here in GUI is where declarative excels over imperative :) `react-babylonjs` takes care of addControl()/removeControl() and order of 3D GUI operations (with manager) and updating based on props/state.
-
-Full example: [2D UI to Plane](https://brianzinn.github.io/react-babylonjs/?path=/story/gui--with-2-dui)
-```jsx
-<plane>
-  <advancedDynamicTexture createForParentMesh={true}>
-    <rectangle height="60%" thickness={2} color="#EEEEEE">
-      <stackPanel>
-        <textBlock  text={`You have clicked on '${this.state.clickedMeshName}' ...`} />
-        {this.state.allowedMeshes.map(allowedMesh => (
-          <textBlock  key={...} text={'• ' + allowedMesh} color="black" fontSize={28} height="20%" />
-        ))}
-      </stackPanel>
-    </rectangle>
-  </advancedDynamicTexture>
-</plane>
-```
-
-## Setting up a React component in your project using onSceneMount().
-This is a more advanced and still a typical scanario and allows more control and access to full API of BabylonJS.  You will need to call engine.runRenderLoop(() => {...}).  I will include an example later using the new createCamera() method that makes this even easier (auto attach to canvas) and also creates a typical runRenderLoop() on the engine for you.
-
-```tsx
-// If you import Scene from 'babylonjs' then make sure to alias one of them.
-import React, { Component } from 'react'
-import { Scene } from 'react-babylonjs'
-
-function meshPicked(mesh) {
-  console.log('mesh picked:', mesh)
+  return (<box ref={boxRef} size={2} position={props.position}>
+    <standardMaterial diffuseColor={props.color} specularColor={Color3.Black()} />
+  </box>);
 }
 
-function onSceneMount(e) {
-  const { canvas, scene } = e
-
-  // Scene to build your environment, Canvas to attach your camera to...
-  var camera = new ArcRotateCamera("Camera", 0, 1.05, 6, Vector3.Zero(), scene)
-  camera.attachControl(canvas)
-
-  // setup your scene here
-  MeshBuilder.CreateBox('box', { size: 3}, scene)
-  new HemisphericLight('light', Vector3.Up(), scene);
-  
-  // in your own render loop, you can add updates to ECS libraries or other tricks.
-  scene.getEngine().runRenderLoop(() => {
-      if (scene) {
-          scene.render();
-      }
-  });
-}
-
-function NonDeclarative() {
-  return (
-    <Engine canvasId="sample-canvas">
-      <Scene onMeshPicked={meshPicked} onSceneMount={onSceneMount} />
+export const MovingBoxPlayground = () => (
+  <div style={{ flex: 1, display: 'flex' }}>
+    <Engine antialias adaptToDeviceRatio canvasId='babylonJS' >
+      <Scene>
+        <freeCamera name='camera1' position={new Vector3(0, 5, -10)} setTarget={[Vector3.Zero()]} />
+        <hemisphericLight name='light1' intensity={0.7} direction={Vector3.Up()} />
+        <MovingBox color={Color3.Red()} position={new Vector3(-2, 0, 0)} rotationAxis='y' />
+        <MovingBox color={Color3.Yellow()} position={new Vector3(2, 0, 0)} rotationAxis='x' />
+      </Scene>
     </Engine>
-  );
-}
+  </div>
+)
 ```
 
 ## Hooks, Shadows and Physics (and optionally TypeScript, too)
@@ -275,7 +199,7 @@ const App: React.FC = () => {
 
 > v2.2+ ([Changelog](CHANGELOG.md))
 
-> v3.0.0 (2020-??-??) - Lots of pending work on v3 branch and a beta @next.  Some work is on master branch for loading assets and React.Suspense support (follow along in issues #81 and #87).
+> v3.0.0 (2020-01-??) - Lots of pending work on v3 branch and a beta @next.  Some work is on master branch for loading assets and React.Suspense support (follow along in issues #81 and #87).
 
 ## Breaking Changes
  > 0.x to 1.0 ([List](breaking-changes-0.x-to-1.0.md))
