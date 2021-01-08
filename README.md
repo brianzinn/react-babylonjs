@@ -23,7 +23,10 @@ $ yarn add react-babylonjs @babylonjs/core @babylonjs/gui
 # Usage Styles
 `react-babylonjs` tries to remain unopinionated about how you integrate BabylonJS with React.  This module provides a 100% declarative option and/or you can customise by adding code.  There are lots of escape hatches where you can switch to imperative coding and direct access to objects.
 
-## Connecting all together.
+![Connecting the pieces](https://raw.githubusercontent.com/brianzinn/react-babylonjs/master/media/react-babylonjs-boxes.gif)
+## Connecting the pieces
+If you are new to React or babylon.js (or both) there is some learning ahead.  The babylon.js documentation site is really useful for understanding the basics of lighting, cameras, etc.  This project aims to make easy to integrate those into React using JSX.
+
 Here we re-use a `MovingBox` component that can be clicked or hovered.  These reusable components can be used to compose a declarative scene just like regular React development.
 
 ```jsx
@@ -148,7 +151,7 @@ const App: React.FC = () => {
 ## Developer Experience and Fast Refresh
 With declarative (TSX/JSX) coding and fast refresh, you experience the same development workflow in 3D - ie: save changes in your editor and see them immediately in the browser.  Note in this capture when the light is dimmed that the state changes persist even **after** code updates and scene refresh.
 
-![BabylonJS HMR](https://raw.githubusercontent.com/brianzinn/react-babylonjs/master/media/react-babylonjs-hmr.gif)
+![babylon.js Fast Refresh](https://raw.githubusercontent.com/brianzinn/react-babylonjs/master/media/react-babylonjs-hmr.gif)
 
 
 ## API
@@ -159,20 +162,17 @@ This project uses code generation, which allows fast reconciliation and excellen
 > [Changes and commit history](docs/changes.md)
 ## Example Projects
 * The storybook pages for this project have the source code embedded in the page and are live on [github pages](https://brianzinn.github.io/react-babylonjs/).
-* [Create React App (JavaScript)](https://github.com/brianzinn/create-react-app-babylonjs) CRA JavaScript implementation.  GH Pages has examples of typical and declarative usage some with Redux.
-* [Create React App (TypeScript)](https://github.com/brianzinn/create-react-app-typescript-babylonjs) CRA 3 TypeScript.
-
-
-## Ecosystem
-* `react-babylon-spring` - https://github.com/hookex/react-babylon-spring (react-spring for babylon.js)
+* [Create React App (JavaScript)](https://github.com/brianzinn/create-react-app-babylonjs) CRA JavaScript implementation.  Github pages has live examples of typical and declarative usage some with Redux.
+* [Create React App (TypeScript)](https://github.com/brianzinn/create-react-app-typescript-babylonjs) CRA 3 TypeScript.  Examples of physics, shadows, etc.
 
 ## Contributors
-Huge shout out to [Konsumer](https://github.com/konsumer) that helped bring this project to V1. The ideas and code sandboxes from issue #6 inspired the code generation and HOC + Context API integration.
+* Huge shout out to [Konsumer](https://github.com/konsumer) that helped bring this project to the next level. The ideas and code sandboxes from issue #6 inspired the code generation and HOC + Context API integration.
 
-Thanks to [seacloud9](https://github.com/seacloud9) for adding storybook (and [GSAP demo](https://brianzinn.github.io/react-babylonjs/?path=/story/integrations--gsap-timeline)).  Also for adding [dynamic terrain](https://brianzinn.github.io/react-babylonjs/?path=/story/babylon-basic--dynamic-terrain).  Ported a branch of his into a [PIXI demo](https://brianzinn.github.io/react-babylonjs/?path=/story/integrations--pixi-story).
+* [seacloud9](https://github.com/seacloud9) for adding [storybook](https://brianzinn.github.io/react-babylonjs/), [GSAP demo](https://brianzinn.github.io/react-babylonjs/?path=/story/integrations--gsap-timeline), [dynamic terrain](https://brianzinn.github.io/react-babylonjs/?path=/story/babylon-basic--dynamic-terrain) (extension) & [PIXI demo](https://brianzinn.github.io/react-babylonjs/?path=/story/integrations--pixi-story).
 
-[hookex](https://github.com/hookex) has made the largest contributions :)  Proper texture handling [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/textures--image-texture), Node parenting, [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/babylon-basic--transform-node) Full Screen GUI [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/gui--gui-full-screen), Effect Layers [glow demo](https://brianzinn.github.io/react-babylonjs/?path=/story/special-fx--glow-layer), behaviors [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/behaviors--pointer-drag-behavior), useHover & useClick [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/hooks--use-hover-event) and react-spring integration [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/integrations--react-spring).
+* [hookex](https://github.com/hookex) has made the largest contribution :)  Proper texture handling [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/textures--image-texture), Node parenting, [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/babylon-basic--transform-node) Full Screen GUI [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/gui--gui-full-screen), Effect Layers [glow demo](https://brianzinn.github.io/react-babylonjs/?path=/story/special-fx--glow-layer), behaviors [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/behaviors--pointer-drag-behavior), useHover & useClick hooks [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/hooks--use-hover-event) and react-spring integration [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/integrations--react-spring).  Author of `react-babylon-spring` - https://github.com/hookex/react-babylon-spring.
 
-[dennemark](https://github.com/dennemark) added Cascaded  Shadow Generator
+* [dennemark](https://github.com/dennemark) added Cascaded  Shadow Generator
+* Thanks also to all the people who have contributed with issues and questions.
 
 Made with ♥ by Brian Zinn
