@@ -29,57 +29,6 @@ With declarative (TSX/JSX) coding and HMR, you experience the same development w
 
 ![BabylonJS HMR](https://raw.githubusercontent.com/brianzinn/react-babylonjs/master/media/react-babylonjs-hmr.gif)
 
-# @babylonjs/core API Support
-1. **Node -> Mesh** - abstractMesh, groundMesh, instancedLinesMesh, instancedMesh, linesMesh, mesh, node, transformNode, trailMesh
-
-2. **Cameras** - anaglyphArcRotateCamera, anaglyphFreeCamera, anaglyphGamepadCamera, anaglyphUniversalCamera, arcFollowCamera, arcRotateCamera, camera, deviceOrientationCamera, flyCamera, followCamera, freeCamera, gamepadCamera, stereoscopicArcRotateCamera, stereoscopicFreeCamera, stereoscopicGamepadCamera, stereoscopicUniversalCamera, targetCamera, touchCamera, universalCamera, virtualJoysticksCamera, vrDeviceOrientationArcRotateCamera, vrDeviceOrientationFreeCamera, vrDeviceOrientationGamepadCamera, webVrFreeCamera, webXrCamera
-
-3. **Geometries (meshes)** - box, capsule, cylinder, dashedLines, decal, disc, extrudePolygon, extrudeShape, extrudeShapeCustom, ground, groundFromHeightMap, icoSphere, lathe, lines, lineSystem, plane, babylon-polygon/Polygon, polyhedron, ribbon, sphere, tiledBox, tiledGround, tiledPlane, torus, torusKnot, tube
-> note: `babylon-polygon` instead of `polygon` due to JSX conflict with `React.SVGProps<SVGPolygonElement>`
-
-4. **Materials** - backgroundMaterial, fluentMaterial, material, multiMaterial, nodeMaterial, pbrBaseMaterial, pbrBaseSimpleMaterial, pbrMaterial, pbrMetallicRoughnessMaterial, pbrSpecularGlossinessMaterial, pushMaterial, shaderMaterial, standardMaterial
-
-5. **Lights** - directionalLight, hemisphericLight, light, pointLight, shadowLight, spotLight
-
-6. **Textures** - advancedDynamicTexture, baseTexture, colorGradingTexture, cubeTexture, customProceduralTexture, dynamicTexture, equiRectangularCubeTexture, hdrCubeTexture, htmlElementTexture, mirrorTexture, multiRenderTarget, multiviewRenderTarget, noiseProceduralTexture, proceduralTexture, rawCubeTexture, rawTexture, rawTexture2DArray, rawTexture3D, refractionTexture, renderTargetTexture, texture, videoTexture
-
-7. **EffectLayers** - effectLayer, glowLayer, highlightLayer
-
-8. **Behaviors** - autoRotationBehavior, bouncingBehavior, framingBehavior, attachToBoxBehavior, fadeInOutBehavior, multiPointerScaleBehavior, pointerDragBehavior, sixDofDragBehavior
-
-9. **Others** - adtForMesh, adtFullScreenUi, environmentHelper, physicsImpostor, pointsCloudSystem, shadowGenerator, cascadedShadowGenerator, vrExperienceHelper
-
-## @babylonjs/gui
-1. GUI3DManager
-2. **2D Controls** - scrollViewerWindow, baseSlider, babylon-button/Button, checkbox, colorPicker, container, control, displayGrid, babylon-ellipse/Ellipse, grid, babylon-image/Image, imageBasedSlider, imageScrollBar, inputPassword, inputText, babylon-line/Line, multiLine, radioButton, rectangle, scrollBar, scrollViewer, selectionPanel, slider, stackPanel, textBlock, virtualKeyboard
-> note: 'babylon-*' for `button`, `ellipse`, `image` & `line` due to JSX conflict with `React.SVGProps<T>`, otherwise use the ProperCase equivalent, but you miss editor auto-completion.
-
-3. **3D Controls** -  abstractButton3D, button3D, container3D, control3D, cylinderPanel, holographicButton, meshButton3D, planePanel, scatterPanel, spherePanel, stackPanel3D, volumeBasedPanel
-
-## Extensions (new in 2.0)
-1. dynamicTerrain
-
-# Examples
-live demo: [default playground declarative](https://brianzinn.github.io/react-babylonjs/?path=/story/babylon-basic--default-playground)
-
-```jsx
-import { Engine, Scene } from 'react-babylonjs'
-import { Vector3 } from '@babylonjs/core';
-
-const DefaultPlayground = () => (
-  <Engine canvasId="sample-canvas">
-    <Scene>
-      <freeCamera name="camera1" position={new Vector3(0, 5, -10)} target={Vector3.Zero()} />
-      <hemisphericLight name="light1" intensity={0.7} direction={Vector3.Up()} />
-      <sphere name="sphere1" diameter={2} segments={16} position={new Vector3(0, 1, 0)} />
-      <ground name="ground1" width={6} height={6} subdivisions={2}  />
-    </Scene>
-  </Engine>
-)
-
-export default DefaultPlayground
-```
-
 ## Connecting all together.
 Here we re-use a `MovingBox` component that can be clicked or hovered.  These reusable components can be used to compose a delcarative scene just like regular React development.
 
@@ -123,7 +72,7 @@ const MovingBox = (props) => {
   </box>);
 }
 
-export const DefaultPlayground = () => (
+export const SceneWithMovingBoxes = () => (
   <div style={{ flex: 1, display: 'flex' }}>
     <Engine antialias adaptToDeviceRatio canvasId='babylonJS' >
       <Scene>
@@ -202,15 +151,13 @@ const App: React.FC = () => {
 }
 ```
 
-## Major Release History
+## API
+This project uses code generation, which allows fast reconciliation and excellent typings support.
+> [Babylon.js API](docs/api.md)
 
-
-## Breaking Changes
- > 0.x to 1.0 ([List](breaking-changes-0.x-to-1.0.md))
- 
- > 1.x to 2.0 -  Change NPMs from `babylonjs-*` to `@babylonjs/*`.  'Engine' not passed into onSceneMount(e) parameter - use e.scene.getEngine().  Suggest switching to intrinsic elements (camelCase instead of ProperCase).
-
-### Example Projects
+## Release History and changes
+> [Generated from commits](docs/CHANGELOG.md)
+## Example Projects
 * The storybook pages for this project have the source code embedded in the page.
 * [Create React App (JavaScript)](https://github.com/brianzinn/create-react-app-babylonjs) CRA JavaScript implementation.  GH Pages has examples of typical and declarative usage some with Redux.
 * [Create React App (TypeScript)](https://github.com/brianzinn/create-react-app-typescript-babylonjs) CRA 3 TypeScript.
