@@ -43,15 +43,17 @@ export type HoverType = MeshEventType | Gui2dEventType;
 /**
  * useHover hook
  * 
- * TODO: support GUI 3D contols
- *
+ * NOTE: Supports Mesh and 2D GUI controls only (not 3D GUI).
+ * 
  * @param over expression when hover over starts
  * @param out expression when hover stops
+ * @param ownRef to re-use a Ref you already have, otherwise one is created for you and returned.
  */
-export const useHover = (over?: HoverType, out?: HoverType): [MutableRefObject<Mesh | Control | null>, boolean] => {
+export const useHover = (over?: HoverType, out?: HoverType, ownRef?: MutableRefObject<Mesh | Control | null>): [MutableRefObject<Mesh | Control | null>, boolean] => {
     const [value, setValue] = useState(false);
 
-    const ref = useRef<Mesh>(null) as MutableRefObject<Mesh | Control | null>;
+    const createdRef = useRef<Mesh>(null) as MutableRefObject<Mesh | Control | null>;
+    const ref = ownRef ?? createdRef;
 
     useEffect(() => {
         if (ref.current) {
@@ -126,11 +128,12 @@ export const useHover = (over?: HoverType, out?: HoverType): [MutableRefObject<M
 /**
  * useClick hook
  * 
- * TODO: support UI
- * @param onClick
+ * @param onClick What would be passed in the OnPickTrigger from ActionManager
+ * @param ownRef to re-use a Ref you already have, otherwise one is created for you and returned.
  */
-export function useClick(onClick: MeshEventType): [MutableRefObject<Mesh | null>] {
-    const ref = useRef<Mesh>(null) as MutableRefObject<Mesh | null>;
+export function useClick(onClick: MeshEventType, ownRef?: MutableRefObject<Nullable<Mesh>>): [MutableRefObject<Nullable<Mesh>>] {
+    const createdRef = useRef<Nullable<Mesh>>(null);
+    const ref = ownRef ?? createdRef;
 
     useEffect(() => {
         if (ref.current) {
@@ -141,13 +144,17 @@ export function useClick(onClick: MeshEventType): [MutableRefObject<Mesh | null>
                     mesh.actionManager = new ActionManager(mesh.getScene());
                 }
 
-                mesh.actionManager.registerAction(
+                const action: Nullable<IAction> = mesh.actionManager.registerAction(
                     new ExecuteCodeAction(
                         ActionManager.OnPickTrigger, function (ev: any) {
                             onClick(ev);
                         }
                     )
                 );
+                return () => {
+                  // unregister on teardown
+                  mesh.actionManager?.unregisterAction(action!);
+                }
             } else {
                 console.warn('onClick hook only supports referencing Meshes');
             }

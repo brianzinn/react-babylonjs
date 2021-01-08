@@ -80,43 +80,57 @@ const DefaultPlayground = () => (
 export default DefaultPlayground
 ```
 
-## Access Scene with a hook.
-Due to how switching renderers does not flow context across renderer boundaries (am investigating other ways like memo) the `useScene` hook needs to be declared inside of the `Scene` component.
+## Connecting all together.
+Here we re-use a `MovingBox` component that can be clicked or hovered.  These reusable components can be used to compose a delcarative scene just like regular React development.
 
 ```jsx
-const rpm = 5;
+import React, { useRef, useState } from 'react'
+import { Engine, Scene, useBeforeRender, useClick, useHover } from 'react-babylonjs'
+import { Vector3, Color3 } from '@babylonjs/core'
+
+const DefaultScale = new Vector3(1, 1, 1);
+const BiggerScale = new Vector3(1.25, 1.25, 1.25);
+
 const MovingBox = (props) => {
-  // access Babylon Scene object
-  const scene = useScene();
-  // direct access refs to Babylon objects
+  // reference Babylon scene objects with same syntax as DOM elements
   const boxRef = useRef(null);
 
-  // there is also a built-in hook called useBeforeRender/useAfterRender hooks do the same with less code:
-  useEffect(() => {
-    if (boxRef.current) {
-      const handler = scene.registerBeforeRender(() => {
-        let deltaTimeInMillis = scene.getEngine().getDeltaTime();
-        boxRef.current.rotation[props.rotationAxis] += ((rpm / 60) * Math.PI * 2 * (deltaTimeInMillis / 1000))
-      })
-      return (() => {
-        scene.unregisterBeforeRender(handler);
-      })
-    }
-  }, [boxRef.current]);
+  const [clicked, setClicked] = useState(false);
+  useClick(
+    () => setClicked(clicked => !clicked),
+    boxRef
+  );
 
-  return (<box ref={boxRef} size={2} position={props.position}>
-    <standardMaterial diffuseColor={props.color} specularColor={Color3.Black()} />
+  const [hovered, setHovered] = useState(false);
+  useHover(
+    () => setHovered(true),
+    () => setHovered(false),
+    boxRef
+  );
+
+  // This will rotate the box on every Babylon frame.
+  const rpm = 5;
+  useBeforeRender((scene) => {
+    if (boxRef.current) {
+      // Delta time smoothes the animation.
+      var deltaTimeInMillis = scene.getEngine().getDeltaTime();
+      boxRef.current.rotation.y += ((rpm / 60) * Math.PI * 2 * (deltaTimeInMillis / 1000));
+    }
+  });
+
+  return (<box name={props.name} ref={boxRef} size={2} position={props.position} scaling={clicked ? BiggerScale : DefaultScale}>
+    <standardMaterial name={`${props.name}-mat`} diffuseColor={hovered ? props.hoveredColor : props.color} specularColor={Color3.Black()} />
   </box>);
 }
 
-export const MovingBoxPlayground = () => (
+export const DefaultPlayground = () => (
   <div style={{ flex: 1, display: 'flex' }}>
     <Engine antialias adaptToDeviceRatio canvasId='babylonJS' >
       <Scene>
-        <freeCamera name='camera1' position={new Vector3(0, 5, -10)} setTarget={[Vector3.Zero()]} />
+        <arcRotateCamera name="camera1" target={Vector3.Zero()} alpha={Math.PI / 2} beta={Math.PI / 4} radius={8} />
         <hemisphericLight name='light1' intensity={0.7} direction={Vector3.Up()} />
-        <MovingBox color={Color3.Red()} position={new Vector3(-2, 0, 0)} rotationAxis='y' />
-        <MovingBox color={Color3.Yellow()} position={new Vector3(2, 0, 0)} rotationAxis='x' />
+        <MovingBox name='left' color={Color3.FromHexString('#EEB5EB')} hoveredColor={Color3.FromHexString('#C26DBC')} position={new Vector3(-2, 0, 0)} />
+        <MovingBox name='right' color={Color3.FromHexString('#C8F4F9')} hoveredColor={Color3.FromHexString('#3CACAE')} position={new Vector3(2, 0, 0)} />
       </Scene>
     </Engine>
   </div>
@@ -189,17 +203,7 @@ const App: React.FC = () => {
 ```
 
 ## Major Release History
-> v1.0.0 (2018-11-29) - Add code generation, HoC, context provider
 
-> v2.0.1 (2019-10-09) - Switch to @babylonjs/* NPM. Add intrinsic elements, physics and dynamic terrain.
-
-> v2.1.0 (2020-03-21) - NPM distro reduced size has only module.  Add [behaviors](https://brianzinn.github.io/react-babylonjs/?path=/story/behaviors--drag-n-drop), effects (ie: [glow](https://brianzinn.github.io/react-babylonjs/?path=/story/special-fx--glow-layer)), CustomProps (ie: [chroma.js](https://brianzinn.github.io/react-babylonjs/?path=/story/integrations--chroma-js-props)).
-
-> v2.2.0 (2020-04-04) - Added support for `react-spring` [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/integrations--react-spring)
-
-> v2.2+ ([Changelog](CHANGELOG.md))
-
-> v3.0.0 (2020-01-??) - Lots of pending work on v3 branch and a beta @next.  Some work is on master branch for loading assets and React.Suspense support (follow along in issues #81 and #87).
 
 ## Breaking Changes
  > 0.x to 1.0 ([List](breaking-changes-0.x-to-1.0.md))
