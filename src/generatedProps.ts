@@ -1,6 +1,5 @@
 import { Key, ReactNode, Ref } from "react";
 import { CustomProps } from "./CreatedInstance";
-import { ModelProps } from "./model";
 import { DynamicTerrain as ExtensionsDynamicTerrain } from "./extensions/DynamicTerrain";
 import { AbstractScene as BabylonjsCoreAbstractScene } from "@babylonjs/core/abstractScene";
 import { Scene as BabylonjsCoreScene } from "@babylonjs/core/scene";
@@ -397,7 +396,6 @@ declare global {
             multiPointerScaleBehavior: FiberMultiPointerScaleBehaviorProps & FiberMultiPointerScaleBehaviorPropsCtor & BabylonNode<BabylonjsCoreMultiPointerScaleBehavior>;
             pointerDragBehavior: FiberPointerDragBehaviorProps & FiberPointerDragBehaviorPropsCtor & BabylonNode<BabylonjsCorePointerDragBehavior>;
             sixDofDragBehavior: FiberSixDofDragBehaviorProps & FiberSixDofDragBehaviorPropsCtor & BabylonNode<BabylonjsCoreSixDofDragBehavior>;
-            model: ModelProps & BabylonNode<BabylonjsCoreAbstractMesh>;
         }
     }
 }

@@ -1,13 +1,12 @@
-import React, { Component} from 'react';
+import React, { Component, Suspense } from 'react';
 import '@babylonjs/inspector';
-import { Engine, Scene } from '../../../dist/react-babylonjs';
+import { Engine, Scene, Model } from '../../../dist/react-babylonjs';
 import { Vector3, Color3 } from '@babylonjs/core';
 import { ActionManager, SetValueAction } from '@babylonjs/core/Actions';
 import ScaledModelWithProgress from '../ScaledModelWithProgress';
 import '../../style.css';
 
 export default { title: 'Models' };
-
 class WithModel extends Component {
   constructor () {
     super()
@@ -86,16 +85,9 @@ class WithModel extends Component {
             onModelLoaded={this.onModelLoaded}
           />
 
-          {/*<React.Suspense fallback={<box />}>
-              <Model rootUrl={`${baseUrl}Avocado/glTF/`} sceneFilename='Avocado.gltf' />
-          </React.Suspense>
-          */}
-
-          <ScaledModelWithProgress rootUrl={`${baseUrl}Avocado/glTF/`} sceneFilename='Avocado.gltf'
-            scaleTo={this.state.avocadoScaling}
-            progressBarColor={Color3.FromInts(255, 165, 0)}
-            center={new Vector3(-2.5, this.state.avocadoYPos, 0)}
-          />
+          <Suspense fallback={<box name='fallback' position={new Vector3(-2.5, this.state.avocadoYPos, 0)} />}>
+              <Model rootUrl={`${baseUrl}Avocado/glTF/`} sceneFilename='Avocado.gltf' scaleToDimension={this.state.avocadoScaling} position={new Vector3(-2.5, this.state.avocadoYPos, 0)} />
+          </Suspense>
         </Scene>
       </Engine>
     )

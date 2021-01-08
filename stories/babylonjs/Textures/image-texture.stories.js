@@ -13,7 +13,7 @@ const textureAssets = [
 ];
 
 const Shapes = () => {
-  const [result] = useAssetManager(textureAssets, {
+  const assetManagerResult = useAssetManager(textureAssets, {
     useDefaultLoadingScreen: true
   });
 
@@ -21,17 +21,17 @@ const Shapes = () => {
     <>
       <sphere name="sphere" position={new Vector3(-1.5, 0, 0)}>
         <standardMaterial name='grass'>
-          <texture fromInstance={result.map['grass'].texture} assignTo="emissiveTexture" />
+          <texture fromInstance={assetManagerResult.taskNameMap['grass'].texture} assignTo="emissiveTexture" />
         </standardMaterial>
       </sphere>
       <box name='box'>
         <standardMaterial name='dog' backFaceCulling={false}>
-          <texture fromInstance={result.map['malamute'].texture} assignTo="diffuseTexture" hasAlpha={true} />
+          <texture fromInstance={assetManagerResult.taskNameMap['malamute'].texture} assignTo="diffuseTexture" hasAlpha={true} />
         </standardMaterial>
       </box>
       <sphere name="sphere" position={new Vector3(1.5, 0, 0)}>
         <standardMaterial name='bump' diffuseColor={Color3.Green()}>
-          <texture fromInstance={result.map['bump'].texture} assignTo="bumpTexture" />
+          <texture fromInstance={assetManagerResult.taskNameMap['bump'].texture} assignTo="bumpTexture" />
         </standardMaterial>
       </sphere>
     </>

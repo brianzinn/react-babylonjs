@@ -5,6 +5,7 @@ import ScaledModelWithProgress from '../ScaledModelWithProgress'
 import SingleAxisRotateMeshBehavior from '../SingleAxisRotateMeshBehavior'
 import { Vector3, Color3, Axis } from '@babylonjs/core/Maths/math'
 import '../../style.css'
+import { PI_2 } from 'pixi.js'
 
 export default { title: 'VR' };
 
@@ -70,6 +71,7 @@ class WithVR extends Component {
           </icoSphere>
           <ScaledModelWithProgress rootUrl={`${baseUrl}BoomBox/glTF/`} sceneFilename='BoomBox.gltf' scaleTo={0.4}
             progressBarColor={Color3.FromInts(255, 165, 0)} center={new Vector3(0, 1, 0)}
+            progressRotation={new Vector3(0, Math.PI, 0)}
             modelRotation={new Vector3(0, this.state.modelRotationY, 0)}
           />
           <icoSphere name='clockwise' position={new Vector3(0.5, 1, 0)} radius={0.2} flat subdivisions={1}>

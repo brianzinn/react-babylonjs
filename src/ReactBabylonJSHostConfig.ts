@@ -1,10 +1,9 @@
 import ReactReconciler, { HostConfig } from 'react-reconciler';
-import {Scene, Engine, Nullable, Node} from '@babylonjs/core';
+import {Scene, Nullable, Node, InspectableType, IInspectable} from '@babylonjs/core';
 import * as BABYLONEXT from './extensions';
 import * as GENERATED from './generatedCode';
 import * as CUSTOM_HOSTS from './customHosts';
 
-import { FiberModel, LoadedModel } from "./model";
 import { CreatedInstance, CreatedInstanceMetadata, CustomProps } from './CreatedInstance';
 import { HasPropsHandlers, PropertyUpdate, UpdatePayload, PropsHandler } from './PropsHandler';
 import { LifecycleListener } from "./LifecycleListener";
@@ -36,8 +35,6 @@ type Props = {
 } & any
 
 export type Container = {
-  engine: Nullable<Engine>
-  canvas: Nullable<HTMLCanvasElement | WebGLRenderingContext>
   scene: Nullable<Scene>
   rootInstance: CreatedInstance<any>
 }
@@ -101,7 +98,7 @@ function removeChild(parentInstance: CreatedInstance<any>, child: CreatedInstanc
       removeRecursive(child.children, child);
     }
 
-    if (typeof child.hostInstance.dispose === "function") {
+    if (child.hostInstance && typeof child.hostInstance.dispose === "function") {
       hostInstance.dispose() // TODO: Consider adding metadata/descriptors as some dispose methods have optional args.
     }
 
@@ -183,34 +180,20 @@ const ReactBabylonJSHostConfig: HostConfig<
     return false
   },
 
-  // TODO: see if this will allow ie: improved HMR support.  Need to implement a lot of currently optional methods.
+  // TODO: see if this will allow ie: improved HMR/fast refresh support.  Need to implement a lot of currently optional methods.
   get supportsHydration(): boolean {
     return false
   },
 
-  // this enables refs
+  // enables refs to the Babylon hosted instance
   getPublicInstance: (instance: any) => {
-    return instance
+    return instance?.hostInstance;
   },
 
   getRootHostContext: (rootContainerInstance: Container): HostContext => {
     // this is the context you pass to your chilren, as parameter 'parentHostContext' from "root".
     // So, opportunity to share context here via HostConfig further up tree.
-    return {
-      canvas: rootContainerInstance.canvas,
-      engine: rootContainerInstance.engine,
-      scene: rootContainerInstance.scene,
-      rootInstance: {
-        hostInstance: undefined,
-        metadata: {
-          className: "rootContainer",
-          namespace: "ignore"
-        },
-        parent: null,
-        children: [], // we add root notes here
-        customProps: {}
-      } as CreatedInstance<any>
-    }
+    return rootContainerInstance;
   },
 
   // this is the context you pass down to children.  without this root will not be available to attach to in appendChildToContainer.
@@ -283,7 +266,7 @@ const ReactBabylonJSHostConfig: HostConfig<
     const customTypes: string[] = [CUSTOM_HOSTS.HostWithEvents]
 
     // TODO: Check source for difference between hostContext and rootContainerInstance.
-    const { canvas, engine, scene } = rootContainerInstance
+    const { scene } = rootContainerInstance
 
     if (customTypes.indexOf(type) !== -1) {
       let metadata = {
@@ -299,25 +282,7 @@ const ReactBabylonJSHostConfig: HostConfig<
         children: [],
         propsHandlers: undefined,
         customProps: {},
-        lifecycleListener: new (CUSTOM_HOSTS as any)[type + "Fiber"](scene, engine, props)
-      }
-
-      // onCreated and other lifecycle hooks are not called for built-in host
-      return createdInstance
-    }
-
-    // so far this is the only non-babylonJS host component, but otherwise a more generic solution will be needed:
-    if (type.toLowerCase() === "model") {
-      let createdInstance: CreatedInstance<LoadedModel> = {
-        hostInstance: new LoadedModel() /* this is reassigned in Lifecycle Listener */,
-        metadata: {
-          className: "Model"
-        },
-        parent: null,
-        children: [],
-        propsHandlers: new FiberModel() as any,
-        lifecycleListener: new CUSTOM_HOSTS.ModelLifecycleListener(scene! /* should always be available */, props),
-        customProps: {}
+        lifecycleListener: new (CUSTOM_HOSTS as any)[type + "Fiber"](scene, scene!.getEngine(), props)
       }
 
       // onCreated and other lifecycle hooks are not called for built-in host
@@ -444,7 +409,7 @@ const ReactBabylonJSHostConfig: HostConfig<
     } else if (metadata.isGUI2DControl === true) {
       lifecycleListener = new CUSTOM_HOSTS.GUI2DControlLifecycleListener();
     } else if (metadata.isCamera === true) {
-      lifecycleListener = new CUSTOM_HOSTS.CameraLifecycleListener(scene, props, canvas as HTMLCanvasElement);
+      lifecycleListener = new CUSTOM_HOSTS.CameraLifecycleListener(scene, props, scene!.getEngine().getRenderingCanvas() as HTMLCanvasElement);
     } else if (metadata.isNode) {
       lifecycleListener = new CUSTOM_HOSTS.NodeLifecycleListener();
     } else if (metadata.isBehavior) {
@@ -473,6 +438,26 @@ const ReactBabylonJSHostConfig: HostConfig<
     } else {
       createdReference.deferredCreationProps = props;
     }
+
+    // TODO: make this an opt-in -- testing inspectable metadata (and our Custom Props, which we want to be more specific to Type):
+    // TODO: use {} instead of NULL and use the late-binding from 'v3'.
+    if (createdReference.hostInstance) {
+      Object.defineProperty(createdReference.hostInstance, 'metadata-className', {
+        get() { return createdReference.metadata.className; },
+        enumerable: true,
+        configurable: true
+      });
+    }
+    if (babylonObject) {
+      babylonObject.inspectableCustomProperties = [
+        {
+            label: "React class",
+            propertyName: "metadata-className",
+            type: InspectableType.String,
+        }
+      ] as IInspectable[];
+    }
+
     return createdReference;
   },
 

@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react'
-import { Engine, Scene, useBabylonScene } from '../../../dist/react-babylonjs'
+import { Engine, Scene, useScene } from '../../../dist/react-babylonjs'
 import { Vector3, Color3, Color4, MeshBuilder } from '@babylonjs/core'
 import '../../style.css'
 
@@ -7,7 +7,7 @@ export default { title: 'Babylon Basic' };
 
 const MyMesh = (props) => {
   const [mesh, setMesh] = useState(null);
-  const scene = useBabylonScene();
+  const scene = useScene();
   useMemo(() => {
     console.log('creating a box with scene', scene);
     setMesh(MeshBuilder.CreateBox('test', { size: 1}, scene));

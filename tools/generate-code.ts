@@ -106,18 +106,18 @@ const addHostElement = (className: string, babylonjsClassDeclaration: ClassDecla
   }
 }
 
-const addCustomHostElement = (className: string, type: string): void => {
-  if (REACT_EXPORTS.has(className)) {
-    console.error('Found existing export:', className); // would happen in BabylonJS added class with same name
-    return;
-  }
+// const addCustomHostElement = (className: string, type: string): void => {
+//   if (REACT_EXPORTS.has(className)) {
+//     console.error('Found existing export:', className); // would happen in BabylonJS added class with same name
+//     return;
+//   }
 
-  REACT_EXPORTS.add(className);
-  INTRINSIC_ELEMENTS.addProperty({
-    name: classToIntrinsic(className),
-    type
-  } as OptionalKind<PropertySignatureStructure>)
-}
+//   REACT_EXPORTS.add(className);
+//   INTRINSIC_ELEMENTS.addProperty({
+//     name: classToIntrinsic(className),
+//     type
+//   } as OptionalKind<PropertySignatureStructure>)
+// }
 
 const monkeyPatchInterfaces: Map<string, InterfaceDeclaration[]> = new Map<string, InterfaceDeclaration[]>();
 const enumMap: Map<string, string> = new Map<string, string>();
@@ -692,7 +692,7 @@ const getMethodType = (methodDeclaration: MethodDeclaration | MethodSignature, t
   params.forEach(param => {
     let type: string = createTypeFromText(param.getType().getText(), targetFiles);
 
-    const questionToken = param.hasQuestionToken ? '?' : ''
+    const questionToken = param.hasQuestionToken() ? '?' : ''
     const paramName: string | undefined = param.getName();
     paramTypes.push(`${paramName}${questionToken}: ${type}`)
   })
@@ -1430,27 +1430,22 @@ const generateCode = async () => {
       "checkTextureDiff",
       "checkVector3Diff",
     ]
-  })
+  });
 
   generatedCodeSourceFile.addImportDeclaration({
     moduleSpecifier: "./CreatedInstance",
     namedImports: [ReactReconcilerCreatedInstanceMetadata]
-  })
+  });
 
   generatedPropsSourceFile.addImportDeclaration({
     moduleSpecifier: "react",
     namedImports: ["Key", "ReactNode", "Ref"]
-  })
+  });
 
   generatedPropsSourceFile.addImportDeclaration({
     moduleSpecifier: './CreatedInstance',
     namedImports: ['CustomProps']
-  })
-
-  generatedPropsSourceFile.addImportDeclaration({
-    moduleSpecifier: './model',
-    namedImports: ['ModelProps']
-  })
+  });
 
   const mainTypeAlias = generatedPropsSourceFile.addTypeAlias({
     name: 'BabylonNode',
@@ -1474,25 +1469,25 @@ const generateCode = async () => {
       }]
     }),
     isExported: true
-  })
+  });
   mainTypeAlias.addTypeParameter({
     name: "T"
-  })
+  });
 
   const globalNamespace = generatedPropsSourceFile.addNamespace({
     name: "global",
     declarationKind: NamespaceDeclarationKind.Global,
     hasDeclareKeyword: true,
-  })
+  });
 
   const jsxNamespace = globalNamespace.addNamespace({
     name: 'JSX',
-  })
+  });
 
   INTRINSIC_ELEMENTS = jsxNamespace.addInterface({
     name: "IntrinsicElements",
+  });
 
-  })
   // This includes Node, which is base class for ie: Camera, Mesh, etc. (inheriting from Node would add new things like TextureDome)
   createClassesDerivedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("TransformNode")!, { isNode: true }, undefined);
   createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("AbstractMesh")!, () => ({isNode: true, acceptsMaterials: true, isMesh: true}));
@@ -1637,7 +1632,7 @@ const generateCode = async () => {
   }
 
   // add our own custom components - needed for TypeScript compatibility:
-  addCustomHostElement('Model', 'ModelProps & BabylonNode<BabylonjsCoreAbstractMesh>');
+  // addCustomHostElement('Model', 'ModelProps & BabylonNode<BabylonjsCoreAbstractMesh>');
 
   addReactExports(generatedCodeSourceFile);
 

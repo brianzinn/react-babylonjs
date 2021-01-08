@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { Engine, Scene, useBabylonScene } from '../../../dist/react-babylonjs'
+import { Engine, Scene, useScene } from '../../../dist/react-babylonjs'
 import { Mesh, VertexData, Vector3 } from '@babylonjs/core';
 import '../../style.css'
 
 export default { title: 'Babylon Basic' };
 
 const CustomMesh = (props) => {
-  const scene = useBabylonScene();
+  const scene = useScene();
 
   const [customMesh] = useState(() => {
     const meshInstance = new Mesh(props.name, scene);

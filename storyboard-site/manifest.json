@@ -1,6 +1,6 @@
 {
-  "short_name": "react-babylonjs storyboard",
-  "name": "React BabylonJS Storyboard examples",
+  "short_name": "react-babylonjs examples",
+  "name": "react-babylonjs examples",
   "icons": [
     {
       "src": "favicon.ico",

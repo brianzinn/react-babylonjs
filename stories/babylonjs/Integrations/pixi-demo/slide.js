@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react"
 import { Effect, Vector3, Mesh, Texture, Color3, ShaderMaterial } from '@babylonjs/core';
 import { Control } from '@babylonjs/gui'
-import { useBabylonScene } from '../../../../dist/react-babylonjs'
+import { useScene } from '../../../../dist/react-babylonjs'
 import  './shaders'; 
 import lerp from "lerp"
 import { Block, useBlock } from "./block"
@@ -13,14 +13,14 @@ let time = 0;
 function CustomPlaneBlock(props){
   const {keyText, index, scaling, image} = props;
   const {  contentMaxWidth: w, viewportHeight, offsetFactor } = useBlock()
-  const scene = useBabylonScene();
+  const scene = useScene();
   const planeRef = useRef(undefined)
   let last = state.top.current;
   useEffect(() => {
     const observable = scene.onBeforeRenderObservable.add((scene) => {
       if (scene !== null && planeRef !== null) {
         time += scene.getEngine().getDeltaTime();
-        const shMat = planeRef.current.hostInstance.material 
+        const shMat = planeRef.current.material 
         shMat.setFloat("time", time);
         const { pages, top } = state;
         shMat.setFloat("scale", lerp(shMat._floats.scale, offsetFactor - top.current / ((pages - 1) * viewportHeight), 0.1));

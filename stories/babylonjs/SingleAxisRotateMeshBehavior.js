@@ -1,47 +1,39 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { HostWithEvents, withBabylonJS }  from '../../dist/react-babylonjs'
+import React, { useEffect, useRef } from 'react'
+import { HostWithEvents, useScene }  from '../../dist/react-babylonjs'
 import { Axis } from '@babylonjs/core/Maths/math'
 
-class SingleAxisRotateMeshBehavior extends Component {
-  componentWillUnmount () {
-    this.scene.onBeforeRenderObservable.remove(this.handler)
-  }
+const SingleAxisRotateMeshBehavior = props => {
+  const { rpm, axis} = props;
+  const scene = useScene();
+  const observableHandler = useRef();
+  useEffect(() => {
+    return (() => {
+      console.log('removing observer');
+      scene.onBeforeRenderObservable.remove(observableHandler.current);
+    })
+  }, []);
 
-  render () {
-    return (<HostWithEvents {...this.props} onParented={(scene, engine, parent) => {
-      this.scene = scene
-      this.handler = scene.onBeforeRenderObservable.add(() => {
-        // TODO: if parent.hostInstance.rotationQuaternion then .rotate(xxx, axis)
-        switch (this.props.axis) {
-          case Axis.X:
-            this.rotationProperty = 'x'
-            break
-          case Axis.Z:
-            this.rotationProperty = 'z'
-            break
-          default:
-            this.rotationProperty = 'y'
-            break
-        }
-        let deltaTimeInMillis = engine.getDeltaTime()
-        parent.hostInstance.rotation[this.rotationProperty] += ((this.props.rpm / 60) * Math.PI * 2 * (deltaTimeInMillis / 1000))
-      })
-    }
-
-    } />)
-  }
+  return (<HostWithEvents {...props} onParented={(scene, engine, parent) => {
+    observableHandler.current = scene.onBeforeRenderObservable.add(() => {
+      // TODO: if parent.rotationQuaternion then .rotate(xxx, axis)
+      let rotationProperty;
+      switch (axis) {
+        case Axis.X:
+          rotationProperty = 'x'
+          break
+        case Axis.Z:
+          rotationProperty = 'z'
+          break
+        default:
+          rotationProperty = 'y'
+          break
+      }
+      let deltaTimeInMillis = engine.getDeltaTime();
+      // using HostWithEvents exposes you to the internal state of what is on the Fiber.  hostInstance is the public instance (Babylon object).
+      parent.hostInstance.rotation[rotationProperty] += ((rpm / 60) * Math.PI * 2 * (deltaTimeInMillis / 1000))
+    })
+  }}
+  />)
 }
 
-// Specifies the default values for props:
-SingleAxisRotateMeshBehavior.defaultProps = {
-  rpm: 1,
-  axis: Axis.Y
-}
-
-SingleAxisRotateMeshBehavior.propTypes = {
-  rpm: PropTypes.number,
-  axis: PropTypes.object
-}
-
-export default withBabylonJS(SingleAxisRotateMeshBehavior)
+export default SingleAxisRotateMeshBehavior;

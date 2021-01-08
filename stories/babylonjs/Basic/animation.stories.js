@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import { Vector3, Animation } from '@babylonjs/core';
-import { Engine, Scene, useBabylonScene } from '../../../dist/react-babylonjs'
+import { Engine, Scene, useScene } from '../../../dist/react-babylonjs'
 import '../../style.css';
 
 export default { title: 'Babylon Basic' };
@@ -13,13 +13,13 @@ function WithAnimation() {
   // console.time('Timing');
 
   const groupRef = useRef(null);
-  const scene = useBabylonScene();
+  const scene = useScene();
 
   const position = Vector3.Zero();
 
   const playAnimation = () => {
     if (groupRef.current) {
-      const group = groupRef.current.hostInstance;
+      const group = groupRef.current;
       const animations = getSlideUpAnimation(position, -2);
       const animatable = scene.beginDirectAnimation(group, animations, 0, 120, true);
       // console.timeLog('Timing', 'beginAnimation');

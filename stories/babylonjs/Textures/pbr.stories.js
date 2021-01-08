@@ -23,13 +23,14 @@ const WithPBR = () => {
     const [_, setTexturesLoaded] = useState(false);
 
     const hdrTextureRef = useCallback(node => {
-        console.log('hdrTexture', node.hostInstance)
-        hdrTexture = node.hostInstance;
+      if (node) {
+        setTexturesLoaded(true); // trigger render and props assignment
+        console.log('hdrTexture', node)
+        hdrTexture = node;
 
         hdrTextureClone = hdrTexture.clone();
         hdrTextureClone.coordinatesMode = Texture.SKYBOX_MODE;
-
-        setTexturesLoaded(true); // trigger render and props assignment
+      }
     }, []);
 
     return (

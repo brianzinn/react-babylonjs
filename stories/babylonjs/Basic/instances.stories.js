@@ -20,7 +20,7 @@ export const Instances = () => {
     const [hexMesh, setHexMesh] = useState(null);
     const hexRef = useCallback((node) => {
       if (node) {
-        const mesh = node.hostInstance;
+        const mesh = node;
         mesh.registerInstancedBuffer("color", 4);
         setHexMesh(mesh);
       }
