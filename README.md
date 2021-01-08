@@ -17,8 +17,9 @@ OR
 $ yarn add react-babylonjs @babylonjs/core @babylonjs/gui
 ```
 
-- The only external dependency is `react-reconciler`
-- `react-babylonjs` v2+ uses the above *ES6* packages. If you are using the legacy babylonjs NPMs they will work with v1.
+*No third party dependencies outside of React + babylon.js*
+
+If you are using 3D models, include `@babylonjs/loaders` and ensure it is registered.
 
 # Usage Styles
 `react-babylonjs` tries to remain unopinionated about how you integrate BabylonJS with React.  This module provides a 100% declarative option and/or you can customise by adding code.  There are lots of escape hatches where you can switch to imperative coding and direct access to objects.
