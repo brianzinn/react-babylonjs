@@ -1,7 +1,7 @@
-# React BabylonJS
-> *'react-babylonjs'* integrates the BabylonJS real time 3D engine with React
+# react-babylonjs
+> *'react-babylonjs'* integrates the Babylon.js real time 3D engine with React
 
-`react-babylonjs` lets you build your scene and components using a familiar declarative structure with the benefits you are used to like reusable components and hooks.  Under the hood it's a React renderer providing declarative bindings for the Fiber `react-reconciler`.  Babylon's API is mostly covered thanks to code generation, but also custom props allow you to declaratively add shadows, physics, attach 2D/3D UI to meshes, 3D models, etc.
+`react-babylonjs` lets you build your scene and components using a familiar declarative syntax with the benefits of reusable components and hooks.  The Babylon.js API is mostly covered thanks to code generation, but also custom props allow you to declaratively add shadows, physics, attach 2D/3D UI to meshes, 3D models, etc.
 
 Fully supports hooks.  Full support for TypeScript with auto-completion on elements and compile time checks.  Context API provides access to Scene/Engine/Canvas without prop drilling.
 
@@ -10,24 +10,18 @@ Fully supports hooks.  Full support for TypeScript with auto-completion on eleme
 
 ## How to Install
 ```sh
-$ cd <your-project-dir>
 $ npm i react-babylonjs @babylonjs/core @babylonjs/gui
 ```
 OR
 ```sh
-$ cd <your-project-dir>
 $ yarn add react-babylonjs @babylonjs/core @babylonjs/gui
 ```
 
-`react-babylonjs` *v2+* uses the **ES6** `@babylonjs/*` NPMs
+- The only external dependency is `react-reconciler`
+- `react-babylonjs` v2+ uses the above *ES6* packages. If you are using the legacy babylonjs NPMs they will work with v1.
 
 # Usage Styles
-`react-babylonjs` tries to remain unopinionated about how you integrate BabylonJS with React.  This module provides a 100% declarative option and/or you can customise by adding code.
-
-## 100% Declarative add BabylonJS to your project with **zero** code!
-With declarative (TSX/JSX) coding and HMR, you experience the same development workflow - ie: save changes in your editor and see them immediately in the browser.  Note in this capture when the light is dimmed that the state changes persist even **after** HMR updates
-
-![BabylonJS HMR](https://raw.githubusercontent.com/brianzinn/react-babylonjs/master/media/react-babylonjs-hmr.gif)
+`react-babylonjs` tries to remain unopinionated about how you integrate BabylonJS with React.  This module provides a 100% declarative option and/or you can customise by adding code.  There are lots of escape hatches where you can switch to imperative coding and direct access to objects.
 
 ## Connecting all together.
 Here we re-use a `MovingBox` component that can be clicked or hovered.  These reusable components can be used to compose a delcarative scene just like regular React development.
@@ -41,7 +35,7 @@ const DefaultScale = new Vector3(1, 1, 1);
 const BiggerScale = new Vector3(1.25, 1.25, 1.25);
 
 const MovingBox = (props) => {
-  // reference Babylon scene objects with same syntax as DOM elements
+  // access Babylon scene objects with same React hook as regular DOM elements
   const boxRef = useRef(null);
 
   const [clicked, setClicked] = useState(false);
@@ -73,7 +67,7 @@ const MovingBox = (props) => {
 }
 
 export const SceneWithMovingBoxes = () => (
-  <div style={{ flex: 1, display: 'flex' }}>
+  <div>
     <Engine antialias adaptToDeviceRatio canvasId='babylonJS' >
       <Scene>
         <arcRotateCamera name="camera1" target={Vector3.Zero()} alpha={Math.PI / 2} beta={Math.PI / 4} radius={8} />
@@ -151,14 +145,20 @@ const App: React.FC = () => {
 }
 ```
 
+## Developer Experience and Fast Refresh
+With declarative (TSX/JSX) coding and fast refresh, you experience the same development workflow in 3D - ie: save changes in your editor and see them immediately in the browser.  Note in this capture when the light is dimmed that the state changes persist even **after** code updates and scene refresh.
+
+![BabylonJS HMR](https://raw.githubusercontent.com/brianzinn/react-babylonjs/master/media/react-babylonjs-hmr.gif)
+
+
 ## API
 This project uses code generation, which allows fast reconciliation and excellent typings support.
-> [Babylon.js API](docs/api.md)
+> [react-babylonjs API](docs/api.md)
 
 ## Release History and changes
-> [Generated from commits](docs/CHANGELOG.md)
+> [Changes and commit history](changes.md)
 ## Example Projects
-* The storybook pages for this project have the source code embedded in the page.
+* The storybook pages for this project have the source code embedded in the page and are on [github pages](https://brianzinn.github.io/react-babylonjs/).
 * [Create React App (JavaScript)](https://github.com/brianzinn/create-react-app-babylonjs) CRA JavaScript implementation.  GH Pages has examples of typical and declarative usage some with Redux.
 * [Create React App (TypeScript)](https://github.com/brianzinn/create-react-app-typescript-babylonjs) CRA 3 TypeScript.
 
@@ -168,7 +168,7 @@ Huge shout out to [Konsumer](https://github.com/konsumer) that brought this proj
 
 Thanks to [seacloud9](https://github.com/seacloud9) for adding storybook (and [GSAP demo](https://brianzinn.github.io/react-babylonjs/?path=/story/integrations--gsap-timeline)).  Also for adding [dynamic terrain](https://brianzinn.github.io/react-babylonjs/?path=/story/babylon-basic--dynamic-terrain).  Ported a branch of his into a [PIXI demo](https://brianzinn.github.io/react-babylonjs/?path=/story/integrations--pixi-story).
 
-Lots of contributions from [hookex](https://github.com/hookex) :)  Proper texture handling [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/textures--image-texture), Node parenting [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/babylon-basic--transform-node) Full Screen GUI [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/gui--gui-full-screen), Effect Layers [glow demo](https://brianzinn.github.io/react-babylonjs/?path=/story/special-fx--glow-layer), behaviors [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/behaviors--pointer-drag-behavior), useHover & useClick [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/hooks--use-hover-event) and react-spring integration [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/integrations--react-spring).
+Lots of incredible contributions from [hookex](https://github.com/hookex) :)  Proper texture handling [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/textures--image-texture), Node parenting [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/babylon-basic--transform-node) Full Screen GUI [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/gui--gui-full-screen), Effect Layers [glow demo](https://brianzinn.github.io/react-babylonjs/?path=/story/special-fx--glow-layer), behaviors [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/behaviors--pointer-drag-behavior), useHover & useClick [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/hooks--use-hover-event) and react-spring integration [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/integrations--react-spring).
 
 [dennemark](https://github.com/dennemark) added Cascaded  Shadow Generator
 
