@@ -1,5 +1,20 @@
 # Changelog
 
+## v3.0.1-rc.0 (07/01/2021)
+- [V3 (#108)](https://github.com/brianzinn/react-babylonjs/commit/58ce0197c4bdc2ee3d79ccd618ff9924d54cb832) - @brianzinn
+- [upgrading the pixiJS demo adding a slider effect like https://tympanus.net/codrops/2019/12/16/scroll-refraction-and-shader-effects-in-three-js-and-react/](https://github.com/brianzinn/react-babylonjs/commit/8514af6a3db41f419782c7b7cbd91bc32de64ccb) - undefined
+
+---
+
+## v2.3.2 (24/11/2020)
+- [add fromInstance and source to props (#102)](https://github.com/brianzinn/react-babylonjs/commit/2e578de1bb4c46605af6ffbee5ad7e4ba4667f0b) - @nturley
+- [allow storybook to run](https://github.com/brianzinn/react-babylonjs/commit/877ab8dd02e8edc0a32d0e9229a71871f0c536f8) - @brianzinn
+- [add scene switch example](https://github.com/brianzinn/react-babylonjs/commit/0446d6b660c255031ed72a39eaefd862db2912a7) - @brianzinn
+- [add basic changelog support #96](https://github.com/brianzinn/react-babylonjs/commit/f98d8927fbfb2ff348fb7dbf3e5d9f101e00b597) - @brianzinn
+- [try entity escape for tag annotation](https://github.com/brianzinn/react-babylonjs/commit/16caa158d236f746c4ecf069022136ff3f7ce305) - @brianzinn
+
+---
+
 ## v2.3.1 (11/11/2020)
 - [fix textures (broke when adding ThinTexture - new in 4.2).](https://github.com/brianzinn/react-babylonjs/commit/c2e5651015bd3a548ac3db0be3a37f28f88542f9) - @brianzinn
 
