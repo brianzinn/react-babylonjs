@@ -1,123 +1,116 @@
-import React, { Component} from 'react';
+import React, { Suspense, useRef, useContext, useMemo } from 'react';
 import '@babylonjs/inspector';
 
 import { Vector3, Color3 } from '@babylonjs/core';
 import { ActionManager, SetValueAction } from '@babylonjs/core/Actions';
 
-import { Engine, Scene } from '../../../dist/react-babylonjs';
+import { Engine, Scene, useAssetManager, TaskType, useBeforeRender, AssetManagerContext, AssetManagerContextProvider } from '../../../dist/react-babylonjs';
 
-import ScaledModelWithProgress from '../ScaledModelWithProgress';
+import { Vector3 } from '@babylonjs/core';
 
-// import '../../style.css';
+import '../../style.css';
 
 export default { title: 'Models' };
 
-class WithModel extends Component {
-  constructor () {
-    super()
+const baseUrl = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/'
 
-    this.state = {
-      avocadoYPos: -1.5,
-      avocadoScaling: 3.0
+const modelAssetTasks = [
+  { taskType: TaskType.Mesh, rootUrl: `${baseUrl}BoomBox/glTF/`, sceneFilename: 'BoomBox.gltf', name: 'boombox' },
+  { taskType: TaskType.Mesh, rootUrl: `${baseUrl}Avocado/glTF/`, sceneFilename: 'Avocado.gltf', name: 'avocado' }
+];
+
+const MyFallback = () => {
+  const boxRef = useRef();
+  const context = useContext(AssetManagerContext);
+  console.log('context in fallback:', context);
+
+  useBeforeRender((scene) => {
+    if (boxRef.current) {
+      var deltaTimeInMillis = scene.getEngine().getDeltaTime();
+
+      const rpm = 10;
+      boxRef.current.hostInstance.rotation.x = Math.PI / 4;
+      boxRef.current.hostInstance.rotation.y += ((rpm / 60) * Math.PI * 2 * (deltaTimeInMillis / 1000));
     }
+  })
 
-    this.moveAvocadoUp = this.moveAvocadoUp.bind(this)
-    this.moveAvocadoDown = this.moveAvocadoDown.bind(this)
-    this.increaseAvocadoSize = this.increaseAvocadoSize.bind(this)
-    this.decreaseAvocadoSize = this.decreaseAvocadoSize.bind(this)
-    this.onModelLoaded = this.onModelLoaded.bind(this)
-  }
+  const eventData = context?.lastProgress?.eventData;
 
-  moveAvocadoDown () {
-    this.setState((state) => ({
-      ...state,
-      avocadoYPos: state.avocadoYPos - 0.5
-    }))
-  }
+  return <>
+    <adtFullscreenUi name='ui'>
+        <rectangle name="rect" height='50px' width='150px'>
+          <rectangle>
+            {eventData !== undefined &&
+              <textBlock text={`${eventData.totalCount-eventData.remainingCount}/${eventData.totalCount}`} fontStyle="bold" fontSize={20} color="white"/>
+            }
+            {eventData === undefined &&
+              <textBlock text='0/2' fontStyle="bold" fontSize={20} color="white"/>
+            }
+          </rectangle>
+        </rectangle>
+    </adtFullscreenUi>
+    <box ref={boxRef} name='fallback' size={2} />
+    </>
+}
 
-  moveAvocadoUp () {
-    this.setState((state) => ({
-      ...state,
-      avocadoYPos: state.avocadoYPos + 0.5
-    }))
-  }
+const MyModels = () => {
+  const [result] = useAssetManager(modelAssetTasks);
 
-  increaseAvocadoSize () {
-    this.setState((state) => ({
-      ...state,
-      avocadoScaling: state.avocadoScaling + 0.1
-    }))
-  }
+  useMemo(() => {
+    console.log('Loaded Tasks', result);
+    const boomboxTask = result.map['boombox'];
+    boomboxTask.loadedMeshes[0].position = new Vector3(2.5, 0, 0);
+    boomboxTask.loadedMeshes[1].scaling = new Vector3(20, 20, 20);
 
-  decreaseAvocadoSize () {
-    this.setState((state) => ({
-      ...state,
-      avocadoScaling: state.avocadoScaling - 0.1
-    }))
-  }
+    const avocadoTask = result.map['avocado'];
+    avocadoTask.loadedMeshes[0].position = new Vector3(-2.5, 0, 0);
+    avocadoTask.loadedMeshes[1].scaling = new Vector3(20, 20, 20);
+  });
 
-  onModelLoaded  = (model, sceneContext) => {
-    let mesh = model.meshes[1]
-    mesh.actionManager = new ActionManager(sceneContext.scene)
-    mesh.actionManager.registerAction(
-      new SetValueAction(
-        ActionManager.OnPointerOverTrigger,
-        mesh.material,
-        'wireframe',
-        true
-      )
-    )
-    mesh.actionManager.registerAction(
-      new SetValueAction(
-        ActionManager.OnPointerOutTrigger,
-        mesh.material,
-        'wireframe',
-        false
-      )
-    )
-  }
+  return null;
+}
 
-  render () {
-    let baseUrl = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/'
-    return (
-      <Engine antialias adaptToDeviceRatio canvasId='babylonJS'>
-        <Scene>
-          <arcRotateCamera name='camera1' alpha={Math.PI / 2} beta={Math.PI / 2} radius={9.0} target={Vector3.Zero()} minZ={0.001} />
-          <hemisphericLight name='light1' intensity={0.7} direction={Vector3.Up()} />
+const MyScene = () => {
+
+  return (
+    <Engine antialias adaptToDeviceRatio canvasId='babylonJS'>
+      <Scene>
+        <arcRotateCamera name='camera1' alpha={Math.PI / 2} beta={Math.PI / 2} radius={9.0} target={Vector3.Zero()} minZ={0.001} />
+        <hemisphericLight name='light1' intensity={0.7} direction={Vector3.Up()} />
 
           <ScaledModelWithProgress rootUrl={`${baseUrl}BoomBox/glTF/`} sceneFilename='BoomBox.gltf' scaleTo={3}
             progressBarColor={Color3.FromInts(255, 165, 0)} center={new Vector3(2.5, 0, 0)}
             onModelLoaded={this.onModelLoaded}
-          />
+        <AssetManagerContextProvider>
 
-          {/*<React.Suspense fallback={<box />}>
+          <Suspense fallback={<MyFallback />}>
               <Model rootUrl={`${baseUrl}Avocado/glTF/`} sceneFilename='Avocado.gltf' />
-          </React.Suspense>
+            <MyModels />
           */}
 
           {/* <SceneLoaderContextProvider>
             <Suspense fallback= {<ProgressFallback progressBarColor={Color3.FromInts(255, 165, 0)} center={new Vector3(2.5, 0, 0)} rotation={Vector3.Zero()} scaleTo={3} />}>
                 <ScaledModelWithProgress position={sceneLoaderPosition} rootUrl={`${baseUrl}Avocado/glTF/`} sceneFilename='Avocado.gltf' />
-            </Suspense>
-          </SceneLoaderContextProvider> */}
+          </Suspense>
+        </AssetManagerContextProvider>
 
           {/* <ScaledModelWithProgress rootUrl={`${baseUrl}Avocado/glTF/`} sceneFilename='Avocado.gltf'
             scaleTo={this.state.avocadoScaling}
             progressBarColor={Color3.FromInts(255, 165, 0)}
             center={new Vector3(-2.5, this.state.avocadoYPos, 0)}
           /> */}
-        </Scene>
-      </Engine>
-    )
+      </Scene>
+    </Engine>
+  )
   }
 }
 
-export const ModelStory = () => (
+export const ModelLoaderStory = () => (
   <div style={{ flex: 1, display: 'flex' }}>
-    <WithModel />
+    <MyScene />
   </div>
 )
 
-ModelStory.story = {
-  name: '3D-Model'
+ModelLoaderStory.story = {
+  name: 'Asset Manager'
 }

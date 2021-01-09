@@ -23,13 +23,12 @@ If you are using 3D models, include `@babylonjs/loaders` and ensure it is regist
 
 # Usage Styles
 `react-babylonjs` tries to remain unopinionated about how you integrate BabylonJS with React.  This module provides a 100% declarative option and/or you can customise by adding code.  There are lots of escape hatches where you can switch to imperative coding and direct access to objects.
-
-![Connecting the pieces](https://raw.githubusercontent.com/brianzinn/react-babylonjs/master/media/react-babylonjs-boxes.gif)
 ## Connecting the pieces
 If you are new to React or babylon.js (or both) there is some learning ahead.  The babylon.js documentation site is really useful for understanding the basics of lighting, cameras, etc.  This project aims to make easy to integrate those into React using JSX.
 
-Here we re-use a `MovingBox` component that can be clicked or hovered.  These reusable components can be used to compose a declarative scene just like regular React development.
+Here we re-use a `SpinningBox` component that can be clicked or hovered.  These reusable components can be used to compose a declarative scene.  We are using hooks for the clicking, hovering and spinning.
 
+![Connecting the pieces](https://raw.githubusercontent.com/brianzinn/react-babylonjs/master/media/react-babylonjs-boxes.gif)
 ```jsx
 import React, { useRef, useState } from 'react'
 import { Engine, Scene, useBeforeRender, useClick, useHover } from 'react-babylonjs'
@@ -38,7 +37,7 @@ import { Vector3, Color3 } from '@babylonjs/core'
 const DefaultScale = new Vector3(1, 1, 1);
 const BiggerScale = new Vector3(1.25, 1.25, 1.25);
 
-const MovingBox = (props) => {
+const SpinningBox = (props) => {
   // access Babylon scene objects with same React hook as regular DOM elements
   const boxRef = useRef(null);
 
@@ -70,14 +69,18 @@ const MovingBox = (props) => {
   </box>);
 }
 
-export const SceneWithMovingBoxes = () => (
+export const SceneWithSpinningBoxes = () => (
   <div>
     <Engine antialias adaptToDeviceRatio canvasId='babylonJS' >
       <Scene>
         <arcRotateCamera name="camera1" target={Vector3.Zero()} alpha={Math.PI / 2} beta={Math.PI / 4} radius={8} />
         <hemisphericLight name='light1' intensity={0.7} direction={Vector3.Up()} />
-        <MovingBox name='left' color={Color3.FromHexString('#EEB5EB')} hoveredColor={Color3.FromHexString('#C26DBC')} position={new Vector3(-2, 0, 0)} />
-        <MovingBox name='right' color={Color3.FromHexString('#C8F4F9')} hoveredColor={Color3.FromHexString('#3CACAE')} position={new Vector3(2, 0, 0)} />
+        <SpinningBox name='left' position={new Vector3(-2, 0, 0)}
+          color={Color3.FromHexString('#EEB5EB')} hoveredColor={Color3.FromHexString('#C26DBC')}
+        />
+        <SpinningBox name='right' position={new Vector3(2, 0, 0)}
+          color={Color3.FromHexString('#C8F4F9')} hoveredColor={Color3.FromHexString('#3CACAE')}
+        />
       </Scene>
     </Engine>
   </div>

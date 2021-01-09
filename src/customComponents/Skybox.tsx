@@ -8,8 +8,8 @@ interface SkyboxProps {
 }
 
 const Skybox: React.FC<SkyboxProps> = (props: SkyboxProps) => 
-   <box name={name !== undefined ? `skybox-${name}` : 'skybox'} size={props.size ?? 100} infiniteDistance={true} renderingGroupId={0}>
-     <standardMaterial name={name !== undefined ? `skybox-material-${name}` : 'skybox-material'} backFaceCulling={false} disableLighting={true}>
+   <box name={props.name ? `skybox-${props.name}` : 'skybox'} size={props.size ?? 100} infiniteDistance={true} renderingGroupId={0}>
+     <standardMaterial name={props.name ? `skybox-material-${props.name}` : 'skybox-material'} backFaceCulling={false} disableLighting={true}>
        <cubeTexture key={`cube-texture-${props.rootUrl}`} rootUrl={props.rootUrl} coordinatesMode={Texture.SKYBOX_MODE} assignTo={'reflectionTexture'} />
      </standardMaterial>
    </box>

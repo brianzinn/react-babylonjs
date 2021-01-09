@@ -53,7 +53,7 @@ class WithModel extends Component {
 
   onModelLoaded  = (model, sceneContext) => {
     let mesh = model.meshes[1]
-    mesh.actionManager = new ActionManager(sceneContext.scene)
+    mesh.actionManager = new ActionManager(mesh._scene)
     mesh.actionManager.registerAction(
       new SetValueAction(
         ActionManager.OnPointerOverTrigger,

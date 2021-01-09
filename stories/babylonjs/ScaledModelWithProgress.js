@@ -1,41 +1,7 @@
-import React, { Suspense, useContext, useEffect, useRef } from 'react'
+import React, { Suspense, useContext } from 'react'
 import { Vector3, Matrix, Color3 } from '@babylonjs/core/Maths/math'
 
-import { useSceneLoader, useScene, SceneLoaderContextProvider, SceneLoaderContext, SceneContext } from '../../dist/react-babylonjs';
-
-// try with later versions of RHL to get hooks working here:
-// const [loadProgress, updateProgress] = useState(0)
-const MyModel = (props) => {
-
-  const sceneLoaderResults = useSceneLoader(props.rootUrl, props.sceneFilename, undefined, {
-    scaleToDimension: props.scaleTo,
-    reportProgress: true
-  })
-
-  const scene = useScene();
-  const modelLoaded = useRef(false);
-  if (props.onModelLoaded && !modelLoaded.current) {
-      modelLoaded.current = true;
-      props.onModelLoaded(sceneLoaderResults, { scene });
-  }
-
-  if (props.position) {
-    sceneLoaderResults.rootMesh.position = props.position;
-  }
-
-  if (props.rotation) {
-    sceneLoaderResults.rootMesh.rotation = props.rotation;
-  }
-
-  useEffect(() => {
-    return () => {
-      console.log('disposing the sceneloader results.')
-      sceneLoaderResults.dispose();
-    }
-  }, []);
-
-  return null;
-}
+import { Model, SceneLoaderContextProvider, SceneLoaderContext } from '../../dist/react-babylonjs';
 
 const ProgressFallback = (props) => {
   const sceneLoaderContext = useContext(SceneLoaderContext);
@@ -67,7 +33,7 @@ const ScaledModelWithProgress = (props) => {
   return (
     <SceneLoaderContextProvider>
       <Suspense fallback= {<ProgressFallback progressBarColor={props.progressBarColor} rotation={props.progressRotation ?? props.modelRotation} center={props.center} scaleTo={props.scaleTo} />}>
-          <MyModel position={props.center} rootUrl={props.rootUrl} sceneFilename={props.sceneFilename} scaleTo={props.scaleTo} rotation={props.modelRotation} onModelLoaded={props.onModelLoaded} />
+          <Model reportProgress position={props.center} rootUrl={props.rootUrl} sceneFilename={props.sceneFilename} scaleToDimension={props.scaleTo} rotation={props.modelRotation} onModelLoaded={props.onModelLoaded} />
       </Suspense>
     </SceneLoaderContextProvider>
   )
