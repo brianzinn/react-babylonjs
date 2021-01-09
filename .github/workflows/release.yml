@@ -35,8 +35,13 @@ jobs:
         run: |
           yarn install
           yarn build
-      - run: npm version ${{ github.event.inputs.npmVersion }} -m "release %s :package:&#x20;${{ github.event.inputs.comment }}"
-      - run: git push && git push --tags
+      - name: version, update changelog and commit
+      - run: npm version ${{ github.event.inputs.npmVersion }} -m "release %s :package:-${{ github.event.inputs.comment }}"
+      - run: |
+          npm run generate-changelog
+          git reset --soft HEAD^
+          git commit --all --amend --no-edit 
+          git push && git push --tags
       - name: publish-npm
         run: npm publish --access public
         env:
