@@ -25,8 +25,9 @@ class WithGSAP extends Component {
     }
 
 
-    onModelLoaded = (model, {scene}) => {
+    onModelLoaded = (model) => {
         model.meshes.map((mesh, index) => {
+        const scene = mesh._scene;
         let material = new StandardMaterial("kosh", scene);
         material.reflectionTexture = new CubeTexture("assets/textures/TropicalSunnyDay", scene);
         material.diffuseColor = new Color3(0, 0, 0);

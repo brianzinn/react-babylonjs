@@ -24,7 +24,9 @@ export interface InstanceMetadataParameter {
 }
 
 /**
- * Props passed from controls that are not part of generated props and we are handling ourselves
+ * Props passed from controls that are not part of generated props and we are handling ourselves.
+ * 
+ * TODO: move props that only apply to specific objects to be only for those ones (ie: defaultKeyboard, shadowCasters, etc.)
  */
 export type CustomProps = {
   /**
@@ -73,6 +75,12 @@ export type CustomProps = {
    * allows components to use instances of objects created non-declaratively
    */
   fromInstance?: any
+  /**
+   * To automatically dispose of the underlying object when "fromInstance" is used.  Is not applied for regularly instanced objects.
+   * 
+   * Default: false
+   */
+  disposeInstanceOnUnmount?: boolean
   /**
    * for instancedMesh
    */

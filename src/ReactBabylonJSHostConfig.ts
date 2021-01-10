@@ -98,7 +98,7 @@ function removeChild(parentInstance: CreatedInstance<any>, child: CreatedInstanc
       removeRecursive(child.children, child);
     }
 
-    if (child.hostInstance && typeof child.hostInstance.dispose === "function") {
+    if (child.hostInstance  && child.customProps.disposeInstanceOnUnmount && typeof child.hostInstance.dispose === "function") {
       hostInstance.dispose() // TODO: Consider adding metadata/descriptors as some dispose methods have optional args.
     }
 
@@ -305,12 +305,15 @@ const ReactBabylonJSHostConfig: HostConfig<
     let generatedParameters: GeneratedParameter[] = createInfoArgs.parameters
     let babylonObject: any | undefined = undefined
 
+    let disposeInstanceOnUnmount = true;
+
     if (props.fromInstance !== undefined) {
       if(createInfoArgs.namespace.startsWith('@babylonjs/')) {
         const clazz: any = GENERATED.babylonClassFactory(type);
         // instanceof will check prototype and derived classes (ie: can assign Mesh instance to a Node)
         if (props.fromInstance instanceof clazz) {
           babylonObject = props.fromInstance;
+          disposeInstanceOnUnmount = props.disposeInstanceOnUnmount === true;
         } else {
           // prevent assigning incorrect type.
           console.error('fromInstance wrong type.', props.fromInstance, clazz);
@@ -396,7 +399,8 @@ const ReactBabylonJSHostConfig: HostConfig<
       shadowCasters: props.shadowCasters,
       shadowCastersExcluding: props.shadowCastersExcluding,
       attachToMeshesByName: props.attachToMeshesByName, // for materials - otherwise will attach to first parent that accepts materials
-      assignTo: props.assignTo // here a lifecycle listener can dynamically attach to another property (ie: Mesh to DynamicTerrain -> 'mesh.material')
+      assignTo: props.assignTo, // here a lifecycle listener can dynamically attach to another property (ie: Mesh to DynamicTerrain -> 'mesh.material')
+      disposeInstanceOnUnmount
     }
 
     // Consider these being dynamically attached to a list, much like PropsHandlers<T>

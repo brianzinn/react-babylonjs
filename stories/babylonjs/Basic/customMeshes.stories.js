@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Engine, Scene, useScene } from '../../../dist/react-babylonjs'
 import { Mesh, VertexData, Vector3 } from '@babylonjs/core';
 import '../../style.css'
@@ -34,36 +34,43 @@ const CustomMesh = (props) => {
     return meshInstance;
   })
 
-  useEffect(() => {
-    return () => {
-      customMesh.dispose();
-    }
-  }, [])
-
   return (
-      <mesh fromInstance={customMesh} position={props.position}>
+      <mesh fromInstance={customMesh} disposeInstanceOnUnmount position={props.position}>
         <standardMaterial name={`${props.name}-mat`} wireframe={props.useWireframe} />
       </mesh>
   )
 }
 
-export const CustomMeshes = () => (
-  <div style={{ flex: 1, display: 'flex' }}>
-    <Engine antialias adaptToDeviceRatio canvasId='babylonJS' >
-      <Scene>
-      <arcRotateCamera
-          name="camera1"
-          target={Vector3.Zero()}
-          alpha={Math.PI / 2}
-          beta={Math.PI / 2}
-          radius={20}
-        />
-        <hemisphericLight name='light1' intensity={0.7} direction={Vector3.Up()} />
+export const CustomMeshes = () => {
+  const [displayLast, setDisplayLast] = useState(true);
+  const toggleDisplay = () => {
+    setDisplayLast(cur => !cur);
+  };
+  return (
+    <>
+      <div>
+        <button onClick={toggleDisplay}>Toggle Top Triangle Visibility</button>
+      </div>
+      <div style={{ flex: 1, display: 'flex' }}>
+        <Engine antialias adaptToDeviceRatio canvasId='babylonJS' >
+          <Scene>
+          <arcRotateCamera
+              name="camera1"
+              target={Vector3.Zero()}
+              alpha={Math.PI / 2}
+              beta={Math.PI / 2}
+              radius={20}
+            />
+            <hemisphericLight name='light1' intensity={0.7} direction={Vector3.Up()} />
 
-        <CustomMesh name='custom-0' position={new Vector3(0, 0, 0)} useWireframe={false} />
-        <CustomMesh name='custom-2' position={new Vector3(0, 2, 0)} useWireframe={true} />
-        <CustomMesh name='custom-4' position={new Vector3(0, 4, 0)} useWireframe={false} />
-      </Scene>
-    </Engine>
-  </div>
-)
+            <CustomMesh name='custom-0' position={new Vector3(0, 0, 0)} useWireframe={false} />
+            <CustomMesh name='custom-2' position={new Vector3(0, 2, 0)} useWireframe={true} />
+            { displayLast &&
+              <CustomMesh name='custom-4' position={new Vector3(0, 4, 0)} useWireframe={false} />
+            }
+          </Scene>
+        </Engine>
+      </div>
+    </>
+  )
+}

@@ -1,12 +1,8 @@
 import React, { Suspense, useRef, useContext, useMemo } from 'react';
 import '@babylonjs/inspector';
 
-import { Vector3, Color3 } from '@babylonjs/core';
-import { ActionManager, SetValueAction } from '@babylonjs/core/Actions';
-
-import { Engine, Scene, useAssetManager, TaskType, useBeforeRender, AssetManagerContext, AssetManagerContextProvider } from '../../../dist/react-babylonjs';
-
 import { Vector3 } from '@babylonjs/core';
+import { Engine, Scene, useAssetManager, TaskType, useBeforeRender, AssetManagerContext, AssetManagerContextProvider } from '../../../dist/react-babylonjs';
 
 import '../../style.css';
 
@@ -29,8 +25,8 @@ const MyFallback = () => {
       var deltaTimeInMillis = scene.getEngine().getDeltaTime();
 
       const rpm = 10;
-      boxRef.current.hostInstance.rotation.x = Math.PI / 4;
-      boxRef.current.hostInstance.rotation.y += ((rpm / 60) * Math.PI * 2 * (deltaTimeInMillis / 1000));
+      boxRef.current.rotation.x = Math.PI / 4;
+      boxRef.current.rotation.y += ((rpm / 60) * Math.PI * 2 * (deltaTimeInMillis / 1000));
     }
   })
 
@@ -38,31 +34,31 @@ const MyFallback = () => {
 
   return <>
     <adtFullscreenUi name='ui'>
-        <rectangle name="rect" height='50px' width='150px'>
-          <rectangle>
-            {eventData !== undefined &&
-              <textBlock text={`${eventData.totalCount-eventData.remainingCount}/${eventData.totalCount}`} fontStyle="bold" fontSize={20} color="white"/>
-            }
-            {eventData === undefined &&
-              <textBlock text='0/2' fontStyle="bold" fontSize={20} color="white"/>
-            }
-          </rectangle>
+      <rectangle name="rect" height='50px' width='150px'>
+        <rectangle>
+          {eventData !== undefined &&
+            <textBlock text={`${eventData.totalCount - eventData.remainingCount}/${eventData.totalCount}`} fontStyle="bold" fontSize={20} color="white" />
+          }
+          {eventData === undefined &&
+            <textBlock text='0/2' fontStyle="bold" fontSize={20} color="white" />
+          }
         </rectangle>
+      </rectangle>
     </adtFullscreenUi>
     <box ref={boxRef} name='fallback' size={2} />
-    </>
+  </>
 }
 
 const MyModels = () => {
-  const [result] = useAssetManager(modelAssetTasks);
+  const assetManagerResult = useAssetManager(modelAssetTasks);
 
   useMemo(() => {
-    console.log('Loaded Tasks', result);
-    const boomboxTask = result.map['boombox'];
+    console.log('Loaded Tasks', assetManagerResult);
+    const boomboxTask = assetManagerResult.taskNameMap['boombox'];
     boomboxTask.loadedMeshes[0].position = new Vector3(2.5, 0, 0);
     boomboxTask.loadedMeshes[1].scaling = new Vector3(20, 20, 20);
 
-    const avocadoTask = result.map['avocado'];
+    const avocadoTask = assetManagerResult.taskNameMap['avocado'];
     avocadoTask.loadedMeshes[0].position = new Vector3(-2.5, 0, 0);
     avocadoTask.loadedMeshes[1].scaling = new Vector3(20, 20, 20);
   });
@@ -77,32 +73,14 @@ const MyScene = () => {
       <Scene>
         <arcRotateCamera name='camera1' alpha={Math.PI / 2} beta={Math.PI / 2} radius={9.0} target={Vector3.Zero()} minZ={0.001} />
         <hemisphericLight name='light1' intensity={0.7} direction={Vector3.Up()} />
-
-          <ScaledModelWithProgress rootUrl={`${baseUrl}BoomBox/glTF/`} sceneFilename='BoomBox.gltf' scaleTo={3}
-            progressBarColor={Color3.FromInts(255, 165, 0)} center={new Vector3(2.5, 0, 0)}
-            onModelLoaded={this.onModelLoaded}
         <AssetManagerContextProvider>
-
           <Suspense fallback={<MyFallback />}>
-              <Model rootUrl={`${baseUrl}Avocado/glTF/`} sceneFilename='Avocado.gltf' />
             <MyModels />
-          */}
-
-          {/* <SceneLoaderContextProvider>
-            <Suspense fallback= {<ProgressFallback progressBarColor={Color3.FromInts(255, 165, 0)} center={new Vector3(2.5, 0, 0)} rotation={Vector3.Zero()} scaleTo={3} />}>
-                <ScaledModelWithProgress position={sceneLoaderPosition} rootUrl={`${baseUrl}Avocado/glTF/`} sceneFilename='Avocado.gltf' />
           </Suspense>
         </AssetManagerContextProvider>
-
-          {/* <ScaledModelWithProgress rootUrl={`${baseUrl}Avocado/glTF/`} sceneFilename='Avocado.gltf'
-            scaleTo={this.state.avocadoScaling}
-            progressBarColor={Color3.FromInts(255, 165, 0)}
-            center={new Vector3(-2.5, this.state.avocadoYPos, 0)}
-          /> */}
       </Scene>
     </Engine>
   )
-  }
 }
 
 export const ModelLoaderStory = () => (
