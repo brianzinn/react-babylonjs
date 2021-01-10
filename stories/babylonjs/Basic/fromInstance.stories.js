@@ -16,7 +16,7 @@ const MyMesh = (props) => {
   return (
     <>
       {mesh &&
-        <mesh fromInstance={mesh} rotation={props.rotation}>
+        <mesh fromInstance={mesh} rotation={props.rotation} disposeInstanceOnUnmount>
           <standardMaterial name='boxmat' diffuseColor={Color3.Blue()} specularColor={Color3.Black()} />
         </mesh>
       }

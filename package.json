@@ -36,8 +36,7 @@
     "deploy-docs": "ts-node tools/gh-pages-publish",
     "storybook": "start-storybook -p 6006 -s ./storyboard-site",
     "build-storybook": "build-storybook -o storybook-static -s ./storyboard-site",
-    "generate-code": "ts-node -P tsconfig.generate.json tools/generate-code",
-    "generate-changelog": "gren changelog --generate --override --tags=all"
+    "generate-code": "ts-node -P tsconfig.generate.json tools/generate-code"
   },
   "lint-staged": {
     "src/**/*.ts": [
