@@ -18,8 +18,16 @@ $ yarn add react-babylonjs @babylonjs/core @babylonjs/gui
 ```
 
 *No third party dependencies outside of React + babylon.js*
+If you are upgrading from 2.x please follow the breaking changes guide:
+> [3.0 breaking changes](docs/breaking-changes-2.x-to-3.0.md)
 
-If you are using 3D models, include `@babylonjs/loaders` and ensure it is registered.
+## Models
+If you are using 3D models ensure you have added the `@babylonjs/loaders` NPM.  It is not a direct dependency, but registers loaders as plugins via imports with side effects:
+* Register **all** model types `import @babylonjs/loaders;`
+* OBJ `import '@babylonjs/loaders/OBJ';`
+* glTF `import '@babylonjs/loaders/glTF';`
+
+*(more instructions on model loading in ES6 [here](https://doc.babylonjs.com/divingDeeper/developWithBjs/treeShaking#loaders) )*
 
 # Usage Styles
 `react-babylonjs` tries to remain unopinionated about how you integrate BabylonJS with React.  This module provides a 100% declarative option and/or you can customise by adding code.  There are lots of escape hatches where you can switch to imperative coding and direct access to objects.

@@ -37,10 +37,11 @@ import { Scene } from 'react-babylonjs';
 </Engine>
 ```
 
-**AFTER:** Now needs to be enclosed in Suspense.  Additionally, the `onModelLoaded` signature doesn't include a SceneContext, but you can get scene from any `mesh._scene`.
+**AFTER:** Now needs to be enclosed in Suspense and **must explicitly import the loader** for side-effects.  Additionally, the `onModelLoaded` signature doesn't include a SceneContext, but you can get scene from any `mesh._scene`.
 ```jsx
 import React, {Suspense} from 'react';
 import { Engine, Scene } from 'react-babylonjs';
+import '@babylonjs/loaders'; // This is IMPORTANT and was not needed before!!
 
 ...
 <Engine>
@@ -52,6 +53,7 @@ import { Engine, Scene } from 'react-babylonjs';
 </Engine>
 ```
 
+*NOTE*: If you are only using OBJ then you can reduce your registrations to `import '@babylonjs/loaders/OBJ';`.  Similarly for glTF: `import '@babylonjs/loaders/glTF';`
 ## Hooks renamed `useBabylonScene` -> `useScene`, `useBabylonEngine` -> `useEngine` & `useBabylonCanvas` --> `useCanvas`
 `model` intrinsic host element has been removed in favour of a `Model` component (notice the lower case vs. proper case), which needs to be enclosed in `React.Suspense` Component.
 **BEFORE:**
