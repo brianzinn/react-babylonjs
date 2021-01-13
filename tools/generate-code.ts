@@ -1605,6 +1605,7 @@ const generateCode = async () => {
     createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("ThinTexture")!, fromClassName, onTexturesCreate);
   }
 
+<<<<<<< HEAD
   createSingleClass("GUI3DManager", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { isGUI3DControl: true }, () => { return; });
   createSingleClass("ShadowGenerator", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true }, () => { return; });
   createSingleClass("CascadedShadowGenerator", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true }, () => { return; });
@@ -1613,6 +1614,15 @@ const generateCode = async () => {
   createSingleClass("VRExperienceHelper", generatedCodeSourceFile, generatedPropsSourceFile);
   createSingleClass("DynamicTerrain", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { acceptsMaterials: true });
   createSingleClass("PointsCloudSystem", generatedCodeSourceFile, generatedPropsSourceFile);
+=======
+  createSingleClass("GUI3DManager", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { isGUI3DControl: true }, () => { return; })
+  createSingleClass("ShadowGenerator", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true }, () => { return; })
+  createSingleClass("CascadedShadowGenerator", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true }, () => { return; })
+  createSingleClass("EnvironmentHelper", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { isEnvironment: true })
+  createSingleClass("PhysicsImpostor", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true })
+  createSingleClass("VRExperienceHelper", generatedCodeSourceFile, generatedPropsSourceFile)
+  createSingleClass("DynamicTerrain", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { acceptsMaterials: true })
+>>>>>>> 5fbc92f32a898cca48effae0fb01365c59c8eed7
 
   classesOfInterest.forEach((_, className) => {
     if (className.includes('Behavior')) {
