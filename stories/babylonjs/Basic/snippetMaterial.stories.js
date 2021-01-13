@@ -33,6 +33,9 @@ const SnippetMaterialById = ({snippetId, name, blockValues, freeze}) => {
   const parseMaterial = useCallback(async () => {
     NodeMaterial.ParseFromSnippetAsync(snippetId, scene).then(
       (nodeMaterial) => {
+        if(freeze === true){
+          material.freeze();
+        }
         setMaterial(nodeMaterial);
       }
     );
