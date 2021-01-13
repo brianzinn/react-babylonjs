@@ -1,5 +1,6 @@
 import { Engine, Nullable } from '@babylonjs/core';
 import React, { createContext, useContext } from'react';
+import { SceneContext } from './scene';
 
 export type EngineCanvasContextType = {
     engine: Nullable<Engine>
@@ -31,9 +32,34 @@ export function withEngineCanvasContext<
 /**
  * Get the engine from the context.
  */
-export const useEngine = (): Nullable<Engine> => useContext(EngineCanvasContext).engine;
+export const useEngine = (): Nullable<Engine> => {
+  const engineCanvasContext = useContext(EngineCanvasContext);
+  const sceneContext = useContext(SceneContext);
+  if (engineCanvasContext.engine !== null) {
+    return engineCanvasContext.engine;
+  }
+
+  if (sceneContext.scene !== null) {
+    return sceneContext.scene.getEngine();
+  }
+
+  return null;
+}
 
 /**
  * Get the canvas DOM element from the context.
  */
-export const useCanvas = (): Nullable<HTMLCanvasElement | WebGLRenderingContext> => useContext(EngineCanvasContext).canvas;
+export const useCanvas = (): Nullable<HTMLCanvasElement | WebGLRenderingContext> => {
+  const engineCanvasContext = useContext(EngineCanvasContext);
+  const sceneContext = useContext(SceneContext);
+
+  if (engineCanvasContext.engine !== null) {
+    return engineCanvasContext.canvas;
+  }
+
+  if (sceneContext.scene !== null) {
+    return sceneContext.scene.getEngine().getRenderingCanvas();
+  }
+
+  return null;
+}

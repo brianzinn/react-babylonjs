@@ -9,7 +9,7 @@ const MyScene = () => {
     const canvas = useCanvas();
     const scene = useScene();
 
-    // engine and canvas are null.  they are not currently bridged.
+    // engine and canvas were null.  Although not currently "bridged", the hooks check contexts on each side of renderer.
     // https://github.com/konvajs/react-konva/issues/188#issuecomment-478302062
     console.log('MyScene', { engine, canvas, scene })
     
