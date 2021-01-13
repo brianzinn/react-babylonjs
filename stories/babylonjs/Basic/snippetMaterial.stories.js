@@ -50,9 +50,9 @@ export const SnippetMaterial = () => {
       <div style={{ flex: 1, display: 'flex' }}>
         <Engine antialias adaptToDeviceRatio canvasId='babylonJS'>
           <Scene>
-          <arcRotateCamera name="arc" target={Vector3.Zero()} minZ={0.001}
-            alpha={-Math.PI / 4} beta={(Math.PI / 4)} radius={5} upperBetaLimit={(Math.PI / 2) * 0.99}
-          />
+            <arcRotateCamera name="arc" target={Vector3.Zero()} minZ={0.001}
+              alpha={-Math.PI / 4} beta={(Math.PI / 4)} radius={5} upperBetaLimit={(Math.PI / 2) * 0.99}
+            />
             <hemisphericLight name="light1" intensity={0.7} direction={Vector3.Up()} />
             <sphere name="sphere1" diameter={2} segments={16} position={new Vector3(0, 1, 0)}>
               <SnippetMaterialById name="sphereMat" snippetId="#81NNDY#20" surfaceColor={selectedColor} />

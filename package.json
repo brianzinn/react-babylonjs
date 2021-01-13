@@ -50,6 +50,7 @@
     "@babylonjs/gui": "^4.2.0",
     "@babylonjs/inspector": "^4.2.0",
     "@babylonjs/loaders": "^4.2.0",
+    "@babylonjs/materials": "^4.2.0",
     "@babylonjs/procedural-textures": "^4.2.0",
     "@inlet/react-pixi": "^1.2.8",
     "@rollup/plugin-json": "^4.0.2",

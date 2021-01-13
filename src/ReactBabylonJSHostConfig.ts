@@ -1,5 +1,5 @@
 import ReactReconciler, { HostConfig } from 'react-reconciler';
-import {Scene, Nullable, Node, InspectableType, IInspectable} from '@babylonjs/core';
+import { Scene, Nullable, Node, InspectableType, IInspectable } from '@babylonjs/core';
 import * as BABYLONEXT from './extensions';
 import * as GENERATED from './generatedCode';
 import * as CUSTOM_HOSTS from './customHosts';
@@ -9,6 +9,7 @@ import { HasPropsHandlers, PropertyUpdate, UpdatePayload, PropsHandler } from '.
 import { LifecycleListener } from "./LifecycleListener";
 import { GeneratedParameter, CreateInfo, CreationType } from './codeGenerationDescriptors';
 import { applyUpdateToInstance, applyInitialPropsToInstance } from './UpdateInstance';
+import { HostRegistrationStore } from './HostRegistrationStore';
 
 // ** TODO: switch to node module 'scheduler', but compiler is not finding 'require()' exports currently...
 type RequestIdleCallbackHandle = any
@@ -77,7 +78,7 @@ function createCreatedInstance<T, U extends HasPropsHandlers<any>>(
  */
 function removeChild(parentInstance: CreatedInstance<any>, child: CreatedInstance<any>) {
   if (child) {
-    const {hostInstance} = child;
+    const { hostInstance } = child;
 
     if (child.lifecycleListener) {
       child.lifecycleListener.onUnmount();
@@ -94,11 +95,11 @@ function removeChild(parentInstance: CreatedInstance<any>, child: CreatedInstanc
       parentInstance.hostInstance.removeControl(child.hostInstance)
     }
 
-    if(child.children) {
+    if (child.children) {
       removeRecursive(child.children, child);
     }
 
-    if (child.hostInstance  && child.customProps.disposeInstanceOnUnmount && typeof child.hostInstance.dispose === "function") {
+    if (child.hostInstance && child.customProps.disposeInstanceOnUnmount && typeof child.hostInstance.dispose === "function") {
       hostInstance.dispose() // TODO: Consider adding metadata/descriptors as some dispose methods have optional args.
     }
 
@@ -111,10 +112,10 @@ function removeChild(parentInstance: CreatedInstance<any>, child: CreatedInstanc
 /**
  * remove child recursive
  */
-function removeRecursive(array: any, parent:any, clone: boolean = false): void {
+function removeRecursive(array: any, parent: any, clone: boolean = false): void {
   if (array) {
     const target = clone ? [...array] : array;
-    target.forEach((child:any) => removeChild(parent, child));
+    target.forEach((child: any) => removeChild(parent, child));
   }
 }
 
@@ -128,7 +129,7 @@ function addChild(parent: CreatedInstance<any> | undefined, child: CreatedInstan
       child.parent = parent
     }
   }
-  
+
   if (parent) {
     parent.children.push(child);
     child.parent = parent!;
@@ -157,9 +158,9 @@ const ReactBabylonJSHostConfig: HostConfig<
   TimeoutHandler,
   NoTimeout
 > & {
-   hideInstance: (instance: HostCreatedInstance<any>) => void;
-   unhideInstance: (instance: HostCreatedInstance<any>, props:Props) => void;
-   clearContainer: (container: Container) => void;
+  hideInstance: (instance: HostCreatedInstance<any>) => void;
+  unhideInstance: (instance: HostCreatedInstance<any>, props: Props) => void;
+  clearContainer: (container: Container) => void;
 } = {
   // This has the reconciler include in call chain ie: appendChild, removeChild
   get supportsMutation(): boolean {
@@ -294,86 +295,95 @@ const ReactBabylonJSHostConfig: HostConfig<
 
     const classDefinition = (GENERATED as any)[`Fiber${underlyingClassName}`]
 
+    let dynamicRegisteredHost = undefined;
     if (classDefinition === undefined) {
+      dynamicRegisteredHost = HostRegistrationStore.GetRegisteredHost(type);
+    } 
+
+    if (classDefinition === undefined && dynamicRegisteredHost === undefined) {
       throw new Error(`Cannot generate type '${type}/${underlyingClassName}' inside 'react-babylonjs' (ie: no DOM rendering on HTMLCanvas)`)
     }
 
-    let createInfoArgs: CreateInfo = classDefinition.CreateInfo
-    let metadata: CreatedInstanceMetadata = classDefinition.Metadata
-
-    // console.log(`creating: ${createInfoArgs.namespace}.${type}`)
-    let generatedParameters: GeneratedParameter[] = createInfoArgs.parameters
+    let metadata: CreatedInstanceMetadata;
     let babylonObject: any | undefined = undefined
-
     let disposeInstanceOnUnmount = true;
 
-    if (props.fromInstance !== undefined) {
-      if(createInfoArgs.namespace.startsWith('@babylonjs/')) {
-        const clazz: any = GENERATED.babylonClassFactory(type);
-        // instanceof will check prototype and derived classes (ie: can assign Mesh instance to a Node)
-        if (props.fromInstance instanceof clazz) {
-          babylonObject = props.fromInstance;
-          disposeInstanceOnUnmount = props.disposeInstanceOnUnmount === true;
-        } else {
-          // prevent assigning incorrect type.
-          console.error('fromInstance wrong type.', props.fromInstance, clazz);
-        }
-      } else {
-        console.error('cannot generate non babylonjs using fromInstance');
-      }
+    if (dynamicRegisteredHost !== undefined) {
+      metadata = dynamicRegisteredHost.metadata;
+      babylonObject = dynamicRegisteredHost.hostFactory(scene!);
     } else {
-      // console.log("generated params:", generatedParameters)
-      let args = generatedParameters.map(generatedParameter => {
-        if (Array.isArray(generatedParameter.type)) {
-          // TODO: if all props are missing, warn if main prop (ie: options) is required.
-          let newParameter = {} as any
-          generatedParameter.type.forEach(subParameter => {
-            let subPropValue = props[subParameter.name]
-            if (subPropValue === undefined && subParameter.optional === false && generatedParameter.optional === false) {
-              console.warn("Missing a required secondary property:", subParameter.name)
-            } else {
-              newParameter[subParameter.name] = subPropValue
-            }
-          })
-          return newParameter
+      const createInfoArgs = classDefinition.CreateInfo;
+      metadata = classDefinition.Metadata;
+      let generatedParameters: GeneratedParameter[] = createInfoArgs.parameters
+
+      if (props.fromInstance !== undefined) {
+        if (createInfoArgs.namespace.startsWith('@babylonjs/')) {
+          const clazz: any = GENERATED.babylonClassFactory(type);
+          // instanceof will check prototype and derived classes (ie: can assign Mesh instance to a Node)
+          if (props.fromInstance instanceof clazz) {
+            babylonObject = props.fromInstance;
+            disposeInstanceOnUnmount = props.disposeInstanceOnUnmount === true;
+          } else {
+            // prevent assigning incorrect type.
+            console.error('fromInstance wrong type.', props.fromInstance, clazz);
+          }
         } else {
-          let value = props[generatedParameter.name]
-          if (value === undefined) {
-            // NOTE: we removed the hosted Scene component, which needs (generatedParameter.type == "BabylonjsCoreEngine")
-            // SceneOrEngine type is Scene
-            if (generatedParameter.type.includes("BabylonjsCoreScene") || (generatedParameter.type === "any" && generatedParameter.name === "scene")) {
-              // MeshBuild.createSphere(name: string, options: {...}, scene: any)
-              // console.log('Assigning scene to:', type, generatedParameter)
-              value = scene
-            } else if (generatedParameter.optional === false) {
-              console.warn(`required parameter for ${type} unassigned -> ${generatedParameter.name}:${generatedParameter.type}`);
-            }
-          }
-
-          if (value === undefined && generatedParameter.optional === false) {
-            console.warn(`On ${type} you are missing a non-optional parameter '${generatedParameter.name}' of type '${generatedParameter.type}'`)
-          }
-
-          return value
+          console.error('cannot generate non babylonjs using fromInstance');
         }
-      })
-
-      if (createInfoArgs.creationType === CreationType.FactoryMethod) {
-        // console.warn(`creating from Factory: ${createInfoArgs.libraryLocation}.${createInfoArgs.factoryMethod}(...args).  args:`, args)
-        babylonObject = GENERATED.babylonClassFactory(createInfoArgs.libraryLocation)[createInfoArgs.factoryMethod!](...args)
       } else {
-        if (metadata.delayCreation !== true) {
-          if(createInfoArgs.namespace.startsWith('@babylonjs/')) {
+        // console.log("generated params:", generatedParameters)
+        let args = generatedParameters.map(generatedParameter => {
+          if (Array.isArray(generatedParameter.type)) {
+            // TODO: if all props are missing, warn if main prop (ie: options) is required.
+            let newParameter = {} as any
+            generatedParameter.type.forEach(subParameter => {
+              let subPropValue = props[subParameter.name]
+              if (subPropValue === undefined && subParameter.optional === false && generatedParameter.optional === false) {
+                console.warn("Missing a required secondary property:", subParameter.name)
+              } else {
+                newParameter[subParameter.name] = subPropValue
+              }
+            })
+            return newParameter
+          } else {
+            let value = props[generatedParameter.name]
+            if (value === undefined) {
+              // NOTE: we removed the hosted Scene component, which needs (generatedParameter.type == "BabylonjsCoreEngine")
+              // SceneOrEngine type is Scene
+              if (generatedParameter.type.includes("BabylonjsCoreScene") || (generatedParameter.type === "any" && generatedParameter.name === "scene")) {
+                // MeshBuild.createSphere(name: string, options: {...}, scene: any)
+                // console.log('Assigning scene to:', type, generatedParameter)
+                value = scene
+              } else if (generatedParameter.optional === false) {
+                console.warn(`required parameter for ${type} unassigned -> ${generatedParameter.name}:${generatedParameter.type}`);
+              }
+            }
+
+            if (value === undefined && generatedParameter.optional === false) {
+              console.warn(`On ${type} you are missing a non-optional parameter '${generatedParameter.name}' of type '${generatedParameter.type}'`)
+            }
+
+            return value
+          }
+        })
+
+        if (createInfoArgs.creationType === CreationType.FactoryMethod) {
+          // console.warn(`creating from Factory: ${createInfoArgs.libraryLocation}.${createInfoArgs.factoryMethod}(...args).  args:`, args)
+          babylonObject = GENERATED.babylonClassFactory(createInfoArgs.libraryLocation)[createInfoArgs.factoryMethod!](...args)
+        } else {
+          if (metadata.delayCreation !== true) {
+            if (createInfoArgs.namespace.startsWith('@babylonjs/')) {
               const clazz: any = GENERATED.babylonClassFactory(type);
               if (clazz === undefined) {
                 throw new Error(`Cannot generate '${type}' (react-babylonjs):`);
               }
               babylonObject = new clazz(...args)
-          } else if (createInfoArgs.namespace.startsWith('./extensions/')) {
+            } else if (createInfoArgs.namespace.startsWith('./extensions/')) {
               const extClassName = (GENERATED.intrinsicClassMap as any)[type] || type;
               babylonObject = new (BABYLONEXT as any)[extClassName](...args)
-          } else {
+            } else {
               console.error("metadata defines (or does not) a namespace that is known", createInfoArgs.namespace)
+            }
           }
         }
       }
@@ -384,7 +394,9 @@ const ReactBabylonJSHostConfig: HostConfig<
       props.onCreated(babylonObject)
     }
 
-    const fiberObject: HasPropsHandlers<any> = new (GENERATED as any)[`Fiber${underlyingClassName}`]()
+    const fiberObject: HasPropsHandlers<any> = (dynamicRegisteredHost !== undefined)
+      ? dynamicRegisteredHost.propHandlerInstance
+      : new (GENERATED as any)[`Fiber${underlyingClassName}`]()
 
     let lifecycleListener: LifecycleListener<any> | undefined = undefined
 
@@ -455,9 +467,9 @@ const ReactBabylonJSHostConfig: HostConfig<
     if (babylonObject) {
       babylonObject.inspectableCustomProperties = [
         {
-            label: "React class",
-            propertyName: "metadata-className",
-            type: InspectableType.String,
+          label: "React class",
+          propertyName: "metadata-className",
+          type: InspectableType.String,
         }
       ] as IInspectable[];
     }
@@ -469,11 +481,11 @@ const ReactBabylonJSHostConfig: HostConfig<
     return false;
   },
 
-  hideInstance(instance: HostCreatedInstance<any>): void {},
+  hideInstance(instance: HostCreatedInstance<any>): void { },
 
-  unhideInstance(instance: HostCreatedInstance<any>, props: Props): void {},
+  unhideInstance(instance: HostCreatedInstance<any>, props: Props): void { },
 
-  createTextInstance (text: string): any {},
+  createTextInstance(text: string): any { },
 
   scheduleDeferredCallback(callback: (deadline: RequestIdleCallbackDeadline) => void, opts?: RequestIdleCallbackOptions | undefined): any {
     return window.requestIdleCallback(callback, opts) // ReactDOMHostConfig has: unstable_scheduleCallback as scheduleDeferredCallback
@@ -552,7 +564,7 @@ const ReactBabylonJSHostConfig: HostConfig<
     }
   },
 
-  removeChildFromContainer: (container: Container, child: HostCreatedInstance <any> ) => {
+  removeChildFromContainer: (container: Container, child: HostCreatedInstance<any>) => {
     /**
      * To fix two bugs when toggle meshes:
      * 1.  model's mesh can't be destroyed.
