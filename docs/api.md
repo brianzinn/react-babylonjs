@@ -1,3 +1,11 @@
+# Hooks API
+The hooks are useful to get access to scene or engine object or get access to render loop or hover/click on meshes, etc.  The hooks for SceneLoader and AssetManager require that the component using them be enclosed in `Suspense`.
+
+*(This is just generated for now and needs cleanup + examples)*
+
+[Hooks API documentation](hooks/modules.md)
+
+# Code generated API
 Due to using code generation from the Babylon typings, all of these declarative elements will adhere to the same API as you find on [Babylon.js documentation site](https://doc.babylonjs.com/):
 
 If you want to declaratively use something not listed here create an issue :)  Some extensions have been added to allow for declarative scene creation (ie: Shadows, Textures, etc.)

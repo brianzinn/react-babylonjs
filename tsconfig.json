@@ -22,7 +22,11 @@
     },
     "include": [
         "src"
-    ]
+    ],
+    "typedocOptions": {
+      "entryPoints": ["src/hooks"],
+      "out": "docs/hooks"
+    }
 }
 
 

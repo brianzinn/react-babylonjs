@@ -184,7 +184,7 @@ This project uses code generation, which allows fast reconciliation and excellen
 
 * [hookex](https://github.com/hookex) has made the largest contribution :)  Proper texture handling [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/textures--image-texture), Node parenting, [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/babylon-basic--transform-node) Full Screen GUI [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/gui--gui-full-screen), Effect Layers [glow demo](https://brianzinn.github.io/react-babylonjs/?path=/story/special-fx--glow-layer), behaviors [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/behaviors--pointer-drag-behavior), useHover & useClick hooks [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/hooks--use-hover-event) and react-spring integration [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/integrations--react-spring).  Author of `react-babylon-spring` - https://github.com/hookex/react-babylon-spring.
 
-* [dennemark](https://github.com/dennemark) added Cascaded  Shadow Generator
+* [dennemark](https://github.com/dennemark) added Cascaded  Shadow Generator and story for NodeMaterial usage with hooks.
 * Thanks also to all the people who have contributed with issues and questions.
 
 Made with ♥ by Brian Zinn
