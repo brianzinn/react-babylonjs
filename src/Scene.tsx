@@ -40,7 +40,7 @@ const updateScene = (props: SceneProps, prevPropsRef: MutableRefObject<Partial<S
 
   if (updates !== null) {
     updates.forEach(propertyUpdate => {
-      applyUpdateToInstance(scene, propertyUpdate, 'scene')
+      applyUpdateToInstance(scene, propertyUpdate);
     })
   }
   prevPropsRef.current = props;
