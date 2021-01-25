@@ -7,8 +7,8 @@ import * as CUSTOM_HOSTS from './customHosts';
 import { CreatedInstance, CreatedInstanceMetadata, CustomProps } from './CreatedInstance';
 import { HasPropsHandlers, PropertyUpdate, UpdatePayload, PropsHandler } from './PropsHandler';
 import { LifecycleListener } from "./LifecycleListener";
-import { GeneratedParameter, CreateInfo, CreationType } from './codeGenerationDescriptors';
-import { applyUpdateToInstance, applyInitialPropsToInstance } from './UpdateInstance';
+import { GeneratedParameter, CreationType } from './codeGenerationDescriptors';
+import { applyUpdateToInstance, applyInitialPropsToCreatedInstance } from './UpdateInstance';
 import { HostRegistrationStore } from './HostRegistrationStore';
 
 // ** TODO: switch to node module 'scheduler', but compiler is not finding 'require()' exports currently...
@@ -450,7 +450,13 @@ const ReactBabylonJSHostConfig: HostConfig<
     }
 
     if (metadata.delayCreation !== true) {
-      applyInitialPropsToInstance(createdReference, props);
+      applyInitialPropsToCreatedInstance(createdReference, props);
+
+      // This property is only needed by `applyPropsToRef`, so if the propsHandlers can be made available there in another way then we don't need this property.
+      Object.defineProperty(createdReference.hostInstance, '__propsHandlers', {
+        get() { return createdReference.propsHandlers; },
+        enumerable: true,
+      });
     } else {
       createdReference.deferredCreationProps = props;
     }
@@ -460,8 +466,7 @@ const ReactBabylonJSHostConfig: HostConfig<
     if (createdReference.hostInstance) {
       Object.defineProperty(createdReference.hostInstance, 'metadata-className', {
         get() { return createdReference.metadata.className; },
-        enumerable: true,
-        configurable: true
+        enumerable: true
       });
     }
     if (babylonObject) {
@@ -552,11 +557,11 @@ const ReactBabylonJSHostConfig: HostConfig<
     }
   },
 
-  commitUpdate(instance: HostCreatedInstance<any>, updatePayload: UpdatePayload, type: string /* old + new props are extra params here */) {
+  commitUpdate(instance: HostCreatedInstance<any>, updatePayload: UpdatePayload, type: string /* old, new props and instance handle are extra ignored params */) {
     if (updatePayload !== null) {
       updatePayload.forEach((update: PropertyUpdate) => {
         if (instance) {
-          applyUpdateToInstance(instance!.hostInstance, update, type)
+          applyUpdateToInstance(instance!.hostInstance, update)
         } else {
           // console.warn("skipped applying update to missing instance...", update, type);
         }

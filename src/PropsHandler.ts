@@ -86,9 +86,9 @@ export class CustomPropsHandler {
 
     const registeredHandlers: ICustomPropsHandler<any, any>[] = CustomPropsHandler._registeredPropsHandlers[propsChangeType];
 
-    const match = registeredHandlers.find(h => h === propsHandler);
+    const match = registeredHandlers.find(h => h === propsHandler || h.name === propsHandler.name);
     if (match !== undefined) {
-      console.warn(`Handler can only be registered once per type [${propsChangeType}]`);
+      // console.warn(`Handler can only be registered once per type [${propsChangeType}] name[${propsHandler.name}]`);
       return match;
     }
 
@@ -130,7 +130,7 @@ export class CustomPropsHandler {
     value: null
   });
 
-  private static ACCEPTED_NOT_PROCSSED: Readonly<HandlerUpdateProcessResult<any>> = Object.freeze({
+  private static ACCEPTED_NOT_PROCESSED: Readonly<HandlerUpdateProcessResult<any>> = Object.freeze({
     accepted: true,
     processed: false,
     value: null
@@ -160,7 +160,7 @@ export class CustomPropsHandler {
     }
 
     return accepted
-      ? CustomPropsHandler.ACCEPTED_NOT_PROCSSED
+      ? CustomPropsHandler.ACCEPTED_NOT_PROCESSED
       : CustomPropsHandler.NOT_ACCEPTED;
   }
 }

@@ -1,8 +1,8 @@
 import { Vector3, Color3, Color4, Quaternion } from '@babylonjs/core';
-import { PropertyUpdate, PropsHandler, PropChangeType } from './PropsHandler';
+import { PropertyUpdate, PropsHandler, PropChangeType, HasPropsHandlers } from './PropsHandler';
 import { CreatedInstance } from './CreatedInstance';
 
-export const applyUpdateToInstance = (hostInstance: any, update: PropertyUpdate, type: string | undefined): void => {
+export const applyUpdateToInstance = (hostInstance: any, update: PropertyUpdate): void => {
   let target = update.target !== undefined ? hostInstance[update.target] : hostInstance;
 
   switch (update.changeType) {
@@ -93,16 +93,14 @@ export const applyUpdateToInstance = (hostInstance: any, update: PropertyUpdate,
  *
  * @param instance
  * @param props
- * @param scene
  */
-export const applyInitialPropsToInstance = (instance: CreatedInstance<any>, props: any) => {
-  if (!instance.propsHandlers) {
+export const applyInitialPropsToCreatedInstance = (createdInstance: CreatedInstance<any>, props: any) => {
+  if (createdInstance.propsHandlers === undefined) {
     return;
   }
 
-  // console.log('applying initial props:', props);
   let initPayload: PropertyUpdate[] = []
-  instance.propsHandlers.getPropsHandlers().forEach((propHandler: PropsHandler<any>) => {
+  createdInstance.propsHandlers.getPropsHandlers().forEach((propHandler: PropsHandler<any>) => {
     // NOTE: this can actually be WRONG, because here we want to compare the props with the object.
     // This is only needed right after object instantiation.
     let handlerUpdates: PropertyUpdate[] | null = propHandler.getPropertyUpdates(
@@ -116,7 +114,48 @@ export const applyInitialPropsToInstance = (instance: CreatedInstance<any>, prop
 
   if (initPayload.length > 0) {
     initPayload.forEach(update => {
-      applyUpdateToInstance(instance.hostInstance, update, instance.metadata!.className);
+      applyUpdateToInstance(createdInstance.hostInstance, update);
+    })
+  }
+}
+
+/**
+ * @deprecated Please use @see applyPropsToRef instead (same functionality better name)
+ * @param hostInstance a babylonjs hosted instance (available with useRef)
+ * @param props
+ */
+export const applyInitialPropsToInstance = (hostInstance: any, props: any): void => {
+  applyPropsToRef(hostInstance, props);
+}
+
+/**
+ * Will apply props to a ref and is useful to apply outside of the regular prop updates.  This is used by react-spring for fast animations.
+ * Can be used outside of react render loop.
+ *
+ * @param hostInstance babylonjs hosted instance (available with useRef)
+ * @param props props to apply
+ */
+export const applyPropsToRef = (hostInstance: any, props: Record<string, any>): void => {
+  // deferred creation will not have this set (ie: ShadowGenerator & PhysicsImposter).  Could be added...
+  const propsHandlers: HasPropsHandlers<any> | undefined = hostInstance.__propsHandlers;
+  if (propsHandlers === undefined) {
+    return;
+  }
+
+  let initPayload: PropertyUpdate[] = []
+  propsHandlers.getPropsHandlers().forEach((propHandler: PropsHandler<any>) => {
+    let handlerUpdates: PropertyUpdate[] | null = propHandler.getPropertyUpdates(
+      {}, // We will reapply any props passed in (will not "clear" props, if we pass in an undefined prop)
+      props
+    );
+    if (handlerUpdates !== null) {
+      initPayload.push(...handlerUpdates);
+    }
+  })
+
+  if (initPayload.length > 0) {
+    initPayload.forEach(update => {
+      applyUpdateToInstance(hostInstance, update);
     })
   }
 }

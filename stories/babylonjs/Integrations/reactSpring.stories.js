@@ -3,13 +3,165 @@ import {
   Engine,
   Scene,
   useHover,
+  CustomPropsHandler,
+  PropChangeType,
   useCustomPropsHandler,
 } from '../../../dist/react-babylonjs'
 import { Vector3, Color3 } from '@babylonjs/core/Maths/math';
-import {useSprings, useSpring, animated} from 'react-babylon-spring';
+import { useSprings, useSpring, animated } from 'react-babylon-spring';
+import 'react-babylon-spring';
 import '../../style.css'
 
 export default {title: 'Integrations'};
+
+/**
+ * Only need these Handlers or otherwise react-babylon-spring can export them.
+ * Copied from /src/customProps in that repo.
+ * The global resolution that used to work likely broke when not re-using the same Fiber host was fixed in issue #100 (new renderer creation).
+ */
+function parseRgbaString(rgba) {
+  const arr = rgba.replace(/[^\d,]/g, '').split(',');
+  return arr.map(num => parseInt(num, 10) / 255);
+}
+
+const Key = 'react-babylon-spring';
+
+class CustomColor3StringHandler {
+  get name() {
+    return `${Key}:Color3String`
+  }
+
+  get propChangeType() {
+    return PropChangeType.Color3;
+  }
+
+  accept(newProp) {
+    // console.log('accept Color3String?', newProp);
+    return typeof (newProp) === 'string';
+  }
+
+  process(oldProp, newProp) {
+    if (oldProp !== newProp) {
+      return {
+        processed: true,
+        value: Color3.FromArray(parseRgbaString(newProp))
+      };
+    }
+
+    return {processed: false, value: null};
+  }
+}
+
+class CustomColor3ArrayHandler {
+  get name() {
+    return `${Key}:Color3Array`
+  }
+
+  get propChangeType() {
+    return PropChangeType.Color3;
+  }
+
+  accept(newProp) {
+    // console.log('accept Color3Array?:', Array.isArray(newProp), newProp);
+    return Array.isArray(newProp);
+  }
+
+  process(oldProp, ) {
+    if (oldProp === undefined || oldProp.length !== newProp.length) {
+      console.log(`found diff length (${oldProp?.length}/${newProp?.length}) Color3Array new? ${oldProp === undefined}`)
+      return {
+        processed: true,
+        value: Color3.FromArray(newProp)
+      };
+    }
+
+    for (let i = 0; i < oldProp.length; i++) {
+      if (oldProp[i] !== newProp[i]) {
+        console.log('found diff value Color3Array', oldProp, newProp);
+        return {
+          processed: true,
+          value: Color3.FromArray(newProp)
+        };
+      }
+    }
+
+    // console.log('Color3Array not processed', oldProp, newProp);
+    return {processed: false, value: null};
+  }
+}
+
+class CustomColor4StringHandler {
+
+  get name() {
+    return `${Key}:Color4String`
+  }
+
+  get propChangeType() {
+    return PropChangeType.Color4;
+  }
+
+  accept(newProp) {
+    return typeof (newProp) === 'string';
+  }
+
+  process(oldProp, newProp) {
+    if (oldProp !== newProp) {
+      // console.log('found diff Color4String')
+      return {
+        processed: true,
+        value: Color4.FromArray(parseRgbaString(newProp))
+      };
+    }
+
+    return {processed: false, value: null};
+  }
+}
+
+class CustomVector3ArrayHandler {
+  get name() {
+    return `${Key}:Vector3Array`
+  }
+
+  get propChangeType() {
+    return PropChangeType.Vector3;
+  }
+
+  accept(newProp) {
+    // console.log('Vector3: newProp:', newProp, Array.isArray(newProp));
+    return Array.isArray(newProp);
+  }
+
+  process(oldProp, newProp) {
+    if (oldProp === undefined || oldProp.length !== newProp.length) {
+      // console.log(`found diff length (${oldProp?.length}/${newProp?.length}) Color3Array new? ${oldProp === undefined}`)
+      return {
+        processed: true,
+        value: Vector3.FromArray(newProp)
+      };
+    }
+
+    for (let i = 0; i < oldProp.length; i++) {
+      if (oldProp[i] !== newProp[i]) {
+        // console.log('found difference...', oldProp, newProp);
+        return {
+          processed: true,
+          value: Vector3.FromArray(newProp)
+        };
+      }
+    }
+
+    // console.log('not processed...');
+    return {processed: false, value: null};
+  }
+}
+/**
+ * This is the end of code that needed to be copied, since it is not exported.
+ */
+
+CustomPropsHandler.RegisterPropsHandler(new CustomColor3StringHandler());
+CustomPropsHandler.RegisterPropsHandler(new CustomColor3ArrayHandler());
+CustomPropsHandler.RegisterPropsHandler(new CustomColor4StringHandler());
+CustomPropsHandler.RegisterPropsHandler(new CustomVector3ArrayHandler());
 
 const getRandomColor = (function () {
   // const Colors = ['#4F86EC', '#D9503F', '#F2BD42', '#58A55C'];
