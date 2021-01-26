@@ -32,6 +32,8 @@ const MyPCS = () => {
         const x = floats[POINTS_PER_FLOAT * i]
         const y = floats[POINTS_PER_FLOAT * i + 1]
         const z = floats[POINTS_PER_FLOAT * i + 2]
+        // ignore the reflectance value
+        // const r = floats[POINTS_PER_FLOAT * i + 3]
         particle.position = new Vector3(x, y, z)
         particle.color = Color4.FromColor3(Color3.White())
       }
@@ -93,14 +95,16 @@ UseAssetManager.story = {
     notes: {
       markdown: `## Citation
 
-      ./storybook-static/assets/kitti/000000.bin is a part of [the KITTI dataset](http://www.cvlibs.net/datasets/kitti/raw_data.php):
-      
-      @ARTICLE{Geiger2013IJRR,
-        author = {Andreas Geiger and Philip Lenz and Christoph Stiller and Raquel Urtasun},
-        title = {Vision meets Robotics: The KITTI Dataset},
-        journal = {International Journal of Robotics Research (IJRR)},
-        year = {2013}
-      }
+      ./storybook-static/assets/kitti/000000.bin is retrieved from [the original KITTI website](http://www.cvlibs.net/datasets/kitti/index.php),
+      and redistributed under the [Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License](http://creativecommons.org/licenses/by-nc-sa/3.0/).
+
+      References
+
+      [1] Andreas Geiger, Philip Lenz, and Raquel Urtasun. [Are we ready for Autonomous Driving? The KITTI Vision Benchmark Suite](http://www.cvlibs.net/publications/Geiger2012CVPR.pdf). 
+      In Conference on Computer Vision and Pattern Recognition (CVPR), 2012.
+
+      [2] Andreas Geiger, Philip Lenz, Christoph Stiller, and Raquel Urtasun. [Vision meets Robotics: The KITTI Dataset](http://www.cvlibs.net/publications/Geiger2013IJRR.pdf). 
+      International Journal of Robotics Research (IJRR), 2013.
       `
     }
   }
