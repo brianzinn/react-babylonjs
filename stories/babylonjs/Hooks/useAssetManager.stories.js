@@ -32,6 +32,8 @@ const MyPCS = () => {
         const x = floats[POINTS_PER_FLOAT * i]
         const y = floats[POINTS_PER_FLOAT * i + 1]
         const z = floats[POINTS_PER_FLOAT * i + 2]
+        // ignore the reflectance value
+        // const r = floats[POINTS_PER_FLOAT * i + 3]
         particle.position = new Vector3(x, y, z)
         particle.color = Color4.FromColor3(Color3.White())
       }
