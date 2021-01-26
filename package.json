@@ -44,7 +44,6 @@
     ]
   },
   "devDependencies": {
-    "@alisowski/storybook-addon-notes": "^6.0.1",
     "@babel/core": "7.12.7",
     "@babel/plugin-proposal-class-properties": "^7.12.1",
     "@babylonjs/core": "^4.2.0",
