@@ -1,16 +1,10 @@
-import { CreatedInstance } from "../CreatedInstance"
-import { LifecycleListener } from "../LifecycleListener"
-import { Scene, Nullable } from "@babylonjs/core"
-import { applyInitialPropsToCreatedInstance } from "../UpdateInstance"
+import { Scene, Nullable } from '@babylonjs/core'
 
-export default abstract class DeferredCreationLifecycleListener<T> implements LifecycleListener<T> {
+import { CreatedInstance } from '../CreatedInstance'
+import { applyInitialPropsToCreatedInstance } from '../UpdateInstance'
+import BaseLifecycleListener from './BaseLifecycleListener';
 
-  constructor(protected scene: Scene, private props: any) {/* empty */}
-
-  abstract onParented(parent: CreatedInstance<any>, child: CreatedInstance<any>): any;
-
-  abstract onChildAdded(child: CreatedInstance<any>, parent: CreatedInstance<any>): any;
-
+export default abstract class DeferredCreationLifecycleListener<T, U> extends BaseLifecycleListener<T, U> {
   /**
    * Not part of LifecycleListener interface - needed by template method 'onMount'.
    */
@@ -25,11 +19,9 @@ export default abstract class DeferredCreationLifecycleListener<T> implements Li
         if (instance.deferredCreationProps && instance.propsHandlers) {
             applyInitialPropsToCreatedInstance(instance, instance.deferredCreationProps);
         } else {
-        console.warn('cannot assign deferred props.  they are lost.');
+          console.warn('cannot assign deferred props.  they are lost.');
         }
         instance.deferredCreationProps = undefined;
     }
   }
-
-  abstract onUnmount(): void;
 }

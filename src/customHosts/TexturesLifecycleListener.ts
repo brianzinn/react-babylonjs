@@ -1,11 +1,10 @@
-import { LifecycleListener } from "../LifecycleListener"
-import { CreatedInstance } from "../CreatedInstance"
 import { Texture } from '@babylonjs/core'
-import {assignProperty} from "../helper/property";
 
-export default class TexturesLifecycleListener implements LifecycleListener<Texture> {
-  onParented(parent: CreatedInstance<any>) {/* empty */}
-  onChildAdded(child: CreatedInstance<any>) {/* empty */}
+import { CreatedInstance } from '../CreatedInstance'
+import {assignProperty} from '../helper/property';
+import BaseLifecycleListener from './BaseLifecycleListener';
+
+export default class TexturesLifecycleListener extends BaseLifecycleListener<Texture, any> {
   onMount(instance: CreatedInstance<Texture>) {
     const {assignTo} = instance.customProps;
     const texture = instance.hostInstance;
@@ -20,10 +19,9 @@ export default class TexturesLifecycleListener implements LifecycleListener<Text
           // maybe below case is more common, so let it default
           tmp.hostInstance.diffuseTexture = texture;
         }
-        break
+        break;
       }
-      tmp = tmp.parent
+      tmp = tmp.parent;
     }
   }
-  onUnmount(): void {/* empty */}
 }

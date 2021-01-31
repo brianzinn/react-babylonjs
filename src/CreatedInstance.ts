@@ -68,6 +68,10 @@ export type CustomProps = {
    */
   assignTo?: string | string[]
   /**
+   * Assigned from this existing property on the parent.  Will assign this host element to a parent property that contains an existing instance (no new instances created and no dispose called).
+   */
+  assignFrom?: string
+  /**
    * for VRExperienceHelper
    */
   enableInteractions?: boolean

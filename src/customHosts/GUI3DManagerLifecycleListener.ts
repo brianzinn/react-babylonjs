@@ -1,23 +1,16 @@
-import { CreatedInstance } from "../CreatedInstance"
-import { LifecycleListener } from "../LifecycleListener"
-import { AbstractMesh, Nullable, Scene } from "@babylonjs/core"
+import { CreatedInstance } from '../CreatedInstance'
+import { AbstractMesh, Nullable } from '@babylonjs/core'
 import { GUI3DManager } from '@babylonjs/gui/3D/gui3DManager'
-export default class GUI3DManagerLifecycleListener implements LifecycleListener<GUI3DManager> {
-  private scene: Scene
+import BaseLifecycleListener from './BaseLifecycleListener';
+export default class GUI3DManagerLifecycleListener extends BaseLifecycleListener<GUI3DManager, any> {
 
-  constructor(scene: Scene) {
-    this.scene = scene
-  }
-
-  onParented(parent: CreatedInstance<any>): void {/* empty */}
-  onChildAdded(child: CreatedInstance<any>): void {/* empty */}
   onMount(instance?: CreatedInstance<GUI3DManager>): void {
     if (instance === undefined) {
       console.error('Missing instance');
       return;
     }
 
-    this.addControls(instance, instance)
+    this.addControls(instance, instance);
   }
 
   /**
@@ -42,9 +35,9 @@ export default class GUI3DManagerLifecycleListener implements LifecycleListener<
               child.hostInstance.linkToTransformNode(toLinkTo)
             } else {
               console.error(
-                "linkToTransformNode cannot find ",
+                'linkToTransformNode cannot find ',
                 instance.customProps.linkToTransformNodeByName,
-                " and does not have a scene listener for added meshes.  Declare earlier or add an issue on github."
+                ' and does not have a scene listener for added meshes.  Declare earlier or add an issue on github.'
               )
             }
           }
@@ -52,18 +45,16 @@ export default class GUI3DManagerLifecycleListener implements LifecycleListener<
       }
 
       if (child.state && child.state.added === true && child.customProps.onControlAdded) {
-        child.customProps.onControlAdded(child)
+        child.customProps.onControlAdded(child);
       }
 
       if (!child.state || child.state.content !== true) {
         const last3d: CreatedInstance<any> = child.metadata.isGUI3DControl === true ? child : last3DGuiControl
-        this.addControls(child, last3d)
+        this.addControls(child, last3d);
       }
     })
 
     // Here we can now do a transform with an anchor point.
-    console.error("transform gui3dmanager anchor missing")
+    // console.error('transform gui3dmanager anchor missing')
   }
-
-  onUnmount(): void { /* empty */ }
 }

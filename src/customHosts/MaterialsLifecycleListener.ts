@@ -1,14 +1,16 @@
-import { CreatedInstance } from "../CreatedInstance"
-import { LifecycleListener } from "../LifecycleListener"
-import { Scene, AbstractMesh } from "@babylonjs/core"
+import { Scene, AbstractMesh } from '@babylonjs/core'
 import { Material } from '@babylonjs/core/Materials'
-import { assignProperty } from "../helper/property"
 
-export default class MaterialsLifecycleListener implements LifecycleListener<Material> {
+import BaseLifecycleListener from './BaseLifecycleListener'
+import { CreatedInstance } from '../CreatedInstance'
+import { assignProperty } from '../helper/property'
+import { FiberMaterialProps } from '../generatedProps'
+
+export default class MaterialsLifecycleListener extends BaseLifecycleListener<Material, FiberMaterialProps> {
   onCreated(instance: CreatedInstance<Material>, scene: Scene) {
     if (instance.customProps.attachToMeshesByName) {
       if (!Array.isArray(instance.customProps.attachToMeshesByName)) {
-        console.error("AttachToMeshesByName must be an array (of strings).", instance.customProps.attachToMeshesByName)
+        console.error('AttachToMeshesByName must be an array (of strings).', instance.customProps.attachToMeshesByName)
         return
       }
 
@@ -35,8 +37,7 @@ export default class MaterialsLifecycleListener implements LifecycleListener<Mat
       })
     }
   }
-  onParented(parent: CreatedInstance<any>) {/* empty */}
-  onChildAdded(child: CreatedInstance<any>) {/* empty */}
+
   onMount(instance?: CreatedInstance<Material>) {
     if (instance === undefined) {
       console.error('Missing instance');
@@ -60,6 +61,4 @@ export default class MaterialsLifecycleListener implements LifecycleListener<Mat
       }
     }
   }
-
-  onUnmount(): void {/* empty */}
 }

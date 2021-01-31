@@ -1,64 +1,43 @@
-import { Engine, Scene } from "@babylonjs/core"
-import { CreatedInstance } from "../CreatedInstance"
-import { LifecycleListener } from "../LifecycleListener"
+import { Engine, Scene } from '@babylonjs/core'
+
+import BaseLifecycleListener from './BaseLifecycleListener'
+import { CreatedInstance } from '../CreatedInstance'
+
+type WithLifecycleMethods<T> = {
+  onParented?: (scene: Scene, engine: Engine, parent: CreatedInstance<any>) => any
+  onChildAdded?: (scene: Scene, engine: Engine, child: CreatedInstance<any>) => any
+  onMount?: (scene: Scene, engine: Engine, instance: CreatedInstance<T>) => any
+  onUnmount?: (scene: Scene, engine: Engine) => any
+}
 
 /**
  * This is a host component.  Much like a span or div for ReactDOM.render();
  */
-export default class HostWithEventsFiber<T> implements LifecycleListener<T> {
-  private _scene: Scene
-  private _engine: Engine
-  private _hostContextData: any
-
-  private _onParented?: (scene: Scene, engine: Engine, parent: CreatedInstance<any>) => any
-  private _onChildAdded?: (scene: Scene, engine: Engine, child: CreatedInstance<any>, hostContextData: any) => any
-  private _onMount?: (scene: Scene, engine: Engine, instance: CreatedInstance<T>, hostContextData: any) => any
-  private _onUnmount?: (scene: Scene, engine: Engine, /*instance: CreatedInstance<any>,*/ hostContextData: any) => any
-
-  public constructor(scene: Scene, engine: Engine, props: any) {
-    this._scene = scene
-    this._engine = engine
-
-    if (props.onParented && typeof props.onParented === "function") {
-      this._onParented = props.onParented
-    }
-
-    if (props.onChildAdded && typeof props.onChildAdded === "function") {
-      this._onChildAdded = props.onChildAdded
-    }
-
-    if (props.onMount && typeof props.onMount === "function") {
-      this._onMount = props.onMount
-    }
-
-    if (props.onUnmount && typeof props.onUnmount === "function") {
-      this._onUnmount = props.onUnmount;
-    }
-  }
+export default class HostWithEventsFiber<T, U extends WithLifecycleMethods<T>> extends BaseLifecycleListener<T, U> {
 
   public onParented(parent: CreatedInstance<any> | undefined) {
-    if (parent !== undefined && this._onParented !== undefined) {
-      this._hostContextData = this._onParented(this._scene, this._engine, parent)
+    if (parent !== undefined && this.props.onParented !== undefined) {
+      this.props.onParented(this.scene, this.scene.getEngine(), parent);
     }
   }
 
   public onChildAdded(child: CreatedInstance<any>): void {
-    if (this._onChildAdded) {
-      this._hostContextData = this._onChildAdded(this._scene, this._engine, child, this._hostContextData)
+    if (this.props.onChildAdded) {
+      this.props.onChildAdded(this.scene, this.scene.getEngine(), child);
     }
   }
 
   public onMount(instance: CreatedInstance<T>): void {
-    if (this._onMount) {
-      this._hostContextData = this._onMount(this._scene, this._engine, instance, this._hostContextData)
+    if (this.props.onMount) {
+      this.props.onMount(this.scene, this.scene.getEngine(), instance);
     }
   }
 
   public dispose(): void {
-    if (this._onUnmount) {
-      this._onUnmount(this._scene, this._engine, this._hostContextData)
+    if (this.props.onUnmount) {
+      this.props.onUnmount(this.scene, this.scene.getEngine());
     }
   }
 
-  public onUnmount(): void {/* empty */}
+  public onUnmount(): void {/* empty */ }
 }

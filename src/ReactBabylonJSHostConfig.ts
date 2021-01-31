@@ -298,7 +298,7 @@ const ReactBabylonJSHostConfig: HostConfig<
     let dynamicRegisteredHost = undefined;
     if (classDefinition === undefined) {
       dynamicRegisteredHost = HostRegistrationStore.GetRegisteredHost(type);
-    } 
+    }
 
     if (classDefinition === undefined && dynamicRegisteredHost === undefined) {
       throw new Error(`Cannot generate type '${type}/${underlyingClassName}' inside 'react-babylonjs' (ie: no DOM rendering on HTMLCanvas)`)
@@ -306,9 +306,31 @@ const ReactBabylonJSHostConfig: HostConfig<
 
     let metadata: CreatedInstanceMetadata;
     let babylonObject: any | undefined = undefined
-    let disposeInstanceOnUnmount = true;
 
-    if (dynamicRegisteredHost !== undefined) {
+    // TODO: Add these to just the 'type' of component they apply to.
+    let customProps: CustomProps = {
+      childrenAsContent: props.childrenAsContent === true, // ie: Button3D.container instead of .addControl()
+      createForParentMesh: props.createForParentMesh === true, // AdvancedDynamicTexture attached to parent mesh (TODO: add forMeshByName="")
+      onControlAdded: typeof props.onControlAdded === "function" ? props.onControlAdded : undefined,
+      connectControlNames: props.connectControlNames, // VirtualKeyboard to connect inputs by name.
+      defaultKeyboard: props.defaultKeyboard === true,
+      linkToTransformNodeByName: props.linkToTransformNodeByName,
+      shadowCasters: props.shadowCasters,
+      shadowCastersExcluding: props.shadowCastersExcluding,
+      attachToMeshesByName: props.attachToMeshesByName, // for materials - otherwise will attach to first parent that accepts materials
+      assignTo: props.assignTo, // here a lifecycle listener can dynamically attach to another property (ie: Mesh to DynamicTerrain -> 'mesh.material')
+      assignFrom: props.assignFrom,
+      disposeInstanceOnUnmount: props.assignFrom === undefined
+    }
+
+    if (customProps.assignFrom !== undefined) {
+      // will be assigned once parented in lifecyclelistener
+      metadata = dynamicRegisteredHost !== undefined
+        ? dynamicRegisteredHost.metadata
+        : classDefinition.Metadata;
+    }
+    else if (dynamicRegisteredHost !== undefined)
+    {
       metadata = dynamicRegisteredHost.metadata;
       babylonObject = dynamicRegisteredHost.hostFactory(scene!);
     } else {
@@ -322,7 +344,7 @@ const ReactBabylonJSHostConfig: HostConfig<
           // instanceof will check prototype and derived classes (ie: can assign Mesh instance to a Node)
           if (props.fromInstance instanceof clazz) {
             babylonObject = props.fromInstance;
-            disposeInstanceOnUnmount = props.disposeInstanceOnUnmount === true;
+            customProps.disposeInstanceOnUnmount = props.disposeInstanceOnUnmount === true;
           } else {
             // prevent assigning incorrect type.
             console.error('fromInstance wrong type.', props.fromInstance, clazz);
@@ -398,58 +420,47 @@ const ReactBabylonJSHostConfig: HostConfig<
       ? dynamicRegisteredHost.propHandlerInstance
       : new (GENERATED as any)[`Fiber${underlyingClassName}`]()
 
-    let lifecycleListener: LifecycleListener<any> | undefined = undefined
-
-    // TODO: Add these to just the 'type' of component they apply to.
-    let customProps: CustomProps = {
-      childrenAsContent: props.childrenAsContent === true, // ie: Button3D.container instead of .addControl()
-      createForParentMesh: props.createForParentMesh === true, // AdvancedDynamicTexture attached to parent mesh (TODO: add forMeshByName="")
-      onControlAdded: typeof props.onControlAdded === "function" ? props.onControlAdded : undefined,
-      connectControlNames: props.connectControlNames, // VirtualKeyboard to connect inputs by name.
-      defaultKeyboard: props.defaultKeyboard === true,
-      linkToTransformNodeByName: props.linkToTransformNodeByName,
-      shadowCasters: props.shadowCasters,
-      shadowCastersExcluding: props.shadowCastersExcluding,
-      attachToMeshesByName: props.attachToMeshesByName, // for materials - otherwise will attach to first parent that accepts materials
-      assignTo: props.assignTo, // here a lifecycle listener can dynamically attach to another property (ie: Mesh to DynamicTerrain -> 'mesh.material')
-      disposeInstanceOnUnmount
-    }
-
     // Consider these being dynamically attached to a list, much like PropsHandlers<T>
+    let metadataLifecycleListenerName: string | undefined;
     if (metadata.isMaterial === true) {
-      lifecycleListener = new CUSTOM_HOSTS.MaterialsLifecycleListener();
+      metadataLifecycleListenerName = 'Materials';
     } else if (metadata.isTexture === true) { // must be before .isGUI2DControl, since ADT/FullScreenUI declare both.
-      lifecycleListener = new CUSTOM_HOSTS.TexturesLifecycleListener();
+      metadataLifecycleListenerName = 'Textures';
     } else if (metadata.isGUI3DControl === true) {
-      lifecycleListener = new CUSTOM_HOSTS.GUI3DControlLifecycleListener(scene);
+      metadataLifecycleListenerName = 'GUI3DControl';
     } else if (metadata.isGUI2DControl === true) {
-      lifecycleListener = new CUSTOM_HOSTS.GUI2DControlLifecycleListener();
+      metadataLifecycleListenerName = 'GUI2DControl';
     } else if (metadata.isCamera === true) {
-      lifecycleListener = new CUSTOM_HOSTS.CameraLifecycleListener(scene, props, scene!.getEngine().getRenderingCanvas() as HTMLCanvasElement);
-    } else if (metadata.isNode) {
-      lifecycleListener = new CUSTOM_HOSTS.NodeLifecycleListener();
-    } else if (metadata.isBehavior) {
-      lifecycleListener = new CUSTOM_HOSTS.BehaviorLifecycleListener();
+      metadataLifecycleListenerName = 'Camera';
+    } else if (metadata.isNode === true) {
+      metadataLifecycleListenerName = 'Node';
+    } else if (metadata.isBehavior === true) {
+      metadataLifecycleListenerName = 'Behavior';
     }
 
+    let lifecycleListener: LifecycleListener<any>;
     // here we dynamically assign listeners for specific types.
     // TODO: need to double-check because we are using 'camelCase'
     if ((CUSTOM_HOSTS as any)[underlyingClassName + "LifecycleListener"] !== undefined) {
       lifecycleListener = new (CUSTOM_HOSTS as any)[underlyingClassName + "LifecycleListener"](scene, props);
+    } else if (metadataLifecycleListenerName !== undefined) {
+      lifecycleListener = new (CUSTOM_HOSTS as any)[metadataLifecycleListenerName + 'LifecycleListener'](scene, props);
+    } else {
+      lifecycleListener = new CUSTOM_HOSTS.FallbackLifecycleListener(scene!, props);
     }
 
     let createdReference = createCreatedInstance(underlyingClassName, babylonObject, fiberObject, metadata, customProps, lifecycleListener);
 
-    if (lifecycleListener && lifecycleListener.onCreated) {
+    if (lifecycleListener.onCreated) {
       lifecycleListener.onCreated(createdReference, scene!);
     }
 
-    // Here we dynamically attach known props handlers.  Will be adding more in code generation for GUI - also for lifecycle mgmt.
+    // Here we dynamically attach known props handlers.  This is a better way to have mixins and dynamic props handling via composition (and registration).
     if (createdReference.metadata && createdReference.metadata.isTargetable === true) {
       fiberObject.addPropsHandler(new CUSTOM_HOSTS.TargetPropsHandler(scene!));
     }
 
-    if (metadata.delayCreation !== true) {
+    if (metadata.delayCreation !== true && customProps.assignFrom === undefined) {
       applyInitialPropsToCreatedInstance(createdReference, props);
 
       // This property is only needed by `applyPropsToRef`, so if the propsHandlers can be made available there in another way then we don't need this property.
@@ -462,7 +473,7 @@ const ReactBabylonJSHostConfig: HostConfig<
     }
 
     // TODO: make this an opt-in -- testing inspectable metadata (and our Custom Props, which we want to be more specific to Type):
-    // TODO: use {} instead of NULL and use the late-binding from 'v3'.
+    // TODO: use {} instead of NULL and use the late-binding from 'v3' branch (also for deferred creation/assignFrom).
     if (createdReference.hostInstance) {
       Object.defineProperty(createdReference.hostInstance, 'metadata-className', {
         get() { return createdReference.metadata.className; },
