@@ -1,6 +1,6 @@
 import { PropsHandler, PropertyUpdate, HasPropsHandlers, checkColor3Diff, checkColor4Diff, checkControlDiff, checkFresnelParametersDiff, checkLambdaDiff, checkMethodDiff, checkNumericArrayDiff, checkObjectDiff, checkObservableDiff, checkPrimitiveDiff, checkQuaternionDiff, checkTextureDiff, checkVector3Diff } from "./PropsHandler";
 import { CreatedInstanceMetadata } from "./CreatedInstance";
-import { FiberNodeProps, FiberTransformNodeProps, FiberAbstractMeshProps, FiberInstancedMeshProps, FiberInstancedLinesMeshProps, FiberMeshProps, FiberLinesMeshProps, FiberGroundMeshProps, FiberTrailMeshProps, FiberCameraProps, FiberTargetCameraProps, FiberFreeCameraProps, FiberTouchCameraProps, FiberUniversalCameraProps, FiberGamepadCameraProps, FiberAnaglyphGamepadCameraProps, FiberStereoscopicGamepadCameraProps, FiberAnaglyphUniversalCameraProps, FiberStereoscopicUniversalCameraProps, FiberDeviceOrientationCameraProps, FiberVRDeviceOrientationFreeCameraProps, FiberVRDeviceOrientationGamepadCameraProps, FiberAnaglyphFreeCameraProps, FiberStereoscopicFreeCameraProps, FiberVirtualJoysticksCameraProps, FiberWebVRFreeCameraProps, FiberWebXRCameraProps, FiberArcRotateCameraProps, FiberAnaglyphArcRotateCameraProps, FiberStereoscopicArcRotateCameraProps, FiberVRDeviceOrientationArcRotateCameraProps, FiberFlyCameraProps, FiberFollowCameraProps, FiberArcFollowCameraProps, FiberMaterialProps, FiberPushMaterialProps, FiberNodeMaterialProps, FiberStandardMaterialProps, FiberBackgroundMaterialProps, FiberPBRBaseMaterialProps, FiberPBRBaseSimpleMaterialProps, FiberPBRMetallicRoughnessMaterialProps, FiberPBRSpecularGlossinessMaterialProps, FiberPBRMaterialProps, FiberFluentMaterialProps, FiberShaderMaterialProps, FiberMultiMaterialProps, FiberLightProps, FiberShadowLightProps, FiberDirectionalLightProps, FiberPointLightProps, FiberSpotLightProps, FiberHemisphericLightProps, FiberControlProps, FiberContainerProps, FiberRectangleProps, FiberButtonProps, FiberSelectionPanelProps, FiberScrollViewerProps, FiberStackPanelProps, FiberVirtualKeyboardProps, FiberEllipseProps, FiberGridProps, Fiber_ScrollViewerWindowProps, FiberTextBlockProps, FiberImageProps, FiberCheckboxProps, FiberColorPickerProps, FiberInputTextProps, FiberInputPasswordProps, FiberLineProps, FiberMultiLineProps, FiberRadioButtonProps, FiberBaseSliderProps, FiberScrollBarProps, FiberImageScrollBarProps, FiberSliderProps, FiberImageBasedSliderProps, FiberDisplayGridProps, FiberControl3DProps, FiberContainer3DProps, FiberVolumeBasedPanelProps, FiberCylinderPanelProps, FiberPlanePanelProps, FiberScatterPanelProps, FiberSpherePanelProps, FiberStackPanel3DProps, FiberAbstractButton3DProps, FiberButton3DProps, FiberHolographicButtonProps, FiberMeshButton3DProps, FiberEffectLayerProps, FiberGlowLayerProps, FiberHighlightLayerProps, FiberThinTextureProps, FiberBaseTextureProps, FiberCubeTextureProps, FiberRawCubeTextureProps, FiberTextureProps, FiberRawTextureProps, FiberProceduralTextureProps, FiberCustomProceduralTextureProps, FiberNoiseProceduralTextureProps, FiberRenderTargetTextureProps, FiberMirrorTextureProps, FiberMultiRenderTargetProps, FiberRefractionTextureProps, FiberMultiviewRenderTargetProps, FiberVideoTextureProps, FiberDynamicTextureProps, FiberAdvancedDynamicTextureProps, FiberRawTexture2DArrayProps, FiberRawTexture3DProps, FiberColorGradingTextureProps, FiberEquiRectangularCubeTextureProps, FiberHDRCubeTextureProps, FiberHtmlElementTextureProps, FiberGUI3DManagerProps, FiberShadowGeneratorProps, FiberCascadedShadowGeneratorProps, FiberEnvironmentHelperProps, FiberPhysicsImpostorProps, FiberVRExperienceHelperProps, FiberDynamicTerrainProps, FiberPointsCloudSystemProps, FiberAutoRotationBehaviorProps, FiberBouncingBehaviorProps, FiberFramingBehaviorProps, FiberAttachToBoxBehaviorProps, FiberFadeInOutBehaviorProps, FiberMultiPointerScaleBehaviorProps, FiberPointerDragBehaviorProps, FiberSixDofDragBehaviorProps, FiberSceneProps } from "./generatedProps";
+import { FiberNodeProps, FiberTransformNodeProps, FiberAbstractMeshProps, FiberInstancedMeshProps, FiberInstancedLinesMeshProps, FiberMeshProps, FiberLinesMeshProps, FiberGroundMeshProps, FiberTrailMeshProps, FiberCameraProps, FiberTargetCameraProps, FiberFreeCameraProps, FiberTouchCameraProps, FiberUniversalCameraProps, FiberGamepadCameraProps, FiberAnaglyphGamepadCameraProps, FiberStereoscopicGamepadCameraProps, FiberAnaglyphUniversalCameraProps, FiberStereoscopicUniversalCameraProps, FiberDeviceOrientationCameraProps, FiberVRDeviceOrientationFreeCameraProps, FiberVRDeviceOrientationGamepadCameraProps, FiberAnaglyphFreeCameraProps, FiberStereoscopicFreeCameraProps, FiberVirtualJoysticksCameraProps, FiberWebVRFreeCameraProps, FiberWebXRCameraProps, FiberArcRotateCameraProps, FiberAnaglyphArcRotateCameraProps, FiberStereoscopicArcRotateCameraProps, FiberVRDeviceOrientationArcRotateCameraProps, FiberFlyCameraProps, FiberFollowCameraProps, FiberArcFollowCameraProps, FiberMaterialProps, FiberPushMaterialProps, FiberNodeMaterialProps, FiberStandardMaterialProps, FiberBackgroundMaterialProps, FiberPBRBaseMaterialProps, FiberPBRBaseSimpleMaterialProps, FiberPBRMetallicRoughnessMaterialProps, FiberPBRSpecularGlossinessMaterialProps, FiberPBRMaterialProps, FiberFluentMaterialProps, FiberShaderMaterialProps, FiberMultiMaterialProps, FiberLightProps, FiberShadowLightProps, FiberDirectionalLightProps, FiberPointLightProps, FiberSpotLightProps, FiberHemisphericLightProps, FiberControlProps, FiberContainerProps, FiberRectangleProps, FiberButtonProps, FiberSelectionPanelProps, FiberScrollViewerProps, FiberStackPanelProps, FiberVirtualKeyboardProps, FiberEllipseProps, FiberGridProps, Fiber_ScrollViewerWindowProps, FiberTextBlockProps, FiberImageProps, FiberCheckboxProps, FiberColorPickerProps, FiberInputTextProps, FiberInputPasswordProps, FiberLineProps, FiberMultiLineProps, FiberRadioButtonProps, FiberBaseSliderProps, FiberScrollBarProps, FiberImageScrollBarProps, FiberSliderProps, FiberImageBasedSliderProps, FiberDisplayGridProps, FiberControl3DProps, FiberContainer3DProps, FiberVolumeBasedPanelProps, FiberCylinderPanelProps, FiberPlanePanelProps, FiberScatterPanelProps, FiberSpherePanelProps, FiberStackPanel3DProps, FiberAbstractButton3DProps, FiberButton3DProps, FiberHolographicButtonProps, FiberMeshButton3DProps, FiberEffectLayerProps, FiberGlowLayerProps, FiberHighlightLayerProps, FiberThinTextureProps, FiberBaseTextureProps, FiberCubeTextureProps, FiberRawCubeTextureProps, FiberTextureProps, FiberRawTextureProps, FiberProceduralTextureProps, FiberCustomProceduralTextureProps, FiberNoiseProceduralTextureProps, FiberRenderTargetTextureProps, FiberMirrorTextureProps, FiberMultiRenderTargetProps, FiberRefractionTextureProps, FiberMultiviewRenderTargetProps, FiberVideoTextureProps, FiberDynamicTextureProps, FiberAdvancedDynamicTextureProps, FiberRawTexture2DArrayProps, FiberRawTexture3DProps, FiberColorGradingTextureProps, FiberEquiRectangularCubeTextureProps, FiberHDRCubeTextureProps, FiberHtmlElementTextureProps, FiberGUI3DManagerProps, FiberShadowGeneratorProps, FiberCascadedShadowGeneratorProps, FiberEnvironmentHelperProps, FiberPhysicsImpostorProps, FiberVRExperienceHelperProps, FiberDynamicTerrainProps, FiberPointsCloudSystemProps, FiberPrePassConfigurationProps, FiberDetailMapConfigurationProps, FiberPBRClearCoatConfigurationProps, FiberPBRAnisotropicConfigurationProps, FiberPBRBRDFConfigurationProps, FiberPBRSheenConfigurationProps, FiberPBRSubSurfaceConfigurationProps, FiberAutoRotationBehaviorProps, FiberBouncingBehaviorProps, FiberFramingBehaviorProps, FiberAttachToBoxBehaviorProps, FiberFadeInOutBehaviorProps, FiberMultiPointerScaleBehaviorProps, FiberPointerDragBehaviorProps, FiberSixDofDragBehaviorProps, FiberSceneProps } from "./generatedProps";
 import { DynamicTerrain as ExtensionsDynamicTerrain } from "./extensions/DynamicTerrain";
 import { AbstractScene as BabylonjsCoreAbstractScene } from "@babylonjs/core/abstractScene";
 import { Scene as BabylonjsCoreScene } from "@babylonjs/core/scene";
@@ -213,6 +213,13 @@ import { PickingInfo as BabylonjsCorePickingInfo } from "@babylonjs/core/Collisi
 import { WebXRDefaultExperience as BabylonjsCoreWebXRDefaultExperience } from "@babylonjs/core/XR/webXRDefaultExperience";
 import { SolidParticleSystem as BabylonjsCoreSolidParticleSystem } from "@babylonjs/core/Particles/solidParticleSystem";
 import { CloudPoint as BabylonjsCoreCloudPoint } from "@babylonjs/core/Particles/cloudPoint";
+import { PrePassConfiguration as BabylonjsCorePrePassConfiguration } from "@babylonjs/core/Materials/prePassConfiguration";
+import { DetailMapConfiguration as BabylonjsCoreDetailMapConfiguration } from "@babylonjs/core/Materials/material.detailMapConfiguration";
+import { PBRClearCoatConfiguration as BabylonjsCorePBRClearCoatConfiguration } from "@babylonjs/core/Materials/PBR/pbrClearCoatConfiguration";
+import { PBRAnisotropicConfiguration as BabylonjsCorePBRAnisotropicConfiguration } from "@babylonjs/core/Materials/PBR/pbrAnisotropicConfiguration";
+import { PBRBRDFConfiguration as BabylonjsCorePBRBRDFConfiguration } from "@babylonjs/core/Materials/PBR/pbrBRDFConfiguration";
+import { PBRSheenConfiguration as BabylonjsCorePBRSheenConfiguration } from "@babylonjs/core/Materials/PBR/pbrSheenConfiguration";
+import { PBRSubSurfaceConfiguration as BabylonjsCorePBRSubSurfaceConfiguration } from "@babylonjs/core/Materials/PBR/pbrSubSurfaceConfiguration";
 import { IPhysicsEnginePlugin as BabylonjsCoreIPhysicsEnginePlugin } from "@babylonjs/core/Physics/IPhysicsEngine";
 import { Collider as BabylonjsCoreCollider } from "@babylonjs/core/Collisions/collider";
 import { Ray as BabylonjsCoreRay } from "@babylonjs/core/Culling/ray";
@@ -12627,6 +12634,403 @@ export class FiberPointsCloudSystem implements HasPropsHandlers<FiberPointsCloud
     };
 }
 
+export class FiberPrePassConfigurationPropsHandler implements PropsHandler<FiberPrePassConfigurationProps> {
+    getPropertyUpdates(oldProps: FiberPrePassConfigurationProps, newProps: FiberPrePassConfigurationProps): PropertyUpdate[] | null {
+        // skipping type: '{ [index: number]: Float32Array; }' property (not coded) BabylonjsCorePrePassConfiguration.previousBones.
+        // skipping type: 'BabylonjsCoreMatrix' property (not coded) BabylonjsCorePrePassConfiguration.previousViewProjection.
+        // skipping type: '{ [index: number]: BabylonjsCoreMatrix; }' property (not coded) BabylonjsCorePrePassConfiguration.previousWorldMatrices.
+        return null; // no props to check
+    }
+}
+
+/**
+ * Configuration needed for prepass-capable materials
+ *
+ * This code has been generated
+ */
+export class FiberPrePassConfiguration implements HasPropsHandlers<FiberPrePassConfigurationProps> {
+    public readonly isTargetable = false;
+    private propsHandlers: PropsHandler<FiberPrePassConfigurationProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberPrePassConfigurationPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberPrePassConfigurationProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberPrePassConfigurationProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "PrePassConfiguration",
+        "namespace": "@babylonjs/core",
+        "parameters": []
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "className": "FiberPrePassConfiguration"
+    };
+}
+
+export class FiberDetailMapConfigurationPropsHandler implements PropsHandler<FiberDetailMapConfigurationProps> {
+    getPropertyUpdates(oldProps: FiberDetailMapConfigurationProps, newProps: FiberDetailMapConfigurationProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.bumpLevel, newProps.bumpLevel, 'bumpLevel', changedProps)
+        checkPrimitiveDiff(oldProps.diffuseBlendLevel, newProps.diffuseBlendLevel, 'diffuseBlendLevel', changedProps)
+        checkPrimitiveDiff(oldProps.isEnabled, newProps.isEnabled, 'isEnabled', changedProps)
+        checkPrimitiveDiff(oldProps.normalBlendMethod, newProps.normalBlendMethod, 'normalBlendMethod', changedProps)
+        checkPrimitiveDiff(oldProps.roughnessBlendLevel, newProps.roughnessBlendLevel, 'roughnessBlendLevel', changedProps)
+        checkTextureDiff(oldProps.texture, newProps.texture, 'texture', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
+    }
+}
+
+/**
+ * Define the code related to the detail map parameters of a material
+ *
+ * Inspired from:
+ *    Unity: https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@9.0/manual/Mask-Map-and-Detail-Map.html and https://docs.unity3d.com/Manual/StandardShaderMaterialParameterDetail.html
+ *    Unreal: https://docs.unrealengine.com/en-US/Engine/Rendering/Materials/HowTo/DetailTexturing/index.html
+ *    Cryengine: https://docs.cryengine.com/display/SDKDOC2/Detail+Maps
+ *
+ * This code has been generated
+ */
+export class FiberDetailMapConfiguration implements HasPropsHandlers<FiberDetailMapConfigurationProps> {
+    public readonly isTargetable = false;
+    private propsHandlers: PropsHandler<FiberDetailMapConfigurationProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberDetailMapConfigurationPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberDetailMapConfigurationProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberDetailMapConfigurationProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "DetailMapConfiguration",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "markAllSubMeshesAsTexturesDirty",
+                "type": "() => void",
+                "optional": false
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "className": "FiberDetailMapConfiguration"
+    };
+}
+
+export class FiberPBRClearCoatConfigurationPropsHandler implements PropsHandler<FiberPBRClearCoatConfigurationProps> {
+    getPropertyUpdates(oldProps: FiberPBRClearCoatConfigurationProps, newProps: FiberPBRClearCoatConfigurationProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkTextureDiff(oldProps.bumpTexture, newProps.bumpTexture, 'bumpTexture', changedProps)
+        checkPrimitiveDiff(oldProps.indexOfRefraction, newProps.indexOfRefraction, 'indexOfRefraction', changedProps)
+        checkPrimitiveDiff(oldProps.intensity, newProps.intensity, 'intensity', changedProps)
+        checkPrimitiveDiff(oldProps.isEnabled, newProps.isEnabled, 'isEnabled', changedProps)
+        checkPrimitiveDiff(oldProps.isTintEnabled, newProps.isTintEnabled, 'isTintEnabled', changedProps)
+        checkPrimitiveDiff(oldProps.remapF0OnInterfaceChange, newProps.remapF0OnInterfaceChange, 'remapF0OnInterfaceChange', changedProps)
+        checkPrimitiveDiff(oldProps.roughness, newProps.roughness, 'roughness', changedProps)
+        checkTextureDiff(oldProps.texture, newProps.texture, 'texture', changedProps)
+        checkTextureDiff(oldProps.textureRoughness, newProps.textureRoughness, 'textureRoughness', changedProps)
+        checkColor3Diff(oldProps.tintColor, newProps.tintColor, 'tintColor', changedProps)
+        checkPrimitiveDiff(oldProps.tintColorAtDistance, newProps.tintColorAtDistance, 'tintColorAtDistance', changedProps)
+        checkTextureDiff(oldProps.tintTexture, newProps.tintTexture, 'tintTexture', changedProps)
+        checkPrimitiveDiff(oldProps.tintThickness, newProps.tintThickness, 'tintThickness', changedProps)
+        checkPrimitiveDiff(oldProps.useRoughnessFromMainTexture, newProps.useRoughnessFromMainTexture, 'useRoughnessFromMainTexture', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
+    }
+}
+
+/**
+ * Define the code related to the clear coat parameters of the pbr material.
+ *
+ * This code has been generated
+ */
+export class FiberPBRClearCoatConfiguration implements HasPropsHandlers<FiberPBRClearCoatConfigurationProps> {
+    public readonly isTargetable = false;
+    private propsHandlers: PropsHandler<FiberPBRClearCoatConfigurationProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberPBRClearCoatConfigurationPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberPBRClearCoatConfigurationProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberPBRClearCoatConfigurationProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "PBRClearCoatConfiguration",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "markAllSubMeshesAsTexturesDirty",
+                "type": "() => void",
+                "optional": false
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "className": "FiberPBRClearCoatConfiguration"
+    };
+}
+
+export class FiberPBRAnisotropicConfigurationPropsHandler implements PropsHandler<FiberPBRAnisotropicConfigurationProps> {
+    getPropertyUpdates(oldProps: FiberPBRAnisotropicConfigurationProps, newProps: FiberPBRAnisotropicConfigurationProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        // type: 'BabylonjsCoreVector2' property (not coded) BabylonjsCorePBRAnisotropicConfiguration.direction.
+        checkPrimitiveDiff(oldProps.intensity, newProps.intensity, 'intensity', changedProps)
+        checkPrimitiveDiff(oldProps.isEnabled, newProps.isEnabled, 'isEnabled', changedProps)
+        checkTextureDiff(oldProps.texture, newProps.texture, 'texture', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
+    }
+}
+
+/**
+ * Define the code related to the anisotropic parameters of the pbr material.
+ *
+ * This code has been generated
+ */
+export class FiberPBRAnisotropicConfiguration implements HasPropsHandlers<FiberPBRAnisotropicConfigurationProps> {
+    public readonly isTargetable = false;
+    private propsHandlers: PropsHandler<FiberPBRAnisotropicConfigurationProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberPBRAnisotropicConfigurationPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberPBRAnisotropicConfigurationProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberPBRAnisotropicConfigurationProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "PBRAnisotropicConfiguration",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "markAllSubMeshesAsTexturesDirty",
+                "type": "() => void",
+                "optional": false
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "className": "FiberPBRAnisotropicConfiguration"
+    };
+}
+
+export class FiberPBRBRDFConfigurationPropsHandler implements PropsHandler<FiberPBRBRDFConfigurationProps> {
+    getPropertyUpdates(oldProps: FiberPBRBRDFConfigurationProps, newProps: FiberPBRBRDFConfigurationProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.useEnergyConservation, newProps.useEnergyConservation, 'useEnergyConservation', changedProps)
+        checkPrimitiveDiff(oldProps.useSmithVisibilityHeightCorrelated, newProps.useSmithVisibilityHeightCorrelated, 'useSmithVisibilityHeightCorrelated', changedProps)
+        checkPrimitiveDiff(oldProps.useSpecularGlossinessInputEnergyConservation, newProps.useSpecularGlossinessInputEnergyConservation, 'useSpecularGlossinessInputEnergyConservation', changedProps)
+        checkPrimitiveDiff(oldProps.useSphericalHarmonics, newProps.useSphericalHarmonics, 'useSphericalHarmonics', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
+    }
+}
+
+/**
+ * Define the code related to the BRDF parameters of the pbr material.
+ *
+ * This code has been generated
+ */
+export class FiberPBRBRDFConfiguration implements HasPropsHandlers<FiberPBRBRDFConfigurationProps> {
+    public readonly isTargetable = false;
+    private propsHandlers: PropsHandler<FiberPBRBRDFConfigurationProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberPBRBRDFConfigurationPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberPBRBRDFConfigurationProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberPBRBRDFConfigurationProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "PBRBRDFConfiguration",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "markAllSubMeshesAsMiscDirty",
+                "type": "() => void",
+                "optional": false
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "className": "FiberPBRBRDFConfiguration"
+    };
+}
+
+export class FiberPBRSheenConfigurationPropsHandler implements PropsHandler<FiberPBRSheenConfigurationProps> {
+    getPropertyUpdates(oldProps: FiberPBRSheenConfigurationProps, newProps: FiberPBRSheenConfigurationProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.albedoScaling, newProps.albedoScaling, 'albedoScaling', changedProps)
+        checkColor3Diff(oldProps.color, newProps.color, 'color', changedProps)
+        checkPrimitiveDiff(oldProps.intensity, newProps.intensity, 'intensity', changedProps)
+        checkPrimitiveDiff(oldProps.isEnabled, newProps.isEnabled, 'isEnabled', changedProps)
+        checkPrimitiveDiff(oldProps.linkSheenWithAlbedo, newProps.linkSheenWithAlbedo, 'linkSheenWithAlbedo', changedProps)
+        checkPrimitiveDiff(oldProps.roughness, newProps.roughness, 'roughness', changedProps)
+        checkTextureDiff(oldProps.texture, newProps.texture, 'texture', changedProps)
+        checkTextureDiff(oldProps.textureRoughness, newProps.textureRoughness, 'textureRoughness', changedProps)
+        checkPrimitiveDiff(oldProps.useRoughnessFromMainTexture, newProps.useRoughnessFromMainTexture, 'useRoughnessFromMainTexture', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
+    }
+}
+
+/**
+ * Define the code related to the Sheen parameters of the pbr material.
+ *
+ * This code has been generated
+ */
+export class FiberPBRSheenConfiguration implements HasPropsHandlers<FiberPBRSheenConfigurationProps> {
+    public readonly isTargetable = false;
+    private propsHandlers: PropsHandler<FiberPBRSheenConfigurationProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberPBRSheenConfigurationPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberPBRSheenConfigurationProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberPBRSheenConfigurationProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "PBRSheenConfiguration",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "markAllSubMeshesAsTexturesDirty",
+                "type": "() => void",
+                "optional": false
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "className": "FiberPBRSheenConfiguration"
+    };
+}
+
+export class FiberPBRSubSurfaceConfigurationPropsHandler implements PropsHandler<FiberPBRSubSurfaceConfigurationProps> {
+    getPropertyUpdates(oldProps: FiberPBRSubSurfaceConfigurationProps, newProps: FiberPBRSubSurfaceConfigurationProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkColor3Diff(oldProps.diffusionDistance, newProps.diffusionDistance, 'diffusionDistance', changedProps)
+        checkPrimitiveDiff(oldProps.indexOfRefraction, newProps.indexOfRefraction, 'indexOfRefraction', changedProps)
+        checkPrimitiveDiff(oldProps.invertRefractionY, newProps.invertRefractionY, 'invertRefractionY', changedProps)
+        checkPrimitiveDiff(oldProps.isRefractionEnabled, newProps.isRefractionEnabled, 'isRefractionEnabled', changedProps)
+        checkPrimitiveDiff(oldProps.isScatteringEnabled, newProps.isScatteringEnabled, 'isScatteringEnabled', changedProps)
+        checkPrimitiveDiff(oldProps.isTranslucencyEnabled, newProps.isTranslucencyEnabled, 'isTranslucencyEnabled', changedProps)
+        checkPrimitiveDiff(oldProps.linkRefractionWithTransparency, newProps.linkRefractionWithTransparency, 'linkRefractionWithTransparency', changedProps)
+        checkPrimitiveDiff(oldProps.maximumThickness, newProps.maximumThickness, 'maximumThickness', changedProps)
+        checkPrimitiveDiff(oldProps.minimumThickness, newProps.minimumThickness, 'minimumThickness', changedProps)
+        checkPrimitiveDiff(oldProps.refractionIntensity, newProps.refractionIntensity, 'refractionIntensity', changedProps)
+        checkTextureDiff(oldProps.refractionTexture, newProps.refractionTexture, 'refractionTexture', changedProps)
+        checkColor3Diff(oldProps.scatteringDiffusionProfile, newProps.scatteringDiffusionProfile, 'scatteringDiffusionProfile', changedProps)
+        checkTextureDiff(oldProps.thicknessTexture, newProps.thicknessTexture, 'thicknessTexture', changedProps)
+        checkColor3Diff(oldProps.tintColor, newProps.tintColor, 'tintColor', changedProps)
+        checkPrimitiveDiff(oldProps.tintColorAtDistance, newProps.tintColorAtDistance, 'tintColorAtDistance', changedProps)
+        checkPrimitiveDiff(oldProps.translucencyIntensity, newProps.translucencyIntensity, 'translucencyIntensity', changedProps)
+        checkPrimitiveDiff(oldProps.useAlbedoToTintRefraction, newProps.useAlbedoToTintRefraction, 'useAlbedoToTintRefraction', changedProps)
+        checkPrimitiveDiff(oldProps.useMaskFromThicknessTexture, newProps.useMaskFromThicknessTexture, 'useMaskFromThicknessTexture', changedProps)
+        checkPrimitiveDiff(oldProps.useMaskFromThicknessTextureGltf, newProps.useMaskFromThicknessTextureGltf, 'useMaskFromThicknessTextureGltf', changedProps)
+        checkPrimitiveDiff(oldProps.volumeIndexOfRefraction, newProps.volumeIndexOfRefraction, 'volumeIndexOfRefraction', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
+    }
+}
+
+/**
+ * Define the code related to the sub surface parameters of the pbr material.
+ *
+ * This code has been generated
+ */
+export class FiberPBRSubSurfaceConfiguration implements HasPropsHandlers<FiberPBRSubSurfaceConfigurationProps> {
+    public readonly isTargetable = false;
+    private propsHandlers: PropsHandler<FiberPBRSubSurfaceConfigurationProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberPBRSubSurfaceConfigurationPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberPBRSubSurfaceConfigurationProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberPBRSubSurfaceConfigurationProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "PBRSubSurfaceConfiguration",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "markAllSubMeshesAsTexturesDirty",
+                "type": "() => void",
+                "optional": false
+            },
+            {
+                "name": "markScenePrePassDirty",
+                "type": "() => void",
+                "optional": false
+            },
+            {
+                "name": "scene",
+                "type": "BabylonjsCoreScene",
+                "optional": false
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "className": "FiberPBRSubSurfaceConfiguration"
+    };
+}
+
 export class FiberAutoRotationBehaviorPropsHandler implements PropsHandler<FiberAutoRotationBehaviorProps> {
     getPropertyUpdates(oldProps: FiberAutoRotationBehaviorProps, newProps: FiberAutoRotationBehaviorProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
@@ -13204,7 +13608,7 @@ export class FiberScenePropsHandler implements PropsHandler<FiberSceneProps> {
     }
 }
 
-export const ADTForMesh: string = 'ADTForMesh', ADTForMeshTexture: string = 'ADTForMeshTexture', ADTFullscreenUI: string = 'ADTFullscreenUI', AbstractButton3D: string = 'AbstractButton3D', AbstractMesh: string = 'AbstractMesh', AdvancedDynamicTexture: string = 'AdvancedDynamicTexture', AnaglyphArcRotateCamera: string = 'AnaglyphArcRotateCamera', AnaglyphFreeCamera: string = 'AnaglyphFreeCamera', AnaglyphGamepadCamera: string = 'AnaglyphGamepadCamera', AnaglyphUniversalCamera: string = 'AnaglyphUniversalCamera', ArcFollowCamera: string = 'ArcFollowCamera', ArcRotateCamera: string = 'ArcRotateCamera', AttachToBoxBehavior: string = 'AttachToBoxBehavior', AutoRotationBehavior: string = 'AutoRotationBehavior', BackgroundMaterial: string = 'BackgroundMaterial', BaseSlider: string = 'BaseSlider', BaseTexture: string = 'BaseTexture', BouncingBehavior: string = 'BouncingBehavior', Box: string = 'Box', Button: string = 'Button', Button3D: string = 'Button3D', Camera: string = 'Camera', Capsule: string = 'Capsule', CascadedShadowGenerator: string = 'CascadedShadowGenerator', Checkbox: string = 'Checkbox', ColorGradingTexture: string = 'ColorGradingTexture', ColorPicker: string = 'ColorPicker', Container: string = 'Container', Container3D: string = 'Container3D', Control: string = 'Control', Control3D: string = 'Control3D', CubeTexture: string = 'CubeTexture', CustomProceduralTexture: string = 'CustomProceduralTexture', Cylinder: string = 'Cylinder', CylinderPanel: string = 'CylinderPanel', DashedLines: string = 'DashedLines', Decal: string = 'Decal', DeviceOrientationCamera: string = 'DeviceOrientationCamera', DirectionalLight: string = 'DirectionalLight', Disc: string = 'Disc', DisplayGrid: string = 'DisplayGrid', DynamicTerrain: string = 'DynamicTerrain', DynamicTexture: string = 'DynamicTexture', EffectLayer: string = 'EffectLayer', Ellipse: string = 'Ellipse', EnvironmentHelper: string = 'EnvironmentHelper', EquiRectangularCubeTexture: string = 'EquiRectangularCubeTexture', ExtrudePolygon: string = 'ExtrudePolygon', ExtrudeShape: string = 'ExtrudeShape', ExtrudeShapeCustom: string = 'ExtrudeShapeCustom', FadeInOutBehavior: string = 'FadeInOutBehavior', FluentMaterial: string = 'FluentMaterial', FlyCamera: string = 'FlyCamera', FollowCamera: string = 'FollowCamera', FramingBehavior: string = 'FramingBehavior', FreeCamera: string = 'FreeCamera', GUI3DManager: string = 'GUI3DManager', GamepadCamera: string = 'GamepadCamera', GlowLayer: string = 'GlowLayer', Grid: string = 'Grid', Ground: string = 'Ground', GroundFromHeightMap: string = 'GroundFromHeightMap', GroundMesh: string = 'GroundMesh', HDRCubeTexture: string = 'HDRCubeTexture', HemisphericLight: string = 'HemisphericLight', HighlightLayer: string = 'HighlightLayer', HolographicButton: string = 'HolographicButton', HtmlElementTexture: string = 'HtmlElementTexture', IcoSphere: string = 'IcoSphere', Image: string = 'Image', ImageBasedSlider: string = 'ImageBasedSlider', ImageScrollBar: string = 'ImageScrollBar', InputPassword: string = 'InputPassword', InputText: string = 'InputText', InstancedLinesMesh: string = 'InstancedLinesMesh', InstancedMesh: string = 'InstancedMesh', Lathe: string = 'Lathe', Light: string = 'Light', Line: string = 'Line', LineSystem: string = 'LineSystem', Lines: string = 'Lines', LinesMesh: string = 'LinesMesh', Material: string = 'Material', Mesh: string = 'Mesh', MeshButton3D: string = 'MeshButton3D', MirrorTexture: string = 'MirrorTexture', MultiLine: string = 'MultiLine', MultiMaterial: string = 'MultiMaterial', MultiPointerScaleBehavior: string = 'MultiPointerScaleBehavior', MultiRenderTarget: string = 'MultiRenderTarget', MultiviewRenderTarget: string = 'MultiviewRenderTarget', Node: string = 'Node', NodeMaterial: string = 'NodeMaterial', NoiseProceduralTexture: string = 'NoiseProceduralTexture', PBRBaseMaterial: string = 'PBRBaseMaterial', PBRBaseSimpleMaterial: string = 'PBRBaseSimpleMaterial', PBRMaterial: string = 'PBRMaterial', PBRMetallicRoughnessMaterial: string = 'PBRMetallicRoughnessMaterial', PBRSpecularGlossinessMaterial: string = 'PBRSpecularGlossinessMaterial', PhysicsImpostor: string = 'PhysicsImpostor', Plane: string = 'Plane', PlanePanel: string = 'PlanePanel', PointLight: string = 'PointLight', PointerDragBehavior: string = 'PointerDragBehavior', PointsCloudSystem: string = 'PointsCloudSystem', Polygon: string = 'Polygon', Polyhedron: string = 'Polyhedron', ProceduralTexture: string = 'ProceduralTexture', PushMaterial: string = 'PushMaterial', RadioButton: string = 'RadioButton', RawCubeTexture: string = 'RawCubeTexture', RawTexture: string = 'RawTexture', RawTexture2DArray: string = 'RawTexture2DArray', RawTexture3D: string = 'RawTexture3D', Rectangle: string = 'Rectangle', RefractionTexture: string = 'RefractionTexture', RenderTargetTexture: string = 'RenderTargetTexture', Ribbon: string = 'Ribbon', ScatterPanel: string = 'ScatterPanel', ScrollBar: string = 'ScrollBar', ScrollViewer: string = 'ScrollViewer', SelectionPanel: string = 'SelectionPanel', ShaderMaterial: string = 'ShaderMaterial', ShadowGenerator: string = 'ShadowGenerator', ShadowLight: string = 'ShadowLight', SixDofDragBehavior: string = 'SixDofDragBehavior', Slider: string = 'Slider', Sphere: string = 'Sphere', SpherePanel: string = 'SpherePanel', SpotLight: string = 'SpotLight', StackPanel: string = 'StackPanel', StackPanel3D: string = 'StackPanel3D', StandardMaterial: string = 'StandardMaterial', StereoscopicArcRotateCamera: string = 'StereoscopicArcRotateCamera', StereoscopicFreeCamera: string = 'StereoscopicFreeCamera', StereoscopicGamepadCamera: string = 'StereoscopicGamepadCamera', StereoscopicUniversalCamera: string = 'StereoscopicUniversalCamera', TargetCamera: string = 'TargetCamera', TextBlock: string = 'TextBlock', Texture: string = 'Texture', ThinTexture: string = 'ThinTexture', TiledBox: string = 'TiledBox', TiledGround: string = 'TiledGround', TiledPlane: string = 'TiledPlane', Torus: string = 'Torus', TorusKnot: string = 'TorusKnot', TouchCamera: string = 'TouchCamera', TrailMesh: string = 'TrailMesh', TransformNode: string = 'TransformNode', Tube: string = 'Tube', UniversalCamera: string = 'UniversalCamera', VRDeviceOrientationArcRotateCamera: string = 'VRDeviceOrientationArcRotateCamera', VRDeviceOrientationFreeCamera: string = 'VRDeviceOrientationFreeCamera', VRDeviceOrientationGamepadCamera: string = 'VRDeviceOrientationGamepadCamera', VRExperienceHelper: string = 'VRExperienceHelper', VideoTexture: string = 'VideoTexture', VirtualJoysticksCamera: string = 'VirtualJoysticksCamera', VirtualKeyboard: string = 'VirtualKeyboard', VolumeBasedPanel: string = 'VolumeBasedPanel', WebVRFreeCamera: string = 'WebVRFreeCamera', WebXRCamera: string = 'WebXRCamera', _ScrollViewerWindow: string = '_ScrollViewerWindow';
+export const ADTForMesh: string = 'ADTForMesh', ADTForMeshTexture: string = 'ADTForMeshTexture', ADTFullscreenUI: string = 'ADTFullscreenUI', AbstractButton3D: string = 'AbstractButton3D', AbstractMesh: string = 'AbstractMesh', AdvancedDynamicTexture: string = 'AdvancedDynamicTexture', AnaglyphArcRotateCamera: string = 'AnaglyphArcRotateCamera', AnaglyphFreeCamera: string = 'AnaglyphFreeCamera', AnaglyphGamepadCamera: string = 'AnaglyphGamepadCamera', AnaglyphUniversalCamera: string = 'AnaglyphUniversalCamera', ArcFollowCamera: string = 'ArcFollowCamera', ArcRotateCamera: string = 'ArcRotateCamera', AttachToBoxBehavior: string = 'AttachToBoxBehavior', AutoRotationBehavior: string = 'AutoRotationBehavior', BackgroundMaterial: string = 'BackgroundMaterial', BaseSlider: string = 'BaseSlider', BaseTexture: string = 'BaseTexture', BouncingBehavior: string = 'BouncingBehavior', Box: string = 'Box', Button: string = 'Button', Button3D: string = 'Button3D', Camera: string = 'Camera', Capsule: string = 'Capsule', CascadedShadowGenerator: string = 'CascadedShadowGenerator', Checkbox: string = 'Checkbox', ColorGradingTexture: string = 'ColorGradingTexture', ColorPicker: string = 'ColorPicker', Container: string = 'Container', Container3D: string = 'Container3D', Control: string = 'Control', Control3D: string = 'Control3D', CubeTexture: string = 'CubeTexture', CustomProceduralTexture: string = 'CustomProceduralTexture', Cylinder: string = 'Cylinder', CylinderPanel: string = 'CylinderPanel', DashedLines: string = 'DashedLines', Decal: string = 'Decal', DetailMapConfiguration: string = 'DetailMapConfiguration', DeviceOrientationCamera: string = 'DeviceOrientationCamera', DirectionalLight: string = 'DirectionalLight', Disc: string = 'Disc', DisplayGrid: string = 'DisplayGrid', DynamicTerrain: string = 'DynamicTerrain', DynamicTexture: string = 'DynamicTexture', EffectLayer: string = 'EffectLayer', Ellipse: string = 'Ellipse', EnvironmentHelper: string = 'EnvironmentHelper', EquiRectangularCubeTexture: string = 'EquiRectangularCubeTexture', ExtrudePolygon: string = 'ExtrudePolygon', ExtrudeShape: string = 'ExtrudeShape', ExtrudeShapeCustom: string = 'ExtrudeShapeCustom', FadeInOutBehavior: string = 'FadeInOutBehavior', FluentMaterial: string = 'FluentMaterial', FlyCamera: string = 'FlyCamera', FollowCamera: string = 'FollowCamera', FramingBehavior: string = 'FramingBehavior', FreeCamera: string = 'FreeCamera', GUI3DManager: string = 'GUI3DManager', GamepadCamera: string = 'GamepadCamera', GlowLayer: string = 'GlowLayer', Grid: string = 'Grid', Ground: string = 'Ground', GroundFromHeightMap: string = 'GroundFromHeightMap', GroundMesh: string = 'GroundMesh', HDRCubeTexture: string = 'HDRCubeTexture', HemisphericLight: string = 'HemisphericLight', HighlightLayer: string = 'HighlightLayer', HolographicButton: string = 'HolographicButton', HtmlElementTexture: string = 'HtmlElementTexture', IcoSphere: string = 'IcoSphere', Image: string = 'Image', ImageBasedSlider: string = 'ImageBasedSlider', ImageScrollBar: string = 'ImageScrollBar', InputPassword: string = 'InputPassword', InputText: string = 'InputText', InstancedLinesMesh: string = 'InstancedLinesMesh', InstancedMesh: string = 'InstancedMesh', Lathe: string = 'Lathe', Light: string = 'Light', Line: string = 'Line', LineSystem: string = 'LineSystem', Lines: string = 'Lines', LinesMesh: string = 'LinesMesh', Material: string = 'Material', Mesh: string = 'Mesh', MeshButton3D: string = 'MeshButton3D', MirrorTexture: string = 'MirrorTexture', MultiLine: string = 'MultiLine', MultiMaterial: string = 'MultiMaterial', MultiPointerScaleBehavior: string = 'MultiPointerScaleBehavior', MultiRenderTarget: string = 'MultiRenderTarget', MultiviewRenderTarget: string = 'MultiviewRenderTarget', Node: string = 'Node', NodeMaterial: string = 'NodeMaterial', NoiseProceduralTexture: string = 'NoiseProceduralTexture', PBRAnisotropicConfiguration: string = 'PBRAnisotropicConfiguration', PBRBRDFConfiguration: string = 'PBRBRDFConfiguration', PBRBaseMaterial: string = 'PBRBaseMaterial', PBRBaseSimpleMaterial: string = 'PBRBaseSimpleMaterial', PBRClearCoatConfiguration: string = 'PBRClearCoatConfiguration', PBRMaterial: string = 'PBRMaterial', PBRMetallicRoughnessMaterial: string = 'PBRMetallicRoughnessMaterial', PBRSheenConfiguration: string = 'PBRSheenConfiguration', PBRSpecularGlossinessMaterial: string = 'PBRSpecularGlossinessMaterial', PBRSubSurfaceConfiguration: string = 'PBRSubSurfaceConfiguration', PhysicsImpostor: string = 'PhysicsImpostor', Plane: string = 'Plane', PlanePanel: string = 'PlanePanel', PointLight: string = 'PointLight', PointerDragBehavior: string = 'PointerDragBehavior', PointsCloudSystem: string = 'PointsCloudSystem', Polygon: string = 'Polygon', Polyhedron: string = 'Polyhedron', PrePassConfiguration: string = 'PrePassConfiguration', ProceduralTexture: string = 'ProceduralTexture', PushMaterial: string = 'PushMaterial', RadioButton: string = 'RadioButton', RawCubeTexture: string = 'RawCubeTexture', RawTexture: string = 'RawTexture', RawTexture2DArray: string = 'RawTexture2DArray', RawTexture3D: string = 'RawTexture3D', Rectangle: string = 'Rectangle', RefractionTexture: string = 'RefractionTexture', RenderTargetTexture: string = 'RenderTargetTexture', Ribbon: string = 'Ribbon', ScatterPanel: string = 'ScatterPanel', ScrollBar: string = 'ScrollBar', ScrollViewer: string = 'ScrollViewer', SelectionPanel: string = 'SelectionPanel', ShaderMaterial: string = 'ShaderMaterial', ShadowGenerator: string = 'ShadowGenerator', ShadowLight: string = 'ShadowLight', SixDofDragBehavior: string = 'SixDofDragBehavior', Slider: string = 'Slider', Sphere: string = 'Sphere', SpherePanel: string = 'SpherePanel', SpotLight: string = 'SpotLight', StackPanel: string = 'StackPanel', StackPanel3D: string = 'StackPanel3D', StandardMaterial: string = 'StandardMaterial', StereoscopicArcRotateCamera: string = 'StereoscopicArcRotateCamera', StereoscopicFreeCamera: string = 'StereoscopicFreeCamera', StereoscopicGamepadCamera: string = 'StereoscopicGamepadCamera', StereoscopicUniversalCamera: string = 'StereoscopicUniversalCamera', TargetCamera: string = 'TargetCamera', TextBlock: string = 'TextBlock', Texture: string = 'Texture', ThinTexture: string = 'ThinTexture', TiledBox: string = 'TiledBox', TiledGround: string = 'TiledGround', TiledPlane: string = 'TiledPlane', Torus: string = 'Torus', TorusKnot: string = 'TorusKnot', TouchCamera: string = 'TouchCamera', TrailMesh: string = 'TrailMesh', TransformNode: string = 'TransformNode', Tube: string = 'Tube', UniversalCamera: string = 'UniversalCamera', VRDeviceOrientationArcRotateCamera: string = 'VRDeviceOrientationArcRotateCamera', VRDeviceOrientationFreeCamera: string = 'VRDeviceOrientationFreeCamera', VRDeviceOrientationGamepadCamera: string = 'VRDeviceOrientationGamepadCamera', VRExperienceHelper: string = 'VRExperienceHelper', VideoTexture: string = 'VideoTexture', VirtualJoysticksCamera: string = 'VirtualJoysticksCamera', VirtualKeyboard: string = 'VirtualKeyboard', VolumeBasedPanel: string = 'VolumeBasedPanel', WebVRFreeCamera: string = 'WebVRFreeCamera', WebXRCamera: string = 'WebXRCamera', _ScrollViewerWindow: string = '_ScrollViewerWindow';
 const classesMap: object = {
     dynamicTerrain: ExtensionsDynamicTerrain, DynamicTerrain: ExtensionsDynamicTerrain,
     abstractScene: BabylonjsCoreAbstractScene, AbstractScene: BabylonjsCoreAbstractScene,
@@ -13341,7 +13745,14 @@ const classesMap: object = {
     colorGradingTexture: BabylonjsCoreColorGradingTexture, ColorGradingTexture: BabylonjsCoreColorGradingTexture,
     equiRectangularCubeTexture: BabylonjsCoreEquiRectangularCubeTexture, EquiRectangularCubeTexture: BabylonjsCoreEquiRectangularCubeTexture,
     hdrCubeTexture: BabylonjsCoreHDRCubeTexture, HDRCubeTexture: BabylonjsCoreHDRCubeTexture,
-    htmlElementTexture: BabylonjsCoreHtmlElementTexture, HtmlElementTexture: BabylonjsCoreHtmlElementTexture
+    htmlElementTexture: BabylonjsCoreHtmlElementTexture, HtmlElementTexture: BabylonjsCoreHtmlElementTexture,
+    prePassConfiguration: BabylonjsCorePrePassConfiguration, PrePassConfiguration: BabylonjsCorePrePassConfiguration,
+    detailMapConfiguration: BabylonjsCoreDetailMapConfiguration, DetailMapConfiguration: BabylonjsCoreDetailMapConfiguration,
+    pbrClearCoatConfiguration: BabylonjsCorePBRClearCoatConfiguration, PBRClearCoatConfiguration: BabylonjsCorePBRClearCoatConfiguration,
+    pbrAnisotropicConfiguration: BabylonjsCorePBRAnisotropicConfiguration, PBRAnisotropicConfiguration: BabylonjsCorePBRAnisotropicConfiguration,
+    pbrbrdfConfiguration: BabylonjsCorePBRBRDFConfiguration, PBRBRDFConfiguration: BabylonjsCorePBRBRDFConfiguration,
+    pbrSheenConfiguration: BabylonjsCorePBRSheenConfiguration, PBRSheenConfiguration: BabylonjsCorePBRSheenConfiguration,
+    pbrSubSurfaceConfiguration: BabylonjsCorePBRSubSurfaceConfiguration, PBRSubSurfaceConfiguration: BabylonjsCorePBRSubSurfaceConfiguration
 };
 export const intrinsicClassMap: object = {
     dynamicTerrain: 'DynamicTerrain',
@@ -13480,6 +13891,13 @@ export const intrinsicClassMap: object = {
     equiRectangularCubeTexture: 'EquiRectangularCubeTexture',
     hdrCubeTexture: 'HDRCubeTexture',
     htmlElementTexture: 'HtmlElementTexture',
+    prePassConfiguration: 'PrePassConfiguration',
+    detailMapConfiguration: 'DetailMapConfiguration',
+    pbrClearCoatConfiguration: 'PBRClearCoatConfiguration',
+    pbrAnisotropicConfiguration: 'PBRAnisotropicConfiguration',
+    pbrbrdfConfiguration: 'PBRBRDFConfiguration',
+    pbrSheenConfiguration: 'PBRSheenConfiguration',
+    pbrSubSurfaceConfiguration: 'PBRSubSurfaceConfiguration',
     adtForMesh: 'ADTForMesh',
     adtForMeshTexture: 'ADTForMeshTexture',
     adtFullscreenUi: 'ADTFullscreenUI',

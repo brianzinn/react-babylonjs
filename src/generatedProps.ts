@@ -212,6 +212,13 @@ import { PickingInfo as BabylonjsCorePickingInfo } from "@babylonjs/core/Collisi
 import { WebXRDefaultExperience as BabylonjsCoreWebXRDefaultExperience } from "@babylonjs/core/XR/webXRDefaultExperience";
 import { SolidParticleSystem as BabylonjsCoreSolidParticleSystem } from "@babylonjs/core/Particles/solidParticleSystem";
 import { CloudPoint as BabylonjsCoreCloudPoint } from "@babylonjs/core/Particles/cloudPoint";
+import { PrePassConfiguration as BabylonjsCorePrePassConfiguration } from "@babylonjs/core/Materials/prePassConfiguration";
+import { DetailMapConfiguration as BabylonjsCoreDetailMapConfiguration } from "@babylonjs/core/Materials/material.detailMapConfiguration";
+import { PBRClearCoatConfiguration as BabylonjsCorePBRClearCoatConfiguration } from "@babylonjs/core/Materials/PBR/pbrClearCoatConfiguration";
+import { PBRAnisotropicConfiguration as BabylonjsCorePBRAnisotropicConfiguration } from "@babylonjs/core/Materials/PBR/pbrAnisotropicConfiguration";
+import { PBRBRDFConfiguration as BabylonjsCorePBRBRDFConfiguration } from "@babylonjs/core/Materials/PBR/pbrBRDFConfiguration";
+import { PBRSheenConfiguration as BabylonjsCorePBRSheenConfiguration } from "@babylonjs/core/Materials/PBR/pbrSheenConfiguration";
+import { PBRSubSurfaceConfiguration as BabylonjsCorePBRSubSurfaceConfiguration } from "@babylonjs/core/Materials/PBR/pbrSubSurfaceConfiguration";
 import { IPhysicsEnginePlugin as BabylonjsCoreIPhysicsEnginePlugin } from "@babylonjs/core/Physics/IPhysicsEngine";
 import { Collider as BabylonjsCoreCollider } from "@babylonjs/core/Collisions/collider";
 import { Ray as BabylonjsCoreRay } from "@babylonjs/core/Culling/ray";
@@ -388,6 +395,13 @@ declare global {
             vrExperienceHelper: FiberVRExperienceHelperProps & FiberVRExperienceHelperPropsCtor & BabylonNode<BabylonjsCoreVRExperienceHelper>;
             dynamicTerrain: FiberDynamicTerrainProps & FiberDynamicTerrainPropsCtor & BabylonNode<ExtensionsDynamicTerrain>;
             pointsCloudSystem: FiberPointsCloudSystemProps & FiberPointsCloudSystemPropsCtor & BabylonNode<BabylonjsCorePointsCloudSystem>;
+            prePassConfiguration: FiberPrePassConfigurationProps & FiberPrePassConfigurationPropsCtor & BabylonNode<BabylonjsCorePrePassConfiguration>;
+            detailMapConfiguration: FiberDetailMapConfigurationProps & FiberDetailMapConfigurationPropsCtor & BabylonNode<BabylonjsCoreDetailMapConfiguration>;
+            pbrClearCoatConfiguration: FiberPBRClearCoatConfigurationProps & FiberPBRClearCoatConfigurationPropsCtor & BabylonNode<BabylonjsCorePBRClearCoatConfiguration>;
+            pbrAnisotropicConfiguration: FiberPBRAnisotropicConfigurationProps & FiberPBRAnisotropicConfigurationPropsCtor & BabylonNode<BabylonjsCorePBRAnisotropicConfiguration>;
+            pbrbrdfConfiguration: FiberPBRBRDFConfigurationProps & FiberPBRBRDFConfigurationPropsCtor & BabylonNode<BabylonjsCorePBRBRDFConfiguration>;
+            pbrSheenConfiguration: FiberPBRSheenConfigurationProps & FiberPBRSheenConfigurationPropsCtor & BabylonNode<BabylonjsCorePBRSheenConfiguration>;
+            pbrSubSurfaceConfiguration: FiberPBRSubSurfaceConfigurationProps & FiberPBRSubSurfaceConfigurationPropsCtor & BabylonNode<BabylonjsCorePBRSubSurfaceConfiguration>;
             autoRotationBehavior: FiberAutoRotationBehaviorProps & FiberAutoRotationBehaviorPropsCtor & BabylonNode<BabylonjsCoreAutoRotationBehavior>;
             bouncingBehavior: FiberBouncingBehaviorProps & FiberBouncingBehaviorPropsCtor & BabylonNode<BabylonjsCoreBouncingBehavior>;
             framingBehavior: FiberFramingBehaviorProps & FiberFramingBehaviorPropsCtor & BabylonNode<BabylonjsCoreFramingBehavior>;
@@ -2972,6 +2986,100 @@ export type FiberPointsCloudSystemPropsCtor = {
     name: string;
     pointSize: number;
     updatable?: boolean;
+};
+export type FiberPrePassConfigurationProps = {
+    previousBones?: { [index: number]: Float32Array; };
+    previousViewProjection?: BabylonjsCoreMatrix;
+    previousWorldMatrices?: { [index: number]: BabylonjsCoreMatrix; };
+} & CustomProps;
+export type FiberPrePassConfigurationPropsCtor = {};
+export type FiberDetailMapConfigurationProps = {
+    bumpLevel?: number;
+    diffuseBlendLevel?: number;
+    isEnabled?: boolean;
+    normalBlendMethod?: number;
+    roughnessBlendLevel?: number;
+    texture?: BabylonjsCoreBaseTexture;
+} & CustomProps;
+export type FiberDetailMapConfigurationPropsCtor = {
+    markAllSubMeshesAsTexturesDirty: () => void;
+};
+export type FiberPBRClearCoatConfigurationProps = {
+    bumpTexture?: BabylonjsCoreBaseTexture;
+    indexOfRefraction?: number;
+    intensity?: number;
+    isEnabled?: boolean;
+    isTintEnabled?: boolean;
+    remapF0OnInterfaceChange?: boolean;
+    roughness?: number;
+    texture?: BabylonjsCoreBaseTexture;
+    textureRoughness?: BabylonjsCoreBaseTexture;
+    tintColor?: BabylonjsCoreColor3;
+    tintColorAtDistance?: number;
+    tintTexture?: BabylonjsCoreBaseTexture;
+    tintThickness?: number;
+    useRoughnessFromMainTexture?: boolean;
+} & CustomProps;
+export type FiberPBRClearCoatConfigurationPropsCtor = {
+    markAllSubMeshesAsTexturesDirty: () => void;
+};
+export type FiberPBRAnisotropicConfigurationProps = {
+    direction?: BabylonjsCoreVector2;
+    intensity?: number;
+    isEnabled?: boolean;
+    texture?: BabylonjsCoreBaseTexture;
+} & CustomProps;
+export type FiberPBRAnisotropicConfigurationPropsCtor = {
+    markAllSubMeshesAsTexturesDirty: () => void;
+};
+export type FiberPBRBRDFConfigurationProps = {
+    useEnergyConservation?: boolean;
+    useSmithVisibilityHeightCorrelated?: boolean;
+    useSpecularGlossinessInputEnergyConservation?: boolean;
+    useSphericalHarmonics?: boolean;
+} & CustomProps;
+export type FiberPBRBRDFConfigurationPropsCtor = {
+    markAllSubMeshesAsMiscDirty: () => void;
+};
+export type FiberPBRSheenConfigurationProps = {
+    albedoScaling?: boolean;
+    color?: BabylonjsCoreColor3;
+    intensity?: number;
+    isEnabled?: boolean;
+    linkSheenWithAlbedo?: boolean;
+    roughness?: number;
+    texture?: BabylonjsCoreBaseTexture;
+    textureRoughness?: BabylonjsCoreBaseTexture;
+    useRoughnessFromMainTexture?: boolean;
+} & CustomProps;
+export type FiberPBRSheenConfigurationPropsCtor = {
+    markAllSubMeshesAsTexturesDirty: () => void;
+};
+export type FiberPBRSubSurfaceConfigurationProps = {
+    diffusionDistance?: BabylonjsCoreColor3;
+    indexOfRefraction?: number;
+    invertRefractionY?: boolean;
+    isRefractionEnabled?: boolean;
+    isScatteringEnabled?: boolean;
+    isTranslucencyEnabled?: boolean;
+    linkRefractionWithTransparency?: boolean;
+    maximumThickness?: number;
+    minimumThickness?: number;
+    refractionIntensity?: number;
+    refractionTexture?: BabylonjsCoreBaseTexture;
+    scatteringDiffusionProfile?: BabylonjsCoreColor3;
+    thicknessTexture?: BabylonjsCoreBaseTexture;
+    tintColor?: BabylonjsCoreColor3;
+    tintColorAtDistance?: number;
+    translucencyIntensity?: number;
+    useAlbedoToTintRefraction?: boolean;
+    useMaskFromThicknessTexture?: boolean;
+    useMaskFromThicknessTextureGltf?: boolean;
+    volumeIndexOfRefraction?: number;
+} & CustomProps;
+export type FiberPBRSubSurfaceConfigurationPropsCtor = {
+    markAllSubMeshesAsTexturesDirty: () => void;
+    markScenePrePassDirty: () => void;
 };
 export type FiberAutoRotationBehaviorProps = {
     idleRotationSpeed?: number;

@@ -20,6 +20,8 @@ If you want to declaratively use something not listed here create an issue :)  S
 
 4. **Materials** - backgroundMaterial, fluentMaterial, material, multiMaterial, nodeMaterial, pbrBaseMaterial, pbrBaseSimpleMaterial, pbrMaterial, pbrMetallicRoughnessMaterial, pbrSpecularGlossinessMaterial, pushMaterial, shaderMaterial, standardMaterial
 
+> note: Materials can have configuration (read-only) properties as classes.  With `assignFrom` prop you can declare detailMapConfiguration, pbrClearCoatConfiguration, pbrAnisotropicConfiguration, pbrbrdfConfiguration, pbrSheenConfiguration, pbrSubSurfaceConfiguration to attach to declaratively.  PBRBaseMaterial has all, while StandardMaterial has only detailMapConfiguration. (prePassConfiguration has no updateable properties, but can be attached)
+
 5. **Lights** - directionalLight, hemisphericLight, light, pointLight, shadowLight, spotLight
 
 6. **Textures** - advancedDynamicTexture, baseTexture, colorGradingTexture, cubeTexture, customProceduralTexture, dynamicTexture, equiRectangularCubeTexture, hdrCubeTexture, htmlElementTexture, mirrorTexture, multiRenderTarget, multiviewRenderTarget, noiseProceduralTexture, proceduralTexture, rawCubeTexture, rawTexture, rawTexture2DArray, rawTexture3D, refractionTexture, renderTargetTexture, texture, videoTexture

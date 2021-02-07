@@ -154,6 +154,8 @@ classesOfInterest.set("EffectLayer", undefined);
 classesOfInterest.set("Behavior", undefined); // TODO: remove this.
 classesOfInterest.set("PointsCloudSystem", undefined);
 
+const readonlyPropertiesToGenerate: Map<string, ClassNameSpaceTuple> = new Map<string, ClassNameSpaceTuple>();
+
 /**
  * In babylon.js, Behavior is a interface, not a class.
  * Each specific behavior is a separated class.
@@ -212,7 +214,6 @@ const getModuleDeclarationFromClassDeclaration = (classDeclaration: ClassDeclara
     const aliasPrefix = packageName.substr(1).split('/').map(x => capitalize(x)).join('');
     classAlias = `${aliasPrefix}${className}`
   }
-
 
   return {
     moduleSpecifier,
@@ -661,7 +662,18 @@ const getInstanceProperties = (classDeclaration: ClassDeclaration): (PropertyDec
     }
 
     if (property.isReadonly()) {
-      // console.log(` > skipping ${className}.${propertyName} (read-only)`)
+      // console.log(` > skipping ${classDeclaration.getName()}.${propertyName} (read-only)`)
+      if (property.getType().isClass() === true) {
+        const typeClassDeclarations: ClassDeclaration[] | undefined = property.getType()?.getSymbol()?.getDeclarations() as ClassDeclaration[];
+        if (typeClassDeclarations !== undefined && typeClassDeclarations.length === 1) {
+          const classNamespaceTuple: ClassNameSpaceTuple = {
+            classDeclaration: typeClassDeclarations[0],
+            moduleDeclaration: getModuleDeclarationFromClassDeclaration(typeClassDeclarations[0])
+          };
+          // console.log(` >> adding ${classDeclaration.getName()}.${propertyName} (read-only) property type '${typeClassDeclarations[0].getName()}'`);
+          readonlyPropertiesToGenerate.set(typeClassDeclarations[0].getName()!, classNamespaceTuple);
+        }
+      }
       return;
     }
 
@@ -1270,7 +1282,7 @@ const createClassesDerivedFrom = (generatedCodeSourceFile: SourceFile, generated
 
   while (classDeclaration !== undefined) {
     classesToCreate.push(classDeclaration);
-    classDeclaration = classDeclaration.getBaseClass()
+    classDeclaration = classDeclaration.getBaseClass();
     inheritsFromNode = inheritsFromNode || (classDeclaration !== undefined && classDeclaration.getName() === 'Node')
   }
 
@@ -1386,7 +1398,6 @@ const createSingleClass = (classOfInterest: string, generatedCodeSourceFile: Sou
   addCreateInfoFromConstructor(classToGenerate.classDeclaration, newClassDeclaration, classToGenerate.moduleDeclaration, generatedCodeSourceFile, generatedPropsSourceFile);
 
   addMetadata(newClassDeclaration, classToGenerate.classDeclaration, metadata);
-  console.log('Single class added')
   console.log(` > ${classToIntrinsic(classToGenerate.classDeclaration.getName()!)}`)
 }
 
@@ -1605,6 +1616,7 @@ const generateCode = async () => {
     createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("ThinTexture")!, fromClassName, onTexturesCreate);
   }
 
+  console.log('Adding single glasses:');
   createSingleClass("GUI3DManager", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { isGUI3DControl: true }, () => { return; });
   createSingleClass("ShadowGenerator", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true }, () => { return; });
   createSingleClass("CascadedShadowGenerator", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true }, () => { return; });
@@ -1614,6 +1626,23 @@ const generateCode = async () => {
   createSingleClass("DynamicTerrain", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { acceptsMaterials: true });
   createSingleClass("PointsCloudSystem", generatedCodeSourceFile, generatedPropsSourceFile);
 
+  console.log('Adding read-only property classes:');
+  readonlyPropertiesToGenerate.forEach((value: ClassNameSpaceTuple, className: string) => {
+    const classDeclaration = value.classDeclaration;
+    addHostElement(classDeclaration.getName()!, classDeclaration);
+
+    if (classDeclaration.getBaseClass() !== undefined) {
+      console.error(" >> READONLY property with base class detected (will not generate correctly):", classDeclaration.getBaseClass()?.getName())
+    }
+
+    console.log(` > ${classToIntrinsic(className)}`)
+    const newClassDeclaration = createClassDeclaration(classDeclaration, classDeclaration, generatedCodeSourceFile, generatedPropsSourceFile, extra);
+    addCreateInfoFromConstructor(classDeclaration, newClassDeclaration, value.moduleDeclaration, generatedCodeSourceFile, generatedPropsSourceFile);
+
+    addMetadata(newClassDeclaration, classDeclaration);
+  })
+
+  console.log('Adding behaviors:')
   classesOfInterest.forEach((_, className) => {
     if (className.includes('Behavior')) {
       createSingleClass(className as string, generatedCodeSourceFile,
