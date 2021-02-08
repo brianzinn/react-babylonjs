@@ -16,9 +16,35 @@
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen",
             "env": {
-                "TS_NODE_PROJECT": "tsconfig.generate.json",
-                "TS_NODE_TRANSPILE_ONLY": "true"
-              }
+              "TS_NODE_PROJECT": "tsconfig.generate.json",
+              "TS_NODE_TRANSPILE_ONLY": "true"
+            }
+        }, {
+          "type": "node",
+          "request": "launch",
+          "args": [
+            "--require",
+            "ts-node/register",
+            "--require",
+            "esm",
+            "--timeout",
+            "99999",
+            "--colors",
+            "${workspaceFolder}/src/**/*.spec.ts"
+          ],
+          "internalConsoleOptions": "openOnSessionStart",
+          "name": "Mocha Tests",
+          "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
+          "skipFiles": [
+            "<node_internals>/**"
+          ],
+          "env": {
+            "TS_NODE_PROJECT": "tsconfig.test.json",
+            "TS_NODE_TRANSPILE_ONLY": "true",
+          },
+          "runtimeArgs": [
+            "--max-old-space-size=4096"
+          ]
         }
     ]
 }

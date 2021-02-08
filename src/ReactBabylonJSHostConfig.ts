@@ -376,8 +376,6 @@ const ReactBabylonJSHostConfig: HostConfig<
                 // MeshBuild.createSphere(name: string, options: {...}, scene: any)
                 // console.log('Assigning scene to:', type, generatedParameter)
                 value = scene
-              } else if (generatedParameter.optional === false) {
-                console.warn(`required parameter for ${type} unassigned -> ${generatedParameter.name}:${generatedParameter.type}`);
               }
             }
 
