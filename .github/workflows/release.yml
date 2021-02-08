@@ -31,10 +31,11 @@ jobs:
           git config user.email "github@wakeskate.com"
           git config user.name "Brian Zinn"
 
-      - name: install-build
+      - name: install build test coverage
         run: |
           yarn install
           yarn build
+          yarn test:coverage
       - name: version-changelog-commit
         run: |
           npm version ${{ github.event.inputs.npmVersion }} -m "release %s :package:${{ github.event.inputs.comment }}"
