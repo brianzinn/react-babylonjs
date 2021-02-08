@@ -1,10 +1,11 @@
 import assert from 'assert';
-import sinon, { SinonStub, SinonSpy } from 'sinon';
+import sinon, { SinonSpy } from 'sinon';
 import { Fiber } from 'react-reconciler';
 import { CreatedInstance, CustomProps } from '../src/CreatedInstance';
 import renderer, { Container } from '../src/ReactBabylonJSHostConfig';
-import { Engine, NullEngine, Scene } from '@babylonjs/core';
+import { Engine, NullEngine, PBRMaterial, Scene } from '@babylonjs/core';
 import { FallbackLifecycleListener, NodeLifecycleListener } from '../src/customHosts';
+import { PBRClearCoatConfiguration } from '@babylonjs/core/Materials/PBR/pbrClearCoatConfiguration';
 
 describe(' > Reconciler tests', function testSuite() {
 
@@ -104,4 +105,27 @@ describe(' > Reconciler tests', function testSuite() {
     assert.notStrictEqual(createdInstance!.lifecycleListener, undefined);
     assert.ok(createdInstance?.lifecycleListener instanceof FallbackLifecycleListener, `expecting fallback lifecycle listener to ensure deferred creation props are assigned`);
   });
+
+  it('assignFrom should attach properly to parent property and assign deferred props (ie: without a prop update or re-render)', async function test() {
+    const container = getRootContainerInstance();
+
+    const pbrClearCoatConfiguration: CreatedInstance<PBRClearCoatConfiguration> | undefined = renderer.createInstance('pbrClearCoatConfiguration', {
+      assignFrom: 'clearCoat',
+      isEnabled: true,
+      roughness: 0.9
+    }, container, null as any as Container, null as any as Fiber);
+
+    const pbrMaterial: CreatedInstance<PBRMaterial> | undefined = renderer.createInstance('pbrMaterial', {
+      name: 'material'
+    }, container, null as any as Container, null as any as Fiber);
+
+    assert.strictEqual(pbrMaterial.hostInstance.clearCoat.isEnabled, false, "ClearCoat is not enabled by default");
+    assert.strictEqual(pbrMaterial.hostInstance.clearCoat.roughness, 0, 'clear coat layer roughness is 0 by default');
+
+    renderer.appendChild(pbrMaterial, pbrClearCoatConfiguration);
+
+    assert.ok(pbrMaterial.hostInstance.clearCoat.isEnabled, "ClearCoat should be enabled from 'assignFrom' host element");
+    assert.strictEqual(pbrMaterial.hostInstance.clearCoat.roughness, 0.9, 'clear coat layer roughness should update to host element from delayed props assignment');
+  })
+
 });
