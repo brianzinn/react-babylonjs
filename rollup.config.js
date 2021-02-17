@@ -21,7 +21,7 @@ export default (async () => {
     output: [{
       file: pkg.module,
       format: 'es',
-      sourcemap: true,
+      sourcemap: isProduction,
       globals: exportGlobals,
     }],
     context: 'window',

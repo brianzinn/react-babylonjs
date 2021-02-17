@@ -14,7 +14,7 @@ export interface ReconcilerInstance {
    */
   render: (element: ReactElement | null, container: Container, callback: () => void, parentComponent: any) => any;
   /**
-   * Manually unmount the whole Ink app.
+   * Manually unmount the whole app.
    */
   unmount: (container: Container) => void;
 }

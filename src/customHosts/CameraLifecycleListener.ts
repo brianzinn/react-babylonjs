@@ -1,4 +1,4 @@
-import { Camera, TargetCamera } from '@babylonjs/core'
+import { Camera } from '@babylonjs/core'
 
 import BaseLifecycleListener from './BaseLifecycleListener'
 import { CreatedInstance } from '../CreatedInstance'
@@ -28,13 +28,6 @@ export default class CameraLifecycleListener extends BaseLifecycleListener<Camer
     // should be a custom property for autoAttaching?  Will be an issue for multiple cameras.
     camera.attachControl(this.scene.getEngine().getRenderingCanvas(), noPreventDefault);
 
-    if (instance.metadata.isTargetable && this.props.lockedTargetMeshName) {
-      if (this.scene === null) {
-        console.error('no scene for targeting');
-      } else {
-        const targetCamera = camera as TargetCamera;
-        targetCamera.lockedTarget = this.scene.getMeshByName(this.props.lockedTargetMeshName);
-      }
-    }
+    // Targeting removed from here - handled by TargetPropsHandler
   }
 }

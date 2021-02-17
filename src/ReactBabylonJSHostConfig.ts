@@ -130,11 +130,6 @@ function addChild(parent: CreatedInstance<any> | undefined, child: CreatedInstan
     }
   }
 
-  if (parent) {
-    parent.children.push(child);
-    child.parent = parent!;
-  }
-
   if (child && child.lifecycleListener && child.lifecycleListener.onParented) {
     child.lifecycleListener.onParented(parent!, child)
   }
@@ -246,10 +241,15 @@ const ReactBabylonJSHostConfig: HostConfig<
    * This is called when something is dynamically added to root (not on initial appendChildToContainer)
    */
   insertInContainerBefore(container: Container, child: CreatedInstance<any>, beforeChild: CreatedInstance<any>) {
-    // same implementation as appendChildToContainer
+    // Similar to appendChildToContainer, but indexed insertion
     if (child) {
-      // doubly link child to root.  we don't care about order - ie: 'beforeChild'
-      container.rootInstance.children.push(child)
+      const index = container.rootInstance.children.indexOf(beforeChild);
+      if (index >= 0) {
+        container.rootInstance.children.splice(index, 0, child);
+      } else {
+        container.rootInstance.children.push(child);
+      }
+      // doubly link child to root.
       child.parent = container.rootInstance
     } else {
       console.error("insertInContainerBefore. No child:", child)
@@ -329,8 +329,7 @@ const ReactBabylonJSHostConfig: HostConfig<
         ? dynamicRegisteredHost.metadata
         : classDefinition.Metadata;
     }
-    else if (dynamicRegisteredHost !== undefined)
-    {
+    else if (dynamicRegisteredHost !== undefined) {
       metadata = dynamicRegisteredHost.metadata;
       babylonObject = dynamicRegisteredHost.hostFactory(scene!);
     } else {
@@ -461,18 +460,22 @@ const ReactBabylonJSHostConfig: HostConfig<
     if (metadata.delayCreation !== true && customProps.assignFrom === undefined) {
       applyInitialPropsToCreatedInstance(createdReference, props);
 
-      // This property is only needed by `applyPropsToRef`, so if the propsHandlers can be made available there in another way then we don't need this property.
-      Object.defineProperty(createdReference.hostInstance, '__propsHandlers', {
-        get() { return createdReference.propsHandlers; },
-        enumerable: true,
-      });
+      // fromInstance can cause issues when used multiple times - this could point incorrectly
+      if (!('__propsHandlers' in createdReference.hostInstance)) {
+        // This property is only needed by `applyPropsToRef`, so if the propsHandlers can be made available there in another way then we don't need this property.
+        Object.defineProperty(createdReference.hostInstance, '__propsHandlers', {
+          get() { return createdReference.propsHandlers; },
+          enumerable: true,
+        });
+      }
     } else {
       createdReference.deferredCreationProps = props;
     }
 
     // TODO: make this an opt-in -- testing inspectable metadata (and our Custom Props, which we want to be more specific to Type):
     // TODO: use {} instead of NULL and use the late-binding from 'v3' branch (also for deferred creation/assignFrom).
-    if (createdReference.hostInstance) {
+    // fromInstance being called multiple times with same instance.
+    if (createdReference.hostInstance && !('metadata-className' in createdReference.hostInstance)) {
       Object.defineProperty(createdReference.hostInstance, 'metadata-className', {
         get() { return createdReference.metadata.className; },
         enumerable: true

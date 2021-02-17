@@ -38,7 +38,7 @@
     "storybook": "start-storybook -p 6006 -s ./storyboard-site",
     "build-storybook": "build-storybook -o storybook-static -s ./storyboard-site",
     "generate-code": "ts-node -P tsconfig.generate.json tools/generate-code",
-    "unit-test": "cross-env TS_NODE_PROJECT=\"tsconfig.test.json\" mocha --require ts-node/register --require esm test/**/*.spec.ts",
+    "unit-test": "cross-env TS_NODE_PROJECT=\"tsconfig.test.json\" mocha --require ts-node/register --require esm \"test/**/*.spec.{js,jsx,ts,tsx}\"",
     "test": "npm run unit-test",
     "test:coverage": "nyc --reporter=lcov --reporter=text-summary npm run test"
   },
