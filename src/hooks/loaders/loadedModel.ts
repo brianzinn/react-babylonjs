@@ -30,6 +30,10 @@ export interface ILoadedModel {
   animationGroups?: AnimationGroup[]
 
   readonly boundingInfo: Nullable<BoundingInfo>
+  readonly scaledToDimension: number | undefined
+
+  scaleTo(maxDimension: number): void
+  dispose(): void
 }
 
 export class LoadedModel implements ILoadedModel {
@@ -96,7 +100,7 @@ export class LoadedModel implements ILoadedModel {
   /**
    * Clean up all resources.
    */
-  public dispose() {
+  public dispose(): void {
     if (this.rootMesh) {
       this.rootMesh.dispose(false, true);
       this.rootMesh = undefined;

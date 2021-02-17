@@ -1,7 +1,7 @@
-import { AbstractMesh, ISceneLoaderProgressEvent, Vector3 } from "@babylonjs/core";
+import { AbstractMesh, ISceneLoaderProgressEvent } from "@babylonjs/core";
 import React, { useEffect } from "react"
 import { FiberAbstractMeshProps, FiberAbstractMeshPropsCtor } from "../generatedProps";
-import { ILoadedModel, LoadedModel } from "../hooks/loaders/loadedModel";
+import { ILoadedModel } from "../hooks/loaders/loadedModel";
 
 import { SceneLoaderOptions, useSceneLoader } from "../hooks/loaders/useSceneLoader";
 
@@ -18,7 +18,7 @@ export type ModelProps = {
   reportProgress?: boolean
   scaleToDimension?: number
   onModelLoaded?: (model: ILoadedModel) => void
-  onModelError?: (model: LoadedModel) => void
+  onModelError?: (model: ILoadedModel) => void
   onLoadProgress?: (event: ISceneLoaderProgressEvent) => void
   onCreated?: (rootMesh: AbstractMesh) => void
 } & FiberAbstractMeshProps & FiberAbstractMeshPropsCtor;
