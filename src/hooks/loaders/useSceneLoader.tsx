@@ -28,7 +28,7 @@ export type SceneLoaderOptions = {
   /**
    * An array of mesh names, a single mesh name, or empty string for all meshes that filter what meshes are imported
    */
-  meshNames: any
+  meshNames?: any
 
   /**
    * set that all meshes receive shadows.
@@ -120,7 +120,7 @@ const useSceneLoaderWithCache = (): (rootUrl: string, sceneFilename: string, plu
         loadedModel.status = LoaderStatus.Loading
 
         let loader: Nullable<ISceneLoaderPlugin | ISceneLoaderPluginAsync> = SceneLoader.ImportMesh(
-          meshNames: opts.meshNames,
+          opts.meshNames,
           rootUrl,
           sceneFilename,
           scene,
