@@ -6,8 +6,9 @@ import { ILoadedModel } from "../hooks/loaders/loadedModel";
 import { SceneLoaderOptions, useSceneLoader } from "../hooks/loaders/useSceneLoader";
 
 export type ModelProps = {
-    /**
+  /**
    * Only used on init.  Will not update dynamically (scaling will update dynamically and override this)
+   * An array of mesh names, a single mesh name, or empty string for all meshes that filter what meshes are imported
    */
   meshNames?: any
   receiveShadows?: boolean
@@ -24,13 +25,21 @@ export type ModelProps = {
 } & FiberAbstractMeshProps & FiberAbstractMeshPropsCtor;
 
 const Model: React.FC<ModelProps> = (props: ModelProps) => {
-  const { alwaysSelectAsActiveMesh, onModelLoaded, pluginExtension, rootUrl, receiveShadows, reportProgress, scaleToDimension, sceneFilename, ...rest } = props;
+  const {
+    alwaysSelectAsActiveMesh, meshNames, onLoadProgress, onModelError, onModelLoaded, receiveShadows, reportProgress, scaleToDimension, // SceneLoaderOptions
+    rootUrl, sceneFilename, pluginExtension, // other parameters
+    ...rest // passed on to "rootMesh"
+  } = props;
+
   const options: SceneLoaderOptions = {
-    receiveShadows,
-    scaleToDimension,
     alwaysSelectAsActiveMesh,
+    meshNames,
+    onLoadProgress,
+    onModelError,
+    onModelLoaded,
+    receiveShadows,
     reportProgress,
-    onModelLoaded
+    scaleToDimension,
   }
   const sceneLoaderResults = useSceneLoader(rootUrl, sceneFilename, pluginExtension, options);
 
@@ -41,7 +50,7 @@ const Model: React.FC<ModelProps> = (props: ModelProps) => {
     }
   }, []);
 
-  return  <abstractMesh fromInstance={sceneLoaderResults.rootMesh!} {...rest} />;
+  return <abstractMesh fromInstance={sceneLoaderResults.rootMesh!} {...rest} />;
 }
 
 export default Model;
