@@ -85,10 +85,6 @@ export type CustomProps = {
    * Default: false
    */
   disposeInstanceOnUnmount?: boolean
-  /**
-   * for instancedMesh
-   */
-  source?: Mesh
 }
 
 export interface CreatedInstanceMetadata extends InstanceMetadataParameter {
