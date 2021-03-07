@@ -1,3 +1,4 @@
+coverage
 media
 node_modules
 src
@@ -10,6 +11,7 @@ tools
 .eslintrc
 .gitattributes
 .gitignore
+.nyc_output
 .storybook
 .travis.yml
 .vscode

@@ -5,7 +5,7 @@ import * as GENERATED from './generatedCode';
 import * as CUSTOM_HOSTS from './customHosts';
 
 import { CreatedInstance, CreatedInstanceMetadata, CustomProps } from './CreatedInstance';
-import { HasPropsHandlers, PropertyUpdate, UpdatePayload, PropsHandler } from './PropsHandler';
+import { HasPropsHandlers, PropertyUpdate, UpdatePayload, PropsHandler, CustomPropsHandler, PropChangeType } from './PropsHandler';
 import { LifecycleListener } from "./LifecycleListener";
 import { GeneratedParameter, CreationType } from './codeGenerationDescriptors';
 import { applyUpdateToInstance, applyInitialPropsToCreatedInstance } from './UpdateInstance';
@@ -125,17 +125,40 @@ function addChild(parent: CreatedInstance<any> | undefined, child: CreatedInstan
       console.error('undefined child', parent);
     } else {
       // doubly linking child to parent
-      parent.children.push(child) // TODO: need to remove from children as well when removing.
-      child.parent = parent
+      parent.children.push(child);
+      child.parent = parent;
     }
   }
 
   if (child && child.lifecycleListener && child.lifecycleListener.onParented) {
-    child.lifecycleListener.onParented(parent!, child)
+    child.lifecycleListener.onParented(parent!, child);
   }
 
   if (parent && parent.lifecycleListener && parent.lifecycleListener.onChildAdded) {
-    parent.lifecycleListener.onChildAdded(child, parent)
+    parent.lifecycleListener.onChildAdded(child, parent);
+  }
+}
+
+/**
+ * Allows constructor arguments to register for dynamically registered property transforms (should exclude undefined).
+ * TODO: include other types or add "PropsChangeType" to GeneratedParameters (would increase bundle size)
+ *
+ * @param type generated name (not same as PropChangeType)
+ * @param value parameter value
+ */
+const getConstructorValue = (type: string, value: any) : any => {
+  switch(type) {
+    case 'BabylonjsCoreVector3':
+      const v3result = CustomPropsHandler.HandlePropsChange(PropChangeType.Vector3, undefined, value);
+      return v3result.processed ? v3result.value : value;
+    case 'BabylonjsCoreColor3':
+      const c3result = CustomPropsHandler.HandlePropsChange(PropChangeType.Vector3, undefined, value);
+      return c3result.processed ? c3result.value : value;
+    case 'BabylonjsCoreColor4':
+      const c4result = CustomPropsHandler.HandlePropsChange(PropChangeType.Color4, undefined, value);
+      return c4result.processed ? c4result.value : value;
+    default:
+      return value;
   }
 }
 
@@ -335,7 +358,7 @@ const ReactBabylonJSHostConfig: HostConfig<
     } else {
       const createInfoArgs = classDefinition.CreateInfo;
       metadata = classDefinition.Metadata;
-      let generatedParameters: GeneratedParameter[] = createInfoArgs.parameters
+      let generatedParameters: GeneratedParameter[] = createInfoArgs.parameters;
 
       if (props.fromInstance !== undefined) {
         if (createInfoArgs.namespace.startsWith('@babylonjs/')) {
@@ -356,25 +379,25 @@ const ReactBabylonJSHostConfig: HostConfig<
         let args = generatedParameters.map(generatedParameter => {
           if (Array.isArray(generatedParameter.type)) {
             // TODO: if all props are missing, warn if main prop (ie: options) is required.
-            let newParameter = {} as any
+            let newParameter = {} as any;
             generatedParameter.type.forEach(subParameter => {
-              let subPropValue = props[subParameter.name]
+              let subPropValue = getConstructorValue(subParameter.type as string, props[subParameter.name]);
               if (subPropValue === undefined && subParameter.optional === false && generatedParameter.optional === false) {
-                console.warn("Missing a required secondary property:", subParameter.name)
+                console.warn("Missing a required secondary property:", subParameter.name);
               } else {
-                newParameter[subParameter.name] = subPropValue
+                newParameter[subParameter.name] = subPropValue;
               }
             })
-            return newParameter
+            return newParameter;
           } else {
-            let value = props[generatedParameter.name]
+            let value = getConstructorValue(generatedParameter.type, props[generatedParameter.name]);
             if (value === undefined) {
               // NOTE: we removed the hosted Scene component, which needs (generatedParameter.type == "BabylonjsCoreEngine")
               // SceneOrEngine type is Scene
               if (generatedParameter.type.includes("BabylonjsCoreScene") || (generatedParameter.type === "any" && generatedParameter.name === "scene")) {
                 // MeshBuild.createSphere(name: string, options: {...}, scene: any)
                 // console.log('Assigning scene to:', type, generatedParameter)
-                value = scene
+                value = scene;
               }
             }
 
