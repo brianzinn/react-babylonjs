@@ -587,8 +587,14 @@ const ReactBabylonJSHostConfig: HostConfig<
   appendChildToContainer: (container: Container, child: HostCreatedInstance<any>): void => {
     if (child) {
       // doubly link child to root
-      container.rootInstance.children.push(child)
-      child.parent = container.rootInstance
+      container.rootInstance.children.push(child);
+      child.parent = container.rootInstance;
+
+      // hostInstance is undefined when using "assignFrom".
+      if (child.hostInstance === undefined && child.lifecycleListener) {
+        // From perspective of declarative syntax the "Scene" is the parent.
+        child.lifecycleListener!.onParented(container.rootInstance, child);
+      }
     }
   },
 

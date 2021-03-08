@@ -33,6 +33,7 @@ import {
   Node,
   SyntaxKind,
   FormatCodeSettings,
+  GetAccessorDeclaration,
 } from 'ts-morph'
 
 import { GeneratedParameter, CreateInfo, CreationType } from "../src/codeGenerationDescriptors";
@@ -151,8 +152,10 @@ classesOfInterest.set("PhysicsImpostor", undefined);
 classesOfInterest.set("VRExperienceHelper", undefined);
 classesOfInterest.set("DynamicTerrain", undefined);
 classesOfInterest.set("EffectLayer", undefined);
-classesOfInterest.set("Behavior", undefined); // TODO: remove this.
+classesOfInterest.set("Behavior", undefined); // TODO: remove this and use interface
 classesOfInterest.set("PointsCloudSystem", undefined);
+classesOfInterest.set("PostProcessRenderPipeline", undefined);
+classesOfInterest.set("PostProcess", undefined);
 
 const readonlyPropertiesToGenerate: Map<string, ClassNameSpaceTuple> = new Map<string, ClassNameSpaceTuple>();
 
@@ -639,6 +642,23 @@ const getInstanceSetMethods = (classDeclaration: ClassDeclaration): MethodDeclar
   return instanceSetMethods;
 }
 
+function addReadonlyClasses(classDeclaration: ClassDeclaration, property: PropertyDeclaration | GetAccessorDeclaration): void {
+  if (property.getType().isClass() === true) {
+    const typeClassDeclarations: ClassDeclaration[] | undefined = property.getType()?.getSymbol()?.getDeclarations() as ClassDeclaration[];
+    const className = typeClassDeclarations !== undefined && typeClassDeclarations.length === 1
+      ? typeClassDeclarations[0].getName()
+      : undefined;
+    if (className !== undefined && className.endsWith('Configuration')) {
+      const classNamespaceTuple: ClassNameSpaceTuple = {
+        classDeclaration: typeClassDeclarations[0],
+        moduleDeclaration: getModuleDeclarationFromClassDeclaration(typeClassDeclarations[0])
+      };
+      console.log(` >> adding ${classDeclaration.getName()!}.${property.getName()} (read-only) property type '${typeClassDeclarations[0].getName()}'`);
+      readonlyPropertiesToGenerate.set(typeClassDeclarations[0].getName()!, classNamespaceTuple);
+    }
+  }
+}
+
 /**
  * get props from babylonjs class
  * @param classDeclaration
@@ -648,9 +668,14 @@ const getInstanceProperties = (classDeclaration: ClassDeclaration): (PropertyDec
 
   classDeclaration.getSetAccessors().forEach(acc => result.push(acc));
 
+  classDeclaration.getGetAccessors().forEach(acc => {
+    // This is how we add ImageProcessingConfiguration.
+    addReadonlyClasses(classDeclaration, acc);
+  });
+
   // for conditional breakpoints on class: classDeclaration.getName() === "Control";
   classDeclaration.getProperties().forEach(property => {
-    let propertyName = property.getName()
+    let propertyName = property.getName();
     if (propertyName[0] === '_') {
       // console.log(` > skipping ${className}.${propertyName} (private/hidden)`)
       return;
@@ -662,25 +687,15 @@ const getInstanceProperties = (classDeclaration: ClassDeclaration): (PropertyDec
     }
 
     if (property.isReadonly()) {
+      // This is how we add class configurations like PBRClearCoatConfiguration
       // console.log(` > skipping ${classDeclaration.getName()}.${propertyName} (read-only)`)
-      if (property.getType().isClass() === true) {
-        const typeClassDeclarations: ClassDeclaration[] | undefined = property.getType()?.getSymbol()?.getDeclarations() as ClassDeclaration[];
-        if (typeClassDeclarations !== undefined && typeClassDeclarations.length === 1) {
-          const classNamespaceTuple: ClassNameSpaceTuple = {
-            classDeclaration: typeClassDeclarations[0],
-            moduleDeclaration: getModuleDeclarationFromClassDeclaration(typeClassDeclarations[0])
-          };
-          // console.log(` >> adding ${classDeclaration.getName()}.${propertyName} (read-only) property type '${typeClassDeclarations[0].getName()}'`);
-          readonlyPropertiesToGenerate.set(typeClassDeclarations[0].getName()!, classNamespaceTuple);
-        }
-      }
+      addReadonlyClasses(classDeclaration, property);
       return;
     }
 
     // add conditional breakpoint to inspect properties.  ie: propertyName==='customShaderNameResolve'
     result.push(property);
   })
-
   return result;
 }
 
@@ -1550,7 +1565,6 @@ const generateCode = async () => {
     createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Material")!, () => ({ isMaterial: true }));
   }
 
-
   if (classesOfInterest.get("Light")) {
     const fromClassName = (className: string): InstanceMetadataParameter => {
       const metadata: InstanceMetadataParameter = {
@@ -1579,7 +1593,6 @@ const generateCode = async () => {
   if (classesOfInterest.get("Control3D")) {
     createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Control3D")!, () => ({ isGUI3DControl: true }));
   }
-
 
   if (classesOfInterest.get("EffectLayer")) {
     createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("EffectLayer")!, () => ({ isEffectLayer: true }));
@@ -1616,7 +1629,15 @@ const generateCode = async () => {
     createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("ThinTexture")!, fromClassName, onTexturesCreate);
   }
 
-  console.log('Adding single glasses:');
+  if (classesOfInterest.get("PostProcessRenderPipeline")) {
+    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("PostProcessRenderPipeline")!, () => ({}));
+  }
+
+  if (classesOfInterest.get("PostProcess")) {
+    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("PostProcess")!, () => ({}));
+  }
+
+  console.log('Adding single classes:');
   createSingleClass("GUI3DManager", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { isGUI3DControl: true }, () => { return; });
   createSingleClass("ShadowGenerator", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true }, () => { return; });
   createSingleClass("CascadedShadowGenerator", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true }, () => { return; });

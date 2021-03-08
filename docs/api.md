@@ -20,7 +20,7 @@ If you want to declaratively use something not listed here create an issue :)  S
 
 4. **Materials** - backgroundMaterial, fluentMaterial, material, multiMaterial, nodeMaterial, pbrBaseMaterial, pbrBaseSimpleMaterial, pbrMaterial, pbrMetallicRoughnessMaterial, pbrSpecularGlossinessMaterial, pushMaterial, shaderMaterial, standardMaterial
 
-> note: Materials can have configuration (read-only) properties as classes.  With `assignFrom` prop you can declare detailMapConfiguration, pbrClearCoatConfiguration, pbrAnisotropicConfiguration, pbrbrdfConfiguration, pbrSheenConfiguration, pbrSubSurfaceConfiguration to attach to declaratively.  PBRBaseMaterial has all, while StandardMaterial has only detailMapConfiguration. (prePassConfiguration has no updateable properties, but can be attached)
+> note: Materials can have configuration (read-only) properties as classes.  With `assignFrom` prop you can declare detailMapConfiguration, pbrClearCoatConfiguration, pbrAnisotropicConfiguration, pbrbrdfConfiguration, pbrSheenConfiguration, pbrSubSurfaceConfiguration to attach to declaratively.  PBRBaseMaterial has all, while StandardMaterial has only detailMapConfiguration. (prePassConfiguration has no updateable properties, but can be attached).
 
 5. **Lights** - directionalLight, hemisphericLight, light, pointLight, shadowLight, spotLight
 
@@ -30,7 +30,13 @@ If you want to declaratively use something not listed here create an issue :)  S
 
 8. **Behaviors** - autoRotationBehavior, bouncingBehavior, framingBehavior, attachToBoxBehavior, fadeInOutBehavior, multiPointerScaleBehavior, pointerDragBehavior, sixDofDragBehavior
 
-9. **Others** - adtForMesh, adtFullScreenUi, environmentHelper, physicsImpostor, pointsCloudSystem, shadowGenerator, cascadedShadowGenerator, vrExperienceHelper
+9. **PostProcessRenderPipelines**: defaultRenderingPipeline, lensRenderingPipeline, postProcessRenderPipeline, ssao2RenderingPipeline, ssaoRenderingPipeline, standardRenderingPipeline
+
+10. **PostProcesss** anaglyphPostProcess, blackAndWhitePostProcess, bloomMergePostProcess, blurPostProcess, chromaticAberrationPostProcess, circleOfConfusionPostProcess, colorCorrectionPostProcess, convolutionPostProcess, depthOfFieldBlurPostProcess, depthOfFieldMergePostProcess, displayPassPostProcess, extractHighlightsPostProcess, filterPostProcess, fxaaPostProcess, grainPostProcess, highlightsPostProcess, imageProcessingPostProcess, motionBlurPostProcess, passCubePostProcess, passPostProcess, postProcess, refractionPostProcess, screenSpaceCurvaturePostProcess, screenSpaceReflectionPostProcess, sharpenPostProcess, stereoscopicInterlacePostProcess, stereoscopicInterlacePostProcessI, subSurfaceScatteringPostProcess, tonemapPostProcess, volumetricLightScatteringPostProcess, vrDistortionCorrectionPostProcess, vrMultiviewToSingleviewPostProcess
+
+> note: for `PostProcess` (and `PostProcessRenderPipeline`) the `ImageProcessingConfiguration` and `PrePassConfiguration` properties can be declared with `assignFrom`.
+
+11. **Others** - adtForMesh, adtFullScreenUi, environmentHelper, physicsImpostor, pointsCloudSystem, shadowGenerator, cascadedShadowGenerator, vrExperienceHelper
 
 ## @babylonjs/gui
 1. GUI3DManager

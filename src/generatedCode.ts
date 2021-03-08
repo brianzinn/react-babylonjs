@@ -1,6 +1,6 @@
 import { PropsHandler, PropertyUpdate, HasPropsHandlers, checkColor3Diff, checkColor4Diff, checkControlDiff, checkFresnelParametersDiff, checkLambdaDiff, checkMethodDiff, checkNumericArrayDiff, checkObjectDiff, checkObservableDiff, checkPrimitiveDiff, checkQuaternionDiff, checkTextureDiff, checkVector3Diff } from "./PropsHandler";
 import { CreatedInstanceMetadata } from "./CreatedInstance";
-import { FiberNodeProps, FiberTransformNodeProps, FiberAbstractMeshProps, FiberInstancedMeshProps, FiberInstancedLinesMeshProps, FiberMeshProps, FiberLinesMeshProps, FiberGroundMeshProps, FiberTrailMeshProps, FiberCameraProps, FiberTargetCameraProps, FiberFreeCameraProps, FiberTouchCameraProps, FiberUniversalCameraProps, FiberGamepadCameraProps, FiberAnaglyphGamepadCameraProps, FiberStereoscopicGamepadCameraProps, FiberAnaglyphUniversalCameraProps, FiberStereoscopicUniversalCameraProps, FiberDeviceOrientationCameraProps, FiberVRDeviceOrientationFreeCameraProps, FiberVRDeviceOrientationGamepadCameraProps, FiberAnaglyphFreeCameraProps, FiberStereoscopicFreeCameraProps, FiberVirtualJoysticksCameraProps, FiberWebVRFreeCameraProps, FiberWebXRCameraProps, FiberArcRotateCameraProps, FiberAnaglyphArcRotateCameraProps, FiberStereoscopicArcRotateCameraProps, FiberVRDeviceOrientationArcRotateCameraProps, FiberFlyCameraProps, FiberFollowCameraProps, FiberArcFollowCameraProps, FiberMaterialProps, FiberPushMaterialProps, FiberNodeMaterialProps, FiberStandardMaterialProps, FiberBackgroundMaterialProps, FiberPBRBaseMaterialProps, FiberPBRBaseSimpleMaterialProps, FiberPBRMetallicRoughnessMaterialProps, FiberPBRSpecularGlossinessMaterialProps, FiberPBRMaterialProps, FiberFluentMaterialProps, FiberShaderMaterialProps, FiberMultiMaterialProps, FiberLightProps, FiberShadowLightProps, FiberDirectionalLightProps, FiberPointLightProps, FiberSpotLightProps, FiberHemisphericLightProps, FiberControlProps, FiberContainerProps, FiberRectangleProps, FiberButtonProps, FiberSelectionPanelProps, FiberScrollViewerProps, FiberStackPanelProps, FiberVirtualKeyboardProps, FiberEllipseProps, FiberGridProps, Fiber_ScrollViewerWindowProps, FiberTextBlockProps, FiberImageProps, FiberCheckboxProps, FiberColorPickerProps, FiberInputTextProps, FiberInputPasswordProps, FiberLineProps, FiberMultiLineProps, FiberRadioButtonProps, FiberBaseSliderProps, FiberScrollBarProps, FiberImageScrollBarProps, FiberSliderProps, FiberImageBasedSliderProps, FiberDisplayGridProps, FiberControl3DProps, FiberContainer3DProps, FiberVolumeBasedPanelProps, FiberCylinderPanelProps, FiberPlanePanelProps, FiberScatterPanelProps, FiberSpherePanelProps, FiberStackPanel3DProps, FiberAbstractButton3DProps, FiberButton3DProps, FiberHolographicButtonProps, FiberMeshButton3DProps, FiberEffectLayerProps, FiberGlowLayerProps, FiberHighlightLayerProps, FiberThinTextureProps, FiberBaseTextureProps, FiberCubeTextureProps, FiberRawCubeTextureProps, FiberTextureProps, FiberRawTextureProps, FiberProceduralTextureProps, FiberCustomProceduralTextureProps, FiberNoiseProceduralTextureProps, FiberRenderTargetTextureProps, FiberMirrorTextureProps, FiberMultiRenderTargetProps, FiberRefractionTextureProps, FiberMultiviewRenderTargetProps, FiberVideoTextureProps, FiberDynamicTextureProps, FiberAdvancedDynamicTextureProps, FiberRawTexture2DArrayProps, FiberRawTexture3DProps, FiberColorGradingTextureProps, FiberEquiRectangularCubeTextureProps, FiberHDRCubeTextureProps, FiberHtmlElementTextureProps, FiberGUI3DManagerProps, FiberShadowGeneratorProps, FiberCascadedShadowGeneratorProps, FiberEnvironmentHelperProps, FiberPhysicsImpostorProps, FiberVRExperienceHelperProps, FiberDynamicTerrainProps, FiberPointsCloudSystemProps, FiberPrePassConfigurationProps, FiberDetailMapConfigurationProps, FiberPBRClearCoatConfigurationProps, FiberPBRAnisotropicConfigurationProps, FiberPBRBRDFConfigurationProps, FiberPBRSheenConfigurationProps, FiberPBRSubSurfaceConfigurationProps, FiberAutoRotationBehaviorProps, FiberBouncingBehaviorProps, FiberFramingBehaviorProps, FiberAttachToBoxBehaviorProps, FiberFadeInOutBehaviorProps, FiberMultiPointerScaleBehaviorProps, FiberPointerDragBehaviorProps, FiberSixDofDragBehaviorProps, FiberSceneProps } from "./generatedProps";
+import { FiberNodeProps, FiberTransformNodeProps, FiberAbstractMeshProps, FiberInstancedMeshProps, FiberInstancedLinesMeshProps, FiberMeshProps, FiberLinesMeshProps, FiberGroundMeshProps, FiberTrailMeshProps, FiberCameraProps, FiberTargetCameraProps, FiberFreeCameraProps, FiberTouchCameraProps, FiberUniversalCameraProps, FiberGamepadCameraProps, FiberAnaglyphGamepadCameraProps, FiberStereoscopicGamepadCameraProps, FiberAnaglyphUniversalCameraProps, FiberStereoscopicUniversalCameraProps, FiberDeviceOrientationCameraProps, FiberVRDeviceOrientationFreeCameraProps, FiberVRDeviceOrientationGamepadCameraProps, FiberAnaglyphFreeCameraProps, FiberStereoscopicFreeCameraProps, FiberVirtualJoysticksCameraProps, FiberWebVRFreeCameraProps, FiberWebXRCameraProps, FiberArcRotateCameraProps, FiberAnaglyphArcRotateCameraProps, FiberStereoscopicArcRotateCameraProps, FiberVRDeviceOrientationArcRotateCameraProps, FiberFlyCameraProps, FiberFollowCameraProps, FiberArcFollowCameraProps, FiberMaterialProps, FiberPushMaterialProps, FiberNodeMaterialProps, FiberStandardMaterialProps, FiberBackgroundMaterialProps, FiberPBRBaseMaterialProps, FiberPBRBaseSimpleMaterialProps, FiberPBRMetallicRoughnessMaterialProps, FiberPBRSpecularGlossinessMaterialProps, FiberPBRMaterialProps, FiberFluentMaterialProps, FiberShaderMaterialProps, FiberMultiMaterialProps, FiberLightProps, FiberShadowLightProps, FiberDirectionalLightProps, FiberPointLightProps, FiberSpotLightProps, FiberHemisphericLightProps, FiberControlProps, FiberContainerProps, FiberRectangleProps, FiberButtonProps, FiberSelectionPanelProps, FiberScrollViewerProps, FiberStackPanelProps, FiberVirtualKeyboardProps, FiberEllipseProps, FiberGridProps, Fiber_ScrollViewerWindowProps, FiberTextBlockProps, FiberImageProps, FiberCheckboxProps, FiberColorPickerProps, FiberInputTextProps, FiberInputPasswordProps, FiberLineProps, FiberMultiLineProps, FiberRadioButtonProps, FiberBaseSliderProps, FiberScrollBarProps, FiberImageScrollBarProps, FiberSliderProps, FiberImageBasedSliderProps, FiberDisplayGridProps, FiberControl3DProps, FiberContainer3DProps, FiberVolumeBasedPanelProps, FiberCylinderPanelProps, FiberPlanePanelProps, FiberScatterPanelProps, FiberSpherePanelProps, FiberStackPanel3DProps, FiberAbstractButton3DProps, FiberButton3DProps, FiberHolographicButtonProps, FiberMeshButton3DProps, FiberEffectLayerProps, FiberGlowLayerProps, FiberHighlightLayerProps, FiberThinTextureProps, FiberBaseTextureProps, FiberCubeTextureProps, FiberRawCubeTextureProps, FiberTextureProps, FiberRawTextureProps, FiberProceduralTextureProps, FiberCustomProceduralTextureProps, FiberNoiseProceduralTextureProps, FiberRenderTargetTextureProps, FiberMirrorTextureProps, FiberMultiRenderTargetProps, FiberRefractionTextureProps, FiberMultiviewRenderTargetProps, FiberVideoTextureProps, FiberDynamicTextureProps, FiberAdvancedDynamicTextureProps, FiberRawTexture2DArrayProps, FiberRawTexture3DProps, FiberColorGradingTextureProps, FiberEquiRectangularCubeTextureProps, FiberHDRCubeTextureProps, FiberHtmlElementTextureProps, FiberPostProcessRenderPipelineProps, FiberDefaultRenderingPipelineProps, FiberLensRenderingPipelineProps, FiberSSAO2RenderingPipelineProps, FiberSSAORenderingPipelineProps, FiberStandardRenderingPipelineProps, FiberPostProcessProps, FiberImageProcessingPostProcessProps, FiberAnaglyphPostProcessProps, FiberBlackAndWhitePostProcessProps, FiberExtractHighlightsPostProcessProps, FiberBloomMergePostProcessProps, FiberBlurPostProcessProps, FiberDepthOfFieldBlurPostProcessProps, FiberChromaticAberrationPostProcessProps, FiberCircleOfConfusionPostProcessProps, FiberColorCorrectionPostProcessProps, FiberConvolutionPostProcessProps, FiberDepthOfFieldMergePostProcessProps, FiberDisplayPassPostProcessProps, FiberFilterPostProcessProps, FiberFxaaPostProcessProps, FiberGrainPostProcessProps, FiberHighlightsPostProcessProps, FiberMotionBlurPostProcessProps, FiberPassPostProcessProps, FiberPassCubePostProcessProps, FiberRefractionPostProcessProps, FiberSharpenPostProcessProps, FiberScreenSpaceReflectionPostProcessProps, FiberStereoscopicInterlacePostProcessIProps, FiberStereoscopicInterlacePostProcessProps, FiberTonemapPostProcessProps, FiberVolumetricLightScatteringPostProcessProps, FiberVRDistortionCorrectionPostProcessProps, FiberVRMultiviewToSingleviewPostProcessProps, FiberScreenSpaceCurvaturePostProcessProps, FiberSubSurfaceScatteringPostProcessProps, FiberGUI3DManagerProps, FiberShadowGeneratorProps, FiberCascadedShadowGeneratorProps, FiberEnvironmentHelperProps, FiberPhysicsImpostorProps, FiberVRExperienceHelperProps, FiberDynamicTerrainProps, FiberPointsCloudSystemProps, FiberImageProcessingConfigurationProps, FiberPrePassConfigurationProps, FiberDetailMapConfigurationProps, FiberPBRClearCoatConfigurationProps, FiberPBRAnisotropicConfigurationProps, FiberPBRBRDFConfigurationProps, FiberPBRSheenConfigurationProps, FiberPBRSubSurfaceConfigurationProps, FiberAutoRotationBehaviorProps, FiberBouncingBehaviorProps, FiberFramingBehaviorProps, FiberAttachToBoxBehaviorProps, FiberFadeInOutBehaviorProps, FiberMultiPointerScaleBehaviorProps, FiberPointerDragBehaviorProps, FiberSixDofDragBehaviorProps, FiberSceneProps } from "./generatedProps";
 import { DynamicTerrain as ExtensionsDynamicTerrain } from "./extensions/DynamicTerrain";
 import { AbstractScene as BabylonjsCoreAbstractScene } from "@babylonjs/core/abstractScene";
 import { Scene as BabylonjsCoreScene } from "@babylonjs/core/scene";
@@ -27,8 +27,9 @@ import { PointsCloudSystem as BabylonjsCorePointsCloudSystem, PointColor as Baby
 import { SubEmitterType as BabylonjsCoreSubEmitterType } from "@babylonjs/core/Particles/subEmitter";
 import { PhysicsRadialImpulseFalloff as BabylonjsCorePhysicsRadialImpulseFalloff, PhysicsUpdraftMode as BabylonjsCorePhysicsUpdraftMode } from "@babylonjs/core/Physics/physicsHelper";
 import { PhysicsImpostor as BabylonjsCorePhysicsImpostor, IPhysicsEnabledObject as BabylonjsCoreIPhysicsEnabledObject, PhysicsImpostorParameters as BabylonjsCorePhysicsImpostorParameters } from "@babylonjs/core/Physics/physicsImpostor";
-import { DepthOfFieldEffectBlurLevel as BabylonjsCoreDepthOfFieldEffectBlurLevel } from "@babylonjs/core/PostProcesses/depthOfFieldEffect";
-import { TonemappingOperator as BabylonjsCoreTonemappingOperator } from "@babylonjs/core/PostProcesses/tonemapPostProcess";
+import { DepthOfFieldEffectBlurLevel as BabylonjsCoreDepthOfFieldEffectBlurLevel, DepthOfFieldEffect as BabylonjsCoreDepthOfFieldEffect } from "@babylonjs/core/PostProcesses/depthOfFieldEffect";
+import { PostProcess as BabylonjsCorePostProcess, PostProcessOptions as BabylonjsCorePostProcessOptions } from "@babylonjs/core/PostProcesses/postProcess";
+import { TonemappingOperator as BabylonjsCoreTonemappingOperator, TonemapPostProcess as BabylonjsCoreTonemapPostProcess } from "@babylonjs/core/PostProcesses/tonemapPostProcess";
 import { WebXRState as BabylonjsCoreWebXRState, WebXRTrackingState as BabylonjsCoreWebXRTrackingState } from "@babylonjs/core/XR/webXRTypes";
 import { AdvancedDynamicTexture as BabylonjsGuiAdvancedDynamicTexture, IFocusableControl as BabylonjsGuiIFocusableControl } from "@babylonjs/gui/2D/advancedDynamicTexture";
 import { GUI3DManager as BabylonjsGuiGUI3DManager } from "@babylonjs/gui/3D/gui3DManager";
@@ -49,6 +50,7 @@ import { NodeMaterialConnectionPointCompatibilityStates as BabylonjsCoreNodeMate
 import { PropertyTypeForEdition as BabylonjsCorePropertyTypeForEdition } from "@babylonjs/core/Materials/Node/nodeMaterialDecorator";
 import { InternalTextureSource as BabylonjsCoreInternalTextureSource, InternalTexture as BabylonjsCoreInternalTexture } from "@babylonjs/core/Materials/Textures/internalTexture";
 import { ThinTexture as BabylonjsCoreThinTexture } from "@babylonjs/core/Materials/Textures/thinTexture";
+import { PostProcessRenderPipeline as BabylonjsCorePostProcessRenderPipeline } from "@babylonjs/core/PostProcesses/RenderPipeline/postProcessRenderPipeline";
 import { HandPart as BabylonjsCoreHandPart } from "@babylonjs/core/XR/features/WebXRHandTracking";
 import { Control as BabylonjsGuiControl } from "@babylonjs/gui/2D/controls/control";
 import { TextWrapping as BabylonjsGuiTextWrapping, TextBlock as BabylonjsGuiTextBlock } from "@babylonjs/gui/2D/controls/textBlock";
@@ -193,7 +195,6 @@ import { RenderTargetTextureSize as BabylonjsCoreRenderTargetTextureSize } from 
 import { CustomProceduralTexture as BabylonjsCoreCustomProceduralTexture } from "@babylonjs/core/Materials/Textures/Procedurals/customProceduralTexture";
 import { NoiseProceduralTexture as BabylonjsCoreNoiseProceduralTexture } from "@babylonjs/core/Materials/Textures/Procedurals/noiseProceduralTexture";
 import { Engine as BabylonjsCoreEngine } from "@babylonjs/core/Engines/engine";
-import { PostProcess as BabylonjsCorePostProcess } from "@babylonjs/core/PostProcesses/postProcess";
 import { MirrorTexture as BabylonjsCoreMirrorTexture } from "@babylonjs/core/Materials/Textures/mirrorTexture";
 import { MultiRenderTarget as BabylonjsCoreMultiRenderTarget, IMultiRenderTargetOptions as BabylonjsCoreIMultiRenderTargetOptions } from "@babylonjs/core/Materials/Textures/multiRenderTarget";
 import { RefractionTexture as BabylonjsCoreRefractionTexture } from "@babylonjs/core/Materials/Textures/refractionTexture";
@@ -207,6 +208,40 @@ import { ColorGradingTexture as BabylonjsCoreColorGradingTexture } from "@babylo
 import { EquiRectangularCubeTexture as BabylonjsCoreEquiRectangularCubeTexture } from "@babylonjs/core/Materials/Textures/equiRectangularCubeTexture";
 import { HDRCubeTexture as BabylonjsCoreHDRCubeTexture } from "@babylonjs/core/Materials/Textures/hdrCubeTexture";
 import { HtmlElementTexture as BabylonjsCoreHtmlElementTexture, IHtmlElementTextureOptions as BabylonjsCoreIHtmlElementTextureOptions } from "@babylonjs/core/Materials/Textures/htmlElementTexture";
+import { PostProcessRenderEffect as BabylonjsCorePostProcessRenderEffect } from "@babylonjs/core/PostProcesses/RenderPipeline/postProcessRenderEffect";
+import { DefaultRenderingPipeline as BabylonjsCoreDefaultRenderingPipeline } from "@babylonjs/core/PostProcesses/RenderPipeline/Pipelines/defaultRenderingPipeline";
+import { ChromaticAberrationPostProcess as BabylonjsCoreChromaticAberrationPostProcess } from "@babylonjs/core/PostProcesses/chromaticAberrationPostProcess";
+import { FxaaPostProcess as BabylonjsCoreFxaaPostProcess } from "@babylonjs/core/PostProcesses/fxaaPostProcess";
+import { GrainPostProcess as BabylonjsCoreGrainPostProcess } from "@babylonjs/core/PostProcesses/grainPostProcess";
+import { ImageProcessingPostProcess as BabylonjsCoreImageProcessingPostProcess } from "@babylonjs/core/PostProcesses/imageProcessingPostProcess";
+import { SharpenPostProcess as BabylonjsCoreSharpenPostProcess } from "@babylonjs/core/PostProcesses/sharpenPostProcess";
+import { LensRenderingPipeline as BabylonjsCoreLensRenderingPipeline } from "@babylonjs/core/PostProcesses/RenderPipeline/Pipelines/lensRenderingPipeline";
+import { SSAO2RenderingPipeline as BabylonjsCoreSSAO2RenderingPipeline } from "@babylonjs/core/PostProcesses/RenderPipeline/Pipelines/ssao2RenderingPipeline";
+import { SSAORenderingPipeline as BabylonjsCoreSSAORenderingPipeline } from "@babylonjs/core/PostProcesses/RenderPipeline/Pipelines/ssaoRenderingPipeline";
+import { StandardRenderingPipeline as BabylonjsCoreStandardRenderingPipeline } from "@babylonjs/core/PostProcesses/RenderPipeline/Pipelines/standardRenderingPipeline";
+import { ScreenSpaceReflectionPostProcess as BabylonjsCoreScreenSpaceReflectionPostProcess } from "@babylonjs/core/PostProcesses/screenSpaceReflectionPostProcess";
+import { BlurPostProcess as BabylonjsCoreBlurPostProcess } from "@babylonjs/core/PostProcesses/blurPostProcess";
+import { AnaglyphPostProcess as BabylonjsCoreAnaglyphPostProcess } from "@babylonjs/core/PostProcesses/anaglyphPostProcess";
+import { BlackAndWhitePostProcess as BabylonjsCoreBlackAndWhitePostProcess } from "@babylonjs/core/PostProcesses/blackAndWhitePostProcess";
+import { ExtractHighlightsPostProcess as BabylonjsCoreExtractHighlightsPostProcess } from "@babylonjs/core/PostProcesses/extractHighlightsPostProcess";
+import { BloomMergePostProcess as BabylonjsCoreBloomMergePostProcess } from "@babylonjs/core/PostProcesses/bloomMergePostProcess";
+import { DepthOfFieldBlurPostProcess as BabylonjsCoreDepthOfFieldBlurPostProcess } from "@babylonjs/core/PostProcesses/depthOfFieldBlurPostProcess";
+import { CircleOfConfusionPostProcess as BabylonjsCoreCircleOfConfusionPostProcess } from "@babylonjs/core/PostProcesses/circleOfConfusionPostProcess";
+import { ColorCorrectionPostProcess as BabylonjsCoreColorCorrectionPostProcess } from "@babylonjs/core/PostProcesses/colorCorrectionPostProcess";
+import { ConvolutionPostProcess as BabylonjsCoreConvolutionPostProcess } from "@babylonjs/core/PostProcesses/convolutionPostProcess";
+import { DepthOfFieldMergePostProcess as BabylonjsCoreDepthOfFieldMergePostProcess } from "@babylonjs/core/PostProcesses/depthOfFieldMergePostProcess";
+import { DisplayPassPostProcess as BabylonjsCoreDisplayPassPostProcess } from "@babylonjs/core/PostProcesses/displayPassPostProcess";
+import { FilterPostProcess as BabylonjsCoreFilterPostProcess } from "@babylonjs/core/PostProcesses/filterPostProcess";
+import { HighlightsPostProcess as BabylonjsCoreHighlightsPostProcess } from "@babylonjs/core/PostProcesses/highlightsPostProcess";
+import { MotionBlurPostProcess as BabylonjsCoreMotionBlurPostProcess } from "@babylonjs/core/PostProcesses/motionBlurPostProcess";
+import { PassPostProcess as BabylonjsCorePassPostProcess, PassCubePostProcess as BabylonjsCorePassCubePostProcess } from "@babylonjs/core/PostProcesses/passPostProcess";
+import { RefractionPostProcess as BabylonjsCoreRefractionPostProcess } from "@babylonjs/core/PostProcesses/refractionPostProcess";
+import { StereoscopicInterlacePostProcessI as BabylonjsCoreStereoscopicInterlacePostProcessI, StereoscopicInterlacePostProcess as BabylonjsCoreStereoscopicInterlacePostProcess } from "@babylonjs/core/PostProcesses/stereoscopicInterlacePostProcess";
+import { VolumetricLightScatteringPostProcess as BabylonjsCoreVolumetricLightScatteringPostProcess } from "@babylonjs/core/PostProcesses/volumetricLightScatteringPostProcess";
+import { VRDistortionCorrectionPostProcess as BabylonjsCoreVRDistortionCorrectionPostProcess } from "@babylonjs/core/PostProcesses/vrDistortionCorrectionPostProcess";
+import { VRMultiviewToSingleviewPostProcess as BabylonjsCoreVRMultiviewToSingleviewPostProcess } from "@babylonjs/core/PostProcesses/vrMultiviewToSingleviewPostProcess";
+import { ScreenSpaceCurvaturePostProcess as BabylonjsCoreScreenSpaceCurvaturePostProcess } from "@babylonjs/core/PostProcesses/screenSpaceCurvaturePostProcess";
+import { SubSurfaceScatteringPostProcess as BabylonjsCoreSubSurfaceScatteringPostProcess } from "@babylonjs/core/PostProcesses/subSurfaceScatteringPostProcess";
 import { DepthRenderer as BabylonjsCoreDepthRenderer } from "@babylonjs/core/Rendering/depthRenderer";
 import { PhysicsJoint as BabylonjsCorePhysicsJoint } from "@babylonjs/core/Physics/physicsJoint";
 import { PickingInfo as BabylonjsCorePickingInfo } from "@babylonjs/core/Collisions/pickingInfo";
@@ -11944,6 +11979,3318 @@ export class FiberHtmlElementTexture implements HasPropsHandlers<FiberThinTextur
     };
 }
 
+export class FiberPostProcessRenderPipelinePropsHandler implements PropsHandler<FiberPostProcessRenderPipelineProps> {
+    getPropertyUpdates(oldProps: FiberPostProcessRenderPipelineProps, newProps: FiberPostProcessRenderPipelineProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        // type: 'any' property (not coded) BabylonjsCorePostProcessRenderPipeline.engine.
+        // type: 'BabylonjsCoreIInspectable[]' property (not coded) BabylonjsCorePostProcessRenderPipeline.inspectableCustomProperties.
+        checkMethodDiff(oldProps.addEffect, newProps.addEffect, 'addEffect', changedProps)
+        checkMethodDiff(oldProps.setPrePassRenderer, newProps.setPrePassRenderer, 'setPrePassRenderer', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
+    }
+}
+
+/**
+ * PostProcessRenderPipeline
+ *
+ * This code has been generated
+ */
+export class FiberPostProcessRenderPipeline implements HasPropsHandlers<FiberPostProcessRenderPipelineProps> {
+    private propsHandlers: PropsHandler<FiberPostProcessRenderPipelineProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberPostProcessRenderPipelinePropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberPostProcessRenderPipelineProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberPostProcessRenderPipelineProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "PostProcessRenderPipeline",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "engine",
+                "type": "BabylonjsCoreEngine",
+                "optional": false
+            },
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "className": "FiberPostProcessRenderPipeline"
+    };
+}
+
+export class FiberDefaultRenderingPipelinePropsHandler implements PropsHandler<FiberDefaultRenderingPipelineProps> {
+    getPropertyUpdates(oldProps: FiberDefaultRenderingPipelineProps, newProps: FiberDefaultRenderingPipelineProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        // type: 'BabylonjsCoreAnimation[]' property (not coded) BabylonjsCoreDefaultRenderingPipeline.animations.
+        // type: 'any' property (not coded) BabylonjsCoreDefaultRenderingPipeline.bloom.
+        checkPrimitiveDiff(oldProps.bloomEnabled, newProps.bloomEnabled, 'bloomEnabled', changedProps)
+        checkPrimitiveDiff(oldProps.bloomKernel, newProps.bloomKernel, 'bloomKernel', changedProps)
+        checkPrimitiveDiff(oldProps.bloomScale, newProps.bloomScale, 'bloomScale', changedProps)
+        checkPrimitiveDiff(oldProps.bloomThreshold, newProps.bloomThreshold, 'bloomThreshold', changedProps)
+        checkPrimitiveDiff(oldProps.bloomWeight, newProps.bloomWeight, 'bloomWeight', changedProps)
+        // type: 'BabylonjsCoreChromaticAberrationPostProcess' property (not coded) BabylonjsCoreDefaultRenderingPipeline.chromaticAberration.
+        checkPrimitiveDiff(oldProps.chromaticAberrationEnabled, newProps.chromaticAberrationEnabled, 'chromaticAberrationEnabled', changedProps)
+        // type: 'BabylonjsCoreDepthOfFieldEffect' property (not coded) BabylonjsCoreDefaultRenderingPipeline.depthOfField.
+        checkPrimitiveDiff(oldProps.depthOfFieldBlurLevel, newProps.depthOfFieldBlurLevel, 'depthOfFieldBlurLevel', changedProps)
+        checkPrimitiveDiff(oldProps.depthOfFieldEnabled, newProps.depthOfFieldEnabled, 'depthOfFieldEnabled', changedProps)
+        // type: 'BabylonjsCoreFxaaPostProcess' property (not coded) BabylonjsCoreDefaultRenderingPipeline.fxaa.
+        checkPrimitiveDiff(oldProps.fxaaEnabled, newProps.fxaaEnabled, 'fxaaEnabled', changedProps)
+        checkPrimitiveDiff(oldProps.glowLayerEnabled, newProps.glowLayerEnabled, 'glowLayerEnabled', changedProps)
+        // type: 'BabylonjsCoreGrainPostProcess' property (not coded) BabylonjsCoreDefaultRenderingPipeline.grain.
+        checkPrimitiveDiff(oldProps.grainEnabled, newProps.grainEnabled, 'grainEnabled', changedProps)
+        // type: 'BabylonjsCoreImageProcessingPostProcess' property (not coded) BabylonjsCoreDefaultRenderingPipeline.imageProcessing.
+        checkPrimitiveDiff(oldProps.imageProcessingEnabled, newProps.imageProcessingEnabled, 'imageProcessingEnabled', changedProps)
+        checkObservableDiff(oldProps.onBuildObservable, newProps.onBuildObservable, 'onBuildObservable', changedProps)
+        checkPrimitiveDiff(oldProps.samples, newProps.samples, 'samples', changedProps)
+        // type: 'BabylonjsCoreSharpenPostProcess' property (not coded) BabylonjsCoreDefaultRenderingPipeline.sharpen.
+        checkPrimitiveDiff(oldProps.sharpenEnabled, newProps.sharpenEnabled, 'sharpenEnabled', changedProps)
+        checkMethodDiff(oldProps.addCamera, newProps.addCamera, 'addCamera', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
+    }
+}
+
+/**
+ * The default rendering pipeline can be added to a scene to apply common post processing effects such as anti-aliasing or depth of field.
+ * See https://doc.babylonjs.com/how_to/using_default_rendering_pipeline
+ *
+ * This code has been generated
+ */
+export class FiberDefaultRenderingPipeline implements HasPropsHandlers<FiberPostProcessRenderPipelineProps> {
+    private propsHandlers: PropsHandler<FiberPostProcessRenderPipelineProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberDefaultRenderingPipelinePropsHandler(),
+            new FiberPostProcessRenderPipelinePropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberPostProcessRenderPipelineProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberPostProcessRenderPipelineProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "DefaultRenderingPipeline",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": true
+            },
+            {
+                "name": "hdr",
+                "type": "boolean",
+                "optional": true
+            },
+            {
+                "name": "scene",
+                "type": "BabylonjsCoreScene",
+                "optional": true
+            },
+            {
+                "name": "cameras",
+                "type": "BabylonjsCoreCamera[]",
+                "optional": true
+            },
+            {
+                "name": "automaticBuild",
+                "type": "boolean",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "className": "FiberDefaultRenderingPipeline"
+    };
+}
+
+export class FiberLensRenderingPipelinePropsHandler implements PropsHandler<FiberLensRenderingPipelineProps> {
+    getPropertyUpdates(oldProps: FiberLensRenderingPipelineProps, newProps: FiberLensRenderingPipelineProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.blurNoise, newProps.blurNoise, 'blurNoise', changedProps)
+        checkPrimitiveDiff(oldProps.chromaticAberration, newProps.chromaticAberration, 'chromaticAberration', changedProps)
+        checkPrimitiveDiff(oldProps.darkenOutOfFocus, newProps.darkenOutOfFocus, 'darkenOutOfFocus', changedProps)
+        checkPrimitiveDiff(oldProps.dofAperture, newProps.dofAperture, 'dofAperture', changedProps)
+        checkPrimitiveDiff(oldProps.dofDistortion, newProps.dofDistortion, 'dofDistortion', changedProps)
+        checkPrimitiveDiff(oldProps.edgeBlur, newProps.edgeBlur, 'edgeBlur', changedProps)
+        checkPrimitiveDiff(oldProps.edgeDistortion, newProps.edgeDistortion, 'edgeDistortion', changedProps)
+        checkPrimitiveDiff(oldProps.grainAmount, newProps.grainAmount, 'grainAmount', changedProps)
+        checkPrimitiveDiff(oldProps.HighlightsEnhancingEffect, newProps.HighlightsEnhancingEffect, 'HighlightsEnhancingEffect', changedProps)
+        checkPrimitiveDiff(oldProps.highlightsGain, newProps.highlightsGain, 'highlightsGain', changedProps)
+        checkPrimitiveDiff(oldProps.highlightsThreshold, newProps.highlightsThreshold, 'highlightsThreshold', changedProps)
+        checkPrimitiveDiff(oldProps.LensChromaticAberrationEffect, newProps.LensChromaticAberrationEffect, 'LensChromaticAberrationEffect', changedProps)
+        checkPrimitiveDiff(oldProps.LensDepthOfFieldEffect, newProps.LensDepthOfFieldEffect, 'LensDepthOfFieldEffect', changedProps)
+        checkPrimitiveDiff(oldProps.pentagonBokeh, newProps.pentagonBokeh, 'pentagonBokeh', changedProps)
+        checkMethodDiff(oldProps.setAperture, newProps.setAperture, 'setAperture', changedProps)
+        checkMethodDiff(oldProps.setChromaticAberration, newProps.setChromaticAberration, 'setChromaticAberration', changedProps)
+        checkMethodDiff(oldProps.setDarkenOutOfFocus, newProps.setDarkenOutOfFocus, 'setDarkenOutOfFocus', changedProps)
+        checkMethodDiff(oldProps.setEdgeBlur, newProps.setEdgeBlur, 'setEdgeBlur', changedProps)
+        checkMethodDiff(oldProps.setEdgeDistortion, newProps.setEdgeDistortion, 'setEdgeDistortion', changedProps)
+        checkMethodDiff(oldProps.setFocusDistance, newProps.setFocusDistance, 'setFocusDistance', changedProps)
+        checkMethodDiff(oldProps.setGrainAmount, newProps.setGrainAmount, 'setGrainAmount', changedProps)
+        checkMethodDiff(oldProps.setHighlightsGain, newProps.setHighlightsGain, 'setHighlightsGain', changedProps)
+        checkMethodDiff(oldProps.setHighlightsThreshold, newProps.setHighlightsThreshold, 'setHighlightsThreshold', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
+    }
+}
+
+/**
+ * BABYLON.JS Chromatic Aberration GLSL Shader
+ * Author: Olivier Guyot
+ * Separates very slightly R, G and B colors on the edges of the screen
+ * Inspired by Francois Tarlier & Martins Upitis
+ *
+ * This code has been generated
+ */
+export class FiberLensRenderingPipeline implements HasPropsHandlers<FiberPostProcessRenderPipelineProps> {
+    private propsHandlers: PropsHandler<FiberPostProcessRenderPipelineProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberLensRenderingPipelinePropsHandler(),
+            new FiberPostProcessRenderPipelinePropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberPostProcessRenderPipelineProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberPostProcessRenderPipelineProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "LensRenderingPipeline",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "parameters",
+                "type": "any",
+                "optional": false
+            },
+            {
+                "name": "scene",
+                "type": "BabylonjsCoreScene",
+                "optional": false
+            },
+            {
+                "name": "ratio",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "cameras",
+                "type": "BabylonjsCoreCamera[]",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "className": "FiberLensRenderingPipeline"
+    };
+}
+
+export class FiberSSAO2RenderingPipelinePropsHandler implements PropsHandler<FiberSSAO2RenderingPipelineProps> {
+    getPropertyUpdates(oldProps: FiberSSAO2RenderingPipelineProps, newProps: FiberSSAO2RenderingPipelineProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.base, newProps.base, 'base', changedProps)
+        checkPrimitiveDiff(oldProps.expensiveBlur, newProps.expensiveBlur, 'expensiveBlur', changedProps)
+        checkPrimitiveDiff(oldProps.maxZ, newProps.maxZ, 'maxZ', changedProps)
+        checkPrimitiveDiff(oldProps.minZAspect, newProps.minZAspect, 'minZAspect', changedProps)
+        checkPrimitiveDiff(oldProps.radius, newProps.radius, 'radius', changedProps)
+        checkPrimitiveDiff(oldProps.samples, newProps.samples, 'samples', changedProps)
+        checkPrimitiveDiff(oldProps.SSAOBlurHRenderEffect, newProps.SSAOBlurHRenderEffect, 'SSAOBlurHRenderEffect', changedProps)
+        checkPrimitiveDiff(oldProps.SSAOBlurVRenderEffect, newProps.SSAOBlurVRenderEffect, 'SSAOBlurVRenderEffect', changedProps)
+        checkPrimitiveDiff(oldProps.SSAOCombineRenderEffect, newProps.SSAOCombineRenderEffect, 'SSAOCombineRenderEffect', changedProps)
+        checkPrimitiveDiff(oldProps.SSAOOriginalSceneColorEffect, newProps.SSAOOriginalSceneColorEffect, 'SSAOOriginalSceneColorEffect', changedProps)
+        checkPrimitiveDiff(oldProps.SSAORenderEffect, newProps.SSAORenderEffect, 'SSAORenderEffect', changedProps)
+        checkPrimitiveDiff(oldProps.textureSamples, newProps.textureSamples, 'textureSamples', changedProps)
+        checkPrimitiveDiff(oldProps.totalStrength, newProps.totalStrength, 'totalStrength', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
+    }
+}
+
+/**
+ * Render pipeline to produce ssao effect
+ *
+ * This code has been generated
+ */
+export class FiberSSAO2RenderingPipeline implements HasPropsHandlers<FiberPostProcessRenderPipelineProps> {
+    private propsHandlers: PropsHandler<FiberPostProcessRenderPipelineProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberSSAO2RenderingPipelinePropsHandler(),
+            new FiberPostProcessRenderPipelinePropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberPostProcessRenderPipelineProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberPostProcessRenderPipelineProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "SSAO2RenderingPipeline",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "scene",
+                "type": "BabylonjsCoreScene",
+                "optional": false
+            },
+            {
+                "name": "ratio",
+                "type": "any",
+                "optional": false
+            },
+            {
+                "name": "cameras",
+                "type": "BabylonjsCoreCamera[]",
+                "optional": true
+            },
+            {
+                "name": "forceGeometryBuffer",
+                "type": "boolean",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "className": "FiberSSAO2RenderingPipeline"
+    };
+}
+
+export class FiberSSAORenderingPipelinePropsHandler implements PropsHandler<FiberSSAORenderingPipelineProps> {
+    getPropertyUpdates(oldProps: FiberSSAORenderingPipelineProps, newProps: FiberSSAORenderingPipelineProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.area, newProps.area, 'area', changedProps)
+        checkPrimitiveDiff(oldProps.base, newProps.base, 'base', changedProps)
+        checkPrimitiveDiff(oldProps.fallOff, newProps.fallOff, 'fallOff', changedProps)
+        checkPrimitiveDiff(oldProps.radius, newProps.radius, 'radius', changedProps)
+        checkPrimitiveDiff(oldProps.SSAOBlurHRenderEffect, newProps.SSAOBlurHRenderEffect, 'SSAOBlurHRenderEffect', changedProps)
+        checkPrimitiveDiff(oldProps.SSAOBlurVRenderEffect, newProps.SSAOBlurVRenderEffect, 'SSAOBlurVRenderEffect', changedProps)
+        checkPrimitiveDiff(oldProps.SSAOCombineRenderEffect, newProps.SSAOCombineRenderEffect, 'SSAOCombineRenderEffect', changedProps)
+        checkPrimitiveDiff(oldProps.SSAOOriginalSceneColorEffect, newProps.SSAOOriginalSceneColorEffect, 'SSAOOriginalSceneColorEffect', changedProps)
+        checkPrimitiveDiff(oldProps.SSAORenderEffect, newProps.SSAORenderEffect, 'SSAORenderEffect', changedProps)
+        checkPrimitiveDiff(oldProps.totalStrength, newProps.totalStrength, 'totalStrength', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
+    }
+}
+
+/**
+ * Render pipeline to produce ssao effect
+ *
+ * This code has been generated
+ */
+export class FiberSSAORenderingPipeline implements HasPropsHandlers<FiberPostProcessRenderPipelineProps> {
+    private propsHandlers: PropsHandler<FiberPostProcessRenderPipelineProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberSSAORenderingPipelinePropsHandler(),
+            new FiberPostProcessRenderPipelinePropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberPostProcessRenderPipelineProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberPostProcessRenderPipelineProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "SSAORenderingPipeline",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "scene",
+                "type": "BabylonjsCoreScene",
+                "optional": false
+            },
+            {
+                "name": "ratio",
+                "type": "any",
+                "optional": false
+            },
+            {
+                "name": "cameras",
+                "type": "BabylonjsCoreCamera[]",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "className": "FiberSSAORenderingPipeline"
+    };
+}
+
+export class FiberStandardRenderingPipelinePropsHandler implements PropsHandler<FiberStandardRenderingPipelineProps> {
+    getPropertyUpdates(oldProps: FiberStandardRenderingPipelineProps, newProps: FiberStandardRenderingPipelineProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        // type: 'BabylonjsCoreAnimation[]' property (not coded) BabylonjsCoreStandardRenderingPipeline.animations.
+        checkPrimitiveDiff(oldProps.BloomEnabled, newProps.BloomEnabled, 'BloomEnabled', changedProps)
+        // type: 'BabylonjsCorePostProcess[]' property (not coded) BabylonjsCoreStandardRenderingPipeline.blurHPostProcesses.
+        // type: 'BabylonjsCorePostProcess[]' property (not coded) BabylonjsCoreStandardRenderingPipeline.blurVPostProcesses.
+        checkPrimitiveDiff(oldProps.blurWidth, newProps.blurWidth, 'blurWidth', changedProps)
+        // type: 'BabylonjsCorePostProcess' property (not coded) BabylonjsCoreStandardRenderingPipeline.brightPassPostProcess.
+        checkPrimitiveDiff(oldProps.brightThreshold, newProps.brightThreshold, 'brightThreshold', changedProps)
+        checkPrimitiveDiff(oldProps.depthOfFieldBlurWidth, newProps.depthOfFieldBlurWidth, 'depthOfFieldBlurWidth', changedProps)
+        checkPrimitiveDiff(oldProps.depthOfFieldDistance, newProps.depthOfFieldDistance, 'depthOfFieldDistance', changedProps)
+        checkPrimitiveDiff(oldProps.DepthOfFieldEnabled, newProps.DepthOfFieldEnabled, 'DepthOfFieldEnabled', changedProps)
+        // type: 'BabylonjsCorePostProcess' property (not coded) BabylonjsCoreStandardRenderingPipeline.depthOfFieldPostProcess.
+        // type: 'BabylonjsCorePostProcess' property (not coded) BabylonjsCoreStandardRenderingPipeline.downSampleX4PostProcess.
+        checkPrimitiveDiff(oldProps.exposure, newProps.exposure, 'exposure', changedProps)
+        checkPrimitiveDiff(oldProps.fxaaEnabled, newProps.fxaaEnabled, 'fxaaEnabled', changedProps)
+        // type: 'BabylonjsCoreFxaaPostProcess' property (not coded) BabylonjsCoreStandardRenderingPipeline.fxaaPostProcess.
+        checkPrimitiveDiff(oldProps.hdrAutoExposure, newProps.hdrAutoExposure, 'hdrAutoExposure', changedProps)
+        checkPrimitiveDiff(oldProps.hdrDecreaseRate, newProps.hdrDecreaseRate, 'hdrDecreaseRate', changedProps)
+        checkPrimitiveDiff(oldProps.HDREnabled, newProps.HDREnabled, 'HDREnabled', changedProps)
+        // type: 'BabylonjsCorePostProcess' property (not coded) BabylonjsCoreStandardRenderingPipeline.hdrFinalPostProcess.
+        checkPrimitiveDiff(oldProps.hdrIncreaseRate, newProps.hdrIncreaseRate, 'hdrIncreaseRate', changedProps)
+        checkPrimitiveDiff(oldProps.hdrMinimumLuminance, newProps.hdrMinimumLuminance, 'hdrMinimumLuminance', changedProps)
+        // type: 'BabylonjsCorePostProcess' property (not coded) BabylonjsCoreStandardRenderingPipeline.hdrPostProcess.
+        checkPrimitiveDiff(oldProps.horizontalBlur, newProps.horizontalBlur, 'horizontalBlur', changedProps)
+        // type: 'BabylonjsCoreTexture' property (not coded) BabylonjsCoreStandardRenderingPipeline.lensColorTexture.
+        checkPrimitiveDiff(oldProps.lensFlareBlurWidth, newProps.lensFlareBlurWidth, 'lensFlareBlurWidth', changedProps)
+        // type: 'BabylonjsCorePostProcess' property (not coded) BabylonjsCoreStandardRenderingPipeline.lensFlareComposePostProcess.
+        // type: 'BabylonjsCoreTexture' property (not coded) BabylonjsCoreStandardRenderingPipeline.lensFlareDirtTexture.
+        checkPrimitiveDiff(oldProps.lensFlareDistortionStrength, newProps.lensFlareDistortionStrength, 'lensFlareDistortionStrength', changedProps)
+        checkPrimitiveDiff(oldProps.LensFlareEnabled, newProps.LensFlareEnabled, 'LensFlareEnabled', changedProps)
+        // type: 'BabylonjsCorePostProcess' property (not coded) BabylonjsCoreStandardRenderingPipeline.lensFlareFinalPostProcess.
+        checkPrimitiveDiff(oldProps.lensFlareGhostDispersal, newProps.lensFlareGhostDispersal, 'lensFlareGhostDispersal', changedProps)
+        checkPrimitiveDiff(oldProps.lensFlareHaloWidth, newProps.lensFlareHaloWidth, 'lensFlareHaloWidth', changedProps)
+        // type: 'BabylonjsCorePostProcess' property (not coded) BabylonjsCoreStandardRenderingPipeline.lensFlarePostProcess.
+        checkPrimitiveDiff(oldProps.lensFlareStrength, newProps.lensFlareStrength, 'lensFlareStrength', changedProps)
+        // type: 'BabylonjsCoreTexture' property (not coded) BabylonjsCoreStandardRenderingPipeline.lensStarTexture.
+        // type: 'BabylonjsCoreTexture' property (not coded) BabylonjsCoreStandardRenderingPipeline.lensTexture.
+        // type: 'BabylonjsCorePostProcess[]' property (not coded) BabylonjsCoreStandardRenderingPipeline.luminanceDownSamplePostProcesses.
+        // type: 'BabylonjsCorePostProcess' property (not coded) BabylonjsCoreStandardRenderingPipeline.luminancePostProcess.
+        checkPrimitiveDiff(oldProps.MotionBlurEnabled, newProps.MotionBlurEnabled, 'MotionBlurEnabled', changedProps)
+        // type: 'BabylonjsCorePostProcess' property (not coded) BabylonjsCoreStandardRenderingPipeline.motionBlurPostProcess.
+        checkPrimitiveDiff(oldProps.motionBlurSamples, newProps.motionBlurSamples, 'motionBlurSamples', changedProps)
+        checkPrimitiveDiff(oldProps.motionStrength, newProps.motionStrength, 'motionStrength', changedProps)
+        checkPrimitiveDiff(oldProps.objectBasedMotionBlur, newProps.objectBasedMotionBlur, 'objectBasedMotionBlur', changedProps)
+        // type: 'BabylonjsCorePostProcess' property (not coded) BabylonjsCoreStandardRenderingPipeline.originalPostProcess.
+        checkPrimitiveDiff(oldProps.samples, newProps.samples, 'samples', changedProps)
+        // type: 'BabylonjsCoreScreenSpaceReflectionPostProcess' property (not coded) BabylonjsCoreStandardRenderingPipeline.screenSpaceReflectionPostProcess.
+        checkPrimitiveDiff(oldProps.screenSpaceReflectionsEnabled, newProps.screenSpaceReflectionsEnabled, 'screenSpaceReflectionsEnabled', changedProps)
+        // type: 'BabylonjsCoreDirectionalLight | BabylonjsCoreSpotLight' property (not coded) BabylonjsCoreStandardRenderingPipeline.sourceLight.
+        // type: 'BabylonjsCorePostProcess' property (not coded) BabylonjsCoreStandardRenderingPipeline.textureAdderFinalPostProcess.
+        // type: 'BabylonjsCorePostProcess' property (not coded) BabylonjsCoreStandardRenderingPipeline.textureAdderPostProcess.
+        checkPrimitiveDiff(oldProps.VLSEnabled, newProps.VLSEnabled, 'VLSEnabled', changedProps)
+        checkPrimitiveDiff(oldProps.volumetricLightBlurScale, newProps.volumetricLightBlurScale, 'volumetricLightBlurScale', changedProps)
+        checkPrimitiveDiff(oldProps.volumetricLightCoefficient, newProps.volumetricLightCoefficient, 'volumetricLightCoefficient', changedProps)
+        // type: 'BabylonjsCorePostProcess' property (not coded) BabylonjsCoreStandardRenderingPipeline.volumetricLightFinalPostProcess.
+        // type: 'BabylonjsCorePostProcess' property (not coded) BabylonjsCoreStandardRenderingPipeline.volumetricLightMergePostProces.
+        // type: 'BabylonjsCorePostProcess' property (not coded) BabylonjsCoreStandardRenderingPipeline.volumetricLightPostProcess.
+        checkPrimitiveDiff(oldProps.volumetricLightPower, newProps.volumetricLightPower, 'volumetricLightPower', changedProps)
+        // type: 'BabylonjsCoreBlurPostProcess' property (not coded) BabylonjsCoreStandardRenderingPipeline.volumetricLightSmoothXPostProcess.
+        // type: 'BabylonjsCoreBlurPostProcess' property (not coded) BabylonjsCoreStandardRenderingPipeline.volumetricLightSmoothYPostProcess.
+        checkPrimitiveDiff(oldProps.volumetricLightStepsCount, newProps.volumetricLightStepsCount, 'volumetricLightStepsCount', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
+    }
+}
+
+/**
+ * Standard rendering pipeline
+ * Default pipeline should be used going forward but the standard pipeline will be kept for backwards compatibility.
+ *
+ * This code has been generated
+ */
+export class FiberStandardRenderingPipeline implements HasPropsHandlers<FiberPostProcessRenderPipelineProps> {
+    private propsHandlers: PropsHandler<FiberPostProcessRenderPipelineProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberStandardRenderingPipelinePropsHandler(),
+            new FiberPostProcessRenderPipelinePropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberPostProcessRenderPipelineProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberPostProcessRenderPipelineProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "StandardRenderingPipeline",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "scene",
+                "type": "BabylonjsCoreScene",
+                "optional": false
+            },
+            {
+                "name": "ratio",
+                "type": "number",
+                "optional": false
+            },
+            {
+                "name": "originalPostProcess",
+                "type": "BabylonjsCorePostProcess",
+                "optional": true
+            },
+            {
+                "name": "cameras",
+                "type": "BabylonjsCoreCamera[]",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "className": "FiberStandardRenderingPipeline"
+    };
+}
+
+export class FiberPostProcessPropsHandler implements PropsHandler<FiberPostProcessProps> {
+    getPropertyUpdates(oldProps: FiberPostProcessProps, newProps: FiberPostProcessProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.adaptScaleToCurrentViewport, newProps.adaptScaleToCurrentViewport, 'adaptScaleToCurrentViewport', changedProps)
+        checkColor4Diff(oldProps.alphaConstants, newProps.alphaConstants, 'alphaConstants', changedProps)
+        checkPrimitiveDiff(oldProps.alphaMode, newProps.alphaMode, 'alphaMode', changedProps)
+        checkPrimitiveDiff(oldProps.alwaysForcePOT, newProps.alwaysForcePOT, 'alwaysForcePOT', changedProps)
+        // type: 'BabylonjsCoreAnimation[]' property (not coded) BabylonjsCorePostProcess.animations.
+        checkPrimitiveDiff(oldProps.autoClear, newProps.autoClear, 'autoClear', changedProps)
+        checkColor4Diff(oldProps.clearColor, newProps.clearColor, 'clearColor', changedProps)
+        checkPrimitiveDiff(oldProps.enablePixelPerfectMode, newProps.enablePixelPerfectMode, 'enablePixelPerfectMode', changedProps)
+        checkPrimitiveDiff(oldProps.forceFullscreenViewport, newProps.forceFullscreenViewport, 'forceFullscreenViewport', changedProps)
+        checkPrimitiveDiff(oldProps.height, newProps.height, 'height', changedProps)
+        // type: 'BabylonjsCoreInternalTexture' property (not coded) BabylonjsCorePostProcess.inputTexture.
+        // type: 'BabylonjsCoreIInspectable[]' property (not coded) BabylonjsCorePostProcess.inspectableCustomProperties.
+        checkPrimitiveDiff(oldProps.name, newProps.name, 'name', changedProps)
+        // type: 'BabylonjsCoreNodeMaterial' property (not coded) BabylonjsCorePostProcess.nodeMaterialSource.
+        checkLambdaDiff(oldProps.onActivate, newProps.onActivate, 'onActivate', changedProps)
+        checkObservableDiff(oldProps.onActivateObservable, newProps.onActivateObservable, 'onActivateObservable', changedProps)
+        checkLambdaDiff(oldProps.onAfterRender, newProps.onAfterRender, 'onAfterRender', changedProps)
+        checkObservableDiff(oldProps.onAfterRenderObservable, newProps.onAfterRenderObservable, 'onAfterRenderObservable', changedProps)
+        checkLambdaDiff(oldProps.onApply, newProps.onApply, 'onApply', changedProps)
+        checkObservableDiff(oldProps.onApplyObservable, newProps.onApplyObservable, 'onApplyObservable', changedProps)
+        checkLambdaDiff(oldProps.onBeforeRender, newProps.onBeforeRender, 'onBeforeRender', changedProps)
+        checkObservableDiff(oldProps.onBeforeRenderObservable, newProps.onBeforeRenderObservable, 'onBeforeRenderObservable', changedProps)
+        checkLambdaDiff(oldProps.onSizeChanged, newProps.onSizeChanged, 'onSizeChanged', changedProps)
+        checkObservableDiff(oldProps.onSizeChangedObservable, newProps.onSizeChangedObservable, 'onSizeChangedObservable', changedProps)
+        checkPrimitiveDiff(oldProps.renderTargetSamplingMode, newProps.renderTargetSamplingMode, 'renderTargetSamplingMode', changedProps)
+        checkPrimitiveDiff(oldProps.samples, newProps.samples, 'samples', changedProps)
+        checkPrimitiveDiff(oldProps.scaleMode, newProps.scaleMode, 'scaleMode', changedProps)
+        checkPrimitiveDiff(oldProps.uniqueId, newProps.uniqueId, 'uniqueId', changedProps)
+        checkPrimitiveDiff(oldProps.width, newProps.width, 'width', changedProps)
+        checkMethodDiff(oldProps.setPrePassRenderer, newProps.setPrePassRenderer, 'setPrePassRenderer', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
+    }
+}
+
+/**
+ * PostProcess can be used to apply a shader to a texture after it has been rendered
+ * See https://doc.babylonjs.com/how_to/how_to_use_postprocesses
+ *
+ * This code has been generated
+ */
+export class FiberPostProcess implements HasPropsHandlers<FiberPostProcessProps> {
+    private propsHandlers: PropsHandler<FiberPostProcessProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberPostProcessPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberPostProcessProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberPostProcessProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "PostProcess",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "fragmentUrl",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "parameters",
+                "type": "string[]",
+                "optional": false
+            },
+            {
+                "name": "samplers",
+                "type": "string[]",
+                "optional": false
+            },
+            {
+                "name": "options",
+                "type": "number | BabylonjsCorePostProcessOptions",
+                "optional": false
+            },
+            {
+                "name": "camera",
+                "type": "BabylonjsCoreCamera",
+                "optional": false
+            },
+            {
+                "name": "samplingMode",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "engine",
+                "type": "BabylonjsCoreEngine",
+                "optional": true
+            },
+            {
+                "name": "reusable",
+                "type": "boolean",
+                "optional": true
+            },
+            {
+                "name": "defines",
+                "type": "string",
+                "optional": true
+            },
+            {
+                "name": "textureType",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "vertexUrl",
+                "type": "string",
+                "optional": true
+            },
+            {
+                "name": "indexParameters",
+                "type": "any",
+                "optional": true
+            },
+            {
+                "name": "blockCompilation",
+                "type": "boolean",
+                "optional": true
+            },
+            {
+                "name": "textureFormat",
+                "type": "number",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "className": "FiberPostProcess"
+    };
+}
+
+export class FiberImageProcessingPostProcessPropsHandler implements PropsHandler<FiberImageProcessingPostProcessProps> {
+    getPropertyUpdates(oldProps: FiberImageProcessingPostProcessProps, newProps: FiberImageProcessingPostProcessProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        // type: 'BabylonjsCoreColorCurves' property (not coded) BabylonjsCoreImageProcessingPostProcess.colorCurves.
+        checkPrimitiveDiff(oldProps.colorCurvesEnabled, newProps.colorCurvesEnabled, 'colorCurvesEnabled', changedProps)
+        checkPrimitiveDiff(oldProps.colorGradingEnabled, newProps.colorGradingEnabled, 'colorGradingEnabled', changedProps)
+        checkTextureDiff(oldProps.colorGradingTexture, newProps.colorGradingTexture, 'colorGradingTexture', changedProps)
+        checkPrimitiveDiff(oldProps.contrast, newProps.contrast, 'contrast', changedProps)
+        checkPrimitiveDiff(oldProps.exposure, newProps.exposure, 'exposure', changedProps)
+        checkPrimitiveDiff(oldProps.fromLinearSpace, newProps.fromLinearSpace, 'fromLinearSpace', changedProps)
+        // type: 'BabylonjsCoreImageProcessingConfiguration' property (not coded) BabylonjsCoreImageProcessingPostProcess.imageProcessingConfiguration.
+        checkPrimitiveDiff(oldProps.toneMappingEnabled, newProps.toneMappingEnabled, 'toneMappingEnabled', changedProps)
+        checkPrimitiveDiff(oldProps.toneMappingType, newProps.toneMappingType, 'toneMappingType', changedProps)
+        checkPrimitiveDiff(oldProps.vignetteBlendMode, newProps.vignetteBlendMode, 'vignetteBlendMode', changedProps)
+        checkPrimitiveDiff(oldProps.vignetteCameraFov, newProps.vignetteCameraFov, 'vignetteCameraFov', changedProps)
+        checkPrimitiveDiff(oldProps.vignetteCentreX, newProps.vignetteCentreX, 'vignetteCentreX', changedProps)
+        checkPrimitiveDiff(oldProps.vignetteCentreY, newProps.vignetteCentreY, 'vignetteCentreY', changedProps)
+        checkColor4Diff(oldProps.vignetteColor, newProps.vignetteColor, 'vignetteColor', changedProps)
+        checkPrimitiveDiff(oldProps.vignetteEnabled, newProps.vignetteEnabled, 'vignetteEnabled', changedProps)
+        checkPrimitiveDiff(oldProps.vignetteStretch, newProps.vignetteStretch, 'vignetteStretch', changedProps)
+        checkPrimitiveDiff(oldProps.vignetteWeight, newProps.vignetteWeight, 'vignetteWeight', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
+    }
+}
+
+/**
+ * ImageProcessingPostProcess
+ *
+ * This code has been generated
+ */
+export class FiberImageProcessingPostProcess implements HasPropsHandlers<FiberPostProcessProps> {
+    private propsHandlers: PropsHandler<FiberPostProcessProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberImageProcessingPostProcessPropsHandler(),
+            new FiberPostProcessPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberPostProcessProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberPostProcessProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "ImageProcessingPostProcess",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "options",
+                "type": "number | BabylonjsCorePostProcessOptions",
+                "optional": false
+            },
+            {
+                "name": "camera",
+                "type": "BabylonjsCoreCamera",
+                "optional": true
+            },
+            {
+                "name": "samplingMode",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "engine",
+                "type": "BabylonjsCoreEngine",
+                "optional": true
+            },
+            {
+                "name": "reusable",
+                "type": "boolean",
+                "optional": true
+            },
+            {
+                "name": "textureType",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "imageProcessingConfiguration",
+                "type": "BabylonjsCoreImageProcessingConfiguration",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "className": "FiberImageProcessingPostProcess"
+    };
+}
+
+export class FiberAnaglyphPostProcessPropsHandler implements PropsHandler<FiberAnaglyphPostProcessProps> {
+    getPropertyUpdates(oldProps: FiberAnaglyphPostProcessProps, newProps: FiberAnaglyphPostProcessProps): PropertyUpdate[] | null {
+        return null; // no props to check
+    }
+}
+
+/**
+ * Postprocess used to generate anaglyphic rendering
+ *
+ * This code has been generated
+ */
+export class FiberAnaglyphPostProcess implements HasPropsHandlers<FiberPostProcessProps> {
+    private propsHandlers: PropsHandler<FiberPostProcessProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberAnaglyphPostProcessPropsHandler(),
+            new FiberPostProcessPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberPostProcessProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberPostProcessProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "AnaglyphPostProcess",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "options",
+                "type": "number | BabylonjsCorePostProcessOptions",
+                "optional": false
+            },
+            {
+                "name": "rigCameras",
+                "type": "BabylonjsCoreCamera[]",
+                "optional": false
+            },
+            {
+                "name": "samplingMode",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "engine",
+                "type": "BabylonjsCoreEngine",
+                "optional": true
+            },
+            {
+                "name": "reusable",
+                "type": "boolean",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "className": "FiberAnaglyphPostProcess"
+    };
+}
+
+export class FiberBlackAndWhitePostProcessPropsHandler implements PropsHandler<FiberBlackAndWhitePostProcessProps> {
+    getPropertyUpdates(oldProps: FiberBlackAndWhitePostProcessProps, newProps: FiberBlackAndWhitePostProcessProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.degree, newProps.degree, 'degree', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
+    }
+}
+
+/**
+ * Post process used to render in black and white
+ *
+ * This code has been generated
+ */
+export class FiberBlackAndWhitePostProcess implements HasPropsHandlers<FiberPostProcessProps> {
+    private propsHandlers: PropsHandler<FiberPostProcessProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberBlackAndWhitePostProcessPropsHandler(),
+            new FiberPostProcessPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberPostProcessProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberPostProcessProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "BlackAndWhitePostProcess",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "options",
+                "type": "number | BabylonjsCorePostProcessOptions",
+                "optional": false
+            },
+            {
+                "name": "camera",
+                "type": "BabylonjsCoreCamera",
+                "optional": false
+            },
+            {
+                "name": "samplingMode",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "engine",
+                "type": "BabylonjsCoreEngine",
+                "optional": true
+            },
+            {
+                "name": "reusable",
+                "type": "boolean",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "className": "FiberBlackAndWhitePostProcess"
+    };
+}
+
+export class FiberExtractHighlightsPostProcessPropsHandler implements PropsHandler<FiberExtractHighlightsPostProcessProps> {
+    getPropertyUpdates(oldProps: FiberExtractHighlightsPostProcessProps, newProps: FiberExtractHighlightsPostProcessProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.threshold, newProps.threshold, 'threshold', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
+    }
+}
+
+/**
+ * The extract highlights post process sets all pixels to black except pixels above the specified luminance threshold. Used as the first step for a bloom effect.
+ *
+ * This code has been generated
+ */
+export class FiberExtractHighlightsPostProcess implements HasPropsHandlers<FiberPostProcessProps> {
+    private propsHandlers: PropsHandler<FiberPostProcessProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberExtractHighlightsPostProcessPropsHandler(),
+            new FiberPostProcessPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberPostProcessProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberPostProcessProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "ExtractHighlightsPostProcess",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "options",
+                "type": "number | BabylonjsCorePostProcessOptions",
+                "optional": false
+            },
+            {
+                "name": "camera",
+                "type": "BabylonjsCoreCamera",
+                "optional": false
+            },
+            {
+                "name": "samplingMode",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "engine",
+                "type": "BabylonjsCoreEngine",
+                "optional": true
+            },
+            {
+                "name": "reusable",
+                "type": "boolean",
+                "optional": true
+            },
+            {
+                "name": "textureType",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "blockCompilation",
+                "type": "boolean",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "className": "FiberExtractHighlightsPostProcess"
+    };
+}
+
+export class FiberBloomMergePostProcessPropsHandler implements PropsHandler<FiberBloomMergePostProcessProps> {
+    getPropertyUpdates(oldProps: FiberBloomMergePostProcessProps, newProps: FiberBloomMergePostProcessProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.weight, newProps.weight, 'weight', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
+    }
+}
+
+/**
+ * The BloomMergePostProcess merges blurred images with the original based on the values of the circle of confusion.
+ *
+ * This code has been generated
+ */
+export class FiberBloomMergePostProcess implements HasPropsHandlers<FiberPostProcessProps> {
+    private propsHandlers: PropsHandler<FiberPostProcessProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberBloomMergePostProcessPropsHandler(),
+            new FiberPostProcessPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberPostProcessProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberPostProcessProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "BloomMergePostProcess",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "originalFromInput",
+                "type": "BabylonjsCorePostProcess",
+                "optional": false
+            },
+            {
+                "name": "blurred",
+                "type": "BabylonjsCorePostProcess",
+                "optional": false
+            },
+            {
+                "name": "weight",
+                "type": "number",
+                "optional": false
+            },
+            {
+                "name": "options",
+                "type": "number | BabylonjsCorePostProcessOptions",
+                "optional": false
+            },
+            {
+                "name": "camera",
+                "type": "BabylonjsCoreCamera",
+                "optional": false
+            },
+            {
+                "name": "samplingMode",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "engine",
+                "type": "BabylonjsCoreEngine",
+                "optional": true
+            },
+            {
+                "name": "reusable",
+                "type": "boolean",
+                "optional": true
+            },
+            {
+                "name": "textureType",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "blockCompilation",
+                "type": "boolean",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "className": "FiberBloomMergePostProcess"
+    };
+}
+
+export class FiberBlurPostProcessPropsHandler implements PropsHandler<FiberBlurPostProcessProps> {
+    getPropertyUpdates(oldProps: FiberBlurPostProcessProps, newProps: FiberBlurPostProcessProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        // type: 'any' property (not coded) BabylonjsCoreBlurPostProcess.blockCompilation.
+        // type: 'BabylonjsCoreVector2' property (not coded) BabylonjsCoreBlurPostProcess.direction.
+        checkPrimitiveDiff(oldProps.kernel, newProps.kernel, 'kernel', changedProps)
+        checkPrimitiveDiff(oldProps.packedFloat, newProps.packedFloat, 'packedFloat', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
+    }
+}
+
+/**
+ * The Blur Post Process which blurs an image based on a kernel and direction.
+ * Can be used twice in x and y directions to perform a guassian blur in two passes.
+ *
+ * This code has been generated
+ */
+export class FiberBlurPostProcess implements HasPropsHandlers<FiberPostProcessProps> {
+    private propsHandlers: PropsHandler<FiberPostProcessProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberBlurPostProcessPropsHandler(),
+            new FiberPostProcessPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberPostProcessProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberPostProcessProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "BlurPostProcess",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "direction",
+                "type": "BabylonjsCoreVector2",
+                "optional": false
+            },
+            {
+                "name": "kernel",
+                "type": "number",
+                "optional": false
+            },
+            {
+                "name": "options",
+                "type": "number | BabylonjsCorePostProcessOptions",
+                "optional": false
+            },
+            {
+                "name": "camera",
+                "type": "BabylonjsCoreCamera",
+                "optional": false
+            },
+            {
+                "name": "samplingMode",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "engine",
+                "type": "BabylonjsCoreEngine",
+                "optional": true
+            },
+            {
+                "name": "reusable",
+                "type": "boolean",
+                "optional": true
+            },
+            {
+                "name": "textureType",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "defines",
+                "type": "string",
+                "optional": true
+            },
+            {
+                "name": "blockCompilation",
+                "type": "boolean",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "className": "FiberBlurPostProcess"
+    };
+}
+
+export class FiberDepthOfFieldBlurPostProcessPropsHandler implements PropsHandler<FiberDepthOfFieldBlurPostProcessProps> {
+    getPropertyUpdates(oldProps: FiberDepthOfFieldBlurPostProcessProps, newProps: FiberDepthOfFieldBlurPostProcessProps): PropertyUpdate[] | null {
+        // skipping type: 'BabylonjsCoreVector2' property (not coded) BabylonjsCoreDepthOfFieldBlurPostProcess.direction.
+        return null; // no props to check
+    }
+}
+
+/**
+ * The DepthOfFieldBlurPostProcess applied a blur in a give direction.
+ * This blur differs from the standard BlurPostProcess as it attempts to avoid blurring pixels
+ * based on samples that have a large difference in distance than the center pixel.
+ * See section 2.6.2 http://fileadmin.cs.lth.se/cs/education/edan35/lectures/12dof.pdf
+ *
+ * This code has been generated
+ */
+export class FiberDepthOfFieldBlurPostProcess implements HasPropsHandlers<FiberPostProcessProps> {
+    private propsHandlers: PropsHandler<FiberPostProcessProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberDepthOfFieldBlurPostProcessPropsHandler(),
+            new FiberBlurPostProcessPropsHandler(),
+            new FiberPostProcessPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberPostProcessProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberPostProcessProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "DepthOfFieldBlurPostProcess",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "scene",
+                "type": "BabylonjsCoreScene",
+                "optional": false
+            },
+            {
+                "name": "direction",
+                "type": "BabylonjsCoreVector2",
+                "optional": false
+            },
+            {
+                "name": "kernel",
+                "type": "number",
+                "optional": false
+            },
+            {
+                "name": "options",
+                "type": "number | BabylonjsCorePostProcessOptions",
+                "optional": false
+            },
+            {
+                "name": "camera",
+                "type": "BabylonjsCoreCamera",
+                "optional": false
+            },
+            {
+                "name": "circleOfConfusion",
+                "type": "BabylonjsCorePostProcess",
+                "optional": false
+            },
+            {
+                "name": "imageToBlur",
+                "type": "BabylonjsCorePostProcess",
+                "optional": true
+            },
+            {
+                "name": "samplingMode",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "engine",
+                "type": "BabylonjsCoreEngine",
+                "optional": true
+            },
+            {
+                "name": "reusable",
+                "type": "boolean",
+                "optional": true
+            },
+            {
+                "name": "textureType",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "blockCompilation",
+                "type": "boolean",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "className": "FiberDepthOfFieldBlurPostProcess"
+    };
+}
+
+export class FiberChromaticAberrationPostProcessPropsHandler implements PropsHandler<FiberChromaticAberrationPostProcessProps> {
+    getPropertyUpdates(oldProps: FiberChromaticAberrationPostProcessProps, newProps: FiberChromaticAberrationPostProcessProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.aberrationAmount, newProps.aberrationAmount, 'aberrationAmount', changedProps)
+        // type: 'BabylonjsCoreVector2' property (not coded) BabylonjsCoreChromaticAberrationPostProcess.centerPosition.
+        // type: 'BabylonjsCoreVector2' property (not coded) BabylonjsCoreChromaticAberrationPostProcess.direction.
+        checkPrimitiveDiff(oldProps.radialIntensity, newProps.radialIntensity, 'radialIntensity', changedProps)
+        checkPrimitiveDiff(oldProps.screenHeight, newProps.screenHeight, 'screenHeight', changedProps)
+        checkPrimitiveDiff(oldProps.screenWidth, newProps.screenWidth, 'screenWidth', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
+    }
+}
+
+/**
+ * The ChromaticAberrationPostProcess separates the rgb channels in an image to produce chromatic distortion around the edges of the screen
+ *
+ * This code has been generated
+ */
+export class FiberChromaticAberrationPostProcess implements HasPropsHandlers<FiberPostProcessProps> {
+    private propsHandlers: PropsHandler<FiberPostProcessProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberChromaticAberrationPostProcessPropsHandler(),
+            new FiberPostProcessPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberPostProcessProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberPostProcessProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "ChromaticAberrationPostProcess",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "screenWidth",
+                "type": "number",
+                "optional": false
+            },
+            {
+                "name": "screenHeight",
+                "type": "number",
+                "optional": false
+            },
+            {
+                "name": "options",
+                "type": "number | BabylonjsCorePostProcessOptions",
+                "optional": false
+            },
+            {
+                "name": "camera",
+                "type": "BabylonjsCoreCamera",
+                "optional": false
+            },
+            {
+                "name": "samplingMode",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "engine",
+                "type": "BabylonjsCoreEngine",
+                "optional": true
+            },
+            {
+                "name": "reusable",
+                "type": "boolean",
+                "optional": true
+            },
+            {
+                "name": "textureType",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "blockCompilation",
+                "type": "boolean",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "className": "FiberChromaticAberrationPostProcess"
+    };
+}
+
+export class FiberCircleOfConfusionPostProcessPropsHandler implements PropsHandler<FiberCircleOfConfusionPostProcessProps> {
+    getPropertyUpdates(oldProps: FiberCircleOfConfusionPostProcessProps, newProps: FiberCircleOfConfusionPostProcessProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        // type: 'BabylonjsCoreRenderTargetTexture' property (not coded) BabylonjsCoreCircleOfConfusionPostProcess.depthTexture.
+        checkPrimitiveDiff(oldProps.focalLength, newProps.focalLength, 'focalLength', changedProps)
+        checkPrimitiveDiff(oldProps.focusDistance, newProps.focusDistance, 'focusDistance', changedProps)
+        checkPrimitiveDiff(oldProps.fStop, newProps.fStop, 'fStop', changedProps)
+        checkPrimitiveDiff(oldProps.lensSize, newProps.lensSize, 'lensSize', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
+    }
+}
+
+/**
+ * The CircleOfConfusionPostProcess computes the circle of confusion value for each pixel given required lens parameters. See https://en.wikipedia.org/wiki/Circle_of_confusion
+ *
+ * This code has been generated
+ */
+export class FiberCircleOfConfusionPostProcess implements HasPropsHandlers<FiberPostProcessProps> {
+    private propsHandlers: PropsHandler<FiberPostProcessProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberCircleOfConfusionPostProcessPropsHandler(),
+            new FiberPostProcessPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberPostProcessProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberPostProcessProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "CircleOfConfusionPostProcess",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "depthTexture",
+                "type": "BabylonjsCoreRenderTargetTexture",
+                "optional": false
+            },
+            {
+                "name": "options",
+                "type": "number | BabylonjsCorePostProcessOptions",
+                "optional": false
+            },
+            {
+                "name": "camera",
+                "type": "BabylonjsCoreCamera",
+                "optional": false
+            },
+            {
+                "name": "samplingMode",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "engine",
+                "type": "BabylonjsCoreEngine",
+                "optional": true
+            },
+            {
+                "name": "reusable",
+                "type": "boolean",
+                "optional": true
+            },
+            {
+                "name": "textureType",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "blockCompilation",
+                "type": "boolean",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "className": "FiberCircleOfConfusionPostProcess"
+    };
+}
+
+export class FiberColorCorrectionPostProcessPropsHandler implements PropsHandler<FiberColorCorrectionPostProcessProps> {
+    getPropertyUpdates(oldProps: FiberColorCorrectionPostProcessProps, newProps: FiberColorCorrectionPostProcessProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.colorTableUrl, newProps.colorTableUrl, 'colorTableUrl', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
+    }
+}
+
+/**
+ * This post-process allows the modification of rendered colors by using
+ * a 'look-up table' (LUT). This effect is also called Color Grading.
+ *
+ * The object needs to be provided an url to a texture containing the color
+ * look-up table: the texture must be 256 pixels wide and 16 pixels high.
+ * Use an image editing software to tweak the LUT to match your needs.
+ *
+ * For an example of a color LUT, see here:
+ *
+ * This code has been generated
+ */
+export class FiberColorCorrectionPostProcess implements HasPropsHandlers<FiberPostProcessProps> {
+    private propsHandlers: PropsHandler<FiberPostProcessProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberColorCorrectionPostProcessPropsHandler(),
+            new FiberPostProcessPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberPostProcessProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberPostProcessProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "ColorCorrectionPostProcess",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "colorTableUrl",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "options",
+                "type": "number | BabylonjsCorePostProcessOptions",
+                "optional": false
+            },
+            {
+                "name": "camera",
+                "type": "BabylonjsCoreCamera",
+                "optional": false
+            },
+            {
+                "name": "samplingMode",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "engine",
+                "type": "BabylonjsCoreEngine",
+                "optional": true
+            },
+            {
+                "name": "reusable",
+                "type": "boolean",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "className": "FiberColorCorrectionPostProcess"
+    };
+}
+
+export class FiberConvolutionPostProcessPropsHandler implements PropsHandler<FiberConvolutionPostProcessProps> {
+    getPropertyUpdates(oldProps: FiberConvolutionPostProcessProps, newProps: FiberConvolutionPostProcessProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkNumericArrayDiff(oldProps.kernel, newProps.kernel, 'kernel', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
+    }
+}
+
+/**
+ * The ConvolutionPostProcess applies a 3x3 kernel to every pixel of the
+ * input texture to perform effects such as edge detection or sharpening
+ * See http://en.wikipedia.org/wiki/Kernel_(image_processing)
+ *
+ * This code has been generated
+ */
+export class FiberConvolutionPostProcess implements HasPropsHandlers<FiberPostProcessProps> {
+    private propsHandlers: PropsHandler<FiberPostProcessProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberConvolutionPostProcessPropsHandler(),
+            new FiberPostProcessPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberPostProcessProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberPostProcessProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "ConvolutionPostProcess",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "kernel",
+                "type": "number[]",
+                "optional": false
+            },
+            {
+                "name": "options",
+                "type": "number | BabylonjsCorePostProcessOptions",
+                "optional": false
+            },
+            {
+                "name": "camera",
+                "type": "BabylonjsCoreCamera",
+                "optional": false
+            },
+            {
+                "name": "samplingMode",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "engine",
+                "type": "BabylonjsCoreEngine",
+                "optional": true
+            },
+            {
+                "name": "reusable",
+                "type": "boolean",
+                "optional": true
+            },
+            {
+                "name": "textureType",
+                "type": "number",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "className": "FiberConvolutionPostProcess"
+    };
+}
+
+export class FiberDepthOfFieldMergePostProcessPropsHandler implements PropsHandler<FiberDepthOfFieldMergePostProcessProps> {
+    getPropertyUpdates(oldProps: FiberDepthOfFieldMergePostProcessProps, newProps: FiberDepthOfFieldMergePostProcessProps): PropertyUpdate[] | null {
+        // skipping type: 'any' property (not coded) BabylonjsCoreDepthOfFieldMergePostProcess.blurSteps.
+        return null; // no props to check
+    }
+}
+
+/**
+ * The DepthOfFieldMergePostProcess merges blurred images with the original based on the values of the circle of confusion.
+ *
+ * This code has been generated
+ */
+export class FiberDepthOfFieldMergePostProcess implements HasPropsHandlers<FiberPostProcessProps> {
+    private propsHandlers: PropsHandler<FiberPostProcessProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberDepthOfFieldMergePostProcessPropsHandler(),
+            new FiberPostProcessPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberPostProcessProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberPostProcessProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "DepthOfFieldMergePostProcess",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "originalFromInput",
+                "type": "BabylonjsCorePostProcess",
+                "optional": false
+            },
+            {
+                "name": "circleOfConfusion",
+                "type": "BabylonjsCorePostProcess",
+                "optional": false
+            },
+            {
+                "name": "blurSteps",
+                "type": "BabylonjsCorePostProcess[]",
+                "optional": false
+            },
+            {
+                "name": "options",
+                "type": "number | BabylonjsCorePostProcessOptions",
+                "optional": false
+            },
+            {
+                "name": "camera",
+                "type": "BabylonjsCoreCamera",
+                "optional": false
+            },
+            {
+                "name": "samplingMode",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "engine",
+                "type": "BabylonjsCoreEngine",
+                "optional": true
+            },
+            {
+                "name": "reusable",
+                "type": "boolean",
+                "optional": true
+            },
+            {
+                "name": "textureType",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "blockCompilation",
+                "type": "boolean",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "className": "FiberDepthOfFieldMergePostProcess"
+    };
+}
+
+export class FiberDisplayPassPostProcessPropsHandler implements PropsHandler<FiberDisplayPassPostProcessProps> {
+    getPropertyUpdates(oldProps: FiberDisplayPassPostProcessProps, newProps: FiberDisplayPassPostProcessProps): PropertyUpdate[] | null {
+        return null; // no props to check
+    }
+}
+
+/**
+ * DisplayPassPostProcess which produces an output the same as it's input
+ *
+ * This code has been generated
+ */
+export class FiberDisplayPassPostProcess implements HasPropsHandlers<FiberPostProcessProps> {
+    private propsHandlers: PropsHandler<FiberPostProcessProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberDisplayPassPostProcessPropsHandler(),
+            new FiberPostProcessPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberPostProcessProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberPostProcessProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "DisplayPassPostProcess",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "options",
+                "type": "number | BabylonjsCorePostProcessOptions",
+                "optional": false
+            },
+            {
+                "name": "camera",
+                "type": "BabylonjsCoreCamera",
+                "optional": false
+            },
+            {
+                "name": "samplingMode",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "engine",
+                "type": "BabylonjsCoreEngine",
+                "optional": true
+            },
+            {
+                "name": "reusable",
+                "type": "boolean",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "className": "FiberDisplayPassPostProcess"
+    };
+}
+
+export class FiberFilterPostProcessPropsHandler implements PropsHandler<FiberFilterPostProcessProps> {
+    getPropertyUpdates(oldProps: FiberFilterPostProcessProps, newProps: FiberFilterPostProcessProps): PropertyUpdate[] | null {
+        // skipping type: 'BabylonjsCoreMatrix' property (not coded) BabylonjsCoreFilterPostProcess.kernelMatrix.
+        return null; // no props to check
+    }
+}
+
+/**
+ * Applies a kernel filter to the image
+ *
+ * This code has been generated
+ */
+export class FiberFilterPostProcess implements HasPropsHandlers<FiberPostProcessProps> {
+    private propsHandlers: PropsHandler<FiberPostProcessProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberFilterPostProcessPropsHandler(),
+            new FiberPostProcessPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberPostProcessProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberPostProcessProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "FilterPostProcess",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "kernelMatrix",
+                "type": "BabylonjsCoreMatrix",
+                "optional": false
+            },
+            {
+                "name": "options",
+                "type": "number | BabylonjsCorePostProcessOptions",
+                "optional": false
+            },
+            {
+                "name": "camera",
+                "type": "BabylonjsCoreCamera",
+                "optional": false
+            },
+            {
+                "name": "samplingMode",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "engine",
+                "type": "BabylonjsCoreEngine",
+                "optional": true
+            },
+            {
+                "name": "reusable",
+                "type": "boolean",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "className": "FiberFilterPostProcess"
+    };
+}
+
+export class FiberFxaaPostProcessPropsHandler implements PropsHandler<FiberFxaaPostProcessProps> {
+    getPropertyUpdates(oldProps: FiberFxaaPostProcessProps, newProps: FiberFxaaPostProcessProps): PropertyUpdate[] | null {
+        return null; // no props to check
+    }
+}
+
+/**
+ * Fxaa post process
+ *
+ * This code has been generated
+ */
+export class FiberFxaaPostProcess implements HasPropsHandlers<FiberPostProcessProps> {
+    private propsHandlers: PropsHandler<FiberPostProcessProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberFxaaPostProcessPropsHandler(),
+            new FiberPostProcessPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberPostProcessProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberPostProcessProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "FxaaPostProcess",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "options",
+                "type": "number | BabylonjsCorePostProcessOptions",
+                "optional": false
+            },
+            {
+                "name": "camera",
+                "type": "BabylonjsCoreCamera",
+                "optional": true
+            },
+            {
+                "name": "samplingMode",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "engine",
+                "type": "BabylonjsCoreEngine",
+                "optional": true
+            },
+            {
+                "name": "reusable",
+                "type": "boolean",
+                "optional": true
+            },
+            {
+                "name": "textureType",
+                "type": "number",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "className": "FiberFxaaPostProcess"
+    };
+}
+
+export class FiberGrainPostProcessPropsHandler implements PropsHandler<FiberGrainPostProcessProps> {
+    getPropertyUpdates(oldProps: FiberGrainPostProcessProps, newProps: FiberGrainPostProcessProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.animated, newProps.animated, 'animated', changedProps)
+        checkPrimitiveDiff(oldProps.intensity, newProps.intensity, 'intensity', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
+    }
+}
+
+/**
+ * The GrainPostProcess adds noise to the image at mid luminance levels
+ *
+ * This code has been generated
+ */
+export class FiberGrainPostProcess implements HasPropsHandlers<FiberPostProcessProps> {
+    private propsHandlers: PropsHandler<FiberPostProcessProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberGrainPostProcessPropsHandler(),
+            new FiberPostProcessPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberPostProcessProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberPostProcessProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "GrainPostProcess",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "options",
+                "type": "number | BabylonjsCorePostProcessOptions",
+                "optional": false
+            },
+            {
+                "name": "camera",
+                "type": "BabylonjsCoreCamera",
+                "optional": false
+            },
+            {
+                "name": "samplingMode",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "engine",
+                "type": "BabylonjsCoreEngine",
+                "optional": true
+            },
+            {
+                "name": "reusable",
+                "type": "boolean",
+                "optional": true
+            },
+            {
+                "name": "textureType",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "blockCompilation",
+                "type": "boolean",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "className": "FiberGrainPostProcess"
+    };
+}
+
+export class FiberHighlightsPostProcessPropsHandler implements PropsHandler<FiberHighlightsPostProcessProps> {
+    getPropertyUpdates(oldProps: FiberHighlightsPostProcessProps, newProps: FiberHighlightsPostProcessProps): PropertyUpdate[] | null {
+        return null; // no props to check
+    }
+}
+
+/**
+ * Extracts highlights from the image
+ *
+ * This code has been generated
+ */
+export class FiberHighlightsPostProcess implements HasPropsHandlers<FiberPostProcessProps> {
+    private propsHandlers: PropsHandler<FiberPostProcessProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberHighlightsPostProcessPropsHandler(),
+            new FiberPostProcessPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberPostProcessProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberPostProcessProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "HighlightsPostProcess",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "options",
+                "type": "number | BabylonjsCorePostProcessOptions",
+                "optional": false
+            },
+            {
+                "name": "camera",
+                "type": "BabylonjsCoreCamera",
+                "optional": false
+            },
+            {
+                "name": "samplingMode",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "engine",
+                "type": "BabylonjsCoreEngine",
+                "optional": true
+            },
+            {
+                "name": "reusable",
+                "type": "boolean",
+                "optional": true
+            },
+            {
+                "name": "textureType",
+                "type": "number",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "className": "FiberHighlightsPostProcess"
+    };
+}
+
+export class FiberMotionBlurPostProcessPropsHandler implements PropsHandler<FiberMotionBlurPostProcessProps> {
+    getPropertyUpdates(oldProps: FiberMotionBlurPostProcessProps, newProps: FiberMotionBlurPostProcessProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.isObjectBased, newProps.isObjectBased, 'isObjectBased', changedProps)
+        checkPrimitiveDiff(oldProps.motionBlurSamples, newProps.motionBlurSamples, 'motionBlurSamples', changedProps)
+        checkPrimitiveDiff(oldProps.motionStrength, newProps.motionStrength, 'motionStrength', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
+    }
+}
+
+/**
+ * The Motion Blur Post Process which blurs an image based on the objects velocity in scene.
+ * Velocity can be affected by each object's rotation, position and scale depending on the transformation speed.
+ * As an example, all you have to do is to create the post-process:
+ *   var mb = new BABYLON.MotionBlurPostProcess(
+ *       'mb', // The name of the effect.
+ *       scene, // The scene containing the objects to blur according to their velocity.
+ *       1.0, // The required width/height ratio to downsize to before computing the render pass.
+ *       camera // The camera to apply the render pass to.
+ * );
+ * Then, all objects moving, rotating and/or scaling will be blurred depending on the transformation speed.
+ *
+ * This code has been generated
+ */
+export class FiberMotionBlurPostProcess implements HasPropsHandlers<FiberPostProcessProps> {
+    private propsHandlers: PropsHandler<FiberPostProcessProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberMotionBlurPostProcessPropsHandler(),
+            new FiberPostProcessPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberPostProcessProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberPostProcessProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "MotionBlurPostProcess",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "scene",
+                "type": "BabylonjsCoreScene",
+                "optional": false
+            },
+            {
+                "name": "options",
+                "type": "number | BabylonjsCorePostProcessOptions",
+                "optional": false
+            },
+            {
+                "name": "camera",
+                "type": "BabylonjsCoreCamera",
+                "optional": false
+            },
+            {
+                "name": "samplingMode",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "engine",
+                "type": "BabylonjsCoreEngine",
+                "optional": true
+            },
+            {
+                "name": "reusable",
+                "type": "boolean",
+                "optional": true
+            },
+            {
+                "name": "textureType",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "blockCompilation",
+                "type": "boolean",
+                "optional": true
+            },
+            {
+                "name": "forceGeometryBuffer",
+                "type": "boolean",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "className": "FiberMotionBlurPostProcess"
+    };
+}
+
+export class FiberPassPostProcessPropsHandler implements PropsHandler<FiberPassPostProcessProps> {
+    getPropertyUpdates(oldProps: FiberPassPostProcessProps, newProps: FiberPassPostProcessProps): PropertyUpdate[] | null {
+        return null; // no props to check
+    }
+}
+
+/**
+ * PassPostProcess which produces an output the same as it's input
+ *
+ * This code has been generated
+ */
+export class FiberPassPostProcess implements HasPropsHandlers<FiberPostProcessProps> {
+    private propsHandlers: PropsHandler<FiberPostProcessProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberPassPostProcessPropsHandler(),
+            new FiberPostProcessPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberPostProcessProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberPostProcessProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "PassPostProcess",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "options",
+                "type": "number | BabylonjsCorePostProcessOptions",
+                "optional": false
+            },
+            {
+                "name": "camera",
+                "type": "BabylonjsCoreCamera",
+                "optional": true
+            },
+            {
+                "name": "samplingMode",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "engine",
+                "type": "BabylonjsCoreEngine",
+                "optional": true
+            },
+            {
+                "name": "reusable",
+                "type": "boolean",
+                "optional": true
+            },
+            {
+                "name": "textureType",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "blockCompilation",
+                "type": "boolean",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "className": "FiberPassPostProcess"
+    };
+}
+
+export class FiberPassCubePostProcessPropsHandler implements PropsHandler<FiberPassCubePostProcessProps> {
+    getPropertyUpdates(oldProps: FiberPassCubePostProcessProps, newProps: FiberPassCubePostProcessProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.face, newProps.face, 'face', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
+    }
+}
+
+/**
+ * PassCubePostProcess which produces an output the same as it's input (which must be a cube texture)
+ *
+ * This code has been generated
+ */
+export class FiberPassCubePostProcess implements HasPropsHandlers<FiberPostProcessProps> {
+    private propsHandlers: PropsHandler<FiberPostProcessProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberPassCubePostProcessPropsHandler(),
+            new FiberPostProcessPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberPostProcessProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberPostProcessProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "PassCubePostProcess",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "options",
+                "type": "number | BabylonjsCorePostProcessOptions",
+                "optional": false
+            },
+            {
+                "name": "camera",
+                "type": "BabylonjsCoreCamera",
+                "optional": true
+            },
+            {
+                "name": "samplingMode",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "engine",
+                "type": "BabylonjsCoreEngine",
+                "optional": true
+            },
+            {
+                "name": "reusable",
+                "type": "boolean",
+                "optional": true
+            },
+            {
+                "name": "textureType",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "blockCompilation",
+                "type": "boolean",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "className": "FiberPassCubePostProcess"
+    };
+}
+
+export class FiberRefractionPostProcessPropsHandler implements PropsHandler<FiberRefractionPostProcessProps> {
+    getPropertyUpdates(oldProps: FiberRefractionPostProcessProps, newProps: FiberRefractionPostProcessProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkColor3Diff(oldProps.color, newProps.color, 'color', changedProps)
+        checkPrimitiveDiff(oldProps.colorLevel, newProps.colorLevel, 'colorLevel', changedProps)
+        checkPrimitiveDiff(oldProps.depth, newProps.depth, 'depth', changedProps)
+        // type: 'BabylonjsCoreTexture' property (not coded) BabylonjsCoreRefractionPostProcess.refractionTexture.
+        checkPrimitiveDiff(oldProps.refractionTextureUrl, newProps.refractionTextureUrl, 'refractionTextureUrl', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
+    }
+}
+
+/**
+ * Post process which applies a refractin texture
+ *
+ * This code has been generated
+ */
+export class FiberRefractionPostProcess implements HasPropsHandlers<FiberPostProcessProps> {
+    private propsHandlers: PropsHandler<FiberPostProcessProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberRefractionPostProcessPropsHandler(),
+            new FiberPostProcessPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberPostProcessProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberPostProcessProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "RefractionPostProcess",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "refractionTextureUrl",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "color",
+                "type": "BabylonjsCoreColor3",
+                "optional": false
+            },
+            {
+                "name": "depth",
+                "type": "number",
+                "optional": false
+            },
+            {
+                "name": "colorLevel",
+                "type": "number",
+                "optional": false
+            },
+            {
+                "name": "options",
+                "type": "number | BabylonjsCorePostProcessOptions",
+                "optional": false
+            },
+            {
+                "name": "camera",
+                "type": "BabylonjsCoreCamera",
+                "optional": false
+            },
+            {
+                "name": "samplingMode",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "engine",
+                "type": "BabylonjsCoreEngine",
+                "optional": true
+            },
+            {
+                "name": "reusable",
+                "type": "boolean",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "className": "FiberRefractionPostProcess"
+    };
+}
+
+export class FiberSharpenPostProcessPropsHandler implements PropsHandler<FiberSharpenPostProcessProps> {
+    getPropertyUpdates(oldProps: FiberSharpenPostProcessProps, newProps: FiberSharpenPostProcessProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.colorAmount, newProps.colorAmount, 'colorAmount', changedProps)
+        checkPrimitiveDiff(oldProps.edgeAmount, newProps.edgeAmount, 'edgeAmount', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
+    }
+}
+
+/**
+ * The SharpenPostProcess applies a sharpen kernel to every pixel
+ * See http://en.wikipedia.org/wiki/Kernel_(image_processing)
+ *
+ * This code has been generated
+ */
+export class FiberSharpenPostProcess implements HasPropsHandlers<FiberPostProcessProps> {
+    private propsHandlers: PropsHandler<FiberPostProcessProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberSharpenPostProcessPropsHandler(),
+            new FiberPostProcessPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberPostProcessProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberPostProcessProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "SharpenPostProcess",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "options",
+                "type": "number | BabylonjsCorePostProcessOptions",
+                "optional": false
+            },
+            {
+                "name": "camera",
+                "type": "BabylonjsCoreCamera",
+                "optional": false
+            },
+            {
+                "name": "samplingMode",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "engine",
+                "type": "BabylonjsCoreEngine",
+                "optional": true
+            },
+            {
+                "name": "reusable",
+                "type": "boolean",
+                "optional": true
+            },
+            {
+                "name": "textureType",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "blockCompilation",
+                "type": "boolean",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "className": "FiberSharpenPostProcess"
+    };
+}
+
+export class FiberScreenSpaceReflectionPostProcessPropsHandler implements PropsHandler<FiberScreenSpaceReflectionPostProcessProps> {
+    getPropertyUpdates(oldProps: FiberScreenSpaceReflectionPostProcessProps, newProps: FiberScreenSpaceReflectionPostProcessProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.enableSmoothReflections, newProps.enableSmoothReflections, 'enableSmoothReflections', changedProps)
+        checkPrimitiveDiff(oldProps.reflectionSamples, newProps.reflectionSamples, 'reflectionSamples', changedProps)
+        checkPrimitiveDiff(oldProps.reflectionSpecularFalloffExponent, newProps.reflectionSpecularFalloffExponent, 'reflectionSpecularFalloffExponent', changedProps)
+        checkPrimitiveDiff(oldProps.roughnessFactor, newProps.roughnessFactor, 'roughnessFactor', changedProps)
+        checkPrimitiveDiff(oldProps.smoothSteps, newProps.smoothSteps, 'smoothSteps', changedProps)
+        checkPrimitiveDiff(oldProps.step, newProps.step, 'step', changedProps)
+        checkPrimitiveDiff(oldProps.strength, newProps.strength, 'strength', changedProps)
+        checkPrimitiveDiff(oldProps.threshold, newProps.threshold, 'threshold', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
+    }
+}
+
+/**
+ * The ScreenSpaceReflectionPostProcess performs realtime reflections using only and only the available informations on the screen (positions and normals).
+ * Basically, the screen space reflection post-process will compute reflections according the material's reflectivity.
+ *
+ * This code has been generated
+ */
+export class FiberScreenSpaceReflectionPostProcess implements HasPropsHandlers<FiberPostProcessProps> {
+    private propsHandlers: PropsHandler<FiberPostProcessProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberScreenSpaceReflectionPostProcessPropsHandler(),
+            new FiberPostProcessPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberPostProcessProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberPostProcessProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "ScreenSpaceReflectionPostProcess",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "scene",
+                "type": "BabylonjsCoreScene",
+                "optional": false
+            },
+            {
+                "name": "options",
+                "type": "number | BabylonjsCorePostProcessOptions",
+                "optional": false
+            },
+            {
+                "name": "camera",
+                "type": "BabylonjsCoreCamera",
+                "optional": false
+            },
+            {
+                "name": "samplingMode",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "engine",
+                "type": "BabylonjsCoreEngine",
+                "optional": true
+            },
+            {
+                "name": "reusable",
+                "type": "boolean",
+                "optional": true
+            },
+            {
+                "name": "textureType",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "blockCompilation",
+                "type": "boolean",
+                "optional": true
+            },
+            {
+                "name": "forceGeometryBuffer",
+                "type": "boolean",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "className": "FiberScreenSpaceReflectionPostProcess"
+    };
+}
+
+export class FiberStereoscopicInterlacePostProcessIPropsHandler implements PropsHandler<FiberStereoscopicInterlacePostProcessIProps> {
+    getPropertyUpdates(oldProps: FiberStereoscopicInterlacePostProcessIProps, newProps: FiberStereoscopicInterlacePostProcessIProps): PropertyUpdate[] | null {
+        return null; // no props to check
+    }
+}
+
+/**
+ * StereoscopicInterlacePostProcessI used to render stereo views from a rigged camera with support for alternate line interlacing
+ *
+ * This code has been generated
+ */
+export class FiberStereoscopicInterlacePostProcessI implements HasPropsHandlers<FiberPostProcessProps> {
+    private propsHandlers: PropsHandler<FiberPostProcessProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberStereoscopicInterlacePostProcessIPropsHandler(),
+            new FiberPostProcessPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberPostProcessProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberPostProcessProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "StereoscopicInterlacePostProcessI",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "rigCameras",
+                "type": "BabylonjsCoreCamera[]",
+                "optional": false
+            },
+            {
+                "name": "isStereoscopicHoriz",
+                "type": "boolean",
+                "optional": false
+            },
+            {
+                "name": "isStereoscopicInterlaced",
+                "type": "boolean",
+                "optional": false
+            },
+            {
+                "name": "samplingMode",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "engine",
+                "type": "BabylonjsCoreEngine",
+                "optional": true
+            },
+            {
+                "name": "reusable",
+                "type": "boolean",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "className": "FiberStereoscopicInterlacePostProcessI"
+    };
+}
+
+export class FiberStereoscopicInterlacePostProcessPropsHandler implements PropsHandler<FiberStereoscopicInterlacePostProcessProps> {
+    getPropertyUpdates(oldProps: FiberStereoscopicInterlacePostProcessProps, newProps: FiberStereoscopicInterlacePostProcessProps): PropertyUpdate[] | null {
+        return null; // no props to check
+    }
+}
+
+/**
+ * StereoscopicInterlacePostProcess used to render stereo views from a rigged camera
+ *
+ * This code has been generated
+ */
+export class FiberStereoscopicInterlacePostProcess implements HasPropsHandlers<FiberPostProcessProps> {
+    private propsHandlers: PropsHandler<FiberPostProcessProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberStereoscopicInterlacePostProcessPropsHandler(),
+            new FiberPostProcessPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberPostProcessProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberPostProcessProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "StereoscopicInterlacePostProcess",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "rigCameras",
+                "type": "BabylonjsCoreCamera[]",
+                "optional": false
+            },
+            {
+                "name": "isStereoscopicHoriz",
+                "type": "boolean",
+                "optional": false
+            },
+            {
+                "name": "samplingMode",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "engine",
+                "type": "BabylonjsCoreEngine",
+                "optional": true
+            },
+            {
+                "name": "reusable",
+                "type": "boolean",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "className": "FiberStereoscopicInterlacePostProcess"
+    };
+}
+
+export class FiberTonemapPostProcessPropsHandler implements PropsHandler<FiberTonemapPostProcessProps> {
+    getPropertyUpdates(oldProps: FiberTonemapPostProcessProps, newProps: FiberTonemapPostProcessProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.exposureAdjustment, newProps.exposureAdjustment, 'exposureAdjustment', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
+    }
+}
+
+/**
+ * Defines a post process to apply tone mapping
+ *
+ * This code has been generated
+ */
+export class FiberTonemapPostProcess implements HasPropsHandlers<FiberPostProcessProps> {
+    private propsHandlers: PropsHandler<FiberPostProcessProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberTonemapPostProcessPropsHandler(),
+            new FiberPostProcessPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberPostProcessProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberPostProcessProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "TonemapPostProcess",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "_operator",
+                "type": "BabylonjsCoreTonemappingOperator",
+                "optional": false
+            },
+            {
+                "name": "exposureAdjustment",
+                "type": "number",
+                "optional": false
+            },
+            {
+                "name": "camera",
+                "type": "BabylonjsCoreCamera",
+                "optional": false
+            },
+            {
+                "name": "samplingMode",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "engine",
+                "type": "BabylonjsCoreEngine",
+                "optional": true
+            },
+            {
+                "name": "textureFormat",
+                "type": "number",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "className": "FiberTonemapPostProcess"
+    };
+}
+
+export class FiberVolumetricLightScatteringPostProcessPropsHandler implements PropsHandler<FiberVolumetricLightScatteringPostProcessProps> {
+    getPropertyUpdates(oldProps: FiberVolumetricLightScatteringPostProcessProps, newProps: FiberVolumetricLightScatteringPostProcessProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        // type: '{ position: BabylonjsCoreVector3; }' property (not coded) BabylonjsCoreVolumetricLightScatteringPostProcess.attachedNode.
+        checkVector3Diff(oldProps.customMeshPosition, newProps.customMeshPosition, 'customMeshPosition', changedProps)
+        checkPrimitiveDiff(oldProps['customMeshPosition-x'], newProps['customMeshPosition-x'], 'customMeshPosition.x', changedProps)
+        checkPrimitiveDiff(oldProps['customMeshPosition-y'], newProps['customMeshPosition-y'], 'customMeshPosition.y', changedProps)
+        checkPrimitiveDiff(oldProps['customMeshPosition-z'], newProps['customMeshPosition-z'], 'customMeshPosition.z', changedProps)
+        checkPrimitiveDiff(oldProps.decay, newProps.decay, 'decay', changedProps)
+        checkPrimitiveDiff(oldProps.density, newProps.density, 'density', changedProps)
+        // type: 'BabylonjsCoreAbstractMesh[]' property (not coded) BabylonjsCoreVolumetricLightScatteringPostProcess.excludedMeshes.
+        checkPrimitiveDiff(oldProps.exposure, newProps.exposure, 'exposure', changedProps)
+        checkPrimitiveDiff(oldProps.invert, newProps.invert, 'invert', changedProps)
+        // type: 'BabylonjsCoreMesh' property (not coded) BabylonjsCoreVolumetricLightScatteringPostProcess.mesh.
+        checkPrimitiveDiff(oldProps.useCustomMeshPosition, newProps.useCustomMeshPosition, 'useCustomMeshPosition', changedProps)
+        checkPrimitiveDiff(oldProps.useDiffuseColor, newProps.useDiffuseColor, 'useDiffuseColor', changedProps)
+        checkPrimitiveDiff(oldProps.weight, newProps.weight, 'weight', changedProps)
+        checkMethodDiff(oldProps.setCustomMeshPosition, newProps.setCustomMeshPosition, 'setCustomMeshPosition', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
+    }
+}
+
+/**
+ * Inspired by http://http.developer.nvidia.com/GPUGems3/gpugems3_ch13.html
+ *
+ * This code has been generated
+ */
+export class FiberVolumetricLightScatteringPostProcess implements HasPropsHandlers<FiberPostProcessProps> {
+    private propsHandlers: PropsHandler<FiberPostProcessProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberVolumetricLightScatteringPostProcessPropsHandler(),
+            new FiberPostProcessPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberPostProcessProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberPostProcessProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "VolumetricLightScatteringPostProcess",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "ratio",
+                "type": "any",
+                "optional": false
+            },
+            {
+                "name": "camera",
+                "type": "BabylonjsCoreCamera",
+                "optional": false
+            },
+            {
+                "name": "mesh",
+                "type": "BabylonjsCoreMesh",
+                "optional": true
+            },
+            {
+                "name": "samples",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "samplingMode",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "engine",
+                "type": "BabylonjsCoreEngine",
+                "optional": true
+            },
+            {
+                "name": "reusable",
+                "type": "boolean",
+                "optional": true
+            },
+            {
+                "name": "scene",
+                "type": "BabylonjsCoreScene",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "className": "FiberVolumetricLightScatteringPostProcess"
+    };
+}
+
+export class FiberVRDistortionCorrectionPostProcessPropsHandler implements PropsHandler<FiberVRDistortionCorrectionPostProcessProps> {
+    getPropertyUpdates(oldProps: FiberVRDistortionCorrectionPostProcessProps, newProps: FiberVRDistortionCorrectionPostProcessProps): PropertyUpdate[] | null {
+        return null; // no props to check
+    }
+}
+
+/**
+ * VRDistortionCorrectionPostProcess used for mobile VR
+ *
+ * This code has been generated
+ */
+export class FiberVRDistortionCorrectionPostProcess implements HasPropsHandlers<FiberPostProcessProps> {
+    private propsHandlers: PropsHandler<FiberPostProcessProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberVRDistortionCorrectionPostProcessPropsHandler(),
+            new FiberPostProcessPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberPostProcessProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberPostProcessProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "VRDistortionCorrectionPostProcess",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "camera",
+                "type": "BabylonjsCoreCamera",
+                "optional": false
+            },
+            {
+                "name": "isRightEye",
+                "type": "boolean",
+                "optional": false
+            },
+            {
+                "name": "vrMetrics",
+                "type": "BabylonjsCoreVRCameraMetrics",
+                "optional": false
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "className": "FiberVRDistortionCorrectionPostProcess"
+    };
+}
+
+export class FiberVRMultiviewToSingleviewPostProcessPropsHandler implements PropsHandler<FiberVRMultiviewToSingleviewPostProcessProps> {
+    getPropertyUpdates(oldProps: FiberVRMultiviewToSingleviewPostProcessProps, newProps: FiberVRMultiviewToSingleviewPostProcessProps): PropertyUpdate[] | null {
+        return null; // no props to check
+    }
+}
+
+/**
+ * VRMultiviewToSingleview used to convert multiview texture arrays to standard textures for scenarios such as webVR
+ * This will not be used for webXR as it supports displaying texture arrays directly
+ *
+ * This code has been generated
+ */
+export class FiberVRMultiviewToSingleviewPostProcess implements HasPropsHandlers<FiberPostProcessProps> {
+    private propsHandlers: PropsHandler<FiberPostProcessProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberVRMultiviewToSingleviewPostProcessPropsHandler(),
+            new FiberPostProcessPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberPostProcessProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberPostProcessProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "VRMultiviewToSingleviewPostProcess",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "camera",
+                "type": "BabylonjsCoreCamera",
+                "optional": false
+            },
+            {
+                "name": "scaleFactor",
+                "type": "number",
+                "optional": false
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "className": "FiberVRMultiviewToSingleviewPostProcess"
+    };
+}
+
+export class FiberScreenSpaceCurvaturePostProcessPropsHandler implements PropsHandler<FiberScreenSpaceCurvaturePostProcessProps> {
+    getPropertyUpdates(oldProps: FiberScreenSpaceCurvaturePostProcessProps, newProps: FiberScreenSpaceCurvaturePostProcessProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.ridge, newProps.ridge, 'ridge', changedProps)
+        checkPrimitiveDiff(oldProps.valley, newProps.valley, 'valley', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
+    }
+}
+
+/**
+ * The Screen Space curvature effect can help highlighting ridge and valley of a model.
+ *
+ * This code has been generated
+ */
+export class FiberScreenSpaceCurvaturePostProcess implements HasPropsHandlers<FiberPostProcessProps> {
+    private propsHandlers: PropsHandler<FiberPostProcessProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberScreenSpaceCurvaturePostProcessPropsHandler(),
+            new FiberPostProcessPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberPostProcessProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberPostProcessProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "ScreenSpaceCurvaturePostProcess",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "scene",
+                "type": "BabylonjsCoreScene",
+                "optional": false
+            },
+            {
+                "name": "options",
+                "type": "number | BabylonjsCorePostProcessOptions",
+                "optional": false
+            },
+            {
+                "name": "camera",
+                "type": "BabylonjsCoreCamera",
+                "optional": false
+            },
+            {
+                "name": "samplingMode",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "engine",
+                "type": "BabylonjsCoreEngine",
+                "optional": true
+            },
+            {
+                "name": "reusable",
+                "type": "boolean",
+                "optional": true
+            },
+            {
+                "name": "textureType",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "blockCompilation",
+                "type": "boolean",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "className": "FiberScreenSpaceCurvaturePostProcess"
+    };
+}
+
+export class FiberSubSurfaceScatteringPostProcessPropsHandler implements PropsHandler<FiberSubSurfaceScatteringPostProcessProps> {
+    getPropertyUpdates(oldProps: FiberSubSurfaceScatteringPostProcessProps, newProps: FiberSubSurfaceScatteringPostProcessProps): PropertyUpdate[] | null {
+        return null; // no props to check
+    }
+}
+
+/**
+ * Sub surface scattering post process
+ *
+ * This code has been generated
+ */
+export class FiberSubSurfaceScatteringPostProcess implements HasPropsHandlers<FiberPostProcessProps> {
+    private propsHandlers: PropsHandler<FiberPostProcessProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberSubSurfaceScatteringPostProcessPropsHandler(),
+            new FiberPostProcessPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberPostProcessProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberPostProcessProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "SubSurfaceScatteringPostProcess",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "name",
+                "type": "string",
+                "optional": false
+            },
+            {
+                "name": "scene",
+                "type": "BabylonjsCoreScene",
+                "optional": false
+            },
+            {
+                "name": "options",
+                "type": "number | BabylonjsCorePostProcessOptions",
+                "optional": false
+            },
+            {
+                "name": "camera",
+                "type": "BabylonjsCoreCamera",
+                "optional": true
+            },
+            {
+                "name": "samplingMode",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "engine",
+                "type": "BabylonjsCoreEngine",
+                "optional": true
+            },
+            {
+                "name": "reusable",
+                "type": "boolean",
+                "optional": true
+            },
+            {
+                "name": "textureType",
+                "type": "number",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "className": "FiberSubSurfaceScatteringPostProcess"
+    };
+}
+
 export class FiberGUI3DManagerPropsHandler implements PropsHandler<FiberGUI3DManagerProps> {
     getPropertyUpdates(oldProps: FiberGUI3DManagerProps, newProps: FiberGUI3DManagerProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
@@ -12631,6 +15978,70 @@ export class FiberPointsCloudSystem implements HasPropsHandlers<FiberPointsCloud
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "className": "FiberPointsCloudSystem"
+    };
+}
+
+export class FiberImageProcessingConfigurationPropsHandler implements PropsHandler<FiberImageProcessingConfigurationProps> {
+    getPropertyUpdates(oldProps: FiberImageProcessingConfigurationProps, newProps: FiberImageProcessingConfigurationProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkPrimitiveDiff(oldProps.applyByPostProcess, newProps.applyByPostProcess, 'applyByPostProcess', changedProps)
+        // type: 'BabylonjsCoreColorCurves' property (not coded) BabylonjsCoreImageProcessingConfiguration.colorCurves.
+        checkPrimitiveDiff(oldProps.colorCurvesEnabled, newProps.colorCurvesEnabled, 'colorCurvesEnabled', changedProps)
+        checkPrimitiveDiff(oldProps.colorGradingBGR, newProps.colorGradingBGR, 'colorGradingBGR', changedProps)
+        checkPrimitiveDiff(oldProps.colorGradingEnabled, newProps.colorGradingEnabled, 'colorGradingEnabled', changedProps)
+        checkTextureDiff(oldProps.colorGradingTexture, newProps.colorGradingTexture, 'colorGradingTexture', changedProps)
+        checkPrimitiveDiff(oldProps.colorGradingWithGreenDepth, newProps.colorGradingWithGreenDepth, 'colorGradingWithGreenDepth', changedProps)
+        checkPrimitiveDiff(oldProps.contrast, newProps.contrast, 'contrast', changedProps)
+        checkPrimitiveDiff(oldProps.exposure, newProps.exposure, 'exposure', changedProps)
+        checkPrimitiveDiff(oldProps.isEnabled, newProps.isEnabled, 'isEnabled', changedProps)
+        checkObservableDiff(oldProps.onUpdateParameters, newProps.onUpdateParameters, 'onUpdateParameters', changedProps)
+        checkPrimitiveDiff(oldProps.toneMappingEnabled, newProps.toneMappingEnabled, 'toneMappingEnabled', changedProps)
+        checkPrimitiveDiff(oldProps.toneMappingType, newProps.toneMappingType, 'toneMappingType', changedProps)
+        checkPrimitiveDiff(oldProps.vignetteBlendMode, newProps.vignetteBlendMode, 'vignetteBlendMode', changedProps)
+        checkPrimitiveDiff(oldProps.vignetteCameraFov, newProps.vignetteCameraFov, 'vignetteCameraFov', changedProps)
+        checkPrimitiveDiff(oldProps.vignetteCentreX, newProps.vignetteCentreX, 'vignetteCentreX', changedProps)
+        checkPrimitiveDiff(oldProps.vignetteCentreY, newProps.vignetteCentreY, 'vignetteCentreY', changedProps)
+        checkColor4Diff(oldProps.vignetteColor, newProps.vignetteColor, 'vignetteColor', changedProps)
+        checkPrimitiveDiff(oldProps.vignetteEnabled, newProps.vignetteEnabled, 'vignetteEnabled', changedProps)
+        checkPrimitiveDiff(oldProps.vignetteStretch, newProps.vignetteStretch, 'vignetteStretch', changedProps)
+        checkPrimitiveDiff(oldProps.vignetteWeight, newProps.vignetteWeight, 'vignetteWeight', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
+    }
+}
+
+/**
+ * This groups together the common properties used for image processing either in direct forward pass
+ * or through post processing effect depending on the use of the image processing pipeline in your scene
+ * or not.
+ *
+ * This code has been generated
+ */
+export class FiberImageProcessingConfiguration implements HasPropsHandlers<FiberImageProcessingConfigurationProps> {
+    public readonly isTargetable = false;
+    private propsHandlers: PropsHandler<FiberImageProcessingConfigurationProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberImageProcessingConfigurationPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberImageProcessingConfigurationProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberImageProcessingConfigurationProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "ImageProcessingConfiguration",
+        "namespace": "@babylonjs/core",
+        "parameters": []
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "className": "FiberImageProcessingConfiguration"
     };
 }
 
@@ -13608,7 +17019,7 @@ export class FiberScenePropsHandler implements PropsHandler<FiberSceneProps> {
     }
 }
 
-export const ADTForMesh: string = 'ADTForMesh', ADTForMeshTexture: string = 'ADTForMeshTexture', ADTFullscreenUI: string = 'ADTFullscreenUI', AbstractButton3D: string = 'AbstractButton3D', AbstractMesh: string = 'AbstractMesh', AdvancedDynamicTexture: string = 'AdvancedDynamicTexture', AnaglyphArcRotateCamera: string = 'AnaglyphArcRotateCamera', AnaglyphFreeCamera: string = 'AnaglyphFreeCamera', AnaglyphGamepadCamera: string = 'AnaglyphGamepadCamera', AnaglyphUniversalCamera: string = 'AnaglyphUniversalCamera', ArcFollowCamera: string = 'ArcFollowCamera', ArcRotateCamera: string = 'ArcRotateCamera', AttachToBoxBehavior: string = 'AttachToBoxBehavior', AutoRotationBehavior: string = 'AutoRotationBehavior', BackgroundMaterial: string = 'BackgroundMaterial', BaseSlider: string = 'BaseSlider', BaseTexture: string = 'BaseTexture', BouncingBehavior: string = 'BouncingBehavior', Box: string = 'Box', Button: string = 'Button', Button3D: string = 'Button3D', Camera: string = 'Camera', Capsule: string = 'Capsule', CascadedShadowGenerator: string = 'CascadedShadowGenerator', Checkbox: string = 'Checkbox', ColorGradingTexture: string = 'ColorGradingTexture', ColorPicker: string = 'ColorPicker', Container: string = 'Container', Container3D: string = 'Container3D', Control: string = 'Control', Control3D: string = 'Control3D', CubeTexture: string = 'CubeTexture', CustomProceduralTexture: string = 'CustomProceduralTexture', Cylinder: string = 'Cylinder', CylinderPanel: string = 'CylinderPanel', DashedLines: string = 'DashedLines', Decal: string = 'Decal', DetailMapConfiguration: string = 'DetailMapConfiguration', DeviceOrientationCamera: string = 'DeviceOrientationCamera', DirectionalLight: string = 'DirectionalLight', Disc: string = 'Disc', DisplayGrid: string = 'DisplayGrid', DynamicTerrain: string = 'DynamicTerrain', DynamicTexture: string = 'DynamicTexture', EffectLayer: string = 'EffectLayer', Ellipse: string = 'Ellipse', EnvironmentHelper: string = 'EnvironmentHelper', EquiRectangularCubeTexture: string = 'EquiRectangularCubeTexture', ExtrudePolygon: string = 'ExtrudePolygon', ExtrudeShape: string = 'ExtrudeShape', ExtrudeShapeCustom: string = 'ExtrudeShapeCustom', FadeInOutBehavior: string = 'FadeInOutBehavior', FluentMaterial: string = 'FluentMaterial', FlyCamera: string = 'FlyCamera', FollowCamera: string = 'FollowCamera', FramingBehavior: string = 'FramingBehavior', FreeCamera: string = 'FreeCamera', GUI3DManager: string = 'GUI3DManager', GamepadCamera: string = 'GamepadCamera', GlowLayer: string = 'GlowLayer', Grid: string = 'Grid', Ground: string = 'Ground', GroundFromHeightMap: string = 'GroundFromHeightMap', GroundMesh: string = 'GroundMesh', HDRCubeTexture: string = 'HDRCubeTexture', HemisphericLight: string = 'HemisphericLight', HighlightLayer: string = 'HighlightLayer', HolographicButton: string = 'HolographicButton', HtmlElementTexture: string = 'HtmlElementTexture', IcoSphere: string = 'IcoSphere', Image: string = 'Image', ImageBasedSlider: string = 'ImageBasedSlider', ImageScrollBar: string = 'ImageScrollBar', InputPassword: string = 'InputPassword', InputText: string = 'InputText', InstancedLinesMesh: string = 'InstancedLinesMesh', InstancedMesh: string = 'InstancedMesh', Lathe: string = 'Lathe', Light: string = 'Light', Line: string = 'Line', LineSystem: string = 'LineSystem', Lines: string = 'Lines', LinesMesh: string = 'LinesMesh', Material: string = 'Material', Mesh: string = 'Mesh', MeshButton3D: string = 'MeshButton3D', MirrorTexture: string = 'MirrorTexture', MultiLine: string = 'MultiLine', MultiMaterial: string = 'MultiMaterial', MultiPointerScaleBehavior: string = 'MultiPointerScaleBehavior', MultiRenderTarget: string = 'MultiRenderTarget', MultiviewRenderTarget: string = 'MultiviewRenderTarget', Node: string = 'Node', NodeMaterial: string = 'NodeMaterial', NoiseProceduralTexture: string = 'NoiseProceduralTexture', PBRAnisotropicConfiguration: string = 'PBRAnisotropicConfiguration', PBRBRDFConfiguration: string = 'PBRBRDFConfiguration', PBRBaseMaterial: string = 'PBRBaseMaterial', PBRBaseSimpleMaterial: string = 'PBRBaseSimpleMaterial', PBRClearCoatConfiguration: string = 'PBRClearCoatConfiguration', PBRMaterial: string = 'PBRMaterial', PBRMetallicRoughnessMaterial: string = 'PBRMetallicRoughnessMaterial', PBRSheenConfiguration: string = 'PBRSheenConfiguration', PBRSpecularGlossinessMaterial: string = 'PBRSpecularGlossinessMaterial', PBRSubSurfaceConfiguration: string = 'PBRSubSurfaceConfiguration', PhysicsImpostor: string = 'PhysicsImpostor', Plane: string = 'Plane', PlanePanel: string = 'PlanePanel', PointLight: string = 'PointLight', PointerDragBehavior: string = 'PointerDragBehavior', PointsCloudSystem: string = 'PointsCloudSystem', Polygon: string = 'Polygon', Polyhedron: string = 'Polyhedron', PrePassConfiguration: string = 'PrePassConfiguration', ProceduralTexture: string = 'ProceduralTexture', PushMaterial: string = 'PushMaterial', RadioButton: string = 'RadioButton', RawCubeTexture: string = 'RawCubeTexture', RawTexture: string = 'RawTexture', RawTexture2DArray: string = 'RawTexture2DArray', RawTexture3D: string = 'RawTexture3D', Rectangle: string = 'Rectangle', RefractionTexture: string = 'RefractionTexture', RenderTargetTexture: string = 'RenderTargetTexture', Ribbon: string = 'Ribbon', ScatterPanel: string = 'ScatterPanel', ScrollBar: string = 'ScrollBar', ScrollViewer: string = 'ScrollViewer', SelectionPanel: string = 'SelectionPanel', ShaderMaterial: string = 'ShaderMaterial', ShadowGenerator: string = 'ShadowGenerator', ShadowLight: string = 'ShadowLight', SixDofDragBehavior: string = 'SixDofDragBehavior', Slider: string = 'Slider', Sphere: string = 'Sphere', SpherePanel: string = 'SpherePanel', SpotLight: string = 'SpotLight', StackPanel: string = 'StackPanel', StackPanel3D: string = 'StackPanel3D', StandardMaterial: string = 'StandardMaterial', StereoscopicArcRotateCamera: string = 'StereoscopicArcRotateCamera', StereoscopicFreeCamera: string = 'StereoscopicFreeCamera', StereoscopicGamepadCamera: string = 'StereoscopicGamepadCamera', StereoscopicUniversalCamera: string = 'StereoscopicUniversalCamera', TargetCamera: string = 'TargetCamera', TextBlock: string = 'TextBlock', Texture: string = 'Texture', ThinTexture: string = 'ThinTexture', TiledBox: string = 'TiledBox', TiledGround: string = 'TiledGround', TiledPlane: string = 'TiledPlane', Torus: string = 'Torus', TorusKnot: string = 'TorusKnot', TouchCamera: string = 'TouchCamera', TrailMesh: string = 'TrailMesh', TransformNode: string = 'TransformNode', Tube: string = 'Tube', UniversalCamera: string = 'UniversalCamera', VRDeviceOrientationArcRotateCamera: string = 'VRDeviceOrientationArcRotateCamera', VRDeviceOrientationFreeCamera: string = 'VRDeviceOrientationFreeCamera', VRDeviceOrientationGamepadCamera: string = 'VRDeviceOrientationGamepadCamera', VRExperienceHelper: string = 'VRExperienceHelper', VideoTexture: string = 'VideoTexture', VirtualJoysticksCamera: string = 'VirtualJoysticksCamera', VirtualKeyboard: string = 'VirtualKeyboard', VolumeBasedPanel: string = 'VolumeBasedPanel', WebVRFreeCamera: string = 'WebVRFreeCamera', WebXRCamera: string = 'WebXRCamera', _ScrollViewerWindow: string = '_ScrollViewerWindow';
+export const ADTForMesh: string = 'ADTForMesh', ADTForMeshTexture: string = 'ADTForMeshTexture', ADTFullscreenUI: string = 'ADTFullscreenUI', AbstractButton3D: string = 'AbstractButton3D', AbstractMesh: string = 'AbstractMesh', AdvancedDynamicTexture: string = 'AdvancedDynamicTexture', AnaglyphArcRotateCamera: string = 'AnaglyphArcRotateCamera', AnaglyphFreeCamera: string = 'AnaglyphFreeCamera', AnaglyphGamepadCamera: string = 'AnaglyphGamepadCamera', AnaglyphPostProcess: string = 'AnaglyphPostProcess', AnaglyphUniversalCamera: string = 'AnaglyphUniversalCamera', ArcFollowCamera: string = 'ArcFollowCamera', ArcRotateCamera: string = 'ArcRotateCamera', AttachToBoxBehavior: string = 'AttachToBoxBehavior', AutoRotationBehavior: string = 'AutoRotationBehavior', BackgroundMaterial: string = 'BackgroundMaterial', BaseSlider: string = 'BaseSlider', BaseTexture: string = 'BaseTexture', BlackAndWhitePostProcess: string = 'BlackAndWhitePostProcess', BloomMergePostProcess: string = 'BloomMergePostProcess', BlurPostProcess: string = 'BlurPostProcess', BouncingBehavior: string = 'BouncingBehavior', Box: string = 'Box', Button: string = 'Button', Button3D: string = 'Button3D', Camera: string = 'Camera', Capsule: string = 'Capsule', CascadedShadowGenerator: string = 'CascadedShadowGenerator', Checkbox: string = 'Checkbox', ChromaticAberrationPostProcess: string = 'ChromaticAberrationPostProcess', CircleOfConfusionPostProcess: string = 'CircleOfConfusionPostProcess', ColorCorrectionPostProcess: string = 'ColorCorrectionPostProcess', ColorGradingTexture: string = 'ColorGradingTexture', ColorPicker: string = 'ColorPicker', Container: string = 'Container', Container3D: string = 'Container3D', Control: string = 'Control', Control3D: string = 'Control3D', ConvolutionPostProcess: string = 'ConvolutionPostProcess', CubeTexture: string = 'CubeTexture', CustomProceduralTexture: string = 'CustomProceduralTexture', Cylinder: string = 'Cylinder', CylinderPanel: string = 'CylinderPanel', DashedLines: string = 'DashedLines', Decal: string = 'Decal', DefaultRenderingPipeline: string = 'DefaultRenderingPipeline', DepthOfFieldBlurPostProcess: string = 'DepthOfFieldBlurPostProcess', DepthOfFieldMergePostProcess: string = 'DepthOfFieldMergePostProcess', DetailMapConfiguration: string = 'DetailMapConfiguration', DeviceOrientationCamera: string = 'DeviceOrientationCamera', DirectionalLight: string = 'DirectionalLight', Disc: string = 'Disc', DisplayGrid: string = 'DisplayGrid', DisplayPassPostProcess: string = 'DisplayPassPostProcess', DynamicTerrain: string = 'DynamicTerrain', DynamicTexture: string = 'DynamicTexture', EffectLayer: string = 'EffectLayer', Ellipse: string = 'Ellipse', EnvironmentHelper: string = 'EnvironmentHelper', EquiRectangularCubeTexture: string = 'EquiRectangularCubeTexture', ExtractHighlightsPostProcess: string = 'ExtractHighlightsPostProcess', ExtrudePolygon: string = 'ExtrudePolygon', ExtrudeShape: string = 'ExtrudeShape', ExtrudeShapeCustom: string = 'ExtrudeShapeCustom', FadeInOutBehavior: string = 'FadeInOutBehavior', FilterPostProcess: string = 'FilterPostProcess', FluentMaterial: string = 'FluentMaterial', FlyCamera: string = 'FlyCamera', FollowCamera: string = 'FollowCamera', FramingBehavior: string = 'FramingBehavior', FreeCamera: string = 'FreeCamera', FxaaPostProcess: string = 'FxaaPostProcess', GUI3DManager: string = 'GUI3DManager', GamepadCamera: string = 'GamepadCamera', GlowLayer: string = 'GlowLayer', GrainPostProcess: string = 'GrainPostProcess', Grid: string = 'Grid', Ground: string = 'Ground', GroundFromHeightMap: string = 'GroundFromHeightMap', GroundMesh: string = 'GroundMesh', HDRCubeTexture: string = 'HDRCubeTexture', HemisphericLight: string = 'HemisphericLight', HighlightLayer: string = 'HighlightLayer', HighlightsPostProcess: string = 'HighlightsPostProcess', HolographicButton: string = 'HolographicButton', HtmlElementTexture: string = 'HtmlElementTexture', IcoSphere: string = 'IcoSphere', Image: string = 'Image', ImageBasedSlider: string = 'ImageBasedSlider', ImageProcessingConfiguration: string = 'ImageProcessingConfiguration', ImageProcessingPostProcess: string = 'ImageProcessingPostProcess', ImageScrollBar: string = 'ImageScrollBar', InputPassword: string = 'InputPassword', InputText: string = 'InputText', InstancedLinesMesh: string = 'InstancedLinesMesh', InstancedMesh: string = 'InstancedMesh', Lathe: string = 'Lathe', LensRenderingPipeline: string = 'LensRenderingPipeline', Light: string = 'Light', Line: string = 'Line', LineSystem: string = 'LineSystem', Lines: string = 'Lines', LinesMesh: string = 'LinesMesh', Material: string = 'Material', Mesh: string = 'Mesh', MeshButton3D: string = 'MeshButton3D', MirrorTexture: string = 'MirrorTexture', MotionBlurPostProcess: string = 'MotionBlurPostProcess', MultiLine: string = 'MultiLine', MultiMaterial: string = 'MultiMaterial', MultiPointerScaleBehavior: string = 'MultiPointerScaleBehavior', MultiRenderTarget: string = 'MultiRenderTarget', MultiviewRenderTarget: string = 'MultiviewRenderTarget', Node: string = 'Node', NodeMaterial: string = 'NodeMaterial', NoiseProceduralTexture: string = 'NoiseProceduralTexture', PBRAnisotropicConfiguration: string = 'PBRAnisotropicConfiguration', PBRBRDFConfiguration: string = 'PBRBRDFConfiguration', PBRBaseMaterial: string = 'PBRBaseMaterial', PBRBaseSimpleMaterial: string = 'PBRBaseSimpleMaterial', PBRClearCoatConfiguration: string = 'PBRClearCoatConfiguration', PBRMaterial: string = 'PBRMaterial', PBRMetallicRoughnessMaterial: string = 'PBRMetallicRoughnessMaterial', PBRSheenConfiguration: string = 'PBRSheenConfiguration', PBRSpecularGlossinessMaterial: string = 'PBRSpecularGlossinessMaterial', PBRSubSurfaceConfiguration: string = 'PBRSubSurfaceConfiguration', PassCubePostProcess: string = 'PassCubePostProcess', PassPostProcess: string = 'PassPostProcess', PhysicsImpostor: string = 'PhysicsImpostor', Plane: string = 'Plane', PlanePanel: string = 'PlanePanel', PointLight: string = 'PointLight', PointerDragBehavior: string = 'PointerDragBehavior', PointsCloudSystem: string = 'PointsCloudSystem', Polygon: string = 'Polygon', Polyhedron: string = 'Polyhedron', PostProcess: string = 'PostProcess', PostProcessRenderPipeline: string = 'PostProcessRenderPipeline', PrePassConfiguration: string = 'PrePassConfiguration', ProceduralTexture: string = 'ProceduralTexture', PushMaterial: string = 'PushMaterial', RadioButton: string = 'RadioButton', RawCubeTexture: string = 'RawCubeTexture', RawTexture: string = 'RawTexture', RawTexture2DArray: string = 'RawTexture2DArray', RawTexture3D: string = 'RawTexture3D', Rectangle: string = 'Rectangle', RefractionPostProcess: string = 'RefractionPostProcess', RefractionTexture: string = 'RefractionTexture', RenderTargetTexture: string = 'RenderTargetTexture', Ribbon: string = 'Ribbon', SSAO2RenderingPipeline: string = 'SSAO2RenderingPipeline', SSAORenderingPipeline: string = 'SSAORenderingPipeline', ScatterPanel: string = 'ScatterPanel', ScreenSpaceCurvaturePostProcess: string = 'ScreenSpaceCurvaturePostProcess', ScreenSpaceReflectionPostProcess: string = 'ScreenSpaceReflectionPostProcess', ScrollBar: string = 'ScrollBar', ScrollViewer: string = 'ScrollViewer', SelectionPanel: string = 'SelectionPanel', ShaderMaterial: string = 'ShaderMaterial', ShadowGenerator: string = 'ShadowGenerator', ShadowLight: string = 'ShadowLight', SharpenPostProcess: string = 'SharpenPostProcess', SixDofDragBehavior: string = 'SixDofDragBehavior', Slider: string = 'Slider', Sphere: string = 'Sphere', SpherePanel: string = 'SpherePanel', SpotLight: string = 'SpotLight', StackPanel: string = 'StackPanel', StackPanel3D: string = 'StackPanel3D', StandardMaterial: string = 'StandardMaterial', StandardRenderingPipeline: string = 'StandardRenderingPipeline', StereoscopicArcRotateCamera: string = 'StereoscopicArcRotateCamera', StereoscopicFreeCamera: string = 'StereoscopicFreeCamera', StereoscopicGamepadCamera: string = 'StereoscopicGamepadCamera', StereoscopicInterlacePostProcess: string = 'StereoscopicInterlacePostProcess', StereoscopicInterlacePostProcessI: string = 'StereoscopicInterlacePostProcessI', StereoscopicUniversalCamera: string = 'StereoscopicUniversalCamera', SubSurfaceScatteringPostProcess: string = 'SubSurfaceScatteringPostProcess', TargetCamera: string = 'TargetCamera', TextBlock: string = 'TextBlock', Texture: string = 'Texture', ThinTexture: string = 'ThinTexture', TiledBox: string = 'TiledBox', TiledGround: string = 'TiledGround', TiledPlane: string = 'TiledPlane', TonemapPostProcess: string = 'TonemapPostProcess', Torus: string = 'Torus', TorusKnot: string = 'TorusKnot', TouchCamera: string = 'TouchCamera', TrailMesh: string = 'TrailMesh', TransformNode: string = 'TransformNode', Tube: string = 'Tube', UniversalCamera: string = 'UniversalCamera', VRDeviceOrientationArcRotateCamera: string = 'VRDeviceOrientationArcRotateCamera', VRDeviceOrientationFreeCamera: string = 'VRDeviceOrientationFreeCamera', VRDeviceOrientationGamepadCamera: string = 'VRDeviceOrientationGamepadCamera', VRDistortionCorrectionPostProcess: string = 'VRDistortionCorrectionPostProcess', VRExperienceHelper: string = 'VRExperienceHelper', VRMultiviewToSingleviewPostProcess: string = 'VRMultiviewToSingleviewPostProcess', VideoTexture: string = 'VideoTexture', VirtualJoysticksCamera: string = 'VirtualJoysticksCamera', VirtualKeyboard: string = 'VirtualKeyboard', VolumeBasedPanel: string = 'VolumeBasedPanel', VolumetricLightScatteringPostProcess: string = 'VolumetricLightScatteringPostProcess', WebVRFreeCamera: string = 'WebVRFreeCamera', WebXRCamera: string = 'WebXRCamera', _ScrollViewerWindow: string = '_ScrollViewerWindow';
 const classesMap: object = {
     dynamicTerrain: ExtensionsDynamicTerrain, DynamicTerrain: ExtensionsDynamicTerrain,
     abstractScene: BabylonjsCoreAbstractScene, AbstractScene: BabylonjsCoreAbstractScene,
@@ -13624,6 +17035,8 @@ const classesMap: object = {
     transformNode: BabylonjsCoreTransformNode, TransformNode: BabylonjsCoreTransformNode,
     pointsCloudSystem: BabylonjsCorePointsCloudSystem, PointsCloudSystem: BabylonjsCorePointsCloudSystem,
     physicsImpostor: BabylonjsCorePhysicsImpostor, PhysicsImpostor: BabylonjsCorePhysicsImpostor,
+    postProcess: BabylonjsCorePostProcess, PostProcess: BabylonjsCorePostProcess,
+    tonemapPostProcess: BabylonjsCoreTonemapPostProcess, TonemapPostProcess: BabylonjsCoreTonemapPostProcess,
     advancedDynamicTexture: BabylonjsGuiAdvancedDynamicTexture, AdvancedDynamicTexture: BabylonjsGuiAdvancedDynamicTexture,
     gui3DManager: BabylonjsGuiGUI3DManager, GUI3DManager: BabylonjsGuiGUI3DManager,
     autoRotationBehavior: BabylonjsCoreAutoRotationBehavior, AutoRotationBehavior: BabylonjsCoreAutoRotationBehavior,
@@ -13638,6 +17051,7 @@ const classesMap: object = {
     cascadedShadowGenerator: BabylonjsCoreCascadedShadowGenerator, CascadedShadowGenerator: BabylonjsCoreCascadedShadowGenerator,
     shadowGenerator: BabylonjsCoreShadowGenerator, ShadowGenerator: BabylonjsCoreShadowGenerator,
     thinTexture: BabylonjsCoreThinTexture, ThinTexture: BabylonjsCoreThinTexture,
+    postProcessRenderPipeline: BabylonjsCorePostProcessRenderPipeline, PostProcessRenderPipeline: BabylonjsCorePostProcessRenderPipeline,
     control: BabylonjsGuiControl, Control: BabylonjsGuiControl,
     textBlock: BabylonjsGuiTextBlock, TextBlock: BabylonjsGuiTextBlock,
     control3D: BabylonjsGuiControl3D, Control3D: BabylonjsGuiControl3D,
@@ -13674,6 +17088,7 @@ const classesMap: object = {
     arcFollowCamera: BabylonjsCoreArcFollowCamera, ArcFollowCamera: BabylonjsCoreArcFollowCamera,
     pushMaterial: BabylonjsCorePushMaterial, PushMaterial: BabylonjsCorePushMaterial,
     nodeMaterial: BabylonjsCoreNodeMaterial, NodeMaterial: BabylonjsCoreNodeMaterial,
+    imageProcessingConfiguration: BabylonjsCoreImageProcessingConfiguration, ImageProcessingConfiguration: BabylonjsCoreImageProcessingConfiguration,
     standardMaterial: BabylonjsCoreStandardMaterial, StandardMaterial: BabylonjsCoreStandardMaterial,
     baseTexture: BabylonjsCoreBaseTexture, BaseTexture: BabylonjsCoreBaseTexture,
     backgroundMaterial: BabylonjsCoreBackgroundMaterial, BackgroundMaterial: BabylonjsCoreBackgroundMaterial,
@@ -13746,6 +17161,41 @@ const classesMap: object = {
     equiRectangularCubeTexture: BabylonjsCoreEquiRectangularCubeTexture, EquiRectangularCubeTexture: BabylonjsCoreEquiRectangularCubeTexture,
     hdrCubeTexture: BabylonjsCoreHDRCubeTexture, HDRCubeTexture: BabylonjsCoreHDRCubeTexture,
     htmlElementTexture: BabylonjsCoreHtmlElementTexture, HtmlElementTexture: BabylonjsCoreHtmlElementTexture,
+    defaultRenderingPipeline: BabylonjsCoreDefaultRenderingPipeline, DefaultRenderingPipeline: BabylonjsCoreDefaultRenderingPipeline,
+    chromaticAberrationPostProcess: BabylonjsCoreChromaticAberrationPostProcess, ChromaticAberrationPostProcess: BabylonjsCoreChromaticAberrationPostProcess,
+    fxaaPostProcess: BabylonjsCoreFxaaPostProcess, FxaaPostProcess: BabylonjsCoreFxaaPostProcess,
+    grainPostProcess: BabylonjsCoreGrainPostProcess, GrainPostProcess: BabylonjsCoreGrainPostProcess,
+    imageProcessingPostProcess: BabylonjsCoreImageProcessingPostProcess, ImageProcessingPostProcess: BabylonjsCoreImageProcessingPostProcess,
+    sharpenPostProcess: BabylonjsCoreSharpenPostProcess, SharpenPostProcess: BabylonjsCoreSharpenPostProcess,
+    lensRenderingPipeline: BabylonjsCoreLensRenderingPipeline, LensRenderingPipeline: BabylonjsCoreLensRenderingPipeline,
+    ssao2RenderingPipeline: BabylonjsCoreSSAO2RenderingPipeline, SSAO2RenderingPipeline: BabylonjsCoreSSAO2RenderingPipeline,
+    ssaoRenderingPipeline: BabylonjsCoreSSAORenderingPipeline, SSAORenderingPipeline: BabylonjsCoreSSAORenderingPipeline,
+    standardRenderingPipeline: BabylonjsCoreStandardRenderingPipeline, StandardRenderingPipeline: BabylonjsCoreStandardRenderingPipeline,
+    screenSpaceReflectionPostProcess: BabylonjsCoreScreenSpaceReflectionPostProcess, ScreenSpaceReflectionPostProcess: BabylonjsCoreScreenSpaceReflectionPostProcess,
+    blurPostProcess: BabylonjsCoreBlurPostProcess, BlurPostProcess: BabylonjsCoreBlurPostProcess,
+    anaglyphPostProcess: BabylonjsCoreAnaglyphPostProcess, AnaglyphPostProcess: BabylonjsCoreAnaglyphPostProcess,
+    blackAndWhitePostProcess: BabylonjsCoreBlackAndWhitePostProcess, BlackAndWhitePostProcess: BabylonjsCoreBlackAndWhitePostProcess,
+    extractHighlightsPostProcess: BabylonjsCoreExtractHighlightsPostProcess, ExtractHighlightsPostProcess: BabylonjsCoreExtractHighlightsPostProcess,
+    bloomMergePostProcess: BabylonjsCoreBloomMergePostProcess, BloomMergePostProcess: BabylonjsCoreBloomMergePostProcess,
+    depthOfFieldBlurPostProcess: BabylonjsCoreDepthOfFieldBlurPostProcess, DepthOfFieldBlurPostProcess: BabylonjsCoreDepthOfFieldBlurPostProcess,
+    circleOfConfusionPostProcess: BabylonjsCoreCircleOfConfusionPostProcess, CircleOfConfusionPostProcess: BabylonjsCoreCircleOfConfusionPostProcess,
+    colorCorrectionPostProcess: BabylonjsCoreColorCorrectionPostProcess, ColorCorrectionPostProcess: BabylonjsCoreColorCorrectionPostProcess,
+    convolutionPostProcess: BabylonjsCoreConvolutionPostProcess, ConvolutionPostProcess: BabylonjsCoreConvolutionPostProcess,
+    depthOfFieldMergePostProcess: BabylonjsCoreDepthOfFieldMergePostProcess, DepthOfFieldMergePostProcess: BabylonjsCoreDepthOfFieldMergePostProcess,
+    displayPassPostProcess: BabylonjsCoreDisplayPassPostProcess, DisplayPassPostProcess: BabylonjsCoreDisplayPassPostProcess,
+    filterPostProcess: BabylonjsCoreFilterPostProcess, FilterPostProcess: BabylonjsCoreFilterPostProcess,
+    highlightsPostProcess: BabylonjsCoreHighlightsPostProcess, HighlightsPostProcess: BabylonjsCoreHighlightsPostProcess,
+    motionBlurPostProcess: BabylonjsCoreMotionBlurPostProcess, MotionBlurPostProcess: BabylonjsCoreMotionBlurPostProcess,
+    passPostProcess: BabylonjsCorePassPostProcess, PassPostProcess: BabylonjsCorePassPostProcess,
+    passCubePostProcess: BabylonjsCorePassCubePostProcess, PassCubePostProcess: BabylonjsCorePassCubePostProcess,
+    refractionPostProcess: BabylonjsCoreRefractionPostProcess, RefractionPostProcess: BabylonjsCoreRefractionPostProcess,
+    stereoscopicInterlacePostProcessI: BabylonjsCoreStereoscopicInterlacePostProcessI, StereoscopicInterlacePostProcessI: BabylonjsCoreStereoscopicInterlacePostProcessI,
+    stereoscopicInterlacePostProcess: BabylonjsCoreStereoscopicInterlacePostProcess, StereoscopicInterlacePostProcess: BabylonjsCoreStereoscopicInterlacePostProcess,
+    volumetricLightScatteringPostProcess: BabylonjsCoreVolumetricLightScatteringPostProcess, VolumetricLightScatteringPostProcess: BabylonjsCoreVolumetricLightScatteringPostProcess,
+    vrDistortionCorrectionPostProcess: BabylonjsCoreVRDistortionCorrectionPostProcess, VRDistortionCorrectionPostProcess: BabylonjsCoreVRDistortionCorrectionPostProcess,
+    vrMultiviewToSingleviewPostProcess: BabylonjsCoreVRMultiviewToSingleviewPostProcess, VRMultiviewToSingleviewPostProcess: BabylonjsCoreVRMultiviewToSingleviewPostProcess,
+    screenSpaceCurvaturePostProcess: BabylonjsCoreScreenSpaceCurvaturePostProcess, ScreenSpaceCurvaturePostProcess: BabylonjsCoreScreenSpaceCurvaturePostProcess,
+    subSurfaceScatteringPostProcess: BabylonjsCoreSubSurfaceScatteringPostProcess, SubSurfaceScatteringPostProcess: BabylonjsCoreSubSurfaceScatteringPostProcess,
     prePassConfiguration: BabylonjsCorePrePassConfiguration, PrePassConfiguration: BabylonjsCorePrePassConfiguration,
     detailMapConfiguration: BabylonjsCoreDetailMapConfiguration, DetailMapConfiguration: BabylonjsCoreDetailMapConfiguration,
     pbrClearCoatConfiguration: BabylonjsCorePBRClearCoatConfiguration, PBRClearCoatConfiguration: BabylonjsCorePBRClearCoatConfiguration,
@@ -13769,6 +17219,8 @@ export const intrinsicClassMap: object = {
     transformNode: 'TransformNode',
     pointsCloudSystem: 'PointsCloudSystem',
     physicsImpostor: 'PhysicsImpostor',
+    postProcess: 'PostProcess',
+    tonemapPostProcess: 'TonemapPostProcess',
     advancedDynamicTexture: 'AdvancedDynamicTexture',
     gui3DManager: 'GUI3DManager',
     autoRotationBehavior: 'AutoRotationBehavior',
@@ -13783,6 +17235,7 @@ export const intrinsicClassMap: object = {
     cascadedShadowGenerator: 'CascadedShadowGenerator',
     shadowGenerator: 'ShadowGenerator',
     thinTexture: 'ThinTexture',
+    postProcessRenderPipeline: 'PostProcessRenderPipeline',
     control: 'Control',
     textBlock: 'TextBlock',
     control3D: 'Control3D',
@@ -13819,6 +17272,7 @@ export const intrinsicClassMap: object = {
     arcFollowCamera: 'ArcFollowCamera',
     pushMaterial: 'PushMaterial',
     nodeMaterial: 'NodeMaterial',
+    imageProcessingConfiguration: 'ImageProcessingConfiguration',
     standardMaterial: 'StandardMaterial',
     baseTexture: 'BaseTexture',
     backgroundMaterial: 'BackgroundMaterial',
@@ -13891,6 +17345,41 @@ export const intrinsicClassMap: object = {
     equiRectangularCubeTexture: 'EquiRectangularCubeTexture',
     hdrCubeTexture: 'HDRCubeTexture',
     htmlElementTexture: 'HtmlElementTexture',
+    defaultRenderingPipeline: 'DefaultRenderingPipeline',
+    chromaticAberrationPostProcess: 'ChromaticAberrationPostProcess',
+    fxaaPostProcess: 'FxaaPostProcess',
+    grainPostProcess: 'GrainPostProcess',
+    imageProcessingPostProcess: 'ImageProcessingPostProcess',
+    sharpenPostProcess: 'SharpenPostProcess',
+    lensRenderingPipeline: 'LensRenderingPipeline',
+    ssao2RenderingPipeline: 'SSAO2RenderingPipeline',
+    ssaoRenderingPipeline: 'SSAORenderingPipeline',
+    standardRenderingPipeline: 'StandardRenderingPipeline',
+    screenSpaceReflectionPostProcess: 'ScreenSpaceReflectionPostProcess',
+    blurPostProcess: 'BlurPostProcess',
+    anaglyphPostProcess: 'AnaglyphPostProcess',
+    blackAndWhitePostProcess: 'BlackAndWhitePostProcess',
+    extractHighlightsPostProcess: 'ExtractHighlightsPostProcess',
+    bloomMergePostProcess: 'BloomMergePostProcess',
+    depthOfFieldBlurPostProcess: 'DepthOfFieldBlurPostProcess',
+    circleOfConfusionPostProcess: 'CircleOfConfusionPostProcess',
+    colorCorrectionPostProcess: 'ColorCorrectionPostProcess',
+    convolutionPostProcess: 'ConvolutionPostProcess',
+    depthOfFieldMergePostProcess: 'DepthOfFieldMergePostProcess',
+    displayPassPostProcess: 'DisplayPassPostProcess',
+    filterPostProcess: 'FilterPostProcess',
+    highlightsPostProcess: 'HighlightsPostProcess',
+    motionBlurPostProcess: 'MotionBlurPostProcess',
+    passPostProcess: 'PassPostProcess',
+    passCubePostProcess: 'PassCubePostProcess',
+    refractionPostProcess: 'RefractionPostProcess',
+    stereoscopicInterlacePostProcessI: 'StereoscopicInterlacePostProcessI',
+    stereoscopicInterlacePostProcess: 'StereoscopicInterlacePostProcess',
+    volumetricLightScatteringPostProcess: 'VolumetricLightScatteringPostProcess',
+    vrDistortionCorrectionPostProcess: 'VRDistortionCorrectionPostProcess',
+    vrMultiviewToSingleviewPostProcess: 'VRMultiviewToSingleviewPostProcess',
+    screenSpaceCurvaturePostProcess: 'ScreenSpaceCurvaturePostProcess',
+    subSurfaceScatteringPostProcess: 'SubSurfaceScatteringPostProcess',
     prePassConfiguration: 'PrePassConfiguration',
     detailMapConfiguration: 'DetailMapConfiguration',
     pbrClearCoatConfiguration: 'PBRClearCoatConfiguration',
