@@ -4085,23 +4085,24 @@ export class FiberTorusKnot implements HasPropsHandlers<FiberMeshProps> {
  *
  * This code has been generated
  */
-export class FiberLineSystem implements HasPropsHandlers<FiberMeshProps> {
-    private propsHandlers: PropsHandler<FiberMeshProps>[];
+export class FiberLineSystem implements HasPropsHandlers<FiberLinesMeshProps> {
+    private propsHandlers: PropsHandler<FiberLinesMeshProps>[];
 
     constructor() {
         this.propsHandlers = [
-            new FiberMeshPropsHandler()
+            new FiberLinesMeshPropsHandler()
+            , new FiberMeshPropsHandler()
             , new FiberAbstractMeshPropsHandler()
             , new FiberTransformNodePropsHandler()
             , new FiberNodePropsHandler()
         ];
     }
 
-    getPropsHandlers(): PropsHandler<FiberMeshProps>[] {
+    getPropsHandlers(): PropsHandler<FiberLinesMeshProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<FiberMeshProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberLinesMeshProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -4175,23 +4176,24 @@ export class FiberLineSystem implements HasPropsHandlers<FiberMeshProps> {
  *
  * This code has been generated
  */
-export class FiberLines implements HasPropsHandlers<FiberMeshProps> {
-    private propsHandlers: PropsHandler<FiberMeshProps>[];
+export class FiberLines implements HasPropsHandlers<FiberLinesMeshProps> {
+    private propsHandlers: PropsHandler<FiberLinesMeshProps>[];
 
     constructor() {
         this.propsHandlers = [
-            new FiberMeshPropsHandler()
+            new FiberLinesMeshPropsHandler()
+            , new FiberMeshPropsHandler()
             , new FiberAbstractMeshPropsHandler()
             , new FiberTransformNodePropsHandler()
             , new FiberNodePropsHandler()
         ];
     }
 
-    getPropsHandlers(): PropsHandler<FiberMeshProps>[] {
+    getPropsHandlers(): PropsHandler<FiberLinesMeshProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<FiberMeshProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberLinesMeshProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -4266,23 +4268,24 @@ export class FiberLines implements HasPropsHandlers<FiberMeshProps> {
  *
  * This code has been generated
  */
-export class FiberDashedLines implements HasPropsHandlers<FiberMeshProps> {
-    private propsHandlers: PropsHandler<FiberMeshProps>[];
+export class FiberDashedLines implements HasPropsHandlers<FiberLinesMeshProps> {
+    private propsHandlers: PropsHandler<FiberLinesMeshProps>[];
 
     constructor() {
         this.propsHandlers = [
-            new FiberMeshPropsHandler()
+            new FiberLinesMeshPropsHandler()
+            , new FiberMeshPropsHandler()
             , new FiberAbstractMeshPropsHandler()
             , new FiberTransformNodePropsHandler()
             , new FiberNodePropsHandler()
         ];
     }
 
-    getPropsHandlers(): PropsHandler<FiberMeshProps>[] {
+    getPropsHandlers(): PropsHandler<FiberLinesMeshProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<FiberMeshProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberLinesMeshProps>): void {
         this.propsHandlers.push(propHandler);
     }
 
@@ -5168,23 +5171,24 @@ export class FiberTiledGround implements HasPropsHandlers<FiberMeshProps> {
  *
  * This code has been generated
  */
-export class FiberGroundFromHeightMap implements HasPropsHandlers<FiberMeshProps> {
-    private propsHandlers: PropsHandler<FiberMeshProps>[];
+export class FiberGroundFromHeightMap implements HasPropsHandlers<FiberGroundMeshProps> {
+    private propsHandlers: PropsHandler<FiberGroundMeshProps>[];
 
     constructor() {
         this.propsHandlers = [
-            new FiberMeshPropsHandler()
+            new FiberGroundMeshPropsHandler()
+            , new FiberMeshPropsHandler()
             , new FiberAbstractMeshPropsHandler()
             , new FiberTransformNodePropsHandler()
             , new FiberNodePropsHandler()
         ];
     }
 
-    getPropsHandlers(): PropsHandler<FiberMeshProps>[] {
+    getPropsHandlers(): PropsHandler<FiberGroundMeshProps>[] {
         return this.propsHandlers;
     }
 
-    addPropsHandler(propHandler: PropsHandler<FiberMeshProps>): void {
+    addPropsHandler(propHandler: PropsHandler<FiberGroundMeshProps>): void {
         this.propsHandlers.push(propHandler);
     }
 

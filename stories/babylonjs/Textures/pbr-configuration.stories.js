@@ -1,77 +1,11 @@
 import React, { useCallback, useState } from 'react';
 import { Vector3, Color3, Texture } from '@babylonjs/core';
 
-import { Engine, Scene, HostRegistrationStore, useScene, checkPrimitiveDiff } from 'react-babylonjs';
+import { Engine, Scene, useScene } from 'react-babylonjs';
 
 import '../../style.css';
 
 export default { title: 'Textures' };
-
-class PrimitivesPropsHandler {
-  IGNORED_PROPS = 'assignFrom'; // TODO: add other built-in like 'key', etc.
-
-  getPropertyUpdates(oldProps, newProps) {
-    var combined = Object.keys(oldProps).reduce((prev, cur) => {
-      if (this.IGNORED_PROPS.indexOf(cur) === -1) {
-        prev[cur] = {
-          old: oldProps[cur]
-        }
-      }
-      return prev;
-    }, {});
-
-    var combined = Object.keys(newProps).reduce((prev, cur) => {
-      if (this.IGNORED_PROPS.indexOf(cur) === -1) {
-        if (prev[cur] !== undefined) {
-          prev[cur].new = newProps[cur];
-        } else {
-          prev[cur] = {
-            new: newProps[cur]
-          }
-        }
-      }
-      return prev;
-    }, combined);
-
-    const changedProps = [];
-    for (var propName in combined) {
-      checkPrimitiveDiff(combined[propName].old, combined[propName].new, propName, changedProps);
-    };
-    return changedProps.length === 0 ? null : changedProps;
-  }
-}
-
-class FiberPBRClearCoatConfiguration {
-  constructor() {
-    this.propsHandlers = [
-      new PrimitivesPropsHandler()
-    ];
-  }
-
-  getPropsHandlers() {
-    return this.propsHandlers;
-  }
-
-  addPropsHandler(propHandler) {
-    this.propsHandlers.push(propHandler);
-  }
-}
-
-HostRegistrationStore.Register({
-  hostElementName: "pbrClearCoatConfiguration",
-  hostFactory: (scene) => { console.error('registered host factory method not applicable for demo') },
-  propHandlerInstance: new FiberPBRClearCoatConfiguration(),
-  createInfo: {
-    "creationType": "...",
-    "libraryLocation": "...",
-    "namespace": "@babylonjs/materials/clearCoat",
-    "parameters": []
-  },
-  metadata: {
-    "className": "FiberPBRClearCoatConfiguration"
-  }
-})
-
 var cubeTexture = null;
 var cubeTextureClone = null;
 const onSceneMounted = (createdArgs) => {
@@ -84,14 +18,11 @@ const onSceneMounted = (createdArgs) => {
  */
 const WithDynamicConfig = ({ roughness }) => {
   let environmentUrl = 'assets/textures/environment.dds'
-  const scene = useScene();
   const [texturesLoaded, setTexturesLoaded] = useState(false);
 
   const cubeTextureRef = useCallback(node => {
     if (node && texturesLoaded === false) {
-      scene.debugLayer.show();
       setTexturesLoaded(true); // trigger render and props assignment
-      console.log('cubeTexture', node)
       cubeTexture = node;
 
       cubeTextureClone = cubeTexture.clone();
@@ -183,9 +114,9 @@ export const DynamicConfig = () => {
 }
 
 DynamicConfig.story = {
-  name: 'PBR ClearCoat (experiment)',
+  name: 'PBR set roughness',
   parameters:
   {
-    notes: 'Just an experiment - not fixed API.'
+    notes: 'Experimental API.'
   }
 }

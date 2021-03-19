@@ -1,3 +1,4 @@
+import { exit } from 'process';
 /**
  * To debug code generation use the launch config in VS Code - "Generate Code (debug)"
  */
@@ -49,6 +50,8 @@ type ClassNameSpaceTuple = {
   classDeclaration: ClassDeclaration,
   moduleDeclaration: ModuleDeclaration
 }
+
+const addedClassDeclarationsMap = new Map<string, ClassDeclaration>();
 
 // to set onXXX properties.  via onXXX.add(() => void).  TODO: use TypeGuards.isTypeReferenceNode(...) and check type
 const OBSERVABLE_PATTERN: RegExp = /^BabylonjsCoreObservable<.*>$/;
@@ -417,22 +420,14 @@ const addMetadata = (classDeclaration: ClassDeclaration, originalClassDeclaratio
 const createdFactoryClasses: string[] = [];
 
 /**
- * Create Element from static factory function
- * @param factoryClassName
- * @param hostClassName
- * @param prefix
- * @param keepOriginName
- * @param metadata
- * @param generatedCodeSourceFile
- * @param generatedPropsSourceFile
+ * Create host element from class declaration static (creation) methods
  */
-const createFactoryClass = (factoryClassName: string, hostClassName: string, prefix: string, metadata: InstanceMetadataParameter, generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile) => {
+const createFactoryClass = (factoryClassName: string, prefix: string, metadata: InstanceMetadataParameter, generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile) => {
   let factoryBuilderTuple: ClassNameSpaceTuple = classesOfInterest.get(factoryClassName)!;
-  let hostTuple: ClassNameSpaceTuple = classesOfInterest.get(hostClassName)!;
 
   let factoryMethods: MethodDeclaration[] = factoryBuilderTuple.classDeclaration.getStaticMethods();
 
-  factoryMethods.forEach((method: MethodDeclaration) => {
+  for (const method of factoryMethods) {
     const methodName: string = method.getName();
     if (methodName && methodName.startsWith('Create') || methodName.startsWith('Extrude')) {
       let factoryType: string = methodName.startsWith('Create')
@@ -441,13 +436,17 @@ const createFactoryClass = (factoryClassName: string, hostClassName: string, pre
       factoryType = prefix + factoryType;
       createdFactoryClasses.push(factoryType);
 
-      addHostElement(factoryType, hostTuple.classDeclaration);
-      let newClassDeclaration: ClassDeclaration = addClassDeclarationFromFactoryMethod(generatedCodeSourceFile, factoryType, classesOfInterest.get(hostClassName)!.classDeclaration, method);
+      // [0] is always the ClassDeclaration (at least for MeshBuilder and AdvancedDynamicTexture factory methods)
+      const hostClassName = (method.getReturnType().getSymbol()!.getDeclarations()[0] as ClassDeclaration).getName()!;
+      const classDeclarationType = addedClassDeclarationsMap.get(hostClassName) ?? classesOfInterest.get(hostClassName)!.classDeclaration!;
+
+      addHostElement(factoryType, classDeclarationType);
+      let newClassDeclaration: ClassDeclaration = addClassDeclarationFromFactoryMethod(generatedCodeSourceFile, factoryType, classDeclarationType, method);
 
       addCreateInfoFromFactoryMethod(method, camelCase(factoryBuilderTuple.classDeclaration.getName()!), methodName, newClassDeclaration, "@babylonjs/core", generatedCodeSourceFile, generatedPropsSourceFile)
       addMetadata(newClassDeclaration, undefined /* no original class */, metadata)
     }
-  });
+  };
   console.log(`${factoryClassName} Factory - ${createdFactoryClasses.sort((a, b) => a.localeCompare(b)).map(c => classToIntrinsic(c).replace(/['\u2019]/g, '')).join(', ')}`);
 };
 
@@ -1366,6 +1365,7 @@ const createClassesInheritedFrom = (generatedCodeSourceFile: SourceFile, generat
     addMetadata(newClassDeclaration, derivedClassDeclaration, metadata);
 
     onAfterClassCreate && onAfterClassCreate(derivedClassDeclaration);
+    addedClassDeclarationsMap.set(derivedClassDeclaration.getName()!, derivedClassDeclaration);
   });
 
   console.log(`Building ${derivedClassesOrdered.size} ${baseClassName}s: ${(Array.from(derivedClassesOrdered.values())).map(c => c.getName()!).sort((a, b) => a.localeCompare(b)).map(c => classToIntrinsic(c)).join(', ')}`)
@@ -1549,7 +1549,6 @@ const generateCode = async () => {
   if (classesOfInterest.get("MeshBuilder") !== undefined) {
     createFactoryClass(
       "MeshBuilder",
-      "Mesh",
       "",
       {
         acceptsMaterials: true,
@@ -1613,7 +1612,6 @@ const generateCode = async () => {
     const onTexturesCreate = (classDeclaration: ClassDeclaration) => {
       if (classDeclaration.getName() === `${ClassNamesPrefix}AdvancedDynamicTexture`) {
         createFactoryClass(
-          'AdvancedDynamicTexture',
           'AdvancedDynamicTexture',
           'ADT',
           {
@@ -1776,10 +1774,14 @@ const generateCode = async () => {
   await generatedPropsSourceFile.save();
 }
 
+console.time('total-duration');
 const result = generateCode();
 
 result.then(() => {
   console.log('completed without errors');
 }).catch(reason => {
   console.error('failed:', reason);
+}).finally(() => {
+  console.timeEnd('total-duration');
+  exit();
 })

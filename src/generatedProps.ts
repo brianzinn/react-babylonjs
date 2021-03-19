@@ -319,9 +319,9 @@ declare global {
             cylinder: FiberMeshProps & FiberCylinderPropsCtor & BabylonNode<BabylonjsCoreMesh>;
             torus: FiberMeshProps & FiberTorusPropsCtor & BabylonNode<BabylonjsCoreMesh>;
             torusKnot: FiberMeshProps & FiberTorusKnotPropsCtor & BabylonNode<BabylonjsCoreMesh>;
-            lineSystem: FiberMeshProps & FiberLineSystemPropsCtor & BabylonNode<BabylonjsCoreMesh>;
-            lines: FiberMeshProps & FiberLinesPropsCtor & BabylonNode<BabylonjsCoreMesh>;
-            dashedLines: FiberMeshProps & FiberDashedLinesPropsCtor & BabylonNode<BabylonjsCoreMesh>;
+            lineSystem: FiberLinesMeshProps & FiberLineSystemPropsCtor & BabylonNode<BabylonjsCoreLinesMesh>;
+            lines: FiberLinesMeshProps & FiberLinesPropsCtor & BabylonNode<BabylonjsCoreLinesMesh>;
+            dashedLines: FiberLinesMeshProps & FiberDashedLinesPropsCtor & BabylonNode<BabylonjsCoreLinesMesh>;
             extrudeShape: FiberMeshProps & FiberExtrudeShapePropsCtor & BabylonNode<BabylonjsCoreMesh>;
             extrudeShapeCustom: FiberMeshProps & FiberExtrudeShapeCustomPropsCtor & BabylonNode<BabylonjsCoreMesh>;
             lathe: FiberMeshProps & FiberLathePropsCtor & BabylonNode<BabylonjsCoreMesh>;
@@ -329,7 +329,7 @@ declare global {
             plane: FiberMeshProps & FiberPlanePropsCtor & BabylonNode<BabylonjsCoreMesh>;
             ground: FiberMeshProps & FiberGroundPropsCtor & BabylonNode<BabylonjsCoreMesh>;
             tiledGround: FiberMeshProps & FiberTiledGroundPropsCtor & BabylonNode<BabylonjsCoreMesh>;
-            groundFromHeightMap: FiberMeshProps & FiberGroundFromHeightMapPropsCtor & BabylonNode<BabylonjsCoreMesh>;
+            groundFromHeightMap: FiberGroundMeshProps & FiberGroundFromHeightMapPropsCtor & BabylonNode<BabylonjsCoreGroundMesh>;
             'babylon-polygon': FiberMeshProps & FiberPolygonPropsCtor & BabylonNode<BabylonjsCoreMesh>;
             extrudePolygon: FiberMeshProps & FiberExtrudePolygonPropsCtor & BabylonNode<BabylonjsCoreMesh>;
             tube: FiberMeshProps & FiberTubePropsCtor & BabylonNode<BabylonjsCoreMesh>;
