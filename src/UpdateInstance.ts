@@ -31,16 +31,7 @@ export const applyUpdateToInstance = (hostInstance: any, update: PropertyUpdate)
       break;
     case PropChangeType.Color3:
     case PropChangeType.Color4:
-      if (target[update.propertyName]) {
-        switch (update.changeType) {
-          case PropChangeType.Color3:
-            (target[update.propertyName] as Color3).copyFrom(update.value);
-            break;
-          case PropChangeType.Color4:
-            (target[update.propertyName] as Color4).copyFrom(update.value);
-            break;
-        }
-      } else if (update.value) {
+      if (update.value) {
         target[update.propertyName] = update.value.clone();
       } else {
         target[update.propertyName] = update.value;

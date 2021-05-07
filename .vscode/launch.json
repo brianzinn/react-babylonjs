@@ -30,7 +30,7 @@
             "--timeout",
             "99999",
             "--colors",
-            "${workspaceFolder}/test/**/*.spec.ts"
+            "${workspaceFolder}/test/**/*.spec.{ts,tsx}"
           ],
           "internalConsoleOptions": "openOnSessionStart",
           "name": "Mocha Tests",
