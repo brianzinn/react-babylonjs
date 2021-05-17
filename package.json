@@ -15,8 +15,8 @@
   "main": "dist/react-babylonjs.js",
   "module": "dist/react-babylonjs.js",
   "esnext": "dist/react-babylonjs.js",
-  "typings": "dist/react-babylonjs.d.ts",
   "type": "module",
+  "typings": "dist/react-babylonjs.d.ts",
   "files": [
     "dist"
   ],
@@ -98,7 +98,7 @@
     "rollup-plugin-typescript2": "^0.29.0",
     "sinon": "^9.2.4",
     "storybook": "^6.1.9",
-    "ts-morph": "^8.1.0",
+    "ts-morph": "^10.1.0",
     "ts-node": "^9.1.1",
     "tsc-watch": "^4.2.9",
     "tsconfig-paths": "^3.9.0",

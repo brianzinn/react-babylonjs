@@ -24,17 +24,18 @@ import {
   ImportDeclaration,
   FunctionDeclaration,
   VariableStatement,
-  NamespaceDeclarationKind,
   InterfaceDeclaration,
   MethodSignature,
   EnumDeclaration,
-  NamespaceDeclaration,
+  
   SetAccessorDeclaration,
   Type,
   Node,
   SyntaxKind,
   FormatCodeSettings,
   GetAccessorDeclaration,
+  ModuleDeclaration,
+  ModuleDeclarationKind,
 } from 'ts-morph'
 
 import { GeneratedParameter, CreateInfo, CreationType } from "../src/codeGenerationDescriptors";
@@ -48,7 +49,7 @@ const ClassNamesPrefix = 'Fiber';
 
 type ClassNameSpaceTuple = {
   classDeclaration: ClassDeclaration,
-  moduleDeclaration: ModuleDeclaration
+  moduleDeclaration: GeneratedModuleDeclaration
 }
 
 const addedClassDeclarationsMap = new Map<string, ClassDeclaration>();
@@ -169,7 +170,7 @@ const readonlyPropertiesToGenerate: Map<string, ClassNameSpaceTuple> = new Map<s
  */
 const classesOfKeywordInterest = ['Behavior'];
 
-type ModuleDeclaration = {
+type GeneratedModuleDeclaration = {
   moduleSpecifier: string,
   className: string,
   importAlias: string
@@ -178,7 +179,7 @@ type ModuleDeclaration = {
 type FileModuleDeclaration = {
   hostComponent: boolean, // used to generate factory
   sourceFile: SourceFile, // needed since we use filePath as key for top-level dictionary
-  moduleDeclaration: ModuleDeclaration
+  moduleDeclaration: GeneratedModuleDeclaration
 }
 
 const importDeclarationMap: Map<string, Map<string, FileModuleDeclaration[]>> = new Map<string, Map<string, FileModuleDeclaration[]>>();
@@ -197,7 +198,7 @@ const capitalize = (value: string) => {
  * @param value
  */
 
-const getModuleDeclarationFromClassDeclaration = (classDeclaration: ClassDeclaration): ModuleDeclaration => {
+const getModuleDeclarationFromClassDeclaration = (classDeclaration: ClassDeclaration): GeneratedModuleDeclaration => {
   const sourceFile = classDeclaration.getSourceFile();
 
   const match = sourceFile.getFilePath().match(`node_modules/(.*)${sourceFile.getExtension()}`);
@@ -228,7 +229,7 @@ const getModuleDeclarationFromClassDeclaration = (classDeclaration: ClassDeclara
   };
 }
 
-const addNamedImportToFile = (moduleDeclaration: ModuleDeclaration, targets: SourceFile[], isHostComponent: boolean): void => {
+const addNamedImportToFile = (moduleDeclaration: GeneratedModuleDeclaration, targets: SourceFile[], isHostComponent: boolean): void => {
   targets.forEach(file => {
     const fileKey = file.getFilePath();
     if (!importDeclarationMap.has(fileKey)) {
@@ -300,7 +301,7 @@ const createTypeFromText = (typeText: string, targetFiles: SourceFile[], customP
       const importAlias = reduceToImport(classAlias);
       const className = reduceToImport(importClassName);
 
-      const moduleDeclaration: ModuleDeclaration = {
+      const moduleDeclaration: GeneratedModuleDeclaration = {
         moduleSpecifier,
         className,
         importAlias: importAlias
@@ -370,7 +371,7 @@ const addProject = (packageNames: string[], files: string[], sourceFiles: Source
       addSourceClass(classDeclaration, sourceFiles);
     });
 
-    sourceFile.getNamespaces().forEach((ns: NamespaceDeclaration) => {
+    sourceFile.getModules().forEach((ns: ModuleDeclaration) => {
       ns.getInterfaces().forEach((interfaceDeclaration: InterfaceDeclaration) => {
         if (interfaceDeclaration.getName() === 'Scene' && interfaceDeclaration.getProperties().find(prop => prop.getName() === 'onBeforePhysicsObservable')) {
           // adding Scene monkey patch only for now (babylonjs/core/Physics/physicsEngineComponent), but could find way to do all.
@@ -928,7 +929,7 @@ const isQuestionToken = (node: Node<ts.Node>): boolean => {
  * The odd parameters here 'classNameToGenerate' and 'classNameBabylon' are because we are also inventing classes not based on real BabylonJS objects (ie: Box, Sphere are actually Mesh)
  * It probably looks like we should just pass along the ClassDeclaration...
  */
-const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile, classNameToGenerate: string, babylonClassDeclaration: ModuleDeclaration, propertiesToAdd: (PropertyDeclaration | PropertySignature | SetAccessorDeclaration)[], setMethods: (MethodDeclaration | MethodSignature)[], baseClass: ClassDeclaration | undefined): void => {
+const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile, classNameToGenerate: string, babylonClassDeclaration: GeneratedModuleDeclaration, propertiesToAdd: (PropertyDeclaration | PropertySignature | SetAccessorDeclaration)[], setMethods: (MethodDeclaration | MethodSignature)[], baseClass: ClassDeclaration | undefined): void => {
   // console.log('addpropshandlers1:', classNameToGenerate, babylonClassDeclaration.className, babylonClassDeclaration.importAlias);
 
   const typeProperties: OptionalKind<PropertySignatureStructure>[] = []
@@ -1201,7 +1202,7 @@ const writeTypeAlias = (file: SourceFile, name: string, typeProperties: Optional
  * @param generatedCodeSourceFile
  * @param generatedPropsSourceFile
  */
-const addCreateInfoFromConstructor = (sourceClass: ClassDeclaration, targetClass: ClassDeclaration, moduleDeclaration: ModuleDeclaration, generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile): void => {
+const addCreateInfoFromConstructor = (sourceClass: ClassDeclaration, targetClass: ClassDeclaration, moduleDeclaration: GeneratedModuleDeclaration, generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile): void => {
   // this will allow us to do reflection to create the BabylonJS object from application props.
   const ctorArgsProperty = targetClass.addProperty({
     name: 'CreateInfo',
@@ -1500,13 +1501,13 @@ const generateCode = async () => {
     name: "T"
   });
 
-  const globalNamespace = generatedPropsSourceFile.addNamespace({
+  const globalNamespace = generatedPropsSourceFile.addModule({
     name: "global",
-    declarationKind: NamespaceDeclarationKind.Global,
+    declarationKind: ModuleDeclarationKind.Global,
     hasDeclareKeyword: true,
   });
 
-  const jsxNamespace = globalNamespace.addNamespace({
+  const jsxNamespace = globalNamespace.addModule({
     name: 'JSX',
   });
 
