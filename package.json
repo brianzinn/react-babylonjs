@@ -15,7 +15,6 @@
   "main": "dist/react-babylonjs.js",
   "module": "dist/react-babylonjs.js",
   "esnext": "dist/react-babylonjs.js",
-  "type": "module",
   "typings": "dist/react-babylonjs.d.ts",
   "files": [
     "dist"
@@ -36,6 +35,7 @@
     "start": "tsc-watch --onSuccess \"rollup -c\"",
     "deploy-docs": "ts-node tools/gh-pages-publish",
     "storybook": "start-storybook -p 6006 -s ./storyboard-site",
+    "prestorybook": "npm run build",
     "build-storybook": "build-storybook -o storybook-static -s ./storyboard-site",
     "generate-code": "ts-node -P tsconfig.generate.json tools/generate-code",
     "unit-test": "cross-env TS_NODE_PROJECT=\"tsconfig.test.json\" mocha --require ts-node/register --require esm \"test/**/*.spec.{js,jsx,ts,tsx}\"",
@@ -56,7 +56,7 @@
     "@babylonjs/loaders": "^4.2.0",
     "@babylonjs/materials": "^4.2.0",
     "@babylonjs/procedural-textures": "^4.2.0",
-    "@inlet/react-pixi": "^1.2.8",
+    "@inlet/react-pixi": "^6.5.2",
     "@rollup/plugin-json": "^4.0.2",
     "@rollup/plugin-typescript": "^6.1.0",
     "@storybook/addon-actions": "^6.1.9",
@@ -79,7 +79,7 @@
     "earcut": "^2.2.2",
     "esm": "^3.2.25",
     "github-release-notes": "0.17.2",
-    "gsap": "^2.1.3",
+    "gsap": "^3.6.1",
     "honeycomb-grid": "^3.1.7",
     "lerp": "^1.0.3",
     "lint-staged": "^10.5.2",
