@@ -1,7 +1,7 @@
 # react-babylonjs
 > *'react-babylonjs'* integrates the Babylon.js real time 3D engine with React
 
-`react-babylonjs` lets you build your scene and components using a familiar declarative syntax with the benefits of reusable components and hooks.  The Babylon.js API is mostly covered thanks to code generation, but also custom props allow you to declaratively add shadows, physics, attach 2D/3D UI to meshes, 3D models, etc.
+`react-babylonjs` lets you build your scene and components using a familiar declarative syntax with the benefits of reusable components and hooks.  The Babylon.js API is mostly covered declaratively thanks to code generation and even custom props allow you to declaratively add shadows, physics, 3D models, attach 2D/3D UI to meshes, etc.
 
 Fully supports hooks.  Full support for TypeScript with auto-completion on elements and compile time checks.  Context API and hooks provide easy access to Scene/Engine/Canvas.
 
@@ -98,21 +98,20 @@ export const SceneWithSpinningBoxes = () => (
 ## Hooks, Shadows and Physics (and optionally TypeScript, too)
 You can declaratively use many features together - here only the button click handler actually has any code - and we have declarative Physics, GUI, Lighting and Shadows.  demo: [Bouncy demo](https://brianzinn.github.io/react-babylonjs/?path=/story/physics--bouncy-playground-story)
 ```jsx
-import React, { useCallback } from 'react';
-/// full code at https://github.com/brianzinn/create-react-app-typescript-babylonjs
-
-const onButtonClicked = () => {
-  if (sphere !== null) {
-    sphere.physicsImpostor!.applyImpulse(
-      Vector3.Up().scale(10), sphere.getAbsolutePosition()
-    )
-  }
-}
+import React, { useRef } from 'react';
+// full code at https://github.com/brianzinn/create-react-app-typescript-babylonjs
 
 const App: React.FC = () => {
-  const sphereRef = useCallback(node => {
-    sphere = node;
-  }, []);
+  let sphereRef = useRef<Nullable<Mesh>>();
+
+  const onButtonClicked = () => {
+    if (sphereRef.current) {
+      sphereRef.current.physicsImpostor!.applyImpulse(
+        Vector3.Up().scale(10),
+        sphereRef.current.getAbsolutePosition()
+      );
+    }
+  };
 
   return (
     <Engine antialias={true} adaptToDeviceRatio={true} canvasId="sample-canvas">
@@ -138,7 +137,7 @@ const App: React.FC = () => {
             <advancedDynamicTexture name="dialogTexture" height={1024} width={1024} createForParentMesh={true} hasAlpha={true}>
               <rectangle name="rect-1" height={0.5} width={1} thickness={12} cornerRadius={12}>
                   <rectangle>
-                    <babylon-button name="close-icon" background="green" onPointerDownObservable={onButtonClicked} >
+                    <babylon-button name="close-icon" background="green" onPointerDownObservable={onButtonClicked}>
                       <textBlock text={'\uf00d click me'} fontFamily="FontAwesome" fontStyle="bold" fontSize={200} color="white" />
                     </babylon-button>
                   </rectangle>
@@ -185,4 +184,4 @@ This project uses code generation, which allows fast reconciliation and excellen
 * [kencyke](https://github.com/kencyke) created a cool multi-canvas + cloud point repo that insipired creation of `<pointsCloudSystem .../>` as host element.
 * Thanks also to all the people who have contributed with issues and questions.
 
-Made with ♥ by Brian Zinn
+Made with ♥
