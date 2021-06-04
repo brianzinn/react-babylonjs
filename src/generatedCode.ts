@@ -10185,7 +10185,7 @@ export class FiberTexture implements HasPropsHandlers<FiberThinTextureProps> {
             },
             {
                 "name": "buffer",
-                "type": "string | HTMLImageElement | ArrayBufferView | ArrayBuffer | Blob | ImageBitmap",
+                "type": "string | ArrayBufferView | ArrayBuffer | HTMLImageElement | Blob | ImageBitmap",
                 "optional": true
             },
             {
@@ -12425,7 +12425,7 @@ export class FiberStandardRenderingPipelinePropsHandler implements PropsHandler<
         checkPrimitiveDiff(oldProps.samples, newProps.samples, 'samples', changedProps)
         // type: 'BabylonjsCoreScreenSpaceReflectionPostProcess' property (not coded) BabylonjsCoreStandardRenderingPipeline.screenSpaceReflectionPostProcess.
         checkPrimitiveDiff(oldProps.screenSpaceReflectionsEnabled, newProps.screenSpaceReflectionsEnabled, 'screenSpaceReflectionsEnabled', changedProps)
-        // type: 'BabylonjsCoreDirectionalLight | BabylonjsCoreSpotLight' property (not coded) BabylonjsCoreStandardRenderingPipeline.sourceLight.
+        // type: 'BabylonjsCoreSpotLight | BabylonjsCoreDirectionalLight' property (not coded) BabylonjsCoreStandardRenderingPipeline.sourceLight.
         // type: 'BabylonjsCorePostProcess' property (not coded) BabylonjsCoreStandardRenderingPipeline.textureAdderFinalPostProcess.
         // type: 'BabylonjsCorePostProcess' property (not coded) BabylonjsCoreStandardRenderingPipeline.textureAdderPostProcess.
         checkPrimitiveDiff(oldProps.VLSEnabled, newProps.VLSEnabled, 'VLSEnabled', changedProps)
@@ -14143,11 +14143,11 @@ export class FiberMotionBlurPostProcessPropsHandler implements PropsHandler<Fibe
  * The Motion Blur Post Process which blurs an image based on the objects velocity in scene.
  * Velocity can be affected by each object's rotation, position and scale depending on the transformation speed.
  * As an example, all you have to do is to create the post-process:
- *   var mb = new BABYLON.MotionBlurPostProcess(
- *       'mb', // The name of the effect.
- *       scene, // The scene containing the objects to blur according to their velocity.
- *       1.0, // The required width/height ratio to downsize to before computing the render pass.
- *       camera // The camera to apply the render pass to.
+ *  var mb = new BABYLON.MotionBlurPostProcess(
+ *      'mb', // The name of the effect.
+ *      scene, // The scene containing the objects to blur according to their velocity.
+ *      1.0, // The required width/height ratio to downsize to before computing the render pass.
+ *      camera // The camera to apply the render pass to.
  * );
  * Then, all objects moving, rotating and/or scaling will be blurred depending on the transformation speed.
  *
@@ -15762,12 +15762,12 @@ export class FiberDynamicTerrainPropsHandler implements PropsHandler<FiberDynami
         checkPrimitiveDiff(oldProps.LODNegativeZ, newProps.LODNegativeZ, 'LODNegativeZ', changedProps)
         checkPrimitiveDiff(oldProps.LODPositiveX, newProps.LODPositiveX, 'LODPositiveX', changedProps)
         checkPrimitiveDiff(oldProps.LODPositiveZ, newProps.LODPositiveZ, 'LODPositiveZ', changedProps)
-        // type: 'BabylonjsCoreFloatArray' property (not coded) ExtensionsDynamicTerrain.mapColors.
-        // type: 'BabylonjsCoreFloatArray' property (not coded) ExtensionsDynamicTerrain.mapData.
-        // type: 'BabylonjsCoreFloatArray' property (not coded) ExtensionsDynamicTerrain.mapNormals.
+        // type: 'number[] | Float32Array' property (not coded) ExtensionsDynamicTerrain.mapColors.
+        // type: 'number[] | Float32Array' property (not coded) ExtensionsDynamicTerrain.mapData.
+        // type: 'number[] | Float32Array' property (not coded) ExtensionsDynamicTerrain.mapNormals.
         checkPrimitiveDiff(oldProps.mapSubX, newProps.mapSubX, 'mapSubX', changedProps)
         checkPrimitiveDiff(oldProps.mapSubZ, newProps.mapSubZ, 'mapSubZ', changedProps)
-        // type: 'BabylonjsCoreFloatArray' property (not coded) ExtensionsDynamicTerrain.mapUVs.
+        // type: 'number[] | Float32Array' property (not coded) ExtensionsDynamicTerrain.mapUVs.
         checkPrimitiveDiff(oldProps.name, newProps.name, 'name', changedProps)
         checkPrimitiveDiff(oldProps.precomputeNormalsFromMap, newProps.precomputeNormalsFromMap, 'precomputeNormalsFromMap', changedProps)
         checkPrimitiveDiff(oldProps.refreshEveryFrame, newProps.refreshEveryFrame, 'refreshEveryFrame', changedProps)
@@ -15822,7 +15822,7 @@ export class FiberDynamicTerrain implements HasPropsHandlers<FiberDynamicTerrain
                     },
                     {
                         "name": "mapData",
-                        "type": "BabylonjsCoreFloatArray",
+                        "type": "number[] | Float32Array",
                         "optional": true
                     },
                     {
@@ -15837,17 +15837,17 @@ export class FiberDynamicTerrain implements HasPropsHandlers<FiberDynamicTerrain
                     },
                     {
                         "name": "mapUVs",
-                        "type": "BabylonjsCoreFloatArray",
+                        "type": "number[] | Float32Array",
                         "optional": true
                     },
                     {
                         "name": "mapColors",
-                        "type": "BabylonjsCoreFloatArray",
+                        "type": "number[] | Float32Array",
                         "optional": true
                     },
                     {
                         "name": "mapNormals",
-                        "type": "BabylonjsCoreFloatArray",
+                        "type": "number[] | Float32Array",
                         "optional": true
                     },
                     {
@@ -16109,9 +16109,9 @@ export class FiberDetailMapConfigurationPropsHandler implements PropsHandler<Fib
  * Define the code related to the detail map parameters of a material
  *
  * Inspired from:
- *    Unity: https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@9.0/manual/Mask-Map-and-Detail-Map.html and https://docs.unity3d.com/Manual/StandardShaderMaterialParameterDetail.html
- *    Unreal: https://docs.unrealengine.com/en-US/Engine/Rendering/Materials/HowTo/DetailTexturing/index.html
- *    Cryengine: https://docs.cryengine.com/display/SDKDOC2/Detail+Maps
+ *   Unity: https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@9.0/manual/Mask-Map-and-Detail-Map.html and https://docs.unity3d.com/Manual/StandardShaderMaterialParameterDetail.html
+ *   Unreal: https://docs.unrealengine.com/en-US/Engine/Rendering/Materials/HowTo/DetailTexturing/index.html
+ *   Cryengine: https://docs.cryengine.com/display/SDKDOC2/Detail+Maps
  *
  * This code has been generated
  */

@@ -37,7 +37,7 @@ type Props = {
 
 export type Container = {
   scene: Nullable<Scene>
-  rootInstance: CreatedInstance<any>
+  rootInstance: CreatedInstance<Scene>
 }
 
 type HostContext = {} & Container
@@ -60,13 +60,14 @@ function createCreatedInstance<T, U extends HasPropsHandlers<any>>(
   }
 
   return {
-    hostInstance,
-    metadata: createdMetadata,
-    parent: null, // set later in lifecycle
     children: [], // set later in lifecycle
-    propsHandlers,
+    customProps,
+    hostInstance,
     lifecycleListener,
-    customProps
+    metadata: createdMetadata,
+    observers: {},
+    parent: null, // set later in lifecycle
+    propsHandlers,
   } as CreatedInstance<T>
 }
 
@@ -300,13 +301,14 @@ const ReactBabylonJSHostConfig: HostConfig<
       }
 
       let createdInstance: CreatedInstance<null> = {
-        hostInstance: null,
-        metadata,
-        parent: null,
         children: [],
-        propsHandlers: undefined,
         customProps: {},
-        lifecycleListener: new (CUSTOM_HOSTS as any)[type + "Fiber"](scene, scene!.getEngine(), props)
+        hostInstance: null,
+        lifecycleListener: new (CUSTOM_HOSTS as any)[type + "Fiber"](scene, scene!.getEngine(), props),
+        metadata,
+        observers: {},
+        parent: null,
+        propsHandlers: undefined,
       }
 
       // onCreated and other lifecycle hooks are not called for built-in host
@@ -482,15 +484,6 @@ const ReactBabylonJSHostConfig: HostConfig<
 
     if (metadata.delayCreation !== true && customProps.assignFrom === undefined) {
       applyInitialPropsToCreatedInstance(createdReference, props);
-
-      // fromInstance can cause issues when used multiple times - this could point incorrectly
-      if (!('__propsHandlers' in createdReference.hostInstance)) {
-        // This property is only needed by `applyPropsToRef`, so if the propsHandlers can be made available there in another way then we don't need this property.
-        Object.defineProperty(createdReference.hostInstance, '__propsHandlers', {
-          get() { return createdReference.propsHandlers; },
-          enumerable: true,
-        });
-      }
     } else {
       createdReference.deferredCreationProps = props;
     }
@@ -602,7 +595,7 @@ const ReactBabylonJSHostConfig: HostConfig<
     if (updatePayload !== null) {
       updatePayload.forEach((update: PropertyUpdate) => {
         if (instance) {
-          applyUpdateToInstance(instance!.hostInstance, update)
+          applyUpdateToInstance(instance, update)
         } else {
           // console.warn("skipped applying update to missing instance...", update, type);
         }

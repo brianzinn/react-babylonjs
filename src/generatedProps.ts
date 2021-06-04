@@ -2524,7 +2524,7 @@ export type FiberTexturePropsCtor = {
     samplingMode?: number;
     onLoad?: () => void;
     onError?: (message?: string, exception?: any) => void;
-    buffer?: string | HTMLImageElement | ArrayBufferView | ArrayBuffer | Blob | ImageBitmap;
+    buffer?: string | ArrayBufferView | ArrayBuffer | HTMLImageElement | Blob | ImageBitmap;
     deleteBuffer?: boolean;
     format?: number;
     mimeType?: string;
@@ -3001,7 +3001,7 @@ export type FiberStandardRenderingPipelineProps = {
     samples?: number;
     screenSpaceReflectionPostProcess?: BabylonjsCoreScreenSpaceReflectionPostProcess;
     screenSpaceReflectionsEnabled?: boolean;
-    sourceLight?: BabylonjsCoreDirectionalLight | BabylonjsCoreSpotLight;
+    sourceLight?: BabylonjsCoreSpotLight | BabylonjsCoreDirectionalLight;
     textureAdderFinalPostProcess?: BabylonjsCorePostProcess;
     textureAdderPostProcess?: BabylonjsCorePostProcess;
     VLSEnabled?: boolean;
@@ -3673,12 +3673,12 @@ export type FiberDynamicTerrainProps = {
     LODNegativeZ?: boolean;
     LODPositiveX?: boolean;
     LODPositiveZ?: boolean;
-    mapColors?: BabylonjsCoreFloatArray;
-    mapData?: BabylonjsCoreFloatArray;
-    mapNormals?: BabylonjsCoreFloatArray;
+    mapColors?: number[] | Float32Array;
+    mapData?: number[] | Float32Array;
+    mapNormals?: number[] | Float32Array;
     mapSubX?: number;
     mapSubZ?: number;
-    mapUVs?: BabylonjsCoreFloatArray;
+    mapUVs?: number[] | Float32Array;
     name?: string;
     precomputeNormalsFromMap?: boolean;
     refreshEveryFrame?: boolean;
@@ -3690,12 +3690,12 @@ export type FiberDynamicTerrainProps = {
 export type FiberDynamicTerrainPropsCtor = {
     name: string;
     terrainSub?: number;
-    mapData?: BabylonjsCoreFloatArray;
+    mapData?: number[] | Float32Array;
     mapSubX?: number;
     mapSubZ?: number;
-    mapUVs?: BabylonjsCoreFloatArray;
-    mapColors?: BabylonjsCoreFloatArray;
-    mapNormals?: BabylonjsCoreFloatArray;
+    mapUVs?: number[] | Float32Array;
+    mapColors?: number[] | Float32Array;
+    mapNormals?: number[] | Float32Array;
     invertSide?: boolean;
     camera?: BabylonjsCoreCamera;
     SPmapData?: number[][] | Float32Array[];

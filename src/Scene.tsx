@@ -17,6 +17,7 @@ import { FiberScenePropsHandler } from './generatedCode';
 import { FiberSceneProps } from './generatedProps';
 import { UpdatePayload } from './PropsHandler';
 import { Container } from './ReactBabylonJSHostConfig';
+import { CreatedInstance } from './CreatedInstance';
 
 export declare type SceneEventArgs = {
   scene: BabylonJSScene;
@@ -34,7 +35,7 @@ type SceneProps = {
   sceneOptions?: SceneOptions
 } & FiberSceneProps
 
-const updateScene = (props: SceneProps, prevPropsRef: MutableRefObject<Partial<SceneProps>>, scene: BabylonJSScene, propsHandler: FiberScenePropsHandler) => {
+const updateScene = (props: SceneProps, prevPropsRef: MutableRefObject<Partial<SceneProps>>, scene: CreatedInstance<BabylonJSScene>, propsHandler: FiberScenePropsHandler) => {
   const prevProps = prevPropsRef.current;
   const updates: UpdatePayload = propsHandler.getPropertyUpdates(prevProps, props);
 
@@ -72,21 +73,22 @@ const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
     }
 
     setScene(scene);
-    updateScene(props, prevPropsRef, scene, propsHandler);
 
     // TODO: try to move the scene to parentComponent in updateContainer
     const container: Container = {
       scene: scene,
       rootInstance: {
-        hostInstance: null,
         children: [],
-        parent: null,
+        customProps: {},
+        hostInstance: scene,
         metadata: {
           className: "root"
         },
-        customProps: {}
+        observers: {},
+        parent: null,
       }
     };
+    updateScene(props, prevPropsRef, container.rootInstance, propsHandler);
 
     containerRef.current = container;
 
@@ -189,7 +191,7 @@ const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
       return;
     }
 
-    updateScene(props, prevPropsRef, scene, propsHandler);
+    updateScene(props, prevPropsRef, containerRef.current!.rootInstance, propsHandler);
 
     const sceneGraph = (
       <SceneContext.Provider value={{

@@ -365,8 +365,7 @@ export const checkNumericArrayDiff = (oldProp: number[] | undefined, newProp: nu
 
 export const checkObservableDiff = (oldProp: Observable<any> | undefined, newProp: Observable<any> | undefined, propertyName: string, changedProps: PropertyUpdate[]): void => {
   propertyCheck<Observable<any>>(oldProp, newProp, propertyName, PropChangeType.Observable, changedProps, (oldProp, newProp, changedProps) => {
-    // if it starts with 'on' then we have different handling.
-    if (oldProp === undefined && oldProp !== newProp) {
+    if (oldProp !== newProp) {
       changedProps.push({
         propertyName,
         changeType: PropChangeType.Observable,

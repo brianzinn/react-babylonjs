@@ -1,9 +1,11 @@
-import { Vector3, Color3, Color4, Quaternion } from '@babylonjs/core';
-import { PropertyUpdate, PropsHandler, PropChangeType, HasPropsHandlers } from './PropsHandler';
+import { PropertyUpdate, PropsHandler, PropChangeType } from './PropsHandler';
 import { CreatedInstance } from './CreatedInstance';
+import { Observable, Observer } from '@babylonjs/core/Misc/observable';
+import { Nullable } from '@babylonjs/core/types';
+import { Quaternion, Vector3 } from '@babylonjs/core/Maths/math.vector';
 
-export const applyUpdateToInstance = (hostInstance: any, update: PropertyUpdate): void => {
-  let target = update.target !== undefined ? hostInstance[update.target] : hostInstance;
+export const applyUpdateToInstance = (createdInstance: CreatedInstance<any>, update: PropertyUpdate): void => {
+  let target = update.target !== undefined ? createdInstance.hostInstance[update.target] : createdInstance.hostInstance;
 
   switch (update.changeType) {
     case PropChangeType.Primitive:
@@ -44,7 +46,11 @@ export const applyUpdateToInstance = (hostInstance: any, update: PropertyUpdate)
       target[update.propertyName] = update.value;
       break;
     case PropChangeType.Observable:
-      target[update.propertyName].add(update.value);
+      const observer: Nullable<Observer<any>> = (target[update.propertyName] as Observable<any>).add(update.value);
+      if(update.propertyName in createdInstance.observers) {
+        (target[update.propertyName] as Observable<any>).remove(createdInstance.observers[update.propertyName]);
+      }
+      createdInstance.observers[update.propertyName] = observer;
       break;
     case PropChangeType.Method:
       if (typeof target[update.propertyName] === "function") {
@@ -105,18 +111,20 @@ export const applyInitialPropsToCreatedInstance = (createdInstance: CreatedInsta
 
   if (initPayload.length > 0) {
     initPayload.forEach(update => {
-      applyUpdateToInstance(createdInstance.hostInstance, update);
+      applyUpdateToInstance(createdInstance, update);
     })
   }
 }
 
 /**
- * @deprecated Please use @see applyPropsToRef instead (same functionality better name)
+ * @deprecated Please use @see applyPropsToRef instead
+ * (same functionality different parameters better name, but doesn't work with "public" ref provided by reconciler)
  * @param hostInstance a babylonjs hosted instance (available with useRef)
  * @param props
  */
 export const applyInitialPropsToInstance = (hostInstance: any, props: any): void => {
-  applyPropsToRef(hostInstance, props);
+  // this is a bad cast.  it is here for backwards compatibility with a react-spring dependency that only uses vector/color prop changes.
+  applyPropsToRef({hostInstance} as CreatedInstance<any>, props);
 }
 
 /**
@@ -126,15 +134,9 @@ export const applyInitialPropsToInstance = (hostInstance: any, props: any): void
  * @param hostInstance babylonjs hosted instance (available with useRef)
  * @param props props to apply
  */
-export const applyPropsToRef = (hostInstance: any, props: Record<string, any>): void => {
-  // deferred creation will not have this set (ie: ShadowGenerator & PhysicsImposter).  Could be added...
-  const propsHandlers: HasPropsHandlers<any> | undefined = hostInstance.__propsHandlers;
-  if (propsHandlers === undefined) {
-    return;
-  }
-
+export const applyPropsToRef = (createdInstance: CreatedInstance<any>, props: Record<string, any>): void => {
   let initPayload: PropertyUpdate[] = []
-  propsHandlers.getPropsHandlers().forEach((propHandler: PropsHandler<any>) => {
+  createdInstance.propsHandlers?.getPropsHandlers().forEach((propHandler: PropsHandler<any>) => {
     let handlerUpdates: PropertyUpdate[] | null = propHandler.getPropertyUpdates(
       {}, // We will reapply any props passed in (will not "clear" props, if we pass in an undefined prop)
       props
@@ -146,7 +148,8 @@ export const applyPropsToRef = (hostInstance: any, props: Record<string, any>): 
 
   if (initPayload.length > 0) {
     initPayload.forEach(update => {
-      applyUpdateToInstance(hostInstance, update);
+      // this is not entirely true.
+      applyUpdateToInstance(createdInstance, update);
     })
   }
 }

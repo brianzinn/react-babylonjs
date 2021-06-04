@@ -40,9 +40,11 @@ describe(' > Reconciler tests', function testSuite() {
       rootInstance: {
         children: [],
         customProps: {},
+        hostInstance: scene,
         metadata: {
           className: 'root'
         },
+        observers: {},
         parent: null,
       }
     }

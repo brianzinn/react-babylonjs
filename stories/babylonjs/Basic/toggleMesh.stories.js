@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState, useCallback } from 'react'
 import {Engine, Scene} from '../../../dist/react-babylonjs'
 import {Vector3} from '@babylonjs/core/Maths/math'
 import '../../style.css'
@@ -19,9 +19,10 @@ export default { title: 'Babylon Basic' };
 function WithToggleMesh() {
   const [isShown, toggleShown] = useState(true);
 
-  const onClick = _ => {
+  const onClick = useCallback(() => {
+    console.log('toggle clicked');
     toggleShown(isShown => !isShown)
-  };
+  }, []);
 
   return (
     <>

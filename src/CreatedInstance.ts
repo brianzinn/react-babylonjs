@@ -1,4 +1,5 @@
-import { Mesh } from "@babylonjs/core"
+import { Observer } from "@babylonjs/core/Misc/observable"
+import { Nullable } from "@babylonjs/core/types";
 import { LifecycleListener } from "./LifecycleListener"
 import { HasPropsHandlers } from "./PropsHandler"
 
@@ -111,15 +112,17 @@ export interface CreatedInstance<T> {
   propsHandlers?: HasPropsHandlers<T> // These are mostly generated
   lifecycleListener?: LifecycleListener<T> // Only custom types currently support LifecycleListeners (ie: AttachesToParent)
   deferredCreationProps?: any // deferred props for instance with delayed creation (ie: ShadowGenerator that needs Light).
+  observers: Record<string, Nullable<Observer<any>>> // tracks observer for deregistering when the handler changes (ie: pointer events for GUI)
 }
 
 export class CreatedInstanceImpl<T> implements CreatedInstance<T> {
-  public readonly hostInstance: T
-  public readonly metadata: CreatedInstanceMetadata
-  public parent: CreatedInstance<any> | null = null // Not the same as parent in BabylonJS, this is for internal reconciler structure. ie: graph walking
-  public children: CreatedInstance<any>[] = []
-  public propsHandlers: HasPropsHandlers<T>
-  public customProps: CustomProps
+  public readonly hostInstance: T;
+  public readonly metadata: CreatedInstanceMetadata;
+  public parent: CreatedInstance<any> | null = null; // Not the same as parent in BabylonJS, this is for internal reconciler structure. ie: graph walking
+  public children: CreatedInstance<any>[] = [];
+  public propsHandlers: HasPropsHandlers<T>;
+  public customProps: CustomProps;
+  public observers: Record<string, Nullable<Observer<any>>> = {};
 
   constructor(hostInstance: T, metadata: CreatedInstanceMetadata, fiberObject: HasPropsHandlers<T>, customProps: CustomProps) {
     this.hostInstance = hostInstance
