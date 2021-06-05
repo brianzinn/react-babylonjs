@@ -46,11 +46,14 @@ export const applyUpdateToInstance = (createdInstance: CreatedInstance<any>, upd
       target[update.propertyName] = update.value;
       break;
     case PropChangeType.Observable:
-      const observer: Nullable<Observer<any>> = (target[update.propertyName] as Observable<any>).add(update.value);
-      if(update.propertyName in createdInstance.observers) {
-        (target[update.propertyName] as Observable<any>).remove(createdInstance.observers[update.propertyName]);
+      // adding and remove observer can cause an infinite loop without something like  setTimeout(() => ..., 1);
+      // ie: clicking a button causes a re-render, which causes the callback to change (inline method)...
+      if (update.propertyName in createdInstance.observers) {
+        createdInstance.observers[update.propertyName]!.callback = update.value;
+      } else {
+        const observer: Nullable<Observer<any>> = (target[update.propertyName] as Observable<any>).add(update.value);
+        createdInstance.observers[update.propertyName] = observer;
       }
-      createdInstance.observers[update.propertyName] = observer;
       break;
     case PropChangeType.Method:
       if (typeof target[update.propertyName] === "function") {
@@ -124,7 +127,7 @@ export const applyInitialPropsToCreatedInstance = (createdInstance: CreatedInsta
  */
 export const applyInitialPropsToInstance = (hostInstance: any, props: any): void => {
   // this is a bad cast.  it is here for backwards compatibility with a react-spring dependency that only uses vector/color prop changes.
-  applyPropsToRef({hostInstance} as CreatedInstance<any>, props);
+  applyPropsToRef({ hostInstance } as CreatedInstance<any>, props);
 }
 
 /**
