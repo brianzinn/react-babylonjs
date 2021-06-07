@@ -19,6 +19,7 @@ export { default as VRExperienceHelperLifecycleListener } from './VRExperienceHe
 export { default as NodeLifecycleListener } from './NodeLifecycleListener';
 export { default as BehaviorLifecycleListener } from './BehaviorsLifecycleListener';
 export { default as FallbackLifecycleListener } from './FallbackLifecycleListener';
+export { default as ViewportLifecycleListener } from './ViewportLifecycleListener';
 
 // These are only used by the reconciler.  We export them as strings (as we do for all generated code as well)
 // For declaring your own custom components externally you just need the 'string' version from /exportedCustomComponents

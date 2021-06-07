@@ -132,34 +132,41 @@ const PROPS_EXPORTS: string[] = []; // used to put all props in single import.
 // These are the base/factory classes we used to generate everything.
 let classesOfInterest: Map<String, ClassNameSpaceTuple | undefined> = new Map<String, ClassNameSpaceTuple | undefined>();
 
-// always needed:
-classesOfInterest.set("TransformNode", undefined)
-classesOfInterest.set("AbstractMesh", undefined);
-classesOfInterest.set("Mesh", undefined);
-classesOfInterest.set("AbstractScene", undefined);
-classesOfInterest.set("Scene", undefined);
+const classesToGenerate: String[] = [
+  // always needed
+  "TransformNode",
+  "AbstractMesh",
+  "Mesh",
+  "AbstractScene",
+  "Scene",
 
-// decides what is generated (useful to remove some to speed up debugging)
-classesOfInterest.set("Camera", undefined);
-classesOfInterest.set("MeshBuilder", undefined)
-classesOfInterest.set("Material", undefined);
-classesOfInterest.set("Light", undefined);
-classesOfInterest.set("Control", undefined);
-classesOfInterest.set("Control3D", undefined);
-classesOfInterest.set("GUI3DManager", undefined);
-classesOfInterest.set("ThinTexture", undefined);
-classesOfInterest.set("AdvancedDynamicTexture", undefined);
-classesOfInterest.set("ShadowGenerator", undefined)
-classesOfInterest.set("CascadedShadowGenerator", undefined)
-classesOfInterest.set("EnvironmentHelper", undefined);
-classesOfInterest.set("PhysicsImpostor", undefined);
-classesOfInterest.set("VRExperienceHelper", undefined);
-classesOfInterest.set("DynamicTerrain", undefined);
-classesOfInterest.set("EffectLayer", undefined);
-classesOfInterest.set("Behavior", undefined); // TODO: remove this and use interface
-classesOfInterest.set("PointsCloudSystem", undefined);
-classesOfInterest.set("PostProcessRenderPipeline", undefined);
-classesOfInterest.set("PostProcess", undefined);
+  // decides what is generated (useful to remove some to speed up debugging)
+  "Camera",
+  "MeshBuilder",
+  "Material",
+  "Light",
+  "Control",
+  "Control3D",
+  "GUI3DManager",
+  "ThinTexture",
+  "AdvancedDynamicTexture",
+  "ShadowGenerator",
+  "CascadedShadowGenerator",
+  "EnvironmentHelper",
+  "PhysicsImpostor",
+  "VRExperienceHelper",
+  "DynamicTerrain",
+  "EffectLayer",
+  "Behavior", // TODO: remove this and use interface
+  "PointsCloudSystem",
+  "PostProcessRenderPipeline",
+  "PostProcess",
+
+  "EngineView",
+  "Viewport",
+]
+
+classesToGenerate.forEach(className => classesOfInterest.set(className, undefined));
 
 const readonlyPropertiesToGenerate: Map<string, ClassNameSpaceTuple> = new Map<string, ClassNameSpaceTuple>();
 
@@ -1638,13 +1645,17 @@ const generateCode = async () => {
 
   console.log('Adding single classes:');
   createSingleClass("GUI3DManager", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { isGUI3DControl: true }, () => { return; });
-  createSingleClass("ShadowGenerator", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true }, () => { return; });
-  createSingleClass("CascadedShadowGenerator", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true }, () => { return; });
   createSingleClass("EnvironmentHelper", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { isEnvironment: true });
   createSingleClass("PhysicsImpostor", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true });
   createSingleClass("VRExperienceHelper", generatedCodeSourceFile, generatedPropsSourceFile);
   createSingleClass("DynamicTerrain", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { acceptsMaterials: true });
   createSingleClass("PointsCloudSystem", generatedCodeSourceFile, generatedPropsSourceFile);
+  createSingleClass("Viewport", generatedCodeSourceFile, generatedPropsSourceFile);
+
+  // These "delay creation" we want to also not generate constructors?
+  createSingleClass("ShadowGenerator", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true }, () => { return; });
+  createSingleClass("CascadedShadowGenerator", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true }, () => { return; });
+  createSingleClass("EngineView", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true }, () => { return; });
 
   console.log('Adding read-only property classes:');
   readonlyPropertiesToGenerate.forEach((value: ClassNameSpaceTuple, className: string) => {

@@ -36,7 +36,7 @@ If you want to declaratively use something not listed here create an issue :)  S
 
 > note: for `PostProcess` (and `PostProcessRenderPipeline`) the `ImageProcessingConfiguration` and `PrePassConfiguration` properties can be declared with `assignFrom`.
 
-11. **Others** - adtForMesh, adtFullScreenUi, environmentHelper, physicsImpostor, pointsCloudSystem, shadowGenerator, cascadedShadowGenerator, vrExperienceHelper
+11. **Others** - adtForMesh, adtFullScreenUi, environmentHelper, physicsImpostor, pointsCloudSystem, shadowGenerator / cascadedShadowGenerator, viewport, vrExperienceHelper
 
 ## @babylonjs/gui
 1. GUI3DManager
