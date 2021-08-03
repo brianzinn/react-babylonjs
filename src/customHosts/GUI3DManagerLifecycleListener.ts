@@ -1,7 +1,9 @@
-import { CreatedInstance } from '../CreatedInstance'
-import { AbstractMesh, Nullable } from '@babylonjs/core'
-import { GUI3DManager } from '@babylonjs/gui/3D/gui3DManager'
+import { CreatedInstance } from '../CreatedInstance';
+import { Control3DCustomProps } from '../CustomProps';
+import { AbstractMesh, Nullable } from '@babylonjs/core';
+import { GUI3DManager } from '@babylonjs/gui/3D/gui3DManager';
 import BaseLifecycleListener from './BaseLifecycleListener';
+
 export default class GUI3DManagerLifecycleListener extends BaseLifecycleListener<GUI3DManager, any> {
 
   onMount(instance?: CreatedInstance<GUI3DManager>): void {
@@ -21,35 +23,35 @@ export default class GUI3DManagerLifecycleListener extends BaseLifecycleListener
     // This project before 'react-reconciler' was added from parent up the tree.  'react-reconciler' wants to do the opposite.
     instance.children.forEach((child: CreatedInstance<any>) => {
       if (child.metadata.isGUI3DControl === true) {
-        if (last3DGuiControl.customProps.childrenAsContent === true) {
-          last3DGuiControl.hostInstance.content = child.hostInstance
-          child.state = { added: true, content: true }
+        if ('childrenAsContent' in last3DGuiControl.customProps && (last3DGuiControl.customProps as Control3DCustomProps).childrenAsContent === true) {
+          last3DGuiControl.hostInstance.content = child.hostInstance;
+          child.state = { added: true, content: true };
         } else {
-          last3DGuiControl.hostInstance.addControl(child.hostInstance)
-          child.state = { added: true }
+          last3DGuiControl.hostInstance.addControl(child.hostInstance);
+          child.state = { added: true };
 
           // NOTE: this must be called after .addControl(child.hostInstance).
-          if (child.customProps.linkToTransformNodeByName) {
-            const toLinkTo: Nullable<AbstractMesh> = this.scene.getMeshByName(child.customProps.linkToTransformNodeByName)
+          if ('linkToTransformNodeByName' in child.customProps && (child.customProps as Control3DCustomProps).linkToTransformNodeByName) {
+            const toLinkTo: Nullable<AbstractMesh> = this.scene.getMeshByName((child.customProps as Control3DCustomProps).linkToTransformNodeByName!);
             if (toLinkTo !== null) {
-              child.hostInstance.linkToTransformNode(toLinkTo)
+              child.hostInstance.linkToTransformNode(toLinkTo);
             } else {
               console.error(
                 'linkToTransformNode cannot find ',
-                instance.customProps.linkToTransformNodeByName,
+                (instance.customProps as Control3DCustomProps).linkToTransformNodeByName,
                 ' and does not have a scene listener for added meshes.  Declare earlier or add an issue on github.'
-              )
+              );
             }
           }
         }
       }
 
-      if (child.state && child.state.added === true && child.customProps.onControlAdded) {
-        child.customProps.onControlAdded(child);
+      if (child.state && child.state.added === true && (child.customProps as Control3DCustomProps).onControlAdded) {
+        (child.customProps as Control3DCustomProps).onControlAdded!(child);
       }
 
       if (!child.state || child.state.content !== true) {
-        const last3d: CreatedInstance<any> = child.metadata.isGUI3DControl === true ? child : last3DGuiControl
+        const last3d: CreatedInstance<any> = child.metadata.isGUI3DControl === true ? child : last3DGuiControl;
         this.addControls(child, last3d);
       }
     })

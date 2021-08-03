@@ -1,5 +1,5 @@
 import { Key, ReactNode, Ref } from "react";
-import { CustomProps } from "./CreatedInstance";
+import { ADTCustomProps, Control3DCustomProps, CustomProps, MaterialCustomProps, ShadowGeneratorCustomProps, VirtualKeyboardCustomProps, VRExperienceHelperCustomProps } from "./CustomProps";
 import { DynamicTerrain as ExtensionsDynamicTerrain } from "./extensions/DynamicTerrain";
 import { AbstractScene as BabylonjsCoreAbstractScene } from "@babylonjs/core/abstractScene";
 import { Scene as BabylonjsCoreScene } from "@babylonjs/core/scene";
@@ -363,7 +363,7 @@ declare global {
             selectionPanel: FiberSelectionPanelProps & FiberSelectionPanelPropsCtor & BabylonNode<BabylonjsGuiSelectionPanel>;
             scrollViewer: FiberScrollViewerProps & FiberScrollViewerPropsCtor & BabylonNode<BabylonjsGuiScrollViewer>;
             stackPanel: FiberStackPanelProps & FiberStackPanelPropsCtor & BabylonNode<BabylonjsGuiStackPanel>;
-            virtualKeyboard: FiberVirtualKeyboardProps & FiberVirtualKeyboardPropsCtor & BabylonNode<BabylonjsGuiVirtualKeyboard>;
+            virtualKeyboard: FiberVirtualKeyboardProps & FiberVirtualKeyboardPropsCtor & BabylonNode<BabylonjsGuiVirtualKeyboard> & VirtualKeyboardCustomProps;
             'babylon-ellipse': FiberEllipseProps & FiberEllipsePropsCtor & BabylonNode<BabylonjsGuiEllipse>;
             grid: FiberGridProps & FiberGridPropsCtor & BabylonNode<BabylonjsGuiGrid>;
             scrollViewerWindow: Fiber_ScrollViewerWindowProps & Fiber_ScrollViewerWindowPropsCtor & BabylonNode<BabylonjsGui_ScrollViewerWindow>;
@@ -413,7 +413,7 @@ declare global {
             multiviewRenderTarget: FiberMultiviewRenderTargetProps & FiberMultiviewRenderTargetPropsCtor & BabylonNode<BabylonjsCoreMultiviewRenderTarget>;
             videoTexture: FiberVideoTextureProps & FiberVideoTexturePropsCtor & BabylonNode<BabylonjsCoreVideoTexture>;
             dynamicTexture: FiberDynamicTextureProps & FiberDynamicTexturePropsCtor & BabylonNode<BabylonjsCoreDynamicTexture>;
-            advancedDynamicTexture: FiberAdvancedDynamicTextureProps & FiberAdvancedDynamicTexturePropsCtor & BabylonNode<BabylonjsGuiAdvancedDynamicTexture>;
+            advancedDynamicTexture: FiberAdvancedDynamicTextureProps & FiberAdvancedDynamicTexturePropsCtor & BabylonNode<BabylonjsGuiAdvancedDynamicTexture> & ADTCustomProps;
             adtForMesh: FiberAdvancedDynamicTextureProps & FiberADTForMeshPropsCtor & BabylonNode<BabylonjsGuiAdvancedDynamicTexture>;
             adtForMeshTexture: FiberAdvancedDynamicTextureProps & FiberADTForMeshTexturePropsCtor & BabylonNode<BabylonjsGuiAdvancedDynamicTexture>;
             adtFullscreenUi: FiberAdvancedDynamicTextureProps & FiberADTFullscreenUIPropsCtor & BabylonNode<BabylonjsGuiAdvancedDynamicTexture>;
@@ -1450,7 +1450,7 @@ export type FiberMaterialProps = {
     uniqueId?: number;
     wireframe?: boolean;
     zOffset?: number;
-} & CustomProps;
+} & MaterialCustomProps;
 export type FiberMaterialPropsCtor = {
     name: string;
     doNotAdd?: boolean;
@@ -2309,7 +2309,7 @@ export type FiberControl3DProps = {
     'scaling-x'?: number;
     'scaling-y'?: number;
     'scaling-z'?: number;
-} & CustomProps;
+} & Control3DCustomProps;
 export type FiberControl3DPropsCtor = {
     name?: string;
 };
@@ -3600,7 +3600,7 @@ export type FiberVRExperienceHelperProps = {
     webVROptions?: BabylonjsCoreVRExperienceHelperOptions;
     xr?: BabylonjsCoreWebXRDefaultExperience;
     xrTestDone?: boolean;
-} & CustomProps;
+} & VRExperienceHelperCustomProps;
 export type FiberVRExperienceHelperPropsCtor = {
     webVROptions?: BabylonjsCoreVRExperienceHelperOptions;
 };
@@ -3715,7 +3715,7 @@ export type FiberShadowGeneratorProps = {
     useKernelBlur?: boolean;
     usePercentageCloserFiltering?: boolean;
     usePoissonSampling?: boolean;
-} & CustomProps;
+} & ShadowGeneratorCustomProps;
 export type FiberShadowGeneratorPropsCtor = {
     mapSize: number;
     light?: BabylonjsCoreIShadowLight;

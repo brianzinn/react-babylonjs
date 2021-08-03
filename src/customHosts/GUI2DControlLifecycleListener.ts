@@ -3,6 +3,7 @@ import { VirtualKeyboard } from '@babylonjs/gui/2D/controls/virtualKeyboard';
 
 import BaseLifecycleListener from './BaseLifecycleListener';
 import { CreatedInstance } from '../CreatedInstance';
+import { VirtualKeyboardCustomProps } from '../CustomProps';
 
 export default class GUI2DControlLifecycleListener extends BaseLifecycleListener<Control, any> {
 
@@ -12,7 +13,7 @@ export default class GUI2DControlLifecycleListener extends BaseLifecycleListener
       return;
     }
 
-    if (instance.customProps.defaultKeyboard === true && instance.hostInstance instanceof VirtualKeyboard) {
+    if ((instance.customProps as VirtualKeyboardCustomProps).defaultKeyboard === true && instance.hostInstance instanceof VirtualKeyboard) {
       // TODO: Generate from factory method.  VirtualKeyboard.CreateDefaultLayout()
       instance.hostInstance.addKeysRow(['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '\u2190']);
       instance.hostInstance.addKeysRow(['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p']);
@@ -56,14 +57,6 @@ export default class GUI2DControlLifecycleListener extends BaseLifecycleListener
         child.state = { added: true };
       }
     })
-
-    if (instance.customProps.connectControlNames !== undefined && Array.isArray(instance.customProps.connectControlNames)) {
-      // let controlNames: string[] = instance.customProps.connectControlNames
-      let root = instance;
-      while (root.parent !== null) {
-        root = root.parent;
-      }
-    }
 
     instance.children.forEach(child => {
       this.addControls(child);

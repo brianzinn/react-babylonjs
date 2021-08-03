@@ -1,17 +1,18 @@
-import { Color3, StandardMaterial, Mesh } from '@babylonjs/core'
+import { Color3, StandardMaterial, Mesh } from '@babylonjs/core';
 import { AdvancedDynamicTexture } from '@babylonjs/gui/2D/advancedDynamicTexture';
 
 import BaseLifecycleListener from './BaseLifecycleListener';
-import { CreatedInstance } from '../CreatedInstance'
-import { FiberAdvancedDynamicTextureProps } from '../generatedProps'
+import { ADTCustomProps, VirtualKeyboardCustomProps } from '../CustomProps';
+import { CreatedInstance } from '../CreatedInstance';
+import { FiberAdvancedDynamicTextureProps } from '../generatedProps';
 
 export default class AdvancedDynamicTextureLifecycleListener extends BaseLifecycleListener<AdvancedDynamicTexture, FiberAdvancedDynamicTextureProps> {
 
   onMount(instance: CreatedInstance<AdvancedDynamicTexture>): void {
-    instance.state = {added: true}; // allow children to attach
+    instance.state = { added: true }; // allow children to attach
     this.addControls(instance);
 
-    if (instance.customProps.createForParentMesh) {
+    if ((instance.customProps as ADTCustomProps).createForParentMesh) {
       // console.log('for parent mesh', instance.parent ? instance.parent.babylonJsObject : 'error: no parent object')
 
       let mesh: Mesh = instance.parent!.hostInstance; // should crawl parent hierarchy for a mesh
@@ -22,7 +23,7 @@ export default class AdvancedDynamicTextureLifecycleListener extends BaseLifecyc
       material.diffuseColor = Color3.Black();
       material.specularColor = Color3.Black();
 
-      if(instance.hostInstance === undefined) {
+      if (instance.hostInstance === undefined) {
         console.error('missing instance');
       } else {
         if (this.props.hasAlpha) {
@@ -39,7 +40,7 @@ export default class AdvancedDynamicTextureLifecycleListener extends BaseLifecyc
 
       // set to true unless explicitly not wanted.
       // connects the texture to a hosting mesh to enable interactions
-      let supportPointerMove = (this.props as any).supportPointerMove !== false ? true : false
+      let supportPointerMove = (this.props as any).supportPointerMove !== false ? true : false;
 
       instance.hostInstance!.attachToMesh(mesh, supportPointerMove);
     }
@@ -55,8 +56,8 @@ export default class AdvancedDynamicTextureLifecycleListener extends BaseLifecyc
       }
     })
 
-    if (instance.customProps.connectControlNames !== undefined && Array.isArray(instance.customProps.connectControlNames)) {
-      let controlNames: string[] = instance.customProps.connectControlNames;
+    if ((instance.customProps as VirtualKeyboardCustomProps).connectControlNames !== undefined && Array.isArray((instance.customProps as VirtualKeyboardCustomProps).connectControlNames)) {
+      let controlNames: string[] = (instance.customProps as VirtualKeyboardCustomProps).connectControlNames!;
       let root = instance;
       while (root.parent !== null) {
         root = root.parent;
@@ -79,11 +80,11 @@ export default class AdvancedDynamicTextureLifecycleListener extends BaseLifecyc
       keyboard.hostInstance.connect(searchInstance.hostInstance);
     }
 
-    searchInstance.children.forEach(child => this.connect(keyboard,child,controlNames));
+    searchInstance.children.forEach(child => this.connect(keyboard, child, controlNames));
   }
 }
 
 /**
  * This is attached by convention in react-reconciler HostConfig.
  */
-export class ADTFullscreenUILifecycleListener extends AdvancedDynamicTextureLifecycleListener {/* empty */}
+export class ADTFullscreenUILifecycleListener extends AdvancedDynamicTextureLifecycleListener {/* empty */ }

@@ -1,9 +1,9 @@
-import BaseLifecycleListener from './BaseLifecycleListener'
-import { CreatedInstance } from '../CreatedInstance'
-import { assignProperty } from '../helper/property'
-import { FiberViewportProps } from '../generatedProps'
-import { Viewport } from '@babylonjs/core/Maths/math.viewport'
-import { Camera } from '@babylonjs/core/Cameras/camera'
+import BaseLifecycleListener from './BaseLifecycleListener';
+import { CreatedInstance } from '../CreatedInstance';
+import { assignProperty } from '../helper/property';
+import { FiberViewportProps } from '../generatedProps';
+import { Viewport } from '@babylonjs/core/Maths/math.viewport';
+import { Camera } from '@babylonjs/core/Cameras/camera';
 
 export default class ViewportLifecycleListener extends BaseLifecycleListener<Viewport, FiberViewportProps> {
   onMount(instance?: CreatedInstance<Viewport>) {
@@ -27,7 +27,7 @@ export default class ViewportLifecycleListener extends BaseLifecycleListener<Vie
       } else {
         console.log('not a camera', JSON.stringify(instance.hostInstance), tmp.metadata);
       }
-      tmp = tmp.parent
+      tmp = tmp.parent;
     }
   }
 }

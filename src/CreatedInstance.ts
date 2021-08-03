@@ -1,5 +1,6 @@
 import { Observer } from "@babylonjs/core/Misc/observable"
 import { Nullable } from "@babylonjs/core/types";
+import { CustomProps } from "./CustomProps";
 import { LifecycleListener } from "./LifecycleListener"
 import { HasPropsHandlers } from "./PropsHandler"
 
@@ -22,70 +23,6 @@ export interface InstanceMetadataParameter {
   isEffectLayer?: boolean;
   isBehavior?: boolean;
 
-}
-
-/**
- * Props passed from controls that are not part of generated props and we are handling ourselves.
- * 
- * TODO: move props that only apply to specific objects to be only for those ones (ie: defaultKeyboard, shadowCasters, etc.)
- */
-export type CustomProps = {
-  /**
-   * Only applicable for AdvanceDynamicTexture to attach to a mesh.  ADT.CreateForMesh(parent, ...) (TODO: add 'ByName')
-   */
-  createForParentMesh?: boolean
-  /**
-   * for 3D control ".content" (which is 2D)
-   */
-  childrenAsContent?: boolean
-  /**
-   * for VirtualKeyboard (2d input control names)
-   */
-  connectControlNames?: string[]
-  /**
-   * for VirtualKeyboard
-   */
-  defaultKeyboard?: boolean
-
-  /**
-   * for Control3D, which has position, but not other properties like rotation.
-   */
-  linkToTransformNodeByName?: string
-  /**
-   * List of mesh names to search for, which will be added as shadow casters.
-   */
-  shadowCasters?: string[]
-  /**
-   * List of mesh names to exclude from casting shadows (all other meshes by name will cast shadows)
-   */
-  shadowCastersExcluding?: string[]
-  /**
-   * For attaching the same material multiple meshes (by mesh name)
-   */
-  attachToMeshesByName?: string[]
-  onControlAdded?: (instance: CreatedInstance<any>) => void
-  /**
-   * Assign to this property on the parent.  Parent property is cleared on umnount.
-   */
-  assignTo?: string | string[]
-  /**
-   * Assigned from this existing property on the parent.  Will assign this host element to a parent property that contains an existing instance (no new instances created and no dispose called).
-   */
-  assignFrom?: string
-  /**
-   * for VRExperienceHelper
-   */
-  enableInteractions?: boolean
-  /**
-   * allows components to use instances of objects created non-declaratively
-   */
-  fromInstance?: any
-  /**
-   * To automatically dispose of the underlying object when "fromInstance" is used.  Is not applied for regularly instanced objects.
-   * 
-   * Default: false
-   */
-  disposeInstanceOnUnmount?: boolean
 }
 
 export interface CreatedInstanceMetadata extends InstanceMetadataParameter {

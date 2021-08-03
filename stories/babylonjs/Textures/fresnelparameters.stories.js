@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Engine, Scene, Skybox } from '../../../dist/react-babylonjs'
 import { Vector3, Color3 } from '@babylonjs/core/Maths/math'
 import '../../style.css'
@@ -10,7 +10,19 @@ export default { title: 'Textures' };
  * Insipration Playground: https://www.babylonjs-playground.com/#AQZJ4C#0
  */
 const WithFresnelParameters= () => {
-    let sunnyDayRootUrl = 'assets/textures/TropicalSunnyDay'
+    let sunnyDayRootUrl = 'assets/textures/TropicalSunnyDay';
+    let pointLightRef = useRef();
+
+    const [pointLightDiffuse, setPointLightDiffuse] = useState(() => new Color3(1, 0.5, 0.5));
+
+    useEffect(() => {
+      console.log('changing R every second');
+      setInterval(() => {
+        
+        setPointLightDiffuse(new Color3((pointLightDiffuse.r + 0.1) % 1, 0.5, 0.5));
+      }, 1000);
+    }, [])
+
     return (
         <Engine antialias adaptToDeviceRatio canvasId='babylonJS'>
         <Scene>
@@ -20,7 +32,7 @@ const WithFresnelParameters= () => {
                 setPosition={[new Vector3(-15, 3, 0)]}
             />
 
-            <pointLight name="Omni0" position={new Vector3(-17.6, 18.8, -49.9)} />
+            <pointLight ref={pointLightRef} name="Omni0" position={new Vector3(-17.6, 18.8, -49.9)} diffuse={pointLightDiffuse} />
             <Skybox rootUrl={sunnyDayRootUrl} />
 
             <sphere name='sphere1' position={Vector3.Zero()} segments={32} diameter={3}>

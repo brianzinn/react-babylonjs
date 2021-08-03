@@ -4,7 +4,8 @@ import * as BABYLONEXT from './extensions';
 import * as GENERATED from './generatedCode';
 import * as CUSTOM_HOSTS from './customHosts';
 
-import { CreatedInstance, CreatedInstanceMetadata, CustomProps } from './CreatedInstance';
+import { CreatedInstance, CreatedInstanceMetadata} from './CreatedInstance';
+import { ADTCustomProps, Control3DCustomProps, CustomProps, MaterialCustomProps, ShadowGeneratorCustomProps, VirtualKeyboardCustomProps } from './CustomProps';
 import { HasPropsHandlers, PropertyUpdate, UpdatePayload, PropsHandler, CustomPropsHandler, PropChangeType } from './PropsHandler';
 import { LifecycleListener } from "./LifecycleListener";
 import { GeneratedParameter, CreationType } from './codeGenerationDescriptors';
@@ -332,10 +333,11 @@ const ReactBabylonJSHostConfig: HostConfig<
     let metadata: CreatedInstanceMetadata;
     let babylonObject: any | undefined = undefined
 
-    // TODO: Add these to just the 'type' of component they apply to.
-    let customProps: CustomProps = {
+    let customProps: CustomProps & (Control3DCustomProps | ADTCustomProps | VirtualKeyboardCustomProps | ShadowGeneratorCustomProps | MaterialCustomProps) = {
+      // Control3D
       childrenAsContent: props.childrenAsContent === true, // ie: Button3D.container instead of .addControl()
-      createForParentMesh: props.createForParentMesh === true, // AdvancedDynamicTexture attached to parent mesh (TODO: add forMeshByName="")
+      // AdvancedDynamicTexture
+      createForParentMesh: props.createForParentMesh === true,
       onControlAdded: typeof props.onControlAdded === "function" ? props.onControlAdded : undefined,
       connectControlNames: props.connectControlNames, // VirtualKeyboard to connect inputs by name.
       defaultKeyboard: props.defaultKeyboard === true,
@@ -346,7 +348,7 @@ const ReactBabylonJSHostConfig: HostConfig<
       assignTo: props.assignTo, // here a lifecycle listener can dynamically attach to another property (ie: Mesh to DynamicTerrain -> 'mesh.material')
       assignFrom: props.assignFrom,
       disposeInstanceOnUnmount: props.assignFrom === undefined
-    }
+    };
 
     if (customProps.assignFrom !== undefined) {
       // will be assigned once parented in lifecyclelistener

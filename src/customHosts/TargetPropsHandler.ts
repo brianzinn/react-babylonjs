@@ -8,7 +8,7 @@ export default class TargetPropsHandler implements PropsHandler<any> {
   constructor(private scene: Scene) { }
 
   getPropertyUpdates(oldProps: any, newProps: any): UpdatePayload {
-    const propertyUpdates: PropertyUpdate[] = []
+    const propertyUpdates: PropertyUpdate[] = [];
     if (!oldProps.lockedTargetMeshName || oldProps.lockedTargetMeshName !== newProps.lockedTargetMeshName) {
       if (typeof newProps.lockedTargetMeshName === 'string') {
         propertyUpdates.push({

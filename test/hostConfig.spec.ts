@@ -1,7 +1,8 @@
 import assert from 'assert';
 import sinon, { SinonSpy } from 'sinon';
 import { Fiber } from 'react-reconciler';
-import { CreatedInstance, CustomProps } from '../src/CreatedInstance';
+import { CreatedInstance } from '../src/CreatedInstance';
+import { CustomProps } from '../src/CustomProps';
 import renderer, { Container } from '../src/ReactBabylonJSHostConfig';
 import { Engine, FreeCamera, Mesh, NullEngine, PBRMaterial, Scene, StandardMaterial, Vector3 } from '@babylonjs/core';
 import { CameraLifecycleListener, FallbackLifecycleListener, NodeLifecycleListener } from '../src/customHosts';

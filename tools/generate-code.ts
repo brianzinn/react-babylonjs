@@ -43,9 +43,9 @@ import { InstanceMetadataParameter } from "../src/CreatedInstance"
 const path = require("path");
 import camelCase from "lodash.camelcase"
 
-const ReactReconcilerCreatedInstanceMetadata = "CreatedInstanceMetadata";
-const PropertyUpdateInterface = "PropertyUpdate";
-const ClassNamesPrefix = 'Fiber';
+const REACT_RECONCILER_CREATED_INSTANCE_METADATA = "CreatedInstanceMetadata";
+const PROPERTY_UPDATE_INTERFACE = "PropertyUpdate";
+const CLASS_NAME_PREFIX = 'Fiber';
 
 type ClassNameSpaceTuple = {
   classDeclaration: ClassDeclaration,
@@ -72,6 +72,8 @@ const LATE_BOUND_CONSTRUCTOR_PARAMETERS: Map<string, string[]> = new Map<string,
 console.log('ver:', ts.version);
 
 const CONFLICT_INTRINSIC_ELEMENTS = ['Button', 'Ellipse', 'Image', 'Line', 'Polygon'];
+
+const ALL_CUSTOM_PROPS = ['ADTCustomProps', 'Control3DCustomProps', 'CustomProps', 'MaterialCustomProps', 'ShadowGeneratorCustomProps', 'VirtualKeyboardCustomProps', 'VRExperienceHelperCustomProps'];
 
 // would be good to check JSX.IntrinsicElements with 'keyof', but it's erased at runtime (doesn't work on dynamic strings)
 // fixes TS warning: Property 'polygon' must be of type SVGProps<SVGPolygonElement>, but here has type..., so we are skipping to generate polygon for now.
@@ -101,12 +103,19 @@ const addHostElement = (className: string, babylonjsClassDeclaration: ClassDecla
 
     const moduleDeclaration = getModuleDeclarationFromClassDeclaration(babylonjsClassDeclaration);
 
+    let classPropIntersection = intersectionType(
+      intersectionType(`${CLASS_NAME_PREFIX}${babylonjsClassDeclaration.getName()}Props`, `${CLASS_NAME_PREFIX}${className}PropsCtor`),
+      `BabylonNode<${moduleDeclaration.importAlias}>`
+    );
+
+    // adding props that are not original babylonjs
+    if (additionalCustomProps[`${CLASS_NAME_PREFIX}${className}`]) {
+      classPropIntersection = intersectionType(classPropIntersection, additionalCustomProps[`${CLASS_NAME_PREFIX}${className}`]);
+    }
+
     INTRINSIC_ELEMENTS.addProperty({
       name: classToIntrinsic(className),
-      type: intersectionType(
-        intersectionType(`${ClassNamesPrefix}${babylonjsClassDeclaration.getName()}Props`, `${ClassNamesPrefix}${className}PropsCtor`),
-        `BabylonNode<${moduleDeclaration.importAlias}>`
-      )
+      type:  classPropIntersection
     });
   }
 }
@@ -128,6 +137,14 @@ const monkeyPatchInterfaces: Map<string, InterfaceDeclaration[]> = new Map<strin
 const enumMap: Map<string, string> = new Map<string, string>();
 let ENUMS_LIST: string[] = [];
 const PROPS_EXPORTS: string[] = []; // used to put all props in single import.
+
+/**
+ * CustomProps not from @babylonjs/* modules, but custom for this project (used when not applied to entire inheritance chain).
+ */
+const additionalCustomProps: Record<string, string> = {
+  [`${CLASS_NAME_PREFIX}AdvancedDynamicTexture`]: 'ADTCustomProps',
+  [`${CLASS_NAME_PREFIX}VirtualKeyboard`]: 'VirtualKeyboardCustomProps',
+};
 
 // These are the base/factory classes we used to generate everything.
 let classesOfInterest: Map<String, ClassNameSpaceTuple | undefined> = new Map<String, ClassNameSpaceTuple | undefined>();
@@ -409,7 +426,7 @@ const addProject = (packageNames: string[], files: string[], sourceFiles: Source
 const addMetadata = (classDeclaration: ClassDeclaration, originalClassDeclaration?: ClassDeclaration, metadata?: InstanceMetadataParameter) => {
   const createInfoProperty = classDeclaration.addProperty({
     name: 'Metadata',
-    type: ReactReconcilerCreatedInstanceMetadata,
+    type: REACT_RECONCILER_CREATED_INSTANCE_METADATA,
     scope: Scope.Public,
     isStatic: true,
     isReadonly: true
@@ -461,7 +478,7 @@ const createFactoryClass = (factoryClassName: string, prefix: string, metadata: 
 const addClassDeclarationFromFactoryMethod = (generatedCodeSourceFile: SourceFile, className: string, classDeclaration: ClassDeclaration, factoryMethod: MethodDeclaration, extra?: (cd: ClassDeclaration) => void) => {
 
   const newClassDeclaration = generatedCodeSourceFile.addClass({
-    name: `${ClassNamesPrefix}${className}`,
+    name: `${CLASS_NAME_PREFIX}${className}`,
     isExported: true
   });
 
@@ -488,12 +505,12 @@ const addClassDeclarationFromFactoryMethod = (generatedCodeSourceFile: SourceFil
 
   newClassDeclaration.addProperty({
     name: propsHandlersPropertyName,
-    type: `PropsHandler<${ClassNamesPrefix}${propsHandlerBaseName}Props>[]`, // xxx
+    type: `PropsHandler<${CLASS_NAME_PREFIX}${propsHandlerBaseName}Props>[]`, // xxx
     scope: Scope.Private
   })
 
   // NOTE: remove <T, U> of ${newClassModuleDeclaration.importAlias}
-  newClassDeclaration.addImplements(`HasPropsHandlers<${ClassNamesPrefix}${propsHandlerBaseName}Props>`)
+  newClassDeclaration.addImplements(`HasPropsHandlers<${CLASS_NAME_PREFIX}${propsHandlerBaseName}Props>`)
 
   const newConstructor: ConstructorDeclaration = newClassDeclaration.addConstructor();
   newConstructor.setBodyText((writer: CodeBlockWriter) => {
@@ -502,7 +519,7 @@ const addClassDeclarationFromFactoryMethod = (generatedCodeSourceFile: SourceFil
     const propsHandlers: string[] = [];
     let handlerClassDeclaration: ClassDeclaration | undefined = classDeclaration;
     while (handlerClassDeclaration) {
-      propsHandlers.push(`new ${ClassNamesPrefix}${handlerClassDeclaration.getName()}PropsHandler()`)
+      propsHandlers.push(`new ${CLASS_NAME_PREFIX}${handlerClassDeclaration.getName()}PropsHandler()`)
       handlerClassDeclaration = handlerClassDeclaration.getBaseClass()
     }
     writer.writeLine(propsHandlers.join('\n,'));
@@ -511,7 +528,7 @@ const addClassDeclarationFromFactoryMethod = (generatedCodeSourceFile: SourceFil
 
   let getPropsHandlersMethod = newClassDeclaration.addMethod({
     name: "getPropsHandlers",
-    returnType: `PropsHandler<${ClassNamesPrefix}${propsHandlerBaseName}Props>[]`
+    returnType: `PropsHandler<${CLASS_NAME_PREFIX}${propsHandlerBaseName}Props>[]`
   });
 
   getPropsHandlersMethod.setBodyText(writer => {
@@ -524,7 +541,7 @@ const addClassDeclarationFromFactoryMethod = (generatedCodeSourceFile: SourceFil
   });
   addPropertyHandlerMethod.addParameter({
     name: 'propHandler',
-    type: `PropsHandler<${ClassNamesPrefix}${propsHandlerBaseName}Props>`
+    type: `PropsHandler<${CLASS_NAME_PREFIX}${propsHandlerBaseName}Props>`
   })
 
   addPropertyHandlerMethod.setBodyText(writer => {
@@ -797,17 +814,17 @@ const writePropertyAsUpdateFunction = (propsProperties: OptionalKind<PropertySig
  * @param generatedPropsSourceFile
  * @param extra
  */
-const createClassDeclaration = (classDeclaration: ClassDeclaration, rootBaseClass: ClassDeclaration, generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile, extra?: (newClassDeclaration: ClassDeclaration, originalClassDeclaration: ClassDeclaration) => void): ClassDeclaration => {
+const createClassDeclaration = (classDeclaration: ClassDeclaration, rootBaseClass: ClassDeclaration, generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile, extra?: (newClassDeclaration: ClassDeclaration, originalClassDeclaration: ClassDeclaration) => void, customProps: string = 'CustomProps'): ClassDeclaration => {
   const baseClass: ClassDeclaration | undefined = classDeclaration.getBaseClass(); // no mix-ins in BabylonJS AFAIK, but would otherwise use baseTypes()
   const className: string = classDeclaration.getName()!;
 
   const importedClassDeclaration = getModuleDeclarationFromClassDeclaration(classDeclaration);
   addNamedImportToFile(importedClassDeclaration, [generatedCodeSourceFile, generatedPropsSourceFile], true);
 
-  addPropsAndHandlerClasses(generatedCodeSourceFile, generatedPropsSourceFile, className, importedClassDeclaration, getInstanceProperties(classDeclaration), getInstanceSetMethods(classDeclaration), baseClass);
+  addPropsAndHandlerClasses(generatedCodeSourceFile, generatedPropsSourceFile, className, importedClassDeclaration, getInstanceProperties(classDeclaration), getInstanceSetMethods(classDeclaration), baseClass, customProps);
 
   const newClassDeclaration = generatedCodeSourceFile.addClass({
-    name: `${ClassNamesPrefix}${className}`,
+    name: `${CLASS_NAME_PREFIX}${className}`,
     isExported: true
   });
 
@@ -833,11 +850,11 @@ const createClassDeclaration = (classDeclaration: ClassDeclaration, rootBaseClas
 
   newClassDeclaration.addProperty({
     name: propsHandlersPropertyName,
-    type: `PropsHandler<${ClassNamesPrefix}${rootBaseClassName}Props>[]`,
+    type: `PropsHandler<${CLASS_NAME_PREFIX}${rootBaseClassName}Props>[]`,
     scope: Scope.Private
   })
 
-  newClassDeclaration.addImplements(`HasPropsHandlers<${ClassNamesPrefix}${rootBaseClassName}Props>`)
+  newClassDeclaration.addImplements(`HasPropsHandlers<${CLASS_NAME_PREFIX}${rootBaseClassName}Props>`)
 
   const newConstructor: ConstructorDeclaration = newClassDeclaration.addConstructor();
   newConstructor.setBodyText((writer: CodeBlockWriter) => {
@@ -846,7 +863,7 @@ const createClassDeclaration = (classDeclaration: ClassDeclaration, rootBaseClas
 
     let baseDeclaration: ClassDeclaration | undefined = classDeclaration
     while (baseDeclaration !== undefined) {
-      propsHandlers.push(`new ${ClassNamesPrefix}${baseDeclaration.getName()}PropsHandler()`)
+      propsHandlers.push(`new ${CLASS_NAME_PREFIX}${baseDeclaration.getName()}PropsHandler()`)
 
       baseDeclaration = baseDeclaration.getBaseClass()
     }
@@ -857,7 +874,7 @@ const createClassDeclaration = (classDeclaration: ClassDeclaration, rootBaseClas
 
   let getPropsHandlersMethod = newClassDeclaration.addMethod({
     name: "getPropsHandlers",
-    returnType: `PropsHandler<${ClassNamesPrefix}${rootBaseClassName}Props>[]`
+    returnType: `PropsHandler<${CLASS_NAME_PREFIX}${rootBaseClassName}Props>[]`
   });
 
   getPropsHandlersMethod.setBodyText(writer => {
@@ -870,7 +887,7 @@ const createClassDeclaration = (classDeclaration: ClassDeclaration, rootBaseClas
   });
   addPropertyHandlerMethod.addParameter({
     name: 'propHandler',
-    type: `PropsHandler<${ClassNamesPrefix}${rootBaseClassName}Props>`
+    type: `PropsHandler<${CLASS_NAME_PREFIX}${rootBaseClassName}Props>`
   })
 
   addPropertyHandlerMethod.setBodyText(writer => {
@@ -936,29 +953,29 @@ const isQuestionToken = (node: Node<ts.Node>): boolean => {
  * The odd parameters here 'classNameToGenerate' and 'classNameBabylon' are because we are also inventing classes not based on real BabylonJS objects (ie: Box, Sphere are actually Mesh)
  * It probably looks like we should just pass along the ClassDeclaration...
  */
-const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile, classNameToGenerate: string, babylonClassDeclaration: GeneratedModuleDeclaration, propertiesToAdd: (PropertyDeclaration | PropertySignature | SetAccessorDeclaration)[], setMethods: (MethodDeclaration | MethodSignature)[], baseClass: ClassDeclaration | undefined): void => {
+const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile, classNameToGenerate: string, babylonClassDeclaration: GeneratedModuleDeclaration, propertiesToAdd: (PropertyDeclaration | PropertySignature | SetAccessorDeclaration)[], setMethods: (MethodDeclaration | MethodSignature)[], baseClass: ClassDeclaration | undefined, customProps: string = 'CustomProps'): void => {
   // console.log('addpropshandlers1:', classNameToGenerate, babylonClassDeclaration.className, babylonClassDeclaration.importAlias);
 
   const typeProperties: OptionalKind<PropertySignatureStructure>[] = []
 
   const classDeclarationPropsHandler = generatedCodeSourceFile.addClass({
-    name: `${ClassNamesPrefix}${classNameToGenerate}PropsHandler`,
+    name: `${CLASS_NAME_PREFIX}${classNameToGenerate}PropsHandler`,
     isExported: true
   });
 
   // NOTE: removed ${${babylonClassDeclaration.importAlias}} from PropsHandler<T, U>.
-  classDeclarationPropsHandler.addImplements(`PropsHandler<${ClassNamesPrefix}${classNameToGenerate}Props>`)
+  classDeclarationPropsHandler.addImplements(`PropsHandler<${CLASS_NAME_PREFIX}${classNameToGenerate}Props>`)
 
   let getPropertyUpdatesMethod = classDeclarationPropsHandler.addMethod({
     name: "getPropertyUpdates",
-    returnType: `${PropertyUpdateInterface}[] | null`
+    returnType: `${PROPERTY_UPDATE_INTERFACE}[] | null`
   });
   getPropertyUpdatesMethod.addParameters([{
     name: "oldProps",
-    type: `${ClassNamesPrefix}${classNameToGenerate}Props`
+    type: `${CLASS_NAME_PREFIX}${classNameToGenerate}Props`
   }, {
     name: "newProps",
-    type: `${ClassNamesPrefix}${classNameToGenerate}Props`
+    type: `${CLASS_NAME_PREFIX}${classNameToGenerate}Props`
   }])
 
   getPropertyUpdatesMethod.setBodyText((writer: CodeBlockWriter) => {
@@ -1172,8 +1189,8 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
   })
 
   // this is temporary, where we give ALL classes these CustomProps.  Will be addressed (ideally we leave intersectsWith here 'undefined' and add ONLY valid props)
-  const intersectsWith = baseClass === undefined ? 'CustomProps' : baseClass.getName();
-  const propsClassName = `${ClassNamesPrefix}${classNameToGenerate}Props`;
+  const intersectsWith = baseClass === undefined ? customProps : baseClass.getName();
+  const propsClassName = `${CLASS_NAME_PREFIX}${classNameToGenerate}Props`;
 
   PROPS_EXPORTS.push(propsClassName);
   writeTypeAlias(generatedPropsSourceFile, propsClassName, typeProperties.sort((a, b) => 
@@ -1185,9 +1202,9 @@ const writeTypeAlias = (file: SourceFile, name: string, typeProperties: Optional
   const { intersectionType, objectType } = Writers;
 
   // bad hack to get custom props through.  will address soon...
-  const intersectsWithType = intersectsWith === undefined
+  const intersectsWithType = (intersectsWith === undefined)
     ? undefined
-    : intersectsWith === 'CustomProps' ? 'CustomProps' : `${ClassNamesPrefix}${intersectsWith}Props`;
+    : ALL_CUSTOM_PROPS.indexOf(intersectsWith) !== -1 ? intersectsWith : `${CLASS_NAME_PREFIX}${intersectsWith}Props`;
 
   const propertiesObject = objectType({ properties: typeProperties })
   const aliasType: WriterFunction = (intersectsWithType !== undefined)
@@ -1285,7 +1302,7 @@ const addCreateInfoFromConstructor = (sourceClass: ClassDeclaration, targetClass
 
   ctorArgsProperty.setInitializer(JSON.stringify(value, null, 2))
 
-  writeTypeAlias(generatedPropsSourceFile, `${ClassNamesPrefix}${className}PropsCtor`, typeProperties);
+  writeTypeAlias(generatedPropsSourceFile, `${CLASS_NAME_PREFIX}${className}PropsCtor`, typeProperties);
 }
 
 /**
@@ -1349,7 +1366,7 @@ const createClassesDerivedFrom = (generatedCodeSourceFile: SourceFile, generated
  * @param extra
  * TODO: We should not be generating abstract classes.
  */
-const createClassesInheritedFrom = (generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile, classNamespaceTuple: ClassNameSpaceTuple, metadataFromClassName: (classname: string) => InstanceMetadataParameter, extra?: (newClassDeclaration: ClassDeclaration, originalClassDeclaration: ClassDeclaration) => void, onAfterClassCreate?: Function): void => {
+const createClassesInheritedFrom = (generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile, classNamespaceTuple: ClassNameSpaceTuple, metadataFromClassName: (classname: string) => InstanceMetadataParameter, extra?: (newClassDeclaration: ClassDeclaration, originalClassDeclaration: ClassDeclaration) => void, onAfterClassCreate?: Function, customProps?: (newClassDeclaration: ClassDeclaration) => string | undefined): void => {
   const orderedListCreator = new OrderedListCreator();
 
   const baseClassDeclaration = classNamespaceTuple.classDeclaration;
@@ -1364,7 +1381,7 @@ const createClassesInheritedFrom = (generatedCodeSourceFile: SourceFile, generat
   derivedClassesOrdered.forEach((derivedClassDeclaration: ClassDeclaration) => {
     addHostElement(derivedClassDeclaration.getName()!, derivedClassDeclaration);
 
-    const newClassDeclaration = createClassDeclaration(derivedClassDeclaration, baseClassDeclaration, generatedCodeSourceFile, generatedPropsSourceFile, extra);
+    const newClassDeclaration = createClassDeclaration(derivedClassDeclaration, baseClassDeclaration, generatedCodeSourceFile, generatedPropsSourceFile, extra, customProps ? customProps(derivedClassDeclaration): undefined);
     addCreateInfoFromConstructor(derivedClassDeclaration, newClassDeclaration, classNamespaceTuple.moduleDeclaration, generatedCodeSourceFile, generatedPropsSourceFile);
 
     // AdvancedDynamicTexture has different metadata than other ThinTexture derived classes.
@@ -1404,7 +1421,7 @@ const addReactExports = (generatedCodeSourceFile: SourceFile) => {
 
 }
 
-const createSingleClass = (classOfInterest: string, generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile, baseClass?: ClassDeclaration, metadata?: InstanceMetadataParameter, extra?: () => void): void => {
+const createSingleClass = (classOfInterest: string, generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile, baseClass?: ClassDeclaration, metadata?: InstanceMetadataParameter, extra?: () => void, customProps?: string): void => {
   const classToGenerate = classesOfInterest.get(classOfInterest)
 
   if (classToGenerate === undefined) {
@@ -1417,7 +1434,7 @@ const createSingleClass = (classOfInterest: string, generatedCodeSourceFile: Sou
 
   addHostElement(classToGenerate.classDeclaration.getName()!, classToGenerate.classDeclaration);
 
-  const newClassDeclaration = createClassDeclaration(classToGenerate.classDeclaration, baseClass, generatedCodeSourceFile, generatedPropsSourceFile, extra);
+  const newClassDeclaration = createClassDeclaration(classToGenerate.classDeclaration, baseClass, generatedCodeSourceFile, generatedPropsSourceFile, extra, customProps);
   addCreateInfoFromConstructor(classToGenerate.classDeclaration, newClassDeclaration, classToGenerate.moduleDeclaration, generatedCodeSourceFile, generatedPropsSourceFile);
 
   addMetadata(newClassDeclaration, classToGenerate.classDeclaration, metadata);
@@ -1447,7 +1464,7 @@ const generateCode = async () => {
     moduleSpecifier: "./PropsHandler",
     namedImports: [
       "PropsHandler",
-      PropertyUpdateInterface,
+      PROPERTY_UPDATE_INTERFACE,
       "HasPropsHandlers",
       // Following imported methods allow strong typing checks on PropsHandlers (and easier to read than code generating + smaller code footprint)
       "checkColor3Diff",
@@ -1468,7 +1485,7 @@ const generateCode = async () => {
 
   generatedCodeSourceFile.addImportDeclaration({
     moduleSpecifier: "./CreatedInstance",
-    namedImports: [ReactReconcilerCreatedInstanceMetadata]
+    namedImports: [REACT_RECONCILER_CREATED_INSTANCE_METADATA]
   });
 
   generatedPropsSourceFile.addImportDeclaration({
@@ -1477,8 +1494,8 @@ const generateCode = async () => {
   });
 
   generatedPropsSourceFile.addImportDeclaration({
-    moduleSpecifier: './CreatedInstance',
-    namedImports: ['CustomProps']
+    moduleSpecifier: './CustomProps',
+    namedImports: ALL_CUSTOM_PROPS
   });
 
   const mainTypeAlias = generatedPropsSourceFile.addTypeAlias({
@@ -1569,7 +1586,7 @@ const generateCode = async () => {
   }
 
   if (classesOfInterest.get("Material")) {
-    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Material")!, () => ({ isMaterial: true }));
+    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Material")!, () => ({ isMaterial: true }), undefined, undefined, () => ('MaterialCustomProps'));
   }
 
   if (classesOfInterest.get("Light")) {
@@ -1577,7 +1594,7 @@ const generateCode = async () => {
       const metadata: InstanceMetadataParameter = {
         isNode: true
       };
-      switch (className.substr(ClassNamesPrefix.length)) {
+      switch (className.substr(CLASS_NAME_PREFIX.length)) {
         case "DirectionalLight":
         case "PointLight":
         case "SpotLight":
@@ -1598,7 +1615,7 @@ const generateCode = async () => {
   }
 
   if (classesOfInterest.get("Control3D")) {
-    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Control3D")!, () => ({ isGUI3DControl: true }));
+    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Control3D")!, () => ({ isGUI3DControl: true }), undefined, undefined, () => ('Control3DCustomProps'));
   }
 
   if (classesOfInterest.get("EffectLayer")) {
@@ -1606,8 +1623,11 @@ const generateCode = async () => {
   }
 
   if (classesOfInterest.get("ThinTexture")) {
+    const ADT_CLASSNAME = `${CLASS_NAME_PREFIX}AdvancedDynamicTexture`;
+    additionalCustomProps[ADT_CLASSNAME] = 'ADTCustomProps';
+
     const fromClassName = (className: string): InstanceMetadataParameter => {
-      if (className === `${ClassNamesPrefix}AdvancedDynamicTexture`) {
+      if (className === ADT_CLASSNAME) {
         return {
           isGUI2DControl: true,
           isTexture: true
@@ -1618,7 +1638,7 @@ const generateCode = async () => {
     }
 
     const onTexturesCreate = (classDeclaration: ClassDeclaration) => {
-      if (classDeclaration.getName() === `${ClassNamesPrefix}AdvancedDynamicTexture`) {
+      if (classDeclaration.getName() === ADT_CLASSNAME) {
         createFactoryClass(
           'AdvancedDynamicTexture',
           'ADT',
@@ -1627,7 +1647,7 @@ const generateCode = async () => {
             isGUI2DControl: true // it's a texture NOT a 2D control. but supports addControl and removeControl (only gets TexturesLifecycleListener)
           },
           generatedCodeSourceFile,
-          generatedPropsSourceFile,
+          generatedPropsSourceFile
         )
       }
     };
@@ -1647,14 +1667,14 @@ const generateCode = async () => {
   createSingleClass("GUI3DManager", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { isGUI3DControl: true }, () => { return; });
   createSingleClass("EnvironmentHelper", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { isEnvironment: true });
   createSingleClass("PhysicsImpostor", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true });
-  createSingleClass("VRExperienceHelper", generatedCodeSourceFile, generatedPropsSourceFile);
+  createSingleClass("VRExperienceHelper", generatedCodeSourceFile, generatedPropsSourceFile, undefined, undefined, undefined, 'VRExperienceHelperCustomProps');
   createSingleClass("DynamicTerrain", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { acceptsMaterials: true });
   createSingleClass("PointsCloudSystem", generatedCodeSourceFile, generatedPropsSourceFile);
   createSingleClass("Viewport", generatedCodeSourceFile, generatedPropsSourceFile);
 
   // These "delay creation" we want to also not generate constructors?
-  createSingleClass("ShadowGenerator", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true }, () => { return; });
-  createSingleClass("CascadedShadowGenerator", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true }, () => { return; });
+  createSingleClass("ShadowGenerator", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true }, () => { return; }, 'ShadowGeneratorCustomProps');
+  createSingleClass("CascadedShadowGenerator", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true }, () => { return; }, 'ShadowGeneratorCustomProps');
   createSingleClass("EngineView", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true }, () => { return; });
 
   console.log('Adding read-only property classes:');
