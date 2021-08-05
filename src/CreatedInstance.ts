@@ -1,6 +1,6 @@
 import { Observer } from "@babylonjs/core/Misc/observable"
 import { Nullable } from "@babylonjs/core/types";
-import { CustomProps } from "./CustomProps";
+import { AnyCustomProps, CustomProps } from "./CustomProps";
 import { LifecycleListener } from "./LifecycleListener"
 import { HasPropsHandlers } from "./PropsHandler"
 
@@ -21,6 +21,7 @@ export interface InstanceMetadataParameter {
   customType?: boolean // not used by code-gen
   isCamera?: boolean
   isEffectLayer?: boolean;
+  isGlowLayer?: boolean;
   isBehavior?: boolean;
 
 }
@@ -44,7 +45,7 @@ export interface CreatedInstance<T> {
   parent: CreatedInstance<any> | null // Not the same as parent in BabylonJS, this is for internal reconciler structure. ie: graph walking
   children: CreatedInstance<any>[]
   state?: any
-  customProps: CustomProps
+  customProps: AnyCustomProps
   // TODO: Consider merging these last 2 into a single class/container.
   propsHandlers?: HasPropsHandlers<T> // These are mostly generated
   lifecycleListener?: LifecycleListener<T> // Only custom types currently support LifecycleListeners (ie: AttachesToParent)

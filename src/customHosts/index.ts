@@ -21,6 +21,7 @@ export { default as BehaviorLifecycleListener } from './BehaviorsLifecycleListen
 export { default as FallbackLifecycleListener } from './FallbackLifecycleListener';
 export { default as ViewportLifecycleListener } from './ViewportLifecycleListener';
 export { default as EngineViewLifecycleListener} from './EngineViewLifecycleListener';
+export { default as AbstractMeshLifecycleListener} from './AbstractMeshLifecycleListener';
 
 // These are only used by the reconciler.  We export them as strings (as we do for all generated code as well)
 // For declaring your own custom components externally you just need the 'string' version from /exportedCustomComponents

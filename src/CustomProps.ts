@@ -42,17 +42,6 @@ export type ShadowGeneratorCustomProps = {
    shadowCastersExcluding?: string[]
 } & CustomProps;
 
-export type VirtualKeyboardCustomProps = {
-  /**
-   * for VirtualKeyboard (2d input control names)
-   */
-   connectControlNames?: string[]
-   /**
-    * for VirtualKeyboard
-    */
-   defaultKeyboard?: boolean
-} & CustomProps;
-
 export type VRExperienceHelperCustomProps = {
   enableInteractions?: boolean
 } & CustomProps;
@@ -72,9 +61,37 @@ export type Control3DCustomProps = {
   onControlAdded?: (instance: CreatedInstance<any>) => void
 } & CustomProps;
 
+/**
+ * The below Custom Props are added explicitly and not automatically by inheritance, so do not need union type "& CustomProps"
+ */
+
+
 export type ADTCustomProps = {
   /**
    * Only applicable for AdvanceDynamicTexture to attach to a mesh.  ADT.CreateForMesh(parent, ...)
    */
    createForParentMesh?: boolean
 };
+
+export type GlowLayerCustomProps = {
+  /**
+   * Adds all child nodes to the glow layer.
+   */
+   addIncludeOnlyChildren?: boolean
+};
+
+export type VirtualKeyboardCustomProps = {
+  /**
+   * for VirtualKeyboard (2d input control names)
+   */
+   connectControlNames?: string[]
+   /**
+    * for VirtualKeyboard
+    */
+   defaultKeyboard?: boolean
+};
+
+/**
+ * A union of all CustomProps as a convenience typing and easier maintenance in other areas of code (ie: CreatedInstance and HostConfig)
+ */
+export type AnyCustomProps = CustomProps & (ADTCustomProps & Control3DCustomProps & GlowLayerCustomProps & VirtualKeyboardCustomProps & ShadowGeneratorCustomProps & MaterialCustomProps)

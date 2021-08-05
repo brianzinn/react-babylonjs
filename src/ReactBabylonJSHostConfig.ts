@@ -5,7 +5,7 @@ import * as GENERATED from './generatedCode';
 import * as CUSTOM_HOSTS from './customHosts';
 
 import { CreatedInstance, CreatedInstanceMetadata} from './CreatedInstance';
-import { ADTCustomProps, Control3DCustomProps, CustomProps, MaterialCustomProps, ShadowGeneratorCustomProps, VirtualKeyboardCustomProps } from './CustomProps';
+import { AnyCustomProps, CustomProps } from './CustomProps';
 import { HasPropsHandlers, PropertyUpdate, UpdatePayload, PropsHandler, CustomPropsHandler, PropChangeType } from './PropsHandler';
 import { LifecycleListener } from "./LifecycleListener";
 import { GeneratedParameter, CreationType } from './codeGenerationDescriptors';
@@ -333,7 +333,8 @@ const ReactBabylonJSHostConfig: HostConfig<
     let metadata: CreatedInstanceMetadata;
     let babylonObject: any | undefined = undefined
 
-    let customProps: CustomProps & (Control3DCustomProps | ADTCustomProps | VirtualKeyboardCustomProps | ShadowGeneratorCustomProps | MaterialCustomProps) = {
+    // TODO: define this type as an export.
+    let customProps: AnyCustomProps = {
       // Control3D
       childrenAsContent: props.childrenAsContent === true, // ie: Button3D.container instead of .addControl()
       // AdvancedDynamicTexture
@@ -347,7 +348,8 @@ const ReactBabylonJSHostConfig: HostConfig<
       attachToMeshesByName: props.attachToMeshesByName, // for materials - otherwise will attach to first parent that accepts materials
       assignTo: props.assignTo, // here a lifecycle listener can dynamically attach to another property (ie: Mesh to DynamicTerrain -> 'mesh.material')
       assignFrom: props.assignFrom,
-      disposeInstanceOnUnmount: props.assignFrom === undefined
+      disposeInstanceOnUnmount: props.assignFrom === undefined,
+      addIncludeOnlyChildren: props.addIncludeOnlyChildren === true,
     };
 
     if (customProps.assignFrom !== undefined) {
@@ -456,6 +458,8 @@ const ReactBabylonJSHostConfig: HostConfig<
       metadataLifecycleListenerName = 'GUI2DControl';
     } else if (metadata.isCamera === true) {
       metadataLifecycleListenerName = 'Camera';
+    } else if (metadata.isMesh === true) {
+      metadataLifecycleListenerName = 'AbstractMesh';
     } else if (metadata.isNode === true) {
       metadataLifecycleListenerName = 'Node';
     } else if (metadata.isBehavior === true) {

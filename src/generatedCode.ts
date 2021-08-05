@@ -9605,6 +9605,7 @@ export class FiberEffectLayer implements HasPropsHandlers<FiberEffectLayerProps>
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "isEffectLayer": true,
+        "isGlowLayer": false,
         "className": "FiberEffectLayer"
     };
 }
@@ -9673,6 +9674,7 @@ export class FiberGlowLayer implements HasPropsHandlers<FiberEffectLayerProps> {
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "isEffectLayer": true,
+        "isGlowLayer": true,
         "className": "FiberGlowLayer"
     };
 }
@@ -9745,6 +9747,7 @@ export class FiberHighlightLayer implements HasPropsHandlers<FiberEffectLayerPro
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "isEffectLayer": true,
+        "isGlowLayer": false,
         "className": "FiberHighlightLayer"
     };
 }

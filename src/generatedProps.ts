@@ -1,5 +1,5 @@
 import { Key, ReactNode, Ref } from "react";
-import { ADTCustomProps, Control3DCustomProps, CustomProps, MaterialCustomProps, ShadowGeneratorCustomProps, VirtualKeyboardCustomProps, VRExperienceHelperCustomProps } from "./CustomProps";
+import { ADTCustomProps, Control3DCustomProps, CustomProps, GlowLayerCustomProps, MaterialCustomProps, ShadowGeneratorCustomProps, VirtualKeyboardCustomProps, VRExperienceHelperCustomProps } from "./CustomProps";
 import { DynamicTerrain as ExtensionsDynamicTerrain } from "./extensions/DynamicTerrain";
 import { AbstractScene as BabylonjsCoreAbstractScene } from "@babylonjs/core/abstractScene";
 import { Scene as BabylonjsCoreScene } from "@babylonjs/core/scene";
@@ -395,7 +395,7 @@ declare global {
             holographicButton: FiberHolographicButtonProps & FiberHolographicButtonPropsCtor & BabylonNode<BabylonjsGuiHolographicButton>;
             meshButton3D: FiberMeshButton3DProps & FiberMeshButton3DPropsCtor & BabylonNode<BabylonjsGuiMeshButton3D>;
             effectLayer: FiberEffectLayerProps & FiberEffectLayerPropsCtor & BabylonNode<BabylonjsCoreEffectLayer>;
-            glowLayer: FiberGlowLayerProps & FiberGlowLayerPropsCtor & BabylonNode<BabylonjsCoreGlowLayer>;
+            glowLayer: FiberGlowLayerProps & FiberGlowLayerPropsCtor & BabylonNode<BabylonjsCoreGlowLayer> & GlowLayerCustomProps;
             highlightLayer: FiberHighlightLayerProps & FiberHighlightLayerPropsCtor & BabylonNode<BabylonjsCoreHighlightLayer>;
             thinTexture: FiberThinTextureProps & FiberThinTexturePropsCtor & BabylonNode<BabylonjsCoreThinTexture>;
             baseTexture: FiberBaseTextureProps & FiberBaseTexturePropsCtor & BabylonNode<BabylonjsCoreBaseTexture>;
