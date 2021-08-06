@@ -5,7 +5,7 @@ import { CreatedInstance } from '../src/CreatedInstance';
 import { CustomProps } from '../src/CustomProps';
 import renderer, { Container } from '../src/ReactBabylonJSHostConfig';
 import { Engine, FreeCamera, Mesh, NullEngine, PBRMaterial, Scene, StandardMaterial, Vector3 } from '@babylonjs/core';
-import { CameraLifecycleListener, FallbackLifecycleListener, NodeLifecycleListener } from '../src/customHosts';
+import { AbstractMeshLifecycleListener, CameraLifecycleListener, FallbackLifecycleListener } from '../src/customHosts';
 import { PBRClearCoatConfiguration } from '@babylonjs/core/Materials/PBR/pbrClearCoatConfiguration';
 
 describe(' > Reconciler tests', function testSuite() {
@@ -78,7 +78,7 @@ describe(' > Reconciler tests', function testSuite() {
     assert.ok(logger.notCalled, 'console.warn should not be called.');
   });
 
-  it('Create box (Mesh) should be assigned NodeLifecycleListener', async function test() {
+  it('Create box (Mesh) should be assigned AbstractMeshLifecycleListener', async function test() {
     const container = getRootContainerInstance();
 
     const createdInstance: CreatedInstance<any> | undefined = renderer.createInstance('box', {
@@ -88,7 +88,7 @@ describe(' > Reconciler tests', function testSuite() {
 
     assert.notStrictEqual(createdInstance, undefined);
     assert.notStrictEqual(createdInstance!.lifecycleListener, undefined);
-    assert.ok(createdInstance?.lifecycleListener instanceof NodeLifecycleListener, `expecting node lifecycle listener: ${createdInstance?.lifecycleListener}`);
+    assert.ok(createdInstance?.lifecycleListener instanceof AbstractMeshLifecycleListener, `expecting node lifecycle listener: ${createdInstance?.lifecycleListener}`);
   });
 
   it('Create "assignFrom" should defer construction and included delayed creation props', async function test() {

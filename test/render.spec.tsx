@@ -1,5 +1,5 @@
 import React from 'react';
-import { AbstractMesh, ArcRotateCamera, Camera, Color4, Engine, NullEngine, Scene, Vector3 } from "@babylonjs/core";
+import { AbstractMesh, ArcRotateCamera, Camera, EffectLayer, Engine, GlowLayer, NullEngine, Scene, Vector3 } from "@babylonjs/core";
 import sinon from "sinon";
 import assert from 'assert';
 
@@ -141,5 +141,44 @@ describe(' > Reconciler/Render tests', function testSuite() {
     assert.ok(camera !== undefined);
     assert.ok(camera instanceof ArcRotateCamera, 'Should be ArcRotateCamera');
     assert.ok(Vector3.Up().equals(camera.target), 'should be the same as Vector3.Up');
+  })
+
+  it('GlowLayer should include children to inclusion list (when configured).', async function test() {
+    const container: Container = getRootContainerInstance();
+    const reconciler: ReconcilerInstance = createReconciler({});
+
+
+    const sceneGraph = (
+      <SceneContext.Provider value={{
+        scene: container.scene,
+        sceneReady: true
+      }}>
+          <arcRotateCamera name='camera1' alpha={0} beta={Math.PI / 3} radius={10} target={Vector3.Zero()} />
+          <hemisphericLight name='light1' direction={Vector3.Up()} />
+          <glowLayer name='glow1' addIncludeOnlyChildren>
+            <box
+              name="box"
+              size={2}
+              position={new Vector3(0, 1.2, 0)}
+            >
+              <standardMaterial name='boxMat' />
+            </box>
+          </glowLayer>
+          
+      </SceneContext.Provider>
+    )
+    reconciler.render(sceneGraph, container, () => { /* empty for now */ }, null)
+
+    const box: AbstractMesh | undefined = container.scene.meshes.find(m => m.name === 'box');
+    assert.ok(box !== undefined)
+
+    const effectLayers: EffectLayer[] = container.scene.effectLayers;
+    assert.strictEqual(1, effectLayers.length, 'glow layer should be part of scene');
+    assert.ok(effectLayers[0] instanceof GlowLayer);
+
+    const glowLayer: GlowLayer = effectLayers[0] as GlowLayer;
+    assert.ok(glowLayer.hasMesh(box));
+    assert.strictEqual((glowLayer as any)._includedOnlyMeshes.length, 1);
+    assert.strictEqual((glowLayer as any)._includedOnlyMeshes[0], box.uniqueId);
   })
 })
