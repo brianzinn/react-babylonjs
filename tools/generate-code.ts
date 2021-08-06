@@ -73,7 +73,7 @@ console.log('ver:', ts.version);
 
 const CONFLICT_INTRINSIC_ELEMENTS = ['Button', 'Ellipse', 'Image', 'Line', 'Polygon'];
 
-const ALL_CUSTOM_PROPS = ['ADTCustomProps', 'Control3DCustomProps', 'CustomProps', 'GlowLayerCustomProps', 'MaterialCustomProps', 'ShadowGeneratorCustomProps', 'VirtualKeyboardCustomProps', 'VRExperienceHelperCustomProps'];
+const ALL_CUSTOM_PROPS = ['AbstractMeshCustomProps', 'ADTCustomProps', 'Control3DCustomProps', 'CustomProps', 'GlowLayerCustomProps', 'MaterialCustomProps', 'ShadowGeneratorCustomProps', 'VirtualKeyboardCustomProps', 'VRExperienceHelperCustomProps'];
 
 // would be good to check JSX.IntrinsicElements with 'keyof', but it's erased at runtime (doesn't work on dynamic strings)
 // fixes TS warning: Property 'polygon' must be of type SVGProps<SVGPolygonElement>, but here has type..., so we are skipping to generate polygon for now.
@@ -142,6 +142,7 @@ const PROPS_EXPORTS: string[] = []; // used to put all props in single import.
  * CustomProps not from @babylonjs/* modules, but custom for this project (used when not applied to entire inheritance chain).
  */
 const additionalCustomProps: Record<string, string> = {
+  [`${CLASS_NAME_PREFIX}AbstractMesh`]: 'AbstractMeshCustomProps', // not including dervived.
   [`${CLASS_NAME_PREFIX}AdvancedDynamicTexture`]: 'ADTCustomProps',
   [`${CLASS_NAME_PREFIX}GlowLayer`]: 'GlowLayerCustomProps',
   [`${CLASS_NAME_PREFIX}VirtualKeyboard`]: 'VirtualKeyboardCustomProps',

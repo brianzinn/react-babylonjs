@@ -3,7 +3,7 @@ import { CreatedInstance } from "./CreatedInstance";
 /**
  * Props passed from controls that are not part of generated props and custom handling.  Typically used to aid declarative composition.
  */
- export type CustomProps = {
+export type CustomProps = {
   /**
    * Assign to this property on the parent.  Parent property is cleared on umnount.
    */
@@ -24,26 +24,11 @@ import { CreatedInstance } from "./CreatedInstance";
   disposeInstanceOnUnmount?: boolean
 }
 
-export type MaterialCustomProps = {
+export type AbstractMeshCustomProps = {
   /**
-   * For attaching the same material to multiple meshes (by mesh name)
+   * Signal to reconciler that child meshes are not tracked and are not part of tree.  ie: children need to be explicitly added to GlowLayer/ShadowGenerator.
    */
-   attachToMeshesByName?: string[]
-} & CustomProps;
-
-export type ShadowGeneratorCustomProps = {
-  /**
-   * List of mesh names to search for, which will be added as shadow casters.
-   */
-   shadowCasters?: string[]
-   /**
-    * List of mesh names to exclude from casting shadows (all other meshes by name will cast shadows)
-    */
-   shadowCastersExcluding?: string[]
-} & CustomProps;
-
-export type VRExperienceHelperCustomProps = {
-  enableInteractions?: boolean
+  childMeshesNotTracked?: boolean
 } & CustomProps;
 
 export type Control3DCustomProps = {
@@ -61,6 +46,29 @@ export type Control3DCustomProps = {
   onControlAdded?: (instance: CreatedInstance<any>) => void
 } & CustomProps;
 
+export type MaterialCustomProps = {
+  /**
+   * For attaching the same material to multiple meshes (by mesh name)
+   */
+  attachToMeshesByName?: string[]
+} & CustomProps;
+
+export type ShadowGeneratorCustomProps = {
+  /**
+   * List of mesh names to search for, which will be added as shadow casters.
+   */
+  shadowCasters?: string[]
+  /**
+   * List of mesh names to exclude from casting shadows (all other meshes by name will cast shadows)
+   */
+  shadowCastersExcluding?: string[]
+} & CustomProps;
+
+export type VRExperienceHelperCustomProps = {
+  enableInteractions?: boolean
+} & CustomProps;
+
+
 /**
  * The below Custom Props are added explicitly and not automatically by inheritance, so do not need union type "& CustomProps"
  */
@@ -70,28 +78,28 @@ export type ADTCustomProps = {
   /**
    * Only applicable for AdvanceDynamicTexture to attach to a mesh.  ADT.CreateForMesh(parent, ...)
    */
-   createForParentMesh?: boolean
+  createForParentMesh?: boolean
 };
 
 export type GlowLayerCustomProps = {
   /**
    * Adds all child nodes to the glow layer.
    */
-   addIncludeOnlyChildren?: boolean
+  addIncludeOnlyChildren?: boolean
 };
 
 export type VirtualKeyboardCustomProps = {
   /**
    * for VirtualKeyboard (2d input control names)
    */
-   connectControlNames?: string[]
-   /**
-    * for VirtualKeyboard
-    */
-   defaultKeyboard?: boolean
+  connectControlNames?: string[]
+  /**
+   * for VirtualKeyboard
+   */
+  defaultKeyboard?: boolean
 };
 
 /**
  * A union of all CustomProps as a convenience typing and easier maintenance in other areas of code (ie: CreatedInstance and HostConfig)
  */
-export type AnyCustomProps = CustomProps & (ADTCustomProps & Control3DCustomProps & GlowLayerCustomProps & VirtualKeyboardCustomProps & ShadowGeneratorCustomProps & MaterialCustomProps)
+export type AnyCustomProps = CustomProps & (AbstractMeshCustomProps & ADTCustomProps & Control3DCustomProps & GlowLayerCustomProps & VirtualKeyboardCustomProps & ShadowGeneratorCustomProps & MaterialCustomProps)

@@ -30,9 +30,9 @@ const NUMBER_OF_BOXES = 20;
 
 /**
  * TODO
- * loading so slow
+ * loading model so slow...
  */
-function WithGlowLayer() {
+function WithMultiGlowLayer() {
   const glow1Ref = useRef(null);
   const glow2Ref = useRef(null);
 
@@ -64,9 +64,9 @@ function WithGlowLayer() {
 
         <hemisphericLight name='hemi' direction={Vector3.Up()} />
         <Inspector />
-        <glowLayer ref={glow1Ref} name="glow" options={{ mainTextureSamples: 4 }} intensity={1} isEnabled={true} addIncludeOnlyChildren>
+        <glowLayer ref={glow1Ref} name="glow1" options={{ mainTextureSamples: 4 }} intensity={1} isEnabled={true} addIncludeOnlyChildren>
           {Array.from(new Array(NUMBER_OF_BOXES), (_, index) => index).map(x => (
-            <box name={'glow-box-1-{number}'} position={new Vector3(Math.cos(2*Math.PI/NUMBER_OF_BOXES*x)*RADIUS,1, Math.sin(2*Math.PI/NUMBER_OF_BOXES*x)*RADIUS)}>
+            <box name={`glow-1-box-${x}`} key={`glow-1-box-${x}`} position={new Vector3(Math.cos(2*Math.PI/NUMBER_OF_BOXES*x)*RADIUS,1, Math.sin(2*Math.PI/NUMBER_OF_BOXES*x)*RADIUS)}>
               <standardMaterial diffuseColor={Color3.Red()} emissiveColor={Color3.Red()} />
             </box>
           ))}
@@ -77,7 +77,7 @@ function WithGlowLayer() {
 
         <glowLayer ref={glow2Ref} name="glow2" options={{ mainTextureSamples: 4 }} intensity={0.4} isEnabled={true} addIncludeOnlyChildren>
           {Array.from(new Array(NUMBER_OF_BOXES), (_, index) => index).map(x => (
-            <box name={'glow-box-1-{number}'} position={new Vector3(Math.cos(2*Math.PI/NUMBER_OF_BOXES*x)*RADIUS,3, Math.sin(2*Math.PI/NUMBER_OF_BOXES*x)*RADIUS)}>
+            <box name={`glow-2-box-${x}`} key={`glow-2-box-${x}`} position={new Vector3(Math.cos(2*Math.PI/NUMBER_OF_BOXES*x)*RADIUS,3, Math.sin(2*Math.PI/NUMBER_OF_BOXES*x)*RADIUS)}>
               <standardMaterial diffuseColor={Color3.Green()} emissiveColor={Color3.Green()} />
             </box>
           ))}
@@ -139,6 +139,6 @@ function WithGlowLayer() {
 
 export const MultiGlowLayer = () => (
   <div style={{ flex: 1, display: 'flex' }}>
-    <WithGlowLayer />
+    <WithMultiGlowLayer />
   </div>
 )

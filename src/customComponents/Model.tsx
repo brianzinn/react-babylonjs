@@ -50,7 +50,7 @@ const Model: React.FC<ModelProps> = (props: ModelProps) => {
     }
   }, []);
 
-  return <abstractMesh fromInstance={sceneLoaderResults.rootMesh!} {...rest} />;
+  return <abstractMesh fromInstance={sceneLoaderResults.rootMesh!} childMeshesNotTracked {...rest} />;
 }
 
 export default Model;

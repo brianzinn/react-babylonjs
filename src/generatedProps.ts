@@ -1,5 +1,5 @@
 import { Key, ReactNode, Ref } from "react";
-import { ADTCustomProps, Control3DCustomProps, CustomProps, GlowLayerCustomProps, MaterialCustomProps, ShadowGeneratorCustomProps, VirtualKeyboardCustomProps, VRExperienceHelperCustomProps } from "./CustomProps";
+import { AbstractMeshCustomProps, ADTCustomProps, Control3DCustomProps, CustomProps, GlowLayerCustomProps, MaterialCustomProps, ShadowGeneratorCustomProps, VirtualKeyboardCustomProps, VRExperienceHelperCustomProps } from "./CustomProps";
 import { DynamicTerrain as ExtensionsDynamicTerrain } from "./extensions/DynamicTerrain";
 import { AbstractScene as BabylonjsCoreAbstractScene } from "@babylonjs/core/abstractScene";
 import { Scene as BabylonjsCoreScene } from "@babylonjs/core/scene";
@@ -279,7 +279,7 @@ declare global {
         interface IntrinsicElements {
             node: FiberNodeProps & FiberNodePropsCtor & BabylonNode<BabylonjsCoreNode>;
             transformNode: FiberTransformNodeProps & FiberTransformNodePropsCtor & BabylonNode<BabylonjsCoreTransformNode>;
-            abstractMesh: FiberAbstractMeshProps & FiberAbstractMeshPropsCtor & BabylonNode<BabylonjsCoreAbstractMesh>;
+            abstractMesh: FiberAbstractMeshProps & FiberAbstractMeshPropsCtor & BabylonNode<BabylonjsCoreAbstractMesh> & AbstractMeshCustomProps;
             instancedMesh: FiberInstancedMeshProps & FiberInstancedMeshPropsCtor & BabylonNode<BabylonjsCoreInstancedMesh>;
             instancedLinesMesh: FiberInstancedLinesMeshProps & FiberInstancedLinesMeshPropsCtor & BabylonNode<BabylonjsCoreInstancedLinesMesh>;
             mesh: FiberMeshProps & FiberMeshPropsCtor & BabylonNode<BabylonjsCoreMesh>;

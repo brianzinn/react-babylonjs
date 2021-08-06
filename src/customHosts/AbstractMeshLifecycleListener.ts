@@ -22,6 +22,12 @@ export default class AbstractMeshLifecycleListener extends BaseLifecycleListener
         if (tmp.customProps.addIncludeOnlyChildren === true) {
           // TODO: listen for mesh disposal to remove from inclusion list?
           (tmp.hostInstance as GlowLayer).addIncludedOnlyMesh(mesh as Mesh);
+
+          if (instance.customProps.childMeshesNotTracked === true) {
+           for( const childMesh of mesh.getChildMeshes(false)) {
+            (tmp.hostInstance as GlowLayer).addIncludedOnlyMesh(childMesh as Mesh);
+           }
+          }
         }
         break;
       }

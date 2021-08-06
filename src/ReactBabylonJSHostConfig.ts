@@ -350,6 +350,7 @@ const ReactBabylonJSHostConfig: HostConfig<
       assignFrom: props.assignFrom,
       disposeInstanceOnUnmount: props.assignFrom === undefined,
       addIncludeOnlyChildren: props.addIncludeOnlyChildren === true,
+      childMeshesNotTracked: props.childMeshesNotTracked === true,
     };
 
     if (customProps.assignFrom !== undefined) {
