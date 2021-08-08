@@ -1,5 +1,5 @@
-import React from "react"
-import { Texture } from "@babylonjs/core/Materials/Textures"
+import { Texture } from "@babylonjs/core/Materials/Textures/texture.js";
+import React from "react";
 
 interface SkyboxProps {
   rootUrl: string

@@ -45,7 +45,7 @@ export function createReconciler(rendererOptions: RendererOptions): ReconcilerIn
 
       reconciler.injectIntoDevTools({
         findFiberByHostInstance: (reconciler as any).findFiberByHostInstance,
-        bundleType: process.env.ENV === 'prod' ? 1 : 0,
+        bundleType: process.env.NODE_ENV === 'prod' ? 1 : 0,
         version,
         rendererPackageName: 'react-babylonjs',
       });

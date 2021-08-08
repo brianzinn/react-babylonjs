@@ -1,4 +1,4 @@
-import { Texture } from '@babylonjs/core';
+import { Texture } from '@babylonjs/core/Materials/Textures/texture.js';
 
 import { CreatedInstance } from '../CreatedInstance';
 import { assignProperty } from '../helper/property';

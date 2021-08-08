@@ -1,4 +1,5 @@
 import json from '@rollup/plugin-json';
+import replace from '@rollup/plugin-replace';
 import typescript from 'rollup-plugin-typescript2';
 
 const pkg = require('./package.json')
@@ -30,6 +31,10 @@ export default (async () => {
     plugins: [
       json(),
       typescript(),
+      replace({
+        preventAssignment: true,
+        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+      }),
       // minimize production build
       isProduction && (await import('rollup-plugin-terser')).terser()
     ]

@@ -1,7 +1,7 @@
-import { Camera } from '@babylonjs/core'
+import { Camera } from '@babylonjs/core/Cameras/camera.js';
 
-import BaseLifecycleListener from './BaseLifecycleListener'
-import { CreatedInstance } from '../CreatedInstance'
+import BaseLifecycleListener from './BaseLifecycleListener';
+import { CreatedInstance } from '../CreatedInstance';
 
 export default class CameraLifecycleListener extends BaseLifecycleListener<Camera, any> {
 

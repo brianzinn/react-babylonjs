@@ -1,6 +1,6 @@
-import { Mesh } from '@babylonjs/core';
-import { GlowLayer } from '@babylonjs/core/Layers/glowLayer';
-import { AbstractMesh } from '@babylonjs/core/Meshes/abstractMesh';
+import { GlowLayer } from '@babylonjs/core/Layers/glowLayer.js';
+import { AbstractMesh } from '@babylonjs/core/Meshes/abstractMesh.js';
+import { Mesh } from '@babylonjs/core/Meshes/mesh.js';
 
 import { CreatedInstance } from '../CreatedInstance';
 import { FiberAbstractMeshProps } from '../generatedProps';

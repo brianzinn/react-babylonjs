@@ -1,5 +1,10 @@
 import ReactReconciler, { HostConfig } from 'react-reconciler';
-import { Scene, Nullable, Node, InspectableType, IInspectable } from '@babylonjs/core';
+
+import { IInspectable, InspectableType } from '@babylonjs/core/Misc/iInspectable.js';
+import { Nullable } from '@babylonjs/core/types.js';
+import { Scene } from '@babylonjs/core/scene.js';
+import { Node } from '@babylonjs/core/node.js';
+
 import * as BABYLONEXT from './extensions';
 import * as GENERATED from './generatedCode';
 import * as CUSTOM_HOSTS from './customHosts';

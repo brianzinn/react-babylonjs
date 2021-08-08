@@ -1,4 +1,8 @@
-import { IPhysicsEnabledObject, Nullable, Scene, PhysicsImpostor, PhysicsImpostorParameters } from '@babylonjs/core';
+
+
+import { IPhysicsEnabledObject, PhysicsImpostor, PhysicsImpostorParameters } from '@babylonjs/core/Physics/physicsImpostor.js';
+import { Scene } from '@babylonjs/core/scene.js';
+import { Nullable } from '@babylonjs/core/types.js';
 
 import { CreatedInstance } from '../CreatedInstance';
 import DeferredCreationLifecycleListener from './DeferredCreationLifecycleListener';

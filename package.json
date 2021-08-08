@@ -117,6 +117,7 @@
     "react-dom": ">=17"
   },
   "dependencies": {
+    "@rollup/plugin-replace": "^3.0.0",
     "react-reconciler": "^0.26.1"
   }
 }

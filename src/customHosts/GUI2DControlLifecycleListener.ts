@@ -1,5 +1,5 @@
-import { Control } from '@babylonjs/gui/2D/controls/control';
-import { VirtualKeyboard } from '@babylonjs/gui/2D/controls/virtualKeyboard';
+import { Control } from '@babylonjs/gui/2D/controls/control.js';
+import { VirtualKeyboard } from '@babylonjs/gui/2D/controls/virtualKeyboard.js';
 
 import BaseLifecycleListener from './BaseLifecycleListener';
 import { CreatedInstance } from '../CreatedInstance';

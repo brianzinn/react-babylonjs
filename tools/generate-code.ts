@@ -54,6 +54,9 @@ type ClassNameSpaceTuple = {
 
 const addedClassDeclarationsMap = new Map<string, ClassDeclaration>();
 
+// issues #137, 148,
+const fullySpecified = (moduleSpecifier: string): string => (`${moduleSpecifier}.js`);
+
 // to set onXXX properties.  via onXXX.add(() => void).  TODO: use TypeGuards.isTypeReferenceNode(...) and check type
 const OBSERVABLE_PATTERN: RegExp = /^BabylonjsCoreObservable<.*>$/;
 
@@ -241,7 +244,7 @@ const getModuleDeclarationFromClassDeclaration = (classDeclaration: ClassDeclara
     classAlias = 'ExtensionsDynamicTerrain';
     moduleSpecifier = './extensions/DynamicTerrain';
   } else {
-    moduleSpecifier = match[1]!;
+    moduleSpecifier = fullySpecified(match[1]!);
     const packageName = moduleSpecifier.substr(0, moduleSpecifier.indexOf('/', '@babylonjs/'.length))
     // ie: '@babylonjs/core' -> BabylonjsCore
     const aliasPrefix = packageName.substr(1).split('/').map(x => capitalize(x)).join('');
@@ -317,7 +320,7 @@ const createTypeFromText = (typeText: string, targetFiles: SourceFile[], customP
     const pathMatch = importLocation.match(/node_modules\/(.*)/);
 
     if (pathMatch !== null && pathMatch.length === 2) {
-      const moduleSpecifier = pathMatch[1]!;
+      const moduleSpecifier = fullySpecified(pathMatch[1]!);
       const packageName = moduleSpecifier.substr(0, moduleSpecifier.indexOf('/', '@babylonjs/'.length))
 
       // ie: '@babylonjs/core' -> BabylonjsCore

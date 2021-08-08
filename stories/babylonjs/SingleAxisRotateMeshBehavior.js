@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from 'react'
-import { HostWithEvents, useScene }  from '../../dist/react-babylonjs'
-import { Axis } from '@babylonjs/core/Maths/math'
+import React, { useEffect, useRef } from 'react';
+import { Axis } from '@babylonjs/core/Maths/math.axis.js';
+import { HostWithEvents, useScene }  from '../../dist/react-babylonjs';
 
 const SingleAxisRotateMeshBehavior = props => {
   const { rpm, axis} = props;

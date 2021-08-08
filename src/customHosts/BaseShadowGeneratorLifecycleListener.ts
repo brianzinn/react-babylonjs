@@ -1,4 +1,9 @@
-import { Scene, AbstractMesh, Observer, Nullable, DirectionalLight, ShadowGenerator } from '@babylonjs/core';
+import { DirectionalLight } from '@babylonjs/core/Lights/directionalLight.js';
+import { ShadowGenerator } from '@babylonjs/core/Lights/Shadows/shadowGenerator.js';
+import { AbstractMesh } from '@babylonjs/core/Meshes/abstractMesh.js';
+import { Observer } from '@babylonjs/core/Misc/observable.js';
+import { Scene } from '@babylonjs/core/scene.js';
+import { Nullable } from '@babylonjs/core/types.js';
 
 import { CreatedInstance } from '../CreatedInstance';
 import { ShadowGeneratorCustomProps } from '../CustomProps';

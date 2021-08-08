@@ -1,5 +1,8 @@
-import { Color3, StandardMaterial, Mesh } from '@babylonjs/core';
-import { AdvancedDynamicTexture } from '@babylonjs/gui/2D/advancedDynamicTexture';
+
+import { AdvancedDynamicTexture } from '@babylonjs/gui/2D/advancedDynamicTexture.js';
+import { Mesh } from '@babylonjs/core/Meshes/mesh.js';
+import { StandardMaterial } from '@babylonjs/core/Materials/standardMaterial.js';
+import { Color3 } from '@babylonjs/core/Maths/math.color.js';
 
 import BaseLifecycleListener from './BaseLifecycleListener';
 import { ADTCustomProps, VirtualKeyboardCustomProps } from '../CustomProps';

@@ -1,10 +1,14 @@
-import { Vector3, Vector2, Color3, Color4 } from '@babylonjs/core/Maths/math'
-import { Scene } from '@babylonjs/core/scene'
-import { Mesh, VertexBuffer, VertexData, MeshBuilder, } from '@babylonjs/core/Meshes'
-import { Camera } from '@babylonjs/core/Cameras'
-import { SolidParticleSystem } from '@babylonjs/core/Particles'
-import { Tools } from '@babylonjs/core/Misc/tools'
-import { IndicesArray, Nullable } from "@babylonjs/core"
+import { Scene } from '@babylonjs/core/scene.js';
+import { Tools } from '@babylonjs/core/Misc/tools.js';
+import { Vector2, Vector3 } from '@babylonjs/core/Maths/math.vector.js';
+import { Color3, Color4 } from '@babylonjs/core/Maths/math.color.js';
+import { SolidParticleSystem } from '@babylonjs/core/Particles/solidParticleSystem.js';
+import { IndicesArray, Nullable } from '@babylonjs/core/types.js';
+import { Mesh } from '@babylonjs/core/Meshes/mesh.js';
+import { MeshBuilder } from '@babylonjs/core/Meshes/meshBuilder.js';
+import { VertexBuffer } from '@babylonjs/core/Meshes/buffer.js';
+import { VertexData } from '@babylonjs/core/Meshes/mesh.vertexData.js';
+import { Camera } from '@babylonjs/core/Cameras/camera.js';
 
 // module Extensions {
 

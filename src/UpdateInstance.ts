@@ -1,8 +1,8 @@
 import { PropertyUpdate, PropsHandler, PropChangeType } from './PropsHandler';
 import { CreatedInstance } from './CreatedInstance';
-import { Observable, Observer } from '@babylonjs/core/Misc/observable';
-import { Nullable } from '@babylonjs/core/types';
-import { Quaternion, Vector3 } from '@babylonjs/core/Maths/math.vector';
+import { Observable, Observer } from '@babylonjs/core/Misc/observable.js';
+import { Nullable } from '@babylonjs/core/types.js';
+import { Quaternion, Vector3 } from '@babylonjs/core/Maths/math.vector.js';
 
 export const applyUpdateToInstance = (createdInstance: CreatedInstance<any>, update: PropertyUpdate): void => {
   let target = update.target !== undefined ? createdInstance.hostInstance[update.target] : createdInstance.hostInstance;

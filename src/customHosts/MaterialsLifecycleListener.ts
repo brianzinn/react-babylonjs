@@ -1,5 +1,6 @@
-import { Scene, AbstractMesh } from '@babylonjs/core';
-import { Material } from '@babylonjs/core/Materials';
+import { Material } from '@babylonjs/core/Materials/material.js';
+import { Scene } from '@babylonjs/core/scene.js';
+import { AbstractMesh } from '@babylonjs/core/Meshes/abstractMesh.js';
 
 import BaseLifecycleListener from './BaseLifecycleListener';
 import { CreatedInstance } from '../CreatedInstance';

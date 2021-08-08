@@ -1,7 +1,8 @@
-import { Engine, Scene } from '@babylonjs/core'
+import { Scene } from '@babylonjs/core/scene.js';
+import { Engine } from '@babylonjs/core/Engines/engine.js';
 
-import BaseLifecycleListener from './BaseLifecycleListener'
-import { CreatedInstance } from '../CreatedInstance'
+import BaseLifecycleListener from './BaseLifecycleListener';
+import { CreatedInstance } from '../CreatedInstance';
 
 type WithLifecycleMethods<T> = {
   onParented?: (scene: Scene, engine: Engine, parent: CreatedInstance<any>) => any

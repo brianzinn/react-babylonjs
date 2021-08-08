@@ -1,11 +1,8 @@
-import React from 'react'
-import {
-  Nullable,
-  Engine,
-  EngineOptions,
-  ThinEngine,
-  Observable,
-} from '@babylonjs/core'
+import React from 'react';
+import { Nullable } from '@babylonjs/core/types.js';
+import { Engine } from '@babylonjs/core/Engines/engine.js';
+import { Observable } from '@babylonjs/core/Misc/observable.js';
+import { EngineOptions, ThinEngine } from '@babylonjs/core/Engines/thinEngine.js';
 
 import { EngineCanvasContextType, EngineCanvasContext } from './hooks/engine';
 

@@ -1,4 +1,7 @@
-import { Engine, Nullable } from '@babylonjs/core';
+
+import { Engine } from '@babylonjs/core/Engines/engine.js';
+import { Nullable } from '@babylonjs/core/types.js';
+
 import React, { createContext, useContext } from'react';
 import { SceneContext } from './scene';
 

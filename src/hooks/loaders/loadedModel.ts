@@ -1,9 +1,15 @@
-import { IParticleSystem, Skeleton, AnimationGroup, AbstractMesh, Nullable, Vector3, BoundingInfo } from "@babylonjs/core"
+import { AnimationGroup } from "@babylonjs/core/Animations/animationGroup.js";
+import { Skeleton } from "@babylonjs/core/Bones/skeleton.js";
+import { BoundingInfo } from "@babylonjs/core/Culling/boundingInfo.js";
+import { Vector3 } from "@babylonjs/core/Maths/math.vector.js";
+import { AbstractMesh } from "@babylonjs/core/Meshes/abstractMesh.js";
+import { IParticleSystem } from "@babylonjs/core/Particles/IParticleSystem.js";
+import { Nullable } from "@babylonjs/core/types.js";
 
 export enum LoaderStatus {
-  Loading='Loading',
-  Loaded='Loaded',
-  Error='Error'
+  Loading = 'Loading',
+  Loaded = 'Loaded',
+  Error = 'Error',
 }
 
 export interface ILoadedModel {
@@ -85,15 +91,15 @@ export class LoadedModel implements ILoadedModel {
   public scaleTo(maxDimension: number): void {
     const boundingInfo = this.boundingInfo; // will be null when no meshes are loaded
     if (boundingInfo && this.rootMesh) {
-        const longestDimension = Math.max(
-            Math.abs(boundingInfo.minimum.x - boundingInfo.maximum.x),
-            Math.abs(boundingInfo.minimum.y - boundingInfo.maximum.y),
-            Math.abs(boundingInfo.minimum.z - boundingInfo.maximum.z)
-        );
+      const longestDimension = Math.max(
+        Math.abs(boundingInfo.minimum.x - boundingInfo.maximum.x),
+        Math.abs(boundingInfo.minimum.y - boundingInfo.maximum.y),
+        Math.abs(boundingInfo.minimum.z - boundingInfo.maximum.z)
+      );
 
-        const dimension = maxDimension / longestDimension;
-        this.rootMesh.scaling.scaleInPlace(dimension);
-        this._scaledToDimension = maxDimension;
+      const dimension = maxDimension / longestDimension;
+      this.rootMesh.scaling.scaleInPlace(dimension);
+      this._scaledToDimension = maxDimension;
     }
   }
 
@@ -125,4 +131,4 @@ export class LoadedModel implements ILoadedModel {
       this.animationGroups = [];
     }
   }
-} 
+}

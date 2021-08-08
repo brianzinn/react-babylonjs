@@ -1,6 +1,7 @@
-import { EngineView } from '@babylonjs/core/Engines/Extensions/engine.views';
-import { Scene } from '@babylonjs/core/scene';
-import { Nullable } from '@babylonjs/core/types';
+import { EngineView } from '@babylonjs/core/Engines/Extensions/engine.views.js';
+import { Scene } from '@babylonjs/core/scene.js';
+import { Nullable } from '@babylonjs/core/types.js';
+
 import { CreatedInstance } from '../CreatedInstance';
 import DeferredCreationLifecycleListener from './DeferredCreationLifecycleListener';
 

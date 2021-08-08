@@ -1,5 +1,7 @@
-import { AbstractMesh, ISceneLoaderProgressEvent } from "@babylonjs/core";
+import { ISceneLoaderProgressEvent } from "@babylonjs/core/Loading/sceneLoader.js";
+import { AbstractMesh } from "@babylonjs/core/Meshes/abstractMesh.js";
 import React, { useEffect } from "react"
+
 import { FiberAbstractMeshProps, FiberAbstractMeshPropsCtor } from "../generatedProps";
 import { ILoadedModel } from "../hooks/loaders/loadedModel";
 

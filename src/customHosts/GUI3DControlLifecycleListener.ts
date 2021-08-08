@@ -1,8 +1,10 @@
-import { AbstractMesh, Nullable } from '@babylonjs/core'
-import { Control3D } from '@babylonjs/gui/3D/controls/control3D'
 
-import BaseLifecycleListener from './BaseLifecycleListener'
-import { CreatedInstance } from '../CreatedInstance'
+import { Control3D } from '@babylonjs/gui/3D/controls/control3D.js';
+import { Nullable } from '@babylonjs/core/types.js';
+import { AbstractMesh } from '@babylonjs/core/Meshes/abstractMesh.js';
+
+import BaseLifecycleListener from './BaseLifecycleListener';
+import { CreatedInstance } from '../CreatedInstance';
 import { Control3DCustomProps } from '../CustomProps';
 
 export default class GUI3DControlLifecycleListener extends BaseLifecycleListener<Control3D, any> {

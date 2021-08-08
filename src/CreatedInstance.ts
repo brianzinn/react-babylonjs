@@ -1,8 +1,9 @@
-import { Observer } from "@babylonjs/core/Misc/observable"
-import { Nullable } from "@babylonjs/core/types";
+import { Observer } from "@babylonjs/core/Misc/observable.js";
+import { Nullable } from "@babylonjs/core/types.js";
+
 import { AnyCustomProps, CustomProps } from "./CustomProps";
-import { LifecycleListener } from "./LifecycleListener"
-import { HasPropsHandlers } from "./PropsHandler"
+import { LifecycleListener } from "./LifecycleListener";
+import { HasPropsHandlers } from "./PropsHandler";
 
 export interface InstanceMetadataParameter {
   delayCreation?: boolean // if it should not be created automatically, but by LifecycleListener (ie: ShadowGenerator needs an IShadowLight)
@@ -23,7 +24,6 @@ export interface InstanceMetadataParameter {
   isEffectLayer?: boolean;
   isGlowLayer?: boolean;
   isBehavior?: boolean;
-
 }
 
 export interface CreatedInstanceMetadata extends InstanceMetadataParameter {

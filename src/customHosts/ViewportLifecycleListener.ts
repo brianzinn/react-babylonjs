@@ -1,9 +1,10 @@
+import { Viewport } from '@babylonjs/core/Maths/math.viewport.js';
+import { Camera } from '@babylonjs/core/Cameras/camera.js';
+
 import BaseLifecycleListener from './BaseLifecycleListener';
 import { CreatedInstance } from '../CreatedInstance';
 import { assignProperty } from '../helper/property';
 import { FiberViewportProps } from '../generatedProps';
-import { Viewport } from '@babylonjs/core/Maths/math.viewport';
-import { Camera } from '@babylonjs/core/Cameras/camera';
 
 export default class ViewportLifecycleListener extends BaseLifecycleListener<Viewport, FiberViewportProps> {
   onMount(instance?: CreatedInstance<Viewport>) {

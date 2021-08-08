@@ -1,5 +1,8 @@
+import { Camera } from '@babylonjs/core/Cameras/camera.js';
+import { Scene } from '@babylonjs/core/scene.js';
+import { Nullable } from '@babylonjs/core/types.js';
 import { useEffect, useContext, useRef } from 'react';
-import { Scene, Nullable, Camera } from '@babylonjs/core';
+
 import { SceneContext } from './scene';
 
 /**

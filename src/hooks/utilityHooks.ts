@@ -1,18 +1,16 @@
 import { MutableRefObject, useEffect, useRef, useState } from 'react';
-import {
-    Nullable,
-    Observer,
-    EventState,
-    ActionManager,
-    ActionEvent,
-    ExecuteCodeAction,
-    Mesh,
-    IAction,
-    AbstractMesh,
-} from '@babylonjs/core';
-import { Control } from '@babylonjs/gui/2D/controls/control';
 
-import { ICustomPropsHandler, CustomPropsHandler } from '../PropsHandler';
+import { Control } from '@babylonjs/gui/2D/controls/control.js';
+import { ICustomPropsHandler, CustomPropsHandler } from '../PropsHandler.js';
+import { ActionEvent } from '@babylonjs/core/Actions/actionEvent.js';
+import { EventState } from '@babylonjs/core/Misc/observable.js';
+import { Mesh } from '@babylonjs/core/Meshes/mesh.js';
+import { ActionManager } from '@babylonjs/core/Actions/actionManager.js';
+import { Nullable } from '@babylonjs/core/types.js';
+import { IAction } from '@babylonjs/core/Actions/action.js';
+import { Observer } from '@babylonjs/core/Misc/observable.js';
+import { AbstractMesh } from '@babylonjs/core/Meshes/abstractMesh.js';
+import { ExecuteCodeAction } from '@babylonjs/core/Actions/directActions.js';
 
 export const useCustomPropsHandler = (propsHandler: ICustomPropsHandler<any, any>/*, deps?: React.DependencyList | undefined*/): void => {
     const firstRun = useRef<boolean>(true);

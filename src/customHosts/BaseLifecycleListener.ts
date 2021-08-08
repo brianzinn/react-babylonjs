@@ -1,4 +1,6 @@
-import { Scene } from '@babylonjs/core';
+
+import { Scene } from '@babylonjs/core/scene.js';
+
 import { CreatedInstance } from '../CreatedInstance';
 import { LifecycleListener } from '../LifecycleListener';
 import { applyInitialPropsToCreatedInstance } from '../UpdateInstance';

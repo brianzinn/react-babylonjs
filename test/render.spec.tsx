@@ -1,5 +1,5 @@
 import React from 'react';
-import { AbstractMesh, ArcRotateCamera, Camera, EffectLayer, Engine, GlowLayer, NullEngine, Scene, Vector3 } from "@babylonjs/core";
+
 import sinon from "sinon";
 import assert from 'assert';
 
@@ -7,6 +7,15 @@ import { Container } from "../src/ReactBabylonJSHostConfig";
 import { createReconciler, ReconcilerInstance } from '../src/render';
 import { SceneContext } from '../src/hooks/scene';
 import { CustomPropsHandler, PropChangeType } from '../src/PropsHandler';
+import { NullEngine } from '@babylonjs/core/Engines/nullEngine';
+import { Scene } from '@babylonjs/core/scene';
+import { Engine } from '@babylonjs/core/Engines/engine';
+import { Vector3 } from '@babylonjs/core/Maths/math.vector';
+import { ArcRotateCamera } from '@babylonjs/core/Cameras/arcRotateCamera';
+import { EffectLayer } from '@babylonjs/core/Layers/effectLayer';
+import { GlowLayer } from '@babylonjs/core/Layers/glowLayer';
+import { AbstractMesh } from '@babylonjs/core/Meshes/abstractMesh';
+import { Camera } from '@babylonjs/core/Cameras/camera';
 
 describe(' > Reconciler/Render tests', function testSuite() {
 

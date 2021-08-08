@@ -4,9 +4,17 @@ import { Fiber } from 'react-reconciler';
 import { CreatedInstance } from '../src/CreatedInstance';
 import { CustomProps } from '../src/CustomProps';
 import renderer, { Container } from '../src/ReactBabylonJSHostConfig';
-import { Engine, FreeCamera, Mesh, NullEngine, PBRMaterial, Scene, StandardMaterial, Vector3 } from '@babylonjs/core';
+
 import { AbstractMeshLifecycleListener, CameraLifecycleListener, FallbackLifecycleListener } from '../src/customHosts';
-import { PBRClearCoatConfiguration } from '@babylonjs/core/Materials/PBR/pbrClearCoatConfiguration';
+import { PBRClearCoatConfiguration } from '@babylonjs/core/Materials/PBR/pbrClearCoatConfiguration.js';
+import { NullEngine } from '@babylonjs/core/Engines/nullEngine.js';
+import { Scene } from '@babylonjs/core/scene.js';
+import { Engine } from '@babylonjs/core/Engines/engine.js';
+import { PBRMaterial } from '@babylonjs/core/Materials/PBR/pbrMaterial.js';
+import { FreeCamera } from '@babylonjs/core/Cameras/freeCamera.js';
+import { Vector3 } from '@babylonjs/core/Maths/math.vector.js';
+import { Mesh } from '@babylonjs/core/Meshes/mesh.js';
+import { StandardMaterial } from '@babylonjs/core/Materials/standardMaterial.js';
 
 describe(' > Reconciler tests', function testSuite() {
 

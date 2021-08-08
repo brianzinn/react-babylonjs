@@ -1,4 +1,6 @@
-import { EnvironmentHelper } from '@babylonjs/core'
+
+import { EnvironmentHelper } from '@babylonjs/core/Helpers/environmentHelper.js';
+
 import { CreatedInstance } from '../CreatedInstance'
 import BaseLifecycleListener from './BaseLifecycleListener'
 

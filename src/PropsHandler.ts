@@ -1,6 +1,12 @@
-import { Vector3, Color3, Color4, Quaternion } from '@babylonjs/core/Maths/math'
-import { Control } from '@babylonjs/gui/2D/controls/control'
-import { Observable, FresnelParameters, BaseTexture, Nullable } from '@babylonjs/core'
+import { FresnelParameters } from '@babylonjs/core/Materials/fresnelParameters.js';
+import { BaseTexture } from '@babylonjs/core/Materials/Textures/baseTexture.js';
+import { Color4 } from '@babylonjs/core/Maths/math.color.js';
+import { Color3 } from '@babylonjs/core/Maths/math.color.js';
+import { Quaternion, Vector3 } from '@babylonjs/core/Maths/math.vector.js';
+
+import { Observable } from '@babylonjs/core/Misc/observable.js';
+import { Nullable } from '@babylonjs/core/types.js';
+import { Control } from '@babylonjs/gui/2D/controls/control.js'
 
 export interface PropertyUpdate {
   value: any

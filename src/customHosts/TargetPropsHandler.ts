@@ -1,4 +1,6 @@
-import { Scene } from '@babylonjs/core';
+
+import { Scene } from '@babylonjs/core/scene.js';
+
 import { UpdatePayload, PropertyUpdate, PropsHandler, PropChangeType } from '../PropsHandler';
 
 // This does not work when declared component with 'lockedTargetMeshName' is before the mesh with that name.

@@ -1,4 +1,7 @@
-import { ShadowGenerator, DirectionalLight } from '@babylonjs/core';
+
+import { DirectionalLight } from '@babylonjs/core/Lights/directionalLight.js';
+import { ShadowGenerator } from '@babylonjs/core/Lights/Shadows/shadowGenerator.js';
+
 import BaseShadowGeneratorLifecycleListener from './BaseShadowGeneratorLifecycleListener';
 
 export default class ShadowGeneratorLifecycleListener extends BaseShadowGeneratorLifecycleListener<ShadowGenerator, any> {

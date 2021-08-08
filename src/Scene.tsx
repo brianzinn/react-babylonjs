@@ -1,13 +1,10 @@
 import React, { useContext, useEffect, useRef, useState, MutableRefObject } from 'react';
-import {
-  AbstractMesh,
-  Nullable,
-  Observer,
-  PointerEventTypes,
-  PointerInfo,
-  Scene as BabylonJSScene,
-  SceneOptions
-} from '@babylonjs/core';
+
+import { Scene as BabylonScene, SceneOptions } from '@babylonjs/core/scene.js';
+import { PointerEventTypes, PointerInfo } from '@babylonjs/core/Events/pointerEvents.js';
+import { AbstractMesh } from '@babylonjs/core/Meshes/abstractMesh.js';
+import { Nullable } from '@babylonjs/core/types.js';
+import { Observer } from '@babylonjs/core/Misc/observable.js';
 
 import { EngineCanvasContextType, EngineCanvasContext, withEngineCanvasContext } from './hooks/engine';
 import { SceneContext } from './hooks/scene';
@@ -20,22 +17,22 @@ import { Container } from './ReactBabylonJSHostConfig';
 import { CreatedInstance } from './CreatedInstance';
 
 export declare type SceneEventArgs = {
-  scene: BabylonJSScene;
+  scene: BabylonScene;
   canvas: HTMLCanvasElement;
 };
 
 type SceneProps = {
   engineCanvasContext: EngineCanvasContextType
-  onMeshPicked?: (mesh: AbstractMesh, scene: BabylonJSScene) => void
-  onScenePointerDown?: (evt: PointerInfo, scene: BabylonJSScene) => void
-  onScenePointerUp?: (evt: PointerInfo, scene: BabylonJSScene) => void
-  onScenePointerMove?: (evt: PointerInfo, scene: BabylonJSScene) => void
+  onMeshPicked?: (mesh: AbstractMesh, scene: BabylonScene) => void
+  onScenePointerDown?: (evt: PointerInfo, scene: BabylonScene) => void
+  onScenePointerUp?: (evt: PointerInfo, scene: BabylonScene) => void
+  onScenePointerMove?: (evt: PointerInfo, scene: BabylonScene) => void
   onSceneMount?: (sceneEventArgs: SceneEventArgs) => void
   children: any,
   sceneOptions?: SceneOptions
 } & FiberSceneProps
 
-const updateScene = (props: SceneProps, prevPropsRef: MutableRefObject<Partial<SceneProps>>, scene: CreatedInstance<BabylonJSScene>, propsHandler: FiberScenePropsHandler) => {
+const updateScene = (props: SceneProps, prevPropsRef: MutableRefObject<Partial<SceneProps>>, scene: CreatedInstance<BabylonScene>, propsHandler: FiberScenePropsHandler) => {
   const prevProps = prevPropsRef.current;
   const updates: UpdatePayload = propsHandler.getPropertyUpdates(prevProps, props);
 
@@ -52,7 +49,7 @@ const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
 
   const [propsHandler] = useState(new FiberScenePropsHandler());
   const [sceneReady, setSceneReady] = useState(false);
-  const [scene, setScene] = useState<Nullable<BabylonJSScene>>(null)
+  const [scene, setScene] = useState<Nullable<BabylonScene>>(null)
 
   // TODO: make this strongly typed
   const reconcilerRef = useRef<Nullable<ReconcilerInstance>>(null);
@@ -62,7 +59,7 @@ const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
 
   // initialize babylon scene
   useEffect(() => {
-    const scene = new BabylonJSScene(engine!, props.sceneOptions)
+    const scene = new BabylonScene(engine!, props.sceneOptions)
     // const onReadyObservable: Nullable<Observer<BabylonJSScene>> = scene.onReadyObservable.add(onSceneReady);
     const sceneIsReady = scene.isReady();
     if (sceneIsReady) {
