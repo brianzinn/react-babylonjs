@@ -9,7 +9,7 @@
     "react",
     "babylon",
     "babylon.js",
-    "@babylonjs",
+    "renderer",
     "react-reconciler"
   ],
   "main": "dist/react-babylonjs.js",

@@ -1,4 +1,5 @@
 import { GlowLayer } from '@babylonjs/core/Layers/glowLayer.js';
+import { ShadowGenerator } from '@babylonjs/core/Lights/Shadows/shadowGenerator';
 import { AbstractMesh } from '@babylonjs/core/Meshes/abstractMesh.js';
 import { Mesh } from '@babylonjs/core/Meshes/mesh.js';
 
@@ -30,6 +31,12 @@ export default class AbstractMeshLifecycleListener extends BaseLifecycleListener
           }
         }
         break;
+      }
+
+      if (tmp.metadata && tmp.metadata.isShadowGenerator === true && tmp.customProps.shadowCastChildren === true) {
+        if (tmp.hostInstance !== undefined /* ShadowGenerators have deferred creation (waiting on light source) */) {
+          (tmp.hostInstance as ShadowGenerator).addShadowCaster(mesh as Mesh, instance.customProps.childMeshesNotTracked === true);
+        }
       }
       tmp = tmp.parent;
     }

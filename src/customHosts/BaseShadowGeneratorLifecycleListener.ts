@@ -39,7 +39,20 @@ export default abstract class BaseShadowGeneratorLifecycleListener<T extends Sha
       return null;
     }
 
-    if ((instance.customProps as ShadowGeneratorCustomProps).shadowCasters) {
+    if ((instance.customProps as ShadowGeneratorCustomProps).shadowCastChildren === true) {
+      // recursively add children once the generator has completed deferred creation - after this meshes will add themselves from their LifecycleListener.
+      const addShadowCasters = (children: CreatedInstance<any>[], generator: T): void => {
+        for(const child of children) {
+          if (child.metadata.isMesh === true) {
+            generator.addShadowCaster(child.hostInstance as AbstractMesh, child.customProps.childMeshesNotTracked === true);
+          }
+          if (child.children.length !== 0) {
+            addShadowCasters(child.children, generator);
+          }
+        }
+      }
+      addShadowCasters(instance.children, instance.hostInstance);
+    } else if ((instance.customProps as ShadowGeneratorCustomProps).shadowCasters) {
       if (!Array.isArray((instance.customProps as ShadowGeneratorCustomProps).shadowCasters)) {
         console.error('Shadow casters must be an array (of strings).', (instance.customProps as ShadowGeneratorCustomProps).shadowCasters);
         return null;

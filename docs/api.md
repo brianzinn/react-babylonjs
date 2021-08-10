@@ -6,7 +6,7 @@ The hooks are useful to get access to scene or engine object or get access to re
 [Hooks API documentation](hooks/modules.md)
 
 # Code generated API
-Due to using code generation from the Babylon typings, all of these declarative elements will adhere to the same API as you find on [Babylon.js documentation site](https://doc.babylonjs.com/):
+Due to using code generation from the Babylon typings, all of these declarative elements will adhere to the same API (See CustomProps below for exceptions) as you find on [Babylon.js documentation site](https://doc.babylonjs.com/):
 
 If you want to declaratively use something not listed here create an issue :)  Some extensions have been added to allow for declarative scene creation (ie: Shadows, Textures, etc.)
 
@@ -47,3 +47,41 @@ If you want to declaratively use something not listed here create an issue :)  S
 
 ## Extensions (new in 2.0)
 1. dynamicTerrain
+
+# Custom Props
+To be able to allow more declarative capabilities there are additional props that are not on the default babylonjs object.  Other than these properties the React host elements follow the babylon API docs.  These are all optional.
+
+## Props available to all host elements
+1. `assignTo` - Assign to this property on the parent.  Parent property is cleared on umnount (ie: texture can be assigned to bump/diffuse/etc.)
+2. `assignFrom` - Assigned from a parent property and then participates with props (ie: PBR configurations or PostProcess properties like grain)
+3. `fromInstance` - Attach an instance you create (or want re-used) and the renderer will use that instance instead.
+4. `disposeInstanceOnUnmount` - Applicable only when using `fromInstance`.  Defaults to `false`, but you can set to true for automatic cleanup.
+
+### AdvancedDynamicTexture
+1. `createForParentMesh` - Same as factory method for attaching an ADT to a plane and then the child components are 2D controls.
+
+### Control3D
+1. `childrenAsContent` - for 3D control ".content" (which is 2D)
+2. `linkToTransformNodeByName` -for Control3D, which has position, but not other properties like rotation
+3. `onControlAdded` - callback when control is added.
+
+### GlowLayer
+1. `addIncludeOnlyChildren` - Adds all child nodes to the glow layer (and nothing else).
+
+### Material
+1. `attachToMeshesByName` - For attaching the same material to multiple meshes (by mesh name)
+
+### Meshes
+1. `childMeshesNotTracked` - Useful if you attach children to a mesh and want the child meshes to participate in GlowLayer or ShadowGenerator (see props below).
+
+### ShadowGenerator
+1. `shadowCasters` - string array of mesh names to search for, which will be added as shadow casters.
+2. `shadowCastersExcluding` - string array of mesh names to exclude from casting shadows (all other meshes by name will cast shadows)
+3. `shadowCastChildren` - adds all child nodes as shadow casters.
+
+### Virtual Keyboard
+1. `connectControlNames` - 2d input control names
+2. `defaultKeyboard` - Use default keyboard
+
+### VRExperienceHelper
+1. `enableInteractions` - call `enableInteractions()`.

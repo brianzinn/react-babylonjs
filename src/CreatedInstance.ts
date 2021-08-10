@@ -24,6 +24,7 @@ export interface InstanceMetadataParameter {
   isEffectLayer?: boolean;
   isGlowLayer?: boolean;
   isBehavior?: boolean;
+  isShadowGenerator?: boolean
 }
 
 export interface CreatedInstanceMetadata extends InstanceMetadataParameter {

@@ -294,7 +294,7 @@ const ReactBabylonJSHostConfig: HostConfig<
     internalInstanceHandle: Object
   ): CreatedInstance<any> | undefined => {
     // TODO: Make a registry like React Native host config or just build a map in /customHosts/index.ts.
-    const customTypes: string[] = [CUSTOM_HOSTS.HostWithEvents]
+    const customTypes: string[] = []
 
     // TODO: Check source for difference between hostContext and rootContainerInstance.
     const { scene } = rootContainerInstance
@@ -356,6 +356,7 @@ const ReactBabylonJSHostConfig: HostConfig<
       disposeInstanceOnUnmount: props.assignFrom === undefined,
       addIncludeOnlyChildren: props.addIncludeOnlyChildren === true,
       childMeshesNotTracked: props.childMeshesNotTracked === true,
+      shadowCastChildren: props.shadowCastChildren
     };
 
     if (customProps.assignFrom !== undefined) {

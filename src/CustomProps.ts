@@ -62,6 +62,10 @@ export type ShadowGeneratorCustomProps = {
    * List of mesh names to exclude from casting shadows (all other meshes by name will cast shadows)
    */
   shadowCastersExcluding?: string[]
+  /**
+   * Adds all child nodes as shadow casters.
+   */
+  shadowCastChildren?: boolean
 } & CustomProps;
 
 export type VRExperienceHelperCustomProps = {

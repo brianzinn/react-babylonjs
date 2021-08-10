@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Engine, Scene, useScene } from '../../../dist/react-babylonjs';
 import { Color3 } from '@babylonjs/core/Maths/math.color';
-import { Vector3, Color3 } from '@babylonjs/core/Maths/math.vector';
+import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 import '../../style.css'
 
 export default { title: 'Babylon Basic' };

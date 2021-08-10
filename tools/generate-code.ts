@@ -1681,8 +1681,8 @@ const generateCode = async () => {
   createSingleClass("Viewport", generatedCodeSourceFile, generatedPropsSourceFile);
 
   // These "delay creation" we want to also not generate constructors?
-  createSingleClass("ShadowGenerator", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true }, () => { return; }, 'ShadowGeneratorCustomProps');
-  createSingleClass("CascadedShadowGenerator", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true }, () => { return; }, 'ShadowGeneratorCustomProps');
+  createSingleClass("ShadowGenerator", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true, isShadowGenerator: true }, () => { return; }, 'ShadowGeneratorCustomProps');
+  createSingleClass("CascadedShadowGenerator", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true, isShadowGenerator: true }, () => { return; }, 'ShadowGeneratorCustomProps');
   createSingleClass("EngineView", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true }, () => { return; });
 
   console.log('Adding read-only property classes:');

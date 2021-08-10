@@ -10,7 +10,5 @@ export { applyInitialPropsToInstance, applyPropsToRef } from './UpdateInstance';
 export { default as Engine } from './Engine';
 export { default as Scene, SceneEventArgs } from './Scene';
 
-export { HostWithEvents } from './customHosts';
-
 export {EngineProps} from './Engine';
 export {CreatedInstance} from './CreatedInstance';

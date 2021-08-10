@@ -15976,6 +15976,7 @@ export class FiberShadowGenerator implements HasPropsHandlers<FiberShadowGenerat
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "delayCreation": true,
+        "isShadowGenerator": true,
         "className": "FiberShadowGenerator"
     };
 }
@@ -16050,6 +16051,7 @@ export class FiberCascadedShadowGenerator implements HasPropsHandlers<FiberCasca
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "delayCreation": true,
+        "isShadowGenerator": true,
         "className": "FiberCascadedShadowGenerator"
     };
 }

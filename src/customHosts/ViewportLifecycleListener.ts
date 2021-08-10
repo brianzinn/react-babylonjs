@@ -9,7 +9,7 @@ import { FiberViewportProps } from '../generatedProps';
 export default class ViewportLifecycleListener extends BaseLifecycleListener<Viewport, FiberViewportProps> {
   onMount(instance?: CreatedInstance<Viewport>) {
     if (instance === undefined) {
-      console.error('Missing instance');
+      console.error('Missing instance (for viewport)');
       return;
     }
 
@@ -21,12 +21,9 @@ export default class ViewportLifecycleListener extends BaseLifecycleListener<Vie
         if (instance.customProps.assignTo) {
           assignProperty(viewport, tmp.hostInstance, instance.customProps.assignTo);
         } else {
-          console.log('attaching viewport to camera', tmp.hostInstance);
           (tmp as CreatedInstance<Camera>).hostInstance!.viewport = viewport;
         }
         break;
-      } else {
-        console.log('not a camera', JSON.stringify(instance.hostInstance), tmp.metadata);
       }
       tmp = tmp.parent;
     }
