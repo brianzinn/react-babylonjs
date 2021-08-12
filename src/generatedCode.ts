@@ -1,6 +1,6 @@
 import { PropsHandler, PropertyUpdate, HasPropsHandlers, checkColor3Diff, checkColor4Diff, checkControlDiff, checkFresnelParametersDiff, checkLambdaDiff, checkMethodDiff, checkNumericArrayDiff, checkObjectDiff, checkObservableDiff, checkPrimitiveDiff, checkQuaternionDiff, checkTextureDiff, checkVector3Diff } from "./PropsHandler";
 import { CreatedInstanceMetadata } from "./CreatedInstance";
-import { FiberNodeProps, FiberTransformNodeProps, FiberAbstractMeshProps, FiberInstancedMeshProps, FiberInstancedLinesMeshProps, FiberMeshProps, FiberLinesMeshProps, FiberGroundMeshProps, FiberTrailMeshProps, FiberCameraProps, FiberTargetCameraProps, FiberFreeCameraProps, FiberTouchCameraProps, FiberUniversalCameraProps, FiberGamepadCameraProps, FiberAnaglyphGamepadCameraProps, FiberStereoscopicGamepadCameraProps, FiberAnaglyphUniversalCameraProps, FiberStereoscopicUniversalCameraProps, FiberDeviceOrientationCameraProps, FiberVRDeviceOrientationFreeCameraProps, FiberVRDeviceOrientationGamepadCameraProps, FiberAnaglyphFreeCameraProps, FiberStereoscopicFreeCameraProps, FiberVirtualJoysticksCameraProps, FiberWebVRFreeCameraProps, FiberWebXRCameraProps, FiberArcRotateCameraProps, FiberAnaglyphArcRotateCameraProps, FiberStereoscopicArcRotateCameraProps, FiberVRDeviceOrientationArcRotateCameraProps, FiberFlyCameraProps, FiberFollowCameraProps, FiberArcFollowCameraProps, FiberMaterialProps, FiberPushMaterialProps, FiberNodeMaterialProps, FiberStandardMaterialProps, FiberBackgroundMaterialProps, FiberPBRBaseMaterialProps, FiberPBRBaseSimpleMaterialProps, FiberPBRMetallicRoughnessMaterialProps, FiberPBRSpecularGlossinessMaterialProps, FiberPBRMaterialProps, FiberFluentMaterialProps, FiberShaderMaterialProps, FiberMultiMaterialProps, FiberLightProps, FiberShadowLightProps, FiberDirectionalLightProps, FiberPointLightProps, FiberSpotLightProps, FiberHemisphericLightProps, FiberControlProps, FiberContainerProps, FiberRectangleProps, FiberButtonProps, FiberSelectionPanelProps, FiberScrollViewerProps, FiberStackPanelProps, FiberVirtualKeyboardProps, FiberEllipseProps, FiberGridProps, Fiber_ScrollViewerWindowProps, FiberTextBlockProps, FiberImageProps, FiberCheckboxProps, FiberColorPickerProps, FiberInputTextProps, FiberInputPasswordProps, FiberLineProps, FiberMultiLineProps, FiberRadioButtonProps, FiberBaseSliderProps, FiberScrollBarProps, FiberImageScrollBarProps, FiberSliderProps, FiberImageBasedSliderProps, FiberDisplayGridProps, FiberControl3DProps, FiberContainer3DProps, FiberVolumeBasedPanelProps, FiberCylinderPanelProps, FiberPlanePanelProps, FiberScatterPanelProps, FiberSpherePanelProps, FiberStackPanel3DProps, FiberAbstractButton3DProps, FiberButton3DProps, FiberHolographicButtonProps, FiberMeshButton3DProps, FiberEffectLayerProps, FiberGlowLayerProps, FiberHighlightLayerProps, FiberThinTextureProps, FiberBaseTextureProps, FiberCubeTextureProps, FiberRawCubeTextureProps, FiberTextureProps, FiberRawTextureProps, FiberProceduralTextureProps, FiberCustomProceduralTextureProps, FiberNoiseProceduralTextureProps, FiberRenderTargetTextureProps, FiberMirrorTextureProps, FiberMultiRenderTargetProps, FiberRefractionTextureProps, FiberMultiviewRenderTargetProps, FiberVideoTextureProps, FiberDynamicTextureProps, FiberAdvancedDynamicTextureProps, FiberRawTexture2DArrayProps, FiberRawTexture3DProps, FiberColorGradingTextureProps, FiberEquiRectangularCubeTextureProps, FiberHDRCubeTextureProps, FiberHtmlElementTextureProps, FiberPostProcessRenderPipelineProps, FiberDefaultRenderingPipelineProps, FiberLensRenderingPipelineProps, FiberSSAO2RenderingPipelineProps, FiberSSAORenderingPipelineProps, FiberStandardRenderingPipelineProps, FiberPostProcessProps, FiberImageProcessingPostProcessProps, FiberAnaglyphPostProcessProps, FiberBlackAndWhitePostProcessProps, FiberExtractHighlightsPostProcessProps, FiberBloomMergePostProcessProps, FiberBlurPostProcessProps, FiberDepthOfFieldBlurPostProcessProps, FiberChromaticAberrationPostProcessProps, FiberCircleOfConfusionPostProcessProps, FiberColorCorrectionPostProcessProps, FiberConvolutionPostProcessProps, FiberDepthOfFieldMergePostProcessProps, FiberDisplayPassPostProcessProps, FiberFilterPostProcessProps, FiberFxaaPostProcessProps, FiberGrainPostProcessProps, FiberHighlightsPostProcessProps, FiberMotionBlurPostProcessProps, FiberPassPostProcessProps, FiberPassCubePostProcessProps, FiberRefractionPostProcessProps, FiberSharpenPostProcessProps, FiberScreenSpaceReflectionPostProcessProps, FiberStereoscopicInterlacePostProcessIProps, FiberStereoscopicInterlacePostProcessProps, FiberTonemapPostProcessProps, FiberVolumetricLightScatteringPostProcessProps, FiberVRDistortionCorrectionPostProcessProps, FiberVRMultiviewToSingleviewPostProcessProps, FiberScreenSpaceCurvaturePostProcessProps, FiberSubSurfaceScatteringPostProcessProps, FiberGUI3DManagerProps, FiberEnvironmentHelperProps, FiberPhysicsImpostorProps, FiberVRExperienceHelperProps, FiberDynamicTerrainProps, FiberPointsCloudSystemProps, FiberViewportProps, FiberShadowGeneratorProps, FiberCascadedShadowGeneratorProps, FiberEngineViewProps, FiberImageProcessingConfigurationProps, FiberPrePassConfigurationProps, FiberDetailMapConfigurationProps, FiberPBRClearCoatConfigurationProps, FiberPBRAnisotropicConfigurationProps, FiberPBRBRDFConfigurationProps, FiberPBRSheenConfigurationProps, FiberPBRSubSurfaceConfigurationProps, FiberAutoRotationBehaviorProps, FiberBouncingBehaviorProps, FiberFramingBehaviorProps, FiberAttachToBoxBehaviorProps, FiberFadeInOutBehaviorProps, FiberMultiPointerScaleBehaviorProps, FiberPointerDragBehaviorProps, FiberSixDofDragBehaviorProps, FiberSceneProps } from "./generatedProps";
+import { FiberNodeProps, FiberTransformNodeProps, FiberAbstractMeshProps, FiberInstancedMeshProps, FiberInstancedLinesMeshProps, FiberMeshProps, FiberLinesMeshProps, FiberGroundMeshProps, FiberTrailMeshProps, FiberCameraProps, FiberTargetCameraProps, FiberFreeCameraProps, FiberTouchCameraProps, FiberUniversalCameraProps, FiberGamepadCameraProps, FiberAnaglyphGamepadCameraProps, FiberStereoscopicGamepadCameraProps, FiberAnaglyphUniversalCameraProps, FiberStereoscopicUniversalCameraProps, FiberDeviceOrientationCameraProps, FiberVRDeviceOrientationFreeCameraProps, FiberVRDeviceOrientationGamepadCameraProps, FiberAnaglyphFreeCameraProps, FiberStereoscopicFreeCameraProps, FiberVirtualJoysticksCameraProps, FiberWebVRFreeCameraProps, FiberWebXRCameraProps, FiberArcRotateCameraProps, FiberAnaglyphArcRotateCameraProps, FiberStereoscopicArcRotateCameraProps, FiberVRDeviceOrientationArcRotateCameraProps, FiberFlyCameraProps, FiberFollowCameraProps, FiberArcFollowCameraProps, FiberMaterialProps, FiberPushMaterialProps, FiberNodeMaterialProps, FiberStandardMaterialProps, FiberBackgroundMaterialProps, FiberPBRBaseMaterialProps, FiberPBRBaseSimpleMaterialProps, FiberPBRMetallicRoughnessMaterialProps, FiberPBRSpecularGlossinessMaterialProps, FiberPBRMaterialProps, FiberFluentMaterialProps, FiberShaderMaterialProps, FiberMultiMaterialProps, FiberLightProps, FiberShadowLightProps, FiberDirectionalLightProps, FiberPointLightProps, FiberSpotLightProps, FiberHemisphericLightProps, FiberControlProps, FiberContainerProps, FiberRectangleProps, FiberButtonProps, FiberSelectionPanelProps, FiberScrollViewerProps, FiberStackPanelProps, FiberVirtualKeyboardProps, FiberEllipseProps, FiberGridProps, Fiber_ScrollViewerWindowProps, FiberTextBlockProps, FiberImageProps, FiberCheckboxProps, FiberColorPickerProps, FiberInputTextProps, FiberInputPasswordProps, FiberLineProps, FiberMultiLineProps, FiberRadioButtonProps, FiberBaseSliderProps, FiberScrollBarProps, FiberImageScrollBarProps, FiberSliderProps, FiberImageBasedSliderProps, FiberDisplayGridProps, FiberControl3DProps, FiberContainer3DProps, FiberVolumeBasedPanelProps, FiberCylinderPanelProps, FiberPlanePanelProps, FiberScatterPanelProps, FiberSpherePanelProps, FiberStackPanel3DProps, FiberAbstractButton3DProps, FiberButton3DProps, FiberHolographicButtonProps, FiberMeshButton3DProps, FiberEffectLayerProps, FiberGlowLayerProps, FiberHighlightLayerProps, FiberThinTextureProps, FiberBaseTextureProps, FiberCubeTextureProps, FiberRawCubeTextureProps, FiberTextureProps, FiberRawTextureProps, FiberProceduralTextureProps, FiberCustomProceduralTextureProps, FiberNoiseProceduralTextureProps, FiberRenderTargetTextureProps, FiberMirrorTextureProps, FiberMultiRenderTargetProps, FiberRefractionTextureProps, FiberMultiviewRenderTargetProps, FiberVideoTextureProps, FiberDynamicTextureProps, FiberAdvancedDynamicTextureProps, FiberRawTexture2DArrayProps, FiberRawTexture3DProps, FiberColorGradingTextureProps, FiberEquiRectangularCubeTextureProps, FiberHDRCubeTextureProps, FiberHtmlElementTextureProps, FiberPostProcessRenderPipelineProps, FiberDefaultRenderingPipelineProps, FiberLensRenderingPipelineProps, FiberSSAO2RenderingPipelineProps, FiberSSAORenderingPipelineProps, FiberStandardRenderingPipelineProps, FiberPostProcessProps, FiberImageProcessingPostProcessProps, FiberAnaglyphPostProcessProps, FiberBlackAndWhitePostProcessProps, FiberExtractHighlightsPostProcessProps, FiberBloomMergePostProcessProps, FiberBlurPostProcessProps, FiberDepthOfFieldBlurPostProcessProps, FiberChromaticAberrationPostProcessProps, FiberCircleOfConfusionPostProcessProps, FiberColorCorrectionPostProcessProps, FiberConvolutionPostProcessProps, FiberDepthOfFieldMergePostProcessProps, FiberDisplayPassPostProcessProps, FiberFilterPostProcessProps, FiberFxaaPostProcessProps, FiberGrainPostProcessProps, FiberHighlightsPostProcessProps, FiberMotionBlurPostProcessProps, FiberPassPostProcessProps, FiberPassCubePostProcessProps, FiberRefractionPostProcessProps, FiberSharpenPostProcessProps, FiberScreenSpaceReflectionPostProcessProps, FiberStereoscopicInterlacePostProcessIProps, FiberStereoscopicInterlacePostProcessProps, FiberTonemapPostProcessProps, FiberVolumetricLightScatteringPostProcessProps, FiberVRDistortionCorrectionPostProcessProps, FiberVRMultiviewToSingleviewPostProcessProps, FiberScreenSpaceCurvaturePostProcessProps, FiberSubSurfaceScatteringPostProcessProps, FiberGizmoProps, FiberPlaneDragGizmoProps, FiberPlaneRotationGizmoProps, FiberRotationGizmoProps, FiberAxisScaleGizmoProps, FiberScaleGizmoProps, FiberBoundingBoxGizmoProps, FiberPositionGizmoProps, FiberAxisDragGizmoProps, FiberLightGizmoProps, FiberCameraGizmoProps, FiberGUI3DManagerProps, FiberEnvironmentHelperProps, FiberPhysicsImpostorProps, FiberVRExperienceHelperProps, FiberDynamicTerrainProps, FiberPointsCloudSystemProps, FiberViewportProps, FiberUtilityLayerRendererProps, FiberShadowGeneratorProps, FiberCascadedShadowGeneratorProps, FiberEngineViewProps, FiberImageProcessingConfigurationProps, FiberPrePassConfigurationProps, FiberDetailMapConfigurationProps, FiberPBRClearCoatConfigurationProps, FiberPBRAnisotropicConfigurationProps, FiberPBRBRDFConfigurationProps, FiberPBRSheenConfigurationProps, FiberPBRSubSurfaceConfigurationProps, FiberAutoRotationBehaviorProps, FiberBouncingBehaviorProps, FiberFramingBehaviorProps, FiberAttachToBoxBehaviorProps, FiberFadeInOutBehaviorProps, FiberMultiPointerScaleBehaviorProps, FiberPointerDragBehaviorProps, FiberSixDofDragBehaviorProps, FiberSceneProps } from "./generatedProps";
 import { DynamicTerrain as ExtensionsDynamicTerrain } from "./extensions/DynamicTerrain";
 import { AbstractScene as BabylonjsCoreAbstractScene } from "@babylonjs/core/abstractScene.js";
 import { Scene as BabylonjsCoreScene } from "@babylonjs/core/scene.js";
@@ -8,6 +8,7 @@ import { Camera as BabylonjsCoreCamera } from "@babylonjs/core/Cameras/camera.js
 import { DebugLayerTab as BabylonjsCoreDebugLayerTab } from "@babylonjs/core/Debug/debugLayer.js";
 import { DualShockButton as BabylonjsCoreDualShockButton, DualShockDpad as BabylonjsCoreDualShockDpad } from "@babylonjs/core/Gamepads/dualShockGamepad.js";
 import { Xbox360Button as BabylonjsCoreXbox360Button, Xbox360Dpad as BabylonjsCoreXbox360Dpad } from "@babylonjs/core/Gamepads/xboxGamepad.js";
+import { Gizmo as BabylonjsCoreGizmo, GizmoAxisCache as BabylonjsCoreGizmoAxisCache } from "@babylonjs/core/Gizmos/gizmo.js";
 import { EnvironmentHelper as BabylonjsCoreEnvironmentHelper, IEnvironmentHelperOptions as BabylonjsCoreIEnvironmentHelperOptions } from "@babylonjs/core/Helpers/environmentHelper.js";
 import { EffectLayer as BabylonjsCoreEffectLayer } from "@babylonjs/core/Layers/effectLayer.js";
 import { Light as BabylonjsCoreLight } from "@babylonjs/core/Lights/light.js";
@@ -31,6 +32,7 @@ import { PhysicsImpostor as BabylonjsCorePhysicsImpostor, IPhysicsEnabledObject 
 import { DepthOfFieldEffectBlurLevel as BabylonjsCoreDepthOfFieldEffectBlurLevel, DepthOfFieldEffect as BabylonjsCoreDepthOfFieldEffect } from "@babylonjs/core/PostProcesses/depthOfFieldEffect.js";
 import { PostProcess as BabylonjsCorePostProcess, PostProcessOptions as BabylonjsCorePostProcessOptions } from "@babylonjs/core/PostProcesses/postProcess.js";
 import { TonemappingOperator as BabylonjsCoreTonemappingOperator, TonemapPostProcess as BabylonjsCoreTonemapPostProcess } from "@babylonjs/core/PostProcesses/tonemapPostProcess.js";
+import { UtilityLayerRenderer as BabylonjsCoreUtilityLayerRenderer } from "@babylonjs/core/Rendering/utilityLayerRenderer.js";
 import { WebXRState as BabylonjsCoreWebXRState, WebXRTrackingState as BabylonjsCoreWebXRTrackingState } from "@babylonjs/core/XR/webXRTypes.js";
 import { AdvancedDynamicTexture as BabylonjsGuiAdvancedDynamicTexture, IFocusableControl as BabylonjsGuiIFocusableControl } from "@babylonjs/gui/2D/advancedDynamicTexture.js";
 import { GUI3DManager as BabylonjsGuiGUI3DManager } from "@babylonjs/gui/3D/gui3DManager.js";
@@ -243,6 +245,17 @@ import { VRDistortionCorrectionPostProcess as BabylonjsCoreVRDistortionCorrectio
 import { VRMultiviewToSingleviewPostProcess as BabylonjsCoreVRMultiviewToSingleviewPostProcess } from "@babylonjs/core/PostProcesses/vrMultiviewToSingleviewPostProcess.js";
 import { ScreenSpaceCurvaturePostProcess as BabylonjsCoreScreenSpaceCurvaturePostProcess } from "@babylonjs/core/PostProcesses/screenSpaceCurvaturePostProcess.js";
 import { SubSurfaceScatteringPostProcess as BabylonjsCoreSubSurfaceScatteringPostProcess } from "@babylonjs/core/PostProcesses/subSurfaceScatteringPostProcess.js";
+import { PlaneDragGizmo as BabylonjsCorePlaneDragGizmo } from "@babylonjs/core/Gizmos/planeDragGizmo.js";
+import { PositionGizmo as BabylonjsCorePositionGizmo } from "@babylonjs/core/Gizmos/positionGizmo.js";
+import { PlaneRotationGizmo as BabylonjsCorePlaneRotationGizmo } from "@babylonjs/core/Gizmos/planeRotationGizmo.js";
+import { RotationGizmo as BabylonjsCoreRotationGizmo } from "@babylonjs/core/Gizmos/rotationGizmo.js";
+import { GizmoManager as BabylonjsCoreGizmoManager } from "@babylonjs/core/Gizmos/gizmoManager.js";
+import { AxisScaleGizmo as BabylonjsCoreAxisScaleGizmo } from "@babylonjs/core/Gizmos/axisScaleGizmo.js";
+import { ScaleGizmo as BabylonjsCoreScaleGizmo } from "@babylonjs/core/Gizmos/scaleGizmo.js";
+import { BoundingBoxGizmo as BabylonjsCoreBoundingBoxGizmo } from "@babylonjs/core/Gizmos/boundingBoxGizmo.js";
+import { AxisDragGizmo as BabylonjsCoreAxisDragGizmo } from "@babylonjs/core/Gizmos/axisDragGizmo.js";
+import { LightGizmo as BabylonjsCoreLightGizmo } from "@babylonjs/core/Gizmos/lightGizmo.js";
+import { CameraGizmo as BabylonjsCoreCameraGizmo } from "@babylonjs/core/Gizmos/cameraGizmo.js";
 import { PhysicsJoint as BabylonjsCorePhysicsJoint } from "@babylonjs/core/Physics/physicsJoint.js";
 import { PickingInfo as BabylonjsCorePickingInfo } from "@babylonjs/core/Collisions/pickingInfo.js";
 import { WebXRDefaultExperience as BabylonjsCoreWebXRDefaultExperience } from "@babylonjs/core/XR/webXRDefaultExperience.js";
@@ -15299,6 +15312,762 @@ export class FiberSubSurfaceScatteringPostProcess implements HasPropsHandlers<Fi
     };
 }
 
+export class FiberGizmoPropsHandler implements PropsHandler<FiberGizmoProps> {
+    getPropertyUpdates(oldProps: FiberGizmoProps, newProps: FiberGizmoProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        // type: 'BabylonjsCoreAbstractMesh' property (not coded) BabylonjsCoreGizmo.attachedMesh.
+        // type: 'BabylonjsCoreNode' property (not coded) BabylonjsCoreGizmo.attachedNode.
+        // type: 'BabylonjsCoreUtilityLayerRenderer' property (not coded) BabylonjsCoreGizmo.gizmoLayer.
+        checkPrimitiveDiff(oldProps.scaleRatio, newProps.scaleRatio, 'scaleRatio', changedProps)
+        checkPrimitiveDiff(oldProps.updateGizmoPositionToMatchAttachedMesh, newProps.updateGizmoPositionToMatchAttachedMesh, 'updateGizmoPositionToMatchAttachedMesh', changedProps)
+        checkPrimitiveDiff(oldProps.updateGizmoRotationToMatchAttachedMesh, newProps.updateGizmoRotationToMatchAttachedMesh, 'updateGizmoRotationToMatchAttachedMesh', changedProps)
+        checkPrimitiveDiff(oldProps.updateScale, newProps.updateScale, 'updateScale', changedProps)
+        checkMethodDiff(oldProps.setCustomMesh, newProps.setCustomMesh, 'setCustomMesh', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
+    }
+}
+
+/**
+ * Renders gizmos on top of an existing scene which provide controls for position, rotation, etc.
+ *
+ * This code has been generated
+ */
+export class FiberGizmo implements HasPropsHandlers<FiberGizmoProps> {
+    private propsHandlers: PropsHandler<FiberGizmoProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberGizmoPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberGizmoProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberGizmoProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "Gizmo",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "gizmoLayer",
+                "type": "BabylonjsCoreUtilityLayerRenderer",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "isGizmo": true,
+        "className": "FiberGizmo"
+    };
+}
+
+export class FiberPlaneDragGizmoPropsHandler implements PropsHandler<FiberPlaneDragGizmoProps> {
+    getPropertyUpdates(oldProps: FiberPlaneDragGizmoProps, newProps: FiberPlaneDragGizmoProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        // type: 'BabylonjsCorePointerDragBehavior' property (not coded) BabylonjsCorePlaneDragGizmo.dragBehavior.
+        checkPrimitiveDiff(oldProps.isEnabled, newProps.isEnabled, 'isEnabled', changedProps)
+        checkObservableDiff(oldProps.onSnapObservable, newProps.onSnapObservable, 'onSnapObservable', changedProps)
+        checkPrimitiveDiff(oldProps.snapDistance, newProps.snapDistance, 'snapDistance', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
+    }
+}
+
+/**
+ * Single plane drag gizmo
+ *
+ * This code has been generated
+ */
+export class FiberPlaneDragGizmo implements HasPropsHandlers<FiberGizmoProps> {
+    private propsHandlers: PropsHandler<FiberGizmoProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberPlaneDragGizmoPropsHandler(),
+            new FiberGizmoPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberGizmoProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberGizmoProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "PlaneDragGizmo",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "dragPlaneNormal",
+                "type": "BabylonjsCoreVector3",
+                "optional": false
+            },
+            {
+                "name": "color",
+                "type": "BabylonjsCoreColor3",
+                "optional": true
+            },
+            {
+                "name": "gizmoLayer",
+                "type": "BabylonjsCoreUtilityLayerRenderer",
+                "optional": true
+            },
+            {
+                "name": "parent",
+                "type": "BabylonjsCorePositionGizmo",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "isGizmo": true,
+        "className": "FiberPlaneDragGizmo"
+    };
+}
+
+export class FiberPlaneRotationGizmoPropsHandler implements PropsHandler<FiberPlaneRotationGizmoProps> {
+    getPropertyUpdates(oldProps: FiberPlaneRotationGizmoProps, newProps: FiberPlaneRotationGizmoProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        // type: 'BabylonjsCorePointerDragBehavior' property (not coded) BabylonjsCorePlaneRotationGizmo.dragBehavior.
+        checkPrimitiveDiff(oldProps.isEnabled, newProps.isEnabled, 'isEnabled', changedProps)
+        checkObservableDiff(oldProps.onSnapObservable, newProps.onSnapObservable, 'onSnapObservable', changedProps)
+        // type: 'any' property (not coded) BabylonjsCorePlaneRotationGizmo.setupRotationCircle.
+        checkPrimitiveDiff(oldProps.snapDistance, newProps.snapDistance, 'snapDistance', changedProps)
+        // type: 'any' property (not coded) BabylonjsCorePlaneRotationGizmo.updateRotationCircle.
+        // type: 'any' property (not coded) BabylonjsCorePlaneRotationGizmo.updateRotationPath.
+        return changedProps.length === 0 ? null : changedProps;
+    }
+}
+
+/**
+ * Single plane rotation gizmo
+ *
+ * This code has been generated
+ */
+export class FiberPlaneRotationGizmo implements HasPropsHandlers<FiberGizmoProps> {
+    private propsHandlers: PropsHandler<FiberGizmoProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberPlaneRotationGizmoPropsHandler(),
+            new FiberGizmoPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberGizmoProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberGizmoProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "PlaneRotationGizmo",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "planeNormal",
+                "type": "BabylonjsCoreVector3",
+                "optional": false
+            },
+            {
+                "name": "color",
+                "type": "BabylonjsCoreColor3",
+                "optional": true
+            },
+            {
+                "name": "gizmoLayer",
+                "type": "BabylonjsCoreUtilityLayerRenderer",
+                "optional": true
+            },
+            {
+                "name": "tessellation",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "parent",
+                "type": "BabylonjsCoreRotationGizmo",
+                "optional": true
+            },
+            {
+                "name": "useEulerRotation",
+                "type": "boolean",
+                "optional": true
+            },
+            {
+                "name": "thickness",
+                "type": "number",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "isGizmo": true,
+        "className": "FiberPlaneRotationGizmo"
+    };
+}
+
+export class FiberRotationGizmoPropsHandler implements PropsHandler<FiberRotationGizmoProps> {
+    getPropertyUpdates(oldProps: FiberRotationGizmoProps, newProps: FiberRotationGizmoProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        // type: 'BabylonjsCoreAbstractMesh' property (not coded) BabylonjsCoreRotationGizmo.attachedMesh.
+        // type: 'BabylonjsCoreNode' property (not coded) BabylonjsCoreRotationGizmo.attachedNode.
+        checkObservableDiff(oldProps.onDragEndObservable, newProps.onDragEndObservable, 'onDragEndObservable', changedProps)
+        checkObservableDiff(oldProps.onDragStartObservable, newProps.onDragStartObservable, 'onDragStartObservable', changedProps)
+        checkPrimitiveDiff(oldProps.scaleRatio, newProps.scaleRatio, 'scaleRatio', changedProps)
+        checkPrimitiveDiff(oldProps.snapDistance, newProps.snapDistance, 'snapDistance', changedProps)
+        checkPrimitiveDiff(oldProps.updateGizmoRotationToMatchAttachedMesh, newProps.updateGizmoRotationToMatchAttachedMesh, 'updateGizmoRotationToMatchAttachedMesh', changedProps)
+        // type: 'BabylonjsCorePlaneRotationGizmo' property (not coded) BabylonjsCoreRotationGizmo.xGizmo.
+        // type: 'BabylonjsCorePlaneRotationGizmo' property (not coded) BabylonjsCoreRotationGizmo.yGizmo.
+        // type: 'BabylonjsCorePlaneRotationGizmo' property (not coded) BabylonjsCoreRotationGizmo.zGizmo.
+        checkMethodDiff(oldProps.addToAxisCache, newProps.addToAxisCache, 'addToAxisCache', changedProps)
+        checkMethodDiff(oldProps.setCustomMesh, newProps.setCustomMesh, 'setCustomMesh', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
+    }
+}
+
+/**
+ * Gizmo that enables rotating a mesh along 3 axis
+ *
+ * This code has been generated
+ */
+export class FiberRotationGizmo implements HasPropsHandlers<FiberGizmoProps> {
+    private propsHandlers: PropsHandler<FiberGizmoProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberRotationGizmoPropsHandler(),
+            new FiberGizmoPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberGizmoProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberGizmoProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "RotationGizmo",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "gizmoLayer",
+                "type": "BabylonjsCoreUtilityLayerRenderer",
+                "optional": true
+            },
+            {
+                "name": "tessellation",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "useEulerRotation",
+                "type": "boolean",
+                "optional": true
+            },
+            {
+                "name": "thickness",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "gizmoManager",
+                "type": "BabylonjsCoreGizmoManager",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "isGizmo": true,
+        "className": "FiberRotationGizmo"
+    };
+}
+
+export class FiberAxisScaleGizmoPropsHandler implements PropsHandler<FiberAxisScaleGizmoProps> {
+    getPropertyUpdates(oldProps: FiberAxisScaleGizmoProps, newProps: FiberAxisScaleGizmoProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        // type: 'BabylonjsCorePointerDragBehavior' property (not coded) BabylonjsCoreAxisScaleGizmo.dragBehavior.
+        checkPrimitiveDiff(oldProps.isEnabled, newProps.isEnabled, 'isEnabled', changedProps)
+        checkObservableDiff(oldProps.onSnapObservable, newProps.onSnapObservable, 'onSnapObservable', changedProps)
+        checkPrimitiveDiff(oldProps.sensitivity, newProps.sensitivity, 'sensitivity', changedProps)
+        checkPrimitiveDiff(oldProps.snapDistance, newProps.snapDistance, 'snapDistance', changedProps)
+        checkPrimitiveDiff(oldProps.uniformScaling, newProps.uniformScaling, 'uniformScaling', changedProps)
+        checkMethodDiff(oldProps.setCustomMesh, newProps.setCustomMesh, 'setCustomMesh', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
+    }
+}
+
+/**
+ * Single axis scale gizmo
+ *
+ * This code has been generated
+ */
+export class FiberAxisScaleGizmo implements HasPropsHandlers<FiberGizmoProps> {
+    private propsHandlers: PropsHandler<FiberGizmoProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberAxisScaleGizmoPropsHandler(),
+            new FiberGizmoPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberGizmoProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberGizmoProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "AxisScaleGizmo",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "dragAxis",
+                "type": "BabylonjsCoreVector3",
+                "optional": false
+            },
+            {
+                "name": "color",
+                "type": "BabylonjsCoreColor3",
+                "optional": true
+            },
+            {
+                "name": "gizmoLayer",
+                "type": "BabylonjsCoreUtilityLayerRenderer",
+                "optional": true
+            },
+            {
+                "name": "parent",
+                "type": "BabylonjsCoreScaleGizmo",
+                "optional": true
+            },
+            {
+                "name": "thickness",
+                "type": "number",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "isGizmo": true,
+        "className": "FiberAxisScaleGizmo"
+    };
+}
+
+export class FiberScaleGizmoPropsHandler implements PropsHandler<FiberScaleGizmoProps> {
+    getPropertyUpdates(oldProps: FiberScaleGizmoProps, newProps: FiberScaleGizmoProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        // type: 'BabylonjsCoreAbstractMesh' property (not coded) BabylonjsCoreScaleGizmo.attachedMesh.
+        // type: 'BabylonjsCoreNode' property (not coded) BabylonjsCoreScaleGizmo.attachedNode.
+        checkObservableDiff(oldProps.onDragEndObservable, newProps.onDragEndObservable, 'onDragEndObservable', changedProps)
+        checkObservableDiff(oldProps.onDragStartObservable, newProps.onDragStartObservable, 'onDragStartObservable', changedProps)
+        checkPrimitiveDiff(oldProps.scaleRatio, newProps.scaleRatio, 'scaleRatio', changedProps)
+        checkPrimitiveDiff(oldProps.sensitivity, newProps.sensitivity, 'sensitivity', changedProps)
+        checkPrimitiveDiff(oldProps.snapDistance, newProps.snapDistance, 'snapDistance', changedProps)
+        // type: 'BabylonjsCoreAxisScaleGizmo' property (not coded) BabylonjsCoreScaleGizmo.uniformScaleGizmo.
+        checkPrimitiveDiff(oldProps.updateGizmoRotationToMatchAttachedMesh, newProps.updateGizmoRotationToMatchAttachedMesh, 'updateGizmoRotationToMatchAttachedMesh', changedProps)
+        // type: 'BabylonjsCoreAxisScaleGizmo' property (not coded) BabylonjsCoreScaleGizmo.xGizmo.
+        // type: 'BabylonjsCoreAxisScaleGizmo' property (not coded) BabylonjsCoreScaleGizmo.yGizmo.
+        // type: 'BabylonjsCoreAxisScaleGizmo' property (not coded) BabylonjsCoreScaleGizmo.zGizmo.
+        checkMethodDiff(oldProps.addToAxisCache, newProps.addToAxisCache, 'addToAxisCache', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
+    }
+}
+
+/**
+ * Gizmo that enables scaling a mesh along 3 axis
+ *
+ * This code has been generated
+ */
+export class FiberScaleGizmo implements HasPropsHandlers<FiberGizmoProps> {
+    private propsHandlers: PropsHandler<FiberGizmoProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberScaleGizmoPropsHandler(),
+            new FiberGizmoPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberGizmoProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberGizmoProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "ScaleGizmo",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "gizmoLayer",
+                "type": "BabylonjsCoreUtilityLayerRenderer",
+                "optional": true
+            },
+            {
+                "name": "thickness",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "gizmoManager",
+                "type": "BabylonjsCoreGizmoManager",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "isGizmo": true,
+        "className": "FiberScaleGizmo"
+    };
+}
+
+export class FiberBoundingBoxGizmoPropsHandler implements PropsHandler<FiberBoundingBoxGizmoProps> {
+    getPropertyUpdates(oldProps: FiberBoundingBoxGizmoProps, newProps: FiberBoundingBoxGizmoProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        // type: 'any' property (not coded) BabylonjsCoreBoundingBoxGizmo.coloredMaterial.
+        checkPrimitiveDiff(oldProps.fixedDragMeshBoundsSize, newProps.fixedDragMeshBoundsSize, 'fixedDragMeshBoundsSize', changedProps)
+        checkPrimitiveDiff(oldProps.fixedDragMeshScreenSize, newProps.fixedDragMeshScreenSize, 'fixedDragMeshScreenSize', changedProps)
+        checkPrimitiveDiff(oldProps.fixedDragMeshScreenSizeDistanceFactor, newProps.fixedDragMeshScreenSizeDistanceFactor, 'fixedDragMeshScreenSizeDistanceFactor', changedProps)
+        // type: 'any' property (not coded) BabylonjsCoreBoundingBoxGizmo.hoverColoredMaterial.
+        checkPrimitiveDiff(oldProps.ignoreChildren, newProps.ignoreChildren, 'ignoreChildren', changedProps)
+        checkLambdaDiff(oldProps.includeChildPredicate, newProps.includeChildPredicate, 'includeChildPredicate', changedProps)
+        checkObservableDiff(oldProps.onDragStartObservable, newProps.onDragStartObservable, 'onDragStartObservable', changedProps)
+        checkObservableDiff(oldProps.onRotationSphereDragEndObservable, newProps.onRotationSphereDragEndObservable, 'onRotationSphereDragEndObservable', changedProps)
+        checkObservableDiff(oldProps.onRotationSphereDragObservable, newProps.onRotationSphereDragObservable, 'onRotationSphereDragObservable', changedProps)
+        checkObservableDiff(oldProps.onScaleBoxDragEndObservable, newProps.onScaleBoxDragEndObservable, 'onScaleBoxDragEndObservable', changedProps)
+        checkObservableDiff(oldProps.onScaleBoxDragObservable, newProps.onScaleBoxDragObservable, 'onScaleBoxDragObservable', changedProps)
+        // type: 'any' property (not coded) BabylonjsCoreBoundingBoxGizmo.pointerDragBehavior.
+        checkPrimitiveDiff(oldProps.rotationSphereSize, newProps.rotationSphereSize, 'rotationSphereSize', changedProps)
+        checkPrimitiveDiff(oldProps.scaleBoxSize, newProps.scaleBoxSize, 'scaleBoxSize', changedProps)
+        checkVector3Diff(oldProps.scalePivot, newProps.scalePivot, 'scalePivot', changedProps)
+        checkPrimitiveDiff(oldProps['scalePivot-x'], newProps['scalePivot-x'], 'scalePivot.x', changedProps)
+        checkPrimitiveDiff(oldProps['scalePivot-y'], newProps['scalePivot-y'], 'scalePivot.y', changedProps)
+        checkPrimitiveDiff(oldProps['scalePivot-z'], newProps['scalePivot-z'], 'scalePivot.z', changedProps)
+        checkMethodDiff(oldProps.setColor, newProps.setColor, 'setColor', changedProps)
+        checkMethodDiff(oldProps.setCustomMesh, newProps.setCustomMesh, 'setCustomMesh', changedProps)
+        checkMethodDiff(oldProps.setEnabledRotationAxis, newProps.setEnabledRotationAxis, 'setEnabledRotationAxis', changedProps)
+        checkMethodDiff(oldProps.setEnabledScaling, newProps.setEnabledScaling, 'setEnabledScaling', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
+    }
+}
+
+/**
+ * Bounding box gizmo
+ *
+ * This code has been generated
+ */
+export class FiberBoundingBoxGizmo implements HasPropsHandlers<FiberGizmoProps> {
+    private propsHandlers: PropsHandler<FiberGizmoProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberBoundingBoxGizmoPropsHandler(),
+            new FiberGizmoPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberGizmoProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberGizmoProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "BoundingBoxGizmo",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "color",
+                "type": "BabylonjsCoreColor3",
+                "optional": true
+            },
+            {
+                "name": "gizmoLayer",
+                "type": "BabylonjsCoreUtilityLayerRenderer",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "isGizmo": true,
+        "className": "FiberBoundingBoxGizmo"
+    };
+}
+
+export class FiberPositionGizmoPropsHandler implements PropsHandler<FiberPositionGizmoProps> {
+    getPropertyUpdates(oldProps: FiberPositionGizmoProps, newProps: FiberPositionGizmoProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        // type: 'BabylonjsCoreAbstractMesh' property (not coded) BabylonjsCorePositionGizmo.attachedMesh.
+        // type: 'BabylonjsCoreNode' property (not coded) BabylonjsCorePositionGizmo.attachedNode.
+        checkObservableDiff(oldProps.onDragEndObservable, newProps.onDragEndObservable, 'onDragEndObservable', changedProps)
+        checkObservableDiff(oldProps.onDragStartObservable, newProps.onDragStartObservable, 'onDragStartObservable', changedProps)
+        checkPrimitiveDiff(oldProps.planarGizmoEnabled, newProps.planarGizmoEnabled, 'planarGizmoEnabled', changedProps)
+        checkPrimitiveDiff(oldProps.scaleRatio, newProps.scaleRatio, 'scaleRatio', changedProps)
+        checkPrimitiveDiff(oldProps.snapDistance, newProps.snapDistance, 'snapDistance', changedProps)
+        checkPrimitiveDiff(oldProps.updateGizmoRotationToMatchAttachedMesh, newProps.updateGizmoRotationToMatchAttachedMesh, 'updateGizmoRotationToMatchAttachedMesh', changedProps)
+        // type: 'BabylonjsCoreAxisDragGizmo' property (not coded) BabylonjsCorePositionGizmo.xGizmo.
+        // type: 'BabylonjsCorePlaneDragGizmo' property (not coded) BabylonjsCorePositionGizmo.xPlaneGizmo.
+        // type: 'BabylonjsCoreAxisDragGizmo' property (not coded) BabylonjsCorePositionGizmo.yGizmo.
+        // type: 'BabylonjsCorePlaneDragGizmo' property (not coded) BabylonjsCorePositionGizmo.yPlaneGizmo.
+        // type: 'BabylonjsCoreAxisDragGizmo' property (not coded) BabylonjsCorePositionGizmo.zGizmo.
+        // type: 'BabylonjsCorePlaneDragGizmo' property (not coded) BabylonjsCorePositionGizmo.zPlaneGizmo.
+        checkMethodDiff(oldProps.addToAxisCache, newProps.addToAxisCache, 'addToAxisCache', changedProps)
+        checkMethodDiff(oldProps.setCustomMesh, newProps.setCustomMesh, 'setCustomMesh', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
+    }
+}
+
+/**
+ * Gizmo that enables dragging a mesh along 3 axis
+ *
+ * This code has been generated
+ */
+export class FiberPositionGizmo implements HasPropsHandlers<FiberGizmoProps> {
+    private propsHandlers: PropsHandler<FiberGizmoProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberPositionGizmoPropsHandler(),
+            new FiberGizmoPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberGizmoProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberGizmoProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "PositionGizmo",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "gizmoLayer",
+                "type": "BabylonjsCoreUtilityLayerRenderer",
+                "optional": true
+            },
+            {
+                "name": "thickness",
+                "type": "number",
+                "optional": true
+            },
+            {
+                "name": "gizmoManager",
+                "type": "BabylonjsCoreGizmoManager",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "isGizmo": true,
+        "className": "FiberPositionGizmo"
+    };
+}
+
+export class FiberAxisDragGizmoPropsHandler implements PropsHandler<FiberAxisDragGizmoProps> {
+    getPropertyUpdates(oldProps: FiberAxisDragGizmoProps, newProps: FiberAxisDragGizmoProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        // type: 'BabylonjsCorePointerDragBehavior' property (not coded) BabylonjsCoreAxisDragGizmo.dragBehavior.
+        checkPrimitiveDiff(oldProps.isEnabled, newProps.isEnabled, 'isEnabled', changedProps)
+        checkObservableDiff(oldProps.onSnapObservable, newProps.onSnapObservable, 'onSnapObservable', changedProps)
+        checkPrimitiveDiff(oldProps.snapDistance, newProps.snapDistance, 'snapDistance', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
+    }
+}
+
+/**
+ * Single axis drag gizmo
+ *
+ * This code has been generated
+ */
+export class FiberAxisDragGizmo implements HasPropsHandlers<FiberGizmoProps> {
+    private propsHandlers: PropsHandler<FiberGizmoProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberAxisDragGizmoPropsHandler(),
+            new FiberGizmoPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberGizmoProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberGizmoProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "AxisDragGizmo",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "dragAxis",
+                "type": "BabylonjsCoreVector3",
+                "optional": false
+            },
+            {
+                "name": "color",
+                "type": "BabylonjsCoreColor3",
+                "optional": true
+            },
+            {
+                "name": "gizmoLayer",
+                "type": "BabylonjsCoreUtilityLayerRenderer",
+                "optional": true
+            },
+            {
+                "name": "parent",
+                "type": "BabylonjsCorePositionGizmo",
+                "optional": true
+            },
+            {
+                "name": "thickness",
+                "type": "number",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "isGizmo": true,
+        "className": "FiberAxisDragGizmo"
+    };
+}
+
+export class FiberLightGizmoPropsHandler implements PropsHandler<FiberLightGizmoProps> {
+    getPropertyUpdates(oldProps: FiberLightGizmoProps, newProps: FiberLightGizmoProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        // type: 'BabylonjsCoreLight' property (not coded) BabylonjsCoreLightGizmo.light.
+        checkObservableDiff(oldProps.onClickedObservable, newProps.onClickedObservable, 'onClickedObservable', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
+    }
+}
+
+/**
+ * Gizmo that enables viewing a light
+ *
+ * This code has been generated
+ */
+export class FiberLightGizmo implements HasPropsHandlers<FiberGizmoProps> {
+    private propsHandlers: PropsHandler<FiberGizmoProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberLightGizmoPropsHandler(),
+            new FiberGizmoPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberGizmoProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberGizmoProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "LightGizmo",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "gizmoLayer",
+                "type": "BabylonjsCoreUtilityLayerRenderer",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "isGizmo": true,
+        "className": "FiberLightGizmo"
+    };
+}
+
+export class FiberCameraGizmoPropsHandler implements PropsHandler<FiberCameraGizmoProps> {
+    getPropertyUpdates(oldProps: FiberCameraGizmoProps, newProps: FiberCameraGizmoProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        // type: 'BabylonjsCoreCamera' property (not coded) BabylonjsCoreCameraGizmo.camera.
+        checkPrimitiveDiff(oldProps.displayFrustum, newProps.displayFrustum, 'displayFrustum', changedProps)
+        checkObservableDiff(oldProps.onClickedObservable, newProps.onClickedObservable, 'onClickedObservable', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
+    }
+}
+
+/**
+ * Gizmo that enables viewing a camera
+ *
+ * This code has been generated
+ */
+export class FiberCameraGizmo implements HasPropsHandlers<FiberGizmoProps> {
+    private propsHandlers: PropsHandler<FiberGizmoProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberCameraGizmoPropsHandler(),
+            new FiberGizmoPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberGizmoProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberGizmoProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "CameraGizmo",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "gizmoLayer",
+                "type": "BabylonjsCoreUtilityLayerRenderer",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "isGizmo": true,
+        "className": "FiberCameraGizmo"
+    };
+}
+
 export class FiberGUI3DManagerPropsHandler implements PropsHandler<FiberGUI3DManagerProps> {
     getPropertyUpdates(oldProps: FiberGUI3DManagerProps, newProps: FiberGUI3DManagerProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
@@ -15885,6 +16654,67 @@ export class FiberViewport implements HasPropsHandlers<FiberViewportProps> {
     };
     public static readonly Metadata: CreatedInstanceMetadata = {
         "className": "FiberViewport"
+    };
+}
+
+export class FiberUtilityLayerRendererPropsHandler implements PropsHandler<FiberUtilityLayerRendererProps> {
+    getPropertyUpdates(oldProps: FiberUtilityLayerRendererProps, newProps: FiberUtilityLayerRendererProps): PropertyUpdate[] | null {
+        const changedProps: PropertyUpdate[] = []
+        checkLambdaDiff(oldProps.mainSceneTrackerPredicate, newProps.mainSceneTrackerPredicate, 'mainSceneTrackerPredicate', changedProps)
+        checkPrimitiveDiff(oldProps.onlyCheckPointerDownEvents, newProps.onlyCheckPointerDownEvents, 'onlyCheckPointerDownEvents', changedProps)
+        checkObservableDiff(oldProps.onPointerOutObservable, newProps.onPointerOutObservable, 'onPointerOutObservable', changedProps)
+        // type: 'BabylonjsCoreScene' property (not coded) BabylonjsCoreUtilityLayerRenderer.originalScene.
+        checkPrimitiveDiff(oldProps.pickUtilitySceneFirst, newProps.pickUtilitySceneFirst, 'pickUtilitySceneFirst', changedProps)
+        checkPrimitiveDiff(oldProps.processAllEvents, newProps.processAllEvents, 'processAllEvents', changedProps)
+        checkPrimitiveDiff(oldProps.shouldRender, newProps.shouldRender, 'shouldRender', changedProps)
+        // type: 'BabylonjsCoreScene' property (not coded) BabylonjsCoreUtilityLayerRenderer.utilityLayerScene.
+        checkMethodDiff(oldProps.setRenderCamera, newProps.setRenderCamera, 'setRenderCamera', changedProps)
+        return changedProps.length === 0 ? null : changedProps;
+    }
+}
+
+/**
+ * Renders a layer on top of an existing scene
+ *
+ * This code has been generated
+ */
+export class FiberUtilityLayerRenderer implements HasPropsHandlers<FiberUtilityLayerRendererProps> {
+    private propsHandlers: PropsHandler<FiberUtilityLayerRendererProps>[];
+
+    constructor() {
+        this.propsHandlers = [
+            new FiberUtilityLayerRendererPropsHandler()
+        ];
+    }
+
+    getPropsHandlers(): PropsHandler<FiberUtilityLayerRendererProps>[] {
+        return this.propsHandlers;
+    }
+
+    addPropsHandler(propHandler: PropsHandler<FiberUtilityLayerRendererProps>): void {
+        this.propsHandlers.push(propHandler);
+    }
+
+    public static readonly CreateInfo = {
+        "creationType": "Constructor",
+        "libraryLocation": "UtilityLayerRenderer",
+        "namespace": "@babylonjs/core",
+        "parameters": [
+            {
+                "name": "originalScene",
+                "type": "BabylonjsCoreScene",
+                "optional": false
+            },
+            {
+                "name": "handleEvents",
+                "type": "boolean",
+                "optional": true
+            }
+        ]
+    };
+    public static readonly Metadata: CreatedInstanceMetadata = {
+        "isUtilityLayerRenderer": true,
+        "className": "FiberUtilityLayerRenderer"
     };
 }
 
@@ -17136,12 +17966,13 @@ export class FiberScenePropsHandler implements PropsHandler<FiberSceneProps> {
     }
 }
 
-export const ADTForMesh: string = 'ADTForMesh', ADTForMeshTexture: string = 'ADTForMeshTexture', ADTFullscreenUI: string = 'ADTFullscreenUI', AbstractButton3D: string = 'AbstractButton3D', AbstractMesh: string = 'AbstractMesh', AdvancedDynamicTexture: string = 'AdvancedDynamicTexture', AnaglyphArcRotateCamera: string = 'AnaglyphArcRotateCamera', AnaglyphFreeCamera: string = 'AnaglyphFreeCamera', AnaglyphGamepadCamera: string = 'AnaglyphGamepadCamera', AnaglyphPostProcess: string = 'AnaglyphPostProcess', AnaglyphUniversalCamera: string = 'AnaglyphUniversalCamera', ArcFollowCamera: string = 'ArcFollowCamera', ArcRotateCamera: string = 'ArcRotateCamera', AttachToBoxBehavior: string = 'AttachToBoxBehavior', AutoRotationBehavior: string = 'AutoRotationBehavior', BackgroundMaterial: string = 'BackgroundMaterial', BaseSlider: string = 'BaseSlider', BaseTexture: string = 'BaseTexture', BlackAndWhitePostProcess: string = 'BlackAndWhitePostProcess', BloomMergePostProcess: string = 'BloomMergePostProcess', BlurPostProcess: string = 'BlurPostProcess', BouncingBehavior: string = 'BouncingBehavior', Box: string = 'Box', Button: string = 'Button', Button3D: string = 'Button3D', Camera: string = 'Camera', Capsule: string = 'Capsule', CascadedShadowGenerator: string = 'CascadedShadowGenerator', Checkbox: string = 'Checkbox', ChromaticAberrationPostProcess: string = 'ChromaticAberrationPostProcess', CircleOfConfusionPostProcess: string = 'CircleOfConfusionPostProcess', ColorCorrectionPostProcess: string = 'ColorCorrectionPostProcess', ColorGradingTexture: string = 'ColorGradingTexture', ColorPicker: string = 'ColorPicker', Container: string = 'Container', Container3D: string = 'Container3D', Control: string = 'Control', Control3D: string = 'Control3D', ConvolutionPostProcess: string = 'ConvolutionPostProcess', CubeTexture: string = 'CubeTexture', CustomProceduralTexture: string = 'CustomProceduralTexture', Cylinder: string = 'Cylinder', CylinderPanel: string = 'CylinderPanel', DashedLines: string = 'DashedLines', Decal: string = 'Decal', DefaultRenderingPipeline: string = 'DefaultRenderingPipeline', DepthOfFieldBlurPostProcess: string = 'DepthOfFieldBlurPostProcess', DepthOfFieldMergePostProcess: string = 'DepthOfFieldMergePostProcess', DetailMapConfiguration: string = 'DetailMapConfiguration', DeviceOrientationCamera: string = 'DeviceOrientationCamera', DirectionalLight: string = 'DirectionalLight', Disc: string = 'Disc', DisplayGrid: string = 'DisplayGrid', DisplayPassPostProcess: string = 'DisplayPassPostProcess', DynamicTerrain: string = 'DynamicTerrain', DynamicTexture: string = 'DynamicTexture', EffectLayer: string = 'EffectLayer', Ellipse: string = 'Ellipse', EngineView: string = 'EngineView', EnvironmentHelper: string = 'EnvironmentHelper', EquiRectangularCubeTexture: string = 'EquiRectangularCubeTexture', ExtractHighlightsPostProcess: string = 'ExtractHighlightsPostProcess', ExtrudePolygon: string = 'ExtrudePolygon', ExtrudeShape: string = 'ExtrudeShape', ExtrudeShapeCustom: string = 'ExtrudeShapeCustom', FadeInOutBehavior: string = 'FadeInOutBehavior', FilterPostProcess: string = 'FilterPostProcess', FluentMaterial: string = 'FluentMaterial', FlyCamera: string = 'FlyCamera', FollowCamera: string = 'FollowCamera', FramingBehavior: string = 'FramingBehavior', FreeCamera: string = 'FreeCamera', FxaaPostProcess: string = 'FxaaPostProcess', GUI3DManager: string = 'GUI3DManager', GamepadCamera: string = 'GamepadCamera', GlowLayer: string = 'GlowLayer', GrainPostProcess: string = 'GrainPostProcess', Grid: string = 'Grid', Ground: string = 'Ground', GroundFromHeightMap: string = 'GroundFromHeightMap', GroundMesh: string = 'GroundMesh', HDRCubeTexture: string = 'HDRCubeTexture', HemisphericLight: string = 'HemisphericLight', HighlightLayer: string = 'HighlightLayer', HighlightsPostProcess: string = 'HighlightsPostProcess', HolographicButton: string = 'HolographicButton', HtmlElementTexture: string = 'HtmlElementTexture', IcoSphere: string = 'IcoSphere', Image: string = 'Image', ImageBasedSlider: string = 'ImageBasedSlider', ImageProcessingConfiguration: string = 'ImageProcessingConfiguration', ImageProcessingPostProcess: string = 'ImageProcessingPostProcess', ImageScrollBar: string = 'ImageScrollBar', InputPassword: string = 'InputPassword', InputText: string = 'InputText', InstancedLinesMesh: string = 'InstancedLinesMesh', InstancedMesh: string = 'InstancedMesh', Lathe: string = 'Lathe', LensRenderingPipeline: string = 'LensRenderingPipeline', Light: string = 'Light', Line: string = 'Line', LineSystem: string = 'LineSystem', Lines: string = 'Lines', LinesMesh: string = 'LinesMesh', Material: string = 'Material', Mesh: string = 'Mesh', MeshButton3D: string = 'MeshButton3D', MirrorTexture: string = 'MirrorTexture', MotionBlurPostProcess: string = 'MotionBlurPostProcess', MultiLine: string = 'MultiLine', MultiMaterial: string = 'MultiMaterial', MultiPointerScaleBehavior: string = 'MultiPointerScaleBehavior', MultiRenderTarget: string = 'MultiRenderTarget', MultiviewRenderTarget: string = 'MultiviewRenderTarget', Node: string = 'Node', NodeMaterial: string = 'NodeMaterial', NoiseProceduralTexture: string = 'NoiseProceduralTexture', PBRAnisotropicConfiguration: string = 'PBRAnisotropicConfiguration', PBRBRDFConfiguration: string = 'PBRBRDFConfiguration', PBRBaseMaterial: string = 'PBRBaseMaterial', PBRBaseSimpleMaterial: string = 'PBRBaseSimpleMaterial', PBRClearCoatConfiguration: string = 'PBRClearCoatConfiguration', PBRMaterial: string = 'PBRMaterial', PBRMetallicRoughnessMaterial: string = 'PBRMetallicRoughnessMaterial', PBRSheenConfiguration: string = 'PBRSheenConfiguration', PBRSpecularGlossinessMaterial: string = 'PBRSpecularGlossinessMaterial', PBRSubSurfaceConfiguration: string = 'PBRSubSurfaceConfiguration', PassCubePostProcess: string = 'PassCubePostProcess', PassPostProcess: string = 'PassPostProcess', PhysicsImpostor: string = 'PhysicsImpostor', Plane: string = 'Plane', PlanePanel: string = 'PlanePanel', PointLight: string = 'PointLight', PointerDragBehavior: string = 'PointerDragBehavior', PointsCloudSystem: string = 'PointsCloudSystem', Polygon: string = 'Polygon', Polyhedron: string = 'Polyhedron', PostProcess: string = 'PostProcess', PostProcessRenderPipeline: string = 'PostProcessRenderPipeline', PrePassConfiguration: string = 'PrePassConfiguration', ProceduralTexture: string = 'ProceduralTexture', PushMaterial: string = 'PushMaterial', RadioButton: string = 'RadioButton', RawCubeTexture: string = 'RawCubeTexture', RawTexture: string = 'RawTexture', RawTexture2DArray: string = 'RawTexture2DArray', RawTexture3D: string = 'RawTexture3D', Rectangle: string = 'Rectangle', RefractionPostProcess: string = 'RefractionPostProcess', RefractionTexture: string = 'RefractionTexture', RenderTargetTexture: string = 'RenderTargetTexture', Ribbon: string = 'Ribbon', SSAO2RenderingPipeline: string = 'SSAO2RenderingPipeline', SSAORenderingPipeline: string = 'SSAORenderingPipeline', ScatterPanel: string = 'ScatterPanel', ScreenSpaceCurvaturePostProcess: string = 'ScreenSpaceCurvaturePostProcess', ScreenSpaceReflectionPostProcess: string = 'ScreenSpaceReflectionPostProcess', ScrollBar: string = 'ScrollBar', ScrollViewer: string = 'ScrollViewer', SelectionPanel: string = 'SelectionPanel', ShaderMaterial: string = 'ShaderMaterial', ShadowGenerator: string = 'ShadowGenerator', ShadowLight: string = 'ShadowLight', SharpenPostProcess: string = 'SharpenPostProcess', SixDofDragBehavior: string = 'SixDofDragBehavior', Slider: string = 'Slider', Sphere: string = 'Sphere', SpherePanel: string = 'SpherePanel', SpotLight: string = 'SpotLight', StackPanel: string = 'StackPanel', StackPanel3D: string = 'StackPanel3D', StandardMaterial: string = 'StandardMaterial', StandardRenderingPipeline: string = 'StandardRenderingPipeline', StereoscopicArcRotateCamera: string = 'StereoscopicArcRotateCamera', StereoscopicFreeCamera: string = 'StereoscopicFreeCamera', StereoscopicGamepadCamera: string = 'StereoscopicGamepadCamera', StereoscopicInterlacePostProcess: string = 'StereoscopicInterlacePostProcess', StereoscopicInterlacePostProcessI: string = 'StereoscopicInterlacePostProcessI', StereoscopicUniversalCamera: string = 'StereoscopicUniversalCamera', SubSurfaceScatteringPostProcess: string = 'SubSurfaceScatteringPostProcess', TargetCamera: string = 'TargetCamera', TextBlock: string = 'TextBlock', Texture: string = 'Texture', ThinTexture: string = 'ThinTexture', TiledBox: string = 'TiledBox', TiledGround: string = 'TiledGround', TiledPlane: string = 'TiledPlane', TonemapPostProcess: string = 'TonemapPostProcess', Torus: string = 'Torus', TorusKnot: string = 'TorusKnot', TouchCamera: string = 'TouchCamera', TrailMesh: string = 'TrailMesh', TransformNode: string = 'TransformNode', Tube: string = 'Tube', UniversalCamera: string = 'UniversalCamera', VRDeviceOrientationArcRotateCamera: string = 'VRDeviceOrientationArcRotateCamera', VRDeviceOrientationFreeCamera: string = 'VRDeviceOrientationFreeCamera', VRDeviceOrientationGamepadCamera: string = 'VRDeviceOrientationGamepadCamera', VRDistortionCorrectionPostProcess: string = 'VRDistortionCorrectionPostProcess', VRExperienceHelper: string = 'VRExperienceHelper', VRMultiviewToSingleviewPostProcess: string = 'VRMultiviewToSingleviewPostProcess', VideoTexture: string = 'VideoTexture', Viewport: string = 'Viewport', VirtualJoysticksCamera: string = 'VirtualJoysticksCamera', VirtualKeyboard: string = 'VirtualKeyboard', VolumeBasedPanel: string = 'VolumeBasedPanel', VolumetricLightScatteringPostProcess: string = 'VolumetricLightScatteringPostProcess', WebVRFreeCamera: string = 'WebVRFreeCamera', WebXRCamera: string = 'WebXRCamera', _ScrollViewerWindow: string = '_ScrollViewerWindow';
+export const ADTForMesh: string = 'ADTForMesh', ADTForMeshTexture: string = 'ADTForMeshTexture', ADTFullscreenUI: string = 'ADTFullscreenUI', AbstractButton3D: string = 'AbstractButton3D', AbstractMesh: string = 'AbstractMesh', AdvancedDynamicTexture: string = 'AdvancedDynamicTexture', AnaglyphArcRotateCamera: string = 'AnaglyphArcRotateCamera', AnaglyphFreeCamera: string = 'AnaglyphFreeCamera', AnaglyphGamepadCamera: string = 'AnaglyphGamepadCamera', AnaglyphPostProcess: string = 'AnaglyphPostProcess', AnaglyphUniversalCamera: string = 'AnaglyphUniversalCamera', ArcFollowCamera: string = 'ArcFollowCamera', ArcRotateCamera: string = 'ArcRotateCamera', AttachToBoxBehavior: string = 'AttachToBoxBehavior', AutoRotationBehavior: string = 'AutoRotationBehavior', AxisDragGizmo: string = 'AxisDragGizmo', AxisScaleGizmo: string = 'AxisScaleGizmo', BackgroundMaterial: string = 'BackgroundMaterial', BaseSlider: string = 'BaseSlider', BaseTexture: string = 'BaseTexture', BlackAndWhitePostProcess: string = 'BlackAndWhitePostProcess', BloomMergePostProcess: string = 'BloomMergePostProcess', BlurPostProcess: string = 'BlurPostProcess', BouncingBehavior: string = 'BouncingBehavior', BoundingBoxGizmo: string = 'BoundingBoxGizmo', Box: string = 'Box', Button: string = 'Button', Button3D: string = 'Button3D', Camera: string = 'Camera', CameraGizmo: string = 'CameraGizmo', Capsule: string = 'Capsule', CascadedShadowGenerator: string = 'CascadedShadowGenerator', Checkbox: string = 'Checkbox', ChromaticAberrationPostProcess: string = 'ChromaticAberrationPostProcess', CircleOfConfusionPostProcess: string = 'CircleOfConfusionPostProcess', ColorCorrectionPostProcess: string = 'ColorCorrectionPostProcess', ColorGradingTexture: string = 'ColorGradingTexture', ColorPicker: string = 'ColorPicker', Container: string = 'Container', Container3D: string = 'Container3D', Control: string = 'Control', Control3D: string = 'Control3D', ConvolutionPostProcess: string = 'ConvolutionPostProcess', CubeTexture: string = 'CubeTexture', CustomProceduralTexture: string = 'CustomProceduralTexture', Cylinder: string = 'Cylinder', CylinderPanel: string = 'CylinderPanel', DashedLines: string = 'DashedLines', Decal: string = 'Decal', DefaultRenderingPipeline: string = 'DefaultRenderingPipeline', DepthOfFieldBlurPostProcess: string = 'DepthOfFieldBlurPostProcess', DepthOfFieldMergePostProcess: string = 'DepthOfFieldMergePostProcess', DetailMapConfiguration: string = 'DetailMapConfiguration', DeviceOrientationCamera: string = 'DeviceOrientationCamera', DirectionalLight: string = 'DirectionalLight', Disc: string = 'Disc', DisplayGrid: string = 'DisplayGrid', DisplayPassPostProcess: string = 'DisplayPassPostProcess', DynamicTerrain: string = 'DynamicTerrain', DynamicTexture: string = 'DynamicTexture', EffectLayer: string = 'EffectLayer', Ellipse: string = 'Ellipse', EngineView: string = 'EngineView', EnvironmentHelper: string = 'EnvironmentHelper', EquiRectangularCubeTexture: string = 'EquiRectangularCubeTexture', ExtractHighlightsPostProcess: string = 'ExtractHighlightsPostProcess', ExtrudePolygon: string = 'ExtrudePolygon', ExtrudeShape: string = 'ExtrudeShape', ExtrudeShapeCustom: string = 'ExtrudeShapeCustom', FadeInOutBehavior: string = 'FadeInOutBehavior', FilterPostProcess: string = 'FilterPostProcess', FluentMaterial: string = 'FluentMaterial', FlyCamera: string = 'FlyCamera', FollowCamera: string = 'FollowCamera', FramingBehavior: string = 'FramingBehavior', FreeCamera: string = 'FreeCamera', FxaaPostProcess: string = 'FxaaPostProcess', GUI3DManager: string = 'GUI3DManager', GamepadCamera: string = 'GamepadCamera', Gizmo: string = 'Gizmo', GlowLayer: string = 'GlowLayer', GrainPostProcess: string = 'GrainPostProcess', Grid: string = 'Grid', Ground: string = 'Ground', GroundFromHeightMap: string = 'GroundFromHeightMap', GroundMesh: string = 'GroundMesh', HDRCubeTexture: string = 'HDRCubeTexture', HemisphericLight: string = 'HemisphericLight', HighlightLayer: string = 'HighlightLayer', HighlightsPostProcess: string = 'HighlightsPostProcess', HolographicButton: string = 'HolographicButton', HtmlElementTexture: string = 'HtmlElementTexture', IcoSphere: string = 'IcoSphere', Image: string = 'Image', ImageBasedSlider: string = 'ImageBasedSlider', ImageProcessingConfiguration: string = 'ImageProcessingConfiguration', ImageProcessingPostProcess: string = 'ImageProcessingPostProcess', ImageScrollBar: string = 'ImageScrollBar', InputPassword: string = 'InputPassword', InputText: string = 'InputText', InstancedLinesMesh: string = 'InstancedLinesMesh', InstancedMesh: string = 'InstancedMesh', Lathe: string = 'Lathe', LensRenderingPipeline: string = 'LensRenderingPipeline', Light: string = 'Light', LightGizmo: string = 'LightGizmo', Line: string = 'Line', LineSystem: string = 'LineSystem', Lines: string = 'Lines', LinesMesh: string = 'LinesMesh', Material: string = 'Material', Mesh: string = 'Mesh', MeshButton3D: string = 'MeshButton3D', MirrorTexture: string = 'MirrorTexture', MotionBlurPostProcess: string = 'MotionBlurPostProcess', MultiLine: string = 'MultiLine', MultiMaterial: string = 'MultiMaterial', MultiPointerScaleBehavior: string = 'MultiPointerScaleBehavior', MultiRenderTarget: string = 'MultiRenderTarget', MultiviewRenderTarget: string = 'MultiviewRenderTarget', Node: string = 'Node', NodeMaterial: string = 'NodeMaterial', NoiseProceduralTexture: string = 'NoiseProceduralTexture', PBRAnisotropicConfiguration: string = 'PBRAnisotropicConfiguration', PBRBRDFConfiguration: string = 'PBRBRDFConfiguration', PBRBaseMaterial: string = 'PBRBaseMaterial', PBRBaseSimpleMaterial: string = 'PBRBaseSimpleMaterial', PBRClearCoatConfiguration: string = 'PBRClearCoatConfiguration', PBRMaterial: string = 'PBRMaterial', PBRMetallicRoughnessMaterial: string = 'PBRMetallicRoughnessMaterial', PBRSheenConfiguration: string = 'PBRSheenConfiguration', PBRSpecularGlossinessMaterial: string = 'PBRSpecularGlossinessMaterial', PBRSubSurfaceConfiguration: string = 'PBRSubSurfaceConfiguration', PassCubePostProcess: string = 'PassCubePostProcess', PassPostProcess: string = 'PassPostProcess', PhysicsImpostor: string = 'PhysicsImpostor', Plane: string = 'Plane', PlaneDragGizmo: string = 'PlaneDragGizmo', PlanePanel: string = 'PlanePanel', PlaneRotationGizmo: string = 'PlaneRotationGizmo', PointLight: string = 'PointLight', PointerDragBehavior: string = 'PointerDragBehavior', PointsCloudSystem: string = 'PointsCloudSystem', Polygon: string = 'Polygon', Polyhedron: string = 'Polyhedron', PositionGizmo: string = 'PositionGizmo', PostProcess: string = 'PostProcess', PostProcessRenderPipeline: string = 'PostProcessRenderPipeline', PrePassConfiguration: string = 'PrePassConfiguration', ProceduralTexture: string = 'ProceduralTexture', PushMaterial: string = 'PushMaterial', RadioButton: string = 'RadioButton', RawCubeTexture: string = 'RawCubeTexture', RawTexture: string = 'RawTexture', RawTexture2DArray: string = 'RawTexture2DArray', RawTexture3D: string = 'RawTexture3D', Rectangle: string = 'Rectangle', RefractionPostProcess: string = 'RefractionPostProcess', RefractionTexture: string = 'RefractionTexture', RenderTargetTexture: string = 'RenderTargetTexture', Ribbon: string = 'Ribbon', RotationGizmo: string = 'RotationGizmo', SSAO2RenderingPipeline: string = 'SSAO2RenderingPipeline', SSAORenderingPipeline: string = 'SSAORenderingPipeline', ScaleGizmo: string = 'ScaleGizmo', ScatterPanel: string = 'ScatterPanel', ScreenSpaceCurvaturePostProcess: string = 'ScreenSpaceCurvaturePostProcess', ScreenSpaceReflectionPostProcess: string = 'ScreenSpaceReflectionPostProcess', ScrollBar: string = 'ScrollBar', ScrollViewer: string = 'ScrollViewer', SelectionPanel: string = 'SelectionPanel', ShaderMaterial: string = 'ShaderMaterial', ShadowGenerator: string = 'ShadowGenerator', ShadowLight: string = 'ShadowLight', SharpenPostProcess: string = 'SharpenPostProcess', SixDofDragBehavior: string = 'SixDofDragBehavior', Slider: string = 'Slider', Sphere: string = 'Sphere', SpherePanel: string = 'SpherePanel', SpotLight: string = 'SpotLight', StackPanel: string = 'StackPanel', StackPanel3D: string = 'StackPanel3D', StandardMaterial: string = 'StandardMaterial', StandardRenderingPipeline: string = 'StandardRenderingPipeline', StereoscopicArcRotateCamera: string = 'StereoscopicArcRotateCamera', StereoscopicFreeCamera: string = 'StereoscopicFreeCamera', StereoscopicGamepadCamera: string = 'StereoscopicGamepadCamera', StereoscopicInterlacePostProcess: string = 'StereoscopicInterlacePostProcess', StereoscopicInterlacePostProcessI: string = 'StereoscopicInterlacePostProcessI', StereoscopicUniversalCamera: string = 'StereoscopicUniversalCamera', SubSurfaceScatteringPostProcess: string = 'SubSurfaceScatteringPostProcess', TargetCamera: string = 'TargetCamera', TextBlock: string = 'TextBlock', Texture: string = 'Texture', ThinTexture: string = 'ThinTexture', TiledBox: string = 'TiledBox', TiledGround: string = 'TiledGround', TiledPlane: string = 'TiledPlane', TonemapPostProcess: string = 'TonemapPostProcess', Torus: string = 'Torus', TorusKnot: string = 'TorusKnot', TouchCamera: string = 'TouchCamera', TrailMesh: string = 'TrailMesh', TransformNode: string = 'TransformNode', Tube: string = 'Tube', UniversalCamera: string = 'UniversalCamera', UtilityLayerRenderer: string = 'UtilityLayerRenderer', VRDeviceOrientationArcRotateCamera: string = 'VRDeviceOrientationArcRotateCamera', VRDeviceOrientationFreeCamera: string = 'VRDeviceOrientationFreeCamera', VRDeviceOrientationGamepadCamera: string = 'VRDeviceOrientationGamepadCamera', VRDistortionCorrectionPostProcess: string = 'VRDistortionCorrectionPostProcess', VRExperienceHelper: string = 'VRExperienceHelper', VRMultiviewToSingleviewPostProcess: string = 'VRMultiviewToSingleviewPostProcess', VideoTexture: string = 'VideoTexture', Viewport: string = 'Viewport', VirtualJoysticksCamera: string = 'VirtualJoysticksCamera', VirtualKeyboard: string = 'VirtualKeyboard', VolumeBasedPanel: string = 'VolumeBasedPanel', VolumetricLightScatteringPostProcess: string = 'VolumetricLightScatteringPostProcess', WebVRFreeCamera: string = 'WebVRFreeCamera', WebXRCamera: string = 'WebXRCamera', _ScrollViewerWindow: string = '_ScrollViewerWindow';
 const classesMap: object = {
     dynamicTerrain: ExtensionsDynamicTerrain, DynamicTerrain: ExtensionsDynamicTerrain,
     abstractScene: BabylonjsCoreAbstractScene, AbstractScene: BabylonjsCoreAbstractScene,
     scene: BabylonjsCoreScene, Scene: BabylonjsCoreScene,
     camera: BabylonjsCoreCamera, Camera: BabylonjsCoreCamera,
+    gizmo: BabylonjsCoreGizmo, Gizmo: BabylonjsCoreGizmo,
     environmentHelper: BabylonjsCoreEnvironmentHelper, EnvironmentHelper: BabylonjsCoreEnvironmentHelper,
     effectLayer: BabylonjsCoreEffectLayer, EffectLayer: BabylonjsCoreEffectLayer,
     light: BabylonjsCoreLight, Light: BabylonjsCoreLight,
@@ -17155,6 +17986,7 @@ const classesMap: object = {
     physicsImpostor: BabylonjsCorePhysicsImpostor, PhysicsImpostor: BabylonjsCorePhysicsImpostor,
     postProcess: BabylonjsCorePostProcess, PostProcess: BabylonjsCorePostProcess,
     tonemapPostProcess: BabylonjsCoreTonemapPostProcess, TonemapPostProcess: BabylonjsCoreTonemapPostProcess,
+    utilityLayerRenderer: BabylonjsCoreUtilityLayerRenderer, UtilityLayerRenderer: BabylonjsCoreUtilityLayerRenderer,
     advancedDynamicTexture: BabylonjsGuiAdvancedDynamicTexture, AdvancedDynamicTexture: BabylonjsGuiAdvancedDynamicTexture,
     gui3DManager: BabylonjsGuiGUI3DManager, GUI3DManager: BabylonjsGuiGUI3DManager,
     autoRotationBehavior: BabylonjsCoreAutoRotationBehavior, AutoRotationBehavior: BabylonjsCoreAutoRotationBehavior,
@@ -17315,6 +18147,16 @@ const classesMap: object = {
     vrMultiviewToSingleviewPostProcess: BabylonjsCoreVRMultiviewToSingleviewPostProcess, VRMultiviewToSingleviewPostProcess: BabylonjsCoreVRMultiviewToSingleviewPostProcess,
     screenSpaceCurvaturePostProcess: BabylonjsCoreScreenSpaceCurvaturePostProcess, ScreenSpaceCurvaturePostProcess: BabylonjsCoreScreenSpaceCurvaturePostProcess,
     subSurfaceScatteringPostProcess: BabylonjsCoreSubSurfaceScatteringPostProcess, SubSurfaceScatteringPostProcess: BabylonjsCoreSubSurfaceScatteringPostProcess,
+    planeDragGizmo: BabylonjsCorePlaneDragGizmo, PlaneDragGizmo: BabylonjsCorePlaneDragGizmo,
+    positionGizmo: BabylonjsCorePositionGizmo, PositionGizmo: BabylonjsCorePositionGizmo,
+    planeRotationGizmo: BabylonjsCorePlaneRotationGizmo, PlaneRotationGizmo: BabylonjsCorePlaneRotationGizmo,
+    rotationGizmo: BabylonjsCoreRotationGizmo, RotationGizmo: BabylonjsCoreRotationGizmo,
+    axisScaleGizmo: BabylonjsCoreAxisScaleGizmo, AxisScaleGizmo: BabylonjsCoreAxisScaleGizmo,
+    scaleGizmo: BabylonjsCoreScaleGizmo, ScaleGizmo: BabylonjsCoreScaleGizmo,
+    boundingBoxGizmo: BabylonjsCoreBoundingBoxGizmo, BoundingBoxGizmo: BabylonjsCoreBoundingBoxGizmo,
+    axisDragGizmo: BabylonjsCoreAxisDragGizmo, AxisDragGizmo: BabylonjsCoreAxisDragGizmo,
+    lightGizmo: BabylonjsCoreLightGizmo, LightGizmo: BabylonjsCoreLightGizmo,
+    cameraGizmo: BabylonjsCoreCameraGizmo, CameraGizmo: BabylonjsCoreCameraGizmo,
     prePassConfiguration: BabylonjsCorePrePassConfiguration, PrePassConfiguration: BabylonjsCorePrePassConfiguration,
     detailMapConfiguration: BabylonjsCoreDetailMapConfiguration, DetailMapConfiguration: BabylonjsCoreDetailMapConfiguration,
     pbrClearCoatConfiguration: BabylonjsCorePBRClearCoatConfiguration, PBRClearCoatConfiguration: BabylonjsCorePBRClearCoatConfiguration,
@@ -17328,6 +18170,7 @@ export const intrinsicClassMap: object = {
     abstractScene: 'AbstractScene',
     scene: 'Scene',
     camera: 'Camera',
+    gizmo: 'Gizmo',
     environmentHelper: 'EnvironmentHelper',
     effectLayer: 'EffectLayer',
     light: 'Light',
@@ -17341,6 +18184,7 @@ export const intrinsicClassMap: object = {
     physicsImpostor: 'PhysicsImpostor',
     postProcess: 'PostProcess',
     tonemapPostProcess: 'TonemapPostProcess',
+    utilityLayerRenderer: 'UtilityLayerRenderer',
     advancedDynamicTexture: 'AdvancedDynamicTexture',
     gui3DManager: 'GUI3DManager',
     autoRotationBehavior: 'AutoRotationBehavior',
@@ -17501,6 +18345,16 @@ export const intrinsicClassMap: object = {
     vrMultiviewToSingleviewPostProcess: 'VRMultiviewToSingleviewPostProcess',
     screenSpaceCurvaturePostProcess: 'ScreenSpaceCurvaturePostProcess',
     subSurfaceScatteringPostProcess: 'SubSurfaceScatteringPostProcess',
+    planeDragGizmo: 'PlaneDragGizmo',
+    positionGizmo: 'PositionGizmo',
+    planeRotationGizmo: 'PlaneRotationGizmo',
+    rotationGizmo: 'RotationGizmo',
+    axisScaleGizmo: 'AxisScaleGizmo',
+    scaleGizmo: 'ScaleGizmo',
+    boundingBoxGizmo: 'BoundingBoxGizmo',
+    axisDragGizmo: 'AxisDragGizmo',
+    lightGizmo: 'LightGizmo',
+    cameraGizmo: 'CameraGizmo',
     prePassConfiguration: 'PrePassConfiguration',
     detailMapConfiguration: 'DetailMapConfiguration',
     pbrClearCoatConfiguration: 'PBRClearCoatConfiguration',

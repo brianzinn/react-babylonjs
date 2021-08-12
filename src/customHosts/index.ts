@@ -22,3 +22,4 @@ export { default as FallbackLifecycleListener } from './FallbackLifecycleListene
 export { default as ViewportLifecycleListener } from './ViewportLifecycleListener';
 export { default as EngineViewLifecycleListener} from './EngineViewLifecycleListener';
 export { default as AbstractMeshLifecycleListener} from './AbstractMeshLifecycleListener';
+export { default as GizmoLifecycleListener} from './GizmoLifecycleListener';

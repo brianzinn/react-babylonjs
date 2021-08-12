@@ -24,7 +24,7 @@ If you want to declaratively use something not listed here create an issue :)  S
 
 5. **Lights** - directionalLight, hemisphericLight, light, pointLight, shadowLight, spotLight
 
-6. **Textures** - advancedDynamicTexture, baseTexture, colorGradingTexture, cubeTexture, customProceduralTexture, dynamicTexture, equiRectangularCubeTexture, hdrCubeTexture, htmlElementTexture, mirrorTexture, multiRenderTarget, multiviewRenderTarget, noiseProceduralTexture, proceduralTexture, rawCubeTexture, rawTexture, rawTexture2DArray, rawTexture3D, refractionTexture, renderTargetTexture, texture, videoTexture
+6. **Textures** - advancedDynamicTexture, baseTexture, colorGradingTexture, cubeTexture, customProceduralTexture, dynamicTexture, equiRectangularCubeTexture, hdrCubeTexture, htmlElementTexture, mirrorTexture, multiRenderTarget, multiviewRenderTarget, noiseProceduralTexture, proceduralTexture, rawCubeTexture, rawTexture, rawTexture2DArray, rawTexture3D, refractionTexture, renderTargetTexture, texture, thinTexture, videoTexture
 
 7. **EffectLayers** - effectLayer, glowLayer, highlightLayer
 
@@ -33,10 +33,11 @@ If you want to declaratively use something not listed here create an issue :)  S
 9. **PostProcessRenderPipelines**: defaultRenderingPipeline, lensRenderingPipeline, postProcessRenderPipeline, ssao2RenderingPipeline, ssaoRenderingPipeline, standardRenderingPipeline
 
 10. **PostProcesss** anaglyphPostProcess, blackAndWhitePostProcess, bloomMergePostProcess, blurPostProcess, chromaticAberrationPostProcess, circleOfConfusionPostProcess, colorCorrectionPostProcess, convolutionPostProcess, depthOfFieldBlurPostProcess, depthOfFieldMergePostProcess, displayPassPostProcess, extractHighlightsPostProcess, filterPostProcess, fxaaPostProcess, grainPostProcess, highlightsPostProcess, imageProcessingPostProcess, motionBlurPostProcess, passCubePostProcess, passPostProcess, postProcess, refractionPostProcess, screenSpaceCurvaturePostProcess, screenSpaceReflectionPostProcess, sharpenPostProcess, stereoscopicInterlacePostProcess, stereoscopicInterlacePostProcessI, subSurfaceScatteringPostProcess, tonemapPostProcess, volumetricLightScatteringPostProcess, vrDistortionCorrectionPostProcess, vrMultiviewToSingleviewPostProcess
-
 > note: for `PostProcess` (and `PostProcessRenderPipeline`) the `ImageProcessingConfiguration` and `PrePassConfiguration` properties can be declared with `assignFrom`.
 
-11. **Others** - adtForMesh, adtFullScreenUi, environmentHelper, physicsImpostor, pointsCloudSystem, shadowGenerator / cascadedShadowGenerator, viewport, vrExperienceHelper
+11. **Gizmo** axisDragGizmo, axisScaleGizmo, boundingBoxGizmo, cameraGizmo, gizmo, lightGizmo, planeDragGizmo, planeRotationGizmo, positionGizmo, rotationGizmo, scaleGizmo
+
+12. **Others** - adtForMesh, adtForMeshTexture, adtFullScreenUi, environmentHelper, physicsImpostor, pointsCloudSystem, shadowGenerator / cascadedShadowGenerator, utilityLayerRenderer, viewport, vrExperienceHelper
 
 ## @babylonjs/gui
 1. GUI3DManager

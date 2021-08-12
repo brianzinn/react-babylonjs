@@ -455,7 +455,9 @@ const ReactBabylonJSHostConfig: HostConfig<
 
     // Consider these being dynamically attached to a list, much like PropsHandlers<T>
     let metadataLifecycleListenerName: string | undefined;
-    if (metadata.isMaterial === true) {
+    if (metadata.isGizmo === true) {
+      metadataLifecycleListenerName = 'Gizmo';
+    } else if (metadata.isMaterial === true) {
       metadataLifecycleListenerName = 'Materials';
     } else if (metadata.isTexture === true) { // must be before .isGUI2DControl, since ADT/FullScreenUI declare both.
       metadataLifecycleListenerName = 'Textures';

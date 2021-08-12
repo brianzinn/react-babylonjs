@@ -183,6 +183,8 @@ const classesToGenerate: String[] = [
   "PointsCloudSystem",
   "PostProcessRenderPipeline",
   "PostProcess",
+  "UtilityLayerRenderer",
+  "Gizmo",
 
   "EngineView",
   "Viewport",
@@ -1671,6 +1673,10 @@ const generateCode = async () => {
     createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("PostProcess")!, () => ({}));
   }
 
+  if (classesOfInterest.get("Gizmo")) {
+    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Gizmo")!, () => ({isGizmo: true}));
+  }
+
   console.log('Adding single classes:');
   createSingleClass("GUI3DManager", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { isGUI3DControl: true }, () => { return; });
   createSingleClass("EnvironmentHelper", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { isEnvironment: true });
@@ -1679,6 +1685,7 @@ const generateCode = async () => {
   createSingleClass("DynamicTerrain", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { acceptsMaterials: true });
   createSingleClass("PointsCloudSystem", generatedCodeSourceFile, generatedPropsSourceFile);
   createSingleClass("Viewport", generatedCodeSourceFile, generatedPropsSourceFile);
+  createSingleClass("UtilityLayerRenderer", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { isUtilityLayerRenderer: true})
 
   // These "delay creation" we want to also not generate constructors?
   createSingleClass("ShadowGenerator", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true, isShadowGenerator: true }, () => { return; }, 'ShadowGeneratorCustomProps');
