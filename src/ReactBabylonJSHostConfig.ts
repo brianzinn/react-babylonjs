@@ -1,4 +1,4 @@
-import ReactReconciler, { HostConfig } from 'react-reconciler';
+import ReactReconciler, { HostConfig, Fiber } from 'react-reconciler';
 
 import { IInspectable, InspectableType } from '@babylonjs/core/Misc/iInspectable.js';
 import { Nullable } from '@babylonjs/core/types.js';
@@ -46,7 +46,7 @@ export type Container = {
   rootInstance: CreatedInstance<Scene>
 }
 
-type HostContext = {} & Container
+type HostContext = Container
 type TimeoutHandler = number | undefined
 type NoTimeout = number
 
@@ -58,11 +58,9 @@ function createCreatedInstance<T, U extends HasPropsHandlers<any>>(
   customProps?: CustomProps,
   lifecycleListener?: LifecycleListener<T>
 ): CreatedInstance<T> {
-  let createdMetadata = metadata
 
-  // TODO: move how this is generated as a boolean to a metadata on objects themselves (and the next 3 lines!).
   if ((propsHandlers as any).isTargetable === true) {
-    createdMetadata.isTargetable = true
+    metadata.isTargetable = true
   }
 
   return {
@@ -70,7 +68,7 @@ function createCreatedInstance<T, U extends HasPropsHandlers<any>>(
     customProps,
     hostInstance,
     lifecycleListener,
-    metadata: createdMetadata,
+    metadata,
     observers: {},
     parent: null, // set later in lifecycle
     propsHandlers,
@@ -119,7 +117,7 @@ function removeChild(parentInstance: CreatedInstance<any>, child: CreatedInstanc
 /**
  * remove child recursive
  */
-function removeRecursive(array: any, parent: any, clone: boolean = false): void {
+function removeRecursive(array: any, parent: any, clone = false): void {
   if (array) {
     const target = clone ? [...array] : array;
     target.forEach((child: any) => removeChild(parent, child));
@@ -155,15 +153,18 @@ function addChild(parent: CreatedInstance<any> | undefined, child: CreatedInstan
  */
 const getConstructorValue = (type: string, value: any) : any => {
   switch(type) {
-    case 'BabylonjsCoreVector3':
+    case 'BabylonjsCoreVector3': {
       const v3result = CustomPropsHandler.HandlePropsChange(PropChangeType.Vector3, undefined, value);
       return v3result.processed ? v3result.value : value;
-    case 'BabylonjsCoreColor3':
+    }
+    case 'BabylonjsCoreColor3': {
       const c3result = CustomPropsHandler.HandlePropsChange(PropChangeType.Vector3, undefined, value);
       return c3result.processed ? c3result.value : value;
-    case 'BabylonjsCoreColor4':
+    }
+    case 'BabylonjsCoreColor4': {
       const c4result = CustomPropsHandler.HandlePropsChange(PropChangeType.Color4, undefined, value);
       return c4result.processed ? c4result.value : value;
+    }
     default:
       return value;
   }
@@ -174,12 +175,12 @@ const ReactBabylonJSHostConfig: HostConfig<
   Props,
   Container,
   HostCreatedInstance<any>,
-  {},
-  {},
-  {},
+  Record<string, never>,
+  Record<string, never>,
+  Record<string, never>,
   HostContext,
   UpdatePayload,
-  {},
+  Record<string, never>,
   TimeoutHandler,
   NoTimeout
 > & {
@@ -238,11 +239,11 @@ const ReactBabylonJSHostConfig: HostConfig<
     if (!instance || (instance.metadata && instance.metadata.customType === true)) {
       return null
     }
-    let updatePayload: PropertyUpdate[] = []
+    const updatePayload: PropertyUpdate[] = []
 
     // Only custom types will not have a fiber object to handle props changes
     instance.propsHandlers!.getPropsHandlers().forEach((propHandler: PropsHandler<any>) => {
-      let handlerUpdates: PropertyUpdate[] | null = propHandler.getPropertyUpdates(
+      const handlerUpdates: PropertyUpdate[] | null = propHandler.getPropertyUpdates(
         oldProps,
         newProps
       )
@@ -258,7 +259,7 @@ const ReactBabylonJSHostConfig: HostConfig<
     container.rootInstance.children.splice(0);
   },
 
-  insertBefore(parentInstance: HostCreatedInstance<any>, child: CreatedInstance<any>, beforeChild: {} | CreatedInstance<any> | undefined): void {
+  insertBefore(parentInstance: HostCreatedInstance<any>, child: CreatedInstance<any>, beforeChild: Record<string, never> | CreatedInstance<any> | undefined): void {
     let index: number | undefined = undefined;
     if (parentInstance && beforeChild !== undefined) {
       index = parentInstance.children.indexOf(beforeChild as CreatedInstance<any>);
@@ -291,7 +292,7 @@ const ReactBabylonJSHostConfig: HostConfig<
     props: Props,
     rootContainerInstance: Container,
     hostContext: HostContext,
-    internalInstanceHandle: Object
+    internalInstanceHandle: Fiber
   ): CreatedInstance<any> | undefined => {
     // TODO: Make a registry like React Native host config or just build a map in /customHosts/index.ts.
     const customTypes: string[] = []
@@ -300,13 +301,13 @@ const ReactBabylonJSHostConfig: HostConfig<
     const { scene } = rootContainerInstance
 
     if (customTypes.indexOf(type) !== -1) {
-      let metadata = {
+      const metadata = {
         className: type,
         customType: true,
         ...props.metadata
       }
 
-      let createdInstance: CreatedInstance<null> = {
+      const createdInstance: CreatedInstance<null> = {
         children: [],
         customProps: {},
         hostInstance: null,
@@ -339,7 +340,7 @@ const ReactBabylonJSHostConfig: HostConfig<
     let babylonObject: any | undefined = undefined
 
     // TODO: define this type as an export.
-    let customProps: AnyCustomProps = {
+    const customProps: AnyCustomProps = {
       // Control3D
       childrenAsContent: props.childrenAsContent === true, // ie: Button3D.container instead of .addControl()
       // AdvancedDynamicTexture
@@ -371,7 +372,7 @@ const ReactBabylonJSHostConfig: HostConfig<
     } else {
       const createInfoArgs = classDefinition.CreateInfo;
       metadata = classDefinition.Metadata;
-      let generatedParameters: GeneratedParameter[] = createInfoArgs.parameters;
+      const generatedParameters: GeneratedParameter[] = createInfoArgs.parameters;
 
       if (props.fromInstance !== undefined) {
         if (createInfoArgs.namespace.startsWith('@babylonjs/')) {
@@ -389,12 +390,12 @@ const ReactBabylonJSHostConfig: HostConfig<
         }
       } else {
         // console.log("generated params:", generatedParameters)
-        let args = generatedParameters.map(generatedParameter => {
+        const args = generatedParameters.map(generatedParameter => {
           if (Array.isArray(generatedParameter.type)) {
             // TODO: if all props are missing, warn if main prop (ie: options) is required.
-            let newParameter = {} as any;
+            const newParameter = {} as Record<string, any>;
             generatedParameter.type.forEach(subParameter => {
-              let subPropValue = getConstructorValue(subParameter.type as string, props[subParameter.name]);
+              const subPropValue = getConstructorValue(subParameter.type as string, props[subParameter.name]);
               if (subPropValue === undefined && subParameter.optional === false && generatedParameter.optional === false) {
                 console.warn("Missing a required secondary property:", subParameter.name);
               } else {
@@ -486,7 +487,7 @@ const ReactBabylonJSHostConfig: HostConfig<
       lifecycleListener = new CUSTOM_HOSTS.FallbackLifecycleListener(scene!, props);
     }
 
-    let createdReference = createCreatedInstance(underlyingClassName, babylonObject, fiberObject, metadata, customProps, lifecycleListener);
+    const createdReference = createCreatedInstance(underlyingClassName, babylonObject, fiberObject, metadata, customProps, lifecycleListener);
 
     if (lifecycleListener.onCreated) {
       lifecycleListener.onCreated(createdReference, scene!);
@@ -529,11 +530,11 @@ const ReactBabylonJSHostConfig: HostConfig<
     return false;
   },
 
-  hideInstance(instance: HostCreatedInstance<any>): void { },
+  hideInstance(instance: HostCreatedInstance<any>): void { /* empty */ },
 
-  unhideInstance(instance: HostCreatedInstance<any>, props: Props): void { },
+  unhideInstance(instance: HostCreatedInstance<any>, props: Props): void { /* empty */ },
 
-  createTextInstance(text: string): any { },
+  createTextInstance(text: string): any { /* empty */ },
 
   scheduleDeferredCallback(callback: (deadline: RequestIdleCallbackDeadline) => void, opts?: RequestIdleCallbackOptions | undefined): any {
     return window.requestIdleCallback(callback, opts) // ReactDOMHostConfig has: unstable_scheduleCallback as scheduleDeferredCallback

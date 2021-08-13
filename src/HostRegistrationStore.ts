@@ -22,9 +22,9 @@ export class HostRegistrationStore {
   private static _store: Record<string, DynamicHost<any, any>> = {};
 
   /**
-     * Registers a new host element
-     * @param host host element to dynamically register
-     */
+   * Registers a new host element
+   * @param host host element to dynamically register
+   */
   public static Register(host: DynamicHost<any, any>): void {
     this._store[host.hostElementName] = host;
   }

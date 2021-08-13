@@ -54,7 +54,7 @@ export function createReconciler(rendererOptions: RendererOptions): ReconcilerIn
     reconciler.updateContainer(element, root, parentComponent, callback);
 
     return reconciler.getPublicRootInstance(root);
-  };
+  }
 
   function unmount(container: Container): void {
     const root = roots.get(container)!;

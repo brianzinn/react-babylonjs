@@ -7,7 +7,7 @@ import { applyInitialPropsToCreatedInstance } from '../UpdateInstance';
 
 export default abstract class BaseLifecycleListener<T, U> implements LifecycleListener<T> {
 
-  constructor(protected scene: Scene, protected props: U) {/* empty */}
+  constructor(protected scene: Scene, protected props: U) {/* empty */ }
 
   onParented(parent: CreatedInstance<any>, child: CreatedInstance<any>): void {
     if (child.customProps.assignFrom !== undefined) {
@@ -28,13 +28,13 @@ export default abstract class BaseLifecycleListener<T, U> implements LifecycleLi
           console.warn('cannot assign deferred props.  they are lost.');
         }
         child.deferredCreationProps = undefined;
-        }
+      }
     }
   }
 
-  onChildAdded(child: CreatedInstance<any>, parent: CreatedInstance<any>): void { /* empty */};
+  onChildAdded(child: CreatedInstance<any>, parent: CreatedInstance<any>): void { /* empty */ }
 
-  onMount(instance: CreatedInstance<T>): void { /* empty */};
+  onMount(instance: CreatedInstance<T>): void { /* empty */ }
 
-  onUnmount(): void {/* empty */};
+  onUnmount(): void {/* empty */ }
 }

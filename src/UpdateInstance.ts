@@ -5,7 +5,7 @@ import { Nullable } from '@babylonjs/core/types.js';
 import { Quaternion, Vector3 } from '@babylonjs/core/Maths/math.vector.js';
 
 export const applyUpdateToInstance = (createdInstance: CreatedInstance<any>, update: PropertyUpdate): void => {
-  let target = update.target !== undefined ? createdInstance.hostInstance[update.target] : createdInstance.hostInstance;
+  const target = update.target !== undefined ? createdInstance.hostInstance[update.target] : createdInstance.hostInstance;
 
   switch (update.changeType) {
     case PropChangeType.Primitive:
@@ -99,11 +99,11 @@ export const applyInitialPropsToCreatedInstance = (createdInstance: CreatedInsta
     return;
   }
 
-  let initPayload: PropertyUpdate[] = []
+  const initPayload: PropertyUpdate[] = []
   createdInstance.propsHandlers.getPropsHandlers().forEach((propHandler: PropsHandler<any>) => {
     // NOTE: this can actually be WRONG, because here we want to compare the props with the object.
     // This is only needed right after object instantiation.
-    let handlerUpdates: PropertyUpdate[] | null = propHandler.getPropertyUpdates(
+    const handlerUpdates: PropertyUpdate[] | null = propHandler.getPropertyUpdates(
       {}, // Here we will reapply things like 'name', so we could get default props from 'babylonObject'.
       props
     );
@@ -138,9 +138,9 @@ export const applyInitialPropsToInstance = (hostInstance: any, props: any): void
  * @param props props to apply
  */
 export const applyPropsToRef = (createdInstance: CreatedInstance<any>, props: Record<string, any>): void => {
-  let initPayload: PropertyUpdate[] = []
+  const initPayload: PropertyUpdate[] = []
   createdInstance.propsHandlers?.getPropsHandlers().forEach((propHandler: PropsHandler<any>) => {
-    let handlerUpdates: PropertyUpdate[] | null = propHandler.getPropertyUpdates(
+    const handlerUpdates: PropertyUpdate[] | null = propHandler.getPropertyUpdates(
       {}, // We will reapply any props passed in (will not "clear" props, if we pass in an undefined prop)
       props
     );

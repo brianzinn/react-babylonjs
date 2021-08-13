@@ -1,7 +1,6 @@
 
 
-import { IBehaviorAware } from '@babylonjs/core/Behaviors/behavior.js';
-import { Behavior } from '@babylonjs/core/Behaviors/behavior.js';
+import { IBehaviorAware, Behavior } from '@babylonjs/core/Behaviors/behavior.js';
 import { Nullable } from '@babylonjs/core/types.js';
 
 import { CreatedInstance } from '../CreatedInstance';

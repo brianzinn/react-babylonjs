@@ -7,6 +7,5 @@ coverage
 compiled
 .awcache
 dist
-storybook-static
 *.lock
 debug

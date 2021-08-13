@@ -1,7 +1,6 @@
 import { FresnelParameters } from '@babylonjs/core/Materials/fresnelParameters.js';
 import { BaseTexture } from '@babylonjs/core/Materials/Textures/baseTexture.js';
-import { Color4 } from '@babylonjs/core/Maths/math.color.js';
-import { Color3 } from '@babylonjs/core/Maths/math.color.js';
+import { Color3, Color4 } from '@babylonjs/core/Maths/math.color.js';
 import { Quaternion, Vector3 } from '@babylonjs/core/Maths/math.vector.js';
 
 import { Observable } from '@babylonjs/core/Misc/observable.js';
@@ -318,8 +317,8 @@ export const checkControlDiff = (oldProp: Control | undefined, newProp: Control 
   })
 }
 
-export const checkObjectDiff = (oldProp: object | undefined, newProp: object | undefined, propertyName: string, changedProps: PropertyUpdate[]): void => {
-  propertyCheck<object>(oldProp, newProp, propertyName, PropChangeType.Primitive, changedProps, (oldProp, newProp, changedProps) => {
+export const checkObjectDiff = (oldProp: Record<string, unknown> | undefined, newProp: Record<string, unknown> | undefined, propertyName: string, changedProps: PropertyUpdate[]): void => {
+  propertyCheck<Record<string, unknown>>(oldProp, newProp, propertyName, PropChangeType.Primitive, changedProps, (oldProp, newProp, changedProps) => {
     if (newProp !== oldProp) {
       changedProps.push({
         propertyName,

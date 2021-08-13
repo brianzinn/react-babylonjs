@@ -21,7 +21,7 @@ export default class MaterialsLifecycleListener extends BaseLifecycleListener<Ma
         return;
       }
 
-      let meshNamesToAttachTo: string[] = (instance.customProps as MaterialCustomProps).attachToMeshesByName!.slice(0);
+      const meshNamesToAttachTo: string[] = (instance.customProps as MaterialCustomProps).attachToMeshesByName!.slice(0);
 
       // TODO: also need a listener for models or if we want to add a predicate:
       scene.onNewMeshAddedObservable.add((mesh: AbstractMesh) => {
@@ -47,7 +47,7 @@ export default class MaterialsLifecycleListener extends BaseLifecycleListener<Ma
     }
 
     if (!(instance.customProps as MaterialCustomProps).attachToMeshesByName) {
-      let material = instance.hostInstance;
+      const material = instance.hostInstance;
       let tmp: CreatedInstance<any> | null = instance.parent;
 
       while (tmp !== null) {

@@ -15,7 +15,7 @@ export default class AbstractMeshLifecycleListener extends BaseLifecycleListener
       return;
     }
 
-    let mesh: AbstractMesh = instance.hostInstance;
+    const mesh: AbstractMesh = instance.hostInstance;
     let tmp: CreatedInstance<any> | null = instance.parent;
 
     while (tmp !== null) {

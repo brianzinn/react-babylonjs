@@ -1,6 +1,8 @@
 import json from '@rollup/plugin-json';
 import replace from '@rollup/plugin-replace';
 import typescript from 'rollup-plugin-typescript2';
+// not working
+// import typescript from '@rollup/plugin-typescript';
 
 const pkg = require('./package.json')
 const libraryName = pkg.name

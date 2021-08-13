@@ -18,7 +18,7 @@ export default class AdvancedDynamicTextureLifecycleListener extends BaseLifecyc
     if ((instance.customProps as ADTCustomProps).createForParentMesh) {
       // console.log('for parent mesh', instance.parent ? instance.parent.babylonJsObject : 'error: no parent object')
 
-      let mesh: Mesh = instance.parent!.hostInstance; // should crawl parent hierarchy for a mesh
+      const mesh: Mesh = instance.parent!.hostInstance; // should crawl parent hierarchy for a mesh
       // console.error('we will be attaching the mesh:', mesh.name, mesh);
 
       const material = new StandardMaterial('AdvancedDynamicTextureMaterial', mesh.getScene());
@@ -43,7 +43,7 @@ export default class AdvancedDynamicTextureLifecycleListener extends BaseLifecyc
 
       // set to true unless explicitly not wanted.
       // connects the texture to a hosting mesh to enable interactions
-      let supportPointerMove = (this.props as any).supportPointerMove !== false ? true : false;
+      const supportPointerMove = (this.props as any).supportPointerMove !== false ? true : false;
 
       instance.hostInstance!.attachToMesh(mesh, supportPointerMove);
     }
@@ -60,7 +60,7 @@ export default class AdvancedDynamicTextureLifecycleListener extends BaseLifecyc
     })
 
     if ((instance.customProps as VirtualKeyboardCustomProps).connectControlNames !== undefined && Array.isArray((instance.customProps as VirtualKeyboardCustomProps).connectControlNames)) {
-      let controlNames: string[] = (instance.customProps as VirtualKeyboardCustomProps).connectControlNames!;
+      const controlNames: string[] = (instance.customProps as VirtualKeyboardCustomProps).connectControlNames!;
       let root = instance;
       while (root.parent !== null) {
         root = root.parent;

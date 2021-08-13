@@ -16,7 +16,7 @@
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen",
             "env": {
-              "TS_NODE_PROJECT": "tsconfig.generate.json",
+              "TS_NODE_PROJECT": "tools/tsconfig.generate.json",
               "TS_NODE_TRANSPILE_ONLY": "true"
             }
         }, {

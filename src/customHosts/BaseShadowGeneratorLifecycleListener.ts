@@ -58,7 +58,7 @@ export default abstract class BaseShadowGeneratorLifecycleListener<T extends Sha
         return null;
       }
 
-      let shadowCasters: string[] = (instance.customProps as ShadowGeneratorCustomProps).shadowCasters!;
+      const shadowCasters: string[] = (instance.customProps as ShadowGeneratorCustomProps).shadowCasters!;
 
       // TODO: also need a listener for models or if we want to add a predicate:
       this.onMeshAddedObservable = scene.onNewMeshAddedObservable.add((mesh: AbstractMesh) => {
@@ -82,7 +82,7 @@ export default abstract class BaseShadowGeneratorLifecycleListener<T extends Sha
       if (!Array.isArray((instance.customProps as ShadowGeneratorCustomProps).shadowCastersExcluding)) {
         console.error('Shadow casters excluding must be an array (of strings).', (instance.customProps as ShadowGeneratorCustomProps).shadowCastersExcluding);
       } else {
-        let shadowCastersExcluding: string[] = (instance.customProps as ShadowGeneratorCustomProps).shadowCastersExcluding!;
+        const shadowCastersExcluding: string[] = (instance.customProps as ShadowGeneratorCustomProps).shadowCastersExcluding!;
 
         // TODO: also need a listener for models or if we want to add a predicate:
         this.onMeshAddedObservable = scene.onNewMeshAddedObservable.add((mesh: AbstractMesh) => {

@@ -14,7 +14,7 @@ import { SceneContext } from './scene';
  * @param useCtrlForPanning (ArcRotateCamera only)
  * @param panningMoustButton (ArcRotateCamera only)
  */
-export const useCamera = <T extends Camera>(createCameraFn: (scene: Scene) => T, autoAttach: boolean = true, noPreventDefault: boolean = true/*, useCtrlForPanning: boolean = false, panningMouseButton: number*/): Nullable<T> => {
+export const useCamera = <T extends Camera>(createCameraFn: (scene: Scene) => T, autoAttach = true, noPreventDefault = true/*, useCtrlForPanning: boolean = false, panningMouseButton: number*/): Nullable<T> => {
   const { scene } = useContext(SceneContext);
   const cameraRef = useRef<Nullable<T>>(null);
 

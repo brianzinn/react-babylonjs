@@ -13,7 +13,7 @@ export default class ViewportLifecycleListener extends BaseLifecycleListener<Vie
       return;
     }
 
-    let viewport = instance.hostInstance as Viewport;
+    const viewport = instance.hostInstance as Viewport;
     let tmp: CreatedInstance<any> | null = instance.parent;
 
     while (tmp !== null) {
