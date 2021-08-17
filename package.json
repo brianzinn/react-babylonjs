@@ -41,8 +41,8 @@
     "test:coverage": "nyc --reporter=lcov --reporter=text-summary npm run test"
   },
   "devDependencies": {
-    "@babylonjs/core": "^5.0.0-alpha.37",
-    "@babylonjs/gui": "^5.0.0-alpha.37",
+    "@babylonjs/core": "5.0.0-alpha.37",
+    "@babylonjs/gui": "5.0.0-alpha.37",
     "@rollup/plugin-json": "^4.0.2",
     "@rollup/plugin-replace": "^3.0.0",
     "@types/lodash.camelcase": "^4.3.6",
