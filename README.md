@@ -1,6 +1,6 @@
 # react-babylonjsv5
 
-> *'react-babylonjsv5'* integrates the Babylon.js real time 3D engine with React. It exclusivly supports the latest (currently alpha builds) of Babylon.js 5.
+> *'react-babylonjsv5'* integrates the Babylon.js real time 3D engine with React. It exclusively supports the latest (currently alpha builds) of Babylon.js 5.
 
 `react-babylonjsv5` is a fork of the great [react-babylonjs](https://github.com/brianzinn/react-babylonjs) built to support version 5 of Babylon.js. It contains no major changes or fixes so that it remains as close to the react-babylonjs as possible allowing for easy updates in the future. The version number is a combination of the react-babylonjs version and the babylonjs version. For example, 3.0.20-alpha.38 represents react-babylonjs version 3.0.20 built for Babylon.js version 5 alpha.38
 
