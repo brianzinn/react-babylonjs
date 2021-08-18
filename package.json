@@ -1,8 +1,8 @@
 {
-  "name": "react-babylonjs",
-  "version": "3.0.20",
-  "description": "React for Babylon.js",
-  "homepage": "https://brianzinn.github.io/react-babylonjs/",
+  "name": "react-babylonjsv5",
+  "version": "3.0.20-alpha.38",
+  "description": "React for Babylon.js v5",
+  "homepage": "https://github.com/KaDTech/react-babylonjsV5/",
   "keywords": [
     "3d",
     "webgl",
@@ -20,10 +20,10 @@
   "files": [
     "dist"
   ],
-  "author": "Brian Zinn <github@wakeskate.com>",
+  "author": "KaDTech",
   "repository": {
     "type": "git",
-    "url": "https://github.com/brianzinn/react-babylonjs/"
+    "url": "https://github.com/KaDTech/react-babylonjsV5/"
   },
   "license": "MIT",
   "engines": {
@@ -32,17 +32,17 @@
   "scripts": {
     "lint": "eslint . --ext .ts",
     "prebuild": "rimraf dist",
-    "build": "cross-env NODE_ENV=production rollup -c",
+    "build": "yarn prebuild && cross-env NODE_ENV=production rollup -c",
     "start": "tsc-watch --onSuccess \"rollup -c\"",
     "deploy-docs": "ts-node tools/gh-pages-publish",
-    "generate-code": "ts-node -P tsconfig.generate.json tools/generate-code.ts",
+    "generate-code": "ts-node -P tools/tsconfig.generate.json tools/generate-code.ts",
     "unit-test": "cross-env TS_NODE_PROJECT=\"test/tsconfig.json\" mocha --require ts-node/register --require esm \"test/**/*.spec.{js,jsx,ts,tsx}\"",
     "test": "npm run unit-test",
     "test:coverage": "nyc --reporter=lcov --reporter=text-summary npm run test"
   },
   "devDependencies": {
-    "@babylonjs/core": "^4.2.0",
-    "@babylonjs/gui": "^4.2.0",
+    "@babylonjs/core": "^5.0.0-alpha.38",
+    "@babylonjs/gui": "^5.0.0-alpha.38",
     "@rollup/plugin-json": "^4.0.2",
     "@rollup/plugin-replace": "^3.0.0",
     "@types/lodash.camelcase": "^4.3.6",
@@ -74,8 +74,8 @@
     "typescript": "4.1.2"
   },
   "peerDependencies": {
-    "@babylonjs/core": "4.x",
-    "@babylonjs/gui": "4.x",
+    "@babylonjs/core": "5.x",
+    "@babylonjs/gui": "5.x",
     "react": ">=17",
     "react-dom": ">=17"
   },

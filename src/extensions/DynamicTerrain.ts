@@ -6,7 +6,7 @@ import { SolidParticleSystem } from '@babylonjs/core/Particles/solidParticleSyst
 import { IndicesArray, Nullable } from '@babylonjs/core/types.js';
 import { Mesh } from '@babylonjs/core/Meshes/mesh.js';
 import { MeshBuilder } from '@babylonjs/core/Meshes/meshBuilder.js';
-import { VertexBuffer } from '@babylonjs/core/Meshes/buffer.js';
+import { VertexBuffer } from '@babylonjs/core/Buffers';
 import { VertexData } from '@babylonjs/core/Meshes/mesh.vertexData.js';
 import { Camera } from '@babylonjs/core/Cameras/camera.js';
 

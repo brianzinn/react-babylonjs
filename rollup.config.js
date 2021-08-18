@@ -20,7 +20,7 @@ const exportGlobals = {
 export default (async () => {
   
   const result = {
-    input: `src/${libraryName}.ts`,
+    input: `src/react-babylonjs.ts`,
     output: [{
       file: pkg.module,
       format: 'es',
