@@ -1,6 +1,6 @@
 {
   "name": "react-babylonjsv5",
-  "version": "3.0.20-alpha.37",
+  "version": "0.0.1-alpha.38",
   "description": "React for Babylon.js v5",
   "homepage": "https://github.com/KaDTech/react-babylonjsV5/",
   "keywords": [
@@ -41,8 +41,8 @@
     "test:coverage": "nyc --reporter=lcov --reporter=text-summary npm run test"
   },
   "devDependencies": {
-    "@babylonjs/core": "5.0.0-alpha.37",
-    "@babylonjs/gui": "5.0.0-alpha.37",
+    "@babylonjs/core": "^5.0.0-alpha.38",
+    "@babylonjs/gui": "^5.0.0-alpha.38",
     "@rollup/plugin-json": "^4.0.2",
     "@rollup/plugin-replace": "^3.0.0",
     "@types/lodash.camelcase": "^4.3.6",
