@@ -1,3 +1,22 @@
+# react-babylonjsv5
+
+> *'react-babylonjsv5'* integrates the Babylon.js real time 3D engine with React. It exclusivly supports the latest (currently alpha builds) of Babylon.js 5.
+
+`react-babylonjsv5` is a fork of the great [react-babylonjs](https://github.com/brianzinn/react-babylonjs) built to support version 5 of Babylon.js. It contains no major changes or fixes so that it remains as close to the react-babylonjs as possible allowing for easy updates in the future. The version number is a combination of the react-babylonjs version and the babylonjs version. For example, 3.0.20-alpha.38 represents react-babylonjs version 3.0.20 built for Babylon.js version 5 alpha.38
+
+## How to Install
+```sh
+$ npm i react-babylonjsv5
+```
+OR
+```sh
+$ yarn add react-babylonjsv5
+```
+
+*No third party dependencies outside of React + babylon.js v5*
+
+### All Further Documentation Is A Duplication Of [react-babylonjs](https://github.com/brianzinn/react-babylonjs)
+
 # react-babylonjs
 > *'react-babylonjs'* integrates the Babylon.js real time 3D engine with React
 
@@ -5,21 +24,6 @@
 
 Fully supports hooks.  Full support for TypeScript with auto-completion on elements and compile time checks.  Context API and hooks provide easy access to Scene/Engine/Canvas.
 
-[![NPM version](http://img.shields.io/npm/v/react-babylonjs.svg?style=flat-square)](https://www.npmjs.com/package/react-babylonjs)
-[![NPM downloads](http://img.shields.io/npm/dm/react-babylonjs.svg?style=flat-square)](https://www.npmjs.com/package/react-babylonjs)
-
-## How to Install
-```sh
-$ npm i react-babylonjs @babylonjs/core @babylonjs/gui
-```
-OR
-```sh
-$ yarn add react-babylonjs @babylonjs/core @babylonjs/gui
-```
-
-*No third party dependencies outside of React + babylon.js*
-If you are upgrading from 2.x please follow the breaking changes guide:
-> [3.0 breaking changes](docs/breaking-changes-2.x-to-3.0.md)
 
 ## Models
 If you are using 3D models ensure you have added the `@babylonjs/loaders` NPM.  It is not a direct dependency, but registers loaders as plugins via imports with side effects:
