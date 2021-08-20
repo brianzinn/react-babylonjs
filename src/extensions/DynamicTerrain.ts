@@ -6,7 +6,6 @@ import { SolidParticleSystem } from '@babylonjs/core/Particles/solidParticleSyst
 import { IndicesArray, Nullable } from '@babylonjs/core/types.js';
 import { Mesh } from '@babylonjs/core/Meshes/mesh.js';
 import { MeshBuilder } from '@babylonjs/core/Meshes/meshBuilder.js';
-import { VertexBuffer } from '@babylonjs/core/Meshes/buffer.js';
 import { VertexData } from '@babylonjs/core/Meshes/mesh.vertexData.js';
 import { Camera } from '@babylonjs/core/Cameras/camera.js';
 
@@ -245,10 +244,10 @@ import { Camera } from '@babylonjs/core/Cameras/camera.js';
       }
       this._terrain = MeshBuilder.CreateRibbon("terrain", ribbonOptions, this._scene)
       this._indices = this._terrain.getIndices()
-      this._positions = this._terrain.getVerticesData(VertexBuffer.PositionKind) as (number[] | Float32Array)
-      this._normals = this._terrain.getVerticesData(VertexBuffer.NormalKind)!
-      this._uvs = this._terrain.getVerticesData(VertexBuffer.UVKind)!
-      this._colors = this._terrain.getVerticesData(VertexBuffer.ColorKind)!
+      this._positions = this._terrain.getVerticesData("position") as (number[] | Float32Array); // VertexBuffer.PositionKind moved v4->v5
+      this._normals = this._terrain.getVerticesData("normal")!; // VertexBuffer.NormalKind moved v4->v5
+      this._uvs = this._terrain.getVerticesData("uv")!; // VertexBuffer.UVKind moved v4->v5
+      this._colors = this._terrain.getVerticesData("color")!; // VertexBuffer.ColorKind moved v4->v5
       this.computeNormalsFromMap()
 
       // update it immediatly and register the update callback function in the render loop
@@ -721,13 +720,13 @@ import { Camera } from '@babylonjs/core/Cameras/camera.js';
       }
 
       // ribbon update
-      terrain.updateVerticesData(VertexBuffer.PositionKind, positions, false, false)
+      terrain.updateVerticesData("position", positions, false, false); // VertexBuffer.PositionKind moved moved v4->v5
       if (this._computeNormals) {
         VertexData.ComputeNormals(positions, this._indices, normals)
       }
-      terrain.updateVerticesData(VertexBuffer.NormalKind, normals, false, false)
-      terrain.updateVerticesData(VertexBuffer.UVKind, uvs, false, false)
-      terrain.updateVerticesData(VertexBuffer.ColorKind, colors, false, false)
+      terrain.updateVerticesData("normal", normals, false, false); // VertexBuffer.NormalKind moved v4->v5
+      terrain.updateVerticesData("uv", uvs, false, false); // VertexBuffer.UVKind moved moved v4->v5
+      terrain.updateVerticesData("color", colors, false, false); // VertexBuffer.ColorKind moved moved v4->v5
       terrain._boundingInfo!.reConstruct(bbMin, bbMax, terrain._worldMatrix)
     }
 
