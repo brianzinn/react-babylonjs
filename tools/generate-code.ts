@@ -27,7 +27,6 @@ import {
   InterfaceDeclaration,
   MethodSignature,
   EnumDeclaration,
-  
   SetAccessorDeclaration,
   Type,
   Node,
@@ -1810,15 +1809,20 @@ const generateCode = async () => {
 
   console.log('saving created content...')
 
-  const formatCodeSettings: FormatCodeSettings = {
-    newLineCharacter: '\n',
+  const saveFile = async(file: SourceFile): Promise<void> => {
+    const formatCodeSettings: FormatCodeSettings = {
+      newLineCharacter: '\n',
+    }
+    file
+      .fixUnusedIdentifiers()
+      .organizeImports()
+      .formatText(formatCodeSettings);
+
+    await file.save();
   }
 
-  generatedCodeSourceFile.formatText(formatCodeSettings);
-  await generatedCodeSourceFile.save();
-
-  generatedPropsSourceFile.formatText(formatCodeSettings);
-  await generatedPropsSourceFile.save();
+  await saveFile(generatedCodeSourceFile);
+  await saveFile(generatedPropsSourceFile);
 }
 
 console.time('total-duration');
