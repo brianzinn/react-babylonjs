@@ -23,3 +23,4 @@ export { default as ViewportLifecycleListener } from './ViewportLifecycleListene
 export { default as EngineViewLifecycleListener} from './EngineViewLifecycleListener';
 export { default as AbstractMeshLifecycleListener} from './AbstractMeshLifecycleListener';
 export { default as GizmoLifecycleListener} from './GizmoLifecycleListener';
+export { default as GizmoManagerLifecycleListener} from './GizmoManagerLifecycleListener';

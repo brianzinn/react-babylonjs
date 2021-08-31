@@ -75,7 +75,7 @@ console.log('ver:', ts.version);
 
 const CONFLICT_INTRINSIC_ELEMENTS = ['Button', 'Ellipse', 'Image', 'Line', 'Polygon'];
 
-const ALL_CUSTOM_PROPS = ['AbstractMeshCustomProps', 'ADTCustomProps', 'Control3DCustomProps', 'CustomProps', 'GlowLayerCustomProps', 'MaterialCustomProps', 'ShadowGeneratorCustomProps', 'VirtualKeyboardCustomProps', 'VRExperienceHelperCustomProps'];
+const ALL_CUSTOM_PROPS = ['AbstractMeshCustomProps', 'ADTCustomProps', 'Control3DCustomProps', 'CustomProps', 'GizmoCustomProps', 'GlowLayerCustomProps', 'MaterialCustomProps', 'ShadowGeneratorCustomProps', 'VirtualKeyboardCustomProps', 'VRExperienceHelperCustomProps'];
 
 // would be good to check JSX.IntrinsicElements with 'keyof', but it's erased at runtime (doesn't work on dynamic strings)
 // fixes TS warning: Property 'polygon' must be of type SVGProps<SVGPolygonElement>, but here has type..., so we are skipping to generate polygon for now.
@@ -184,6 +184,7 @@ const classesToGenerate: String[] = [
   "PostProcess",
   "UtilityLayerRenderer",
   "Gizmo",
+  "GizmoManager",
 
   "EngineView",
   "Viewport",
@@ -1673,7 +1674,7 @@ const generateCode = async () => {
   }
 
   if (classesOfInterest.get("Gizmo")) {
-    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Gizmo")!, () => ({isGizmo: true}));
+    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Gizmo")!, () => ({isGizmo: true}), undefined, undefined, () => "GizmoCustomProps");
   }
 
   console.log('Adding single classes:');
@@ -1690,6 +1691,7 @@ const generateCode = async () => {
   createSingleClass("ShadowGenerator", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true, isShadowGenerator: true }, () => { return; }, 'ShadowGeneratorCustomProps');
   createSingleClass("CascadedShadowGenerator", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true, isShadowGenerator: true }, () => { return; }, 'ShadowGeneratorCustomProps');
   createSingleClass("EngineView", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true }, () => { return; });
+  createSingleClass("GizmoManager", generatedCodeSourceFile, generatedPropsSourceFile);
 
   console.log('Adding read-only property classes:');
   readonlyPropertiesToGenerate.forEach((value: ClassNameSpaceTuple, className: string) => {
@@ -1812,13 +1814,12 @@ const generateCode = async () => {
   const saveFile = async(file: SourceFile): Promise<void> => {
     const formatCodeSettings: FormatCodeSettings = {
       newLineCharacter: '\n',
+      indentSize: 2,
     }
-    file
+    await file
       .fixUnusedIdentifiers()
-      .organizeImports()
-      .formatText(formatCodeSettings);
-
-    await file.save();
+      .organizeImports(formatCodeSettings)
+      .save()
   }
 
   await saveFile(generatedCodeSourceFile);

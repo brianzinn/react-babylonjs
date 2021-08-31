@@ -357,7 +357,10 @@ const ReactBabylonJSHostConfig: HostConfig<
       disposeInstanceOnUnmount: props.assignFrom === undefined,
       addIncludeOnlyChildren: props.addIncludeOnlyChildren === true,
       childMeshesNotTracked: props.childMeshesNotTracked === true,
-      shadowCastChildren: props.shadowCastChildren
+      shadowCastChildren: props.shadowCastChildren,
+      skipAutoAttach: props.skipAutoAttach,
+      attachGizmoToMesh: props.attachGizmoToMesh,
+      attachGizmoToNode: props.attachGizmoToNode,
     };
 
     if (customProps.assignFrom !== undefined) {

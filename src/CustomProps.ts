@@ -72,9 +72,19 @@ export type VRExperienceHelperCustomProps = {
   enableInteractions?: boolean
 } & CustomProps;
 
+/**
+ * Custom Gizmo props used for declaratively attaching.
+ */
+ export type GizmoCustomProps = {
+  attachGizmoToNode?: boolean
+  attachGizmoToMesh?: boolean
+  skipAutoAttach?: boolean
+  skipUtilityLayerAttach?: boolean
+} & CustomProps;
 
 /**
  * The below Custom Props are added explicitly and not automatically by inheritance, so do not need union type "& CustomProps"
+ * These are more useful when applicalbe to only part of the inheritance chain.
  */
 
 
@@ -85,6 +95,9 @@ export type ADTCustomProps = {
   createForParentMesh?: boolean
 };
 
+/**
+ * This is a subset of the EffectLayer classes.
+ */
 export type GlowLayerCustomProps = {
   /**
    * Adds all child nodes to the glow layer.
@@ -106,4 +119,4 @@ export type VirtualKeyboardCustomProps = {
 /**
  * A union of all CustomProps as a convenience typing and easier maintenance in other areas of code (ie: CreatedInstance and HostConfig)
  */
-export type AnyCustomProps = CustomProps & (AbstractMeshCustomProps & ADTCustomProps & Control3DCustomProps & GlowLayerCustomProps & VirtualKeyboardCustomProps & ShadowGeneratorCustomProps & MaterialCustomProps)
+export type AnyCustomProps = CustomProps & (AbstractMeshCustomProps & ADTCustomProps & Control3DCustomProps & GizmoCustomProps & GlowLayerCustomProps & VirtualKeyboardCustomProps & ShadowGeneratorCustomProps & MaterialCustomProps)
