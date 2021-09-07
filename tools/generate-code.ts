@@ -990,7 +990,7 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
 
     // These properties break out to specific method handlers
     type PropertyKind = 'BabylonjsCoreBaseTexture' | 'BabylonjsCoreColor3' | 'BabylonjsCoreColor4' | 'BabylonjsCoreVector3' | 'BabylonjsCoreFresnelParameters' | 'BabylonjsCoreQuaternion' |
-      'BabylonjsGuiControl' | 'number[]' | 'lambda' | 'observable' | 'method' | 'primitive' | 'object';
+      'BabylonjsGuiControl' | 'number[]' | 'lambda' | 'observable' | 'method' | 'primitive' | 'object' | 'BabylonjsCoreLight';
     type NameAndType = {
       name: string
       type: string,
@@ -1082,6 +1082,7 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
                 })
               }
               break;
+            case 'BabylonjsCoreLight':
             case '{ [key: string]: any; }':
               propsToCheck.push({
                 name: propertyName,
@@ -1154,6 +1155,7 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
               writer.writeLine(`checkQuaternionDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`);
               break;
             case 'object':
+            case 'BabylonjsCoreLight':
               writer.writeLine(`checkObjectDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`);
               break;
             case 'primitive':

@@ -15884,7 +15884,7 @@ export class FiberAxisDragGizmo implements HasPropsHandlers<FiberGizmoProps> {
 export class FiberLightGizmoPropsHandler implements PropsHandler<FiberLightGizmoProps> {
     getPropertyUpdates(oldProps: FiberLightGizmoProps, newProps: FiberLightGizmoProps): PropertyUpdate[] | null {
         const changedProps: PropertyUpdate[] = []
-        // type: 'BabylonjsCoreLight' property (not coded) BabylonjsCoreLightGizmo.light.
+        checkObjectDiff(oldProps.light, newProps.light, 'light', changedProps)
         checkObservableDiff(oldProps.onClickedObservable, newProps.onClickedObservable, 'onClickedObservable', changedProps)
         return changedProps.length === 0 ? null : changedProps;
     }
