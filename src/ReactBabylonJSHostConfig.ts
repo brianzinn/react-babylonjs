@@ -516,6 +516,12 @@ const ReactBabylonJSHostConfig: HostConfig<
         enumerable: true
       });
     }
+    if (createdReference.hostInstance && !('__rb_propsHandlers' in createdReference.hostInstance)) {
+      Object.defineProperty(createdReference.hostInstance, '__rb_propsHandlers', {
+        get() { return createdReference.propsHandlers; },
+        enumerable: true
+      });
+    }
     if (babylonObject) {
       babylonObject.inspectableCustomProperties = [
         {
