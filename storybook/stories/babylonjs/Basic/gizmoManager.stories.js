@@ -4,7 +4,7 @@ import { Color3 } from '@babylonjs/core/Maths/math.color';
 import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 import '../../style.css'
 
-export default { title: 'Babylon Basic' };
+// export default { title: 'Babylon Basic' };
 
 const Inspector = () => {
   const scene = useScene();
@@ -12,7 +12,8 @@ const Inspector = () => {
   return null;
 }
 
-export const GizmoManager = () => {
+// broken in 4.2 - works in 5.0
+const GizmoManager = () => {
   const [lightRef, setLightRef] = useState(undefined);
 
   useEffect(() => {

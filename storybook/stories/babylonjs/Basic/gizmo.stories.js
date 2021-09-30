@@ -4,7 +4,7 @@ import { Color3 } from '@babylonjs/core/Maths/math.color';
 import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 import '../../style.css'
 
-export default { title: 'Babylon Basic' };
+// export default { title: 'Babylon Basic' };
 
 const GizmoBox = ({position, color} = props) => (
   <box size={2} position={position}>
@@ -13,7 +13,8 @@ const GizmoBox = ({position, color} = props) => (
   </box>
 )
 
-export const Gizmo = () => (
+// broken in 4.2 - works in 5.0
+const Gizmo = () => (
   <div style={{ flex: 1, display: 'flex' }}>
     <Engine antialias adaptToDeviceRatio canvasId='babylonJS' >
       <Scene>

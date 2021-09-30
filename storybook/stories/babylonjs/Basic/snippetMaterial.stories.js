@@ -6,7 +6,8 @@ import { Engine, Scene, useScene } from 'react-babylonjs'
 
 import '../../style.css';
 
-export default { title: 'Babylon Basic' };
+// disabled due to errors
+// export default { title: 'Babylon Basic' };
 
 
 const setBlockValue = (
@@ -66,7 +67,7 @@ const SnippetMaterialById = ({snippetId, name, blockValues, freeze}) => {
 
 const colors = ["Red", "Green", "Yellow"]
 
-export const SnippetMaterial = () => {
+const SnippetMaterial = () => {
   const [selectedColor, setSelectedColor] = useState("Green");
   const onChange = (e) => {
     setSelectedColor(e.target.value);

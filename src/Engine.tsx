@@ -32,7 +32,7 @@ export type EngineProps = {
   canvasId?: string,
   debug?: boolean,
   // onCreated?: (engine: Engine) => void
-}
+} // TODO: put this in the next major version and remove canvasStyle and canvasId props (breaking changes). & React.CanvasHTMLAttributes<HTMLCanvasElement>
 
 export type EngineState = {
   canRender: boolean
