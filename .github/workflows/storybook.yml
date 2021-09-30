@@ -1,0 +1,36 @@
+name: make_storybook
+
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  make_storybook:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v2
+      
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+          registry-url: 'https://registry.npmjs.org'
+          scope: brianzinn
+          
+      - name: install build react-babylon
+        run: |
+          yarn install
+          yarn build
+          
+      - name: install build storybook
+        run: |
+          cd ./storybook
+          yarn install
+          yarn build-storybook
+
+      - name: deploy
+        uses: JamesIves/github-pages-deploy-action@4.1.5
+        with:
+          branch: gh-pages
+          folder: storybook/storybook-static
