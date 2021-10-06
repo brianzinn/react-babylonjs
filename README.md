@@ -36,7 +36,7 @@ If you are new to React or babylon.js (or both) there is some learning ahead.  T
 
 Here we re-use a `SpinningBox` component that can be clicked or hovered.  These reusable components can be used to compose a declarative scene.  We are using hooks for the clicking, hovering and spinning.
 
-![Connecting the pieces](https://raw.githubusercontent.com/brianzinn/react-babylonjs/master/media/react-babylonjs-boxes.gif)
+![Connecting the pieces](https://raw.githubusercontent.com/brianzinn/react-babylonjs/master/docs/images/react-babylonjs-boxes.gif)
 ```jsx
 import React, { useRef, useState } from 'react'
 import { Engine, Scene, useBeforeRender, useClick, useHover } from 'react-babylonjs'
@@ -162,7 +162,7 @@ const App: React.FC = () => {
 ## Developer Experience and Fast Refresh
 With declarative (TSX/JSX) coding and fast refresh, you experience the same development workflow in 3D - ie: save changes in your editor and see them immediately in the browser.  Note in this capture when the light is dimmed that the state changes persist even **after** code updates and scene refresh.
 
-![babylon.js Fast Refresh](https://raw.githubusercontent.com/brianzinn/react-babylonjs/master/media/react-babylonjs-hmr.gif)
+![babylon.js Fast Refresh](https://raw.githubusercontent.com/brianzinn/react-babylonjs/master/docs/images/react-babylonjs-hmr.gif)
 
 
 ## API
@@ -182,6 +182,8 @@ This project uses code generation, which allows fast reconciliation and excellen
 * [hookex](https://github.com/hookex) has made the largest contribution :)  Proper texture handling [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/textures--image-texture), Node parenting, [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/babylon-basic--transform-node) Full Screen GUI [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/gui--gui-full-screen), Effect Layers [glow demo](https://brianzinn.github.io/react-babylonjs/?path=/story/special-fx--glow-layer), behaviors [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/behaviors--pointer-drag-behavior), useHover & useClick hooks [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/hooks--use-hover-event) and react-spring integration [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/integrations--react-spring).  Author of `react-babylon-spring` - https://github.com/hookex/react-babylon-spring.
 * [dennemark](https://github.com/dennemark) added Cascaded  Shadow Generator and story for NodeMaterial usage with hooks.
 * [kencyke](https://github.com/kencyke) created a cool multi-canvas + cloud point repo that insipired creation of `<pointsCloudSystem .../>` as host element.
-* Thanks also to all the people who have contributed with issues and questions.
+* [flostellbrink](https://github.com/flostellbrink) fixed the `react-babylon-spring` upstream and added GH action for Storybook ([github pages](https://brianzinn.github.io/react-babylonjs))
+
+> Thanks also to all the people who have contributed with issues/questions/discussions.  All the great ideas and requests are why this project evolved beyond an experiment.
 
 Made with ♥
