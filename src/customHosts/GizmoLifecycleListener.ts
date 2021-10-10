@@ -4,7 +4,7 @@ import { CreatedInstance } from '../CreatedInstance';
 import { GizmoCustomProps } from '../CustomProps';
 import BaseLifecycleListener from './BaseLifecycleListener';
 
-export default class GizmoLifecycleListener extends BaseLifecycleListener<Gizmo, any> {
+export default class GizmoLifecycleListener extends BaseLifecycleListener<Gizmo, GizmoCustomProps> {
   onMount(instance: CreatedInstance<Gizmo>) {
     const gizmo = instance.hostInstance!;
     const gizmoProps: GizmoCustomProps = instance.customProps;

@@ -75,10 +75,22 @@ export type VRExperienceHelperCustomProps = {
 /**
  * Custom Gizmo props used for declaratively attaching.
  */
- export type GizmoCustomProps = {
+export type GizmoCustomProps = {
+  /**
+   * Attach to nearest node (as opposed to a restricting mesh)
+   */
   attachGizmoToNode?: boolean
+  /**
+   * Attach to nearest node
+   */
   attachGizmoToMesh?: boolean
+  /**
+   * Do not automatically attach to a mesh/node
+   */
   skipAutoAttach?: boolean
+  /**
+   * Try to set 'gizmoLayer' automatically.
+   */
   skipUtilityLayerAttach?: boolean
 } & CustomProps;
 
@@ -87,7 +99,20 @@ export type VRExperienceHelperCustomProps = {
  * These are more useful when applicalbe to only part of the inheritance chain.
  */
 
+/**
+ * Currently only extra prop for controlling attaching camera
+ */
+export type CameraCustomProps = {
+  /**
+   * Passed through when attachControl(..) is called.  Defines whether event caught by the controls should call preventdefault()
+   * (https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault)
+   */
+  noPreventDefault?: boolean
+}
 
+/**
+ * Same functionality as Advanced Dynamic Texture factory method "createForMesh" (and for first parent mesh).
+ */
 export type ADTCustomProps = {
   /**
    * Only applicable for AdvanceDynamicTexture to attach to a mesh.  ADT.CreateForMesh(parent, ...)
@@ -119,4 +144,4 @@ export type VirtualKeyboardCustomProps = {
 /**
  * A union of all CustomProps as a convenience typing and easier maintenance in other areas of code (ie: CreatedInstance and HostConfig)
  */
-export type AnyCustomProps = CustomProps & (AbstractMeshCustomProps & ADTCustomProps & Control3DCustomProps & GizmoCustomProps & GlowLayerCustomProps & VirtualKeyboardCustomProps & ShadowGeneratorCustomProps & MaterialCustomProps)
+export type AnyCustomProps = CustomProps & (AbstractMeshCustomProps & ADTCustomProps & CameraCustomProps & Control3DCustomProps & GizmoCustomProps & GlowLayerCustomProps & VirtualKeyboardCustomProps & ShadowGeneratorCustomProps & MaterialCustomProps)

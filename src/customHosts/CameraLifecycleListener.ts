@@ -2,8 +2,9 @@ import { Camera } from '@babylonjs/core/Cameras/camera.js';
 
 import BaseLifecycleListener from './BaseLifecycleListener';
 import { CreatedInstance } from '../CreatedInstance';
+import { FiberCameraProps } from '../generatedProps';
 
-export default class CameraLifecycleListener extends BaseLifecycleListener<Camera, any> {
+export default class CameraLifecycleListener extends BaseLifecycleListener<Camera, FiberCameraProps> {
 
   onParented(parent: CreatedInstance<any>, child: CreatedInstance<any>): any {
     super.onParented(parent, child);
