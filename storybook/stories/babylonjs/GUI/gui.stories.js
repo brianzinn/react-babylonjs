@@ -1,7 +1,7 @@
 import React, { useRef, useCallback } from 'react'
 import '@babylonjs/inspector'
 import {Engine, Scene} from 'react-babylonjs'
-import {Vector3} from '@babylonjs/core/Maths/math'
+import {Color3, Vector3} from '@babylonjs/core/Maths/math'
 import '../../style.css'
 import {Control} from '@babylonjs/gui';
 
@@ -22,6 +22,15 @@ export default { title: 'GUI' };
  * @return {*}
  * @constructor
  */
+
+
+
+//<---------------------->//
+/**
+ * 
+ * HACK: unknown white dots when stop moving at least after one second
+ */
+
 function WithGUI() {
   // const lineRef = useRef(null)
   const sphere1Ref = useRef(null);
@@ -75,8 +84,8 @@ function WithGUI() {
       const line = lineRef.current
       
       try {
-        line.linkWithMesh(sphere7Ref.current);
-        line.connectedControl = label7Ref.current;
+        // line.linkWithMesh(sphere7Ref.current);
+        // line.connectedControl = label7Ref.current;
 
         
         [1,2,3,4,5,6].forEach((i) => {
@@ -90,48 +99,41 @@ function WithGUI() {
 
   return (
     <Engine antialias adaptToDeviceRatio canvasId='babylonJS'>
-      <Scene>
+      <Scene clearColor={Color3.Black()}>
         <arcRotateCamera
           name='Camera'
           alpha={-Math.PI / 2}
           beta={1}
           radius={110}
-          target={Vector3.Zero()}/>
+          target={Vector3.Zero()}
+          lowerRadiusLimit={1}
+          upperRadiusLimit={10}/>
+    
 
         <hemisphericLight name='toto' direction={Vector3.Up()}/>
 
-        <sphere name='Sphere1' ref={sphere1Ref} segments={10} diameter={9} position={new Vector3(-30, 0, 0)}/>
-        <sphere name='Sphere2' ref={sphere2Ref} segments={2} diameter={9} position={new Vector3(-20, 0, 0)}/>
-        <sphere name='Sphere3' ref={sphere3Ref} segments={10} diameter={9} position={new Vector3(-10, 0, 0)}/>
-        <sphere name='Sphere4' ref={sphere4Ref} segments={10} diameter={0.5} position={new Vector3(0, 0, 0)}/>
-        <sphere name='Sphere5' ref={sphere5Ref} segments={10} diameter={9} position={new Vector3(10, 0, 0)}/>
-        <sphere name='Sphere6' ref={sphere6Ref} segments={10} diameter={9} position={new Vector3(20, 0, 0)}/>
-        <sphere name='Sphere7' ref={sphere7Ref} segments={10} diameter={9} position={new Vector3(30, 0, 0)}/>
+        <sphere name='Sphere1' ref={sphere1Ref} segments={10} diameter={9} position={new Vector3(-1, 0, 0)} visibility={0.0001}/>
+        {/* <sphere name='Sphere2' ref={sphere2Ref} segments={2} diameter={9} position={new Vector3(-20, 0, 0)} visibility={0.0001}/>
+        <sphere name='Sphere3' ref={sphere3Ref} segments={10} diameter={9} position={new Vector3(-10, 0, 0)} visibility={0.0001}/> */}
+        {/* <sphere name='Sphere4' ref={sphere4Ref} segments={10} diameter={0.5} position={new Vector3(0, 0, 0)} visibility={0.0001}/>
+        <sphere name='Sphere5' ref={sphere5Ref} segments={10} diameter={9} position={new Vector3(10, 0, 0)} visibility={0.0001}/>
+        <sphere name='Sphere6' ref={sphere6Ref} segments={10} diameter={9} position={new Vector3(20, 0, 0)} visibility={0.0001}/>
+        <sphere name='Sphere7' ref={sphere7Ref} segments={10} diameter={9} position={new Vector3(30, 0, 0)} visibility={0.0001}/> */}
 
         <adtFullscreenUi name='ui1' ref={onFullScreenRef}>
-          {/*<stackPanel width='220px' fontSize='14px'*/}
-          {/*            horizontalAlignment={Control.HORIZONTAL_ALIGNMENT_RIGHT}*/}
-          {/*            verticalAlignment={Control.VERTICAL_ALIGNMENT_CENTER}>*/}
-          {/*  <textBlock text='Slider' height='40px' color='white'*/}
-          {/*             textHorizontalAlignment={Control.HORIZONTAL_ALIGNMENT_LEFT}*/}
-          {/*             paddingTop='10px'/>*/}
-
-          {/*</stackPanel>*/}
-
-          {[1,2,3,4,5,6,7].map((i) =>
+          {[1].map((i) =>
             <rectangle key={`label${i}`} name={`label for Sphere${i}`} background='black' height='30px' alpha={0.5}
-                      width='100px' cornerRadius={20} thickness={1}
+                      width='80px' cornerRadius={20} thickness={1}
                       linkOffsetY={30} ref={refLookup[i.toString()].label}
                       verticalAlignment={Control.VERTICAL_ALIGNMENT_TOP}
                       top={i === 7 ? '10%' : 0}
             >
-              <textBlock name={`sphere-${i}-text`} text={`Sphere${i}`} color='White'/>
+              <textBlock name={`sphere-${i}-text`} text={`Light ${i}`} color='White'/>
             </rectangle>
           )
 
           }
-          <babylon-line name="sphere-7-line" alpha={0.5} lineWidth={5} dash={[5, 10]} ref={lineRef} />
-
+ 
           <babylon-ellipse name="gui-ellipse" width='10px' height='10px' color='white' background='black'/>
         </adtFullscreenUi>
       </Scene>
