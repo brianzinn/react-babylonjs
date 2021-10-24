@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import '@babylonjs/inspector';
 import { Engine, Scene, useBeforeRender, createPortal } from '../../../../dist/react-babylonjs';
-import { Vector3 } from '@babylonjs/core/Maths/math'
+import { Vector3 } from '@babylonjs/core/Maths/math.vector';
+import { Color3 } from '@babylonjs/core/Maths/math.color';
 import '../../style.css'
 
 export default { title: 'Babylon Basic' };
@@ -28,7 +29,9 @@ function WithCreatePortal() {
     <>
       <transformNode name="transform-node" ref={transformNodeRef}>
         {(transformNodeRef.current) &&
-          createPortal(<box position={new Vector3(0, 1, 0)} />, transformNodeRef.current['__rb_createdInstance'])
+          createPortal(<box position={new Vector3(0, 1, 0)}>
+            <standardMaterial diffuseColor={Color3.Blue() } specularColor={Color3.Black()} />
+          </box>, transformNodeRef.current['__rb_createdInstance'])
         }
         <ground name='ground1' width={6} height={6} subdivisions={2} position={new Vector3(0, 0, 0)} />
       </transformNode>
