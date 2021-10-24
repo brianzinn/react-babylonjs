@@ -591,16 +591,20 @@ const ReactBabylonJSHostConfig: HostConfig<
   // ReactDOM uses this for attaching child nodes to root DOM.  For us we want to link the all parts of tree together for tree crawling.
   // same implementation as insertInContainerBefore
   appendChildToContainer: (container: Container, child: HostCreatedInstance<any>): void => {
-    console.log('appending', child, container);
     if (child) {
-      // doubly link child to root
-      container.rootInstance.children.push(child);
-      child.parent = container.rootInstance;
+      if (container.rootInstance) {
+        // doubly link child to root
+        container.rootInstance.children.push(child);
+        child.parent = container.rootInstance;
 
-      // hostInstance is undefined when using "assignFrom".
-      if (child.hostInstance === undefined && child.lifecycleListener) {
-        // From perspective of declarative syntax the "Scene" is the parent.
-        child.lifecycleListener!.onParented(container.rootInstance, child);
+        // hostInstance is undefined when using "assignFrom".
+        if (child.hostInstance === undefined && child.lifecycleListener) {
+          // From perspective of declarative syntax the "Scene" is the parent.
+          child.lifecycleListener!.onParented(container.rootInstance, child);
+        }
+      } else {
+        console.log('addend child with no root (createPortal only?)')
+        addChild(container as unknown as CreatedInstance<any>, child);
       }
     }
   },
