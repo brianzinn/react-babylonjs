@@ -18,23 +18,6 @@ import { applyUpdateToInstance, applyInitialPropsToCreatedInstance } from './Upd
 import { HostRegistrationStore } from './HostRegistrationStore';
 
 // ** TODO: switch to node module 'scheduler', but compiler is not finding 'require()' exports currently...
-type RequestIdleCallbackHandle = any
-type RequestIdleCallbackOptions = {
-  timeout: number
-}
-type RequestIdleCallbackDeadline = {
-  readonly didTimeout: boolean
-  timeRemaining: (() => number)
-}
-
-declare global {
-  interface Window {
-    requestIdleCallback: ((callback: ((deadline: RequestIdleCallbackDeadline) => void), opts?: RequestIdleCallbackOptions) => RequestIdleCallbackHandle)
-    cancelIdleCallback: ((handle: RequestIdleCallbackHandle) => void)
-  }
-}
-// ** END WINDOW
-
 type HostCreatedInstance<T> = CreatedInstance<T> | undefined
 
 type Props = {
@@ -47,7 +30,7 @@ export type Container = {
 }
 
 type HostContext = Container
-type TimeoutHandler = number | undefined
+type TimeoutHandle = number | undefined
 type NoTimeout = number
 
 function createCreatedInstance<T, U extends HasPropsHandlers<any>>(
@@ -178,10 +161,11 @@ const ReactBabylonJSHostConfig: HostConfig<
   Record<string, never>,
   Record<string, never>,
   Record<string, never>,
+  any, /* this is a babylonjs object */
   HostContext,
   UpdatePayload,
-  Record<string, never>,
-  TimeoutHandler,
+  Record<string, never>, // TODO Placeholder for undocumented API in typings
+  TimeoutHandle,
   NoTimeout
 > & {
   hideInstance: (instance: HostCreatedInstance<any>) => void;
@@ -516,9 +500,9 @@ const ReactBabylonJSHostConfig: HostConfig<
         enumerable: true
       });
     }
-    if (createdReference.hostInstance && !('__rb_propsHandlers' in createdReference.hostInstance)) {
-      Object.defineProperty(createdReference.hostInstance, '__rb_propsHandlers', {
-        get() { return createdReference.propsHandlers; },
+    if (createdReference.hostInstance && !('__rb_createdInstance' in createdReference.hostInstance)) {
+      Object.defineProperty(createdReference.hostInstance, '__rb_createdInstance', {
+        get() { return createdReference; },
         enumerable: true
       });
     }
@@ -535,9 +519,9 @@ const ReactBabylonJSHostConfig: HostConfig<
     return createdReference;
   },
 
-  shouldDeprioritizeSubtree: (type: string, props: Props): boolean => {
-    return false;
-  },
+  // shouldDeprioritizeSubtree: (type: string, props: Props): boolean => {
+  //   return false;
+  // },
 
   hideInstance(instance: HostCreatedInstance<any>): void { /* empty */ },
 
@@ -545,20 +529,20 @@ const ReactBabylonJSHostConfig: HostConfig<
 
   createTextInstance(text: string): any { /* empty */ },
 
-  scheduleDeferredCallback(callback: (deadline: RequestIdleCallbackDeadline) => void, opts?: RequestIdleCallbackOptions | undefined): any {
-    return window.requestIdleCallback(callback, opts) // ReactDOMHostConfig has: unstable_scheduleCallback as scheduleDeferredCallback
+  // scheduleDeferredCallback(callback: (deadline: RequestIdleCallbackDeadline) => void, opts?: RequestIdleCallbackOptions | undefined): any {
+  //   return window.requestIdleCallback(callback, opts) // ReactDOMHostConfig has: unstable_scheduleCallback as scheduleDeferredCallback
+  // },
+
+  // cancelDeferredCallback(handle: any): void {
+  //   return window.cancelIdleCallback(handle);
+  // },
+
+  scheduleTimeout(fn: (...args: unknown[]) => unknown, delay?: number): TimeoutHandle {
+    return window.setTimeout(fn, delay);
   },
 
-  cancelDeferredCallback(handle: any): void {
-    return window.cancelIdleCallback(handle);
-  },
-
-  setTimeout(handler: (...args: any[]) => void, timeout: number): TimeoutHandler {
-    return window.setTimeout(handler);
-  },
-
-  clearTimeout(handle?: number | undefined): void {
-    window.clearTimeout(handle);
+  cancelTimeout(id: TimeoutHandle): void {
+    window.clearTimeout(id);
   },
 
   // https://github.com/facebook/react/blob/master/packages/react-dom/src/client/ReactDOMHostConfig.js#L288
@@ -566,6 +550,10 @@ const ReactBabylonJSHostConfig: HostConfig<
 
   // Called based on return value of: finalizeInitialChildren.  in-memory render tree created, but not yet attached.
   prepareForCommit: (containerInfo: Container) => { return null; },
+
+  preparePortalMount(containerInfo) : void {
+    console.log('prepare portal mount', containerInfo); // this is the public instance...
+  },
 
   // Called after the in-memory tree has been committed (ie: after attaching again to root element)
   resetAfterCommit: (containerInfo: Container): void => { /* empty */ },
@@ -603,6 +591,7 @@ const ReactBabylonJSHostConfig: HostConfig<
   // ReactDOM uses this for attaching child nodes to root DOM.  For us we want to link the all parts of tree together for tree crawling.
   // same implementation as insertInContainerBefore
   appendChildToContainer: (container: Container, child: HostCreatedInstance<any>): void => {
+    console.log('appending', child, container);
     if (child) {
       // doubly link child to root
       container.rootInstance.children.push(child);

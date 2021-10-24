@@ -28,7 +28,7 @@ function WithCreatePortal() {
     <>
       <transformNode name="transform-node" ref={transformNodeRef}>
         {(transformNodeRef.current) &&
-          createPortal(<box position={new Vector3(0, 1, 0)} />, transformNodeRef.current)
+          createPortal(<box position={new Vector3(0, 1, 0)} />, transformNodeRef.current['__rb_createdInstance'])
         }
         <ground name='ground1' width={6} height={6} subdivisions={2} position={new Vector3(0, 0, 0)} />
       </transformNode>

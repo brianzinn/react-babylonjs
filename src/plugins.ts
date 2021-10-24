@@ -1,6 +1,6 @@
 import { Quaternion, Vector3 } from "@babylonjs/core/Maths/math.vector.js";
 import { CreatedInstance } from "./CreatedInstance";
-import { HasPropsHandlers, PropChangeType, PropertyUpdate, PropsHandler } from "./PropsHandler";
+import { PropChangeType, PropertyUpdate, PropsHandler } from "./PropsHandler";
 
 /**
  * @deprecated Please use @see applyPropsToRef instead
@@ -8,19 +8,22 @@ import { HasPropsHandlers, PropChangeType, PropertyUpdate, PropsHandler } from "
  * @param hostInstance a babylonjs public ref (available with useRef)
  * @param props
  */
- export const applyInitialPropsToInstance = (target: any, props: Record<string, any>): void => {
+export const applyInitialPropsToInstance = (target: any, props: Record<string, any>): void => {
   // this is a bad cast.  it is here for backwards compatibility with a react-spring dependency that only uses vector/color prop changes.
   const initPayload: PropertyUpdate[] = []
-  if ('__rb_propsHandlers' in target) {
-    (target.__rb_propsHandlers as HasPropsHandlers<unknown>).getPropsHandlers().forEach((propHandler: PropsHandler<any>) => {
-      const handlerUpdates: PropertyUpdate[] | null = propHandler.getPropertyUpdates(
-        {}, // We will reapply any props passed in (will not "clear" props, if we pass in an undefined prop)
-        props
-      );
-      if (handlerUpdates !== null) {
-        initPayload.push(...handlerUpdates);
-      }
-    })
+  if ('__rb_createdInstance' in target) {
+    const createdInstance: CreatedInstance<any> = (target.__rb_createdInstance as unknown as CreatedInstance<any>);
+    if (createdInstance.propsHandlers) {
+      createdInstance.propsHandlers.getPropsHandlers().forEach((propHandler: PropsHandler<any>) => {
+        const handlerUpdates: PropertyUpdate[] | null = propHandler.getPropertyUpdates(
+          {}, // We will reapply any props passed in (will not "clear" props, if we pass in an undefined prop)
+          props
+        );
+        if (handlerUpdates !== null) {
+          initPayload.push(...handlerUpdates);
+        }
+      })
+    }
   }
 
   if (initPayload.length > 0) {
