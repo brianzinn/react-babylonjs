@@ -1,6 +1,6 @@
 {
   "name": "react-babylonjs",
-  "version": "3.0.24",
+  "version": "3.0.25",
   "description": "React for Babylon.js",
   "homepage": "https://brianzinn.github.io/react-babylonjs/",
   "keywords": [
@@ -79,7 +79,7 @@
     "react-dom": ">=17"
   },
   "dependencies": {
-    "react-reconciler": "^0.26.2",
-    "valtio": "^1.2.5"
+    "valtio": "^1.2.5",
+    "react-reconciler": "^0.26.2"
   }
 }
