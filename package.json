@@ -79,6 +79,7 @@
     "react-dom": ">=17"
   },
   "dependencies": {
-    "react-reconciler": "^0.26.2"
+    "react-reconciler": "^0.26.2",
+    "valtio": "^1.2.5"
   }
 }
