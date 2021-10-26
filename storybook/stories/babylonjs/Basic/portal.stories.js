@@ -28,10 +28,10 @@ function WithCreatePortal() {
   return (
     <>
       {(transformNodeRef.current) &&
-          createPortal(<box position={new Vector3(0, 1, 0)}>
-            <standardMaterial diffuseColor={Color3.Blue() } specularColor={Color3.Black()} />
-          </box>, transformNodeRef.current)
-        }
+        createPortal(<box position={new Vector3(0, 1, 0)}>
+          <standardMaterial diffuseColor={Color3.Blue() } specularColor={Color3.Black()} />
+        </box>, transformNodeRef.current['__rb_createdInstance'])
+      }
       <transformNode name="transform-node" ref={transformNodeRef}>
         <ground name='ground1' width={6} height={6} subdivisions={2} position={new Vector3(0, 0, 0)} />
       </transformNode>
