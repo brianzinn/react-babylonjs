@@ -30,7 +30,7 @@ export function createPortal(children: React.ReactNode, containerInfo: any, key?
     target = containerInfo.__rb_createdInstance;
   }
 
-  return reconciler.createPortal(children, containerInfo, null, key);
+  return reconciler.createPortal(children, target, null, key);
 }
 
 /*
