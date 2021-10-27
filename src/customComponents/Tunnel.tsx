@@ -1,7 +1,5 @@
-import React, { useEffect, ReactNode} from 'react';
-
-import {proxy, useSnapshot} from 'valtio'
-
+import React, { useEffect, ReactElement} from 'react';
+import create from "zustand"
 /** 
  * A tunnel allows to render components of one renderer inside another.
  * I.e. babylonjs components normally need to live within Engine component.
@@ -24,24 +22,31 @@ const createTunnel = () => {
      * i.e. <TunnelEntrance id="hyperloop">
      * <TunnelExit ids=["hyperloop"]>
      */
-    const state = proxy({set: new Set<ReactNode>()})
 
-    const TunnelEntrance = ({children}: {children: ReactNode}) => {
+    type Store = {store: ReactElement[], add:(el:ReactElement)=>void, remove:(el:ReactElement)=>void}
+        const useStore = create<Store>((set, get)=> ({
+            store: [],
+            add: (el: ReactElement) => set((state)=>{
+                return {...state, store: [...state.store, el]}}),
+            remove: (el: ReactElement) => set((state)=>{return {...state, store: state.store.filter(e => e.key !== el.key)}})
+        }))
 
+    const TunnelEntrance = ({children}: {children: ReactElement}) => {
+        const add = useStore(state => state.add)
+        const remove = useStore(state => state.remove)
         useEffect(()=>{
-            state.set.add(children);
+            add(children);
             return ()=> {
-                state.set.delete(children)
+                remove(children)
             }
         },[children])
-        
+
         return <></>
     }
 
     const TunnelExit = () => {
-        const snap = useSnapshot(state)
-        
-        return <>{snap.set.size > 0 && Array.from(snap.set).map(entry =>{
+        const state = useStore(state => state.store)
+        return <>{state.length > 0 && state.map(entry =>{
                         return entry;
                     }
                 )}
