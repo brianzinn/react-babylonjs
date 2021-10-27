@@ -29,7 +29,7 @@ const {TunnelEntrance, TunnelExit} = createTunnel();
 const rpm = 5;
 
 
-const WithTunnel = ()=>{
+const WithTunnel = ({uids})=>{
   const [_, setReady] = useState(false);
   const ref = useRef(null);
   useBeforeRender((scene) => {
@@ -45,7 +45,7 @@ const WithTunnel = ()=>{
   }, [ref.current])
 
   return <transformNode name="transform-node" ref={ref}>
-            <TunnelExit />
+            <TunnelExit uids={uids}/>
           </transformNode>
       
 }
@@ -67,22 +67,22 @@ export const CreateTunnel = () => {
   return <div style={{ flex: 1, display: 'flex' }}>
         <button onClick={()=>setPosition(Math.abs(position-1))}>Set Position</button>
         {/** Multiple Tunnel Entrances */}
-          <TunnelEntrance>
-            <box ref={ref} position={new Vector3(0, position, 0)}>
-              <standardMaterial diffuseColor={Color3.Blue() } specularColor={Color3.Black()} />
+          <TunnelEntrance uid="hyperloop">
+            <box name="box" ref={ref} position={new Vector3(0, position, 0)}>
+              <standardMaterial name="mat" diffuseColor={Color3.Blue() } specularColor={Color3.Black()} />
             </box>
           </TunnelEntrance>
-          <TunnelEntrance>
-            <box position={new Vector3(position, 0, 1)}>
-              <standardMaterial diffuseColor={Color3.Red() } specularColor={Color3.Black()} />
+          <TunnelEntrance uid="subway">
+            <box name="box" position={new Vector3(position, 0, 1)}>
+              <standardMaterial name="mat" diffuseColor={Color3.Red() } specularColor={Color3.Black()} />
             </box>
           </TunnelEntrance>
           <Engine antialias adaptToDeviceRatio canvasId='babylonJS'>
           <Scene>
             <freeCamera name='camera1' position={new Vector3(0, 5, -10)}
               setTarget={[Vector3.Zero()]} />
-              <WithTunnel />
-              <transformNode position={new Vector3(5, 0, 0)}>
+              <WithTunnel uids={["subway"]}/>
+              <transformNode name="node" position={new Vector3(5, 0, 0)}>
                 <WithTunnel />
               </transformNode>
               <hemisphericLight name='light1' intensity={0.7} direction={Vector3.Up()} />

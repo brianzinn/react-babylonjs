@@ -1,5 +1,13 @@
-import React, { useEffect, ReactElement} from 'react';
+import React, { useEffect, ReactElement, Fragment} from 'react';
 import create from "zustand"
+
+
+type Store = {
+    store: {[key:string]: ReactElement}, 
+    add:(key: string, el:ReactElement)=>void, 
+    remove:(key: string)=>void
+}
+
 /** 
  * A tunnel allows to render components of one renderer inside another.
  * I.e. babylonjs components normally need to live within Engine component.
@@ -17,40 +25,54 @@ import create from "zustand"
  * 
  */
 const createTunnel = () => {
+
+    const useStore = create<Store>((set, get)=> ({
+        store: {},
+        add: (key, el) => set((state)=>{
+            return {...state, store: {...state.store, [key]: el}}}),
+        remove: (key) => set((state)=>{
+            if(key in state.store){
+                delete state.store[key]
+            }
+            return {...state, store: state.store}})
+    }))
+
     /**
-     * Possible improvement: use key/value object to steer children from different entrances to different exits
-     * i.e. <TunnelEntrance id="hyperloop">
-     * <TunnelExit ids=["hyperloop"]>
+     * Tunnel Entrance 
+     * @param uid a unique identifier - similar to key. if same uid exists in app, only one tunnel entrance will end in tunnel exit
+     * @returns nothing
      */
-
-    type Store = {store: ReactElement[], add:(el:ReactElement)=>void, remove:(el:ReactElement)=>void}
-        const useStore = create<Store>((set, get)=> ({
-            store: [],
-            add: (el: ReactElement) => set((state)=>{
-                return {...state, store: [...state.store, el]}}),
-            remove: (el: ReactElement) => set((state)=>{return {...state, store: state.store.filter(e => e.key !== el.key)}})
-        }))
-
-    const TunnelEntrance = ({children}: {children: ReactElement}) => {
+    const TunnelEntrance = ({uid, children}: {uid: string,children: ReactElement}) => {
         const add = useStore(state => state.add)
         const remove = useStore(state => state.remove)
         useEffect(()=>{
-            add(children);
+            add(uid, children);
             return ()=> {
-                remove(children)
+                remove(uid)
             }
         },[children])
 
         return <></>
     }
 
-    const TunnelExit = () => {
+    /**
+     * Tunnel Exit
+     * @param uids optionally add uids of tunnel entrances to only show components of these entrances
+     * @returns Components of Tunnel Entrance
+     */
+    const TunnelExit = ({uids}: {uids?: string[]}) => {
         const state = useStore(state => state.store)
-        return <>{state.length > 0 && state.map(entry =>{
-                        return entry;
-                    }
-                )}
-            </>
+
+        
+        return <>{Object.keys(state)
+                        .filter(key => uids ? uids.includes(key) : true)
+                        .map((key) => {
+                            return <Fragment key={key}>
+                                {state[key]}
+                                </Fragment>
+                        })
+                }
+                </>
       }
  
     return {TunnelEntrance, TunnelExit};
