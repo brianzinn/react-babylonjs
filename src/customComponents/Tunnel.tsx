@@ -34,7 +34,7 @@ const createTunnel = () => {
             if(key in state.store){
                 delete state.store[key]
             }
-            return {...state, store: state.store}})
+            return {...state, store: {...state.store}}})
     }))
 
     /**
