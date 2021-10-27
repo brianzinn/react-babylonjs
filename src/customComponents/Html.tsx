@@ -18,7 +18,7 @@ function defaultCalculatePosition(el: AbstractMesh, camera: Camera) {
   const objectPos = el.getAbsolutePosition();
   const engine = camera.getEngine()
   const viewport = camera.viewport.toGlobal(engine.getRenderWidth(), engine.getRenderHeight());
-  const screenPos = Vector3.Project(objectPos, Matrix.Identity(), camera.getScene().getTransformMatrix(), viewport)
+  const screenPos = Vector3.Project(objectPos, Matrix.Identity(), camera.getTransformationMatrix(), viewport)
 
   return [screenPos.x * engine.getHardwareScalingLevel(), screenPos.y * engine.getHardwareScalingLevel()]
 }
@@ -237,36 +237,26 @@ const Html = forwardRef(
       } else {
         render(<div id="html_babylon" ref={ref} style={styles} className={className} children={children} />, el)
       }
-      // el && createPortal(<>
-      //   {transform ? <div id="html_babylon" ref={transformOuterRef} style={styles}>
-      //     <div ref={transformInnerRef} style={transformInnerStyles}>
-      //       <div ref={ref} className={className} style={style} children={children} />
-      //     </div>
-      //   </div>
-      //   :<div  id="html_babylon" ref={ref} style={styles} className={className} children={children} />}
-      //   </>, el)
-
     })
 
     const visible = useRef(true)
 
     useBeforeRender(() => {
-      let camera = scene?.activeCamera;
-
+      const camera = scene?.activeCamera;
+      
       if (camera && group.current) {
         const node = group.current as AbstractMesh;
         node.computeWorldMatrix(true)
-        //camera?.getWorldMatrix();
         const vec = transform ? oldPosition.current : calculatePosition(node, camera)
-
+       
         el.style.display = node.isEnabled(true) ? 'block' : 'none'
-
-        if (
-          transform ||
-          Math.abs(oldZoom.current - camera.fov) > eps ||
-          Math.abs(oldPosition.current[0] - vec[0]) > eps ||
-          Math.abs(oldPosition.current[1] - vec[1]) > eps
-        ) {
+ 
+        if ( (isNaN(vec[0]) === false) && (
+            transform ||
+            Math.abs(oldZoom.current - camera.fov) > eps ||
+            Math.abs(oldPosition.current[0] - vec[0]) > eps ||
+            Math.abs(oldPosition.current[1] - vec[1]) > eps
+          )) {
           const isBehindCamera = isObjectBehindCamera(node, camera)
 
           let raytraceTarget: null | undefined | boolean | AbstractMesh[] = false
