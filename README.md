@@ -171,8 +171,11 @@ This project uses code generation, which allows fast reconciliation and excellen
 
 ## Release History and changes
 > [Changes and commit history](docs/changes.md)
+
+## Storybook
+~50 sample web pages with viewable source code on [github pages](https://brianzinn.github.io/react-babylonjs/).
+
 ## Example Projects
-* The storybook pages for this project have the source code embedded in the page and are live on [github pages](https://brianzinn.github.io/react-babylonjs/).
 * [Create React App (JavaScript)](https://github.com/brianzinn/create-react-app-babylonjs) CRA JavaScript implementation.  Github pages has live examples of typical and declarative usage some with Redux.
 * [Create React App (TypeScript)](https://github.com/brianzinn/create-react-app-typescript-babylonjs) CRA 3 TypeScript.  Examples of physics, shadows, etc.
 
@@ -180,9 +183,9 @@ This project uses code generation, which allows fast reconciliation and excellen
 * Huge shout out to [Konsumer](https://github.com/konsumer) that helped bring this project to the next level. The ideas and code sandboxes from issue #6 inspired the code generation and HOC + Context API integration.
 * [seacloud9](https://github.com/seacloud9) for adding [storybook](https://brianzinn.github.io/react-babylonjs/), [GSAP demo](https://brianzinn.github.io/react-babylonjs/?path=/story/integrations--gsap-timeline), [dynamic terrain](https://brianzinn.github.io/react-babylonjs/?path=/story/babylon-basic--dynamic-terrain) (extension) & [PIXI demo](https://brianzinn.github.io/react-babylonjs/?path=/story/integrations--pixi-story).
 * [hookex](https://github.com/hookex) has made the largest contribution :)  Proper texture handling [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/textures--image-texture), Node parenting, [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/babylon-basic--transform-node) Full Screen GUI [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/gui--gui-full-screen), Effect Layers [glow demo](https://brianzinn.github.io/react-babylonjs/?path=/story/special-fx--glow-layer), behaviors [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/behaviors--pointer-drag-behavior), useHover & useClick hooks [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/hooks--use-hover-event) and react-spring integration [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/integrations--react-spring).  Author of `react-babylon-spring` - https://github.com/hookex/react-babylon-spring.
-* [dennemark](https://github.com/dennemark) added Cascaded  Shadow Generator and story for NodeMaterial usage with hooks.
+* [dennemark](https://github.com/dennemark) add support for `CascadedShadowGenerator`, `createPortal` and `Html` (project HTML in scene - ported from `drei`).  Also, stories for [Snippet Material](https://brianzinn.github.io/react-babylonjs/?path=/story/babylon-basic--snippet-material) and ["tunnel" zustand integration](https://brianzinn.github.io/react-babylonjs/?path=/story/integrations--zustand-tunnel).
 * [kencyke](https://github.com/kencyke) created a cool multi-canvas + cloud point repo that insipired creation of `<pointsCloudSystem .../>` as host element.
-* [flostellbrink](https://github.com/flostellbrink) fixed the `react-babylon-spring` upstream and added GH action for Storybook ([github pages](https://brianzinn.github.io/react-babylonjs))
+* [flostellbrink](https://github.com/flostellbrink) fixed the `react-babylon-spring` integration and added GH action for Storybook ([github pages](https://brianzinn.github.io/react-babylonjs))
 
 > Thanks also to all the people who have contributed with issues/questions/discussions.  All the great ideas and requests are why this project evolved beyond an experiment.
 
