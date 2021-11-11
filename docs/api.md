@@ -37,7 +37,7 @@ If you want to declaratively use something not listed here create an issue :)  S
 
 11. **Gizmo** axisDragGizmo, axisScaleGizmo, boundingBoxGizmo, cameraGizmo, gizmo, lightGizmo, planeDragGizmo, planeRotationGizmo, positionGizmo, rotationGizmo, scaleGizmo
 
-12. **Others** - adtForMesh, adtForMeshTexture, adtFullScreenUi, environmentHelper, physicsImpostor, pointsCloudSystem, shadowGenerator / cascadedShadowGenerator, utilityLayerRenderer, viewport, vrExperienceHelper
+12. **Others** - adtForMesh, adtForMeshTexture, adtFullScreenUi, environmentHelper, physicsImpostor, pointsCloudSystem, shadowGenerator / cascadedShadowGenerator, layer, utilityLayerRenderer, viewport, vrExperienceHelper
 
 ## @babylonjs/gui
 1. GUI3DManager
