@@ -16998,6 +16998,7 @@ export class FiberLayer implements HasPropsHandlers<FiberLayerProps> {
           ]
         };
     public static readonly Metadata: CreatedInstanceMetadata = {
+          "isLayer": true,
           "className": "FiberLayer"
         };
 }

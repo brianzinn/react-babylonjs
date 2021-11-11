@@ -1702,7 +1702,7 @@ const generateCode = async () => {
   createSingleClass("CascadedShadowGenerator", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true, isShadowGenerator: true }, () => { return; }, 'ShadowGeneratorCustomProps');
   createSingleClass("EngineView", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true }, () => { return; });
   createSingleClass("GizmoManager", generatedCodeSourceFile, generatedPropsSourceFile);
-  createSingleClass("Layer", generatedCodeSourceFile, generatedPropsSourceFile);
+  createSingleClass("Layer", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { isLayer: true });
 
   console.log('Adding read-only property classes:');
   readonlyPropertiesToGenerate.forEach((value: ClassNameSpaceTuple, className: string) => {

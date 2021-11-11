@@ -27,6 +27,7 @@ export interface InstanceMetadataParameter {
   isShadowGenerator?: boolean
   isUtilityLayerRenderer?: boolean
   isGizmo?: boolean
+  isLayer?: boolean
 }
 
 export interface CreatedInstanceMetadata extends InstanceMetadataParameter {
