@@ -12,10 +12,13 @@ export default class TexturesLifecycleListener extends BaseLifecycleListener<Tex
     let tmp: CreatedInstance<any> | null = instance.parent;
 
     while (tmp !== null) {
-      if (tmp.metadata && (tmp.metadata.isMaterial === true || tmp.metadata.className === 'Model')) {
+      if (tmp.metadata && (tmp.metadata.isMaterial === true || tmp.metadata.className === 'Model' || tmp.metadata.isLayer === true)) {
         if (assignTo) {
           assignProperty(texture, tmp.hostInstance, assignTo);
         } else {
+          if (tmp.metadata.isLayer === true) {
+            continue;
+          }
           // maybe below case is more common, so let it default
           tmp.hostInstance.diffuseTexture = texture;
         }

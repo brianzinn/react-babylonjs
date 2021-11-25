@@ -65,6 +65,7 @@ import { EnvironmentHelper as BabylonjsCoreEnvironmentHelper, IEnvironmentHelper
 import { EffectLayer as BabylonjsCoreEffectLayer } from "@babylonjs/core/Layers/effectLayer.js";
 import { GlowLayer as BabylonjsCoreGlowLayer, IGlowLayerOptions as BabylonjsCoreIGlowLayerOptions } from "@babylonjs/core/Layers/glowLayer.js";
 import { HighlightLayer as BabylonjsCoreHighlightLayer, IHighlightLayerOptions as BabylonjsCoreIHighlightLayerOptions } from "@babylonjs/core/Layers/highlightLayer.js";
+import { Layer as BabylonjsCoreLayer } from "@babylonjs/core/Layers/layer.js";
 import { DirectionalLight as BabylonjsCoreDirectionalLight } from "@babylonjs/core/Lights/directionalLight.js";
 import { HemisphericLight as BabylonjsCoreHemisphericLight } from "@babylonjs/core/Lights/hemisphericLight.js";
 import { Light as BabylonjsCoreLight } from "@babylonjs/core/Lights/light.js";
@@ -450,6 +451,7 @@ declare global {
             cascadedShadowGenerator: FiberCascadedShadowGeneratorProps & FiberCascadedShadowGeneratorPropsCtor & BabylonNode<BabylonjsCoreCascadedShadowGenerator>;
             engineView: FiberEngineViewProps & FiberEngineViewPropsCtor & BabylonNode<BabylonjsCoreEngineView>;
             gizmoManager: FiberGizmoManagerProps & FiberGizmoManagerPropsCtor & BabylonNode<BabylonjsCoreGizmoManager>;
+            layer: FiberLayerProps & FiberLayerPropsCtor & BabylonNode<BabylonjsCoreLayer>;
             imageProcessingConfiguration: FiberImageProcessingConfigurationProps & FiberImageProcessingConfigurationPropsCtor & BabylonNode<BabylonjsCoreImageProcessingConfiguration>;
             prePassConfiguration: FiberPrePassConfigurationProps & FiberPrePassConfigurationPropsCtor & BabylonNode<BabylonjsCorePrePassConfiguration>;
             detailMapConfiguration: FiberDetailMapConfigurationProps & FiberDetailMapConfigurationPropsCtor & BabylonNode<BabylonjsCoreDetailMapConfiguration>;
@@ -3940,6 +3942,31 @@ export type FiberGizmoManagerPropsCtor = {
         thickness?: number;
         utilityLayer?: BabylonjsCoreUtilityLayerRenderer;
         keepDepthUtilityLayer?: BabylonjsCoreUtilityLayerRenderer;
+    };
+export type FiberLayerProps = {
+        alphaBlendingMode?: number;
+        alphaTest?: boolean;
+        color?: BabylonjsCoreColor4;
+        isBackground?: boolean;
+        layerMask?: number;
+        name?: string;
+        offset?: BabylonjsCoreVector2;
+        onAfterRender?: () => void;
+        onAfterRenderObservable?: any;
+        onBeforeRender?: () => void;
+        onBeforeRenderObservable?: any;
+        onDispose?: () => void;
+        onDisposeObservable?: any;
+        renderOnlyInRenderTargetTextures?: boolean;
+        renderTargetTextures?: BabylonjsCoreRenderTargetTexture[];
+        scale?: BabylonjsCoreVector2;
+        texture?: BabylonjsCoreTexture;
+    } & CustomProps;
+export type FiberLayerPropsCtor = {
+        name: string;
+        imgUrl: string;
+        isBackground?: boolean;
+        color?: BabylonjsCoreColor4;
     };
 export type FiberImageProcessingConfigurationProps = {
         applyByPostProcess?: boolean;

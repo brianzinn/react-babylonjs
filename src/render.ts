@@ -22,11 +22,14 @@ export interface ReconcilerInstance {
 const ReconcilerSecondary: ReconcilerType<Container, any, any, any, any> = Reconciler(ReactBabylonJSHostConfig);
 const ReconcilerPrimary: ReconcilerType<Container, any, any, any, any> = Reconciler({ ...ReactBabylonJSHostConfig, isPrimaryRenderer: true });
 
+/**
+ * This is a work in progress in experimental state.
+ */
 export function createPortal(children: React.ReactNode, containerInfo: any, key?: string | null, usePrimary: boolean = false): Reconciler.ReactPortal {
   const reconciler = (usePrimary === true ? ReconcilerPrimary : ReconcilerSecondary);
   let target = containerInfo;
   if ('__rb_createdInstance' in containerInfo) {
-    console.log('retargeting to ', containerInfo.__rb_createdInstance);
+    // console.log('retargeting to ', containerInfo.__rb_createdInstance);
     target = containerInfo.__rb_createdInstance;
   }
 

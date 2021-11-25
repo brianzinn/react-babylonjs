@@ -1,6 +1,7 @@
 import { exit } from 'process';
 /**
  * To debug code generation use the launch config in VS Code - "Generate Code (debug)"
+ * Also, remove "type": "module" in package.json for ERR_UNKNOWN_FILE_EXTENSION errors.
  */
 import {
   Project,
@@ -185,9 +186,9 @@ const classesToGenerate: String[] = [
   "UtilityLayerRenderer",
   "Gizmo",
   "GizmoManager",
-
   "EngineView",
   "Viewport",
+  "Layer",
 ]
 
 classesToGenerate.forEach(className => classesOfInterest.set(className, undefined));
@@ -1701,6 +1702,7 @@ const generateCode = async () => {
   createSingleClass("CascadedShadowGenerator", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true, isShadowGenerator: true }, () => { return; }, 'ShadowGeneratorCustomProps');
   createSingleClass("EngineView", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true }, () => { return; });
   createSingleClass("GizmoManager", generatedCodeSourceFile, generatedPropsSourceFile);
+  createSingleClass("Layer", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { isLayer: true });
 
   console.log('Adding read-only property classes:');
   readonlyPropertiesToGenerate.forEach((value: ClassNameSpaceTuple, className: string) => {

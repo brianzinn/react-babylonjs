@@ -1,8 +1,7 @@
-import React, {useEffect, useState} from 'react'
-import '@babylonjs/inspector'
-import {Engine, Scene, Html} from 'react-babylonjs'
-import {Vector3} from '@babylonjs/core/Maths/math'
-import '../../style.css'
+import React, { useEffect, useState } from 'react';
+import { Engine, Scene, Html } from 'react-babylonjs';
+import { Vector3 } from '@babylonjs/core/Maths/math';
+import '../../style.css';
 
 export default { title: 'GUI' };
 
@@ -41,26 +40,25 @@ function WithHtmlText() {
   }, []);
 
   return (
-        <transformNode name="transform-node" position={position} rotation={rotation}>
-          <sphere name='sphere1' diameter={2} segments={16}
-                  position={new Vector3(0, 1, 0)}>
-                      <Html name="html" center occlude={false} >
-                          {<p>Text</p>}
-                      </Html>
-          </sphere>
-        </transformNode>
+    <transformNode name="transform-node" position={position} rotation={rotation}>
+      <sphere name='sphere1' diameter={2} segments={16}
+        position={new Vector3(0, 1, 0)}>
+        <Html name="html" center occlude={false} >
+          {<div style={{ backgroundColor: 'white', borderRadius: '5px', border: '3px solid red', padding: '8px' }}>Text</div>}
+        </Html>
+      </sphere>
+    </transformNode>
   )
 }
 
 export const HtmlText = () => (
-  <div style={{flex: 1, display: 'flex'}}>
+  <div style={{ flex: 1, display: 'flex' }}>
     <Engine antialias adaptToDeviceRatio canvasId='babylonJS'>
-        <Scene>
-              <freeCamera name='camera1' position={new Vector3(0, 5, -10)}
-                    setTarget={[Vector3.Zero()]}/>
-            <hemisphericLight name='light1' intensity={0.7} direction={Vector3.Up()}/>
-            <WithHtmlText/>
-        </Scene>
+      <Scene>
+        <freeCamera name='camera1' position={new Vector3(0, 5, -10)} setTarget={[Vector3.Zero()]} />
+        <hemisphericLight name='light1' intensity={0.7} direction={Vector3.Up()} />
+        <WithHtmlText />
+      </Scene>
     </Engine>
   </div>
 )
