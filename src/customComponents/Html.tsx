@@ -29,9 +29,9 @@ function isObjectBehindCamera(el: AbstractMesh, camera: Camera) {
 
   const planes = Frustum.GetPlanes(camera.getTransformationMatrix());
   const center = el.absolutePosition;
-  const insideFrustum = planes.findIndex(x => x.dotCoordinate(center) < 0) === -1 ? false : true; // taken from : https://forum.babylonjs.com/t/check-if-vector3-is-in-frustum/8652/3
+  const oustideFrustum = planes.findIndex(x => x.dotCoordinate(center) < 0) === -1 ? false : true; // taken from : https://forum.babylonjs.com/t/check-if-vector3-is-in-frustum/8652/3
 
-  return !insideFrustum;
+  return oustideFrustum;
 }
 
 function isObjectVisible(el: AbstractMesh, camera: Camera, occlude: AbstractMesh[]) {
@@ -249,7 +249,7 @@ const Html = forwardRef(
         node.computeWorldMatrix(true)
         const vec = transform ? oldPosition.current : calculatePosition(node, camera)
        
-        el.style.display = node.isEnabled(true) ? 'block' : 'none'
+        el.style.display = (visible.current && node.isEnabled(true)) ? 'block' : 'none'
  
         if ( (isNaN(vec[0]) === false) && (
             transform ||
