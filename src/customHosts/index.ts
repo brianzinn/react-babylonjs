@@ -24,3 +24,4 @@ export { default as EngineViewLifecycleListener} from './EngineViewLifecycleList
 export { default as AbstractMeshLifecycleListener} from './AbstractMeshLifecycleListener';
 export { default as GizmoLifecycleListener} from './GizmoLifecycleListener';
 export { default as GizmoManagerLifecycleListener} from './GizmoManagerLifecycleListener';
+export * from './grid';

@@ -17,6 +17,8 @@ import { GeneratedParameter, CreationType } from './codeGenerationDescriptors';
 import { applyUpdateToInstance, applyInitialPropsToCreatedInstance } from './UpdateInstance';
 import { HostRegistrationStore } from './HostRegistrationStore';
 
+import RowDefinitionLifecycleListener, { RowDefinition } from './customHosts/grid'
+
 // ** TODO: switch to node module 'scheduler', but compiler is not finding 'require()' exports currently...
 type HostCreatedInstance<T> = CreatedInstance<T> | undefined
 
@@ -313,7 +315,15 @@ const ReactBabylonJSHostConfig: HostConfig<
 
     let dynamicRegisteredHost = undefined;
     if (classDefinition === undefined) {
-      dynamicRegisteredHost = HostRegistrationStore.GetRegisteredHost(type);
+      // ValueAndUnit does not have setters for value/isPixel, so did not generate (see ./customHosts/grid/)
+      // TODO: make a map of custom "known hosts"
+      const knownHostElements = ['rowDefinition', 'columnDefinition'];
+      if (knownHostElements.indexOf(underlyingClassName) !== -1) {
+        dynamicRegisteredHost = RowDefinition;
+        console.log('NEW dynamic registered host:', RowDefinition);
+      } else {
+        dynamicRegisteredHost = HostRegistrationStore.GetRegisteredHost(type);
+      }
     }
 
     if (classDefinition === undefined && dynamicRegisteredHost === undefined) {
@@ -355,7 +365,10 @@ const ReactBabylonJSHostConfig: HostConfig<
     }
     else if (dynamicRegisteredHost !== undefined) {
       metadata = dynamicRegisteredHost.metadata;
-      babylonObject = dynamicRegisteredHost.hostFactory(scene!);
+      console.log('NEW metadata:', metadata);
+      if (metadata.delayCreation !== true) {
+        babylonObject = dynamicRegisteredHost.hostFactory(scene!);
+      }
     } else {
       const createInfoArgs = classDefinition.CreateInfo;
       metadata = classDefinition.Metadata;
@@ -470,7 +483,10 @@ const ReactBabylonJSHostConfig: HostConfig<
       lifecycleListener = new (CUSTOM_HOSTS as any)[underlyingClassName + "LifecycleListener"](scene, props);
     } else if (metadataLifecycleListenerName !== undefined) {
       lifecycleListener = new (CUSTOM_HOSTS as any)[metadataLifecycleListenerName + 'LifecycleListener'](scene, props);
-    } else {
+    } else if (dynamicRegisteredHost?.lifecycleListenerFactory) {
+      lifecycleListener = dynamicRegisteredHost.lifecycleListenerFactory(scene!, props);
+      console.log('NEW lifecycle listener:', lifecycleListener);
+     } else {
       lifecycleListener = new CUSTOM_HOSTS.FallbackLifecycleListener(scene!, props);
     }
 
@@ -486,6 +502,7 @@ const ReactBabylonJSHostConfig: HostConfig<
     }
 
     if (metadata.delayCreation !== true && customProps.assignFrom === undefined) {
+      console.log('applying inital props', createdReference, metadata);
       applyInitialPropsToCreatedInstance(createdReference, props);
     } else {
       createdReference.deferredCreationProps = props;

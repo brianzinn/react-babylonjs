@@ -1,15 +1,24 @@
 import { Scene } from "@babylonjs/core/scene.js";
+import { Nullable } from "@babylonjs/core/types";
 
 import { CreateInfo } from "./codeGenerationDescriptors";
 import { CreatedInstanceMetadata } from "./CreatedInstance";
+import { LifecycleListener } from "./LifecycleListener";
 import { HasPropsHandlers } from "./PropsHandler";
 
 export type DynamicHost<T, U> = {
+  /**
+   * lookup on host element
+   */
   hostElementName: string
-  hostFactory: (scene: Scene) => T
+  /**
+   * null is only valid when the metadata declares a deferred creation and the lifecycle listener creates the instance.
+   */
+  hostFactory: (scene: Scene) => Nullable<T>
   propHandlerInstance: HasPropsHandlers<U>
   createInfo: CreateInfo
   metadata: CreatedInstanceMetadata
+  lifecycleListenerFactory?: (scene: Scene, props: any) => LifecycleListener<T>
 }
 
 /**
