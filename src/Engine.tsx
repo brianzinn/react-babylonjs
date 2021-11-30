@@ -85,7 +85,7 @@ class ReactBabylonjsEngine extends React.Component<EngineProps, EngineState> {
     this.setState({ canRender: true });
   }
 
-  onCanvasRef(c: HTMLCanvasElement) {
+  onCanvasRef = (c: HTMLCanvasElement) => {
     // We are not using the react.createPortal(...), as it adds a ReactDOM dependency, but also
     // it was not flowing the context through to HOCs properly.
     if (this.props.portalCanvas) {
