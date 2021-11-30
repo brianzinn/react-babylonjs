@@ -25,7 +25,7 @@ const ReconcilerPrimary: ReconcilerType<Container, any, any, any, any> = Reconci
 /**
  * This is a work in progress in experimental state.
  */
-export function createPortal(children: React.ReactNode, containerInfo: any, key?: string | null, usePrimary: boolean = false): Reconciler.ReactPortal {
+export function createPortal(children: React.ReactNode, containerInfo: any, key?: string | null, usePrimary = false): Reconciler.ReactPortal {
   const reconciler = (usePrimary === true ? ReconcilerPrimary : ReconcilerSecondary);
   let target = containerInfo;
   if ('__rb_createdInstance' in containerInfo) {
