@@ -143,7 +143,7 @@ const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
     // TODO: change enable physics to 'usePhysics' taking an object with a Vector3 and 'any'.
     // NOTE: must be enabled for updating container (cannot add impostors w/o physics enabled)
     if (Array.isArray(props.enablePhysics)) {
-      scene.enablePhysics(props.enablePhysics[0], props.enablePhysics[1]);
+      (scene as any).enablePhysics(props.enablePhysics[0], props.enablePhysics[1]);
     }
 
     const sceneGraph = (
