@@ -43,7 +43,8 @@ const Model: React.FC<ModelProps> = (props: ModelProps) => {
     reportProgress,
     scaleToDimension,
   }
-  const sceneLoaderResults = useSceneLoader(rootUrl, sceneFilename, pluginExtension, options);
+
+  const sceneLoaderResults = useSceneLoader(rootUrl, sceneFilename, pluginExtension, options, rest);
 
   useEffect(() => {
     return () => {

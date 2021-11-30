@@ -1,9 +1,10 @@
-import { Scene } from "@babylonjs/core/scene";
-import { Nullable } from "@babylonjs/core/types";
-import { Grid } from "@babylonjs/gui/2D/controls/grid";
-import { ValueAndUnit } from "@babylonjs/gui/2D/valueAndUnit";
 import { Key, ReactNode, Ref } from "react";
-import { CreatedInstance, CreatedInstanceMetadata } from "../../CreatedInstance";
+import { Scene } from "@babylonjs/core/scene.js";
+import { Nullable } from "@babylonjs/core/types.js";
+import { Grid } from "@babylonjs/gui/2D/controls/grid.js";
+import { ValueAndUnit } from "@babylonjs/gui/2D/valueAndUnit.js";
+
+import { CreatedInstance } from "../../CreatedInstance";
 import { DynamicHost } from "../../HostRegistrationStore";
 import { checkPrimitiveDiff, HasPropsHandlers, PropertyUpdate, PropsHandler } from "../../PropsHandler";
 import DeferredCreationLifecycleListener from "../DeferredCreationLifecycleListener";
@@ -30,6 +31,7 @@ export type ColumnDefinitionProps = {
 }
 
 declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace JSX {
     interface IntrinsicElements {
       rowDefinition: RowDefinitionProps & GridNode;

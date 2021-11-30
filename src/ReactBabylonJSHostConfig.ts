@@ -502,7 +502,7 @@ const ReactBabylonJSHostConfig: HostConfig<
     }
 
     if (metadata.delayCreation !== true && customProps.assignFrom === undefined) {
-      console.log('applying inital props', createdReference, metadata);
+      // console.log('applying inital props', createdReference, metadata);
       applyInitialPropsToCreatedInstance(createdReference, props);
     } else {
       createdReference.deferredCreationProps = props;

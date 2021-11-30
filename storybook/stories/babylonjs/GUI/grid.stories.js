@@ -6,7 +6,7 @@ import '../../style.css'
 
 export default { title: 'GUI' };
 
-export const Grid = () => (
+/*export */ const Grid = () => (
   <div style={{ flex: 1, display: 'flex' }}>
     <Engine antialias adaptToDeviceRatio canvasId='babylonJS'>
       <Scene>

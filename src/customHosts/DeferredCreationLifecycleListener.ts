@@ -1,7 +1,8 @@
-import { Scene, Nullable } from '@babylonjs/core'
+import { Scene } from '@babylonjs/core/scene.js';
+import { Nullable } from '@babylonjs/core/types.js';
 
-import { CreatedInstance } from '../CreatedInstance'
-import { applyInitialPropsToCreatedInstance } from '../UpdateInstance'
+import { CreatedInstance } from '../CreatedInstance';
+import { applyInitialPropsToCreatedInstance } from '../UpdateInstance';
 import BaseLifecycleListener from './BaseLifecycleListener';
 
 export default abstract class DeferredCreationLifecycleListener<T, U> extends BaseLifecycleListener<T, U> {
