@@ -15,9 +15,11 @@ import { HasPropsHandlers, PropertyUpdate, UpdatePayload, PropsHandler, CustomPr
 import { LifecycleListener } from "./LifecycleListener";
 import { GeneratedParameter, CreationType } from './codeGenerationDescriptors';
 import { applyUpdateToInstance, applyInitialPropsToCreatedInstance } from './UpdateInstance';
-import { HostRegistrationStore } from './HostRegistrationStore';
+import { DynamicHost, HostRegistrationStore } from './HostRegistrationStore';
 
-import RowDefinitionLifecycleListener, { RowDefinition } from './customHosts/grid'
+import { RowDefinition } from './customHosts/grid/rowDefinition';
+import { ColumnDefinition } from './customHosts/grid/columnDefinition';
+import { ValueAndUnit } from '@babylonjs/gui';
 
 // ** TODO: switch to node module 'scheduler', but compiler is not finding 'require()' exports currently...
 type HostCreatedInstance<T> = CreatedInstance<T> | undefined
@@ -313,14 +315,14 @@ const ReactBabylonJSHostConfig: HostConfig<
 
     const classDefinition = (GENERATED as any)[`Fiber${underlyingClassName}`]
 
-    let dynamicRegisteredHost = undefined;
+    let dynamicRegisteredHost: DynamicHost<any, any> | undefined = undefined;
     if (classDefinition === undefined) {
-      // ValueAndUnit does not have setters for value/isPixel, so did not generate (see ./customHosts/grid/)
-      // TODO: make a map of custom "known hosts"
-      const knownHostElements = ['rowDefinition', 'columnDefinition'];
-      if (knownHostElements.indexOf(underlyingClassName) !== -1) {
-        dynamicRegisteredHost = RowDefinition;
-        console.log('NEW dynamic registered host:', RowDefinition);
+      const ownDynamicHosts: Record<string, DynamicHost<ValueAndUnit, any>> = {
+        'rowDefinition': RowDefinition,
+        'columnDefinition': ColumnDefinition
+      };
+      if (underlyingClassName in ownDynamicHosts) {
+        dynamicRegisteredHost = ownDynamicHosts[underlyingClassName];
       } else {
         dynamicRegisteredHost = HostRegistrationStore.GetRegisteredHost(type);
       }
@@ -355,6 +357,8 @@ const ReactBabylonJSHostConfig: HostConfig<
       skipAutoAttach: props.skipAutoAttach,
       attachGizmoToMesh: props.attachGizmoToMesh,
       attachGizmoToNode: props.attachGizmoToNode,
+      gridColumn: props.gridColumn,
+      gridRow: props.gridRow
     };
 
     if (customProps.assignFrom !== undefined) {
@@ -365,7 +369,6 @@ const ReactBabylonJSHostConfig: HostConfig<
     }
     else if (dynamicRegisteredHost !== undefined) {
       metadata = dynamicRegisteredHost.metadata;
-      console.log('NEW metadata:', metadata);
       if (metadata.delayCreation !== true) {
         babylonObject = dynamicRegisteredHost.hostFactory(scene!);
       }
@@ -485,7 +488,6 @@ const ReactBabylonJSHostConfig: HostConfig<
       lifecycleListener = new (CUSTOM_HOSTS as any)[metadataLifecycleListenerName + 'LifecycleListener'](scene, props);
     } else if (dynamicRegisteredHost?.lifecycleListenerFactory) {
       lifecycleListener = dynamicRegisteredHost.lifecycleListenerFactory(scene!, props);
-      console.log('NEW lifecycle listener:', lifecycleListener);
      } else {
       lifecycleListener = new CUSTOM_HOSTS.FallbackLifecycleListener(scene!, props);
     }

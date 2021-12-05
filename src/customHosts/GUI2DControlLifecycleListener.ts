@@ -1,4 +1,5 @@
 import { Control } from '@babylonjs/gui/2D/controls/control.js';
+import { Grid } from '@babylonjs/gui/2D/controls/grid.js';
 import { VirtualKeyboard } from '@babylonjs/gui/2D/controls/virtualKeyboard.js';
 
 import BaseLifecycleListener from './BaseLifecycleListener';
@@ -52,8 +53,13 @@ export default class GUI2DControlLifecycleListener extends BaseLifecycleListener
   addControls(instance: CreatedInstance<any>) {
     instance.children.forEach(child => {
       if (child.metadata.isGUI2DControl === true) {
-        // console.warn(`calling [${instance.hostInstance.name}].addControl(${child.hostInstance.name})`);
-        instance.hostInstance.addControl(child.hostInstance);
+        if(instance.metadata.isGUI2DGrid === true) {
+          const { gridRow, gridColumn } = child.customProps;
+          (instance.hostInstance as Grid).addControl(child.hostInstance, gridRow, gridColumn);
+        } else {
+          instance.hostInstance!.addControl(child.hostInstance);
+        }
+
         child.state = { added: true };
       }
     })

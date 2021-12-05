@@ -46,6 +46,17 @@ export type Control3DCustomProps = {
   onControlAdded?: (instance: CreatedInstance<any>) => void
 } & CustomProps;
 
+export type Control2DCustomProps = {
+  /**
+   * ???
+   */
+  gridColumn?: number
+  /**
+   * ???
+   */
+  gridRow?: number
+} & CustomProps;
+
 export type MaterialCustomProps = {
   /**
    * For attaching the same material to multiple meshes (by mesh name)
@@ -144,4 +155,4 @@ export type VirtualKeyboardCustomProps = {
 /**
  * A union of all CustomProps as a convenience typing and easier maintenance in other areas of code (ie: CreatedInstance and HostConfig)
  */
-export type AnyCustomProps = CustomProps & (AbstractMeshCustomProps & ADTCustomProps & CameraCustomProps & Control3DCustomProps & GizmoCustomProps & GlowLayerCustomProps & VirtualKeyboardCustomProps & ShadowGeneratorCustomProps & MaterialCustomProps)
+export type AnyCustomProps = CustomProps & (AbstractMeshCustomProps & ADTCustomProps & CameraCustomProps & Control2DCustomProps & Control3DCustomProps & GizmoCustomProps & GlowLayerCustomProps & VirtualKeyboardCustomProps & ShadowGeneratorCustomProps & MaterialCustomProps)

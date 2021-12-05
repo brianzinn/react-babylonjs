@@ -7928,6 +7928,7 @@ export class FiberGrid implements HasPropsHandlers<FiberControlProps> {
         };
     public static readonly Metadata: CreatedInstanceMetadata = {
           "isGUI2DControl": true,
+          "isGUI2DGrid": true,
           "className": "FiberGrid"
         };
 }

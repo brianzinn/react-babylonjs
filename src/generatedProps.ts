@@ -231,7 +231,7 @@ import { VolumeBasedPanel as BabylonjsGuiVolumeBasedPanel } from "@babylonjs/gui
 import { GUI3DManager as BabylonjsGuiGUI3DManager } from "@babylonjs/gui/3D/gui3DManager.js";
 import { FluentMaterial as BabylonjsGuiFluentMaterial } from "@babylonjs/gui/3D/materials/fluentMaterial.js";
 import { Key, ReactNode, Ref } from "react";
-import { AbstractMeshCustomProps, ADTCustomProps, CameraCustomProps, Control3DCustomProps, CustomProps, GizmoCustomProps, GlowLayerCustomProps, MaterialCustomProps, ShadowGeneratorCustomProps, VirtualKeyboardCustomProps, VRExperienceHelperCustomProps } from "./CustomProps";
+import { AbstractMeshCustomProps, ADTCustomProps, CameraCustomProps, Control2DCustomProps, Control3DCustomProps, CustomProps, GizmoCustomProps, GlowLayerCustomProps, MaterialCustomProps, ShadowGeneratorCustomProps, VirtualKeyboardCustomProps, VRExperienceHelperCustomProps } from "./CustomProps";
 import { DynamicTerrain as ExtensionsDynamicTerrain } from "./extensions/DynamicTerrain";
 
 export type BabylonNode<T> = {
@@ -1914,7 +1914,7 @@ export type FiberControlProps = {
         width?: string | number;
         widthInPixels?: number;
         zIndex?: number;
-    } & CustomProps;
+    } & Control2DCustomProps;
 export type FiberControlPropsCtor = {
         name?: string;
     };

@@ -42,7 +42,7 @@ function isObjectVisible(el: AbstractMesh, camera: Camera, occlude: AbstractMesh
 
   let hit = camera.getScene().pickWithRay(ray, (m) => (occlude.length > 0 ? (occlude.indexOf(m) !== -1) : m !== el.parent) && m.name !== "skybox");
 
-  console.log(hit);
+  // console.log(hit);
   return hit ? (hit.pickedMesh?.name === el.parent?.name || hit.distance * hit.distance >= Vector3.DistanceSquared(objectPos, cameraPos)) : false;
 }
 

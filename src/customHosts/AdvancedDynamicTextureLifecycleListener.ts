@@ -8,6 +8,8 @@ import BaseLifecycleListener from './BaseLifecycleListener';
 import { ADTCustomProps, VirtualKeyboardCustomProps } from '../CustomProps';
 import { CreatedInstance } from '../CreatedInstance';
 import { FiberAdvancedDynamicTextureProps } from '../generatedProps';
+import { Children } from 'react';
+import { Grid } from '@babylonjs/gui/2D/controls/grid';
 
 export default class AdvancedDynamicTextureLifecycleListener extends BaseLifecycleListener<AdvancedDynamicTexture, FiberAdvancedDynamicTextureProps> {
 
@@ -49,13 +51,19 @@ export default class AdvancedDynamicTextureLifecycleListener extends BaseLifecyc
     }
   }
 
-  addControls(instance: CreatedInstance<AdvancedDynamicTexture>) {
+  addControls(instance: CreatedInstance<any>) {
     // When there is a panel, it must be added before the children. Otherwise there is no UtilityLayer to attach to.
     // This project before 'react-reconciler' was added from parent up the tree.  'react-reconciler' wants to do the opposite.
     instance.children.forEach(child => {
       if (child.metadata.isGUI2DControl === true) {
-        instance.hostInstance!.addControl(child.hostInstance);
-        child.state = { added: true };
+        if(instance.metadata.isGUI2DGrid === true) {
+          const { gridRow, gridColumn } = child.customProps;
+          (instance.hostInstance as Grid).addControl(child.hostInstance, gridRow, gridColumn);
+        } else {
+          instance.hostInstance!.addControl(child.hostInstance);
+        }
+
+        child.state = child.state ? {...child.state, added: true} : { added: true };
       }
     })
 

@@ -76,7 +76,7 @@ console.log('ver:', ts.version);
 
 const CONFLICT_INTRINSIC_ELEMENTS = ['Button', 'Ellipse', 'Image', 'Line', 'Polygon'];
 
-const ALL_CUSTOM_PROPS = ['AbstractMeshCustomProps', 'ADTCustomProps', 'CameraCustomProps', 'Control3DCustomProps', 'CustomProps', 'GizmoCustomProps', 'GlowLayerCustomProps', 'MaterialCustomProps', 'ShadowGeneratorCustomProps', 'VirtualKeyboardCustomProps', 'VRExperienceHelperCustomProps'];
+const ALL_CUSTOM_PROPS = ['AbstractMeshCustomProps', 'ADTCustomProps', 'CameraCustomProps', 'Control2DCustomProps', 'Control3DCustomProps', 'CustomProps', 'GizmoCustomProps', 'GlowLayerCustomProps', 'MaterialCustomProps', 'ShadowGeneratorCustomProps', 'VirtualKeyboardCustomProps', 'VRExperienceHelperCustomProps'];
 
 // would be good to check JSX.IntrinsicElements with 'keyof', but it's erased at runtime (doesn't work on dynamic strings)
 // fixes TS warning: Property 'polygon' must be of type SVGProps<SVGPolygonElement>, but here has type..., so we are skipping to generate polygon for now.
@@ -1628,7 +1628,17 @@ const generateCode = async () => {
   }
 
   if (classesOfInterest.get("Control")) {
-    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Control")!, () => ({ isGUI2DControl: true }));
+    const instanceMetadaFromClassName = (className: string): InstanceMetadataParameter => {
+      const DEFAULT = { isGUI2DControl: true }
+      if (className.substr(CLASS_NAME_PREFIX.length) === 'Grid') {
+          return {
+            ...DEFAULT,
+            isGUI2DGrid: true
+          }
+      }
+      return DEFAULT;
+    }
+    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Control")!, instanceMetadaFromClassName, undefined, undefined, () => ('Control2DCustomProps'));
   }
 
   if (classesOfInterest.get("Control3D")) {
