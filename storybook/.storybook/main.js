@@ -6,8 +6,8 @@ module.exports = {
     "../stories/**/*.stories.@(js|jsx|ts|tsx)"
   ],
   addons: [
-    '@storybook/addon-actions/register',
-    '@storybook/addon-links',
+    //'@storybook/addon-actions/register',
+    //'@storybook/addon-links',
     '@storybook/addon-storysource'
     // '@storybook/addon-notes/register',
   ],

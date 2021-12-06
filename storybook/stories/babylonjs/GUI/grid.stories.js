@@ -7,12 +7,6 @@ import { ValueAndUnit } from '@babylonjs/gui/2D/valueAndUnit';
 
 export default { title: 'GUI' };
 
-const Inspector = () => {
-  const scene = useScene();
-  scene.debugLayer.show();
-  return null;
-}
-
 const FullScreen = () => {
   // should run on latest alphas of BabylonJS 5.0 alpha 63+
   // https://github.com/BabylonJS/Babylon.js/pull/11569
@@ -75,7 +69,6 @@ export const Grid = () => (
         <arcRotateCamera name='camera1' radius={7} beta={Math.PI / 4} alpha={Math.PI / 2} target={Vector3.Zero()} minZ={0.001} wheelPrecision={30} />
         <hemisphericLight name='light1' intensity={0.7} direction={Vector3.Up()} />
         <FullScreen />
-        <Inspector />
       </Scene>
     </Engine>
   </div>
