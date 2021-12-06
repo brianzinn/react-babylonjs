@@ -1,5 +1,5 @@
 import { Scene } from "@babylonjs/core/scene.js";
-import { Nullable } from "@babylonjs/core/types";
+import { Nullable } from "@babylonjs/core/types.js";
 
 import { CreateInfo } from "./codeGenerationDescriptors";
 import { CreatedInstanceMetadata } from "./CreatedInstance";

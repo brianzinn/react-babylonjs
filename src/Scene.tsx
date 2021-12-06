@@ -5,6 +5,7 @@ import { PointerEventTypes, PointerInfo } from '@babylonjs/core/Events/pointerEv
 import { AbstractMesh } from '@babylonjs/core/Meshes/abstractMesh.js';
 import { Nullable } from '@babylonjs/core/types.js';
 import { Observer } from '@babylonjs/core/Misc/observable.js';
+import '@babylonjs/core/Physics/physicsEngineComponent.js';
 
 import { EngineCanvasContextType, EngineCanvasContext, withEngineCanvasContext } from './hooks/engine';
 import { SceneContext } from './hooks/scene';
@@ -143,7 +144,7 @@ const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
     // TODO: change enable physics to 'usePhysics' taking an object with a Vector3 and 'any'.
     // NOTE: must be enabled for updating container (cannot add impostors w/o physics enabled)
     if (Array.isArray(props.enablePhysics)) {
-      (scene as any).enablePhysics(props.enablePhysics[0], props.enablePhysics[1]);
+      scene.enablePhysics(props.enablePhysics[0], props.enablePhysics[1]);
     }
 
     const sceneGraph = (
