@@ -94,6 +94,7 @@ export const SceneWithSpinningBoxes = () => (
   </div>
 )
 ```
+[code sandbox for above](https://codesandbox.io/s/epic-darwin-tohk0)
 
 ## Hooks, Shadows and Physics (and optionally TypeScript, too)
 You can declaratively use many features together - here only the button click handler actually has any code - and we have declarative Physics, GUI, Lighting and Shadows.  demo: [Bouncy demo](https://brianzinn.github.io/react-babylonjs/?path=/story/physics--bouncy-playground-story)
