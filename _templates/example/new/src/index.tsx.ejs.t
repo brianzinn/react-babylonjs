@@ -1,0 +1,11 @@
+---
+to: examples/<%=name%>/src/index.tsx
+---
+
+import { render } from 'react-dom'
+import './styles.css'
+
+import App from './App'
+
+const rootElement = document.getElementById('root')
+render(<App />, rootElement)
