@@ -28,7 +28,7 @@ const IndexPage = () => {
         </Button>
 
         <Button type="primary" size="large">
-          <Link to="/docs/introduction">Get Started</Link>
+          <Link to="/introduction">Get Started</Link>
         </Button>
       </Button.Group>
     </div>
