@@ -1,7 +1,6 @@
 import { render } from 'react-dom'
-import './styles.css'
-
 import App from './App'
+import './style.css'
 
 const rootElement = document.getElementById('root')
 render(<App />, rootElement)
