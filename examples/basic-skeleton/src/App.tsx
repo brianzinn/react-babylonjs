@@ -1,6 +1,5 @@
-import { Color3 } from '@babylonjs/core/Maths/math.color'
-import { Vector3 } from '@babylonjs/core/Maths/math.vector'
-import React, { FC } from 'react'
+import { Color3, Vector3 } from '@babylonjs/core'
+import { FC } from 'react'
 import { Engine, Scene } from 'react-babylonjs'
 
 export const rpm = 5
