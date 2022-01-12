@@ -1,43 +1,11 @@
-import React, { useEffect, useRef } from 'react'
-import { Engine, Scene, useScene } from 'react-babylonjs'
+import React, { FC } from 'react'
+import { Engine, Scene } from 'react-babylonjs'
 import { Color3 } from '@babylonjs/core/Maths/math.color'
 import { Vector3 } from '@babylonjs/core/Maths/math.vector'
-import '../../style.css'
+import { MovingBox } from './MovingBox'
 
-export default { title: 'Babylon Basic' }
-
-const rpm = 5
-const MovingBox = (props) => {
-  // access Babylon Scene
-  const scene = useScene()
-  // access refs to Babylon objects in scene like DOM nodes
-  const boxRef = useRef(null)
-
-  // there is also a built-in hook called useBeforeRender that does will do this:
-  useEffect(() => {
-    if (boxRef.current) {
-      const handler = scene.registerBeforeRender(() => {
-        let deltaTimeInMillis = scene.getEngine().getDeltaTime()
-        boxRef.current.rotation[props.rotationAxis] +=
-          (rpm / 60) * Math.PI * 2 * (deltaTimeInMillis / 1000)
-      })
-      return () => {
-        scene.unregisterBeforeRender(handler)
-      }
-    }
-  }, [boxRef.current])
-
-  return (
-    <box ref={boxRef} size={2} position={props.position}>
-      <standardMaterial
-        diffuseColor={props.color}
-        specularColor={Color3.Black()}
-      />
-    </box>
-  )
-}
-
-export const DefaultPlayground = () => (
+export const rpm = 5
+const App: FC = () => (
   <div style={{ flex: 1, display: 'flex' }}>
     <Engine antialias adaptToDeviceRatio canvasId="babylonJS">
       <Scene>
@@ -65,3 +33,5 @@ export const DefaultPlayground = () => (
     </Engine>
   </div>
 )
+
+export default App
