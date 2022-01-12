@@ -32,7 +32,10 @@ const plugins = [
         },
         {
           resolve: 'gatsby-remark-copy-linked-files'
-        }
+        },
+        {
+          resolve: require.resolve(`./plugins/gatsby-remark-code-harness`),
+        },
       ],
       extensions: [".mdx", ".md"]
     }

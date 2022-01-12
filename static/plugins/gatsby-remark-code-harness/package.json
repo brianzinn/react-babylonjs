@@ -1,0 +1,11 @@
+{
+  "name": "plugins",
+  "version": "1.0.0",
+  "main": "./index.js",
+  "license": "MIT",
+  "dependencies": {
+    "prettier": "^2.5.1",
+    "typescript": "^4.5.4",
+    "unist-util-visit": "^2"
+  }
+}
