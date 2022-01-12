@@ -1,6 +1,7 @@
 import { render } from 'react-dom'
+import './styles.css'
 
-import { DefaultPlayground as App } from './App'
+import App from './App'
 
 const rootElement = document.getElementById('root')
 render(<App />, rootElement)
