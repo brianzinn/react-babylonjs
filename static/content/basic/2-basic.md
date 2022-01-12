@@ -2,4 +2,4 @@
 title: 'Rotating Blocks'
 ---
 
-<Sandbox id="babylon-basic"/>
+<Sandbox name="babylon-basic"/>
