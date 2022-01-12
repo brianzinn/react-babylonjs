@@ -1,7 +1,7 @@
-import React, { FC, useEffect, useRef } from 'react'
-import { useScene } from 'react-babylonjs'
 import { Color3 } from '@babylonjs/core/Maths/math.color'
 import { Vector3 } from '@babylonjs/core/Maths/math.vector'
+import React, { FC, useRef } from 'react'
+import { useBeforeRender, useScene } from 'react-babylonjs'
 import { rpm } from './App'
 
 export type MovingBoxProps = {
@@ -16,20 +16,14 @@ export const MovingBox: FC<MovingBoxProps> = (props) => {
   // access refs to Babylon objects in scene like DOM nodes
   const boxRef = useRef<JSX.IntrinsicElements['box']>(null)
 
-  // there is also a built-in hook called useBeforeRender that does will do this:
-  useEffect(() => {
+  useBeforeRender(() => {
+    if (!boxRef.current?.rotation) return
     if (!scene) return
-    const _beforeRender = () => {
-      if (!boxRef.current?.rotation) return
-      const deltaTimeInMillis = scene.getEngine().getDeltaTime()
-      boxRef.current.rotation[props.rotationAxis] +=
-        (rpm / 60) * Math.PI * 2 * (deltaTimeInMillis / 1000)
-    }
-    scene.registerBeforeRender(_beforeRender)
-    return () => {
-      scene.unregisterBeforeRender(_beforeRender)
-    }
-  }, [boxRef.current])
+    console.log('render')
+    const deltaTimeInMillis = scene.getEngine().getDeltaTime()
+    boxRef.current.rotation[props.rotationAxis] +=
+      (rpm / 60) * Math.PI * 2 * (deltaTimeInMillis / 1000)
+  })
 
   return (
     <box name="box" ref={boxRef} size={2} position={props.position}>
