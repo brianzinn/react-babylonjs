@@ -1,0 +1,72 @@
+{
+  "name": "gatsby-antd-docs",
+  "description": "Gatsby Antd Docs Starter",
+  "version": "0.4.0",
+  "author": "Jannik Buschke",
+  "dependencies": {
+    "@mdx-js/mdx": "1.6.22",
+    "@mdx-js/react": "1.6.22",
+    "@mdx-js/tag": "0.20.3",
+    "antd": "4.16.8",
+    "esbuild": "0.13.8",
+    "gatsby": "^4.0.0",
+    "gatsby-cli": "^4.0.0",
+    "gatsby-plugin-image": "^2.0.0",
+    "gatsby-plugin-manifest": "^4.0.0",
+    "gatsby-plugin-mdx": "^3.0.0",
+    "gatsby-plugin-offline": "^5.0.0",
+    "gatsby-plugin-react-helmet": "^5.0.0",
+    "gatsby-plugin-sharp": "^4.0.0",
+    "gatsby-plugin-typescript": "^4.0.0",
+    "gatsby-remark-autolink-headers": "^5.0.0",
+    "gatsby-remark-images": "^6.0.0",
+    "gatsby-remark-katex": "^6.0.0",
+    "gatsby-remark-prismjs": "^6.0.0",
+    "gatsby-source-filesystem": "^4.0.0",
+    "gatsby-transformer-json": "^4.0.0",
+    "gatsby-transformer-remark": "^5.0.0",
+    "gatsby-transformer-sharp": "^4.0.0",
+    "katex": "0.13.18",
+    "prismjs": "1.25.0",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-helmet": "6.1.0",
+    "react-responsive": "8.2.0",
+    "react-sizeme": "3.0.1"
+  },
+  "keywords": [
+    "gatsby"
+  ],
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not op_mini all",
+    "last 1 chrome version",
+    "last 1 firefox version",
+    "last 1 safari version"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "build": "gatsby build --prefix-paths",
+    "develop": "gatsby develop",
+    "serve": "gatsby serve",
+    "start": "npm run develop",
+    "format": "prettier --write \"./**/*.[jt]s?(x)\" \"./**/*.md\" \"./**/*.json\"",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "gatsby build --prefix-paths && gh-pages -d public",
+    "clean": "gatsby clean"
+  },
+  "devDependencies": {
+    "@types/node": "^16.4.2",
+    "@types/react": "17.0.15",
+    "@types/react-dom": "17.0.9",
+    "@types/react-helmet": "6.1.2",
+    "gatsby-plugin-remove-trailing-slashes": "3.10.0",
+    "gh-pages": "^3.2.3",
+    "prettier": "2.3.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jannikbuschke/gatsby-antd-docs"
+  }
+}

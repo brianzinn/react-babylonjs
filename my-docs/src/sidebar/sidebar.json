@@ -1,0 +1,37 @@
+[
+  {
+    "name": "Get Started",
+    "link": "",
+    "items": [
+      {
+        "name": "Introduction",
+        "link": "/docs/template/get-started/introduction"
+      },
+      { "name": "Latex", "link": "/docs/template/get-started/latex" }
+    ]
+  },
+  {
+    "name": "Guide",
+    "link": "",
+    "items": [
+      { "name": "Anchor", "link": "/docs/template/guide/anchor" },
+      { "name": "Contents", "link": "/docs/template/guide/contents" },
+      { "name": "Menu Items", "link": "/docs/template/guide/menu_items" },
+      { "name": "Sidebar", "link": "/docs/template/guide/sidebar" }
+    ]
+  },
+  {
+    "name": "Lorem Ipsum",
+    "link": "",
+    "items": [
+      {
+        "name": "Ipsum",
+        "link": "/docs/template/lorem-ipsum/Ipsum"
+      },
+      {
+        "name": "Lorem",
+        "link": "/docs/template/lorem-ipsum/Lorem"
+      }
+    ]
+  }
+]
