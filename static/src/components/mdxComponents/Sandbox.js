@@ -9,7 +9,7 @@ const Sandbox = (props) => {
         width: '100%',
         height: '500px',
         border: 0,
-        'border-radius': '4px',
+        borderRadius: '4px',
         overflow: 'hidden',
       }}
       title="@react-babylonjs/babylon-basic"
