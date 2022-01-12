@@ -19,7 +19,6 @@ export const MovingBox: FC<MovingBoxProps> = (props) => {
   useBeforeRender(() => {
     if (!boxRef.current?.rotation) return
     if (!scene) return
-    console.log('render')
     const deltaTimeInMillis = scene.getEngine().getDeltaTime()
     boxRef.current.rotation[props.rotationAxis] +=
       (rpm / 60) * Math.PI * 2 * (deltaTimeInMillis / 1000)
