@@ -8,6 +8,7 @@
   },
   "scripts": {
     "lint": "yarn workspaces run lint",
+    "lint:fix": "yarn workspaces run lint:fix",
     "prepare": "husky install"
   },
   "devDependencies": {

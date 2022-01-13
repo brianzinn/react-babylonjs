@@ -5,6 +5,8 @@
   "description": "stories for react-babylonjs",
   "main": "index.js",
   "scripts": {
+    "lint": "echo noop",
+    "lint:fix": "echo noop",
     "start": "start-storybook -p 6006 -s ./storyboard-site",
     "build-storybook": "build-storybook -o storybook-static -s ./storyboard-site"
   },
