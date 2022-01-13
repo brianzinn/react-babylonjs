@@ -1,11 +1,2 @@
 node_modules
-coverage
-.nyc_output
 .DS_Store
-*.log
-.idea
-compiled
-.awcache
-dist
-*.lock
-debug
