@@ -1,4 +1,5 @@
-[react-babylonjs](../README.md) / [Exports](../modules.md) / [index](../modules/index.md) / TaskType
+[react-babylonjs](../README.md) / [Exports](../modules.md) /
+[index](../modules/index.md) / TaskType
 
 # Enumeration: TaskType
 
@@ -18,20 +19,23 @@
 
 • **Binary**: = "Binary"
 
-Defined in: [loaders/useAssetManager.tsx:6](https://github.com/brianzinn/react-babylonjs/blob/eba7b00/src/hooks/loaders/useAssetManager.tsx#L6)
+Defined in:
+[loaders/useAssetManager.tsx:6](https://github.com/brianzinn/react-babylonjs/blob/eba7b00/src/hooks/loaders/useAssetManager.tsx#L6)
 
-___
+---
 
 ### Mesh
 
 • **Mesh**: = "Mesh"
 
-Defined in: [loaders/useAssetManager.tsx:7](https://github.com/brianzinn/react-babylonjs/blob/eba7b00/src/hooks/loaders/useAssetManager.tsx#L7)
+Defined in:
+[loaders/useAssetManager.tsx:7](https://github.com/brianzinn/react-babylonjs/blob/eba7b00/src/hooks/loaders/useAssetManager.tsx#L7)
 
-___
+---
 
 ### Texture
 
 • **Texture**: = "Texture"
 
-Defined in: [loaders/useAssetManager.tsx:8](https://github.com/brianzinn/react-babylonjs/blob/eba7b00/src/hooks/loaders/useAssetManager.tsx#L8)
+Defined in:
+[loaders/useAssetManager.tsx:8](https://github.com/brianzinn/react-babylonjs/blob/eba7b00/src/hooks/loaders/useAssetManager.tsx#L8)

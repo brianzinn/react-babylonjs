@@ -1,4 +1,4 @@
-import { HasPropsHandlers, PropsHandler } from "./PropsHandler"
+import { HasPropsHandlers, PropsHandler } from './PropsHandler'
 
 /**
  * TODO: Integrate this into the generated code, which duplicates for every class.

@@ -1,9 +1,8 @@
-import { Observer } from "@babylonjs/core/Misc/observable.js";
-import { Nullable } from "@babylonjs/core/types.js";
-
-import { AnyCustomProps, CustomProps } from "./CustomProps";
-import { LifecycleListener } from "./LifecycleListener";
-import { HasPropsHandlers } from "./PropsHandler";
+import { Observer } from '@babylonjs/core/Misc/observable.js'
+import { Nullable } from '@babylonjs/core/types.js'
+import { AnyCustomProps, CustomProps } from './CustomProps'
+import { LifecycleListener } from './LifecycleListener'
+import { HasPropsHandlers } from './PropsHandler'
 
 export interface InstanceMetadataParameter {
   delayCreation?: boolean // if it should not be created automatically, but by LifecycleListener (ie: ShadowGenerator needs an IShadowLight)
@@ -13,8 +12,8 @@ export interface InstanceMetadataParameter {
   isShadowLight?: boolean // capable of being used as a shadow generator source
   isEnvironment?: boolean // to find ground for Teleportation (not using a registry - one time cost)
   isTargetable?: boolean // will attach a target props handler
-  isNode?: boolean; // Camera, Light, TransformNode (Bone) - Used for parenting.
-  isMesh?: boolean; // needed for hover and adding action manager
+  isNode?: boolean // Camera, Light, TransformNode (Bone) - Used for parenting.
+  isMesh?: boolean // needed for hover and adding action manager
   isMaterial?: boolean // indicates a custom component created by end-user has been created
   isGUI3DControl?: boolean // does not work with 2D
   isGUI2DControl?: boolean // does not work with 3D
@@ -22,9 +21,9 @@ export interface InstanceMetadataParameter {
   isTexture?: boolean
   customType?: boolean // not used by code-gen
   isCamera?: boolean
-  isEffectLayer?: boolean;
-  isGlowLayer?: boolean;
-  isBehavior?: boolean;
+  isEffectLayer?: boolean
+  isGlowLayer?: boolean
+  isBehavior?: boolean
   isShadowGenerator?: boolean
   isUtilityLayerRenderer?: boolean
   isGizmo?: boolean
@@ -59,15 +58,20 @@ export interface CreatedInstance<T> {
 }
 
 export class CreatedInstanceImpl<T> implements CreatedInstance<T> {
-  public readonly hostInstance: T;
-  public readonly metadata: CreatedInstanceMetadata;
-  public parent: CreatedInstance<any> | null = null; // Not the same as parent in BabylonJS, this is for internal reconciler structure. ie: graph walking
-  public children: CreatedInstance<any>[] = [];
-  public propsHandlers: HasPropsHandlers<T>;
-  public customProps: CustomProps;
-  public observers: Record<string, Nullable<Observer<any>>> = {};
+  public readonly hostInstance: T
+  public readonly metadata: CreatedInstanceMetadata
+  public parent: CreatedInstance<any> | null = null // Not the same as parent in BabylonJS, this is for internal reconciler structure. ie: graph walking
+  public children: CreatedInstance<any>[] = []
+  public propsHandlers: HasPropsHandlers<T>
+  public customProps: CustomProps
+  public observers: Record<string, Nullable<Observer<any>>> = {}
 
-  constructor(hostInstance: T, metadata: CreatedInstanceMetadata, fiberObject: HasPropsHandlers<T>, customProps: CustomProps) {
+  constructor(
+    hostInstance: T,
+    metadata: CreatedInstanceMetadata,
+    fiberObject: HasPropsHandlers<T>,
+    customProps: CustomProps
+  ) {
     this.hostInstance = hostInstance
     this.metadata = metadata
     this.propsHandlers = fiberObject

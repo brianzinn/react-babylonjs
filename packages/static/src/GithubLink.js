@@ -1,5 +1,5 @@
-import * as React from 'react';
-const githubIcon = require('./components/images/github.svg').default;
+import * as React from 'react'
+const githubIcon = require('./components/images/github.svg').default
 
 const GithubLink = ({ link, text }) => {
   return (
@@ -7,7 +7,7 @@ const GithubLink = ({ link, text }) => {
       <img className="githubIcon" src={githubIcon} alt="github" />
       {text}
     </a>
-  );
-};
+  )
+}
 
-export default GithubLink;
+export default GithubLink

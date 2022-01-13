@@ -1,9 +1,5 @@
 {
   "all": true,
-  "include": [
-    "src/**/*"
-  ],
-  "exclude": [
-    "src/extensions/**/*"
-  ]
+  "include": ["src/**/*"],
+  "exclude": ["src/extensions/**/*"]
 }

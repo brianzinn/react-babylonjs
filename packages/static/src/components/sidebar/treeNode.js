@@ -1,27 +1,27 @@
-import * as React from 'react';
-import OpenedSvg from '../images/opened';
-import ClosedSvg from '../images/closed';
-import config from '../../../config';
-import Link from '../link';
+import * as React from 'react'
+import config from '../../../config'
+import ClosedSvg from '../images/closed'
+import OpenedSvg from '../images/opened'
+import Link from '../link'
 
 const TreeNode = ({ className = '', setCollapsed, collapsed, url, title, items, ...rest }) => {
-  const isCollapsed = collapsed[url];
+  const isCollapsed = collapsed[url]
 
   const collapse = () => {
-    setCollapsed(url);
-  };
+    setCollapsed(url)
+  }
 
-  const hasChildren = items.length !== 0;
+  const hasChildren = items.length !== 0
 
-  let location;
+  let location
 
   if (typeof document != 'undefined') {
-    location = document.location;
+    location = document.location
   }
   const active =
-    location && (location.pathname === url || location.pathname === config.gatsby.pathPrefix + url);
+    location && (location.pathname === url || location.pathname === config.gatsby.pathPrefix + url)
 
-  const calculatedClassName = `${className} item ${active ? 'active' : ''}`;
+  const calculatedClassName = `${className} item ${active ? 'active' : ''}`
 
   return (
     <li className={calculatedClassName}>
@@ -49,7 +49,7 @@ const TreeNode = ({ className = '', setCollapsed, collapsed, url, title, items, 
         </ul>
       ) : null}
     </li>
-  );
-};
+  )
+}
 
-export default TreeNode;
+export default TreeNode

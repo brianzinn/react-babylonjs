@@ -5,8 +5,8 @@ export interface GeneratedParameter {
 }
 
 export class CreationType {
-  public static readonly FactoryMethod: string = "FactoryMethod"
-  public static readonly Constructor: string = "Constructor"
+  public static readonly FactoryMethod: string = 'FactoryMethod'
+  public static readonly Constructor: string = 'Constructor'
 }
 
 export interface CreateInfo {

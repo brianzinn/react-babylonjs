@@ -1,9 +1,8 @@
-import * as React from 'react';
-import { connectSearchBox } from 'react-instantsearch-dom';
-
-import styled from '@emotion/styled';
-import { css } from '@emotion/react';
-import { Search } from '@styled-icons/fa-solid/Search';
+import { css } from '@emotion/react'
+import styled from '@emotion/styled'
+import { Search } from '@styled-icons/fa-solid/Search'
+import * as React from 'react'
+import { connectSearchBox } from 'react-instantsearch-dom'
 
 const SearchIcon = styled(Search)`
   width: 1em;
@@ -12,7 +11,7 @@ const SearchIcon = styled(Search)`
   position: absolute;
   left: 15px;
   color: #2fd2c5;
-`;
+`
 
 const focus = (props) => css`
   background: white;
@@ -23,7 +22,7 @@ const focus = (props) => css`
     color: ${(props) => props.theme.darkBlue};
     margin: 0.3em;
   }
-`;
+`
 
 const collapse = (props) => css`
   width: 0;
@@ -38,7 +37,7 @@ const collapse = (props) => css`
   ::placeholder {
     color: ${(props) => props.theme.gray};
   }
-`;
+`
 
 const expand = (props) => css`
   background: ${(props) => props.theme.veryLightGray};
@@ -48,11 +47,11 @@ const expand = (props) => css`
   + ${SearchIcon} {
     margin: 0.3em;
   }
-`;
+`
 
 const collapseExpand = (props) => css`
   ${(props) => (props.collapse ? collapse() : expand())}
-`;
+`
 
 const Input = styled.input`
   outline: none;
@@ -62,7 +61,7 @@ const Input = styled.input`
   transition: ${(props) => props.theme.shortTrans};
   border-radius: ${(props) => props.theme.smallBorderRadius};
   {collapseExpand}
-`;
+`
 
 const Form = styled.form`
   display: flex;
@@ -71,12 +70,12 @@ const Form = styled.form`
     width: 100%;
     margin-left: 15px;
   }
-`;
+`
 
 export default connectSearchBox(({ refine, ...rest }) => {
   const preventSubmit = (e) => {
-    e.preventDefault();
-  };
+    e.preventDefault()
+  }
 
   return (
     <Form className={'formElement'} onSubmit={preventSubmit}>
@@ -90,5 +89,5 @@ export default connectSearchBox(({ refine, ...rest }) => {
         {...rest}
       />
     </Form>
-  );
-});
+  )
+})

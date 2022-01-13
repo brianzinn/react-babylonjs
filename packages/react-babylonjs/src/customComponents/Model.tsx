@@ -1,11 +1,9 @@
-import { ISceneLoaderProgressEvent } from "@babylonjs/core/Loading/sceneLoader.js";
-import { AbstractMesh } from "@babylonjs/core/Meshes/abstractMesh.js";
-import React, { useEffect } from "react"
-
-import { FiberAbstractMeshProps, FiberAbstractMeshPropsCtor } from "../generatedProps";
-import { ILoadedModel } from "../hooks/loaders/loadedModel";
-
-import { SceneLoaderOptions, useSceneLoader } from "../hooks/loaders/useSceneLoader";
+import { ISceneLoaderProgressEvent } from '@babylonjs/core/Loading/sceneLoader.js'
+import { AbstractMesh } from '@babylonjs/core/Meshes/abstractMesh.js'
+import React, { useEffect } from 'react'
+import { FiberAbstractMeshProps, FiberAbstractMeshPropsCtor } from '../generatedProps'
+import { ILoadedModel } from '../hooks/loaders/loadedModel'
+import { SceneLoaderOptions, useSceneLoader } from '../hooks/loaders/useSceneLoader'
 
 export type ModelProps = {
   /**
@@ -24,14 +22,24 @@ export type ModelProps = {
   onModelError?: (model: ILoadedModel) => void
   onLoadProgress?: (event: ISceneLoaderProgressEvent) => void
   onCreated?: (rootMesh: AbstractMesh) => void
-} & FiberAbstractMeshProps & FiberAbstractMeshPropsCtor;
+} & FiberAbstractMeshProps &
+  FiberAbstractMeshPropsCtor
 
 const Model: React.FC<ModelProps> = (props: ModelProps) => {
   const {
-    alwaysSelectAsActiveMesh, meshNames, onLoadProgress, onModelError, onModelLoaded, receiveShadows, reportProgress, scaleToDimension, // SceneLoaderOptions
-    rootUrl, sceneFilename, pluginExtension, // other parameters
+    alwaysSelectAsActiveMesh,
+    meshNames,
+    onLoadProgress,
+    onModelError,
+    onModelLoaded,
+    receiveShadows,
+    reportProgress,
+    scaleToDimension, // SceneLoaderOptions
+    rootUrl,
+    sceneFilename,
+    pluginExtension, // other parameters
     ...rest // passed on to "rootMesh"
-  } = props;
+  } = props
 
   const options: SceneLoaderOptions = {
     alwaysSelectAsActiveMesh,
@@ -44,16 +52,18 @@ const Model: React.FC<ModelProps> = (props: ModelProps) => {
     scaleToDimension,
   }
 
-  const sceneLoaderResults = useSceneLoader(rootUrl, sceneFilename, pluginExtension, options, rest);
+  const sceneLoaderResults = useSceneLoader(rootUrl, sceneFilename, pluginExtension, options, rest)
 
   useEffect(() => {
     return () => {
       // console.log('disposing the sceneloader results.')
-      sceneLoaderResults.dispose();
+      sceneLoaderResults.dispose()
     }
-  }, []);
+  }, [])
 
-  return <abstractMesh fromInstance={sceneLoaderResults.rootMesh!} childMeshesNotTracked {...rest} />;
+  return (
+    <abstractMesh fromInstance={sceneLoaderResults.rootMesh!} childMeshesNotTracked {...rest} />
+  )
 }
 
-export default Model;
+export default Model

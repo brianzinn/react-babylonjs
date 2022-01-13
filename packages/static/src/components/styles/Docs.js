@@ -1,4 +1,4 @@
-import styled from '@emotion/styled';
+import styled from '@emotion/styled'
 
 export const StyledHeading = styled('h1')`
   font-size: 32px;
@@ -10,7 +10,7 @@ export const StyledHeading = styled('h1')`
   margin-top: 0;
   padding-top: 0;
   color: ${(props) => props.theme.colors.heading};
-`;
+`
 
 export const Edit = styled('div')`
   padding: 1rem 1.5rem;
@@ -36,7 +36,7 @@ export const Edit = styled('div')`
       background-color: rgb(245, 247, 249);
     }
   }
-`;
+`
 
 export const StyledMainWrapper = styled.div`
   max-width: 750px;
@@ -75,4 +75,4 @@ export const StyledMainWrapper = styled.div`
   @media (max-width: 767px) {
     padding: 0 15px;
   }
-`;
+`
