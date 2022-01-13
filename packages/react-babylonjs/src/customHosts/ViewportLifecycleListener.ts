@@ -1,15 +1,17 @@
-import { Viewport } from '@babylonjs/core/Maths/math.viewport.js';
-import { Camera } from '@babylonjs/core/Cameras/camera.js';
+import { Camera } from "@babylonjs/core/Cameras/camera.js";
+import { Viewport } from "@babylonjs/core/Maths/math.viewport.js";
+import { CreatedInstance } from "../CreatedInstance";
+import { FiberViewportProps } from "../generatedProps";
+import { assignProperty } from "../helper/property";
+import BaseLifecycleListener from "./BaseLifecycleListener";
 
-import BaseLifecycleListener from './BaseLifecycleListener';
-import { CreatedInstance } from '../CreatedInstance';
-import { assignProperty } from '../helper/property';
-import { FiberViewportProps } from '../generatedProps';
-
-export default class ViewportLifecycleListener extends BaseLifecycleListener<Viewport, FiberViewportProps> {
+export default class ViewportLifecycleListener extends BaseLifecycleListener<
+  Viewport,
+  FiberViewportProps
+> {
   onMount(instance?: CreatedInstance<Viewport>) {
     if (instance === undefined) {
-      console.error('Missing instance (for viewport)');
+      console.error("Missing instance (for viewport)");
       return;
     }
 
@@ -19,7 +21,11 @@ export default class ViewportLifecycleListener extends BaseLifecycleListener<Vie
     while (tmp !== null) {
       if (tmp.metadata && tmp.metadata.isCamera === true) {
         if (instance.customProps.assignTo) {
-          assignProperty(viewport, tmp.hostInstance, instance.customProps.assignTo);
+          assignProperty(
+            viewport,
+            tmp.hostInstance,
+            instance.customProps.assignTo
+          );
         } else {
           (tmp as CreatedInstance<Camera>).hostInstance!.viewport = viewport;
         }

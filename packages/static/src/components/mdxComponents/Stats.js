@@ -1,5 +1,5 @@
-import React, { FC, useEffect, useState } from 'react'
-import { useBeforeRender, useCanvas, useEngine } from 'react-babylonjs'
+import { useEffect } from 'react'
+import { useEngine } from 'react-babylonjs'
 
 const Stats = (props) => {
   const engine = useEngine()

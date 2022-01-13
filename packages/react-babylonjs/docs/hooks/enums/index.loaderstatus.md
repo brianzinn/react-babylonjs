@@ -20,7 +20,7 @@
 
 Defined in: [loaders/loadedModel.ts:6](https://github.com/brianzinn/react-babylonjs/blob/eba7b00/src/hooks/loaders/loadedModel.ts#L6)
 
-___
+---
 
 ### Loaded
 
@@ -28,7 +28,7 @@ ___
 
 Defined in: [loaders/loadedModel.ts:5](https://github.com/brianzinn/react-babylonjs/blob/eba7b00/src/hooks/loaders/loadedModel.ts#L5)
 
-___
+---
 
 ### Loading
 

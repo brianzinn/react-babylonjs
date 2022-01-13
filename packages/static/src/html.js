@@ -1,6 +1,6 @@
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import config from '../config';
+import PropTypes from 'prop-types'
+import * as React from 'react'
+import config from '../config'
 
 export default class HTML extends React.Component {
   render() {
@@ -44,7 +44,7 @@ export default class HTML extends React.Component {
           />
         </body>
       </html>
-    );
+    )
   }
 }
 
@@ -55,4 +55,4 @@ HTML.propTypes = {
   preBodyComponents: PropTypes.array,
   body: PropTypes.string,
   postBodyComponents: PropTypes.array,
-};
+}

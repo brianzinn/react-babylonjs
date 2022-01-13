@@ -1,4 +1,4 @@
-import styled from '@emotion/styled';
+import styled from '@emotion/styled'
 
 export const StyledNextPrevious = styled('div')`
   margin: 0px;
@@ -27,8 +27,8 @@ export const StyledNextPrevious = styled('div')`
     box-shadow: rgba(116, 129, 141, 0.1) 0px 3px 8px 0px;
     text-decoration: none;
 
-    background-color: ${props => props.theme.colors.background};
-    color: ${props => props.theme.colors.text};
+    background-color: ${(props) => props.theme.colors.background};
+    color: ${(props) => props.theme.colors.text};
   }
 
   .nextBtn {
@@ -49,8 +49,8 @@ export const StyledNextPrevious = styled('div')`
     box-shadow: rgba(116, 129, 141, 0.1) 0px 3px 8px 0px;
     text-decoration: none;
 
-    background-color: ${props => props.theme.colors.background};
-    color: ${props => props.theme.colors.text};
+    background-color: ${(props) => props.theme.colors.background};
+    color: ${(props) => props.theme.colors.text};
   }
 
   .nextBtn:hover,
@@ -107,4 +107,4 @@ export const StyledNextPrevious = styled('div')`
       margin-bottom: 20px;
     }
   }
-`;
+`

@@ -1,9 +1,12 @@
-import { CreatedInstance } from '../CreatedInstance';
-import { Node } from '@babylonjs/core/node';
-import BaseLifecycleListener from './BaseLifecycleListener';
-import { FiberNodeProps } from '../generatedProps';
+import { Node } from "@babylonjs/core/node";
+import { CreatedInstance } from "../CreatedInstance";
+import { FiberNodeProps } from "../generatedProps";
+import BaseLifecycleListener from "./BaseLifecycleListener";
 
-export default class NodeLifecycleListener extends BaseLifecycleListener<Node, FiberNodeProps> {
+export default class NodeLifecycleListener extends BaseLifecycleListener<
+  Node,
+  FiberNodeProps
+> {
   onParented(parent: CreatedInstance<any>, child: CreatedInstance<any>) {
     super.onParented(parent, child);
     if (parent.metadata.isNode && child.metadata.isNode) {

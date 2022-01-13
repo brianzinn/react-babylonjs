@@ -8,37 +8,47 @@ import { PropChangeType, PropertyUpdate, PropsHandler } from "./PropsHandler";
  * @param hostInstance a babylonjs public ref (available with useRef)
  * @param props
  */
-export const applyInitialPropsToInstance = (target: any, props: Record<string, any>): void => {
+export const applyInitialPropsToInstance = (
+  target: any,
+  props: Record<string, any>
+): void => {
   // this is a bad cast.  it is here for backwards compatibility with a react-spring dependency that only uses vector/color prop changes.
-  const initPayload: PropertyUpdate[] = []
-  if ('__rb_createdInstance' in target) {
-    const createdInstance: CreatedInstance<any> = (target.__rb_createdInstance as unknown as CreatedInstance<any>);
+  const initPayload: PropertyUpdate[] = [];
+  if ("__rb_createdInstance" in target) {
+    const createdInstance: CreatedInstance<any> =
+      target.__rb_createdInstance as unknown as CreatedInstance<any>;
     if (createdInstance.propsHandlers) {
-      createdInstance.propsHandlers.getPropsHandlers().forEach((propHandler: PropsHandler<any>) => {
-        const handlerUpdates: PropertyUpdate[] | null = propHandler.getPropertyUpdates(
-          {}, // We will reapply any props passed in (will not "clear" props, if we pass in an undefined prop)
-          props
-        );
-        if (handlerUpdates !== null) {
-          initPayload.push(...handlerUpdates);
-        }
-      })
+      createdInstance.propsHandlers
+        .getPropsHandlers()
+        .forEach((propHandler: PropsHandler<any>) => {
+          const handlerUpdates: PropertyUpdate[] | null =
+            propHandler.getPropertyUpdates(
+              {}, // We will reapply any props passed in (will not "clear" props, if we pass in an undefined prop)
+              props
+            );
+          if (handlerUpdates !== null) {
+            initPayload.push(...handlerUpdates);
+          }
+        });
     }
   }
 
   if (initPayload.length > 0) {
     // this is all copied code from `applyUpdateToInstance(...)`
-    initPayload.forEach(update => {
+    initPayload.forEach((update) => {
       switch (update.changeType) {
         case PropChangeType.Primitive:
         case PropChangeType.FresnelParameters:
         case PropChangeType.LambdaExpression:
         case PropChangeType.Texture:
           // console.log(` > ${type}: updating ${update.changeType} on ${update.propertyName} to ${update.value}`)
-          if (update.propertyName.indexOf('.') !== -1) {
-            const dotProps: string[] = update.propertyName.split('.');
+          if (update.propertyName.indexOf(".") !== -1) {
+            const dotProps: string[] = update.propertyName.split(".");
             const lastProp = dotProps.pop()!;
-            const newTarget = dotProps.reduce((target, prop) => target[prop], target);
+            const newTarget = dotProps.reduce(
+              (target, prop) => target[prop],
+              target
+            );
             newTarget[lastProp] = update.value;
           } else {
             target[update.propertyName] = update.value;
@@ -68,7 +78,9 @@ export const applyInitialPropsToInstance = (target: any, props: Record<string, a
           target[update.propertyName] = update.value;
           break;
         case PropChangeType.Observable:
-          console.warn('observable not supported for plugins (create a request if needed)')
+          console.warn(
+            "observable not supported for plugins (create a request if needed)"
+          );
           break;
         case PropChangeType.Method:
           if (typeof target[update.propertyName] === "function") {
@@ -80,11 +92,16 @@ export const applyInitialPropsToInstance = (target: any, props: Record<string, a
               target[update.propertyName](update.value);
             } else {
               // TODO: there is a bug here in that setTarget={new Vector3(0, 1, 0)} will throw an exception...
-              console.error('need to make sure this isn\'t something like a Vector3 before destructuring')
+              console.error(
+                "need to make sure this isn't something like a Vector3 before destructuring"
+              );
               target[update.propertyName](...Object.values(update.value));
             }
           } else {
-            console.error(`Cannot call [not a function] ${update.propertyName}(...) on:`, target);
+            console.error(
+              `Cannot call [not a function] ${update.propertyName}(...) on:`,
+              target
+            );
           }
           break;
         case PropChangeType.Quaternion:
@@ -98,16 +115,21 @@ export const applyInitialPropsToInstance = (target: any, props: Record<string, a
           }
           break;
         default:
-          console.error(`Unhandled property update of type '${update.changeType}'`);
+          console.error(
+            `Unhandled property update of type '${update.changeType}'`
+          );
           break;
       }
-    })
+    });
   }
-}
+};
 
 /**
  * @deprecated I don't believe this is used currently, but it can be added back.
  */
-export const applyPropsToRef = (createdInstance: CreatedInstance<any>, props: Record<string, any>): void => {
-  throw new Error('if you need this method please create an issue.')
-}
+export const applyPropsToRef = (
+  createdInstance: CreatedInstance<any>,
+  props: Record<string, any>
+): void => {
+  throw new Error("if you need this method please create an issue.");
+};

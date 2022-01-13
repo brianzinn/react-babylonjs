@@ -1,17 +1,17 @@
-
-import { Scene } from '@babylonjs/core/scene.js';
-import { Nullable } from '@babylonjs/core/types.js';
-import { createContext, useContext, Context } from 'react';
+import { Scene } from "@babylonjs/core/scene.js";
+import { Nullable } from "@babylonjs/core/types.js";
+import { Context, createContext, useContext } from "react";
 
 export type SceneContextType = {
-    scene: Nullable<Scene>
-    sceneReady: boolean
+  scene: Nullable<Scene>;
+  sceneReady: boolean;
 };
 
-export const SceneContext: Context<SceneContextType> = createContext<SceneContextType>({
+export const SceneContext: Context<SceneContextType> =
+  createContext<SceneContextType>({
     scene: null,
-    sceneReady: false
-});
+    sceneReady: false,
+  });
 
 /**
  * Get the scene from the context.

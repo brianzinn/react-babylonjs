@@ -1,14 +1,14 @@
+import { EnvironmentHelper } from "@babylonjs/core/Helpers/environmentHelper.js";
+import { CreatedInstance } from "../CreatedInstance";
+import BaseLifecycleListener from "./BaseLifecycleListener";
 
-import { EnvironmentHelper } from '@babylonjs/core/Helpers/environmentHelper.js';
-
-import { CreatedInstance } from '../CreatedInstance'
-import BaseLifecycleListener from './BaseLifecycleListener'
-
-export default class EnvironmentHelperLifecycleListener extends BaseLifecycleListener<EnvironmentHelper, any> {
-
+export default class EnvironmentHelperLifecycleListener extends BaseLifecycleListener<
+  EnvironmentHelper,
+  any
+> {
   onMount(instance: CreatedInstance<EnvironmentHelper>): void {
     if (instance.hostInstance === undefined) {
-      console.error('Missing instance');
+      console.error("Missing instance");
       return;
     }
 
@@ -19,7 +19,9 @@ export default class EnvironmentHelperLifecycleListener extends BaseLifecycleLis
     }
 
     if (this.props.teleportEnvironmentGround) {
-      console.error('need to enable teleportation to ground (also from VRExperienceHelper, so call order has no impact.');
+      console.error(
+        "need to enable teleportation to ground (also from VRExperienceHelper, so call order has no impact."
+      );
     }
   }
 }

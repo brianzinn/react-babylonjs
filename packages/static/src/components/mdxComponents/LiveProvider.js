@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
+import * as React from 'react'
+import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live'
 
 const ReactLiveProvider = ({ code }) => {
   return (
@@ -8,7 +8,7 @@ const ReactLiveProvider = ({ code }) => {
       <LiveError />
       <LivePreview />
     </LiveProvider>
-  );
-};
+  )
+}
 
-export default ReactLiveProvider;
+export default ReactLiveProvider

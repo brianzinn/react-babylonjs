@@ -1,6 +1,10 @@
 import { Key, ReactNode, Ref } from "react";
-import { checkPrimitiveDiff, HasPropsHandlers, PropertyUpdate, PropsHandler } from "../../PropsHandler";
-
+import {
+  checkPrimitiveDiff,
+  HasPropsHandlers,
+  PropertyUpdate,
+  PropsHandler,
+} from "../../PropsHandler";
 
 export type GridNode = {
   key?: Key;
@@ -8,9 +12,9 @@ export type GridNode = {
 };
 
 export type RowOrColumnDefinitionProps = {
-  value: number
-  unit?: number
-}
+  value: number;
+  unit?: number;
+};
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -22,11 +26,16 @@ declare global {
   }
 }
 
-export class RowOrColumnDefinitionPropsHandlers implements PropsHandler<RowOrColumnDefinitionProps> {
-  getPropertyUpdates(oldProps: RowOrColumnDefinitionProps, newProps: RowOrColumnDefinitionProps): PropertyUpdate[] | null {
-    const changedProps: PropertyUpdate[] = []
-    checkPrimitiveDiff(oldProps.value, newProps.value, 'value', changedProps);
-    checkPrimitiveDiff(oldProps.unit, newProps.unit, 'unit', changedProps);
+export class RowOrColumnDefinitionPropsHandlers
+  implements PropsHandler<RowOrColumnDefinitionProps>
+{
+  getPropertyUpdates(
+    oldProps: RowOrColumnDefinitionProps,
+    newProps: RowOrColumnDefinitionProps
+  ): PropertyUpdate[] | null {
+    const changedProps: PropertyUpdate[] = [];
+    checkPrimitiveDiff(oldProps.value, newProps.value, "value", changedProps);
+    checkPrimitiveDiff(oldProps.unit, newProps.unit, "unit", changedProps);
     return changedProps.length === 0 ? null : changedProps;
   }
 }
@@ -34,13 +43,13 @@ export class RowOrColumnDefinitionPropsHandlers implements PropsHandler<RowOrCol
 /**
  * Handles property updates.
  */
-export class RowOrColumnDefinitionPropsHandler implements HasPropsHandlers<RowOrColumnDefinitionProps> {
+export class RowOrColumnDefinitionPropsHandler
+  implements HasPropsHandlers<RowOrColumnDefinitionProps>
+{
   private propsHandlers: PropsHandler<RowOrColumnDefinitionProps>[];
 
   constructor() {
-    this.propsHandlers = [
-      new RowOrColumnDefinitionPropsHandlers()
-    ];
+    this.propsHandlers = [new RowOrColumnDefinitionPropsHandlers()];
   }
 
   getPropsHandlers(): PropsHandler<RowOrColumnDefinitionProps>[] {

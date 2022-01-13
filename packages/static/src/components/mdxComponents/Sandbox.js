@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React from 'react'
 
 const Sandbox = (props) => {
   const { name } = props

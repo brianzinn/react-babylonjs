@@ -1,9 +1,8 @@
-import * as React from 'react';
-import { StaticQuery, graphql } from 'gatsby';
-
+import { graphql, StaticQuery } from 'gatsby'
+import * as React from 'react'
 // import Link from './link';
-import config from '../../config';
-import { Sidebar, ListItem } from './styles/Sidebar';
+import config from '../../config'
+import { ListItem, Sidebar } from './styles/Sidebar'
 
 const SidebarLayout = ({ location }) => (
   <StaticQuery
@@ -22,13 +21,13 @@ const SidebarLayout = ({ location }) => (
       }
     `}
     render={({ allMdx }) => {
-      let navItems = [];
+      let navItems = []
 
-      let finalNavItems;
+      let finalNavItems
 
       if (allMdx.edges !== undefined && allMdx.edges.length > 0) {
         const navItems = allMdx.edges.map((item, index) => {
-          let innerItems;
+          let innerItems
 
           if (item !== undefined) {
             if (
@@ -39,21 +38,21 @@ const SidebarLayout = ({ location }) => (
                 innerItems = item.node.tableOfContents.items.map((innerItem, index) => {
                   const itemId = innerItem.title
                     ? innerItem.title.replace(/\s+/g, '').toLowerCase()
-                    : '#';
+                    : '#'
 
                   return (
                     <ListItem key={index} to={`#${itemId}`} level={1}>
                       {innerItem.title}
                     </ListItem>
-                  );
-                });
+                  )
+                })
               }
             }
           }
           if (innerItems) {
-            finalNavItems = innerItems;
+            finalNavItems = innerItems
           }
-        });
+        })
       }
 
       if (finalNavItems && finalNavItems.length) {
@@ -64,16 +63,16 @@ const SidebarLayout = ({ location }) => (
               {finalNavItems}
             </ul>
           </Sidebar>
-        );
+        )
       } else {
         return (
           <Sidebar>
             <ul></ul>
           </Sidebar>
-        );
+        )
       }
     }}
   />
-);
+)
 
-export default SidebarLayout;
+export default SidebarLayout

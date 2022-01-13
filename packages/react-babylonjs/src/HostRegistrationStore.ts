@@ -1,6 +1,5 @@
 import { Scene } from "@babylonjs/core/scene.js";
 import { Nullable } from "@babylonjs/core/types.js";
-
 import { CreateInfo } from "./codeGenerationDescriptors";
 import { CreatedInstanceMetadata } from "./CreatedInstance";
 import { LifecycleListener } from "./LifecycleListener";
@@ -10,24 +9,23 @@ export type DynamicHost<T, U> = {
   /**
    * lookup on host element
    */
-  hostElementName: string
+  hostElementName: string;
   /**
    * null is only valid when the metadata declares a deferred creation and the lifecycle listener creates the instance.
    */
-  hostFactory: (scene: Scene) => Nullable<T>
-  propHandlerInstance: HasPropsHandlers<U>
-  createInfo: CreateInfo
-  metadata: CreatedInstanceMetadata
-  lifecycleListenerFactory?: (scene: Scene, props: any) => LifecycleListener<T>
-}
+  hostFactory: (scene: Scene) => Nullable<T>;
+  propHandlerInstance: HasPropsHandlers<U>;
+  createInfo: CreateInfo;
+  metadata: CreatedInstanceMetadata;
+  lifecycleListenerFactory?: (scene: Scene, props: any) => LifecycleListener<T>;
+};
 
 /**
  * Experimental - this will change - just a demo!
- * 
+ *
  * Allows dynamic registration of host elements that the reconciler will take into consideration (case sensitive).
  */
 export class HostRegistrationStore {
-
   private static _store: Record<string, DynamicHost<any, any>> = {};
 
   /**
@@ -41,7 +39,9 @@ export class HostRegistrationStore {
   /**
    * Retrieve a registered host by element name
    */
-  public static GetRegisteredHost(hostElementName: string): DynamicHost<any, any> | undefined {
+  public static GetRegisteredHost(
+    hostElementName: string
+  ): DynamicHost<any, any> | undefined {
     return this._store[hostElementName];
   }
 }

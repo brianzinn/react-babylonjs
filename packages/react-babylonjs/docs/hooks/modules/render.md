@@ -17,7 +17,7 @@
 
 ### OnFrameRenderFn
 
-Ƭ **OnFrameRenderFn**: (`eventData`: Scene, `eventState`: EventState) => *void*
+Ƭ **OnFrameRenderFn**: (`eventData`: Scene, `eventState`: EventState) => _void_
 
 Defined in: [render.ts:5](https://github.com/brianzinn/react-babylonjs/blob/eba7b00/src/hooks/render.ts#L5)
 
@@ -25,40 +25,40 @@ Defined in: [render.ts:5](https://github.com/brianzinn/react-babylonjs/blob/eba7
 
 ### useAfterRender
 
-▸ `Const`**useAfterRender**(`callback`: [*OnFrameRenderFn*](render.md#onframerenderfn), `mask?`: *number*, `insertFirst?`: *boolean*, `callOnce?`: *boolean*): *void*
+▸ `Const`**useAfterRender**(`callback`: [_OnFrameRenderFn_](render.md#onframerenderfn), `mask?`: _number_, `insertFirst?`: _boolean_, `callOnce?`: _boolean_): _void_
 
 Register a callback for after the scene renders.
 
 #### Parameters:
 
-Name | Type | Description |
------- | ------ | ------ |
-`callback` | [*OnFrameRenderFn*](render.md#onframerenderfn) | called using onBeforeRender functionality of scene   |
-`mask?` | *number* | the mask used to filter observers   |
-`insertFirst?` | *boolean* | if true will be inserted at first position, if false (default) will be last position.   |
-`callOnce?` | *boolean* | only call the callback once    |
+| Name           | Type                                           | Description                                                                           |
+| -------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------- |
+| `callback`     | [_OnFrameRenderFn_](render.md#onframerenderfn) | called using onBeforeRender functionality of scene                                    |
+| `mask?`        | _number_                                       | the mask used to filter observers                                                     |
+| `insertFirst?` | _boolean_                                      | if true will be inserted at first position, if false (default) will be last position. |
+| `callOnce?`    | _boolean_                                      | only call the callback once                                                           |
 
-**Returns:** *void*
+**Returns:** _void_
 
 Defined in: [render.ts:42](https://github.com/brianzinn/react-babylonjs/blob/eba7b00/src/hooks/render.ts#L42)
 
-___
+---
 
 ### useBeforeRender
 
-▸ `Const`**useBeforeRender**(`callback`: [*OnFrameRenderFn*](render.md#onframerenderfn), `mask?`: *number*, `insertFirst?`: *boolean*, `callOnce?`: *boolean*): *void*
+▸ `Const`**useBeforeRender**(`callback`: [_OnFrameRenderFn_](render.md#onframerenderfn), `mask?`: _number_, `insertFirst?`: _boolean_, `callOnce?`: _boolean_): _void_
 
 Register a callback for before the scene renders.
 
 #### Parameters:
 
-Name | Type | Description |
------- | ------ | ------ |
-`callback` | [*OnFrameRenderFn*](render.md#onframerenderfn) | called using onBeforeRender functionality of scene   |
-`mask?` | *number* | the mask used to filter observers   |
-`insertFirst?` | *boolean* | if true will be inserted at first position, if false (default) will be last position.   |
-`callOnce?` | *boolean* | only call the callback once    |
+| Name           | Type                                           | Description                                                                           |
+| -------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------- |
+| `callback`     | [_OnFrameRenderFn_](render.md#onframerenderfn) | called using onBeforeRender functionality of scene                                    |
+| `mask?`        | _number_                                       | the mask used to filter observers                                                     |
+| `insertFirst?` | _boolean_                                      | if true will be inserted at first position, if false (default) will be last position. |
+| `callOnce?`    | _boolean_                                      | only call the callback once                                                           |
 
-**Returns:** *void*
+**Returns:** _void_
 
 Defined in: [render.ts:15](https://github.com/brianzinn/react-babylonjs/blob/eba7b00/src/hooks/render.ts#L15)

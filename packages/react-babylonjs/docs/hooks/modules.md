@@ -1,7 +1,8 @@
 # react-babylonjs hooks
 
 ## Table of contents
-This is a markdown dump of the hooks.  Still need to update the comments on the hooks with usage.
+
+This is a markdown dump of the hooks. Still need to update the comments on the hooks with usage.
 
 ### Hooks
 

@@ -1,112 +1,140 @@
-import React, { useContext, useState } from 'react';
-import { ISceneLoaderPlugin, ISceneLoaderPluginAsync, ISceneLoaderProgressEvent, SceneLoader } from '@babylonjs/core/Loading/sceneLoader.js';
-import { Nullable } from '@babylonjs/core/types.js';
-import { Scene } from '@babylonjs/core/scene.js';
-import { AbstractMesh } from '@babylonjs/core/Meshes/abstractMesh.js';
-import { IParticleSystem } from '@babylonjs/core/Particles/IParticleSystem.js';
-import { Skeleton } from '@babylonjs/core/Bones/skeleton.js';
-import { AnimationGroup } from '@babylonjs/core/Animations/animationGroup.js';
-import { Mesh } from '@babylonjs/core/Meshes/mesh.js';
+import { AnimationGroup } from "@babylonjs/core/Animations/animationGroup.js";
+import { Skeleton } from "@babylonjs/core/Bones/skeleton.js";
+import {
+  ISceneLoaderPlugin,
+  ISceneLoaderPluginAsync,
+  ISceneLoaderProgressEvent,
+  SceneLoader,
+} from "@babylonjs/core/Loading/sceneLoader.js";
+import { AbstractMesh } from "@babylonjs/core/Meshes/abstractMesh.js";
+import { Mesh } from "@babylonjs/core/Meshes/mesh.js";
+import { IParticleSystem } from "@babylonjs/core/Particles/IParticleSystem.js";
+import { Scene } from "@babylonjs/core/scene.js";
+import { Nullable } from "@babylonjs/core/types.js";
+import React, { useContext, useState } from "react";
+import { CreatedInstance } from "../../CreatedInstance";
+import { FiberMesh } from "../../generatedCode";
+import { FiberMeshProps } from "../../generatedProps";
+import { PropertyUpdate, PropsHandler } from "../../PropsHandler";
+import { applyUpdateToInstance } from "../../UpdateInstance";
+import { useScene } from "../scene";
+import { ILoadedModel, LoadedModel, LoaderStatus } from "./loadedModel";
 
-import { useScene } from '../scene';
-import { ILoadedModel, LoadedModel, LoaderStatus } from './loadedModel';
-import { PropertyUpdate, PropsHandler } from '../../PropsHandler';
-import { FiberMesh } from '../../generatedCode';
-import { FiberMeshProps } from '../../generatedProps';
-import { applyUpdateToInstance } from '../../UpdateInstance';
-import { CreatedInstance } from '../../CreatedInstance';
+export type SceneLoaderContextType =
+  | {
+      updateProgress: (progress: ISceneLoaderProgressEvent) => void;
+      lastProgress?: Nullable<ISceneLoaderProgressEvent>;
+    }
+  | undefined;
 
-export type SceneLoaderContextType = {
-  updateProgress: (progress: ISceneLoaderProgressEvent) => void
-  lastProgress?: Nullable<ISceneLoaderProgressEvent>
-} | undefined;
-
-export const SceneLoaderContext = React.createContext<SceneLoaderContextType>(undefined);
+export const SceneLoaderContext =
+  React.createContext<SceneLoaderContextType>(undefined);
 
 export type SceneLoaderContextProviderProps = {
-  startProgress?: ISceneLoaderProgressEvent,
-  children: React.ReactNode,
-}
+  startProgress?: ISceneLoaderProgressEvent;
+  children: React.ReactNode;
+};
 
-export const SceneLoaderContextProvider: React.FC<SceneLoaderContextProviderProps> = (props: SceneLoaderContextProviderProps) => {
-  const [progress, setProgress] = useState<Nullable<ISceneLoaderProgressEvent>>(null);
+export const SceneLoaderContextProvider: React.FC<
+  SceneLoaderContextProviderProps
+> = (props: SceneLoaderContextProviderProps) => {
+  const [progress, setProgress] =
+    useState<Nullable<ISceneLoaderProgressEvent>>(null);
 
-  return (<SceneLoaderContext.Provider value={{ lastProgress: progress, updateProgress: setProgress }}>
-    {props.children}
-  </SceneLoaderContext.Provider>);
-}
+  return (
+    <SceneLoaderContext.Provider
+      value={{ lastProgress: progress, updateProgress: setProgress }}
+    >
+      {props.children}
+    </SceneLoaderContext.Provider>
+  );
+};
 
 export type SceneLoaderOptions = {
   /**
    * An array of mesh names, a single mesh name, or empty string for all meshes that filter what meshes are imported
    */
-  meshNames?: any
+  meshNames?: any;
 
   /**
    * set that all meshes receive shadows.
    * Defaults to false.
    */
-  receiveShadows?: boolean
+  receiveShadows?: boolean;
 
   /**
    * Scale entire model within these square bounds
    * Defaults to no scaling.
    */
-  scaleToDimension?: number
+  scaleToDimension?: number;
 
   /**
    * Always select root mesh as active.
    * Defaults to false.
    */
-  alwaysSelectAsActiveMesh?: boolean
+  alwaysSelectAsActiveMesh?: boolean;
 
   /**
    * SceneLoader progress events are set on context provider (when available).
    * Defaults to false.
    */
-  reportProgress?: boolean
+  reportProgress?: boolean;
 
   /**
    * Not needed if you are within a SceneContext.
    */
-  scene?: Scene
+  scene?: Scene;
 
   /**
    * Access to loaded model as soon as it is loaded, so it provides a way to hide or scale the meshes before the first render.
    */
-  onModelLoaded?: (loadedModel: ILoadedModel) => void
+  onModelLoaded?: (loadedModel: ILoadedModel) => void;
 
   /**
    * Raw progress event for SceneLoader
    */
-  onLoadProgress?: (event: ISceneLoaderProgressEvent) => void
+  onLoadProgress?: (event: ISceneLoaderProgressEvent) => void;
 
   /**
    * Called if SceneLoader returns an error.
    */
-  onModelError?: (model: ILoadedModel) => void
-}
+  onModelError?: (model: ILoadedModel) => void;
+};
 
 /**
  * A cached version of SceneLoader with a Suspense cache.
  */
-const useSceneLoaderWithCache = (): (rootUrl: string, sceneFilename: string, pluginExtension?: string, options?: SceneLoaderOptions, initialProps?: FiberMeshProps) => LoadedModel => {
+const useSceneLoaderWithCache = (): ((
+  rootUrl: string,
+  sceneFilename: string,
+  pluginExtension?: string,
+  options?: SceneLoaderOptions,
+  initialProps?: FiberMeshProps
+) => LoadedModel) => {
   // we need our own memoized cache. useMemo, useState, etc. fail miserably - throwing a promise forces the component to remount.
   let suspenseCache: Record<string, undefined | (() => LoadedModel)> = {};
   let suspenseScene: Nullable<Scene> = null;
 
   // let tasksCompletedCache: Record<string, LoadedModel> = {};
 
-  return (rootUrl: string, sceneFilename: string, pluginExtension?: string, options?: SceneLoaderOptions, initialProps?: FiberMeshProps): LoadedModel => {
+  return (
+    rootUrl: string,
+    sceneFilename: string,
+    pluginExtension?: string,
+    options?: SceneLoaderOptions,
+    initialProps?: FiberMeshProps
+  ): LoadedModel => {
     const opts: SceneLoaderOptions = options || {};
 
     const hookScene = useScene();
 
     if (opts.scene === undefined && hookScene === null) {
-      throw new Error('useSceneLoader can only be used inside a Scene component (or pass scene as an option)')
+      throw new Error(
+        "useSceneLoader can only be used inside a Scene component (or pass scene as an option)"
+      );
     }
 
-    const scene: Scene = opts.scene || hookScene!
+    const scene: Scene = opts.scene || hookScene!;
 
     if (suspenseScene == null) {
       suspenseScene = scene;
@@ -123,101 +151,122 @@ const useSceneLoaderWithCache = (): (rootUrl: string, sceneFilename: string, plu
     }
 
     const suspenseKey = `${rootUrl}/${sceneFilename}`;
-    const sceneLoaderContext = useContext<SceneLoaderContextType>(SceneLoaderContext);
+    const sceneLoaderContext =
+      useContext<SceneLoaderContextType>(SceneLoaderContext);
 
-    const createSceneLoader = (): () => LoadedModel => {
+    const createSceneLoader = (): (() => LoadedModel) => {
       const taskPromise = new Promise<LoadedModel>((resolve, reject) => {
-        let loadedModel = new LoadedModel()
+        let loadedModel = new LoadedModel();
 
-        loadedModel.status = LoaderStatus.Loading
+        loadedModel.status = LoaderStatus.Loading;
 
-        let loader: Nullable<ISceneLoaderPlugin | ISceneLoaderPluginAsync> = SceneLoader.ImportMesh(
-          opts.meshNames,
-          rootUrl,
-          sceneFilename,
-          scene,
-          (meshes: AbstractMesh[], particleSystems: IParticleSystem[], skeletons: Skeleton[], animationGroups: AnimationGroup[]): void => {
-            loadedModel.rootMesh = new AbstractMesh(sceneFilename + "-root-model", scene);
-            if (opts.alwaysSelectAsActiveMesh === true) {
-              loadedModel.rootMesh.alwaysSelectAsActiveMesh = true;
-            }
-
-            loadedModel.meshes = [];
-            meshes.forEach(mesh => {
-              loadedModel.meshes!.push(mesh);
-
-              // leave meshes already parented to maintain model hierarchy:
-              if (!mesh.parent) {
-                mesh.parent = loadedModel.rootMesh!;
+        let loader: Nullable<ISceneLoaderPlugin | ISceneLoaderPluginAsync> =
+          SceneLoader.ImportMesh(
+            opts.meshNames,
+            rootUrl,
+            sceneFilename,
+            scene,
+            (
+              meshes: AbstractMesh[],
+              particleSystems: IParticleSystem[],
+              skeletons: Skeleton[],
+              animationGroups: AnimationGroup[]
+            ): void => {
+              loadedModel.rootMesh = new AbstractMesh(
+                sceneFilename + "-root-model",
+                scene
+              );
+              if (opts.alwaysSelectAsActiveMesh === true) {
+                loadedModel.rootMesh.alwaysSelectAsActiveMesh = true;
               }
 
-              if (opts.receiveShadows === true) {
-                mesh.receiveShadows = true;
-              }
-            })
-            loadedModel.particleSystems = particleSystems;
-            loadedModel.skeletons = skeletons;
-            loadedModel.animationGroups = animationGroups;
+              loadedModel.meshes = [];
+              meshes.forEach((mesh) => {
+                loadedModel.meshes!.push(mesh);
 
-            loadedModel.status = LoaderStatus.Loaded;
-
-            if (opts.scaleToDimension) {
-              loadedModel.scaleTo(opts.scaleToDimension);
-            }
-
-            if (initialProps) {
-              const initPayload: PropertyUpdate[] = []
-              new FiberMesh().getPropsHandlers().forEach((propHandler: PropsHandler<any>) => {
-                const handlerUpdates: PropertyUpdate[] | null = propHandler.getPropertyUpdates(
-                  {}, // Here we will reapply things like 'name', so we could get default props from 'babylonObject'.
-                  initialProps
-                );
-                if (handlerUpdates !== null) {
-                  initPayload.push(...handlerUpdates);
+                // leave meshes already parented to maintain model hierarchy:
+                if (!mesh.parent) {
+                  mesh.parent = loadedModel.rootMesh!;
                 }
-              })
 
-              if (initPayload.length > 0) {
-                initPayload.forEach(update => {
-                  applyUpdateToInstance({ hostInstance: loadedModel.rootMesh } as CreatedInstance<Mesh>, update);
-                })
+                if (opts.receiveShadows === true) {
+                  mesh.receiveShadows = true;
+                }
+              });
+              loadedModel.particleSystems = particleSystems;
+              loadedModel.skeletons = skeletons;
+              loadedModel.animationGroups = animationGroups;
+
+              loadedModel.status = LoaderStatus.Loaded;
+
+              if (opts.scaleToDimension) {
+                loadedModel.scaleTo(opts.scaleToDimension);
               }
-            }
 
-            if (options?.onModelLoaded) {
-              options.onModelLoaded(loadedModel);
-            }
+              if (initialProps) {
+                const initPayload: PropertyUpdate[] = [];
+                new FiberMesh()
+                  .getPropsHandlers()
+                  .forEach((propHandler: PropsHandler<any>) => {
+                    const handlerUpdates: PropertyUpdate[] | null =
+                      propHandler.getPropertyUpdates(
+                        {}, // Here we will reapply things like 'name', so we could get default props from 'babylonObject'.
+                        initialProps
+                      );
+                    if (handlerUpdates !== null) {
+                      initPayload.push(...handlerUpdates);
+                    }
+                  });
 
-            const originalDispose = loadedModel.dispose;
-            loadedModel.dispose = () => {
-              // console.log('Clearing cache (cannot re-use meshes).');
-              suspenseCache[suspenseKey] = undefined;
-              originalDispose.call(loadedModel);
-            }
+                if (initPayload.length > 0) {
+                  initPayload.forEach((update) => {
+                    applyUpdateToInstance(
+                      {
+                        hostInstance: loadedModel.rootMesh,
+                      } as CreatedInstance<Mesh>,
+                      update
+                    );
+                  });
+                }
+              }
 
-            resolve(loadedModel);
-          },
-          (event: ISceneLoaderProgressEvent): void => {
-            if (opts.reportProgress === true && sceneLoaderContext !== undefined) {
-              sceneLoaderContext!.updateProgress(event);
-            }
-            if (opts.onLoadProgress) {
-              opts.onLoadProgress(event);
-            }
-          },
-          (_: Scene, message: string, exception?: any): void => {
-            if (opts.onModelError) {
-              opts.onModelError(loadedModel);
-            }
-            reject(exception ?? message);
-          },
-          pluginExtension
-        )
+              if (options?.onModelLoaded) {
+                options.onModelLoaded(loadedModel);
+              }
+
+              const originalDispose = loadedModel.dispose;
+              loadedModel.dispose = () => {
+                // console.log('Clearing cache (cannot re-use meshes).');
+                suspenseCache[suspenseKey] = undefined;
+                originalDispose.call(loadedModel);
+              };
+
+              resolve(loadedModel);
+            },
+            (event: ISceneLoaderProgressEvent): void => {
+              if (
+                opts.reportProgress === true &&
+                sceneLoaderContext !== undefined
+              ) {
+                sceneLoaderContext!.updateProgress(event);
+              }
+              if (opts.onLoadProgress) {
+                opts.onLoadProgress(event);
+              }
+            },
+            (_: Scene, message: string, exception?: any): void => {
+              if (opts.onModelError) {
+                opts.onModelError(loadedModel);
+              }
+              reject(exception ?? message);
+            },
+            pluginExtension
+          );
 
         if (loader) {
-          loadedModel.loaderName = loader.name
+          loadedModel.loaderName = loader.name;
         } else {
-          loadedModel.loaderName = "no loader found"
+          loadedModel.loaderName = "no loader found";
         }
       });
 
@@ -235,8 +284,8 @@ const useSceneLoaderWithCache = (): (rootUrl: string, sceneFilename: string, plu
 
       const getAssets = () => {
         if (suspender) {
-          throw suspender
-        };
+          throw suspender;
+        }
         if (error !== null) {
           throw error;
         }
@@ -244,14 +293,14 @@ const useSceneLoaderWithCache = (): (rootUrl: string, sceneFilename: string, plu
         return result;
       };
       return getAssets;
-    }
+    };
 
     if (suspenseCache[suspenseKey] === undefined) {
       suspenseCache[suspenseKey] = createSceneLoader();
     }
 
     return suspenseCache[suspenseKey]!();
-  }
-}
+  };
+};
 
 export const useSceneLoader = useSceneLoaderWithCache();

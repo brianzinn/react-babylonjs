@@ -1,28 +1,36 @@
-import React, { useState, useMemo } from 'react'
-import { Engine, Scene, useScene } from 'react-babylonjs'
-import { Vector3, Color3, MeshBuilder } from '@babylonjs/core'
-import '../../style.css'
+import { Color3, MeshBuilder, Vector3 } from "@babylonjs/core";
+import React, { useMemo, useState } from "react";
+import { Engine, Scene, useScene } from "react-babylonjs";
+import "../../style.css";
 
-export default { title: 'Babylon Basic' };
+export default { title: "Babylon Basic" };
 
 const MyMesh = (props) => {
   const [mesh, setMesh] = useState(null);
   const scene = useScene();
   useMemo(() => {
-    console.log('creating a box with scene', scene);
-    setMesh(MeshBuilder.CreateBox('test', { size: 1 }, scene));
+    console.log("creating a box with scene", scene);
+    setMesh(MeshBuilder.CreateBox("test", { size: 1 }, scene));
   }, []);
 
   return (
     <>
-      {mesh &&
-        <mesh fromInstance={mesh} rotation={props.rotation} disposeInstanceOnUnmount>
-          <standardMaterial name='boxmat' diffuseColor={Color3.Blue()} specularColor={Color3.Black()} />
+      {mesh && (
+        <mesh
+          fromInstance={mesh}
+          rotation={props.rotation}
+          disposeInstanceOnUnmount
+        >
+          <standardMaterial
+            name="boxmat"
+            diffuseColor={Color3.Blue()}
+            specularColor={Color3.Black()}
+          />
         </mesh>
-      }
+      )}
     </>
-  )
-}
+  );
+};
 
 export const FromInstance = () => {
   const [rotation, setRotation] = useState(new Vector3(0, 0, 0));
@@ -53,4 +61,4 @@ export const FromInstance = () => {
       </Engine>
     </div>
   );
-}
+};

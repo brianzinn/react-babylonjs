@@ -6,11 +6,11 @@
 
 ## Hierarchy
 
-* **LoadedModel**
+- **LoadedModel**
 
 ## Implements
 
-* [*ILoadedModel*](../interfaces/loaders/loadedmodel.iloadedmodel.md)
+- [_ILoadedModel_](../interfaces/loaders/loadedmodel.iloadedmodel.md)
 
 ## Table of contents
 
@@ -44,93 +44,93 @@
 
 ### constructor
 
-\+ **new LoadedModel**(): [*LoadedModel*](loaders/loadedmodel.loadedmodel.md)
+\+ **new LoadedModel**(): [_LoadedModel_](loaders/loadedmodel.loadedmodel.md)
 
-**Returns:** [*LoadedModel*](loaders/loadedmodel.loadedmodel.md)
+**Returns:** [_LoadedModel_](loaders/loadedmodel.loadedmodel.md)
 
 ## Properties
 
 ### \_scaledToDimension
 
-• `Private` `Optional` **\_scaledToDimension**: *undefined* \| *number*
+• `Private` `Optional` **\_scaledToDimension**: _undefined_ \| _number_
 
 Defined in: [loaders/loadedModel.ts:44](https://github.com/brianzinn/react-babylonjs/blob/eba7b00/src/hooks/loaders/loadedModel.ts#L44)
 
-___
+---
 
 ### animationGroups
 
-• `Optional` **animationGroups**: *undefined* \| *AnimationGroup*[]
+• `Optional` **animationGroups**: _undefined_ \| _AnimationGroup_[]
 
 Implementation of: [ILoadedModel](../interfaces/loaders/loadedmodel.iloadedmodel.md).[animationGroups](../interfaces/loaders/loadedmodel.iloadedmodel.md#animationgroups)
 
 Defined in: [loaders/loadedModel.ts:43](https://github.com/brianzinn/react-babylonjs/blob/eba7b00/src/hooks/loaders/loadedModel.ts#L43)
 
-___
+---
 
 ### errorMessage
 
-• `Optional` **errorMessage**: *undefined* \| *string*
+• `Optional` **errorMessage**: _undefined_ \| _string_
 
 Implementation of: [ILoadedModel](../interfaces/loaders/loadedmodel.iloadedmodel.md).[errorMessage](../interfaces/loaders/loadedmodel.iloadedmodel.md#errormessage)
 
 Defined in: [loaders/loadedModel.ts:38](https://github.com/brianzinn/react-babylonjs/blob/eba7b00/src/hooks/loaders/loadedModel.ts#L38)
 
-___
+---
 
 ### loaderName
 
-• `Optional` **loaderName**: *undefined* \| *string*
+• `Optional` **loaderName**: _undefined_ \| _string_
 
 Implementation of: [ILoadedModel](../interfaces/loaders/loadedmodel.iloadedmodel.md).[loaderName](../interfaces/loaders/loadedmodel.iloadedmodel.md#loadername)
 
 Defined in: [loaders/loadedModel.ts:39](https://github.com/brianzinn/react-babylonjs/blob/eba7b00/src/hooks/loaders/loadedModel.ts#L39)
 
-___
+---
 
 ### meshes
 
-• `Optional` **meshes**: *undefined* \| *AbstractMesh*[]
+• `Optional` **meshes**: _undefined_ \| _AbstractMesh_[]
 
 Implementation of: [ILoadedModel](../interfaces/loaders/loadedmodel.iloadedmodel.md).[meshes](../interfaces/loaders/loadedmodel.iloadedmodel.md#meshes)
 
 Defined in: [loaders/loadedModel.ts:40](https://github.com/brianzinn/react-babylonjs/blob/eba7b00/src/hooks/loaders/loadedModel.ts#L40)
 
-___
+---
 
 ### particleSystems
 
-• `Optional` **particleSystems**: *undefined* \| IParticleSystem[]
+• `Optional` **particleSystems**: _undefined_ \| IParticleSystem[]
 
 Implementation of: [ILoadedModel](../interfaces/loaders/loadedmodel.iloadedmodel.md).[particleSystems](../interfaces/loaders/loadedmodel.iloadedmodel.md#particlesystems)
 
 Defined in: [loaders/loadedModel.ts:41](https://github.com/brianzinn/react-babylonjs/blob/eba7b00/src/hooks/loaders/loadedModel.ts#L41)
 
-___
+---
 
 ### rootMesh
 
-• `Optional` **rootMesh**: *undefined* \| *AbstractMesh*
+• `Optional` **rootMesh**: _undefined_ \| _AbstractMesh_
 
 Implementation of: [ILoadedModel](../interfaces/loaders/loadedmodel.iloadedmodel.md).[rootMesh](../interfaces/loaders/loadedmodel.iloadedmodel.md#rootmesh)
 
 Defined in: [loaders/loadedModel.ts:37](https://github.com/brianzinn/react-babylonjs/blob/eba7b00/src/hooks/loaders/loadedModel.ts#L37)
 
-___
+---
 
 ### skeletons
 
-• `Optional` **skeletons**: *undefined* \| *Skeleton*[]
+• `Optional` **skeletons**: _undefined_ \| _Skeleton_[]
 
 Implementation of: [ILoadedModel](../interfaces/loaders/loadedmodel.iloadedmodel.md).[skeletons](../interfaces/loaders/loadedmodel.iloadedmodel.md#skeletons)
 
 Defined in: [loaders/loadedModel.ts:42](https://github.com/brianzinn/react-babylonjs/blob/eba7b00/src/hooks/loaders/loadedModel.ts#L42)
 
-___
+---
 
 ### status
 
-• **status**: [*LoaderStatus*](../enums/loaders/loadedmodel.loaderstatus.md)
+• **status**: [_LoaderStatus_](../enums/loaders/loadedmodel.loaderstatus.md)
 
 Implementation of: [ILoadedModel](../interfaces/loaders/loadedmodel.iloadedmodel.md).[status](../interfaces/loaders/loadedmodel.iloadedmodel.md#status)
 
@@ -140,19 +140,19 @@ Defined in: [loaders/loadedModel.ts:36](https://github.com/brianzinn/react-babyl
 
 ### boundingInfo
 
-• **boundingInfo**(): *Nullable*<*BoundingInfo*\>
+• **boundingInfo**(): _Nullable_<_BoundingInfo_\>
 
-**Returns:** *Nullable*<*BoundingInfo*\>
+**Returns:** _Nullable_<_BoundingInfo_\>
 
 Defined in: [loaders/loadedModel.ts:50](https://github.com/brianzinn/react-babylonjs/blob/eba7b00/src/hooks/loaders/loadedModel.ts#L50)
 
-___
+---
 
 ### scaledToDimension
 
-• **scaledToDimension**(): *undefined* \| *number*
+• **scaledToDimension**(): _undefined_ \| _number_
 
-**Returns:** *undefined* \| *number*
+**Returns:** _undefined_ \| _number_
 
 Defined in: [loaders/loadedModel.ts:46](https://github.com/brianzinn/react-babylonjs/blob/eba7b00/src/hooks/loaders/loadedModel.ts#L46)
 
@@ -160,26 +160,26 @@ Defined in: [loaders/loadedModel.ts:46](https://github.com/brianzinn/react-babyl
 
 ### dispose
 
-▸ **dispose**(): *void*
+▸ **dispose**(): _void_
 
 Clean up all resources.
 
-**Returns:** *void*
+**Returns:** _void_
 
 Defined in: [loaders/loadedModel.ts:99](https://github.com/brianzinn/react-babylonjs/blob/eba7b00/src/hooks/loaders/loadedModel.ts#L99)
 
-___
+---
 
 ### scaleTo
 
-▸ **scaleTo**(`maxDimension`: *number*): *void*
+▸ **scaleTo**(`maxDimension`: _number_): _void_
 
 #### Parameters:
 
-Name | Type |
------- | ------ |
-`maxDimension` | *number* |
+| Name           | Type     |
+| -------------- | -------- |
+| `maxDimension` | _number_ |
 
-**Returns:** *void*
+**Returns:** _void_
 
 Defined in: [loaders/loadedModel.ts:81](https://github.com/brianzinn/react-babylonjs/blob/eba7b00/src/hooks/loaders/loadedModel.ts#L81)

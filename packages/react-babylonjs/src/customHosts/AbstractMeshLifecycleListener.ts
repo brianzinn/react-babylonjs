@@ -1,17 +1,18 @@
-import { GlowLayer } from '@babylonjs/core/Layers/glowLayer.js';
-import { ShadowGenerator } from '@babylonjs/core/Lights/Shadows/shadowGenerator';
-import { AbstractMesh } from '@babylonjs/core/Meshes/abstractMesh.js';
-import { Mesh } from '@babylonjs/core/Meshes/mesh.js';
+import { GlowLayer } from "@babylonjs/core/Layers/glowLayer.js";
+import { ShadowGenerator } from "@babylonjs/core/Lights/Shadows/shadowGenerator";
+import { AbstractMesh } from "@babylonjs/core/Meshes/abstractMesh.js";
+import { Mesh } from "@babylonjs/core/Meshes/mesh.js";
+import { CreatedInstance } from "../CreatedInstance";
+import { FiberAbstractMeshProps } from "../generatedProps";
+import BaseLifecycleListener from "./BaseLifecycleListener";
 
-import { CreatedInstance } from '../CreatedInstance';
-import { FiberAbstractMeshProps } from '../generatedProps';
-import BaseLifecycleListener from './BaseLifecycleListener';
-
-export default class AbstractMeshLifecycleListener extends BaseLifecycleListener<AbstractMesh, FiberAbstractMeshProps> {
-
+export default class AbstractMeshLifecycleListener extends BaseLifecycleListener<
+  AbstractMesh,
+  FiberAbstractMeshProps
+> {
   onMount(instance?: CreatedInstance<AbstractMesh>) {
     if (instance === undefined || instance.hostInstance === undefined) {
-      console.error('Missing instance');
+      console.error("Missing instance");
       return;
     }
 
@@ -25,17 +26,29 @@ export default class AbstractMeshLifecycleListener extends BaseLifecycleListener
           (tmp.hostInstance as GlowLayer).addIncludedOnlyMesh(mesh as Mesh);
 
           if (instance.customProps.childMeshesNotTracked === true) {
-           for( const childMesh of mesh.getChildMeshes(false)) {
-            (tmp.hostInstance as GlowLayer).addIncludedOnlyMesh(childMesh as Mesh);
-           }
+            for (const childMesh of mesh.getChildMeshes(false)) {
+              (tmp.hostInstance as GlowLayer).addIncludedOnlyMesh(
+                childMesh as Mesh
+              );
+            }
           }
         }
         break;
       }
 
-      if (tmp.metadata && tmp.metadata.isShadowGenerator === true && tmp.customProps.shadowCastChildren === true) {
-        if (tmp.hostInstance !== undefined /* ShadowGenerators have deferred creation (waiting on light source) */) {
-          (tmp.hostInstance as ShadowGenerator).addShadowCaster(mesh as Mesh, instance.customProps.childMeshesNotTracked === true);
+      if (
+        tmp.metadata &&
+        tmp.metadata.isShadowGenerator === true &&
+        tmp.customProps.shadowCastChildren === true
+      ) {
+        if (
+          tmp.hostInstance !==
+          undefined /* ShadowGenerators have deferred creation (waiting on light source) */
+        ) {
+          (tmp.hostInstance as ShadowGenerator).addShadowCaster(
+            mesh as Mesh,
+            instance.customProps.childMeshesNotTracked === true
+          );
         }
       }
       tmp = tmp.parent;

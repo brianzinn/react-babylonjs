@@ -1,4 +1,4 @@
-import {Effect} from "@babylonjs/core";
+import { Effect } from "@babylonjs/core";
 // register shader toy fragment example
 Effect.ShadersStore.vaporWavePixelShader = `
 uniform float time;
@@ -266,7 +266,6 @@ varying vec2 vUV;
     gl_FragColor = vec4( col, 1.0 );
   }
 `;
-
 
 Effect.ShadersStore.shaderShiftRGBVertexShader = `
 attribute vec3 position;

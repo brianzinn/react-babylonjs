@@ -7,39 +7,39 @@ import { IParticleSystem } from "@babylonjs/core/Particles/IParticleSystem.js";
 import { Nullable } from "@babylonjs/core/types.js";
 
 export enum LoaderStatus {
-  Loading = 'Loading',
-  Loaded = 'Loaded',
-  Error = 'Error',
+  Loading = "Loading",
+  Loaded = "Loaded",
+  Error = "Error",
 }
 
 export interface ILoadedModel {
   /**
    * LoaderStatus reports if the load succeeded or not.
    */
-  status: LoaderStatus
+  status: LoaderStatus;
   /**
    * Mesh created when successfully loaded and all non-parented meshes are parented to this mesh
    */
-  rootMesh?: AbstractMesh
+  rootMesh?: AbstractMesh;
   /**
    * Error message when loader fails.
    */
-  errorMessage?: string
+  errorMessage?: string;
   /**
    * Name of loader used - either as explicitly specified or inferred from extension
    */
-  loaderName?: string
+  loaderName?: string;
 
-  meshes?: AbstractMesh[]
-  particleSystems?: IParticleSystem[]
-  skeletons?: Skeleton[]
-  animationGroups?: AnimationGroup[]
+  meshes?: AbstractMesh[];
+  particleSystems?: IParticleSystem[];
+  skeletons?: Skeleton[];
+  animationGroups?: AnimationGroup[];
 
-  readonly boundingInfo: Nullable<BoundingInfo>
-  readonly scaledToDimension: number | undefined
+  readonly boundingInfo: Nullable<BoundingInfo>;
+  readonly scaledToDimension: number | undefined;
 
-  scaleTo(maxDimension: number): void
-  dispose(): void
+  scaleTo(maxDimension: number): void;
+  dispose(): void;
 }
 
 export class LoadedModel implements ILoadedModel {
@@ -66,8 +66,9 @@ export class LoadedModel implements ILoadedModel {
     let min: Nullable<Vector3> = null;
     let max: Nullable<Vector3> = null;
 
-    this.rootMesh.getChildMeshes().forEach(childMesh => {
-      const { minimumWorld, maximumWorld } = childMesh.getBoundingInfo().boundingBox;
+    this.rootMesh.getChildMeshes().forEach((childMesh) => {
+      const { minimumWorld, maximumWorld } =
+        childMesh.getBoundingInfo().boundingBox;
       if (min === null) {
         min = minimumWorld;
       } else {
@@ -79,7 +80,7 @@ export class LoadedModel implements ILoadedModel {
       } else {
         max = Vector3.Maximize(max, maximumWorld);
       }
-    })
+    });
 
     if (min !== null && max != null) {
       return new BoundingInfo(min, max);
@@ -114,20 +115,22 @@ export class LoadedModel implements ILoadedModel {
     }
 
     if (this.particleSystems) {
-      this.particleSystems.forEach(ps => {
+      this.particleSystems.forEach((ps) => {
         // ps.stop();
         ps.dispose();
-      })
+      });
       this.particleSystems = [];
     }
 
     if (this.skeletons) {
-      this.skeletons.forEach(skeleton => skeleton.dispose());
+      this.skeletons.forEach((skeleton) => skeleton.dispose());
       this.skeletons = [];
     }
 
     if (this.animationGroups) {
-      this.animationGroups.forEach(animationGroup => animationGroup.dispose());
+      this.animationGroups.forEach((animationGroup) =>
+        animationGroup.dispose()
+      );
       this.animationGroups = [];
     }
   }

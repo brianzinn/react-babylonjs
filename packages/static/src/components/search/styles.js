@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { Algolia } from '@styled-icons/fa-brands/Algolia';
+import { Algolia } from '@styled-icons/fa-brands/Algolia'
+import * as React from 'react'
 
 export const PoweredBy = () => (
   <span className="poweredBy">
@@ -8,4 +8,4 @@ export const PoweredBy = () => (
       <Algolia size="1em" /> Algolia
     </a>
   </span>
-);
+)

@@ -1,11 +1,17 @@
-import { PropertyUpdate, PropsHandler, PropChangeType } from './PropsHandler';
-import { CreatedInstance } from './CreatedInstance';
-import { Observable, Observer } from '@babylonjs/core/Misc/observable.js';
-import { Nullable } from '@babylonjs/core/types.js';
-import { Quaternion, Vector3 } from '@babylonjs/core/Maths/math.vector.js';
+import { Quaternion, Vector3 } from "@babylonjs/core/Maths/math.vector.js";
+import { Observable, Observer } from "@babylonjs/core/Misc/observable.js";
+import { Nullable } from "@babylonjs/core/types.js";
+import { CreatedInstance } from "./CreatedInstance";
+import { PropChangeType, PropertyUpdate, PropsHandler } from "./PropsHandler";
 
-export const applyUpdateToInstance = (createdInstance: CreatedInstance<any>, update: PropertyUpdate): void => {
-  const target = update.target !== undefined ? createdInstance.hostInstance[update.target] : createdInstance.hostInstance;
+export const applyUpdateToInstance = (
+  createdInstance: CreatedInstance<any>,
+  update: PropertyUpdate
+): void => {
+  const target =
+    update.target !== undefined
+      ? createdInstance.hostInstance[update.target]
+      : createdInstance.hostInstance;
 
   switch (update.changeType) {
     case PropChangeType.Primitive:
@@ -13,10 +19,13 @@ export const applyUpdateToInstance = (createdInstance: CreatedInstance<any>, upd
     case PropChangeType.LambdaExpression:
     case PropChangeType.Texture:
       // console.log(` > ${type}: updating ${update.changeType} on ${update.propertyName} to ${update.value}`)
-      if (update.propertyName.indexOf('.') !== -1) {
-        const dotProps: string[] = update.propertyName.split('.');
+      if (update.propertyName.indexOf(".") !== -1) {
+        const dotProps: string[] = update.propertyName.split(".");
         const lastProp = dotProps.pop()!;
-        const newTarget = dotProps.reduce((target, prop) => target[prop], target);
+        const newTarget = dotProps.reduce(
+          (target, prop) => target[prop],
+          target
+        );
         newTarget[lastProp] = update.value;
       } else {
         target[update.propertyName] = update.value;
@@ -51,7 +60,9 @@ export const applyUpdateToInstance = (createdInstance: CreatedInstance<any>, upd
       if (update.propertyName in createdInstance.observers) {
         createdInstance.observers[update.propertyName]!.callback = update.value;
       } else {
-        const observer: Nullable<Observer<any>> = (target[update.propertyName] as Observable<any>).add(update.value);
+        const observer: Nullable<Observer<any>> = (
+          target[update.propertyName] as Observable<any>
+        ).add(update.value);
         createdInstance.observers[update.propertyName] = observer;
       }
       break;
@@ -65,11 +76,16 @@ export const applyUpdateToInstance = (createdInstance: CreatedInstance<any>, upd
           target[update.propertyName](update.value);
         } else {
           // TODO: there is a bug here in that setTarget={new Vector3(0, 1, 0)} will throw an exception...
-          console.error('need to make sure this isn\'t something like a Vector3 before destructuring')
+          console.error(
+            "need to make sure this isn't something like a Vector3 before destructuring"
+          );
           target[update.propertyName](...Object.values(update.value));
         }
       } else {
-        console.error(`Cannot call [not a function] ${update.propertyName}(...) on:`, target);
+        console.error(
+          `Cannot call [not a function] ${update.propertyName}(...) on:`,
+          target
+        );
       }
       break;
     case PropChangeType.Quaternion:
@@ -86,7 +102,7 @@ export const applyUpdateToInstance = (createdInstance: CreatedInstance<any>, upd
       console.error(`Unhandled property update of type '${update.changeType}'`);
       break;
   }
-}
+};
 
 /**
  * Only applied in this way immediately after instantiation (not on deltas)
@@ -94,27 +110,33 @@ export const applyUpdateToInstance = (createdInstance: CreatedInstance<any>, upd
  * @param instance
  * @param props
  */
-export const applyInitialPropsToCreatedInstance = (createdInstance: CreatedInstance<any>, props: any) => {
+export const applyInitialPropsToCreatedInstance = (
+  createdInstance: CreatedInstance<any>,
+  props: any
+) => {
   if (createdInstance.propsHandlers === undefined) {
     return;
   }
 
-  const initPayload: PropertyUpdate[] = []
-  createdInstance.propsHandlers.getPropsHandlers().forEach((propHandler: PropsHandler<any>) => {
-    // NOTE: this can actually be WRONG, because here we want to compare the props with the object.
-    // This is only needed right after object instantiation.
-    const handlerUpdates: PropertyUpdate[] | null = propHandler.getPropertyUpdates(
-      {}, // Here we will reapply things like 'name', so we could get default props from 'babylonObject'.
-      props
-    );
-    if (handlerUpdates !== null) {
-      initPayload.push(...handlerUpdates);
-    }
-  })
+  const initPayload: PropertyUpdate[] = [];
+  createdInstance.propsHandlers
+    .getPropsHandlers()
+    .forEach((propHandler: PropsHandler<any>) => {
+      // NOTE: this can actually be WRONG, because here we want to compare the props with the object.
+      // This is only needed right after object instantiation.
+      const handlerUpdates: PropertyUpdate[] | null =
+        propHandler.getPropertyUpdates(
+          {}, // Here we will reapply things like 'name', so we could get default props from 'babylonObject'.
+          props
+        );
+      if (handlerUpdates !== null) {
+        initPayload.push(...handlerUpdates);
+      }
+    });
 
   if (initPayload.length > 0) {
-    initPayload.forEach(update => {
+    initPayload.forEach((update) => {
       applyUpdateToInstance(createdInstance, update);
-    })
+    });
   }
-}
+};

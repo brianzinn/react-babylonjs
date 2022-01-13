@@ -20,7 +20,7 @@
 
 Defined in: [loaders/useAssetManager.tsx:6](https://github.com/brianzinn/react-babylonjs/blob/eba7b00/src/hooks/loaders/useAssetManager.tsx#L6)
 
-___
+---
 
 ### Mesh
 
@@ -28,7 +28,7 @@ ___
 
 Defined in: [loaders/useAssetManager.tsx:7](https://github.com/brianzinn/react-babylonjs/blob/eba7b00/src/hooks/loaders/useAssetManager.tsx#L7)
 
-___
+---
 
 ### Texture
 

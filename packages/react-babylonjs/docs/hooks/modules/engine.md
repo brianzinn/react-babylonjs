@@ -22,14 +22,14 @@
 
 ### EngineCanvasContextType
 
-Ƭ **EngineCanvasContextType**: { `canvas`: *Nullable*<HTMLCanvasElement \| WebGLRenderingContext\> ; `engine`: *Nullable*<Engine\>  }
+Ƭ **EngineCanvasContextType**: { `canvas`: _Nullable_<HTMLCanvasElement \| WebGLRenderingContext\> ; `engine`: _Nullable_<Engine\> }
 
 #### Type declaration:
 
-Name | Type |
------- | ------ |
-`canvas` | *Nullable*<HTMLCanvasElement \| WebGLRenderingContext\> |
-`engine` | *Nullable*<Engine\> |
+| Name     | Type                                                    |
+| -------- | ------------------------------------------------------- |
+| `canvas` | _Nullable_<HTMLCanvasElement \| WebGLRenderingContext\> |
+| `engine` | _Nullable_<Engine\>                                     |
 
 Defined in: [engine.tsx:5](https://github.com/brianzinn/react-babylonjs/blob/eba7b00/src/hooks/engine.tsx#L5)
 
@@ -37,7 +37,7 @@ Defined in: [engine.tsx:5](https://github.com/brianzinn/react-babylonjs/blob/eba
 
 ### EngineCanvasContext
 
-• `Const` **EngineCanvasContext**: *Context*<[*EngineCanvasContextType*](engine.md#enginecanvascontexttype)\>
+• `Const` **EngineCanvasContext**: _Context_<[_EngineCanvasContextType_](engine.md#enginecanvascontexttype)\>
 
 Defined in: [engine.tsx:10](https://github.com/brianzinn/react-babylonjs/blob/eba7b00/src/hooks/engine.tsx#L10)
 
@@ -45,45 +45,45 @@ Defined in: [engine.tsx:10](https://github.com/brianzinn/react-babylonjs/blob/eb
 
 ### useCanvas
 
-▸ `Const`**useCanvas**(): *Nullable*<HTMLCanvasElement \| WebGLRenderingContext\>
+▸ `Const`**useCanvas**(): _Nullable_<HTMLCanvasElement \| WebGLRenderingContext\>
 
 Get the canvas DOM element from the context.
 
-**Returns:** *Nullable*<HTMLCanvasElement \| WebGLRenderingContext\>
+**Returns:** _Nullable_<HTMLCanvasElement \| WebGLRenderingContext\>
 
 Defined in: [engine.tsx:52](https://github.com/brianzinn/react-babylonjs/blob/eba7b00/src/hooks/engine.tsx#L52)
 
-___
+---
 
 ### useEngine
 
-▸ `Const`**useEngine**(): *Nullable*<*Engine*\>
+▸ `Const`**useEngine**(): _Nullable_<_Engine_\>
 
 Get the engine from the context.
 
-**Returns:** *Nullable*<*Engine*\>
+**Returns:** _Nullable_<_Engine_\>
 
 Defined in: [engine.tsx:35](https://github.com/brianzinn/react-babylonjs/blob/eba7b00/src/hooks/engine.tsx#L35)
 
-___
+---
 
 ### withEngineCanvasContext
 
-▸ **withEngineCanvasContext**<P, R\>(`Component`: *React.ComponentClass*<P\> \| *React.FunctionComponent*<P\>): *React.FunctionComponent*<R\>
+▸ **withEngineCanvasContext**<P, R\>(`Component`: _React.ComponentClass_<P\> \| _React.FunctionComponent_<P\>): _React.FunctionComponent_<R\>
 
 #### Type parameters:
 
-Name | Type | Default |
------- | ------ | ------ |
-`P` | { `engineCanvasContext`: [*EngineCanvasContextType*](engine.md#enginecanvascontexttype)  } | - |
-`R` | - | *Pick*<P, *Exclude*<keyof P, *engineCanvasContext*\\>\\> |
+| Name | Type                                                                                      | Default                                                  |
+| ---- | ----------------------------------------------------------------------------------------- | -------------------------------------------------------- |
+| `P`  | { `engineCanvasContext`: [_EngineCanvasContextType_](engine.md#enginecanvascontexttype) } | -                                                        |
+| `R`  | -                                                                                         | _Pick_<P, _Exclude_<keyof P, _engineCanvasContext_\\>\\> |
 
 #### Parameters:
 
-Name | Type |
------- | ------ |
-`Component` | *React.ComponentClass*<P\> \| *React.FunctionComponent*<P\> |
+| Name        | Type                                                        |
+| ----------- | ----------------------------------------------------------- |
+| `Component` | _React.ComponentClass_<P\> \| _React.FunctionComponent_<P\> |
 
-**Returns:** *React.FunctionComponent*<R\>
+**Returns:** _React.FunctionComponent_<R\>
 
 Defined in: [engine.tsx:17](https://github.com/brianzinn/react-babylonjs/blob/eba7b00/src/hooks/engine.tsx#L17)
