@@ -59,7 +59,12 @@
     "start": "gatsby develop",
     "build": "gatsby build --prefix-paths",
     "format": "prettier --write \"src/**/*.{js,jsx,css,json}\"",
-    "lint": "eslint --fix \"src/**/*.{js,jsx}\"",
+    "lint": "concurrently 'yarn:lint:check:*'",
+    "lint:check:eslint": "eslint \"src/**/*.{js,jsx}\"",
+    "lint:check:prettier": "prettier -c '**/*.{ts,js,tsx,jsx,json,md,mdx}'",
+    "lint:fix": "concurrently 'yarn:lint:fix:*'",
+    "lint:fix:eslint": "eslint --fix \"src/**/*.{js,jsx}\"",
+    "lint:fix:prettier": "prettier -w '**/*.{ts,js,tsx,jsx,json,md,mdx}'",
     "develop": "gatsby develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
@@ -67,6 +72,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
+    "concurrently": "^7.0.0",
     "eslint": "^7.25.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.22.1",
@@ -74,9 +80,9 @@
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "^7.23.2",
     "gatsby-plugin-remove-trailing-slashes": "^3.4.0",
-    "prettier": "^2.2.1",
+    "prettier": "^2.5.1",
+    "prettier-plugin-organize-imports": "^2.3.4",
     "prism-react-renderer": "^1.2.0",
-    "remark-codesandbox": "^0.10.0",
-    "prettier-plugin-organize-imports": "^2.3.4"
+    "remark-codesandbox": "^0.10.0"
   }
 }
