@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Layout, Link } from '$components'
 import { graphql } from 'gatsby'
 import MDXRenderer from 'gatsby-plugin-mdx/mdx-renderer'
