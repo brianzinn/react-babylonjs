@@ -7,10 +7,16 @@
     ]
   },
   "scripts": {
-    "lint": "yarn workspaces run lint"
+    "lint": "yarn workspaces run lint",
+    "prepare": "husky install"
   },
   "devDependencies": {
+    "husky": ">=6",
+    "lint-staged": ">=10",
     "prettier": "^2.5.1",
     "prettier-plugin-organize-imports": "^2.3.4"
+  },
+  "lint-staged": {
+    "*.{js,css,md,mdx,jsx,tsx,ts,json}": "prettier --write"
   }
 }
