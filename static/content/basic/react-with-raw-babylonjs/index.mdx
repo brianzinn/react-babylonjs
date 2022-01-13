@@ -7,25 +7,72 @@ import { Color3, Vector3 } from '@babylonjs/core'
 
 You can program Babylon.js declaratively just like any React application.
 
-# Step 1: Create a basic React skeleton
+# Plain old React - life before Babylon.js
 
-You probably recognize this as a boilerplate `index.tsx` in React:
+We assume you know how to create a new, plain old React app. But for everyone
+else, it looks like this:
+
+```bash
+npx create-react-app my-app
+```
+
+or with yarn:
+
+```bash
+yarn create react-app my-app
+```
+
+Once you have a project, you'll find a setup that looks a little like this:
 
 ```typescript
-import { FC } from 'react'
-import { render } from 'react-dom'
+// index.tsx
 
-const App: FC = () => (
-  <div style={{ flex: 1, display: 'flex' }}>Hello, React!</div>
-)
+import { render } from 'react-dom'
+import App from './App'
 
 const rootElement = document.getElementById('root')
 render(<App />, rootElement)
 ```
 
-The result looks like:
+and
 
-[demo:1.tsx]
+```typescript
+// App.tsx
+
+import { FC } from 'react'
+
+const App: FC = () => (
+  <div style={{ flex: 1, display: 'flex' }}>Hello, React!</div>
+)
+
+export default App
+```
+
+Running it will produce:
+
+[demo:HelloWorldComponent.tsx]
+
+# Plain old React - life after Babylon.js
+
+Now that we have a boilerplate React project, we can follow the
+[official Babylon.js + React guide](https://doc.babylonjs.com/extensions/Babylon.js+ExternalLibraries/BabylonJS_and_ReactJS),
+by doing something like:
+
+[code:SceneComponent.tsx]
+
+Then, we need to make a page that uses it:
+
+[code:PageUsingSceneComponent.tsx]
+
+Running the above, code, you'll see:
+
+[demo:PageUsingSceneComponent.tsx]
+
+Alternatively, you can use
+
+[babylonjs-hook](https://www.npmjs.com/package/babylonjs-hook) as follows:
+
+And you'll get the same thing:
 
 # Step 2: Add Babylon.js `<Engine>` and `<Scene>`
 
@@ -74,7 +121,7 @@ The above is a lot of imperitive programming. If we've learned anything over the
 last few years, we've learned that the benefits of declarative programming are
 clear and numerous for large applications. So, we can do this instead:
 
-[demo:2.tsx]
+[demo:FullReactComponent.tsx]
 
 ### Step 3: Try it yourself
 

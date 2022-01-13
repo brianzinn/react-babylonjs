@@ -36,6 +36,12 @@ const plugins = [
         {
           resolve: require.resolve(`./plugins/gatsby-remark-code-harness`),
         },
+        {
+          resolve: 'remark-codesandbox/gatsby',
+          options: {
+            mode: 'iframe',
+          },
+        },
       ],
       extensions: [".mdx", ".md"]
     }

@@ -1,0 +1,48 @@
+---
+title: 'Creating a Boilerplate React Project'
+---
+
+If you already know how to create a React project, you can skip this section.
+Otherwise, let's go!
+
+```bash
+npx create-react-app my-app
+```
+
+or with yarn:
+
+```bash
+yarn create react-app my-app
+```
+
+Once you have a project, you'll find a setup that looks a little like this:
+
+```typescript
+// index.tsx
+
+import { render } from 'react-dom'
+import App from './App'
+
+const rootElement = document.getElementById('root')
+render(<App />, rootElement)
+```
+
+and
+
+```tsx codesandbox=file:../../../codesandbox-template&entry=src/App.tsx
+import { FC } from 'react'
+
+const App: FC = () => (
+  <div style={{ flex: 1, display: 'flex' }}>Hello, React!</div>
+)
+
+export default App
+```
+
+Running it will produce:
+
+[demo:HelloWorldComponent.tsx]
+
+You can run this whole project on Codesandbox:
+
+[sandbox:HelloWorldComponent.tsx]

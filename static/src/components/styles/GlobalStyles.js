@@ -1,4 +1,4 @@
-import { css } from '@emotion/react';
+import { css } from '@emotion/react'
 
 export const baseStyles = css`
   @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap');
@@ -896,10 +896,10 @@ export const baseStyles = css`
     }
   }
 
-  #babylonJS {
+  canvas {
     display: flex;
     flex: 1;
     width: 100%;
     height: 100%;
   }
-`;
+`
