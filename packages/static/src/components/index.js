@@ -1,7 +1,6 @@
-export * from './theme';
-import mdxComponents from './mdxComponents';
-import ThemeProvider from './theme/themeProvider';
-import Layout from './layout';
-import Link from './link';
-
-export {mdxComponents, ThemeProvider, Layout, Link}
+export * from './theme' // eslint-disable-line
+export { mdxComponents, ThemeProvider, Layout, Link }
+import Layout from './layout'
+import Link from './link'
+import mdxComponents from './mdxComponents'
+import ThemeProvider from './theme/themeProvider'

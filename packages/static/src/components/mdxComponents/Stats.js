@@ -8,12 +8,14 @@ const Stats = (props) => {
     const update = () => {
       console.log('callback', engine.getFps())
       const ctx = engine.getRenderingCanvas().getContext('2d')
+
       if (ctx) {
         ctx.font = '48px serif'
         ctx.fillText('Hello world', 0, 0)
       }
       requestAnimationFrame(update)
     }
+
     requestAnimationFrame(update)
   })
 

@@ -4,8 +4,7 @@
     "plugin:import/errors",
     "plugin:react/recommended",
     "plugin:jsx-a11y/recommended",
-    "prettier",
-    "prettier/react"
+    "prettier"
   ],
   "plugins": ["react", "import", "jsx-a11y"],
   "settings": {
@@ -14,6 +13,9 @@
     }
   },
   "rules": {
+    "import/namespace": 1,
+    "jsx-a11y/heading-has-content": 1,
+    "no-unused-vars": 1,
     "react/prop-types": 0,
     "react/react-in-jsx-scope": "off",
     "lines-between-class-members": ["error", "always"],

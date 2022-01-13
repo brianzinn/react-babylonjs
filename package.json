@@ -5,5 +5,12 @@
     "packages": [
       "packages/*"
     ]
+  },
+  "scripts": {
+    "lint": "yarn workspaces run lint"
+  },
+  "devDependencies": {
+    "prettier": "^2.5.1",
+    "prettier-plugin-organize-imports": "^2.3.4"
   }
 }

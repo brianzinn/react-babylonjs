@@ -32,6 +32,7 @@ const CodeBlock = ({ children: exampleCode, ...props }) => {
 
   React.useEffect(() => {
     var windowPrism = window.Prism;
+
     window.Prism = Prism;
     applyLanguages(Prism);
     window.Prism = windowPrism;
