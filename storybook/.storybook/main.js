@@ -8,9 +8,8 @@ module.exports = {
   addons: [
     //'@storybook/addon-actions/register',
     //'@storybook/addon-links',
-    '@storybook/addon-storysource',
+    '@storybook/addon-storysource'
     // '@storybook/addon-notes/register',
-    '@storybook/addon-toolbars'
   ],
   webpackFinal: async (config, { configType }) => {
     config.resolve.alias['react-babylonjs'] = path.resolve(__dirname, '../../dist/react-babylonjs');
