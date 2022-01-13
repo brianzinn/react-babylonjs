@@ -2,12 +2,7 @@ import { Color3 } from "@babylonjs/core/Maths/math.color";
 import { Vector3 } from "@babylonjs/core/Maths/math.vector";
 import "@babylonjs/inspector";
 import React, { useEffect, useRef, useState } from "react";
-import {
-  createPortal,
-  Engine,
-  Scene,
-  useBeforeRender,
-} from "../../../../dist/react-babylonjs";
+import { createPortal, Engine, Scene, useBeforeRender } from "react-babylonjs";
 import "../../style.css";
 
 export default { title: "Babylon Basic" };

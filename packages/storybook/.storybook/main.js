@@ -12,18 +12,6 @@ module.exports = {
     // '@storybook/addon-notes/register',
   ],
   webpackFinal: async (config, { configType }) => {
-    config.resolve.alias["react-babylonjs"] = path.resolve(
-      __dirname,
-      "../../dist/react-babylonjs"
-    );
-    config.resolve.alias["@babylonjs/core"] = path.resolve(
-      __dirname,
-      "../../node_modules/@babylonjs/core"
-    );
-    config.resolve.alias["@babylonjs/gui"] = path.resolve(
-      __dirname,
-      "../../node_modules/@babylonjs/gui"
-    );
     // config.module.rules.push({
     //   test: /\.stories\.jsx?$/,
     //   loaders: [require.resolve('@storybook/source-loader')],
