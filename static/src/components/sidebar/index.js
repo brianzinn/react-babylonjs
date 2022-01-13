@@ -1,9 +1,9 @@
-import * as React from 'react';
-import Tree from './tree';
-import { StaticQuery, graphql } from 'gatsby';
-import styled from '@emotion/styled';
-import { ExternalLink } from 'react-feather';
-import config from '../../../config';
+import styled from '@emotion/styled'
+import { graphql, StaticQuery } from 'gatsby'
+import * as React from 'react'
+import { ExternalLink } from 'react-feather'
+import config from '../../../config'
+import Tree from './tree'
 
 // eslint-disable-next-line no-unused-vars
 const ListItem = styled(({ className, active, level, ...props }) => {
@@ -13,7 +13,7 @@ const ListItem = styled(({ className, active, level, ...props }) => {
         {props.children}
       </a>
     </li>
-  );
+  )
 })`
   list-style: none;
 
@@ -43,7 +43,7 @@ const ListItem = styled(({ className, active, level, ...props }) => {
       margin-right: 1rem;
     }
   }
-`;
+`
 
 const Sidebar = styled('aside')`
   width: 100%;
@@ -72,7 +72,7 @@ const Sidebar = styled('aside')`
     padding-left: 0px;
     height: auto;
   }
-`;
+`
 
 const Divider = styled((props) => (
   <li {...props}>
@@ -88,7 +88,7 @@ const Divider = styled((props) => (
     border: 0;
     border-bottom: 1px solid #ede7f3;
   }
-`;
+`
 
 const SidebarLayout = ({ location }) => (
   <StaticQuery
@@ -125,14 +125,14 @@ const SidebarLayout = ({ location }) => (
                     {link.text}
                     <ExternalLink size={14} />
                   </ListItem>
-                );
+                )
               }
             })}
           </ul>
         </Sidebar>
-      );
+      )
     }}
   />
-);
+)
 
-export default SidebarLayout;
+export default SidebarLayout

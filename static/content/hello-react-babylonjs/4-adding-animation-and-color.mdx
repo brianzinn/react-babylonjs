@@ -1,15 +1,24 @@
-import { Color3 } from '@babylonjs/core/Maths/math.color'
-import { Vector3 } from '@babylonjs/core/Maths/math.vector'
+---
+title: 'Adding More Animation and Color'
+slug: 'react-babylonjs-with-animation'
+---
+
+Let's take a look at how to spice up this 3D scene a bit.
+
+```tsx codesandbox=rbjs?entry=./src/App.tsx
+import { Color3, Vector3 } from '@babylonjs/core'
 import { FC, useRef } from 'react'
 import { Engine, Scene, useBeforeRender, useScene } from 'react-babylonjs'
 
-export type MovingBoxProps = {
+const RPM = 5
+
+type MovingBoxProps = {
   rotationAxis: 'x' | 'y' | 'z'
   position: Vector3
   color: Color3
 }
 
-export const MovingBox: FC<MovingBoxProps> = (props) => {
+const MovingBox: FC<MovingBoxProps> = (props) => {
   // access Babylon Scene
   const scene = useScene()
   // access refs to Babylon objects in scene like DOM nodes
@@ -20,7 +29,7 @@ export const MovingBox: FC<MovingBoxProps> = (props) => {
     if (!scene) return
     const deltaTimeInMillis = scene.getEngine().getDeltaTime()
     boxRef.current.rotation[props.rotationAxis] +=
-      (rpm / 60) * Math.PI * 2 * (deltaTimeInMillis / 1000)
+      (RPM / 60) * Math.PI * 2 * (deltaTimeInMillis / 1000)
   })
 
   return (
@@ -34,7 +43,6 @@ export const MovingBox: FC<MovingBoxProps> = (props) => {
   )
 }
 
-export const rpm = 5
 const App: FC = () => (
   <div style={{ flex: 1, display: 'flex' }}>
     <Engine antialias adaptToDeviceRatio canvasId="babylonJS">
@@ -65,3 +73,4 @@ const App: FC = () => (
 )
 
 export default App
+```

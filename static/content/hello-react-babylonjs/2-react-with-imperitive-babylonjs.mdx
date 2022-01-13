@@ -1,10 +1,15 @@
 ---
 title: 'Plain Old React + Babylon.js'
+slug: 'react-with-imperitive-babylonjs'
 ---
 
 Once you have a React project set up, you can program Babylon.js imperitively
 just like they tell you in the
 [official Babylon.js + React guide](https://doc.babylonjs.com/extensions/Babylon.js+ExternalLibraries/BabylonJS_and_ReactJS).
+
+Wow, it takes **almost 150 lines of code** to make a box show up on a screen!
+But do not be scared. We are showing you how much coding it actually takes so
+you'll fully appreciate the next section.
 
 ```tsx codesandbox=rbjs?entry=./src/App.tsx
 import {
@@ -12,34 +17,44 @@ import {
   EngineOptions,
   FreeCamera,
   HemisphericLight,
+  Mesh,
   MeshBuilder,
   Scene,
   SceneOptions,
   Vector3,
 } from '@babylonjs/core'
 import React, { FC, useEffect, useRef } from 'react'
+import { SetRequired } from 'type-fest'
+type OnSceneReadyHandler = (scene: Scene) => void
+
+type OnRenderHandler = (scene: Scene) => void
+
 // import SceneComponent from 'babylonjs-hook'; // if you install 'babylonjs-hook' NPM.
 
 type SceneComponentProps = {
-  canvasId?: string
+  canvasId: string
   antialias?: boolean
   engineOptions?: EngineOptions
   adaptToDeviceRatio?: boolean
   sceneOptions?: SceneOptions
-  onRender: (scene: Scene) => void
-  onSceneReady?: (scene: Scene) => void
+  onRender: OnRenderHandler
+  onSceneReady: OnSceneReadyHandler
 }
 
-const SceneComponent: FC<Partial<SceneComponentProps>> = (props) => {
+type SceneComponentPropsIn = SetRequired<
+  Partial<SceneComponentProps>,
+  'onRender' | 'onSceneReady'
+>
+
+const SceneComponent: FC<SceneComponentPropsIn> = (props) => {
   const reactCanvas = useRef(null)
   const _props: SceneComponentProps = {
     canvasId: 'babylonjs-canvas',
-    onRender: () => console.log('Scene is ready, override onRender'),
-    onSceneReady: () => console.log('Scene is ready, override onSceneReady'),
     ...props,
   }
 
   const {
+    canvasId,
     antialias,
     engineOptions,
     adaptToDeviceRatio,
@@ -50,52 +65,55 @@ const SceneComponent: FC<Partial<SceneComponentProps>> = (props) => {
   } = _props
 
   useEffect(() => {
-    if (reactCanvas.current) {
-      const engine = new Engine(
-        reactCanvas.current,
-        antialias,
-        engineOptions,
-        adaptToDeviceRatio
-      )
-      const scene = new Scene(engine, sceneOptions)
-      if (scene.isReady()) {
-        onSceneReady(scene)
-      } else {
-        scene.onReadyObservable.addOnce((scene) => onSceneReady(scene))
-      }
+    if (!reactCanvas.current) return
+    const engine = new Engine(
+      reactCanvas.current,
+      antialias,
+      engineOptions,
+      adaptToDeviceRatio
+    )
+    const scene = new Scene(engine, sceneOptions)
+    if (scene.isReady()) {
+      onSceneReady(scene)
+    } else {
+      scene.onReadyObservable.addOnce(onSceneReady)
+    }
 
-      engine.runRenderLoop(() => {
-        if (typeof onRender === 'function') {
-          onRender(scene)
-        }
-        // scene.render()
-      })
+    engine.runRenderLoop(() => {
+      onRender(scene)
+      scene.render()
+    })
 
-      const resize = () => {
-        scene.getEngine().resize()
-      }
+    const resize = () => {
+      scene.getEngine().resize()
+    }
+
+    if (window) {
+      window.addEventListener('resize', resize)
+    }
+
+    return () => {
+      scene.getEngine().dispose()
 
       if (window) {
-        window.addEventListener('resize', resize)
-      }
-
-      return () => {
-        scene.getEngine().dispose()
-
-        if (window) {
-          window.removeEventListener('resize', resize)
-        }
+        window.removeEventListener('resize', resize)
       }
     }
-  }, [reactCanvas])
+  }, [
+    antialias,
+    engineOptions,
+    adaptToDeviceRatio,
+    sceneOptions,
+    onRender,
+    onSceneReady,
+  ])
 
-  return <canvas id={id} ref={reactCanvas} {...rest} />
+  return <canvas id={canvasId} ref={reactCanvas} {...rest} />
 }
 
-let box
+let box: Mesh
 
-const onSceneReady = (scene) => {
-  console.log('scene ready')
+const onSceneReady: OnSceneReadyHandler = (scene) => {
   // This creates and positions a free camera (non-mesh)
   var camera = new FreeCamera('camera1', new Vector3(0, 5, -10), scene)
 
@@ -126,7 +144,7 @@ const onSceneReady = (scene) => {
 /**
  * Will run on every frame render.  We are spinning the box on y-axis.
  */
-const onRender = (scene) => {
+const onRender: OnRenderHandler = (scene) => {
   if (box !== undefined) {
     var deltaTimeInMillis = scene.getEngine().getDeltaTime()
 
@@ -135,31 +153,38 @@ const onRender = (scene) => {
   }
 }
 
-export default () => (
+const App: FC = () => (
   <div>
     <SceneComponent antialias onSceneReady={onSceneReady} onRender={onRender} />
   </div>
 )
+
+export default App
 ```
 
-Alternatively, you can use
-[babylonjs-hook](https://www.npmjs.com/package/babylonjs-hook) which basically
-replaces `SceneComponent`:
+Now to be completely fair, Babylon.js has created a helpful
+[babylonjs-hook](https://www.npmjs.com/package/babylonjs-hook) package which
+replaces `SceneComponent`. If you use this, you can get down to about **60 lines
+of code**. But next, I'll show you how to do it in **under 30**.
 
 ```tsx codesandbox=rbjs?entry=./src/App.tsx
 import {
   FreeCamera,
   HemisphericLight,
+  Mesh,
   MeshBuilder,
+  Scene,
   Vector3,
 } from '@babylonjs/core'
-import SceneComponent from 'babylonjs-hook' // if you install 'babylonjs-hook' NPM.
-import React from 'react'
+import SceneComponent from 'babylonjs-hook'
 
-let box
+type OnSceneReadyHandler = (scene: Scene) => void
 
-const onSceneReady = (scene) => {
-  console.log('scene ready')
+type OnRenderHandler = (scene: Scene) => void
+
+let box: Mesh
+
+const onSceneReady: OnSceneReadyHandler = (scene) => {
   // This creates and positions a free camera (non-mesh)
   var camera = new FreeCamera('camera1', new Vector3(0, 5, -10), scene)
 
@@ -190,7 +215,7 @@ const onSceneReady = (scene) => {
 /**
  * Will run on every frame render.  We are spinning the box on y-axis.
  */
-const onRender = (scene) => {
+const onRender: OnRenderHandler = (scene) => {
   if (box !== undefined) {
     var deltaTimeInMillis = scene.getEngine().getDeltaTime()
 
@@ -205,58 +230,3 @@ export default () => (
   </div>
 )
 ```
-
-And you'll get the same thing:
-
-# Step 2: Add Babylon.js `<Engine>` and `<Scene>`
-
-So far, so good. Boilerplate React. Now let's begin to add some magic to
-`App.tsx` by replacing the `Hello React!` with Babylon.js bootstrapping.
-
-### The _old_ way
-
-Normally, you would need to initialize a Babylon.js
-[Engine](https://doc.babylonjs.com/typedoc/classes/babylon.engine) and
-[Scene](https://doc.babylonjs.com/start/chap1/first_scene#say-hello-to-your-first-world)
-along with a camera, light, and object to view.
-
-```typescript
-// The old way. We dislike it.
-
-import * as BABYLON from '@babylonjs/core'
-
-var canvas = document.getElementById('renderCanvas')
-const engine = new BABYLON.Engine(canvas, true, {
-  preserveDrawingBuffer: true,
-  stencil: true,
-  disableWebGL2Support: false,
-})
-const scene = new BABYLON.Scene(engine)
-const camera = new BABYLON.ArcRotateCamera(
-  'camera',
-  -Math.PI / 2,
-  Math.PI / 2.5,
-  3,
-  new BABYLON.Vector3(0, 0, 0),
-  scene
-)
-camera.attachControl(canvas, true)
-const light = new BABYLON.HemisphericLight(
-  'light',
-  new BABYLON.Vector3(0, 1, 0),
-  scene
-)
-const box = BABYLON.MeshBuilder.CreateBox('box', {}, scene)
-```
-
-### The _new_ way
-
-The above is a lot of imperitive programming. If we've learned anything over the
-last few years, we've learned that the benefits of declarative programming are
-clear and numerous for large applications. So, we can do this instead:
-
-### Step 3: Try it yourself
-
-Here's a complete Codesandbox project to play with.
-
-<Sandbox name="basic-skeleton" />
