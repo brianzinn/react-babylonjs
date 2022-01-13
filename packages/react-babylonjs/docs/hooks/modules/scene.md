@@ -20,33 +20,38 @@
 
 ### SceneContextType
 
-Ƭ **SceneContextType**: { `scene`: *Nullable*<Scene\> ; `sceneReady`: *boolean*  }
+Ƭ **SceneContextType**: { `scene`: _Nullable_<Scene\> ; `sceneReady`: _boolean_
+}
 
 #### Type declaration:
 
-Name | Type |
------- | ------ |
-`scene` | *Nullable*<Scene\> |
-`sceneReady` | *boolean* |
+| Name         | Type               |
+| ------------ | ------------------ |
+| `scene`      | _Nullable_<Scene\> |
+| `sceneReady` | _boolean_          |
 
-Defined in: [scene.ts:4](https://github.com/brianzinn/react-babylonjs/blob/eba7b00/src/hooks/scene.ts#L4)
+Defined in:
+[scene.ts:4](https://github.com/brianzinn/react-babylonjs/blob/eba7b00/src/hooks/scene.ts#L4)
 
 ## Variables
 
 ### SceneContext
 
-• `Const` **SceneContext**: *Context*<[*SceneContextType*](scene.md#scenecontexttype)\>
+• `Const` **SceneContext**:
+_Context_<[_SceneContextType_](scene.md#scenecontexttype)\>
 
-Defined in: [scene.ts:9](https://github.com/brianzinn/react-babylonjs/blob/eba7b00/src/hooks/scene.ts#L9)
+Defined in:
+[scene.ts:9](https://github.com/brianzinn/react-babylonjs/blob/eba7b00/src/hooks/scene.ts#L9)
 
 ## Functions
 
 ### useScene
 
-▸ `Const`**useScene**(): *Nullable*<*Scene*\>
+▸ `Const`**useScene**(): _Nullable_<_Scene_\>
 
 Get the scene from the context.
 
-**Returns:** *Nullable*<*Scene*\>
+**Returns:** _Nullable_<_Scene_\>
 
-Defined in: [scene.ts:17](https://github.com/brianzinn/react-babylonjs/blob/eba7b00/src/hooks/scene.ts#L17)
+Defined in:
+[scene.ts:17](https://github.com/brianzinn/react-babylonjs/blob/eba7b00/src/hooks/scene.ts#L17)

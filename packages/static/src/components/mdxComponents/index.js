@@ -1,10 +1,9 @@
-import * as React from 'react'
 import styled from '@emotion/styled'
-
-import CodeBlock from './codeBlock'
+import * as React from 'react'
 import AnchorTag from './anchor'
-import Sandbox from './Sandbox'
+import CodeBlock from './codeBlock'
 import ReactDemo from './ReactDemo'
+import Sandbox from './Sandbox'
 import Stats from './Stats'
 
 const StyledPre = styled('pre')`

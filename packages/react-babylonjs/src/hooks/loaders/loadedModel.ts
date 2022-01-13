@@ -1,10 +1,10 @@
-import { AnimationGroup } from "@babylonjs/core/Animations/animationGroup.js";
-import { Skeleton } from "@babylonjs/core/Bones/skeleton.js";
-import { BoundingInfo } from "@babylonjs/core/Culling/boundingInfo.js";
-import { Vector3 } from "@babylonjs/core/Maths/math.vector.js";
-import { AbstractMesh } from "@babylonjs/core/Meshes/abstractMesh.js";
-import { IParticleSystem } from "@babylonjs/core/Particles/IParticleSystem.js";
-import { Nullable } from "@babylonjs/core/types.js";
+import { AnimationGroup } from '@babylonjs/core/Animations/animationGroup.js'
+import { Skeleton } from '@babylonjs/core/Bones/skeleton.js'
+import { BoundingInfo } from '@babylonjs/core/Culling/boundingInfo.js'
+import { Vector3 } from '@babylonjs/core/Maths/math.vector.js'
+import { AbstractMesh } from '@babylonjs/core/Meshes/abstractMesh.js'
+import { IParticleSystem } from '@babylonjs/core/Particles/IParticleSystem.js'
+import { Nullable } from '@babylonjs/core/types.js'
 
 export enum LoaderStatus {
   Loading = 'Loading',
@@ -43,63 +43,63 @@ export interface ILoadedModel {
 }
 
 export class LoadedModel implements ILoadedModel {
-  public status: LoaderStatus = LoaderStatus.Loading;
-  public rootMesh?: AbstractMesh;
-  public errorMessage?: string;
-  public loaderName?: string;
-  public meshes?: AbstractMesh[];
-  public particleSystems?: IParticleSystem[];
-  public skeletons?: Skeleton[];
-  public animationGroups?: AnimationGroup[];
-  private _scaledToDimension?: number;
+  public status: LoaderStatus = LoaderStatus.Loading
+  public rootMesh?: AbstractMesh
+  public errorMessage?: string
+  public loaderName?: string
+  public meshes?: AbstractMesh[]
+  public particleSystems?: IParticleSystem[]
+  public skeletons?: Skeleton[]
+  public animationGroups?: AnimationGroup[]
+  private _scaledToDimension?: number
 
   public get scaledToDimension(): number | undefined {
-    return this._scaledToDimension;
+    return this._scaledToDimension
   }
 
   public get boundingInfo(): Nullable<BoundingInfo> {
     if (!this.rootMesh) {
-      return null;
+      return null
     }
 
     // meshes are already parented to root mesh, so we do not need to look further.
-    let min: Nullable<Vector3> = null;
-    let max: Nullable<Vector3> = null;
+    let min: Nullable<Vector3> = null
+    let max: Nullable<Vector3> = null
 
-    this.rootMesh.getChildMeshes().forEach(childMesh => {
-      const { minimumWorld, maximumWorld } = childMesh.getBoundingInfo().boundingBox;
+    this.rootMesh.getChildMeshes().forEach((childMesh) => {
+      const { minimumWorld, maximumWorld } = childMesh.getBoundingInfo().boundingBox
       if (min === null) {
-        min = minimumWorld;
+        min = minimumWorld
       } else {
-        min = Vector3.Minimize(min, minimumWorld);
+        min = Vector3.Minimize(min, minimumWorld)
       }
 
       if (max === null) {
-        max = maximumWorld;
+        max = maximumWorld
       } else {
-        max = Vector3.Maximize(max, maximumWorld);
+        max = Vector3.Maximize(max, maximumWorld)
       }
     })
 
     if (min !== null && max != null) {
-      return new BoundingInfo(min, max);
+      return new BoundingInfo(min, max)
     }
 
-    return null;
+    return null
   }
 
   public scaleTo(maxDimension: number): void {
-    const boundingInfo = this.boundingInfo; // will be null when no meshes are loaded
+    const boundingInfo = this.boundingInfo // will be null when no meshes are loaded
     if (boundingInfo && this.rootMesh) {
       const longestDimension = Math.max(
         Math.abs(boundingInfo.minimum.x - boundingInfo.maximum.x),
         Math.abs(boundingInfo.minimum.y - boundingInfo.maximum.y),
         Math.abs(boundingInfo.minimum.z - boundingInfo.maximum.z)
-      );
+      )
 
-      const dimension = maxDimension / longestDimension;
-      this.rootMesh.scaling.scaleInPlace(dimension);
-      this._scaledToDimension = maxDimension;
+      const dimension = maxDimension / longestDimension
+      this.rootMesh.scaling.scaleInPlace(dimension)
+      this._scaledToDimension = maxDimension
     }
   }
 
@@ -108,27 +108,27 @@ export class LoadedModel implements ILoadedModel {
    */
   public dispose(): void {
     if (this.rootMesh) {
-      this.rootMesh.dispose(false, true);
-      this.rootMesh = undefined;
-      this.meshes = [];
+      this.rootMesh.dispose(false, true)
+      this.rootMesh = undefined
+      this.meshes = []
     }
 
     if (this.particleSystems) {
-      this.particleSystems.forEach(ps => {
+      this.particleSystems.forEach((ps) => {
         // ps.stop();
-        ps.dispose();
+        ps.dispose()
       })
-      this.particleSystems = [];
+      this.particleSystems = []
     }
 
     if (this.skeletons) {
-      this.skeletons.forEach(skeleton => skeleton.dispose());
-      this.skeletons = [];
+      this.skeletons.forEach((skeleton) => skeleton.dispose())
+      this.skeletons = []
     }
 
     if (this.animationGroups) {
-      this.animationGroups.forEach(animationGroup => animationGroup.dispose());
-      this.animationGroups = [];
+      this.animationGroups.forEach((animationGroup) => animationGroup.dispose())
+      this.animationGroups = []
     }
   }
 }

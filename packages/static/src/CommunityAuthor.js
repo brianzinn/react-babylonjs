@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from 'react'
 
 const CommunityAuthor = ({ name, imageUrl, twitterUrl, githubUrl, description }) => {
   return (
@@ -34,7 +34,7 @@ const CommunityAuthor = ({ name, imageUrl, twitterUrl, githubUrl, description })
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default CommunityAuthor;
+export default CommunityAuthor

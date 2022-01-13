@@ -1,8 +1,7 @@
-import * as React from 'react';
-import styled from '@emotion/styled';
-
-import NightImage from './images/night.png';
-import DayImage from './images/day.png';
+import styled from '@emotion/styled'
+import * as React from 'react'
+import DayImage from './images/day.png'
+import NightImage from './images/night.png'
 
 const StyledSwitch = styled('div')`
   display: flex;
@@ -77,7 +76,7 @@ const StyledSwitch = styled('div')`
   .slider.round:before {
     border-radius: 50%;
   }
-`;
+`
 
 export const DarkModeSwitch = ({ isDarkThemeActive, toggleActiveTheme }) => (
   <StyledSwitch>
@@ -91,4 +90,4 @@ export const DarkModeSwitch = ({ isDarkThemeActive, toggleActiveTheme }) => (
       <span className="slider round"></span>
     </label>
   </StyledSwitch>
-);
+)

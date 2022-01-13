@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { Link as GatsbyLink } from 'gatsby';
-import isAbsoluteUrl from 'is-absolute-url';
+import { Link as GatsbyLink } from 'gatsby'
+import isAbsoluteUrl from 'is-absolute-url'
+import * as React from 'react'
 
 const Link = ({ to, ...props }) =>
   isAbsoluteUrl(to) ? (
@@ -9,6 +9,6 @@ const Link = ({ to, ...props }) =>
     </a>
   ) : (
     <GatsbyLink to={to} {...props} />
-  );
+  )
 
-export default Link;
+export default Link

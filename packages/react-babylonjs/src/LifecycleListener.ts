@@ -1,6 +1,5 @@
-import { Scene } from "@babylonjs/core/scene.js";
-
-import { CreatedInstance } from "./CreatedInstance"
+import { Scene } from '@babylonjs/core/scene.js'
+import { CreatedInstance } from './CreatedInstance'
 
 export interface LifecycleListener<T> {
   onCreated?: (instance: CreatedInstance<T>, scene: Scene) => void

@@ -1,13 +1,13 @@
-const componentWithMDXScope = require('gatsby-plugin-mdx/component-with-mdx-scope');
+const componentWithMDXScope = require('gatsby-plugin-mdx/component-with-mdx-scope')
 
-const path = require('path');
+const path = require('path')
 
-const startCase = require('lodash.startcase');
+const startCase = require('lodash.startcase')
 
-const config = require('./config');
+const config = require('./config')
 
 exports.createPages = ({ graphql, actions }) => {
-  const { createPage } = actions;
+  const { createPage } = actions
 
   return new Promise((resolve, reject) => {
     resolve(
@@ -29,10 +29,10 @@ exports.createPages = ({ graphql, actions }) => {
             }
           }
         `
-      ).then(result => {
+      ).then((result) => {
         if (result.errors) {
-          console.log(result.errors); // eslint-disable-line no-console
-          reject(result.errors);
+          console.log(result.errors) // eslint-disable-line no-console
+          reject(result.errors)
         }
 
         // Create blog posts pages.
@@ -43,12 +43,12 @@ exports.createPages = ({ graphql, actions }) => {
             context: {
               id: node.fields.id,
             },
-          });
-        });
+          })
+        })
       })
-    );
-  });
-};
+    )
+  })
+}
 
 exports.onCreateWebpackConfig = ({ actions }) => {
   actions.setWebpackConfig({
@@ -59,25 +59,25 @@ exports.onCreateWebpackConfig = ({ actions }) => {
         buble: '@philpl/buble', // to reduce bundle size
       },
     },
-  });
-};
+  })
+}
 
 exports.onCreateBabelConfig = ({ actions }) => {
   actions.setBabelPlugin({
     name: '@babel/plugin-proposal-export-default-from',
-  });
-};
+  })
+}
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
-  const { createNodeField } = actions;
+  const { createNodeField } = actions
 
   if (node.internal.type === `Mdx`) {
-    const parent = getNode(node.parent);
+    const parent = getNode(node.parent)
 
-    let value = parent.relativePath.replace(parent.ext, '');
+    let value = parent.relativePath.replace(parent.ext, '')
 
     if (value === 'index') {
-      value = '';
+      value = ''
     }
 
     if (config.gatsby && config.gatsby.trailingSlash) {
@@ -85,25 +85,25 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
         name: `slug`,
         node,
         value: value === '' ? `/` : `/${value}/`,
-      });
+      })
     } else {
       createNodeField({
         name: `slug`,
         node,
         value: `/${value}`,
-      });
+      })
     }
 
     createNodeField({
       name: 'id',
       node,
       value: node.id,
-    });
+    })
 
     createNodeField({
       name: 'title',
       node,
       value: node.frontmatter.title || startCase(parent.name),
-    });
+    })
   }
-};
+}

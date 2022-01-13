@@ -1,16 +1,16 @@
-import { Scene } from '@babylonjs/core/scene.js';
-import { Tools } from '@babylonjs/core/Misc/tools.js';
-import { Vector2, Vector3 } from '@babylonjs/core/Maths/math.vector.js';
-import { Color3, Color4 } from '@babylonjs/core/Maths/math.color.js';
-import { SolidParticleSystem } from '@babylonjs/core/Particles/solidParticleSystem.js';
-import { IndicesArray, Nullable } from '@babylonjs/core/types.js';
-import { Mesh } from '@babylonjs/core/Meshes/mesh.js';
-import { MeshBuilder } from '@babylonjs/core/Meshes/meshBuilder.js';
-import { VertexData } from '@babylonjs/core/Meshes/mesh.vertexData.js';
-import { Camera } from '@babylonjs/core/Cameras/camera.js';
+import { Camera } from '@babylonjs/core/Cameras/camera.js'
+import { Color3, Color4 } from '@babylonjs/core/Maths/math.color.js'
+import { Vector2, Vector3 } from '@babylonjs/core/Maths/math.vector.js'
 // TODO: write backwards compatible export in babylonjs...
 // 5.0 import { VertexBuffer } from '@babylonjs/core/Buffers/buffer.js';
-import { VertexBuffer } from '@babylonjs/core/Meshes/buffer.js';
+import { VertexBuffer } from '@babylonjs/core/Meshes/buffer.js'
+import { Mesh } from '@babylonjs/core/Meshes/mesh.js'
+import { VertexData } from '@babylonjs/core/Meshes/mesh.vertexData.js'
+import { MeshBuilder } from '@babylonjs/core/Meshes/meshBuilder.js'
+import { Tools } from '@babylonjs/core/Misc/tools.js'
+import { SolidParticleSystem } from '@babylonjs/core/Particles/solidParticleSystem.js'
+import { Scene } from '@babylonjs/core/scene.js'
+import { IndicesArray, Nullable } from '@babylonjs/core/types.js'
 
 // module Extensions {
 
@@ -51,7 +51,7 @@ export class DynamicTerrain {
   public shiftFromCamera: { x: number; z: number } = {
     // terrain center shift from camera position
     x: 0.0,
-    z: 0.0
+    z: 0.0,
   }
   private _indices: Nullable<IndicesArray>
   private _positions: Float32Array | number[]
@@ -78,7 +78,7 @@ export class DynamicTerrain {
     lodX: 1 | 0, // vertex LOD value on X axis
     lodZ: 1 | 0, // vertex LOD value on Z axis
     worldPosition: Vector3.Zero(), // vertex World position
-    mapIndex: 0 | 0 // current map index
+    mapIndex: 0 | 0, // current map index
   }
   private _averageSubSizeX: number = 0.0 // map cell average x size
   private _averageSubSizeZ: number = 0.0 // map cell average z size
@@ -167,8 +167,12 @@ export class DynamicTerrain {
     this._mapSPData = this._SPmapData ? true : false
     this._colorSPData = this._mapSPData && this._SPcolorData ? true : false
     this._uvSPData = this._mapSPData && this._SPuvData ? true : false
-    this._mapData = this._datamap ? this._mapData : new Float32Array(this._terrainIdx * this._terrainIdx * 3)
-    this._mapUVs = this._uvmap ? this._mapUVs : new Float32Array(this._terrainIdx * this._terrainIdx * 2)
+    this._mapData = this._datamap
+      ? this._mapData
+      : new Float32Array(this._terrainIdx * this._terrainIdx * 3)
+    this._mapUVs = this._uvmap
+      ? this._mapUVs
+      : new Float32Array(this._terrainIdx * this._terrainIdx * 2)
     if (this._datamap) {
       this._mapNormals = options.mapNormals || new Float32Array(this._mapSubX * this._mapSubZ * 3)
     } else {
@@ -214,7 +218,12 @@ export class DynamicTerrain {
         terrainPath.push(new Vector3(i, y, j))
         // color
         if (this._colormap) {
-          color = new Color4(mapColors[colIndex], mapColors[colIndex + 1], mapColors[colIndex + 2], 1.0)
+          color = new Color4(
+            mapColors[colIndex],
+            mapColors[colIndex + 1],
+            mapColors[colIndex + 2],
+            1.0
+          )
         } else {
           color = new Color4(1.0, 1.0, 1.0, 1.0)
         }
@@ -243,20 +252,24 @@ export class DynamicTerrain {
       sideOrientation: options.invertSide ? Mesh.FRONTSIDE : Mesh.BACKSIDE,
       colors: terrainColor,
       uvs: terrainUV,
-      updatable: true
+      updatable: true,
     }
-    this._terrain = MeshBuilder.CreateRibbon("terrain", ribbonOptions, this._scene)
+    this._terrain = MeshBuilder.CreateRibbon('terrain', ribbonOptions, this._scene)
     this._indices = this._terrain.getIndices()
-    this._positions = this._terrain.getVerticesData(VertexBuffer.PositionKind) as (number[] | Float32Array);
-    this._normals = this._terrain.getVerticesData(VertexBuffer.NormalKind)!;
-    this._uvs = this._terrain.getVerticesData(VertexBuffer.UVKind)!;
-    this._colors = this._terrain.getVerticesData(VertexBuffer.ColorKind)!;
+    this._positions = this._terrain.getVerticesData(VertexBuffer.PositionKind) as
+      | number[]
+      | Float32Array
+    this._normals = this._terrain.getVerticesData(VertexBuffer.NormalKind)!
+    this._uvs = this._terrain.getVerticesData(VertexBuffer.UVKind)!
+    this._colors = this._terrain.getVerticesData(VertexBuffer.ColorKind)!
     this.computeNormalsFromMap()
 
     // update it immediately and register the update callback function in the render loop
     this.update(true)
-    this._terrain.position.x = this._terrainCamera.globalPosition.x - this._terrainHalfSizeX + this.shiftFromCamera.x
-    this._terrain.position.z = this._terrainCamera.globalPosition.z - this._terrainHalfSizeZ + this.shiftFromCamera.z
+    this._terrain.position.x =
+      this._terrainCamera.globalPosition.x - this._terrainHalfSizeX + this.shiftFromCamera.x
+    this._terrain.position.z =
+      this._terrainCamera.globalPosition.z - this._terrainHalfSizeZ + this.shiftFromCamera.z
     // initialize deltaSub to make on the map
     let deltaNbSubX = (this._terrain.position.x - mapData[0]) / this._averageSubSizeX
     let deltaNbSubZ = (this._terrain.position.z - mapData[2]) / this._averageSubSizeZ
@@ -347,7 +360,6 @@ export class DynamicTerrain {
     this.update(true) // recompute everything once the initial deltas are calculated
   }
 
-
   /**
    * Updates the terrain position and shape according to the camera position.
    * `force` : boolean, forces the terrain update even if no camera position change.
@@ -407,7 +419,11 @@ export class DynamicTerrain {
     terrainHalfSizeX = this._terrainHalfSizeX
     terrainHalfSizeZ = this._terrainHalfSizeZ
     this.centerLocal.copyFromFloats(terrainHalfSizeX, 0.0, terrainHalfSizeZ)
-    this._centerWorld.copyFromFloats(terrainPosition.x + terrainHalfSizeX, terrainPosition.y, terrainPosition.z + terrainHalfSizeZ)
+    this._centerWorld.copyFromFloats(
+      terrainPosition.x + terrainHalfSizeX,
+      terrainPosition.y,
+      terrainPosition.z + terrainHalfSizeZ
+    )
 
     return this
   }
@@ -537,7 +553,8 @@ export class DynamicTerrain {
 
         // map current index
         index = mod(deltaSubZ + stepJ, mapSubZ) * mapSubX + mod(deltaSubX + stepI, mapSubX)
-        terIndex = mod(deltaSubZ + stepJ, terrainIdx) * terrainIdx + mod(deltaSubX + stepI, terrainIdx)
+        terIndex =
+          mod(deltaSubZ + stepJ, terrainIdx) * terrainIdx + mod(deltaSubX + stepI, terrainIdx)
 
         // related index in the array of positions (data map)
         if (datamap) {
@@ -622,11 +639,24 @@ export class DynamicTerrain {
           const vertexWorldPosition = vertex.worldPosition
           const vertexColor = vertex.color
           const vertexUvs = vertex.uvs
-          vertexPosition.copyFromFloats(positions[ribbonPosInd1], positions[ribbonPosInd2], positions[ribbonPosInd3])
-          vertexWorldPosition.copyFromFloats(mapData[posIndex1], vertexPosition.y, mapData[posIndex3])
+          vertexPosition.copyFromFloats(
+            positions[ribbonPosInd1],
+            positions[ribbonPosInd2],
+            positions[ribbonPosInd3]
+          )
+          vertexWorldPosition.copyFromFloats(
+            mapData[posIndex1],
+            vertexPosition.y,
+            mapData[posIndex3]
+          )
           vertex.lodX = lodI
           vertex.lodZ = lodJ
-          vertexColor.copyFromFloats(colors[ribbonColInd1], colors[ribbonColInd2], colors[ribbonColInd3], colors[ribbonColInd4])
+          vertexColor.copyFromFloats(
+            colors[ribbonColInd1],
+            colors[ribbonColInd2],
+            colors[ribbonColInd3],
+            colors[ribbonColInd4]
+          )
           vertexUvs.copyFromFloats(uvs[ribbonUVInd], uvs[ribbonUVInd + 1])
           vertex.mapIndex = index
           updateVertex(vertex, i, j) // the user can modify the array values here
@@ -723,13 +753,13 @@ export class DynamicTerrain {
     }
 
     // ribbon update
-    terrain.updateVerticesData(VertexBuffer.PositionKind, positions, false, false);
+    terrain.updateVerticesData(VertexBuffer.PositionKind, positions, false, false)
     if (this._computeNormals) {
       VertexData.ComputeNormals(positions, this._indices, normals)
     }
-    terrain.updateVerticesData(VertexBuffer.NormalKind, normals, false, false);
-    terrain.updateVerticesData(VertexBuffer.UVKind, uvs, false, false);
-    terrain.updateVerticesData(VertexBuffer.ColorKind, colors, false, false);
+    terrain.updateVerticesData(VertexBuffer.NormalKind, normals, false, false)
+    terrain.updateVerticesData(VertexBuffer.UVKind, uvs, false, false)
+    terrain.updateVerticesData(VertexBuffer.ColorKind, colors, false, false)
     terrain._boundingInfo!.reConstruct(bbMin, bbMax, terrain._worldMatrix)
   }
 
@@ -778,7 +808,17 @@ export class DynamicTerrain {
    * If the optional object {normal: Vector3} is passed, then its property "normal" is updated with the normal vector value at the coordinates (x, z).
    */
   public getHeightFromMap(x: number, z: number, options?: { normal: Vector3 }): number {
-    return DynamicTerrain._GetHeightFromMap(x, z, this._mapData, this._mapSubX, this._mapSubZ, this._mapSizeX, this._mapSizeZ, options, this._inverted)
+    return DynamicTerrain._GetHeightFromMap(
+      x,
+      z,
+      this._mapData,
+      this._mapSubX,
+      this._mapSubZ,
+      this._mapSizeX,
+      this._mapSizeZ,
+      options,
+      this._inverted
+    )
   }
 
   /**
@@ -802,7 +842,17 @@ export class DynamicTerrain {
   ): number {
     let mapSizeX = Math.abs(mapData[(mapSubX - 1) * 3] - mapData[0])
     let mapSizeZ = Math.abs(mapData[(mapSubZ - 1) * mapSubX * 3 + 2] - mapData[2])
-    return DynamicTerrain._GetHeightFromMap(x, z, mapData, mapSubX, mapSubZ, mapSizeX, mapSizeZ, options, inverted)
+    return DynamicTerrain._GetHeightFromMap(
+      x,
+      z,
+      mapData,
+      mapSubX,
+      mapSubZ,
+      mapSizeX,
+      mapSizeZ,
+      options,
+      inverted
+    )
   }
 
   // Computes the height and optionnally the normal at the coordinates (x ,z) from the passed map
@@ -941,7 +991,13 @@ export class DynamicTerrain {
    * Returns the terrain.
    */
   public computeNormalsFromMap(): DynamicTerrain {
-    DynamicTerrain.ComputeNormalsFromMapToRef(this._mapData, this._mapSubX, this._mapSubZ, this._mapNormals, this._inverted)
+    DynamicTerrain.ComputeNormalsFromMapToRef(
+      this._mapData,
+      this._mapSubX,
+      this._mapSubZ,
+      this._mapNormals,
+      this._inverted
+    )
     return this
   }
 
@@ -957,7 +1013,10 @@ export class DynamicTerrain {
     if (x < positions[0] + meshPosition.x || x > positions[3 * terrainIdx] + meshPosition.x) {
       return false
     }
-    if (z < positions[2] + meshPosition.z || z > positions[3 * terrainIdx * terrainIdx + 2] + meshPosition.z) {
+    if (
+      z < positions[2] + meshPosition.z ||
+      z > positions[3 * terrainIdx * terrainIdx + 2] + meshPosition.z
+    ) {
       return false
     }
     return true
@@ -1039,8 +1098,8 @@ export class DynamicTerrain {
 
     const onload = (img: HTMLImageElement | ImageBitmap) => {
       // Getting height map data
-      const canvas = document.createElement("canvas")
-      const context = canvas.getContext("2d")!
+      const canvas = document.createElement('canvas')
+      const context = canvas.getContext('2d')!
       const bufferWidth = img.width
       const bufferHeight = img.height
       canvas.width = bufferWidth
@@ -1056,9 +1115,12 @@ export class DynamicTerrain {
           x = (col * width) / subX - width * 0.5
           z = (row * height) / subZ - height * 0.5
           let heightmapX = (((x + width * 0.5) / width) * (bufferWidth - 1)) | 0
-          let heightmapY = (bufferHeight - 1 - ((z + height * 0.5) / height) * (bufferHeight - 1)) | 0
+          let heightmapY =
+            (bufferHeight - 1 - ((z + height * 0.5) / height) * (bufferHeight - 1)) | 0
           let pos = (heightmapX + heightmapY * bufferWidth) * 4
-          let gradient = (buffer[pos] * filter.r + buffer[pos + 1] * filter.g + buffer[pos + 2] * filter.b) / 255.0
+          let gradient =
+            (buffer[pos] * filter.r + buffer[pos + 1] * filter.g + buffer[pos + 2] * filter.b) /
+            255.0
           y = minHeight + (maxHeight - minHeight) * gradient
           let idx = (row * subX + col) * 3
           data[idx] = x + offsetX
@@ -1073,14 +1135,18 @@ export class DynamicTerrain {
       }
     }
 
-    Tools.LoadImage(heightmapURL, onload, () => { }, scene.offlineProvider)
+    Tools.LoadImage(heightmapURL, onload, () => {}, scene.offlineProvider)
   }
 
   /**
    * Static : Updates the passed arrays with UVs values to fit the whole map with subX points along its width and subZ points along its height.
    * The passed array must be the right size : subX x subZ x 2.
    */
-  public static CreateUVMapToRef(subX: number, subZ: number, mapUVs: number[] | Float32Array): void {
+  public static CreateUVMapToRef(
+    subX: number,
+    subZ: number,
+    mapUVs: number[] | Float32Array
+  ): void {
     for (let h = 0; h < subZ; h++) {
       for (let w = 0; w < subX; w++) {
         mapUVs[(h * subX + w) * 2] = w / subX

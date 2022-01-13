@@ -4,13 +4,8 @@
     "module": "CommonJS",
     "target": "ES2015",
     "esModuleInterop": true,
-    "rootDir": "./src",
+    "rootDir": "./src"
   },
-  "include": [
-    "src/**/*",
-    "test/**/*"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["src/**/*", "test/**/*"],
+  "exclude": ["node_modules"]
 }

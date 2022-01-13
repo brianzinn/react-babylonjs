@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from 'react'
 
 const YoutubeEmbed = ({ link }) => {
   return (
@@ -13,7 +13,7 @@ const YoutubeEmbed = ({ link }) => {
         allowFullScreen
       ></iframe>
     </div>
-  );
-};
+  )
+}
 
-export default YoutubeEmbed;
+export default YoutubeEmbed

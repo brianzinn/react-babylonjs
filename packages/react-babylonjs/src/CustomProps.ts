@@ -1,4 +1,4 @@
-import { CreatedInstance } from "./CreatedInstance";
+import { CreatedInstance } from './CreatedInstance'
 
 /**
  * Props passed from controls that are not part of generated props and custom handling.  Typically used to aid declarative composition.
@@ -18,7 +18,7 @@ export type CustomProps = {
   fromInstance?: any
   /**
    * To automatically dispose of the underlying object when "fromInstance" is used.  Is not applied for regularly instanced objects.
-   * 
+   *
    * Default: false
    */
   disposeInstanceOnUnmount?: boolean
@@ -29,7 +29,7 @@ export type AbstractMeshCustomProps = {
    * Signal to reconciler that child meshes are not tracked and are not part of tree.  ie: children need to be explicitly added to GlowLayer/ShadowGenerator.
    */
   childMeshesNotTracked?: boolean
-} & CustomProps;
+} & CustomProps
 
 export type Control3DCustomProps = {
   /**
@@ -44,7 +44,7 @@ export type Control3DCustomProps = {
    * See manager and Control lifecycle listener for details.
    */
   onControlAdded?: (instance: CreatedInstance<any>) => void
-} & CustomProps;
+} & CustomProps
 
 export type Control2DCustomProps = {
   /**
@@ -55,14 +55,14 @@ export type Control2DCustomProps = {
    * ???
    */
   gridRow?: number
-} & CustomProps;
+} & CustomProps
 
 export type MaterialCustomProps = {
   /**
    * For attaching the same material to multiple meshes (by mesh name)
    */
   attachToMeshesByName?: string[]
-} & CustomProps;
+} & CustomProps
 
 export type ShadowGeneratorCustomProps = {
   /**
@@ -77,11 +77,11 @@ export type ShadowGeneratorCustomProps = {
    * Adds all child nodes as shadow casters.
    */
   shadowCastChildren?: boolean
-} & CustomProps;
+} & CustomProps
 
 export type VRExperienceHelperCustomProps = {
   enableInteractions?: boolean
-} & CustomProps;
+} & CustomProps
 
 /**
  * Custom Gizmo props used for declaratively attaching.
@@ -103,7 +103,7 @@ export type GizmoCustomProps = {
    * Try to set 'gizmoLayer' automatically.
    */
   skipUtilityLayerAttach?: boolean
-} & CustomProps;
+} & CustomProps
 
 /**
  * The below Custom Props are added explicitly and not automatically by inheritance, so do not need union type "& CustomProps"
@@ -129,7 +129,7 @@ export type ADTCustomProps = {
    * Only applicable for AdvanceDynamicTexture to attach to a mesh.  ADT.CreateForMesh(parent, ...)
    */
   createForParentMesh?: boolean
-};
+}
 
 /**
  * This is a subset of the EffectLayer classes.
@@ -139,7 +139,7 @@ export type GlowLayerCustomProps = {
    * Adds all child nodes to the glow layer.
    */
   addIncludeOnlyChildren?: boolean
-};
+}
 
 export type VirtualKeyboardCustomProps = {
   /**
@@ -150,9 +150,19 @@ export type VirtualKeyboardCustomProps = {
    * for VirtualKeyboard
    */
   defaultKeyboard?: boolean
-};
+}
 
 /**
  * A union of all CustomProps as a convenience typing and easier maintenance in other areas of code (ie: CreatedInstance and HostConfig)
  */
-export type AnyCustomProps = CustomProps & (AbstractMeshCustomProps & ADTCustomProps & CameraCustomProps & Control2DCustomProps & Control3DCustomProps & GizmoCustomProps & GlowLayerCustomProps & VirtualKeyboardCustomProps & ShadowGeneratorCustomProps & MaterialCustomProps)
+export type AnyCustomProps = CustomProps &
+  (AbstractMeshCustomProps &
+    ADTCustomProps &
+    CameraCustomProps &
+    Control2DCustomProps &
+    Control3DCustomProps &
+    GizmoCustomProps &
+    GlowLayerCustomProps &
+    VirtualKeyboardCustomProps &
+    ShadowGeneratorCustomProps &
+    MaterialCustomProps)

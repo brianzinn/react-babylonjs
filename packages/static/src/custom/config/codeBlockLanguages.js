@@ -15,12 +15,11 @@ export function applyLanguages(_Prism) {
    * require("prismjs/components/prism-ada");
    * ```
    */
-
 }
 
 export function getTheme(_Prism) {
   /**
    * Here you have the possibility to change the prism highlighting.
    */
-  return require('prism-react-renderer/themes/vsDark').default;
+  return require('prism-react-renderer/themes/vsDark').default
 }
