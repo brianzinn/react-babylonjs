@@ -30,7 +30,12 @@
     "node": ">=6.0.0"
   },
   "scripts": {
-    "lint": "eslint . --ext .ts",
+    "lint": "concurrently 'yarn:lint:check:*'",
+    "lint:check:eslint": "eslint . --ext .ts",
+    "lint:check:prettier": "prettier -c '**/*.{ts,js,tsx,jsx,json,md,mdx}'",
+    "lint:fix": "concurrently 'yarn:lint:fix:*'",
+    "lint:fix:eslint": "eslint --fix . --ext .ts",
+    "lint:fix:prettier": "prettier -w '**/*.{ts,js,tsx,jsx,json,md,mdx}'",
     "prebuild": "rimraf dist",
     "build": "cross-env NODE_ENV=production rollup -c",
     "start": "tsc-watch --onSuccess \"rollup -c\"",
@@ -53,6 +58,7 @@
     "@types/sinon": "^9.0.10",
     "@typescript-eslint/eslint-plugin": "^4.29.1",
     "@typescript-eslint/parser": "^4.29.1",
+    "concurrently": "^7.0.0",
     "cross-env": "^7.0.0",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
