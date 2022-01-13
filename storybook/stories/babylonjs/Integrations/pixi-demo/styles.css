@@ -1,0 +1,27 @@
+.scrollArea {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+}
+
+.slideContainer {
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  bottom: 10px;
+  right: 10px;
+  color: #c6f200;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn {
+  padding: 10px;
+  cursor: pointer;
+  margin: 10px;
+  background-color: #2d00f7;
+  border: solid 1px #f20089;
+}
