@@ -35,7 +35,6 @@
     "build": "cross-env NODE_ENV=production rollup -c",
     "start": "tsc-watch --onSuccess \"rollup -c\"",
     "generate-code": "ts-node -P tools/tsconfig.generate.json tools/generate-code.ts",
-    "generate-examples": "node --loader ts-node/esm tools/generate-examples.ts",
     "unit-test": "cross-env TS_NODE_PROJECT=\"test/tsconfig.json\" mocha --require ts-node/register --require esm \"test/**/*.spec.{js,jsx,ts,tsx}\"",
     "test": "npm run unit-test",
     "test:coverage": "nyc --reporter=lcov --reporter=text-summary npm run test"
@@ -69,7 +68,7 @@
     "rollup-plugin-typescript2": "^0.30.0",
     "sinon": "^9.2.4",
     "ts-morph": "^10.1.0",
-    "ts-node": "^10.4.0",
+    "ts-node": "^9.1.1",
     "tsc-watch": "^4.2.9",
     "tsconfig-paths": "^3.9.0",
     "typescript": "^4.5.2"
