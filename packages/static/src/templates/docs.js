@@ -1,21 +1,20 @@
-import React, { Component } from 'react';
-import Helmet from 'react-helmet';
-import { graphql } from 'gatsby';
-import MDXRenderer from 'gatsby-plugin-mdx/mdx-renderer';
+import { Layout, Link } from '$components'
+import { graphql } from 'gatsby'
+import MDXRenderer from 'gatsby-plugin-mdx/mdx-renderer'
+import React, { Component } from 'react'
+import Helmet from 'react-helmet'
+import config from '../../config'
+import NextPrevious from '../components/NextPrevious'
+import { Edit, StyledHeading, StyledMainWrapper } from '../components/styles/Docs'
 
-import { Layout, Link } from '$components';
-import NextPrevious from '../components/NextPrevious';
-import config from '../../config';
-import { Edit, StyledHeading, StyledMainWrapper } from '../components/styles/Docs';
-
-const forcedNavOrder = config.sidebar.forcedNavOrder;
+const forcedNavOrder = config.sidebar.forcedNavOrder
 
 export default class MDXRuntimeTest extends Component {
   render() {
-    const { data } = this.props;
+    const { data } = this.props
 
     if (!data) {
-      return this.props.children;
+      return this.props.children
     }
     const {
       allMdx,
@@ -23,57 +22,58 @@ export default class MDXRuntimeTest extends Component {
       site: {
         siteMetadata: { docsLocation, title },
       },
-    } = data;
+    } = data
 
-    const githubIcon = require('../components/images/github.svg').default;
+    const githubIcon = require('../components/images/github.svg').default
+
     const navItems = allMdx.edges
       .map(({ node }) => node.fields.slug)
-      .filter(slug => slug !== '/')
+      .filter((slug) => slug !== '/')
       .sort()
       .reduce(
         (acc, cur) => {
-          if (forcedNavOrder.find(url => url === cur)) {
-            return { ...acc, [cur]: [cur] };
+          if (forcedNavOrder.find((url) => url === cur)) {
+            return { ...acc, [cur]: [cur] }
           }
 
-          let prefix = cur.split('/')[1];
+          let prefix = cur.split('/')[1]
 
           if (config.gatsby && config.gatsby.trailingSlash) {
-            prefix = prefix + '/';
+            prefix = prefix + '/'
           }
 
-          if (prefix && forcedNavOrder.find(url => url === `/${prefix}`)) {
-            return { ...acc, [`/${prefix}`]: [...acc[`/${prefix}`], cur] };
+          if (prefix && forcedNavOrder.find((url) => url === `/${prefix}`)) {
+            return { ...acc, [`/${prefix}`]: [...acc[`/${prefix}`], cur] }
           } else {
-            return { ...acc, items: [...acc.items, cur] };
+            return { ...acc, items: [...acc.items, cur] }
           }
         },
         { items: [] }
-      );
+      )
 
     const nav = forcedNavOrder
       .reduce((acc, cur) => {
-        return acc.concat(navItems[cur]);
+        return acc.concat(navItems[cur])
       }, [])
       .concat(navItems.items)
-      .map(slug => {
+      .map((slug) => {
         if (slug) {
-          const { node } = allMdx.edges.find(({ node }) => node.fields.slug === slug);
+          const { node } = allMdx.edges.find(({ node }) => node.fields.slug === slug)
 
-          return { title: node.fields.title, url: node.fields.slug };
+          return { title: node.fields.title, url: node.fields.slug }
         }
-      });
+      })
 
     // meta tags
-    const metaTitle = mdx.frontmatter.metaTitle;
+    const metaTitle = mdx.frontmatter.metaTitle
 
-    const metaDescription = mdx.frontmatter.metaDescription;
+    const metaDescription = mdx.frontmatter.metaDescription
 
-    let canonicalUrl = config.gatsby.siteUrl;
+    let canonicalUrl = config.gatsby.siteUrl
 
     canonicalUrl =
-      config.gatsby.pathPrefix !== '/' ? canonicalUrl + config.gatsby.pathPrefix : canonicalUrl;
-    canonicalUrl = canonicalUrl + mdx.fields.slug;
+      config.gatsby.pathPrefix !== '/' ? canonicalUrl + config.gatsby.pathPrefix : canonicalUrl
+    canonicalUrl = canonicalUrl + mdx.fields.slug
 
     return (
       <Layout {...this.props}>
@@ -106,12 +106,12 @@ export default class MDXRuntimeTest extends Component {
           <NextPrevious mdx={mdx} nav={nav} />
         </div>
       </Layout>
-    );
+    )
   }
 }
 
 export const pageQuery = graphql`
-  query($id: String!) {
+  query ($id: String!) {
     site {
       siteMetadata {
         title
@@ -147,4 +147,4 @@ export const pageQuery = graphql`
       }
     }
   }
-`;
+`

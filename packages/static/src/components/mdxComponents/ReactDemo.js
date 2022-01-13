@@ -1,7 +1,8 @@
-import React, { FC } from 'react'
+import React from 'react'
 
 const ReactDemo = (props) => {
   const { children } = props
+
   return (
     <div
       style={{

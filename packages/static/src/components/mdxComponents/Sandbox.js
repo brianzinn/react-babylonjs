@@ -1,7 +1,8 @@
-import React, { FC } from 'react'
+import React from 'react'
 
 const Sandbox = (props) => {
   const { name } = props
+
   return (
     <iframe
       src={`https://codesandbox.io/embed/github/benallfree/react-babylonjs/tree/codesandbox-stories/examples/${name}?autoresize=1&fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.tsx&theme=dark`}
