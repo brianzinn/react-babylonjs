@@ -78,6 +78,7 @@
     "gatsby-plugin-remove-trailing-slashes": "^3.4.0",
     "prettier": "^2.2.1",
     "prism-react-renderer": "^1.2.0",
-    "remark-codesandbox": "^0.10.0"
+    "remark-codesandbox": "^0.10.0",
+    "prettier-plugin-organize-imports": "^2.3.4"
   }
 }
