@@ -36,6 +36,9 @@ const plugins = [
           resolve: 'gatsby-remark-copy-linked-files',
         },
         {
+          resolve: require.resolve(`./plugins/gatsby-mdx-codesandbox`),
+        },
+        {
           resolve: 'remark-codesandbox/gatsby',
           options: {
             mode: 'iframe',
