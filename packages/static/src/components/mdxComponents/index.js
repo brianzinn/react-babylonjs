@@ -1,8 +1,8 @@
 import styled from '@emotion/styled'
+import { ReactDemo } from 'gatsby-mdx-codesandbox'
 import * as React from 'react'
 import AnchorTag from './anchor'
 import CodeBlock from './codeBlock'
-import ReactDemo from './ReactDemo'
 import Sandbox from './Sandbox'
 import Stats from './Stats'
 

@@ -1,0 +1,25 @@
+{
+  "name": "gatsby-mdx-codesandbox",
+  "version": "0.0.1",
+  "source": "src/index.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc && cp src/mdast.d.ts dist",
+    "watch": "chokidar 'src/*' -c 'yarn build'"
+  },
+  "dependencies": {
+    "@types/mdast": "^3.0.10",
+    "@types/prettier": "^2.4.3",
+    "@types/react": "^17.0.38",
+    "@types/unist": "^2.0.6",
+    "codesandbox": "^2.2.3",
+    "gatsby": "^4.5.2",
+    "prettier": "^2.5.1",
+    "react": "^17.0.2"
+  },
+  "devDependencies": {
+    "typescript": "^4.5.4"
+  }
+}
