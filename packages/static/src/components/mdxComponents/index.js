@@ -1,5 +1,4 @@
 import styled from '@emotion/styled'
-import { ReactDemo } from 'gatsby-mdx-codesandbox'
 import * as React from 'react'
 import AnchorTag from './anchor'
 import CodeBlock from './codeBlock'
@@ -79,7 +78,6 @@ export default {
   code: CodeBlock,
   a: AnchorTag,
   Sandbox,
-  ReactDemo,
   Stats,
   // TODO add `img`
   // TODO add `blockquote`

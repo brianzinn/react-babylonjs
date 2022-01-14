@@ -1,0 +1,14 @@
+{
+  "name": "gatsby-mdx-codesandbox",
+  "version": "0.0.1",
+  "main": "./index.js",
+  "license": "MIT",
+  "dependencies": {
+    "prettier": "^2.5.1"
+  },
+  "peerDependencies": {
+    "remark-codesandbox": "^0.10",
+    "gatsby": "^4.0",
+    "react": "^17.0"
+  }
+}

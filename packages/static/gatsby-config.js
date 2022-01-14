@@ -36,16 +36,24 @@ const plugins = [
           resolve: 'gatsby-remark-copy-linked-files',
         },
         {
-          resolve: require.resolve(`./plugins/gatsby-mdx-codesandbox`),
-        },
-        {
-          resolve: 'remark-codesandbox/gatsby',
+          resolve: 'gatsby-mdx-codesandbox',
           options: {
-            mode: 'iframe',
-            customTemplates: {
-              rbjs: {
-                extends: 'file:./codesandbox-template',
-                entry: './src/App.tsx',
+            development: {
+              style: {
+                margin: 5,
+                padding: 5,
+                border: '1px solid white',
+                backgroundColor: 'black',
+                color: 'white',
+              },
+            },
+            codesandbox: {
+              mode: 'iframe',
+              customTemplates: {
+                rbjs: {
+                  extends: 'file:./codesandbox-template',
+                  entry: './src/App.tsx',
+                },
               },
             },
           },
