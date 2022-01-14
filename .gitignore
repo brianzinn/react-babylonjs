@@ -7,5 +7,4 @@ coverage
 compiled
 .awcache
 dist
-*.lock
 debug
