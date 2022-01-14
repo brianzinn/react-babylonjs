@@ -23,17 +23,7 @@
     "react/prop-types": 0,
     "react/react-in-jsx-scope": "off",
     "lines-between-class-members": ["error", "always"],
-    "padding-line-between-statements": [
-      "error",
-      { "blankLine": "always", "prev": ["const", "let", "var"], "next": "*" },
-      {
-        "blankLine": "always",
-        "prev": ["const", "let", "var"],
-        "next": ["const", "let", "var"]
-      },
-      { "blankLine": "always", "prev": "directive", "next": "*" },
-      { "blankLine": "any", "prev": "directive", "next": "directive" }
-    ]
+    "padding-line-between-statements": 0
   },
   "parser": "babel-eslint",
   "parserOptions": {
