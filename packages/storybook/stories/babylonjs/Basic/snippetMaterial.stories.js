@@ -1,18 +1,13 @@
-import React, { useState, useCallback, useEffect } from 'react'
-import { Vector3, NodeMaterial, Color3 } from '@babylonjs/core';
+import { Color3, NodeMaterial, Vector3 } from "@babylonjs/core";
 import { Texture } from "@babylonjs/core/Materials/Textures/texture";
-import '@babylonjs/core/Rendering/edgesRenderer' // You this need for side-effects
-import { Engine, Scene, useScene } from 'react-babylonjs'
+import "@babylonjs/core/Rendering/edgesRenderer"; // You this need for side-effects
+import React, { useCallback, useEffect, useState } from "react";
+import { Engine, Scene, useScene } from "react-babylonjs";
+import "../../style.css";
 
-import '../../style.css';
+export default { title: "Babylon Basic" };
 
-export default { title: 'Babylon Basic' };
-
-const setBlockValue = (
-  name,
-  value,
-  material
-) => {
+const setBlockValue = (name, value, material) => {
   if (value instanceof Texture) {
     let textureBlock = material.getTextureBlocks().find((b) => b.name === name);
     if (textureBlock !== undefined) {
@@ -46,8 +41,8 @@ const SnippetMaterialById = ({ snippetId, name, blockValues, freeze }) => {
         material.unfreeze();
       }
       blockValues.forEach((entry) => {
-        setBlockValue(entry.name, entry.value, material)
-      })
+        setBlockValue(entry.name, entry.value, material);
+      });
       if (freeze === true) {
         material.freeze();
       }
@@ -63,34 +58,64 @@ const SnippetMaterialById = ({ snippetId, name, blockValues, freeze }) => {
   );
 };
 
-const colors = ["Red", "Green", "Yellow"]
+const colors = ["Red", "Green", "Yellow"];
 
 export const SnippetMaterial = () => {
   const [selectedColor, setSelectedColor] = useState("Green");
   const onChange = (e) => {
     setSelectedColor(e.target.value);
-  }
+  };
   return (
     <>
-      <div style={{ flex: 1, display: 'flex' }}>
+      <div style={{ flex: 1, display: "flex" }}>
         <select onChange={onChange}>
-          {colors.map(color => <option key={color} value={color} selected={selectedColor === color}>{color}</option>)}
+          {colors.map((color) => (
+            <option
+              key={color}
+              value={color}
+              selected={selectedColor === color}
+            >
+              {color}
+            </option>
+          ))}
         </select>
       </div>
-      <div style={{ flex: 1, display: 'flex' }}>
-        <Engine antialias adaptToDeviceRatio canvasId='babylonJS'>
+      <div style={{ flex: 1, display: "flex" }}>
+        <Engine antialias adaptToDeviceRatio canvasId="babylonJS">
           <Scene>
-            <arcRotateCamera name="arc" target={Vector3.Zero()} minZ={0.001}
-              alpha={-Math.PI / 4} beta={(Math.PI / 4)} radius={5} upperBetaLimit={(Math.PI / 2) * 0.99}
+            <arcRotateCamera
+              name="arc"
+              target={Vector3.Zero()}
+              minZ={0.001}
+              alpha={-Math.PI / 4}
+              beta={Math.PI / 4}
+              radius={5}
+              upperBetaLimit={(Math.PI / 2) * 0.99}
             />
-            <hemisphericLight name="light1" intensity={0.7} direction={Vector3.Up()} />
-            <sphere name="sphere1" diameter={2} segments={16} position={new Vector3(0, 1, 0)}>
-              <SnippetMaterialById name="sphereMat" snippetId="#81NNDY#20" freeze blockValues={[{ name: "Surface Color", value: Color3[selectedColor]() }]} />
+            <hemisphericLight
+              name="light1"
+              intensity={0.7}
+              direction={Vector3.Up()}
+            />
+            <sphere
+              name="sphere1"
+              diameter={2}
+              segments={16}
+              position={new Vector3(0, 1, 0)}
+            >
+              <SnippetMaterialById
+                name="sphereMat"
+                snippetId="#81NNDY#20"
+                freeze
+                blockValues={[
+                  { name: "Surface Color", value: Color3[selectedColor]() },
+                ]}
+              />
             </sphere>
             <ground name="ground1" width={6} height={6} subdivisions={2} />
           </Scene>
         </Engine>
       </div>
     </>
-  )
-}
+  );
+};
