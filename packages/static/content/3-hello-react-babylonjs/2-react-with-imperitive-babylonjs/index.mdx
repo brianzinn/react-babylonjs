@@ -7,15 +7,36 @@ Once you have a React project set up, you can program Babylon.js imperitively
 just like they tell you in the
 [official Babylon.js + React guide](https://doc.babylonjs.com/extensions/Babylon.js+ExternalLibraries/BabylonJS_and_ReactJS).
 
-Wow, it takes **almost 150 lines of code** to make a box show up on a screen!
-But do not be scared. We are showing you how much coding it actually takes so
-you'll fully appreciate the next section.
-
 [demo:FullImperitive.tsx]
+
+The demo above is produced using imperitive Typescript shown below. Wow, it
+takes \**almost 150 lines of code*to make a box show up on a screen! But do not
+be scared. We are showing you how much work it actually takes so you'll fully
+appreciate the power of `react-babylonjs`.
+
+As you review the code, notice everything happens in sequence and you are
+responsible for re-running affected code when you change the input values.
+
+In a [reactive programming](https://en.wikipedia.org/wiki/Reactive_programming),
+a change in the input values naturally cascades to affected code. There are many
+benefits to a reactive programming style that we won't cover here. But speed,
+efficiency, and ability to reason through complex state changes are among the
+many benefits.
+
+Mixing imperitive programming with React is generally an antipattern because it
+reduces the benefits of reactive programming.
+
+Therefore, this code is the least desirable way to use Babylon.js in React.
+
+[code:FullImperitive.tsx]
 
 Now to be completely fair, Babylon.js has created a helpful
 [babylonjs-hook](https://www.npmjs.com/package/babylonjs-hook) package which
 replaces `SceneComponent`. If you use this, you can get down to about **60 lines
-of code**. But next, I'll show you how to do it in **under 30**.
+of code**. But it's still imperitive programming, not declarative or reactive
+programming.
+
+After this, I'll show you how to do the same thing in **under 50 lines of code
+using real declarative programming**.
 
 [demo:WithHooks.tsx]

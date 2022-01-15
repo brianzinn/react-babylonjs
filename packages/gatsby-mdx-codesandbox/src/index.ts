@@ -13,6 +13,8 @@ function getRandomInt(max = 10000) {
   return Math.floor(Math.random() * max);
 }
 
+type ShortcodeNames = "demo" | "code";
+
 const IS_DEVELOPMENT_MODE = env["NODE_ENV"] === "development";
 
 type MaybeParent = SetOptional<Parent, "children">;
@@ -137,8 +139,9 @@ const plugin: GatsbyMdxPlugin<PluginOptions> = async (meta, pluginOptions) => {
 
   const seen: { [_: string]: boolean } = {};
 
-  const isCodeOrDemo = (type: string): type is "demo" | "code" => {
-    return ["code", "demo"].includes(type);
+  const isCodeOrDemo = (type: string): type is ShortcodeNames => {
+    const shortcodeNames: ShortcodeNames[] = ["code", "demo"];
+    return shortcodeNames.includes(type as ShortcodeNames);
   };
 
   const isLinkReference = (node: Content): node is LinkReference => {
@@ -272,21 +275,10 @@ const plugin: GatsbyMdxPlugin<PluginOptions> = async (meta, pluginOptions) => {
       // The 'demo' case is a codesandbox and, if in dev/localhost mode, a working demo running aginst local code
       case "demo":
         {
-          // Swap current node for a codesandbox node
-          ((node: Code) => {
-            node.type = "code";
-            // @ts-ignore
-            node.children = [];
-            node.lang = ext;
-            node.meta = `codesandbox=${templateName}?${computedQuerystring}`;
-            node.value = formattedSource;
-            // console.log(`converted node`, JSON.stringify(node, null, 2))
-          })(paragraphNode as unknown as Code);
-
           // Wire up demo harness
           const importSymbol = `Component_${moduleName}`;
 
-          // Splice in a run container, warn if in dev mode
+          // Splice in a run container before the code listing, warn if in dev mode
           const lines = [
             `<div style={${JSON.stringify(_options.development.style)}}>`,
             ...(IS_DEVELOPMENT_MODE
@@ -302,11 +294,12 @@ const plugin: GatsbyMdxPlugin<PluginOptions> = async (meta, pluginOptions) => {
             `<${importSymbol}/>`,
             `</div>`,
           ];
-          markdownAST.children.splice(idx + 1, 0, {
+          markdownAST.children.splice(idx, 0, {
+            // Splice above code listing
             type: "jsx",
             value: lines.join("\n"),
           });
-          console.log(`Adding dev harness for ${moduleName}`);
+          console.log(`Adding run container for ${moduleName}`);
 
           // Insert an import if this component hasn't been seen yet
           if (!seen[moduleName]) {
