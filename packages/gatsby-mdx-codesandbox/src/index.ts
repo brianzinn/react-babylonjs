@@ -1,11 +1,13 @@
 import { forEach } from "@s-libs/micro-dash";
-import { readFileSync } from "fs";
+import { existsSync, readFileSync } from "fs";
 import { basename, dirname, resolve } from "path";
 import prettier, { Options as PrettierOptions } from "prettier";
 import { CSSProperties } from "react";
+//@ts-ignore Can't figure out ambient module declaration for a subpackage
+import codesandbox from "remark-codesandbox/gatsby";
 import { PartialDeep, SetOptional } from "type-fest";
 import visit from "unist-util-visit";
-import type { Code, Content, Jsx, LinkReference, Parent, Tsx } from "./mdast";
+import type { Code, Content, LinkReference, Parent, Tsx } from "./mdast";
 
 function getRandomInt(max = 10000) {
   return Math.floor(Math.random() * max);
@@ -79,9 +81,9 @@ type GatsbyMdxPluginMeta = {
 type GatsbyMdxPlugin<TOptions extends {}> = (
   meta: GatsbyMdxPluginMeta,
   pluginOptions: PartialDeep<TOptions>
-) => MarkdownAST;
+) => Promise<MarkdownAST>;
 
-const plugin: GatsbyMdxPlugin<PluginOptions> = (meta, pluginOptions) => {
+const plugin: GatsbyMdxPlugin<PluginOptions> = async (meta, pluginOptions) => {
   const _options: PluginOptions = {
     development: {
       style: (pluginOptions?.development?.style as
@@ -108,7 +110,7 @@ const plugin: GatsbyMdxPlugin<PluginOptions> = (meta, pluginOptions) => {
       mode: pluginOptions?.codesandbox?.mode || "iframe",
       defaultQuery: {
         template: "default",
-        entry: "./src/App.tsx",
+        entry: "src/App.tsx",
         fontsize: "14px",
         hidenavigation: "0",
         theme: "dark",
@@ -116,13 +118,14 @@ const plugin: GatsbyMdxPlugin<PluginOptions> = (meta, pluginOptions) => {
         style: "",
       },
       customTemplates: {
-        ...pluginOptions.codesandbox?.customTemplates,
+        //@ts-ignore
         default: (pluginOptions.codesandbox?.customTemplates?.default as
           | CustomTemplate
           | undefined) || {
-          extends: "file:./codesandbox-template",
-          entry: "./src/App.tsx",
+          extends: `file:${__dirname}/../src/codesandbox-template`,
+          entry: "src/App.tsx",
         },
+        ...pluginOptions.codesandbox?.customTemplates,
       },
     },
   };
@@ -147,59 +150,109 @@ const plugin: GatsbyMdxPlugin<PluginOptions> = (meta, pluginOptions) => {
     return node.children.length === 1;
   };
 
-  const isJsxOrTsx = (ext: string): ext is Jsx["type"] | Tsx["type"] =>
-    ext === "jsx" || ext === "tsx";
+  const ALLOWED_EXT = ["tsx"];
+  const isAllowedExt = (ext: string): ext is Tsx["type"] =>
+    ALLOWED_EXT.includes(ext);
 
   visit(markdownAST, "paragraph", (paragraphNode: MaybeParent, idx) => {
+    // Only process paragraph nodes
     if (!isParent(paragraphNode)) return;
+
+    // Only allow the shortcode by itself in a paragraph
     if (!isSoloChild(paragraphNode)) return;
-    const linkRefNode = paragraphNode.children[0];
+
+    // The [shortcode] syntax shows up as a linkReference node - filter out all others
+    const [linkRefNode] = paragraphNode.children;
     if (!isLinkReference(linkRefNode)) return;
+
+    // The 'label' is the shortcode. Filter out any empty links
     const { label } = linkRefNode;
     if (!label) return;
+
+    // Shortcode format:  (demo|code):fname.ext[?params...]
     const [shortCodeType, fnameWithQuery] = label.split(":");
     const [fname, querystring] = fnameWithQuery.split("?");
-    const query = new URLSearchParams();
-    forEach(_options.codesandbox.defaultQuery, (v, k) => query.set(k, v));
-    new URLSearchParams(querystring).forEach((v, k) => query.set(k, v));
-    query.delete("template");
+    const [moduleName, ext] = fname.split(".");
 
+    // Filter out any shortcode that is not ours
     if (!isCodeOrDemo(shortCodeType)) return;
+
+    // Error on any file type not currently supported
+    if (!isAllowedExt(ext)) {
+      throw new Error(
+        `${fname} is not supported. Only jsx and tsx are supported.`
+      );
+    }
+
+    // Copy default values into query
+    const query = new URLSearchParams();
+    forEach(_options.codesandbox.defaultQuery, (v, k) => {
+      if (!!v) query.set(k, v);
+    });
+
+    // Calculate the template name
+    const parsed = new URLSearchParams(querystring);
+    const templateName = parsed.get("template") || query.get("template");
+    parsed.delete("template");
+    query.delete("template");
+    console.log(`Template name is ${templateName}`);
+
+    // Overwrite defaults with tempalte defaults if available
+    const { customTemplates } = _options.codesandbox;
+    if (templateName && customTemplates[templateName]) {
+      forEach(customTemplates[templateName], (v, k) => {
+        if (!!v) query.set(k, v);
+      });
+    }
+
+    // Overwrite default value union with values specified on querystring
+    parsed.forEach((v, k) => {
+      if (!!v) query.set(k, v);
+    });
+
+    // Compute the new querystring
+    const computedQuerystring = decodeURIComponent(query.toString());
+    console.log(`full query: ${templateName}?${computedQuerystring}`);
+
+    // Calculate the full path to the code file name and error out if it doesn't exist
     const { fileAbsolutePath } = markdownNode;
     const absoluteDir = dirname(fileAbsolutePath);
-    const fullFname = resolve(absoluteDir, fname);
-    console.log(fullFname);
-    const source = readFileSync(fullFname, { encoding: "utf-8" });
+    const codeFileAbsolutePath = resolve(absoluteDir, fname);
+    if (!existsSync(codeFileAbsolutePath)) {
+      throw new Error(`${fname} was not found at ${codeFileAbsolutePath}.`);
+    }
+    console.log(codeFileAbsolutePath);
+
+    // Read the source file
+    const source = readFileSync(codeFileAbsolutePath, { encoding: "utf-8" });
     switch (shortCodeType) {
+      // The 'code' case is where we do normal inline code
       case "code":
         {
+          // Prettify it so it displays nicely in the site
           const formattedSource = prettier.format(
-            `// ${basename(fullFname)}\n\n${source}`,
+            `// ${basename(codeFileAbsolutePath)}\n\n${source}`,
             _options.prettier
           );
+
           // Typescript kung fu to convert to a Code node
           ((node: Code) => {
             node.type = "code";
-            node.lang = "typescript";
-            node.meta = `codesandbox=${query.get(
-              "template"
-            )}?${query.toString()}`;
+            node.lang = "tsx";
+            node.meta = ``;
             node.value = formattedSource;
             console.log(`converted node`, JSON.stringify(node, null, 2));
           })(linkRefNode as unknown as Code);
         }
         break;
+
+      // The 'demo' case is a codesandbox and, if in dev/localhost mode, a working demo running aginst local code
       case "demo":
         {
-          const [moduleName, ext] = fname.split(".");
-          if (!isJsxOrTsx(ext))
-            throw new Error(
-              `${fname} is not supported. Only jsx and tsx are supported.`
-            );
-          const importSymbol = `Component_${moduleName}`;
-
           // Wire up local dev harness
-          {
+          if (true) {
+            const importSymbol = `Component_${moduleName}`;
+
             // Splice in a dev container
             markdownAST.children.splice(idx, 0, {
               type: "jsx",
@@ -213,32 +266,38 @@ const plugin: GatsbyMdxPlugin<PluginOptions> = (meta, pluginOptions) => {
               </div>
             `,
             });
+            console.log(`Adding dev harness for ${moduleName}`);
 
             // Insert an import if this component hasn't been seen yet
             if (!seen[moduleName]) {
-              markdownAST.children.unshift({
+              const node: Content = {
                 type: "import",
                 value: `import ${importSymbol} from './${moduleName}'`,
-              });
+              };
+              markdownAST.children.unshift(node);
+              console.log(`Adding: ${node.value}`);
               seen[moduleName] = true;
             }
-
-            // Swap for a codesandbox node
-            ((node: Code) => {
-              node.type = "code";
-              node.lang = ext;
-              node.meta = `codesandbox=${query.get(
-                "template"
-              )}?${query.toString()}`;
-              node.value = source;
-              console.log(`converted node`, JSON.stringify(node, null, 2));
-            })(paragraphNode as unknown as Code);
           }
+
+          // Swap current node for a codesandbox node
+          ((node: Code) => {
+            node.type = "code";
+            // @ts-ignore
+            node.children = [];
+            node.lang = ext;
+            node.meta = `codesandbox=${templateName}?${computedQuerystring}`;
+            node.value = source;
+            console.log(`converted node`, JSON.stringify(node, null, 2));
+          })(paragraphNode as unknown as Code);
         }
         break;
     }
   });
 
+  console.log("calling codesandbox", _options.codesandbox);
+
+  await codesandbox(meta, _options.codesandbox);
   console.log(JSON.stringify(markdownAST, null, 2));
   return markdownAST;
 };

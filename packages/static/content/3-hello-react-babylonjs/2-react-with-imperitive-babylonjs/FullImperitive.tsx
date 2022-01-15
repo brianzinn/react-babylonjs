@@ -1,17 +1,3 @@
----
-title: 'Plain Old React + Babylon.js'
-slug: 'react-with-imperitive-babylonjs'
----
-
-Once you have a React project set up, you can program Babylon.js imperitively
-just like they tell you in the
-[official Babylon.js + React guide](https://doc.babylonjs.com/extensions/Babylon.js+ExternalLibraries/BabylonJS_and_ReactJS).
-
-Wow, it takes **almost 150 lines of code** to make a box show up on a screen!
-But do not be scared. We are showing you how much coding it actually takes so
-you'll fully appreciate the next section.
-
-```tsx codesandbox=rbjs?entry=./src/App.tsx
 import {
   Engine,
   EngineOptions,
@@ -31,7 +17,7 @@ type OnRenderHandler = (scene: Scene) => void
 
 // import SceneComponent from 'babylonjs-hook'; // if you install 'babylonjs-hook' NPM.
 
-type SceneComponentProps = {
+interface SceneComponentProps {
   canvasId: string
   antialias?: boolean
   engineOptions?: EngineOptions
@@ -41,10 +27,7 @@ type SceneComponentProps = {
   onSceneReady: OnSceneReadyHandler
 }
 
-type SceneComponentPropsIn = SetRequired<
-  Partial<SceneComponentProps>,
-  'onRender' | 'onSceneReady'
->
+type SceneComponentPropsIn = SetRequired<Partial<SceneComponentProps>, 'onRender' | 'onSceneReady'>
 
 const SceneComponent: FC<SceneComponentPropsIn> = (props) => {
   const reactCanvas = useRef(null)
@@ -66,12 +49,7 @@ const SceneComponent: FC<SceneComponentPropsIn> = (props) => {
 
   useEffect(() => {
     if (!reactCanvas.current) return
-    const engine = new Engine(
-      reactCanvas.current,
-      antialias,
-      engineOptions,
-      adaptToDeviceRatio
-    )
+    const engine = new Engine(reactCanvas.current, antialias, engineOptions, adaptToDeviceRatio)
     const scene = new Scene(engine, sceneOptions)
     if (scene.isReady()) {
       onSceneReady(scene)
@@ -99,14 +77,7 @@ const SceneComponent: FC<SceneComponentPropsIn> = (props) => {
         window.removeEventListener('resize', resize)
       }
     }
-  }, [
-    antialias,
-    engineOptions,
-    adaptToDeviceRatio,
-    sceneOptions,
-    onRender,
-    onSceneReady,
-  ])
+  }, [antialias, engineOptions, adaptToDeviceRatio, sceneOptions, onRender, onSceneReady])
 
   return <canvas id={canvasId} ref={reactCanvas} {...rest} />
 }
@@ -160,73 +131,3 @@ const App: FC = () => (
 )
 
 export default App
-```
-
-Now to be completely fair, Babylon.js has created a helpful
-[babylonjs-hook](https://www.npmjs.com/package/babylonjs-hook) package which
-replaces `SceneComponent`. If you use this, you can get down to about **60 lines
-of code**. But next, I'll show you how to do it in **under 30**.
-
-```tsx codesandbox=rbjs?entry=./src/App.tsx
-import {
-  FreeCamera,
-  HemisphericLight,
-  Mesh,
-  MeshBuilder,
-  Scene,
-  Vector3,
-} from '@babylonjs/core'
-import SceneComponent from 'babylonjs-hook'
-
-type OnSceneReadyHandler = (scene: Scene) => void
-
-type OnRenderHandler = (scene: Scene) => void
-
-let box: Mesh
-
-const onSceneReady: OnSceneReadyHandler = (scene) => {
-  // This creates and positions a free camera (non-mesh)
-  var camera = new FreeCamera('camera1', new Vector3(0, 5, -10), scene)
-
-  // This targets the camera to scene origin
-  camera.setTarget(Vector3.Zero())
-
-  const canvas = scene.getEngine().getRenderingCanvas()
-
-  // This attaches the camera to the canvas
-  camera.attachControl(canvas, true)
-
-  // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
-  var light = new HemisphericLight('light', new Vector3(0, 1, 0), scene)
-
-  // Default intensity is 1. Let's dim the light a small amount
-  light.intensity = 0.7
-
-  // Our built-in 'box' shape.
-  box = MeshBuilder.CreateBox('box', { size: 2 }, scene)
-
-  // Move the box upward 1/2 its height
-  box.position.y = 1
-
-  // Our built-in 'ground' shape.
-  MeshBuilder.CreateGround('ground', { width: 6, height: 6 }, scene)
-}
-
-/**
- * Will run on every frame render.  We are spinning the box on y-axis.
- */
-const onRender: OnRenderHandler = (scene) => {
-  if (box !== undefined) {
-    var deltaTimeInMillis = scene.getEngine().getDeltaTime()
-
-    const rpm = 10
-    box.rotation.y += (rpm / 60) * Math.PI * 2 * (deltaTimeInMillis / 1000)
-  }
-}
-
-export default () => (
-  <div>
-    <SceneComponent antialias onSceneReady={onSceneReady} onRender={onRender} />
-  </div>
-)
-```

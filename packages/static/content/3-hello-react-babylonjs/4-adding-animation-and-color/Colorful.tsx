@@ -1,11 +1,3 @@
----
-title: 'Adding More Animation and Color'
-slug: 'react-babylonjs-with-animation'
----
-
-Let's take a look at how to spice up this 3D scene a bit.
-
-```tsx codesandbox=rbjs?entry=./src/App.tsx
 import { Color3, Vector3 } from '@babylonjs/core'
 import { FC, useRef } from 'react'
 import { Engine, Scene, useBeforeRender, useScene } from 'react-babylonjs'
@@ -34,11 +26,7 @@ const MovingBox: FC<MovingBoxProps> = (props) => {
 
   return (
     <box name="box" ref={boxRef} size={2} position={props.position}>
-      <standardMaterial
-        name="material"
-        diffuseColor={props.color}
-        specularColor={Color3.Black()}
-      />
+      <standardMaterial name="material" diffuseColor={props.color} specularColor={Color3.Black()} />
     </box>
   )
 }
@@ -47,30 +35,13 @@ const App: FC = () => (
   <div style={{ flex: 1, display: 'flex' }}>
     <Engine antialias adaptToDeviceRatio canvasId="babylonJS">
       <Scene>
-        <freeCamera
-          name="camera1"
-          position={new Vector3(0, 5, -10)}
-          setTarget={[Vector3.Zero()]}
-        />
-        <hemisphericLight
-          name="light1"
-          intensity={0.7}
-          direction={Vector3.Up()}
-        />
-        <MovingBox
-          color={Color3.Red()}
-          position={new Vector3(-2, 0, 0)}
-          rotationAxis="y"
-        />
-        <MovingBox
-          color={Color3.Yellow()}
-          position={new Vector3(2, 0, 0)}
-          rotationAxis="x"
-        />
+        <freeCamera name="camera1" position={new Vector3(0, 5, -10)} setTarget={[Vector3.Zero()]} />
+        <hemisphericLight name="light1" intensity={0.7} direction={Vector3.Up()} />
+        <MovingBox color={Color3.Red()} position={new Vector3(-2, 0, 0)} rotationAxis="y" />
+        <MovingBox color={Color3.Yellow()} position={new Vector3(2, 0, 0)} rotationAxis="x" />
       </Scene>
     </Engine>
   </div>
 )
 
 export default App
-```

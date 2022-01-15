@@ -39,6 +39,7 @@
     "node": true
   },
   "globals": {
-    "graphql": false
+    "graphql": false,
+    "JSX": true
   }
 }
