@@ -53,7 +53,8 @@
     "react-instantsearch-dom": "^6.11.0",
     "react-live": "^2.2.3",
     "react-loadable": "^5.5.0",
-    "styled-components": "^5.3.0"
+    "styled-components": "^5.3.0",
+    "type-fest": "^2.9.0"
   },
   "license": "MIT",
   "scripts": {
@@ -82,6 +83,7 @@
     "gatsby-plugin-remove-trailing-slashes": "^3.4.0",
     "prettier": "^2.5.1",
     "prettier-plugin-organize-imports": "^2.3.4",
-    "prism-react-renderer": "^1.2.0"
+    "prism-react-renderer": "^1.2.0",
+    "typescript": "^4.5.4"
   }
 }

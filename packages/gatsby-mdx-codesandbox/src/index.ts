@@ -105,9 +105,10 @@ const plugin: GatsbyMdxPlugin<PluginOptions> = async (meta, pluginOptions) => {
       semi: false,
       printWidth: 80,
       proseWrap: "always",
+      parser: "typescript",
     },
     codesandbox: {
-      mode: pluginOptions?.codesandbox?.mode || "iframe",
+      mode: pluginOptions?.codesandbox?.mode || "button",
       defaultQuery: {
         template: "default",
         entry: "src/App.tsx",
@@ -129,7 +130,7 @@ const plugin: GatsbyMdxPlugin<PluginOptions> = async (meta, pluginOptions) => {
       },
     },
   };
-  console.log("options", _options);
+  // console.log('options', _options)
   const { markdownAST, markdownNode } = meta;
 
   const seen: { [_: string]: boolean } = {};
@@ -225,16 +226,17 @@ const plugin: GatsbyMdxPlugin<PluginOptions> = async (meta, pluginOptions) => {
 
     // Read the source file
     const source = readFileSync(codeFileAbsolutePath, { encoding: "utf-8" });
+
+    // Prettify it so it displays nicely in the site
+    const formattedSource = prettier.format(
+      `// ${basename(codeFileAbsolutePath)}\n\n${source}`,
+      _options.prettier
+    );
+
     switch (shortCodeType) {
       // The 'code' case is where we do normal inline code
       case "code":
         {
-          // Prettify it so it displays nicely in the site
-          const formattedSource = prettier.format(
-            `// ${basename(codeFileAbsolutePath)}\n\n${source}`,
-            _options.prettier
-          );
-
           // Typescript kung fu to convert to a Code node
           ((node: Code) => {
             node.type = "code";
@@ -258,10 +260,14 @@ const plugin: GatsbyMdxPlugin<PluginOptions> = async (meta, pluginOptions) => {
               type: "jsx",
               value: `
               <div style={${JSON.stringify(_options.development.style)}}>
-                <div style={{color: 'orange'}}>DEVELOPER MODE: EXECUTING COMPONENT USING LOCAL CODE</div>
-                <br/>
-                <hr/>
-                <br/>
+                {true && 
+                  <div>
+                     <div style={{}}>Development mode detected. Running local code.</div>
+                     <br/>
+                     <hr/>
+                     <br/>
+                  </div>
+                }
                 <${importSymbol}/>
               </div>
             `,
@@ -287,18 +293,18 @@ const plugin: GatsbyMdxPlugin<PluginOptions> = async (meta, pluginOptions) => {
             node.children = [];
             node.lang = ext;
             node.meta = `codesandbox=${templateName}?${computedQuerystring}`;
-            node.value = source;
-            console.log(`converted node`, JSON.stringify(node, null, 2));
+            node.value = formattedSource;
+            // console.log(`converted node`, JSON.stringify(node, null, 2))
           })(paragraphNode as unknown as Code);
         }
         break;
     }
   });
 
-  console.log("calling codesandbox", _options.codesandbox);
+  // console.log('calling codesandbox', _options.codesandbox)
 
   await codesandbox(meta, _options.codesandbox);
-  console.log(JSON.stringify(markdownAST, null, 2));
+  // console.log(JSON.stringify(markdownAST, null, 2))
   return markdownAST;
 };
 

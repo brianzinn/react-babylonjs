@@ -17,7 +17,7 @@ type OnRenderHandler = (scene: Scene) => void
 
 // import SceneComponent from 'babylonjs-hook'; // if you install 'babylonjs-hook' NPM.
 
-interface SceneComponentProps {
+type SceneComponentProps = {
   canvasId: string
   antialias?: boolean
   engineOptions?: EngineOptions
