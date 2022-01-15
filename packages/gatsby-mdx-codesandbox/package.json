@@ -10,14 +10,16 @@
     "watch": "chokidar 'src/*' -c 'yarn build'"
   },
   "dependencies": {
+    "@s-libs/micro-dash": "12",
     "codesandbox": "^2.2.3",
     "prettier": "^2.5.1",
-    "remark-codesandbox": "^0.10.0"
+    "remark-codesandbox": "^0.10.0",
+    "unist-util-visit": "2"
   },
   "peerDependencies": {
+    "@types/react": "^17.0",
     "gatsby": "^4.0",
-    "react": "^17.0",
-    "@types/react": "^17.0"
+    "react": "^17.0"
   },
   "devDependencies": {
     "@types/prettier": "^2.4.3",

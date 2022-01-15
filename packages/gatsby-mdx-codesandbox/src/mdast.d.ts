@@ -29,6 +29,7 @@ export type ReferenceType = "shortcut" | "collapsed" | "full";
  * }
  */
 export interface BlockContentMap {
+  tsx: Tsx;
   jsx: Jsx;
   import: Import;
   paragraph: Paragraph;
@@ -211,6 +212,9 @@ export interface Root extends Parent {
   type: "root";
 }
 
+export interface Tsx extends Literal {
+  type: "tsx";
+}
 export interface Jsx extends Literal {
   type: "jsx";
 }

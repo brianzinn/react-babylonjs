@@ -1,12 +1,17 @@
+import { forEach } from "@s-libs/micro-dash";
 import { readFileSync } from "fs";
 import { basename, dirname, resolve } from "path";
-import prettier from "prettier";
+import prettier, { Options as PrettierOptions } from "prettier";
 import { CSSProperties } from "react";
-import { PartialDeep } from "type-fest";
-import type { Code, Content, Jsx, LinkReference, Parent } from "./mdast";
+import { PartialDeep, SetOptional } from "type-fest";
+import visit from "unist-util-visit";
+import type { Code, Content, Jsx, LinkReference, Parent, Tsx } from "./mdast";
+
 function getRandomInt(max = 10000) {
   return Math.floor(Math.random() * max);
 }
+
+type MaybeParent = SetOptional<Parent, "children">;
 
 type CustomTemplate = {
   extends: string;
@@ -17,13 +22,25 @@ export type PluginOptions = {
   development: {
     style: CSSProperties;
   };
+  prettier: PrettierOptions;
   codesandbox: {
     mode: "iframe" | "button";
+    defaultQuery: CodeSandBoxQuery;
     customTemplates: {
       [_: string]: CustomTemplate;
       default: CustomTemplate;
     };
   };
+};
+
+type CodeSandBoxQuery = {
+  template: string;
+  fontsize: string;
+  hidenavigation: "0" | "1";
+  theme: "dark" | "light";
+  entry: string;
+  module: string;
+  style: string;
 };
 
 type MarkdownAST = Parent;
@@ -64,22 +81,42 @@ type GatsbyMdxPlugin<TOptions extends {}> = (
   pluginOptions: PartialDeep<TOptions>
 ) => MarkdownAST;
 
-export const plugin: GatsbyMdxPlugin<PluginOptions> = (meta, pluginOptions) => {
+const plugin: GatsbyMdxPlugin<PluginOptions> = (meta, pluginOptions) => {
   const _options: PluginOptions = {
     development: {
       style: (pluginOptions?.development?.style as
         | CSSProperties
         | undefined) || {
-        margin: 5,
-        padding: 5,
-        border: "1px solid white",
+        marginTop: "20px",
+        padding: "16px",
+        border: "15px solid rgb(245, 247, 249)",
         backgroundColor: "black",
         color: "white",
+        marginBottom: "20px",
       },
+    },
+    prettier: {
+      jsxBracketSameLine: false,
+      singleQuote: true,
+      tabWidth: 2,
+      trailingComma: "es5",
+      semi: false,
+      printWidth: 80,
+      proseWrap: "always",
     },
     codesandbox: {
       mode: pluginOptions?.codesandbox?.mode || "iframe",
+      defaultQuery: {
+        template: "default",
+        entry: "./src/App.tsx",
+        fontsize: "14px",
+        hidenavigation: "0",
+        theme: "dark",
+        module: "",
+        style: "",
+      },
       customTemplates: {
+        ...pluginOptions.codesandbox?.customTemplates,
         default: (pluginOptions.codesandbox?.customTemplates?.default as
           | CustomTemplate
           | undefined) || {
@@ -102,70 +139,108 @@ export const plugin: GatsbyMdxPlugin<PluginOptions> = (meta, pluginOptions) => {
     return node.type === "linkReference";
   };
 
-  markdownAST.children.forEach((currentMarkdownNode) => {
-    const { type } = currentMarkdownNode;
-    if (!isLinkReference(currentMarkdownNode)) return;
-    const { label } = currentMarkdownNode;
+  const isParent = (node: MaybeParent): node is Parent => {
+    return !!node.children;
+  };
+
+  const isSoloChild = (node: Parent) => {
+    return node.children.length === 1;
+  };
+
+  const isJsxOrTsx = (ext: string): ext is Jsx["type"] | Tsx["type"] =>
+    ext === "jsx" || ext === "tsx";
+
+  visit(markdownAST, "paragraph", (paragraphNode: MaybeParent, idx) => {
+    if (!isParent(paragraphNode)) return;
+    if (!isSoloChild(paragraphNode)) return;
+    const linkRefNode = paragraphNode.children[0];
+    if (!isLinkReference(linkRefNode)) return;
+    const { label } = linkRefNode;
     if (!label) return;
-    const [shortCodeType, fname] = label.split(":");
+    const [shortCodeType, fnameWithQuery] = label.split(":");
+    const [fname, querystring] = fnameWithQuery.split("?");
+    const query = new URLSearchParams();
+    forEach(_options.codesandbox.defaultQuery, (v, k) => query.set(k, v));
+    new URLSearchParams(querystring).forEach((v, k) => query.set(k, v));
+    query.delete("template");
+
     if (!isCodeOrDemo(shortCodeType)) return;
     const { fileAbsolutePath } = markdownNode;
     const absoluteDir = dirname(fileAbsolutePath);
     const fullFname = resolve(absoluteDir, fname);
     console.log(fullFname);
-
+    const source = readFileSync(fullFname, { encoding: "utf-8" });
     switch (shortCodeType) {
       case "code":
         {
-          const source = readFileSync(fullFname, { encoding: "utf-8" });
           const formattedSource = prettier.format(
             `// ${basename(fullFname)}\n\n${source}`,
-            {
-              jsxBracketSameLine: false,
-              singleQuote: true,
-              tabWidth: 2,
-              trailingComma: "es5",
-              semi: false,
-              printWidth: 80,
-              proseWrap: "always",
-            }
+            _options.prettier
           );
           // Typescript kung fu to convert to a Code node
           ((node: Code) => {
             node.type = "code";
             node.lang = "typescript";
-            node.meta = null;
+            node.meta = `codesandbox=${query.get(
+              "template"
+            )}?${query.toString()}`;
             node.value = formattedSource;
-          })(currentMarkdownNode as unknown as Code);
+            console.log(`converted node`, JSON.stringify(node, null, 2));
+          })(linkRefNode as unknown as Code);
         }
         break;
       case "demo":
         {
           const [moduleName, ext] = fname.split(".");
+          if (!isJsxOrTsx(ext))
+            throw new Error(
+              `${fname} is not supported. Only jsx and tsx are supported.`
+            );
           const importSymbol = `Component_${moduleName}`;
-          if (!seen[moduleName]) {
-            markdownAST.children.unshift({
-              type: "import",
-              value: `import ${importSymbol} from './${moduleName}'`,
-            });
-            seen[moduleName] = true;
-            console.log(JSON.stringify(markdownAST.children, null, 2));
-          }
-          ((node: Jsx) => {
-            node.type = "jsx";
-            node.value = `
+
+          // Wire up local dev harness
+          {
+            // Splice in a dev container
+            markdownAST.children.splice(idx, 0, {
+              type: "jsx",
+              value: `
               <div style={${JSON.stringify(_options.development.style)}}>
+                <div style={{color: 'orange'}}>DEVELOPER MODE: EXECUTING COMPONENT USING LOCAL CODE</div>
+                <br/>
+                <hr/>
+                <br/>
                 <${importSymbol}/>
-              </ReactDemo>
-            `;
-          })(currentMarkdownNode as unknown as Jsx);
+              </div>
+            `,
+            });
+
+            // Insert an import if this component hasn't been seen yet
+            if (!seen[moduleName]) {
+              markdownAST.children.unshift({
+                type: "import",
+                value: `import ${importSymbol} from './${moduleName}'`,
+              });
+              seen[moduleName] = true;
+            }
+
+            // Swap for a codesandbox node
+            ((node: Code) => {
+              node.type = "code";
+              node.lang = ext;
+              node.meta = `codesandbox=${query.get(
+                "template"
+              )}?${query.toString()}`;
+              node.value = source;
+              console.log(`converted node`, JSON.stringify(node, null, 2));
+            })(paragraphNode as unknown as Code);
+          }
         }
         break;
     }
   });
 
-  // console.log(JSON.stringify(markdownAST, null, 2))
+  console.log(JSON.stringify(markdownAST, null, 2));
   return markdownAST;
 };
 
-export default plugin;
+module.exports = plugin;

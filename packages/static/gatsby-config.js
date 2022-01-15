@@ -37,26 +37,7 @@ const plugins = [
         },
         {
           resolve: 'gatsby-mdx-codesandbox',
-          options: {
-            development: {
-              style: {
-                margin: 5,
-                padding: 5,
-                border: '1px solid white',
-                backgroundColor: 'black',
-                color: 'white',
-              },
-            },
-            codesandbox: {
-              mode: 'iframe',
-              customTemplates: {
-                rbjs: {
-                  extends: 'file:./codesandbox-template',
-                  entry: './src/App.tsx',
-                },
-              },
-            },
-          },
+          options: {},
         },
       ],
       extensions: ['.mdx', '.md'],

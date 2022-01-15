@@ -2551,6 +2551,14 @@
     estree-walker "^2.0.1"
     picomatch "^2.2.2"
 
+"@s-libs/micro-dash@12":
+  version "12.0.0"
+  resolved "https://registry.yarnpkg.com/@s-libs/micro-dash/-/micro-dash-12.0.0.tgz#79dd682a2545467b4fe9d123253f6178d8afce23"
+  integrity sha512-TQlYM5YJj/NZ6FuicfjAg3Lv5xeZ69Sp2CwEVVcqD19LcyZd6zjEnWgRpbglWsozhQHsBpXtoIKoUQMuW6UTpQ==
+  dependencies:
+    tslib "^2.1.0"
+    utility-types "^3.10.0"
+
 "@sideway/address@^4.1.3":
   version "4.1.3"
   resolved "https://registry.yarnpkg.com/@sideway/address/-/address-4.1.3.tgz#d93cce5d45c5daec92ad76db492cc2ee3c64ab27"
@@ -19631,7 +19639,7 @@ unist-util-visit-parents@^3.0.0, unist-util-visit-parents@^3.1.1:
     "@types/unist" "^2.0.0"
     unist-util-is "^4.0.0"
 
-unist-util-visit@2.0.3, unist-util-visit@^2.0.0, unist-util-visit@^2.0.1, unist-util-visit@^2.0.3:
+unist-util-visit@2, unist-util-visit@2.0.3, unist-util-visit@^2.0.0, unist-util-visit@^2.0.1, unist-util-visit@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/unist-util-visit/-/unist-util-visit-2.0.3.tgz#c3703893146df47203bb8a9795af47d7b971208c"
   integrity sha512-iJ4/RczbJMkD0712mGktuGpm/U4By4FfDonL7N/9tATGIF4imikjOuagyMY53tnZq3NP6BcmlrHhEKAfGWjh7Q==
@@ -19882,6 +19890,11 @@ utila@~0.4:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/utila/-/utila-0.4.0.tgz#8a16a05d445657a3aea5eecc5b12a4fa5379772c"
   integrity sha1-ihagXURWV6Oupe7MWxKk+lN5dyw=
+
+utility-types@^3.10.0:
+  version "3.10.0"
+  resolved "https://registry.yarnpkg.com/utility-types/-/utility-types-3.10.0.tgz#ea4148f9a741015f05ed74fd615e1d20e6bed82b"
+  integrity sha512-O11mqxmi7wMKCo6HKFt5AhO4BwY3VV68YU07tgxfz8zJTIxr4BpsezN49Ffwy9j3ZpwwJp4fkRwjRzq3uWE6Rg==
 
 utils-merge@1.0.1:
   version "1.0.1"
