@@ -241,7 +241,7 @@ const plugin: GatsbyMdxPlugin<PluginOptions> = async (meta, pluginOptions) => {
             `/* `,
             ` ********* WARNING ********`,
             ` * THIS CODE WAS LAUNCHED FROM LOCALHOST.`,
-            ` * LOCAL PACKAGE MAY NOT MATCH THE DEPENDENCIES`,
+            ` * LOCAL PACKAGES MAY NOT MATCH THE DEPENDENCIES`,
             ` * USED IN THIS SANDBOX.`,
             ` * `,
             ` * TEST SANDBOX FOR BACKWARD COMPATIBLITY IF DESIRED.`,
