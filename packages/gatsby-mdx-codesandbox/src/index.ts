@@ -8,7 +8,7 @@ import { CSSProperties } from "react";
 import codesandbox from "remark-codesandbox/gatsby";
 import { PartialDeep, SetOptional } from "type-fest";
 import visit from "unist-util-visit";
-import type { Code, Content, LinkReference, Parent, Tsx } from "./mdast";
+import type { Code, Content, Jsx, LinkReference, Parent, Tsx } from "./mdast";
 function getRandomInt(max = 10000) {
   return Math.floor(Math.random() * max);
 }
@@ -267,7 +267,8 @@ const plugin: GatsbyMdxPlugin<PluginOptions> = async (meta, pluginOptions) => {
             node.lang = "tsx";
             node.meta = ``;
             node.value = formattedSource;
-            console.log(`converted node`, JSON.stringify(node, null, 2));
+            console.log(`converted node to sandbox`);
+            // console.log(JSON.stringify(node, null, 2))
           })(linkRefNode as unknown as Code);
         }
         break;
@@ -294,12 +295,14 @@ const plugin: GatsbyMdxPlugin<PluginOptions> = async (meta, pluginOptions) => {
             `<${importSymbol}/>`,
             `</div>`,
           ];
-          markdownAST.children.splice(idx, 0, {
-            // Splice above code listing
-            type: "jsx",
-            value: lines.join("\n"),
-          });
-          console.log(`Adding run container for ${moduleName}`);
+
+          // Typescript kung fu to convert to a Code node
+          ((node: Jsx) => {
+            node.type = "jsx";
+            node.value = lines.join("\n");
+            console.log(`converted node to runtime container`);
+            // console.log(JSON.stringify(node, null, 2))
+          })(linkRefNode as unknown as Jsx);
 
           // Insert an import if this component hasn't been seen yet
           if (!seen[moduleName]) {
