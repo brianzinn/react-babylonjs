@@ -2,16 +2,18 @@ import { forEach } from "@s-libs/micro-dash";
 import { existsSync, readFileSync } from "fs";
 import { basename, dirname, resolve } from "path";
 import prettier, { Options as PrettierOptions } from "prettier";
+import { env } from "process";
 import { CSSProperties } from "react";
 //@ts-ignore Can't figure out ambient module declaration for a subpackage
 import codesandbox from "remark-codesandbox/gatsby";
 import { PartialDeep, SetOptional } from "type-fest";
 import visit from "unist-util-visit";
 import type { Code, Content, LinkReference, Parent, Tsx } from "./mdast";
-
 function getRandomInt(max = 10000) {
   return Math.floor(Math.random() * max);
 }
+
+const IS_DEVELOPMENT_MODE = env["NODE_ENV"] === "development";
 
 type MaybeParent = SetOptional<Parent, "children">;
 
@@ -228,8 +230,27 @@ const plugin: GatsbyMdxPlugin<PluginOptions> = async (meta, pluginOptions) => {
     const source = readFileSync(codeFileAbsolutePath, { encoding: "utf-8" });
 
     // Prettify it so it displays nicely in the site
+    const lines = [
+      `// ${basename(codeFileAbsolutePath)}`,
+      "",
+      ...(IS_DEVELOPMENT_MODE
+        ? [
+            `/* `,
+            ` ********* WARNING ********`,
+            ` * THIS CODE WAS LAUNCHED FROM LOCALHOST.`,
+            ` * LOCAL PACKAGE MAY NOT MATCH THE DEPENDENCIES`,
+            ` * USED IN THIS SANDBOX.`,
+            ` * `,
+            ` * TEST SANDBOX FOR BACKWARD COMPATIBLITY IF DESIRED.`,
+            ` ********* WARNING ********`,
+            ` */`,
+            "",
+          ]
+        : []),
+      source,
+    ];
     const formattedSource = prettier.format(
-      `// ${basename(codeFileAbsolutePath)}\n\n${source}`,
+      lines.join("\n"),
       _options.prettier
     );
 
@@ -251,41 +272,6 @@ const plugin: GatsbyMdxPlugin<PluginOptions> = async (meta, pluginOptions) => {
       // The 'demo' case is a codesandbox and, if in dev/localhost mode, a working demo running aginst local code
       case "demo":
         {
-          // Wire up local dev harness
-          if (true) {
-            const importSymbol = `Component_${moduleName}`;
-
-            // Splice in a dev container
-            markdownAST.children.splice(idx, 0, {
-              type: "jsx",
-              value: `
-              <div style={${JSON.stringify(_options.development.style)}}>
-                {true && 
-                  <div>
-                     <div style={{}}>Development mode detected. Running local code.</div>
-                     <br/>
-                     <hr/>
-                     <br/>
-                  </div>
-                }
-                <${importSymbol}/>
-              </div>
-            `,
-            });
-            console.log(`Adding dev harness for ${moduleName}`);
-
-            // Insert an import if this component hasn't been seen yet
-            if (!seen[moduleName]) {
-              const node: Content = {
-                type: "import",
-                value: `import ${importSymbol} from './${moduleName}'`,
-              };
-              markdownAST.children.unshift(node);
-              console.log(`Adding: ${node.value}`);
-              seen[moduleName] = true;
-            }
-          }
-
           // Swap current node for a codesandbox node
           ((node: Code) => {
             node.type = "code";
@@ -296,6 +282,42 @@ const plugin: GatsbyMdxPlugin<PluginOptions> = async (meta, pluginOptions) => {
             node.value = formattedSource;
             // console.log(`converted node`, JSON.stringify(node, null, 2))
           })(paragraphNode as unknown as Code);
+
+          // Wire up demo harness
+          const importSymbol = `Component_${moduleName}`;
+
+          // Splice in a run container, warn if in dev mode
+          const lines = [
+            `<div style={${JSON.stringify(_options.development.style)}}>`,
+            ...(IS_DEVELOPMENT_MODE
+              ? [
+                  `<div>`,
+                  `   <div style={{textTransform: 'uppercase',color: '#ff5400'}}>Development mode detected. Running local code against local packages.</div>`,
+                  `   <br/>`,
+                  `   <hr/>`,
+                  `   <br/>`,
+                  `</div>`,
+                ]
+              : []),
+            `<${importSymbol}/>`,
+            `</div>`,
+          ];
+          markdownAST.children.splice(idx + 1, 0, {
+            type: "jsx",
+            value: lines.join("\n"),
+          });
+          console.log(`Adding dev harness for ${moduleName}`);
+
+          // Insert an import if this component hasn't been seen yet
+          if (!seen[moduleName]) {
+            const node: Content = {
+              type: "import",
+              value: `import ${importSymbol} from './${moduleName}'`,
+            };
+            markdownAST.children.unshift(node);
+            console.log(`Adding: ${node.value}`);
+            seen[moduleName] = true;
+          }
         }
         break;
     }
