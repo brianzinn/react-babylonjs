@@ -265,7 +265,7 @@ const plugin: GatsbyMdxPlugin<PluginOptions> = async (meta, pluginOptions) => {
           ((node: Code) => {
             node.type = "code";
             node.lang = "tsx";
-            node.meta = ``;
+            node.meta = `codesandbox=${templateName}?${computedQuerystring}`;
             node.value = formattedSource;
             console.log(`converted node to sandbox`);
             // console.log(JSON.stringify(node, null, 2))
