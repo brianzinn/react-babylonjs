@@ -19,7 +19,6 @@ import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs'
 import 'react-tabs/style/react-tabs.css'
 import { createCookieHooker } from './cookieHook'
-
 const plugins = [typescript]
 
 const PRETTIER_OPTS: Options = {
@@ -38,7 +37,7 @@ const useRememberTabIdx = createCookieHooker<number>('tabidx')
 const useRememberLanguage = createCookieHooker<'ts' | 'js'>('language')
 const useRememberWrapWidth = createCookieHooker<number>('wrapwidth')
 
-export type DemoProps = {
+export type DevToolProps = {
   isDevelopmentMode: boolean
   component: ComponentType<any>
   typescript: string
@@ -47,8 +46,8 @@ export type DemoProps = {
   prefix: string
 }
 
-export const Demo: FC<Partial<DemoProps>> = (props) => {
-  const _props: DemoProps = {
+export const DevTool: FC<Partial<DevToolProps>> = (props) => {
+  const _props: DevToolProps = {
     component: () => <div>Render me</div>,
     javascript: `import React from 'react'
 
@@ -99,7 +98,7 @@ export const Demo: FC<Partial<DemoProps>> = (props) => {
 
       <Tabs selectedIndex={tabIdx} onSelect={(idx) => setTabIdx(idx)}>
         <TabList>
-          <Tab>Demo</Tab>
+          <Tab>Output</Tab>
           <Tab>Code</Tab>
           <div
             className={css`

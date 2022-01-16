@@ -2,21 +2,21 @@
 import SampleTs from '!!raw-loader!./Sample.tsx'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import React from 'react'
-import { Demo } from './DevTool'
+import { DevTool } from './DevTool'
 import Sample from './Sample'
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: 'Demo',
-  component: Demo,
+  title: 'DevTool',
+  component: DevTool,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
     backgroundColor: { control: 'color' },
   },
-} as ComponentMeta<typeof Demo>
+} as ComponentMeta<typeof DevTool>
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof Demo> = (args) => <Demo {...args} />
+const Template: ComponentStory<typeof DevTool> = (args) => <DevTool {...args} />
 
 export const Primary = Template.bind({})
 
