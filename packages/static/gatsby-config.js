@@ -35,10 +35,10 @@ const plugins = [
         {
           resolve: 'gatsby-remark-copy-linked-files',
         },
-        {
-          resolve: 'gatsby-mdx-codesandbox',
-          options: {},
-        },
+        // {
+        //   resolve: 'gatsby-mdx-codesandbox',
+        //   options: {},
+        // },
       ],
       extensions: ['.mdx', '.md'],
     },

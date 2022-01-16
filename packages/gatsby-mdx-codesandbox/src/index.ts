@@ -1,5 +1,6 @@
 import { forEach } from '@s-libs/micro-dash'
 import { existsSync, readFileSync } from 'fs'
+import { NodePluginArgs } from 'gatsby'
 import { basename, dirname, resolve } from 'path'
 import prettier, { Options as PrettierOptions } from 'prettier'
 import { env } from 'process'
@@ -75,7 +76,7 @@ type GatsbyMdxFileNode = GatsbyMdxNode & {
   fileAbsolutePath: string
 }
 
-type GatsbyMdxPluginMeta = {
+type GatsbyMdxPluginMeta = NodePluginArgs & {
   markdownAST: MarkdownAST
   markdownNode: GatsbyMdxFileNode
 }
@@ -137,6 +138,7 @@ const plugin: GatsbyMdxPlugin<PluginOptions> = async (meta, pluginOptions) => {
   }
   // console.log('options', _options)
   const { markdownAST, markdownNode } = meta
+  // console.log({ meta })
 
   // Import the Demo component
   {
@@ -363,7 +365,7 @@ const plugin: GatsbyMdxPlugin<PluginOptions> = async (meta, pluginOptions) => {
   // console.log('calling codesandbox', _options.codesandbox)
 
   await codesandbox(meta, _options.codesandbox)
-  // console.log(JSON.stringify(markdownAST, null, 2))
+  console.log(JSON.stringify(markdownAST, null, 2))
   return markdownAST
 }
 
