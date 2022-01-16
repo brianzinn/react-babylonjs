@@ -36,16 +36,8 @@ const plugins = [
           resolve: 'gatsby-remark-copy-linked-files',
         },
         {
-          resolve: 'remark-codesandbox/gatsby',
-          options: {
-            mode: 'iframe',
-            customTemplates: {
-              rbjs: {
-                extends: 'file:./codesandbox-template',
-                entry: './src/App.tsx',
-              },
-            },
-          },
+          resolve: 'gatsby-mdx-codesandbox',
+          options: {},
         },
       ],
       extensions: ['.mdx', '.md'],

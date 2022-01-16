@@ -1,5 +1,5 @@
 {
-  "name": "react-babylonjs-docs",
+  "name": "@react-babylonjs/docs",
   "private": true,
   "description": "react-babylonjs Documentation",
   "version": "0.0.1",
@@ -22,6 +22,7 @@
     "emotion-server": "^11.0.0",
     "gatsby": "^4.0.0",
     "gatsby-link": "^4.0.0",
+    "gatsby-mdx-codesandbox": "*",
     "gatsby-plugin-algolia": "^0.19.0",
     "gatsby-plugin-emotion": "^7.0.0",
     "gatsby-plugin-gtag": "^1.0.13",
@@ -52,7 +53,8 @@
     "react-instantsearch-dom": "^6.11.0",
     "react-live": "^2.2.3",
     "react-loadable": "^5.5.0",
-    "styled-components": "^5.3.0"
+    "styled-components": "^5.3.0",
+    "type-fest": "^2.9.0"
   },
   "license": "MIT",
   "scripts": {
@@ -82,6 +84,6 @@
     "prettier": "^2.5.1",
     "prettier-plugin-organize-imports": "^2.3.4",
     "prism-react-renderer": "^1.2.0",
-    "remark-codesandbox": "^0.10.0"
+    "typescript": "^4.5.4"
   }
 }
