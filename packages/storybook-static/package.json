@@ -1,0 +1,40 @@
+{
+  "name": "react-babylonjs-storybook-static",
+  "private": "true",
+  "version": "0.0.1",
+  "description": "stories for react-babylonjs",
+  "main": "index.js",
+  "scripts": {
+    "lint": "echo noop",
+    "lint:fix": "echo noop",
+    "start": "start-storybook -p 6006 -s ./storyboard-site",
+    "build-storybook": "build-storybook -o storybook-static -s ./storyboard-site"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "@babylonjs/inspector": "^4.2.0",
+    "@babylonjs/loaders": "^4.2.0",
+    "@babylonjs/materials": "^4.2.0",
+    "@babylonjs/procedural-textures": "^4.2.0",
+    "@inlet/react-pixi": "^6.6.5",
+    "@storybook/addon-storysource": "^6.3.12",
+    "@storybook/react": "^6.3.12",
+    "@storybook/theming": "^6.3.12",
+    "babel-loader": "8.2.3",
+    "cannon": "^0.6.2",
+    "chroma-js": "^2.1.0",
+    "earcut": "^2.2.2",
+    "gsap": "^3.6.1",
+    "honeycomb-grid": "^3.1.7",
+    "lerp": "^1.0.3",
+    "pixi-projection": "^0.4.2",
+    "pixi.js": "^6.1.2",
+    "react-babylon-spring": "^1.0.2",
+    "zustand": "^3.6.4"
+  },
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-babylonjs": "*",
+    "react-dom": "^17.0.2"
+  }
+}
