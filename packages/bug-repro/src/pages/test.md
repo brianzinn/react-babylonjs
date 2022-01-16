@@ -1,5 +1,7 @@
 # Hello world
 
-import Demo from './Demo'
+```tsx file=./Hello.tsx
 
-<Demo/>
+```
+
+[demo:Hello.tsx]
