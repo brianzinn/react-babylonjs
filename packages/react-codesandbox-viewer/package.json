@@ -1,0 +1,48 @@
+{
+  "name": "react-codesandbox-viewer",
+  "version": "0.0.1",
+  "source": "src/index.ts",
+  "main": "dist/index.js",
+  "browserslist": "> 0.5%, last 2 versions, not dead",
+  "types": "dist/index.d.ts",
+  "license": "MIT",
+  "scripts": {
+    "build": "parcel build",
+    "watch": "chokidar 'src/*' -c 'yarn build'",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  },
+  "dependencies": {
+    "@emotion/css": "^11.7.1",
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0",
+    "@fontsource/roboto": "^4.5.1",
+    "@mui/icons-material": "^5.2.5",
+    "@mui/material": "^5.2.8",
+    "@s-libs/micro-dash": "12",
+    "@swc/helpers": "^0.3.2",
+    "@types/prettier": "^2.4.3",
+    "@types/react-tabs": "^2.3.4",
+    "prettier": "^2.5.1",
+    "react-cookie": "^4.1.1",
+    "react-syntax-highlighter": "^15.4.5",
+    "react-tabs": "^3.2.3",
+    "remark-codesandbox": "^0.10.0",
+    "react-codesandbox-viewer": "*"
+  },
+  "peerDependencies": {
+    "@types/react": "^17.0",
+    "react": "^17.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.7",
+    "@storybook/addon-actions": "^6.4.13",
+    "@storybook/addon-essentials": "^6.4.13",
+    "@storybook/addon-links": "^6.4.13",
+    "@storybook/react": "^6.4.13",
+    "@types/prettier": "^2.4.3",
+    "babel-loader": "^8.2.3",
+    "parcel": "^2.2.0",
+    "typescript": "^4.5.4"
+  }
+}

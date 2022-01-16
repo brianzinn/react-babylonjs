@@ -1,3 +1,4 @@
 dist
 storybook-static
 .cache
+.parcel-cache

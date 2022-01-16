@@ -139,7 +139,7 @@ const plugin: GatsbyMdxPlugin<PluginOptions> = async (meta, pluginOptions) => {
   {
     const node: Content = {
       type: 'import',
-      value: `import {Demo} from 'gatsby-mdx-codesandbox/react'`,
+      value: `import {Demo} from 'react-codesandbox-viewer'`,
     }
     markdownAST.children.unshift(node)
     console.log(`Adding: ${node.value}`)
