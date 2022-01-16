@@ -3,34 +3,22 @@ import '@fontsource/roboto/300.css'
 import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
-import { Button, debounce, Typography } from '@mui/material'
-import Box from '@mui/material/Box'
-import Grid from '@mui/material/Grid'
-import Paper from '@mui/material/Paper'
-import Slider from '@mui/material/Slider'
-import { styled } from '@mui/material/styles'
-import ToggleButton from '@mui/material/ToggleButton'
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
+import 'bootstrap/dist/css/bootstrap.min.css'
 import { Options } from 'prettier'
 import typescript from 'prettier/parser-typescript'
 import prettier from 'prettier/standalone'
-import React, { ComponentType, FC, useMemo, useRef } from 'react'
+import Slider from 'rc-slider'
+import 'rc-slider/assets/index.css'
+import React, { ComponentType, FC, useMemo, useState } from 'react'
+import Button from 'react-bootstrap/Button'
+import ButtonGroup from 'react-bootstrap/ButtonGroup'
+import Modal from 'react-bootstrap/Modal'
+import { FaCog } from 'react-icons/fa'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs'
 import 'react-tabs/style/react-tabs.css'
 import { createCookieHooker } from './cookieHook'
-
-const Item = styled(Paper)(({ theme }) => ({
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-}))
-
-export default function BasicGrid() {
-  return <Box sx={{ flexGrow: 1 }}></Box>
-}
 
 const plugins = [typescript]
 
@@ -51,10 +39,12 @@ const useRememberLanguage = createCookieHooker<'ts' | 'js'>('language')
 const useRememberWrapWidth = createCookieHooker<number>('wrapwidth')
 
 export type DemoProps = {
+  isDevelopmentMode: boolean
   container: ComponentType<any>
   typescript: string
   javascript: string
   codesandboxUrl: string
+  prefix: string
 }
 
 export const Demo: FC<Partial<DemoProps>> = (props) => {
@@ -73,18 +63,17 @@ export const Demo: FC<Partial<DemoProps>> = (props) => {
     export default App
     `,
     codesandboxUrl: 'https://codesandbox.io',
+    isDevelopmentMode: false,
+    prefix: '',
     ...props,
   }
-  const { container, typescript, javascript, codesandboxUrl } = _props
+  const { container, typescript, javascript, codesandboxUrl, isDevelopmentMode, prefix } = _props
 
   const [language, setLanguage] = useRememberLanguage('ts')
-  const [tabIdx, setTabIdx] = useRememberTabIdx(0)
+  const [tabIdx, setTabIdx] = useRememberTabIdx(0, prefix)
   const [fontSize, setFontSize] = useRememberFontSize(10)
   const [printWidth, setPrintWidth] = useRememberWrapWidth(80)
-
-  const format = useRef(
-    debounce((source: string, options: Options) => prettier.format(source, options), 100)
-  )
+  const [showSettings, setShowSettings] = useState(false)
 
   const source = useMemo(() => {
     return prettier.format(language === 'ts' ? typescript : javascript, {
@@ -94,123 +83,127 @@ export const Demo: FC<Partial<DemoProps>> = (props) => {
   }, [language, printWidth])
 
   return (
-    <Tabs selectedIndex={tabIdx} onSelect={(idx) => setTabIdx(idx)}>
-      <TabList>
-        <Tab>Demo</Tab>
-        <Tab>Code</Tab>
+    <div>
+      {isDevelopmentMode && (
         <div
-          className={css`
-            padding: 2;
-            border-radius: 5px;
-            padding-left: 10px;
-            padding-right: 10px;
-            margin-left: 5px;
-            display: inline-block;
-            &:hover {
-              cursor: pointer;
-            }
-            .MuiToggleButton {
-              padding: 2px;
-            }
-          `}
-        >
-          <ToggleButtonGroup
-            color="primary"
-            value={language}
-            exclusive
-            onChange={(e, v) => {
-              console.log({ v })
-              setLanguage(v)
-            }}
-            size="small"
-          >
-            <ToggleButton
-              value="js"
-              style={{
-                paddingTop: 4,
-                paddingBottom: 0,
-              }}
-            >
-              Js
-            </ToggleButton>
-            <ToggleButton
-              value="ts"
-              style={{
-                paddingTop: 4,
-                paddingBottom: 0,
-              }}
-            >
-              Ts
-            </ToggleButton>
-          </ToggleButtonGroup>
-        </div>
-        <Button
           style={{
-            padding: 2,
-          }}
-          onClick={() => window.open(codesandboxUrl, '_blank')}
-        >
-          <Typography>Run in Codesandbox</Typography>
-        </Button>
-      </TabList>
-
-      <TabPanel>{React.createElement(container)}</TabPanel>
-      <TabPanel>
-        <Grid container>
-          <Grid item xs={2}>
-            <Item elevation={0}></Item>
-          </Grid>
-
-          <Grid item xs={4}>
-            <Item elevation={0}>
-              <div>
-                <Typography>Font Size</Typography>
-                <Slider
-                  value={fontSize}
-                  getAriaValueText={(v) => `${v}pt`}
-                  step={1}
-                  marks
-                  min={8}
-                  max={20}
-                  valueLabelDisplay="auto"
-                  onChange={(e, v) => setFontSize(v as number)}
-                />
-              </div>
-            </Item>
-          </Grid>
-
-          <Grid item xs={4}>
-            <Item elevation={0}>
-              <div>
-                <Typography>Wrap Width</Typography>
-                <Slider
-                  value={printWidth}
-                  getAriaValueText={(v) => `${v}pt`}
-                  step={5}
-                  marks
-                  min={40}
-                  max={200}
-                  valueLabelDisplay="auto"
-                  onChange={(e, v) => setPrintWidth(v as number)}
-                />
-              </div>
-            </Item>
-          </Grid>
-        </Grid>
-
-        <SyntaxHighlighter
-          language="typescript"
-          style={dark}
-          showLineNumbers
-          codeTagProps={{
-            style: {
-              fontSize: `${fontSize}pt`,
-            },
+            display: 'inline-block',
+            textTransform: 'uppercase',
+            color: '#ff5400',
+            marginLeft: 10,
           }}
         >
-          {source}
-        </SyntaxHighlighter>
-      </TabPanel>
-    </Tabs>
+          Development mode detected. Running local code against local packages.
+        </div>
+      )}
+
+      <Tabs selectedIndex={tabIdx} onSelect={(idx) => setTabIdx(idx)}>
+        <TabList>
+          <Tab>Demo</Tab>
+          <Tab>Code</Tab>
+          <div
+            className={css`
+              padding: 2;
+              border-radius: 5px;
+              padding-left: 10px;
+              padding-right: 10px;
+              margin-left: 5px;
+              display: inline-block;
+            `}
+          >
+            <ButtonGroup aria-label="Basic example" size="sm">
+              <Button
+                variant={language === 'js' ? 'primary' : 'secondary'}
+                onClick={() => setLanguage('js')}
+              >
+                Js
+              </Button>
+              <Button
+                variant={language === 'ts' ? 'primary' : 'secondary'}
+                onClick={() => setLanguage('ts')}
+              >
+                Ts
+              </Button>
+            </ButtonGroup>
+          </div>
+          <Button size="sm" onClick={() => window.open(codesandboxUrl, '_blank')}>
+            Run in Codesandbox
+          </Button>
+          <Button
+            size="sm"
+            className={css`
+              margin-left: 5px;
+            `}
+            onClick={() => setShowSettings(true)}
+          >
+            <FaCog />
+          </Button>
+        </TabList>
+
+        <TabPanel>{React.createElement(container)}</TabPanel>
+        <TabPanel>
+          <SyntaxHighlighter
+            language="typescript"
+            style={dark}
+            showLineNumbers
+            customStyle={{
+              backgroundColor: 'black',
+              border: '1px solid gray',
+            }}
+            codeTagProps={{
+              style: {
+                fontSize: `${fontSize}pt`,
+                backgroundColor: 'black',
+              },
+            }}
+          >
+            {source}
+          </SyntaxHighlighter>
+        </TabPanel>
+      </Tabs>
+      <Modal show={showSettings} onHide={() => setShowSettings(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Editor Settings</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div
+            className={css`
+              width: 200px;
+              display: inline-block;
+              padding: 5px;
+              margin: 5px;
+            `}
+          >
+            Font Size
+            <Slider
+              value={fontSize}
+              step={1}
+              min={8}
+              max={20}
+              dots
+              onChange={(v) => setFontSize(v as number)}
+            />
+          </div>
+          <div
+            className={css`
+              width: 400px;
+              display: inline-block;
+              padding: 5px;
+              margin: 5px;
+            `}
+          >
+            Wrap Width
+            <Slider
+              value={printWidth}
+              step={5}
+              min={40}
+              max={200}
+              dots
+              onChange={(v) => setPrintWidth(v as number)}
+            />
+          </div>
+        </Modal.Body>
+      </Modal>
+    </div>
   )
 }

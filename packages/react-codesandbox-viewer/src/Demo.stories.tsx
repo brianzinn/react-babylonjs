@@ -20,11 +20,57 @@ export const Primary = Template.bind({})
 
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Primary.args = {
+  prefix: `g${+new Date()}`,
+  isDevelopmentMode: true,
   container: App,
-  typescript: `import React, { FC } from 'react'
-
-  const App: FC = () => <div> 'hello world'</div>
-  
-  export default App
+  typescript: `/**
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  */
+ 
+ import React, { FC } from 'react'
+ 
+ const App: FC = () => <div> 'hello world'</div>
+ 
+ export default App
+ 
   `,
 }

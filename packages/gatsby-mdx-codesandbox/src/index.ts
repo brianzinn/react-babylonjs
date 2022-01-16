@@ -7,11 +7,9 @@ import { CSSProperties } from 'react'
 //@ts-ignore Can't figure out ambient module declaration for a subpackage
 import codesandbox from 'remark-codesandbox/gatsby'
 import { PartialDeep, SetOptional } from 'type-fest'
+import * as ts from 'typescript'
 import visit from 'unist-util-visit'
 import type { Code, Content, Jsx, LinkReference, Parent, Tsx } from './mdast'
-function getRandomInt(max = 10000) {
-  return Math.floor(Math.random() * max)
-}
 
 type ShortcodeNames = 'demo' | 'code'
 
@@ -86,6 +84,11 @@ type GatsbyMdxPlugin<TOptions extends {}> = (
   meta: GatsbyMdxPluginMeta,
   pluginOptions: PartialDeep<TOptions>
 ) => Promise<MarkdownAST>
+
+const guid = () => {
+  let id = +new Date()
+  return () => `g${++id}`
+}
 
 const plugin: GatsbyMdxPlugin<PluginOptions> = async (meta, pluginOptions) => {
   const _options: PluginOptions = {
@@ -260,10 +263,24 @@ const plugin: GatsbyMdxPlugin<PluginOptions> = async (meta, pluginOptions) => {
             : []),
           source,
         ]
-        const formattedSource = prettier.format(lines.join('\n'), _options.prettier)
+        const unformattedTsx = lines.join('\n')
+        const formattedSourceTsx = prettier.format(unformattedTsx, _options.prettier)
+
+        // Transpile to JS
+        const formattedSourceJsx = prettier.format(
+          ts.transpileModule(unformattedTsx, {
+            compilerOptions: {
+              strict: false,
+              esModuleInterop: true,
+              jsx: ts.JsxEmit.Preserve,
+              module: ts.ModuleKind.ESNext,
+            },
+          }).outputText,
+          _options.prettier
+        )
 
         // Generate the sandbox URL link
-        const sandboxUrl = await (async () => {
+        const codesandboxUrl = await (async () => {
           const node: Code = {
             type: 'code',
             lang: 'tsx',
@@ -278,7 +295,7 @@ const plugin: GatsbyMdxPlugin<PluginOptions> = async (meta, pluginOptions) => {
           if (!url) {
             throw new Error(`Failed to create sandbox URL from ${node.meta}`)
           }
-          console.log(`converted node to sandbox url ${url}`)
+          // console.log(`converted node to sandbox url ${url}`)
           return url
         })()
 
@@ -291,7 +308,7 @@ const plugin: GatsbyMdxPlugin<PluginOptions> = async (meta, pluginOptions) => {
                 node.type = 'code'
                 node.lang = 'tsx'
                 // node.meta = `codesandbox=${templateName}?${computedQuerystring}`
-                node.value = formattedSource
+                node.value = formattedSourceTsx
                 console.log(`converted node to code`)
                 // console.log(JSON.stringify(node, null, 2))
               })(linkRefNode as unknown as Code)
@@ -305,27 +322,22 @@ const plugin: GatsbyMdxPlugin<PluginOptions> = async (meta, pluginOptions) => {
               const importSymbol = `Component_${moduleName}`
 
               // Splice in a run container before the code listing, warn if in dev mode
-              const lines = [
-                `<div style={${JSON.stringify(_options.development.style)}}>`,
-                `<Demo/>`,
-                ...(IS_DEVELOPMENT_MODE
-                  ? [
-                      `<div>`,
-                      `   <div style={{textTransform: 'uppercase',color: '#ff5400'}}>Development mode detected. Running local code against local packages.</div>`,
-                      `   <br/>`,
-                      `   <hr/>`,
-                      `   <br/>`,
-                      `</div>`,
-                    ]
-                  : []),
-                `<${importSymbol}/>`,
-                `</div>`,
-              ]
+              const demoComponent = [
+                `<Demo 
+                  prefix={${guid()}}
+                  isDevelopmentMode={${IS_DEVELOPMENT_MODE ? 'true' : 'false'}}
+                  container={${importSymbol}}
+                  typescript={${JSON.stringify(formattedSourceTsx)}} 
+                  javascript={${JSON.stringify(formattedSourceJsx)}}
+                  codesandboxUrl={${JSON.stringify(codesandboxUrl)}}
+                />`,
+              ].join('\n')
+              console.log(demoComponent)
 
               // Typescript kung fu to convert to a Code node
               ;((node: Jsx) => {
                 node.type = 'jsx'
-                node.value = lines.join('\n')
+                node.value = demoComponent
                 console.log(`converted node to runtime container`)
                 // console.log(JSON.stringify(node, null, 2))
               })(linkRefNode as unknown as Jsx)
