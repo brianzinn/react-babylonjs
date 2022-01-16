@@ -30,7 +30,7 @@ export type PluginOptions = {
   }
   prettier: PrettierOptions
   codesandbox: {
-    mode: 'iframe' | 'button'
+    mode: 'iframe' | 'button' | 'meta'
     defaultQuery: CodeSandBoxQuery
     customTemplates: {
       [_: string]: CustomTemplate
@@ -110,7 +110,7 @@ const plugin: GatsbyMdxPlugin<PluginOptions> = async (meta, pluginOptions) => {
       parser: 'typescript',
     },
     codesandbox: {
-      mode: pluginOptions?.codesandbox?.mode || 'button',
+      mode: pluginOptions?.codesandbox?.mode || 'meta',
       defaultQuery: {
         template: 'default',
         entry: 'src/App.tsx',
@@ -135,6 +135,16 @@ const plugin: GatsbyMdxPlugin<PluginOptions> = async (meta, pluginOptions) => {
   // console.log('options', _options)
   const { markdownAST, markdownNode } = meta
 
+  // Import the Demo component
+  {
+    const node: Content = {
+      type: 'import',
+      value: `import {Demo} from 'gatsby-mdx-codesandbox/react'`,
+    }
+    markdownAST.children.unshift(node)
+    console.log(`Adding: ${node.value}`)
+  }
+
   const seen: { [_: string]: boolean } = {}
 
   const isCodeOrDemo = (type: string): type is ShortcodeNames => {
@@ -157,159 +167,186 @@ const plugin: GatsbyMdxPlugin<PluginOptions> = async (meta, pluginOptions) => {
   const ALLOWED_EXT = ['tsx']
   const isAllowedExt = (ext: string): ext is Tsx['type'] => ALLOWED_EXT.includes(ext)
 
+  const promises: Promise<void>[] = []
   visit(markdownAST, 'paragraph', (paragraphNode: MaybeParent, idx) => {
-    // Only process paragraph nodes
-    if (!isParent(paragraphNode)) return
+    promises.push(
+      (async () => {
+        // Only process paragraph nodes
+        if (!isParent(paragraphNode)) return
 
-    // Only allow the shortcode by itself in a paragraph
-    if (!isSoloChild(paragraphNode)) return
+        // Only allow the shortcode by itself in a paragraph
+        if (!isSoloChild(paragraphNode)) return
 
-    // The [shortcode] syntax shows up as a linkReference node - filter out all others
-    const [linkRefNode] = paragraphNode.children
-    if (!isLinkReference(linkRefNode)) return
+        // The [shortcode] syntax shows up as a linkReference node - filter out all others
+        const [linkRefNode] = paragraphNode.children
+        if (!isLinkReference(linkRefNode)) return
 
-    // The 'label' is the shortcode. Filter out any empty links
-    const { label } = linkRefNode
-    if (!label) return
+        // The 'label' is the shortcode. Filter out any empty links
+        const { label } = linkRefNode
+        if (!label) return
 
-    // Shortcode format:  (demo|code):fname.ext[?params...]
-    const [shortCodeType, fnameWithQuery] = label.split(':')
-    const [fname, querystring] = fnameWithQuery.split('?')
-    const [moduleName, ext] = fname.split('.')
+        // Shortcode format:  (demo|code):fname.ext[?params...]
+        const [shortCodeType, fnameWithQuery] = label.split(':')
+        const [fname, querystring] = fnameWithQuery.split('?')
+        const [moduleName, ext] = fname.split('.')
 
-    // Filter out any shortcode that is not ours
-    if (!isCodeOrDemo(shortCodeType)) return
+        // Filter out any shortcode that is not ours
+        if (!isCodeOrDemo(shortCodeType)) return
 
-    // Error on any file type not currently supported
-    if (!isAllowedExt(ext)) {
-      throw new Error(`${fname} is not supported. Only jsx and tsx are supported.`)
-    }
-
-    // Copy default values into query
-    const query = new URLSearchParams()
-    forEach(_options.codesandbox.defaultQuery, (v, k) => {
-      if (!!v) query.set(k, v)
-    })
-
-    // Calculate the template name
-    const parsed = new URLSearchParams(querystring)
-    const templateName = parsed.get('template') || query.get('template')
-    parsed.delete('template')
-    query.delete('template')
-    console.log(`Template name is ${templateName}`)
-
-    // Overwrite defaults with tempalte defaults if available
-    const { customTemplates } = _options.codesandbox
-    if (templateName && customTemplates[templateName]) {
-      forEach(customTemplates[templateName], (v, k) => {
-        if (!!v) query.set(k, v)
-      })
-    }
-
-    // Overwrite default value union with values specified on querystring
-    parsed.forEach((v, k) => {
-      if (!!v) query.set(k, v)
-    })
-
-    // Compute the new querystring
-    const computedQuerystring = decodeURIComponent(query.toString())
-    console.log(`full query: ${templateName}?${computedQuerystring}`)
-
-    // Calculate the full path to the code file name and error out if it doesn't exist
-    const { fileAbsolutePath } = markdownNode
-    const absoluteDir = dirname(fileAbsolutePath)
-    const codeFileAbsolutePath = resolve(absoluteDir, fname)
-    if (!existsSync(codeFileAbsolutePath)) {
-      throw new Error(`${fname} was not found at ${codeFileAbsolutePath}.`)
-    }
-    console.log(codeFileAbsolutePath)
-
-    // Read the source file
-    const source = readFileSync(codeFileAbsolutePath, { encoding: 'utf-8' })
-
-    // Prettify it so it displays nicely in the site
-    const lines = [
-      `// ${basename(codeFileAbsolutePath)}`,
-      '',
-      ...(IS_DEVELOPMENT_MODE
-        ? [
-            `/* `,
-            ` ********* WARNING ********`,
-            ` * THIS CODE WAS LAUNCHED FROM LOCALHOST.`,
-            ` * LOCAL PACKAGES MAY NOT MATCH THE DEPENDENCIES`,
-            ` * USED IN THIS SANDBOX.`,
-            ` * `,
-            ` * TEST SANDBOX FOR BACKWARD COMPATIBLITY IF DESIRED.`,
-            ` ********* WARNING ********`,
-            ` */`,
-            '',
-          ]
-        : []),
-      source,
-    ]
-    const formattedSource = prettier.format(lines.join('\n'), _options.prettier)
-
-    switch (shortCodeType) {
-      // The 'code' case is where we do normal inline code
-      case 'code':
-        {
-          // Typescript kung fu to convert to a Code node
-          ;((node: Code) => {
-            node.type = 'code'
-            node.lang = 'tsx'
-            node.meta = `codesandbox=${templateName}?${computedQuerystring}`
-            node.value = formattedSource
-            console.log(`converted node to sandbox`)
-            // console.log(JSON.stringify(node, null, 2))
-          })(linkRefNode as unknown as Code)
+        // Error on any file type not currently supported
+        if (!isAllowedExt(ext)) {
+          throw new Error(`${fname} is not supported. Only jsx and tsx are supported.`)
         }
-        break
 
-      // The 'demo' case is a codesandbox and, if in dev/localhost mode, a working demo running aginst local code
-      case 'demo':
-        {
-          // Wire up demo harness
-          const importSymbol = `Component_${moduleName}`
+        // Copy default values into query
+        const query = new URLSearchParams()
+        forEach(_options.codesandbox.defaultQuery, (v, k) => {
+          if (!!v) query.set(k, v)
+        })
 
-          // Splice in a run container before the code listing, warn if in dev mode
-          const lines = [
-            `<div style={${JSON.stringify(_options.development.style)}}>`,
-            ...(IS_DEVELOPMENT_MODE
-              ? [
-                  `<div>`,
-                  `   <div style={{textTransform: 'uppercase',color: '#ff5400'}}>Development mode detected. Running local code against local packages.</div>`,
-                  `   <br/>`,
-                  `   <hr/>`,
-                  `   <br/>`,
-                  `</div>`,
-                ]
-              : []),
-            `<${importSymbol}/>`,
-            `</div>`,
-          ]
+        // Calculate the template name
+        const parsed = new URLSearchParams(querystring)
+        const templateName = parsed.get('template') || query.get('template')
+        parsed.delete('template')
+        query.delete('template')
+        console.log(`Template name is ${templateName}`)
 
-          // Typescript kung fu to convert to a Code node
-          ;((node: Jsx) => {
-            node.type = 'jsx'
-            node.value = lines.join('\n')
-            console.log(`converted node to runtime container`)
-            // console.log(JSON.stringify(node, null, 2))
-          })(linkRefNode as unknown as Jsx)
+        // Overwrite defaults with tempalte defaults if available
+        const { customTemplates } = _options.codesandbox
+        if (templateName && customTemplates[templateName]) {
+          forEach(customTemplates[templateName], (v, k) => {
+            if (!!v) query.set(k, v)
+          })
+        }
 
-          // Insert an import if this component hasn't been seen yet
-          if (!seen[moduleName]) {
-            const node: Content = {
-              type: 'import',
-              value: `import ${importSymbol} from './${moduleName}'`,
-            }
-            markdownAST.children.unshift(node)
-            console.log(`Adding: ${node.value}`)
-            seen[moduleName] = true
+        // Overwrite default value union with values specified on querystring
+        parsed.forEach((v, k) => {
+          if (!!v) query.set(k, v)
+        })
+
+        // Compute the new querystring
+        const computedQuerystring = decodeURIComponent(query.toString())
+        console.log(`full query: ${templateName}?${computedQuerystring}`)
+
+        // Calculate the full path to the code file name and error out if it doesn't exist
+        const { fileAbsolutePath } = markdownNode
+        const absoluteDir = dirname(fileAbsolutePath)
+        const codeFileAbsolutePath = resolve(absoluteDir, fname)
+        if (!existsSync(codeFileAbsolutePath)) {
+          throw new Error(`${fname} was not found at ${codeFileAbsolutePath}.`)
+        }
+        console.log(codeFileAbsolutePath)
+
+        // Read the source file
+        const source = readFileSync(codeFileAbsolutePath, { encoding: 'utf-8' })
+
+        // Prettify it so it displays nicely in the site
+        const lines = [
+          `// ${basename(codeFileAbsolutePath)}`,
+          '',
+          ...(IS_DEVELOPMENT_MODE
+            ? [
+                `/* `,
+                ` ********* WARNING ********`,
+                ` * THIS CODE WAS LAUNCHED FROM LOCALHOST.`,
+                ` * LOCAL PACKAGES MAY NOT MATCH THE DEPENDENCIES`,
+                ` * USED IN THIS SANDBOX.`,
+                ` * `,
+                ` * TEST SANDBOX FOR BACKWARD COMPATIBLITY IF DESIRED.`,
+                ` ********* WARNING ********`,
+                ` */`,
+                '',
+              ]
+            : []),
+          source,
+        ]
+        const formattedSource = prettier.format(lines.join('\n'), _options.prettier)
+
+        // Generate the sandbox URL link
+        const sandboxUrl = await (async () => {
+          const node: Code = {
+            type: 'code',
+            lang: 'tsx',
+            meta: `codesandbox=${templateName}?${computedQuerystring}`,
+            value: source,
           }
+          await codesandbox({ ...meta, markdownAST: node }, _options.codesandbox)
+
+          // console.log(JSON.stringify(node, null, 2))
+          const url = (node.data?.hProperties as { dataCodesandboxUrl?: string })
+            ?.dataCodesandboxUrl
+          if (!url) {
+            throw new Error(`Failed to create sandbox URL from ${node.meta}`)
+          }
+          console.log(`converted node to sandbox url ${url}`)
+          return url
+        })()
+
+        switch (shortCodeType) {
+          // The 'code' case is where we do normal inline code
+          case 'code':
+            {
+              // Typescript kung fu to convert to a Code node
+              ;((node: Code) => {
+                node.type = 'code'
+                node.lang = 'tsx'
+                // node.meta = `codesandbox=${templateName}?${computedQuerystring}`
+                node.value = formattedSource
+                console.log(`converted node to code`)
+                // console.log(JSON.stringify(node, null, 2))
+              })(linkRefNode as unknown as Code)
+            }
+            break
+
+          // The 'demo' case is a codesandbox and, if in dev/localhost mode, a working demo running aginst local code
+          case 'demo':
+            {
+              // Wire up demo harness
+              const importSymbol = `Component_${moduleName}`
+
+              // Splice in a run container before the code listing, warn if in dev mode
+              const lines = [
+                `<div style={${JSON.stringify(_options.development.style)}}>`,
+                `<Demo/>`,
+                ...(IS_DEVELOPMENT_MODE
+                  ? [
+                      `<div>`,
+                      `   <div style={{textTransform: 'uppercase',color: '#ff5400'}}>Development mode detected. Running local code against local packages.</div>`,
+                      `   <br/>`,
+                      `   <hr/>`,
+                      `   <br/>`,
+                      `</div>`,
+                    ]
+                  : []),
+                `<${importSymbol}/>`,
+                `</div>`,
+              ]
+
+              // Typescript kung fu to convert to a Code node
+              ;((node: Jsx) => {
+                node.type = 'jsx'
+                node.value = lines.join('\n')
+                console.log(`converted node to runtime container`)
+                // console.log(JSON.stringify(node, null, 2))
+              })(linkRefNode as unknown as Jsx)
+
+              // Insert an import if this component hasn't been seen yet
+              if (!seen[moduleName]) {
+                const node: Content = {
+                  type: 'import',
+                  value: `import ${importSymbol} from './${moduleName}'`,
+                }
+                markdownAST.children.unshift(node)
+                console.log(`Adding: ${node.value}`)
+                seen[moduleName] = true
+              }
+            }
+            break
         }
-        break
-    }
+      })()
+    )
   })
+  await Promise.all(promises)
 
   // console.log('calling codesandbox', _options.codesandbox)
 
