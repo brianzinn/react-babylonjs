@@ -1,7 +1,9 @@
+//@ts-ignore
+import SampleTs from '!!raw-loader!./Sample.tsx'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import React from 'react'
-import App from './App'
-import { Demo } from './Demo'
+import { Demo } from './DevTool'
+import Sample from './Sample'
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -22,55 +24,6 @@ export const Primary = Template.bind({})
 Primary.args = {
   prefix: `g${+new Date()}`,
   isDevelopmentMode: true,
-  container: App,
-  typescript: `/**
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  */
- 
- import React, { FC } from 'react'
- 
- const App: FC = () => <div> 'hello world'</div>
- 
- export default App
- 
-  `,
+  component: Sample,
+  typescript: SampleTs,
 }

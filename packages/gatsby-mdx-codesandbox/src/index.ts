@@ -328,7 +328,7 @@ const plugin: GatsbyMdxPlugin<PluginOptions> = async (meta, pluginOptions) => {
                 `<Demo 
                   prefix={${JSON.stringify(guid())}}
                   isDevelopmentMode={${IS_DEVELOPMENT_MODE ? 'true' : 'false'}}
-                  container={${importSymbol}}
+                  component={${importSymbol}}
                   typescript={${JSON.stringify(formattedSourceTsx)}} 
                   javascript={${JSON.stringify(formattedSourceJsx)}}
                   codesandboxUrl={${JSON.stringify(codesandboxUrl)}}

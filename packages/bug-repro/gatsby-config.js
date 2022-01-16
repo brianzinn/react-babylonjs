@@ -18,9 +18,6 @@ module.exports = {
       options: {
         extensions: ['.mdx', '.md'],
         gatsbyRemarkPlugins: [
-          {
-            resolve: 'remark-code-import',
-          },
           // {
           //   resolve: 'gatsby-remark-images',
           //   options: {
@@ -31,10 +28,10 @@ module.exports = {
           // {
           //   resolve: 'gatsby-remark-copy-linked-files',
           // },
-          // {
-          //   resolve: 'gatsby-mdx-codesandbox',
-          //   options: {},
-          // },
+          {
+            resolve: 'gatsby-mdx-codesandbox',
+            options: {},
+          },
         ],
       },
     },

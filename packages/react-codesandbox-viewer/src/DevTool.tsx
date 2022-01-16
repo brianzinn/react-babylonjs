@@ -40,7 +40,7 @@ const useRememberWrapWidth = createCookieHooker<number>('wrapwidth')
 
 export type DemoProps = {
   isDevelopmentMode: boolean
-  container: ComponentType<any>
+  component: ComponentType<any>
   typescript: string
   javascript: string
   codesandboxUrl: string
@@ -49,7 +49,7 @@ export type DemoProps = {
 
 export const Demo: FC<Partial<DemoProps>> = (props) => {
   const _props: DemoProps = {
-    container: () => <div>Render me</div>,
+    component: () => <div>Render me</div>,
     javascript: `import React from 'react'
 
     const App = () => <div> 'hello world'</div>
@@ -67,7 +67,7 @@ export const Demo: FC<Partial<DemoProps>> = (props) => {
     prefix: '',
     ...props,
   }
-  const { container, typescript, javascript, codesandboxUrl, isDevelopmentMode, prefix } = _props
+  const { component, typescript, javascript, codesandboxUrl, isDevelopmentMode, prefix } = _props
 
   const [language, setLanguage] = useRememberLanguage('ts')
   const [tabIdx, setTabIdx] = useRememberTabIdx(0, prefix)
@@ -80,7 +80,7 @@ export const Demo: FC<Partial<DemoProps>> = (props) => {
       ...PRETTIER_OPTS,
       printWidth,
     })
-  }, [language, printWidth])
+  }, [language, printWidth, typescript, javascript])
 
   return (
     <div>
@@ -140,7 +140,7 @@ export const Demo: FC<Partial<DemoProps>> = (props) => {
           </Button>
         </TabList>
 
-        <TabPanel>{React.createElement(container)}</TabPanel>
+        <TabPanel>{React.createElement(component)}</TabPanel>
         <TabPanel>
           <SyntaxHighlighter
             language="typescript"
