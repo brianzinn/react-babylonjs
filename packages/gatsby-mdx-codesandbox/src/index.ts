@@ -85,10 +85,10 @@ type GatsbyMdxPlugin<TOptions extends {}> = (
   pluginOptions: PartialDeep<TOptions>
 ) => Promise<MarkdownAST>
 
-const guid = () => {
+const guid = (() => {
   let id = +new Date()
   return () => `g${++id}`
-}
+})()
 
 const plugin: GatsbyMdxPlugin<PluginOptions> = async (meta, pluginOptions) => {
   const _options: PluginOptions = {
@@ -324,7 +324,7 @@ const plugin: GatsbyMdxPlugin<PluginOptions> = async (meta, pluginOptions) => {
               // Splice in a run container before the code listing, warn if in dev mode
               const demoComponent = [
                 `<Demo 
-                  prefix={${guid()}}
+                  prefix={${JSON.stringify(guid())}}
                   isDevelopmentMode={${IS_DEVELOPMENT_MODE ? 'true' : 'false'}}
                   container={${importSymbol}}
                   typescript={${JSON.stringify(formattedSourceTsx)}} 
