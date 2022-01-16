@@ -1,12 +1,11 @@
-import React, { useRef, useCallback } from 'react'
-import '@babylonjs/inspector'
-import {Engine, Scene} from 'react-babylonjs'
-import {Vector3} from '@babylonjs/core/Maths/math'
-import '../../style.css'
-import {Control} from '@babylonjs/gui';
+import { Vector3 } from "@babylonjs/core/Maths/math";
+import { Control } from "@babylonjs/gui";
+import "@babylonjs/inspector";
+import React, { useCallback, useRef } from "react";
+import { Engine, Scene } from "react-babylonjs";
+import "../../style.css";
 
-export default { title: 'GUI' };
-
+export default { title: "GUI" };
 
 /**
  * official example
@@ -41,74 +40,116 @@ function WithGUI() {
   const label7Ref = useRef(null);
 
   const refLookup = {
-    '1': {
+    1: {
       sphere: sphere1Ref,
-      label: label1Ref
+      label: label1Ref,
     },
-    '2': {
+    2: {
       sphere: sphere2Ref,
-      label: label2Ref
+      label: label2Ref,
     },
-    '3': {
+    3: {
       sphere: sphere3Ref,
-      label: label3Ref
+      label: label3Ref,
     },
-    '4': {
+    4: {
       sphere: sphere4Ref,
-      label: label4Ref
+      label: label4Ref,
     },
-    '5': {
+    5: {
       sphere: sphere5Ref,
-      label: label5Ref
+      label: label5Ref,
     },
-    '6': { 
+    6: {
       sphere: sphere6Ref,
-      label: label6Ref
+      label: label6Ref,
     },
-    '7': {
+    7: {
       sphere: sphere7Ref,
-      label: label7Ref
+      label: label7Ref,
+    },
+  };
+
+  const onFullScreenRef = useCallback((ref) => {
+    const line = lineRef.current;
+
+    try {
+      line.linkWithMesh(sphere7Ref.current);
+      line.connectedControl = label7Ref.current;
+
+      [1, 2, 3, 4, 5, 6].forEach((i) => {
+        const lookup = refLookup[i.toString()];
+        lookup.label.current.linkWithMesh(lookup.sphere.current);
+      });
+    } catch (e) {
+      console.error(e);
     }
-  }
-
-  const onFullScreenRef = useCallback(ref => {
-      const line = lineRef.current
-      
-      try {
-        line.linkWithMesh(sphere7Ref.current);
-        line.connectedControl = label7Ref.current;
-
-        
-        [1,2,3,4,5,6].forEach((i) => {
-          const lookup = refLookup[i.toString()];
-          lookup.label.current.linkWithMesh(lookup.sphere.current)
-        })
-      } catch (e) {
-        console.error(e)
-      }
   });
 
   return (
-    <Engine antialias adaptToDeviceRatio canvasId='babylonJS'>
+    <Engine antialias adaptToDeviceRatio canvasId="babylonJS">
       <Scene>
         <arcRotateCamera
-          name='Camera'
+          name="Camera"
           alpha={-Math.PI / 2}
           beta={1}
           radius={110}
-          target={Vector3.Zero()}/>
+          target={Vector3.Zero()}
+        />
 
-        <hemisphericLight name='toto' direction={Vector3.Up()}/>
+        <hemisphericLight name="toto" direction={Vector3.Up()} />
 
-        <sphere name='Sphere1' ref={sphere1Ref} segments={10} diameter={9} position={new Vector3(-30, 0, 0)}/>
-        <sphere name='Sphere2' ref={sphere2Ref} segments={2} diameter={9} position={new Vector3(-20, 0, 0)}/>
-        <sphere name='Sphere3' ref={sphere3Ref} segments={10} diameter={9} position={new Vector3(-10, 0, 0)}/>
-        <sphere name='Sphere4' ref={sphere4Ref} segments={10} diameter={0.5} position={new Vector3(0, 0, 0)}/>
-        <sphere name='Sphere5' ref={sphere5Ref} segments={10} diameter={9} position={new Vector3(10, 0, 0)}/>
-        <sphere name='Sphere6' ref={sphere6Ref} segments={10} diameter={9} position={new Vector3(20, 0, 0)}/>
-        <sphere name='Sphere7' ref={sphere7Ref} segments={10} diameter={9} position={new Vector3(30, 0, 0)}/>
+        <sphere
+          name="Sphere1"
+          ref={sphere1Ref}
+          segments={10}
+          diameter={9}
+          position={new Vector3(-30, 0, 0)}
+        />
+        <sphere
+          name="Sphere2"
+          ref={sphere2Ref}
+          segments={2}
+          diameter={9}
+          position={new Vector3(-20, 0, 0)}
+        />
+        <sphere
+          name="Sphere3"
+          ref={sphere3Ref}
+          segments={10}
+          diameter={9}
+          position={new Vector3(-10, 0, 0)}
+        />
+        <sphere
+          name="Sphere4"
+          ref={sphere4Ref}
+          segments={10}
+          diameter={0.5}
+          position={new Vector3(0, 0, 0)}
+        />
+        <sphere
+          name="Sphere5"
+          ref={sphere5Ref}
+          segments={10}
+          diameter={9}
+          position={new Vector3(10, 0, 0)}
+        />
+        <sphere
+          name="Sphere6"
+          ref={sphere6Ref}
+          segments={10}
+          diameter={9}
+          position={new Vector3(20, 0, 0)}
+        />
+        <sphere
+          name="Sphere7"
+          ref={sphere7Ref}
+          segments={10}
+          diameter={9}
+          position={new Vector3(30, 0, 0)}
+        />
 
-        <adtFullscreenUi name='ui1' ref={onFullScreenRef}>
+        <adtFullscreenUi name="ui1" ref={onFullScreenRef}>
           {/*<stackPanel width='220px' fontSize='14px'*/}
           {/*            horizontalAlignment={Control.HORIZONTAL_ALIGNMENT_RIGHT}*/}
           {/*            verticalAlignment={Control.VERTICAL_ALIGNMENT_CENTER}>*/}
@@ -118,29 +159,51 @@ function WithGUI() {
 
           {/*</stackPanel>*/}
 
-          {[1,2,3,4,5,6,7].map((i) =>
-            <rectangle key={`label${i}`} name={`label for Sphere${i}`} background='black' height='30px' alpha={0.5}
-                      width='100px' cornerRadius={20} thickness={1}
-                      linkOffsetY={30} ref={refLookup[i.toString()].label}
-                      verticalAlignment={Control.VERTICAL_ALIGNMENT_TOP}
-                      top={i === 7 ? '10%' : 0}
+          {[1, 2, 3, 4, 5, 6, 7].map((i) => (
+            <rectangle
+              key={`label${i}`}
+              name={`label for Sphere${i}`}
+              background="black"
+              height="30px"
+              alpha={0.5}
+              width="100px"
+              cornerRadius={20}
+              thickness={1}
+              linkOffsetY={30}
+              ref={refLookup[i.toString()].label}
+              verticalAlignment={Control.VERTICAL_ALIGNMENT_TOP}
+              top={i === 7 ? "10%" : 0}
             >
-              <textBlock name={`sphere-${i}-text`} text={`Sphere${i}`} color='White'/>
+              <textBlock
+                name={`sphere-${i}-text`}
+                text={`Sphere${i}`}
+                color="White"
+              />
             </rectangle>
-          )
+          ))}
+          <babylon-line
+            name="sphere-7-line"
+            alpha={0.5}
+            lineWidth={5}
+            dash={[5, 10]}
+            ref={lineRef}
+          />
 
-          }
-          <babylon-line name="sphere-7-line" alpha={0.5} lineWidth={5} dash={[5, 10]} ref={lineRef} />
-
-          <babylon-ellipse name="gui-ellipse" width='10px' height='10px' color='white' background='black'/>
+          <babylon-ellipse
+            name="gui-ellipse"
+            width="10px"
+            height="10px"
+            color="white"
+            background="black"
+          />
         </adtFullscreenUi>
       </Scene>
     </Engine>
-  )
+  );
 }
 
 export const GUIFullScreen = () => (
-  <div style={{flex: 1, display: 'flex'}}>
-    <WithGUI/>
+  <div style={{ flex: 1, display: "flex" }}>
+    <WithGUI />
   </div>
-)
+);

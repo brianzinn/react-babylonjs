@@ -1,25 +1,25 @@
-import { addons } from '@storybook/addons';
-import { themes } from '@storybook/theming';
+import { addons } from "@storybook/addons";
+import { themes } from "@storybook/theming";
 
 addons.setConfig({
   isFullscreen: false,
   showNav: true,
   showPanel: true,
-  panelPosition: 'right',
+  panelPosition: "right",
   enableShortcuts: true,
   isToolshown: true,
   theme: themes.dark,
-  selectedPanel: 'story',
-  initialActive: 'sidebar',
+  selectedPanel: "story",
+  initialActive: "sidebar",
   sidebar: {
     showRoots: false,
-    collapsedRoots: ['other'],
+    collapsedRoots: ["other"],
   },
   toolbar: {
-    title: { hidden: false, },
-    zoom: { hidden: false, },
-    eject: { hidden: false, },
-    copy: { hidden: false, },
-    fullscreen: { hidden: false, },
+    title: { hidden: false },
+    zoom: { hidden: false },
+    eject: { hidden: false },
+    copy: { hidden: false },
+    fullscreen: { hidden: false },
   },
 });
