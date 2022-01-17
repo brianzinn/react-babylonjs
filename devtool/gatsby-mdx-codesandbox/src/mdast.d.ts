@@ -7,11 +7,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-import { Literal as UnistLiteral, Node, Parent as UnistParent } from "unist";
+import { Literal as UnistLiteral, Node, Parent as UnistParent } from 'unist'
 
-export type AlignType = "left" | "right" | "center" | null;
+export type AlignType = 'left' | 'right' | 'center' | null
 
-export type ReferenceType = "shortcut" | "collapsed" | "full";
+export type ReferenceType = 'shortcut' | 'collapsed' | 'full'
 
 /**
  * This map registers all node types that may be used where markdown block content is accepted.
@@ -29,17 +29,17 @@ export type ReferenceType = "shortcut" | "collapsed" | "full";
  * }
  */
 export interface BlockContentMap {
-  tsx: Tsx;
-  jsx: Jsx;
-  import: Import;
-  paragraph: Paragraph;
-  heading: Heading;
-  thematicbreak: ThematicBreak;
-  blockquote: Blockquote;
-  list: List;
-  table: Table;
-  html: HTML;
-  code: Code;
+  tsx: Tsx
+  jsx: Jsx
+  import: Import
+  paragraph: Paragraph
+  heading: Heading
+  thematicbreak: ThematicBreak
+  blockquote: Blockquote
+  list: List
+  table: Table
+  html: HTML
+  code: Code
 }
 
 /**
@@ -56,7 +56,7 @@ export interface BlockContentMap {
  * }
  */
 export interface FrontmatterContentMap {
-  yaml: YAML;
+  yaml: YAML
 }
 
 /**
@@ -72,8 +72,8 @@ export interface FrontmatterContentMap {
  * }
  */
 export interface DefinitionContentMap {
-  definition: Definition;
-  footnoteDefinition: FootnoteDefinition;
+  definition: Definition
+  footnoteDefinition: FootnoteDefinition
 }
 
 /**
@@ -90,17 +90,17 @@ export interface DefinitionContentMap {
  * }
  */
 export interface StaticPhrasingContentMap {
-  text: Text;
-  emphasis: Emphasis;
-  strong: Strong;
-  delete: Delete;
-  html: HTML;
-  inlinecode: InlineCode;
-  break: Break;
-  image: Image;
-  imagereference: ImageReference;
-  footnote: Footnote;
-  footnotereference: FootnoteReference;
+  text: Text
+  emphasis: Emphasis
+  strong: Strong
+  delete: Delete
+  html: HTML
+  inlinecode: InlineCode
+  break: Break
+  image: Image
+  imagereference: ImageReference
+  footnote: Footnote
+  footnotereference: FootnoteReference
 }
 
 /**
@@ -117,8 +117,8 @@ export interface StaticPhrasingContentMap {
  * }
  */
 export interface PhrasingContentMap extends StaticPhrasingContentMap {
-  link: Link;
-  linkReference: LinkReference;
+  link: Link
+  linkReference: LinkReference
 }
 
 /**
@@ -134,7 +134,7 @@ export interface PhrasingContentMap extends StaticPhrasingContentMap {
  * }
  */
 export interface ListContentMap {
-  listItem: ListItem;
+  listItem: ListItem
 }
 
 /**
@@ -150,7 +150,7 @@ export interface ListContentMap {
  * }
  */
 export interface TableContentMap {
-  tableRow: TableRow;
+  tableRow: TableRow
 }
 
 /**
@@ -166,206 +166,195 @@ export interface TableContentMap {
  * }
  */
 export interface RowContentMap {
-  tableCell: TableCell;
+  tableCell: TableCell
 }
 
-export type Content =
-  | TopLevelContent
-  | ListContent
-  | TableContent
-  | RowContent
-  | PhrasingContent;
+export type Content = TopLevelContent | ListContent | TableContent | RowContent | PhrasingContent
 
-export type TopLevelContent =
-  | BlockContent
-  | FrontmatterContent
-  | DefinitionContent;
+export type TopLevelContent = BlockContent | FrontmatterContent | DefinitionContent
 
-export type BlockContent = BlockContentMap[keyof BlockContentMap];
+export type BlockContent = BlockContentMap[keyof BlockContentMap]
 
-export type FrontmatterContent =
-  FrontmatterContentMap[keyof FrontmatterContentMap];
+export type FrontmatterContent = FrontmatterContentMap[keyof FrontmatterContentMap]
 
-export type DefinitionContent =
-  DefinitionContentMap[keyof DefinitionContentMap];
+export type DefinitionContent = DefinitionContentMap[keyof DefinitionContentMap]
 
-export type ListContent = ListContentMap[keyof ListContentMap];
+export type ListContent = ListContentMap[keyof ListContentMap]
 
-export type TableContent = TableContentMap[keyof TableContentMap];
+export type TableContent = TableContentMap[keyof TableContentMap]
 
-export type RowContent = RowContentMap[keyof RowContentMap];
+export type RowContent = RowContentMap[keyof RowContentMap]
 
-export type PhrasingContent = PhrasingContentMap[keyof PhrasingContentMap];
+export type PhrasingContent = PhrasingContentMap[keyof PhrasingContentMap]
 
-export type StaticPhrasingContent =
-  StaticPhrasingContentMap[keyof StaticPhrasingContentMap];
+export type StaticPhrasingContent = StaticPhrasingContentMap[keyof StaticPhrasingContentMap]
 
 export interface Parent extends UnistParent {
-  children: Content[];
+  children: Content[]
 }
 
 export interface Literal extends UnistLiteral {
-  value: string;
+  value: string
 }
 
 export interface Root extends Parent {
-  type: "root";
+  type: 'root'
 }
 
 export interface Tsx extends Literal {
-  type: "tsx";
+  type: 'tsx'
 }
 export interface Jsx extends Literal {
-  type: "jsx";
+  type: 'jsx'
 }
 
 export interface Import extends Literal {
-  type: "import";
+  type: 'import'
 }
 
 export interface Paragraph extends Parent {
-  type: "paragraph";
-  children: PhrasingContent[];
+  type: 'paragraph'
+  children: PhrasingContent[]
 }
 
 export interface Heading extends Parent {
-  type: "heading";
-  depth: 1 | 2 | 3 | 4 | 5 | 6;
-  children: PhrasingContent[];
+  type: 'heading'
+  depth: 1 | 2 | 3 | 4 | 5 | 6
+  children: PhrasingContent[]
 }
 
 export interface ThematicBreak extends Node {
-  type: "thematicBreak";
+  type: 'thematicBreak'
 }
 
 export interface Blockquote extends Parent {
-  type: "blockquote";
-  children: Array<BlockContent | DefinitionContent>;
+  type: 'blockquote'
+  children: Array<BlockContent | DefinitionContent>
 }
 
 export interface List extends Parent {
-  type: "list";
-  ordered?: boolean | null | undefined;
-  start?: number | null | undefined;
-  spread?: boolean | null | undefined;
-  children: ListContent[];
+  type: 'list'
+  ordered?: boolean | null | undefined
+  start?: number | null | undefined
+  spread?: boolean | null | undefined
+  children: ListContent[]
 }
 
 export interface ListItem extends Parent {
-  type: "listItem";
-  checked?: boolean | null | undefined;
-  spread?: boolean | null | undefined;
-  children: Array<BlockContent | DefinitionContent>;
+  type: 'listItem'
+  checked?: boolean | null | undefined
+  spread?: boolean | null | undefined
+  children: Array<BlockContent | DefinitionContent>
 }
 
 export interface Table extends Parent {
-  type: "table";
-  align?: AlignType[] | null | undefined;
-  children: TableContent[];
+  type: 'table'
+  align?: AlignType[] | null | undefined
+  children: TableContent[]
 }
 
 export interface TableRow extends Parent {
-  type: "tableRow";
-  children: RowContent[];
+  type: 'tableRow'
+  children: RowContent[]
 }
 
 export interface TableCell extends Parent {
-  type: "tableCell";
-  children: PhrasingContent[];
+  type: 'tableCell'
+  children: PhrasingContent[]
 }
 
 export interface HTML extends Literal {
-  type: "html";
+  type: 'html'
 }
 
 export interface Code extends Literal {
-  type: "code";
-  lang?: string | null | undefined;
-  meta?: string | null | undefined;
+  type: 'code'
+  lang?: string | null | undefined
+  meta?: string | null | undefined
 }
 
 export interface YAML extends Literal {
-  type: "yaml";
+  type: 'yaml'
 }
 
 export interface Definition extends Node, Association, Resource {
-  type: "definition";
+  type: 'definition'
 }
 
 export interface FootnoteDefinition extends Parent, Association {
-  type: "footnoteDefinition";
-  children: Array<BlockContent | DefinitionContent>;
+  type: 'footnoteDefinition'
+  children: Array<BlockContent | DefinitionContent>
 }
 
 export interface Text extends Literal {
-  type: "text";
+  type: 'text'
 }
 
 export interface Emphasis extends Parent {
-  type: "emphasis";
-  children: PhrasingContent[];
+  type: 'emphasis'
+  children: PhrasingContent[]
 }
 
 export interface Strong extends Parent {
-  type: "strong";
-  children: PhrasingContent[];
+  type: 'strong'
+  children: PhrasingContent[]
 }
 
 export interface Delete extends Parent {
-  type: "delete";
-  children: PhrasingContent[];
+  type: 'delete'
+  children: PhrasingContent[]
 }
 
 export interface InlineCode extends Literal {
-  type: "inlineCode";
+  type: 'inlineCode'
 }
 
 export interface Break extends Node {
-  type: "break";
+  type: 'break'
 }
 
 export interface Link extends Parent, Resource {
-  type: "link";
-  children: StaticPhrasingContent[];
+  type: 'link'
+  children: StaticPhrasingContent[]
 }
 
 export interface Image extends Node, Resource, Alternative {
-  type: "image";
+  type: 'image'
 }
 
 export interface LinkReference extends Parent, Reference {
-  type: "linkReference";
-  children: StaticPhrasingContent[];
+  type: 'linkReference'
+  children: StaticPhrasingContent[]
 }
 
 export interface ImageReference extends Node, Reference, Alternative {
-  type: "imageReference";
+  type: 'imageReference'
 }
 
 export interface Footnote extends Parent {
-  type: "footnote";
-  children: PhrasingContent[];
+  type: 'footnote'
+  children: PhrasingContent[]
 }
 
 export interface FootnoteReference extends Node, Association {
-  type: "footnoteReference";
+  type: 'footnoteReference'
 }
 
 // Mixin
 export interface Resource {
-  url: string;
-  title?: string | null | undefined;
+  url: string
+  title?: string | null | undefined
 }
 
 export interface Association {
-  identifier: string;
-  label?: string | null | undefined;
+  identifier: string
+  label?: string | null | undefined
 }
 
 export interface Reference extends Association {
-  referenceType: ReferenceType;
+  referenceType: ReferenceType
 }
 
 export interface Alternative {
-  alt?: string | null | undefined;
+  alt?: string | null | undefined
 }
