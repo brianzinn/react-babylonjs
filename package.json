@@ -3,8 +3,14 @@
   "private": true,
   "workspaces": {
     "packages": [
-      "packages/*",
-      "devtool/*"
+      "devtool/loader",
+      "devtool/react",
+      "devtool/gatsby-mdx-plugin",
+      "devtool/*",
+      "packages/react-babylonjs",
+      "packages/static",
+      "packages/storybook",
+      "packages/*"
     ]
   },
   "scripts": {
