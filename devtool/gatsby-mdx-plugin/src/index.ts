@@ -113,7 +113,7 @@ const plugin: GatsbyMdxPlugin = async (meta) => {
         if (!seen['DevTool']) {
           const node: Content = {
             type: 'import',
-            value: `import {DevTool} from 'react-codesandbox-devtool'`,
+            value: `import {DevTool} from '@devtool/react'`,
           }
           markdownAST.children.unshift(node)
           seen['DevTool'] = true
@@ -144,7 +144,7 @@ const plugin: GatsbyMdxPlugin = async (meta) => {
             type: 'import',
             value: [
               `import ${importSymbol} from './${moduleName}'`,
-              `import ${devtoolResult} from '!!devtool-loader!./${moduleName}'`,
+              `import ${devtoolResult} from '!!@devtool/loader!./${moduleName}'`,
             ].join('\n'),
           }
           markdownAST.children.unshift(node)
