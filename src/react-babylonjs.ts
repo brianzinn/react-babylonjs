@@ -1,11 +1,13 @@
+export * from './customComponents';
 export * from './generatedCode';
 export * from './generatedProps';
 export * from './hooks';
-export * from './customComponents';
-export * from './PropsHandler';
 export * from './HostRegistrationStore';
+export * from './PropsHandler';
+export * from './render';
+
 // applyInitialPropsToInstance is marked deprecated
-export { applyInitialPropsToInstance, applyPropsToRef } from './UpdateInstance'; // Imported by react-babylonjs-spring
+export { applyInitialPropsToInstance } from './plugins'; // Imported by react-babylonjs-spring
 
 export { default as Engine } from './Engine';
 export { default as Scene, SceneEventArgs } from './Scene';

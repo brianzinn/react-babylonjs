@@ -1,6 +1,7 @@
 import { exit } from 'process';
 /**
  * To debug code generation use the launch config in VS Code - "Generate Code (debug)"
+ * Also, remove "type": "module" in package.json for ERR_UNKNOWN_FILE_EXTENSION errors.
  */
 import {
   Project,
@@ -27,7 +28,6 @@ import {
   InterfaceDeclaration,
   MethodSignature,
   EnumDeclaration,
-  
   SetAccessorDeclaration,
   Type,
   Node,
@@ -76,7 +76,7 @@ console.log('ver:', ts.version);
 
 const CONFLICT_INTRINSIC_ELEMENTS = ['Button', 'Ellipse', 'Image', 'Line', 'Polygon'];
 
-const ALL_CUSTOM_PROPS = ['AbstractMeshCustomProps', 'ADTCustomProps', 'Control3DCustomProps', 'CustomProps', 'GlowLayerCustomProps', 'MaterialCustomProps', 'ShadowGeneratorCustomProps', 'VirtualKeyboardCustomProps', 'VRExperienceHelperCustomProps'];
+const ALL_CUSTOM_PROPS = ['AbstractMeshCustomProps', 'ADTCustomProps', 'CameraCustomProps', 'Control2DCustomProps', 'Control3DCustomProps', 'CustomProps', 'GizmoCustomProps', 'GlowLayerCustomProps', 'MaterialCustomProps', 'ShadowGeneratorCustomProps', 'VirtualKeyboardCustomProps', 'VRExperienceHelperCustomProps'];
 
 // would be good to check JSX.IntrinsicElements with 'keyof', but it's erased at runtime (doesn't work on dynamic strings)
 // fixes TS warning: Property 'polygon' must be of type SVGProps<SVGPolygonElement>, but here has type..., so we are skipping to generate polygon for now.
@@ -118,7 +118,7 @@ const addHostElement = (className: string, babylonjsClassDeclaration: ClassDecla
 
     INTRINSIC_ELEMENTS.addProperty({
       name: classToIntrinsic(className),
-      type:  classPropIntersection
+      type: classPropIntersection
     });
   }
 }
@@ -185,9 +185,10 @@ const classesToGenerate: String[] = [
   "PostProcess",
   "UtilityLayerRenderer",
   "Gizmo",
-
+  "GizmoManager",
   "EngineView",
   "Viewport",
+  "Layer",
 ]
 
 classesToGenerate.forEach(className => classesOfInterest.set(className, undefined));
@@ -800,7 +801,7 @@ const writePropertyAsUpdateFunction = (propsProperties: OptionalKind<PropertySig
   })
 
   if (GENERATE_KEBAB_ACCESSORS && propsType === 'BabylonjsCoreVector3') {
-    ['x','y','z'].forEach(prop => {
+    ['x', 'y', 'z'].forEach(prop => {
       propsProperties.push({
         name: `'${propertyName}-${prop}'`,
         type: 'number',
@@ -827,7 +828,6 @@ const createClassDeclaration = (classDeclaration: ClassDeclaration, rootBaseClas
 
   const importedClassDeclaration = getModuleDeclarationFromClassDeclaration(classDeclaration);
   addNamedImportToFile(importedClassDeclaration, [generatedCodeSourceFile, generatedPropsSourceFile], true);
-
   addPropsAndHandlerClasses(generatedCodeSourceFile, generatedPropsSourceFile, className, importedClassDeclaration, getInstanceProperties(classDeclaration), getInstanceSetMethods(classDeclaration), baseClass, customProps);
 
   const newClassDeclaration = generatedCodeSourceFile.addClass({
@@ -961,7 +961,7 @@ const isQuestionToken = (node: Node<ts.Node>): boolean => {
  * It probably looks like we should just pass along the ClassDeclaration...
  */
 const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generatedPropsSourceFile: SourceFile, classNameToGenerate: string, babylonClassDeclaration: GeneratedModuleDeclaration, propertiesToAdd: (PropertyDeclaration | PropertySignature | SetAccessorDeclaration)[], setMethods: (MethodDeclaration | MethodSignature)[], baseClass: ClassDeclaration | undefined, customProps: string = 'CustomProps'): void => {
-  // console.log('addpropshandlers1:', classNameToGenerate, babylonClassDeclaration.className, babylonClassDeclaration.importAlias);
+  // console.log('addpropshandlers1:', classNameToGenerate, babylonClassDeclaration.className, babylonClassDeclaration.importAlias, baseClass?.getName(), customProps);
 
   const typeProperties: OptionalKind<PropertySignatureStructure>[] = []
 
@@ -990,7 +990,7 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
 
     // These properties break out to specific method handlers
     type PropertyKind = 'BabylonjsCoreBaseTexture' | 'BabylonjsCoreColor3' | 'BabylonjsCoreColor4' | 'BabylonjsCoreVector3' | 'BabylonjsCoreFresnelParameters' | 'BabylonjsCoreQuaternion' |
-      'BabylonjsGuiControl' | 'number[]' | 'lambda' | 'observable' | 'method' | 'primitive' | 'object';
+      'BabylonjsGuiControl' | 'number[]' | 'lambda' | 'observable' | 'method' | 'primitive' | 'object' | 'BabylonjsCoreLight';
     type NameAndType = {
       name: string
       type: string,
@@ -1009,7 +1009,7 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
         })
         monkeyPatchInterface.getMethods().forEach(method => {
           const type = getMethodType(method, [generatedCodeSourceFile, generatedPropsSourceFile]);
-  
+
           if (type === null) {
             return; // skip
           }
@@ -1073,7 +1073,7 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
               });
 
               if (GENERATE_KEBAB_ACCESSORS && type === 'BabylonjsCoreVector3') {
-                ['x','y','z'].forEach(prop => {
+                ['x', 'y', 'z'].forEach(prop => {
                   propsToCheck.push({
                     name: `${propertyName}-${prop}`,
                     type: 'number',
@@ -1082,6 +1082,7 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
                 })
               }
               break;
+            case 'BabylonjsCoreLight':
             case '{ [key: string]: any; }':
               propsToCheck.push({
                 name: propertyName,
@@ -1154,6 +1155,7 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
               writer.writeLine(`checkQuaternionDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`);
               break;
             case 'object':
+            case 'BabylonjsCoreLight':
               writer.writeLine(`checkObjectDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`);
               break;
             case 'primitive':
@@ -1195,27 +1197,35 @@ const addPropsAndHandlerClasses = (generatedCodeSourceFile: SourceFile, generate
     }
   })
 
-  // this is temporary, where we give ALL classes these CustomProps.  Will be addressed (ideally we leave intersectsWith here 'undefined' and add ONLY valid props)
-  const intersectsWith = baseClass === undefined ? customProps : baseClass.getName();
+  const intersectsWith: string[] = [];
+  // TODO: probably need something here only whe base case is reached?
+  // const intersectsWith = baseClass === undefined ? customProps : baseClass.getName();
+  if (baseClass !== undefined) {
+    intersectsWith.push(baseClass.getName()!);
+    if (customProps === `${classNameToGenerate}CustomProps`) {
+      intersectsWith.push(customProps);
+    }
+  } else {
+    intersectsWith.push(customProps);
+  }
+
   const propsClassName = `${CLASS_NAME_PREFIX}${classNameToGenerate}Props`;
 
   PROPS_EXPORTS.push(propsClassName);
-  writeTypeAlias(generatedPropsSourceFile, propsClassName, typeProperties.sort((a, b) => 
+  writeTypeAlias(generatedPropsSourceFile, propsClassName, typeProperties.sort((a, b) =>
     (a.name.startsWith('\'') ? a.name.substr(1) : a.name).localeCompare(b.name.startsWith('\'') ? b.name.substr(1) : b.name)
   ), intersectsWith);
 }
 
-const writeTypeAlias = (file: SourceFile, name: string, typeProperties: OptionalKind<PropertySignatureStructure>[], intersectsWith?: string): void => {
+const writeTypeAlias = (file: SourceFile, name: string, typeProperties: OptionalKind<PropertySignatureStructure>[], intersectsWith: string[] = []): void => {
   const { intersectionType, objectType } = Writers;
 
   // bad hack to get custom props through.  will address soon...
-  const intersectsWithType = (intersectsWith === undefined)
-    ? undefined
-    : ALL_CUSTOM_PROPS.indexOf(intersectsWith) !== -1 ? intersectsWith : `${CLASS_NAME_PREFIX}${intersectsWith}Props`;
+  const intersectsWithTypes = intersectsWith.map(i => ALL_CUSTOM_PROPS.indexOf(i) !== -1 ? i : `${CLASS_NAME_PREFIX}${i}Props`)
 
   const propertiesObject = objectType({ properties: typeProperties })
-  const aliasType: WriterFunction = (intersectsWithType !== undefined)
-    ? intersectionType(propertiesObject, intersectsWithType)
+  const aliasType: WriterFunction = (intersectsWithTypes.length > 0)
+    ? intersectionType(propertiesObject, intersectsWithTypes[0], ...intersectsWithTypes.slice(1))
     : propertiesObject
 
   file.addTypeAlias({
@@ -1388,7 +1398,7 @@ const createClassesInheritedFrom = (generatedCodeSourceFile: SourceFile, generat
   derivedClassesOrdered.forEach((derivedClassDeclaration: ClassDeclaration) => {
     addHostElement(derivedClassDeclaration.getName()!, derivedClassDeclaration);
 
-    const newClassDeclaration = createClassDeclaration(derivedClassDeclaration, baseClassDeclaration, generatedCodeSourceFile, generatedPropsSourceFile, extra, customProps ? customProps(derivedClassDeclaration): undefined);
+    const newClassDeclaration = createClassDeclaration(derivedClassDeclaration, baseClassDeclaration, generatedCodeSourceFile, generatedPropsSourceFile, extra, customProps ? customProps(derivedClassDeclaration) : undefined);
     addCreateInfoFromConstructor(derivedClassDeclaration, newClassDeclaration, classNamespaceTuple.moduleDeclaration, generatedCodeSourceFile, generatedPropsSourceFile);
 
     // AdvancedDynamicTexture has different metadata than other ThinTexture derived classes.
@@ -1450,12 +1460,14 @@ const createSingleClass = (classOfInterest: string, generatedCodeSourceFile: Sou
 
 const generateCode = async () => {
   const exportsProject = new Project()
+  console.log(` > generatedCodeSourceFile: ${__dirname}/../src/generatedCode.ts`)
   const generatedCodeSourceFile: SourceFile = exportsProject.createSourceFile(
     `${__dirname}/../src/generatedCode.ts`,
     "",
     { overwrite: true }
   );
 
+  console.log(` > generatedPropsSourceFile: ${__dirname}/../src/generatedProps.ts`)
   const generatedPropsSourceFile: SourceFile = exportsProject.createSourceFile(
     `${__dirname}/../src/generatedProps.ts`,
     "",
@@ -1548,7 +1560,7 @@ const generateCode = async () => {
 
   // This includes Node, which is base class for ie: Camera, Mesh, etc. (inheriting from Node would add new things like TextureDome)
   createClassesDerivedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("TransformNode")!, { isNode: true }, undefined);
-  createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("AbstractMesh")!, () => ({isNode: true, acceptsMaterials: true, isMesh: true}));
+  createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("AbstractMesh")!, () => ({ isNode: true, acceptsMaterials: true, isMesh: true }));
 
   const extra = (newClassDeclaration: ClassDeclaration, originalClassDeclaration: ClassDeclaration) => {
     // consider having targetable as metadata.
@@ -1575,7 +1587,7 @@ const generateCode = async () => {
   };
 
   if (classesOfInterest.get("Camera") !== undefined) {
-    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Camera")!, () => ({ isCamera: true, isNode: true }), extra);
+    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Camera")!, () => ({ isCamera: true, isNode: true }), extra, undefined, () => ('CameraCustomProps'));
   }
 
   if (classesOfInterest.get("MeshBuilder") !== undefined) {
@@ -1618,7 +1630,17 @@ const generateCode = async () => {
   }
 
   if (classesOfInterest.get("Control")) {
-    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Control")!, () => ({ isGUI2DControl: true }));
+    const instanceMetadaFromClassName = (className: string): InstanceMetadataParameter => {
+      const DEFAULT = { isGUI2DControl: true }
+      if (className.substr(CLASS_NAME_PREFIX.length) === 'Grid') {
+          return {
+            ...DEFAULT,
+            isGUI2DGrid: true
+          }
+      }
+      return DEFAULT;
+    }
+    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Control")!, instanceMetadaFromClassName, undefined, undefined, () => ('Control2DCustomProps'));
   }
 
   if (classesOfInterest.get("Control3D")) {
@@ -1674,7 +1696,7 @@ const generateCode = async () => {
   }
 
   if (classesOfInterest.get("Gizmo")) {
-    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Gizmo")!, () => ({isGizmo: true}));
+    createClassesInheritedFrom(generatedCodeSourceFile, generatedPropsSourceFile, classesOfInterest.get("Gizmo")!, () => ({ isGizmo: true }), undefined, undefined, () => "GizmoCustomProps");
   }
 
   console.log('Adding single classes:');
@@ -1685,12 +1707,14 @@ const generateCode = async () => {
   createSingleClass("DynamicTerrain", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { acceptsMaterials: true });
   createSingleClass("PointsCloudSystem", generatedCodeSourceFile, generatedPropsSourceFile);
   createSingleClass("Viewport", generatedCodeSourceFile, generatedPropsSourceFile);
-  createSingleClass("UtilityLayerRenderer", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { isUtilityLayerRenderer: true})
+  createSingleClass("UtilityLayerRenderer", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { isUtilityLayerRenderer: true })
 
   // These "delay creation" we want to also not generate constructors?
   createSingleClass("ShadowGenerator", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true, isShadowGenerator: true }, () => { return; }, 'ShadowGeneratorCustomProps');
   createSingleClass("CascadedShadowGenerator", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true, isShadowGenerator: true }, () => { return; }, 'ShadowGeneratorCustomProps');
   createSingleClass("EngineView", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { delayCreation: true }, () => { return; });
+  createSingleClass("GizmoManager", generatedCodeSourceFile, generatedPropsSourceFile);
+  createSingleClass("Layer", generatedCodeSourceFile, generatedPropsSourceFile, undefined, { isLayer: true });
 
   console.log('Adding read-only property classes:');
   readonlyPropertiesToGenerate.forEach((value: ClassNameSpaceTuple, className: string) => {
@@ -1810,15 +1834,19 @@ const generateCode = async () => {
 
   console.log('saving created content...')
 
-  const formatCodeSettings: FormatCodeSettings = {
-    newLineCharacter: '\n',
+  const saveFile = async (file: SourceFile): Promise<void> => {
+    const formatCodeSettings: FormatCodeSettings = {
+      newLineCharacter: '\n',
+      indentSize: 2,
+    }
+    await file
+      .fixUnusedIdentifiers()
+      .organizeImports(formatCodeSettings)
+      .save()
   }
 
-  generatedCodeSourceFile.formatText(formatCodeSettings);
-  await generatedCodeSourceFile.save();
-
-  generatedPropsSourceFile.formatText(formatCodeSettings);
-  await generatedPropsSourceFile.save();
+  await saveFile(generatedCodeSourceFile);
+  await saveFile(generatedPropsSourceFile);
 }
 
 console.time('total-duration');

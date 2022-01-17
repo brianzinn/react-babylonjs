@@ -5,6 +5,7 @@ import { PointerEventTypes, PointerInfo } from '@babylonjs/core/Events/pointerEv
 import { AbstractMesh } from '@babylonjs/core/Meshes/abstractMesh.js';
 import { Nullable } from '@babylonjs/core/types.js';
 import { Observer } from '@babylonjs/core/Misc/observable.js';
+import '@babylonjs/core/Physics/physicsEngineComponent.js';
 
 import { EngineCanvasContextType, EngineCanvasContext, withEngineCanvasContext } from './hooks/engine';
 import { SceneContext } from './hooks/scene';

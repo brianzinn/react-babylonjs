@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import { Vector3, NodeMaterial, Color3 } from '@babylonjs/core';
-import {  Texture } from "@babylonjs/core/Materials/Textures/texture";
+import { Texture } from "@babylonjs/core/Materials/Textures/texture";
 import '@babylonjs/core/Rendering/edgesRenderer' // You this need for side-effects
 import { Engine, Scene, useScene } from 'react-babylonjs'
 
@@ -8,32 +8,31 @@ import '../../style.css';
 
 export default { title: 'Babylon Basic' };
 
-
 const setBlockValue = (
   name,
   value,
   material
 ) => {
-    if(value instanceof Texture){
-      let textureBlock = material.getTextureBlocks().find((b) => b.name === name);
-      if (textureBlock !== undefined) {
-        textureBlock.texture = value;
-      }
-    }else{
-      let block = material.getInputBlockByPredicate((b) => b.name === name);
-      if (block !== null) {
+  if (value instanceof Texture) {
+    let textureBlock = material.getTextureBlocks().find((b) => b.name === name);
+    if (textureBlock !== undefined) {
+      textureBlock.texture = value;
+    }
+  } else {
+    let block = material.getInputBlockByPredicate((b) => b.name === name);
+    if (block !== null) {
       block.value = value;
-      }
+    }
   }
 };
 
-const SnippetMaterialById = ({snippetId, name, blockValues, freeze}) => {
+const SnippetMaterialById = ({ snippetId, name, blockValues, freeze }) => {
   const scene = useScene();
   const [material, setMaterial] = useState(null);
   const parseMaterial = useCallback(async () => {
     NodeMaterial.ParseFromSnippetAsync(snippetId, scene).then(
       (nodeMaterial) => {
-        if(freeze === true){
+        if (material !== null && freeze === true) {
           material.freeze();
         }
         setMaterial(nodeMaterial);
@@ -43,13 +42,13 @@ const SnippetMaterialById = ({snippetId, name, blockValues, freeze}) => {
 
   useEffect(() => {
     if (material) {
-      if(freeze === true && material.isFrozen){
+      if (freeze === true && material.isFrozen) {
         material.unfreeze();
       }
-      blockValues.forEach((entry) =>{
+      blockValues.forEach((entry) => {
         setBlockValue(entry.name, entry.value, material)
       })
-      if(freeze === true){
+      if (freeze === true) {
         material.freeze();
       }
     }
@@ -86,7 +85,7 @@ export const SnippetMaterial = () => {
             />
             <hemisphericLight name="light1" intensity={0.7} direction={Vector3.Up()} />
             <sphere name="sphere1" diameter={2} segments={16} position={new Vector3(0, 1, 0)}>
-              <SnippetMaterialById name="sphereMat" snippetId="#81NNDY#20" freeze blockValues={[{name:"Surface Color", value: Color3[selectedColor]()}]} />
+              <SnippetMaterialById name="sphereMat" snippetId="#81NNDY#20" freeze blockValues={[{ name: "Surface Color", value: Color3[selectedColor]() }]} />
             </sphere>
             <ground name="ground1" width={6} height={6} subdivisions={2} />
           </Scene>

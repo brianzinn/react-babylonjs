@@ -20,7 +20,7 @@ const shade = 0;
 const rpm = 10;
 
 const RotatingBox = ({position}) => {
-  const centerTransform = useRef();
+  const centerTransform = useRef(null);
   useBeforeRender((scene) => {
     if (centerTransform.current !== null) {
       const deltaTimeInMillis = scene.getEngine().getDeltaTime();

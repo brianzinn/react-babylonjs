@@ -46,6 +46,17 @@ export type Control3DCustomProps = {
   onControlAdded?: (instance: CreatedInstance<any>) => void
 } & CustomProps;
 
+export type Control2DCustomProps = {
+  /**
+   * ???
+   */
+  gridColumn?: number
+  /**
+   * ???
+   */
+  gridRow?: number
+} & CustomProps;
+
 export type MaterialCustomProps = {
   /**
    * For attaching the same material to multiple meshes (by mesh name)
@@ -72,12 +83,47 @@ export type VRExperienceHelperCustomProps = {
   enableInteractions?: boolean
 } & CustomProps;
 
+/**
+ * Custom Gizmo props used for declaratively attaching.
+ */
+export type GizmoCustomProps = {
+  /**
+   * Attach to nearest node (as opposed to a restricting mesh)
+   */
+  attachGizmoToNode?: boolean
+  /**
+   * Attach to nearest node
+   */
+  attachGizmoToMesh?: boolean
+  /**
+   * Do not automatically attach to a mesh/node
+   */
+  skipAutoAttach?: boolean
+  /**
+   * Try to set 'gizmoLayer' automatically.
+   */
+  skipUtilityLayerAttach?: boolean
+} & CustomProps;
 
 /**
  * The below Custom Props are added explicitly and not automatically by inheritance, so do not need union type "& CustomProps"
+ * These are more useful when applicalbe to only part of the inheritance chain.
  */
 
+/**
+ * Currently only extra prop for controlling attaching camera
+ */
+export type CameraCustomProps = {
+  /**
+   * Passed through when attachControl(..) is called.  Defines whether event caught by the controls should call preventdefault()
+   * (https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault)
+   */
+  noPreventDefault?: boolean
+}
 
+/**
+ * Same functionality as Advanced Dynamic Texture factory method "createForMesh" (and for first parent mesh).
+ */
 export type ADTCustomProps = {
   /**
    * Only applicable for AdvanceDynamicTexture to attach to a mesh.  ADT.CreateForMesh(parent, ...)
@@ -85,6 +131,9 @@ export type ADTCustomProps = {
   createForParentMesh?: boolean
 };
 
+/**
+ * This is a subset of the EffectLayer classes.
+ */
 export type GlowLayerCustomProps = {
   /**
    * Adds all child nodes to the glow layer.
@@ -106,4 +155,4 @@ export type VirtualKeyboardCustomProps = {
 /**
  * A union of all CustomProps as a convenience typing and easier maintenance in other areas of code (ie: CreatedInstance and HostConfig)
  */
-export type AnyCustomProps = CustomProps & (AbstractMeshCustomProps & ADTCustomProps & Control3DCustomProps & GlowLayerCustomProps & VirtualKeyboardCustomProps & ShadowGeneratorCustomProps & MaterialCustomProps)
+export type AnyCustomProps = CustomProps & (AbstractMeshCustomProps & ADTCustomProps & CameraCustomProps & Control2DCustomProps & Control3DCustomProps & GizmoCustomProps & GlowLayerCustomProps & VirtualKeyboardCustomProps & ShadowGeneratorCustomProps & MaterialCustomProps)

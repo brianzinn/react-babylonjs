@@ -31,8 +31,9 @@ export type EngineProps = {
    */
   canvasId?: string,
   debug?: boolean,
+  observeCanvasResize?: boolean
   // onCreated?: (engine: Engine) => void
-}
+} // TODO: put this in the next major version and remove canvasStyle and canvasId props (breaking changes). & React.CanvasHTMLAttributes<HTMLCanvasElement>
 
 export type EngineState = {
   canRender: boolean
@@ -42,6 +43,7 @@ class ReactBabylonjsEngine extends React.Component<EngineProps, EngineState> {
 
   private engine: Nullable<Engine> = null;
   private canvas: Nullable<HTMLCanvasElement | WebGLRenderingContext> = null;
+  private resizeObserver: Nullable<ResizeObserver> = null;
 
   public onBeforeRenderLoopObservable: Observable<Engine> = new Observable<Engine>();
   public onEndRenderLoopObservable: Observable<Engine> = new Observable<Engine>();
@@ -80,27 +82,39 @@ class ReactBabylonjsEngine extends React.Component<EngineProps, EngineState> {
 
     window.addEventListener('resize', this.onResizeWindow)
 
-    this.setState({canRender: true});
+    this.setState({ canRender: true });
   }
 
-  onCanvasRef = (c : HTMLCanvasElement) => {
+  onCanvasRef = (c: HTMLCanvasElement) => {
     // We are not using the react.createPortal(...), as it adds a ReactDOM dependency, but also
     // it was not flowing the context through to HOCs properly.
     if (this.props.portalCanvas) {
-      this.canvas = document.getElementById('portal-canvas') as  HTMLCanvasElement
+      this.canvas = document.getElementById('portal-canvas') as HTMLCanvasElement
       console.error('set canvas', this.canvas);
     } else {
       if (c) { // null when called from unmountComponent()
         // c.addEventListener('mouseover', this.focus)
         // c.addEventListener('mouseout', this.blur)
         this.canvas = c
+        if (this.props.observeCanvasResize !== false && window?.ResizeObserver) {
+          this.resizeObserver = new ResizeObserver(() => {
+            this.engine!.resize();
+
+          });
+          this.resizeObserver.observe(c);
+        }
       }
     }
     // console.error('onCanvas:', c); // trying to diagnose why HMR keep rebuilding entire Scene!  Look at ProxyComponent v4.
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     window.removeEventListener('resize', this.onResizeWindow);
+
+    if (this.resizeObserver !== null) {
+      this.resizeObserver.disconnect();
+      this.resizeObserver = null;
+    }
 
     if (this.engine !== null) {
       this.engine!.dispose();
@@ -108,7 +122,7 @@ class ReactBabylonjsEngine extends React.Component<EngineProps, EngineState> {
     }
   }
 
-  render () {
+  render() {
     if (this.state.canRender === false && (this.props.noSSR !== undefined && this.props.noSSR !== false)) {
       if (typeof this.props.noSSR === 'boolean') {
         return null;
@@ -138,11 +152,11 @@ class ReactBabylonjsEngine extends React.Component<EngineProps, EngineState> {
     }
 
     // TODO: this.props.portalCanvas does not need to render a canvas.
-    return <EngineCanvasContext.Provider value={{ engine: this.engine, canvas: this.canvas}}>
+    return <EngineCanvasContext.Provider value={{ engine: this.engine, canvas: this.canvas }}>
       <canvas {...opts} ref={this.onCanvasRef}>
-      {this.engine !== null &&
-        this.props.children
-      }
+        {this.engine !== null &&
+          this.props.children
+        }
       </canvas>
     </EngineCanvasContext.Provider>
   }

@@ -222,7 +222,7 @@ const useAssetManagerWithCache = (): (tasks: Task[], options?: AssetManagerOptio
         try {
           result = await taskPromise;
         } catch (e) {
-          error = e;
+          error = e as Error;
         } finally {
           suspender = null;
         }

@@ -65,7 +65,7 @@ class CustomColor3ArrayHandler {
     return Array.isArray(newProp);
   }
 
-  process(oldProp, ) {
+  process(oldProp, newProp) {
     if (oldProp === undefined || oldProp.length !== newProp.length) {
       console.log(`found diff length (${oldProp?.length}/${newProp?.length}) Color3Array new? ${oldProp === undefined}`)
       return {
@@ -157,10 +157,13 @@ class CustomVector3ArrayHandler {
  * This is the end of code that needed to be copied, since it is not exported.
  */
 
-CustomPropsHandler.RegisterPropsHandler(new CustomColor3StringHandler());
-CustomPropsHandler.RegisterPropsHandler(new CustomColor3ArrayHandler());
-CustomPropsHandler.RegisterPropsHandler(new CustomColor4StringHandler());
-CustomPropsHandler.RegisterPropsHandler(new CustomVector3ArrayHandler());
+// we need to keep registering these as our fiber instance is being recreated when reloaded - the registrations imported as side-effects are
+const registerPropsHandlers = () => {
+  CustomPropsHandler.RegisterPropsHandler(new CustomColor3StringHandler());
+  CustomPropsHandler.RegisterPropsHandler(new CustomColor3ArrayHandler());
+  CustomPropsHandler.RegisterPropsHandler(new CustomColor4StringHandler());
+  CustomPropsHandler.RegisterPropsHandler(new CustomVector3ArrayHandler());
+}
 
 const getRandomColor = (function () {
   // const Colors = ['#4F86EC', '#D9503F', '#F2BD42', '#58A55C'];
@@ -183,6 +186,9 @@ function getCyclePosition(i, blankRadius) {
 }
 
 const WithSpring = () => {
+  // this only needs to be done once, so not on every render.
+  registerPropsHandlers();
+
   const [props, set] = useSprings(100, i => {
     const [x, z] = getCyclePosition(i, 30);
 

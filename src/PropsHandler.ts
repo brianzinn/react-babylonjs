@@ -1,3 +1,4 @@
+import { Light } from '@babylonjs/core/Lights/light.js';
 import { FresnelParameters } from '@babylonjs/core/Materials/fresnelParameters.js';
 import { BaseTexture } from '@babylonjs/core/Materials/Textures/baseTexture.js';
 import { Color3, Color4 } from '@babylonjs/core/Maths/math.color.js';
@@ -317,12 +318,12 @@ export const checkControlDiff = (oldProp: Control | undefined, newProp: Control 
   })
 }
 
-export const checkObjectDiff = (oldProp: Record<string, unknown> | undefined, newProp: Record<string, unknown> | undefined, propertyName: string, changedProps: PropertyUpdate[]): void => {
-  propertyCheck<Record<string, unknown>>(oldProp, newProp, propertyName, PropChangeType.Primitive, changedProps, (oldProp, newProp, changedProps) => {
+export const checkObjectDiff = (oldProp: Record<string, unknown> | Light | undefined, newProp: Record<string, unknown> | Light | undefined, propertyName: string, changedProps: PropertyUpdate[]): void => {
+  propertyCheck<Record<string, unknown> | Light>(oldProp, newProp, propertyName, PropChangeType.Primitive, changedProps, (oldProp, newProp, changedProps) => {
     if (newProp !== oldProp) {
       changedProps.push({
         propertyName,
-        changeType: PropChangeType.Primitive,
+        changeType: PropChangeType.Primitive, // basic equality check (same as primitive)
         value: newProp
       })
     }

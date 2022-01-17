@@ -1,8 +1,20 @@
 import React, { useContext, useState } from 'react';
-import { SceneLoader, Scene, Nullable, ISceneLoaderPlugin, ISceneLoaderPluginAsync, AbstractMesh, IParticleSystem, Skeleton, AnimationGroup, ISceneLoaderProgressEvent } from '@babylonjs/core';
-import { useScene } from '../scene';
+import { ISceneLoaderPlugin, ISceneLoaderPluginAsync, ISceneLoaderProgressEvent, SceneLoader } from '@babylonjs/core/Loading/sceneLoader.js';
+import { Nullable } from '@babylonjs/core/types.js';
+import { Scene } from '@babylonjs/core/scene.js';
+import { AbstractMesh } from '@babylonjs/core/Meshes/abstractMesh.js';
+import { IParticleSystem } from '@babylonjs/core/Particles/IParticleSystem.js';
+import { Skeleton } from '@babylonjs/core/Bones/skeleton.js';
+import { AnimationGroup } from '@babylonjs/core/Animations/animationGroup.js';
+import { Mesh } from '@babylonjs/core/Meshes/mesh.js';
 
+import { useScene } from '../scene';
 import { ILoadedModel, LoadedModel, LoaderStatus } from './loadedModel';
+import { PropertyUpdate, PropsHandler } from '../../PropsHandler';
+import { FiberMesh } from '../../generatedCode';
+import { FiberMeshProps } from '../../generatedProps';
+import { applyUpdateToInstance } from '../../UpdateInstance';
+import { CreatedInstance } from '../../CreatedInstance';
 
 export type SceneLoaderContextType = {
   updateProgress: (progress: ISceneLoaderProgressEvent) => void
@@ -78,14 +90,14 @@ export type SceneLoaderOptions = {
 /**
  * A cached version of SceneLoader with a Suspense cache.
  */
-const useSceneLoaderWithCache = (): (rootUrl: string, sceneFilename: string, pluginExtension?: string, options?: SceneLoaderOptions) => LoadedModel => {
+const useSceneLoaderWithCache = (): (rootUrl: string, sceneFilename: string, pluginExtension?: string, options?: SceneLoaderOptions, initialProps?: FiberMeshProps) => LoadedModel => {
   // we need our own memoized cache. useMemo, useState, etc. fail miserably - throwing a promise forces the component to remount.
   let suspenseCache: Record<string, undefined | (() => LoadedModel)> = {};
   let suspenseScene: Nullable<Scene> = null;
 
   // let tasksCompletedCache: Record<string, LoadedModel> = {};
 
-  return (rootUrl: string, sceneFilename: string, pluginExtension?: string, options?: SceneLoaderOptions): LoadedModel => {
+  return (rootUrl: string, sceneFilename: string, pluginExtension?: string, options?: SceneLoaderOptions, initialProps?: FiberMeshProps): LoadedModel => {
     const opts: SceneLoaderOptions = options || {};
 
     const hookScene = useScene();
@@ -152,6 +164,26 @@ const useSceneLoaderWithCache = (): (rootUrl: string, sceneFilename: string, plu
             if (opts.scaleToDimension) {
               loadedModel.scaleTo(opts.scaleToDimension);
             }
+
+            if (initialProps) {
+              const initPayload: PropertyUpdate[] = []
+              new FiberMesh().getPropsHandlers().forEach((propHandler: PropsHandler<any>) => {
+                const handlerUpdates: PropertyUpdate[] | null = propHandler.getPropertyUpdates(
+                  {}, // Here we will reapply things like 'name', so we could get default props from 'babylonObject'.
+                  initialProps
+                );
+                if (handlerUpdates !== null) {
+                  initPayload.push(...handlerUpdates);
+                }
+              })
+
+              if (initPayload.length > 0) {
+                initPayload.forEach(update => {
+                  applyUpdateToInstance({ hostInstance: loadedModel.rootMesh } as CreatedInstance<Mesh>, update);
+                })
+              }
+            }
+
             if (options?.onModelLoaded) {
               options.onModelLoaded(loadedModel);
             }
@@ -195,7 +227,7 @@ const useSceneLoaderWithCache = (): (rootUrl: string, sceneFilename: string, plu
         try {
           result = await taskPromise;
         } catch (e) {
-          error = e;
+          error = e as Error;
         } finally {
           suspender = null;
         }

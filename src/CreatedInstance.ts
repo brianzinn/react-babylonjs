@@ -18,6 +18,7 @@ export interface InstanceMetadataParameter {
   isMaterial?: boolean // indicates a custom component created by end-user has been created
   isGUI3DControl?: boolean // does not work with 2D
   isGUI2DControl?: boolean // does not work with 3D
+  isGUI2DGrid?: boolean
   isTexture?: boolean
   customType?: boolean // not used by code-gen
   isCamera?: boolean
@@ -27,6 +28,7 @@ export interface InstanceMetadataParameter {
   isShadowGenerator?: boolean
   isUtilityLayerRenderer?: boolean
   isGizmo?: boolean
+  isLayer?: boolean
 }
 
 export interface CreatedInstanceMetadata extends InstanceMetadataParameter {

@@ -19,8 +19,22 @@ export interface ReconcilerInstance {
   unmount: (container: Container) => void;
 }
 
-const ReconcilerSecondary: ReconcilerType<any, any, Container, any> = Reconciler(ReactBabylonJSHostConfig);
-const ReconcilerPrimary: ReconcilerType<any, any, Container, any> = Reconciler({ ...ReactBabylonJSHostConfig, isPrimaryRenderer: true });
+const ReconcilerSecondary: ReconcilerType<Container, any, any, any, any> = Reconciler(ReactBabylonJSHostConfig);
+const ReconcilerPrimary: ReconcilerType<Container, any, any, any, any> = Reconciler({ ...ReactBabylonJSHostConfig, isPrimaryRenderer: true });
+
+/**
+ * This is a work in progress in experimental state.
+ */
+export function createPortal(children: React.ReactNode, containerInfo: any, key?: string | null, usePrimary = false): Reconciler.ReactPortal {
+  const reconciler = (usePrimary === true ? ReconcilerPrimary : ReconcilerSecondary);
+  let target = containerInfo;
+  if ('__rb_createdInstance' in containerInfo) {
+    // console.log('retargeting to ', containerInfo.__rb_createdInstance);
+    target = containerInfo.__rb_createdInstance;
+  }
+
+  return reconciler.createPortal(children, target, null, key);
+}
 
 /*
  * Creates a reconciler instance using an internal pre-existing Reconciler instance.
@@ -28,7 +42,7 @@ const ReconcilerPrimary: ReconcilerType<any, any, Container, any> = Reconciler({
  */
 export function createReconciler(rendererOptions: RendererOptions): ReconcilerInstance {
 
-  const reconciler: ReconcilerType<any, any, Container, any> = (rendererOptions.usePrimary === true)
+  const reconciler: ReconcilerType<Container, any, any, any, any> = (rendererOptions.usePrimary === true)
     ? ReconcilerPrimary
     : ReconcilerSecondary;
 

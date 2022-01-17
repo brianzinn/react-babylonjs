@@ -41,9 +41,9 @@ const BouncyPlayground = () => {
               <hemisphericLight name='hemi' direction={new Vector3(0, -1, 0)} intensity={0.8} />
               <directionalLight name="shadow-light" setDirectionToTarget={[Vector3.Zero()]} direction={Vector3.Zero()}
                 position={new Vector3(-40, 30, -40)} intensity={0.4} shadowMinZ={1} shadowMaxZ={2500}>
-              <shadowGenerator mapSize={1024} useBlurExponentialShadowMap={true} blurKernel={32}
-                shadowCasters={["sphere", "dialog"]} forceBackFacesOnly={true} depthScale={100} setDarkness={0.75}
-              />
+                <shadowGenerator mapSize={1024} useBlurExponentialShadowMap={true} blurKernel={32}
+                  shadowCasters={["sphere", "dialog"]} forceBackFacesOnly={true} depthScale={100} setDarkness={0.75}
+                />
               </directionalLight>
               <sphere ref={sphereRef} name="sphere" diameter={2} segments={16} position={new Vector3(0, 2.5, 0)}>
                 <physicsImpostor type={PhysicsImpostor.SphereImpostor} _options={{
