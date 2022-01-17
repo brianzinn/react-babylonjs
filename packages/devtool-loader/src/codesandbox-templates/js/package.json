@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "keywords": [],
-  "main": "src/index.tsx",
+  "main": "src/index.jsx",
   "dependencies": {
     "@babylonjs/core": "4.2.1",
     "@babylonjs/gui": "4.2.1",

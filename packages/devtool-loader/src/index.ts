@@ -72,6 +72,7 @@ export const TRANSPILE_OPTIONS: TranspileOptions = {
     jsx: JsxEmit.Preserve,
     module: ModuleKind.ESNext,
     noEmitHelpers: true,
+    importHelpers: true,
     downlevelIteration: false,
     removeComments: false,
   },

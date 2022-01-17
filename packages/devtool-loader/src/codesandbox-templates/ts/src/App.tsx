@@ -1,5 +1,4 @@
 import React, { FC } from 'react'
-import './styles.css'
 
 const App: FC = () => {
   return (
@@ -9,3 +8,5 @@ const App: FC = () => {
     </div>
   )
 }
+
+export default App
