@@ -181,6 +181,11 @@ const devtoolLoader: RawLoaderDefinitionFunction<Partial<LoaderOptions>> = async
 
   const { name } = _options
 
+  if (!name.endsWith('.tsx')) {
+    throw new Error(`Only .tsx files are allowed.`)
+  }
+  const nameNode = name.slice(0, -4)
+
   const { esModule, transpileOptions, codesandboxOptions, prettierOptions } = DEFAULT_CONFIG
 
   console.log('devtool-loader options', JSON.stringify(_options, null, 2))
@@ -189,8 +194,6 @@ const devtoolLoader: RawLoaderDefinitionFunction<Partial<LoaderOptions>> = async
 
   // Prettify it so it displays nicely in the site
   const lines = [
-    `// ${name}`,
-    '',
     ...(IS_DEVELOPMENT_MODE
       ? [
           `{/** `,
@@ -209,14 +212,14 @@ const devtoolLoader: RawLoaderDefinitionFunction<Partial<LoaderOptions>> = async
   ]
   const unformattedTsx = lines.join('\n')
   console.log('unformattedTsx', unformattedTsx)
-  const formattedSourceTsx = prettier.format(unformattedTsx, prettierOptions)
+  const formattedSourceTsx =
+    `// ${nameNode}.tsx\n\n` + prettier.format(unformattedTsx, prettierOptions)
   console.log('formattedSourceTsx', formattedSourceTsx)
 
   // Transpile to JS
-  const formattedSourceJsx = prettier.format(
-    transpileModule(unformattedTsx, transpileOptions).outputText,
-    prettierOptions
-  )
+  const formattedSourceJsx =
+    `// ${nameNode}.jsx\n\n` +
+    prettier.format(transpileModule(unformattedTsx, transpileOptions).outputText, prettierOptions)
   console.log('formattedSourceJsx', formattedSourceJsx)
 
   // Generate the TS sandbox URL link
