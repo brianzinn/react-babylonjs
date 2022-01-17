@@ -1,20 +1,18 @@
 //@ts-ignore
-import devtoolResult from '!!devtool-loader!./Sample.tsx'
+import devtoolResult from '!!@devtool/loader!./Sample.tsx'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import React from 'react'
 import { DevToolProps } from '.'
 import { DevTool } from './DevTool'
 import Sample from './Sample'
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
-export default {
+const settings: ComponentMeta<typeof DevTool> = {
   title: 'DevTool',
   component: DevTool,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
-  argTypes: {
-    backgroundColor: { control: 'color' },
-  },
-} as ComponentMeta<typeof DevTool>
+}
+// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
+export default settings
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 const Template: ComponentStory<typeof DevTool> = (args) => <DevTool {...args} />

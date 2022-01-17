@@ -38,8 +38,6 @@ const useRememberTabIdx = createCookieHooker<number>('tabidx')
 const useRememberLanguage = createCookieHooker<'ts' | 'js'>('language')
 const useRememberWrapWidth = createCookieHooker<number>('wrapwidth')
 
-const IS_DEVELOPMENT_MODE = process.env.NODE_ENV === 'development'
-
 export type DevToolProps = {
   component: ComponentType<any>
   meta: DevtoolLoaderResult
@@ -69,8 +67,7 @@ export const DevTool: FC<Partial<DevToolProps>> = (props) => {
     ...props,
   }
   const { component, meta, prefix } = _props
-
-  const { js, ts, jsUrl, tsUrl } = meta
+  const { jsUrl, tsUrl } = meta
 
   const [language, setLanguage] = useRememberLanguage('ts')
   const [tabIdx, setTabIdx] = useRememberTabIdx(0, prefix)
@@ -78,12 +75,16 @@ export const DevTool: FC<Partial<DevToolProps>> = (props) => {
   const [printWidth, setPrintWidth] = useRememberWrapWidth(80)
   const [showSettings, setShowSettings] = useState(false)
 
+  const { js, ts } = meta
   const source = useMemo(() => {
+    console.log('source has changed')
     return prettier.format(language === 'ts' ? ts : js, {
       ...PRETTIER_OPTS,
       printWidth,
     })
   }, [language, printWidth, js, ts])
+
+  console.log({ source })
 
   return (
     <div>

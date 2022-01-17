@@ -174,7 +174,7 @@ const createSandboxer = (options: CodeSandboxOptions) => {
 
 const devtoolLoader: RawLoaderDefinitionFunction<Partial<LoaderOptions>> = async function (source) {
   if (!this.getOptions) {
-    throw new Error(`devtool-loader requires webpack 5. Make sure your Storybook is upgraded.`)
+    throw new Error(`@devtool/loader requires webpack 5. Make sure your Storybook is upgraded.`)
   }
   const options = this.getOptions()
 
@@ -189,7 +189,7 @@ const devtoolLoader: RawLoaderDefinitionFunction<Partial<LoaderOptions>> = async
 
   const { esModule, transpileOptions, codesandboxOptions, prettierOptions } = DEFAULT_CONFIG
 
-  console.log('devtool-loader options', JSON.stringify(_options, null, 2))
+  console.log('@devtool/loader options', JSON.stringify(_options, null, 2))
 
   const { makeUrl } = createSandboxer(codesandboxOptions)
 
