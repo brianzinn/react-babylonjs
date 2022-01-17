@@ -1,5 +1,5 @@
 {
-  "name": "@react-babylonjs/codesandbox-demo",
+  "name": "codesandbox-react-jsx",
   "version": "1.0.0",
   "description": "",
   "keywords": [],
@@ -11,14 +11,11 @@
     "react": "17.0.2",
     "react-babylonjs": "3.0.31",
     "react-dom": "17.0.2",
-    "react-scripts": "4.0.3",
-    "type-fest": "2.9.0"
+    "react-scripts": "4.0.3"
   },
   "devDependencies": {
     "prettier": "2.5.1",
     "prettier-plugin-organize-imports": "2.3.4",
-    "@types/react": "17.0.20",
-    "@types/react-dom": "17.0.9",
     "typescript": "4.4.2"
   },
   "scripts": {

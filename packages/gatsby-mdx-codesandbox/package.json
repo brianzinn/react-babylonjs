@@ -23,6 +23,7 @@
   "dependencies": {
     "@s-libs/micro-dash": "12",
     "codesandbox": "^2.2.3",
+    "devtool-loader": "*",
     "prettier": "^2.5.1",
     "remark-codesandbox": "^0.10.0",
     "transpile-ts-loader": "*",

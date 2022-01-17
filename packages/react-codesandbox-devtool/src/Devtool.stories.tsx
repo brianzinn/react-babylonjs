@@ -1,5 +1,5 @@
 //@ts-ignore
-import SampleTs from '!!raw-loader!./Sample.tsx'
+import devtoolResult from '!!devtool-loader!./Sample.tsx'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import React from 'react'
 import { DevToolProps } from '.'
@@ -24,12 +24,8 @@ export const Primary = Template.bind({})
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 const args: DevToolProps = {
   prefix: `g${+new Date()}`,
-  isDevelopmentMode: true,
   component: Sample,
-  typescript: SampleTs,
-  javascript: SampleTs,
-  codesandboxJsUrl: 'https://codesandbox.io',
-  codesandboxTsUrl: 'https://codesandbox.io',
+  meta: devtoolResult,
 }
 
 Primary.args = args

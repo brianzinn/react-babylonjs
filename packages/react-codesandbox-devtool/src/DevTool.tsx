@@ -4,6 +4,7 @@ import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import { DevtoolLoaderResult } from 'devtool-loader'
 import { Options } from 'prettier'
 import typescript from 'prettier/parser-typescript'
 import prettier from 'prettier/standalone'
@@ -37,46 +38,39 @@ const useRememberTabIdx = createCookieHooker<number>('tabidx')
 const useRememberLanguage = createCookieHooker<'ts' | 'js'>('language')
 const useRememberWrapWidth = createCookieHooker<number>('wrapwidth')
 
+const IS_DEVELOPMENT_MODE = process.env.NODE_ENV === 'development'
+
 export type DevToolProps = {
-  isDevelopmentMode: boolean
   component: ComponentType<any>
-  typescript: string
-  javascript: string
-  codesandboxTsUrl: string
-  codesandboxJsUrl: string
+  meta: DevtoolLoaderResult
   prefix: string
 }
 
 export const DevTool: FC<Partial<DevToolProps>> = (props) => {
   const _props: DevToolProps = {
     component: () => <div>Render me</div>,
-    javascript: `import React from 'react'
+    meta: {
+      js: `import React from 'react'
 
-    const App = () => <div> 'hello world'</div>
-    
-    export default App
-    `,
-    typescript: `import React, { FC } from 'react'
-
-    const App: FC = () => <div> 'hello world'</div>
-    
-    export default App
-    `,
-    codesandboxTsUrl: 'https://codesandbox.io',
-    codesandboxJsUrl: 'https://codesandbox.io',
-    isDevelopmentMode: false,
+      const App = () => <div> 'hello world'</div>
+      
+      export default App
+      `,
+      ts: `import React, { FC } from 'react'
+  
+      const App: FC = () => <div> 'hello world'</div>
+      
+      export default App
+      `,
+      tsUrl: 'https://codesandbox.io',
+      jsUrl: 'https://codesandbox.io',
+    },
     prefix: '',
     ...props,
   }
-  const {
-    component,
-    typescript,
-    javascript,
-    codesandboxTsUrl,
-    codesandboxJsUrl,
-    isDevelopmentMode,
-    prefix,
-  } = _props
+  const { component, meta, prefix } = _props
+
+  const { js, ts, jsUrl, tsUrl } = meta
 
   const [language, setLanguage] = useRememberLanguage('ts')
   const [tabIdx, setTabIdx] = useRememberTabIdx(0, prefix)
@@ -85,27 +79,14 @@ export const DevTool: FC<Partial<DevToolProps>> = (props) => {
   const [showSettings, setShowSettings] = useState(false)
 
   const source = useMemo(() => {
-    return prettier.format(language === 'ts' ? typescript : javascript, {
+    return prettier.format(language === 'ts' ? ts : js, {
       ...PRETTIER_OPTS,
       printWidth,
     })
-  }, [language, printWidth, typescript, javascript])
+  }, [language, printWidth, js, ts])
 
   return (
     <div>
-      {isDevelopmentMode && (
-        <div
-          style={{
-            display: 'inline-block',
-            textTransform: 'uppercase',
-            color: '#ff5400',
-            marginLeft: 10,
-          }}
-        >
-          Development mode detected. Running local code against local packages.
-        </div>
-      )}
-
       <Tabs selectedIndex={tabIdx} onSelect={(idx) => setTabIdx(idx)}>
         <TabList>
           <Tab>Output</Tab>
@@ -137,9 +118,7 @@ export const DevTool: FC<Partial<DevToolProps>> = (props) => {
           </div>
           <Button
             size="sm"
-            onClick={() =>
-              window.open(language === 'ts' ? codesandboxTsUrl : codesandboxJsUrl, '_blank')
-            }
+            onClick={() => window.open(language === 'ts' ? tsUrl : jsUrl, '_blank')}
           >
             Run in Codesandbox
           </Button>
