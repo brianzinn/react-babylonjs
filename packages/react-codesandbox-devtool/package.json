@@ -27,7 +27,6 @@
     "prettier": "^2.5.1",
     "rc-slider": "^9.7.5",
     "react-bootstrap": "^2.1.1",
-    "react-codesandbox-viewer": "*",
     "react-cookie": "^4.1.1",
     "react-icons": "^4.3.1",
     "react-syntax-highlighter": "^15.4.5",

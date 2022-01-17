@@ -30,7 +30,6 @@
     "@types/prettier": "^2.4.3",
     "babel-loader": "^8.2.3",
     "parcel": "^2.2.0",
-    "type-fest": "^2.9.0",
-    "typescript": "^4.5.4"
+    "type-fest": "^2.9.0"
   }
 }

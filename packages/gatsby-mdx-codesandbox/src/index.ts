@@ -12,7 +12,7 @@ import * as ts from 'typescript'
 import visit from 'unist-util-visit'
 import type { Code, Content, Jsx, LinkReference, Parent, Tsx } from './mdast'
 
-type ShortcodeNames = 'demo' | 'code'
+type ShortcodeNames = 'devtool' | 'code'
 
 const IS_DEVELOPMENT_MODE = env['NODE_ENV'] === 'development'
 
@@ -140,11 +140,11 @@ const plugin: GatsbyMdxPlugin<PluginOptions> = async (meta, pluginOptions) => {
   const { markdownAST, markdownNode } = meta
   // console.log({ meta })
 
-  // Import the Demo component
+  // Import the DevTool component
   {
     const node: Content = {
       type: 'import',
-      value: `import {Demo} from 'react-codesandbox-viewer'`,
+      value: `import {DevTool} from 'react-codesandbox-devtool'`,
     }
     markdownAST.children.unshift(node)
     console.log(`Adding: ${node.value}`)
@@ -152,8 +152,8 @@ const plugin: GatsbyMdxPlugin<PluginOptions> = async (meta, pluginOptions) => {
 
   const seen: { [_: string]: boolean } = {}
 
-  const isCodeOrDemo = (type: string): type is ShortcodeNames => {
-    const shortcodeNames: ShortcodeNames[] = ['code', 'demo']
+  const isCodeOrDevtool = (type: string): type is ShortcodeNames => {
+    const shortcodeNames: ShortcodeNames[] = ['code', 'devtool']
     return shortcodeNames.includes(type as ShortcodeNames)
   }
 
@@ -190,13 +190,13 @@ const plugin: GatsbyMdxPlugin<PluginOptions> = async (meta, pluginOptions) => {
         const { label } = linkRefNode
         if (!label) return
 
-        // Shortcode format:  (demo|code):fname.ext[?params...]
+        // Shortcode format:  (devtool|code):fname.ext[?params...]
         const [shortCodeType, fnameWithQuery] = label.split(':')
         const [fname, querystring] = fnameWithQuery.split('?')
         const [moduleName, ext] = fname.split('.')
 
         // Filter out any shortcode that is not ours
-        if (!isCodeOrDemo(shortCodeType)) return
+        if (!isCodeOrDevtool(shortCodeType)) return
 
         // Error on any file type not currently supported
         if (!isAllowedExt(ext)) {
@@ -317,29 +317,31 @@ const plugin: GatsbyMdxPlugin<PluginOptions> = async (meta, pluginOptions) => {
             }
             break
 
-          // The 'demo' case is a codesandbox and, if in dev/localhost mode, a working demo running aginst local code
-          case 'demo':
+          // The 'devtool' case is a codesandbox and, if in dev/localhost mode, a working devtool running aginst local code
+          case 'devtool':
             {
-              // Wire up demo harness
+              // Wire up devtool harness
               const importSymbol = `Component_${moduleName}`
+              const importSymbolTsSrc = `Component_${moduleName}TsSrc`
+              const importSymbolJsSrc = `Component_${moduleName}JsSrc`
 
               // Splice in a run container before the code listing, warn if in dev mode
-              const demoComponent = [
-                `<Demo 
+              const devtoolComponent = [
+                `<DevTool 
                   prefix={${JSON.stringify(guid())}}
                   isDevelopmentMode={${IS_DEVELOPMENT_MODE ? 'true' : 'false'}}
                   component={${importSymbol}}
-                  typescript={${JSON.stringify(formattedSourceTsx)}} 
-                  javascript={${JSON.stringify(formattedSourceJsx)}}
+                  typescript={${importSymbolTsSrc}} 
+                  javascript={${importSymbolJsSrc}}
                   codesandboxUrl={${JSON.stringify(codesandboxUrl)}}
                 />`,
               ].join('\n')
-              console.log(demoComponent)
+              console.log(devtoolComponent)
 
               // Typescript kung fu to convert to a Code node
               ;((node: Jsx) => {
                 node.type = 'jsx'
-                node.value = demoComponent
+                node.value = devtoolComponent
                 console.log(`converted node to runtime container`)
                 // console.log(JSON.stringify(node, null, 2))
               })(linkRefNode as unknown as Jsx)
@@ -348,7 +350,11 @@ const plugin: GatsbyMdxPlugin<PluginOptions> = async (meta, pluginOptions) => {
               if (!seen[moduleName]) {
                 const node: Content = {
                   type: 'import',
-                  value: `import ${importSymbol} from './${moduleName}'`,
+                  value: [
+                    `import ${importSymbol} from './${moduleName}'`,
+                    `import ${importSymbolTsSrc} from '!!raw-loader!./${moduleName}'`,
+                    `import ${importSymbolJsSrc} from '!!raw-loader!./${moduleName}'`,
+                  ].join('\n'),
                 }
                 markdownAST.children.unshift(node)
                 console.log(`Adding: ${node.value}`)
@@ -369,4 +375,4 @@ const plugin: GatsbyMdxPlugin<PluginOptions> = async (meta, pluginOptions) => {
   return markdownAST
 }
 
-module.exports = plugin
+export default plugin
