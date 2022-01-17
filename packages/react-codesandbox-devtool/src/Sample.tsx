@@ -1,15 +1,3 @@
-// FullImperitive.tsx
-
-/*
- ********* WARNING ********
- * THIS CODE WAS LAUNCHED FROM LOCALHOST.
- * LOCAL PACKAGES MAY NOT MATCH THE DEPENDENCIES
- * USED IN THIS SANDBOX.
- *
- * TEST SANDBOX FOR BACKWARD COMPATIBLITY IF DESIRED.
- ********* WARNING ********
- */
-
 import {
   Engine,
   EngineOptions,

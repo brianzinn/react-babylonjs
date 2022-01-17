@@ -41,13 +41,16 @@
   },
   "devDependencies": {
     "@babel/core": "^7.16.7",
-    "@storybook/addon-actions": "^6.4.13",
-    "@storybook/addon-essentials": "^6.4.13",
-    "@storybook/addon-links": "^6.4.13",
-    "@storybook/react": "^6.4.13",
+    "@storybook/addon-actions": "^6.5.0-alpha.19",
+    "@storybook/addon-essentials": "^6.5.0-alpha.19",
+    "@storybook/addon-links": "^6.5.0-alpha.19",
+    "@storybook/builder-webpack5": "^6.5.0-alpha.19",
+    "@storybook/manager-webpack5": "^6.5.0-alpha.19",
+    "@storybook/react": "^6.5.0-alpha.19",
     "@types/prettier": "^2.4.3",
     "babel-loader": "^8.2.3",
     "parcel": "^2.2.0",
-    "typescript": "^4.5.4"
+    "typescript": "^4.5.4",
+    "webpack": "5"
   }
 }

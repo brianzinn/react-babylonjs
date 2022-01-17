@@ -1,4 +1,5 @@
 import { forEach } from '@s-libs/micro-dash'
+import { basename } from 'path'
 import prettier, { Options as PrettierOptions } from 'prettier'
 import { env } from 'process'
 //@ts-ignore
@@ -171,9 +172,12 @@ const createSandboxer = (options: CodeSandboxOptions) => {
 }
 
 const devtoolLoader: RawLoaderDefinitionFunction<Partial<LoaderOptions>> = async function (source) {
+  if (!this.getOptions) {
+    throw new Error(`devtool-loader requires webpack 5. Make sure your Storybook is upgraded.`)
+  }
   const options = this.getOptions()
 
-  const _options: LoaderOptions = { name: 'unknown', ...options }
+  const _options: LoaderOptions = { name: basename(this.resourcePath), ...options }
 
   const { name } = _options
 
