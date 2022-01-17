@@ -1,5 +1,5 @@
 {
-  "name": "gatsby-mdx-codesandbox",
+  "name": "@devtool/gatsby-mdx-plugin",
   "version": "0.0.1",
   "main": "dist/index.js",
   "targets": {
@@ -23,16 +23,15 @@
   "dependencies": {
     "@s-libs/micro-dash": "12",
     "codesandbox": "^2.2.3",
-    "devtool-loader": "*",
+    "@devtool/react": "*",
+    "@devtool/loader": "*",
     "prettier": "^2.5.1",
     "remark-codesandbox": "^0.10.0",
-    "transpile-ts-loader": "*",
     "typescript": "^4.5.4",
     "unist-util-visit": "2"
   },
   "peerDependencies": {
-    "gatsby": "^4.0",
-    "react-codesandbox-viewer": "*"
+    "gatsby": "^4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.16.7",

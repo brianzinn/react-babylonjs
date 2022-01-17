@@ -31,7 +31,7 @@ module.exports = {
           //   resolve: 'gatsby-remark-copy-linked-files',
           // },
           {
-            resolve: 'gatsby-mdx-codesandbox',
+            resolve: '@devtool/gatsby-mdx-plugin',
             options: {},
           },
         ],

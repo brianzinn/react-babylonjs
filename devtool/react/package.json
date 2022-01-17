@@ -1,5 +1,5 @@
 {
-  "name": "react-codesandbox-devtool",
+  "name": "@devtool/react",
   "version": "0.0.1",
   "source": "src/index.ts",
   "main": "dist/index.js",
@@ -17,29 +17,24 @@
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
     "@fontsource/roboto": "^4.5.1",
-    "@mui/icons-material": "^5.2.5",
-    "@mui/material": "^5.2.8",
     "@s-libs/micro-dash": "12",
     "@swc/helpers": "^0.3.2",
-    "@types/prettier": "^2.4.3",
-    "@types/react-tabs": "^2.3.4",
     "bootstrap": "5.1.3",
-    "devtool-loader": "*",
     "prettier": "^2.5.1",
     "rc-slider": "^9.7.5",
     "react-bootstrap": "^2.1.1",
     "react-cookie": "^4.1.1",
     "react-icons": "^4.3.1",
     "react-syntax-highlighter": "^15.4.5",
-    "react-tabs": "^3.2.3",
-    "remark-codesandbox": "^0.10.0",
-    "typescript": "^4.5.4"
+    "react-tabs": "^3.2.3"
   },
   "peerDependencies": {
     "@types/react": "^17.0",
     "react": "^17.0"
   },
   "devDependencies": {
+    "@types/react-tabs": "^2.3.4",
+    "@devtool/loader": "*",
     "@babel/core": "^7.16.7",
     "@storybook/addon-actions": "^6.5.0-alpha.19",
     "@storybook/addon-essentials": "^6.5.0-alpha.19",

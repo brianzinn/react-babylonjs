@@ -19,16 +19,14 @@
     "@mdx-js/mdx": "^1.6.22",
     "@mdx-js/react": "^1.6.22",
     "gatsby": "^4.5.2",
-    "gatsby-mdx-codesandbox": "*",
+    "@devtool/gatsby-mdx-plugin": "*",
     "gatsby-plugin-mdx": "^3.5.1",
     "gatsby-plugin-sharp": "^4.5.1",
     "gatsby-remark-copy-linked-files": "^5.5.0",
     "gatsby-remark-images": "^6.5.1",
     "gatsby-source-filesystem": "^4.5.1",
     "react": "^17.0.1",
-    "react-codesandbox-devtool": "*",
     "react-dom": "^17.0.1",
-    "remark-code-import": "^1.1.0",
-    "transpile-ts-loader": "*"
+    "remark-code-import": "^1.1.0"
   }
 }
