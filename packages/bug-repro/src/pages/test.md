@@ -1,3 +1,3 @@
 # Hello world
 
-[demo:Hello.tsx]
+[devtool:Hello.tsx]

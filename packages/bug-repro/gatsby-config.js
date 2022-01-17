@@ -1,3 +1,5 @@
+const handleCreateWebpackConfig = require('gatsby-mdx-codesandbox/webpack')
+
 module.exports = {
   siteMetadata: {
     siteUrl: `https://www.yourdomain.tld`,
@@ -29,11 +31,15 @@ module.exports = {
           //   resolve: 'gatsby-remark-copy-linked-files',
           // },
           {
-            resolve: 'gatsby-mdx-codesandbox',
+            resolve: 'gatsby-mdx-codesandbox/plugin',
             options: {},
           },
         ],
       },
     },
   ],
+}
+
+exports.onCreateWebpackConfig = (args) => {
+  handleOnCreateWebpackConfig(args)
 }
