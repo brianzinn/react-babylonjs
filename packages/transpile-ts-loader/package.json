@@ -1,9 +1,20 @@
 {
   "name": "transpile-ts-loader",
   "version": "0.0.1",
-  "source": "src/index.ts",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "targets": {
+    "default": {
+      "source": "./src/index.ts",
+      "context": "node",
+      "engines": {
+        "node": ">12"
+      },
+      "outputFormat": "commonjs",
+      "isLibrary": true,
+      "optimize": false
+    }
+  },
   "license": "MIT",
   "scripts": {
     "build": "parcel build",

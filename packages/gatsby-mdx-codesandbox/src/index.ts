@@ -93,12 +93,26 @@ const guid = (() => {
 
 export const TRANSPILE_OPTIONS: ts.TranspileOptions = {
   compilerOptions: {
-    strict: false,
+    noImplicitAny: true,
+    strictNullChecks: true,
+    strictFunctionTypes: true,
+    strictPropertyInitialization: true,
+    strictBindCallApply: true,
+    noImplicitThis: true,
+    noImplicitReturns: true,
+    alwaysStrict: true,
     esModuleInterop: true,
+    declaration: true,
+    experimentalDecorators: true,
+    emitDecoratorMetadata: true,
+    moduleResolution: ts.ModuleResolutionKind.NodeJs,
+    strict: false,
+    target: ts.ScriptTarget.ES2017,
     jsx: ts.JsxEmit.Preserve,
     module: ts.ModuleKind.ESNext,
     noEmitHelpers: true,
     downlevelIteration: false,
+    removeComments: false,
   },
 }
 
@@ -183,6 +197,28 @@ const plugin: GatsbyMdxPlugin<PluginOptions> = async (meta, pluginOptions) => {
   const ALLOWED_EXT = ['tsx']
   const isAllowedExt = (ext: string): ext is Tsx['type'] => ALLOWED_EXT.includes(ext)
 
+  const makeCodesandboxUrl = async (
+    templateName: string,
+    computedQuerystring: string,
+    source: string
+  ) => {
+    const node: Code = {
+      type: 'code',
+      lang: 'tsx',
+      meta: `codesandbox=${templateName}?${computedQuerystring}`,
+      value: source,
+    }
+    await codesandbox({ ...meta, markdownAST: node }, _options.codesandbox)
+
+    // console.log(JSON.stringify(node, null, 2))
+    const url = (node.data?.hProperties as { dataCodesandboxUrl?: string })?.dataCodesandboxUrl
+    if (!url) {
+      throw new Error(`Failed to create sandbox URL from ${node.meta}`)
+    }
+    // console.log(`converted node to sandbox url ${url}`)
+    return url
+  }
+
   const promises: Promise<void>[] = []
   visit(markdownAST, 'paragraph', (paragraphNode: MaybeParent, idx) => {
     promises.push(
@@ -222,7 +258,7 @@ const plugin: GatsbyMdxPlugin<PluginOptions> = async (meta, pluginOptions) => {
 
         // Calculate the template name
         const parsed = new URLSearchParams(querystring)
-        const templateName = parsed.get('template') || query.get('template')
+        const templateName = parsed.get('template') || query.get('template') || 'default'
         parsed.delete('template')
         query.delete('template')
         console.log(`Template name is ${templateName}`)
@@ -262,7 +298,7 @@ const plugin: GatsbyMdxPlugin<PluginOptions> = async (meta, pluginOptions) => {
           '',
           ...(IS_DEVELOPMENT_MODE
             ? [
-                `/* `,
+                `{/** `,
                 ` ********* WARNING ********`,
                 ` * THIS CODE WAS LAUNCHED FROM LOCALHOST.`,
                 ` * LOCAL PACKAGES MAY NOT MATCH THE DEPENDENCIES`,
@@ -270,60 +306,38 @@ const plugin: GatsbyMdxPlugin<PluginOptions> = async (meta, pluginOptions) => {
                 ` * `,
                 ` * TEST SANDBOX FOR BACKWARD COMPATIBLITY IF DESIRED.`,
                 ` ********* WARNING ********`,
-                ` */`,
+                ` */}`,
                 '',
               ]
             : []),
           source,
         ]
         const unformattedTsx = lines.join('\n')
+        console.log('unformattedTsx', unformattedTsx)
         const formattedSourceTsx = prettier.format(unformattedTsx, _options.prettier)
+        console.log('formattedSourceTsx', formattedSourceTsx)
 
         // Transpile to JS
         const formattedSourceJsx = prettier.format(
           ts.transpileModule(unformattedTsx, TRANSPILE_OPTIONS).outputText,
           _options.prettier
         )
+        console.log('formattedSourceJsx', formattedSourceJsx)
 
         // Generate the TS sandbox URL link
-        const codesandboxTsUrl = await (async () => {
-          const node: Code = {
-            type: 'code',
-            lang: 'tsx',
-            meta: `codesandbox=${templateName}?${computedQuerystring}`,
-            value: formattedSourceTsx,
-          }
-          await codesandbox({ ...meta, markdownAST: node }, _options.codesandbox)
 
-          // console.log(JSON.stringify(node, null, 2))
-          const url = (node.data?.hProperties as { dataCodesandboxUrl?: string })
-            ?.dataCodesandboxUrl
-          if (!url) {
-            throw new Error(`Failed to create sandbox URL from ${node.meta}`)
-          }
-          // console.log(`converted node to sandbox url ${url}`)
-          return url
-        })()
+        const codesandboxTsUrl = await makeCodesandboxUrl(
+          templateName,
+          computedQuerystring,
+          formattedSourceTsx
+        )
 
         // Generate the JS sandbox URL link
-        const codesandboxJsUrl = await (async () => {
-          const node: Code = {
-            type: 'code',
-            lang: 'tsx',
-            meta: `codesandbox=${templateName}?${computedQuerystring}`,
-            value: formattedSourceJsx,
-          }
-          await codesandbox({ ...meta, markdownAST: node }, _options.codesandbox)
-
-          // console.log(JSON.stringify(node, null, 2))
-          const url = (node.data?.hProperties as { dataCodesandboxUrl?: string })
-            ?.dataCodesandboxUrl
-          if (!url) {
-            throw new Error(`Failed to create sandbox URL from ${node.meta}`)
-          }
-          // console.log(`converted node to sandbox url ${url}`)
-          return url
-        })()
+        const codesandboxJsUrl = await makeCodesandboxUrl(
+          templateName,
+          computedQuerystring,
+          formattedSourceJsx
+        )
 
         switch (shortCodeType) {
           // The 'code' case is where we do normal inline code
