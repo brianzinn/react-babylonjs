@@ -42,7 +42,8 @@ export type DevToolProps = {
   component: ComponentType<any>
   typescript: string
   javascript: string
-  codesandboxUrl: string
+  codesandboxTsUrl: string
+  codesandboxJsUrl: string
   prefix: string
 }
 
@@ -61,12 +62,21 @@ export const DevTool: FC<Partial<DevToolProps>> = (props) => {
     
     export default App
     `,
-    codesandboxUrl: 'https://codesandbox.io',
+    codesandboxTsUrl: 'https://codesandbox.io',
+    codesandboxJsUrl: 'https://codesandbox.io',
     isDevelopmentMode: false,
     prefix: '',
     ...props,
   }
-  const { component, typescript, javascript, codesandboxUrl, isDevelopmentMode, prefix } = _props
+  const {
+    component,
+    typescript,
+    javascript,
+    codesandboxTsUrl,
+    codesandboxJsUrl,
+    isDevelopmentMode,
+    prefix,
+  } = _props
 
   const [language, setLanguage] = useRememberLanguage('ts')
   const [tabIdx, setTabIdx] = useRememberTabIdx(0, prefix)
@@ -125,7 +135,12 @@ export const DevTool: FC<Partial<DevToolProps>> = (props) => {
               </Button>
             </ButtonGroup>
           </div>
-          <Button size="sm" onClick={() => window.open(codesandboxUrl, '_blank')}>
+          <Button
+            size="sm"
+            onClick={() =>
+              window.open(language === 'ts' ? codesandboxTsUrl : codesandboxJsUrl, '_blank')
+            }
+          >
             Run in Codesandbox
           </Button>
           <Button

@@ -91,6 +91,17 @@ const guid = (() => {
   return () => `g${++id}`
 })()
 
+export const TRANSPILE_OPTIONS: ts.TranspileOptions = {
+  compilerOptions: {
+    strict: false,
+    esModuleInterop: true,
+    jsx: ts.JsxEmit.Preserve,
+    module: ts.ModuleKind.ESNext,
+    noEmitHelpers: true,
+    downlevelIteration: false,
+  },
+}
+
 const plugin: GatsbyMdxPlugin<PluginOptions> = async (meta, pluginOptions) => {
   const _options: PluginOptions = {
     development: {
@@ -270,24 +281,37 @@ const plugin: GatsbyMdxPlugin<PluginOptions> = async (meta, pluginOptions) => {
 
         // Transpile to JS
         const formattedSourceJsx = prettier.format(
-          ts.transpileModule(unformattedTsx, {
-            compilerOptions: {
-              strict: false,
-              esModuleInterop: true,
-              jsx: ts.JsxEmit.Preserve,
-              module: ts.ModuleKind.ESNext,
-            },
-          }).outputText,
+          ts.transpileModule(unformattedTsx, TRANSPILE_OPTIONS).outputText,
           _options.prettier
         )
 
-        // Generate the sandbox URL link
-        const codesandboxUrl = await (async () => {
+        // Generate the TS sandbox URL link
+        const codesandboxTsUrl = await (async () => {
           const node: Code = {
             type: 'code',
             lang: 'tsx',
             meta: `codesandbox=${templateName}?${computedQuerystring}`,
-            value: source,
+            value: formattedSourceTsx,
+          }
+          await codesandbox({ ...meta, markdownAST: node }, _options.codesandbox)
+
+          // console.log(JSON.stringify(node, null, 2))
+          const url = (node.data?.hProperties as { dataCodesandboxUrl?: string })
+            ?.dataCodesandboxUrl
+          if (!url) {
+            throw new Error(`Failed to create sandbox URL from ${node.meta}`)
+          }
+          // console.log(`converted node to sandbox url ${url}`)
+          return url
+        })()
+
+        // Generate the JS sandbox URL link
+        const codesandboxJsUrl = await (async () => {
+          const node: Code = {
+            type: 'code',
+            lang: 'tsx',
+            meta: `codesandbox=${templateName}?${computedQuerystring}`,
+            value: formattedSourceJsx,
           }
           await codesandbox({ ...meta, markdownAST: node }, _options.codesandbox)
 
@@ -333,7 +357,8 @@ const plugin: GatsbyMdxPlugin<PluginOptions> = async (meta, pluginOptions) => {
                   component={${importSymbol}}
                   typescript={${importSymbolTsSrc}} 
                   javascript={${importSymbolJsSrc}}
-                  codesandboxUrl={${JSON.stringify(codesandboxUrl)}}
+                  codesandboxTsUrl={${JSON.stringify(codesandboxTsUrl)}}
+                  codesandboxJsUrl={${JSON.stringify(codesandboxJsUrl)}}
                 />`,
               ].join('\n')
               console.log(devtoolComponent)
@@ -353,7 +378,7 @@ const plugin: GatsbyMdxPlugin<PluginOptions> = async (meta, pluginOptions) => {
                   value: [
                     `import ${importSymbol} from './${moduleName}'`,
                     `import ${importSymbolTsSrc} from '!!raw-loader!./${moduleName}'`,
-                    `import ${importSymbolJsSrc} from '!!raw-loader!./${moduleName}'`,
+                    `import ${importSymbolJsSrc} from '!!transpile-ts-loader!./${moduleName}'`,
                   ].join('\n'),
                 }
                 markdownAST.children.unshift(node)
@@ -370,9 +395,8 @@ const plugin: GatsbyMdxPlugin<PluginOptions> = async (meta, pluginOptions) => {
 
   // console.log('calling codesandbox', _options.codesandbox)
 
-  await codesandbox(meta, _options.codesandbox)
   console.log(JSON.stringify(markdownAST, null, 2))
   return markdownAST
 }
 
-export default plugin
+module.exports = plugin

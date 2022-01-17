@@ -1,4 +1,4 @@
-const handleCreateWebpackConfig = require('gatsby-mdx-codesandbox/webpack')
+// const { handleCreateWebpackConfig } = require('transpile-ts-loader')
 
 module.exports = {
   siteMetadata: {
@@ -31,7 +31,7 @@ module.exports = {
           //   resolve: 'gatsby-remark-copy-linked-files',
           // },
           {
-            resolve: 'gatsby-mdx-codesandbox/plugin',
+            resolve: 'gatsby-mdx-codesandbox',
             options: {},
           },
         ],
@@ -40,6 +40,6 @@ module.exports = {
   ],
 }
 
-exports.onCreateWebpackConfig = (args) => {
-  handleOnCreateWebpackConfig(args)
-}
+// exports.onCreateWebpackConfig = (args) => {
+//   handleOnCreateWebpackConfig(args)
+// }

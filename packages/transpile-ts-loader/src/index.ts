@@ -1,67 +1,48 @@
-import { GatsbyNode } from 'gatsby'
-import { getOptions } from 'loader-utils'
-import * as ts from 'typescript'
-import { Configuration } from 'webpack'
+import type { TranspileOptions } from 'typescript'
+import { JsxEmit, ModuleKind, transpileModule } from 'typescript'
+
+export type Options = {
+  esModule: boolean
+  transpileOptions: TranspileOptions
+}
+
+export const TRANSPILE_OPTIONS = {
+  esModule: false,
+  transpileOptions: {
+    compilerOptions: {
+      strict: false,
+      esModuleInterop: true,
+      jsx: JsxEmit.Preserve,
+      module: ModuleKind.ESNext,
+      noEmitHelpers: true,
+      downlevelIteration: false,
+    },
+  },
+}
 
 function transpileLoader(source: string) {
   //@ts-ignore
-  const options = getOptions(this)
+  const options: Partial<Options> = this.getOptions()
 
-  console.log({ options })
+  const _options: Options = TRANSPILE_OPTIONS
+
+  console.log('transpile-ts-loader options', JSON.stringify(_options, null, 2))
+
+  const { esModule, transpileOptions } = _options
 
   const js = (() => {
     try {
-      return ts.transpileModule(source, {
-        compilerOptions: {
-          strict: false,
-          esModuleInterop: true,
-          jsx: ts.JsxEmit.Preserve,
-          module: ts.ModuleKind.ESNext,
-        },
-      }).outputText
+      return transpileModule(source, transpileOptions).outputText
     } catch (e) {
       console.error(e)
       return '// Transpile from TSX failed.'
     }
   })()
+  console.log('transpiled', js)
 
   const json = JSON.stringify(js)
-
-  const esModule = typeof options.esModule !== 'undefined' ? options.esModule : true
 
   return `${esModule ? 'export default' : 'module.exports ='} ${json};`
 }
 
-export default transpileLoader
-
-export const handleCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = ({
-  stage,
-  rules,
-  loaders,
-  plugins,
-  actions,
-}) => {
-  const config: Configuration = {
-    module: {
-      rules: [
-        {
-          test: /\.tsx$/,
-          use: [
-            {
-              loader: '',
-              options: {
-                compilerOptions: {
-                  strict: false,
-                  esModuleInterop: true,
-                  jsx: ts.JsxEmit.Preserve,
-                  module: ts.ModuleKind.ESNext,
-                },
-              },
-            },
-          ],
-        },
-      ],
-    },
-  }
-  actions.setWebpackConfig(config)
-}
+module.exports = transpileLoader

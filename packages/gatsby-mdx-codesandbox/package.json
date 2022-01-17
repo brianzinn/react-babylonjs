@@ -14,10 +14,10 @@
   },
   "dependencies": {
     "@s-libs/micro-dash": "12",
-    "@types/prettier": "^2.4.3",
     "codesandbox": "^2.2.3",
     "prettier": "^2.5.1",
     "remark-codesandbox": "^0.10.0",
+    "transpile-ts-loader": "*",
     "typescript": "^4.5.4",
     "unist-util-visit": "2"
   },
@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.16.7",
+    "@types/node": "^17.0.8",
     "@types/prettier": "^2.4.3",
     "babel-loader": "^8.2.3",
     "parcel": "^2.2.0",
