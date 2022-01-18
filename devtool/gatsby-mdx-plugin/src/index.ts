@@ -122,9 +122,10 @@ const plugin: GatsbyMdxPlugin = async (meta) => {
         }
 
         // Splice in a run container before the code listing, warn if in dev mode
+        const guid = `${markdownNode.fileAbsolutePath}/${fname}`
         const devtoolComponent = [
           `<DevTool 
-              prefix={${JSON.stringify(guid())}}
+              prefix={${JSON.stringify(guid)}}
               component={${importSymbol}}
               meta={${devtoolResult}} 
             />`,
