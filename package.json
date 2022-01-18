@@ -3,10 +3,19 @@
   "private": true,
   "workspaces": {
     "packages": [
+      "devtool/loader",
+      "devtool/react",
+      "devtool/gatsby-mdx-plugin",
+      "devtool/*",
+      "packages/react-babylonjs",
+      "packages/static",
+      "packages/storybook",
       "packages/*"
     ]
   },
   "scripts": {
+    "build": "yarn workspaces run build",
+    "test": "yarn workspaces run test",
     "lint": "yarn workspaces run lint",
     "lint:fix": "yarn workspaces run lint:fix",
     "prepare": "husky install"
