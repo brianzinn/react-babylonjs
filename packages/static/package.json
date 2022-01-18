@@ -5,6 +5,7 @@
   "version": "0.0.1",
   "dependencies": {
     "@babel/plugin-proposal-export-default-from": "^7.12.13",
+    "@devtool/gatsby-mdx-plugin": "*",
     "@emotion/react": "^11.1.5",
     "@emotion/styled": "^11.3.0",
     "@emotion/styled-base": "^11.0.0",
@@ -13,6 +14,7 @@
     "@mdx-js/react": "^1.6.22",
     "@philpl/buble": "^0.19.7",
     "@playlyfe/gql": "^2.6.2",
+    "@s-libs/micro-dash": "^13.1.0",
     "@styled-icons/fa-brands": "^10.26.0",
     "@styled-icons/fa-solid": "^10.32.0",
     "algoliasearch": "^4.9.1",
@@ -22,7 +24,6 @@
     "emotion-server": "^11.0.0",
     "gatsby": "^4.0.0",
     "gatsby-link": "^4.0.0",
-    "@devtool/gatsby-mdx-plugin": "*",
     "gatsby-plugin-algolia": "^0.19.0",
     "gatsby-plugin-emotion": "^7.0.0",
     "gatsby-plugin-gtag": "^1.0.13",

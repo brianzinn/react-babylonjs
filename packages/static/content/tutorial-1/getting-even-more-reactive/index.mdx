@@ -25,31 +25,32 @@ One of the main principles of React is to maintain state and let those state
 changes flow through to the components. By altering variables by reference, we
 defeat one of the main principles of React.
 
-Instead, let's make a `StatefulMovingBox` by using `useState` to track the `y`
-value from before:
+There is a better way using `useState`.
 
 ```tsx
-const StatefulMovingBox: FC = () => {
-  // access Babylon Scene
-  const scene = useScene()
-  const [y, setY] = useState(0)
-  // access refs to Babylon objects in scene like DOM nodes
-
-  useBeforeRender(() => {
-    if (!scene) return
-    const deltaTimeInMillis = scene.getEngine().getDeltaTime()
-    setY((y) => y + (RPM / 60) * Math.PI * 2 * (deltaTimeInMillis / 1000))
-  })
-
-  return (
-    <box
-      name="box"
-      size={2}
-      position={new Vector3(0, 1, 0)}
-      rotation={new Vector3(0, y, 0)}
-    />
-  )
-}
+const [y, setY] = useState(0)
+useBeforeRender(() => {
+  if (!scene) return
+  const deltaTimeInMillis = scene.getEngine().getDeltaTime()
+  setY((y) => y + (RPM / 60) * Math.PI * 2 * (deltaTimeInMillis / 1000))
+})
 ```
 
+Putting it all together, here is a `StatefulMovingBox` demo:
+
 [devtool:StatefulMovingBox.tsx]
+
+Why is this better? For a small example like this, it may not be obvious. In a
+larger application, programming via state management instead of imperitively
+changing variables means you can easily affect changes across multiple
+components simply by altering the state.
+
+Consider how easy it is to add a second box, with zero new logic in your render
+handler::
+
+```tsx
+<box name="box" size={2} position={new Vector3(-2, 1, 0)} rotation={new Vector3(0, y, 0)} />
+<box name="box" size={2} position={new Vector3(2, 1, 0)} rotation={new Vector3(0, y, 0)} />
+```
+
+[devtool:StatefulMovingBoxes.tsx]
