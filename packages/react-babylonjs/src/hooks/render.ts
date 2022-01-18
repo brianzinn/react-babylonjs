@@ -41,7 +41,7 @@ export const useBeforeRender = (
         scene.onBeforeRenderObservable.remove(sceneObserver)
       }
     }
-  })
+  }, [])
 }
 
 /**
