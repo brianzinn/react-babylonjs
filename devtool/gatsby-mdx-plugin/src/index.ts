@@ -106,8 +106,8 @@ const plugin: GatsbyMdxPlugin = async (meta) => {
         }
 
         // Wire up devtool harness
-        const importSymbol = `Component_${moduleName}_${guid()}`
-        const devtoolResult = `Devtool_${moduleName}_${guid()}`
+        const importSymbol = `Component_${moduleName}`
+        const devtoolResult = `Devtool_${moduleName}`
         // console.log(importSymbol, devtoolResult)
 
         // Import the DevTool component
