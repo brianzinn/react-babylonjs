@@ -121,7 +121,7 @@ const Tree = ({ edges }) => {
   let [treeData] = useState(() => {
     return calculateTreeData(edges)
   })
-  console.log('treeData', JSON.stringify(treeData, null, 2))
+  // console.log('treeData', JSON.stringify(treeData, null, 2))
 
   const defaultCollapsed = {}
 

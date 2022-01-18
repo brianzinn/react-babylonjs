@@ -420,12 +420,17 @@ export const baseStyles = css`
   }
 
   .sideBarUL {
+    padding-left: 0px;
     margin-top: 32px;
   }
 
   .sideBarUL li {
     list-style-type: none;
     width: auto;
+  }
+
+  .sideBarUL li ul {
+    padding-left: 0px;
   }
 
   .sideBarUL li a {
