@@ -23,6 +23,7 @@ exports.createPages = ({ graphql, actions }) => {
                   tableOfContents
                   fields {
                     slug
+                    sort
                   }
                 }
               }
@@ -98,6 +99,12 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
       name: 'id',
       node,
       value: node.id,
+    })
+
+    createNodeField({
+      name: 'sort',
+      node,
+      value: node.frontmatter.sort || 10,
     })
 
     createNodeField({

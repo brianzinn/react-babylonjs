@@ -108,7 +108,7 @@ const SidebarLayout = ({ location }) => (
     `}
     render={({ allMdx }) => {
       // console.log({ allMdx })
-      console.log(JSON.stringify(allMdx, null, 2))
+      console.log('allMsx', JSON.stringify(allMdx, null, 2))
       return (
         <Sidebar>
           {config.sidebar.title ? (
