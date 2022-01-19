@@ -6,7 +6,12 @@ type RotatingBoxProps = {
   rpm: number
 }
 
-const RotatingBox: FC<RotatingBoxProps> = ({ rpm }) => {
+const RotatingBox: FC<Partial<RotatingBoxProps>> = (props) => {
+  const _props: RotatingBoxProps = {
+    rpm: 5,
+    ...props,
+  }
+  const { rpm } = _props
   const scene = useScene()
   const [y, setY] = useState(0)
   useBeforeRender(
@@ -27,7 +32,7 @@ const App: FC = () => {
   return (
     <BabylonApp>
       <BasicCameraLightsGround />
-      <RotatingBox rpm={60} />
+      <RotatingBox />
     </BabylonApp>
   )
 }

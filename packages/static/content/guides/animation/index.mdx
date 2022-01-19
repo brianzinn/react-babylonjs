@@ -101,10 +101,11 @@ Let's try it out.
 
 Pretty cool! If we wanted to get extra fancy, we could even adjust the rotation
 to Revolutions Per Minute (RPM). To do that, we'd need to know that one complete
-revolution of _yaw_ is _pi _ 2\*. Then, we'd need to know how many milliseconds
-have passed between animation frames. Fortunately Babylon.js provides a
-`getDeltaTime()` that tells us exactly that. Using all that information, we can
-do this instead:
+revolution of _yaw_ is _pi \* 2_.
+
+Then, we'd need to know how many milliseconds have passed between animation
+frames. Fortunately Babylon.js provides a `getDeltaTime()` that tells us exactly
+that. Using all that information, we can do this instead:
 
 ```tsx
 setY((oldY) => oldY + (RPM / 60) * Math.PI * 2 * (deltaTimeInMillis / 1000))
@@ -136,35 +137,17 @@ useBeforeRender(() => {
 })
 ```
 
-Now, in the interests of completeness, you might notice the hook is referring to
-`rpm`. If `rpm` were to change, we would want to make sure that new value took
-effect. Therefore, just like `useEffect`, `rpm` is a dependency:
-
-```tsx
-useBeforeRender(
-  () => {
-    if (!scene) return
-    const deltaTimeInMillis = scene.getEngine().getDeltaTime()
-    setY((oldY) => oldY + (rpm / 60) * Math.PI * 2 * (deltaTimeInMillis / 1000))
-  },
-  undefined,
-  undefined,
-  undefined,
-  [rpm]
-)
-```
-
 Now that's a nice reactive component! We use it like this:
 
 ```tsx
-<RotatingBox rpm={5} />
+<RotatingBox rpm={60} />
 ```
 
-Let's try it.
+Let's try it. We should see one rotation per second when `RPM === 60`.
 
 [devtool:RPMBox.tsx]
 
-It's a little silly to require `rpm={5}` just to use the box. Let's make a
+It's a little silly to require `rpm={60}` just to use the box. Let's make a
 sensible default for it:
 
 ```tsx
@@ -181,3 +164,31 @@ const RotatingBox: FC<Partial<RotatingBoxProps>> = (props) => {
 And the final result:
 
 [devtool:RPMBox2.tsx]
+
+Now, we are developers. It would be very cool if we had a way to interact with
+the application state for debugging purposes.
+
+There are a couple ways to accomplish this:
+
+1. Outside the scene, using standard web technologies
+2. Inside the scene, using a GUI capable of rendering in 3D space
+
+Let's go with option #1 for now.
+
+in the interests of completeness, you might notice the hook is referring to
+`rpm`. If `rpm` were to change, we would want to make sure that new value took
+effect. Therefore, just like `useEffect`, `rpm` is a dependency:
+
+```tsx
+useBeforeRender(
+  () => {
+    if (!scene) return
+    const deltaTimeInMillis = scene.getEngine().getDeltaTime()
+    setY((oldY) => oldY + (rpm / 60) * Math.PI * 2 * (deltaTimeInMillis / 1000))
+  },
+  undefined,
+  undefined,
+  undefined,
+  [rpm]
+)
+```
