@@ -2,6 +2,8 @@
   "name": "@react-babylonjs/extra",
   "version": "0.1.0",
   "license": "MIT",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "watch": "chokidar 'src/*' -c 'yarn build'"
@@ -18,6 +20,7 @@
     "typescript": "^4.5.4"
   },
   "peerDependencies": {
+    "@babylonjs/core": "^4.2.1",
     "react": "^17.0.2"
   }
 }

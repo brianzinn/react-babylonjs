@@ -1274,7 +1274,7 @@
     "@babel/helper-validator-identifier" "^7.16.7"
     to-fast-properties "^2.0.0"
 
-"@babylonjs/core@4.2.1", "@babylonjs/core@^4.2.0":
+"@babylonjs/core@4.2.1", "@babylonjs/core@^4.2.0", "@babylonjs/core@^4.2.1":
   version "4.2.1"
   resolved "https://registry.yarnpkg.com/@babylonjs/core/-/core-4.2.1.tgz#9dc57dabf41d259a2343da308ec52575b368e588"
   integrity sha512-Z2ZVNRKPB1UvmMeqQtxCJKrQtQ/hb5FcAZi66YEEE0MKBQlLmf6oZEM9vS1RljPK7NZoV/dZSdwjJgiQlGsuhA==
