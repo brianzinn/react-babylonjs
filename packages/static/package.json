@@ -14,6 +14,7 @@
     "@mdx-js/react": "^1.6.22",
     "@philpl/buble": "^0.19.7",
     "@playlyfe/gql": "^2.6.2",
+    "@react-babylonjs/extra": "*",
     "@s-libs/micro-dash": "^13.1.0",
     "@styled-icons/fa-brands": "^10.26.0",
     "@styled-icons/fa-solid": "^10.32.0",

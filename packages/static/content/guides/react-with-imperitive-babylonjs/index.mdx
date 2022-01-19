@@ -6,6 +6,7 @@ sort: 400
 Once you have a React project set up, you can program Babylon.js imperitively
 just like they tell you in the
 [official Babylon.js + React guide](https://doc.babylonjs.com/extensions/Babylon.js+ExternalLibraries/BabylonJS_and_ReactJS).
+Here is a direct copy of their demo.
 
 [devtool:FullImperitive.tsx]
 
@@ -17,24 +18,29 @@ power of `react-babylonjs`.
 As you review the code, notice everything happens in sequence and you are
 responsible for re-running affected code when you change the input values.
 
-In a [reactive programming](https://en.wikipedia.org/wiki/Reactive_programming),
-a change in the input values naturally cascades to affected code. There are many
-benefits to a reactive programming style that we won't cover here. But speed,
-efficiency, and ability to reason through complex state changes are among the
-many benefits.
+In [reactive programming](https://en.wikipedia.org/wiki/Reactive_programming), a
+change in the application state naturally cascades to affected code. There are
+many benefits to a reactive programming style that we won't cover here. But
+speed, efficiency, and ability to reason through complex state changes are among
+the many benefits.
 
 Mixing imperitive programming with React is generally an antipattern because it
 reduces the benefits of reactive programming.
 
-Therefore, this code is the least desirable way to use Babylon.js in React.
+Therefore, the sample above - while it technically _does_ run in the React
+framework - is the least desirable way to use Babylon.js in React.
 
-Now to be completely fair, Babylon.js has created a helpful
+Babylon.js has created a helpful
 [babylonjs-hook](https://www.npmjs.com/package/babylonjs-hook) package which
-replaces `SceneComponent`. If you use this, you can get down to about **60 lines
-of code**. But it's still imperitive programming, not declarative or reactive
-programming.
+takes `SceneComponent` and puts it in a package. That's good, but you still must
+write the `onSceneReady` handler which is imperitive programming. We can reduce
+the line count to **60 lines of code**, but all we've done is move part of it
+into a 3rd party package. The approach is still fundamentally the same: It's
+still imperitive programming, not declarative or reactive programming.
 
-After this, I'll show you how to do the same thing in **under 50 lines of code
-using real declarative programming**.
+Here is the same using their package:
 
 [devtool:WithHooks.tsx]
+
+In summary, this guide has shown you how to use imperitive programming within
+React - we think this is an antipattern to be avoided.

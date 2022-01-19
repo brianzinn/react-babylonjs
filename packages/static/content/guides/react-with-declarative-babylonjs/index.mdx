@@ -3,22 +3,11 @@ title: 'Under 50 Lines of Code: react-babylonjs'
 sort: 500
 ---
 
-In previous sections, we saw how to:
+This guide demonstrates how to create a truly reactive Babylon.js app in **just
+under 50 lines of code**. We learn how to make custom Babylon React components,
+and how to use some helpful hooks like `useScene`, `useBeforeRender`.
 
-- Create a boilerplate React app
-- Instantiate a Babylon.js scene imperitively
-- Shoehorn the above into React in about 150 lines of code, still not "reactive"
-  or declarative
-- Reduce 150 lines of code to 60 by moving some of it into a 3rd party package,
-  but still not reactive or declarative
-
-But now, we'll see how to do the exact same thing in **just under 50 lines of
-code using a true reactive/declarative approach**.
-
-We also learn how to make custom Babylon React components, and how to use some
-helpful hooks like `useScene`, `useBeforeRender`.
-
-First, let's take a look at what a basic React structure looks like:
+Let's take a look at a basic `react-babylonjs` container:
 
 ```tsx
 import { Engine, Scene } from 'react-babylonjs'
@@ -31,8 +20,14 @@ const BasicScene: FC = ({ children }) => (
 ```
 
 The above code introduces the `Engine` and `Scene` tags of `react-bablylonjs`.
-These perform boilerplate initialization. Everything you might like to add to a
-scene will go inside the `Scene` tag.
+It also introduces _composition_, which is where we create a new component that
+composes two or more lower-level components. These perform boilerplate
+initialization. Everything you might like to add to a scene will go inside the
+`Scene` tag.
+
+As we go through the tutorials, we will be using components and helpers from
+`@react-babylonjs/extra`. You can find `BasicScene` as
+`import BasicScene from @react-babylonjs/extra/BasicScene`.
 
 Next, we are going to define a camera, some light, and a ground surface. At this
 point, it's important to understand a Typescript concept known as
