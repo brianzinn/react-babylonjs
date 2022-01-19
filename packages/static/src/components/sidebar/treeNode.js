@@ -4,30 +4,28 @@ import ClosedSvg from '../images/closed'
 import OpenedSvg from '../images/opened'
 import Link from '../link'
 
-const TreeNode = ({
-  className = '',
-  setCollapsed,
-  collapsed,
-  url,
-  title,
-  items,
-  label,
-  ...rest
-}) => {
+const TreeNode = (node) => {
+  // console.log('visiting', JSON.stringify(node, null, 2))
+  const { className = '', setCollapsed, collapsed, url, title, items, label, ...rest } = node
+
   const [_title, _url] = (() => {
+    if (!label) return [] // Empty node
     if (title) return [title, url] // Has its own title and URL
     // it's a folder
 
-    if (items.length === 0) return []
-    const [item] = items
-    console.log(item)
-    const { title, url } = item
-    return [title, url]
+    {
+      if (items.length === 0) return []
+      const [item] = items
+      // console.log('first child', JSON.stringify(item, null, 2))
+      const { title, url } = item
+      items.shift()
+      return [title, url]
+    }
   })()
-  console.log({ _title, _url })
+  // console.log('final props', JSON.stringify({ _title, _url }, null, 2))
   const isCollapsed = collapsed[_url]
 
-  console.log(JSON.stringify(items, null, 2))
+  // console.log('child items', JSON.stringify(items, null, 2))
   const collapse = () => {
     setCollapsed(_url)
   }

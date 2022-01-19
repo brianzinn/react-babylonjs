@@ -73,7 +73,11 @@
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
   },
   "devDependencies": {
+    "@babel/preset-react": "^7.16.7",
+    "@emotion/babel-plugin": "^11.7.2",
+    "@emotion/babel-preset-css-prop": "^11.2.0",
     "babel-eslint": "^10.1.0",
+    "babel-preset-gatsby": "^2.5.2",
     "concurrently": "^7.0.0",
     "eslint": "^7.25.0",
     "eslint-config-prettier": "^8.3.0",
