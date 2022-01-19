@@ -5,6 +5,7 @@ const toc = [
   '/guides/react-boilerplate/index',
   '/guides/react-with-imperitive-babylonjs/index',
   '/guides/react-with-declarative-babylonjs/index',
+  '/guides/animation/index',
   '/guides/getting-even-more-reactive/index',
   '/guides/hoc/index',
   '/guides/adding-animation-and-color/index',

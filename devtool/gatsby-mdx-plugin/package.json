@@ -21,10 +21,12 @@
     "watch": "chokidar 'src/*' -c 'yarn build'"
   },
   "dependencies": {
-    "@s-libs/micro-dash": "12",
-    "codesandbox": "^2.2.3",
-    "@devtool/react": "*",
     "@devtool/loader": "*",
+    "@devtool/react": "*",
+    "@s-libs/micro-dash": "12",
+    "@types/md5": "^2.3.1",
+    "codesandbox": "^2.2.3",
+    "md5": "^2.3.0",
     "prettier": "^2.5.1",
     "remark-codesandbox": "^0.10.0",
     "typescript": "^4.5.4",

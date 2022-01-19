@@ -1,4 +1,5 @@
 import { NodePluginArgs } from 'gatsby'
+import md5 from 'md5'
 import { SetOptional } from 'type-fest'
 import visit from 'unist-util-visit'
 import type { Content, Jsx, LinkReference, Parent, Tsx } from './mdast'
@@ -42,7 +43,7 @@ type GatsbyMdxPluginMeta = NodePluginArgs & {
 
 type GatsbyMdxPlugin = (meta: GatsbyMdxPluginMeta) => Promise<MarkdownAST>
 
-const guid = (() => {
+const mkGuid = (() => {
   let id = +new Date()
   return () => `g${++id}`
 })()
@@ -106,8 +107,9 @@ const plugin: GatsbyMdxPlugin = async (meta) => {
         }
 
         // Wire up devtool harness
-        const importSymbol = `Component_${moduleName}`
-        const devtoolResult = `Devtool_${moduleName}`
+        const hash = md5(markdownNode.fileAbsolutePath).toString()
+        const importSymbol = `Component_${moduleName}_${hash}`
+        const devtoolResult = `Devtool_${moduleName}_${hash}`
         // console.log(importSymbol, devtoolResult)
 
         // Import the DevTool component
