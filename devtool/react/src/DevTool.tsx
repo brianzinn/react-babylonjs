@@ -1,5 +1,6 @@
 import { DevtoolLoaderResult } from '@devtool/loader'
 import { css } from '@emotion/css'
+import 'bootstrap/dist/css/bootstrap.min.css'
 import { Options } from 'prettier'
 import typescript from 'prettier/parser-typescript'
 import prettier from 'prettier/standalone'
@@ -15,6 +16,7 @@ import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs'
 import 'react-tabs/style/react-tabs.css'
 import { createCookieHooker } from './cookieHook'
+
 const plugins = [typescript]
 
 const PRETTIER_OPTS: Options = {
