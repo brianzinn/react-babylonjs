@@ -4,6 +4,8 @@ import { graphql, Link, StaticQuery } from 'gatsby'
 import config from '../../../config'
 import sortPages from '../../../content/nav'
 
+const isBrowser = typeof window !== 'undefined'
+
 // eslint-disable-next-line no-unused-vars
 const ListItem = styled(({ className, active, level, ...props }) => {
   return (
@@ -103,12 +105,13 @@ const SidebarItem = ({ node }) => {
     // console.log(level)
     return level * 10
   })()
+  const isSlugActive = isBrowser && window.location.href.endsWith(slug)
   return (
     <Link
       to={slug}
       css={css`
-        color: ${window?.location?.href.endsWith(slug) ? '#6c6cdd' : '#4a3636'};
-        /* font-weight: ${window?.location?.href.endsWith(slug) ? 'bold' : ''}; */
+        color: ${isSlugActive ? '#6c6cdd' : '#4a3636'};
+        /* font-weight: ${isSlugActive ? 'bold' : ''}; */
         text-decoration: none;
         display: block;
         padding: 5px;
