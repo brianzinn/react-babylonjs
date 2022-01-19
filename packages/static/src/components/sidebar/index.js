@@ -1,9 +1,8 @@
+import { css } from '@emotion/core'
 import styled from '@emotion/styled'
-import { graphql, StaticQuery } from 'gatsby'
-import * as React from 'react'
-import { ExternalLink } from 'react-feather'
+import { graphql, Link, StaticQuery } from 'gatsby'
 import config from '../../../config'
-import Tree from './tree'
+import sortPages from '../../../content/nav'
 
 // eslint-disable-next-line no-unused-vars
 const ListItem = styled(({ className, active, level, ...props }) => {
@@ -90,6 +89,50 @@ const Divider = styled((props) => (
   }
 `
 
+const SidebarItem = ({ node }) => {
+  const { fields } = node.node
+  const { label, slug, title } = fields
+  if (slug === '/') return null
+  const indent = (() => {
+    const parts = slug.slice(1).split('/')
+    // console.log(JSON.stringify(parts))
+    let level = parts.length - 1
+    // console.log(level)
+    if (parts.pop() === 'index') level--
+    // console.log(JSON.stringify(parts))
+    // console.log(level)
+    return level * 10
+  })()
+  return (
+    <Link
+      to={slug}
+      css={css`
+        color: ${window?.location?.href.endsWith(slug) ? '#6c6cdd' : '#4a3636'};
+        /* font-weight: ${window?.location?.href.endsWith(slug) ? 'bold' : ''}; */
+        text-decoration: none;
+        display: block;
+        padding: 5px;
+        padding-left: ${indent}px;
+        width: 235px;
+        margin-left: 20px;
+        padding-right: 10px;
+        margin-bottom: 10px;
+        &:hover {
+          color: orange;
+          cursor: pointer;
+        }
+      `}
+      key={slug}
+    >
+      {title}
+    </Link>
+  )
+}
+
+const SidebarList = ({ nodes }) => {
+  return nodes.map((node) => <SidebarItem node={node} />)
+}
+
 const SidebarLayout = ({ location }) => (
   <StaticQuery
     query={graphql`
@@ -107,7 +150,10 @@ const SidebarLayout = ({ location }) => (
       }
     `}
     render={({ allMdx }) => {
-      console.log({ allMdx })
+      // console.log(2)
+      sortPages(allMdx)
+      // console.log('allMdx', JSON.stringify(allMdx, null, 2))
+
       return (
         <Sidebar>
           {config.sidebar.title ? (
@@ -116,20 +162,7 @@ const SidebarLayout = ({ location }) => (
               dangerouslySetInnerHTML={{ __html: config.sidebar.title }}
             />
           ) : null}
-          <ul className={'sideBarUL'}>
-            <Tree edges={allMdx.edges} />
-            {config.sidebar.links && config.sidebar.links.length > 0 && <Divider />}
-            {config.sidebar.links.map((link, key) => {
-              if (link.link !== '' && link.text !== '') {
-                return (
-                  <ListItem key={key} to={link.link}>
-                    {link.text}
-                    <ExternalLink size={14} />
-                  </ListItem>
-                )
-              }
-            })}
-          </ul>
+          <SidebarList nodes={allMdx.edges} />
         </Sidebar>
       )
     }}

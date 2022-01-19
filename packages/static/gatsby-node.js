@@ -5,6 +5,7 @@ const path = require('path')
 const startCase = require('lodash.startcase')
 
 const config = require('./config')
+const sortPages = require('./content/nav')
 
 exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions
@@ -30,12 +31,14 @@ exports.createPages = ({ graphql, actions }) => {
           }
         `
       ).then((result) => {
+        console.log(1)
         if (result.errors) {
           console.log(result.errors) // eslint-disable-line no-console
           reject(result.errors)
         }
 
         // Create blog posts pages.
+        sortPages(result.data.allMdx)
         result.data.allMdx.edges.forEach(({ node }) => {
           createPage({
             path: node.fields.slug ? node.fields.slug : '/',

@@ -189,7 +189,7 @@ const devtoolLoader: RawLoaderDefinitionFunction<Partial<LoaderOptions>> = async
 
   const { esModule, transpileOptions, codesandboxOptions, prettierOptions } = DEFAULT_CONFIG
 
-  console.log('@devtool/loader options', JSON.stringify(_options, null, 2))
+  // console.log('@devtool/loader options', JSON.stringify(_options, null, 2))
 
   const { makeUrl } = createSandboxer(codesandboxOptions)
 
@@ -212,16 +212,16 @@ const devtoolLoader: RawLoaderDefinitionFunction<Partial<LoaderOptions>> = async
     source,
   ]
   const unformattedTsx = lines.join('\n')
-  console.log('unformattedTsx', unformattedTsx)
+  // console.log('unformattedTsx', unformattedTsx)
   const formattedSourceTsx =
     `// ${nameNode}.tsx\n\n` + prettier.format(unformattedTsx, prettierOptions)
-  console.log('formattedSourceTsx', formattedSourceTsx)
+  // console.log('formattedSourceTsx', formattedSourceTsx)
 
   // Transpile to JS
   const formattedSourceJsx =
     `// ${nameNode}.jsx\n\n` +
     prettier.format(transpileModule(unformattedTsx, transpileOptions).outputText, prettierOptions)
-  console.log('formattedSourceJsx', formattedSourceJsx)
+  // console.log('formattedSourceJsx', formattedSourceJsx)
 
   // Generate the TS sandbox URL link
 
@@ -237,7 +237,7 @@ const devtoolLoader: RawLoaderDefinitionFunction<Partial<LoaderOptions>> = async
     jsUrl: codesandboxJsUrl,
   }
 
-  console.log('loader result', res)
+  // console.log('loader result', res)
 
   const json = JSON.stringify(res)
 

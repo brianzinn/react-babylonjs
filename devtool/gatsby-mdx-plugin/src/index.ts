@@ -106,9 +106,9 @@ const plugin: GatsbyMdxPlugin = async (meta) => {
         }
 
         // Wire up devtool harness
-        const importSymbol = `Component_${moduleName}_${guid()}`
-        const devtoolResult = `Devtool_${moduleName}_${guid()}`
-        console.log(importSymbol, devtoolResult)
+        const importSymbol = `Component_${moduleName}`
+        const devtoolResult = `Devtool_${moduleName}`
+        // console.log(importSymbol, devtoolResult)
 
         // Import the DevTool component
         if (!seen['DevTool']) {
@@ -129,7 +129,7 @@ const plugin: GatsbyMdxPlugin = async (meta) => {
               meta={${devtoolResult}} 
             />`,
         ].join('\n')
-        console.log(devtoolComponent)
+        // console.log(devtoolComponent)
 
         // Typescript kung fu to convert to a Code node
         ;((node: Jsx) => {
@@ -149,7 +149,7 @@ const plugin: GatsbyMdxPlugin = async (meta) => {
             ].join('\n'),
           }
           markdownAST.children.unshift(node)
-          console.log(`Adding: ${node.value}`)
+          // console.log(`Adding: ${node.value}`)
           seen[moduleName] = true
         }
       })()
@@ -159,7 +159,7 @@ const plugin: GatsbyMdxPlugin = async (meta) => {
 
   // console.log('calling codesandbox', _options.codesandbox)
 
-  console.log(JSON.stringify(markdownAST, null, 2))
+  // console.log(JSON.stringify(markdownAST, null, 2))
   return markdownAST
 }
 
