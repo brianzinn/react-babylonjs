@@ -6,7 +6,6 @@ import React, { Component } from 'react'
 import Helmet from 'react-helmet'
 import config from '../../config'
 import sortPages from '../../content/nav'
-import NextPrevious from '../components/NextPrevious'
 import { Edit, StyledHeading, StyledMainWrapper } from '../components/styles/Docs'
 
 const forcedNavOrder = config.sidebar.forcedNavOrder
@@ -105,9 +104,9 @@ export default class MDXRuntimeTest extends Component {
         <StyledMainWrapper>
           <MDXRenderer>{mdx.body}</MDXRenderer>
         </StyledMainWrapper>
-        <div className={'addPaddTopBottom'}>
+        {/* <div className={'addPaddTopBottom'}>
           <NextPrevious mdx={mdx} nav={nav} />
-        </div>
+        </div> */}
       </Layout>
     )
   }
