@@ -18,7 +18,8 @@ export const useBeforeRender = (
   callback: OnFrameRenderFn,
   mask?: number,
   insertFirst?: boolean,
-  callOnce?: boolean
+  callOnce?: boolean,
+  deps?: React.DependencyList
 ): void => {
   const { scene } = useContext(SceneContext)
 
@@ -41,7 +42,7 @@ export const useBeforeRender = (
         scene.onBeforeRenderObservable.remove(sceneObserver)
       }
     }
-  }, [])
+  }, deps)
 }
 
 /**

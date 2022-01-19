@@ -1,0 +1,183 @@
+---
+title: 'Declarative Animation'
+---
+
+Programming declarative animation is a huge topic, but we'll scratch the surface
+in this guide.
+
+# The declarative animation loop
+
+`react-babylonjs` acheives animation via an animation loop that executes around
+60 times per second. You can hook into this loop by using the `useBeforeRender`
+hook. As its name implies, it is called before each frame render and allows you
+to adjust whatever needs adjusting.
+
+The beauty of declarative programming is that each React component can register
+its own animation loop handler and take responsibility just for its small task.
+Tasks in common can be hoisted to parent components. In this way, we can achieve
+very efficient and organized animations.
+
+Here's some basic usage:
+
+```tsx
+const scene = useScene()
+
+useBeforeRender(() => {
+  if (!scene) return
+  // This gets called about 60 FPS
+  // Don't do a lot in here, just essentials
+})
+```
+
+# Degrees of Freedom
+
+Every object in 3D has a _position_ (x, y, z) in space and a _rotation_ (roll,
+pitch, yaw). As
+[google states it](https://developers.google.com/vr/discover/degrees-of-freedom):
+
+> Three correspond to rotational movement around the x, y, and z axes, commonly
+> termed pitch, yaw, and roll. The other three correspond to translational
+> movement along those axes, which can be thought of as moving forward or
+> backward, moving left or right, and moving up or down.
+
+You can read a lot about this elsewhere, so we won't cover it in much depth
+here. The main point to take away is that animation involves affecting one or
+more of these degrees of freedom on each object.
+
+In `react-babylonjs`, we use `useBeforeRender` to adjust these properties.
+
+# The famous rotating box
+
+Let's use a box as an example. We will rotate it about the Y axis, known as
+_yaw_. And, we'll do it many times per second.
+
+Here's how to make a box:
+
+```tsx
+<box name="box" size={2} position={v3(0, 1, 0)} />
+```
+
+That was the easy part. The hard part is making it spin. We will make the box
+spin about the Y axis. From
+[Mesh rotation in Babylon](https://doc.babylonjs.com/divingDeeper/mesh/transforms/center_origin/rotation)
+we see that the Y axis is the vertical axis.
+
+To achieve animation, we have to alter the box's Y rotation. Ok, let's do it.
+First, we need a state variable to hold the Y value:
+
+```tsx
+const [y, setY] = useState(0)
+```
+
+Then, we need to alter it in the animation loop:
+
+```tsx
+useBeforeRender(() => {
+  setY((oldY) => oldY + 0.1)
+})
+```
+
+Putting it together looks like this:
+
+```tsx
+import { v3 } from '@react-babylonjs/extra'
+import React, { FC, useState } from 'react'
+import { useBeforeRender } from 'react-babylonjs'
+
+const RotatingBox: FC = () => {
+  const [y, setY] = useState(0)
+  useBeforeRender(() => {
+    setY((oldY) => oldY + 0.1)
+  })
+  return (
+    <box name="box" size={2} position={v3(0, 1, 0)} rotation={v3(0, y, 0)} />
+  )
+}
+```
+
+Let's try it out.
+
+[devtool:BasicScene.tsx]
+
+Pretty cool! If we wanted to get extra fancy, we could even adjust the rotation
+to Revolutions Per Minute (RPM). To do that, we'd need to know that one complete
+revolution of _yaw_ is _pi _ 2\*. Then, we'd need to know how many milliseconds
+have passed between animation frames. Fortunately Babylon.js provides a
+`getDeltaTime()` that tells us exactly that. Using all that information, we can
+do this instead:
+
+```tsx
+setY((oldY) => oldY + (RPM / 60) * Math.PI * 2 * (deltaTimeInMillis / 1000))
+```
+
+Let's use the power of Typescript to create some spinning box props that accepts
+RPM:
+
+```tsx
+type RotatingBoxProps = {
+  rpm: number
+}
+```
+
+This will be the props that we pass to the box. Let's update the box component
+to use it:
+
+```tsx
+const RotatingBox: FC<RotatingBoxProps> = ({ rpm }) => ...
+```
+
+And then update the hook:
+
+```tsx
+useBeforeRender(() => {
+  if (!scene) return
+  const deltaTimeInMillis = scene.getEngine().getDeltaTime()
+  setY((oldY) => oldY + (rpm / 60) * Math.PI * 2 * (deltaTimeInMillis / 1000))
+})
+```
+
+Now, in the interests of completeness, you might notice the hook is referring to
+`rpm`. If `rpm` were to change, we would want to make sure that new value took
+effect. Therefore, just like `useEffect`, `rpm` is a dependency:
+
+```tsx
+useBeforeRender(
+  () => {
+    if (!scene) return
+    const deltaTimeInMillis = scene.getEngine().getDeltaTime()
+    setY((oldY) => oldY + (rpm / 60) * Math.PI * 2 * (deltaTimeInMillis / 1000))
+  },
+  undefined,
+  undefined,
+  undefined,
+  [rpm]
+)
+```
+
+Now that's a nice reactive component! We use it like this:
+
+```tsx
+<RotatingBox rpm={5} />
+```
+
+Let's try it.
+
+[devtool:RPMBox.tsx]
+
+It's a little silly to require `rpm={5}` just to use the box. Let's make a
+sensible default for it:
+
+```tsx
+const RotatingBox: FC<Partial<RotatingBoxProps>> = (props) => {
+  const _props: RotatingBoxProps = {
+    rpm: 5,
+    ...props,
+  }
+  const { rpm } = _props
+  // ...
+}
+```
+
+And the final result:
+
+[devtool:RPMBox2.tsx]
