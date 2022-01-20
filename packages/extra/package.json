@@ -5,11 +5,13 @@
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
+    "prebuild": "rimraf dist",
     "build": "tsc",
     "watch": "chokidar 'src/*' -c 'yarn build'"
   },
   "dependencies": {
     "react-babylonjs": "*",
+    "react-three-gui": "../react-three-gui",
     "tslib": "^2.3.1"
   },
   "devDependencies": {
@@ -17,6 +19,7 @@
     "chokidar-cli": "^3.0.0",
     "prettier": "^2.5.1",
     "prettier-plugin-organize-imports": "^2.3.4",
+    "rimraf": "^3.0.2",
     "typescript": "^4.5.4"
   },
   "peerDependencies": {

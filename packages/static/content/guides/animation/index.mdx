@@ -46,7 +46,7 @@ more of these degrees of freedom on each object.
 
 In `react-babylonjs`, we use `useBeforeRender` to adjust these properties.
 
-# The famous rotating box
+# Creating the famous rotating box
 
 Let's use a box as an example. We will rotate it about the Y axis, known as
 _yaw_. And, we'll do it many times per second.
@@ -56,6 +56,8 @@ Here's how to make a box:
 ```tsx
 <box name="box" size={2} position={v3(0, 1, 0)} />
 ```
+
+[devtool:LoneBox.tsx]
 
 That was the easy part. The hard part is making it spin. We will make the box
 spin about the Y axis. From
@@ -77,7 +79,8 @@ useBeforeRender(() => {
 })
 ```
 
-Putting it together looks like this:
+To put everything together, we can create a High Order Component that wraps the
+`box` tag with our new behaviors.
 
 ```tsx
 import { v3 } from '@react-babylonjs/extra'
@@ -95,21 +98,28 @@ const RotatingBox: FC = () => {
 }
 ```
 
-Let's try it out.
-
 [devtool:BasicScene.tsx]
 
-Pretty cool! If we wanted to get extra fancy, we could even adjust the rotation
-to Revolutions Per Minute (RPM). To do that, we'd need to know that one complete
-revolution of _yaw_ is _pi \* 2_.
+# Using real-world timing in animations
 
-Then, we'd need to know how many milliseconds have passed between animation
-frames. Fortunately Babylon.js provides a `getDeltaTime()` that tells us exactly
-that. Using all that information, we can do this instead:
+The rotatin box is fun, but it would be nice to specify its rotation speed in
+term so of real-world time.
+
+Let's adjust the rotation to Revolutions Per Minute (RPM). To do that, we need
+to know that one complete revolution of _yaw_ is `pi \* 2`.
+
+We also need to know how many milliseconds have passed between animation frames.
+Fortunately Babylon.js provides a `getDeltaTime()` that tells us exactly that.
+Using all that information, we can do this instead:
 
 ```tsx
+const RPM = 5
 setY((oldY) => oldY + (RPM / 60) * Math.PI * 2 * (deltaTimeInMillis / 1000))
 ```
+
+[devtool:RPMBoxRaw.tsx]
+
+# Making `rpm` a component property
 
 Let's use the power of Typescript to create some spinning box props that accepts
 RPM:
@@ -131,8 +141,7 @@ And then update the hook:
 
 ```tsx
 useBeforeRender(() => {
-  if (!scene) return
-  const deltaTimeInMillis = scene.getEngine().getDeltaTime()
+  // ...
   setY((oldY) => oldY + (rpm / 60) * Math.PI * 2 * (deltaTimeInMillis / 1000))
 })
 ```
@@ -147,11 +156,17 @@ Let's try it. We should see one rotation per second when `RPM === 60`.
 
 [devtool:RPMBox.tsx]
 
+# Adding default props
+
 It's a little silly to require `rpm={60}` just to use the box. Let's make a
-sensible default for it:
+sensible default for it by using `Partial` so the prop is optional, and
+assigning a default value:
 
 ```tsx
 const RotatingBox: FC<Partial<RotatingBoxProps>> = (props) => {
+  // This is my personal technique. I accept a Partial<Props> on the way
+  // in, then I create a _props containing the defaults merged with whatever
+  // has come in
   const _props: RotatingBoxProps = {
     rpm: 5,
     ...props,
@@ -161,30 +176,18 @@ const RotatingBox: FC<Partial<RotatingBoxProps>> = (props) => {
 }
 ```
 
-And the final result:
-
 [devtool:RPMBox2.tsx]
 
-Now, we are developers. It would be very cool if we had a way to interact with
-the application state for debugging purposes.
+# Making `rpm` even more reactive
 
-There are a couple ways to accomplish this:
-
-1. Outside the scene, using standard web technologies
-2. Inside the scene, using a GUI capable of rendering in 3D space
-
-Let's go with option #1 for now.
-
-in the interests of completeness, you might notice the hook is referring to
+In the interests of completeness, you might notice the hook is referring to
 `rpm`. If `rpm` were to change, we would want to make sure that new value took
 effect. Therefore, just like `useEffect`, `rpm` is a dependency:
 
 ```tsx
 useBeforeRender(
   () => {
-    if (!scene) return
-    const deltaTimeInMillis = scene.getEngine().getDeltaTime()
-    setY((oldY) => oldY + (rpm / 60) * Math.PI * 2 * (deltaTimeInMillis / 1000))
+    // ...
   },
   undefined,
   undefined,
@@ -192,3 +195,28 @@ useBeforeRender(
   [rpm]
 )
 ```
+
+[devtool:RPMBox3.tsx]
+
+# Added to `extra`
+
+And of course, you can get this `RotatingBox` from `extra`.
+
+```tsx
+import { RotatingBox } from '@react-babylonjs/extra'
+;<RotatingBox />
+```
+
+[devtool:RPMBoxFromExtra.tsx]
+
+# Adding a debugging experience
+
+It would be very cool if we had a way to interact with the application state for
+debugging purposes.
+
+There are a couple ways to accomplish this:
+
+1. Outside the scene, using standard web technologies
+2. Inside the scene, using a GUI capable of rendering in 3D space
+
+Let's go with option #1 for now.
