@@ -27,7 +27,6 @@ export const useBeforeRender = (
     if (scene === null) {
       return
     }
-
     const unregisterOnFirstCall: boolean = callOnce === true
     const sceneObserver: Nullable<Observer<Scene>> = scene.onBeforeRenderObservable.add(
       callback,
@@ -42,7 +41,7 @@ export const useBeforeRender = (
         scene.onBeforeRenderObservable.remove(sceneObserver)
       }
     }
-  }, deps)
+  }, [scene, ...deps])
 }
 
 /**
