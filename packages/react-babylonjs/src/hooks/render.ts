@@ -19,7 +19,7 @@ export const useBeforeRender = (
   mask?: number,
   insertFirst?: boolean,
   callOnce?: boolean,
-  deps?: React.DependencyList
+  deps: React.DependencyList = []
 ): void => {
   const { scene } = useContext(SceneContext)
 
