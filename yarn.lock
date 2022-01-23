@@ -1274,12 +1274,19 @@
     "@babel/helper-validator-identifier" "^7.16.7"
     to-fast-properties "^2.0.0"
 
-"@babylonjs/core@4.2.1", "@babylonjs/core@^4.2.0", "@babylonjs/core@^4.2.1":
+"@babylonjs/core@4.2.1", "@babylonjs/core@^4.2.0":
   version "4.2.1"
   resolved "https://registry.yarnpkg.com/@babylonjs/core/-/core-4.2.1.tgz#9dc57dabf41d259a2343da308ec52575b368e588"
   integrity sha512-Z2ZVNRKPB1UvmMeqQtxCJKrQtQ/hb5FcAZi66YEEE0MKBQlLmf6oZEM9vS1RljPK7NZoV/dZSdwjJgiQlGsuhA==
   dependencies:
     tslib ">=1.10.0"
+
+"@babylonjs/core@^5.0.0-beta":
+  version "5.0.0-beta.4"
+  resolved "https://registry.yarnpkg.com/@babylonjs/core/-/core-5.0.0-beta.4.tgz#794f14f63aa737a85f2b74bece0be7eeab347b36"
+  integrity sha512-to5IVdbJP+9eOwhKTgYCVe3N7I8ofzCILXrfHNqu9G+mZ127+5axtvxmUOYe8NmgtFr4/UpOTCDMIsJwdtlyMA==
+  dependencies:
+    tslib "^2.3.1"
 
 "@babylonjs/gui@4.2.1", "@babylonjs/gui@^4.2.0":
   version "4.2.1"
@@ -19963,17 +19970,6 @@ react-textarea-autosize@^8.3.0:
     "@babel/runtime" "^7.10.2"
     use-composed-ref "^1.0.0"
     use-latest "^1.0.0"
-
-react-three-gui@../react-three-gui:
-  version "0.4.1"
-  dependencies:
-    "@react-spring/web" "^9.0.0-rc.3"
-    react-color "^2.18.1"
-    react-is "^16.13.1"
-    react-spring "^9.4.2"
-    react-use-gesture "^7.0.15"
-    react-use-measure "^2.1.1"
-    styled-components "^5.1.1"
 
 react-transition-group@^4.4.1:
   version "4.4.2"

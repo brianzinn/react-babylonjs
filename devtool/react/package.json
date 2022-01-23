@@ -31,9 +31,9 @@
     "@devtool/loader": "*"
   },
   "peerDependencies": {
-    "@babylonjs/core": "^4.2.1",
-    "@types/react": "^17.0",
-    "react": "^17.0"
+    "@babylonjs/core": "4.x||>5.0.0-alpha",
+    "@types/react": "17.x",
+    "react": "17.x"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^6.5.0-alpha.19",
