@@ -24,10 +24,12 @@ export const useRememberCookieState = <TValue extends any>(
 
   return [_v, _set]
 }
+
 type CookieState<TValue extends any> = (
   defaultValue: TValue,
   guid?: string
 ) => [TValue, (value: TValue) => void]
+
 export const createCookieHooker = <TValue extends any>(name: string) => {
   const useFunc: CookieState<TValue> = (defaultValue, guid = '') => {
     const [value, set] = useRememberCookieState<TValue>(defaultValue, `${guid}_${name}`)

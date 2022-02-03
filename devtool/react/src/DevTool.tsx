@@ -1,8 +1,5 @@
+import { DevtoolLoaderResult } from '@devtool/loader'
 import { css } from '@emotion/css'
-import '@fontsource/roboto/300.css'
-import '@fontsource/roboto/400.css'
-import '@fontsource/roboto/500.css'
-import '@fontsource/roboto/700.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Options } from 'prettier'
 import typescript from 'prettier/parser-typescript'
@@ -18,8 +15,8 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs'
 import 'react-tabs/style/react-tabs.css'
-import { DevtoolLoaderResult } from '../../loader/dist'
 import { createCookieHooker } from './cookieHook'
+
 const plugins = [typescript]
 
 const PRETTIER_OPTS: Options = {

@@ -2,8 +2,7 @@
 import devtoolResult from '!!@devtool/loader!./Sample.tsx'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import React from 'react'
-import { DevToolProps } from '.'
-import { DevTool } from './DevTool'
+import { DevTool, DevToolProps } from '../DevTool'
 import Sample from './Sample'
 
 const settings: ComponentMeta<typeof DevTool> = {

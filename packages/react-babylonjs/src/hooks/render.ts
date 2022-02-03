@@ -18,7 +18,8 @@ export const useBeforeRender = (
   callback: OnFrameRenderFn,
   mask?: number,
   insertFirst?: boolean,
-  callOnce?: boolean
+  callOnce?: boolean,
+  deps: React.DependencyList = []
 ): void => {
   const { scene } = useContext(SceneContext)
 
@@ -26,7 +27,6 @@ export const useBeforeRender = (
     if (scene === null) {
       return
     }
-
     const unregisterOnFirstCall: boolean = callOnce === true
     const sceneObserver: Nullable<Observer<Scene>> = scene.onBeforeRenderObservable.add(
       callback,
@@ -41,7 +41,7 @@ export const useBeforeRender = (
         scene.onBeforeRenderObservable.remove(sceneObserver)
       }
     }
-  }, [])
+  }, [scene, ...deps])
 }
 
 /**

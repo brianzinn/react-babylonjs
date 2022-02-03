@@ -2,12 +2,13 @@ const toc = [
   '/',
   '/introduction',
   '/guides/index',
-  '/guides/tutorial-1/index',
-  '/guides/tutorial-1/react-boilerplate/index',
-  '/guides/tutorial-1/react-with-imperitive-babylonjs/index',
-  '/guides/tutorial-1/react-with-declarative-babylonjs/index',
-  '/guides/tutorial-1/adding-animation-and-color/index',
-  '/guides/tutorial-1/todo',
+  '/guides/react-boilerplate/index',
+  '/guides/react-with-imperitive-babylonjs/index',
+  '/guides/react-with-declarative-babylonjs/index',
+  '/guides/animation/index',
+  '/guides/getting-even-more-reactive/index',
+  '/guides/hoc/index',
+  '/guides/adding-animation-and-color/index',
 ]
 
 const navSortMap = toc.reduce((c, slug, i) => {

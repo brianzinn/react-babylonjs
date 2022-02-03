@@ -1,13 +1,12 @@
 {
   "name": "@devtool/react",
   "version": "0.0.1",
-  "source": "src/index.ts",
   "main": "dist/index.js",
-  "browserslist": "> 0.5%, last 2 versions, not dead",
   "types": "dist/index.d.ts",
+  "type": "module",
   "license": "MIT",
   "scripts": {
-    "build": "parcel build",
+    "build": "tsc",
     "watch": "chokidar 'src/*' -c 'yarn build'",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
@@ -26,25 +25,25 @@
     "react-cookie": "^4.1.1",
     "react-icons": "^4.3.1",
     "react-syntax-highlighter": "^15.4.5",
-    "react-tabs": "^3.2.3"
+    "react-tabs": "^3.2.3",
+    "tslib": "^2.3.1",
+    "type-fest": "^2.9.0",
+    "@devtool/loader": "*"
   },
   "peerDependencies": {
-    "@types/react": "^17.0",
-    "react": "^17.0"
+    "@babylonjs/core": "4.x||>5.0.0-alpha",
+    "@types/react": "17.x",
+    "react": "17.x"
   },
   "devDependencies": {
-    "@types/react-tabs": "^2.3.4",
-    "@devtool/loader": "*",
-    "@babel/core": "^7.16.7",
     "@storybook/addon-actions": "^6.5.0-alpha.19",
     "@storybook/addon-essentials": "^6.5.0-alpha.19",
     "@storybook/addon-links": "^6.5.0-alpha.19",
     "@storybook/builder-webpack5": "^6.5.0-alpha.19",
     "@storybook/manager-webpack5": "^6.5.0-alpha.19",
-    "@storybook/react": "^6.5.0-alpha.19",
+    "@storybook/react": "^6.4.13",
     "@types/prettier": "^2.4.3",
-    "babel-loader": "^8.2.3",
-    "parcel": "^2.2.0",
+    "@types/react-tabs": "^2.3.4",
     "typescript": "^4.5.4",
     "webpack": "5"
   }

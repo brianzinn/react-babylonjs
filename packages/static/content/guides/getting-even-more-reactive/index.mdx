@@ -1,0 +1,56 @@
+---
+title: 'Getting even more reactive'
+sort: 600
+---
+
+In the last section, we made a cool spinning box, but we cheated a little bit.
+Inside the `MovingBox` component, we had this:
+
+```jsx
+useBeforeRender(() => {
+  if (!boxRef.current?.rotation) return
+  if (!scene) return
+  const deltaTimeInMillis = scene.getEngine().getDeltaTime()
+  boxRef.current.rotation.y +=
+    (RPM / 60) * Math.PI * 2 * (deltaTimeInMillis / 1000)
+})
+```
+
+In particular, the `boxRef` and
+`boxRef.current.rotation.y += (RPM / 60) * Math.PI * 2 * (deltaTimeInMillis / 1000)`
+create what we call a _bad smell_. It's not necessarily wrong, and it might even
+be right, but it's good to take a look.
+
+One of the main principles of React is to maintain state and let those state
+changes flow through to the components. By altering variables by reference, we
+defeat one of the main principles of React.
+
+There is a better way using `useState`.
+
+```tsx
+const [y, setY] = useState(0)
+useBeforeRender(() => {
+  if (!scene) return
+  const deltaTimeInMillis = scene.getEngine().getDeltaTime()
+  setY((y) => y + (RPM / 60) * Math.PI * 2 * (deltaTimeInMillis / 1000))
+})
+```
+
+Putting it all together, here is a `StatefulMovingBox` demo:
+
+[devtool:StatefulMovingBox.tsx]
+
+Why is this better? For a small example like this, it may not be obvious. In a
+larger application, programming via state management instead of imperitively
+changing variables means you can easily affect changes across multiple
+components simply by altering the state.
+
+Consider how easy it is to add a second box, with zero new logic in your render
+handler::
+
+```tsx
+<box name="box" size={2} position={new Vector3(-2, 1, 0)} rotation={new Vector3(0, y, 0)} />
+<box name="box" size={2} position={new Vector3(2, 1, 0)} rotation={new Vector3(0, y, 0)} />
+```
+
+[devtool:StatefulMovingBoxes.tsx]

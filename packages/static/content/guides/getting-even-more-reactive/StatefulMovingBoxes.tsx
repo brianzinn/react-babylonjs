@@ -1,23 +1,25 @@
 import { Vector3 } from '@babylonjs/core'
-import { FC, useRef } from 'react'
+import React, { FC, useState } from 'react'
 import { Engine, Scene, useBeforeRender, useScene } from 'react-babylonjs'
 
 const RPM = 5
 
-const MovingBox: FC = () => {
-  // access Babylon Scene
+const StatefulMovingBox: FC = () => {
   const scene = useScene()
-  // access refs to Babylon objects in scene like DOM nodes
-  const boxRef = useRef<JSX.IntrinsicElements['box']>(null)
+  const [y, setY] = useState(0)
 
   useBeforeRender(() => {
-    if (!boxRef.current?.rotation) return
     if (!scene) return
     const deltaTimeInMillis = scene.getEngine().getDeltaTime()
-    boxRef.current.rotation.y += (RPM / 60) * Math.PI * 2 * (deltaTimeInMillis / 1000)
+    setY((y) => y + (RPM / 60) * Math.PI * 2 * (deltaTimeInMillis / 1000))
   })
 
-  return <box ref={boxRef} name="box" size={2} position={new Vector3(0, 1, 0)} />
+  return (
+    <>
+      <box name="box" size={2} position={new Vector3(-2, 1, 0)} rotation={new Vector3(0, y, 0)} />
+      <box name="box" size={2} position={new Vector3(2, 1, 0)} rotation={new Vector3(0, y, 0)} />
+    </>
+  )
 }
 
 const App: FC = () => (
@@ -26,7 +28,7 @@ const App: FC = () => (
       <Scene>
         <freeCamera name="camera1" position={new Vector3(0, 5, -10)} setTarget={[Vector3.Zero()]} />
         <hemisphericLight name="light1" intensity={0.7} direction={new Vector3(0, 1, 0)} />
-        <MovingBox />
+        <StatefulMovingBox />
         <ground name="ground" width={6} height={6} />
       </Scene>
     </Engine>
