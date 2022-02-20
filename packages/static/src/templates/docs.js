@@ -138,6 +138,10 @@ export const pageQuery = graphql`
         metaDescription
       }
     }
+    localSearchPages {
+      index
+      store
+    }
     allMdx {
       edges {
         node {

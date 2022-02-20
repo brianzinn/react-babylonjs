@@ -44,6 +44,48 @@ const plugins = [
     },
   },
   {
+    resolve: 'gatsby-plugin-local-search',
+    options: {
+      name: 'pages',
+      engine: 'flexsearch',
+      engineOptions: {
+        encode: 'icase',
+        tokenize: 'forward',
+        async: false,
+      },
+      query: `
+      {
+        allMdx {
+          edges {
+            node {
+              id
+              fields { slug }
+              excerpt
+              rawBody
+              frontmatter {
+                title
+              }
+            }
+          }
+        }
+      }
+      `,
+      ref: 'id',
+      index: ['title', 'rawBody'],
+      store: ['id', 'slug', 'description', 'title', 'excerpt', 'title'],
+      normalizer: ({ data }) => {
+        // console.log('check data', JSON.stringify(data));
+        return data.allMdx.edges.map((edge) => ({
+          id: edge.node.id,
+          slug: edge.node.fields.slug,
+          rawBody: edge.node.rawBody,
+          excerpt: edge.node.excerpt,
+          title: edge.node.frontmatter.title,
+        }))
+      },
+    },
+  },
+  {
     resolve: `gatsby-plugin-gtag`,
     options: {
       // your google analytics tracking id
