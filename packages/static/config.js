@@ -33,7 +33,7 @@ const config = {
     links: [{ text: 'react-babylonjs', link: 'https://github.com/brianzinn/react-babylonjs' }],
     frontline: false,
     ignoreIndex: true,
-    title: 'React for Babylon 3D engine',
+    title: false, // will not render.  was "React for Babylon 3D engine"
   },
   siteMetadata: {
     title: 'Documentation | react-babylonjs',

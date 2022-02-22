@@ -2,24 +2,54 @@ import { Engine } from '@babylonjs/core/Engines/engine.js'
 import { EngineOptions, ThinEngine } from '@babylonjs/core/Engines/thinEngine.js'
 import { Observable } from '@babylonjs/core/Misc/observable.js'
 import { Nullable } from '@babylonjs/core/types.js'
-import React from 'react'
-import { EngineCanvasContext, EngineCanvasContextType } from './hooks/engine'
+import React, { useRef, useEffect, ReactNode, MutableRefObject, useState } from 'react'
+import { EngineCanvasContext } from './hooks/engine'
+
+export type RenderOptions = {
+  /**
+   * Observes visibility and does not render scene when no pixels of canvas are visible
+   * Defaults to false, so you need to opt-in
+   */
+  whenVisibleOnly?: boolean
+}
+
+const useCanvasObserver = (
+  canvasRef: MutableRefObject<Nullable<HTMLCanvasElement>>,
+  shouldRenderRef: MutableRefObject<boolean>,
+  threshold: number = 0
+) => {
+  const callbackFn: IntersectionObserverCallback = (entries) => {
+    const [entry] = entries
+    shouldRenderRef.current = entry.isIntersecting
+    console.log('should render updating:', shouldRenderRef.current)
+  }
+
+  useEffect(() => {
+    if (canvasRef.current === null) {
+      return
+    }
+    const observer = new IntersectionObserver(callbackFn, { threshold })
+    observer.observe(canvasRef.current)
+
+    return () => {
+      if (canvasRef.current) {
+        observer.unobserve(canvasRef.current)
+      }
+    }
+  }, [canvasRef, threshold])
+}
 
 export type EngineProps = {
-  engineCanvasContext?: EngineCanvasContextType
-  portalCanvas?: HTMLCanvasElement
-  /**
-   * true to disable Server Side Rendering
-   */
-  noSSR?: boolean | React.ReactChild
-  shadersRepository?: string
   engineOptions?: EngineOptions
   antialias?: boolean
-  enableOfflineSupport?: boolean
   adaptToDeviceRatio?: boolean
-  width?: number
-  height?: number
-  canvasStyle?: any
+  renderOptions?: RenderOptions
+
+  /**
+   * Attach resize event when canvas resizes (window resize may not occur).
+   * Defaults to true, so you need to opt-out.
+   */
+  observeCanvasResize?: boolean
 
   /**
    * By default touch-action: 'none' will be on the canvas.  Use this to disable.
@@ -29,145 +59,139 @@ export type EngineProps = {
    * Useful if you want to attach CSS to the canvas by css #id selector.
    */
   canvasId?: string
-  debug?: boolean
-  observeCanvasResize?: boolean
   // onCreated?: (engine: Engine) => void
-} // TODO: put this in the next major version and remove canvasStyle and canvasId props (breaking changes). & React.CanvasHTMLAttributes<HTMLCanvasElement>
+} & { children?: ReactNode | undefined } & React.CanvasHTMLAttributes<HTMLCanvasElement>
 
-export type EngineState = {
-  canRender: boolean
-}
+type CanvasSpecificProps = Omit<
+  EngineProps,
+  | 'engineOptions'
+  | 'antialias'
+  | 'adaptToDeviceRatio'
+  | 'renderOptions'
+  | 'observeCanvasResize'
+  | 'children'
+>
 
-class ReactBabylonjsEngine extends React.Component<EngineProps, EngineState> {
-  private engine: Nullable<Engine> = null
-  private canvas: Nullable<HTMLCanvasElement | WebGLRenderingContext> = null
-  private resizeObserver: Nullable<ResizeObserver> = null
+const ReactBabylonjsEngine: React.FC<EngineProps> = (props: EngineProps, context?: any) => {
+  const engine = useRef<Nullable<Engine>>(null)
+  const [engineReady, setEngineReady] = useState<boolean>(false)
+  // const resizeObserver = useRef<Nullable<ResizeObserver>>(null);
 
-  public onBeforeRenderLoopObservable: Observable<Engine> = new Observable<Engine>()
-  public onEndRenderLoopObservable: Observable<Engine> = new Observable<Engine>()
+  const onBeforeRenderLoopObservable = useRef<Observable<Engine>>(new Observable<Engine>())
+  const onEndRenderLoopObservable = useRef<Observable<Engine>>(new Observable<Engine>())
 
-  constructor(props: EngineProps) {
-    super(props)
+  const canvasRef = useRef<Nullable<HTMLCanvasElement>>(null)
+  const shouldRenderRef = useRef(true)
 
-    this.state = {
-      canRender: false,
+  // const renderOptions: RenderOptions = props.renderOptions ?? {};
+  let {
+    touchActionNone,
+    canvasId,
+    engineOptions,
+    antialias,
+    adaptToDeviceRatio,
+    renderOptions,
+    observeCanvasResize,
+    children,
+    style,
+    ...canvasProps
+  } = props
+
+  useEffect(() => {
+    if (canvasRef.current === null) {
+      return
     }
-  }
 
-  componentDidMount() {
-    this.engine = new Engine(
-      this.canvas,
-      this.props.antialias === true ? true : false, // default false
-      this.props.engineOptions,
-      this.props.adaptToDeviceRatio === true ? true : false // default false
+    engine.current = new Engine(
+      canvasRef.current,
+      antialias === true, // default false
+      engineOptions,
+      adaptToDeviceRatio === true // default false
     )
 
-    this.engine.runRenderLoop(() => {
-      if (this.onBeforeRenderLoopObservable.hasObservers()) {
-        this.onBeforeRenderLoopObservable.notifyObservers(this.engine!)
+    // TODO: this prop should be in a dependency and moved out of useEffect.
+    if (renderOptions !== undefined && renderOptions.whenVisibleOnly === true) {
+      // NOTE: the shouldRender usage needs to be updated when more render logic is added (ie: camera project matrix change observable, etc.)
+      useCanvasObserver(canvasRef, shouldRenderRef, 0)
+    }
+
+    engine.current.runRenderLoop(() => {
+      if (shouldRenderRef.current === false) {
+        return
       }
-      this.engine!.scenes.forEach((scene) => {
+      if (onBeforeRenderLoopObservable.current.hasObservers()) {
+        onBeforeRenderLoopObservable.current.notifyObservers(engine.current!)
+      }
+
+      // TODO: here is where you could access your own render method
+      engine.current!.scenes.forEach((scene) => {
         scene.render()
       })
-      if (this.onEndRenderLoopObservable.hasObservers()) {
-        this.onEndRenderLoopObservable.notifyObservers(this.engine!)
+
+      if (onEndRenderLoopObservable.current.hasObservers()) {
+        onEndRenderLoopObservable.current.notifyObservers(engine.current!)
       }
     })
 
-    this.engine.onContextLostObservable.add((eventData: ThinEngine) => {
+    // if (props.observeCanvasResize !== false && window?.ResizeObserver) {
+    //   resizeObserver.current = new ResizeObserver(() => {
+    //     engine.current!.resize()
+    //   })
+    //   resizeObserver.current.observe(canvasRef.current);
+    // }
+
+    engine.current.onContextLostObservable.add((eventData: ThinEngine) => {
       console.warn('context loss observable from Engine: ', eventData)
     })
 
-    window.addEventListener('resize', this.onResizeWindow)
-
-    this.setState({ canRender: true })
-  }
-
-  onCanvasRef = (c: HTMLCanvasElement) => {
-    // We are not using the react.createPortal(...), as it adds a ReactDOM dependency, but also
-    // it was not flowing the context through to HOCs properly.
-    if (this.props.portalCanvas) {
-      this.canvas = document.getElementById('portal-canvas') as HTMLCanvasElement
-      console.error('set canvas', this.canvas)
-    } else {
-      if (c) {
-        // null when called from unmountComponent()
-        // c.addEventListener('mouseover', this.focus)
-        // c.addEventListener('mouseout', this.blur)
-        this.canvas = c
-        if (this.props.observeCanvasResize !== false && window?.ResizeObserver) {
-          this.resizeObserver = new ResizeObserver(() => {
-            this.engine!.resize()
-          })
-          this.resizeObserver.observe(c)
-        }
+    const onResizeWindow = () => {
+      if (engine.current) {
+        engine.current.resize()
       }
     }
-    // console.error('onCanvas:', c); // trying to diagnose why HMR keep rebuilding entire Scene!  Look at ProxyComponent v4.
-  }
 
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.onResizeWindow)
+    window.addEventListener('resize', onResizeWindow)
+    setEngineReady(true) // trigger re-render to render Scene
 
-    if (this.resizeObserver !== null) {
-      this.resizeObserver.disconnect()
-      this.resizeObserver = null
-    }
+    return () => {
+      window.removeEventListener('resize', onResizeWindow)
 
-    if (this.engine !== null) {
-      this.engine!.dispose()
-      this.engine = null
-    }
-  }
+      // if (resizeObserver.current !== null) {
+      //   resizeObserver.current.disconnect()
+      //   resizeObserver.current = null
+      // }
 
-  render() {
-    if (
-      this.state.canRender === false &&
-      this.props.noSSR !== undefined &&
-      this.props.noSSR !== false
-    ) {
-      if (typeof this.props.noSSR === 'boolean') {
-        return null
+      if (engine.current !== null) {
+        engine.current!.dispose()
+        engine.current = null
       }
-      return this.props.noSSR
     }
+  }, [canvasRef])
 
-    let { touchActionNone, width, height, canvasStyle, canvasId, ...rest } = this.props
+  let opts: any = {}
 
-    let opts: any = {}
-
-    if (touchActionNone !== false) {
-      opts['touch-action'] = 'none'
-    }
-
-    if (width !== undefined && height !== undefined) {
-      opts.width = width
-      opts.height = height
-    }
-
-    if (canvasId) {
-      opts.id = canvasId
-    }
-
-    if (canvasStyle) {
-      opts.style = canvasStyle
-    }
-
-    // TODO: this.props.portalCanvas does not need to render a canvas.
-    return (
-      <EngineCanvasContext.Provider value={{ engine: this.engine, canvas: this.canvas }}>
-        <canvas {...opts} ref={this.onCanvasRef}>
-          {this.engine !== null && this.props.children}
-        </canvas>
-      </EngineCanvasContext.Provider>
-    )
+  if (touchActionNone !== false) {
+    opts['touch-action'] = 'none'
   }
 
-  onResizeWindow = () => {
-    if (this.engine) {
-      this.engine.resize()
-    }
+  // this is for backwards compatibility - before props were passed to canvas.
+  if (canvasId && canvasProps.id === undefined) {
+    opts.id = canvasId
   }
+
+  // TODO: this.props.portalCanvas does not need to render a canvas.
+  return (
+    <EngineCanvasContext.Provider value={{ engine: engine.current, canvas: canvasRef.current }}>
+      <canvas
+        {...opts}
+        {...canvasProps}
+        ref={canvasRef}
+        style={{ width: '100%', height: '100%', ...style }}
+      >
+        {engine.current !== null && props.children}
+      </canvas>
+    </EngineCanvasContext.Provider>
+  )
 }
 
 export default ReactBabylonjsEngine

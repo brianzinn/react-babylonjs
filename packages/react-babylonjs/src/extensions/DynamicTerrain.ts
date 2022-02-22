@@ -760,7 +760,7 @@ export class DynamicTerrain {
     terrain.updateVerticesData(VertexBuffer.NormalKind, normals, false, false)
     terrain.updateVerticesData(VertexBuffer.UVKind, uvs, false, false)
     terrain.updateVerticesData(VertexBuffer.ColorKind, colors, false, false)
-    terrain._boundingInfo!.reConstruct(bbMin, bbMax, terrain._worldMatrix)
+    ;(terrain as any)._boundingInfo!.reConstruct(bbMin, bbMax, terrain._worldMatrix)
   }
 
   // private modulo, for dealing with negative indexes

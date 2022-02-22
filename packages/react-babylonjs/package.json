@@ -32,10 +32,10 @@
   "scripts": {
     "lint": "concurrently 'yarn:lint:check:*'",
     "lint:check:eslint": "eslint . --ext .ts",
-    "lint:check:prettier": "prettier -c '**/*.{ts,js,tsx,jsx,json,md,mdx}'",
+    "lint:check:prettier": "prettier -c \"**/*.{ts,js,tsx,jsx,json,md,mdx}\"",
     "lint:fix": "concurrently 'yarn:lint:fix:*'",
     "lint:fix:eslint": "eslint --fix . --ext .ts",
-    "lint:fix:prettier": "prettier -w '**/*.{ts,js,tsx,jsx,json,md,mdx}'",
+    "lint:fix:prettier": "prettier -w \"**/*.{ts,js,tsx,jsx,json,md,mdx}\"",
     "prebuild": "rimraf dist",
     "build": "cross-env NODE_ENV=production rollup -c",
     "start": "tsc-watch --onSuccess \"rollup -c\"",
@@ -45,8 +45,8 @@
     "test:coverage": "nyc --reporter=lcov --reporter=text-summary npm run test"
   },
   "devDependencies": {
-    "@babylonjs/core": "^4.2.0",
-    "@babylonjs/gui": "^4.2.0",
+    "@babylonjs/core": "^4.2.1",
+    "@babylonjs/gui": "^4.2.1",
     "@rollup/plugin-json": "^4.0.2",
     "@rollup/plugin-replace": "^3.0.0",
     "@types/lodash.camelcase": "^4.3.6",
@@ -78,18 +78,17 @@
     "sinon": "^9.2.4",
     "ts-morph": "^10.1.0",
     "ts-node": "^9.1.1",
-    "tsc-watch": "^4.2.9",
+    "tsc-watch": "4.1.0",
     "tsconfig-paths": "^3.9.0",
-    "typescript": "^4.5.2"
+    "typescript": "4.0.2"
   },
   "peerDependencies": {
-    "@babylonjs/core": "4.x||>5.0.0-alpha",
-    "@babylonjs/gui": "4.x||>5.0.0-alpha",
+    "@babylonjs/core": "4.x||>5.0.0-alpha||>5.0.0-beta",
+    "@babylonjs/gui": "4.x||>5.0.0-alpha||>5.0.0-beta",
     "react": ">=17",
     "react-dom": ">=17"
   },
   "dependencies": {
-    "react-reconciler": "^0.26.2",
-    "tslib": "^2.3.1"
+    "react-reconciler": "^0.26.2"
   }
 }

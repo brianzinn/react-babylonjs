@@ -3,12 +3,12 @@ import { Link } from 'gatsby'
 import * as queryString from 'query-string'
 import React, { useState } from 'react'
 import { useFlexSearch } from 'react-use-flexsearch'
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 import sortPages from '../../../content/nav'
 
 const isBrowser = typeof window !== 'undefined'
 
-const SearchBar = styled.div`
+const SearchBar = styled('div')`
   display: flex;
   border: 1px solid #dfe1e5;
   border-radius: 10px;
@@ -52,7 +52,7 @@ const SearchedResults = ({ results }) =>
           },
         },
       }
-      return <SidebarItem node={node} />
+      return <SidebarItem key={node.node.fields.slug} node={node} />
     })
   ) : (
     <p style={{ textAlign: 'center' }}>Sorry, couldn't find any posts matching this search.</p>
@@ -106,7 +106,7 @@ const SidebarItem = ({ node }) => {
 }
 
 const SidebarList = ({ nodes }) => {
-  return nodes.map((node) => <SidebarItem node={node} />)
+  return nodes.map((node) => <SidebarItem key={node.node.fields.slug} node={node} />)
 }
 
 const FlexSearch = ({ localSearchPages: { index, store }, location, allMdx }) => {
