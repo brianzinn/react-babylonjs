@@ -183,7 +183,7 @@ const devtoolLoader: RawLoaderDefinitionFunction<Partial<LoaderOptions>> = async
   const { name } = _options
 
   if (!name.endsWith('.tsx')) {
-    throw new Error(`Only .tsx files are allowed.`)
+    throw new Error(`Only .tsx files are allowed -> '${name}'.`)
   }
   const nameNode = name.slice(0, -4)
 

@@ -10,7 +10,7 @@ import React, { ComponentType, FC, useMemo, useState } from 'react'
 import Button from 'react-bootstrap/Button'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import Modal from 'react-bootstrap/Modal'
-import { FaCog } from 'react-icons/fa'
+import { FaCog, FaExternalLinkAlt } from 'react-icons/fa'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs'
@@ -84,7 +84,11 @@ export const DevTool: FC<Partial<DevToolProps>> = (props) => {
   console.log({ source })
 
   return (
-    <div>
+    <div
+      className={css`
+        min-width: 100%;
+      `}
+    >
       <Tabs selectedIndex={tabIdx} onSelect={(idx) => setTabIdx(idx)}>
         <TabList>
           <Tab>Output</Tab>
@@ -104,22 +108,16 @@ export const DevTool: FC<Partial<DevToolProps>> = (props) => {
                 variant={language === 'js' ? 'primary' : 'secondary'}
                 onClick={() => setLanguage('js')}
               >
-                Js
+                Javasript
               </Button>
               <Button
                 variant={language === 'ts' ? 'primary' : 'secondary'}
                 onClick={() => setLanguage('ts')}
               >
-                Ts
+                Typescript
               </Button>
             </ButtonGroup>
           </div>
-          <Button
-            size="sm"
-            onClick={() => window.open(language === 'ts' ? tsUrl : jsUrl, '_blank')}
-          >
-            Run in Codesandbox
-          </Button>
           <Button
             size="sm"
             className={css`
@@ -128,6 +126,14 @@ export const DevTool: FC<Partial<DevToolProps>> = (props) => {
             onClick={() => setShowSettings(true)}
           >
             <FaCog />
+          </Button>
+          <Button
+            size="sm"
+            className="float-end"
+            onClick={() => window.open(language === 'ts' ? tsUrl : jsUrl, '_blank')}
+          >
+            Run in Codesandbox
+            <FaExternalLinkAlt className="ps-2" size="1.5em" />
           </Button>
         </TabList>
 

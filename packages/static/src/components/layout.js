@@ -45,8 +45,9 @@ const Content = styled('main')`
   }
 `
 
+// TODO: work on the breakpoints here for larger screens
 const MaxWidth = styled('div')`
-  @media only screen and (max-width: 50rem) {
+  @media only screen and (max-width: 100rem) {
     width: 100%;
     position: relative;
   }

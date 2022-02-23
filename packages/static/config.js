@@ -39,7 +39,8 @@ const config = {
     title: 'Documentation | react-babylonjs',
     description: 'React for Babylon 3D engine',
     ogImage: null,
-    docsLocation: 'https://brianzinn.github.io/react-babylonjs/',
+    docsLocation:
+      'https://github.com/brianzinn/react-babylonjs/tree/master/packages/static/content',
     favicon: '',
   },
   pwa: {

@@ -10,6 +10,8 @@ const toc = [
   '/guides/getting-even-more-reactive/index',
   '/guides/hoc/index',
   '/guides/adding-animation-and-color/index',
+  '/examples/index',
+  '/examples/basic/animations',
 ]
 
 const navSortMap = toc.reduce((c, slug, i) => {
