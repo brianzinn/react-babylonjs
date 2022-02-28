@@ -5,7 +5,7 @@ import MDXRenderer from 'gatsby-plugin-mdx/mdx-renderer'
 import React, { Component } from 'react'
 import Helmet from 'react-helmet'
 import config from '../../config'
-import sortPages from '../../content/nav'
+import { sortPages } from '../../content/nav'
 import { Edit, StyledHeading, StyledMainWrapper } from '../components/styles/Docs'
 
 const forcedNavOrder = config.sidebar.forcedNavOrder
@@ -26,7 +26,7 @@ export default class MDXRuntimeTest extends Component {
     } = data
 
     const githubIcon = require('../components/images/github.svg').default
-    console.log(3)
+
     sortPages(allMdx)
     const navItems = allMdx.edges
       .map(({ node }) => node.fields.slug)

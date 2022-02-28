@@ -4,7 +4,7 @@ import * as queryString from 'query-string'
 import React, { useState } from 'react'
 import { useFlexSearch } from 'react-use-flexsearch'
 import styled from '@emotion/styled'
-import sortPages from '../../../content/nav'
+import { sortPages, sortResults } from '../../../content/nav'
 
 const isBrowser = typeof window !== 'undefined'
 
@@ -114,6 +114,10 @@ const FlexSearch = ({ localSearchPages: { index, store }, location, allMdx }) =>
   const [query, setQuery] = useState(search || '')
 
   const results = useFlexSearch(query, index, store)
+
+  if (query && results.length > 0) {
+    sortResults(results)
+  }
 
   sortPages(allMdx)
 

@@ -68,7 +68,7 @@ export const TRANSPILE_OPTIONS: TranspileOptions = {
     emitDecoratorMetadata: true,
     moduleResolution: ModuleResolutionKind.NodeJs,
     strict: false,
-    target: ScriptTarget.ES2017,
+    target: ScriptTarget.ESNext,
     jsx: JsxEmit.Preserve,
     module: ModuleKind.ESNext,
     noEmitHelpers: true,

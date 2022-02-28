@@ -1,11 +1,11 @@
-const componentWithMDXScope = require('gatsby-plugin-mdx/component-with-mdx-scope')
+// const componentWithMDXScope = require('gatsby-plugin-mdx/component-with-mdx-scope')
 
 const path = require('path')
 
 const startCase = require('lodash.startcase')
 
 const config = require('./config')
-const sortPages = require('./content/nav')
+const { sortPages } = require('./content/nav')
 
 exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions
@@ -37,7 +37,7 @@ exports.createPages = ({ graphql, actions }) => {
           reject(result.errors)
         }
 
-        // Create blog posts pages.
+        // Create pages.
         sortPages(result.data.allMdx)
         result.data.allMdx.edges.forEach(({ node }) => {
           createPage({
@@ -81,6 +81,10 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 
     if (value === 'index') {
       value = ''
+    }
+
+    if (value.endsWith('/index')) {
+      value = value.substring(0, value.length - '/index'.length)
     }
 
     if (config.gatsby && config.gatsby.trailingSlash) {

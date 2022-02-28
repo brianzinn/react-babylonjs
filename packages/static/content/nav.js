@@ -1,23 +1,42 @@
 const toc = [
   '/',
   '/quickstart',
-  '/guides/index',
-  '/guides/react-boilerplate/index',
-  '/guides/react-with-imperitive-babylonjs/index',
-  '/guides/react-with-declarative-babylonjs/index',
-  '/guides/animation/index',
-  '/guides/debugging/index',
-  '/guides/getting-even-more-reactive/index',
-  '/guides/hoc/index',
-  '/guides/adding-animation-and-color/index',
-  '/examples/index',
+  '/guides',
+  '/guides/react-boilerplate',
+  '/guides/react-with-imperitive-babylonjs',
+  '/guides/react-with-declarative-babylonjs',
+  '/guides/animation',
+  '/guides/debugging',
+  '/guides/getting-even-more-reactive',
+  '/guides/hoc',
+  '/guides/adding-animation-and-color',
+  '/examples',
+  '/examples/basic',
   '/examples/basic/animations',
+  '/examples/basic/moving-boxes',
 ]
 
 const navSortMap = toc.reduce((c, slug, i) => {
   c[slug] = i
   return c
 }, {})
+
+const sortResults = (results) => {
+  console.log('sorting results', results)
+  results.sort((a, b) => {
+    const aIndex = navSortMap[a.slug]
+    const bIndex = navSortMap[b.slug]
+    if (aIndex === undefined) {
+      console.error('slug not found:', a.slug)
+      return -1
+    }
+    if (bIndex === undefined) {
+      console.error('slug not found:', b.slug)
+      return -1
+    }
+    return aIndex - bIndex
+  })
+}
 
 const sortPages = (allMdx) => {
   // console.log('nav sort map:', navSortMap);
@@ -40,4 +59,7 @@ const sortPages = (allMdx) => {
   console.log('all known slugs in sorted order\n', JSON.stringify(slugs, null, 2))
 }
 
-module.exports = sortPages
+module.exports = {
+  sortPages,
+  sortResults,
+}
