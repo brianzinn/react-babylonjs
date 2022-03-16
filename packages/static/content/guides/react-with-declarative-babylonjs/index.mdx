@@ -1,0 +1,113 @@
+---
+title: 'Under 50 Lines of Code: react-babylonjs'
+---
+
+This guide demonstrates how to create a truly reactive Babylon.js app in **just
+under 50 lines of code**. We learn how to make custom Babylon React components,
+and how to use some helpful hooks like `useScene`, `useBeforeRender`.
+
+# Creating a Basic Scene
+
+Let's take a look at a basic `react-babylonjs` container. In it, we use the
+`Engine` and `Scene` tags of `react-bablylonjs`. These perform boilerplate
+initialization. Everything you might like to add to a scene will go inside the
+`Scene` tag.
+
+```tsx
+import { Engine, Scene } from 'react-babylonjs'
+
+const BabylonApp: FC = () => (
+  <div style={{ flex: 1, display: 'flex' }}>
+    <Engine antialias adaptToDeviceRatio canvasId="babylonJS">
+      <Scene>{children}</Scene>
+    </Engine>
+  </div>
+)
+```
+
+The above code is good, but it can be better decomposed into two components. The
+React concepts of _loose coupling_ and _composition_ are ideas we'll keep
+demonstrating in these guides.
+
+```tsx
+import { Engine, Scene } from 'react-babylonjs'
+
+const BasicScene: FC = ({ children }) => (
+  <Engine antialias adaptToDeviceRatio canvasId="babylonJS">
+    <Scene>{children}</Scene>
+  </Engine>
+)
+
+const BabylonApp: FC = ({ children }) => (
+  <div style={{ flex: 1, display: 'flex' }}>
+    <BasicScene>{children}</BasicScene>
+  </div>
+)
+```
+
+# Introducing `@react-babylonjs/extra`
+
+As we go through the tutorials, we will be using components and helpers from
+`@react-babylonjs/extra`. We tuck a lot of goodies in there that, while not part
+of the core react-babylonjs experience, may help you along your way. It's
+completely modular and tree shakable ES6. You can find `BasicScene` and
+`BabylonApp` this way:
+
+```js
+import { BasicScene, BabylonApp } from '@react-babylonjs/extra'
+```
+
+# Adding light, camera, and surface
+
+The scene above won't display anything. To see something, we need to add light,
+a camera, and something to look at. Let's do that now.
+
+As we go along, it's important to understand a Typescript concept known as
+[intrinsic JSX](https://www.typescriptlang.org/docs/handbook/jsx.html#intrinsic-elements).
+Where we had to explicitly import `Egnine` and `Scene`, there are many tags
+related to Babylon.js that are already known to React. We will use `freeCamera`,
+`hemisphericLight`, and `ground`. Those are all _intrinsic_, meaning we don't
+need an `import` statement to use them.
+
+Let's make a little helper function. Babylon.js defines a `Vector3` class which
+is used very frequently. We'll make a helper for it. When you see `v3` anywhere,
+it's coming from this:
+
+```tsx
+import { Vector3 } from '@babylonjs/core'
+
+const v3 = (x = 0, y = 0, z = 0) => new Vector3(x, y, z)
+```
+
+You can find this as:
+
+```js
+import { v3 } from '@react-babylonjs/extra'
+```
+
+Now with that in place, here's how we can add a camera, light, and ground to our
+scene.
+
+[devtool:BasicScene.tsx]
+
+# Using `<BasicCameraLightsGround/>` instead
+
+We use this so much for demos that you can write it using
+`BasicCameraLightsGround` from `@react-babylonjs/extra`:
+
+```js
+import { BasicCameraLightsGround } from '@react-babylonjs/extra'
+;<BasicCameraLightsGround />
+```
+
+[devtool:BasicScene2.tsx]
+
+# Adding an object to the scene
+
+Before we go, let's add a standard box to the scene.
+
+```tsx
+<box name="box" size={2} position={v3(0, 1, 0)} rotation={v3(0, 0, 0)} />
+```
+
+[devtool:LoneBox.tsx]

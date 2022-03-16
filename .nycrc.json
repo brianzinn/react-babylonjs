@@ -1,9 +1,0 @@
-{
-  "all": true,
-  "include": [
-    "src/**/*"
-  ],
-  "exclude": [
-    "src/extensions/**/*"
-  ]
-}

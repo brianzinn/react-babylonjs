@@ -1,0 +1,8 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "module": "commonjs", // ts-node does not work with esnext
+    "baseUrl": "../" // needed for tsconfig-paths
+  },
+  "include": ["src", "tools"]
+}

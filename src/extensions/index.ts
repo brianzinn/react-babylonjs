@@ -1,1 +1,0 @@
-export { DynamicTerrain } from './DynamicTerrain';
