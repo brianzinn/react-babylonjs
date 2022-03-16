@@ -1,7 +1,9 @@
 import {
   AbstractAssetTask,
   AssetsManager,
+  BinaryFileAssetTask,
   IAssetsProgressEvent,
+  MeshAssetTask,
   TextureAssetTask,
 } from '@babylonjs/core/Misc/assetsManager.js'
 import { EventState } from '@babylonjs/core/Misc/observable.js'
@@ -20,6 +22,8 @@ export type BinaryTask = {
   taskType: TaskType.Binary
   name: string
   url: string
+  onSuccess?: BinaryFileAssetTask['onSuccess']
+  onError?: BinaryFileAssetTask['onError']
 }
 
 export type MeshTask = {
@@ -28,6 +32,8 @@ export type MeshTask = {
   meshesNames?: any
   rootUrl: string
   sceneFilename: string
+  onSuccess?: MeshAssetTask['onSuccess']
+  onError?: MeshAssetTask['onError']
 }
 
 export type TextureTask = {
@@ -37,6 +43,8 @@ export type TextureTask = {
   noMipmap?: boolean
   invertY?: boolean
   samplingMode?: number
+  onSuccess?: TextureAssetTask['onSuccess']
+  onError?: TextureAssetTask['onError']
 }
 
 export type Task = BinaryTask | MeshTask | TextureTask
@@ -174,6 +182,9 @@ const useAssetManagerWithCache = (): ((
             case TaskType.Binary:
               const binaryTask = assetManager.addBinaryFileTask(task.name, task.url)
               newRequests.set(binaryTask, task)
+              if (task.onSuccess) {
+                binaryTask.onSuccess = task.onSuccess
+              }
               break
             case TaskType.Mesh:
               const meshTask = assetManager.addMeshTask(
@@ -183,6 +194,9 @@ const useAssetManagerWithCache = (): ((
                 task.sceneFilename
               )
               newRequests.set(meshTask, task)
+              if (task.onSuccess) {
+                meshTask.onSuccess = task.onSuccess
+              }
               break
             case TaskType.Texture:
               const textureTask: TextureAssetTask = assetManager.addTextureTask(
@@ -193,6 +207,9 @@ const useAssetManagerWithCache = (): ((
                 task.samplingMode
               )
               newRequests.set(textureTask, task)
+              if (task.onSuccess) {
+                textureTask.onSuccess = task.onSuccess
+              }
               break
             default:
               throw new Error(
