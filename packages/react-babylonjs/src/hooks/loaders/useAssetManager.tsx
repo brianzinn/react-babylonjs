@@ -185,6 +185,9 @@ const useAssetManagerWithCache = (): ((
               if (task.onSuccess) {
                 binaryTask.onSuccess = task.onSuccess
               }
+              if (task.onError) {
+                binaryTask.onError = task.onError
+              }
               break
             case TaskType.Mesh:
               const meshTask = assetManager.addMeshTask(
@@ -196,6 +199,9 @@ const useAssetManagerWithCache = (): ((
               newRequests.set(meshTask, task)
               if (task.onSuccess) {
                 meshTask.onSuccess = task.onSuccess
+              }
+              if (task.onError) {
+                meshTask.onError = task.onError
               }
               break
             case TaskType.Texture:
@@ -209,6 +215,9 @@ const useAssetManagerWithCache = (): ((
               newRequests.set(textureTask, task)
               if (task.onSuccess) {
                 textureTask.onSuccess = task.onSuccess
+              }
+              if (task.onError) {
+                textureTask.onError = task.onError
               }
               break
             default:
