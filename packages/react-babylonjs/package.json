@@ -39,7 +39,7 @@
     "prebuild": "rimraf dist",
     "build": "cross-env NODE_ENV=production rollup -c",
     "start": "tsc-watch --onSuccess \"rollup -c\"",
-    "generate-code": "ts-node -P tools/tsconfig.generate.json tools/generate-code.ts",
+    "generate-code": "cross-env NODE_OPTIONS=--max_old_space_size=4096 ts-node -P tools/tsconfig.generate.json tools/generate-code.ts",
     "unit-test": "cross-env TS_NODE_PROJECT=\"test/tsconfig.json\" mocha --require ts-node/register --require esm \"test/**/*.spec.{js,jsx,ts,tsx}\"",
     "test": "npm run unit-test",
     "test:coverage": "nyc --reporter=lcov --reporter=text-summary npm run test"

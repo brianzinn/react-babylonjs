@@ -454,9 +454,10 @@ const addProject = (packageNames: string[], files: string[], sourceFiles: Source
   const project = new Project({})
 
   packageNames.forEach((packageName) => {
-    project.addSourceFilesAtPaths(
-      path.join(__dirname, '/../node_modules', packageName, '/**/*.d.ts')
-    )
+    // workspaces are hoisted to root (./node_modules)
+    const fullPath = path.join(__dirname, '../../../node_modules', packageName, '/**/*.d.ts')
+    console.log('adding package:', fullPath)
+    project.addSourceFilesAtPaths(fullPath)
   })
 
   files.forEach((file) => {
