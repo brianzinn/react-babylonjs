@@ -8,6 +8,7 @@
       "devtool/gatsby-mdx-plugin",
       "devtool/*",
       "packages/react-babylonjs",
+      "packages/extra",
       "packages/static",
       "packages/storybook",
       "packages/*"

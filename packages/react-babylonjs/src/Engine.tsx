@@ -2,7 +2,7 @@ import { Engine } from '@babylonjs/core/Engines/engine.js'
 import { EngineOptions, ThinEngine } from '@babylonjs/core/Engines/thinEngine.js'
 import { Observable } from '@babylonjs/core/Misc/observable.js'
 import { Nullable } from '@babylonjs/core/types.js'
-import React, { useRef, useEffect, ReactNode, MutableRefObject, useState } from 'react'
+import React, { MutableRefObject, ReactNode, useEffect, useRef, useState } from 'react'
 import { EngineCanvasContext } from './hooks/engine'
 
 export type RenderOptions = {

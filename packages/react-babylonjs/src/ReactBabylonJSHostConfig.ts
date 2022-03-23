@@ -479,7 +479,7 @@ const ReactBabylonJSHostConfig: HostConfig<
         })
 
         if (createInfoArgs.creationType === CreationType.FactoryMethod) {
-          // console.warn(`creating from Factory: ${createInfoArgs.libraryLocation}.${createInfoArgs.factoryMethod}(...args).  args:`, args)
+          // console.warn(`creating from Factory: ${createInfoArgs.libraryLocation}.${createInfoArgs.factoryMethod}(...args).  args:`, args);
           babylonObject = GENERATED.babylonClassFactory(createInfoArgs.libraryLocation)[
             createInfoArgs.factoryMethod!
           ](...args)

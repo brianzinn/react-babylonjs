@@ -15,7 +15,6 @@
   "main": "dist/react-babylonjs.js",
   "module": "dist/react-babylonjs.js",
   "esnext": "dist/react-babylonjs.js",
-  "type": "module",
   "typings": "dist/react-babylonjs.d.ts",
   "files": [
     "dist"
@@ -45,8 +44,8 @@
     "test:coverage": "nyc --reporter=lcov --reporter=text-summary npm run test"
   },
   "devDependencies": {
-    "@babylonjs/core": "^4.2.1",
-    "@babylonjs/gui": "^4.2.1",
+    "@babylonjs/core": "^5.0.0-rc.6",
+    "@babylonjs/gui": "^5.0.0-rc.6",
     "@rollup/plugin-json": "^4.0.2",
     "@rollup/plugin-replace": "^3.0.0",
     "@types/lodash.camelcase": "^4.3.6",
@@ -59,7 +58,7 @@
     "@typescript-eslint/eslint-plugin": "^4.29.1",
     "@typescript-eslint/parser": "^4.29.1",
     "concurrently": "^7.0.0",
-    "cross-env": "^7.0.0",
+    "cross-env": "^7.0.3",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "esm": "^3.2.25",
@@ -76,8 +75,8 @@
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.30.0",
     "sinon": "^9.2.4",
-    "ts-morph": "^10.1.0",
-    "ts-node": "^9.1.1",
+    "ts-morph": "^14.0.0",
+    "ts-node": "^10.7.0",
     "tsc-watch": "4.1.0",
     "tsconfig-paths": "^3.9.0",
     "typescript": "4.0.2"

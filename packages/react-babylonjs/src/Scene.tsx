@@ -31,7 +31,7 @@ type SceneProps = {
   onScenePointerUp?: (evt: PointerInfo, scene: BabylonScene) => void
   onScenePointerMove?: (evt: PointerInfo, scene: BabylonScene) => void
   onSceneMount?: (sceneEventArgs: SceneEventArgs) => void
-  children: any
+  children: React.ReactNode
   sceneOptions?: SceneOptions
 } & FiberSceneProps
 
