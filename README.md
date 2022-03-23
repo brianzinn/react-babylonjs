@@ -64,7 +64,7 @@ Here we re-use a `SpinningBox` component that can be clicked or hovered. These
 reusable components can be used to compose a declarative scene. We are using
 hooks for the clicking, hovering and spinning.
 
-![Connecting the pieces](https://raw.githubusercontent.com/brianzinn/react-babylonjs/packages/react-babylonjs/master/docs/images/react-babylonjs-boxes.gif)
+![Connecting the pieces](https://raw.githubusercontent.com/brianzinn/react-babylonjs/master/packages/react-babylonjs/docs/images/react-babylonjs-boxes.gif)
 
 ```jsx
 import React, { useRef, useState } from 'react'
@@ -234,7 +234,7 @@ development workflow in 3D - ie: save changes in your editor and see them
 immediately in the browser. Note in this capture when the light is dimmed that
 the state changes persist even **after** code updates and scene refresh.
 
-![babylon.js Fast Refresh](https://raw.githubusercontent.com/brianzinn/react-babylonjs/packages/react-babylonjs/master/docs/images/react-babylonjs-hmr.gif)
+![babylon.js Fast Refresh](https://raw.githubusercontent.com/brianzinn/react-babylonjs/master/packages/react-babylonjs/docs/images/react-babylonjs-hmr.gif)
 
 ## API
 
