@@ -227,6 +227,44 @@ const App: React.FC = () => {
 }
 ```
 
+## React Native
+
+No online examples for native, but you can integrate using
+`EngineCanvasContext.Provider`:
+
+```jsx
+import React, { useState } from 'react';
+import { View } from 'react-native';
+
+import { EngineView, useEngine } from '@babylonjs/react-native';
+import { Camera } from '@babylonjs/core';
+import { EngineCanvasContext, Scene } from 'react-babylonjs';
+
+const EngineScreen: FunctionComponent<ViewProps> = (props: ViewProps) => {
+
+  const engine = useEngine();
+  const [camera, setCamera] = useState<Camera>();
+
+  return (
+    <View style={props.style}>
+      <EngineCanvasContext.Provider value={{ engine, canvas: null }}>
+        {engine &&
+          <Scene>
+            <arcRotateCamera
+              name="camera1"
+              onCreated={camera => setCamera(camera)}
+            />
+            <hemisphericLight name="light1" />
+            { /* rest of declarative scene/components here */ }
+          </Scene>
+        }
+      </EngineCanvasContext.Provider>
+      <EngineView camera={camera} displayFrameRate={true} />
+    </View>
+  );
+};
+```
+
 ## Developer Experience and Fast Refresh
 
 With declarative (TSX/JSX) coding and fast refresh, you experience the same
