@@ -15,7 +15,7 @@
     "type-fest": "2.9.0"
   },
   "devDependencies": {
-    "prettier": "2.5.1",
+    "prettier": "2.6.1",
     "prettier-plugin-organize-imports": "2.3.4",
     "@types/react": "17.0.20",
     "@types/react-dom": "17.0.9",

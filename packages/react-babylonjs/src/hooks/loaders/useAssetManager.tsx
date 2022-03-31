@@ -123,7 +123,12 @@ const useAssetManagerWithCache = (): ((
   let tasksCompletedCache: Record<string, AbstractAssetTask> = {}
 
   return (tasks: Task[], options?: AssetManagerOptions): AssetManagerResult => {
+    // hooks cannot be used inside a callback (this is not a callback)
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const hookScene = useScene()
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const assetManagerContext = useContext<AssetManagerContextType>(AssetManagerContext)
+
     const opts = options || {
       useDefaultLoadingScreen: false,
     }
@@ -134,7 +139,6 @@ const useAssetManagerWithCache = (): ((
       )
     }
 
-    const assetManagerContext = useContext<AssetManagerContextType>(AssetManagerContext)
     const scene: Scene = opts.scene || hookScene!
 
     if (suspenseScene == null) {
@@ -179,7 +183,7 @@ const useAssetManagerWithCache = (): ((
           cachedTasks.push(suspenseCache[key])
         } else {
           switch (task.taskType) {
-            case TaskType.Binary:
+            case TaskType.Binary: {
               const binaryTask = assetManager.addBinaryFileTask(task.name, task.url)
               newRequests.set(binaryTask, task)
               if (task.onSuccess) {
@@ -189,7 +193,8 @@ const useAssetManagerWithCache = (): ((
                 binaryTask.onError = task.onError
               }
               break
-            case TaskType.Mesh:
+            }
+            case TaskType.Mesh: {
               const meshTask = assetManager.addMeshTask(
                 task.name,
                 task.meshesNames,
@@ -204,7 +209,8 @@ const useAssetManagerWithCache = (): ((
                 meshTask.onError = task.onError
               }
               break
-            case TaskType.Texture:
+            }
+            case TaskType.Texture: {
               const textureTask: TextureAssetTask = assetManager.addTextureTask(
                 task.name,
                 task.url,
@@ -220,6 +226,7 @@ const useAssetManagerWithCache = (): ((
                 textureTask.onError = task.onError
               }
               break
+            }
             default:
               throw new Error(
                 `Only binary/mesh supported currently.  'taskType' found on ${JSON.stringify(task)}`
@@ -288,7 +295,8 @@ const useAssetManagerWithCache = (): ((
 
       let result: AssetManagerResult
       let error: Nullable<Error> = null
-      let suspender: Nullable<Promise<void>> = (async () => {
+      let suspender: Nullable<Promise<void>> = null
+      suspender = (async () => {
         try {
           result = await taskPromise
         } catch (e) {
@@ -320,4 +328,6 @@ const useAssetManagerWithCache = (): ((
   }
 }
 
+// this isn't a hook being called
+// eslint-disable-next-line react-hooks/rules-of-hooks
 export const useAssetManager = useAssetManagerWithCache()

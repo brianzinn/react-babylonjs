@@ -52,9 +52,9 @@ function isObjectBehindCamera(el: AbstractMesh, camera: Camera) {
 function isObjectVisible(el: AbstractMesh, camera: Camera, occlude: AbstractMesh[]) {
   const objectPos = el.getAbsolutePosition()
   const cameraPos = camera.globalPosition
-  let ray = new Ray(cameraPos, objectPos.subtract(cameraPos), undefined)
+  const ray = new Ray(cameraPos, objectPos.subtract(cameraPos), undefined)
 
-  let hit = camera
+  const hit = camera
     .getScene()
     .pickWithRay(
       ray,

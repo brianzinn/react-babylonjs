@@ -13,28 +13,34 @@ export type RenderOptions = {
   whenVisibleOnly?: boolean
 }
 
+// TODO: this should return a shouldRenderRef instead of setState for a re-render?
 const useCanvasObserver = (
   canvasRef: MutableRefObject<Nullable<HTMLCanvasElement>>,
   shouldRenderRef: MutableRefObject<boolean>,
-  threshold: number = 0
+  enabledOption = false,
+  threshold = 0
 ) => {
-  const callbackFn: IntersectionObserverCallback = (entries) => {
-    const [entry] = entries
-    shouldRenderRef.current = entry.isIntersecting
-    console.log('should render updating:', shouldRenderRef.current)
-  }
-
   useEffect(() => {
+    if (enabledOption !== true) {
+      return
+    }
+
     if (canvasRef.current === null) {
       return
     }
+
+    const callbackFn: IntersectionObserverCallback = (entries) => {
+      const [entry] = entries
+      shouldRenderRef.current = entry.isIntersecting
+      console.log('should render updating:', shouldRenderRef.current)
+    }
+
     const observer = new IntersectionObserver(callbackFn, { threshold })
     observer.observe(canvasRef.current)
 
+    const canvas: HTMLCanvasElement = canvasRef.current
     return () => {
-      if (canvasRef.current) {
-        observer.unobserve(canvasRef.current)
-      }
+      observer.unobserve(canvas)
     }
   }, [canvasRef, threshold])
 }
@@ -84,7 +90,7 @@ const ReactBabylonjsEngine: React.FC<EngineProps> = (props: EngineProps, context
   const shouldRenderRef = useRef(true)
 
   // const renderOptions: RenderOptions = props.renderOptions ?? {};
-  let {
+  const {
     touchActionNone,
     canvasId,
     engineOptions,
@@ -97,6 +103,9 @@ const ReactBabylonjsEngine: React.FC<EngineProps> = (props: EngineProps, context
     ...canvasProps
   } = props
 
+  const observerEnabled = renderOptions !== undefined && renderOptions.whenVisibleOnly === true
+  useCanvasObserver(canvasRef, shouldRenderRef, observerEnabled, 0)
+
   useEffect(() => {
     if (canvasRef.current === null) {
       return
@@ -108,12 +117,6 @@ const ReactBabylonjsEngine: React.FC<EngineProps> = (props: EngineProps, context
       engineOptions,
       adaptToDeviceRatio === true // default false
     )
-
-    // TODO: this prop should be in a dependency and moved out of useEffect.
-    if (renderOptions !== undefined && renderOptions.whenVisibleOnly === true) {
-      // NOTE: the shouldRender usage needs to be updated when more render logic is added (ie: camera project matrix change observable, etc.)
-      useCanvasObserver(canvasRef, shouldRenderRef, 0)
-    }
 
     engine.current.runRenderLoop(() => {
       if (shouldRenderRef.current === false) {
@@ -168,7 +171,7 @@ const ReactBabylonjsEngine: React.FC<EngineProps> = (props: EngineProps, context
     }
   }, [canvasRef])
 
-  let opts: any = {}
+  const opts: any = {}
 
   if (touchActionNone !== false) {
     opts['touch-action'] = 'none'

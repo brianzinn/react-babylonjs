@@ -91,7 +91,7 @@
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "^7.23.2",
     "gatsby-plugin-remove-trailing-slashes": "^3.4.0",
-    "prettier": "^2.5.1",
+    "prettier": "^2.6.1",
     "prettier-plugin-organize-imports": "^2.3.4",
     "prism-react-renderer": "^1.2.0",
     "typescript": "^4.5.4"
