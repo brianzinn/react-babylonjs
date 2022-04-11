@@ -18,17 +18,15 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+      - run: |
+          git config user.name "Brian Zinn"
+          git config user.email "github@wakeskate.com"
       - uses: actions/setup-node@v1
         with:
           node-version: '16.13.2'
           registry-url: 'https://registry.npmjs.org'
           scope: brianzinn
-
-      - name: Configure git
-        run: |
-          git config user.email "github@wakeskate.com"
-          git config user.name "Brian Zinn"
       - name: install workspace
         run: |
           npm install --legacy-peer-deps
@@ -40,7 +38,9 @@ jobs:
       - name: version-changelog-commit
         working-directory: ./packages/react-babylonjs
         run: |
+          git status
           npm version ${{ github.event.inputs.npmVersion }} -m "release %s :package:${{ github.event.inputs.comment }}" --git-tag-version
+          git status
           git push --follow-tags
           PACKAGE_VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g' | tr -d '[[:space:]]')
           sleep 1m
