@@ -44,7 +44,7 @@ jobs:
           git push && git push --tags
           PACKAGE_VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g' | tr -d '[[:space:]]')
           sleep 1m
-          ./node_modules/.bin/gren release --tags=v${PACKAGE_VERSION}
+          ../../node_modules/.bin/gren release --tags=v${PACKAGE_VERSION}
         env:
           GREN_GITHUB_TOKEN: ${{ secrets.GREN_GITHUB_TOKEN }}
       - name: publish npm
