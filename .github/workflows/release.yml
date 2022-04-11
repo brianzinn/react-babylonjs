@@ -29,11 +29,12 @@ jobs:
         run: |
           git config user.email "github@wakeskate.com"
           git config user.name "Brian Zinn"
-
-      - name: install build test coverage
-        working-directory: ./packages/react-babylonjs
+      - name: install workspace
         run: |
           yarn install
+      - name: build test coverage
+        working-directory: ./packages/react-babylonjs
+        run: |
           yarn build
           yarn test:coverage
       - name: version-changelog-commit
