@@ -14,6 +14,7 @@ on:
 # push:
 #    branches: [ master ]
 # NOTE: workspaces have a bunch of issues with npm version!  'npm version' doesn't add a commit + tag :(
+#       once there are multiple packages can revisit the step that commits.
   
 jobs:
   release:
@@ -40,11 +41,11 @@ jobs:
         run: |
           npm version ${{ github.event.inputs.npmVersion }} -w packages/react-babylonjs
           git status
-          PACKAGE_VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g' | tr -d '[[:space:]]')
+          PACKAGE_VERSION=$(cat packages/react-babylonjs/package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g' | tr -d '[[:space:]]')
           git add packages/react-babylonjs/package.json
           git commit -m "release ${PACKAGE_VERSION} :package:${{ github.event.inputs.comment }}"
           git status
-          git tag ${PACKAGE_VERSION}
+          git tag v${PACKAGE_VERSION}
           git push --follow-tags
           git status
           sleep 1m
