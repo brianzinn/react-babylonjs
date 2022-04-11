@@ -17,7 +17,9 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
-
+    defaults:
+      run:
+        working-directory: ./packages/react-babylonjs
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
@@ -25,7 +27,7 @@ jobs:
           node-version: '12.x'
           registry-url: 'https://registry.npmjs.org'
           scope: brianzinn
-          
+
       - name: Configure git
         run: |
           git config user.email "github@wakeskate.com"

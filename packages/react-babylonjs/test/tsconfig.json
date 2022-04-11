@@ -1,11 +1,12 @@
 {
   "compilerOptions": {
     "jsx": "react",
-    "module": "CommonJS",
-    "target": "ES2015",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "target": "es6",
     "esModuleInterop": true,
     "rootDir": "./src"
   },
-  "include": ["src/**/*", "test/**/*"],
+  "include": ["src", "test"],
   "exclude": ["node_modules"]
 }
