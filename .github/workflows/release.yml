@@ -52,7 +52,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: publish to coveralls.io
-        working-directory: ./packages/react-babylonjs
         uses: coverallsapp/github-action@v1.1.2
         with:
-          github-token: ${{ github.token }} 
+          github-token: ${{ github.token }}
+          path-to-lcov: ./packages/react-babylonjs/coverage/lcov.info
