@@ -45,7 +45,7 @@ jobs:
           git add packages/react-babylonjs/package.json
           git commit -m "release ${PACKAGE_VERSION} :package:${{ github.event.inputs.comment }}"
           git status
-          git tag v${PACKAGE_VERSION}
+          git tag -a v${PACKAGE_VERSION} -m "version ${PACKAGE_VERSION}"
           git push --follow-tags
           git status
           sleep 1m
