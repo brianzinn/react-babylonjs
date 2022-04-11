@@ -17,9 +17,6 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./packages/react-babylonjs
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
@@ -34,11 +31,13 @@ jobs:
           git config user.name "Brian Zinn"
 
       - name: install build test coverage
+        working-directory: ./packages/react-babylonjs
         run: |
           yarn install
           yarn build
           yarn test:coverage
       - name: version-changelog-commit
+        working-directory: ./packages/react-babylonjs
         run: |
           npm version ${{ github.event.inputs.npmVersion }} -m "release %s :package:${{ github.event.inputs.comment }}"
           git push && git push --tags
@@ -48,10 +47,12 @@ jobs:
         env:
           GREN_GITHUB_TOKEN: ${{ secrets.GREN_GITHUB_TOKEN }}
       - name: publish npm
+        working-directory: ./packages/react-babylonjs
         run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: publish to coveralls.io
+        working-directory: ./packages/react-babylonjs
         uses: coverallsapp/github-action@v1.1.2
         with:
           github-token: ${{ github.token }} 
