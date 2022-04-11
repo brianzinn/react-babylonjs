@@ -31,12 +31,12 @@ jobs:
           git config user.name "Brian Zinn"
       - name: install workspace
         run: |
-          yarn install
+          npm install --legacy-peer-deps
       - name: build test coverage
         working-directory: ./packages/react-babylonjs
         run: |
-          yarn build
-          yarn test:coverage
+          npm run build
+          npm run test:coverage
       - name: version-changelog-commit
         working-directory: ./packages/react-babylonjs
         run: |
