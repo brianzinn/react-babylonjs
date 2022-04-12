@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "watch": "chokidar 'src/*' -c 'yarn build'"
+    "watch": "chokidar 'src/*' -c 'npm run build'"
   },
   "dependencies": {
     "@devtool/loader": "*",

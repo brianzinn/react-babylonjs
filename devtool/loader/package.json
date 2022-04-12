@@ -6,8 +6,8 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "watch": "chokidar 'src/*' -c 'yarn build'",
-    "test": "yarn build && jest"
+    "watch": "chokidar 'src/*' -c 'npm run build'",
+    "test": "npm run build && jest"
   },
   "dependencies": {
     "@s-libs/micro-dash": "12",
