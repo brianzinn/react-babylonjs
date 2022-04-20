@@ -1975,7 +1975,7 @@ const generateCode = async () => {
         },
         {
           name: 'ref',
-          type: 'Ref<ReactNode>',
+          type: 'Ref<T>',
           hasQuestionToken: true,
         },
       ],
