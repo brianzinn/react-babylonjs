@@ -235,12 +235,24 @@ const useSceneLoaderWithCache = (): ((
               resolve(loadedModel)
             },
             (event: ISceneLoaderProgressEvent): void => {
-              if (opts.reportProgress === true && sceneLoaderContext !== undefined) {
-                sceneLoaderContext!.updateProgress(event)
-              }
-              if (opts.onLoadProgress) {
-                opts.onLoadProgress(event)
-              }
+              ;(async () => {
+                const pathOrigin = window.location.origin
+                const isLocalAsset = suspenseKey.includes(pathOrigin) || !/^http/.test(suspenseKey)
+                let totalSize = event.total
+
+                if (isLocalAsset && totalSize === 0) {
+                  const response = await fetch(suspenseKey)
+                  const { size } = await response.blob()
+                  totalSize = size
+                }
+
+                if (opts.reportProgress === true && sceneLoaderContext !== undefined) {
+                  sceneLoaderContext!.updateProgress({ ...event, total: totalSize })
+                }
+                if (opts.onLoadProgress) {
+                  opts.onLoadProgress({ ...event, total: totalSize })
+                }
+              })()
             },
             (_: Scene, message: string, exception?: any): void => {
               if (opts.onModelError) {

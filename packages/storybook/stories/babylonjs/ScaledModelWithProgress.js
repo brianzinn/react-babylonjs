@@ -12,9 +12,7 @@ const ProgressFallback = (props) => {
   let loadProgress = 0;
   if (sceneLoaderContext.lastProgress) {
     const progress = sceneLoaderContext.lastProgress;
-    loadProgress = progress.lengthComputable
-      ? progress.loaded / progress.total
-      : progress.loaded / 10000; // TODO: provide option to input file size for proper loading.
+    loadProgress = progress.loaded / progress.total;
   }
 
   return (
