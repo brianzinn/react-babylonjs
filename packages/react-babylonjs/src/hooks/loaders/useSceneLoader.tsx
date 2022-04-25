@@ -241,9 +241,13 @@ const useSceneLoaderWithCache = (): ((
                 let totalSize = event.total
 
                 if (isLocalAsset && totalSize === 0) {
-                  const response = await fetch(suspenseKey)
-                  const { size } = await response.blob()
-                  totalSize = size
+                  try {
+                    const response = await fetch(sceneFilename ? suspenseKey : rootUrl)
+                    const { size } = await response.blob()
+                    totalSize = size  
+                  } catch (error) {
+                    console.error(`failed to get the file size : ${error}`)
+                  } 
                 }
 
                 if (opts.reportProgress === true && sceneLoaderContext !== undefined) {
