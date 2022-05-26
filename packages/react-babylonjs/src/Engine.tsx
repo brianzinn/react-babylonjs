@@ -42,7 +42,7 @@ const useCanvasObserver = (
     return () => {
       observer.unobserve(canvas)
     }
-  }, [canvasRef, threshold])
+  }, [canvasRef, threshold, enabledOption])
 }
 
 export type EngineProps = {
@@ -50,6 +50,11 @@ export type EngineProps = {
   antialias?: boolean
   adaptToDeviceRatio?: boolean
   renderOptions?: RenderOptions
+
+  /**
+   * Skip rendering if set to true (takes precedence over RenderOptions.whenVisibleOnly)
+   */
+  isPaused?: boolean
 
   /**
    * Attach resize event when canvas resizes (window resize may not occur).
@@ -91,6 +96,7 @@ const ReactBabylonjsEngine: React.FC<EngineProps> = (props: EngineProps, context
 
   // const renderOptions: RenderOptions = props.renderOptions ?? {};
   const {
+    isPaused,
     touchActionNone,
     canvasId,
     engineOptions,
@@ -103,8 +109,12 @@ const ReactBabylonjsEngine: React.FC<EngineProps> = (props: EngineProps, context
     ...canvasProps
   } = props
 
-  const observerEnabled = renderOptions !== undefined && renderOptions.whenVisibleOnly === true
+  const observerEnabled = renderOptions !== undefined && renderOptions.whenVisibleOnly === true && !isPaused
   useCanvasObserver(canvasRef, shouldRenderRef, observerEnabled, 0)
+
+  useEffect(() => {
+    shouldRenderRef.current = !isPaused
+  }, [isPaused])
 
   useEffect(() => {
     if (canvasRef.current === null) {
