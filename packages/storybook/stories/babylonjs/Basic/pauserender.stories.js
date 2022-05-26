@@ -109,12 +109,16 @@ export const PauseRender = () => {
   useEffect(() => {
     const seq = setInterval(() => {
       setIsPaused((prev) => !prev);
-    }, 10000);
+    }, 5000);
     return () => clearInterval(seq);
   }, []);
 
   return <div style={{ flex: 1, display: "flex", flexFlow: 'column' }}>
-    <div style={{height: '1000px', color: 'white'}}><p>Scroll down</p>{isPaused ? 'Paused' : 'Not Paused'}</div>
+    <div style={{height: '1000px', color: 'white'}}>
+      <p>will render only if visible and not paused</p>
+      <p>Scroll down</p>
+      <p>{isPaused ? 'Paused' : 'Not Paused'}</p>
+    </div>
     <Engine antialias adaptToDeviceRatio canvasId="babylonJS" isPaused={isPaused} renderOptions={renderOptions}>
       <Scene>
         <freeCamera
