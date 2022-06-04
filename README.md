@@ -27,10 +27,15 @@ OR
 $ yarn add react-babylonjs @babylonjs/core @babylonjs/gui
 ```
 
-_No third party dependencies outside of React + babylon.js_ If you are upgrading
-from 2.x please follow the breaking changes guide:
+_No third party dependencies outside of React + babylon.js_
 
-> [3.0 breaking changes](docs/breaking-changes-2.x-to-3.0.md)
+### Babylon.js 4.x
+> Babylon.js 4.x is not currently compatible (follow peer dependency warnings) with @latest version. The last version compatible with both 4.x and 5.x was 3.0.31.
+```sh
+# Babylonjs.4.x only
+$ yarn add react-babylonjs@3.0.31
+```
+
 
 ## Models
 
