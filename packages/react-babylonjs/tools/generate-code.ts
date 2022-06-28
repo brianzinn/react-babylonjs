@@ -5,6 +5,7 @@ import { exit } from 'process'
  * To debug code generation use the launch config in VS Code - "Generate Code (debug)"
  * Also, remove "type": "module" in package.json for ERR_UNKNOWN_FILE_EXTENSION errors.
  */
+import path, { dirname } from 'path'
 import {
   ClassDeclaration,
   CodeBlockWriter,
@@ -40,10 +41,12 @@ import {
   WriterFunction,
   Writers,
 } from 'ts-morph'
+import { fileURLToPath } from 'url'
 import { CreateInfo, CreationType, GeneratedParameter } from '../src/codeGenerationDescriptors'
 import { InstanceMetadataParameter } from '../src/CreatedInstance'
 
-const path = require('path')
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 const REACT_RECONCILER_CREATED_INSTANCE_METADATA = 'CreatedInstanceMetadata'
 const PROPERTY_UPDATE_INTERFACE = 'PropertyUpdate'

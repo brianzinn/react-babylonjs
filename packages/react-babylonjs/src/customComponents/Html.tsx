@@ -17,7 +17,8 @@ import React, {
   useRef,
   useState,
 } from 'react'
-import { render, unmountComponentAtNode } from 'react-dom'
+// import {  unmountComponentAtNode } from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import { FiberAbstractMeshProps, FiberAbstractMeshPropsCtor } from '../generatedProps'
 import { useBeforeRender } from '../hooks/render'
 import { useScene } from '../hooks/scene'
@@ -223,7 +224,7 @@ const Html = forwardRef(
         }
         return () => {
           if (target) target.removeChild(el)
-          unmountComponentAtNode(el)
+          // unmountComponentAtNode(el) // react17
         }
       }
     }, [target, transform, scene, group])
@@ -260,26 +261,28 @@ const Html = forwardRef(
     )
 
     useLayoutEffect(() => {
+      const root = createRoot(el)
       if (transform) {
-        render(
+        root.render(
           <div id="html_babylon" ref={transformOuterRef} style={styles}>
             <div ref={transformInnerRef} style={transformInnerStyles}>
               <div ref={ref} className={className} style={style} children={children} />
             </div>
-          </div>,
-          el
+          </div>
         )
       } else {
-        render(
+        root.render(
           <div
             id="html_babylon"
             ref={ref}
             style={styles}
             className={className}
             children={children}
-          />,
-          el
+          />
         )
+      }
+      return () => {
+        root.unmount()
       }
     })
 
