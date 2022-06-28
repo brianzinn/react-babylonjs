@@ -2,7 +2,7 @@ import { Engine } from '@babylonjs/core/Engines/engine.js'
 import { EngineOptions, ThinEngine } from '@babylonjs/core/Engines/thinEngine.js'
 import { Observable } from '@babylonjs/core/Misc/observable.js'
 import { Nullable } from '@babylonjs/core/types.js'
-import React, { useRef, useEffect, ReactNode, MutableRefObject, useState } from 'react'
+import React, { MutableRefObject, ReactNode, useEffect, useRef, useState } from 'react'
 import { EngineCanvasContext } from './hooks/engine'
 
 export type RenderOptions = {
@@ -13,30 +13,36 @@ export type RenderOptions = {
   whenVisibleOnly?: boolean
 }
 
+// TODO: this should return a shouldRenderRef instead of setState for a re-render?
 const useCanvasObserver = (
   canvasRef: MutableRefObject<Nullable<HTMLCanvasElement>>,
   shouldRenderRef: MutableRefObject<boolean>,
-  threshold: number = 0
+  enabledOption = false,
+  threshold = 0
 ) => {
-  const callbackFn: IntersectionObserverCallback = (entries) => {
-    const [entry] = entries
-    shouldRenderRef.current = entry.isIntersecting
-    console.log('should render updating:', shouldRenderRef.current)
-  }
-
   useEffect(() => {
+    if (enabledOption !== true) {
+      return
+    }
+
     if (canvasRef.current === null) {
       return
     }
+
+    const callbackFn: IntersectionObserverCallback = (entries) => {
+      const [entry] = entries
+      shouldRenderRef.current = entry.isIntersecting
+      console.log('should render updating:', shouldRenderRef.current)
+    }
+
     const observer = new IntersectionObserver(callbackFn, { threshold })
     observer.observe(canvasRef.current)
 
+    const canvas: HTMLCanvasElement = canvasRef.current
     return () => {
-      if (canvasRef.current) {
-        observer.unobserve(canvasRef.current)
-      }
+      observer.unobserve(canvas)
     }
-  }, [canvasRef, threshold])
+  }, [canvasRef, threshold, enabledOption])
 }
 
 export type EngineProps = {
@@ -44,6 +50,11 @@ export type EngineProps = {
   antialias?: boolean
   adaptToDeviceRatio?: boolean
   renderOptions?: RenderOptions
+
+  /**
+   * Skip rendering if set to true (takes precedence over RenderOptions.whenVisibleOnly)
+   */
+  isPaused?: boolean
 
   /**
    * Attach resize event when canvas resizes (window resize may not occur).
@@ -84,7 +95,8 @@ const ReactBabylonjsEngine: React.FC<EngineProps> = (props: EngineProps, context
   const shouldRenderRef = useRef(true)
 
   // const renderOptions: RenderOptions = props.renderOptions ?? {};
-  let {
+  const {
+    isPaused,
     touchActionNone,
     canvasId,
     engineOptions,
@@ -97,6 +109,13 @@ const ReactBabylonjsEngine: React.FC<EngineProps> = (props: EngineProps, context
     ...canvasProps
   } = props
 
+  const observerEnabled = renderOptions !== undefined && renderOptions.whenVisibleOnly === true && !isPaused
+  useCanvasObserver(canvasRef, shouldRenderRef, observerEnabled, 0)
+
+  useEffect(() => {
+    shouldRenderRef.current = !isPaused
+  }, [isPaused])
+
   useEffect(() => {
     if (canvasRef.current === null) {
       return
@@ -108,12 +127,6 @@ const ReactBabylonjsEngine: React.FC<EngineProps> = (props: EngineProps, context
       engineOptions,
       adaptToDeviceRatio === true // default false
     )
-
-    // TODO: this prop should be in a dependency and moved out of useEffect.
-    if (renderOptions !== undefined && renderOptions.whenVisibleOnly === true) {
-      // NOTE: the shouldRender usage needs to be updated when more render logic is added (ie: camera project matrix change observable, etc.)
-      useCanvasObserver(canvasRef, shouldRenderRef, 0)
-    }
 
     engine.current.runRenderLoop(() => {
       if (shouldRenderRef.current === false) {
@@ -168,7 +181,7 @@ const ReactBabylonjsEngine: React.FC<EngineProps> = (props: EngineProps, context
     }
   }, [canvasRef])
 
-  let opts: any = {}
+  const opts: any = {}
 
   if (touchActionNone !== false) {
     opts['touch-action'] = 'none'

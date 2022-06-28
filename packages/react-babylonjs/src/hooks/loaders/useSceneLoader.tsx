@@ -122,6 +122,8 @@ const useSceneLoaderWithCache = (): ((
   ): LoadedModel => {
     const opts: SceneLoaderOptions = options || {}
 
+    // we are not in a callback here
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const hookScene = useScene()
 
     if (opts.scene === undefined && hookScene === null) {
@@ -147,104 +149,107 @@ const useSceneLoaderWithCache = (): ((
     }
 
     const suspenseKey = `${rootUrl}/${sceneFilename}`
+    // we are not in a callback here
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const sceneLoaderContext = useContext<SceneLoaderContextType>(SceneLoaderContext)
 
     const createSceneLoader = (): (() => LoadedModel) => {
       const taskPromise = new Promise<LoadedModel>((resolve, reject) => {
-        let loadedModel = new LoadedModel()
+        const loadedModel = new LoadedModel()
 
         loadedModel.status = LoaderStatus.Loading
 
-        let loader: Nullable<ISceneLoaderPlugin | ISceneLoaderPluginAsync> = SceneLoader.ImportMesh(
-          opts.meshNames,
-          rootUrl,
-          sceneFilename,
-          scene,
-          (
-            meshes: AbstractMesh[],
-            particleSystems: IParticleSystem[],
-            skeletons: Skeleton[],
-            animationGroups: AnimationGroup[]
-          ): void => {
-            loadedModel.rootMesh = new AbstractMesh(sceneFilename + '-root-model', scene)
-            if (opts.alwaysSelectAsActiveMesh === true) {
-              loadedModel.rootMesh.alwaysSelectAsActiveMesh = true
-            }
-
-            loadedModel.meshes = []
-            meshes.forEach((mesh) => {
-              loadedModel.meshes!.push(mesh)
-
-              // leave meshes already parented to maintain model hierarchy:
-              if (!mesh.parent) {
-                mesh.parent = loadedModel.rootMesh!
+        const loader: Nullable<ISceneLoaderPlugin | ISceneLoaderPluginAsync> =
+          SceneLoader.ImportMesh(
+            opts.meshNames,
+            rootUrl,
+            sceneFilename,
+            scene,
+            (
+              meshes: AbstractMesh[],
+              particleSystems: IParticleSystem[],
+              skeletons: Skeleton[],
+              animationGroups: AnimationGroup[]
+            ): void => {
+              loadedModel.rootMesh = new AbstractMesh(sceneFilename + '-root-model', scene)
+              if (opts.alwaysSelectAsActiveMesh === true) {
+                loadedModel.rootMesh.alwaysSelectAsActiveMesh = true
               }
 
-              if (opts.receiveShadows === true) {
-                mesh.receiveShadows = true
-              }
-            })
-            loadedModel.particleSystems = particleSystems
-            loadedModel.skeletons = skeletons
-            loadedModel.animationGroups = animationGroups
+              loadedModel.meshes = []
+              meshes.forEach((mesh) => {
+                loadedModel.meshes!.push(mesh)
 
-            loadedModel.status = LoaderStatus.Loaded
+                // leave meshes already parented to maintain model hierarchy:
+                if (!mesh.parent) {
+                  mesh.parent = loadedModel.rootMesh!
+                }
 
-            if (opts.scaleToDimension) {
-              loadedModel.scaleTo(opts.scaleToDimension)
-            }
-
-            if (initialProps) {
-              const initPayload: PropertyUpdate[] = []
-              new FiberMesh().getPropsHandlers().forEach((propHandler: PropsHandler<any>) => {
-                const handlerUpdates: PropertyUpdate[] | null = propHandler.getPropertyUpdates(
-                  {}, // Here we will reapply things like 'name', so we could get default props from 'babylonObject'.
-                  initialProps
-                )
-                if (handlerUpdates !== null) {
-                  initPayload.push(...handlerUpdates)
+                if (opts.receiveShadows === true) {
+                  mesh.receiveShadows = true
                 }
               })
+              loadedModel.particleSystems = particleSystems
+              loadedModel.skeletons = skeletons
+              loadedModel.animationGroups = animationGroups
 
-              if (initPayload.length > 0) {
-                initPayload.forEach((update) => {
-                  applyUpdateToInstance(
-                    { hostInstance: loadedModel.rootMesh } as CreatedInstance<Mesh>,
-                    update
-                  )
-                })
+              loadedModel.status = LoaderStatus.Loaded
+
+              if (opts.scaleToDimension) {
+                loadedModel.scaleTo(opts.scaleToDimension)
               }
-            }
 
-            if (options?.onModelLoaded) {
-              options.onModelLoaded(loadedModel)
-            }
+              if (initialProps) {
+                const initPayload: PropertyUpdate[] = []
+                new FiberMesh().getPropsHandlers().forEach((propHandler: PropsHandler<any>) => {
+                  const handlerUpdates: PropertyUpdate[] | null = propHandler.getPropertyUpdates(
+                    {}, // Here we will reapply things like 'name', so we could get default props from 'babylonObject'.
+                    initialProps
+                  )
+                  if (handlerUpdates !== null) {
+                    initPayload.push(...handlerUpdates)
+                  }
+                })
 
-            const originalDispose = loadedModel.dispose
-            loadedModel.dispose = () => {
-              // console.log('Clearing cache (cannot re-use meshes).');
-              suspenseCache[suspenseKey] = undefined
-              originalDispose.call(loadedModel)
-            }
+                if (initPayload.length > 0) {
+                  initPayload.forEach((update) => {
+                    applyUpdateToInstance(
+                      { hostInstance: loadedModel.rootMesh } as CreatedInstance<Mesh>,
+                      update
+                    )
+                  })
+                }
+              }
 
-            resolve(loadedModel)
-          },
-          (event: ISceneLoaderProgressEvent): void => {
-            if (opts.reportProgress === true && sceneLoaderContext !== undefined) {
-              sceneLoaderContext!.updateProgress(event)
-            }
-            if (opts.onLoadProgress) {
-              opts.onLoadProgress(event)
-            }
-          },
-          (_: Scene, message: string, exception?: any): void => {
-            if (opts.onModelError) {
-              opts.onModelError(loadedModel)
-            }
-            reject(exception ?? message)
-          },
-          pluginExtension
-        )
+              if (options?.onModelLoaded) {
+                options.onModelLoaded(loadedModel)
+              }
+
+              const originalDispose = loadedModel.dispose
+              loadedModel.dispose = () => {
+                // console.log('Clearing cache (cannot re-use meshes).');
+                suspenseCache[suspenseKey] = undefined
+                originalDispose.call(loadedModel)
+              }
+
+              resolve(loadedModel)
+            },
+            (event: ISceneLoaderProgressEvent): void => {
+              if (opts.reportProgress === true && sceneLoaderContext !== undefined) {
+                sceneLoaderContext!.updateProgress(event)
+              }
+              if (opts.onLoadProgress) {
+                opts.onLoadProgress(event)
+              }
+            },
+            (_: Scene, message: string, exception?: any): void => {
+              if (opts.onModelError) {
+                opts.onModelError(loadedModel)
+              }
+              reject(exception ?? message)
+            },
+            pluginExtension
+          )
 
         if (loader) {
           loadedModel.loaderName = loader.name
@@ -255,7 +260,8 @@ const useSceneLoaderWithCache = (): ((
 
       let result: LoadedModel
       let error: Nullable<Error> = null
-      let suspender: Nullable<Promise<void>> = (async () => {
+      let suspender: Nullable<Promise<void>> = null
+      suspender = (async () => {
         try {
           result = await taskPromise
         } catch (e) {
@@ -286,4 +292,6 @@ const useSceneLoaderWithCache = (): ((
   }
 }
 
+// this isn't a hook being called
+// eslint-disable-next-line react-hooks/rules-of-hooks
 export const useSceneLoader = useSceneLoaderWithCache()

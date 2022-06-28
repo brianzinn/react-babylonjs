@@ -5,16 +5,16 @@
   "keywords": [],
   "main": "src/index.jsx",
   "dependencies": {
-    "@babylonjs/core": "4.2.1",
-    "@babylonjs/gui": "4.2.1",
-    "babylonjs-hook": "0.1.0",
+    "@babylonjs/core": "^5.0.0-rc.6",
+    "@babylonjs/gui": "^5.0.0-rc.6",
+    "babylonjs-hook": "0.1.1",
     "react": "17.0.2",
     "react-babylonjs": "3.0.31",
     "react-dom": "17.0.2",
     "react-scripts": "4.0.3"
   },
   "devDependencies": {
-    "prettier": "2.5.1",
+    "prettier": "2.6.1",
     "prettier-plugin-organize-imports": "2.3.4",
     "typescript": "4.4.2"
   },

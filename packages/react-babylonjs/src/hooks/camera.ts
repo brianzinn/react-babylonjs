@@ -42,9 +42,9 @@ export const useCamera = <T extends Camera>(
 
     return () => {
       if (autoAttach === true) {
-        // canvas is only needed for < 4.1
+        // canvas is only needed for < 4.1.  Type typings broke in 5.x where there was no parameter.
         const canvas: HTMLCanvasElement = scene.getEngine()!.getRenderingCanvas()!
-        camera.detachControl(canvas)
+        ;(camera as any).detachControl(canvas)
       }
       camera.dispose()
     }

@@ -31,7 +31,7 @@ type SceneProps = {
   onScenePointerUp?: (evt: PointerInfo, scene: BabylonScene) => void
   onScenePointerMove?: (evt: PointerInfo, scene: BabylonScene) => void
   onSceneMount?: (sceneEventArgs: SceneEventArgs) => void
-  children: any
+  children: React.ReactNode
   sceneOptions?: SceneOptions
 } & FiberSceneProps
 
@@ -108,7 +108,7 @@ const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
           }
 
           if (evt && evt.pickInfo && evt.pickInfo.hit && evt.pickInfo.pickedMesh) {
-            let mesh = evt.pickInfo.pickedMesh
+            const mesh = evt.pickInfo.pickedMesh
             if (typeof props.onMeshPicked === 'function') {
               props.onMeshPicked(mesh, scene)
             } else {

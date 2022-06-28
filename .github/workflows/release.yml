@@ -13,43 +13,53 @@ on:
         default: ' ()'
 # push:
 #    branches: [ master ]
+# NOTE: workspaces have a bunch of issues with npm version!  'npm version' doesn't add a commit + tag :(
+#       once there are multiple packages can revisit the step that commits.
   
 jobs:
   release:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+      - run: |
+          git config user.name "Brian Zinn"
+          git config user.email "github@wakeskate.com"
       - uses: actions/setup-node@v1
         with:
-          node-version: '12.x'
+          node-version: '16.13.2'
           registry-url: 'https://registry.npmjs.org'
           scope: brianzinn
-          
-      - name: Configure git
+      - name: install workspace
         run: |
-          git config user.email "github@wakeskate.com"
-          git config user.name "Brian Zinn"
-
-      - name: install build test coverage
+          npm install --legacy-peer-deps
+      - name: build test coverage
+        working-directory: ./packages/react-babylonjs
         run: |
-          yarn install
-          yarn build
-          yarn test:coverage
+          npm run build
+          npm run test:coverage
       - name: version-changelog-commit
         run: |
-          npm version ${{ github.event.inputs.npmVersion }} -m "release %s :package:${{ github.event.inputs.comment }}"
-          git push && git push --tags
-          PACKAGE_VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g' | tr -d '[[:space:]]')
+          npm version ${{ github.event.inputs.npmVersion }} -w packages/react-babylonjs
+          git status
+          PACKAGE_VERSION=$(cat packages/react-babylonjs/package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g' | tr -d '[[:space:]]')
+          git add packages/react-babylonjs/package.json
+          git commit -m "release ${PACKAGE_VERSION} :package:${{ github.event.inputs.comment }}"
+          git status
+          git tag -a v${PACKAGE_VERSION} -m "version ${PACKAGE_VERSION}"
+          git push --follow-tags
+          git status
           sleep 1m
-          ./node_modules/.bin/gren release --tags=v${PACKAGE_VERSION}
+          cd packages/react-babylonjs
+          ../../node_modules/.bin/gren release --tags=v${PACKAGE_VERSION}
         env:
           GREN_GITHUB_TOKEN: ${{ secrets.GREN_GITHUB_TOKEN }}
       - name: publish npm
+        working-directory: ./packages/react-babylonjs
         run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: publish to coveralls.io
         uses: coverallsapp/github-action@v1.1.2
         with:
-          github-token: ${{ github.token }} 
+          github-token: ${{ github.token }}
+          path-to-lcov: ./packages/react-babylonjs/coverage/lcov.info

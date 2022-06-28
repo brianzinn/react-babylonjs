@@ -5,7 +5,7 @@
   "version": "0.0.1",
   "dependencies": {
     "@babel/plugin-proposal-export-default-from": "^7.12.13",
-    "@babylonjs/core": "^4.2.1",
+    "@babylonjs/core": "^5.0.0-rc.6",
     "@devtool/gatsby-mdx-plugin": "*",
     "@emotion/react": "^11.1.5",
     "@emotion/styled": "^11.3.0",
@@ -20,7 +20,7 @@
     "@styled-icons/fa-brands": "^10.26.0",
     "@styled-icons/fa-solid": "^10.32.0",
     "algoliasearch": "^4.9.1",
-    "babylonjs-hook": "^0.1.0",
+    "babylonjs-hook": "^0.1.1",
     "dotenv": "^8.5.1",
     "emotion": "^11.0.0",
     "emotion-server": "^11.0.0",
@@ -91,7 +91,7 @@
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "^7.23.2",
     "gatsby-plugin-remove-trailing-slashes": "^3.4.0",
-    "prettier": "^2.5.1",
+    "prettier": "^2.6.1",
     "prettier-plugin-organize-imports": "^2.3.4",
     "prism-react-renderer": "^1.2.0",
     "typescript": "^4.5.4"

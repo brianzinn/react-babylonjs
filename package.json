@@ -8,6 +8,7 @@
       "devtool/gatsby-mdx-plugin",
       "devtool/*",
       "packages/react-babylonjs",
+      "packages/extra",
       "packages/static",
       "packages/storybook",
       "packages/*"
@@ -25,7 +26,7 @@
     "@parcel/transformer-typescript-types": "^2.2.0",
     "husky": ">=6",
     "lint-staged": ">=10",
-    "prettier": "^2.5.1",
+    "prettier": "^2.6.1",
     "prettier-plugin-organize-imports": "^2.3.4",
     "typescript": ">=3.0.0"
   },

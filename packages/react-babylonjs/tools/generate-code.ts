@@ -1,3 +1,4 @@
+import { Nullable } from '@babylonjs/core/types'
 import camelCase from 'lodash.camelcase'
 import { exit } from 'process'
 /**
@@ -33,6 +34,7 @@ import {
   SyntaxKind,
   ts,
   Type,
+  VariableDeclaration,
   VariableDeclarationKind,
   VariableStatement,
   WriterFunction,
@@ -117,7 +119,7 @@ const addHostElement = (className: string, babylonjsClassDeclaration: ClassDecla
     _hostElementMap.add(className) // prevent duplicates
     const { intersectionType } = Writers
 
-    const moduleDeclaration = getModuleDeclarationFromClassDeclaration(babylonjsClassDeclaration)
+    const moduleDeclaration = getModuleDeclarationFromDeclaration(babylonjsClassDeclaration)
 
     let classPropIntersection = intersectionType(
       intersectionType(
@@ -189,7 +191,6 @@ const classesToGenerate: String[] = [
 
   // decides what is generated (useful to remove some to speed up debugging)
   'Camera',
-  'MeshBuilder',
   'Material',
   'Light',
   'Control',
@@ -214,7 +215,10 @@ const classesToGenerate: String[] = [
   'EngineView',
   'Viewport',
   'Layer',
+  'MaterialPluginBase',
 ]
+
+let MeshBuilderVariableDeclaration: Nullable<VariableDeclaration> = null
 
 classesToGenerate.forEach((className) => classesOfInterest.set(className, undefined))
 
@@ -261,14 +265,14 @@ const capitalize = (value: string) => {
  * @param value
  */
 
-const getModuleDeclarationFromClassDeclaration = (
-  classDeclaration: ClassDeclaration
+const getModuleDeclarationFromDeclaration = (
+  declaration: ClassDeclaration | VariableDeclaration
 ): GeneratedModuleDeclaration => {
-  const sourceFile = classDeclaration.getSourceFile()
+  const sourceFile = declaration.getSourceFile()
 
   const match = sourceFile.getFilePath().match(`node_modules/(.*)${sourceFile.getExtension()}`)
 
-  const className = classDeclaration.getName()!
+  const className = declaration.getName()!
   let moduleSpecifier: string
   let classAlias: string
 
@@ -287,7 +291,7 @@ const getModuleDeclarationFromClassDeclaration = (
     )
     // ie: '@babylonjs/core' -> BabylonjsCore
     const aliasPrefix = packageName
-      .substr(1)
+      .substring('@'.length)
       .split('/')
       .map((x) => capitalize(x))
       .join('')
@@ -440,7 +444,7 @@ const addSourceClass = (classDeclaration: ClassDeclaration, sourceFiles: SourceF
   const findByKeyword = classesOfKeywordInterest.some((keyword) => className.includes(keyword))
 
   if (classesOfInterest.has(className) || findByKeyword) {
-    const moduleDeclaration = getModuleDeclarationFromClassDeclaration(classDeclaration)
+    const moduleDeclaration = getModuleDeclarationFromDeclaration(classDeclaration)
 
     addNamedImportToFile(moduleDeclaration, sourceFiles, true)
     classesOfInterest.set(className, {
@@ -454,9 +458,10 @@ const addProject = (packageNames: string[], files: string[], sourceFiles: Source
   const project = new Project({})
 
   packageNames.forEach((packageName) => {
-    project.addSourceFilesAtPaths(
-      path.join(__dirname, '/../node_modules', packageName, '/**/*.d.ts')
-    )
+    // workspaces are hoisted to root (./node_modules)
+    const fullPath = path.join(__dirname, '../../../node_modules', packageName, '/**/*.d.ts')
+    console.log('adding package:', fullPath)
+    project.addSourceFilesAtPaths(fullPath)
   })
 
   files.forEach((file) => {
@@ -466,6 +471,12 @@ const addProject = (packageNames: string[], files: string[], sourceFiles: Source
   project.getSourceFiles().forEach((sourceFile: SourceFile) => {
     sourceFile.getClasses().forEach((classDeclaration: ClassDeclaration) => {
       addSourceClass(classDeclaration, sourceFiles)
+    })
+
+    sourceFile.getVariableDeclarations().forEach((variableDeclaration: VariableDeclaration) => {
+      if (variableDeclaration.getName() === 'MeshBuilder') {
+        MeshBuilderVariableDeclaration = variableDeclaration
+      }
     })
 
     sourceFile.getModules().forEach((ns: ModuleDeclaration) => {
@@ -486,6 +497,7 @@ const addProject = (packageNames: string[], files: string[], sourceFiles: Source
           monkeyPatchInterfaces.set(interfaceDeclaration.getName(), [interfaceDeclaration])
         }
       })
+
       ns.getClasses().forEach((classDeclaration: ClassDeclaration) => {
         addSourceClass(classDeclaration, sourceFiles)
       })
@@ -533,21 +545,18 @@ const createdFactoryClasses: string[] = []
  * Create host element from class declaration static (creation) methods
  */
 const createFactoryClass = (
-  factoryClassName: string,
+  fromClassName: string,
+  declarations: Record<string, MethodDeclaration | FunctionDeclaration>,
   prefix: string,
   metadata: InstanceMetadataParameter,
   generatedCodeSourceFile: SourceFile,
   generatedPropsSourceFile: SourceFile
 ) => {
-  let factoryBuilderTuple: ClassNameSpaceTuple = classesOfInterest.get(factoryClassName)!
-
-  let factoryMethods: MethodDeclaration[] = factoryBuilderTuple.classDeclaration.getStaticMethods()
-
-  for (const method of factoryMethods) {
-    const methodName: string = method.getName()
+  for (const methodName of Object.keys(declarations)) {
+    const method = declarations[methodName]
     if ((methodName && methodName.startsWith('Create')) || methodName.startsWith('Extrude')) {
       let factoryType: string = methodName.startsWith('Create')
-        ? methodName.substr('Create'.length)
+        ? methodName.substring('Create'.length)
         : methodName // ie: ExtrudePolygon, ExtrudeShape & ExtrudeShapeCustom
       factoryType = prefix + factoryType
       createdFactoryClasses.push(factoryType)
@@ -570,18 +579,19 @@ const createFactoryClass = (
 
       addCreateInfoFromFactoryMethod(
         method,
-        camelCase(factoryBuilderTuple.classDeclaration.getName()!),
+        camelCase(fromClassName),
         methodName,
         newClassDeclaration,
         '@babylonjs/core',
         generatedCodeSourceFile,
         generatedPropsSourceFile
       )
+      // console.log(`  > create info: ${fromClassName}.${methodName}`);
       addMetadata(newClassDeclaration, undefined /* no original class */, metadata)
     }
   }
   console.log(
-    `${factoryClassName} Factory - ${createdFactoryClasses
+    `${fromClassName} Factory - ${createdFactoryClasses
       .sort((a, b) => a.localeCompare(b))
       .map((c) => classToIntrinsic(c).replace(/['\u2019]/g, ''))
       .join(', ')}`
@@ -592,7 +602,7 @@ const addClassDeclarationFromFactoryMethod = (
   generatedCodeSourceFile: SourceFile,
   className: string,
   classDeclaration: ClassDeclaration,
-  factoryMethod: MethodDeclaration,
+  factoryMethod: MethodDeclaration | FunctionDeclaration,
   extra?: (cd: ClassDeclaration) => void
 ) => {
   const newClassDeclaration = generatedCodeSourceFile.addClass({
@@ -719,8 +729,8 @@ const parameterShouldBeExpanded = (parameter: ParameterDeclaration): boolean => 
 }
 
 const addCreateInfoFromFactoryMethod = (
-  method: MethodDeclaration,
-  factoryClass: string,
+  method: MethodDeclaration | FunctionDeclaration,
+  classMapKey: string,
   factoryMethod: string,
   targetClass: ClassDeclaration,
   namespace: string,
@@ -783,7 +793,7 @@ const addCreateInfoFromFactoryMethod = (
 
   let value: CreateInfo = {
     creationType: CreationType.FactoryMethod,
-    libraryLocation: factoryClass,
+    libraryLocation: classMapKey,
     namespace,
     factoryMethod: factoryMethod,
     parameters: methodParameters,
@@ -832,7 +842,7 @@ function addReadonlyClasses(
     if (className !== undefined && className.endsWith('Configuration')) {
       const classNamespaceTuple: ClassNameSpaceTuple = {
         classDeclaration: typeClassDeclarations[0],
-        moduleDeclaration: getModuleDeclarationFromClassDeclaration(typeClassDeclarations[0]),
+        moduleDeclaration: getModuleDeclarationFromDeclaration(typeClassDeclarations[0]),
       }
       console.log(
         ` >> adding ${classDeclaration.getName()!}.${property.getName()} (read-only) property type '${typeClassDeclarations[0].getName()}'`
@@ -1005,7 +1015,7 @@ const createClassDeclaration = (
   const baseClass: ClassDeclaration | undefined = classDeclaration.getBaseClass() // no mix-ins in BabylonJS AFAIK, but would otherwise use baseTypes()
   const className: string = classDeclaration.getName()!
 
-  const importedClassDeclaration = getModuleDeclarationFromClassDeclaration(classDeclaration)
+  const importedClassDeclaration = getModuleDeclarationFromDeclaration(classDeclaration)
   addNamedImportToFile(
     importedClassDeclaration,
     [generatedCodeSourceFile, generatedPropsSourceFile],
@@ -1123,7 +1133,7 @@ function isPrimitiveType(node: Node<ts.Node>): boolean {
     return false
   }
 
-  const isTypeRef = Node.isTypeReferenceNode(node)
+  const isTypeRef = Node.isTypeNode(node) // NOTE: was .isTypeReferenceNode, which was removed... did not check if same.
   if (isTypeRef && node.getText().startsWith('Null')) {
     const firstNode: Node<ts.Node> | undefined = node
       .forEachDescendantAsArray()
@@ -1302,7 +1312,8 @@ const addPropsAndHandlerClasses = (
           if (
             propertyDescendantsParametersAndExpressions.every(
               (desc) =>
-                Node.isExpression(desc) || Node.isTypeReferenceNode(desc) /* ie: Nullable<> */
+                // NOTE: .isTypeNode was .isTypeReferenceNode, which was removed... did not check if same.
+                Node.isExpression(desc) || Node.isTypeNode(desc) /* ie: Nullable<> */
             )
           ) {
             allPrimitives = propertyDescendantsParametersAndExpressions.reduce<boolean>(
@@ -1694,7 +1705,7 @@ const createClassesDerivedFrom = (
   for (let i = 0; i < classesToCreate.length; i++) {
     const classDeclaration = classesToCreate[i]
 
-    const moduleDeclaration = getModuleDeclarationFromClassDeclaration(classDeclaration)
+    const moduleDeclaration = getModuleDeclarationFromDeclaration(classDeclaration)
     addNamedImportToFile(
       moduleDeclaration,
       [generatedCodeSourceFile, generatedPropsSourceFile],
@@ -1852,6 +1863,7 @@ const createSingleClass = (
   const classToGenerate = classesOfInterest.get(classOfInterest)
 
   if (classToGenerate === undefined) {
+    console.warn(` >>> skipping single class ${classOfInterest}`)
     return // skipping
   }
 
@@ -1963,7 +1975,7 @@ const generateCode = async () => {
         },
         {
           name: 'ref',
-          type: 'Ref<ReactNode>',
+          type: 'Ref<T>',
           hasQuestionToken: true,
         },
       ],
@@ -2030,7 +2042,15 @@ const generateCode = async () => {
     })
   }
 
-  if (classesOfInterest.get('Camera') !== undefined) {
+  const isDefined = (classOfInterest: string): boolean => {
+    const found = classesOfInterest.get(classOfInterest) !== undefined
+    if (!found) {
+      console.warn(` >>> Not generating '${classOfInterest}'.`)
+    }
+    return found
+  }
+
+  if (isDefined('Camera')) {
     createClassesInheritedFrom(
       generatedCodeSourceFile,
       generatedPropsSourceFile,
@@ -2042,9 +2062,28 @@ const generateCode = async () => {
     )
   }
 
-  if (classesOfInterest.get('MeshBuilder') !== undefined) {
+  if (MeshBuilderVariableDeclaration !== null) {
+    // MeshBuilderDeclaration
+    const moduleDeclaration = getModuleDeclarationFromDeclaration(MeshBuilderVariableDeclaration)
+    addNamedImportToFile(
+      moduleDeclaration,
+      [generatedCodeSourceFile, generatedPropsSourceFile],
+      true // We need MeshBuilder in classesMap for factory method
+    )
+
+    const properties = MeshBuilderVariableDeclaration.getFirstChildByKind(
+      SyntaxKind.TypeLiteral
+    )!.getProperties()
+
+    const meshBuilderDeclarations: Record<string, FunctionDeclaration> = {}
+    for (const property of properties) {
+      const symbol = property.getType().getSymbol()!
+      meshBuilderDeclarations[property.getName()] =
+        symbol.getDeclarations()[0] as FunctionDeclaration
+    }
     createFactoryClass(
       'MeshBuilder',
+      meshBuilderDeclarations,
       '',
       {
         acceptsMaterials: true,
@@ -2056,7 +2095,7 @@ const generateCode = async () => {
     )
   }
 
-  if (classesOfInterest.get('Material')) {
+  if (isDefined('Material')) {
     createClassesInheritedFrom(
       generatedCodeSourceFile,
       generatedPropsSourceFile,
@@ -2068,7 +2107,7 @@ const generateCode = async () => {
     )
   }
 
-  if (classesOfInterest.get('Light')) {
+  if (isDefined('Light')) {
     const fromClassName = (className: string): InstanceMetadataParameter => {
       const metadata: InstanceMetadataParameter = {
         isNode: true,
@@ -2095,7 +2134,7 @@ const generateCode = async () => {
     )
   }
 
-  if (classesOfInterest.get('Control')) {
+  if (isDefined('Control')) {
     const instanceMetadaFromClassName = (className: string): InstanceMetadataParameter => {
       const DEFAULT = { isGUI2DControl: true }
       if (className.substr(CLASS_NAME_PREFIX.length) === 'Grid') {
@@ -2117,7 +2156,7 @@ const generateCode = async () => {
     )
   }
 
-  if (classesOfInterest.get('Control3D')) {
+  if (isDefined('Control3D')) {
     createClassesInheritedFrom(
       generatedCodeSourceFile,
       generatedPropsSourceFile,
@@ -2129,7 +2168,7 @@ const generateCode = async () => {
     )
   }
 
-  if (classesOfInterest.get('EffectLayer')) {
+  if (isDefined('EffectLayer')) {
     const metadataFromClassName = (className: string) => ({
       isEffectLayer: true,
       isGlowLayer: className === `${CLASS_NAME_PREFIX}GlowLayer`,
@@ -2142,7 +2181,7 @@ const generateCode = async () => {
     )
   }
 
-  if (classesOfInterest.get('ThinTexture')) {
+  if (isDefined('ThinTexture')) {
     const ADT_CLASSNAME = `${CLASS_NAME_PREFIX}AdvancedDynamicTexture`
 
     const fromClassName = (className: string): InstanceMetadataParameter => {
@@ -2158,8 +2197,17 @@ const generateCode = async () => {
 
     const onTexturesCreate = (classDeclaration: ClassDeclaration) => {
       if (classDeclaration.getName() === ADT_CLASSNAME) {
+        const staticMethods = classesOfInterest
+          .get('AdvancedDynamicTexture')!
+          .classDeclaration.getStaticMethods()
+        const adtMethodsMap: Record<string, MethodDeclaration> = {}
+        staticMethods.forEach((method) => {
+          adtMethodsMap[method.getName()] = method
+        })
+
         createFactoryClass(
           'AdvancedDynamicTexture',
+          adtMethodsMap,
           'ADT',
           {
             isTexture: true,
@@ -2180,7 +2228,7 @@ const generateCode = async () => {
     )
   }
 
-  if (classesOfInterest.get('PostProcessRenderPipeline')) {
+  if (isDefined('PostProcessRenderPipeline')) {
     createClassesInheritedFrom(
       generatedCodeSourceFile,
       generatedPropsSourceFile,
@@ -2189,7 +2237,7 @@ const generateCode = async () => {
     )
   }
 
-  if (classesOfInterest.get('PostProcess')) {
+  if (isDefined('PostProcess')) {
     createClassesInheritedFrom(
       generatedCodeSourceFile,
       generatedPropsSourceFile,
@@ -2198,7 +2246,7 @@ const generateCode = async () => {
     )
   }
 
-  if (classesOfInterest.get('Gizmo')) {
+  if (isDefined('Gizmo')) {
     createClassesInheritedFrom(
       generatedCodeSourceFile,
       generatedPropsSourceFile,
@@ -2260,6 +2308,7 @@ const generateCode = async () => {
     undefined,
     { isUtilityLayerRenderer: true }
   )
+  createSingleClass('MaterialPluginBase', generatedCodeSourceFile, generatedPropsSourceFile)
 
   // These "delay creation" we want to also not generate constructors?
   createSingleClass(
@@ -2304,7 +2353,9 @@ const generateCode = async () => {
     const classDeclaration = value.classDeclaration
     addHostElement(classDeclaration.getName()!, classDeclaration)
 
-    if (classDeclaration.getBaseClass() !== undefined) {
+    const baseClass = classDeclaration.getBaseClass()
+
+    if (baseClass !== undefined && baseClass.getName() !== 'MaterialPluginBase') {
       console.error(
         ' >> READONLY property with base class detected (will not generate correctly):',
         classDeclaration.getBaseClass()?.getName()
@@ -2314,7 +2365,7 @@ const generateCode = async () => {
     console.log(` > ${classToIntrinsic(className)}`)
     const newClassDeclaration = createClassDeclaration(
       classDeclaration,
-      classDeclaration,
+      baseClass !== undefined ? baseClass : classDeclaration,
       generatedCodeSourceFile,
       generatedPropsSourceFile,
       extra
@@ -2348,9 +2399,7 @@ const generateCode = async () => {
     const sceneTuple: ClassNameSpaceTuple = classesOfInterest.get('Scene')!
     const className: string = sceneTuple.classDeclaration.getName()!
 
-    const sceneClassDeclaration = getModuleDeclarationFromClassDeclaration(
-      sceneTuple.classDeclaration
-    )
+    const sceneClassDeclaration = getModuleDeclarationFromDeclaration(sceneTuple.classDeclaration)
 
     addPropsAndHandlerClasses(
       generatedCodeSourceFile,
@@ -2412,7 +2461,7 @@ const generateCode = async () => {
     declarations: [
       {
         name: 'classesMap',
-        type: 'object',
+        type: 'Record<string, any>',
         initializer: `{\n${Array.from(factoryClasses.entries())
           .map(
             ([alias, className]) =>
@@ -2461,11 +2510,15 @@ const generateCode = async () => {
   console.log('saving created content...')
 
   const saveFile = async (file: SourceFile): Promise<void> => {
+    console.log(` > ${file.getFilePath()}`)
     const formatCodeSettings: FormatCodeSettings = {
       newLineCharacter: '\n',
       indentSize: 2,
     }
-    await file.fixUnusedIdentifiers().organizeImports(formatCodeSettings).save()
+    await file
+      // .fixUnusedIdentifiers()
+      .organizeImports(formatCodeSettings)
+      .save()
   }
 
   await saveFile(generatedCodeSourceFile)
@@ -2473,9 +2526,7 @@ const generateCode = async () => {
 }
 
 console.time('total-duration')
-const result = generateCode()
-
-result
+generateCode()
   .then(() => {
     console.log('completed without errors')
   })

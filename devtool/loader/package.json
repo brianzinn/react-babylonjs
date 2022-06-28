@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@s-libs/micro-dash": "12",
-    "prettier": "^2.5.1",
+    "prettier": "^2.6.1",
     "remark-codesandbox": "^0.10.1",
     "to-vfile": "^7.2.3",
     "tslib": "^2.3.1",
