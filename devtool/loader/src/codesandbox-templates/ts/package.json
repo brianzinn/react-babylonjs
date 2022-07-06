@@ -5,8 +5,8 @@
   "keywords": [],
   "main": "src/index.tsx",
   "dependencies": {
-    "@babylonjs/core": "^5.0.0-rc.6",
-    "@babylonjs/gui": "^5.0.0-rc.6",
+    "@babylonjs/core": "^5.1.0",
+    "@babylonjs/gui": "^5.1.0",
     "babylonjs-hook": "0.1.1",
     "react": "17.0.2",
     "react-babylonjs": "3.0.31",
