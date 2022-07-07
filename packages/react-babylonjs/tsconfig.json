@@ -16,6 +16,7 @@
     "declarationDir": "dist/types",
     "outDir": "dist",
     "allowUnusedLabels": true,
+    "types": ["node"],
     "typeRoots": ["node_modules/@types"]
   },
   "include": ["src"],
