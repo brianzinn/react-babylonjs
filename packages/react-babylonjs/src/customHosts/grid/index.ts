@@ -1,4 +1,3 @@
-import { Key, ReactNode, Ref } from 'react'
 import {
   checkPrimitiveDiff,
   HasPropsHandlers,
@@ -6,24 +5,9 @@ import {
   PropsHandler,
 } from '../../PropsHandler'
 
-export type GridNode = {
-  key?: Key
-  ref?: Ref<ReactNode> // will return value and unit?
-}
-
 export type RowOrColumnDefinitionProps = {
   value: number
   unit?: number
-}
-
-declare global {
-  // eslint-disable-next-line @typescript-eslint/no-namespace
-  namespace JSX {
-    interface IntrinsicElements {
-      rowDefinition: RowOrColumnDefinitionProps & GridNode
-      columnDefinition: RowOrColumnDefinitionProps & GridNode
-    }
-  }
 }
 
 export class RowOrColumnDefinitionPropsHandlers

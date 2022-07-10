@@ -1957,6 +1957,11 @@ const generateCode = async () => {
     namedImports: ALL_CUSTOM_PROPS,
   })
 
+  generatedPropsSourceFile.addImportDeclaration({
+    moduleSpecifier: './customHosts/grid/',
+    namedImports: ['RowOrColumnDefinitionProps'],
+  })
+
   const mainTypeAlias = generatedPropsSourceFile.addTypeAlias({
     name: 'BabylonNode',
     type: Writers.objectType({
@@ -2451,6 +2456,25 @@ const generateCode = async () => {
           )
         }
       })
+    })
+  })
+
+  // not detected as not part of babylon.js
+  const customHosts = [
+    {
+      className: 'rowDefinition',
+      propsName: 'RowOrColumnDefinitionProps',
+    },
+    {
+      className: 'columnDefinition',
+      propsName: 'RowOrColumnDefinitionProps',
+    },
+  ]
+
+  customHosts.forEach((customHost) => {
+    INTRINSIC_ELEMENTS.addProperty({
+      name: customHost.className,
+      type: Writers.intersectionType(customHost.propsName, `BabylonNode<${customHost.propsName}>`),
     })
   })
 

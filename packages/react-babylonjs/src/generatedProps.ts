@@ -372,6 +372,7 @@ import { MRDLBackplateMaterial as BabylonjsGuiMRDLBackplateMaterial } from '@bab
 import { MRDLSliderBarMaterial as BabylonjsGuiMRDLSliderBarMaterial } from '@babylonjs/gui/3D/materials/mrdl/mrdlSliderBarMaterial.js'
 import { MRDLSliderThumbMaterial as BabylonjsGuiMRDLSliderThumbMaterial } from '@babylonjs/gui/3D/materials/mrdl/mrdlSliderThumbMaterial.js'
 import { Key, ReactNode, Ref } from 'react'
+import { RowOrColumnDefinitionProps } from './customHosts/grid/'
 import {
   AbstractMeshCustomProps,
   ADTCustomProps,
@@ -1068,6 +1069,8 @@ declare global {
       defaultBehavior: FiberDefaultBehaviorProps &
         FiberDefaultBehaviorPropsCtor &
         BabylonNode<BabylonjsGuiDefaultBehavior>
+      rowDefinition: RowOrColumnDefinitionProps & BabylonNode<RowOrColumnDefinitionProps>
+      columnDefinition: RowOrColumnDefinitionProps & BabylonNode<RowOrColumnDefinitionProps>
     }
   }
 }
