@@ -55,7 +55,7 @@
     "@types/node": "^14.18.21",
     "@types/react": "^18.0.14",
     "@types/react-dom": "^18.0.5",
-    "@types/react-reconciler": "^0.26.4",
+    "@types/react-reconciler": "^0.26.7",
     "@types/sinon": "^9.0.10",
     "@typescript-eslint/eslint-plugin": "^4.29.1",
     "@typescript-eslint/parser": "^4.29.1",
@@ -87,10 +87,15 @@
   "peerDependencies": {
     "@babylonjs/core": "5.x",
     "@babylonjs/gui": "5.x",
-    "react": ">=17",
-    "react-dom": ">=17"
+    "react": ">=18",
+    "react-dom": ">=18"
   },
   "dependencies": {
-    "react-reconciler": "^0.26.2"
+    "react-reconciler": "^0.27.0"
+  },
+  "peerDependenciesMeta": {
+    "react-dom": {
+      "optional": true
+    }
   }
 }
