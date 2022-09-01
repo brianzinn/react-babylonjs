@@ -9,7 +9,7 @@ import { AbstractMesh } from '@babylonjs/core/Meshes/abstractMesh'
 import '@babylonjs/core/Rendering/boundingBoxRenderer'
 import { Scene } from '@babylonjs/core/scene'
 import assert from 'assert'
-import React from 'react'
+import React, { ReactElement } from 'react'
 import sinon from 'sinon'
 import { SceneContext } from '../src/hooks/scene'
 import { CustomPropsHandler, PropChangeType } from '../src/PropsHandler'
@@ -56,6 +56,29 @@ describe(' > Reconciler/Render tests', function testSuite() {
     return container
   }
 
+  const doRender = (
+    reconciler: ReconcilerInstance,
+    sceneGraph: ReactElement<any>,
+    container: Container
+  ): Promise<boolean> => {
+    console.log('calling render')
+    const renderPromisified = new Promise<boolean>((resolve, reject) => {
+      const handle = setTimeout(() => {
+        reject('took too long')
+      }, 1000)
+      reconciler.render(
+        sceneGraph,
+        container,
+        () => {
+          clearTimeout(handle)
+          resolve(true)
+        },
+        null
+      )
+    })
+    return renderPromisified
+  }
+
   it('Should create a basic scene with a box.', async function test() {
     const container: Container = getRootContainerInstance()
     const reconciler: ReconcilerInstance = createReconciler({})
@@ -80,15 +103,9 @@ describe(' > Reconciler/Render tests', function testSuite() {
         </box>
       </SceneContext.Provider>
     )
-    reconciler.render(
-      sceneGraph,
-      container,
-      () => {
-        /* empty for now */
-      },
-      null
-    )
 
+    const result = await doRender(reconciler, sceneGraph, container)
+    assert.strictEqual(result, true, 'render callback should have returned true')
     assert.ok(container.scene !== null, 'scene should be non-null')
     const box: AbstractMesh | undefined = container.scene.meshes.find((m) => m.name === 'box')
     assert.ok(
@@ -164,14 +181,9 @@ describe(' > Reconciler/Render tests', function testSuite() {
         </box>
       </SceneContext.Provider>
     )
-    reconciler.render(
-      sceneGraph,
-      container,
-      () => {
-        /* empty for now */
-      },
-      null
-    )
+
+    const result = await doRender(reconciler, sceneGraph, container)
+    assert.strictEqual(result, true, 'render callback should have returned true')
 
     assert.ok(container.scene !== null, 'scene should be non-null')
 
@@ -212,14 +224,9 @@ describe(' > Reconciler/Render tests', function testSuite() {
         </glowLayer>
       </SceneContext.Provider>
     )
-    reconciler.render(
-      sceneGraph,
-      container,
-      () => {
-        /* empty for now */
-      },
-      null
-    )
+
+    const result = await doRender(reconciler, sceneGraph, container)
+    assert.strictEqual(result, true, 'render callback should have returned true')
 
     assert.ok(container.scene !== null, 'scene should be non-null')
     const box: AbstractMesh | undefined = container.scene.meshes.find((m) => m.name === 'box')
