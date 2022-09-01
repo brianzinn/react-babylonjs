@@ -89,8 +89,15 @@ describe(' > Reconciler/Render tests', function testSuite() {
       null
     )
 
+    assert.ok(container.scene !== null, 'scene should be non-null')
     const box: AbstractMesh | undefined = container.scene.meshes.find((m) => m.name === 'box')
-    assert.ok(box !== undefined)
+    assert.ok(
+      box !== undefined,
+      `Expected to find 'box', but found only '${container.scene.meshes
+        .map((m) => m.name)
+        .join(',')}'`
+    )
+    assert.ok(box.material !== null, 'Box material should be non-null')
     assert.strictEqual('boxMat', box.material.name)
   })
 
@@ -166,8 +173,15 @@ describe(' > Reconciler/Render tests', function testSuite() {
       null
     )
 
+    assert.ok(container.scene !== null, 'scene should be non-null')
+
     const camera: Camera | undefined = container.scene.cameras.find((c) => c.name === 'camera1')
-    assert.ok(camera !== undefined)
+    assert.ok(
+      camera !== undefined,
+      `Camera 'camera1' should be defined.  Found: '${container.scene.cameras
+        .map((c) => c.name)
+        .join(',')}'`
+    )
     assert.ok(camera instanceof ArcRotateCamera, 'Should be ArcRotateCamera')
     assert.ok(Vector3.Up().equals(camera.target), 'should be the same as Vector3.Up')
   })
@@ -207,8 +221,12 @@ describe(' > Reconciler/Render tests', function testSuite() {
       null
     )
 
+    assert.ok(container.scene !== null, 'scene should be non-null')
     const box: AbstractMesh | undefined = container.scene.meshes.find((m) => m.name === 'box')
-    assert.ok(box !== undefined)
+    assert.ok(
+      box !== undefined,
+      `box should be found: '${container.scene.meshes.map((m) => m.name).join(',')}'`
+    )
 
     const effectLayers: EffectLayer[] = container.scene.effectLayers
     assert.strictEqual(1, effectLayers.length, 'glow layer should be part of scene')
