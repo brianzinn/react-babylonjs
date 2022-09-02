@@ -4,6 +4,12 @@ import { Scene } from '@babylonjs/core/scene.js'
 import { Nullable } from '@babylonjs/core/types.js'
 import { ValueAndUnit } from '@babylonjs/gui'
 import ReactReconciler, { Fiber, HostConfig } from 'react-reconciler'
+import {
+  DiscreteEventPriority,
+  ContinuousEventPriority,
+  DefaultEventPriority,
+} from 'react-reconciler/constants'
+
 import { CreationType, GeneratedParameter } from './codeGenerationDescriptors'
 import { CreatedInstance, CreatedInstanceMetadata } from './CreatedInstance'
 import * as CUSTOM_HOSTS from './customHosts'
@@ -39,6 +45,53 @@ export type Container = {
 type HostContext = Container
 type TimeoutHandle = number | undefined
 type NoTimeout = number
+
+// TODO: get from react-reconciler directly via import - /constants in typings, but not in NPM.
+// const DiscreteEventPriority = 0b0000000000000000000000000000001;
+// const ContinuousEventPriority = 0b0000000000000000000000000000100;
+// const DefaultEventPriority = 0b0000000000000000000000000010000;
+
+// https://github.com/facebook/react/tree/main/packages/react-reconciler#getcurrenteventpriority
+// https://github.com/facebook/react/blob/main/packages/react-dom/src/events/ReactDOMEventListener.js#L410
+function getEventPriority(): number {
+  // https://developer.mozilla.org/en-US/docs/Web/API/Window/event
+  let domEventName = window?.event?.type
+  switch (domEventName /* : DOMEventName */) {
+    case 'click':
+    case 'contextmenu':
+    case 'dblclick':
+    case 'dragend':
+    case 'dragstart':
+    case 'mousedown':
+    case 'mouseup':
+    case 'pointercancel':
+    case 'pointerdown':
+    case 'pointerup':
+      return DiscreteEventPriority
+    case 'drag':
+    case 'dragenter':
+    case 'dragexit':
+    case 'dragleave':
+    case 'dragover':
+    case 'mousemove':
+    case 'mouseout':
+    case 'mouseover':
+    // Not used by React but could be by user code:
+    // eslint-disable-next-line no-fallthrough
+    case 'mouseenter':
+    case 'mouseleave':
+    case 'pointermove':
+    case 'pointerout':
+    case 'pointerover':
+    case 'pointerenter':
+    case 'pointerleave':
+    case 'wheel':
+      return ContinuousEventPriority
+    default:
+      // Native fallback
+      return DefaultEventPriority
+  }
+}
 
 function createCreatedInstance<T, U extends HasPropsHandlers<any>>(
   className: string,
@@ -184,9 +237,9 @@ const ReactBabylonJSHostConfig: HostConfig<
   Props,
   Container,
   HostCreatedInstance<any>,
-  Record<string, never>,
-  Record<string, never>,
-  Record<string, never>,
+  Record<string, never>, // text
+  Record<string, any>, // suspense
+  Record<string, any>, // hydratable
   any /* this is a babylonjs object */,
   HostContext,
   UpdatePayload,
@@ -194,9 +247,8 @@ const ReactBabylonJSHostConfig: HostConfig<
   TimeoutHandle,
   NoTimeout
 > & {
-  hideInstance: (instance: HostCreatedInstance<any>) => void
-  unhideInstance: (instance: HostCreatedInstance<any>, props: Props) => void
-  clearContainer: (container: Container) => void
+  // TODO: see if still needed (compare typings 28.0)
+  now: () => number
 } = {
   // This has the reconciler include in call chain ie: appendChild, removeChild
   get supportsMutation(): boolean {
@@ -240,6 +292,10 @@ const ReactBabylonJSHostConfig: HostConfig<
     rootContainerInstance: Container
   ): HostContext => {
     return parentHostContext
+  },
+
+  getCurrentEventPriority(): number {
+    return getEventPriority()
   },
 
   prepareUpdate(
@@ -620,6 +676,10 @@ const ReactBabylonJSHostConfig: HostConfig<
   //   return false;
   // },
 
+  detachDeletedInstance(instance: HostCreatedInstance<any>): void {
+    /* empty */
+  },
+
   hideInstance(instance: HostCreatedInstance<any>): void {
     /* empty */
   },
@@ -755,6 +815,23 @@ const ReactBabylonJSHostConfig: HostConfig<
   // text-content nodes are not used.  treated as a leaf node.  children are not traversed.  calls methods like createTextInstance(...)
   shouldSetTextContent: (type: string, props: any) => {
     return false
+  },
+
+  beforeActiveInstanceBlur: () => {
+    /* empty */
+  },
+  afterActiveInstanceBlur: () => {
+    /* empty */
+  },
+  // below may be part of future reconciler, but found in typings
+  getInstanceFromNode: () => {
+    return null
+  },
+  getInstanceFromScope: (scopeInstance: any) => {
+    return null
+  },
+  prepareScopeUpdate: (scopeInstance: any, instance: any) => {
+    /* empty */
   },
 }
 
