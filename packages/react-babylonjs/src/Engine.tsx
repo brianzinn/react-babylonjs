@@ -109,7 +109,8 @@ const ReactBabylonjsEngine: React.FC<EngineProps> = (props: EngineProps, context
     ...canvasProps
   } = props
 
-  const observerEnabled = renderOptions !== undefined && renderOptions.whenVisibleOnly === true && !isPaused
+  const observerEnabled =
+    renderOptions !== undefined && renderOptions.whenVisibleOnly === true && !isPaused
   useCanvasObserver(canvasRef, shouldRenderRef, observerEnabled, 0)
 
   useEffect(() => {
@@ -138,7 +139,10 @@ const ReactBabylonjsEngine: React.FC<EngineProps> = (props: EngineProps, context
 
       // TODO: here is where you could access your own render method
       engine.current!.scenes.forEach((scene) => {
-        scene.render()
+        // TODO (fix properly): in React 18.2 (not 18.0 or 18.1 if the camera is in a subcomponent it will be added in a future render!)
+        if (scene.cameras?.length > 0) {
+          scene.render()
+        }
       })
 
       if (onEndRenderLoopObservable.current.hasObservers()) {
