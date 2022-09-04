@@ -2,13 +2,14 @@ import { IInspectable, InspectableType } from '@babylonjs/core/Misc/iInspectable
 import { Node } from '@babylonjs/core/node.js'
 import { Scene } from '@babylonjs/core/scene.js'
 import { Nullable } from '@babylonjs/core/types.js'
-import { ValueAndUnit } from '@babylonjs/gui'
+import { ValueAndUnit } from '@babylonjs/gui/2D/valueAndUnit.js'
+
 import ReactReconciler, { Fiber, HostConfig } from 'react-reconciler'
 import {
   DiscreteEventPriority,
   ContinuousEventPriority,
   DefaultEventPriority,
-} from 'react-reconciler/constants'
+} from 'react-reconciler/constants.js'
 
 import { CreationType, GeneratedParameter } from './codeGenerationDescriptors'
 import { CreatedInstance, CreatedInstanceMetadata } from './CreatedInstance'
