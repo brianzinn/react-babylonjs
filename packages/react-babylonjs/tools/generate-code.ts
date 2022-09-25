@@ -948,14 +948,19 @@ const writeMethodAsUpdateFunction = (
   })
 }
 
+type PropertySignatureStructurePlusIsSetAccessor = PropertySignatureStructure & {
+  isSetAccessor: boolean
+}
+
 /**
  * Returns false when a property has already been declared (ie: a subclass will override a method and create duplicates).
  * side-effect is to update the propsProperties list.
  */
 const writePropertyAsUpdateFunction = (
-  propsProperties: OptionalKind<PropertySignatureStructure>[],
+  propsProperties: OptionalKind<PropertySignatureStructurePlusIsSetAccessor>[],
   type: string,
   propertyName: string,
+  isSetAccessor: boolean,
   addedProperties: Set<String>
 ): boolean => {
   // doesn't really matter if it's 'optional', as nothing is forcing JavaScript users to follow your conventions.
@@ -980,14 +985,16 @@ const writePropertyAsUpdateFunction = (
     name: propertyName,
     type: propsType,
     hasQuestionToken: true,
+    isSetAccessor,
   })
 
-  if (GENERATE_KEBAB_ACCESSORS && propsType === 'BabylonjsCoreVector3') {
+  if (!isSetAccessor && GENERATE_KEBAB_ACCESSORS && propsType === 'BabylonjsCoreVector3') {
     ;['x', 'y', 'z'].forEach((prop) => {
       propsProperties.push({
         name: `'${propertyName}-${prop}'`,
         type: 'number',
         hasQuestionToken: true,
+        isSetAccessor,
       })
     })
   }
@@ -1185,7 +1192,7 @@ const addPropsAndHandlerClasses = (
 ): void => {
   // console.log('addpropshandlers1:', classNameToGenerate, babylonClassDeclaration.className, babylonClassDeclaration.importAlias, baseClass?.getName(), customProps);
 
-  const typeProperties: OptionalKind<PropertySignatureStructure>[] = []
+  const typeProperties: OptionalKind<PropertySignatureStructurePlusIsSetAccessor>[] = []
 
   const classDeclarationPropsHandler = generatedCodeSourceFile.addClass({
     name: `${CLASS_NAME_PREFIX}${classNameToGenerate}PropsHandler`,
@@ -1235,6 +1242,7 @@ const addPropsAndHandlerClasses = (
       name: string
       type: string
       propertyKind: PropertyKind | undefined
+      isSetAccessor: boolean
     }
     const propsToCheck: NameAndType[] = []
 
@@ -1276,10 +1284,13 @@ const addPropsAndHandlerClasses = (
         ])
         const propertyName: string = property.getName()
 
+        const isSetAccessor = property.getKind() === SyntaxKind.SetAccessor
+
         const added = writePropertyAsUpdateFunction(
           typeProperties,
           type,
           propertyName,
+          isSetAccessor,
           addedProperties
         )
 
@@ -1332,6 +1343,7 @@ const addPropsAndHandlerClasses = (
               name: propertyName,
               type,
               propertyKind: 'primitive',
+              isSetAccessor,
             })
           } else {
             switch (type) {
@@ -1347,14 +1359,16 @@ const addPropsAndHandlerClasses = (
                   name: propertyName,
                   type,
                   propertyKind: type,
+                  isSetAccessor,
                 })
 
-                if (GENERATE_KEBAB_ACCESSORS && type === 'BabylonjsCoreVector3') {
+                if (!isSetAccessor && GENERATE_KEBAB_ACCESSORS && type === 'BabylonjsCoreVector3') {
                   ;['x', 'y', 'z'].forEach((prop) => {
                     propsToCheck.push({
                       name: `${propertyName}-${prop}`,
                       type: 'number',
                       propertyKind: 'primitive',
+                      isSetAccessor,
                     })
                   })
                 }
@@ -1365,6 +1379,7 @@ const addPropsAndHandlerClasses = (
                   name: propertyName,
                   type,
                   propertyKind: 'object',
+                  isSetAccessor,
                 })
                 break
               default:
@@ -1373,6 +1388,7 @@ const addPropsAndHandlerClasses = (
                     name: propertyName,
                     type,
                     propertyKind: 'observable',
+                    isSetAccessor: false,
                   })
                 } else if (type.startsWith('(')) {
                   // TODO: check with TypeGuards.isFunctionExpression
@@ -1380,12 +1396,14 @@ const addPropsAndHandlerClasses = (
                     name: propertyName,
                     type,
                     propertyKind: 'lambda',
+                    isSetAccessor: false,
                   })
                 } else {
                   propsToCheck.push({
                     name: propertyName,
                     type,
                     propertyKind: undefined,
+                    isSetAccessor,
                   })
                 }
                 break
@@ -1405,6 +1423,7 @@ const addPropsAndHandlerClasses = (
             name: method.getName(),
             type,
             propertyKind: 'method',
+            isSetAccessor: false,
           })
         }
       })
@@ -1428,7 +1447,7 @@ const addPropsAndHandlerClasses = (
           switch (propToCheck.propertyKind) {
             case 'BabylonjsCoreVector3':
               writer.writeLine(
-                `checkVector3Diff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`
+                `checkVector3Diff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', ${propToCheck.isSetAccessor}, changedProps)`
               )
               break
             case 'BabylonjsCoreColor3':
@@ -1443,7 +1462,7 @@ const addPropsAndHandlerClasses = (
               break
             case 'BabylonjsCoreQuaternion':
               writer.writeLine(
-                `checkQuaternionDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', changedProps)`
+                `checkQuaternionDiff(oldProps.${propToCheck.name}, newProps.${propToCheck.name}, '${propToCheck.name}', ${propToCheck.isSetAccessor}, changedProps)`
               )
               break
             case 'object':

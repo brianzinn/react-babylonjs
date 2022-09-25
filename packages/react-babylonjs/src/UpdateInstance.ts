@@ -29,7 +29,7 @@ export const applyUpdateToInstance = (
       }
       break
     case PropChangeType.Vector3:
-      if (target[update.propertyName]) {
+      if (target[update.propertyName] && update.isSetAccessor === false) {
         ;(target[update.propertyName] as Vector3).copyFrom(update.value)
       } else if (update.value) {
         target[update.propertyName] = update.value.clone()
@@ -84,7 +84,7 @@ export const applyUpdateToInstance = (
       break
     case PropChangeType.Quaternion:
       // console.warn(`quaternion update detected ${update.propertyName} to:`, update.value)
-      if (target[update.propertyName]) {
+      if (target[update.propertyName] && update.isSetAccessor === false) {
         ;(target[update.propertyName] as Quaternion).copyFrom(update.value)
       } else if (update.value) {
         target[update.propertyName] = (update.value as Quaternion).clone()

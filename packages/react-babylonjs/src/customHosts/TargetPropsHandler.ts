@@ -17,6 +17,7 @@ export default class TargetPropsHandler implements PropsHandler<any> {
           changeType: PropChangeType.Primitive,
           propertyName: 'lockedTarget',
           value: this.scene.getMeshByName(newProps.lockedTargetMeshName),
+          isSetAccessor: false,
         })
       }
     }

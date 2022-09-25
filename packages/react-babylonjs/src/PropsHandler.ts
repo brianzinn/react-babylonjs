@@ -11,6 +11,7 @@ export interface PropertyUpdate {
   value: any
   propertyName: string
   changeType: PropChangeType
+  isSetAccessor: boolean
   /**
    * When provided will dynamically target a property of 'babylonJSobject'.
    */
@@ -207,6 +208,7 @@ function propertyCheck<T>(
   propertyName: string,
   propChangeType: PropChangeType,
   changedProps: PropertyUpdate[],
+  isSetAccessor: boolean,
   templateMethod: (
     oldProp: T | undefined,
     newProp: T | undefined,
@@ -222,6 +224,7 @@ function propertyCheck<T>(
           propertyName,
           changeType: propChangeType,
           value: processedResult.value!,
+          isSetAccessor,
         })
       }
 
@@ -241,6 +244,7 @@ export const checkQuaternionDiff = (
   oldProp: Quaternion | undefined,
   newProp: Quaternion | undefined,
   propertyName: string,
+  isSetAccessor: boolean,
   changedProps: PropertyUpdate[]
 ): void => {
   propertyCheck<Quaternion>(
@@ -249,6 +253,7 @@ export const checkQuaternionDiff = (
     propertyName,
     PropChangeType.Quaternion,
     changedProps,
+    isSetAccessor,
     (oldProp, newProp, changedProps) => {
       // going with equals (also has method equalsWithEpsilon)
       if (newProp && (!oldProp || !newProp.equals(oldProp))) {
@@ -256,6 +261,7 @@ export const checkQuaternionDiff = (
           propertyName,
           changeType: PropChangeType.Quaternion,
           value: newProp,
+          isSetAccessor,
         })
       }
     }
@@ -266,6 +272,7 @@ export const checkVector3Diff = (
   oldProp: Vector3 | undefined,
   newProp: Vector3 | undefined,
   propertyName: string,
+  isSetAccessor: boolean,
   changedProps: PropertyUpdate[]
 ): void => {
   propertyCheck<Vector3>(
@@ -274,12 +281,14 @@ export const checkVector3Diff = (
     propertyName,
     PropChangeType.Vector3,
     changedProps,
+    isSetAccessor,
     (oldProp, newProp, changedProps) => {
       if (newProp && (!oldProp || !newProp.equals(oldProp))) {
         changedProps.push({
           propertyName,
           changeType: PropChangeType.Vector3,
           value: newProp,
+          isSetAccessor,
         })
       }
     }
@@ -298,12 +307,14 @@ export const checkColor3Diff = (
     propertyName,
     PropChangeType.Color3,
     changedProps,
+    false,
     (oldProp, newProp, changedProps) => {
       if (newProp && (!oldProp || !newProp.equals(oldProp))) {
         changedProps.push({
           propertyName,
           changeType: PropChangeType.Color3,
           value: newProp,
+          isSetAccessor: false,
         })
       }
     }
@@ -322,6 +333,7 @@ export const checkColor4Diff = (
     propertyName,
     PropChangeType.Color4,
     changedProps,
+    false,
     (oldProp, newProp, changedProps) => {
       // Color4.equals() not added until PR #5517
       if (
@@ -336,6 +348,7 @@ export const checkColor4Diff = (
           propertyName,
           changeType: PropChangeType.Color4,
           value: newProp,
+          isSetAccessor: false,
         })
       }
     }
@@ -354,6 +367,7 @@ export const checkFresnelParametersDiff = (
     propertyName,
     PropChangeType.FresnelParameters,
     changedProps,
+    false,
     (oldProp, newProp, changedProps) => {
       // FresnelParameters.equals() not added until PR #7818 (https://github.com/BabylonJS/Babylon.js/pull/7818)
       if (
@@ -371,6 +385,7 @@ export const checkFresnelParametersDiff = (
           propertyName,
           changeType: PropChangeType.FresnelParameters,
           value: newProp,
+          isSetAccessor: false,
         })
       }
     }
@@ -389,12 +404,14 @@ export const checkLambdaDiff = (
     propertyName,
     PropChangeType.LambdaExpression,
     changedProps,
+    false,
     (oldProp, newProp, changedProps) => {
       if (newProp !== oldProp) {
         changedProps.push({
           propertyName,
           changeType: PropChangeType.LambdaExpression,
           value: newProp,
+          isSetAccessor: false,
         })
       }
     }
@@ -413,6 +430,7 @@ export const checkControlDiff = (
     propertyName,
     PropChangeType.Control,
     changedProps,
+    false,
     (oldProp, newProp, changedProps) => {
       // only sets once
       if (newProp && !oldProp) {
@@ -420,6 +438,7 @@ export const checkControlDiff = (
           propertyName,
           changeType: PropChangeType.Control,
           value: newProp,
+          isSetAccessor: false,
         })
       }
     }
@@ -438,12 +457,14 @@ export const checkObjectDiff = (
     propertyName,
     PropChangeType.Primitive,
     changedProps,
+    false,
     (oldProp, newProp, changedProps) => {
       if (newProp !== oldProp) {
         changedProps.push({
           propertyName,
           changeType: PropChangeType.Primitive, // basic equality check (same as primitive)
           value: newProp,
+          isSetAccessor: false,
         })
       }
     }
@@ -464,12 +485,14 @@ export const checkPrimitiveDiff = (
     propertyName,
     PropChangeType.Primitive,
     changedProps,
+    false, // actually it may be, but it doesn't matter as we set the property directly anyway
     (oldProp, newProp, changedProps) => {
       if (newProp !== oldProp) {
         changedProps.push({
           propertyName,
           changeType: PropChangeType.Primitive,
           value: newProp,
+          isSetAccessor: false,
         })
       }
     }
@@ -488,12 +511,14 @@ export const checkTextureDiff = (
     propertyName,
     PropChangeType.Texture,
     changedProps,
+    false,
     (oldProp, newProp, changedProps) => {
       if (newProp !== oldProp) {
         changedProps.push({
           propertyName,
           changeType: PropChangeType.Texture,
           value: newProp,
+          isSetAccessor: false,
         })
       }
     }
@@ -512,6 +537,7 @@ export const checkNumericArrayDiff = (
     propertyName,
     PropChangeType.NumericArray,
     changedProps,
+    false,
     (oldProp, newProp, changedProps) => {
       // just length - missing loop + indexOf comparison (or deepEquals())
       if (newProp && (!oldProp || oldProp.length !== newProp.length)) {
@@ -519,6 +545,7 @@ export const checkNumericArrayDiff = (
           propertyName,
           changeType: PropChangeType.NumericArray,
           value: newProp,
+          isSetAccessor: false,
         })
       }
     }
@@ -537,12 +564,14 @@ export const checkObservableDiff = (
     propertyName,
     PropChangeType.Observable,
     changedProps,
+    false,
     (oldProp, newProp, changedProps) => {
       if (oldProp !== newProp) {
         changedProps.push({
           propertyName,
           changeType: PropChangeType.Observable,
           value: newProp,
+          isSetAccessor: false,
         })
       }
     }
@@ -569,6 +598,7 @@ export const checkMethodDiff = (
       propertyName,
       changeType: PropChangeType.Method,
       value: newProp,
+      isSetAccessor: false,
     })
   }
 }

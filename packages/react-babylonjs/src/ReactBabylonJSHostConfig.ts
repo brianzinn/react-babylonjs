@@ -56,7 +56,7 @@ type NoTimeout = number
 // https://github.com/facebook/react/blob/main/packages/react-dom/src/events/ReactDOMEventListener.js#L410
 function getEventPriority(): number {
   // https://developer.mozilla.org/en-US/docs/Web/API/Window/event
-  let domEventName = window?.event?.type
+  const domEventName = window?.event?.type
   switch (domEventName /* : DOMEventName */) {
     case 'click':
     case 'contextmenu':

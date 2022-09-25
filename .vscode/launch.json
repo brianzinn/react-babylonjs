@@ -10,10 +10,9 @@
       "request": "launch",
       "args": ["tools/generate-code.ts"],
       "runtimeArgs": [
-        "--nolazy",
-        "--max-old-space-size=4096",
-        "-r",
-        "ts-node/register",
+        "--loader",
+        "ts-node/esm",
+        "--experimental-specifier-resolution=node",
         "-r",
         "tsconfig-paths/register"
       ],

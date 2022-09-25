@@ -592,10 +592,7 @@ export class FiberTransformNodePropsHandler implements PropsHandler<FiberTransfo
       'onAfterWorldMatrixUpdateObservable',
       changedProps
     )
-    checkVector3Diff(oldProps.position, newProps.position, 'position', changedProps)
-    checkPrimitiveDiff(oldProps['position-x'], newProps['position-x'], 'position.x', changedProps)
-    checkPrimitiveDiff(oldProps['position-y'], newProps['position-y'], 'position.y', changedProps)
-    checkPrimitiveDiff(oldProps['position-z'], newProps['position-z'], 'position.z', changedProps)
+    checkVector3Diff(oldProps.position, newProps.position, 'position', true, changedProps)
     checkPrimitiveDiff(
       oldProps.preserveParentRotationForBillboard,
       newProps.preserveParentRotationForBillboard,
@@ -608,20 +605,15 @@ export class FiberTransformNodePropsHandler implements PropsHandler<FiberTransfo
       'reIntegrateRotationIntoRotationQuaternion',
       changedProps
     )
-    checkVector3Diff(oldProps.rotation, newProps.rotation, 'rotation', changedProps)
-    checkPrimitiveDiff(oldProps['rotation-x'], newProps['rotation-x'], 'rotation.x', changedProps)
-    checkPrimitiveDiff(oldProps['rotation-y'], newProps['rotation-y'], 'rotation.y', changedProps)
-    checkPrimitiveDiff(oldProps['rotation-z'], newProps['rotation-z'], 'rotation.z', changedProps)
+    checkVector3Diff(oldProps.rotation, newProps.rotation, 'rotation', true, changedProps)
     checkQuaternionDiff(
       oldProps.rotationQuaternion,
       newProps.rotationQuaternion,
       'rotationQuaternion',
+      true,
       changedProps
     )
-    checkVector3Diff(oldProps.scaling, newProps.scaling, 'scaling', changedProps)
-    checkPrimitiveDiff(oldProps['scaling-x'], newProps['scaling-x'], 'scaling.x', changedProps)
-    checkPrimitiveDiff(oldProps['scaling-y'], newProps['scaling-y'], 'scaling.y', changedProps)
-    checkPrimitiveDiff(oldProps['scaling-z'], newProps['scaling-z'], 'scaling.z', changedProps)
+    checkVector3Diff(oldProps.scaling, newProps.scaling, 'scaling', true, changedProps)
     checkPrimitiveDiff(
       oldProps.scalingDeterminant,
       newProps.scalingDeterminant,
@@ -781,7 +773,7 @@ export class FiberAbstractMeshPropsHandler implements PropsHandler<FiberAbstract
     )
     checkColor4Diff(oldProps.edgesColor, newProps.edgesColor, 'edgesColor', changedProps)
     checkPrimitiveDiff(oldProps.edgesWidth, newProps.edgesWidth, 'edgesWidth', changedProps)
-    checkVector3Diff(oldProps.ellipsoid, newProps.ellipsoid, 'ellipsoid', changedProps)
+    checkVector3Diff(oldProps.ellipsoid, newProps.ellipsoid, 'ellipsoid', false, changedProps)
     checkPrimitiveDiff(
       oldProps['ellipsoid-x'],
       newProps['ellipsoid-x'],
@@ -804,6 +796,7 @@ export class FiberAbstractMeshPropsHandler implements PropsHandler<FiberAbstract
       oldProps.ellipsoidOffset,
       newProps.ellipsoidOffset,
       'ellipsoidOffset',
+      false,
       changedProps
     )
     checkPrimitiveDiff(
@@ -840,24 +833,7 @@ export class FiberAbstractMeshPropsHandler implements PropsHandler<FiberAbstract
       oldProps.facetDepthSortFrom,
       newProps.facetDepthSortFrom,
       'facetDepthSortFrom',
-      changedProps
-    )
-    checkPrimitiveDiff(
-      oldProps['facetDepthSortFrom-x'],
-      newProps['facetDepthSortFrom-x'],
-      'facetDepthSortFrom.x',
-      changedProps
-    )
-    checkPrimitiveDiff(
-      oldProps['facetDepthSortFrom-y'],
-      newProps['facetDepthSortFrom-y'],
-      'facetDepthSortFrom.y',
-      changedProps
-    )
-    checkPrimitiveDiff(
-      oldProps['facetDepthSortFrom-z'],
-      newProps['facetDepthSortFrom-z'],
-      'facetDepthSortFrom.z',
+      true,
       changedProps
     )
     checkPrimitiveDiff(
@@ -1774,10 +1750,7 @@ export class FiberCameraPropsHandler implements PropsHandler<FiberCameraProps> {
     checkPrimitiveDiff(oldProps.orthoRight, newProps.orthoRight, 'orthoRight', changedProps)
     checkPrimitiveDiff(oldProps.orthoTop, newProps.orthoTop, 'orthoTop', changedProps)
     // type: 'BabylonjsCoreRenderTargetTexture' property (not coded) BabylonjsCoreCamera.outputRenderTarget.
-    checkVector3Diff(oldProps.position, newProps.position, 'position', changedProps)
-    checkPrimitiveDiff(oldProps['position-x'], newProps['position-x'], 'position.x', changedProps)
-    checkPrimitiveDiff(oldProps['position-y'], newProps['position-y'], 'position.y', changedProps)
-    checkPrimitiveDiff(oldProps['position-z'], newProps['position-z'], 'position.z', changedProps)
+    checkVector3Diff(oldProps.position, newProps.position, 'position', true, changedProps)
     checkPrimitiveDiff(
       oldProps.projectionPlaneTilt,
       newProps.projectionPlaneTilt,
@@ -1786,10 +1759,7 @@ export class FiberCameraPropsHandler implements PropsHandler<FiberCameraProps> {
     )
     checkPrimitiveDiff(oldProps.renderPassId, newProps.renderPassId, 'renderPassId', changedProps)
     // type: 'BabylonjsCoreCamera' property (not coded) BabylonjsCoreCamera.rigParent.
-    checkVector3Diff(oldProps.upVector, newProps.upVector, 'upVector', changedProps)
-    checkPrimitiveDiff(oldProps['upVector-x'], newProps['upVector-x'], 'upVector.x', changedProps)
-    checkPrimitiveDiff(oldProps['upVector-y'], newProps['upVector-y'], 'upVector.y', changedProps)
-    checkPrimitiveDiff(oldProps['upVector-z'], newProps['upVector-z'], 'upVector.z', changedProps)
+    checkVector3Diff(oldProps.upVector, newProps.upVector, 'upVector', true, changedProps)
     // type: 'BabylonjsCoreViewport' property (not coded) BabylonjsCoreCamera.viewport.
     checkMethodDiff(
       oldProps.setCameraRigMode,
@@ -1872,6 +1842,7 @@ export class FiberTargetCameraPropsHandler implements PropsHandler<FiberTargetCa
       oldProps.cameraDirection,
       newProps.cameraDirection,
       'cameraDirection',
+      false,
       changedProps
     )
     checkPrimitiveDiff(
@@ -1918,7 +1889,7 @@ export class FiberTargetCameraPropsHandler implements PropsHandler<FiberTargetCa
       'noRotationConstraint',
       changedProps
     )
-    checkVector3Diff(oldProps.rotation, newProps.rotation, 'rotation', changedProps)
+    checkVector3Diff(oldProps.rotation, newProps.rotation, 'rotation', false, changedProps)
     checkPrimitiveDiff(oldProps['rotation-x'], newProps['rotation-x'], 'rotation.x', changedProps)
     checkPrimitiveDiff(oldProps['rotation-y'], newProps['rotation-y'], 'rotation.y', changedProps)
     checkPrimitiveDiff(oldProps['rotation-z'], newProps['rotation-z'], 'rotation.z', changedProps)
@@ -1926,13 +1897,11 @@ export class FiberTargetCameraPropsHandler implements PropsHandler<FiberTargetCa
       oldProps.rotationQuaternion,
       newProps.rotationQuaternion,
       'rotationQuaternion',
+      false,
       changedProps
     )
     checkPrimitiveDiff(oldProps.speed, newProps.speed, 'speed', changedProps)
-    checkVector3Diff(oldProps.target, newProps.target, 'target', changedProps)
-    checkPrimitiveDiff(oldProps['target-x'], newProps['target-x'], 'target.x', changedProps)
-    checkPrimitiveDiff(oldProps['target-y'], newProps['target-y'], 'target.y', changedProps)
-    checkPrimitiveDiff(oldProps['target-z'], newProps['target-z'], 'target.z', changedProps)
+    checkVector3Diff(oldProps.target, newProps.target, 'target', true, changedProps)
     checkPrimitiveDiff(
       oldProps.updateUpVectorFromRotation,
       newProps.updateUpVectorFromRotation,
@@ -2029,7 +1998,7 @@ export class FiberFreeCameraPropsHandler implements PropsHandler<FiberFreeCamera
       'collisionMask',
       changedProps
     )
-    checkVector3Diff(oldProps.ellipsoid, newProps.ellipsoid, 'ellipsoid', changedProps)
+    checkVector3Diff(oldProps.ellipsoid, newProps.ellipsoid, 'ellipsoid', false, changedProps)
     checkPrimitiveDiff(
       oldProps['ellipsoid-x'],
       newProps['ellipsoid-x'],
@@ -2052,6 +2021,7 @@ export class FiberFreeCameraPropsHandler implements PropsHandler<FiberFreeCamera
       oldProps.ellipsoidOffset,
       newProps.ellipsoidOffset,
       'ellipsoidOffset',
+      false,
       changedProps
     )
     checkPrimitiveDiff(
@@ -3352,6 +3322,7 @@ export class FiberWebVRFreeCameraPropsHandler implements PropsHandler<FiberWebVR
       oldProps.devicePosition,
       newProps.devicePosition,
       'devicePosition',
+      false,
       changedProps
     )
     checkPrimitiveDiff(
@@ -3376,6 +3347,7 @@ export class FiberWebVRFreeCameraPropsHandler implements PropsHandler<FiberWebVR
       oldProps.deviceRotationQuaternion,
       newProps.deviceRotationQuaternion,
       'deviceRotationQuaternion',
+      false,
       changedProps
     )
     checkPrimitiveDiff(
@@ -3506,6 +3478,7 @@ export class FiberArcRotateCameraPropsHandler implements PropsHandler<FiberArcRo
       oldProps.collisionRadius,
       newProps.collisionRadius,
       'collisionRadius',
+      false,
       changedProps
     )
     checkPrimitiveDiff(
@@ -3593,7 +3566,7 @@ export class FiberArcRotateCameraPropsHandler implements PropsHandler<FiberArcRo
       'overrideCloneAlphaBetaRadius',
       changedProps
     )
-    checkVector3Diff(oldProps.panningAxis, newProps.panningAxis, 'panningAxis', changedProps)
+    checkVector3Diff(oldProps.panningAxis, newProps.panningAxis, 'panningAxis', false, changedProps)
     checkPrimitiveDiff(
       oldProps['panningAxis-x'],
       newProps['panningAxis-x'],
@@ -3628,6 +3601,7 @@ export class FiberArcRotateCameraPropsHandler implements PropsHandler<FiberArcRo
       oldProps.panningOriginTarget,
       newProps.panningOriginTarget,
       'panningOriginTarget',
+      false,
       changedProps
     )
     checkPrimitiveDiff(
@@ -3672,15 +3646,9 @@ export class FiberArcRotateCameraPropsHandler implements PropsHandler<FiberArcRo
       'pinchToPanMaxDistance',
       changedProps
     )
-    checkVector3Diff(oldProps.position, newProps.position, 'position', changedProps)
-    checkPrimitiveDiff(oldProps['position-x'], newProps['position-x'], 'position.x', changedProps)
-    checkPrimitiveDiff(oldProps['position-y'], newProps['position-y'], 'position.y', changedProps)
-    checkPrimitiveDiff(oldProps['position-z'], newProps['position-z'], 'position.z', changedProps)
+    checkVector3Diff(oldProps.position, newProps.position, 'position', true, changedProps)
     checkPrimitiveDiff(oldProps.radius, newProps.radius, 'radius', changedProps)
-    checkVector3Diff(oldProps.target, newProps.target, 'target', changedProps)
-    checkPrimitiveDiff(oldProps['target-x'], newProps['target-x'], 'target.x', changedProps)
-    checkPrimitiveDiff(oldProps['target-y'], newProps['target-y'], 'target.y', changedProps)
-    checkPrimitiveDiff(oldProps['target-z'], newProps['target-z'], 'target.z', changedProps)
+    checkVector3Diff(oldProps.target, newProps.target, 'target', true, changedProps)
     // type: 'BabylonjsCoreAbstractMesh' property (not coded) BabylonjsCoreArcRotateCamera.targetHost.
     // type: 'BabylonjsCoreVector2' property (not coded) BabylonjsCoreArcRotateCamera.targetScreenOffset.
     checkPrimitiveDiff(
@@ -3701,10 +3669,7 @@ export class FiberArcRotateCameraPropsHandler implements PropsHandler<FiberArcRo
       'upperRadiusLimit',
       changedProps
     )
-    checkVector3Diff(oldProps.upVector, newProps.upVector, 'upVector', changedProps)
-    checkPrimitiveDiff(oldProps['upVector-x'], newProps['upVector-x'], 'upVector.x', changedProps)
-    checkPrimitiveDiff(oldProps['upVector-y'], newProps['upVector-y'], 'upVector.y', changedProps)
-    checkPrimitiveDiff(oldProps['upVector-z'], newProps['upVector-z'], 'upVector.z', changedProps)
+    checkVector3Diff(oldProps.upVector, newProps.upVector, 'upVector', true, changedProps)
     checkPrimitiveDiff(
       oldProps.useAutoRotationBehavior,
       newProps.useAutoRotationBehavior,
@@ -4139,6 +4104,7 @@ export class FiberFlyCameraPropsHandler implements PropsHandler<FiberFlyCameraPr
       oldProps.cameraDirection,
       newProps.cameraDirection,
       'cameraDirection',
+      false,
       changedProps
     )
     checkPrimitiveDiff(
@@ -4171,7 +4137,7 @@ export class FiberFlyCameraPropsHandler implements PropsHandler<FiberFlyCameraPr
       'collisionMask',
       changedProps
     )
-    checkVector3Diff(oldProps.ellipsoid, newProps.ellipsoid, 'ellipsoid', changedProps)
+    checkVector3Diff(oldProps.ellipsoid, newProps.ellipsoid, 'ellipsoid', false, changedProps)
     checkPrimitiveDiff(
       oldProps['ellipsoid-x'],
       newProps['ellipsoid-x'],
@@ -4194,6 +4160,7 @@ export class FiberFlyCameraPropsHandler implements PropsHandler<FiberFlyCameraPr
       oldProps.ellipsoidOffset,
       newProps.ellipsoidOffset,
       'ellipsoidOffset',
+      false,
       changedProps
     )
     checkPrimitiveDiff(
@@ -4232,6 +4199,7 @@ export class FiberFlyCameraPropsHandler implements PropsHandler<FiberFlyCameraPr
       oldProps.rotationQuaternion,
       newProps.rotationQuaternion,
       'rotationQuaternion',
+      false,
       changedProps
     )
     return changedProps.length === 0 ? null : changedProps
@@ -9618,7 +9586,7 @@ export class FiberBackgroundMaterialPropsHandler
       'reflectionTexture',
       changedProps
     )
-    checkVector3Diff(oldProps.sceneCenter, newProps.sceneCenter, 'sceneCenter', changedProps)
+    checkVector3Diff(oldProps.sceneCenter, newProps.sceneCenter, 'sceneCenter', false, changedProps)
     checkPrimitiveDiff(
       oldProps['sceneCenter-x'],
       newProps['sceneCenter-x'],
@@ -9721,7 +9689,13 @@ export class FiberFluentMaterialPropsHandler implements PropsHandler<FiberFluent
       changedProps
     )
     checkColor4Diff(oldProps.hoverColor, newProps.hoverColor, 'hoverColor', changedProps)
-    checkVector3Diff(oldProps.hoverPosition, newProps.hoverPosition, 'hoverPosition', changedProps)
+    checkVector3Diff(
+      oldProps.hoverPosition,
+      newProps.hoverPosition,
+      'hoverPosition',
+      false,
+      changedProps
+    )
     checkPrimitiveDiff(
       oldProps['hoverPosition-x'],
       newProps['hoverPosition-x'],
@@ -9824,7 +9798,13 @@ export class FiberFluentButtonMaterialPropsHandler
     newProps: FiberFluentButtonMaterialProps
   ): PropertyUpdate[] | null {
     const changedProps: PropertyUpdate[] = []
-    checkVector3Diff(oldProps.activeFaceDir, newProps.activeFaceDir, 'activeFaceDir', changedProps)
+    checkVector3Diff(
+      oldProps.activeFaceDir,
+      newProps.activeFaceDir,
+      'activeFaceDir',
+      false,
+      changedProps
+    )
     checkPrimitiveDiff(
       oldProps['activeFaceDir-x'],
       newProps['activeFaceDir-x'],
@@ -9843,7 +9823,13 @@ export class FiberFluentButtonMaterialPropsHandler
       'activeFaceDir.z',
       changedProps
     )
-    checkVector3Diff(oldProps.activeFaceUp, newProps.activeFaceUp, 'activeFaceUp', changedProps)
+    checkVector3Diff(
+      oldProps.activeFaceUp,
+      newProps.activeFaceUp,
+      'activeFaceUp',
+      false,
+      changedProps
+    )
     checkPrimitiveDiff(
       oldProps['activeFaceUp-x'],
       newProps['activeFaceUp-x'],
@@ -9895,6 +9881,7 @@ export class FiberFluentButtonMaterialPropsHandler
       oldProps.globalLeftIndexTipPosition,
       newProps.globalLeftIndexTipPosition,
       'globalLeftIndexTipPosition',
+      false,
       changedProps
     )
     checkPrimitiveDiff(
@@ -9919,6 +9906,7 @@ export class FiberFluentButtonMaterialPropsHandler
       oldProps.globalRightIndexTipPosition,
       newProps.globalRightIndexTipPosition,
       'globalRightIndexTipPosition',
+      false,
       changedProps
     )
     checkPrimitiveDiff(
@@ -10170,7 +10158,13 @@ export class FiberMRDLSliderBarMaterialPropsHandler
       'blobNearSize2',
       changedProps
     )
-    checkVector3Diff(oldProps.blobPosition, newProps.blobPosition, 'blobPosition', changedProps)
+    checkVector3Diff(
+      oldProps.blobPosition,
+      newProps.blobPosition,
+      'blobPosition',
+      false,
+      changedProps
+    )
     checkPrimitiveDiff(
       oldProps['blobPosition-x'],
       newProps['blobPosition-x'],
@@ -10189,7 +10183,13 @@ export class FiberMRDLSliderBarMaterialPropsHandler
       'blobPosition.z',
       changedProps
     )
-    checkVector3Diff(oldProps.blobPosition2, newProps.blobPosition2, 'blobPosition2', changedProps)
+    checkVector3Diff(
+      oldProps.blobPosition2,
+      newProps.blobPosition2,
+      'blobPosition2',
+      false,
+      changedProps
+    )
     checkPrimitiveDiff(
       oldProps['blobPosition2-x'],
       newProps['blobPosition2-x'],
@@ -10269,6 +10269,7 @@ export class FiberMRDLSliderBarMaterialPropsHandler
       oldProps.leftIndexMiddlePosition,
       newProps.leftIndexMiddlePosition,
       'leftIndexMiddlePosition',
+      false,
       changedProps
     )
     checkPrimitiveDiff(
@@ -10293,6 +10294,7 @@ export class FiberMRDLSliderBarMaterialPropsHandler
       oldProps.leftIndexPosition,
       newProps.leftIndexPosition,
       'leftIndexPosition',
+      false,
       changedProps
     )
     checkPrimitiveDiff(
@@ -10351,6 +10353,7 @@ export class FiberMRDLSliderBarMaterialPropsHandler
       oldProps.rightIndexMiddlePosition,
       newProps.rightIndexMiddlePosition,
       'rightIndexMiddlePosition',
+      false,
       changedProps
     )
     checkPrimitiveDiff(
@@ -10375,6 +10378,7 @@ export class FiberMRDLSliderBarMaterialPropsHandler
       oldProps.rightIndexPosition,
       newProps.rightIndexPosition,
       'rightIndexPosition',
+      false,
       changedProps
     )
     checkPrimitiveDiff(
@@ -10545,7 +10549,13 @@ export class FiberMRDLSliderThumbMaterialPropsHandler
       'blobNearSize2',
       changedProps
     )
-    checkVector3Diff(oldProps.blobPosition, newProps.blobPosition, 'blobPosition', changedProps)
+    checkVector3Diff(
+      oldProps.blobPosition,
+      newProps.blobPosition,
+      'blobPosition',
+      false,
+      changedProps
+    )
     checkPrimitiveDiff(
       oldProps['blobPosition-x'],
       newProps['blobPosition-x'],
@@ -10564,7 +10574,13 @@ export class FiberMRDLSliderThumbMaterialPropsHandler
       'blobPosition.z',
       changedProps
     )
-    checkVector3Diff(oldProps.blobPosition2, newProps.blobPosition2, 'blobPosition2', changedProps)
+    checkVector3Diff(
+      oldProps.blobPosition2,
+      newProps.blobPosition2,
+      'blobPosition2',
+      false,
+      changedProps
+    )
     checkPrimitiveDiff(
       oldProps['blobPosition2-x'],
       newProps['blobPosition2-x'],
@@ -10644,6 +10660,7 @@ export class FiberMRDLSliderThumbMaterialPropsHandler
       oldProps.leftIndexMiddlePosition,
       newProps.leftIndexMiddlePosition,
       'leftIndexMiddlePosition',
+      false,
       changedProps
     )
     checkPrimitiveDiff(
@@ -10668,6 +10685,7 @@ export class FiberMRDLSliderThumbMaterialPropsHandler
       oldProps.leftIndexPosition,
       newProps.leftIndexPosition,
       'leftIndexPosition',
+      false,
       changedProps
     )
     checkPrimitiveDiff(
@@ -10726,6 +10744,7 @@ export class FiberMRDLSliderThumbMaterialPropsHandler
       oldProps.rightIndexMiddlePosition,
       newProps.rightIndexMiddlePosition,
       'rightIndexMiddlePosition',
+      false,
       changedProps
     )
     checkPrimitiveDiff(
@@ -10750,6 +10769,7 @@ export class FiberMRDLSliderThumbMaterialPropsHandler
       oldProps.rightIndexPosition,
       newProps.rightIndexPosition,
       'rightIndexPosition',
+      false,
       changedProps
     )
     checkPrimitiveDiff(
@@ -11076,6 +11096,7 @@ export class FiberFluentBackplateMaterialPropsHandler
       oldProps.globalLeftIndexTipPosition,
       newProps.globalLeftIndexTipPosition,
       'globalLeftIndexTipPosition',
+      false,
       changedProps
     )
     checkPrimitiveDiff(
@@ -11100,6 +11121,7 @@ export class FiberFluentBackplateMaterialPropsHandler
       oldProps.globalRightIndexTipPosition,
       newProps.globalRightIndexTipPosition,
       'globalRightIndexTipPosition',
+      false,
       changedProps
     )
     checkPrimitiveDiff(
@@ -11359,35 +11381,15 @@ export class FiberShadowLightPropsHandler implements PropsHandler<FiberShadowLig
       'customProjectionMatrixBuilder',
       changedProps
     )
-    checkVector3Diff(oldProps.direction, newProps.direction, 'direction', changedProps)
-    checkPrimitiveDiff(
-      oldProps['direction-x'],
-      newProps['direction-x'],
-      'direction.x',
-      changedProps
-    )
-    checkPrimitiveDiff(
-      oldProps['direction-y'],
-      newProps['direction-y'],
-      'direction.y',
-      changedProps
-    )
-    checkPrimitiveDiff(
-      oldProps['direction-z'],
-      newProps['direction-z'],
-      'direction.z',
-      changedProps
-    )
-    checkVector3Diff(oldProps.position, newProps.position, 'position', changedProps)
-    checkPrimitiveDiff(oldProps['position-x'], newProps['position-x'], 'position.x', changedProps)
-    checkPrimitiveDiff(oldProps['position-y'], newProps['position-y'], 'position.y', changedProps)
-    checkPrimitiveDiff(oldProps['position-z'], newProps['position-z'], 'position.z', changedProps)
+    checkVector3Diff(oldProps.direction, newProps.direction, 'direction', true, changedProps)
+    checkVector3Diff(oldProps.position, newProps.position, 'position', true, changedProps)
     checkPrimitiveDiff(oldProps.shadowMaxZ, newProps.shadowMaxZ, 'shadowMaxZ', changedProps)
     checkPrimitiveDiff(oldProps.shadowMinZ, newProps.shadowMinZ, 'shadowMinZ', changedProps)
     checkVector3Diff(
       oldProps.transformedDirection,
       newProps.transformedDirection,
       'transformedDirection',
+      false,
       changedProps
     )
     checkPrimitiveDiff(
@@ -11412,6 +11414,7 @@ export class FiberShadowLightPropsHandler implements PropsHandler<FiberShadowLig
       oldProps.transformedPosition,
       newProps.transformedPosition,
       'transformedPosition',
+      false,
       changedProps
     )
     checkPrimitiveDiff(
@@ -11587,25 +11590,7 @@ export class FiberPointLightPropsHandler implements PropsHandler<FiberPointLight
     newProps: FiberPointLightProps
   ): PropertyUpdate[] | null {
     const changedProps: PropertyUpdate[] = []
-    checkVector3Diff(oldProps.direction, newProps.direction, 'direction', changedProps)
-    checkPrimitiveDiff(
-      oldProps['direction-x'],
-      newProps['direction-x'],
-      'direction.x',
-      changedProps
-    )
-    checkPrimitiveDiff(
-      oldProps['direction-y'],
-      newProps['direction-y'],
-      'direction.y',
-      changedProps
-    )
-    checkPrimitiveDiff(
-      oldProps['direction-z'],
-      newProps['direction-z'],
-      'direction.z',
-      changedProps
-    )
+    checkVector3Diff(oldProps.direction, newProps.direction, 'direction', true, changedProps)
     checkPrimitiveDiff(oldProps.shadowAngle, newProps.shadowAngle, 'shadowAngle', changedProps)
     return changedProps.length === 0 ? null : changedProps
   }
@@ -11700,24 +11685,7 @@ export class FiberSpotLightPropsHandler implements PropsHandler<FiberSpotLightPr
       oldProps.projectionTextureUpDirection,
       newProps.projectionTextureUpDirection,
       'projectionTextureUpDirection',
-      changedProps
-    )
-    checkPrimitiveDiff(
-      oldProps['projectionTextureUpDirection-x'],
-      newProps['projectionTextureUpDirection-x'],
-      'projectionTextureUpDirection.x',
-      changedProps
-    )
-    checkPrimitiveDiff(
-      oldProps['projectionTextureUpDirection-y'],
-      newProps['projectionTextureUpDirection-y'],
-      'projectionTextureUpDirection.y',
-      changedProps
-    )
-    checkPrimitiveDiff(
-      oldProps['projectionTextureUpDirection-z'],
-      newProps['projectionTextureUpDirection-z'],
-      'projectionTextureUpDirection.z',
+      true,
       changedProps
     )
     checkPrimitiveDiff(
@@ -11809,7 +11777,7 @@ export class FiberHemisphericLightPropsHandler implements PropsHandler<FiberHemi
     newProps: FiberHemisphericLightProps
   ): PropertyUpdate[] | null {
     const changedProps: PropertyUpdate[] = []
-    checkVector3Diff(oldProps.direction, newProps.direction, 'direction', changedProps)
+    checkVector3Diff(oldProps.direction, newProps.direction, 'direction', false, changedProps)
     checkPrimitiveDiff(
       oldProps['direction-x'],
       newProps['direction-x'],
@@ -14137,6 +14105,12 @@ export class FiberScrollBarPropsHandler implements PropsHandler<FiberScrollBarPr
     const changedProps: PropertyUpdate[] = []
     checkPrimitiveDiff(oldProps.background, newProps.background, 'background', changedProps)
     checkPrimitiveDiff(oldProps.borderColor, newProps.borderColor, 'borderColor', changedProps)
+    checkPrimitiveDiff(
+      oldProps.invertScrollDirection,
+      newProps.invertScrollDirection,
+      'invertScrollDirection',
+      changedProps
+    )
     checkPrimitiveDiff(oldProps.name, newProps.name, 'name', changedProps)
     return changedProps.length === 0 ? null : changedProps
   }
@@ -14195,6 +14169,12 @@ export class FiberImageScrollBarPropsHandler implements PropsHandler<FiberImageS
       oldProps.barImageHeight,
       newProps.barImageHeight,
       'barImageHeight',
+      changedProps
+    )
+    checkPrimitiveDiff(
+      oldProps.invertScrollDirection,
+      newProps.invertScrollDirection,
+      'invertScrollDirection',
       changedProps
     )
     checkPrimitiveDiff(oldProps.name, newProps.name, 'name', changedProps)
@@ -14541,14 +14521,8 @@ export class FiberControl3DPropsHandler implements PropsHandler<FiberControl3DPr
       'pointerUpAnimation',
       changedProps
     )
-    checkVector3Diff(oldProps.position, newProps.position, 'position', changedProps)
-    checkPrimitiveDiff(oldProps['position-x'], newProps['position-x'], 'position.x', changedProps)
-    checkPrimitiveDiff(oldProps['position-y'], newProps['position-y'], 'position.y', changedProps)
-    checkPrimitiveDiff(oldProps['position-z'], newProps['position-z'], 'position.z', changedProps)
-    checkVector3Diff(oldProps.scaling, newProps.scaling, 'scaling', changedProps)
-    checkPrimitiveDiff(oldProps['scaling-x'], newProps['scaling-x'], 'scaling.x', changedProps)
-    checkPrimitiveDiff(oldProps['scaling-y'], newProps['scaling-y'], 'scaling.y', changedProps)
-    checkPrimitiveDiff(oldProps['scaling-z'], newProps['scaling-z'], 'scaling.z', changedProps)
+    checkVector3Diff(oldProps.position, newProps.position, 'position', true, changedProps)
+    checkVector3Diff(oldProps.scaling, newProps.scaling, 'scaling', true, changedProps)
     checkMethodDiff(oldProps.addBehavior, newProps.addBehavior, 'addBehavior', changedProps)
     return changedProps.length === 0 ? null : changedProps
   }
@@ -15350,24 +15324,7 @@ export class FiberTouchButton3DPropsHandler implements PropsHandler<FiberTouchBu
       oldProps.collidableFrontDirection,
       newProps.collidableFrontDirection,
       'collidableFrontDirection',
-      changedProps
-    )
-    checkPrimitiveDiff(
-      oldProps['collidableFrontDirection-x'],
-      newProps['collidableFrontDirection-x'],
-      'collidableFrontDirection.x',
-      changedProps
-    )
-    checkPrimitiveDiff(
-      oldProps['collidableFrontDirection-y'],
-      newProps['collidableFrontDirection-y'],
-      'collidableFrontDirection.y',
-      changedProps
-    )
-    checkPrimitiveDiff(
-      oldProps['collidableFrontDirection-z'],
-      newProps['collidableFrontDirection-z'],
-      'collidableFrontDirection.z',
+      true,
       changedProps
     )
     // type: 'BabylonjsCoreMesh' property (not coded) BabylonjsGuiTouchButton3D.collisionMesh.
@@ -15641,7 +15598,7 @@ export class FiberHolographicSlatePropsHandler implements PropsHandler<FiberHolo
     const changedProps: PropertyUpdate[] = []
     // type: 'BabylonjsCoreVector2' property (not coded) BabylonjsGuiHolographicSlate.dimensions.
     // type: 'BabylonjsCoreVector2' property (not coded) BabylonjsGuiHolographicSlate.minDimensions.
-    checkVector3Diff(oldProps.origin, newProps.origin, 'origin', changedProps)
+    checkVector3Diff(oldProps.origin, newProps.origin, 'origin', false, changedProps)
     checkPrimitiveDiff(oldProps['origin-x'], newProps['origin-x'], 'origin.x', changedProps)
     checkPrimitiveDiff(oldProps['origin-y'], newProps['origin-y'], 'origin.y', changedProps)
     checkPrimitiveDiff(oldProps['origin-z'], newProps['origin-z'], 'origin.z', changedProps)
@@ -15716,6 +15673,7 @@ export class FiberSlider3DPropsHandler implements PropsHandler<FiberSlider3DProp
     newProps: FiberSlider3DProps
   ): PropertyUpdate[] | null {
     const changedProps: PropertyUpdate[] = []
+    checkPrimitiveDiff(oldProps.isVisible, newProps.isVisible, 'isVisible', changedProps)
     checkPrimitiveDiff(oldProps.maximum, newProps.maximum, 'maximum', changedProps)
     checkPrimitiveDiff(oldProps.minimum, newProps.minimum, 'minimum', changedProps)
     checkObservableDiff(
@@ -16343,6 +16301,11 @@ export class FiberBaseTexture implements HasPropsHandlers<FiberThinTextureProps>
         type: 'BabylonjsCoreScene | BabylonjsCoreThinEngine',
         optional: true,
       },
+      {
+        name: 'internalTexture',
+        type: 'BabylonjsCoreInternalTexture',
+        optional: true,
+      },
     ],
   }
   public static readonly Metadata: CreatedInstanceMetadata = {
@@ -16361,6 +16324,7 @@ export class FiberCubeTexturePropsHandler implements PropsHandler<FiberCubeTextu
       oldProps.boundingBoxPosition,
       newProps.boundingBoxPosition,
       'boundingBoxPosition',
+      false,
       changedProps
     )
     checkPrimitiveDiff(
@@ -16385,24 +16349,7 @@ export class FiberCubeTexturePropsHandler implements PropsHandler<FiberCubeTextu
       oldProps.boundingBoxSize,
       newProps.boundingBoxSize,
       'boundingBoxSize',
-      changedProps
-    )
-    checkPrimitiveDiff(
-      oldProps['boundingBoxSize-x'],
-      newProps['boundingBoxSize-x'],
-      'boundingBoxSize.x',
-      changedProps
-    )
-    checkPrimitiveDiff(
-      oldProps['boundingBoxSize-y'],
-      newProps['boundingBoxSize-y'],
-      'boundingBoxSize.y',
-      changedProps
-    )
-    checkPrimitiveDiff(
-      oldProps['boundingBoxSize-z'],
-      newProps['boundingBoxSize-z'],
-      'boundingBoxSize.z',
+      true,
       changedProps
     )
     checkObservableDiff(
@@ -17291,6 +17238,7 @@ export class FiberRenderTargetTexturePropsHandler
       oldProps.boundingBoxPosition,
       newProps.boundingBoxPosition,
       'boundingBoxPosition',
+      false,
       changedProps
     )
     checkPrimitiveDiff(
@@ -17315,24 +17263,7 @@ export class FiberRenderTargetTexturePropsHandler
       oldProps.boundingBoxSize,
       newProps.boundingBoxSize,
       'boundingBoxSize',
-      changedProps
-    )
-    checkPrimitiveDiff(
-      oldProps['boundingBoxSize-x'],
-      newProps['boundingBoxSize-x'],
-      'boundingBoxSize.x',
-      changedProps
-    )
-    checkPrimitiveDiff(
-      oldProps['boundingBoxSize-y'],
-      newProps['boundingBoxSize-y'],
-      'boundingBoxSize.y',
-      changedProps
-    )
-    checkPrimitiveDiff(
-      oldProps['boundingBoxSize-z'],
-      newProps['boundingBoxSize-z'],
-      'boundingBoxSize.z',
+      true,
       changedProps
     )
     checkColor4Diff(oldProps.clearColor, newProps.clearColor, 'clearColor', changedProps)
@@ -18246,6 +18177,7 @@ export class FiberAdvancedDynamicTexturePropsHandler
       'onEndRenderObservable',
       changedProps
     )
+    checkLambdaDiff(oldProps.parseContent, newProps.parseContent, 'parseContent', changedProps)
     checkPrimitiveDiff(oldProps.premulAlpha, newProps.premulAlpha, 'premulAlpha', changedProps)
     checkPrimitiveDiff(
       oldProps.renderAtIdealSize,
@@ -18823,6 +18755,7 @@ export class FiberHDRCubeTexturePropsHandler implements PropsHandler<FiberHDRCub
       oldProps.boundingBoxPosition,
       newProps.boundingBoxPosition,
       'boundingBoxPosition',
+      false,
       changedProps
     )
     checkPrimitiveDiff(
@@ -18847,24 +18780,7 @@ export class FiberHDRCubeTexturePropsHandler implements PropsHandler<FiberHDRCub
       oldProps.boundingBoxSize,
       newProps.boundingBoxSize,
       'boundingBoxSize',
-      changedProps
-    )
-    checkPrimitiveDiff(
-      oldProps['boundingBoxSize-x'],
-      newProps['boundingBoxSize-x'],
-      'boundingBoxSize.x',
-      changedProps
-    )
-    checkPrimitiveDiff(
-      oldProps['boundingBoxSize-y'],
-      newProps['boundingBoxSize-y'],
-      'boundingBoxSize.y',
-      changedProps
-    )
-    checkPrimitiveDiff(
-      oldProps['boundingBoxSize-z'],
-      newProps['boundingBoxSize-z'],
-      'boundingBoxSize.z',
+      true,
       changedProps
     )
     checkPrimitiveDiff(oldProps.isBlocking, newProps.isBlocking, 'isBlocking', changedProps)
@@ -20242,6 +20158,18 @@ export class FiberImageProcessingPostProcessPropsHandler
       changedProps
     )
     checkPrimitiveDiff(oldProps.contrast, newProps.contrast, 'contrast', changedProps)
+    checkPrimitiveDiff(
+      oldProps.ditheringEnabled,
+      newProps.ditheringEnabled,
+      'ditheringEnabled',
+      changedProps
+    )
+    checkPrimitiveDiff(
+      oldProps.ditheringIntensity,
+      newProps.ditheringIntensity,
+      'ditheringIntensity',
+      changedProps
+    )
     checkPrimitiveDiff(oldProps.exposure, newProps.exposure, 'exposure', changedProps)
     checkPrimitiveDiff(
       oldProps.fromLinearSpace,
@@ -22745,6 +22673,7 @@ export class FiberVolumetricLightScatteringPostProcessPropsHandler
       oldProps.customMeshPosition,
       newProps.customMeshPosition,
       'customMeshPosition',
+      false,
       changedProps
     )
     checkPrimitiveDiff(
@@ -23204,6 +23133,7 @@ export class FiberGizmoPropsHandler implements PropsHandler<FiberGizmoProps> {
       oldProps.customRotationQuaternion,
       newProps.customRotationQuaternion,
       'customRotationQuaternion',
+      true,
       changedProps
     )
     // type: 'BabylonjsCoreUtilityLayerRenderer' property (not coded) BabylonjsCoreGizmo.gizmoLayer.
@@ -23454,9 +23384,9 @@ export class FiberRotationGizmoPropsHandler implements PropsHandler<FiberRotatio
       'updateGizmoRotationToMatchAttachedMesh',
       changedProps
     )
-    // type: 'BabylonjsCorePlaneRotationGizmo' property (not coded) BabylonjsCoreRotationGizmo.xGizmo.
-    // type: 'BabylonjsCorePlaneRotationGizmo' property (not coded) BabylonjsCoreRotationGizmo.yGizmo.
-    // type: 'BabylonjsCorePlaneRotationGizmo' property (not coded) BabylonjsCoreRotationGizmo.zGizmo.
+    // type: 'BabylonjsCoreIPlaneRotationGizmo' property (not coded) BabylonjsCoreRotationGizmo.xGizmo.
+    // type: 'BabylonjsCoreIPlaneRotationGizmo' property (not coded) BabylonjsCoreRotationGizmo.yGizmo.
+    // type: 'BabylonjsCoreIPlaneRotationGizmo' property (not coded) BabylonjsCoreRotationGizmo.zGizmo.
     checkMethodDiff(
       oldProps.addToAxisCache,
       newProps.addToAxisCache,
@@ -23639,16 +23569,16 @@ export class FiberScaleGizmoPropsHandler implements PropsHandler<FiberScaleGizmo
     checkPrimitiveDiff(oldProps.scaleRatio, newProps.scaleRatio, 'scaleRatio', changedProps)
     checkPrimitiveDiff(oldProps.sensitivity, newProps.sensitivity, 'sensitivity', changedProps)
     checkPrimitiveDiff(oldProps.snapDistance, newProps.snapDistance, 'snapDistance', changedProps)
-    // type: 'BabylonjsCoreAxisScaleGizmo' property (not coded) BabylonjsCoreScaleGizmo.uniformScaleGizmo.
+    // type: 'BabylonjsCoreIAxisScaleGizmo' property (not coded) BabylonjsCoreScaleGizmo.uniformScaleGizmo.
     checkPrimitiveDiff(
       oldProps.updateGizmoRotationToMatchAttachedMesh,
       newProps.updateGizmoRotationToMatchAttachedMesh,
       'updateGizmoRotationToMatchAttachedMesh',
       changedProps
     )
-    // type: 'BabylonjsCoreAxisScaleGizmo' property (not coded) BabylonjsCoreScaleGizmo.xGizmo.
-    // type: 'BabylonjsCoreAxisScaleGizmo' property (not coded) BabylonjsCoreScaleGizmo.yGizmo.
-    // type: 'BabylonjsCoreAxisScaleGizmo' property (not coded) BabylonjsCoreScaleGizmo.zGizmo.
+    // type: 'BabylonjsCoreIAxisScaleGizmo' property (not coded) BabylonjsCoreScaleGizmo.xGizmo.
+    // type: 'BabylonjsCoreIAxisScaleGizmo' property (not coded) BabylonjsCoreScaleGizmo.yGizmo.
+    // type: 'BabylonjsCoreIAxisScaleGizmo' property (not coded) BabylonjsCoreScaleGizmo.zGizmo.
     checkMethodDiff(
       oldProps.addToAxisCache,
       newProps.addToAxisCache,
@@ -23713,25 +23643,7 @@ export class FiberBoundingBoxGizmoPropsHandler implements PropsHandler<FiberBoun
     newProps: FiberBoundingBoxGizmoProps
   ): PropertyUpdate[] | null {
     const changedProps: PropertyUpdate[] = []
-    checkVector3Diff(oldProps.axisFactor, newProps.axisFactor, 'axisFactor', changedProps)
-    checkPrimitiveDiff(
-      oldProps['axisFactor-x'],
-      newProps['axisFactor-x'],
-      'axisFactor.x',
-      changedProps
-    )
-    checkPrimitiveDiff(
-      oldProps['axisFactor-y'],
-      newProps['axisFactor-y'],
-      'axisFactor.y',
-      changedProps
-    )
-    checkPrimitiveDiff(
-      oldProps['axisFactor-z'],
-      newProps['axisFactor-z'],
-      'axisFactor.z',
-      changedProps
-    )
+    checkVector3Diff(oldProps.axisFactor, newProps.axisFactor, 'axisFactor', true, changedProps)
     checkPrimitiveDiff(
       oldProps.fixedDragMeshBoundsSize,
       newProps.fixedDragMeshBoundsSize,
@@ -23805,7 +23717,7 @@ export class FiberBoundingBoxGizmoPropsHandler implements PropsHandler<FiberBoun
       'scaleDragSpeed',
       changedProps
     )
-    checkVector3Diff(oldProps.scalePivot, newProps.scalePivot, 'scalePivot', changedProps)
+    checkVector3Diff(oldProps.scalePivot, newProps.scalePivot, 'scalePivot', false, changedProps)
     checkPrimitiveDiff(
       oldProps['scalePivot-x'],
       newProps['scalePivot-x'],
@@ -23918,12 +23830,12 @@ export class FiberPositionGizmoPropsHandler implements PropsHandler<FiberPositio
       'updateGizmoRotationToMatchAttachedMesh',
       changedProps
     )
-    // type: 'BabylonjsCoreAxisDragGizmo' property (not coded) BabylonjsCorePositionGizmo.xGizmo.
-    // type: 'BabylonjsCorePlaneDragGizmo' property (not coded) BabylonjsCorePositionGizmo.xPlaneGizmo.
-    // type: 'BabylonjsCoreAxisDragGizmo' property (not coded) BabylonjsCorePositionGizmo.yGizmo.
-    // type: 'BabylonjsCorePlaneDragGizmo' property (not coded) BabylonjsCorePositionGizmo.yPlaneGizmo.
-    // type: 'BabylonjsCoreAxisDragGizmo' property (not coded) BabylonjsCorePositionGizmo.zGizmo.
-    // type: 'BabylonjsCorePlaneDragGizmo' property (not coded) BabylonjsCorePositionGizmo.zPlaneGizmo.
+    // type: 'BabylonjsCoreIAxisDragGizmo' property (not coded) BabylonjsCorePositionGizmo.xGizmo.
+    // type: 'BabylonjsCoreIPlaneDragGizmo' property (not coded) BabylonjsCorePositionGizmo.xPlaneGizmo.
+    // type: 'BabylonjsCoreIAxisDragGizmo' property (not coded) BabylonjsCorePositionGizmo.yGizmo.
+    // type: 'BabylonjsCoreIPlaneDragGizmo' property (not coded) BabylonjsCorePositionGizmo.yPlaneGizmo.
+    // type: 'BabylonjsCoreIAxisDragGizmo' property (not coded) BabylonjsCorePositionGizmo.zGizmo.
+    // type: 'BabylonjsCoreIPlaneDragGizmo' property (not coded) BabylonjsCorePositionGizmo.zPlaneGizmo.
     checkMethodDiff(
       oldProps.addToAxisCache,
       newProps.addToAxisCache,
@@ -24593,10 +24505,7 @@ export class FiberVRExperienceHelperPropsHandler
       'onSelectedMeshUnselected',
       changedProps
     )
-    checkVector3Diff(oldProps.position, newProps.position, 'position', changedProps)
-    checkPrimitiveDiff(oldProps['position-x'], newProps['position-x'], 'position.x', changedProps)
-    checkPrimitiveDiff(oldProps['position-y'], newProps['position-y'], 'position.y', changedProps)
-    checkPrimitiveDiff(oldProps['position-z'], newProps['position-z'], 'position.z', changedProps)
+    checkVector3Diff(oldProps.position, newProps.position, 'position', true, changedProps)
     checkLambdaDiff(
       oldProps.raySelectionPredicate,
       newProps.raySelectionPredicate,
@@ -25679,7 +25588,7 @@ export class FiberGizmoManagerPropsHandler implements PropsHandler<FiberGizmoMan
       'enableAutoPicking',
       changedProps
     )
-    // type: '{ positionGizmo: BabylonjsCorePositionGizmo; rotationGizmo: BabylonjsCoreRotationGizmo; scaleGizmo: BabylonjsCoreScaleGizmo; boundingBoxGizmo: BabylonjsCoreBoundingBoxGizmo; }' property (not coded) BabylonjsCoreGizmoManager.gizmos.
+    // type: '{ positionGizmo: BabylonjsCoreIPositionGizmo; rotationGizmo: BabylonjsCoreIRotationGizmo; scaleGizmo: BabylonjsCoreIScaleGizmo; boundingBoxGizmo: BabylonjsCoreIBoundingBoxGizmo; }' property (not coded) BabylonjsCoreGizmoManager.gizmos.
     checkObservableDiff(
       oldProps.onAttachedToMeshObservable,
       newProps.onAttachedToMeshObservable,
@@ -25942,6 +25851,18 @@ export class FiberImageProcessingConfigurationPropsHandler
       changedProps
     )
     checkPrimitiveDiff(oldProps.contrast, newProps.contrast, 'contrast', changedProps)
+    checkPrimitiveDiff(
+      oldProps.ditheringEnabled,
+      newProps.ditheringEnabled,
+      'ditheringEnabled',
+      changedProps
+    )
+    checkPrimitiveDiff(
+      oldProps.ditheringIntensity,
+      newProps.ditheringIntensity,
+      'ditheringIntensity',
+      changedProps
+    )
     checkPrimitiveDiff(oldProps.exposure, newProps.exposure, 'exposure', changedProps)
     checkPrimitiveDiff(oldProps.isEnabled, newProps.isEnabled, 'isEnabled', changedProps)
     checkObservableDiff(
@@ -27533,6 +27454,7 @@ export class FiberPointerDragBehaviorPropsHandler
       oldProps.lastDragPosition,
       newProps.lastDragPosition,
       'lastDragPosition',
+      false,
       changedProps
     )
     checkPrimitiveDiff(
@@ -28069,7 +27991,7 @@ export class FiberScenePropsHandler implements PropsHandler<FiberSceneProps> {
       'getIntersectingSubMeshCandidates',
       changedProps
     )
-    checkVector3Diff(oldProps.gravity, newProps.gravity, 'gravity', changedProps)
+    checkVector3Diff(oldProps.gravity, newProps.gravity, 'gravity', false, changedProps)
     checkPrimitiveDiff(oldProps['gravity-x'], newProps['gravity-x'], 'gravity.x', changedProps)
     checkPrimitiveDiff(oldProps['gravity-y'], newProps['gravity-y'], 'gravity.y', changedProps)
     checkPrimitiveDiff(oldProps['gravity-z'], newProps['gravity-z'], 'gravity.z', changedProps)
@@ -28111,6 +28033,12 @@ export class FiberScenePropsHandler implements PropsHandler<FiberSceneProps> {
       oldProps.onActiveCameraChanged,
       newProps.onActiveCameraChanged,
       'onActiveCameraChanged',
+      changedProps
+    )
+    checkObservableDiff(
+      oldProps.onActiveCamerasChanged,
+      newProps.onActiveCamerasChanged,
+      'onActiveCamerasChanged',
       changedProps
     )
     checkObservableDiff(
@@ -28600,6 +28528,12 @@ export class FiberScenePropsHandler implements PropsHandler<FiberSceneProps> {
       oldProps.addParticleSystem,
       newProps.addParticleSystem,
       'addParticleSystem',
+      changedProps
+    )
+    checkMethodDiff(
+      oldProps.addPendingData,
+      newProps.addPendingData,
+      'addPendingData',
       changedProps
     )
     checkMethodDiff(oldProps.addSkeleton, newProps.addSkeleton, 'addSkeleton', changedProps)

@@ -82,7 +82,7 @@
     "ts-node": "^10.7.0",
     "tsc-watch": "4.1.0",
     "tsconfig-paths": "^3.9.0",
-    "typescript": "4.6.3"
+    "typescript": "^4.8.3"
   },
   "peerDependencies": {
     "@babylonjs/core": "5.x",
