@@ -10,7 +10,6 @@ import {
   Vector3,
 } from '@babylonjs/core'
 import React, { FC, useEffect, useRef } from 'react'
-import { SetRequired } from 'type-fest'
 type OnSceneReadyHandler = (scene: Scene) => void
 
 type OnRenderHandler = (scene: Scene) => void
@@ -27,14 +26,8 @@ type SceneComponentProps = {
   onSceneReady: OnSceneReadyHandler
 }
 
-type SceneComponentPropsIn = SetRequired<Partial<SceneComponentProps>, 'onRender' | 'onSceneReady'>
-
-const SceneComponent: FC<SceneComponentPropsIn> = (props) => {
+const SceneComponent: FC<SceneComponentProps> = (props) => {
   const reactCanvas = useRef(null)
-  const _props: SceneComponentProps = {
-    canvasId: 'babylonjs-canvas',
-    ...props,
-  }
 
   const {
     canvasId,
@@ -45,7 +38,7 @@ const SceneComponent: FC<SceneComponentPropsIn> = (props) => {
     onRender,
     onSceneReady,
     ...rest
-  } = _props
+  } = props
 
   useEffect(() => {
     if (!reactCanvas.current) return
@@ -126,7 +119,12 @@ const onRender: OnRenderHandler = (scene) => {
 
 const App: FC = () => (
   <div>
-    <SceneComponent antialias onSceneReady={onSceneReady} onRender={onRender} />
+    <SceneComponent
+      canvasId="babylon-canvas"
+      antialias
+      onSceneReady={onSceneReady}
+      onRender={onRender}
+    />
   </div>
 )
 

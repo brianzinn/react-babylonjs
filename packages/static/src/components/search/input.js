@@ -1,10 +1,10 @@
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
-import { Search } from '@styled-icons/fa-solid/Search'
+import { MagnifyingGlass } from '@styled-icons/fa-solid/MagnifyingGlass'
 import * as React from 'react'
 import { connectSearchBox } from 'react-instantsearch-dom'
 
-const SearchIcon = styled(Search)`
+const SearchIcon = styled(MagnifyingGlass)`
   width: 1em;
   pointer-events: none;
   margin-right: 10px;

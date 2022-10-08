@@ -30,8 +30,9 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           scope: brianzinn
       - name: install workspace
+        # npm install --legacy-peer-deps
         run: |
-          npm install --legacy-peer-deps
+          npm ci
       - name: build test coverage
         working-directory: ./packages/react-babylonjs
         run: |

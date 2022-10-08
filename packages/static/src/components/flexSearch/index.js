@@ -1,4 +1,4 @@
-import { css } from '@emotion/core'
+import { css } from '@emotion/react'
 import { Link } from 'gatsby'
 import * as queryString from 'query-string'
 import React, { useState } from 'react'

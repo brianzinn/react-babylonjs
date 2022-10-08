@@ -69,22 +69,6 @@ related to Babylon.js that are already known to React. We will use `freeCamera`,
 `hemisphericLight`, and `ground`. Those are all _intrinsic_, meaning we don't
 need an `import` statement to use them.
 
-Let's make a little helper function. Babylon.js defines a `Vector3` class which
-is used very frequently. We'll make a helper for it. When you see `v3` anywhere,
-it's coming from this:
-
-```tsx
-import { Vector3 } from '@babylonjs/core'
-
-const v3 = (x = 0, y = 0, z = 0) => new Vector3(x, y, z)
-```
-
-You can find this as:
-
-```js
-import { v3 } from '@react-babylonjs/extra'
-```
-
 Now with that in place, here's how we can add a camera, light, and ground to our
 scene.
 
@@ -107,7 +91,12 @@ import { BasicCameraLightsGround } from '@react-babylonjs/extra'
 Before we go, let's add a standard box to the scene.
 
 ```tsx
-<box name="box" size={2} position={v3(0, 1, 0)} rotation={v3(0, 0, 0)} />
+<box
+  name="box"
+  size={2}
+  position={new Vector3(0, 1, 0)}
+  rotation={Vector3.Zero()}
+/>
 ```
 
 [devtool:LoneBox.tsx]

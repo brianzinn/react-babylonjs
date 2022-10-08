@@ -14,7 +14,7 @@
     "tslib": "^2.3.1"
   },
   "devDependencies": {
-    "@types/react": "^17.0.38",
+    "@types/react": "^18.0.21",
     "chokidar-cli": "^3.0.0",
     "prettier": "^2.6.1",
     "prettier-plugin-organize-imports": "^2.3.4",
@@ -22,7 +22,7 @@
     "typescript": "^4.5.4"
   },
   "peerDependencies": {
-    "@babylonjs/core": "4.x||>5.0.0-alpha",
-    "react": "17.x"
+    "@babylonjs/core": "5.x",
+    "react": "18.x"
   }
 }

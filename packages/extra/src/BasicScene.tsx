@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { Engine, Scene } from 'react-babylonjs'
 
-export const BasicScene: FC = ({ children }) => (
+export const BasicScene: FC<any> = ({ children }) => (
   <Engine
     antialias
     adaptToDeviceRatio

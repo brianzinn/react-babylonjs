@@ -1,11 +1,12 @@
-import { BabylonApp, BasicCameraLightsGround, v3 } from '@react-babylonjs/extra'
+import { Vector3 } from '@babylonjs/core/Maths/math.vector'
+import { BabylonApp, BasicCameraLightsGround } from '@react-babylonjs/extra'
 import React, { FC } from 'react'
 
 const App: FC = () => {
   return (
     <BabylonApp>
       <BasicCameraLightsGround />
-      <box name="box" size={2} position={v3(0, 1, 0)} rotation={v3(0, 0, 0)} />
+      <box name="box" size={2} position={new Vector3(0, 1, 0)} rotation={Vector3.Zero()} />
     </BabylonApp>
   )
 }

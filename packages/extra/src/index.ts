@@ -1,5 +1,3 @@
 export * from './BabylonApp'
 export * from './BasicCameraLightsGround'
 export * from './BasicScene'
-export * from './RotatingBox'
-export * from './v3'

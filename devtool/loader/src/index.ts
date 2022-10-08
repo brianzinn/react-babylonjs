@@ -151,7 +151,7 @@ const createSandboxer = (options: CodeSandboxOptions) => {
 
     // Compute the new querystring
     const computedQuerystring = decodeURIComponent(query.toString())
-    console.log(`full query: ${templateName}?${computedQuerystring}`)
+    // console.log(`full query: ${templateName}?${computedQuerystring}`)
 
     const node: Code = {
       type: 'code',
@@ -189,7 +189,7 @@ const devtoolLoader: RawLoaderDefinitionFunction<Partial<LoaderOptions>> = async
 
   const { esModule, transpileOptions, codesandboxOptions, prettierOptions } = DEFAULT_CONFIG
 
-  // console.log('@devtool/loader options', JSON.stringify(_options, null, 2))
+  console.log('@devtool/loader options', JSON.stringify(_options, null, 2))
 
   const { makeUrl } = createSandboxer(codesandboxOptions)
 
@@ -241,8 +241,9 @@ const devtoolLoader: RawLoaderDefinitionFunction<Partial<LoaderOptions>> = async
 
   const json = JSON.stringify(res)
 
-  const final = `${esModule ? 'export default' : 'module.exports ='} ${json};`
+  // const final = `${esModule ? 'export default' : 'module.exports ='} ${json};`
+  const final = `export default ${json};`
   return final
 }
 
-module.exports = devtoolLoader
+export default devtoolLoader

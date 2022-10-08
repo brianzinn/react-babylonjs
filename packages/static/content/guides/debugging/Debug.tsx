@@ -1,26 +1,28 @@
-import { BabylonApp, BasicCameraLightsGround, RotatingBox } from '@react-babylonjs/extra'
-import React, { useContext } from 'react'
-// import { Controls, ControlsContext } from 'react-three-gui'
+import { BabylonApp, BasicCameraLightsGround } from '@react-babylonjs/extra'
+import React, { FC } from 'react'
+import { useScene } from 'react-babylonjs'
+import '@babylonjs/inspector'
 
-// const MyBox = () => {
-//   const ctx = useContext(ControlsContext)
+const Inspector: FC<{ show: boolean }> = ({ show }) => {
+  const scene = useScene()
+  if (scene) {
+    if (show !== false) {
+      scene.debugLayer.show()
+    } else {
+      scene.debugLayer.hide()
+    }
+  }
+  return null
+}
 
-//   console.log('wtf is this', ctx.controls)
-//   ctx.addControl({})
+const App = () => {
+  return (
+    <BabylonApp>
+      <BasicCameraLightsGround />
+      <box name="box-1" />
+      <Inspector show />
+    </BabylonApp>
+  )
+}
 
-//   // const rpm = useControl('RPM', { type: 'number' })
-//   return <ControlsContext.Consumer>{(context) => <RotatingBox rpm={5} />}</ControlsContext.Consumer>
-// }
-// const App = () => {
-//   return (
-//     <Controls.Provider>
-//       <BabylonApp>
-//         <BasicCameraLightsGround />
-//         <MyBox />
-//       </BabylonApp>
-//       <Controls />
-//     </Controls.Provider>
-//   )
-// }
-
-// export default App
+export default App

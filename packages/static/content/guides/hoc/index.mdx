@@ -185,62 +185,6 @@ const Box: FC<BoxProps> = (props) => {
 }
 ```
 
-That's pretty good, but some defaults would be nice. And we also don't have a
-way to specify a `name` and `size`. Let's fix both of those things. To do so, we
-are going to reach into [type-fest](https://github.com/sindresorhus/type-fest)
-and [micro-dash](https://www.npmjs.com/package/@s-libs/micro-dash) for some
-help.
-
-```bash
-yarn add type-fest @s-libs/micro-dash
-```
-
-`type-fest` gives us some Typescript helpers and `micro-dash` is a lightweight
-replacement for `lodash`. In particular, we want to use `PartialDeep` to create
-a type where _every_ field is optional, and we want to use `merge()` to merge
-defaults with whatever is provided. Here we go:
-
-```tsx
-import { merge } from '@s-libs/micro-dash'
-import { PartialDeep } from 'type-fest'
-
-type BoxProps = {
-  name: string
-  position: Vector3Struct
-  rotation: Vector3Struct
-  size: number
-}
-
-const Box: FC<PartialDeep<BoxProps>> = (props) => {
-  const _props: BoxProps = merge(
-    {
-      name: guid(),
-      size: 2,
-      position: {
-        x: 0,
-        y: 1,
-        z: 0,
-      },
-      rotation: {
-        x: 0,
-        y: 1,
-        z: 0,
-      },
-    },
-    props
-  )
-  const { name, size, position, rotation } = _props
-  return (
-    <box
-      name={name}
-      size={size}
-      position={structToVector3(position)}
-      rotation={structToVector3(rotation)}
-    />
-  )
-}
-```
-
 [devtool:BoxHoc.tsx]
 
 Whew! That's a lot to cover. Now we have a pretty useful `Box` component. You

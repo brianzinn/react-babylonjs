@@ -1,4 +1,5 @@
-import { BabylonApp, BasicCameraLightsGround, v3 } from '@react-babylonjs/extra'
+import { Vector3 } from '@babylonjs/core/Maths/math.vector'
+import { BabylonApp, BasicCameraLightsGround } from '@react-babylonjs/extra'
 import React, { FC, useState } from 'react'
 import { useBeforeRender, useScene } from 'react-babylonjs'
 
@@ -25,7 +26,7 @@ const RotatingBox: FC<Partial<RotatingBoxProps>> = (props) => {
     undefined,
     [rpm]
   )
-  return <box name="box" size={2} position={v3(0, 1, 0)} rotation={v3(0, y, 0)} />
+  return <box name="box" size={2} position={new Vector3(0, 1, 0)} rotation={new Vector3(0, y, 0)} />
 }
 
 const App: FC = () => {

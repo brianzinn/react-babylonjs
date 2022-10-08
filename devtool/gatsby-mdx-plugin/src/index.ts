@@ -48,10 +48,10 @@ const mkGuid = (() => {
   return () => `g${++id}`
 })()
 
-const plugin: GatsbyMdxPlugin = async (meta) => {
-  // console.log('options', _options)
+const plugin = async (meta: GatsbyMdxPluginMeta): Promise<MarkdownAST> => {
+  // console.error('options', meta)
   const { markdownAST, markdownNode } = meta
-  // console.log({ meta })
+  // console.error({ meta })
 
   const seen: { [_: string]: boolean } = {}
 
@@ -110,7 +110,7 @@ const plugin: GatsbyMdxPlugin = async (meta) => {
         const hash = md5(markdownNode.fileAbsolutePath).toString()
         const importSymbol = `Component_${moduleName}_${hash}`
         const devtoolResult = `Devtool_${moduleName}_${hash}`
-        // console.log(importSymbol, devtoolResult)
+        // console.error('devToolSymbol', importSymbol, devtoolResult)
 
         // Import the DevTool component
         if (!seen['DevTool']) {
@@ -132,13 +132,13 @@ const plugin: GatsbyMdxPlugin = async (meta) => {
               meta={${devtoolResult}} 
             />`,
         ].join('\n')
-        // console.log(devtoolComponent)
+        console.log('devtoolComponent', devtoolComponent)
 
         // Typescript kung fu to convert to a Code node
         ;((node: Jsx) => {
           node.type = 'jsx'
           node.value = devtoolComponent
-          console.log(`converted node to runtime container`)
+          console.error(`converted node to runtime container`)
           // console.log(JSON.stringify(node, null, 2))
         })(linkRefNode as unknown as Jsx)
 
@@ -152,7 +152,7 @@ const plugin: GatsbyMdxPlugin = async (meta) => {
             ].join('\n'),
           }
           markdownAST.children.unshift(node)
-          // console.log(`Adding: ${node.value}`)
+          console.log(`Adding: ${node.value}`)
           seen[moduleName] = true
         }
       })()
@@ -166,4 +166,4 @@ const plugin: GatsbyMdxPlugin = async (meta) => {
   return markdownAST
 }
 
-module.exports = plugin
+export = plugin

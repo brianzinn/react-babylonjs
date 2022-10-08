@@ -1,20 +1,12 @@
-import { Vector3 } from '@babylonjs/core'
-import { merge } from '@s-libs/micro-dash'
+import { Vector3 } from '@babylonjs/core/Maths/math.vector'
 import { FC, useState } from 'react'
 import { Engine, Scene, useBeforeRender, useScene } from 'react-babylonjs'
-import { PartialDeep } from 'type-fest'
-
-type Vector3Struct = {
-  x: number
-  y: number
-  z: number
-}
 
 type BoxProps = {
-  name: string
-  position: Vector3Struct
-  rotation: Vector3Struct
-  size: number
+  name?: string
+  position: Vector3
+  rotation: Vector3
+  size?: number
 }
 
 const guid = (() => {
@@ -22,40 +14,8 @@ const guid = (() => {
   return () => `g${++i}`
 })()
 
-const structToVector3: (struct: Partial<Vector3Struct>) => Vector3 = ({ x = 0, y = 0, z = 0 }) =>
-  new Vector3(x, y, z)
-
-type ApplyStructToVector3 = (struct: Partial<Vector3Struct>, vector: Vector3) => Vector3
-
-const applyStructTOVector3: ApplyStructToVector3 = (struct, vector) => Object.assign(vector, struct)
-
-const Box: FC<PartialDeep<BoxProps>> = (props) => {
-  const _props: BoxProps = merge(
-    {
-      name: guid(),
-      size: 2,
-      position: {
-        x: 0,
-        y: 1,
-        z: 0,
-      },
-      rotation: {
-        x: 0,
-        y: 1,
-        z: 0,
-      },
-    },
-    props
-  )
-  const { name, size, position, rotation } = _props
-  return (
-    <box
-      name={name}
-      size={size}
-      position={structToVector3(position)}
-      rotation={structToVector3(rotation)}
-    />
-  )
+const Box: FC<BoxProps> = ({ name, size, position, rotation }) => {
+  return <box name={name ?? guid()} size={size} position={position} rotation={rotation} />
 }
 
 const RPM = 5
@@ -65,12 +25,13 @@ const StatefulMovingBox: FC = () => {
   const [y, setY] = useState(0)
 
   useBeforeRender(() => {
-    if (!scene) return
-    const deltaTimeInMillis = scene.getEngine().getDeltaTime()
-    setY((y) => y + (RPM / 60) * Math.PI * 2 * (deltaTimeInMillis / 1000))
+    if (scene) {
+      const deltaTimeInMillis = scene.getEngine().getDeltaTime()
+      setY((y) => y + (RPM / 60) * Math.PI * 2 * (deltaTimeInMillis / 1000))
+    }
   })
 
-  return <Box rotation={structToVector3({ y })} />
+  return <Box rotation={new Vector3(0, y, 0)} position={new Vector3(0, 1, 0)} />
 }
 
 const App: FC = () => (

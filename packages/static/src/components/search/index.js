@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { Search } from '@styled-icons/fa-solid/Search'
+import { MagnifyingGlass } from '@styled-icons/fa-solid/MagnifyingGlass'
 import algoliasearch from 'algoliasearch/lite'
 import React, { createRef, useEffect, useState } from 'react'
 import { Configure, connectStateResults, Hits, Index, InstantSearch } from 'react-instantsearch-dom'
@@ -8,7 +8,7 @@ import * as hitComps from './hitComps'
 import Input from './input'
 import { PoweredBy } from './styles'
 
-const SearchIcon = styled(Search)`
+const SearchIcon = styled(MagnifyingGlass)`
   width: 1em;
   pointer-events: none;
 `
