@@ -1,4 +1,4 @@
-// FullImperitive.tsx
+// FullImperative.tsx
 var __assign =
   (this && this.__assign) ||
   function () {

@@ -82,7 +82,7 @@ function getSlideUpAnimation(position: Vector3, offsetY: number) {
 
 export const BasicAnimations: FC = () => (
   <div style={{ flex: 1, display: 'flex' }}>
-    <Engine antialias adaptToDeviceRatio canvasId="babylonJS">
+    <Engine antialias adaptToDeviceRatio canvasId="babylon-canvas">
       <Scene>
         <freeCamera
           name="camera1"

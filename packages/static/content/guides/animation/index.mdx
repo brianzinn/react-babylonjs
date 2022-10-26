@@ -2,21 +2,19 @@
 title: 'Declarative Animation'
 ---
 
-Programming declarative animation is a huge topic, but we'll scratch the surface
-in this guide.
+Declarative animation is a big topic. We'll scratch the surface here.
 
 # The declarative animation loop
 
 One way you can achieve an animation with `react-babylonjs` is by using the
 Engine render loop, which runs many times per second. You can receive callbacks
 for this loop by using the `useBeforeRender` hook. As its name implies, it is
-called before each frame render and allows you to adjust whatever needs
-adjusting.
+called before each frame render and allows you to make any changes needed to
+simulate animations.
 
 The beauty of Component based design is that each React component can register
 their own animation loop handler and take responsibility just for its small
-task. Tasks in common can be hoisted to parent components. In this way, we can
-achieve very efficient and organized animations.
+task.
 
 Here's some basic usage:
 
@@ -37,15 +35,15 @@ Every object in 3D has a _position_ (x, y, z) in space and a _rotation_ (roll,
 pitch, yaw). As
 [google states it](https://developers.google.com/vr/discover/degrees-of-freedom):
 
-> Three correspond to rotational movement around the x, y, and z axes, commonly
-> termed pitch, yaw, and roll. The other three correspond to translational
-> movement along those axes, which can be thought of as moving forward or
-> backward, moving left or right, and moving up or down.
+> Rotational movement is relative to the x, y, and z axes, commonly termed
+> pitch, yaw, and roll. The position corresponds to translational movement along
+> those axes, which can be thought of as moving forward or backward, moving left
+> or right, and moving up or down.
 
 You can read a lot about this elsewhere, so we won't cover it in much depth
 here. The main point to take away is that animation involves affecting one or
 more of these degrees of freedom on each object (animations can also be for
-colors, etc.).
+colors, brightness, etc.).
 
 Let's try `useBeforeRender` to adjust these properties.
 
@@ -54,9 +52,10 @@ Let's try `useBeforeRender` to adjust these properties.
 Using a box as an example - we will rotate it about the Y axis, known as _yaw_.
 And, we'll do it many times per second.
 
-Here's how to make a box (`<box ... />` calls the babylon.js
-[CreateBox method](https://doc.babylonjs.com/typedoc/modules/BABYLON#CreateBox-2).
-We need to make sure we are passing required constructor (or factory method)
+Here's how to make a box (`<box ... />` (recall from previous guide how it uses
+the Babylon.js
+[CreateBox](https://doc.babylonjs.com/typedoc/modules/BABYLON#CreateBox-2)). We
+need to make sure we are passing required constructor (or factory method)
 arguments.
 
 - Only `name` is required - the `Scene` object will be passed for you
@@ -118,15 +117,16 @@ const RotatingBox: FC = () => {
 
 # Using real-world timing in animations
 
-The rotatin box is fun, but it would be nice to specify its rotation speed in
-term so of real-world time.
+The rotating box is fun, but it would be nice to control rotation speed in terms
+of real-world time (ie: smooth animation). Also, different devices will rotate
+the same speed!
 
 Let's adjust the rotation to Revolutions Per Minute (RPM). To do that, we need
-to know that one complete revolution of _yaw_ is `pi \* 2`.
+to know that one complete revolution of _yaw_ is `Math.PI / 2`.
 
-We also need to know how many milliseconds have passed between animation frames.
-Fortunately Babylon.js provides a `getDeltaTime()` that tells us exactly that.
-Using all that information, we can do this instead:
+We also need to know how many milliseconds have passed between animation frames
+(since it is not consistent). Fortunately Babylon.js provides a `getDeltaTime()`
+that provides that duration. Using all that information, we can do this instead:
 
 ```tsx
 const RPM = 5
@@ -136,7 +136,7 @@ setY((oldY) => oldY + (RPM / 60) * Math.PI * 2 * (deltaTimeInMillis / 1000))
 # Making `rpm` a component prop
 
 Let's use the power of Typescript to create some spinning box props that accepts
-RPM:
+RPM (not needed in JavaScript projects):
 
 ```tsx
 type RotatingBoxProps = {
@@ -160,13 +160,14 @@ useBeforeRender(() => {
 })
 ```
 
-Now that's a nice reactive component! We use it like this:
+Now that's a nice reusable component! We use it like this:
 
 ```tsx
-<RotatingBox rpm={60} />
+<RotatingBox rpm={10} />
 ```
 
-Let's try it. We should see one rotation per second when `rpm` is 60.
+Let's try it. We should see one rotation every 6 seconds when `rpm` is 10
+(60/10=6).
 
 [devtool:RPMBox.tsx]
 
@@ -190,14 +191,14 @@ useBeforeRender(
 
 [devtool:RPMBox3.tsx]
 
-# Adding a debugging experience
+# Direct object manipulation (not via state)
 
-It would be very cool if we had a way to interact with the application state for
-debugging purposes.
+The state props will flow on the reconciler schedule and changing state in the
+render loop can have very noticeable performance implications.
 
-There are a couple ways to accomplish this:
+Directly altering Babylon.js object properties via refss bypasses that overhead
+and will be a more accurate animation smoothing. The reconciler will schedule
+the updates using it's own algorithm, but this method will immediately apply the
+update.
 
-1. Outside the scene, using standard web technologies
-2. Inside the scene, using a GUI capable of rendering in 3D space
-
-Let's go with option #1 for now.
+[devtool:NoState.tsx]

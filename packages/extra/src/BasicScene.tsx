@@ -5,7 +5,7 @@ export const BasicScene: FC<any> = ({ children }) => (
   <Engine
     antialias
     adaptToDeviceRatio
-    canvasId="babylonJS"
+    canvasId="babylon-js"
     renderOptions={{
       whenVisibleOnly: true,
     }}

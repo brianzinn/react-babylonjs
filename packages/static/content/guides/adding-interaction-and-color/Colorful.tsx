@@ -1,4 +1,4 @@
-import { Color3, Vector3 } from '@babylonjs/core'
+import { Color3, Vector3, Mesh } from '@babylonjs/core'
 import { FC, useRef } from 'react'
 import { Engine, Scene, useBeforeRender, useScene } from 'react-babylonjs'
 
@@ -14,14 +14,14 @@ const MovingBox: FC<MovingBoxProps> = (props) => {
   // access Babylon Scene
   const scene = useScene()
   // access refs to Babylon objects in scene like DOM nodes
-  const boxRef = useRef<JSX.IntrinsicElements['box']>(null)
+  const boxRef = useRef<Mesh>(null)
 
   useBeforeRender(() => {
-    if (!boxRef.current?.rotation) return
-    if (!scene) return
-    const deltaTimeInMillis = scene.getEngine().getDeltaTime()
-    boxRef.current.rotation[props.rotationAxis] +=
-      (RPM / 60) * Math.PI * 2 * (deltaTimeInMillis / 1000)
+    if (scene && boxRef.current) {
+      const deltaTimeInMillis = scene.getEngine().getDeltaTime()
+      boxRef.current.rotation[props.rotationAxis] +=
+        (RPM / 60) * Math.PI * 2 * (deltaTimeInMillis / 1000)
+    }
   })
 
   return (
@@ -33,7 +33,14 @@ const MovingBox: FC<MovingBoxProps> = (props) => {
 
 const App: FC = () => (
   <div style={{ flex: 1, display: 'flex' }}>
-    <Engine antialias adaptToDeviceRatio canvasId="babylonJS">
+    <Engine
+      antialias
+      adaptToDeviceRatio
+      canvasId="babylon-js"
+      renderOptions={{
+        whenVisibleOnly: true,
+      }}
+    >
       <Scene>
         <freeCamera name="camera1" position={new Vector3(0, 5, -10)} setTarget={[Vector3.Zero()]} />
         <hemisphericLight name="light1" intensity={0.7} direction={Vector3.Up()} />

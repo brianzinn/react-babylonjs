@@ -1,0 +1,54 @@
+---
+title: 'Imperative React + Babylon.js'
+sort: 400
+---
+
+Once you have a React project set up, you can add Babylon.js imperatively by
+connecting it to a canvas element. This page shows a vanilla JS way with zero
+dependencies and a library that makes that easier.
+
+Skip this page to go to using `react-babylonjs` directly.
+
+There is more explanation here:
+[official Babylon.js + React guide](https://doc.babylonjs.com/extensions/Babylon.js+ExternalLibraries/BabylonJS_and_ReactJS).
+
+[devtool:FullImperative.tsx]
+
+The demo above is produced using imperative Typescript. With ~150 lines of code
+you have a box spinning on your screen! It's better to bring in a library though
+as it has other features and fixes common issues. We'll be going afterwards into
+the advantages of using the `react-babylonjs` renderer.
+
+As you review the code, notice everything happens in sequence and you are
+responsible for re-running affected code when you change the input values.
+
+In [reactive programming](https://en.wikipedia.org/wiki/Reactive_programming), a
+change in the application state naturally cascades to affected code. There are
+many benefits to a reactive programming style that we won't cover here. But
+speed, efficiency, and ability to reason through complex state changes are among
+the many benefits.
+
+The imperative coding also makes it more difficult to decompose your
+application.
+
+Therefore, the sample above - while it _does_ run in the React framework - it is
+not the author's preferred way to use Babylon.js with React.
+
+If you do want to stick with just a simple Component that will setup a canvas
+and provide a callback when the scene is ready, there is another helpful package
+[babylonjs-hook](https://www.npmjs.com/package/babylonjs-hook) which has the
+`SceneComponent` from previous example (adds some hooks and better resize
+events, etc.) and is available on NPM. The `onSceneReady` handler provided is
+still imperative programming though. We can reduce the line count to ~60 lines
+of code, but all we've done is move part of it into a 3rd party package. The
+approach is still fundamentally the same: It's still imperative programming, not
+declarative or reactive programming.
+
+Here is the same example using the `babylonjs-hook` package:
+
+[devtool:WithHooks.tsx]
+
+In summary, this guide has shown you how to use imperative programming within
+React. Let's move on to declarative programming and how the `react-babylonjs`
+renderer can help us develop with Babylon.js using a familiar declarative
+paradigm with hooks/state/refs/etc..

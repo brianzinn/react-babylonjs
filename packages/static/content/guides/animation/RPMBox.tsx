@@ -22,7 +22,7 @@ const App: FC = () => {
   return (
     <BabylonApp>
       <BasicCameraLightsGround />
-      <RotatingBox rpm={60} />
+      <RotatingBox rpm={10} />
     </BabylonApp>
   )
 }

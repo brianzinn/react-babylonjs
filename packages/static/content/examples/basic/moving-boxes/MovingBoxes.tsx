@@ -43,7 +43,7 @@ const MovingBox: FC<MovingBoxProps> = (props: MovingBoxProps) => {
 
 export default () => (
   <div style={{ flex: 1, display: 'flex' }}>
-    <Engine antialias adaptToDeviceRatio canvasId="babylonJS">
+    <Engine antialias adaptToDeviceRatio canvasId="babylon-canvas">
       <Scene>
         <freeCamera name="camera1" position={new Vector3(0, 5, -10)} setTarget={[Vector3.Zero()]} />
         <hemisphericLight name="light1" intensity={0.7} direction={Vector3.Up()} />
