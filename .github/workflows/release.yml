@@ -52,7 +52,7 @@ jobs:
           git status
           sleep 1m
           cd packages/react-babylonjs
-          ../../node_modules/.bin/gren release --tags=v${PACKAGE_VERSION}
+          ./node_modules/.bin/gren release --tags=v${PACKAGE_VERSION}
         env:
           GREN_GITHUB_TOKEN: ${{ secrets.GREN_GITHUB_TOKEN }}
       - name: publish npm
