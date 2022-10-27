@@ -29,7 +29,8 @@ jobs:
           node-version: '16.13.2'
           registry-url: 'https://registry.npmjs.org'
           scope: brianzinn
-      - name: install workspace
+      - name: install deps (not workspace)
+        working-directory: ./packages/react-babylonjs
         # npm install --legacy-peer-deps
         run: |
           npm ci
