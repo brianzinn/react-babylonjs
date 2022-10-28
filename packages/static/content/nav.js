@@ -12,6 +12,9 @@ const toc = [
   '/examples/basic',
   '/examples/basic/animations',
   '/examples/basic/moving-boxes',
+  '/examples/basic/context-bridge',
+  '/examples/basic/custom-mesh',
+  '/examples/basic/instanced-mesh-hex',
 ]
 
 const navSortMap = toc.reduce((c, slug, i) => {
