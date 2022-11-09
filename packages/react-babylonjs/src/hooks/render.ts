@@ -1,6 +1,6 @@
 import { EventState, Observer } from '@babylonjs/core/Misc/observable.js'
 import { Scene } from '@babylonjs/core/scene.js'
-import { Camera } from "@babylonjs/core/Cameras/camera"
+import { Camera } from "@babylonjs/core/Cameras/camera.js"
 import { Nullable } from '@babylonjs/core/types.js'
 import { useContext, useEffect } from 'react'
 import { SceneContext } from './scene'
