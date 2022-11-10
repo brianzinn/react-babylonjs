@@ -1,0 +1,160 @@
+
+import { PointerEventTypes } from '@babylonjs/core/Events/pointerEvents'
+import { Observer } from '@babylonjs/core/Misc/observable'
+import { Nullable } from '@babylonjs/core/types'
+import { useLayoutEffect, useRef } from 'react'
+import { useScene } from '../hooks/scene'
+
+let currentFrame = 0
+let pointerDown = false
+
+enum RenderState {
+  /** normal render */
+  Render,
+  /** render with hardware scaling */
+  RenderScale,
+  /** reset hardware scaling */
+  Reset,
+  /** no render */
+  NoRender,
+}
+
+const RenderOnDemand = ({
+  hardwareScaling,
+  renderEveryFrame,
+  renderAnimations,
+  renderCameraMovement,
+}: {
+  /** turn on hardware scaling on camera movement */
+  hardwareScaling?: number
+  /** render every x frame - if not set or 0, then rendering stops */
+  renderEveryFrame?: number
+  /** renders animations each frame, defaults to true */
+  renderAnimations?: boolean
+  /** renders on camera movement, defaults to true */
+  renderCameraMovement?: boolean
+}) => {
+  const scene = useScene()
+  const renderState = useRef<RenderState>(RenderState.Render)
+  const hardwareScalingFallback = useRef(1)
+
+  useLayoutEffect(() => {
+    if (scene) {
+      let animationChanged: Nullable<Observer<any>> = null
+      let viewChanged: Nullable<Observer<any>> = null
+      let pointerChanged: Nullable<Observer<any>> = null
+
+      const observer = () => {
+        const camera = scene?.activeCamera
+        if (camera) {
+          renderState.current = RenderState.Render
+          //cleanup observers
+          if (animationChanged) {
+            scene.onBeforeAnimationsObservable.remove(animationChanged)
+            animationChanged = null
+          }
+          if (viewChanged) {
+            camera.onViewMatrixChangedObservable.remove(viewChanged)
+            viewChanged = null
+          }
+          if (pointerChanged) {
+            scene.onPointerObservable.remove(pointerChanged)
+            pointerChanged = null
+          }
+          // render on active animations
+          animationChanged = scene.onBeforeAnimationsObservable.add(e => {
+            if (renderAnimations !== false && e.animatables.length > 0) {
+              renderState.current = RenderState.Render
+            }
+          })
+          // render on active view changed
+          viewChanged = camera.onViewMatrixChangedObservable.add(() => {
+            if (renderCameraMovement !== false) {
+              renderState.current = RenderState.RenderScale
+            }
+          })
+          // render on interaction
+          pointerChanged = scene.onPointerObservable.add(e => {
+            if (e.type === PointerEventTypes.POINTERDOWN) {
+              pointerDown = true
+            }
+            if (e.type === PointerEventTypes.POINTERUP) {
+              pointerDown = false
+            }
+            if (pointerDown) {
+              // timeout is used, to get direct feedback for click
+              // since a click might lead to state update highlighting i.e. meshes and this happens within
+              // react render loops, taking a bit more time
+              renderState.current = RenderState.RenderScale
+              setTimeout(() => (renderState.current = RenderState.RenderScale), 1)
+            }
+          })
+        }
+      }
+      observer()
+      const updateCamera = scene.onActiveCameraChanged.add(observer)
+      return () => {
+        //cleanup observers
+        if (animationChanged) {
+          scene.onBeforeAnimationsObservable.remove(animationChanged)
+          animationChanged = null
+        }
+        if (viewChanged) {
+          scene.activeCamera?.onViewMatrixChangedObservable.remove(viewChanged)
+          viewChanged = null
+        }
+        if (pointerChanged) {
+          scene.onPointerObservable.remove(pointerChanged)
+        }
+        scene.onActiveCameraChanged.remove(updateCamera)
+      }
+    }
+  }, [scene, renderAnimations, renderCameraMovement])
+
+  useLayoutEffect(() => {
+    if (scene) {
+      const engine = scene.getEngine()
+      hardwareScalingFallback.current = engine.getHardwareScalingLevel()
+      //RENDER LOOP
+      var renderLoop = function () {
+        currentFrame += 1
+        let render = true
+        scene.activeCamera?.update()
+        if (renderState.current === RenderState.Render) {
+          renderState.current = RenderState.NoRender
+        } else if (renderState.current === RenderState.RenderScale) {
+          // render scene - optionally with hardware scaling
+          if (hardwareScaling) {
+            hardwareScaling && engine.setHardwareScalingLevel(hardwareScaling)
+            renderState.current = RenderState.Reset
+          } else {
+            renderState.current = RenderState.NoRender
+          }
+        } else if (renderState.current === RenderState.Reset) {
+          // render scene with old hardwareScaling value
+          hardwareScaling && engine.setHardwareScalingLevel(hardwareScalingFallback.current)
+          renderState.current = RenderState.NoRender
+        } else if (!(renderEveryFrame && currentFrame === renderEveryFrame)) {
+          render = false
+        }
+        if (render) {
+          // console.log('render')
+          scene.render(false)
+          currentFrame = 0
+        }
+      }
+      engine.stopRenderLoop()
+      engine.runRenderLoop(renderLoop)
+      return () => {
+        engine.stopRenderLoop()
+        engine.runRenderLoop(() => {
+          scene.render()
+        })
+      }
+    }
+  }, [scene, renderEveryFrame, hardwareScaling])
+
+  return null
+}
+
+export default RenderOnDemand
