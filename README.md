@@ -337,6 +337,7 @@ excellent typings support.
   [Snippet Material](https://brianzinn.github.io/react-babylonjs/?path=/story/babylon-basic--snippet-material)
   and
   ["tunnel" zustand integration](https://brianzinn.github.io/react-babylonjs/?path=/story/integrations--zustand-tunnel).
+  Added `RenderOnDemand` to customize render loops.
 - [kencyke](https://github.com/kencyke) created a cool multi-canvas + cloud
   point repo that insipired creation of `<pointsCloudSystem .../>` as host
   element.
