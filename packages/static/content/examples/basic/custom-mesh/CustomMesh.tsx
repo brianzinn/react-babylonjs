@@ -1,7 +1,6 @@
 import { Vector3 } from '@babylonjs/core/Maths/math.vector'
 import { VertexData } from '@babylonjs/core/Meshes/mesh.vertexData'
-// this import is just so it works with debug builds.  you should import from '@babylonjs/*` directly as above
-import { Mesh } from 'react-babylonjs/node_modules/@babylonjs/core/Meshes/mesh'
+import { Mesh } from '@babylonjs/core/Meshes/mesh'
 
 import React, { FC, useState } from 'react'
 import { Engine, Scene, useScene } from 'react-babylonjs'
@@ -69,6 +68,8 @@ const CustomMeshes = () => {
               alpha={Math.PI / 2}
               beta={Math.PI / 2}
               radius={20}
+              lowerRadiusLimit={15}
+              upperRadiusLimit={30}
             />
             <hemisphericLight name="light1" intensity={0.7} direction={Vector3.Up()} />
             <CustomMesh name="custom-0" position={new Vector3(0, 0, 0)} useWireframe={false} />

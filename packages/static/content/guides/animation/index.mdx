@@ -23,7 +23,7 @@ const scene = useScene()
 
 useBeforeRender(() => {
   if (scene) {
-    // This gets called ~60 FPS
+    // This gets called ~60 FPS or whatever your frame rate is.
     // Don't do a lot in here, just essentials
   }
 })
@@ -119,7 +119,7 @@ const RotatingBox: FC = () => {
 
 The rotating box is fun, but it would be nice to control rotation speed in terms
 of real-world time (ie: smooth animation). Also, different devices will rotate
-the same speed!
+different speeds depending on frame rate this way!
 
 Let's adjust the rotation to Revolutions Per Minute (RPM). To do that, we need
 to know that one complete revolution of _yaw_ is `Math.PI / 2`.
@@ -189,6 +189,9 @@ useBeforeRender(
 )
 ```
 
+You can try it out by choosing the RPM here and seeing that it alters the
+rotation speed accordingly.
+
 [devtool:RPMBox3.tsx]
 
 # Direct object manipulation (not via state)
@@ -196,9 +199,14 @@ useBeforeRender(
 The state props will flow on the reconciler schedule and changing state in the
 render loop can have very noticeable performance implications.
 
-Directly altering Babylon.js object properties via refss bypasses that overhead
-and will be a more accurate animation smoothing. The reconciler will schedule
-the updates using it's own algorithm, but this method will immediately apply the
-update.
+Directly altering Babylon.js object properties via refs bypasses that overhead
+and will be a more accurate animation smoothing. Whereas the reconciler will
+schedule the updates using it's own algorithm, this method will immediately
+apply the update. It should be noted as well that this will not cause re-renders
+of the component itself, which was innefficiently creating new Vector3 objects
+every render in above examples.
 
 [devtool:NoState.tsx]
+
+There is also in Example->Basic->[Animations](../../examples/basic/animations)
+that uses an Animation object that can be looped and has easing functions, etc.

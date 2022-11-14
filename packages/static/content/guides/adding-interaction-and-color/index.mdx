@@ -3,7 +3,7 @@ title: 'Adding More Interaction and Color'
 ---
 
 Let's take a look at how to spice up this scene a bit, so that it has some color
-and user interactionn (hover and click).
+and user interaction (hover and click).
 
 Here's the standard imperative way to add color to a box. There are many
 materials and different color properties (diffuse, emissive, etc)
@@ -46,8 +46,9 @@ have a callback methods:
 1. useClick: has a single callback for when a click occurs
 2. useHover: callbacks for for hovering `over` and `out` events.
 
-If you don't pass in a Ref then one will be created for you (and you can use
+If you don't pass in a `Ref` then one will be created for you (and you can use
 that in the object). The easiest way though is to use a `useRef` and pass it
-through to each click - check the code below demonstrates that way.
+through to each hook - check the code below demonstrates that way to flow the
+ref through.
 
 [devtool:AddingInteractions.tsx]

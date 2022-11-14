@@ -8,12 +8,11 @@ hooks like `useScene`, `useBeforeRender`.
 
 # Creating a Basic Scene
 
-Let's take a look at a basic `react-babylonjs` scene. In it, we use the `Engine`
-and `Scene` components of `react-bablylonjs`. These will connect and create an
-HTML canvas, Engine and Scene with a render loop. Everything you might like to
-add to a scene can be added declaratively in the `Scene`. Note We can also pass
-in props like below with `antialias`/`antialias={true}` to the Babylon.js
-Engine.
+Let's take a look at a basic `react-babylonjs` scene using the `Engine` and
+`Scene` components of `react-bablylonjs`. These will connect and create an HTML
+canvas, Engine and Scene with a render loop. Everything you might like to add to
+a scene can be added declaratively in the `Scene`. Note we can also pass in
+props like below with `antialias`/`antialias={true}` to the Babylon.js Engine.
 
 ```tsx
 import { Engine, Scene } from 'react-babylonjs'
@@ -32,6 +31,7 @@ shown below. The React concept _composition_ will be demonstrated further in
 these guides in a Babylon context.
 
 ```tsx
+import { FC } from 'react'
 import { Engine, Scene } from 'react-babylonjs'
 
 const BasicScene: FC = ({ children }) => (
@@ -54,18 +54,36 @@ to add light, a camera, and something to look at. Let's do that now.
 
 As we go along, it's important to understand a concept known as
 [intrinsic JSX](https://www.typescriptlang.org/docs/handbook/jsx.html#intrinsic-elements).
-We had to explicitly import `Engine` and `Scene`, but there are many Babylon.js
-elements that are understood by React thanks to this library. We will use
+Renderers treat them as `Host Elements` as opposed to React Components, much
+like the `react-dom` renderer would for HTML elements like `div` or `span`. We
+had to explicitly import `Engine` and `Scene`, but there are many Babylon.js
+elements that will be understood by React thanks to this library. We will use
 `<freeCamera ... />`, `<hemisphericLight ... />`, and `<ground ... />`. Those
-are all _intrinsic_, meaning we don't need an `import` statement to use them. In
-the world of DOM programming we use elements like `div` or `span` and they are
-understood by your IDE and include intellisense and compile time warnings. In a
-Babylon.js application it means you can declare your cameras and lights in that
-familiar declarative way.
+are all _intrinsic_, meaning we don't need an `import` statement to use them.
+They are understood by your IDE and include intellisense and compile time
+warnings. In a Babylon.js application it means you can add your cameras, lights,
+etc. in that familiar declarative way to your scene:
 
-Now with that in place, here's how we can add a camera, light, and ground to our
-scene (Click the **"code"** tab to see the code and you can toggle between
-TypeScript or JavaScript languages).
+```typescript
+<Scene>
+  <freeCamera
+    name="camera1"
+    position={new Vector3(0, 5, -10)}
+    setTarget={[Vector3.Zero()]}
+  />
+
+  <hemisphericLight
+    name="light1"
+    intensity={0.7}
+    direction={new Vector3(0, 1, 0)}
+  />
+
+  <ground name="ground" width={6} height={6} />
+</Scene>
+```
+
+Click the **"code"** tab to see the code and you can toggle between TypeScript
+or JavaScript.
 
 [devtool:BasicScene.tsx]
 
@@ -78,11 +96,11 @@ If we create a box in Babylon.js imperatively you could call
 [CreateBox](https://doc.babylonjs.com/typedoc/modules/BABYLON#CreateBox-2):
 
 ```
-// doesn't need to be mesh builder - there are creation methods that can be imported directly.
+// doesn't need to be MeshBuilder - there are creation methods that can be imported directly.
 import { MeshBuilder } from '@babylonjs/core'
 
 // NOTE: you need to pass in `scene` object yourself.
-const box = box = MeshBuilder.CreateBox('box', { size: 2 }, scene);
+const box = MeshBuilder.CreateBox('box', { size: 2 }, scene);
 box.position = new Vector3(0, 1, 0);
 box.rotation = Vector3.Zero();
 ```
@@ -118,7 +136,7 @@ This is how we'd create a FreeCamera declaratively:
 
 ```typescript
 import { FreeCamera, Vector3 } from '@babylonjs/core'
-var camera = new FreeCamera('camera1',`` new Vector3(0, 5, -10), scene)
+var camera = new FreeCamera('camera1', new Vector3(0, 5, -10), scene)
 
 // This targets the camera to scene origin
 camera.setTarget(Vector3.Zero())

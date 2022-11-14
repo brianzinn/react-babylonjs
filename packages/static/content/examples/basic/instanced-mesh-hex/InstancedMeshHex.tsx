@@ -94,6 +94,8 @@ const Instances = () => {
             alpha={-Math.PI / 2}
             beta={Math.PI / 1.2}
             radius={Math.max(GRID_WIDTH, GRID_HEIGHT) * 1.5}
+            lowerRadiusLimit={Math.max(GRID_WIDTH, GRID_HEIGHT) * 1.3}
+            upperRadiusLimit={Math.max(GRID_WIDTH, GRID_HEIGHT) * 2}
           />
           <hemisphericLight name="light1" intensity={0.9} direction={Vector3.Down()} />
           <disc ref={hexRef} name="hex" radius={1} tessellation={6} isVisible={false} />

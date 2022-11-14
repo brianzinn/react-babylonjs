@@ -14,6 +14,9 @@ const toc = [
   '/examples/basic/moving-boxes',
   '/examples/basic/context-bridge',
   '/examples/basic/custom-mesh',
+  '/examples/basic/dynamic-terrain',
+  '/examples/basic/edges-rendering',
+  '/examples/basic/from-instance',
   '/examples/basic/instanced-mesh-hex',
 ]
 

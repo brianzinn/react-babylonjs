@@ -70,8 +70,8 @@ const SceneWithSpinningBoxes: FC = () => (
           alpha={Math.PI / 2}
           beta={Math.PI / 4}
           radius={8}
-          minZ={4}
-          maxZ={12}
+          lowerRadiusLimit={6}
+          upperRadiusLimit={10}
         />
         <hemisphericLight name="light1" intensity={0.7} direction={Vector3.Up()} />
         <SpinningBox

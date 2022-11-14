@@ -1,4 +1,7 @@
-import { Color3, Vector3, Mesh } from '@babylonjs/core'
+import { Color3 } from '@babylonjs/core/Maths/math.color'
+import { Vector3 } from '@babylonjs/core/Maths/math.vector'
+import { Mesh } from '@babylonjs/core/Meshes/mesh'
+import { Nullable } from '@babylonjs/core/types'
 import { FC, useRef } from 'react'
 import { Engine, Scene, useBeforeRender, useScene } from 'react-babylonjs'
 
@@ -14,7 +17,7 @@ const MovingBox: FC<MovingBoxProps> = (props) => {
   // access Babylon Scene
   const scene = useScene()
   // access refs to Babylon objects in scene like DOM nodes
-  const boxRef = useRef<Mesh>(null)
+  const boxRef = useRef<Nullable<Mesh>>(null)
 
   useBeforeRender(() => {
     if (scene && boxRef.current) {

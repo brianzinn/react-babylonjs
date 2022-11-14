@@ -1,7 +1,6 @@
 import { Vector3 } from '@babylonjs/core/Maths/math.vector'
-import { BabylonApp, BasicCameraLightsGround } from '@react-babylonjs/extra'
 import React, { FC, useState } from 'react'
-import { useBeforeRender, useScene } from 'react-babylonjs'
+import { Engine, Scene, useBeforeRender, useScene } from 'react-babylonjs'
 
 type RotatingBoxProps = {
   rpm: number
@@ -20,10 +19,26 @@ const RotatingBox: FC<RotatingBoxProps> = ({ rpm }) => {
 
 const App: FC = () => {
   return (
-    <BabylonApp>
-      <BasicCameraLightsGround />
-      <RotatingBox rpm={10} />
-    </BabylonApp>
+    <div style={{ flex: 1, display: 'flex' }}>
+      <Engine
+        antialias
+        adaptToDeviceRatio
+        canvasId="babylon-js"
+        renderOptions={{
+          whenVisibleOnly: true,
+        }}
+      >
+        <Scene>
+          <freeCamera
+            name="camera1"
+            position={new Vector3(0, 5, -10)}
+            setTarget={[Vector3.Zero()]}
+          />
+          <hemisphericLight name="light1" intensity={0.7} direction={new Vector3(0, 1, 0)} />
+          <RotatingBox rpm={10} />
+        </Scene>
+      </Engine>
+    </div>
   )
 }
 

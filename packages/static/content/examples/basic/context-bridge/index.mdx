@@ -4,8 +4,9 @@ title: 'Context Bridge'
 
 These can be used to bring context across renderer boundaries.
 
-In `react-babylonjs` that will be on the Engine and Scene components. So,
-capture (Consumer) the context outside and "Provide" inside the Scene.
+In `react-babylonjs` that will typically be from the `react-dom` renderer
+context crossing over Engine to Scene components. So, capture (Consumer) the
+context outside and "Provide" inside the Scene.
 
 Example is given here - you would need these for Themes or libraries like Redux
 that depend on context. If you are using Redux and your project is not too far

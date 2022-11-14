@@ -1,6 +1,10 @@
 import React, { FC, useRef, useState } from 'react'
 import { Engine, Scene, useBeforeRender, useClick, useHover } from 'react-babylonjs'
-import { Vector3, Color3, Mesh } from '@babylonjs/core'
+import '@babylonjs/core/Lights/Shadows/shadowGeneratorSceneComponent' // side-effect for shadow generator
+import { Vector3 } from '@babylonjs/core/Maths/math.vector'
+import { Color3 } from '@babylonjs/core/Maths/math.color'
+import { Mesh } from '@babylonjs/core/Meshes/mesh'
+import { Nullable } from '@babylonjs/core/types'
 
 const DefaultScale = new Vector3(1, 1, 1)
 const BiggerScale = new Vector3(1.25, 1.25, 1.25)
@@ -14,7 +18,7 @@ type SpinningBoxProps = {
 
 const SpinningBox: FC<SpinningBoxProps> = (props) => {
   // access Babylon scene objects with same React hook as regular DOM elements
-  const boxRef = useRef<Mesh>(null)
+  const boxRef = useRef<Nullable<Mesh>>(null)
 
   const [clicked, setClicked] = useState(false)
   useClick(() => setClicked((clicked) => !clicked), boxRef)
@@ -70,6 +74,8 @@ const SceneWithSpinningBoxes: FC = () => (
           alpha={Math.PI / 2}
           beta={Math.PI / 4}
           radius={8}
+          lowerRadiusLimit={6}
+          upperRadiusLimit={10}
           minZ={0.001}
         />
         <hemisphericLight name="light1" intensity={0.7} direction={Vector3.Up()} />

@@ -5,7 +5,6 @@
     "packages": [
       "devtool/*",
       "packages/react-babylonjs",
-      "packages/extra",
       "packages/static"
     ]
   },
