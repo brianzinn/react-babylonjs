@@ -20,7 +20,7 @@ import React, {
 // import {  unmountComponentAtNode } from 'react-dom'
 import { createRoot } from 'react-dom/client'
 import { FiberAbstractMeshProps, FiberAbstractMeshPropsCtor } from '../generatedProps'
-import { useBeforeRender } from '../hooks/render'
+import { useAfterRender } from '../hooks/render'
 import { useScene } from '../hooks/scene'
 
 function defaultCalculatePosition(el: AbstractMesh, camera: Camera) {
@@ -288,7 +288,7 @@ const Html = forwardRef(
 
     const visible = useRef(true)
 
-    useBeforeRender(() => {
+    useAfterRender(() => {
       const camera = scene?.activeCamera
 
       if (camera && group.current) {
