@@ -56,7 +56,8 @@ export const useAfterRender = (
   callback: OnFrameRenderFn,
   mask?: number,
   insertFirst?: boolean,
-  callOnce?: boolean
+  callOnce?: boolean,
+  deps: React.DependencyList = []
 ): void => {
   const { scene } = useContext(SceneContext)
 
@@ -79,5 +80,5 @@ export const useAfterRender = (
         scene.onAfterRenderObservable.remove(sceneObserver)
       }
     }
-  })
+  }, [scene, ...deps])
 }
