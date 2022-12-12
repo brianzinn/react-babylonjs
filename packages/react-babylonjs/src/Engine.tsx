@@ -92,6 +92,7 @@ const ReactBabylonjsEngine: React.FC<EngineProps> = (props: EngineProps, context
   const onEndRenderLoopObservable = useRef<Observable<Engine>>(new Observable<Engine>())
 
   const canvasRef = useRef<Nullable<HTMLCanvasElement>>(null)
+  const [canvasReady, setCanvasReady] = useState(false)
   const shouldRenderRef = useRef(true)
 
   // const renderOptions: RenderOptions = props.renderOptions ?? {};
@@ -118,6 +119,10 @@ const ReactBabylonjsEngine: React.FC<EngineProps> = (props: EngineProps, context
   }, [isPaused])
 
   useEffect(() => {
+    if (!canvasReady) {
+        return;
+    }
+
     if (canvasRef.current === null) {
       return
     }
@@ -183,7 +188,7 @@ const ReactBabylonjsEngine: React.FC<EngineProps> = (props: EngineProps, context
         engine.current = null
       }
     }
-  }, [canvasRef])
+  }, [canvasReady])
 
   const opts: any = {}
 
@@ -202,7 +207,7 @@ const ReactBabylonjsEngine: React.FC<EngineProps> = (props: EngineProps, context
       <canvas
         {...opts}
         {...canvasProps}
-        ref={canvasRef}
+        ref={(view) => {canvasRef.current = view; setCanvasReady(true)}}
         style={{ width: '100%', height: '100%', ...style }}
       >
         {engine.current !== null && props.children}
