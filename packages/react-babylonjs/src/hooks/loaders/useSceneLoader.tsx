@@ -153,6 +153,11 @@ const useSceneLoaderWithCache = (): ((
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const sceneLoaderContext = useContext<SceneLoaderContextType>(SceneLoaderContext)
 
+    const pathOrigin = window.location.origin
+    const isLocalAsset = suspenseKey.includes(pathOrigin) || !/^http/.test(suspenseKey)
+    let fileFetchFlag = 0
+    let fileTotalSize = 0;
+
     const createSceneLoader = (): (() => LoadedModel) => {
       const taskPromise = new Promise<LoadedModel>((resolve, reject) => {
         const loadedModel = new LoadedModel()
@@ -232,15 +237,36 @@ const useSceneLoaderWithCache = (): ((
                 originalDispose.call(loadedModel)
               }
 
+              fileTotalSize = 0
+              fileFetchFlag = 0
               resolve(loadedModel)
             },
             (event: ISceneLoaderProgressEvent): void => {
-              if (opts.reportProgress === true && sceneLoaderContext !== undefined) {
-                sceneLoaderContext!.updateProgress(event)
-              }
-              if (opts.onLoadProgress) {
-                opts.onLoadProgress(event)
-              }
+              ;(async () => {
+                if(event.total !== 0 ){
+                  fileTotalSize = event.total
+                }
+
+                if (isLocalAsset && fileTotalSize === 0 && fileFetchFlag === 0) {
+                    fileFetchFlag += 1
+                    try {
+                      const response = await fetch(sceneFilename ? suspenseKey : rootUrl,{
+                        cache: 'force-cache',
+                      })
+                      const { size } = await response.blob()  
+                      fileTotalSize = size
+                    } catch (error) {
+                      console.error(`failed to get the file size : ${error}`)
+                    }
+                }
+
+                if (opts.reportProgress === true && sceneLoaderContext !== undefined) {
+                  sceneLoaderContext!.updateProgress({ ...event, total: fileTotalSize })
+                }
+                if (opts.onLoadProgress) {
+                  opts.onLoadProgress({ ...event, total: fileTotalSize })
+                }
+              })()
             },
             (_: Scene, message: string, exception?: any): void => {
               if (opts.onModelError) {
