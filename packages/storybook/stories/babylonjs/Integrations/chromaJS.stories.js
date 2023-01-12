@@ -69,7 +69,7 @@ const distance = (alpha, beta) => {
 
 /**
  * This is for optimizing animation when first mount application.
- * But this story works well，Animation is smooth。
+ * But this story works well，Animation is smooth.
  */
 function WithCustomColors(props) {
   useCustomPropsHandler(new ChromajsColor3PropsHandler());
