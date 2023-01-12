@@ -7,7 +7,7 @@ export default { title: "Babylon Basic" };
 
 /**
  * This is for optimizing animation when first mount application.
- * But this story works well，Animation is smooth。
+ * But this story works well，Animation is smooth.
  */
 function WithAnimation() {
   // console.time('Timing');
