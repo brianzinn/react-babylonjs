@@ -1,6 +1,6 @@
 const config = {
   gatsby: {
-    pathPrefix: '/',
+    pathPrefix: '/react-babylonjs',
     siteUrl: 'https://brianzinn.github.io/react-babylonjs/',
     gaTrackingId: null,
     trailingSlash: false,
