@@ -467,7 +467,7 @@ const ReactBabylonJSHostConfig: HostConfig<
     } else if (dynamicRegisteredHost !== undefined) {
       metadata = dynamicRegisteredHost.metadata
       if (metadata.delayCreation !== true) {
-        babylonObject = dynamicRegisteredHost.hostFactory(scene!)
+        babylonObject = dynamicRegisteredHost.hostFactory(scene!, props)
       }
     } else {
       const createInfoArgs = classDefinition.CreateInfo

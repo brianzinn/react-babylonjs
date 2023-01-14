@@ -102,7 +102,10 @@ export const EngineView = () => {
   return (
     <div className="container">
       <div className="row">
-        <div className="col-6">
+        <div className="col-12">first canvas (accepts pointer events)</div>
+      </div>
+      <div className="row">
+        <div className="col-8">
           <Engine antialias adaptToDeviceRatio canvasId="babylonJS">
             <Scene clearColor={new Color3(0.5, 0.5, 0.5).toColor4()}>
               <MultiCanvas secondCanvas={secondCanvasRef} />
@@ -114,7 +117,7 @@ export const EngineView = () => {
         <div className="col-12">second canvas</div>
       </div>
       <div className="row">
-        <div className="col-6">
+        <div className="col-8">
           <canvas className="second-canvas-babylon" ref={secondCanvasRef} />
         </div>
       </div>

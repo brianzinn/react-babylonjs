@@ -1,0 +1,25 @@
+---
+title: 'Gizmo Manager'
+---
+
+# Gizmo Manager Example
+
+You can render with a Gizmo Manager - declare inside of a
+`utilityLayerRenderer`. In this example a `lightGizmo` can be used to change the
+directional light (verify with shadow).
+
+```jsx
+<utilityLayerRenderer>
+  <gizmoManager
+    thickness={3}
+    positionGizmoEnabled
+    rotationGizmoEnabled
+  >
+    <sphere name="sunMesh" diameter={1}>
+      <lightGizmo light={lightRef as (DirectionalLight | undefined)} updateScale />
+    </sphere>
+  </gizmoManager>
+</utilityLayerRenderer>
+```
+
+[devtool:GizmoManager.tsx]

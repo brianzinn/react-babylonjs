@@ -3,8 +3,8 @@ import React, { FC, useEffect, useRef } from 'react'
 import { Engine, Scene, useScene } from 'react-babylonjs'
 
 /**
- * This is for optimizing animation when first mount application.
- * But this story works well，Animation is smooth。
+ * This is for optimizing animation on initial application mount.
+ * But this story works well，Animation is smooth.
  */
 function WithAnimation() {
   // console.time('Timing');

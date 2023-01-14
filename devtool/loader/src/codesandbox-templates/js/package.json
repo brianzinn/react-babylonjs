@@ -5,8 +5,11 @@
   "keywords": [],
   "main": "src/index.jsx",
   "dependencies": {
-    "@babylonjs/core": "^5.1.0",
-    "@babylonjs/gui": "^5.1.0",
+    "@babylonjs/core": "^5.41.0",
+    "@babylonjs/gui": "^5.41.0",
+    "@babylonjs/loaders": "^5.41.0",
+    "@babylonjs/materials": "^5.41.0",
+    "@babylonjs/procedural-textures": "^5.41.0",
     "babylonjs-hook": "0.1.1",
     "react": "^18.2.0",
     "react-babylonjs": "3.0.31",

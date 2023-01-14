@@ -13,10 +13,12 @@ export type DynamicHost<T, U> = {
   /**
    * null is only valid when the metadata declares a deferred creation and the lifecycle listener creates the instance.
    */
-  hostFactory: (scene: Scene) => Nullable<T>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  hostFactory: (scene: Scene, props: any) => Nullable<T>
   propHandlerInstance: HasPropsHandlers<U>
   createInfo: CreateInfo
   metadata: CreatedInstanceMetadata
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   lifecycleListenerFactory?: (scene: Scene, props: any) => LifecycleListener<T>
 }
 

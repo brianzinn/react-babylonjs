@@ -1,0 +1,26 @@
+---
+title: 'Scene/Engine'
+---
+
+This is an easy hook to get confused!
+
+```tsx
+// will not work (always null)
+const scene = useScene()
+
+return (
+  <Scene>
+    <OtherComponent />
+  </Scene>
+)
+```
+
+```
+const OtherComponent = () => {
+  // This does work!
+  const scene = useScene();
+  return ...;
+}
+```
+
+[devtool:SceneEngine.tsx]

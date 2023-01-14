@@ -1,0 +1,24 @@
+---
+title: '2D GUI'
+---
+
+2D GUI example that shows how a modal dialog could work and also in a scenario
+that will work in XR/VR.
+
+NOTE: a full screen GUI does not work in VR, but a GUI on a `Plane` does - you
+can supply the prop `createForParentMesh` on the ADT:
+
+```
+<plane ...>
+  <advancedDynamicTexture
+    createForParentMesh
+    ...
+  >
+   ...
+  </advancedDynamicTexture>
+</plane>
+```
+
+Click on one of the boxes to trigger the GUI modal:
+
+[devtool:2DGUI.tsx]
