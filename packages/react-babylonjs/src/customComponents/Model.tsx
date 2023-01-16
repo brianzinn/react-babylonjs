@@ -39,6 +39,7 @@ const Model: React.FC<ModelProps> = forwardRef<AbstractMesh, ModelProps>((props,
     rootUrl,
     sceneFilename,
     pluginExtension, // other parameters
+    children,
     ...rest // passed on to "rootMesh"
   } = props
 
