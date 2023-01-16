@@ -23,10 +23,9 @@ export type ModelProps = {
   onLoadProgress?: (event: ISceneLoaderProgressEvent) => void
   onCreated?: (rootMesh: AbstractMesh) => void
 } & FiberAbstractMeshProps &
-  FiberAbstractMeshPropsCtor & 
-  { children?: ReactNode | undefined }
+  FiberAbstractMeshPropsCtor & { children?: ReactNode | undefined }
 
-const Model: React.FC<ModelProps> = forwardRef<AbstractMesh, ModelProps>((props, ref) => {
+const Model = forwardRef<AbstractMesh, ModelProps>((props, ref) => {
   const {
     alwaysSelectAsActiveMesh,
     meshNames,
@@ -64,9 +63,14 @@ const Model: React.FC<ModelProps> = forwardRef<AbstractMesh, ModelProps>((props,
   }, [])
 
   return (
-    <abstractMesh ref={ref} fromInstance={sceneLoaderResults.rootMesh!} childMeshesNotTracked {...rest} >
-        {children}
-      </abstractMesh>
+    <abstractMesh
+      ref={ref}
+      fromInstance={sceneLoaderResults.rootMesh!}
+      childMeshesNotTracked
+      {...rest}
+    >
+      {children}
+    </abstractMesh>
   )
 })
 
