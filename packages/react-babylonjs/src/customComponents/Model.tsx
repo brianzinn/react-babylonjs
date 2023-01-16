@@ -1,6 +1,6 @@
 import { ISceneLoaderProgressEvent } from '@babylonjs/core/Loading/sceneLoader.js'
 import { AbstractMesh } from '@babylonjs/core/Meshes/abstractMesh.js'
-import React, { useEffect } from 'react'
+import React, { useEffect, forwardRef } from 'react'
 import { FiberAbstractMeshProps, FiberAbstractMeshPropsCtor } from '../generatedProps'
 import { ILoadedModel } from '../hooks/loaders/loadedModel'
 import { SceneLoaderOptions, useSceneLoader } from '../hooks/loaders/useSceneLoader'
@@ -25,7 +25,7 @@ export type ModelProps = {
 } & FiberAbstractMeshProps &
   FiberAbstractMeshPropsCtor
 
-const Model: React.FC<ModelProps> = (props: ModelProps) => {
+const Model: React.FC<ModelProps> = forwardRef<AbstractMesh, ModelProps>((props, ref) => {
   const {
     alwaysSelectAsActiveMesh,
     meshNames,
@@ -62,8 +62,8 @@ const Model: React.FC<ModelProps> = (props: ModelProps) => {
   }, [])
 
   return (
-    <abstractMesh fromInstance={sceneLoaderResults.rootMesh!} childMeshesNotTracked {...rest} />
+    <abstractMesh ref={ref} fromInstance={sceneLoaderResults.rootMesh!} childMeshesNotTracked {...rest} />
   )
-}
+})
 
 export default Model
