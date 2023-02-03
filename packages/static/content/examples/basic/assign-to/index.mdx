@@ -1,0 +1,30 @@
+---
+title: 'assignTo'
+---
+
+This is the example to show the custom property `assignTo`, although it is used
+in many examples it is provided here as a single concept.
+
+NOTE: you can use dots like "mesh.material" and it will follow the objects
+properties as long as they exist.
+
+```jsx
+<Scene>
+  ...
+  <cubeTexture
+    assignTo="environmentTexture"
+    rootUrl={'/assets/environment.env'}
+  />
+</Scene>
+```
+
+[devtool:AssignTo.tsx]
+
+The above was used to assign the `environmentTexture`, which is the same as
+providing a value to the prop as we do in the scene below:
+
+```jsx
+<Scene environmentTexture={cubeTextureInstance}>...</Scene>
+```
+
+[devtool:EnvironmentTexture.tsx]

@@ -21,6 +21,7 @@ const toc = [
   '/examples/basic/dynamic-terrain',
   '/examples/basic/edges-rendering',
   '/examples/basic/engine-view',
+  '/examples/basic/assign-to',
   '/examples/basic/from-instance',
   '/examples/basic/gizmo',
   '/examples/basic/gizmo-manager',
