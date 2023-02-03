@@ -3,6 +3,7 @@ public
 node_modules
 *DS_Store
 *.env
+!static/assets/textures/*.env
 
 .idea/
 *.log
