@@ -18,10 +18,17 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           scope: brianzinn
 
+      - name: Set Swap Space
+        if: runner.os == 'Linux'
+        uses: pierotofy/set-swap-space@v1.0
+        with:
+          swap-size-gb: 4
+
       - name: install build react-babylon
         env:
-          NODE_OPTIONS: "--max_old_space_size=2048"
+          NODE_OPTIONS: "--max_old_space_size=4096"
         run: |
+          npm install -g yarn
           yarn install
           yarn build
 
