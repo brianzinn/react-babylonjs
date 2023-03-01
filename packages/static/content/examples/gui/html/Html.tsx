@@ -59,7 +59,7 @@ const WithHtmlText: FC = () => {
 }
 
 const HtmlText = () => (
-  <div style={{ flex: 1, display: 'flex' }}>
+  <div style={{ position: 'relative', flex: 1, display: 'flex' }}>
     <Engine antialias adaptToDeviceRatio canvasId="babylonJS">
       <Scene>
         <freeCamera name="camera1" position={new Vector3(0, 5, -10)} setTarget={[Vector3.Zero()]} />

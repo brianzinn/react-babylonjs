@@ -11,10 +11,14 @@ const MyScene = () => {
 
   useEffect(() => {
     if (engine !== null) {
-      console.log('engine', engine)
-      cubeTextureRef.current = new CubeTexture('../../assets/textures/environment.env', engine)
+      const cubeTexture = new CubeTexture('../../assets/textures/environment.env', engine)
+      cubeTextureRef.current = cubeTexture
       setTextureReady(true) // force a re-render to attach
       console.log('texture:', cubeTextureRef.current)
+
+      return () => {
+        cubeTexture.dispose()
+      }
     }
   }, [engine])
 
