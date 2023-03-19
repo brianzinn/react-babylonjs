@@ -3,7 +3,7 @@ import { TextureAssetTask } from '@babylonjs/core'
 import { Color3, Color4 } from '@babylonjs/core/Maths/math.color'
 import { Vector3 } from '@babylonjs/core/Maths/math.vector'
 import '@babylonjs/core/Loading/loadingScreen'
-import { FC, Suspense, useState } from 'react'
+import React, { FC, Suspense, useState } from 'react'
 import { Engine, Scene, Task, TaskType, useAssetManager } from 'react-babylonjs'
 
 const textureAssets: Task[] = [
