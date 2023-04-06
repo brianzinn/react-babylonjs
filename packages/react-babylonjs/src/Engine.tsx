@@ -1,4 +1,5 @@
 import { Engine } from '@babylonjs/core/Engines/engine.js'
+import { WebGPUEngine } from '@babylonjs/core/Engines/webgpuEngine.js'
 import { EngineOptions, ThinEngine } from '@babylonjs/core/Engines/thinEngine.js'
 import { Observable } from '@babylonjs/core/Misc/observable.js'
 import { Nullable } from '@babylonjs/core/types.js'
@@ -71,6 +72,12 @@ export type EngineProps = {
    */
   canvasId?: string
   // onCreated?: (engine: Engine) => void
+
+  /**
+   * If you want to customize the rendering engine,
+   * please use this callback method to return the rendering engine you need
+   */
+  createEngine?: (canvas: HTMLCanvasElement) => Promise<WebGPUEngine>
 } & { children?: ReactNode | undefined } & React.CanvasHTMLAttributes<HTMLCanvasElement>
 
 type CanvasSpecificProps = Omit<
@@ -85,6 +92,7 @@ type CanvasSpecificProps = Omit<
 
 const ReactBabylonjsEngine: React.FC<EngineProps> = (props: EngineProps, context?: any) => {
   const engine = useRef<Nullable<Engine>>(null)
+  const [initializeEngineReady, setInitializeEnginReady] = useState<boolean>(false)
   const [engineReady, setEngineReady] = useState<boolean>(false)
   // const resizeObserver = useRef<Nullable<ResizeObserver>>(null);
 
@@ -107,6 +115,7 @@ const ReactBabylonjsEngine: React.FC<EngineProps> = (props: EngineProps, context
     observeCanvasResize,
     children,
     style,
+    createEngine,
     ...canvasProps
   } = props
 
@@ -119,20 +128,13 @@ const ReactBabylonjsEngine: React.FC<EngineProps> = (props: EngineProps, context
   }, [isPaused])
 
   useEffect(() => {
-    if (!canvasReady) {
-        return;
-    }
-
-    if (canvasRef.current === null) {
+    if (!initializeEngineReady) {
       return
     }
 
-    engine.current = new Engine(
-      canvasRef.current,
-      antialias === true, // default false
-      engineOptions,
-      adaptToDeviceRatio === true // default false
-    )
+    if (engine.current === null) {
+      return
+    }
 
     engine.current.runRenderLoop(() => {
       if (shouldRenderRef.current === false) {
@@ -188,6 +190,42 @@ const ReactBabylonjsEngine: React.FC<EngineProps> = (props: EngineProps, context
         engine.current = null
       }
     }
+  }, [initializeEngineReady])
+
+  useEffect(() => {
+    if (!canvasReady) {
+      return
+    }
+
+    if (canvasRef.current === null) {
+      return
+    }
+
+    const initDefaultEngine = () => {
+      engine.current = new Engine(
+        canvasRef.current,
+        antialias === true, // default false
+        engineOptions,
+        adaptToDeviceRatio === true // default false
+      )
+    }
+
+    if (createEngine) {
+      createEngine(canvasRef.current)
+        .then((result) => {
+          engine.current = result
+        })
+        .catch((error) => {
+          console.error(error)
+          initDefaultEngine()
+        })
+        .finally(() => {
+          setInitializeEnginReady(true)
+        })
+    } else {
+      initDefaultEngine()
+      setInitializeEnginReady(true)
+    }
   }, [canvasReady])
 
   const opts: any = {}
@@ -207,7 +245,10 @@ const ReactBabylonjsEngine: React.FC<EngineProps> = (props: EngineProps, context
       <canvas
         {...opts}
         {...canvasProps}
-        ref={(view) => {canvasRef.current = view; setCanvasReady(true)}}
+        ref={(view) => {
+          canvasRef.current = view
+          setCanvasReady(true)
+        }}
         style={{ width: '100%', height: '100%', ...style }}
       >
         {engine.current !== null && props.children}
