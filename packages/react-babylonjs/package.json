@@ -46,8 +46,8 @@
     "test:coverage": "c8 --reporter=lcov --reporter=text-summary npm run test"
   },
   "devDependencies": {
-    "@babylonjs/core": "^5.41.0",
-    "@babylonjs/gui": "^5.41.0",
+    "@babylonjs/core": "^6.0.0",
+    "@babylonjs/gui": "^6.0.0",
     "@rollup/plugin-json": "^4.0.2",
     "@rollup/plugin-replace": "^3.0.0",
     "@types/lodash.camelcase": "^4.3.6",
@@ -86,8 +86,8 @@
     "typescript": "^4.8.3"
   },
   "peerDependencies": {
-    "@babylonjs/core": "5.x",
-    "@babylonjs/gui": "5.x",
+    "@babylonjs/core": "5.x || 6.x",
+    "@babylonjs/gui": "5.x || 6.x",
     "react": ">=18",
     "react-dom": ">=18"
   },

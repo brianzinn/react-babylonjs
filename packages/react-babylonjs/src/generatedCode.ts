@@ -14045,6 +14045,7 @@ export class FiberInputTextPropsHandler implements PropsHandler<FiberInputTextPr
       'highlightedText',
       changedProps
     )
+    // type: 'any' property (not coded) BabylonjsGuiInputText.isTextHighlightOn.
     checkPrimitiveDiff(oldProps.margin, newProps.margin, 'margin', changedProps)
     checkPrimitiveDiff(oldProps.maxWidth, newProps.maxWidth, 'maxWidth', changedProps)
     checkPrimitiveDiff(oldProps.name, newProps.name, 'name', changedProps)
@@ -27635,7 +27636,10 @@ export class FiberFadeInOutBehaviorPropsHandler
   ): PropertyUpdate[] | null {
     const changedProps: PropertyUpdate[] = []
     checkPrimitiveDiff(oldProps.delay, newProps.delay, 'delay', changedProps)
+    checkPrimitiveDiff(oldProps.fadeInDelay, newProps.fadeInDelay, 'fadeInDelay', changedProps)
     checkPrimitiveDiff(oldProps.fadeInTime, newProps.fadeInTime, 'fadeInTime', changedProps)
+    checkPrimitiveDiff(oldProps.fadeOutDelay, newProps.fadeOutDelay, 'fadeOutDelay', changedProps)
+    checkPrimitiveDiff(oldProps.fadeOutTime, newProps.fadeOutTime, 'fadeOutTime', changedProps)
     return changedProps.length === 0 ? null : changedProps
   }
 }

@@ -3295,6 +3295,7 @@ export type FiberInputTextProps = {
   focusedColor?: string
   highligherOpacity?: number
   highlightedText?: string
+  isTextHighlightOn?: any
   margin?: string
   maxWidth?: string | number
   name?: string
@@ -5521,7 +5522,10 @@ export type FiberBaseSixDofDragBehaviorProps = {
 export type FiberBaseSixDofDragBehaviorPropsCtor = {}
 export type FiberFadeInOutBehaviorProps = {
   delay?: number
+  fadeInDelay?: number
   fadeInTime?: number
+  fadeOutDelay?: number
+  fadeOutTime?: number
 } & CustomProps
 export type FiberFadeInOutBehaviorPropsCtor = {}
 export type FiberFollowBehaviorProps = {
