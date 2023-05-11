@@ -1,4 +1,5 @@
 import { Engine } from '@babylonjs/core/Engines/engine.js'
+import { WebGPUEngine } from '@babylonjs/core/Engines/webgpuEngine'
 import { EngineOptions, ThinEngine } from '@babylonjs/core/Engines/thinEngine.js'
 import { Observable } from '@babylonjs/core/Misc/observable.js'
 import { Nullable } from '@babylonjs/core/types.js'
@@ -127,67 +128,88 @@ const ReactBabylonjsEngine: React.FC<EngineProps> = (props: EngineProps, context
       return
     }
 
-    engine.current = new Engine(
-      canvasRef.current,
-      antialias === true, // default false
-      engineOptions,
-      adaptToDeviceRatio === true // default false
-    )
-
-    engine.current.runRenderLoop(() => {
-      if (shouldRenderRef.current === false) {
-        return
+    const initialiseEngine = async () => {
+      if (engineOptions.webGPU){
+      //https://doc.babylonjs.com/setup/support/webGPU/webGPUBreakingChanges#creation-of-the-webgpu-engine-is-asynchronous
+        const  createEngine = async () => {
+          const webGPUSupported = await BABYLON.WebGPUEngine.IsSupportedAsync;
+            if (webGPUSupported) {
+              const engine = new WebGPUEngine(document.getElementById("renderCanvas"));
+              await engine.initAsync();
+              return engine;
+            }
+            return new Engine(document.getElementById("renderCanvas"), true);
+        }
+        engine.current = await createEngine();
       }
-      if (onBeforeRenderLoopObservable.current.hasObservers()) {
-        onBeforeRenderLoopObservable.current.notifyObservers(engine.current!)
+      else{
+        engine.current = new Engine(
+          canvasRef.current,
+          antialias === true, // default false
+          engineOptions,
+          adaptToDeviceRatio === true // default false
+        )
       }
-
-      // TODO: here is where you could access your own render method
-      engine.current!.scenes.forEach((scene) => {
-        // TODO (fix properly): in React 18.2 (not 18.0 or 18.1 if the camera is in a subcomponent it will be added in a future render!)
-        if (scene.cameras?.length > 0) {
-          scene.render()
+  
+      engine.current.runRenderLoop(() => {
+        if (shouldRenderRef.current === false) {
+          return
+        }
+        if (onBeforeRenderLoopObservable.current.hasObservers()) {
+          onBeforeRenderLoopObservable.current.notifyObservers(engine.current!)
+        }
+  
+        // TODO: here is where you could access your own render method
+        engine.current!.scenes.forEach((scene) => {
+          // TODO (fix properly): in React 18.2 (not 18.0 or 18.1 if the camera is in a subcomponent it will be added in a future render!)
+          if (scene.cameras?.length > 0) {
+            scene.render()
+          }
+        })
+  
+        if (onEndRenderLoopObservable.current.hasObservers()) {
+          onEndRenderLoopObservable.current.notifyObservers(engine.current!)
         }
       })
-
-      if (onEndRenderLoopObservable.current.hasObservers()) {
-        onEndRenderLoopObservable.current.notifyObservers(engine.current!)
-      }
-    })
-
-    // if (props.observeCanvasResize !== false && window?.ResizeObserver) {
-    //   resizeObserver.current = new ResizeObserver(() => {
-    //     engine.current!.resize()
-    //   })
-    //   resizeObserver.current.observe(canvasRef.current);
-    // }
-
-    engine.current.onContextLostObservable.add((eventData: ThinEngine) => {
-      console.warn('context loss observable from Engine: ', eventData)
-    })
-
-    const onResizeWindow = () => {
-      if (engine.current) {
-        engine.current.resize()
-      }
-    }
-
-    window.addEventListener('resize', onResizeWindow)
-    setEngineReady(true) // trigger re-render to render Scene
-
-    return () => {
-      window.removeEventListener('resize', onResizeWindow)
-
-      // if (resizeObserver.current !== null) {
-      //   resizeObserver.current.disconnect()
-      //   resizeObserver.current = null
+  
+      // if (props.observeCanvasResize !== false && window?.ResizeObserver) {
+      //   resizeObserver.current = new ResizeObserver(() => {
+      //     engine.current!.resize()
+      //   })
+      //   resizeObserver.current.observe(canvasRef.current);
       // }
-
-      if (engine.current !== null) {
-        engine.current!.dispose()
-        engine.current = null
+  
+      engine.current.onContextLostObservable.add((eventData: ThinEngine) => {
+        console.warn('context loss observable from Engine: ', eventData)
+      })
+  
+      const onResizeWindow = () => {
+        if (engine.current) {
+          engine.current.resize()
+        }
+      }
+  
+      window.addEventListener('resize', onResizeWindow)
+      setEngineReady(true) // trigger re-render to render Scene
+  
+      return () => {
+        window.removeEventListener('resize', onResizeWindow)
+  
+        // if (resizeObserver.current !== null) {
+        //   resizeObserver.current.disconnect()
+        //   resizeObserver.current = null
+        // }
+  
+        if (engine.current !== null) {
+          engine.current!.dispose()
+          engine.current = null
+        }
       }
     }
+
+    return initialiseEngine(); 
+
+ 
   }, [canvasReady])
 
   const opts: any = {}
