@@ -9,6 +9,12 @@ import { AbstractMesh } from '@babylonjs/core/Meshes/abstractMesh'
 import { Camera, Texture } from '@babylonjs/core'
 import { Control } from '@babylonjs/gui/2D/controls/control'
 
+// https://github.com/sebavan/BabylonjsInkSample/blob/master/src/debug/appDebug.ts
+// To get inspector to load
+// import "@babylonjs/core/Legacy/legacy";
+// import "@babylonjs/core/Debug/debugLayer";
+// import "@babylonjs/inspector";
+
 const DEFAULT_BOXES = [
   {
     name: 'red',
@@ -29,6 +35,19 @@ const DEFAULT_BOXES = [
     index: 3,
   },
 ]
+
+// const Inspector = () => {
+//   const scene = useScene();
+//   useEffect(() => {
+//     if (scene) {
+//       scene.debugLayer.show();
+//     } else {
+//       console.log('no scene')
+//     }
+//   }, [])
+
+//   return null;
+// };
 
 const UIComponent: FC = () => {
   const plane = useRef<Mesh | undefined>(undefined)
@@ -302,6 +321,7 @@ const UIComponent: FC = () => {
           webVROptions={{ createDeviceOrientationCamera: false }}
           enableInteractions
         />
+        {/* <Inspector /> */}
       </Scene>
     </Engine>
   )

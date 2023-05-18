@@ -2,7 +2,8 @@ import { StandardMaterial } from '@babylonjs/core/Materials/standardMaterial.js'
 import { Color3 } from '@babylonjs/core/Maths/math.color.js'
 import { Mesh } from '@babylonjs/core/Meshes/mesh.js'
 import { AdvancedDynamicTexture } from '@babylonjs/gui/2D/advancedDynamicTexture.js'
-import { Grid } from '@babylonjs/gui/2D/controls/grid'
+import { Grid } from '@babylonjs/gui/2D/controls/grid.js'
+import { Nullable } from '@babylonjs/core/types.js'
 import { CreatedInstance } from '../CreatedInstance'
 import { ADTCustomProps, VirtualKeyboardCustomProps } from '../CustomProps'
 import { FiberAdvancedDynamicTextureProps } from '../generatedProps'
@@ -12,6 +13,14 @@ export default class AdvancedDynamicTextureLifecycleListener extends BaseLifecyc
   AdvancedDynamicTexture,
   FiberAdvancedDynamicTextureProps
 > {
+  private materialRef: Nullable<StandardMaterial> = null
+
+  onUnmount(): void {
+    if (this.materialRef !== null) {
+      this.materialRef.dispose()
+    }
+  }
+
   onMount(instance: CreatedInstance<AdvancedDynamicTexture>): void {
     instance.state = { added: true } // allow children to attach
     this.addControls(instance)
@@ -22,7 +31,10 @@ export default class AdvancedDynamicTextureLifecycleListener extends BaseLifecyc
       const mesh: Mesh = instance.parent!.hostInstance // should crawl parent hierarchy for a mesh
       // console.error('we will be attaching the mesh:', mesh.name, mesh);
 
-      const material = new StandardMaterial('AdvancedDynamicTextureMaterial', mesh.getScene())
+      const material = (this.materialRef = new StandardMaterial(
+        'AdvancedDynamicTextureMaterial',
+        mesh.getScene()
+      ))
       material.backFaceCulling = false
       material.diffuseColor = Color3.Black()
       material.specularColor = Color3.Black()

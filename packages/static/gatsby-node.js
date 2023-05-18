@@ -53,8 +53,19 @@ exports.createPages = ({ graphql, actions }) => {
   })
 }
 
-exports.onCreateWebpackConfig = ({ actions }) => {
+/**
+ * @babylonjs/inspector -> Reference error: document is not defined for "babylon.inspector.bundle.max.js"
+ */
+exports.onCreateWebpackConfig = ({ actions, loaders }) => {
   actions.setWebpackConfig({
+    module: {
+      rules: [
+        {
+          test: /babylon\.inspector/,
+          use: loaders.null(),
+        },
+      ],
+    },
     resolve: {
       modules: [path.resolve(__dirname, 'src'), 'node_modules'],
       alias: {
