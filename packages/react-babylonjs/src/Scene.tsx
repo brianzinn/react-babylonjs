@@ -68,9 +68,9 @@ const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
   // initialize babylon scene
   useEffect(
     () => {
-      const scene = new BabylonScene(engine!, props.sceneOptions)
+      const newScene = new BabylonScene(engine!, props.sceneOptions)
       // const onReadyObservable: Nullable<Observer<BabylonJSScene>> = scene.onReadyObservable.add(onSceneReady);
-      const sceneIsReady = scene.isReady()
+      const sceneIsReady = newScene.isReady()
       if (sceneIsReady) {
         // scene.onReadyObservable.remove(onReadyObservable);
         setSceneReady(true) // this does not flow and cause a re-render
@@ -78,15 +78,13 @@ const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
         console.error('Scene is not ready. Report issue in react-babylonjs repo')
       }
 
-      setScene(scene)
-
       // TODO: try to move the scene to parentComponent in updateContainer
       const container: Container = {
-        scene: scene,
+        scene: newScene,
         rootInstance: {
           children: [],
           customProps: {},
-          hostInstance: scene,
+          hostInstance: newScene,
           metadata: {
             className: 'root',
           },
@@ -94,6 +92,7 @@ const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
           parent: null,
         },
       }
+
       updateScene(props, prevPropsRef, container.rootInstance, propsHandler)
 
       containerRef.current = container
@@ -101,44 +100,45 @@ const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
       const reconciler = createReconciler({})
       reconcilerRef.current = reconciler
 
-      const pointerDownObservable: Nullable<Observer<PointerInfo>> = scene.onPointerObservable.add(
-        (evt: PointerInfo) => {
+      setScene(newScene)
+
+      const pointerDownObservable: Nullable<Observer<PointerInfo>> =
+        newScene.onPointerObservable.add((evt: PointerInfo) => {
           if (typeof props.onScenePointerDown === 'function') {
-            props.onScenePointerDown(evt, scene)
+            props.onScenePointerDown(evt, newScene)
           }
 
           if (evt && evt.pickInfo && evt.pickInfo.hit && evt.pickInfo.pickedMesh) {
             const mesh = evt.pickInfo.pickedMesh
             if (typeof props.onMeshPicked === 'function') {
-              props.onMeshPicked(mesh, scene)
+              props.onMeshPicked(mesh, newScene)
             } else {
               // console.log('onMeshPicked not being called')
             }
           }
-        },
-        PointerEventTypes.POINTERDOWN
-      )
+        }, PointerEventTypes.POINTERDOWN)
 
       // can only be assigned on init
       let pointerUpObservable: Nullable<Observer<PointerInfo>> = null
       if (typeof props.onScenePointerUp === 'function') {
-        pointerUpObservable = scene.onPointerObservable.add((evt: PointerInfo) => {
-          props.onScenePointerUp!(evt, scene)
+        pointerUpObservable = newScene.onPointerObservable.add((evt: PointerInfo) => {
+          props.onScenePointerUp?.(evt, newScene)
         }, PointerEventTypes.POINTERUP)
       }
 
       // can only be assigned on init
       let pointerMoveObservable: Nullable<Observer<PointerInfo>> = null
       if (typeof props.onScenePointerMove === 'function') {
-        pointerMoveObservable = scene.onPointerObservable.add((evt: PointerInfo) => {
-          props.onScenePointerMove!(evt, scene)
+        pointerMoveObservable = newScene.onPointerObservable.add((evt: PointerInfo) => {
+          props.onScenePointerMove?.(evt, newScene)
         }, PointerEventTypes.POINTERMOVE)
       }
 
       if (typeof props.onSceneMount === 'function') {
         props.onSceneMount({
-          scene: scene,
-          canvas: scene.getEngine().getRenderingCanvas()!,
+          scene: newScene,
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          canvas: newScene.getEngine().getRenderingCanvas()!,
         })
         // TODO: console.error if canvas is not attached. runRenderLoop() is expected to be part of onSceneMount().
       }
@@ -146,13 +146,13 @@ const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
       // TODO: change enable physics to 'usePhysics' taking an object with a Vector3 and 'any'.
       // NOTE: must be enabled for updating container (cannot add impostors w/o physics enabled)
       if (Array.isArray(props.enablePhysics)) {
-        scene.enablePhysics(props.enablePhysics[0], props.enablePhysics[1])
+        newScene.enablePhysics(props.enablePhysics[0], props.enablePhysics[1])
       }
 
       const sceneGraph = (
         <SceneContext.Provider
           value={{
-            scene,
+            scene: newScene,
             sceneReady: sceneIsReady,
           }}
         >
@@ -170,19 +170,19 @@ const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
 
       return () => {
         if (pointerDownObservable) {
-          scene.onPointerObservable.remove(pointerDownObservable)
+          newScene.onPointerObservable.remove(pointerDownObservable)
         }
 
         if (pointerUpObservable) {
-          scene.onPointerObservable.remove(pointerUpObservable)
+          newScene.onPointerObservable.remove(pointerUpObservable)
         }
 
         if (pointerMoveObservable) {
-          scene.onPointerObservable.remove(pointerMoveObservable)
+          newScene.onPointerObservable.remove(pointerMoveObservable)
         }
 
-        if (scene.isDisposed === false) {
-          scene.dispose()
+        if (newScene.isDisposed === false) {
+          newScene.dispose()
         }
 
         // clear renderer element
@@ -205,7 +205,8 @@ const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
 
   // update babylon scene
   useEffect(() => {
-    if (engine === null || scene === null || reconcilerRef.current === null) {
+    // when the scene is set, so are containerRef and reconcilerRef
+    if (scene === null) {
       return
     }
 
