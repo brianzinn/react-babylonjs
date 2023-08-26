@@ -9,7 +9,7 @@ import { Engine, Scene, Skybox } from 'react-babylonjs'
  * Insipration Playground: https://www.babylonjs-playground.com/#AQZJ4C#0
  */
 const WithFresnelParameters = () => {
-  let sunnyDayRootUrl = '../../assets/textures/TropicalSunnyDay'
+  let sunnyDayRootUrl = '../../../assets/textures/TropicalSunnyDay'
   let pointLightRef = useRef<PointLight | null>(null)
 
   const [pointLightDiffuse, setPointLightDiffuse] = useState(() => new Color3(1, 0.5, 0.5))

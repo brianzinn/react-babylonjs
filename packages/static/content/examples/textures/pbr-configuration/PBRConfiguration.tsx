@@ -13,7 +13,7 @@ type DynamicConfigProps = {
  * Official Demo: https://www.babylonjs.com/demos/pbr/
  */
 const WithDynamicConfig: FC<DynamicConfigProps> = ({ roughness }) => {
-  let environmentUrl = '../../assets/textures/environment.dds'
+  let environmentUrl = '../../../assets/textures/environment.dds'
   const [_, setTexturesLoaded] = useState(false)
 
   const cubeTextureRef = useRef<CubeTexture | undefined>(undefined)
@@ -128,8 +128,8 @@ const WithDynamicConfig: FC<DynamicConfigProps> = ({ roughness }) => {
           albedoColor={Color3.White()}
           useMicroSurfaceFromReflectivityMapAlpha
         >
-          <texture url="../../assets/textures/reflectivity.png" assignTo="reflectivityTexture" />
-          <texture url="../../assets/textures/albedo.png" assignTo="albedoTexture" />
+          <texture url="../../../assets/textures/reflectivity.png" assignTo="reflectivityTexture" />
+          <texture url="../../../assets/textures/albedo.png" assignTo="albedoTexture" />
           <pbrClearCoatConfiguration assignFrom="clearCoat" isEnabled roughness={roughness} />
         </pbrMaterial>
       </box>

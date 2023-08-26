@@ -100,7 +100,7 @@ const ColorGrading = () => {
           <SkyboxAndSphere />
           <colorGradingTexture
             ref={colorGradingTextureRef}
-            url="../../assets/textures/LateSunset.3dl"
+            url="../../../assets/textures/LateSunset.3dl"
           />
         </Scene>
       </Engine>

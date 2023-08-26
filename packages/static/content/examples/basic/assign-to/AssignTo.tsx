@@ -28,13 +28,13 @@ export const FromInstance = () => (
             useRoughnessFromMetallicTextureGreen
             useMetallnessFromMetallicTextureBlue
           >
-            <texture url="../../assets/textures/mr.jpg" assignTo="metallicTexture" />
+            <texture url="../../../assets/textures/mr.jpg" assignTo="metallicTexture" />
           </pbrMaterial>
         </sphere>
         <cubeTexture
           level={0.5}
           assignTo="environmentTexture"
-          rootUrl="../../assets/textures/environment.env"
+          rootUrl="../../../assets/textures/environment.env"
         />
       </Scene>
     </Engine>

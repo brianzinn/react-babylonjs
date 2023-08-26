@@ -14,12 +14,12 @@ const textureAssets: Task[] = [
   },
   {
     taskType: TaskType.Texture,
-    url: '../../assets/textures/grass.png',
+    url: '../../../assets/textures/grass.png',
     name: 'grass',
   },
   {
     taskType: TaskType.Texture,
-    url: '../../assets/textures/bump.png',
+    url: '../../../assets/textures/bump.png',
     name: 'bump',
   },
 ]

@@ -11,7 +11,7 @@ import { Engine, Scene, Task, TaskType, useAssetManager, useBeforeRender } from 
 const pointCloudAssets: Task[] = [
   {
     taskType: TaskType.Binary,
-    url: '../../assets/kitti/000000.bin',
+    url: '../../../assets/kitti/000000.bin',
     name: 'Velodyne-kitt-dataset',
   },
 ]

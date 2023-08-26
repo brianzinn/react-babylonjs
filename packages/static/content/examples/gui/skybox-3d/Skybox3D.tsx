@@ -6,11 +6,11 @@ import { Engine, Scene, Skybox } from 'react-babylonjs'
 const SkyboxScenes = [
   {
     name: 'sunny day',
-    texture: `../../assets/textures/TropicalSunnyDay`,
+    texture: `../../../assets/textures/TropicalSunnyDay`,
   },
   {
     name: 'specular HDR',
-    texture: `../../assets/textures/SpecularHDR.dds`,
+    texture: `../../../assets/textures/SpecularHDR.dds`,
   },
 ]
 
