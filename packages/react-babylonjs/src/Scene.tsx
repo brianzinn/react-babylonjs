@@ -85,6 +85,8 @@ const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
         },
       }
 
+      // NOTE: in StrictMode will contain props from first render
+      prevPropsRef.current = {}
       updateScene(props, prevPropsRef, container.rootInstance, propsHandler)
 
       const reconciler = createReconciler({})
