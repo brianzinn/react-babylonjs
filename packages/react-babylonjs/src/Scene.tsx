@@ -55,7 +55,7 @@ const updateScene = (
 const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
   const { engine } = useContext(EngineCanvasContext)
 
-  const [propsHandler] = useState(new FiberScenePropsHandler())
+  const [propsHandler] = useState(() => new FiberScenePropsHandler())
   const [sceneReady, setSceneReady] = useState(false)
   const [scene, setScene] = useState<Nullable<BabylonScene>>(null)
 
@@ -69,14 +69,6 @@ const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
   useEffect(
     () => {
       const newScene = new BabylonScene(engine!, props.sceneOptions)
-      // const onReadyObservable: Nullable<Observer<BabylonJSScene>> = scene.onReadyObservable.add(onSceneReady);
-      const sceneIsReady = newScene.isReady()
-      if (sceneIsReady) {
-        // scene.onReadyObservable.remove(onReadyObservable);
-        setSceneReady(true) // this does not flow and cause a re-render
-      } else {
-        console.error('Scene is not ready. Report issue in react-babylonjs repo')
-      }
 
       // TODO: try to move the scene to parentComponent in updateContainer
       const container: Container = {
@@ -95,10 +87,17 @@ const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
 
       updateScene(props, prevPropsRef, container.rootInstance, propsHandler)
 
-      containerRef.current = container
-
       const reconciler = createReconciler({})
       reconcilerRef.current = reconciler
+
+      // const onReadyObservable: Nullable<Observer<BabylonJSScene>> = scene.onReadyObservable.add(onSceneReady);
+      const sceneIsReady = newScene.isReady()
+      if (sceneIsReady) {
+        // scene.onReadyObservable.remove(onReadyObservable);
+        setSceneReady(true)
+      } else {
+        console.error('Scene is not ready. Report issue in react-babylonjs repo')
+      }
 
       setScene(newScene)
 
@@ -159,6 +158,7 @@ const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
           {props.children}
         </SceneContext.Provider>
       )
+
       reconciler.render(
         sceneGraph,
         container,
@@ -167,6 +167,7 @@ const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
         },
         null
       )
+      containerRef.current = container
 
       return () => {
         if (pointerDownObservable) {
@@ -203,14 +204,14 @@ const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
     ]
   )
 
-  // update babylon scene
+  // update babylon scene with props
   useEffect(() => {
-    // when the scene is set, so are containerRef and reconcilerRef
-    if (scene === null) {
+    const container = containerRef.current
+    if (scene === null || container === null) {
       return
     }
 
-    updateScene(props, prevPropsRef, containerRef.current!.rootInstance, propsHandler)
+    updateScene(props, prevPropsRef, container.rootInstance, propsHandler)
 
     const sceneGraph = (
       <SceneContext.Provider
@@ -224,7 +225,7 @@ const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
     )
     reconcilerRef.current!.render(
       sceneGraph,
-      containerRef.current!,
+      container,
       () => {
         /* ignored */
       },
