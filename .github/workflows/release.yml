@@ -48,8 +48,13 @@ jobs:
           git tag -a v${PACKAGE_VERSION} -m "version ${PACKAGE_VERSION}"
           git push --follow-tags
           git status
-          sleep 1m
+          pwd
+          ls -l
           cd packages/react-babylonjs
+          pwd
+          ls -l
+          ls -l ./node_modules/.bin
+          sleep 1m
           ./node_modules/.bin/gren release --tags=v${PACKAGE_VERSION}
         env:
           GREN_GITHUB_TOKEN: ${{ secrets.GREN_GITHUB_TOKEN }}
