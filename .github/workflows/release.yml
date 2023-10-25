@@ -29,16 +29,14 @@ jobs:
           node-version: '18.x'
           registry-url: 'https://registry.npmjs.org'
           scope: brianzinn
-      - name: install deps (not workspace)
-        working-directory: ./packages/react-babylonjs
+      - name: install deps
         # npm ci
         run: |
           npm install --legacy-peer-deps
       - name: build test coverage
-        working-directory: ./packages/react-babylonjs
         run: |
-          npm run build
-          npm run test:coverage
+          npm run build -w packages/react-babylonjs
+          npm run test:coverage -w packages/react-babylonjs
       - name: version-changelog-commit
         run: |
           npm version ${{ github.event.inputs.npmVersion }} -w packages/react-babylonjs
@@ -51,7 +49,6 @@ jobs:
           git push --follow-tags
           git status
           sleep 1m
-          cd packages/react-babylonjs
           ./node_modules/.bin/gren release --tags=v${PACKAGE_VERSION}
         env:
           GREN_GITHUB_TOKEN: ${{ secrets.GREN_GITHUB_TOKEN }}
