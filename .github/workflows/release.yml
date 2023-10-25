@@ -24,9 +24,9 @@ jobs:
       - run: |
           git config user.name "Brian Zinn"
           git config user.email "github@wakeskate.com"
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v3
         with:
-          node-version: '16.13.2'
+          node-version: '18.x'
           registry-url: 'https://registry.npmjs.org'
           scope: brianzinn
       - name: install deps (not workspace)
