@@ -29,7 +29,7 @@ jobs:
           node-version: '18.x'
           registry-url: 'https://registry.npmjs.org'
           scope: brianzinn
-      - name: install deps (not workspace)
+      - name: install deps
         # npm ci
         run: |
           npm install --legacy-peer-deps
@@ -48,12 +48,6 @@ jobs:
           git tag -a v${PACKAGE_VERSION} -m "version ${PACKAGE_VERSION}"
           git push --follow-tags
           git status
-          pwd
-          ls -l
-          cd packages/react-babylonjs
-          pwd
-          ls -l
-          ls -l ./node_modules/.bin
           sleep 1m
           ./node_modules/.bin/gren release --tags=v${PACKAGE_VERSION}
         env:
