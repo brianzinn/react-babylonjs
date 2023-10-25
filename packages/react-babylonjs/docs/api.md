@@ -20,40 +20,46 @@ Shadows, Textures, etc.)
 
 # @babylonjs/core API Support
 
-1. **Node -> Mesh** - abstractMesh, groundMesh, instancedLinesMesh,
-   instancedMesh, linesMesh, mesh, node, transformNode, trailMesh
+1. **Node -> Mesh** - abstractMesh, goldbergMesh, greasedLineBaseMesh,
+   greasedLineMesh, greasedLineRibbonMesh, groundMesh, instancedLinesMesh,
+   instancedMesh, linesMesh, mesh, trailMesh
 
 2. **Cameras** - anaglyphArcRotateCamera, anaglyphFreeCamera,
    anaglyphGamepadCamera, anaglyphUniversalCamera, arcFollowCamera,
    arcRotateCamera, camera, deviceOrientationCamera, flyCamera, followCamera,
    freeCamera, gamepadCamera, stereoscopicArcRotateCamera,
    stereoscopicFreeCamera, stereoscopicGamepadCamera,
-   stereoscopicUniversalCamera, targetCamera, touchCamera, universalCamera,
-   virtualJoysticksCamera, vrDeviceOrientationArcRotateCamera,
-   vrDeviceOrientationFreeCamera, vrDeviceOrientationGamepadCamera,
-   webVrFreeCamera, webXrCamera
+   stereoscopicScreenUniversalCamera, stereoscopicUniversalCamera, targetCamera,
+   touchCamera, universalCamera, virtualJoysticksCamera,
+   vrDeviceOrientationArcRotateCamera, vrDeviceOrientationFreeCamera,
+   vrDeviceOrientationGamepadCamera, webXrCamera
 
-3. **Geometries (meshes)** - box, capsule, cylinder, dashedLines, decal, disc,
-   extrudePolygon, extrudeShape, extrudeShapeCustom, ground,
+3. **Geometries (meshes)** - bbox, capsule, cylinder, dashedLines, decal, disc,
+   extrudePolygon, extrudeShape, extrudeShapeCustom, geodesic, goldberg, ground,
    groundFromHeightMap, icoSphere, lathe, lines, lineSystem, plane,
-   babylon-polygon/Polygon, polyhedron, ribbon, sphere, tiledBox, tiledGround,
-   tiledPlane, torus, torusKnot, tube
+   babylon-polygon, polyhedron, ribbon, sphere, babylon-text, tiledBox,
+   tiledGround, tiledPlane, torus, torusKnot, tube
 
-   > note: `babylon-polygon` instead of `polygon` due to JSX conflict with
-   > `React.SVGProps<SVGPolygonElement>`
+   > note: `babylon-polygon` and `babylon-text` instead of `polygon` due to JSX
+   > conflict with `React.SVGProps<SVGPolygonElement>`
 
-4. **Materials** - backgroundMaterial, fluentMaterial, material, multiMaterial,
-   nodeMaterial, pbrBaseMaterial, pbrBaseSimpleMaterial, pbrMaterial,
+4. **Materials** - backgroundMaterial, fluentBackplateMaterial,
+   fluentButtonMaterial, fluentMaterial, greasedLineSimpleMaterial,
+   handleMaterial, material, mrdlBackglowMaterial, mrdlBackplateMaterial,
+   mrdlFrontplateMaterial, mrdlInnerquadMaterial, mrdlSliderBarMaterial,
+   mrdlSliderThumbMaterial, multiMaterial, nodeMaterial, occlusionMaterial,
+   pbrBaseMaterial, pbrBaseSimpleMaterial, pbrMaterial,
    pbrMetallicRoughnessMaterial, pbrSpecularGlossinessMaterial, pushMaterial,
-   shaderMaterial, standardMaterial
+   shaderMaterial, standardMateria
 
 > note: Materials can have configuration (read-only) properties as classes. With
 > `assignFrom` prop you can declare detailMapConfiguration,
-> pbrClearCoatConfiguration, pbrAnisotropicConfiguration, pbrbrdfConfiguration,
-> pbrSheenConfiguration, pbrSubSurfaceConfiguration to attach to declaratively.
-> PBRBaseMaterial has all, while StandardMaterial has only
-> detailMapConfiguration. (prePassConfiguration has no updateable properties,
-> but can be attached).
+> imageProcessingConfiguration pbrClearCoatConfiguration,
+> pbrIridescenceConfiguration, pbrAnisotropicConfiguration,
+> pbrbrdfConfiguration, pbrSheenConfiguration, pbrSubSurfaceConfiguration or
+> prePassConfiguration to attach to declaratively. PBRBaseMaterial has all,
+> while StandardMaterial has only detailMapConfiguration. (prePassConfiguration
+> has no updateable properties, but can be attached).
 
 5. **Lights** - directionalLight, hemisphericLight, light, pointLight,
    shadowLight, spotLight
@@ -62,9 +68,10 @@ Shadows, Textures, etc.)
    cubeTexture, customProceduralTexture, dynamicTexture,
    equiRectangularCubeTexture, hdrCubeTexture, htmlElementTexture,
    mirrorTexture, multiRenderTarget, multiviewRenderTarget,
-   noiseProceduralTexture, proceduralTexture, rawCubeTexture, rawTexture,
-   rawTexture2DArray, rawTexture3D, refractionTexture, renderTargetTexture,
-   texture, thinTexture, videoTexture
+   noiseProceduralTexture, prePassRenderTarget, proceduralTexture,
+   rawCubeTexture, rawTexture, rawTexture2DArray, rawTexture3D,
+   refractionTexture, renderTargetTexture, texture, thinRenderTargetTexture,
+   thinTexture, videoTexture, xrSpaceWarpRenderTarget
 
 7. **EffectLayers** - effectLayer, glowLayer, highlightLayer
 
@@ -74,7 +81,7 @@ Shadows, Textures, etc.)
 
 9. **PostProcessRenderPipelines**: defaultRenderingPipeline,
    lensRenderingPipeline, postProcessRenderPipeline, ssao2RenderingPipeline,
-   ssaoRenderingPipeline, standardRenderingPipeline
+   ssaoRenderingPipeline, ssrRenderingPipeline, standardRenderingPipeline
 
 10. **PostProcesss** anaglyphPostProcess, blackAndWhitePostProcess,
     bloomMergePostProcess, blurPostProcess, chromaticAberrationPostProcess,
@@ -97,7 +104,7 @@ Shadows, Textures, etc.)
 
 11. **Gizmo** axisDragGizmo, axisScaleGizmo, boundingBoxGizmo, cameraGizmo,
     gizmo, lightGizmo, planeDragGizmo, planeRotationGizmo, positionGizmo,
-    rotationGizmo, scaleGizmo
+    rotationGizmo, scaleGizmo, slateGizmo
 
 12. **Others** - adtForMesh, adtForMeshTexture, adtFullScreenUi,
     environmentHelper, physicsImpostor, pointsCloudSystem, shadowGenerator /
@@ -107,20 +114,22 @@ Shadows, Textures, etc.)
 ## @babylonjs/gui
 
 1. GUI3DManager
-2. **2D Controls** - scrollViewerWindow, baseSlider, babylon-button/Button,
-   checkbox, colorPicker, container, control, displayGrid,
-   babylon-ellipse/Ellipse, grid, babylon-image/Image, imageBasedSlider,
-   imageScrollBar, inputPassword, inputText, babylon-line/Line, multiLine,
+2. **2D Controls** - scrollViewerWindow, baseSlider, 'babylon-button', checkbox,
+   colorPicker, container, control, displayGrid, 'babylon-ellipse',
+   focusableButton, grid, 'babylon-image', imageBasedSlider, imageScrollBar,
+   inputPassword, inputText, inputTextArea, 'babylon-line', multiLine,
    radioButton, rectangle, scrollBar, scrollViewer, selectionPanel, slider,
-   stackPanel, textBlock, virtualKeyboard
+   stackPanel, textBlock, toggleButton, virtualKeyboard
 
    > note: 'babylon-\*' for `button`, `ellipse`, `image` & `line` due to JSX
    > conflict with `React.SVGProps<T>`, otherwise use the ProperCase equivalent,
    > but you miss editor auto-completion.
 
-3. **3D Controls** - abstractButton3D, button3D, container3D, control3D,
-   cylinderPanel, holographicButton, meshButton3D, planePanel, scatterPanel,
-   spherePanel, stackPanel3D, volumeBasedPanel
+3. **3D Controls** - abstractButton3D, button3D, container3D, contentDisplay3D,
+   control3D, cylinderPanel, handMenu, holographicBackplate, holographicButton,
+   holographicSlate, meshButton3D, nearMenu, planePanel, scatterPanel, slider3D,
+   spherePanel, stackPanel3D, touchButton3D, touchHolographicButton,
+   touchHolographicMenu, touchMeshButton3D, volumeBasedPanel
 
 ## Extensions (new in 2.0)
 
@@ -135,7 +144,7 @@ React host elements follow the babylon API docs. These are all optional.
 ## Props available to all host elements
 
 1. `assignTo` - Assign to this property on the parent. Parent property is
-   cleared on umnount (ie: texture can be assigned to bump/diffuse/etc.)
+   cleared on unmount (ie: texture can be assigned to bump/diffuse/etc.)
 2. `assignFrom` - Assigned from a parent property and then participates with
    props (ie: PBR configurations or PostProcess properties like grain)
 3. `fromInstance` - Attach an instance you create (or want re-used) and the

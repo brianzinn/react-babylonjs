@@ -79,7 +79,7 @@ const LATE_BOUND_CONSTRUCTOR_PARAMETERS: Map<string, string[]> = new Map<string,
 
 console.log('ver:', ts.version)
 
-const CONFLICT_INTRINSIC_ELEMENTS = ['Button', 'Ellipse', 'Image', 'Line', 'Polygon']
+const CONFLICT_INTRINSIC_ELEMENTS = ['Button', 'Ellipse', 'Image', 'Line', 'Polygon', 'Text']
 
 const ALL_CUSTOM_PROPS = [
   'AbstractMeshCustomProps',

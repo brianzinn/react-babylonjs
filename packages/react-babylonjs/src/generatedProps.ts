@@ -56,11 +56,6 @@ import {
   VRExperienceHelper as BabylonjsCoreVRExperienceHelper,
   VRExperienceHelperOptions as BabylonjsCoreVRExperienceHelperOptions,
 } from '@babylonjs/core/Cameras/VR/vrExperienceHelper.js'
-import {
-  DevicePose as BabylonjsCoreDevicePose,
-  WebVRFreeCamera as BabylonjsCoreWebVRFreeCamera,
-  WebVROptions as BabylonjsCoreWebVROptions,
-} from '@babylonjs/core/Cameras/VR/webVRCamera.js'
 import { Collider as BabylonjsCoreCollider } from '@babylonjs/core/Collisions/collider.js'
 import { PickingInfo as BabylonjsCorePickingInfo } from '@babylonjs/core/Collisions/pickingInfo.js'
 import { BoundingInfo as BabylonjsCoreBoundingInfo } from '@babylonjs/core/Culling/boundingInfo.js'
@@ -72,7 +67,6 @@ import { RenderTargetWrapper as BabylonjsCoreRenderTargetWrapper } from '@babylo
 import { ThinEngine as BabylonjsCoreThinEngine } from '@babylonjs/core/Engines/thinEngine.js'
 import { IPointerEvent as BabylonjsCoreIPointerEvent } from '@babylonjs/core/Events/deviceInputEvents.js'
 import { PointerEventTypes as BabylonjsCorePointerEventTypes } from '@babylonjs/core/Events/pointerEvents.js'
-import { WebVRController as BabylonjsCoreWebVRController } from '@babylonjs/core/Gamepads/Controllers/webVRController.js'
 import {
   AxisDragGizmo as BabylonjsCoreAxisDragGizmo,
   IAxisDragGizmo as BabylonjsCoreIAxisDragGizmo,
@@ -86,7 +80,11 @@ import {
   IBoundingBoxGizmo as BabylonjsCoreIBoundingBoxGizmo,
 } from '@babylonjs/core/Gizmos/boundingBoxGizmo.js'
 import { CameraGizmo as BabylonjsCoreCameraGizmo } from '@babylonjs/core/Gizmos/cameraGizmo.js'
-import { Gizmo as BabylonjsCoreGizmo } from '@babylonjs/core/Gizmos/gizmo.js'
+import {
+  Gizmo as BabylonjsCoreGizmo,
+  GizmoAnchorPoint as BabylonjsCoreGizmoAnchorPoint,
+  GizmoCoordinatesMode as BabylonjsCoreGizmoCoordinatesMode,
+} from '@babylonjs/core/Gizmos/gizmo.js'
 import { GizmoManager as BabylonjsCoreGizmoManager } from '@babylonjs/core/Gizmos/gizmoManager.js'
 import { LightGizmo as BabylonjsCoreLightGizmo } from '@babylonjs/core/Gizmos/lightGizmo.js'
 import {
@@ -143,6 +141,12 @@ import { BackgroundMaterial as BabylonjsCoreBackgroundMaterial } from '@babylonj
 import { ColorCurves as BabylonjsCoreColorCurves } from '@babylonjs/core/Materials/colorCurves.js'
 import { Effect as BabylonjsCoreEffect } from '@babylonjs/core/Materials/effect.js'
 import { FresnelParameters as BabylonjsCoreFresnelParameters } from '@babylonjs/core/Materials/fresnelParameters.js'
+import {
+  GreasedLineMaterialOptions as BabylonjsCoreGreasedLineMaterialOptions,
+  GreasedLineMeshColorDistributionType as BabylonjsCoreGreasedLineMeshColorDistributionType,
+  GreasedLineMeshColorMode as BabylonjsCoreGreasedLineMeshColorMode,
+} from '@babylonjs/core/Materials/GreasedLine/greasedLineMaterialInterfaces.js'
+import { GreasedLineSimpleMaterial as BabylonjsCoreGreasedLineSimpleMaterial } from '@babylonjs/core/Materials/GreasedLine/greasedLineSimpleMaterial.js'
 import { ImageProcessingConfiguration as BabylonjsCoreImageProcessingConfiguration } from '@babylonjs/core/Materials/imageProcessingConfiguration.js'
 import { DetailMapConfiguration as BabylonjsCoreDetailMapConfiguration } from '@babylonjs/core/Materials/material.detailMapConfiguration.js'
 import {
@@ -239,10 +243,17 @@ import { Viewport as BabylonjsCoreViewport } from '@babylonjs/core/Maths/math.vi
 import { AbstractMesh as BabylonjsCoreAbstractMesh } from '@babylonjs/core/Meshes/abstractMesh.js'
 import { ICreateCapsuleOptions as BabylonjsCoreICreateCapsuleOptions } from '@babylonjs/core/Meshes/Builders/capsuleBuilder.js'
 import { GoldbergCreationOption as BabylonjsCoreGoldbergCreationOption } from '@babylonjs/core/Meshes/Builders/goldbergBuilder.js'
+import { IFontData as BabylonjsCoreIFontData } from '@babylonjs/core/Meshes/Builders/textBuilder.js'
 import {
   GoldbergData as BabylonjsCoreGoldbergData,
   GoldbergMesh as BabylonjsCoreGoldbergMesh,
 } from '@babylonjs/core/Meshes/goldbergMesh.js'
+import {
+  GreasedLineBaseMesh as BabylonjsCoreGreasedLineBaseMesh,
+  GreasedLineMeshOptions as BabylonjsCoreGreasedLineMeshOptions,
+} from '@babylonjs/core/Meshes/GreasedLine/greasedLineBaseMesh.js'
+import { GreasedLineMesh as BabylonjsCoreGreasedLineMesh } from '@babylonjs/core/Meshes/GreasedLine/greasedLineMesh.js'
+import { GreasedLineRibbonMesh as BabylonjsCoreGreasedLineRibbonMesh } from '@babylonjs/core/Meshes/GreasedLine/greasedLineRibbonMesh.js'
 import { GroundMesh as BabylonjsCoreGroundMesh } from '@babylonjs/core/Meshes/groundMesh.js'
 import { InstancedMesh as BabylonjsCoreInstancedMesh } from '@babylonjs/core/Meshes/instancedMesh.js'
 import {
@@ -305,6 +316,7 @@ import { DefaultRenderingPipeline as BabylonjsCoreDefaultRenderingPipeline } fro
 import { LensRenderingPipeline as BabylonjsCoreLensRenderingPipeline } from '@babylonjs/core/PostProcesses/RenderPipeline/Pipelines/lensRenderingPipeline.js'
 import { SSAO2RenderingPipeline as BabylonjsCoreSSAO2RenderingPipeline } from '@babylonjs/core/PostProcesses/RenderPipeline/Pipelines/ssao2RenderingPipeline.js'
 import { SSAORenderingPipeline as BabylonjsCoreSSAORenderingPipeline } from '@babylonjs/core/PostProcesses/RenderPipeline/Pipelines/ssaoRenderingPipeline.js'
+import { SSRRenderingPipeline as BabylonjsCoreSSRRenderingPipeline } from '@babylonjs/core/PostProcesses/RenderPipeline/Pipelines/ssrRenderingPipeline.js'
 import { StandardRenderingPipeline as BabylonjsCoreStandardRenderingPipeline } from '@babylonjs/core/PostProcesses/RenderPipeline/Pipelines/standardRenderingPipeline.js'
 import { PostProcessRenderPipeline as BabylonjsCorePostProcessRenderPipeline } from '@babylonjs/core/PostProcesses/RenderPipeline/postProcessRenderPipeline.js'
 import { ScreenSpaceCurvaturePostProcess as BabylonjsCoreScreenSpaceCurvaturePostProcess } from '@babylonjs/core/PostProcesses/screenSpaceCurvaturePostProcess.js'
@@ -327,6 +339,7 @@ import {
   Scene as BabylonjsCoreScene,
   ScenePerformancePriority as BabylonjsCoreScenePerformancePriority,
 } from '@babylonjs/core/scene.js'
+import { XRSpaceWarpRenderTarget as BabylonjsCoreXRSpaceWarpRenderTarget } from '@babylonjs/core/XR/features/WebXRSpaceWarp.js'
 import { WebXRCamera as BabylonjsCoreWebXRCamera } from '@babylonjs/core/XR/webXRCamera.js'
 import { WebXRDefaultExperience as BabylonjsCoreWebXRDefaultExperience } from '@babylonjs/core/XR/webXRDefaultExperience.js'
 import { WebXRExperienceHelper as BabylonjsCoreWebXRExperienceHelper } from '@babylonjs/core/XR/webXRExperienceHelper.js'
@@ -341,6 +354,7 @@ import { DisplayGrid as BabylonjsGuiDisplayGrid } from '@babylonjs/gui/2D/contro
 import { Ellipse as BabylonjsGuiEllipse } from '@babylonjs/gui/2D/controls/ellipse.js'
 import { FocusableButton as BabylonjsGuiFocusableButton } from '@babylonjs/gui/2D/controls/focusableButton.js'
 import { IFocusableControl as BabylonjsGuiIFocusableControl } from '@babylonjs/gui/2D/controls/focusableControl.js'
+import { BaseGradient as BabylonjsGuiBaseGradient } from '@babylonjs/gui/2D/controls/gradient/BaseGradient.js'
 import { Grid as BabylonjsGuiGrid } from '@babylonjs/gui/2D/controls/grid.js'
 import { Image as BabylonjsGuiImage } from '@babylonjs/gui/2D/controls/image.js'
 import { InputPassword as BabylonjsGuiInputPassword } from '@babylonjs/gui/2D/controls/inputPassword.js'
@@ -371,7 +385,10 @@ import { VirtualKeyboard as BabylonjsGuiVirtualKeyboard } from '@babylonjs/gui/2
 import { Style as BabylonjsGuiStyle } from '@babylonjs/gui/2D/style.js'
 import { DefaultBehavior as BabylonjsGuiDefaultBehavior } from '@babylonjs/gui/3D/behaviors/defaultBehavior.js'
 import { AbstractButton3D as BabylonjsGuiAbstractButton3D } from '@babylonjs/gui/3D/controls/abstractButton3D.js'
-import { Button3D as BabylonjsGuiButton3D } from '@babylonjs/gui/3D/controls/button3D.js'
+import {
+  Button3D as BabylonjsGuiButton3D,
+  IButton3DCreationOptions as BabylonjsGuiIButton3DCreationOptions,
+} from '@babylonjs/gui/3D/controls/button3D.js'
 import { Container3D as BabylonjsGuiContainer3D } from '@babylonjs/gui/3D/controls/container3D.js'
 import { ContentDisplay3D as BabylonjsGuiContentDisplay3D } from '@babylonjs/gui/3D/controls/contentDisplay3D.js'
 import { Control3D as BabylonjsGuiControl3D } from '@babylonjs/gui/3D/controls/control3D.js'
@@ -447,14 +464,23 @@ declare global {
         FiberInstancedLinesMeshPropsCtor &
         BabylonNode<BabylonjsCoreInstancedLinesMesh>
       mesh: FiberMeshProps & FiberMeshPropsCtor & BabylonNode<BabylonjsCoreMesh>
-      groundMesh: FiberGroundMeshProps &
-        FiberGroundMeshPropsCtor &
-        BabylonNode<BabylonjsCoreGroundMesh>
-      linesMesh: FiberLinesMeshProps & FiberLinesMeshPropsCtor & BabylonNode<BabylonjsCoreLinesMesh>
       goldbergMesh: FiberGoldbergMeshProps &
         FiberGoldbergMeshPropsCtor &
         BabylonNode<BabylonjsCoreGoldbergMesh>
+      linesMesh: FiberLinesMeshProps & FiberLinesMeshPropsCtor & BabylonNode<BabylonjsCoreLinesMesh>
+      groundMesh: FiberGroundMeshProps &
+        FiberGroundMeshPropsCtor &
+        BabylonNode<BabylonjsCoreGroundMesh>
       trailMesh: FiberTrailMeshProps & FiberTrailMeshPropsCtor & BabylonNode<BabylonjsCoreTrailMesh>
+      greasedLineBaseMesh: FiberGreasedLineBaseMeshProps &
+        FiberGreasedLineBaseMeshPropsCtor &
+        BabylonNode<BabylonjsCoreGreasedLineBaseMesh>
+      greasedLineMesh: FiberGreasedLineMeshProps &
+        FiberGreasedLineMeshPropsCtor &
+        BabylonNode<BabylonjsCoreGreasedLineMesh>
+      greasedLineRibbonMesh: FiberGreasedLineRibbonMeshProps &
+        FiberGreasedLineRibbonMeshPropsCtor &
+        BabylonNode<BabylonjsCoreGreasedLineRibbonMesh>
       camera: FiberCameraProps & FiberCameraPropsCtor & BabylonNode<BabylonjsCoreCamera>
       targetCamera: FiberTargetCameraProps &
         FiberTargetCameraPropsCtor &
@@ -507,9 +533,6 @@ declare global {
       virtualJoysticksCamera: FiberVirtualJoysticksCameraProps &
         FiberVirtualJoysticksCameraPropsCtor &
         BabylonNode<BabylonjsCoreVirtualJoysticksCamera>
-      webVrFreeCamera: FiberWebVRFreeCameraProps &
-        FiberWebVRFreeCameraPropsCtor &
-        BabylonNode<BabylonjsCoreWebVRFreeCamera>
       arcRotateCamera: FiberArcRotateCameraProps &
         FiberArcRotateCameraPropsCtor &
         BabylonNode<BabylonjsCoreArcRotateCamera>
@@ -567,6 +590,7 @@ declare global {
         BabylonNode<BabylonjsCoreGoldbergMesh>
       decal: FiberMeshProps & FiberDecalPropsCtor & BabylonNode<BabylonjsCoreMesh>
       capsule: FiberMeshProps & FiberCapsulePropsCtor & BabylonNode<BabylonjsCoreMesh>
+      'babylon-text': FiberMeshProps & FiberTextPropsCtor & BabylonNode<BabylonjsCoreMesh>
       material: FiberMaterialProps & FiberMaterialPropsCtor & BabylonNode<BabylonjsCoreMaterial>
       pushMaterial: FiberPushMaterialProps &
         FiberPushMaterialPropsCtor &
@@ -580,6 +604,9 @@ declare global {
       occlusionMaterial: FiberOcclusionMaterialProps &
         FiberOcclusionMaterialPropsCtor &
         BabylonNode<BabylonjsCoreOcclusionMaterial>
+      greasedLineSimpleMaterial: FiberGreasedLineSimpleMaterialProps &
+        FiberGreasedLineSimpleMaterialPropsCtor &
+        BabylonNode<BabylonjsCoreGreasedLineSimpleMaterial>
       handleMaterial: FiberHandleMaterialProps &
         FiberHandleMaterialPropsCtor &
         BabylonNode<BabylonjsGuiHandleMaterial>
@@ -789,6 +816,9 @@ declare global {
         FiberRawCubeTexturePropsCtor &
         BabylonNode<BabylonjsCoreRawCubeTexture>
       texture: FiberTextureProps & FiberTexturePropsCtor & BabylonNode<BabylonjsCoreTexture>
+      videoTexture: FiberVideoTextureProps &
+        FiberVideoTexturePropsCtor &
+        BabylonNode<BabylonjsCoreVideoTexture>
       proceduralTexture: FiberProceduralTextureProps &
         FiberProceduralTexturePropsCtor &
         BabylonNode<BabylonjsCoreProceduralTexture>
@@ -819,12 +849,12 @@ declare global {
       refractionTexture: FiberRefractionTextureProps &
         FiberRefractionTexturePropsCtor &
         BabylonNode<BabylonjsCoreRefractionTexture>
+      xrSpaceWarpRenderTarget: FiberXRSpaceWarpRenderTargetProps &
+        FiberXRSpaceWarpRenderTargetPropsCtor &
+        BabylonNode<BabylonjsCoreXRSpaceWarpRenderTarget>
       multiviewRenderTarget: FiberMultiviewRenderTargetProps &
         FiberMultiviewRenderTargetPropsCtor &
         BabylonNode<BabylonjsCoreMultiviewRenderTarget>
-      videoTexture: FiberVideoTextureProps &
-        FiberVideoTexturePropsCtor &
-        BabylonNode<BabylonjsCoreVideoTexture>
       dynamicTexture: FiberDynamicTextureProps &
         FiberDynamicTexturePropsCtor &
         BabylonNode<BabylonjsCoreDynamicTexture>
@@ -877,6 +907,9 @@ declare global {
       standardRenderingPipeline: FiberStandardRenderingPipelineProps &
         FiberStandardRenderingPipelinePropsCtor &
         BabylonNode<BabylonjsCoreStandardRenderingPipeline>
+      ssrRenderingPipeline: FiberSSRRenderingPipelineProps &
+        FiberSSRRenderingPipelinePropsCtor &
+        BabylonNode<BabylonjsCoreSSRRenderingPipeline>
       postProcess: FiberPostProcessProps &
         FiberPostProcessPropsCtor &
         BabylonNode<BabylonjsCorePostProcess>
@@ -1221,6 +1254,7 @@ export type FiberAbstractMeshProps = {
   partitioningBBoxRatio?: number
   partitioningSubdivisions?: number
   pointerOverDisableMeshTesting?: boolean
+  rawBoundingInfo?: BabylonjsCoreBoundingInfo
   receiveShadows?: boolean
   renderingGroupId?: number
   setBoundingInfo?: any
@@ -1241,9 +1275,13 @@ export type FiberAbstractMeshPropsCtor = {
   name: string
 }
 export type FiberInstancedMeshProps = {
+  material?: BabylonjsCoreMaterial
+  receiveShadows?: boolean
   renderingGroupId?: number
   setIndices?: any
   setVerticesData?: any
+  skeleton?: BabylonjsCoreSkeleton
+  visibility?: number
 } & FiberAbstractMeshProps
 export type FiberInstancedMeshPropsCtor = {
   name: string
@@ -1278,8 +1316,10 @@ export type FiberMeshProps = {
   onMeshReadyObservable?: any
   overrideMaterialSideOrientation?: number
   overridenInstanceCount?: number
+  overrideRenderingFillMode?: number
   setIndices?: any
   setMaterialById?: any
+  setMaterialByID?: any
   setVerticesBuffer?: any
   setVerticesData?: any
   useLODScreenCoverage?: boolean
@@ -1291,12 +1331,12 @@ export type FiberMeshPropsCtor = {
   doNotCloneChildren?: boolean
   clonePhysicsImpostor?: boolean
 }
-export type FiberGroundMeshProps = {
-  generateOctree?: boolean
+export type FiberGoldbergMeshProps = {
+  goldbergData?: BabylonjsCoreGoldbergData
+  setGoldbergFaceColors?: any
+  setGoldbergFaceUVs?: any
 } & FiberMeshProps
-export type FiberGroundMeshPropsCtor = {
-  name: string
-}
+export type FiberGoldbergMeshPropsCtor = {}
 export type FiberLinesMeshProps = {
   alpha?: number
   checkCollisions?: boolean
@@ -1313,19 +1353,48 @@ export type FiberLinesMeshPropsCtor = {
   useVertexAlpha?: boolean
   material?: BabylonjsCoreMaterial
 }
-export type FiberGoldbergMeshProps = {
-  goldbergData?: BabylonjsCoreGoldbergData
-  setGoldbergFaceColors?: any
-  setGoldbergFaceUVs?: any
+export type FiberGroundMeshProps = {
+  generateOctree?: boolean
 } & FiberMeshProps
-export type FiberGoldbergMeshPropsCtor = {}
-export type FiberTrailMeshProps = {} & FiberMeshProps
+export type FiberGroundMeshPropsCtor = {
+  name: string
+}
+export type FiberTrailMeshProps = {
+  diameter?: number
+} & FiberMeshProps
 export type FiberTrailMeshPropsCtor = {
   name: string
   generator: BabylonjsCoreTransformNode
   diameter?: number
   length?: number
   autoStart?: boolean
+}
+export type FiberGreasedLineBaseMeshProps = {
+  addPoints?: any
+  colorPointers?: number[]
+  offsets?: number[]
+  setPoints?: any
+  widths?: number[]
+} & FiberMeshProps
+export type FiberGreasedLineBaseMeshPropsCtor = {
+  name: string
+  _options: BabylonjsCoreGreasedLineMeshOptions
+}
+export type FiberGreasedLineMeshProps = {
+  intersectionThreshold?: number
+} & FiberGreasedLineBaseMeshProps
+export type FiberGreasedLineMeshPropsCtor = {
+  name: string
+  _options: BabylonjsCoreGreasedLineMeshOptions
+}
+export type FiberGreasedLineRibbonMeshProps = {
+  addPoints?: any
+  slopes?: number[]
+} & FiberGreasedLineBaseMeshProps
+export type FiberGreasedLineRibbonMeshPropsCtor = {
+  name: string
+  _options: BabylonjsCoreGreasedLineMeshOptions
+  _pathOptions?: { options: BabylonjsCoreGreasedLineMeshOptions; pathCount: number }[]
 }
 export type FiberCameraProps = {
   cameraRigMode?: number
@@ -1342,6 +1411,7 @@ export type FiberCameraProps = {
   maxZ?: number
   minZ?: number
   mode?: number
+  oblique?: any
   onAfterCheckInputsObservable?: any
   onProjectionMatrixChangedObservable?: any
   onRestoreStateObservable?: any
@@ -1410,10 +1480,13 @@ export type FiberFreeCameraProps = {
   keysDownward?: number[]
   keysLeft?: number[]
   keysRight?: number[]
+  keysRotateDown?: number[]
   keysRotateLeft?: number[]
   keysRotateRight?: number[]
+  keysRotateUp?: number[]
   keysUp?: number[]
   keysUpward?: number[]
+  needMoveForGravity?: boolean
   onCollide?: (collidedMesh: BabylonjsCoreAbstractMesh) => void
 } & FiberTargetCameraProps
 export type FiberFreeCameraPropsCtor = {
@@ -1426,6 +1499,8 @@ export type FiberWebXRCameraProps = {
   onAfterCameraTeleport?: any
   onBeforeCameraTeleport?: any
   onTrackingStateChanged?: any
+  onXRCameraInitializedObservable?: any
+  setTarget?: any
   setTransformationFromNonVRCamera?: any
 } & FiberFreeCameraProps
 export type FiberWebXRCameraPropsCtor = {
@@ -1529,25 +1604,6 @@ export type FiberVirtualJoysticksCameraProps = {} & FiberFreeCameraProps
 export type FiberVirtualJoysticksCameraPropsCtor = {
   name: string
   position: BabylonjsCoreVector3
-}
-export type FiberWebVRFreeCameraProps = {
-  controllers?: BabylonjsCoreWebVRController[]
-  devicePosition?: BabylonjsCoreVector3
-  'devicePosition-x'?: number
-  'devicePosition-y'?: number
-  'devicePosition-z'?: number
-  deviceRotationQuaternion?: BabylonjsCoreQuaternion
-  deviceScaleFactor?: number
-  onControllerMeshLoadedObservable?: any
-  onControllersAttachedObservable?: any
-  onPoseUpdatedFromDeviceObservable?: any
-  rawPose?: BabylonjsCoreDevicePose
-  rigParenting?: boolean
-} & FiberFreeCameraProps
-export type FiberWebVRFreeCameraPropsCtor = {
-  name: string
-  position: BabylonjsCoreVector3
-  _webVROptions?: BabylonjsCoreWebVROptions
 }
 export type FiberArcRotateCameraProps = {
   allowUpsideDown?: boolean
@@ -1676,6 +1732,7 @@ export type FiberFlyCameraProps = {
   keysLeft?: number[]
   keysRight?: number[]
   keysUp?: number[]
+  needMoveForGravity?: boolean
   onCollide?: (collidedMesh: BabylonjsCoreAbstractMesh) => void
   rollCorrect?: number
   rotationQuaternion?: BabylonjsCoreQuaternion
@@ -2080,6 +2137,20 @@ export type FiberCapsulePropsCtor = {
   name: string
   options?: BabylonjsCoreICreateCapsuleOptions
 }
+export type FiberTextPropsCtor = {
+  name: string
+  text: string
+  fontData: BabylonjsCoreIFontData
+  size?: number
+  resolution?: number
+  depth?: number
+  sideOrientation?: number
+  faceUV?: BabylonjsCoreVector4[]
+  faceColors?: BabylonjsCoreColor4[]
+  perLetterFaceUV?: (letterIndex: number) => BabylonjsCoreVector4[]
+  perLetterFaceColors?: (letterIndex: number) => BabylonjsCoreColor4[]
+  earcutInjection?: any
+}
 export type FiberMaterialProps = {
   allowShaderHotSwapping?: boolean
   alpha?: number
@@ -2162,6 +2233,7 @@ export type FiberNodeMaterialProps = {
   mode?: BabylonjsCoreNodeMaterialModes
   onBuildObservable?: any
   options?: BabylonjsCoreINodeMaterialOptions
+  setPrePassRenderer?: any
   snippetId?: string
 } & FiberPushMaterialProps
 export type FiberNodeMaterialPropsCtor = {
@@ -2176,6 +2248,7 @@ export type FiberShaderMaterialProps = {
   setColor3Array?: any
   setColor4?: any
   setColor4Array?: any
+  setDefine?: any
   setExternalTexture?: any
   setFloat?: any
   setFloats?: any
@@ -2190,6 +2263,7 @@ export type FiberShaderMaterialProps = {
   setTexture?: any
   setTextureArray?: any
   setTextureSampler?: any
+  setUInt?: any
   setUniformBuffer?: any
   setVector2?: any
   setVector3?: any
@@ -2207,6 +2281,29 @@ export type FiberOcclusionMaterialProps = {} & FiberShaderMaterialProps
 export type FiberOcclusionMaterialPropsCtor = {
   name: string
 }
+export type FiberGreasedLineSimpleMaterialProps = {
+  color?: BabylonjsCoreColor3
+  colorMode?: BabylonjsCoreGreasedLineMeshColorMode
+  colors?: BabylonjsCoreColor3[]
+  colorsDistributionType?: BabylonjsCoreGreasedLineMeshColorDistributionType
+  colorsSampling?: number
+  colorsTexture?: BabylonjsCoreRawTexture
+  dashCount?: number
+  dashOffset?: number
+  dashRatio?: number
+  resolution?: BabylonjsCoreVector2
+  setColor?: any
+  setColors?: any
+  sizeAttenuation?: boolean
+  useColors?: boolean
+  useDash?: boolean
+  visibility?: number
+  width?: number
+} & FiberShaderMaterialProps
+export type FiberGreasedLineSimpleMaterialPropsCtor = {
+  name: string
+  options: BabylonjsCoreGreasedLineMaterialOptions
+}
 export type FiberHandleMaterialProps = {
   animationLength?: number
   baseColor?: BabylonjsCoreColor3
@@ -2221,6 +2318,8 @@ export type FiberHandleMaterialPropsCtor = {
   name: string
 }
 export type FiberPBRBaseMaterialProps = {
+  debugFactor?: number
+  debugLimit?: number
   debugMode?: number
   realTimeFiltering?: boolean
   realTimeFilteringQuality?: number
@@ -2276,6 +2375,7 @@ export type FiberPBRMaterialProps = {
   ambientTexture?: BabylonjsCoreBaseTexture
   ambientTextureImpactOnAnalyticalLights?: number
   ambientTextureStrength?: number
+  applyDecalMapAfterDetailMap?: boolean
   bumpTexture?: BabylonjsCoreBaseTexture
   cameraColorCurves?: BabylonjsCoreColorCurves
   cameraColorCurvesEnabled?: boolean
@@ -2353,6 +2453,7 @@ export type FiberStandardMaterialProps = {
   ambientColor?: BabylonjsCoreColor3
   ambientTexture?: BabylonjsCoreBaseTexture
   AmbientTextureEnabled?: boolean
+  applyDecalMapAfterDetailMap?: boolean
   bumpTexture?: BabylonjsCoreBaseTexture
   BumpTextureEnabled?: boolean
   cameraColorCurves?: BabylonjsCoreColorCurves
@@ -2970,12 +3071,14 @@ export type FiberControlProps = {
   disabledColor?: string
   disabledColorItem?: string
   fixedRatio?: number
+  fixedRatioMasterIsWidth?: boolean
   fontFamily?: string
   fontOffset?: { ascent: number; height: number; descent: number }
   fontSize?: string | number
   fontSizeInPixels?: number
   fontStyle?: string
   fontWeight?: string
+  gradient?: BabylonjsGuiBaseGradient
   height?: string | number
   heightInPixels?: number
   highlightColor?: string
@@ -3051,6 +3154,7 @@ export type FiberContainerProps = {
   adaptWidthToChildren?: boolean
   addControl?: any
   background?: string
+  backgroundGradient?: BabylonjsGuiBaseGradient
   isReadOnly?: boolean
   logLayoutCycleErrors?: boolean
   maxLayoutCycle?: number
@@ -3064,6 +3168,10 @@ export type FiberContainerPropsCtor = {
 }
 export type FiberRectangleProps = {
   cornerRadius?: number
+  cornerRadiusW?: number
+  cornerRadiusX?: number
+  cornerRadiusY?: number
+  cornerRadiusZ?: number
   name?: string
   thickness?: number
 } & FiberContainerProps
@@ -3197,6 +3305,8 @@ export type FiberGridProps = {
   addColumnDefinition?: any
   addControl?: any
   addRowDefinition?: any
+  clipChildren?: boolean
+  clipContent?: boolean
   name?: string
   setColumnDefinition?: any
   setRowDefinition?: any
@@ -3214,6 +3324,8 @@ export type Fiber_ScrollViewerWindowPropsCtor = {
   name?: string
 }
 export type FiberTextBlockProps = {
+  applyOutlineToUnderline?: boolean
+  forceResizeWidth?: boolean
   lineSpacing?: string | number
   lineThrough?: boolean
   name?: string
@@ -3393,6 +3505,7 @@ export type FiberBaseSliderPropsCtor = {
 }
 export type FiberScrollBarProps = {
   background?: string
+  backgroundGradient?: BabylonjsGuiBaseGradient
   borderColor?: string
   invertScrollDirection?: boolean
   name?: string
@@ -3415,6 +3528,7 @@ export type FiberImageScrollBarPropsCtor = {
 }
 export type FiberSliderProps = {
   background?: string
+  backgroundGradient?: BabylonjsGuiBaseGradient
   borderColor?: string
   displayValueBar?: boolean
   isThumbCircle?: boolean
@@ -3539,6 +3653,7 @@ export type FiberAbstractButton3DPropsCtor = {
 export type FiberButton3DProps = {} & FiberAbstractButton3DProps
 export type FiberButton3DPropsCtor = {
   name?: string
+  options?: BabylonjsGuiIButton3DCreationOptions
 }
 export type FiberTouchButton3DProps = {
   collidableFrontDirection?: BabylonjsCoreVector3
@@ -3629,6 +3744,7 @@ export type FiberEffectLayerProps = {
   onDisposeObservable?: any
   onSizeChangedObservable?: any
   renderingGroupId?: number
+  setEffectIntensity?: any
   setMaterialForRendering?: any
 } & CustomProps
 export type FiberEffectLayerPropsCtor = {
@@ -3681,7 +3797,7 @@ export type FiberThinTextureProps = {
   wrapV?: number
 } & CustomProps
 export type FiberThinTexturePropsCtor = {
-  internalTexture: BabylonjsCoreInternalTexture
+  internalTexture: BabylonjsCoreInternalTexture | BabylonjsCoreRenderTargetWrapper
 }
 export type FiberBaseTextureProps = {
   animations?: BabylonjsCoreAnimation[]
@@ -3787,6 +3903,17 @@ export type FiberTexturePropsCtor = {
   creationFlags?: number
   forcedExtension?: string
 }
+export type FiberVideoTextureProps = {} & FiberTextureProps
+export type FiberVideoTexturePropsCtor = {
+  name: string
+  src: string | string[] | HTMLVideoElement
+  generateMipMaps?: boolean
+  invertY?: boolean
+  samplingMode?: number
+  settings?: Partial<BabylonjsCoreVideoTextureSettings>
+  onError?: (message?: string, exception?: any) => void
+  format?: number
+}
 export type FiberProceduralTextureProps = {
   autoClear?: boolean
   isEnabled?: boolean
@@ -3867,6 +3994,7 @@ export type FiberRawTexture2DArrayPropsCtor = {
   invertY?: boolean
   samplingMode?: number
   textureType?: number
+  creationFlags?: number
 }
 export type FiberRenderTargetTextureProps = {
   activeCamera?: BabylonjsCoreCamera
@@ -3943,6 +4071,8 @@ export type FiberMirrorTexturePropsCtor = {
 export type FiberMultiRenderTargetProps = {
   samples?: number
   setInternalTexture?: any
+  setLayerAndFaceIndex?: any
+  setLayerAndFaceIndices?: any
   wrapU?: number
   wrapV?: number
 } & FiberRenderTargetTextureProps
@@ -3974,22 +4104,17 @@ export type FiberRefractionTexturePropsCtor = {
   size: number
   generateMipMaps?: boolean
 }
+export type FiberXRSpaceWarpRenderTargetProps = {} & FiberRenderTargetTextureProps
+export type FiberXRSpaceWarpRenderTargetPropsCtor = {
+  motionVectorTexture: WebGLTexture
+  depthStencilTexture: WebGLTexture
+  size?: number | { width: number; height: number } | { ratio: number }
+}
 export type FiberMultiviewRenderTargetProps = {
   samples?: number
 } & FiberRenderTargetTextureProps
 export type FiberMultiviewRenderTargetPropsCtor = {
   size?: number | { width: number; height: number } | { ratio: number }
-}
-export type FiberVideoTextureProps = {} & FiberTextureProps
-export type FiberVideoTexturePropsCtor = {
-  name: string
-  src: string | string[] | HTMLVideoElement
-  generateMipMaps?: boolean
-  invertY?: boolean
-  samplingMode?: number
-  settings?: Partial<BabylonjsCoreVideoTextureSettings>
-  onError?: (message?: string, exception?: any) => void
-  format?: number
 }
 export type FiberDynamicTextureProps = {} & FiberTextureProps
 export type FiberDynamicTexturePropsCtor = {
@@ -4016,10 +4141,12 @@ export type FiberAdvancedDynamicTextureProps = {
   onControlPickedObservable?: any
   onEndLayoutObservable?: any
   onEndRenderObservable?: any
+  onGuiReadyObservable?: any
   parseContent?: (serializedObject: any, scaleToSize?: boolean) => void
   premulAlpha?: boolean
   renderAtIdealSize?: boolean
   renderScale?: number
+  skipBlockEvents?: number
   snippetId?: string
   useInvalidateRectOptimization?: boolean
   useSmallestIdeal?: boolean
@@ -4072,6 +4199,7 @@ export type FiberRawTexture3DPropsCtor = {
   invertY?: boolean
   samplingMode?: number
   textureType?: number
+  creationFlags?: number
 }
 export type FiberColorGradingTextureProps = {
   url?: string
@@ -4090,6 +4218,7 @@ export type FiberEquiRectangularCubeTexturePropsCtor = {
   gammaSpace?: boolean
   onLoad?: () => void
   onError?: (message?: string, exception?: any) => void
+  supersample?: boolean
 }
 export type FiberHDRCubeTextureProps = {
   boundingBoxPosition?: BabylonjsCoreVector3
@@ -4112,6 +4241,7 @@ export type FiberHDRCubeTexturePropsCtor = {
   prefilterOnLoad?: boolean
   onLoad?: () => void
   onError?: (message?: string, exception?: any) => void
+  supersample?: boolean
 }
 export type FiberHtmlElementTextureProps = {
   element?: HTMLVideoElement | HTMLCanvasElement
@@ -4203,6 +4333,11 @@ export type FiberLensRenderingPipelinePropsCtor = {
 }
 export type FiberSSAO2RenderingPipelineProps = {
   base?: number
+  bilateralSamples?: number
+  bilateralSoften?: number
+  bilateralTolerance?: number
+  bypassBlur?: boolean
+  epsilon?: number
   expensiveBlur?: boolean
   maxZ?: number
   minZAspect?: number
@@ -4308,6 +4443,48 @@ export type FiberStandardRenderingPipelinePropsCtor = {
   originalPostProcess?: BabylonjsCorePostProcess
   cameras?: BabylonjsCoreCamera[]
 }
+export type FiberSSRRenderingPipelineProps = {
+  addCamera?: any
+  attenuateBackfaceReflection?: boolean
+  attenuateFacingCamera?: boolean
+  attenuateIntersectionDistance?: boolean
+  attenuateIntersectionIterations?: boolean
+  attenuateScreenBorders?: boolean
+  backfaceDepthTextureDownsample?: number
+  backfaceForceDepthWriteTransparentMeshes?: boolean
+  blurDispersionStrength?: number
+  blurDownsample?: number
+  clipToFrustum?: boolean
+  debug?: boolean
+  enableAutomaticThicknessComputation?: boolean
+  enableSmoothReflections?: boolean
+  environmentTexture?: BabylonjsCoreCubeTexture
+  environmentTextureIsProbe?: boolean
+  generateOutputInGammaSpace?: boolean
+  inputTextureColorIsInGammaSpace?: boolean
+  isEnabled?: boolean
+  maxDistance?: number
+  maxSteps?: number
+  reflectionSpecularFalloffExponent?: number
+  reflectivityThreshold?: number
+  roughnessFactor?: number
+  samples?: number
+  selfCollisionNumSkip?: number
+  SSRBlurRenderEffect?: string
+  SSRCombineRenderEffect?: string
+  ssrDownsample?: number
+  SSRRenderEffect?: string
+  step?: number
+  strength?: number
+  thickness?: number
+  useFresnel?: boolean
+} & FiberPostProcessRenderPipelineProps
+export type FiberSSRRenderingPipelinePropsCtor = {
+  name: string
+  cameras?: BabylonjsCoreCamera[]
+  forceGeometryBuffer?: boolean
+  textureType?: number
+}
 export type FiberPostProcessProps = {
   adaptScaleToCurrentViewport?: boolean
   alphaConstants?: BabylonjsCoreColor4
@@ -4318,6 +4495,7 @@ export type FiberPostProcessProps = {
   clearColor?: BabylonjsCoreColor4
   enablePixelPerfectMode?: boolean
   externalTextureSamplerBinding?: boolean
+  forceAutoClearInAlphaMode?: boolean
   forceFullscreenViewport?: boolean
   height?: number
   inputTexture?: BabylonjsCoreRenderTargetWrapper
@@ -4803,8 +4981,10 @@ export type FiberSubSurfaceScatteringPostProcessPropsCtor = {
   textureType?: number
 }
 export type FiberGizmoProps = {
+  anchorPoint?: BabylonjsCoreGizmoAnchorPoint
   attachedMesh?: BabylonjsCoreAbstractMesh
   attachedNode?: BabylonjsCoreNode
+  coordinatesMode?: BabylonjsCoreGizmoCoordinatesMode
   customRotationQuaternion?: BabylonjsCoreQuaternion
   gizmoLayer?: BabylonjsCoreUtilityLayerRenderer
   scaleRatio?: number
@@ -4833,6 +5013,7 @@ export type FiberPlaneRotationGizmoProps = {
   dragBehavior?: BabylonjsCorePointerDragBehavior
   isEnabled?: boolean
   onSnapObservable?: any
+  sensitivity?: number
   snapDistance?: number
 } & FiberGizmoProps
 export type FiberPlaneRotationGizmoPropsCtor = {
@@ -4846,11 +5027,15 @@ export type FiberPlaneRotationGizmoPropsCtor = {
 }
 export type FiberRotationGizmoProps = {
   addToAxisCache?: any
+  anchorPoint?: BabylonjsCoreGizmoAnchorPoint
   attachedMesh?: BabylonjsCoreAbstractMesh
   attachedNode?: BabylonjsCoreNode
+  coordinatesMode?: BabylonjsCoreGizmoCoordinatesMode
   onDragEndObservable?: any
+  onDragObservable?: any
   onDragStartObservable?: any
   scaleRatio?: number
+  sensitivity?: number
   snapDistance?: number
   updateGizmoPositionToMatchAttachedMesh?: boolean
   updateGizmoRotationToMatchAttachedMesh?: boolean
@@ -4886,9 +5071,12 @@ export type FiberAxisScaleGizmoPropsCtor = {
 }
 export type FiberScaleGizmoProps = {
   addToAxisCache?: any
+  anchorPoint?: BabylonjsCoreGizmoAnchorPoint
   attachedMesh?: BabylonjsCoreAbstractMesh
   attachedNode?: BabylonjsCoreNode
+  coordinatesMode?: BabylonjsCoreGizmoCoordinatesMode
   onDragEndObservable?: any
+  onDragObservable?: any
   onDragStartObservable?: any
   scaleRatio?: number
   sensitivity?: number
@@ -4917,6 +5105,7 @@ export type FiberBoundingBoxGizmoProps = {
   onRotationSphereDragObservable?: any
   onScaleBoxDragEndObservable?: any
   onScaleBoxDragObservable?: any
+  rotationSnapDistance?: number
   rotationSphereSize?: number
   scaleBoxSize?: number
   scaleDragSpeed?: number
@@ -4924,6 +5113,7 @@ export type FiberBoundingBoxGizmoProps = {
   'scalePivot-x'?: number
   'scalePivot-y'?: number
   'scalePivot-z'?: number
+  scalingSnapDistance?: number
   setColor?: any
   setEnabledRotationAxis?: any
   setEnabledScaling?: any
@@ -4934,9 +5124,12 @@ export type FiberBoundingBoxGizmoPropsCtor = {
 }
 export type FiberPositionGizmoProps = {
   addToAxisCache?: any
+  anchorPoint?: BabylonjsCoreGizmoAnchorPoint
   attachedMesh?: BabylonjsCoreAbstractMesh
   attachedNode?: BabylonjsCoreNode
+  coordinatesMode?: BabylonjsCoreGizmoCoordinatesMode
   onDragEndObservable?: any
+  onDragObservable?: any
   onDragStartObservable?: any
   planarGizmoEnabled?: boolean
   scaleRatio?: number
@@ -5063,10 +5256,8 @@ export type FiberVRExperienceHelperProps = {
   onAfterCameraTeleport?: any
   onAfterEnteringVRObservable?: any
   onBeforeCameraTeleport?: any
-  onControllerMeshLoadedObservable?: any
   onEnteringVRObservable?: any
   onExitingVRObservable?: any
-  onMeshSelectedWithController?: any
   onNewMeshPicked?: any
   onNewMeshSelected?: any
   onSelectedMeshUnselected?: any
@@ -5185,6 +5376,7 @@ export type FiberMaterialPluginBaseProps = {
   name?: string
   priority?: number
   registerForExtraEvents?: boolean
+  resolveIncludes?: boolean
 } & CustomProps
 export type FiberMaterialPluginBasePropsCtor = {
   material: BabylonjsCoreMaterial
@@ -5193,6 +5385,7 @@ export type FiberMaterialPluginBasePropsCtor = {
   defines?: { [key: string]: any }
   addToPluginList?: boolean
   enable?: boolean
+  resolveIncludes?: boolean
 }
 export type FiberShadowGeneratorProps = {
   addShadowCaster?: any
@@ -5235,6 +5428,7 @@ export type FiberShadowGeneratorPropsCtor = {
   light?: BabylonjsCoreIShadowLight
   usefullFloatFirst?: boolean
   camera?: BabylonjsCoreCamera
+  useRedTextureType?: boolean
 }
 export type FiberCascadedShadowGeneratorProps = {
   autoCalcDepthBounds?: boolean
@@ -5257,6 +5451,7 @@ export type FiberCascadedShadowGeneratorPropsCtor = {
   light?: BabylonjsCoreDirectionalLight
   usefulFloatFirst?: boolean
   camera?: BabylonjsCoreCamera
+  useRedTextureType?: boolean
 }
 export type FiberEngineViewProps = {
   camera?: BabylonjsCoreCamera
@@ -5273,6 +5468,7 @@ export type FiberGizmoManagerProps = {
   boundingBoxDragBehavior?: BabylonjsCoreSixDofDragBehavior
   boundingBoxGizmoEnabled?: boolean
   clearGizmoOnEmptyPointerEvent?: boolean
+  coordinatesMode?: BabylonjsCoreGizmoCoordinatesMode
   enableAutoPicking?: boolean
   gizmos?: {
     positionGizmo: BabylonjsCoreIPositionGizmo
@@ -5386,9 +5582,11 @@ export type FiberPBRIridescenceConfigurationPropsCtor = {
 }
 export type FiberPBRAnisotropicConfigurationProps = {
   addFallbacks?: any
+  angle?: number
   direction?: BabylonjsCoreVector2
   intensity?: number
   isEnabled?: boolean
+  legacy?: boolean
   texture?: BabylonjsCoreBaseTexture
 } & FiberMaterialPluginBaseProps
 export type FiberPBRAnisotropicConfigurationPropsCtor = {
@@ -5585,7 +5783,7 @@ export type FiberPointerDragBehaviorProps = {
   startAndReleaseDragOnPointerEvents?: boolean
   updateDragPlane?: boolean
   useObjectOrientationForDragging?: boolean
-  validateDrag?: (targetPosition: BabylonjsCoreVector3) => boolean
+  validateDrag?: (target: BabylonjsCoreVector3) => boolean
 } & CustomProps
 export type FiberPointerDragBehaviorPropsCtor = {
   dragAxis?: BabylonjsCoreVector3
@@ -5777,13 +5975,16 @@ export type FiberSceneProps = {
   onPreKeyboardObservable?: any
   onPrePointerObservable?: any
   onReadyObservable?: any
+  onScenePerformancePriorityChangedObservable?: any
   onSkeletonRemovedObservable?: any
   onTextureRemovedObservable?: any
   onTransformNodeRemovedObservable?: any
   particlesEnabled?: boolean
   performancePriority?: BabylonjsCoreScenePerformancePriority
   physicsEnabled?: boolean
+  pointerDownFastCheck?: boolean
   pointerDownPredicate?: (Mesh: BabylonjsCoreAbstractMesh) => boolean
+  pointerMoveFastCheck?: boolean
   pointerMovePredicate?: (Mesh: BabylonjsCoreAbstractMesh) => boolean
   pointerMoveTrianglePredicate?: (
     p0: BabylonjsCoreVector3,
@@ -5791,6 +5992,7 @@ export type FiberSceneProps = {
     p2: BabylonjsCoreVector3,
     ray: BabylonjsCoreRay
   ) => boolean
+  pointerUpFastCheck?: boolean
   pointerUpPredicate?: (Mesh: BabylonjsCoreAbstractMesh) => boolean
   pointerX?: number
   pointerY?: number
@@ -5804,6 +6006,7 @@ export type FiberSceneProps = {
   requireLightSorting?: boolean
   reservedDataStore?: any
   setActiveCameraById?: any
+  setActiveCameraByID?: any
   setActiveCameraByName?: any
   setPointerOverMesh?: any
   setRenderingAutoClearDepthStencil?: any
