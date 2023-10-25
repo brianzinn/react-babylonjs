@@ -30,15 +30,13 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           scope: brianzinn
       - name: install deps (not workspace)
-        working-directory: ./packages/react-babylonjs
         # npm ci
         run: |
           npm install --legacy-peer-deps
       - name: build test coverage
-        working-directory: ./packages/react-babylonjs
         run: |
-          npm run build
-          npm run test:coverage
+          npm run build -w packages/react-babylonjs
+          npm run test:coverage -w packages/react-babylonjs
       - name: version-changelog-commit
         run: |
           npm version ${{ github.event.inputs.npmVersion }} -w packages/react-babylonjs
