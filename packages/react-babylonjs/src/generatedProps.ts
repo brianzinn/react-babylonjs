@@ -22,7 +22,10 @@ import { SurfaceMagnetismBehavior as BabylonjsCoreSurfaceMagnetismBehavior } fro
 import { Skeleton as BabylonjsCoreSkeleton } from '@babylonjs/core/Bones/skeleton.js'
 import { ArcRotateCamera as BabylonjsCoreArcRotateCamera } from '@babylonjs/core/Cameras/arcRotateCamera.js'
 import { ArcRotateCameraInputsManager as BabylonjsCoreArcRotateCameraInputsManager } from '@babylonjs/core/Cameras/arcRotateCameraInputsManager.js'
-import { Camera as BabylonjsCoreCamera } from '@babylonjs/core/Cameras/camera.js'
+import {
+  Camera as BabylonjsCoreCamera,
+  IObliqueParams as BabylonjsCoreIObliqueParams,
+} from '@babylonjs/core/Cameras/camera.js'
 import { CameraInputsManager as BabylonjsCoreCameraInputsManager } from '@babylonjs/core/Cameras/cameraInputsManager.js'
 import { DeviceOrientationCamera as BabylonjsCoreDeviceOrientationCamera } from '@babylonjs/core/Cameras/deviceOrientationCamera.js'
 import { FlyCamera as BabylonjsCoreFlyCamera } from '@babylonjs/core/Cameras/flyCamera.js'
@@ -280,6 +283,14 @@ import {
   PhysicsImpostor as BabylonjsCorePhysicsImpostor,
   PhysicsImpostorParameters as BabylonjsCorePhysicsImpostorParameters,
 } from '@babylonjs/core/Physics/v1/physicsImpostor.js'
+import { PhysicsShapeType as BabylonjsCorePhysicsShapeType } from '@babylonjs/core/Physics/v2/IPhysicsEnginePlugin.js'
+import {
+  PhysicsAggregate as BabylonjsCorePhysicsAggregate,
+  PhysicsAggregateParameters as BabylonjsCorePhysicsAggregateParameters,
+} from '@babylonjs/core/Physics/v2/physicsAggregate.js'
+import { PhysicsBody as BabylonjsCorePhysicsBody } from '@babylonjs/core/Physics/v2/physicsBody.js'
+import { PhysicsMaterial as BabylonjsCorePhysicsMaterial } from '@babylonjs/core/Physics/v2/physicsMaterial.js'
+import { PhysicsShape as BabylonjsCorePhysicsShape } from '@babylonjs/core/Physics/v2/physicsShape.js'
 import { AnaglyphPostProcess as BabylonjsCoreAnaglyphPostProcess } from '@babylonjs/core/PostProcesses/anaglyphPostProcess.js'
 import { BlackAndWhitePostProcess as BabylonjsCoreBlackAndWhitePostProcess } from '@babylonjs/core/PostProcesses/blackAndWhitePostProcess.js'
 import { BloomMergePostProcess as BabylonjsCoreBloomMergePostProcess } from '@babylonjs/core/PostProcesses/bloomMergePostProcess.js'
@@ -1049,6 +1060,9 @@ declare global {
       physicsImpostor: FiberPhysicsImpostorProps &
         FiberPhysicsImpostorPropsCtor &
         BabylonNode<BabylonjsCorePhysicsImpostor>
+      physicsAggregate: FiberPhysicsAggregateProps &
+        FiberPhysicsAggregatePropsCtor &
+        BabylonNode<BabylonjsCorePhysicsAggregate>
       vrExperienceHelper: FiberVRExperienceHelperProps &
         FiberVRExperienceHelperPropsCtor &
         BabylonNode<BabylonjsCoreVRExperienceHelper>
@@ -1411,7 +1425,7 @@ export type FiberCameraProps = {
   maxZ?: number
   minZ?: number
   mode?: number
-  oblique?: any
+  oblique?: BabylonjsCoreIObliqueParams
   onAfterCheckInputsObservable?: any
   onProjectionMatrixChangedObservable?: any
   onRestoreStateObservable?: any
@@ -3106,6 +3120,7 @@ export type FiberControlProps = {
   onBeforeDrawObservable?: any
   onDirtyObservable?: any
   onDisposeObservable?: any
+  onEnabledStateChangedObservable?: any
   onIsVisibleChangedObservable?: any
   onPointerClickObservable?: any
   onPointerDownObservable?: any
@@ -5243,6 +5258,18 @@ export type FiberPhysicsImpostorPropsCtor = {
   object?: BabylonjsCoreIPhysicsEnabledObject
   type: number
   _options?: BabylonjsCorePhysicsImpostorParameters
+}
+export type FiberPhysicsAggregateProps = {
+  body?: BabylonjsCorePhysicsBody
+  material?: BabylonjsCorePhysicsMaterial
+  shape?: BabylonjsCorePhysicsShape
+  transformNode?: BabylonjsCoreTransformNode
+  type?: BabylonjsCorePhysicsShapeType | BabylonjsCorePhysicsShape
+} & CustomProps
+export type FiberPhysicsAggregatePropsCtor = {
+  transformNode?: BabylonjsCoreTransformNode
+  type: BabylonjsCorePhysicsShapeType | BabylonjsCorePhysicsShape
+  _options?: BabylonjsCorePhysicsAggregateParameters
 }
 export type FiberVRExperienceHelperProps = {
   addFloorMesh?: any
