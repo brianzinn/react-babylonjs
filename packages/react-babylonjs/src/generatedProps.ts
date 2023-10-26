@@ -22,10 +22,7 @@ import { SurfaceMagnetismBehavior as BabylonjsCoreSurfaceMagnetismBehavior } fro
 import { Skeleton as BabylonjsCoreSkeleton } from '@babylonjs/core/Bones/skeleton.js'
 import { ArcRotateCamera as BabylonjsCoreArcRotateCamera } from '@babylonjs/core/Cameras/arcRotateCamera.js'
 import { ArcRotateCameraInputsManager as BabylonjsCoreArcRotateCameraInputsManager } from '@babylonjs/core/Cameras/arcRotateCameraInputsManager.js'
-import {
-  Camera as BabylonjsCoreCamera,
-  IObliqueParams as BabylonjsCoreIObliqueParams,
-} from '@babylonjs/core/Cameras/camera.js'
+import { Camera as BabylonjsCoreCamera } from '@babylonjs/core/Cameras/camera.js'
 import { CameraInputsManager as BabylonjsCoreCameraInputsManager } from '@babylonjs/core/Cameras/cameraInputsManager.js'
 import { DeviceOrientationCamera as BabylonjsCoreDeviceOrientationCamera } from '@babylonjs/core/Cameras/deviceOrientationCamera.js'
 import { FlyCamera as BabylonjsCoreFlyCamera } from '@babylonjs/core/Cameras/flyCamera.js'
@@ -1425,7 +1422,7 @@ export type FiberCameraProps = {
   maxZ?: number
   minZ?: number
   mode?: number
-  oblique?: BabylonjsCoreIObliqueParams
+  oblique?: any
   onAfterCheckInputsObservable?: any
   onProjectionMatrixChangedObservable?: any
   onRestoreStateObservable?: any
