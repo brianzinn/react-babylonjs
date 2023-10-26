@@ -73,6 +73,7 @@ const GENERATE_KEBAB_ACCESSORS = true // test for Vector3 only currently
  */
 const LATE_BOUND_CONSTRUCTOR_PARAMETERS: Map<string, string[]> = new Map<string, string[]>([
   ['PhysicsImpostor', ['object']],
+  ['PhysicsAggregate', ['transformNode']],
   ['ShadowGenerator', ['light']],
   ['CascadedShadowGenerator', ['light']],
 ])
@@ -205,6 +206,7 @@ const classesToGenerate: String[] = [
   'CascadedShadowGenerator',
   'EnvironmentHelper',
   'PhysicsImpostor',
+  'PhysicsAggregate',
   'VRExperienceHelper',
   'DynamicTerrain',
   'EffectLayer',
@@ -2305,6 +2307,13 @@ const generateCode = async () => {
   )
   createSingleClass(
     'PhysicsImpostor',
+    generatedCodeSourceFile,
+    generatedPropsSourceFile,
+    undefined,
+    { delayCreation: true }
+  )
+  createSingleClass(
+    'PhysicsAggregate',
     generatedCodeSourceFile,
     generatedPropsSourceFile,
     undefined,

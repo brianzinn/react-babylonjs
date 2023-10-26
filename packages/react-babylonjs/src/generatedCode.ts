@@ -131,6 +131,7 @@ import { TransformNode as BabylonjsCoreTransformNode } from '@babylonjs/core/Mes
 import { Node as BabylonjsCoreNode } from '@babylonjs/core/node.js'
 import { PointsCloudSystem as BabylonjsCorePointsCloudSystem } from '@babylonjs/core/Particles/pointsCloudSystem.js'
 import { PhysicsImpostor as BabylonjsCorePhysicsImpostor } from '@babylonjs/core/Physics/v1/physicsImpostor.js'
+import { PhysicsAggregate as BabylonjsCorePhysicsAggregate } from '@babylonjs/core/Physics/v2/physicsAggregate.js'
 import { AnaglyphPostProcess as BabylonjsCoreAnaglyphPostProcess } from '@babylonjs/core/PostProcesses/anaglyphPostProcess.js'
 import { BlackAndWhitePostProcess as BabylonjsCoreBlackAndWhitePostProcess } from '@babylonjs/core/PostProcesses/blackAndWhitePostProcess.js'
 import { BloomMergePostProcess as BabylonjsCoreBloomMergePostProcess } from '@babylonjs/core/PostProcesses/bloomMergePostProcess.js'
@@ -393,6 +394,7 @@ import {
   FiberPBRSheenConfigurationProps,
   FiberPBRSpecularGlossinessMaterialProps,
   FiberPBRSubSurfaceConfigurationProps,
+  FiberPhysicsAggregateProps,
   FiberPhysicsImpostorProps,
   FiberPlaneDragGizmoProps,
   FiberPlanePanelProps,
@@ -2009,7 +2011,7 @@ export class FiberCameraPropsHandler implements PropsHandler<FiberCameraProps> {
     checkPrimitiveDiff(oldProps.maxZ, newProps.maxZ, 'maxZ', changedProps)
     checkPrimitiveDiff(oldProps.minZ, newProps.minZ, 'minZ', changedProps)
     checkPrimitiveDiff(oldProps.mode, newProps.mode, 'mode', changedProps)
-    // type: 'IObliqueParams' property (not coded) BabylonjsCoreCamera.oblique.
+    // type: 'BabylonjsCoreIObliqueParams' property (not coded) BabylonjsCoreCamera.oblique.
     checkObservableDiff(
       oldProps.onAfterCheckInputsObservable,
       newProps.onAfterCheckInputsObservable,
@@ -12855,6 +12857,12 @@ export class FiberControlPropsHandler implements PropsHandler<FiberControlProps>
       oldProps.onDisposeObservable,
       newProps.onDisposeObservable,
       'onDisposeObservable',
+      changedProps
+    )
+    checkObservableDiff(
+      oldProps.onEnabledStateChangedObservable,
+      newProps.onEnabledStateChangedObservable,
+      'onEnabledStateChangedObservable',
       changedProps
     )
     checkObservableDiff(
@@ -25778,6 +25786,77 @@ export class FiberPhysicsImpostor implements HasPropsHandlers<FiberPhysicsImpost
   }
 }
 
+export class FiberPhysicsAggregatePropsHandler implements PropsHandler<FiberPhysicsAggregateProps> {
+  getPropertyUpdates(
+    oldProps: FiberPhysicsAggregateProps,
+    newProps: FiberPhysicsAggregateProps
+  ): PropertyUpdate[] | null {
+    // skipping type: 'BabylonjsCorePhysicsBody' property (not coded) BabylonjsCorePhysicsAggregate.body.
+    // skipping type: 'BabylonjsCorePhysicsMaterial' property (not coded) BabylonjsCorePhysicsAggregate.material.
+    // skipping type: 'BabylonjsCorePhysicsShape' property (not coded) BabylonjsCorePhysicsAggregate.shape.
+    // skipping type: 'BabylonjsCoreTransformNode' property (not coded) BabylonjsCorePhysicsAggregate.transformNode.
+    // skipping type: 'BabylonjsCorePhysicsShapeType | BabylonjsCorePhysicsShape' property (not coded) BabylonjsCorePhysicsAggregate.type.
+    return null // no props to check
+  }
+}
+
+/**
+ * Helper class to create and interact with a PhysicsAggregate.
+ * This is a transition object that works like Physics Plugin V1 Impostors.
+ * This helper instanciate all mandatory physics objects to get a body/shape and material.
+ * It's less efficient that handling body and shapes independently but for prototyping or
+ * a small numbers of physics objects, it's good enough.
+ *
+ * This code has been generated
+ */
+export class FiberPhysicsAggregate implements HasPropsHandlers<FiberPhysicsAggregateProps> {
+  private propsHandlers: PropsHandler<FiberPhysicsAggregateProps>[]
+
+  constructor() {
+    this.propsHandlers = [new FiberPhysicsAggregatePropsHandler()]
+  }
+
+  getPropsHandlers(): PropsHandler<FiberPhysicsAggregateProps>[] {
+    return this.propsHandlers
+  }
+
+  addPropsHandler(propHandler: PropsHandler<FiberPhysicsAggregateProps>): void {
+    this.propsHandlers.push(propHandler)
+  }
+
+  public static readonly CreateInfo = {
+    creationType: 'Constructor',
+    libraryLocation: 'PhysicsAggregate',
+    namespace: '@babylonjs/core',
+    parameters: [
+      {
+        name: 'transformNode',
+        type: 'BabylonjsCoreTransformNode',
+        optional: true,
+      },
+      {
+        name: 'type',
+        type: 'BabylonjsCorePhysicsShapeType | BabylonjsCorePhysicsShape',
+        optional: false,
+      },
+      {
+        name: '_options',
+        type: 'BabylonjsCorePhysicsAggregateParameters',
+        optional: true,
+      },
+      {
+        name: '_scene',
+        type: 'BabylonjsCoreScene',
+        optional: true,
+      },
+    ],
+  }
+  public static readonly Metadata: CreatedInstanceMetadata = {
+    delayCreation: true,
+    className: 'FiberPhysicsAggregate',
+  }
+}
+
 export class FiberVRExperienceHelperPropsHandler
   implements PropsHandler<FiberVRExperienceHelperProps>
 {
@@ -30210,6 +30289,7 @@ export const ADTForMesh: string = 'ADTForMesh',
   PBRSubSurfaceConfiguration: string = 'PBRSubSurfaceConfiguration',
   PassCubePostProcess: string = 'PassCubePostProcess',
   PassPostProcess: string = 'PassPostProcess',
+  PhysicsAggregate: string = 'PhysicsAggregate',
   PhysicsImpostor: string = 'PhysicsImpostor',
   Plane: string = 'Plane',
   PlaneDragGizmo: string = 'PlaneDragGizmo',
@@ -30393,6 +30473,8 @@ const classesMap: Record<string, any> = {
   GreasedLineBaseMesh: BabylonjsCoreGreasedLineBaseMesh,
   physicsImpostor: BabylonjsCorePhysicsImpostor,
   PhysicsImpostor: BabylonjsCorePhysicsImpostor,
+  physicsAggregate: BabylonjsCorePhysicsAggregate,
+  PhysicsAggregate: BabylonjsCorePhysicsAggregate,
   postProcessRenderPipeline: BabylonjsCorePostProcessRenderPipeline,
   PostProcessRenderPipeline: BabylonjsCorePostProcessRenderPipeline,
   control: BabylonjsGuiControl,
@@ -30830,6 +30912,7 @@ export const intrinsicClassMap: object = {
   thinTexture: 'ThinTexture',
   greasedLineBaseMesh: 'GreasedLineBaseMesh',
   physicsImpostor: 'PhysicsImpostor',
+  physicsAggregate: 'PhysicsAggregate',
   postProcessRenderPipeline: 'PostProcessRenderPipeline',
   control: 'Control',
   textBlock: 'TextBlock',
