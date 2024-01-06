@@ -177,6 +177,10 @@ import { VRDistortionCorrectionPostProcess as BabylonjsCoreVRDistortionCorrectio
 import { VRMultiviewToSingleviewPostProcess as BabylonjsCoreVRMultiviewToSingleviewPostProcess } from '@babylonjs/core/PostProcesses/vrMultiviewToSingleviewPostProcess.js'
 import { UtilityLayerRenderer as BabylonjsCoreUtilityLayerRenderer } from '@babylonjs/core/Rendering/utilityLayerRenderer.js'
 import { Scene as BabylonjsCoreScene } from '@babylonjs/core/scene.js'
+import { Sprite as BabylonjsCoreSprite } from '@babylonjs/core/Sprites/sprite.js'
+import { SpriteManager as BabylonjsCoreSpriteManager } from '@babylonjs/core/Sprites/spriteManager.js'
+import { SpritePackedManager as BabylonjsCoreSpritePackedManager } from '@babylonjs/core/Sprites/spritePackedManager.js'
+import { ThinSprite as BabylonjsCoreThinSprite } from '@babylonjs/core/Sprites/thinSprite.js'
 import { XRSpaceWarpRenderTarget as BabylonjsCoreXRSpaceWarpRenderTarget } from '@babylonjs/core/XR/features/WebXRSpaceWarp.js'
 import { WebXRCamera as BabylonjsCoreWebXRCamera } from '@babylonjs/core/XR/webXRCamera.js'
 import { AdvancedDynamicTexture as BabylonjsGuiAdvancedDynamicTexture } from '@babylonjs/gui/2D/advancedDynamicTexture.js'
@@ -437,6 +441,9 @@ import {
   FiberSliderProps,
   FiberSpherePanelProps,
   FiberSpotLightProps,
+  FiberSpriteManagerProps,
+  FiberSpritePackedManagerProps,
+  FiberSpriteProps,
   FiberSSAO2RenderingPipelineProps,
   FiberSSAORenderingPipelineProps,
   FiberSSRRenderingPipelineProps,
@@ -457,6 +464,7 @@ import {
   FiberTextBlockProps,
   FiberTextureProps,
   FiberThinRenderTargetTextureProps,
+  FiberThinSpriteProps,
   FiberThinTextureProps,
   FiberToggleButtonProps,
   FiberTonemapPostProcessProps,
@@ -16725,6 +16733,352 @@ export class FiberSlider3D implements HasPropsHandlers<FiberControl3DProps> {
   }
 }
 
+export class FiberSpriteManagerPropsHandler implements PropsHandler<FiberSpriteManagerProps> {
+  getPropertyUpdates(
+    oldProps: FiberSpriteManagerProps,
+    newProps: FiberSpriteManagerProps
+  ): PropertyUpdate[] | null {
+    const changedProps: PropertyUpdate[] = []
+    checkPrimitiveDiff(oldProps.blendMode, newProps.blendMode, 'blendMode', changedProps)
+    checkPrimitiveDiff(oldProps.cellHeight, newProps.cellHeight, 'cellHeight', changedProps)
+    checkPrimitiveDiff(oldProps.cellWidth, newProps.cellWidth, 'cellWidth', changedProps)
+    checkPrimitiveDiff(
+      oldProps.disableDepthWrite,
+      newProps.disableDepthWrite,
+      'disableDepthWrite',
+      changedProps
+    )
+    checkPrimitiveDiff(oldProps.fogEnabled, newProps.fogEnabled, 'fogEnabled', changedProps)
+    checkPrimitiveDiff(oldProps.isPickable, newProps.isPickable, 'isPickable', changedProps)
+    checkPrimitiveDiff(oldProps.layerMask, newProps.layerMask, 'layerMask', changedProps)
+    // type: 'any' property (not coded) BabylonjsCoreSpriteManager.metadata.
+    checkPrimitiveDiff(oldProps.name, newProps.name, 'name', changedProps)
+    checkLambdaDiff(oldProps.onDispose, newProps.onDispose, 'onDispose', changedProps)
+    checkObservableDiff(
+      oldProps.onDisposeObservable,
+      newProps.onDisposeObservable,
+      'onDisposeObservable',
+      changedProps
+    )
+    checkPrimitiveDiff(oldProps.pixelPerfect, newProps.pixelPerfect, 'pixelPerfect', changedProps)
+    checkPrimitiveDiff(
+      oldProps.renderingGroupId,
+      newProps.renderingGroupId,
+      'renderingGroupId',
+      changedProps
+    )
+    checkPrimitiveDiff(oldProps.snippetId, newProps.snippetId, 'snippetId', changedProps)
+    // type: 'BabylonjsCoreSprite[]' property (not coded) BabylonjsCoreSpriteManager.sprites.
+    // type: 'BabylonjsCoreTexture' property (not coded) BabylonjsCoreSpriteManager.texture.
+    checkPrimitiveDiff(oldProps.uniqueId, newProps.uniqueId, 'uniqueId', changedProps)
+    return changedProps.length === 0 ? null : changedProps
+  }
+}
+
+/**
+ * Class used to manage multiple sprites on the same spritesheet
+ *
+ * This code has been generated
+ */
+export class FiberSpriteManager implements HasPropsHandlers<FiberSpriteManagerProps> {
+  private propsHandlers: PropsHandler<FiberSpriteManagerProps>[]
+
+  constructor() {
+    this.propsHandlers = [new FiberSpriteManagerPropsHandler()]
+  }
+
+  getPropsHandlers(): PropsHandler<FiberSpriteManagerProps>[] {
+    return this.propsHandlers
+  }
+
+  addPropsHandler(propHandler: PropsHandler<FiberSpriteManagerProps>): void {
+    this.propsHandlers.push(propHandler)
+  }
+
+  public static readonly CreateInfo = {
+    creationType: 'Constructor',
+    libraryLocation: 'SpriteManager',
+    namespace: '@babylonjs/core',
+    parameters: [
+      {
+        name: 'name',
+        type: 'string',
+        optional: false,
+      },
+      {
+        name: 'imgUrl',
+        type: 'string',
+        optional: false,
+      },
+      {
+        name: 'capacity',
+        type: 'number',
+        optional: false,
+      },
+      {
+        name: 'cellSize',
+        type: 'any',
+        optional: false,
+      },
+      {
+        name: 'scene',
+        type: 'BabylonjsCoreScene',
+        optional: false,
+      },
+      {
+        name: 'epsilon',
+        type: 'number',
+        optional: true,
+      },
+      {
+        name: 'samplingMode',
+        type: 'number',
+        optional: true,
+      },
+      {
+        name: 'fromPacked',
+        type: 'boolean',
+        optional: true,
+      },
+      {
+        name: 'spriteJSON',
+        type: 'any',
+        optional: true,
+      },
+    ],
+  }
+  public static readonly Metadata: CreatedInstanceMetadata = {
+    className: 'FiberSpriteManager',
+  }
+}
+
+export class FiberSpritePackedManagerPropsHandler
+  implements PropsHandler<FiberSpritePackedManagerProps>
+{
+  getPropertyUpdates(
+    oldProps: FiberSpritePackedManagerProps,
+    newProps: FiberSpritePackedManagerProps
+  ): PropertyUpdate[] | null {
+    const changedProps: PropertyUpdate[] = []
+    checkPrimitiveDiff(oldProps.name, newProps.name, 'name', changedProps)
+    return changedProps.length === 0 ? null : changedProps
+  }
+}
+
+/**
+ * Class used to manage multiple sprites of different sizes on the same spritesheet
+ *
+ * This code has been generated
+ */
+export class FiberSpritePackedManager implements HasPropsHandlers<FiberSpriteManagerProps> {
+  private propsHandlers: PropsHandler<FiberSpriteManagerProps>[]
+
+  constructor() {
+    this.propsHandlers = [
+      new FiberSpritePackedManagerPropsHandler(),
+      new FiberSpriteManagerPropsHandler(),
+    ]
+  }
+
+  getPropsHandlers(): PropsHandler<FiberSpriteManagerProps>[] {
+    return this.propsHandlers
+  }
+
+  addPropsHandler(propHandler: PropsHandler<FiberSpriteManagerProps>): void {
+    this.propsHandlers.push(propHandler)
+  }
+
+  public static readonly CreateInfo = {
+    creationType: 'Constructor',
+    libraryLocation: 'SpritePackedManager',
+    namespace: '@babylonjs/core',
+    parameters: [
+      {
+        name: 'name',
+        type: 'string',
+        optional: false,
+      },
+      {
+        name: 'imgUrl',
+        type: 'string',
+        optional: false,
+      },
+      {
+        name: 'capacity',
+        type: 'number',
+        optional: false,
+      },
+      {
+        name: 'scene',
+        type: 'BabylonjsCoreScene',
+        optional: false,
+      },
+      {
+        name: 'spriteJSON',
+        type: 'string',
+        optional: true,
+      },
+      {
+        name: 'epsilon',
+        type: 'number',
+        optional: true,
+      },
+      {
+        name: 'samplingMode',
+        type: 'number',
+        optional: true,
+      },
+    ],
+  }
+  public static readonly Metadata: CreatedInstanceMetadata = {
+    className: 'FiberSpritePackedManager',
+  }
+}
+
+export class FiberThinSpritePropsHandler implements PropsHandler<FiberThinSpriteProps> {
+  getPropertyUpdates(
+    oldProps: FiberThinSpriteProps,
+    newProps: FiberThinSpriteProps
+  ): PropertyUpdate[] | null {
+    const changedProps: PropertyUpdate[] = []
+    checkPrimitiveDiff(oldProps.angle, newProps.angle, 'angle', changedProps)
+    checkPrimitiveDiff(oldProps.cellIndex, newProps.cellIndex, 'cellIndex', changedProps)
+    checkPrimitiveDiff(oldProps.cellRef, newProps.cellRef, 'cellRef', changedProps)
+    // type: 'BabylonjsCoreIColor4Like' property (not coded) BabylonjsCoreThinSprite.color.
+    checkPrimitiveDiff(oldProps.height, newProps.height, 'height', changedProps)
+    checkPrimitiveDiff(oldProps.invertU, newProps.invertU, 'invertU', changedProps)
+    checkPrimitiveDiff(oldProps.invertV, newProps.invertV, 'invertV', changedProps)
+    checkPrimitiveDiff(oldProps.isVisible, newProps.isVisible, 'isVisible', changedProps)
+    // type: 'BabylonjsCoreIVector3Like' property (not coded) BabylonjsCoreThinSprite.position.
+    checkPrimitiveDiff(oldProps.width, newProps.width, 'width', changedProps)
+    return changedProps.length === 0 ? null : changedProps
+  }
+}
+
+/**
+ * ThinSprite Class used to represent a thin sprite
+ * This is the base class for sprites but can also directly be used with ThinEngine
+ *
+ * This code has been generated
+ */
+export class FiberThinSprite implements HasPropsHandlers<FiberThinSpriteProps> {
+  private propsHandlers: PropsHandler<FiberThinSpriteProps>[]
+
+  constructor() {
+    this.propsHandlers = [new FiberThinSpritePropsHandler()]
+  }
+
+  getPropsHandlers(): PropsHandler<FiberThinSpriteProps>[] {
+    return this.propsHandlers
+  }
+
+  addPropsHandler(propHandler: PropsHandler<FiberThinSpriteProps>): void {
+    this.propsHandlers.push(propHandler)
+  }
+
+  public static readonly CreateInfo = {
+    creationType: 'Constructor',
+    libraryLocation: 'ThinSprite',
+    namespace: '@babylonjs/core',
+    parameters: [],
+  }
+  public static readonly Metadata: CreatedInstanceMetadata = {
+    delayCreation: true,
+    className: 'FiberThinSprite',
+  }
+}
+
+export class FiberSpritePropsHandler implements PropsHandler<FiberSpriteProps> {
+  getPropertyUpdates(
+    oldProps: FiberSpriteProps,
+    newProps: FiberSpriteProps
+  ): PropertyUpdate[] | null {
+    const changedProps: PropertyUpdate[] = []
+    // type: 'BabylonjsCoreActionManager' property (not coded) BabylonjsCoreSprite.actionManager.
+    // type: 'BabylonjsCoreAnimation[]' property (not coded) BabylonjsCoreSprite.animations.
+    checkColor4Diff(oldProps.color, newProps.color, 'color', changedProps)
+    checkPrimitiveDiff(oldProps.delay, newProps.delay, 'delay', changedProps)
+    checkPrimitiveDiff(
+      oldProps.disposeWhenFinishedAnimating,
+      newProps.disposeWhenFinishedAnimating,
+      'disposeWhenFinishedAnimating',
+      changedProps
+    )
+    checkPrimitiveDiff(oldProps.fromIndex, newProps.fromIndex, 'fromIndex', changedProps)
+    checkPrimitiveDiff(oldProps.isPickable, newProps.isPickable, 'isPickable', changedProps)
+    checkPrimitiveDiff(
+      oldProps.loopAnimation,
+      newProps.loopAnimation,
+      'loopAnimation',
+      changedProps
+    )
+    checkPrimitiveDiff(oldProps.name, newProps.name, 'name', changedProps)
+    checkObservableDiff(
+      oldProps.onDisposeObservable,
+      newProps.onDisposeObservable,
+      'onDisposeObservable',
+      changedProps
+    )
+    checkVector3Diff(oldProps.position, newProps.position, 'position', false, changedProps)
+    checkPrimitiveDiff(oldProps['position-x'], newProps['position-x'], 'position.x', changedProps)
+    checkPrimitiveDiff(oldProps['position-y'], newProps['position-y'], 'position.y', changedProps)
+    checkPrimitiveDiff(oldProps['position-z'], newProps['position-z'], 'position.z', changedProps)
+    checkPrimitiveDiff(oldProps.size, newProps.size, 'size', changedProps)
+    checkPrimitiveDiff(oldProps.toIndex, newProps.toIndex, 'toIndex', changedProps)
+    checkPrimitiveDiff(oldProps.uniqueId, newProps.uniqueId, 'uniqueId', changedProps)
+    checkPrimitiveDiff(
+      oldProps.useAlphaForPicking,
+      newProps.useAlphaForPicking,
+      'useAlphaForPicking',
+      changedProps
+    )
+    return changedProps.length === 0 ? null : changedProps
+  }
+}
+
+/**
+ * Class used to represent a sprite
+ *
+ * This code has been generated
+ */
+export class FiberSprite implements HasPropsHandlers<FiberThinSpriteProps> {
+  private propsHandlers: PropsHandler<FiberThinSpriteProps>[]
+
+  constructor() {
+    this.propsHandlers = [new FiberSpritePropsHandler(), new FiberThinSpritePropsHandler()]
+  }
+
+  getPropsHandlers(): PropsHandler<FiberThinSpriteProps>[] {
+    return this.propsHandlers
+  }
+
+  addPropsHandler(propHandler: PropsHandler<FiberThinSpriteProps>): void {
+    this.propsHandlers.push(propHandler)
+  }
+
+  public static readonly CreateInfo = {
+    creationType: 'Constructor',
+    libraryLocation: 'Sprite',
+    namespace: '@babylonjs/core',
+    parameters: [
+      {
+        name: 'name',
+        type: 'string',
+        optional: false,
+      },
+      {
+        name: 'manager',
+        type: 'BabylonjsCoreISpriteManager',
+        optional: true,
+      },
+    ],
+  }
+  public static readonly Metadata: CreatedInstanceMetadata = {
+    delayCreation: true,
+    className: 'FiberSprite',
+  }
+}
+
 export class FiberEffectLayerPropsHandler implements PropsHandler<FiberEffectLayerProps> {
   getPropertyUpdates(
     oldProps: FiberEffectLayerProps,
@@ -30339,6 +30693,9 @@ export const ADTForMesh: string = 'ADTForMesh',
   Sphere: string = 'Sphere',
   SpherePanel: string = 'SpherePanel',
   SpotLight: string = 'SpotLight',
+  Sprite: string = 'Sprite',
+  SpriteManager: string = 'SpriteManager',
+  SpritePackedManager: string = 'SpritePackedManager',
   StackPanel: string = 'StackPanel',
   StackPanel3D: string = 'StackPanel3D',
   StandardMaterial: string = 'StandardMaterial',
@@ -30357,6 +30714,7 @@ export const ADTForMesh: string = 'ADTForMesh',
   TextBlock: string = 'TextBlock',
   Texture: string = 'Texture',
   ThinRenderTargetTexture: string = 'ThinRenderTargetTexture',
+  ThinSprite: string = 'ThinSprite',
   ThinTexture: string = 'ThinTexture',
   TiledBox: string = 'TiledBox',
   TiledGround: string = 'TiledGround',
@@ -30431,6 +30789,10 @@ const classesMap: Record<string, any> = {
   TonemapPostProcess: BabylonjsCoreTonemapPostProcess,
   utilityLayerRenderer: BabylonjsCoreUtilityLayerRenderer,
   UtilityLayerRenderer: BabylonjsCoreUtilityLayerRenderer,
+  sprite: BabylonjsCoreSprite,
+  Sprite: BabylonjsCoreSprite,
+  spriteManager: BabylonjsCoreSpriteManager,
+  SpriteManager: BabylonjsCoreSpriteManager,
   advancedDynamicTexture: BabylonjsGuiAdvancedDynamicTexture,
   AdvancedDynamicTexture: BabylonjsGuiAdvancedDynamicTexture,
   gui3DManager: BabylonjsGuiGUI3DManager,
@@ -30715,6 +31077,10 @@ const classesMap: Record<string, any> = {
   HolographicBackplate: BabylonjsGuiHolographicBackplate,
   slider3D: BabylonjsGuiSlider3D,
   Slider3D: BabylonjsGuiSlider3D,
+  spritePackedManager: BabylonjsCoreSpritePackedManager,
+  SpritePackedManager: BabylonjsCoreSpritePackedManager,
+  thinSprite: BabylonjsCoreThinSprite,
+  ThinSprite: BabylonjsCoreThinSprite,
   glowLayer: BabylonjsCoreGlowLayer,
   GlowLayer: BabylonjsCoreGlowLayer,
   highlightLayer: BabylonjsCoreHighlightLayer,
@@ -30891,6 +31257,8 @@ export const intrinsicClassMap: object = {
   postProcess: 'PostProcess',
   tonemapPostProcess: 'TonemapPostProcess',
   utilityLayerRenderer: 'UtilityLayerRenderer',
+  sprite: 'Sprite',
+  spriteManager: 'SpriteManager',
   advancedDynamicTexture: 'AdvancedDynamicTexture',
   gui3DManager: 'GUI3DManager',
   autoRotationBehavior: 'AutoRotationBehavior',
@@ -31033,6 +31401,8 @@ export const intrinsicClassMap: object = {
   holographicSlate: 'HolographicSlate',
   holographicBackplate: 'HolographicBackplate',
   slider3D: 'Slider3D',
+  spritePackedManager: 'SpritePackedManager',
+  thinSprite: 'ThinSprite',
   glowLayer: 'GlowLayer',
   highlightLayer: 'HighlightLayer',
   cubeTexture: 'CubeTexture',
