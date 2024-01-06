@@ -31,7 +31,7 @@ const App: FC = () => {
 
             <spriteManager
               name="playerManager"
-              imgUrl="../../../assets/images/player.png"
+              imgUrl="../../assets/images/player.png"
               capacity={3}
               cellSize={64}
             >
