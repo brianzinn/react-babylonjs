@@ -48,6 +48,7 @@ const toc = [
   '/examples/models/asset-manager',
   '/examples/models/look-at',
   '/examples/models/props',
+  '/examples/sprites',
   '/examples/physics',
   '/examples/hooks',
   '/examples/hooks/context',

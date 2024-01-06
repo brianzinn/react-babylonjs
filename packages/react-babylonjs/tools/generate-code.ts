@@ -76,6 +76,7 @@ const LATE_BOUND_CONSTRUCTOR_PARAMETERS: Map<string, string[]> = new Map<string,
   ['PhysicsAggregate', ['transformNode']],
   ['ShadowGenerator', ['light']],
   ['CascadedShadowGenerator', ['light']],
+  ['Sprite', ['manager']],
 ])
 
 console.log('ver:', ts.version)
@@ -221,6 +222,8 @@ const classesToGenerate: String[] = [
   'Viewport',
   'Layer',
   'MaterialPluginBase',
+  'SpriteManager',
+  'Sprite',
 ]
 
 let MeshBuilderVariableDeclaration: Nullable<VariableDeclaration> = null
@@ -2194,6 +2197,23 @@ const generateCode = async () => {
       undefined,
       undefined,
       () => 'Control3DCustomProps'
+    )
+  }
+
+  if (isDefined('SpriteManager')) {
+    createClassesInheritedFrom(
+      generatedCodeSourceFile,
+      generatedPropsSourceFile,
+      classesOfInterest.get('SpriteManager')!,
+      () => ({})
+    )
+  }
+  if (isDefined('Sprite')) {
+    createClassesDerivedFrom(
+      generatedCodeSourceFile,
+      generatedPropsSourceFile,
+      classesOfInterest.get('Sprite')!,
+      { delayCreation: true }
     )
   }
 

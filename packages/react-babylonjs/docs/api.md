@@ -34,7 +34,7 @@ Shadows, Textures, etc.)
    vrDeviceOrientationArcRotateCamera, vrDeviceOrientationFreeCamera,
    vrDeviceOrientationGamepadCamera, webXrCamera
 
-3. **Geometries (meshes)** - bbox, capsule, cylinder, dashedLines, decal, disc,
+3. **Geometries (meshes)** - box, capsule, cylinder, dashedLines, decal, disc,
    extrudePolygon, extrudeShape, extrudeShapeCustom, geodesic, goldberg, ground,
    groundFromHeightMap, icoSphere, lathe, lines, lineSystem, plane,
    babylon-polygon, polyhedron, ribbon, sphere, babylon-text, tiledBox,
@@ -50,7 +50,7 @@ Shadows, Textures, etc.)
    mrdlSliderThumbMaterial, multiMaterial, nodeMaterial, occlusionMaterial,
    pbrBaseMaterial, pbrBaseSimpleMaterial, pbrMaterial,
    pbrMetallicRoughnessMaterial, pbrSpecularGlossinessMaterial, pushMaterial,
-   shaderMaterial, standardMateria
+   shaderMaterial, standardMaterial
 
 > note: Materials can have configuration (read-only) properties as classes. With
 > `assignFrom` prop you can declare detailMapConfiguration,
@@ -76,8 +76,9 @@ Shadows, Textures, etc.)
 7. **EffectLayers** - effectLayer, glowLayer, highlightLayer
 
 8. **Behaviors** - autoRotationBehavior, bouncingBehavior, framingBehavior,
-   attachToBoxBehavior, fadeInOutBehavior, multiPointerScaleBehavior,
-   pointerDragBehavior, sixDofDragBehavior
+   attachToBoxBehavior, fadeInOutBehavior, followBehavior,
+   handConstraintBehavior, multiPointerScaleBehavior, pointerDragBehavior,
+   sixDofDragBehavior, surfaceMagnetismBehavior
 
 9. **PostProcessRenderPipelines**: defaultRenderingPipeline,
    lensRenderingPipeline, postProcessRenderPipeline, ssao2RenderingPipeline,
@@ -106,7 +107,9 @@ Shadows, Textures, etc.)
     gizmo, lightGizmo, planeDragGizmo, planeRotationGizmo, positionGizmo,
     rotationGizmo, scaleGizmo, slateGizmo
 
-12. **Others** - adtForMesh, adtForMeshTexture, adtFullScreenUi,
+12. **Sprites** spriteManager, spritePackedManager, thinSprite, sprite
+
+13. **Others** - adtForMesh, adtForMeshTexture, adtFullScreenUi,
     environmentHelper, physicsImpostor, pointsCloudSystem, shadowGenerator /
     cascadedShadowGenerator, layer, utilityLayerRenderer, viewport,
     vrExperienceHelper

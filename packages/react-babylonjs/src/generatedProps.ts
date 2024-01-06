@@ -1,4 +1,5 @@
 import { AbstractActionManager as BabylonjsCoreAbstractActionManager } from '@babylonjs/core/Actions/abstractActionManager.js'
+import { ActionManager as BabylonjsCoreActionManager } from '@babylonjs/core/Actions/actionManager.js'
 import { Animation as BabylonjsCoreAnimation } from '@babylonjs/core/Animations/animation.js'
 import { AnimationPropertiesOverride as BabylonjsCoreAnimationPropertiesOverride } from '@babylonjs/core/Animations/animationPropertiesOverride.js'
 import { IBakedVertexAnimationManager as BabylonjsCoreIBakedVertexAnimationManager } from '@babylonjs/core/BakedVertexAnimation/bakedVertexAnimationManager.js'
@@ -22,7 +23,10 @@ import { SurfaceMagnetismBehavior as BabylonjsCoreSurfaceMagnetismBehavior } fro
 import { Skeleton as BabylonjsCoreSkeleton } from '@babylonjs/core/Bones/skeleton.js'
 import { ArcRotateCamera as BabylonjsCoreArcRotateCamera } from '@babylonjs/core/Cameras/arcRotateCamera.js'
 import { ArcRotateCameraInputsManager as BabylonjsCoreArcRotateCameraInputsManager } from '@babylonjs/core/Cameras/arcRotateCameraInputsManager.js'
-import { Camera as BabylonjsCoreCamera } from '@babylonjs/core/Cameras/camera.js'
+import {
+  Camera as BabylonjsCoreCamera,
+  IObliqueParams as BabylonjsCoreIObliqueParams,
+} from '@babylonjs/core/Cameras/camera.js'
 import { CameraInputsManager as BabylonjsCoreCameraInputsManager } from '@babylonjs/core/Cameras/cameraInputsManager.js'
 import { DeviceOrientationCamera as BabylonjsCoreDeviceOrientationCamera } from '@babylonjs/core/Cameras/deviceOrientationCamera.js'
 import { FlyCamera as BabylonjsCoreFlyCamera } from '@babylonjs/core/Cameras/flyCamera.js'
@@ -231,6 +235,10 @@ import {
   Color3 as BabylonjsCoreColor3,
   Color4 as BabylonjsCoreColor4,
 } from '@babylonjs/core/Maths/math.color.js'
+import {
+  IColor4Like as BabylonjsCoreIColor4Like,
+  IVector3Like as BabylonjsCoreIVector3Like,
+} from '@babylonjs/core/Maths/math.like.js'
 import { Plane as BabylonjsCorePlane } from '@babylonjs/core/Maths/math.plane.js'
 import {
   Matrix as BabylonjsCoreMatrix,
@@ -347,6 +355,13 @@ import {
   Scene as BabylonjsCoreScene,
   ScenePerformancePriority as BabylonjsCoreScenePerformancePriority,
 } from '@babylonjs/core/scene.js'
+import { Sprite as BabylonjsCoreSprite } from '@babylonjs/core/Sprites/sprite.js'
+import {
+  ISpriteManager as BabylonjsCoreISpriteManager,
+  SpriteManager as BabylonjsCoreSpriteManager,
+} from '@babylonjs/core/Sprites/spriteManager.js'
+import { SpritePackedManager as BabylonjsCoreSpritePackedManager } from '@babylonjs/core/Sprites/spritePackedManager.js'
+import { ThinSprite as BabylonjsCoreThinSprite } from '@babylonjs/core/Sprites/thinSprite.js'
 import { XRSpaceWarpRenderTarget as BabylonjsCoreXRSpaceWarpRenderTarget } from '@babylonjs/core/XR/features/WebXRSpaceWarp.js'
 import { WebXRCamera as BabylonjsCoreWebXRCamera } from '@babylonjs/core/XR/webXRCamera.js'
 import { WebXRDefaultExperience as BabylonjsCoreWebXRDefaultExperience } from '@babylonjs/core/XR/webXRDefaultExperience.js'
@@ -801,6 +816,16 @@ declare global {
         FiberHolographicBackplatePropsCtor &
         BabylonNode<BabylonjsGuiHolographicBackplate>
       slider3D: FiberSlider3DProps & FiberSlider3DPropsCtor & BabylonNode<BabylonjsGuiSlider3D>
+      spriteManager: FiberSpriteManagerProps &
+        FiberSpriteManagerPropsCtor &
+        BabylonNode<BabylonjsCoreSpriteManager>
+      spritePackedManager: FiberSpritePackedManagerProps &
+        FiberSpritePackedManagerPropsCtor &
+        BabylonNode<BabylonjsCoreSpritePackedManager>
+      thinSprite: FiberThinSpriteProps &
+        FiberThinSpritePropsCtor &
+        BabylonNode<BabylonjsCoreThinSprite>
+      sprite: FiberSpriteProps & FiberSpritePropsCtor & BabylonNode<BabylonjsCoreSprite>
       effectLayer: FiberEffectLayerProps &
         FiberEffectLayerPropsCtor &
         BabylonNode<BabylonjsCoreEffectLayer>
@@ -1422,7 +1447,7 @@ export type FiberCameraProps = {
   maxZ?: number
   minZ?: number
   mode?: number
-  oblique?: any
+  oblique?: BabylonjsCoreIObliqueParams
   onAfterCheckInputsObservable?: any
   onProjectionMatrixChangedObservable?: any
   onRestoreStateObservable?: any
@@ -3742,6 +3767,83 @@ export type FiberSlider3DProps = {
 export type FiberSlider3DPropsCtor = {
   name?: string
   sliderBackplateVisible?: boolean
+}
+export type FiberSpriteManagerProps = {
+  blendMode?: number
+  cellHeight?: number
+  cellWidth?: number
+  disableDepthWrite?: boolean
+  fogEnabled?: boolean
+  isPickable?: boolean
+  layerMask?: number
+  metadata?: any
+  name?: string
+  onDispose?: () => void
+  onDisposeObservable?: any
+  pixelPerfect?: boolean
+  renderingGroupId?: number
+  snippetId?: string
+  sprites?: BabylonjsCoreSprite[]
+  texture?: BabylonjsCoreTexture
+  uniqueId?: number
+} & CustomProps
+export type FiberSpriteManagerPropsCtor = {
+  name: string
+  imgUrl: string
+  capacity: number
+  cellSize: any
+  epsilon?: number
+  samplingMode?: number
+  fromPacked?: boolean
+  spriteJSON?: any
+}
+export type FiberSpritePackedManagerProps = {
+  name?: string
+} & FiberSpriteManagerProps
+export type FiberSpritePackedManagerPropsCtor = {
+  name: string
+  imgUrl: string
+  capacity: number
+  spriteJSON?: string
+  epsilon?: number
+  samplingMode?: number
+}
+export type FiberThinSpriteProps = {
+  angle?: number
+  cellIndex?: number
+  cellRef?: string
+  color?: BabylonjsCoreIColor4Like
+  height?: number
+  invertU?: boolean
+  invertV?: boolean
+  isVisible?: boolean
+  position?: BabylonjsCoreIVector3Like
+  width?: number
+} & CustomProps
+export type FiberThinSpritePropsCtor = {}
+export type FiberSpriteProps = {
+  actionManager?: BabylonjsCoreActionManager
+  animations?: BabylonjsCoreAnimation[]
+  color?: BabylonjsCoreColor4
+  delay?: number
+  disposeWhenFinishedAnimating?: boolean
+  fromIndex?: number
+  isPickable?: boolean
+  loopAnimation?: boolean
+  name?: string
+  onDisposeObservable?: any
+  position?: BabylonjsCoreVector3
+  'position-x'?: number
+  'position-y'?: number
+  'position-z'?: number
+  size?: number
+  toIndex?: number
+  uniqueId?: number
+  useAlphaForPicking?: boolean
+} & FiberThinSpriteProps
+export type FiberSpritePropsCtor = {
+  name: string
+  manager?: BabylonjsCoreISpriteManager
 }
 export type FiberEffectLayerProps = {
   disableBoundingBoxesFromEffectLayer?: boolean
