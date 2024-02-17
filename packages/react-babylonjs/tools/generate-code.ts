@@ -224,6 +224,7 @@ const classesToGenerate: String[] = [
   'MaterialPluginBase',
   'SpriteManager',
   'Sprite',
+  'Sound',
 ]
 
 let MeshBuilderVariableDeclaration: Nullable<VariableDeclaration> = null
@@ -2200,21 +2201,23 @@ const generateCode = async () => {
     )
   }
 
-  if (isDefined('SpriteManager')) {
+  if (isDefined('SpriteManager') && isDefined('Sprite')) {
     createClassesInheritedFrom(
       generatedCodeSourceFile,
       generatedPropsSourceFile,
       classesOfInterest.get('SpriteManager')!,
       () => ({})
     )
-  }
-  if (isDefined('Sprite')) {
     createClassesDerivedFrom(
       generatedCodeSourceFile,
       generatedPropsSourceFile,
       classesOfInterest.get('Sprite')!,
       { delayCreation: true }
     )
+  }
+
+  if (isDefined('Sound')) {
+    createSingleClass('Sound', generatedCodeSourceFile, generatedPropsSourceFile)
   }
 
   if (isDefined('EffectLayer')) {

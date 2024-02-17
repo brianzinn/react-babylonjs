@@ -2,6 +2,8 @@ import { AbstractActionManager as BabylonjsCoreAbstractActionManager } from '@ba
 import { ActionManager as BabylonjsCoreActionManager } from '@babylonjs/core/Actions/actionManager.js'
 import { Animation as BabylonjsCoreAnimation } from '@babylonjs/core/Animations/animation.js'
 import { AnimationPropertiesOverride as BabylonjsCoreAnimationPropertiesOverride } from '@babylonjs/core/Animations/animationPropertiesOverride.js'
+import { ISoundOptions as BabylonjsCoreISoundOptions } from '@babylonjs/core/Audio/Interfaces/ISoundOptions.js'
+import { Sound as BabylonjsCoreSound } from '@babylonjs/core/Audio/sound.js'
 import { IBakedVertexAnimationManager as BabylonjsCoreIBakedVertexAnimationManager } from '@babylonjs/core/BakedVertexAnimation/bakedVertexAnimationManager.js'
 import { AutoRotationBehavior as BabylonjsCoreAutoRotationBehavior } from '@babylonjs/core/Behaviors/Cameras/autoRotationBehavior.js'
 import { BouncingBehavior as BabylonjsCoreBouncingBehavior } from '@babylonjs/core/Behaviors/Cameras/bouncingBehavior.js'
@@ -826,6 +828,7 @@ declare global {
         FiberThinSpritePropsCtor &
         BabylonNode<BabylonjsCoreThinSprite>
       sprite: FiberSpriteProps & FiberSpritePropsCtor & BabylonNode<BabylonjsCoreSprite>
+      sound: FiberSoundProps & FiberSoundPropsCtor & BabylonNode<BabylonjsCoreSound>
       effectLayer: FiberEffectLayerProps &
         FiberEffectLayerPropsCtor &
         BabylonNode<BabylonjsCoreEffectLayer>
@@ -3844,6 +3847,38 @@ export type FiberSpriteProps = {
 export type FiberSpritePropsCtor = {
   name: string
   manager?: BabylonjsCoreISpriteManager
+}
+export type FiberSoundProps = {
+  autoplay?: boolean
+  directionalConeInnerAngle?: number
+  directionalConeOuterAngle?: number
+  distanceModel?: string
+  isPaused?: boolean
+  isPlaying?: boolean
+  loop?: boolean
+  maxDistance?: number
+  metadata?: any
+  name?: string
+  onended?: () => any
+  onEndedObservable?: any
+  refDistance?: number
+  rolloffFactor?: number
+  setAttenuationFunction?: any
+  setAudioBuffer?: any
+  setDirectionalCone?: any
+  setLocalDirectionToMesh?: any
+  setPlaybackRate?: any
+  setPosition?: any
+  setVolume?: any
+  soundTrackId?: number
+  spatialSound?: boolean
+  useCustomAttenuation?: boolean
+} & CustomProps
+export type FiberSoundPropsCtor = {
+  name: string
+  urlOrArrayBuffer: any
+  readyToPlayCallback?: () => void
+  options?: BabylonjsCoreISoundOptions
 }
 export type FiberEffectLayerProps = {
   disableBoundingBoxesFromEffectLayer?: boolean

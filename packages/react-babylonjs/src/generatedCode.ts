@@ -1,4 +1,5 @@
 import { AbstractScene as BabylonjsCoreAbstractScene } from '@babylonjs/core/abstractScene.js'
+import { Sound as BabylonjsCoreSound } from '@babylonjs/core/Audio/sound.js'
 import { AutoRotationBehavior as BabylonjsCoreAutoRotationBehavior } from '@babylonjs/core/Behaviors/Cameras/autoRotationBehavior.js'
 import { BouncingBehavior as BabylonjsCoreBouncingBehavior } from '@babylonjs/core/Behaviors/Cameras/bouncingBehavior.js'
 import { FramingBehavior as BabylonjsCoreFramingBehavior } from '@babylonjs/core/Behaviors/Cameras/framingBehavior.js'
@@ -439,6 +440,7 @@ import {
   FiberSlateGizmoProps,
   FiberSlider3DProps,
   FiberSliderProps,
+  FiberSoundProps,
   FiberSpherePanelProps,
   FiberSpotLightProps,
   FiberSpriteManagerProps,
@@ -17079,6 +17081,153 @@ export class FiberSprite implements HasPropsHandlers<FiberThinSpriteProps> {
   }
 }
 
+export class FiberSoundPropsHandler implements PropsHandler<FiberSoundProps> {
+  getPropertyUpdates(
+    oldProps: FiberSoundProps,
+    newProps: FiberSoundProps
+  ): PropertyUpdate[] | null {
+    const changedProps: PropertyUpdate[] = []
+    checkPrimitiveDiff(oldProps.autoplay, newProps.autoplay, 'autoplay', changedProps)
+    checkPrimitiveDiff(
+      oldProps.directionalConeInnerAngle,
+      newProps.directionalConeInnerAngle,
+      'directionalConeInnerAngle',
+      changedProps
+    )
+    checkPrimitiveDiff(
+      oldProps.directionalConeOuterAngle,
+      newProps.directionalConeOuterAngle,
+      'directionalConeOuterAngle',
+      changedProps
+    )
+    checkPrimitiveDiff(
+      oldProps.distanceModel,
+      newProps.distanceModel,
+      'distanceModel',
+      changedProps
+    )
+    checkPrimitiveDiff(oldProps.isPaused, newProps.isPaused, 'isPaused', changedProps)
+    checkPrimitiveDiff(oldProps.isPlaying, newProps.isPlaying, 'isPlaying', changedProps)
+    checkPrimitiveDiff(oldProps.loop, newProps.loop, 'loop', changedProps)
+    checkPrimitiveDiff(oldProps.maxDistance, newProps.maxDistance, 'maxDistance', changedProps)
+    // type: 'any' property (not coded) BabylonjsCoreSound.metadata.
+    checkPrimitiveDiff(oldProps.name, newProps.name, 'name', changedProps)
+    checkLambdaDiff(oldProps.onended, newProps.onended, 'onended', changedProps)
+    checkObservableDiff(
+      oldProps.onEndedObservable,
+      newProps.onEndedObservable,
+      'onEndedObservable',
+      changedProps
+    )
+    checkPrimitiveDiff(oldProps.refDistance, newProps.refDistance, 'refDistance', changedProps)
+    checkPrimitiveDiff(
+      oldProps.rolloffFactor,
+      newProps.rolloffFactor,
+      'rolloffFactor',
+      changedProps
+    )
+    checkPrimitiveDiff(oldProps.soundTrackId, newProps.soundTrackId, 'soundTrackId', changedProps)
+    checkPrimitiveDiff(oldProps.spatialSound, newProps.spatialSound, 'spatialSound', changedProps)
+    checkPrimitiveDiff(
+      oldProps.useCustomAttenuation,
+      newProps.useCustomAttenuation,
+      'useCustomAttenuation',
+      changedProps
+    )
+    checkMethodDiff(
+      oldProps.setAttenuationFunction,
+      newProps.setAttenuationFunction,
+      'setAttenuationFunction',
+      changedProps
+    )
+    checkMethodDiff(
+      oldProps.setAudioBuffer,
+      newProps.setAudioBuffer,
+      'setAudioBuffer',
+      changedProps
+    )
+    checkMethodDiff(
+      oldProps.setDirectionalCone,
+      newProps.setDirectionalCone,
+      'setDirectionalCone',
+      changedProps
+    )
+    checkMethodDiff(
+      oldProps.setLocalDirectionToMesh,
+      newProps.setLocalDirectionToMesh,
+      'setLocalDirectionToMesh',
+      changedProps
+    )
+    checkMethodDiff(
+      oldProps.setPlaybackRate,
+      newProps.setPlaybackRate,
+      'setPlaybackRate',
+      changedProps
+    )
+    checkMethodDiff(oldProps.setPosition, newProps.setPosition, 'setPosition', changedProps)
+    checkMethodDiff(oldProps.setVolume, newProps.setVolume, 'setVolume', changedProps)
+    return changedProps.length === 0 ? null : changedProps
+  }
+}
+
+/**
+ * Defines a sound that can be played in the application.
+ * The sound can either be an ambient track or a simple sound played in reaction to a user action.
+ *
+ * This code has been generated
+ */
+export class FiberSound implements HasPropsHandlers<FiberSoundProps> {
+  private propsHandlers: PropsHandler<FiberSoundProps>[]
+
+  constructor() {
+    this.propsHandlers = [new FiberSoundPropsHandler()]
+  }
+
+  getPropsHandlers(): PropsHandler<FiberSoundProps>[] {
+    return this.propsHandlers
+  }
+
+  addPropsHandler(propHandler: PropsHandler<FiberSoundProps>): void {
+    this.propsHandlers.push(propHandler)
+  }
+
+  public static readonly CreateInfo = {
+    creationType: 'Constructor',
+    libraryLocation: 'Sound',
+    namespace: '@babylonjs/core',
+    parameters: [
+      {
+        name: 'name',
+        type: 'string',
+        optional: false,
+      },
+      {
+        name: 'urlOrArrayBuffer',
+        type: 'any',
+        optional: false,
+      },
+      {
+        name: 'scene',
+        type: 'BabylonjsCoreScene',
+        optional: true,
+      },
+      {
+        name: 'readyToPlayCallback',
+        type: '() => void',
+        optional: true,
+      },
+      {
+        name: 'options',
+        type: 'BabylonjsCoreISoundOptions',
+        optional: true,
+      },
+    ],
+  }
+  public static readonly Metadata: CreatedInstanceMetadata = {
+    className: 'FiberSound',
+  }
+}
+
 export class FiberEffectLayerPropsHandler implements PropsHandler<FiberEffectLayerProps> {
   getPropertyUpdates(
     oldProps: FiberEffectLayerProps,
@@ -30690,6 +30839,7 @@ export const ADTForMesh: string = 'ADTForMesh',
   SlateGizmo: string = 'SlateGizmo',
   Slider: string = 'Slider',
   Slider3D: string = 'Slider3D',
+  Sound: string = 'Sound',
   Sphere: string = 'Sphere',
   SpherePanel: string = 'SpherePanel',
   SpotLight: string = 'SpotLight',
@@ -30755,6 +30905,8 @@ const classesMap: Record<string, any> = {
   Scene: BabylonjsCoreScene,
   dynamicTerrain: ExtensionsDynamicTerrain,
   DynamicTerrain: ExtensionsDynamicTerrain,
+  sound: BabylonjsCoreSound,
+  Sound: BabylonjsCoreSound,
   camera: BabylonjsCoreCamera,
   Camera: BabylonjsCoreCamera,
   gizmo: BabylonjsCoreGizmo,
@@ -31240,6 +31392,7 @@ export const intrinsicClassMap: object = {
   abstractScene: 'AbstractScene',
   scene: 'Scene',
   dynamicTerrain: 'DynamicTerrain',
+  sound: 'Sound',
   camera: 'Camera',
   gizmo: 'Gizmo',
   gizmoManager: 'GizmoManager',

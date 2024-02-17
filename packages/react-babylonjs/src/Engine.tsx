@@ -120,7 +120,7 @@ const ReactBabylonjsEngine: React.FC<EngineProps> = (props: EngineProps, context
 
   useEffect(() => {
     if (!canvasReady) {
-        return;
+      return
     }
 
     if (canvasRef.current === null) {
@@ -207,7 +207,10 @@ const ReactBabylonjsEngine: React.FC<EngineProps> = (props: EngineProps, context
       <canvas
         {...opts}
         {...canvasProps}
-        ref={(view) => {canvasRef.current = view; setCanvasReady(true)}}
+        ref={(view) => {
+          canvasRef.current = view
+          setCanvasReady(true)
+        }}
         style={{ width: '100%', height: '100%', ...style }}
       >
         {engine.current !== null && props.children}

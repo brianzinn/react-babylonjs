@@ -109,7 +109,9 @@ Shadows, Textures, etc.)
 
 12. **Sprites** spriteManager, spritePackedManager, thinSprite, sprite
 
-13. **Others** - adtForMesh, adtForMeshTexture, adtFullScreenUi,
+13. **Sound** sound
+
+14. **Others** - adtForMesh, adtForMeshTexture, adtFullScreenUi,
     environmentHelper, physicsImpostor, pointsCloudSystem, shadowGenerator /
     cascadedShadowGenerator, layer, utilityLayerRenderer, viewport,
     vrExperienceHelper

@@ -29,6 +29,7 @@ const toc = [
   '/examples/basic/instanced-mesh-hex',
   '/examples/basic/create-portal',
   '/examples/basic/extrude-csg',
+  '/examples/basic/sound',
   '/examples/basic/snippet-material',
   '/examples/basic/toggle-mesh',
   '/examples/basic/toggle-scene',
