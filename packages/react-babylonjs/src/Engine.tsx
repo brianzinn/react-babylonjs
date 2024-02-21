@@ -30,9 +30,9 @@ const useCanvasObserver = (
     }
 
     const callbackFn: IntersectionObserverCallback = (entries) => {
-      const [entry] = entries
-      shouldRenderRef.current = entry.isIntersecting
-      console.log('should render updating:', shouldRenderRef.current)
+      // Last entry represents the latest, current state.
+      const lastEntry = entries[entries.length - 1]
+      shouldRenderRef.current = lastEntry.isIntersecting
     }
 
     const observer = new IntersectionObserver(callbackFn, { threshold })
