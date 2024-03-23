@@ -35,20 +35,20 @@ Shadows, Textures, etc.)
    vrDeviceOrientationGamepadCamera, webXrCamera
 
 3. **Geometries (meshes)** - box, capsule, cylinder, dashedLines, decal, disc,
-   extrudePolygon, extrudeShape, extrudeShapeCustom, geodesic, goldberg, ground,
-   groundFromHeightMap, icoSphere, lathe, lines, lineSystem, plane,
-   babylon-polygon, polyhedron, ribbon, sphere, babylon-text, tiledBox,
-   tiledGround, tiledPlane, torus, torusKnot, tube
+   extrudePolygon, extrudeShape, extrudeShapeCustom, gaussianSplattingMesh,
+   geodesic, goldberg, ground, groundFromHeightMap, icoSphere, lathe, lines,
+   lineSystem, plane, babylon-polygon, polyhedron, ribbon, sphere, babylon-text,
+   tiledBox, tiledGround, tiledPlane, torus, torusKnot, tube
 
    > note: `babylon-polygon` and `babylon-text` instead of `polygon` due to JSX
    > conflict with `React.SVGProps<SVGPolygonElement>`
 
 4. **Materials** - backgroundMaterial, fluentBackplateMaterial,
-   fluentButtonMaterial, fluentMaterial, greasedLineSimpleMaterial,
-   handleMaterial, material, mrdlBackglowMaterial, mrdlBackplateMaterial,
-   mrdlFrontplateMaterial, mrdlInnerquadMaterial, mrdlSliderBarMaterial,
-   mrdlSliderThumbMaterial, multiMaterial, nodeMaterial, occlusionMaterial,
-   pbrBaseMaterial, pbrBaseSimpleMaterial, pbrMaterial,
+   fluentButtonMaterial, fluentMaterial, gaussianSplattingMaterial,
+   greasedLineSimpleMaterial, handleMaterial, material, mrdlBackglowMaterial,
+   mrdlBackplateMaterial, mrdlFrontplateMaterial, mrdlInnerquadMaterial,
+   mrdlSliderBarMaterial, mrdlSliderThumbMaterial, multiMaterial, nodeMaterial,
+   occlusionMaterial, pbrBaseMaterial, pbrBaseSimpleMaterial, pbrMaterial,
    pbrMetallicRoughnessMaterial, pbrSpecularGlossinessMaterial, pushMaterial,
    shaderMaterial, standardMaterial
 
@@ -82,7 +82,8 @@ Shadows, Textures, etc.)
 
 9. **PostProcessRenderPipelines**: defaultRenderingPipeline,
    lensRenderingPipeline, postProcessRenderPipeline, ssao2RenderingPipeline,
-   ssaoRenderingPipeline, ssrRenderingPipeline, standardRenderingPipeline
+   ssaoRenderingPipeline, ssrRenderingPipeline, standardRenderingPipeline,
+   taaRenderingPipeline
 
 10. **PostProcesss** anaglyphPostProcess, blackAndWhitePostProcess,
     bloomMergePostProcess, blurPostProcess, chromaticAberrationPostProcess,

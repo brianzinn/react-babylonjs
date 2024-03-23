@@ -32,7 +32,7 @@
     "type-fest": "^2.9.0"
   },
   "peerDependencies": {
-    "@babylonjs/core": "6.x",
+    "@babylonjs/core": "6.x || 7.x",
     "@types/react": "18.x",
     "react": "18.x"
   },
