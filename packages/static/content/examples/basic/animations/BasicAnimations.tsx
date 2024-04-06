@@ -1,6 +1,7 @@
 import { Animation, Vector3 } from '@babylonjs/core'
 import React, { FC, useEffect, useRef } from 'react'
-import { Engine, Scene, useScene } from 'react-babylonjs'
+import '@babylonjs/core/Engines/WebGPU/Extensions'
+import { FallbackEngine, Scene, useScene } from 'react-babylonjs'
 
 /**
  * This is for optimizing animation on initial application mount.
@@ -82,7 +83,13 @@ function getSlideUpAnimation(position: Vector3, offsetY: number) {
 
 export const BasicAnimations: FC = () => (
   <div style={{ flex: 1, display: 'flex' }}>
-    <Engine antialias adaptToDeviceRatio canvasId="babylon-canvas">
+    <FallbackEngine
+      canvasId="babylon-canvas"
+      engineOptions={{
+        antialias: true,
+        adaptToDeviceRatio: true,
+      }}
+    >
       <Scene>
         <freeCamera
           name="camera1"
@@ -92,7 +99,7 @@ export const BasicAnimations: FC = () => (
         <hemisphericLight name="light1" intensity={0.7} direction={Vector3.Up()} />
         <WithAnimation />
       </Scene>
-    </Engine>
+    </FallbackEngine>
   </div>
 )
 

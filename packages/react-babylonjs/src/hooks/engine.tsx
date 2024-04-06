@@ -1,10 +1,11 @@
 import { Engine } from '@babylonjs/core/Engines/engine.js'
+import { WebGPUEngine } from '@babylonjs/core/Engines/webgpuEngine.js'
 import { Nullable } from '@babylonjs/core/types.js'
 import React, { createContext, useContext } from 'react'
 import { SceneContext } from './scene'
 
 export type EngineCanvasContextType = {
-  engine: Nullable<Engine>
+  engine: Nullable<Engine | WebGPUEngine>
   canvas: Nullable<HTMLCanvasElement | WebGLRenderingContext>
 }
 
@@ -31,7 +32,7 @@ export function withEngineCanvasContext<
 /**
  * Get the engine from the context.
  */
-export const useEngine = (): Nullable<Engine> => {
+export const useEngine = (): Nullable<Engine | WebGPUEngine> => {
   const engineCanvasContext = useContext(EngineCanvasContext)
   const sceneContext = useContext(SceneContext)
   if (engineCanvasContext.engine !== null) {
