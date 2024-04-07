@@ -37,11 +37,6 @@ const ReactBabylonjsWebGPUEngine: React.FC<WebGPUEngineProps> = (
   const engine = useRef<Nullable<WebGPUEngine>>(null)
   const [_, setEngineReady] = useState<boolean>(false)
 
-  const onBeforeRenderLoopObservable = useRef<Observable<WebGPUEngine>>(
-    new Observable<WebGPUEngine>()
-  )
-  const onEndRenderLoopObservable = useRef<Observable<WebGPUEngine>>(new Observable<WebGPUEngine>())
-
   const canvasRef = useRef<Nullable<HTMLCanvasElement>>(null)
   const [canvasReady, setCanvasReady] = useState(false)
   const shouldRenderRef = useRef(true)
@@ -51,6 +46,8 @@ const ReactBabylonjsWebGPUEngine: React.FC<WebGPUEngineProps> = (
     touchActionNone,
     canvasId,
     webGPUEngineOptions,
+    twgslOptions,
+    glslangOptions,
     renderOptions,
     observeCanvasResize,
     children,
@@ -75,38 +72,7 @@ const ReactBabylonjsWebGPUEngine: React.FC<WebGPUEngineProps> = (
       return
     }
 
-    engine.current = new WebGPUEngine(
-      canvasRef.current,
-      webGPUEngineOptions ?? {
-        enableAllFeatures: true,
-        setMaximumLimits: true,
-      }
-    )
-
-    engine.current.runRenderLoop(() => {
-      if (shouldRenderRef.current === false) {
-        return
-      }
-      if (onBeforeRenderLoopObservable.current.hasObservers()) {
-        onBeforeRenderLoopObservable.current.notifyObservers(engine.current!)
-      }
-
-      // TODO: here is where you could access your own render method
-      engine.current!.scenes.forEach((scene) => {
-        // TODO (fix properly): in React 18.2 (not 18.0 or 18.1 if the camera is in a subcomponent it will be added in a future render!)
-        if (scene.cameras?.length > 0) {
-          scene.render()
-        }
-      })
-
-      if (onEndRenderLoopObservable.current.hasObservers()) {
-        onEndRenderLoopObservable.current.notifyObservers(engine.current!)
-      }
-    })
-
-    engine.current.onContextLostObservable.add((eventData: ThinEngine) => {
-      console.warn('context loss observable from Engine: ', eventData)
-    })
+    const webGPUEngine = (engine.current = new WebGPUEngine(canvasRef.current, webGPUEngineOptions))
 
     const onResizeWindow = () => {
       if (engine.current) {
@@ -114,15 +80,36 @@ const ReactBabylonjsWebGPUEngine: React.FC<WebGPUEngineProps> = (
       }
     }
 
-    window.addEventListener('resize', onResizeWindow)
     // when initAsync completes - a re-render is triggers (to render scene)
-    engine.current.initAsync().then(() => setEngineReady(true))
+    engine.current.initAsync(glslangOptions, twgslOptions).then(() => {
+      webGPUEngine.runRenderLoop(() => {
+        if (shouldRenderRef.current === false) {
+          return
+        }
+
+        // TODO: here is where you could access your own render method
+        engine.current!.scenes.forEach((scene) => {
+          // TODO (fix properly): in React 18.2 (not 18.0 or 18.1 if the camera is in a subcomponent it will be added in a future render!)
+          if (scene.cameras?.length > 0) {
+            scene.render()
+          }
+        })
+      })
+
+      webGPUEngine.onContextLostObservable.add((eventData: ThinEngine) => {
+        console.warn('context loss observable from Engine: ', eventData)
+      })
+
+      window.addEventListener('resize', onResizeWindow)
+
+      setEngineReady(true)
+    })
 
     return () => {
       window.removeEventListener('resize', onResizeWindow)
 
       if (engine.current !== null) {
-        engine.current!.dispose()
+        engine.current.dispose()
         engine.current = null
       }
     }

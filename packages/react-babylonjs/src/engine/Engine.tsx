@@ -22,8 +22,8 @@ const ReactBabylonjsEngine: React.FC<EngineProps> = (props: EngineProps, context
   const engine = useRef<Nullable<Engine>>(null)
   const [_, setEngineReady] = useState<boolean>(false)
 
-  const onBeforeRenderLoopObservable = useRef<Observable<Engine>>(new Observable<Engine>())
-  const onEndRenderLoopObservable = useRef<Observable<Engine>>(new Observable<Engine>())
+  // const onBeforeRenderLoopObservable = useRef<Observable<Engine>>(new Observable<Engine>())
+  // const onEndRenderLoopObservable = useRef<Observable<Engine>>(new Observable<Engine>())
 
   const canvasRef = useRef<Nullable<HTMLCanvasElement>>(null)
   const [canvasReady, setCanvasReady] = useState(false)
@@ -75,9 +75,9 @@ const ReactBabylonjsEngine: React.FC<EngineProps> = (props: EngineProps, context
       if (shouldRenderRef.current === false) {
         return
       }
-      if (onBeforeRenderLoopObservable.current.hasObservers()) {
-        onBeforeRenderLoopObservable.current.notifyObservers(engine.current!)
-      }
+      // if (onBeforeRenderLoopObservable.current.hasObservers()) {
+      //   onBeforeRenderLoopObservable.current.notifyObservers(engine.current!)
+      // }
 
       // TODO: here is where you could access your own render method
       engine.current!.scenes.forEach((scene) => {
@@ -87,9 +87,9 @@ const ReactBabylonjsEngine: React.FC<EngineProps> = (props: EngineProps, context
         }
       })
 
-      if (onEndRenderLoopObservable.current.hasObservers()) {
-        onEndRenderLoopObservable.current.notifyObservers(engine.current!)
-      }
+      // if (onEndRenderLoopObservable.current.hasObservers()) {
+      //   onEndRenderLoopObservable.current.notifyObservers(engine.current!)
+      // }
     })
 
     engine.current.onContextLostObservable.add((eventData: ThinEngine) => {

@@ -85,7 +85,7 @@ export const BasicAnimations: FC = () => (
   <div style={{ flex: 1, display: 'flex' }}>
     <FallbackEngine
       canvasId="babylon-canvas"
-      engineOptions={{
+      engineProps={{
         antialias: true,
         adaptToDeviceRatio: true,
       }}

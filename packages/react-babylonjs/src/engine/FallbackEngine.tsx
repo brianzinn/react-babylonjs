@@ -9,8 +9,7 @@ import { SharedEngineProps } from './engineProps'
 export type FallbackEngineProps = {
   engineProps?: EngineOnlyProps
   webGPUEngineProps?: WebGPUEngineOnlyProps
-} & EngineOnlyProps &
-  SharedEngineProps & {
+} & SharedEngineProps & {
     children?: ReactNode | undefined
   } & React.CanvasHTMLAttributes<HTMLCanvasElement>
 
