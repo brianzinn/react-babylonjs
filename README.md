@@ -345,6 +345,7 @@ excellent typings support.
   `react-babylon-spring` integration and added GH action for Storybook
   ([github pages](https://brianzinn.github.io/react-babylonjs))
 - [voronp](https://github.com/voronp) add `isPaused` Engine prop to skip rendering
+- [saidmoya12](https://github.com/saidmoya12) add camera before/after render hooks
 
 > Thanks also to all the people who have contributed with
 > issues/questions/discussions. All the great ideas and requests are why this
