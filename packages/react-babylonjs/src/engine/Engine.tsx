@@ -1,6 +1,5 @@
 import { Engine } from '@babylonjs/core/Engines/engine.js'
-import { EngineOptions, ThinEngine } from '@babylonjs/core/Engines/thinEngine.js'
-import { Observable } from '@babylonjs/core/Misc/observable.js'
+import { EngineOptions } from '@babylonjs/core/Engines/thinEngine.js'
 import { Nullable } from '@babylonjs/core/types.js'
 import React, { ReactNode, useEffect, useRef, useState } from 'react'
 import { EngineCanvasContext } from '../hooks/engine'
@@ -92,7 +91,7 @@ const ReactBabylonjsEngine: React.FC<EngineProps> = (props: EngineProps, context
       // }
     })
 
-    engine.current.onContextLostObservable.add((eventData: ThinEngine) => {
+    engine.current.onContextLostObservable.add((eventData) => {
       console.warn('context loss observable from Engine: ', eventData)
     })
 

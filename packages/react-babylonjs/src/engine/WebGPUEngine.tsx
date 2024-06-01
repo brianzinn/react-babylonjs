@@ -5,7 +5,6 @@ import {
 } from '@babylonjs/core/Engines/webgpuEngine.js'
 import { TwgslOptions } from '@babylonjs/core/Engines/WebGPU/webgpuTintWASM.js'
 import { ThinEngine } from '@babylonjs/core/Engines/thinEngine.js'
-import { Observable } from '@babylonjs/core/Misc/observable.js'
 import { Nullable } from '@babylonjs/core/types.js'
 import React, { ReactNode, useEffect, useRef, useState } from 'react'
 import { EngineCanvasContext } from '../hooks/engine'
@@ -96,7 +95,7 @@ const ReactBabylonjsWebGPUEngine: React.FC<WebGPUEngineProps> = (
         })
       })
 
-      webGPUEngine.onContextLostObservable.add((eventData: ThinEngine) => {
+      webGPUEngine.onContextLostObservable.add((eventData) => {
         console.warn('context loss observable from Engine: ', eventData)
       })
 

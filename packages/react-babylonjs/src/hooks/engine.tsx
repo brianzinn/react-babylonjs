@@ -40,7 +40,11 @@ export const useEngine = (): Nullable<Engine | WebGPUEngine> => {
   }
 
   if (sceneContext.scene !== null) {
-    return sceneContext.scene.getEngine()
+    // Could actually be a "ThinEngine":
+    //  Abstract
+    //  ├──> ThinEngine ──> Engine
+    //  └──> WebGPUEngine
+    return sceneContext.scene.getEngine() as Engine | WebGPUEngine
   }
 
   return null
