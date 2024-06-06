@@ -19,7 +19,7 @@ export type ModelProps = {
   reportProgress?: boolean
   scaleToDimension?: number
   onModelLoaded?: (model: ILoadedModel) => void
-  onModelError?: (model: ILoadedModel) => void
+  onModelError?: (message: string, exception?: any) => void
   onLoadProgress?: (event: ISceneLoaderProgressEvent) => void
   onCreated?: (rootMesh: AbstractMesh) => void
 } & FiberAbstractMeshProps &
