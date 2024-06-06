@@ -3,6 +3,7 @@ import { Skeleton } from '@babylonjs/core/Bones/skeleton.js'
 import { BoundingInfo } from '@babylonjs/core/Culling/boundingInfo.js'
 import { Vector3 } from '@babylonjs/core/Maths/math.vector.js'
 import { AbstractMesh } from '@babylonjs/core/Meshes/abstractMesh.js'
+import { Mesh } from '@babylonjs/core/Meshes/mesh.js'
 import { IParticleSystem } from '@babylonjs/core/Particles/IParticleSystem.js'
 import { Nullable } from '@babylonjs/core/types.js'
 
@@ -18,15 +19,15 @@ export interface ILoadedModel {
    */
   status: LoaderStatus
   /**
-   * Mesh created when successfully loaded and all non-parented meshes are parented to this mesh
+   * Mesh created when successfully loaded and all non-parented meshes are parented to this mesh.
    */
-  rootMesh?: AbstractMesh
+  rootMesh?: Mesh
   /**
    * Error message when loader fails.
    */
   errorMessage?: string
   /**
-   * Name of loader used - either as explicitly specified or inferred from extension
+   * Name of loader used - either as explicitly specified or inferred from extension.
    */
   loaderName?: string
 
@@ -44,7 +45,7 @@ export interface ILoadedModel {
 
 export class LoadedModel implements ILoadedModel {
   public status: LoaderStatus = LoaderStatus.Loading
-  public rootMesh?: AbstractMesh
+  public rootMesh?: Mesh
   public errorMessage?: string
   public loaderName?: string
   public meshes?: AbstractMesh[]

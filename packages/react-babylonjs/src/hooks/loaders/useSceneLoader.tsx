@@ -94,7 +94,7 @@ export type SceneLoaderOptions = {
   /**
    * Called if SceneLoader returns an error.
    */
-  onModelError?: (model: ILoadedModel) => void
+  onModelError?: (message: string, exception?: any) => void
 }
 
 /**
@@ -171,7 +171,7 @@ const useSceneLoaderWithCache = (): ((
               skeletons: Skeleton[],
               animationGroups: AnimationGroup[]
             ): void => {
-              loadedModel.rootMesh = new AbstractMesh(sceneFilename + '-root-model', scene)
+              loadedModel.rootMesh = new Mesh(sceneFilename + '-root-model', scene)
               if (opts.alwaysSelectAsActiveMesh === true) {
                 loadedModel.rootMesh.alwaysSelectAsActiveMesh = true
               }
@@ -244,7 +244,7 @@ const useSceneLoaderWithCache = (): ((
             },
             (_: Scene, message: string, exception?: any): void => {
               if (opts.onModelError) {
-                opts.onModelError(loadedModel)
+                opts.onModelError(message, exception)
               }
               reject(exception ?? message)
             },
