@@ -39,7 +39,7 @@ import { VRDeviceOrientationArcRotateCamera as BabylonjsCoreVRDeviceOrientationA
 import { VRDeviceOrientationFreeCamera as BabylonjsCoreVRDeviceOrientationFreeCamera } from '@babylonjs/core/Cameras/VR/vrDeviceOrientationFreeCamera.js'
 import { VRDeviceOrientationGamepadCamera as BabylonjsCoreVRDeviceOrientationGamepadCamera } from '@babylonjs/core/Cameras/VR/vrDeviceOrientationGamepadCamera.js'
 import { VRExperienceHelper as BabylonjsCoreVRExperienceHelper } from '@babylonjs/core/Cameras/VR/vrExperienceHelper.js'
-import { EngineView as BabylonjsCoreEngineView } from '@babylonjs/core/Engines/Extensions/engine.views.js'
+import { EngineView as BabylonjsCoreEngineView } from '@babylonjs/core/Engines/AbstractEngine/abstractEngine.views.js'
 import { AxisDragGizmo as BabylonjsCoreAxisDragGizmo } from '@babylonjs/core/Gizmos/axisDragGizmo.js'
 import { AxisScaleGizmo as BabylonjsCoreAxisScaleGizmo } from '@babylonjs/core/Gizmos/axisScaleGizmo.js'
 import { BoundingBoxGizmo as BabylonjsCoreBoundingBoxGizmo } from '@babylonjs/core/Gizmos/boundingBoxGizmo.js'
@@ -595,6 +595,11 @@ export class FiberNode implements HasPropsHandlers<FiberNodeProps> {
         type: 'BabylonjsCoreScene',
         optional: true,
       },
+      {
+        name: 'isPure',
+        type: 'boolean',
+        optional: true,
+      },
     ],
   }
   public static readonly Metadata: CreatedInstanceMetadata = {
@@ -661,6 +666,7 @@ export class FiberTransformNodePropsHandler implements PropsHandler<FiberTransfo
       'scalingDeterminant',
       changedProps
     )
+    checkMethodDiff(oldProps.addChild, newProps.addChild, 'addChild', changedProps)
     checkMethodDiff(oldProps.addRotation, newProps.addRotation, 'addRotation', changedProps)
     checkMethodDiff(
       oldProps.setAbsolutePosition,
@@ -1019,7 +1025,6 @@ export class FiberAbstractMeshPropsHandler implements PropsHandler<FiberAbstract
       changedProps
     )
     checkPrimitiveDiff(oldProps.visibility, newProps.visibility, 'visibility', changedProps)
-    checkMethodDiff(oldProps.addChild, newProps.addChild, 'addChild', changedProps)
     checkMethodDiff(
       oldProps.enableEdgesRendering,
       newProps.enableEdgesRendering,
@@ -1779,6 +1784,7 @@ export class FiberGreasedLineBaseMeshPropsHandler
       changedProps
     )
     checkNumericArrayDiff(oldProps.offsets, newProps.offsets, 'offsets', changedProps)
+    // type: 'BabylonjsCoreFloatArray' property (not coded) BabylonjsCoreGreasedLineBaseMesh.uvs.
     checkNumericArrayDiff(oldProps.widths, newProps.widths, 'widths', changedProps)
     checkMethodDiff(oldProps.addPoints, newProps.addPoints, 'addPoints', changedProps)
     checkMethodDiff(oldProps.setPoints, newProps.setPoints, 'setPoints', changedProps)
@@ -8324,110 +8330,19 @@ export class FiberPushMaterial implements HasPropsHandlers<FiberMaterialProps> {
   }
 }
 
-export class FiberNodeMaterialPropsHandler implements PropsHandler<FiberNodeMaterialProps> {
-  getPropertyUpdates(
-    oldProps: FiberNodeMaterialProps,
-    newProps: FiberNodeMaterialProps
-  ): PropertyUpdate[] | null {
-    const changedProps: PropertyUpdate[] = []
-    // type: 'BabylonjsCoreNodeMaterialBlock[]' property (not coded) BabylonjsCoreNodeMaterial.attachedBlocks.
-    // type: 'any' property (not coded) BabylonjsCoreNodeMaterial.BJSNODEMATERIALEDITOR.
-    checkPrimitiveDiff(oldProps.buildId, newProps.buildId, 'buildId', changedProps)
-    checkPrimitiveDiff(oldProps.comment, newProps.comment, 'comment', changedProps)
-    // type: 'any' property (not coded) BabylonjsCoreNodeMaterial.editorData.
-    checkPrimitiveDiff(
-      oldProps.forceAlphaBlending,
-      newProps.forceAlphaBlending,
-      'forceAlphaBlending',
-      changedProps
-    )
-    checkPrimitiveDiff(oldProps.ignoreAlpha, newProps.ignoreAlpha, 'ignoreAlpha', changedProps)
-    // type: 'BabylonjsCoreImageProcessingConfiguration' property (not coded) BabylonjsCoreNodeMaterial.imageProcessingConfiguration.
-    checkPrimitiveDiff(
-      oldProps.maxSimultaneousLights,
-      newProps.maxSimultaneousLights,
-      'maxSimultaneousLights',
-      changedProps
-    )
-    checkPrimitiveDiff(oldProps.mode, newProps.mode, 'mode', changedProps)
-    checkObservableDiff(
-      oldProps.onBuildObservable,
-      newProps.onBuildObservable,
-      'onBuildObservable',
-      changedProps
-    )
-    // type: 'BabylonjsCoreINodeMaterialOptions' property (not coded) BabylonjsCoreNodeMaterial.options.
-    checkPrimitiveDiff(oldProps.snippetId, newProps.snippetId, 'snippetId', changedProps)
-    checkMethodDiff(oldProps.addOutputNode, newProps.addOutputNode, 'addOutputNode', changedProps)
-    checkMethodDiff(
-      oldProps.setPrePassRenderer,
-      newProps.setPrePassRenderer,
-      'setPrePassRenderer',
-      changedProps
-    )
-    return changedProps.length === 0 ? null : changedProps
-  }
-}
-
-/**
- * Class used to create a node based material built by assembling shader blocks
- *
- * This code has been generated
- */
-export class FiberNodeMaterial implements HasPropsHandlers<FiberMaterialProps> {
-  private propsHandlers: PropsHandler<FiberMaterialProps>[]
-
-  constructor() {
-    this.propsHandlers = [
-      new FiberNodeMaterialPropsHandler(),
-      new FiberPushMaterialPropsHandler(),
-      new FiberMaterialPropsHandler(),
-    ]
-  }
-
-  getPropsHandlers(): PropsHandler<FiberMaterialProps>[] {
-    return this.propsHandlers
-  }
-
-  addPropsHandler(propHandler: PropsHandler<FiberMaterialProps>): void {
-    this.propsHandlers.push(propHandler)
-  }
-
-  public static readonly CreateInfo = {
-    creationType: 'Constructor',
-    libraryLocation: 'NodeMaterial',
-    namespace: '@babylonjs/core',
-    parameters: [
-      {
-        name: 'name',
-        type: 'string',
-        optional: false,
-      },
-      {
-        name: 'scene',
-        type: 'BabylonjsCoreScene',
-        optional: true,
-      },
-      {
-        name: 'options',
-        type: 'Partial<BabylonjsCoreINodeMaterialOptions>',
-        optional: true,
-      },
-    ],
-  }
-  public static readonly Metadata: CreatedInstanceMetadata = {
-    isMaterial: true,
-    className: 'FiberNodeMaterial',
-  }
-}
-
 export class FiberShaderMaterialPropsHandler implements PropsHandler<FiberShaderMaterialProps> {
   getPropertyUpdates(
     oldProps: FiberShaderMaterialProps,
     newProps: FiberShaderMaterialProps
   ): PropertyUpdate[] | null {
     const changedProps: PropertyUpdate[] = []
-    // type: 'any' property (not coded) BabylonjsCoreShaderMaterial.shaderPath.
+    checkObservableDiff(
+      oldProps.customBindingObservable,
+      newProps.customBindingObservable,
+      'customBindingObservable',
+      changedProps
+    )
+    // type: 'string | BabylonjsCoreIShaderPath' property (not coded) BabylonjsCoreShaderMaterial.shaderPath.
     checkPrimitiveDiff(oldProps.snippetId, newProps.snippetId, 'snippetId', changedProps)
     checkMethodDiff(oldProps.setArray2, newProps.setArray2, 'setArray2', changedProps)
     checkMethodDiff(oldProps.setArray3, newProps.setArray3, 'setArray3', changedProps)
@@ -8543,7 +8458,7 @@ export class FiberShaderMaterial implements HasPropsHandlers<FiberMaterialProps>
       },
       {
         name: 'shaderPath',
-        type: 'any',
+        type: 'string | BabylonjsCoreIShaderPath',
         optional: false,
       },
       {
@@ -8788,6 +8703,103 @@ export class FiberHandleMaterial implements HasPropsHandlers<FiberMaterialProps>
   public static readonly Metadata: CreatedInstanceMetadata = {
     isMaterial: true,
     className: 'FiberHandleMaterial',
+  }
+}
+
+export class FiberNodeMaterialPropsHandler implements PropsHandler<FiberNodeMaterialProps> {
+  getPropertyUpdates(
+    oldProps: FiberNodeMaterialProps,
+    newProps: FiberNodeMaterialProps
+  ): PropertyUpdate[] | null {
+    const changedProps: PropertyUpdate[] = []
+    // type: 'BabylonjsCoreNodeMaterialBlock[]' property (not coded) BabylonjsCoreNodeMaterial.attachedBlocks.
+    // type: 'any' property (not coded) BabylonjsCoreNodeMaterial.BJSNODEMATERIALEDITOR.
+    checkPrimitiveDiff(oldProps.buildId, newProps.buildId, 'buildId', changedProps)
+    checkPrimitiveDiff(oldProps.comment, newProps.comment, 'comment', changedProps)
+    // type: 'any' property (not coded) BabylonjsCoreNodeMaterial.editorData.
+    checkPrimitiveDiff(
+      oldProps.forceAlphaBlending,
+      newProps.forceAlphaBlending,
+      'forceAlphaBlending',
+      changedProps
+    )
+    checkPrimitiveDiff(oldProps.ignoreAlpha, newProps.ignoreAlpha, 'ignoreAlpha', changedProps)
+    // type: 'BabylonjsCoreImageProcessingConfiguration' property (not coded) BabylonjsCoreNodeMaterial.imageProcessingConfiguration.
+    checkPrimitiveDiff(
+      oldProps.maxSimultaneousLights,
+      newProps.maxSimultaneousLights,
+      'maxSimultaneousLights',
+      changedProps
+    )
+    checkPrimitiveDiff(oldProps.mode, newProps.mode, 'mode', changedProps)
+    checkObservableDiff(
+      oldProps.onBuildObservable,
+      newProps.onBuildObservable,
+      'onBuildObservable',
+      changedProps
+    )
+    // type: 'BabylonjsCoreINodeMaterialOptions' property (not coded) BabylonjsCoreNodeMaterial.options.
+    checkPrimitiveDiff(oldProps.snippetId, newProps.snippetId, 'snippetId', changedProps)
+    checkMethodDiff(oldProps.addOutputNode, newProps.addOutputNode, 'addOutputNode', changedProps)
+    checkMethodDiff(
+      oldProps.setPrePassRenderer,
+      newProps.setPrePassRenderer,
+      'setPrePassRenderer',
+      changedProps
+    )
+    return changedProps.length === 0 ? null : changedProps
+  }
+}
+
+/**
+ * Class used to create a node based material built by assembling shader blocks
+ *
+ * This code has been generated
+ */
+export class FiberNodeMaterial implements HasPropsHandlers<FiberMaterialProps> {
+  private propsHandlers: PropsHandler<FiberMaterialProps>[]
+
+  constructor() {
+    this.propsHandlers = [
+      new FiberNodeMaterialPropsHandler(),
+      new FiberPushMaterialPropsHandler(),
+      new FiberMaterialPropsHandler(),
+    ]
+  }
+
+  getPropsHandlers(): PropsHandler<FiberMaterialProps>[] {
+    return this.propsHandlers
+  }
+
+  addPropsHandler(propHandler: PropsHandler<FiberMaterialProps>): void {
+    this.propsHandlers.push(propHandler)
+  }
+
+  public static readonly CreateInfo = {
+    creationType: 'Constructor',
+    libraryLocation: 'NodeMaterial',
+    namespace: '@babylonjs/core',
+    parameters: [
+      {
+        name: 'name',
+        type: 'string',
+        optional: false,
+      },
+      {
+        name: 'scene',
+        type: 'BabylonjsCoreScene',
+        optional: true,
+      },
+      {
+        name: 'options',
+        type: 'Partial<BabylonjsCoreINodeMaterialOptions>',
+        optional: true,
+      },
+    ],
+  }
+  public static readonly Metadata: CreatedInstanceMetadata = {
+    isMaterial: true,
+    className: 'FiberNodeMaterial',
   }
 }
 
@@ -16923,6 +16935,12 @@ export class FiberSpriteManagerPropsHandler implements PropsHandler<FiberSpriteM
     // type: 'BabylonjsCoreSprite[]' property (not coded) BabylonjsCoreSpriteManager.sprites.
     // type: 'BabylonjsCoreTexture' property (not coded) BabylonjsCoreSpriteManager.texture.
     checkPrimitiveDiff(oldProps.uniqueId, newProps.uniqueId, 'uniqueId', changedProps)
+    checkPrimitiveDiff(
+      oldProps.useLogarithmicDepth,
+      newProps.useLogarithmicDepth,
+      'useLogarithmicDepth',
+      changedProps
+    )
     return changedProps.length === 0 ? null : changedProps
   }
 }
@@ -17893,7 +17911,7 @@ export class FiberBaseTexture implements HasPropsHandlers<FiberThinTextureProps>
     parameters: [
       {
         name: 'sceneOrEngine',
-        type: 'BabylonjsCoreScene | BabylonjsCoreThinEngine',
+        type: 'BabylonjsCoreScene | BabylonjsCoreAbstractEngine',
         optional: true,
       },
       {
@@ -18001,7 +18019,7 @@ export class FiberCubeTexture implements HasPropsHandlers<FiberThinTextureProps>
       },
       {
         name: 'sceneOrEngine',
-        type: 'BabylonjsCoreScene | BabylonjsCoreThinEngine',
+        type: 'BabylonjsCoreScene | BabylonjsCoreAbstractEngine',
         optional: false,
       },
       {
@@ -18255,7 +18273,7 @@ export class FiberTexture implements HasPropsHandlers<FiberThinTextureProps> {
       },
       {
         name: 'sceneOrEngine',
-        type: 'BabylonjsCoreScene | BabylonjsCoreThinEngine',
+        type: 'BabylonjsCoreScene | BabylonjsCoreAbstractEngine',
         optional: true,
       },
       {
@@ -18454,6 +18472,7 @@ export class FiberProceduralTexturePropsHandler
     checkMethodDiff(oldProps.setTexture, newProps.setTexture, 'setTexture', changedProps)
     checkMethodDiff(oldProps.setVector2, newProps.setVector2, 'setVector2', changedProps)
     checkMethodDiff(oldProps.setVector3, newProps.setVector3, 'setVector3', changedProps)
+    checkMethodDiff(oldProps.setVector4, newProps.setVector4, 'setVector4', changedProps)
     return changedProps.length === 0 ? null : changedProps
   }
 }
@@ -18776,7 +18795,7 @@ export class FiberRawTexture implements HasPropsHandlers<FiberThinTextureProps> 
       },
       {
         name: 'sceneOrEngine',
-        type: 'BabylonjsCoreScene | BabylonjsCoreThinEngine',
+        type: 'BabylonjsCoreScene | BabylonjsCoreAbstractEngine',
         optional: false,
       },
       {
@@ -18814,112 +18833,6 @@ export class FiberRawTexture implements HasPropsHandlers<FiberThinTextureProps> 
   public static readonly Metadata: CreatedInstanceMetadata = {
     isTexture: true,
     className: 'FiberRawTexture',
-  }
-}
-
-export class FiberRawTexture2DArrayPropsHandler
-  implements PropsHandler<FiberRawTexture2DArrayProps>
-{
-  getPropertyUpdates(
-    oldProps: FiberRawTexture2DArrayProps,
-    newProps: FiberRawTexture2DArrayProps
-  ): PropertyUpdate[] | null {
-    const changedProps: PropertyUpdate[] = []
-    checkPrimitiveDiff(oldProps.format, newProps.format, 'format', changedProps)
-    return changedProps.length === 0 ? null : changedProps
-  }
-}
-
-/**
- * Class used to store 2D array textures containing user data
- *
- * This code has been generated
- */
-export class FiberRawTexture2DArray implements HasPropsHandlers<FiberThinTextureProps> {
-  private propsHandlers: PropsHandler<FiberThinTextureProps>[]
-
-  constructor() {
-    this.propsHandlers = [
-      new FiberRawTexture2DArrayPropsHandler(),
-      new FiberTexturePropsHandler(),
-      new FiberBaseTexturePropsHandler(),
-      new FiberThinTexturePropsHandler(),
-    ]
-  }
-
-  getPropsHandlers(): PropsHandler<FiberThinTextureProps>[] {
-    return this.propsHandlers
-  }
-
-  addPropsHandler(propHandler: PropsHandler<FiberThinTextureProps>): void {
-    this.propsHandlers.push(propHandler)
-  }
-
-  public static readonly CreateInfo = {
-    creationType: 'Constructor',
-    libraryLocation: 'RawTexture2DArray',
-    namespace: '@babylonjs/core',
-    parameters: [
-      {
-        name: 'data',
-        type: 'ArrayBufferView',
-        optional: false,
-      },
-      {
-        name: 'width',
-        type: 'number',
-        optional: false,
-      },
-      {
-        name: 'height',
-        type: 'number',
-        optional: false,
-      },
-      {
-        name: 'depth',
-        type: 'number',
-        optional: false,
-      },
-      {
-        name: 'format',
-        type: 'number',
-        optional: false,
-      },
-      {
-        name: 'scene',
-        type: 'BabylonjsCoreScene',
-        optional: false,
-      },
-      {
-        name: 'generateMipMaps',
-        type: 'boolean',
-        optional: true,
-      },
-      {
-        name: 'invertY',
-        type: 'boolean',
-        optional: true,
-      },
-      {
-        name: 'samplingMode',
-        type: 'number',
-        optional: true,
-      },
-      {
-        name: 'textureType',
-        type: 'number',
-        optional: true,
-      },
-      {
-        name: 'creationFlags',
-        type: 'number',
-        optional: true,
-      },
-    ],
-  }
-  public static readonly Metadata: CreatedInstanceMetadata = {
-    isTexture: true,
-    className: 'FiberRawTexture2DArray',
   }
 }
 
@@ -19141,7 +19054,7 @@ export class FiberRenderTargetTexture implements HasPropsHandlers<FiberThinTextu
       },
       {
         name: 'size',
-        type: 'number | { width: number; height: number; layers?: number; } | { ratio: number; }',
+        type: 'BabylonjsCoreTextureSize | { ratio: number; }',
         optional: false,
       },
       {
@@ -19614,6 +19527,7 @@ export class FiberMultiviewRenderTargetPropsHandler
 
 /**
  * Renders to multiple views with a single draw call
+ * Only for WebGL backends
  *
  * This code has been generated
  */
@@ -19658,6 +19572,112 @@ export class FiberMultiviewRenderTarget implements HasPropsHandlers<FiberThinTex
   public static readonly Metadata: CreatedInstanceMetadata = {
     isTexture: true,
     className: 'FiberMultiviewRenderTarget',
+  }
+}
+
+export class FiberRawTexture2DArrayPropsHandler
+  implements PropsHandler<FiberRawTexture2DArrayProps>
+{
+  getPropertyUpdates(
+    oldProps: FiberRawTexture2DArrayProps,
+    newProps: FiberRawTexture2DArrayProps
+  ): PropertyUpdate[] | null {
+    const changedProps: PropertyUpdate[] = []
+    checkPrimitiveDiff(oldProps.format, newProps.format, 'format', changedProps)
+    return changedProps.length === 0 ? null : changedProps
+  }
+}
+
+/**
+ * Class used to store 2D array textures containing user data
+ *
+ * This code has been generated
+ */
+export class FiberRawTexture2DArray implements HasPropsHandlers<FiberThinTextureProps> {
+  private propsHandlers: PropsHandler<FiberThinTextureProps>[]
+
+  constructor() {
+    this.propsHandlers = [
+      new FiberRawTexture2DArrayPropsHandler(),
+      new FiberTexturePropsHandler(),
+      new FiberBaseTexturePropsHandler(),
+      new FiberThinTexturePropsHandler(),
+    ]
+  }
+
+  getPropsHandlers(): PropsHandler<FiberThinTextureProps>[] {
+    return this.propsHandlers
+  }
+
+  addPropsHandler(propHandler: PropsHandler<FiberThinTextureProps>): void {
+    this.propsHandlers.push(propHandler)
+  }
+
+  public static readonly CreateInfo = {
+    creationType: 'Constructor',
+    libraryLocation: 'RawTexture2DArray',
+    namespace: '@babylonjs/core',
+    parameters: [
+      {
+        name: 'data',
+        type: 'ArrayBufferView',
+        optional: false,
+      },
+      {
+        name: 'width',
+        type: 'number',
+        optional: false,
+      },
+      {
+        name: 'height',
+        type: 'number',
+        optional: false,
+      },
+      {
+        name: 'depth',
+        type: 'number',
+        optional: false,
+      },
+      {
+        name: 'format',
+        type: 'number',
+        optional: false,
+      },
+      {
+        name: 'scene',
+        type: 'BabylonjsCoreScene',
+        optional: false,
+      },
+      {
+        name: 'generateMipMaps',
+        type: 'boolean',
+        optional: true,
+      },
+      {
+        name: 'invertY',
+        type: 'boolean',
+        optional: true,
+      },
+      {
+        name: 'samplingMode',
+        type: 'number',
+        optional: true,
+      },
+      {
+        name: 'textureType',
+        type: 'number',
+        optional: true,
+      },
+      {
+        name: 'creationFlags',
+        type: 'number',
+        optional: true,
+      },
+    ],
+  }
+  public static readonly Metadata: CreatedInstanceMetadata = {
+    isTexture: true,
+    className: 'FiberRawTexture2DArray',
   }
 }
 
@@ -19991,6 +20011,11 @@ export class FiberADTForMesh implements HasPropsHandlers<FiberAdvancedDynamicTex
         type: '(mesh: BabylonjsCoreAbstractMesh, uniqueId: string, texture: BabylonjsGuiAdvancedDynamicTexture, onlyAlphaTesting: boolean) => void',
         optional: true,
       },
+      {
+        name: 'sampling',
+        type: 'number',
+        optional: true,
+      },
     ],
   }
   public static readonly Metadata: CreatedInstanceMetadata = {
@@ -20055,6 +20080,11 @@ export class FiberADTForMeshTexture implements HasPropsHandlers<FiberAdvancedDyn
       {
         name: 'invertY',
         type: 'boolean',
+        optional: true,
+      },
+      {
+        name: 'sampling',
+        type: 'number',
         optional: true,
       },
     ],
@@ -20294,7 +20324,7 @@ export class FiberColorGradingTexture implements HasPropsHandlers<FiberThinTextu
       },
       {
         name: 'sceneOrEngine',
-        type: 'BabylonjsCoreScene | BabylonjsCoreThinEngine',
+        type: 'BabylonjsCoreScene | BabylonjsCoreAbstractEngine',
         optional: false,
       },
       {
@@ -20496,7 +20526,7 @@ export class FiberHDRCubeTexture implements HasPropsHandlers<FiberThinTexturePro
       },
       {
         name: 'sceneOrEngine',
-        type: 'BabylonjsCoreScene | BabylonjsCoreThinEngine',
+        type: 'BabylonjsCoreScene | BabylonjsCoreAbstractEngine',
         optional: false,
       },
       {
@@ -20736,7 +20766,7 @@ export class FiberPostProcessRenderPipeline
     parameters: [
       {
         name: '_engine',
-        type: 'BabylonjsCoreEngine',
+        type: 'BabylonjsCoreAbstractEngine',
         optional: false,
       },
       {
@@ -22257,7 +22287,7 @@ export class FiberImageProcessingPostProcess implements HasPropsHandlers<FiberPo
       },
       {
         name: 'engine',
-        type: 'BabylonjsCoreEngine',
+        type: 'BabylonjsCoreAbstractEngine',
         optional: true,
       },
       {
@@ -22421,7 +22451,7 @@ export class FiberBlackAndWhitePostProcess implements HasPropsHandlers<FiberPost
       },
       {
         name: 'engine',
-        type: 'BabylonjsCoreEngine',
+        type: 'BabylonjsCoreAbstractEngine',
         optional: true,
       },
       {
@@ -22499,7 +22529,7 @@ export class FiberExtractHighlightsPostProcess implements HasPropsHandlers<Fiber
       },
       {
         name: 'engine',
-        type: 'BabylonjsCoreEngine',
+        type: 'BabylonjsCoreAbstractEngine',
         optional: true,
       },
       {
@@ -22602,7 +22632,7 @@ export class FiberBloomMergePostProcess implements HasPropsHandlers<FiberPostPro
       },
       {
         name: 'engine',
-        type: 'BabylonjsCoreEngine',
+        type: 'BabylonjsCoreAbstractEngine',
         optional: true,
       },
       {
@@ -22701,7 +22731,7 @@ export class FiberBlurPostProcess implements HasPropsHandlers<FiberPostProcessPr
       },
       {
         name: 'engine',
-        type: 'BabylonjsCoreEngine',
+        type: 'BabylonjsCoreAbstractEngine',
         optional: true,
       },
       {
@@ -22827,7 +22857,7 @@ export class FiberDepthOfFieldBlurPostProcess implements HasPropsHandlers<FiberP
       },
       {
         name: 'engine',
-        type: 'BabylonjsCoreEngine',
+        type: 'BabylonjsCoreAbstractEngine',
         optional: true,
       },
       {
@@ -22947,7 +22977,7 @@ export class FiberChromaticAberrationPostProcess
       },
       {
         name: 'engine',
-        type: 'BabylonjsCoreEngine',
+        type: 'BabylonjsCoreAbstractEngine',
         optional: true,
       },
       {
@@ -23049,7 +23079,7 @@ export class FiberCircleOfConfusionPostProcess implements HasPropsHandlers<Fiber
       },
       {
         name: 'engine',
-        type: 'BabylonjsCoreEngine',
+        type: 'BabylonjsCoreAbstractEngine',
         optional: true,
       },
       {
@@ -23154,7 +23184,7 @@ export class FiberColorCorrectionPostProcess implements HasPropsHandlers<FiberPo
       },
       {
         name: 'engine',
-        type: 'BabylonjsCoreEngine',
+        type: 'BabylonjsCoreAbstractEngine',
         optional: true,
       },
       {
@@ -23239,7 +23269,7 @@ export class FiberConvolutionPostProcess implements HasPropsHandlers<FiberPostPr
       },
       {
         name: 'engine',
-        type: 'BabylonjsCoreEngine',
+        type: 'BabylonjsCoreAbstractEngine',
         optional: true,
       },
       {
@@ -23335,7 +23365,7 @@ export class FiberDepthOfFieldMergePostProcess implements HasPropsHandlers<Fiber
       },
       {
         name: 'engine',
-        type: 'BabylonjsCoreEngine',
+        type: 'BabylonjsCoreAbstractEngine',
         optional: true,
       },
       {
@@ -23421,7 +23451,7 @@ export class FiberDisplayPassPostProcess implements HasPropsHandlers<FiberPostPr
       },
       {
         name: 'engine',
-        type: 'BabylonjsCoreEngine',
+        type: 'BabylonjsCoreAbstractEngine',
         optional: true,
       },
       {
@@ -23503,7 +23533,7 @@ export class FiberFilterPostProcess implements HasPropsHandlers<FiberPostProcess
       },
       {
         name: 'engine',
-        type: 'BabylonjsCoreEngine',
+        type: 'BabylonjsCoreAbstractEngine',
         optional: true,
       },
       {
@@ -23577,7 +23607,7 @@ export class FiberFxaaPostProcess implements HasPropsHandlers<FiberPostProcessPr
       },
       {
         name: 'engine',
-        type: 'BabylonjsCoreEngine',
+        type: 'BabylonjsCoreAbstractEngine',
         optional: true,
       },
       {
@@ -23659,7 +23689,7 @@ export class FiberGrainPostProcess implements HasPropsHandlers<FiberPostProcessP
       },
       {
         name: 'engine',
-        type: 'BabylonjsCoreEngine',
+        type: 'BabylonjsCoreAbstractEngine',
         optional: true,
       },
       {
@@ -23859,7 +23889,7 @@ export class FiberMotionBlurPostProcess implements HasPropsHandlers<FiberPostPro
       },
       {
         name: 'engine',
-        type: 'BabylonjsCoreEngine',
+        type: 'BabylonjsCoreAbstractEngine',
         optional: true,
       },
       {
@@ -23948,7 +23978,7 @@ export class FiberPassPostProcess implements HasPropsHandlers<FiberPostProcessPr
       },
       {
         name: 'engine',
-        type: 'BabylonjsCoreEngine',
+        type: 'BabylonjsCoreAbstractEngine',
         optional: true,
       },
       {
@@ -24036,7 +24066,7 @@ export class FiberPassCubePostProcess implements HasPropsHandlers<FiberPostProce
       },
       {
         name: 'engine',
-        type: 'BabylonjsCoreEngine',
+        type: 'BabylonjsCoreAbstractEngine',
         optional: true,
       },
       {
@@ -24153,7 +24183,7 @@ export class FiberRefractionPostProcess implements HasPropsHandlers<FiberPostPro
       },
       {
         name: 'engine',
-        type: 'BabylonjsCoreEngine',
+        type: 'BabylonjsCoreAbstractEngine',
         optional: true,
       },
       {
@@ -24233,7 +24263,7 @@ export class FiberSharpenPostProcess implements HasPropsHandlers<FiberPostProces
       },
       {
         name: 'engine',
-        type: 'BabylonjsCoreEngine',
+        type: 'BabylonjsCoreAbstractEngine',
         optional: true,
       },
       {
@@ -24356,7 +24386,7 @@ export class FiberScreenSpaceReflectionPostProcess
       },
       {
         name: 'engine',
-        type: 'BabylonjsCoreEngine',
+        type: 'BabylonjsCoreAbstractEngine',
         optional: true,
       },
       {
@@ -24766,7 +24796,7 @@ export class FiberVolumetricLightScatteringPostProcess
       },
       {
         name: 'engine',
-        type: 'BabylonjsCoreEngine',
+        type: 'BabylonjsCoreAbstractEngine',
         optional: true,
       },
       {
@@ -24989,7 +25019,7 @@ export class FiberScreenSpaceCurvaturePostProcess
       },
       {
         name: 'engine',
-        type: 'BabylonjsCoreEngine',
+        type: 'BabylonjsCoreAbstractEngine',
         optional: true,
       },
       {
@@ -25082,7 +25112,7 @@ export class FiberSubSurfaceScatteringPostProcess
       },
       {
         name: 'engine',
-        type: 'BabylonjsCoreEngine',
+        type: 'BabylonjsCoreAbstractEngine',
         optional: true,
       },
       {
@@ -28789,6 +28819,18 @@ export class FiberPBRSubSurfaceConfigurationPropsHandler
       'tintColorAtDistance',
       changedProps
     )
+    checkColor3Diff(
+      oldProps.translucencyColor,
+      newProps.translucencyColor,
+      'translucencyColor',
+      changedProps
+    )
+    checkTextureDiff(
+      oldProps.translucencyColorTexture,
+      newProps.translucencyColorTexture,
+      'translucencyColorTexture',
+      changedProps
+    )
     checkPrimitiveDiff(
       oldProps.translucencyIntensity,
       newProps.translucencyIntensity,
@@ -31379,10 +31421,6 @@ const classesMap: Record<string, any> = {
   MeshBuilder: BabylonjsCoreMeshBuilder,
   pushMaterial: BabylonjsCorePushMaterial,
   PushMaterial: BabylonjsCorePushMaterial,
-  nodeMaterial: BabylonjsCoreNodeMaterial,
-  NodeMaterial: BabylonjsCoreNodeMaterial,
-  imageProcessingConfiguration: BabylonjsCoreImageProcessingConfiguration,
-  ImageProcessingConfiguration: BabylonjsCoreImageProcessingConfiguration,
   shaderMaterial: BabylonjsCoreShaderMaterial,
   ShaderMaterial: BabylonjsCoreShaderMaterial,
   baseTexture: BabylonjsCoreBaseTexture,
@@ -31395,6 +31433,10 @@ const classesMap: Record<string, any> = {
   RawTexture: BabylonjsCoreRawTexture,
   handleMaterial: BabylonjsGuiHandleMaterial,
   HandleMaterial: BabylonjsGuiHandleMaterial,
+  nodeMaterial: BabylonjsCoreNodeMaterial,
+  NodeMaterial: BabylonjsCoreNodeMaterial,
+  imageProcessingConfiguration: BabylonjsCoreImageProcessingConfiguration,
+  ImageProcessingConfiguration: BabylonjsCoreImageProcessingConfiguration,
   pbrBaseMaterial: BabylonjsCorePBRBaseMaterial,
   PBRBaseMaterial: BabylonjsCorePBRBaseMaterial,
   pbrBaseSimpleMaterial: BabylonjsCorePBRBaseSimpleMaterial,
@@ -31559,8 +31601,6 @@ const classesMap: Record<string, any> = {
   CustomProceduralTexture: BabylonjsCoreCustomProceduralTexture,
   noiseProceduralTexture: BabylonjsCoreNoiseProceduralTexture,
   NoiseProceduralTexture: BabylonjsCoreNoiseProceduralTexture,
-  rawTexture2DArray: BabylonjsCoreRawTexture2DArray,
-  RawTexture2DArray: BabylonjsCoreRawTexture2DArray,
   mirrorTexture: BabylonjsCoreMirrorTexture,
   MirrorTexture: BabylonjsCoreMirrorTexture,
   multiRenderTarget: BabylonjsCoreMultiRenderTarget,
@@ -31575,6 +31615,8 @@ const classesMap: Record<string, any> = {
   XRSpaceWarpRenderTarget: BabylonjsCoreXRSpaceWarpRenderTarget,
   multiviewRenderTarget: BabylonjsCoreMultiviewRenderTarget,
   MultiviewRenderTarget: BabylonjsCoreMultiviewRenderTarget,
+  rawTexture2DArray: BabylonjsCoreRawTexture2DArray,
+  RawTexture2DArray: BabylonjsCoreRawTexture2DArray,
   dynamicTexture: BabylonjsCoreDynamicTexture,
   DynamicTexture: BabylonjsCoreDynamicTexture,
   rawTexture3D: BabylonjsCoreRawTexture3D,
@@ -31788,14 +31830,14 @@ export const intrinsicClassMap: object = {
   arcFollowCamera: 'ArcFollowCamera',
   meshBuilder: 'MeshBuilder',
   pushMaterial: 'PushMaterial',
-  nodeMaterial: 'NodeMaterial',
-  imageProcessingConfiguration: 'ImageProcessingConfiguration',
   shaderMaterial: 'ShaderMaterial',
   baseTexture: 'BaseTexture',
   occlusionMaterial: 'OcclusionMaterial',
   greasedLineSimpleMaterial: 'GreasedLineSimpleMaterial',
   rawTexture: 'RawTexture',
   handleMaterial: 'HandleMaterial',
+  nodeMaterial: 'NodeMaterial',
+  imageProcessingConfiguration: 'ImageProcessingConfiguration',
   pbrBaseMaterial: 'PBRBaseMaterial',
   pbrBaseSimpleMaterial: 'PBRBaseSimpleMaterial',
   pbrMetallicRoughnessMaterial: 'PBRMetallicRoughnessMaterial',
@@ -31878,7 +31920,6 @@ export const intrinsicClassMap: object = {
   proceduralTexture: 'ProceduralTexture',
   customProceduralTexture: 'CustomProceduralTexture',
   noiseProceduralTexture: 'NoiseProceduralTexture',
-  rawTexture2DArray: 'RawTexture2DArray',
   mirrorTexture: 'MirrorTexture',
   multiRenderTarget: 'MultiRenderTarget',
   prePassRenderTarget: 'PrePassRenderTarget',
@@ -31886,6 +31927,7 @@ export const intrinsicClassMap: object = {
   refractionTexture: 'RefractionTexture',
   xrSpaceWarpRenderTarget: 'XRSpaceWarpRenderTarget',
   multiviewRenderTarget: 'MultiviewRenderTarget',
+  rawTexture2DArray: 'RawTexture2DArray',
   dynamicTexture: 'DynamicTexture',
   rawTexture3D: 'RawTexture3D',
   colorGradingTexture: 'ColorGradingTexture',
