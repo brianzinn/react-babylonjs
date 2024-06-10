@@ -26,9 +26,24 @@ export interface ReconcilerInstance {
 
 const ReconcilerSecondary: ReconcilerType<Container, any, any, any, any> =
   Reconciler(ReactBabylonJSHostConfig)
+
+ReconcilerSecondary.injectIntoDevTools({
+  findFiberByHostInstance: (ReconcilerSecondary as any).findFiberByHostInstance,
+  bundleType: process.env.NODE_ENV === 'prod' ? 1 : 0,
+  version,
+  rendererPackageName: 'react-babylonjs',
+})
+
 const ReconcilerPrimary: ReconcilerType<Container, any, any, any, any> = Reconciler({
   ...ReactBabylonJSHostConfig,
   isPrimaryRenderer: true,
+})
+
+ReconcilerPrimary.injectIntoDevTools({
+  findFiberByHostInstance: (ReconcilerPrimary as any).findFiberByHostInstance,
+  bundleType: process.env.NODE_ENV === 'prod' ? 1 : 0,
+  version,
+  rendererPackageName: 'react-babylonjs',
 })
 
 /**
@@ -73,13 +88,6 @@ export function createReconciler(rendererOptions: RendererOptions): ReconcilerIn
         false /* hydrate */
       ) as FiberRoot
       roots.set(container, root)
-
-      reconciler.injectIntoDevTools({
-        findFiberByHostInstance: (reconciler as any).findFiberByHostInstance,
-        bundleType: process.env.NODE_ENV === 'prod' ? 1 : 0,
-        version,
-        rendererPackageName: 'react-babylonjs',
-      })
     }
 
     reconciler.updateContainer(element, root, parentComponent, callback)
