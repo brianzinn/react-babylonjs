@@ -81,9 +81,9 @@ Shadows, Textures, etc.)
    sixDofDragBehavior, surfaceMagnetismBehavior
 
 9. **PostProcessRenderPipelines**: defaultRenderingPipeline,
-   lensRenderingPipeline, postProcessRenderPipeline, ssao2RenderingPipeline,
-   ssaoRenderingPipeline, ssrRenderingPipeline, standardRenderingPipeline,
-   taaRenderingPipeline
+   iblShadowsRenderPipeline (use assignFrom), lensRenderingPipeline,
+   postProcessRenderPipeline, ssao2RenderingPipeline, ssaoRenderingPipeline,
+   ssrRenderingPipeline, standardRenderingPipeline, taaRenderingPipeline
 
 10. **PostProcesss** anaglyphPostProcess, blackAndWhitePostProcess,
     bloomMergePostProcess, blurPostProcess, chromaticAberrationPostProcess,

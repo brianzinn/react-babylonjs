@@ -191,7 +191,6 @@ const classesToGenerate: String[] = [
   'TransformNode',
   'AbstractMesh',
   'Mesh',
-  'AbstractScene',
   'Scene',
 
   // decides what is generated (useful to remove some to speed up debugging)

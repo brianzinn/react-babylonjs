@@ -1,6 +1,6 @@
 import { EventState, Observer } from '@babylonjs/core/Misc/observable.js'
 import { Scene } from '@babylonjs/core/scene.js'
-import { Camera } from "@babylonjs/core/Cameras/camera.js"
+import { Camera } from '@babylonjs/core/Cameras/camera.js'
 import { Nullable } from '@babylonjs/core/types.js'
 import { useContext, useEffect } from 'react'
 import { SceneContext } from './scene'
@@ -93,34 +93,34 @@ export const useAfterRender = (
  * @param insertFirst if true will be inserted at first position, if false (default) will be last position.
  * @param callOnce only call the callback once
  */
- export const useBeforeCameraRender = (
-	callback: OnCameraRenderFn,
-	mask?: number,
-	insertFirst?: boolean,
-	callOnce?: boolean,
-	deps: React.DependencyList = []
-  ): void => {
-	const { scene } = useContext(SceneContext)
+export const useBeforeCameraRender = (
+  callback: OnCameraRenderFn,
+  mask?: number,
+  insertFirst?: boolean,
+  callOnce?: boolean,
+  deps: React.DependencyList = []
+): void => {
+  const { scene } = useContext(SceneContext)
 
-	useEffect(() => {
-		if (scene === null) {
-			return
-		}
-		const unregisterOnFirstCall: boolean = callOnce === true
-		const sceneObserver: Nullable<Observer<Camera>> = scene.onBeforeCameraRenderObservable.add(
-			callback,
-			mask,
-			insertFirst,
-			undefined,
-			unregisterOnFirstCall,
-		)
+  useEffect(() => {
+    if (scene === null) {
+      return
+    }
+    const unregisterOnFirstCall: boolean = callOnce === true
+    const sceneObserver: Nullable<Observer<Camera>> = scene.onBeforeCameraRenderObservable.add(
+      callback,
+      mask,
+      insertFirst,
+      undefined,
+      unregisterOnFirstCall
+    )
 
-		if (unregisterOnFirstCall !== true) {
-			return () => {
-				scene.onBeforeCameraRenderObservable.remove(sceneObserver)
-			}
-		}
-	}, [scene, ...deps])
+    if (unregisterOnFirstCall !== true) {
+      return () => {
+        scene.onBeforeCameraRenderObservable.remove(sceneObserver)
+      }
+    }
+  }, [scene, ...deps])
 }
 
 /**
@@ -131,32 +131,32 @@ export const useAfterRender = (
  * @param insertFirst if true will be inserted at first position, if false (default) will be last position.
  * @param callOnce only call the callback once
  */
- export const useAfterCameraRender = (
-	callback: OnCameraRenderFn,
-	mask?: number,
-	insertFirst?: boolean,
-	callOnce?: boolean,
+export const useAfterCameraRender = (
+  callback: OnCameraRenderFn,
+  mask?: number,
+  insertFirst?: boolean,
+  callOnce?: boolean
 ): void => {
-	const { scene } = useContext(SceneContext)
+  const { scene } = useContext(SceneContext)
 
-	useEffect(() => {
-		if (scene === null) {
-			return
-		}
+  useEffect(() => {
+    if (scene === null) {
+      return
+    }
 
-		const unregisterOnFirstCall: boolean = callOnce === true
-		const sceneObserver: Nullable<Observer<Camera>> = scene.onAfterCameraRenderObservable.add(
-			callback,
-			mask,
-			insertFirst,
-			undefined,
-			unregisterOnFirstCall,
-		)
+    const unregisterOnFirstCall: boolean = callOnce === true
+    const sceneObserver: Nullable<Observer<Camera>> = scene.onAfterCameraRenderObservable.add(
+      callback,
+      mask,
+      insertFirst,
+      undefined,
+      unregisterOnFirstCall
+    )
 
-		if (unregisterOnFirstCall !== true) {
-			return () => {
-				scene.onAfterCameraRenderObservable.remove(sceneObserver)
-			}
-		}
-	})
+    if (unregisterOnFirstCall !== true) {
+      return () => {
+        scene.onAfterCameraRenderObservable.remove(sceneObserver)
+      }
+    }
+  })
 }
