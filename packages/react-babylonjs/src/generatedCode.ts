@@ -22211,33 +22211,7 @@ export class FiberIblShadowsRenderPipeline
     this.propsHandlers.push(propHandler)
   }
 
-  public static readonly CreateInfo = {
-    creationType: 'Constructor',
-    libraryLocation: 'IblShadowsRenderPipeline',
-    namespace: '@babylonjs/core',
-    parameters: [
-      {
-        name: 'name',
-        type: 'string',
-        optional: false,
-      },
-      {
-        name: 'scene',
-        type: 'BabylonjsCoreScene',
-        optional: false,
-      },
-      {
-        name: 'options',
-        type: 'Partial<IblShadowsSettings>',
-        optional: true,
-      },
-      {
-        name: 'cameras',
-        type: 'BabylonjsCoreCamera[]',
-        optional: true,
-      },
-    ],
-  }
+  public static readonly CreateInfo = {}
   public static readonly Metadata: CreatedInstanceMetadata = {
     className: 'FiberIblShadowsRenderPipeline',
   }

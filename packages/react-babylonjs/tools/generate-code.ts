@@ -98,6 +98,8 @@ const ALL_CUSTOM_PROPS = [
   'VRExperienceHelperCustomProps',
 ]
 
+const SKIP_CONSTRUCTORS_FOR = ['IblShadowsRenderPipeline']
+
 // would be good to check JSX.IntrinsicElements with 'keyof', but it's erased at runtime (doesn't work on dynamic strings)
 // fixes TS warning: Property 'polygon' must be of type SVGProps<SVGPolygonElement>, but here has type..., so we are skipping to generate polygon for now.
 // TypeScript has some issues being worked on to address local instead of `global`
@@ -126,11 +128,16 @@ const addHostElement = (className: string, babylonjsClassDeclaration: ClassDecla
 
     const moduleDeclaration = getModuleDeclarationFromDeclaration(babylonjsClassDeclaration)
 
+    const constructorWasNotGenerated =
+      className !== undefined && SKIP_CONSTRUCTORS_FOR.indexOf(className) !== -1
+
     let classPropIntersection = intersectionType(
-      intersectionType(
-        `${CLASS_NAME_PREFIX}${babylonjsClassDeclaration.getName()}Props`,
-        `${CLASS_NAME_PREFIX}${className}PropsCtor`
-      ),
+      constructorWasNotGenerated
+        ? `${CLASS_NAME_PREFIX}${babylonjsClassDeclaration.getName()}Props`
+        : intersectionType(
+            `${CLASS_NAME_PREFIX}${babylonjsClassDeclaration.getName()}Props`,
+            `${CLASS_NAME_PREFIX}${className}PropsCtor`
+          ),
       `BabylonNode<${moduleDeclaration.importAlias}>`
     )
 
@@ -1620,6 +1627,12 @@ const addCreateInfoFromConstructor = (
     : []
 
   const className = sourceClass.getName()
+
+  if (className !== undefined && SKIP_CONSTRUCTORS_FOR.indexOf(className) !== -1) {
+    ctorArgsProperty.setInitializer('{}')
+    return
+  }
+
   const typeProperties: OptionalKind<PropertySignatureStructure>[] = []
 
   const constructorDeclarations: ConstructorDeclaration[] = sourceClass.getConstructors()

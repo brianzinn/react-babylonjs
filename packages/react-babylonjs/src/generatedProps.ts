@@ -978,7 +978,6 @@ declare global {
         FiberTAARenderingPipelinePropsCtor &
         BabylonNode<BabylonjsCoreTAARenderingPipeline>
       iblShadowsRenderPipeline: FiberIblShadowsRenderPipelineProps &
-        FiberIblShadowsRenderPipelinePropsCtor &
         BabylonNode<BabylonjsCoreIblShadowsRenderPipeline>
       postProcess: FiberPostProcessProps &
         FiberPostProcessPropsCtor &
@@ -4754,11 +4753,6 @@ export type FiberIblShadowsRenderPipelineProps = {
   voxelShadowOpacity?: number
   voxelTracingDebugEnabled?: boolean
 } & FiberPostProcessRenderPipelineProps
-export type FiberIblShadowsRenderPipelinePropsCtor = {
-  name: string
-  options?: Partial<IblShadowsSettings>
-  cameras?: BabylonjsCoreCamera[]
-}
 export type FiberPostProcessProps = {
   adaptScaleToCurrentViewport?: boolean
   alphaConstants?: BabylonjsCoreColor4
