@@ -1,3 +1,7 @@
+import assert from 'assert'
+
+import { Fiber } from 'react-reconciler'
+import sinon, { SinonSpy } from 'sinon'
 import { FreeCamera } from '@babylonjs/core/Cameras/freeCamera.js'
 import { Engine } from '@babylonjs/core/Engines/engine.js'
 import { NullEngine } from '@babylonjs/core/Engines/nullEngine.js'
@@ -7,9 +11,7 @@ import { StandardMaterial } from '@babylonjs/core/Materials/standardMaterial.js'
 import { Vector3 } from '@babylonjs/core/Maths/math.vector.js'
 import { Mesh } from '@babylonjs/core/Meshes/mesh.js'
 import { Scene } from '@babylonjs/core/scene.js'
-import assert from 'assert'
-import { Fiber } from 'react-reconciler'
-import sinon, { SinonSpy } from 'sinon'
+
 import { CreatedInstance } from '../src/CreatedInstance'
 import {
   AbstractMeshLifecycleListener,

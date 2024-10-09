@@ -11,15 +11,23 @@ export function assignProperty(value: any, target: any, propertyPath: string | s
   propertyPaths.forEach((propPath) => {
     const propsList: string[] = propPath.split('.')
 
+    const INDEXED_REGEX = /^.*\[\d+\]$/
+
     propsList.forEach((prop: string, index: number) => {
       // for assigning to arrays (ie: Texture to model -> meshes[1].material.albedoTexture)
-      const arrayRegex = /(?<arrayName>.*)\[(?<arrayIndexString>\d+)\]$/
-      const match = prop.match(arrayRegex)
+      // NOTE: named capturing only available targeting ES2018 or later
+      // const arrayRegex = /(?<arrayName>.*)\[(?<arrayIndexString>\d+)\]$/
+      // const match = prop.match(arrayRegex)
 
-      if (match && (match as any).groups) {
-        const { arrayName, arrayIndexString } = (match as any).groups
+      const isIndexedProperty = INDEXED_REGEX.test(prop)
+
+      if (isIndexedProperty) {
+        // const { arrayName, arrayIndexString } = (match as any).groups
+        const arrayName = prop.substring(0, prop.indexOf('['))
+        const arrayIndexString = prop.substring(prop.indexOf('[') + 1, prop.length - 1)
         const arrayIndex = parseInt(arrayIndexString)
         const arrayProp = target[arrayName]
+
         if (
           arrayProp === undefined ||
           !Array.isArray(arrayProp) ||
