@@ -1,11 +1,11 @@
 import { StandardMaterial } from '@babylonjs/core/Materials/standardMaterial'
 import { Color3 } from '@babylonjs/core/Maths/math.color'
 import { Vector3 } from '@babylonjs/core/Maths/math.vector'
-import { CSG } from '@babylonjs/core/Meshes/csg'
+import { CSG2, InitializeCSG2Async } from '@babylonjs/core/Meshes/csg2'
 import { Mesh } from '@babylonjs/core/Meshes/mesh'
 import { MeshBuilder } from '@babylonjs/core/Meshes/meshBuilder'
 import * as Earcut from 'earcut'
-import React, { FC, useCallback } from 'react'
+import React, { FC, useCallback, useEffect, useState } from 'react'
 import { Engine, Scene, useScene } from 'react-babylonjs'
 
 //Polygon shape in XoZ plane
@@ -34,11 +34,12 @@ var holes = [
 
 const Shapes: FC = () => {
   const scene = useScene()
-  console.log('scene', scene)
+
   const ref = useCallback(
     (node: Mesh) => {
       if (node && scene) {
-        const csg = CSG.FromMesh(node)
+        console.log('node', node)
+        const csg = CSG2.FromMesh(node)
         const sphere = MeshBuilder.CreateSphere(
           'circle',
           {
@@ -47,12 +48,15 @@ const Shapes: FC = () => {
           scene
         )
         sphere.position.x -= 2
-        let res = csg.subtract(CSG.FromMesh(sphere))
+        const res = csg.subtract(CSG2.FromMesh(sphere))
 
-        let csgMeshMaterial = new StandardMaterial('material01', scene)
+        const csgMeshMaterial = new StandardMaterial('material01', scene)
         csgMeshMaterial.diffuseColor = Color3.Yellow()
         csgMeshMaterial.specularColor = Color3.Black()
-        let mesh = res.toMesh('base', csgMeshMaterial, scene, false)
+        // used to pass in keepSubMeshes as true
+        let mesh = res.toMesh('base', scene, {
+          // materialToUse: csgMeshMaterial
+        })
         mesh.position.y += 4
         sphere.dispose()
       }
@@ -79,23 +83,34 @@ const Shapes: FC = () => {
   )
 }
 
-const ExtrudeShapesPlusCSG = () => (
-  <div style={{ flex: 1, display: 'flex' }}>
-    <Engine antialias adaptToDeviceRatio canvasId="babylonJS">
-      <Scene>
-        <arcRotateCamera
-          name="camera1"
-          alpha={(1 / 4) * Math.PI}
-          beta={(1 / 4) * Math.PI}
-          radius={20.0}
-          target={Vector3.Zero()}
-          minZ={0.001}
-        />
-        <hemisphericLight name="light1" intensity={0.7} direction={Vector3.Up()} />
-        <Shapes />
-      </Scene>
-    </Engine>
-  </div>
-)
+const ExtrudeShapesPlusCSG = () => {
+  const [csgReady, setCsgReady] = useState(false)
+
+  useEffect(() => {
+    InitializeCSG2Async().then(() => {
+      console.log('ready')
+      setCsgReady(true)
+    })
+  }, [])
+
+  return (
+    <div style={{ flex: 1, display: 'flex' }}>
+      <Engine antialias adaptToDeviceRatio canvasId="babylonJS">
+        <Scene>
+          <arcRotateCamera
+            name="camera1"
+            alpha={(1 / 4) * Math.PI}
+            beta={(1 / 4) * Math.PI}
+            radius={20.0}
+            target={Vector3.Zero()}
+            minZ={0.001}
+          />
+          <hemisphericLight name="light1" intensity={0.7} direction={Vector3.Up()} />
+          {csgReady && <Shapes />}
+        </Scene>
+      </Engine>
+    </div>
+  )
+}
 
 export default ExtrudeShapesPlusCSG
