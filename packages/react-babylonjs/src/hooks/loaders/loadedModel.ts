@@ -47,6 +47,10 @@ export class LoadedModel implements ILoadedModel {
   public status: LoaderStatus = LoaderStatus.Loading
   public rootMesh?: Mesh
   public errorMessage?: string
+  /**
+   * Not supported anymore:
+   * https://forum.babylonjs.com/t/potential-new-breaking-change-please-chime-in/54651/5
+   */
   public loaderName?: string
   public meshes?: AbstractMesh[]
   public particleSystems?: IParticleSystem[]

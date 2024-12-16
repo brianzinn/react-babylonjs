@@ -30,6 +30,13 @@ type SceneProps = {
   onScenePointerDown?: (evt: PointerInfo, scene: BabylonScene) => void
   onScenePointerUp?: (evt: PointerInfo, scene: BabylonScene) => void
   onScenePointerMove?: (evt: PointerInfo, scene: BabylonScene) => void
+  /**
+   * Called immediately after the Scene is created
+   */
+  onCreated?: (scene: BabylonScene) => void
+  /**
+   * Called after props are applied
+   */
   onSceneMount?: (sceneEventArgs: SceneEventArgs) => void
   children: React.ReactNode
   sceneOptions?: SceneOptions
@@ -69,6 +76,10 @@ const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
   useEffect(
     () => {
       const newScene = new BabylonScene(engine!, props.sceneOptions)
+
+      if (typeof props.onCreated === 'function') {
+        props.onCreated(newScene)
+      }
 
       // TODO: try to move the scene to parentComponent in updateContainer
       const container: Container = {
@@ -142,12 +153,6 @@ const Scene: React.FC<SceneProps> = (props: SceneProps, context?: any) => {
           canvas: newScene.getEngine().getRenderingCanvas()!,
         })
         // TODO: console.error if canvas is not attached. runRenderLoop() is expected to be part of onSceneMount().
-      }
-
-      // TODO: change enable physics to 'usePhysics' taking an object with a Vector3 and 'any'.
-      // NOTE: must be enabled for updating container (cannot add impostors w/o physics enabled)
-      if (Array.isArray(props.enablePhysics)) {
-        newScene.enablePhysics(props.enablePhysics[0], props.enablePhysics[1])
       }
 
       const sceneGraph = (

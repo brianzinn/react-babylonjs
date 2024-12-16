@@ -90,7 +90,7 @@
     "@emotion/babel-plugin": "^11.7.2",
     "@emotion/babel-preset-css-prop": "^11.2.0",
     "@types/earcut": "^2.1.1",
-    "@types/react": "^18.0.21",
+    "@types/react": "^18.2.45",
     "babel-eslint": "^10.1.0",
     "babel-preset-gatsby": "^2.5.2",
     "concurrently": "^7.0.0",

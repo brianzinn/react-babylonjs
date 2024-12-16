@@ -158,104 +158,95 @@ const useSceneLoaderWithCache = (): ((
         const loadedModel = new LoadedModel()
 
         loadedModel.status = LoaderStatus.Loading
+        loadedModel.loaderName = 'no longer supported /BabylonJS/Babylon.js/pull/15798'
 
-        const loader: Nullable<ISceneLoaderPlugin | ISceneLoaderPluginAsync> =
-          SceneLoader.ImportMesh(
-            opts.meshNames,
-            rootUrl,
-            sceneFilename,
-            scene,
-            (
-              meshes: AbstractMesh[],
-              particleSystems: IParticleSystem[],
-              skeletons: Skeleton[],
-              animationGroups: AnimationGroup[]
-            ): void => {
-              loadedModel.rootMesh = new Mesh(sceneFilename + '-root-model', scene)
-              if (opts.alwaysSelectAsActiveMesh === true) {
-                loadedModel.rootMesh.alwaysSelectAsActiveMesh = true
+        /* const loader: Nullable<ISceneLoaderPlugin | ISceneLoaderPluginAsync> = */
+        SceneLoader.ImportMeshAsync(
+          opts.meshNames,
+          rootUrl,
+          sceneFilename,
+          scene,
+          (event: ISceneLoaderProgressEvent): void => {
+            if (opts.reportProgress === true && sceneLoaderContext !== undefined) {
+              sceneLoaderContext!.updateProgress(event)
+            }
+            if (opts.onLoadProgress) {
+              opts.onLoadProgress(event)
+            }
+          },
+          pluginExtension
+        )
+          .then((result) => {
+            loadedModel.rootMesh = new Mesh(sceneFilename + '-root-model', scene)
+            if (opts.alwaysSelectAsActiveMesh === true) {
+              loadedModel.rootMesh.alwaysSelectAsActiveMesh = true
+            }
+
+            loadedModel.meshes = []
+            result.meshes.forEach((mesh) => {
+              loadedModel.meshes!.push(mesh)
+
+              // leave meshes already parented to maintain model hierarchy:
+              if (!mesh.parent) {
+                mesh.parent = loadedModel.rootMesh!
               }
 
-              loadedModel.meshes = []
-              meshes.forEach((mesh) => {
-                loadedModel.meshes!.push(mesh)
+              if (opts.receiveShadows === true) {
+                mesh.receiveShadows = true
+              }
+            })
+            loadedModel.particleSystems = result.particleSystems
+            loadedModel.skeletons = result.skeletons
+            loadedModel.animationGroups = result.animationGroups
 
-                // leave meshes already parented to maintain model hierarchy:
-                if (!mesh.parent) {
-                  mesh.parent = loadedModel.rootMesh!
-                }
+            // NOTE: geometries, lights, spriteManagers, etc. can be added here
+            loadedModel.status = LoaderStatus.Loaded
 
-                if (opts.receiveShadows === true) {
-                  mesh.receiveShadows = true
+            if (opts.scaleToDimension) {
+              loadedModel.scaleTo(opts.scaleToDimension)
+            }
+
+            if (initialProps) {
+              const initPayload: PropertyUpdate[] = []
+              new FiberMesh().getPropsHandlers().forEach((propHandler: PropsHandler<any>) => {
+                const handlerUpdates: PropertyUpdate[] | null = propHandler.getPropertyUpdates(
+                  {}, // Here we will reapply things like 'name', so we could get default props from 'babylonObject'.
+                  initialProps
+                )
+                if (handlerUpdates !== null) {
+                  initPayload.push(...handlerUpdates)
                 }
               })
-              loadedModel.particleSystems = particleSystems
-              loadedModel.skeletons = skeletons
-              loadedModel.animationGroups = animationGroups
 
-              loadedModel.status = LoaderStatus.Loaded
-
-              if (opts.scaleToDimension) {
-                loadedModel.scaleTo(opts.scaleToDimension)
-              }
-
-              if (initialProps) {
-                const initPayload: PropertyUpdate[] = []
-                new FiberMesh().getPropsHandlers().forEach((propHandler: PropsHandler<any>) => {
-                  const handlerUpdates: PropertyUpdate[] | null = propHandler.getPropertyUpdates(
-                    {}, // Here we will reapply things like 'name', so we could get default props from 'babylonObject'.
-                    initialProps
+              if (initPayload.length > 0) {
+                initPayload.forEach((update) => {
+                  applyUpdateToInstance(
+                    { hostInstance: loadedModel.rootMesh } as CreatedInstance<Mesh>,
+                    update
                   )
-                  if (handlerUpdates !== null) {
-                    initPayload.push(...handlerUpdates)
-                  }
                 })
+              }
+            }
 
-                if (initPayload.length > 0) {
-                  initPayload.forEach((update) => {
-                    applyUpdateToInstance(
-                      { hostInstance: loadedModel.rootMesh } as CreatedInstance<Mesh>,
-                      update
-                    )
-                  })
-                }
-              }
+            if (options?.onModelLoaded) {
+              options.onModelLoaded(loadedModel)
+            }
 
-              if (options?.onModelLoaded) {
-                options.onModelLoaded(loadedModel)
-              }
-
-              const originalDispose = loadedModel.dispose
-              loadedModel.dispose = () => {
-                // console.log('Clearing cache (cannot re-use meshes).');
-                suspenseCache[suspenseKey] = undefined
-                originalDispose.call(loadedModel)
-              }
-
-              resolve(loadedModel)
-            },
-            (event: ISceneLoaderProgressEvent): void => {
-              if (opts.reportProgress === true && sceneLoaderContext !== undefined) {
-                sceneLoaderContext!.updateProgress(event)
-              }
-              if (opts.onLoadProgress) {
-                opts.onLoadProgress(event)
-              }
-            },
-            (_: Scene, message: string, exception?: any): void => {
-              if (opts.onModelError) {
-                opts.onModelError(message, exception)
-              }
-              reject(exception ?? message)
-            },
-            pluginExtension
-          )
-
-        if (loader) {
-          loadedModel.loaderName = loader.name
-        } else {
-          loadedModel.loaderName = 'no loader found'
-        }
+            const originalDispose = loadedModel.dispose
+            loadedModel.dispose = () => {
+              // console.log('Clearing cache (cannot re-use meshes).');
+              suspenseCache[suspenseKey] = undefined
+              originalDispose.call(loadedModel)
+            }
+            resolve(loadedModel)
+          })
+          .catch((error) => {
+            if (opts.onModelError) {
+              opts.onModelError(error)
+            }
+            reject(error)
+          })
+        loadedModel.loaderName = 'Not supported for backwards compat'
       })
 
       let result: LoadedModel

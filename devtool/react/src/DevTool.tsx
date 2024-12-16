@@ -11,11 +11,16 @@ import Button from 'react-bootstrap/Button'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import Modal from 'react-bootstrap/Modal'
 import { FaCog, FaExternalLinkAlt } from 'react-icons/fa'
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
+import { Prism, SyntaxHighlighterProps } from 'react-syntax-highlighter'
 import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs'
 import 'react-tabs/style/react-tabs.css'
 import { createCookieHooker } from './cookieHook'
+
+// Its instance type 'SyntaxHighlighter' is not a valid JSX element.
+// Property 'refs' is missing in type 'Component<SyntaxHighlighterProps, {}, any>' but required in type 'ElementClass'.
+// https://github.com/react-syntax-highlighter/react-syntax-highlighter/issues/539
+const SyntaxHighlighter = Prism as unknown as typeof React.Component<SyntaxHighlighterProps>
 
 const plugins = [typescript]
 

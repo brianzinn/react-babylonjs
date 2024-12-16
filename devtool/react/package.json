@@ -26,8 +26,8 @@
     "react-bootstrap": "^2.1.1",
     "react-cookie": "^4.1.1",
     "react-icons": "^4.3.1",
-    "react-syntax-highlighter": "^15.4.5",
-    "react-tabs": "^3.2.3",
+    "react-syntax-highlighter": "^15.5.0",
+    "react-tabs": "^6.0.2",
     "tslib": "^2.3.1",
     "type-fest": "^2.9.0"
   },
@@ -45,7 +45,6 @@
     "@storybook/react": "^6.4.13",
     "@types/prettier": "^2.4.3",
     "@types/react-syntax-highlighter": "^15.5.5",
-    "@types/react-tabs": "^2.3.4",
     "rimraf": "^3.0.2",
     "typescript": "^4.5.4",
     "webpack": "5"

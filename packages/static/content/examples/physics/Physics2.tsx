@@ -13,10 +13,6 @@ import BouncySphere from './BouncySphere2'
 import HavokPhysics, { HavokPhysicsWithBindings } from '@babylonjs/havok'
 import { Color3 } from '@babylonjs/core'
 
-// build error that 'window is not defined'
-// window.CANNON = CANNON;
-
-const gravityVector = new Vector3(0, -9.81, 0)
 const RADIUS = 5
 const NUMBER_OF_BOXES = 8
 
