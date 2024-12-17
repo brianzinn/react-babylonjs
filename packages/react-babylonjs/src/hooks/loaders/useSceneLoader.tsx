@@ -1,14 +1,5 @@
-import { AnimationGroup } from '@babylonjs/core/Animations/animationGroup.js'
-import { Skeleton } from '@babylonjs/core/Bones/skeleton.js'
-import {
-  ISceneLoaderPlugin,
-  ISceneLoaderPluginAsync,
-  ISceneLoaderProgressEvent,
-  SceneLoader,
-} from '@babylonjs/core/Loading/sceneLoader.js'
-import { AbstractMesh } from '@babylonjs/core/Meshes/abstractMesh.js'
+import { ISceneLoaderProgressEvent, SceneLoader } from '@babylonjs/core/Loading/sceneLoader.js'
 import { Mesh } from '@babylonjs/core/Meshes/mesh.js'
-import { IParticleSystem } from '@babylonjs/core/Particles/IParticleSystem.js'
 import { Scene } from '@babylonjs/core/scene.js'
 import { Nullable } from '@babylonjs/core/types.js'
 import React, { useContext, useState } from 'react'
@@ -158,7 +149,12 @@ const useSceneLoaderWithCache = (): ((
         const loadedModel = new LoadedModel()
 
         loadedModel.status = LoaderStatus.Loading
-        loadedModel.loaderName = 'no longer supported /BabylonJS/Babylon.js/pull/15798'
+
+        // /BabylonJS/Babylon.js/pull/15798
+        // NOTE: consider making this callback available as a prop
+        SceneLoader.OnPluginActivatedObservable.addOnce((callback) => {
+          loadedModel.loaderName = callback.name
+        })
 
         /* const loader: Nullable<ISceneLoaderPlugin | ISceneLoaderPluginAsync> = */
         SceneLoader.ImportMeshAsync(
@@ -246,7 +242,6 @@ const useSceneLoaderWithCache = (): ((
             }
             reject(error)
           })
-        loadedModel.loaderName = 'Not supported for backwards compat'
       })
 
       let result: LoadedModel
