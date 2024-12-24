@@ -1,0 +1,31 @@
+{
+  "name": "@react-babylonjs/website",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "rspress build",
+    "dev": "rspress dev --port 5173",
+    "preview": "rspress preview"
+  },
+  "dependencies": {
+    "rspress": "1.36.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.17",
+    "typescript": "^5.7.2",
+    "unist-util-visit": "^5.0.0"
+  },
+  "peerDependencies": {
+    "@babylonjs/core": "7.41.1",
+    "@babylonjs/gui": "7.41.1",
+    "@babylonjs/havok": "1.3.2",
+    "@babylonjs/loaders": "7.41.1",
+    "@babylonjs/materials": "7.41.1",
+    "@babylonjs/procedural-textures": "7.41.1",
+    "babylonjs-hook": "0.1.1",
+    "bootstrap": "5.1.3",
+    "cannon": "0.6.2",
+    "earcut": "2.2.4",
+    "react-babylonjs": "3.2.2"
+  }
+}

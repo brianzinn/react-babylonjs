@@ -1,0 +1,18 @@
+---
+title: 'Pointer Drag'
+---
+
+- official demo:
+- https://www.babylonjs-playground.com/#YEZPVT
+
+For declarative version we just need to declare as a child of the mesh.
+Properties like `dragAxis` determine how dragging will occur.
+
+```tsx
+<pointerDragBehavior
+  dragAxis={new Vector3(1, 0, 0)}
+  ...
+/>
+```
+
+[devtool:PointerDrag.tsx]

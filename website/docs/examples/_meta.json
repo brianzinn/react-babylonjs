@@ -1,0 +1,75 @@
+[
+  "overview",
+  {
+    "type": "dir",
+    "name": "basic",
+    "label": "Basic",
+    "collapsed": true
+  },
+  {
+    "type": "dir",
+    "name": "behaviors",
+    "label": "Behaviors",
+    "collapsed": true
+  },
+  {
+    "type": "dir",
+    "name": "gui",
+    "label": "GUI",
+    "collapsed": true
+  },
+  {
+    "type": "dir",
+    "name": "materials",
+    "label": "Materials",
+    "collapsed": true
+  },
+  {
+    "type": "dir",
+    "name": "models",
+    "label": "Models",
+    "collapsed": true
+  },
+  {
+    "type": "dir",
+    "name": "sprites",
+    "label": "Sprites",
+    "collapsed": true
+  },
+  {
+    "type": "dir",
+    "name": "physics",
+    "label": "Physics",
+    "collapsed": true
+  },
+  {
+    "type": "dir",
+    "name": "hooks",
+    "label": "Hooks",
+    "collapsed": true
+  },
+  {
+    "type": "dir",
+    "name": "post-process",
+    "label": "Post-process",
+    "collapsed": true
+  },
+  {
+    "type": "dir",
+    "name": "special-fx",
+    "label": "Special FX",
+    "collapsed": true
+  },
+  {
+    "type": "dir",
+    "name": "textures",
+    "label": "Textures",
+    "collapsed": true
+  },
+  {
+    "type": "dir",
+    "name": "vr",
+    "label": "VR",
+    "collapsed": true
+  }
+]
