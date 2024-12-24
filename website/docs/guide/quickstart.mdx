@@ -1,0 +1,19 @@
+# Quickstart
+
+import { PackageManagerTabs } from '@theme'
+
+When starting a Create React App (CRA) you optionally choose a template like:
+`npm init react-app my-app --template typescript`
+
+<PackageManagerTabs
+  command={{
+    npm: 'npm init react-app my-app',
+    yarn: 'yarn create react-app my-app',
+    bun: 'bun create react-app my-app',
+    pnpm: 'pnpm create react-app my-app',
+  }}
+/>
+
+With that empty project, you just need to add the babylon dependencies:
+
+<PackageManagerTabs command="install react-babylonjs @babylonjs/core @babylonjs/gui" />

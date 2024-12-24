@@ -1,0 +1,18 @@
+---
+title: 'PBR'
+---
+
+Physical Based Rendering - accomplished here with PBRMaterial.
+
+```tsx
+<box name="plane" width={65} height={1} depth={65}>
+  <pbrMaterial reflectionTexture={cubeTextureRef.current}>
+    <texture
+      url="/assets/textures/reflectivity.png"
+      assignTo="reflectivityTexture"
+    />
+  </pbrMaterial>
+</box>
+```
+
+[devtool:PBR.tsx]
