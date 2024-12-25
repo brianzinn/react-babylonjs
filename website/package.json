@@ -28,5 +28,5 @@
     "earcut": "2.2.4",
     "react-babylonjs": "3.2.2"
   },
-  "packageManager": "pnpm@8.7.1"
+  "packageManager": "yarn@1.2*.*|pnpm@8.7.1"
 }
