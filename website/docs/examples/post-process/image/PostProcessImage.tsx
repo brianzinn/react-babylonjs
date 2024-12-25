@@ -7,7 +7,7 @@ import { Vector3 } from '@babylonjs/core/Maths/math.vector'
 import React, { useCallback, useEffect, useState } from 'react'
 import { Engine, Scene } from 'react-babylonjs'
 
-let sunnyDayRootUrl = '/assets/textures/TropicalSunnyDay'
+let sunnyDayRootUrl = '../../../assets/textures/TropicalSunnyDay'
 
 const SkyboxAndSphere = () => (
   <>
