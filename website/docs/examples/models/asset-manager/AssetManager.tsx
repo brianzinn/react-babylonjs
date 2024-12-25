@@ -1,8 +1,10 @@
+import React, { Suspense, useContext, useEffect, useMemo, useRef } from 'react'
+
 // import "@babylonjs/inspector";
 import { Vector3 } from '@babylonjs/core/Maths/math.vector'
 import { Mesh } from '@babylonjs/core/Meshes/mesh'
 import { MeshAssetTask } from '@babylonjs/core/Misc/assetsManager'
-import React, { Suspense, useContext, useEffect, useMemo, useRef } from 'react'
+import '@babylonjs/loaders/glTF'
 import {
   AssetManagerContext,
   AssetManagerContextProvider,

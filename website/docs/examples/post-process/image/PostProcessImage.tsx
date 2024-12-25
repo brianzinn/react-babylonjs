@@ -98,7 +98,10 @@ const ColorGrading = () => {
           />
           <pointLight name="omni0" position={new Vector3(-17.6, 18.8, -49.9)} />
           <SkyboxAndSphere />
-          <colorGradingTexture ref={colorGradingTextureRef} url="/assets/textures/LateSunset.3dl" />
+          <colorGradingTexture
+            ref={colorGradingTextureRef}
+            url="../../../assets/textures/LateSunset.3dl"
+          />
         </Scene>
       </Engine>
     </div>

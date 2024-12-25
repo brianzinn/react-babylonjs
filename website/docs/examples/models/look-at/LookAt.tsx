@@ -1,8 +1,10 @@
+import React, { FC, Suspense, useEffect, useRef, useState } from 'react'
+
 // import "@babylonjs/inspector";
 import { Color3 } from '@babylonjs/core/Maths/math.color'
 import { Vector3 } from '@babylonjs/core/Maths/math.vector'
 import { AbstractMesh } from '@babylonjs/core/Meshes/abstractMesh'
-import React, { FC, Suspense, useEffect, useRef, useState } from 'react'
+import '@babylonjs/loaders/glTF'
 import { Engine, ILoadedModel, Model, Scene } from 'react-babylonjs'
 
 type LookAtModelProps = {
