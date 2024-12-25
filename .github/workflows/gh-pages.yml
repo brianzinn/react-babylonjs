@@ -1,40 +1,60 @@
-name: make_gh_pages
+name: Deploy website to Pages
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
+    paths:
+      - 'website/**'
+
   workflow_dispatch:
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
 jobs:
-  make_storybook:
+  # Build job
+  build:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v3
-
-      - uses: actions/setup-node@v3
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
-          node-version: '18.x'
-          registry-url: 'https://registry.npmjs.org'
-          scope: brianzinn
-
-      # if you add loader src/codesandbox-templates large files will OOM
-      # - name: Set Swap Space
-      #   if: runner.os == 'Linux'
-      #   uses: pierotofy/set-swap-space@v1.0
-      #   with:
-      #     swap-size-gb: 4
-
-      - name: install build react-babylon
-        env:
-          NODE_OPTIONS: "--max_old_space_size=4096"
+          fetch-depth: 0 # Not needed if lastUpdated is not enabled
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: yarn
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Install dependencies
+        run: yarn install
+      - name: Build react-babylonjs
         run: |
-          npm install -g yarn
-          yarn install
-          yarn build
-
-      - name: deploy
-        uses: JamesIves/github-pages-deploy-action@4.1.5
+          yarn workspace react-babylonjs build
+      - name: Build website
+        run: |
+          yarn workspace @react-babylonjs/website build
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          branch: gh-pages
-          folder: packages/static/public
+          path: ./website/build
+
+  # Deployment job
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: build
+    runs-on: ubuntu-latest
+    name: Deploy
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
