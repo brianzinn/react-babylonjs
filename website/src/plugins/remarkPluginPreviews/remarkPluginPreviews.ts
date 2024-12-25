@@ -2,14 +2,14 @@ import { visit } from 'unist-util-visit'
 import type { Root } from 'mdast'
 import type { Plugin } from 'unified'
 import { getCodeSources } from './helpers/getCodeSources'
-import { getMdxFromMarkdown } from './helpers/getMdxFromMarkdown'
+import { getMdxFromMarkdown } from '../utils/getMdxFromMarkdown'
 
 /**
  * remark plugin to transform [devtool:ComponentName.tsx] into previews
  */
 export const remarkPluginPreviews: Plugin<[], Root> = () => (tree, file) => {
   // for testing
-  // if (!file.dirname?.endsWith('2d-gui')) return
+  // if (!file.dirname?.endsWith('basic/animations')) return
 
   const dirPath = file.dirname
 
@@ -29,15 +29,13 @@ export const remarkPluginPreviews: Plugin<[], Root> = () => (tree, file) => {
    *      }
    *    ]
    */
-  visit(tree, 'paragraph', (paragraphNode, index) => {
-    if (!index) return
-
+  visit(tree, 'paragraph', (node) => {
     // Only process parent nodes
-    if (!paragraphNode.children) return
+    if (!node.children) return
 
-    if (paragraphNode.children.length !== 1) return
+    if (node.children.length !== 1) return
 
-    const [childNode] = paragraphNode.children
+    const [childNode] = node.children
 
     if (childNode.type !== 'text') return
 
@@ -68,6 +66,8 @@ export const remarkPluginPreviews: Plugin<[], Root> = () => (tree, file) => {
     const codeSources = getCodeSources({ fileBase: moduleName, dirPath })
 
     const previewTabsString = [
+      '## Current Previews',
+      '\n',
       `<Tabs groupId="previews" defaultValue="preview">`,
       `<Tab value="preview" label="Preview"><${moduleName} /></Tab>`,
       `<Tab value="code-tsx" label="Typescript">\n${codeSources.tsx}\n</Tab>`,
@@ -79,6 +79,6 @@ export const remarkPluginPreviews: Plugin<[], Root> = () => (tree, file) => {
     const mdxContent = getMdxFromMarkdown(mdxContentString)
 
     // replace [devtool:ComponentName.tsx] text with the previews component
-    tree.children.splice(index, 1, ...mdxContent)
+    Object.assign(node, mdxContent)
   })
 }
