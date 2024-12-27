@@ -1,6 +1,6 @@
 .rspress-playground-runner {
   position: relative;
-  padding: 20px;
+  padding-block: 12px;
   overflow: auto;
 }
 
