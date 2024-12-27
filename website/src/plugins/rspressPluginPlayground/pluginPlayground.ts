@@ -38,7 +38,7 @@ export function pluginPlayground(): RspressPlugin {
       // that make imports in demo files available in runtime
       for (const route of routes) {
         // for testing
-        // if (_skipForTesting(route.absolutePath)) continue
+        if (_skipForTesting(route.absolutePath)) continue
 
         const isMdxFile = /\.mdx$/.test(route.absolutePath)
 
@@ -103,7 +103,7 @@ export function pluginPlayground(): RspressPlugin {
         'export default getImport;',
       ].join('\n')
 
-      playgroundVirtualModule.writeModule('_rspress_playground_imports', code)
+      playgroundVirtualModule.writeModule('_playground_virtual_imports', code)
     },
 
     builderConfig: {
