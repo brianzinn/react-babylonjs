@@ -119,7 +119,7 @@ export const EngineView = () => {
       </div>
       <div className="row">
         <div className="col-8">
-          {/* TODO: this breaks in Playground */}
+          {/* TODO(pg): this breaks the page in Preview/Playground */}
           <canvas id="second-canvas-babylon" ref={secondCanvasRef} width="100%" height="100%" />
         </div>
       </div>

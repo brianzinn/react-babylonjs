@@ -16,7 +16,6 @@ import BouncySphere2 from './BouncySphere2'
 const RADIUS = 5
 const NUMBER_OF_BOXES = 8
 
-// TODO: this doesn't work in Playground
 const App: FC = () => {
   const [fontsReady, setFontsReady] = useState(false)
   const [HK, setHK] = useState<HavokPhysicsWithBindings>()
