@@ -6,6 +6,7 @@ import type {
   ObjectProperty,
   VariableDeclaration,
 } from '@babel/types'
+import { GET_IMPORT } from './constants'
 
 export function createVariableDeclaration(
   id: string | ObjectPattern,
@@ -16,13 +17,7 @@ export function createVariableDeclaration(
     declarations: [
       {
         type: 'VariableDeclarator',
-        id:
-          typeof id === 'string'
-            ? {
-                type: 'Identifier',
-                name: id,
-              }
-            : id,
+        id: typeof id === 'string' ? createIdentifier(id) : id,
         init,
       },
     ],
@@ -63,7 +58,7 @@ export function createGetImport(name: string, getDefault?: boolean): CallExpress
     type: 'CallExpression',
     callee: {
       type: 'Identifier',
-      name: '__get_import',
+      name: GET_IMPORT,
     },
     arguments: [
       {
