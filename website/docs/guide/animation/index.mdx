@@ -66,7 +66,7 @@ arguments.
 <box name="box" size={2} position={new Vector3(0, 1, 0)} />
 ```
 
-[devtool:LoneBox.tsx]
+<code src="./LoneBox.tsx" />
 
 Now to make it spin. We will make the box spin about the Y axis. From
 [Mesh rotation in Babylon](https://doc.babylonjs.com/divingDeeper/mesh/transforms/center_origin/rotation)
@@ -111,7 +111,7 @@ const RotatingBox: FC = () => {
 }
 ```
 
-[devtool:BasicScene.tsx]
+<code src="./BasicScene.tsx" />
 
 ## Using real-world timing in animations
 
@@ -167,7 +167,7 @@ Now that's a nice reusable component! We use it like this:
 Let's try it. We should see one rotation every 6 seconds when `rpm` is 10
 (60/10=6).
 
-[devtool:RPMBox.tsx]
+<code src="./RPMBox.tsx" />
 
 ## Making `rpm` even more reactive
 
@@ -190,7 +190,7 @@ useBeforeRender(
 You can try it out by choosing the RPM here and seeing that it alters the
 rotation speed accordingly.
 
-[devtool:RPMBox3.tsx]
+<code src="./RPMBox3.tsx" />
 
 ## Direct object manipulation (not via state)
 
@@ -204,7 +204,7 @@ apply the update. It should be noted as well that this will not cause re-renders
 of the component itself, which was innefficiently creating new Vector3 objects
 every render in above examples.
 
-[devtool:NoState.tsx]
+<code src="./NoState.tsx" />
 
 There is also in
 Example->Basic->[Animations](../../examples/basic/animations/index.mdx) that

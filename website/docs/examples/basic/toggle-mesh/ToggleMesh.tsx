@@ -9,6 +9,7 @@ import '@babylonjs/loaders'
 function WithToggleMesh() {
   const [isShown, toggleShown] = useState(true)
 
+  // TODO: clicks don't seem to work
   const onClick = () => {
     console.log('toggle clicked:', isShown)
     toggleShown((isShown) => !isShown)

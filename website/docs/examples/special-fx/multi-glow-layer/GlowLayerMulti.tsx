@@ -21,10 +21,6 @@ import ScaledModelWithProgress from '../../ScaledModelWithProgress'
 const RADIUS = 10
 const NUMBER_OF_BOXES = 20
 
-/**
- * TODO
- * loading model so slow...
- */
 function WithMultiGlowLayer() {
   const glow1Ref = useRef<GlowLayer | null>(null)
   const glow2Ref = useRef<GlowLayer | null>(null)
