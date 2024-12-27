@@ -1,8 +1,8 @@
 import type { Node } from '@babel/types'
 import React, { Component, type HTMLAttributes } from 'react'
-import { createGetImport, createObjectPattern, createVariableDeclaration } from '../helpers/ast'
+import { createGetImport, createObjectPattern, createVariableDeclaration } from './helpers/ast'
 import { availablePresets, transform } from '@babel/standalone'
-import getImport from '_rspress_playground_imports'
+import getImport from '_playground_virtual_imports'
 import './Runner.css'
 
 interface RunnerProps extends HTMLAttributes<HTMLDivElement> {
@@ -53,9 +53,21 @@ class Runner extends Component<RunnerProps, RunnerState> {
     // console.log({ targetCode })
     const { language } = this.props
     try {
-      const presets = [[availablePresets.react], [availablePresets.env, { modules: 'commonjs' }]]
+      const babelPresets = [
+        [availablePresets.react],
+        [
+          availablePresets.env,
+          {
+            targets: {
+              chrome: 100,
+              esmodules: true,
+            },
+          },
+        ],
+      ]
+
       if (language === 'tsx' || language === 'ts') {
-        presets.unshift([
+        babelPresets.unshift([
           availablePresets.typescript,
           {
             allExtensions: true,
@@ -65,9 +77,8 @@ class Runner extends Component<RunnerProps, RunnerState> {
       }
 
       const result = transform(targetCode, {
-        sourceType: 'module',
-        sourceMaps: 'inline',
-        presets,
+        presets: babelPresets,
+        comments: false,
         plugins: [
           {
             pre() {
@@ -98,6 +109,7 @@ class Runner extends Component<RunnerProps, RunnerState> {
                   }
                   // import { a, b, c } from 'foo'
                   if (specifier.type === 'ImportSpecifier') {
+                    // import { foo: bar } from 'baz'
                     if (
                       'name' in specifier.imported &&
                       specifier.imported.name !== specifier.local.name
@@ -131,7 +143,7 @@ class Runner extends Component<RunnerProps, RunnerState> {
       })
 
       // Code has been updated
-      if (targetCode !== this.props.code || !result || !result.code) {
+      if (targetCode !== this.props.code || !result?.code) {
         return
       }
 

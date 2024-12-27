@@ -2,6 +2,7 @@
   position: relative;
   padding-block: 12px;
   overflow: auto;
+  height: 100%;
 }
 
 .rspress-playground-error {

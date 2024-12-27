@@ -1,6 +1,6 @@
 /// <reference types='@modern-js/module-tools/types' />
 
-declare module '_rspress_playground_imports' {
+declare module '_playground_virtual_imports' {
   const getImport: (name: string, getDefault?: boolean) => void
   export default getImport
 }
