@@ -8,6 +8,7 @@ import { getNodeAttribute } from './utils/getNodeAttribute'
 import { getMdxFromMarkdown } from '../utils/getMdxFromMarkdown'
 import { parseImportsTraverse } from './utils/parseImportsTraverse'
 import { _skipForTesting } from './utils/_skipForTesting'
+import { prepareFileNameWithExt } from './utils/getImport'
 
 export let routeMeta: RouteMeta[]
 
@@ -32,7 +33,7 @@ export function pluginPlayground(): RspressPlugin {
     routeGenerated(routes: RouteMeta[]) {
       routeMeta = routes
 
-      const imports: Record<string, string> = {}
+      const importPaths: Record<string, string> = { react: 'react' }
 
       // Scan all files, and generate virtual modules
       // that make imports in demo files available in runtime
@@ -63,14 +64,15 @@ export function pluginPlayground(): RspressPlugin {
                 dirname: path.dirname(route.absolutePath),
               })
 
-              for (const importName of res.importNames) {
-                imports[importName] ??= importName
-              }
+              Object.assign(importPaths, res.imports)
 
-              // make relative imports available as virtual modules
-              // FIXME: as a side-effect, /ScaledModelWithProgress file is being created in dev mode
-              for (const [fileName, fileSource] of Object.entries(res.files)) {
-                playgroundVirtualModule.writeModule(fileName, fileSource)
+              // make local imports available as virtual modules
+              for (const [importPath, sourceCode] of Object.entries(res.localImportSources)) {
+                const fileNameWithExt = prepareFileNameWithExt(importPath)
+
+                importPaths[fileNameWithExt] = fileNameWithExt
+
+                playgroundVirtualModule.writeModule(fileNameWithExt, sourceCode)
               }
             }
           })
@@ -80,30 +82,23 @@ export function pluginPlayground(): RspressPlugin {
         }
       }
 
-      if (!('react' in imports)) {
-        imports.react = 'react'
-      }
+      const importKeys = Object.keys(importPaths)
 
-      const importKeys = Object.keys(imports)
-      const code = [
-        ...importKeys.map((x, index) => `import * as i_${index} from '${imports[x]}';`),
-        'const imports = new Map();',
+      const getImportString = fs.readFileSync(path.join(__dirname, './utils/getImport.js'), 'utf-8')
+
+      const playgroundVirtualImportsCode = [
+        getImportString,
+        ...importKeys.map((x, index) => `import * as i_${index} from '${x}';`),
+        '\n',
         ...importKeys.map((x, index) => `imports.set('${x}', i_${index});`),
-        'function getImport(name, getDefault) {',
-        '  if (!imports.has(name)) {',
-        '    throw new Error("Module " + name + " not found");',
-        '  }',
-        '  const result = imports.get(name);',
-        '  if (getDefault && typeof result === "object") {',
-        '    return result.default || result;',
-        '  }',
-        '  return result;',
-        '}',
-        'export { imports };',
-        'export default getImport;',
       ].join('\n')
 
-      playgroundVirtualModule.writeModule('_playground_virtual_imports', code)
+      console.log({ getImport: playgroundVirtualImportsCode })
+
+      playgroundVirtualModule.writeModule(
+        '_playground_virtual_imports',
+        playgroundVirtualImportsCode
+      )
     },
 
     builderConfig: {

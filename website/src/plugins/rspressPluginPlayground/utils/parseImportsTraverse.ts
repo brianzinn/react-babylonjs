@@ -1,12 +1,13 @@
 import path from 'node:path'
 import fs from 'node:fs'
-import { ModuleItem, parseSync } from '@swc/core'
+import { parseSync } from '@swc/core'
 import { getCodeSnippets } from './getCodeSnippets'
+import { getPathWithExt, localImportRegex } from './getImport'
 
 export const parseImportsTraverse = (params: { importPath: string; dirname: string }) => {
   const { importPath, dirname } = params
 
-  const filePath = importPath.endsWith('.tsx') ? importPath : `${importPath}.tsx`
+  const filePath = getPathWithExt(importPath)
   const resolvedPath = path.join(dirname, filePath)
 
   let sourceTsx = ''
@@ -27,27 +28,30 @@ export const parseImportsTraverse = (params: { importPath: string; dirname: stri
     tsx: true,
   })
 
-  const imports: Record<string, ModuleItem> = {}
-  const importPaths = new Set()
+  const imports: Record<string, string> = {}
+  const localImportSources: Record<string, string> = {}
 
   for (const statement of parsed.body) {
-    if (statement.type === 'ImportDeclaration') {
-      const importPath = statement.source.value
+    if (statement.type !== 'ImportDeclaration') continue
 
-      imports[importPath] = statement
-      importPaths.add(importPath)
+    const importPath = statement.source.value
 
-      if (importPath.startsWith('.')) {
-        const nested = parseImportsTraverse({ importPath, dirname })
-        const fileName = importPath.endsWith('.tsx') ? importPath : `${importPath}.tsx`
+    if (localImportRegex.test(importPath)) {
+      const nested = parseImportsTraverse({ importPath, dirname })
 
-        files[`/${fileName}`] = nested.code
-        Object.assign(imports, nested.imports)
-      }
+      localImportSources[importPath] = nested.sourceTsx
+    } else {
+      imports[importPath] = importPath
     }
   }
 
   const codeSnippets = getCodeSnippets(sourceTsx)
 
-  return { files, code: sourceTsx, codeSnippets, imports, importNames: Object.keys(imports) }
+  return {
+    files,
+    imports,
+    sourceTsx,
+    codeSnippets,
+    localImportSources,
+  }
 }
