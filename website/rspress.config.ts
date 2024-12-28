@@ -3,7 +3,6 @@ import { defineConfig } from 'rspress/config'
 import { pluginPlayground } from './src/plugins/rspressPluginPlayground'
 
 export default defineConfig({
-  base: '/react-babylonjs/',
   root: path.join(__dirname, 'docs'),
   outDir: 'build',
 
