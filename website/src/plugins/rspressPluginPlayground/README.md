@@ -4,9 +4,7 @@ Forked version of [@rspress/plugin-playground](https://github.com/web-infra-dev/
 
 ## To Do
 
-- Resizable pane
 - Inject bootstrap in Preview
-- Move Fullscreen button to bottom
 - See if swc can turn tsx into jsx instead of ts transpiler
   - try to maintain new lines and formatting
 - Check vertical layout

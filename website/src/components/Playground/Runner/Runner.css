@@ -1,8 +1,12 @@
 .playground-runner {
   position: relative;
   padding-block: 12px;
-  overflow: auto;
+  /* overflow: auto; */
   height: 100%;
+
+  canvas {
+    outline: none;
+  }
 }
 
 .playground-error {

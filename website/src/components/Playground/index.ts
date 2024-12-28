@@ -1,1 +1,1 @@
-export { PlaygroundContainer as default } from './PlaygroundContainer'
+export { Playground as default } from './Playground'

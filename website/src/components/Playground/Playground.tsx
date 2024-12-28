@@ -1,15 +1,12 @@
+import './Playground.css'
 import React from 'react'
-import {
-  SandpackProvider,
-  SandpackLayout,
-  SandpackCodeEditor,
-  SandpackStack,
-  SandpackFiles,
-} from '@codesandbox/sandpack-react'
+import { SandpackProvider, SandpackCodeEditor, SandpackFiles } from '@codesandbox/sandpack-react'
+import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels'
 import { useDark } from 'rspress/runtime'
 import { Preview } from './Preview'
 import { defaultFiles } from './constants/defaultFiles'
 import { defaultDependencies, dependencies } from './constants/dependencies'
+import { useFullscreen, useMediaQuery } from '@mantine/hooks'
 
 export interface PlaygroundProps {
   files: string | SandpackFiles
@@ -22,6 +19,9 @@ export interface PlaygroundProps {
 
 export const Playground = (props: PlaygroundProps) => {
   const isDarkTheme = useDark()
+  const isSmallScreen = useMediaQuery('(max-width: 768px)')
+  const { ref: fullScreenRef, toggle: toggleFullscreen, fullscreen } = useFullscreen()
+
   const theme = isDarkTheme ? 'dark' : 'light'
 
   const deps = { ...dependencies, ...defaultDependencies }
@@ -29,12 +29,14 @@ export const Playground = (props: PlaygroundProps) => {
     typeof props.files === 'string' ? JSON.parse(props.files) : props.files
   const firstFileName = Object.keys(props.files)[0]
 
+  const regularHeight = isSmallScreen ? '600px' : '400px'
+
   const layoutStyle = {
-    '--sp-layout-height': props.height,
+    height: fullscreen ? '100dvh' : regularHeight,
   } as React.CSSProperties
 
   return (
-    <>
+    <div style={{ maxWidth: '100%' }} ref={fullScreenRef}>
       <SandpackProvider
         template="react-ts"
         theme={theme}
@@ -42,14 +44,30 @@ export const Playground = (props: PlaygroundProps) => {
         customSetup={{ dependencies: deps }}
         options={{ activeFile: firstFileName }}
       >
-        <SandpackLayout style={layoutStyle}>
-          <SandpackCodeEditor showRunButton={false} />
+        <div className="playground-layout" style={layoutStyle}>
+          <PanelGroup
+            direction={isSmallScreen ? 'vertical' : 'horizontal'}
+            autoSaveId="react-babylonjs-playground-panels"
+          >
+            <Panel className="resizable-panel" defaultSize={60}>
+              <SandpackCodeEditor showRunButton={false} className="sandpack-stack" />
+            </Panel>
 
-          <SandpackStack>
-            <Preview />
-          </SandpackStack>
-        </SandpackLayout>
+            <PanelResizeHandle />
+
+            <Panel className="resizable-panel" defaultSize={40}>
+              <Preview toggleFullscreen={toggleFullscreen} className="sandpack-stack" />
+            </Panel>
+          </PanelGroup>
+        </div>
+
+        {/* Testing */}
+        {/* <br />
+        <SandpackLayout>
+          <SandpackCodeEditor />
+          <SandpackPreview />
+        </SandpackLayout> */}
       </SandpackProvider>
-    </>
+    </div>
   )
 }
