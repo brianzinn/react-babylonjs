@@ -1,0 +1,14 @@
+.button.button.button.sp-button {
+  width: unset;
+  display: flex;
+
+  height: var(--sp-space-7);
+  padding: var(--sp-space-1);
+  padding-right: var(--sp-space-3);
+  padding-left: var(--sp-space-2);
+  gap: var(--sp-space-1);
+
+  &:focus-visible {
+    outline: revert;
+  }
+}

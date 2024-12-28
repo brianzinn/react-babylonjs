@@ -1,15 +1,27 @@
-import { OpenInCodeSandboxButton, useActiveCode } from '@codesandbox/sandpack-react'
+import './Preview.css'
+import { OpenInCodeSandboxButton, SandpackStack, useActiveCode } from '@codesandbox/sandpack-react'
+import { IconMaximize } from '@tabler/icons-react'
 import { Runner } from './Runner/Runner'
+import { Button } from '../Button/Button'
 
-export const Preview = () => {
+type PreviewProps = {
+  className: string
+  toggleFullscreen: () => void
+}
+
+export const Preview = ({ className, toggleFullscreen }: PreviewProps) => {
   const { code } = useActiveCode()
 
   return (
-    <>
+    <SandpackStack className={className}>
       <Runner code={code} />
-      <div style={{ position: 'absolute', bottom: '8px', right: '8px' }}>
+
+      <div className="preview-actions">
+        <Button title="Enter fullscreen" onClick={toggleFullscreen}>
+          <IconMaximize /> Fullscreen
+        </Button>
         <OpenInCodeSandboxButton />
       </div>
-    </>
+    </SandpackStack>
   )
 }
