@@ -117,5 +117,7 @@ export function pluginPlayground(): RspressPlugin {
       remarkPlugins: [[remarkPlugin, { getRouteMeta }]],
       globalComponents: [path.join(__dirname, '../../components/Playground')],
     },
+
+    globalStyles: path.join(__dirname, '../../styles/playgroundGlobal.css'),
   }
 }

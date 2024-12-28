@@ -4,10 +4,8 @@ Forked version of [@rspress/plugin-playground](https://github.com/web-infra-dev/
 
 ## To Do
 
-- Inject bootstrap in Preview
 - See if swc can turn tsx into jsx instead of ts transpiler
   - try to maintain new lines and formatting
-- Check vertical layout
 - Use @swc/wasm instead of Babel in the browser (?)
 - Only pass required deps to CodeSandbox
 - How to load npm dependencies more efficiently
