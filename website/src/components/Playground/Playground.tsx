@@ -40,11 +40,7 @@ export const Playground = (props: PlaygroundProps) => {
         <SandpackLayout style={layoutStyle}>
           <SandpackCodeEditor wrapContent showTabs={false} showRunButton={false} />
 
-          <SandpackStack
-            style={{
-              height: 'var(--sp-layout-height)',
-            }}
-          >
+          <SandpackStack>
             <Preview files={files} language={props.language} />
           </SandpackStack>
         </SandpackLayout>
