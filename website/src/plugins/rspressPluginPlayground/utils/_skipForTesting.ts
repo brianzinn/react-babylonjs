@@ -1,1 +1,1 @@
-export const _skipForTesting = (path: string) => !path.includes('physics')
+export const _skipForTesting = (path: string) => false // !path.includes('toggle-mesh')

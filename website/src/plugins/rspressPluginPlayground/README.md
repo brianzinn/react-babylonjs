@@ -4,7 +4,6 @@ Forked version of [@rspress/plugin-playground](https://github.com/web-infra-dev/
 
 ## To Do
 
-- [ ] Expand the playground (modal, or full screen)
 - [ ] Check static assets in Codesandbox (remote one)
 - [ ] Use @swc/wasm instead of Babel in the browser (?)
 - [ ] How to load npm dependencies more efficiently

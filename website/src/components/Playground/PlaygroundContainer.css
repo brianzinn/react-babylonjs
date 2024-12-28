@@ -1,0 +1,18 @@
+.playgroundContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: var(--sp-colors-surface1);
+}
+
+.playgroundActions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 16px;
+}

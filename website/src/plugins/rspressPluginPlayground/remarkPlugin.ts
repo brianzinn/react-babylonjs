@@ -72,16 +72,16 @@ export const remarkPlugin: Plugin<[RemarkPluginProps], Root> = ({ getRouteMeta }
           res.files
         )}} language='${language}' />`
 
-        const previewTabsString = [
-          `<Tabs groupId="previews" defaultValue="preview">`,
-          `<Tab value="preview" label="Preview"><${moduleName} /></Tab>`,
-          `<Tab value="code-tsx" label="Typescript">\n${res.codeSnippets.tsx}\n</Tab>`,
-          `<Tab value="code-jsx" label="Javascript">\n${res.codeSnippets.jsx}\n</Tab>`,
-          `<Tab value="playground" label="Playground">${playgroundString}</Tab>`,
-          `</Tabs>`,
-        ]
+        // const previewTabsString = [
+        //   `<Tabs groupId="previews" defaultValue="preview">`,
+        //   `<Tab value="preview" label="Preview"><${moduleName} /></Tab>`,
+        //   `<Tab value="code-tsx" label="Typescript">\n${res.codeSnippets.tsx}\n</Tab>`,
+        //   `<Tab value="code-jsx" label="Javascript">\n${res.codeSnippets.jsx}\n</Tab>`,
+        //   `<Tab value="playground" label="Playground">${playgroundString}</Tab>`,
+        //   `</Tabs>`,
+        // ]
 
-        const mdxContentString = [...importStrings, '\n', ...previewTabsString].join('\n')
+        const mdxContentString = [...importStrings, '\n', playgroundString].join('\n')
 
         Object.assign(node, getMdxFromMarkdown(mdxContentString))
       }

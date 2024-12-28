@@ -50,7 +50,7 @@ class Runner extends Component<RunnerProps, RunnerState> {
   }
 
   async doCompile(targetCode: string) {
-    // console.log({ targetCode })
+    console.log({ targetCode })
     const { language } = this.props
     try {
       const babelPresets = [
@@ -89,10 +89,12 @@ class Runner extends Component<RunnerProps, RunnerState> {
 
       const runExports: any = {}
       // eslint-disable-next-line @typescript-eslint/no-implied-eval, no-new-func
+      console.log({ resultCode: result.code })
       const func = new Function(GET_IMPORT, 'exports', result.code)
       func(getImport, runExports)
+      console.log({ 'runExports.default': runExports.default })
 
-      // console.log(runExports.default.toString())
+      console.log({ func: func.toString() })
       if (runExports.default) {
         this.setState({
           error: undefined,
