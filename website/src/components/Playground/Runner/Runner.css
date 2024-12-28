@@ -1,11 +1,11 @@
-.rspress-playground-runner {
+.playground-runner {
   position: relative;
   padding-block: 12px;
   overflow: auto;
   height: 100%;
 }
 
-.rspress-playground-error {
+.playground-error {
   width: 100%;
   height: 100%;
   position: absolute;

@@ -4,6 +4,7 @@ import { parseSync } from '@swc/core'
 import { getCodeSnippets } from './getCodeSnippets'
 import { getPathWithExt, localImportRegex } from './getImport'
 import { transformAssetPaths } from './transformAssetPaths'
+import { APP_FILE_NAME } from '../../../constants/files'
 
 export const parseImportsTraverse = (params: { importPath: string; dirname: string }) => {
   const { importPath, dirname } = params
@@ -19,7 +20,7 @@ export const parseImportsTraverse = (params: { importPath: string; dirname: stri
     const sourceBase = fs.readFileSync(resolvedPath, { encoding: 'utf8' })
 
     sourceTsx = transformAssetPaths(sourceBase)
-    files['/App.tsx'] = sourceTsx
+    files[`/${APP_FILE_NAME}.tsx`] = sourceTsx
   } catch {
     throw new Error(`Could not find file at "${resolvedPath}".
       Make sure you have a file named "${importPath}.tsx"`)
@@ -49,6 +50,8 @@ export const parseImportsTraverse = (params: { importPath: string; dirname: stri
   }
 
   const codeSnippets = getCodeSnippets(sourceTsx)
+
+  files['/JS.jsx'] = codeSnippets.sourceJsx
 
   return {
     files,

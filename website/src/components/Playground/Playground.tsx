@@ -4,6 +4,7 @@ import {
   SandpackLayout,
   SandpackCodeEditor,
   SandpackStack,
+  SandpackFiles,
 } from '@codesandbox/sandpack-react'
 import { useDark } from 'rspress/runtime'
 import { Preview } from './Preview'
@@ -11,17 +12,21 @@ import { defaultFiles } from './constants/defaultFiles'
 import { defaultDependencies, dependencies } from './constants/dependencies'
 
 export interface PlaygroundProps {
-  files: string | Record<string, string>
-  language: 'tsx'
+  files: string | SandpackFiles
   height?: string
 }
+
+// Tested self-hosted CS bundler (https://sandpack.codesandbox.io/docs/guides/hosting-the-bundler)
+// Turned out even slower than the default one
+// const SELF_HOSTED_BUNDLER_URL = 'https://steady-pegasus-0a8447.netlify.app/'
 
 export const Playground = (props: PlaygroundProps) => {
   const isDarkTheme = useDark()
   const theme = isDarkTheme ? 'dark' : 'light'
 
   const deps = { ...dependencies, ...defaultDependencies }
-  const files = typeof props.files === 'string' ? JSON.parse(props.files) : props.files
+  const files: SandpackFiles =
+    typeof props.files === 'string' ? JSON.parse(props.files) : props.files
   const firstFileName = Object.keys(props.files)[0]
 
   const layoutStyle = {
@@ -38,10 +43,10 @@ export const Playground = (props: PlaygroundProps) => {
         options={{ activeFile: firstFileName }}
       >
         <SandpackLayout style={layoutStyle}>
-          <SandpackCodeEditor wrapContent showTabs={false} showRunButton={false} />
+          <SandpackCodeEditor showRunButton={false} />
 
           <SandpackStack>
-            <Preview files={files} language={props.language} />
+            <Preview />
           </SandpackStack>
         </SandpackLayout>
       </SandpackProvider>
