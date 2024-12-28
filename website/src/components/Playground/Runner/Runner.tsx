@@ -1,13 +1,12 @@
 import './Runner.css'
 import React, { Component, type HTMLAttributes } from 'react'
-import { availablePresets, transform } from '@babel/standalone'
-import { babelPluginTransformImports } from './helpers/babelPluginTransformImports'
+import { transform } from '@babel/standalone'
 import getImport from '_playground_virtual_imports'
-import { GET_IMPORT } from './helpers/constants'
+import { babelPluginTransformImports } from './helpers/babelPluginTransformImports'
+import { babelPresets, GET_IMPORT } from './helpers/constants'
 
 interface RunnerProps extends HTMLAttributes<HTMLDivElement> {
   code: string
-  language: string
 }
 
 interface RunnerState {
@@ -51,31 +50,7 @@ class Runner extends Component<RunnerProps, RunnerState> {
 
   async doCompile(targetCode: string) {
     console.log({ targetCode })
-    const { language } = this.props
     try {
-      const babelPresets = [
-        [availablePresets.react],
-        [
-          availablePresets.env,
-          {
-            targets: {
-              chrome: 100,
-              esmodules: true,
-            },
-          },
-        ],
-      ]
-
-      if (language === 'tsx' || language === 'ts') {
-        babelPresets.unshift([
-          availablePresets.typescript,
-          {
-            allExtensions: true,
-            isTSX: language === 'tsx',
-          },
-        ])
-      }
-
       const result = transform(targetCode, {
         presets: babelPresets,
         comments: false,
@@ -134,13 +109,13 @@ class Runner extends Component<RunnerProps, RunnerState> {
   }
 
   render() {
-    const { className = '', code, language, ...rest } = this.props
+    const { className = '', code, ...rest } = this.props
     const { error, comp } = this.state
 
     return (
-      <div className={`rspress-playground-runner ${className}`} {...rest}>
+      <div className={`playground-runner ${className}`} {...rest}>
         {comp}
-        {error && <pre className="rspress-playground-error">{error.message}</pre>}
+        {error && <pre className="playground-error">{error.message}</pre>}
       </div>
     )
   }

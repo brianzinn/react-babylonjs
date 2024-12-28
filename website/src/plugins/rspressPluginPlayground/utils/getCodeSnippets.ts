@@ -24,5 +24,5 @@ export const getCodeSnippets = (sourceTsx: string) => {
   const tsx = '```tsx\n' + sourceTsx + '\n```'
   const jsx = '```jsx\n' + sourceJsx + '\n```'
 
-  return { tsx, jsx }
+  return { tsx, jsx, sourceJsx }
 }

@@ -4,11 +4,17 @@ Forked version of [@rspress/plugin-playground](https://github.com/web-infra-dev/
 
 ## To Do
 
-- [ ] Review Preview Tabs composition
-  - can we show either TS or JS in the playground?
-  - if yes, we may not need any other tabs
-- [ ] Use @swc/wasm instead of Babel in the browser (?)
-- [ ] How to load npm dependencies more efficiently
+- Resizable pane
+- Inject bootstrap in Preview
+- Move Fullscreen button to bottom
+- See if swc can turn tsx into jsx instead of ts transpiler
+  - try to maintain new lines and formatting
+- Check vertical layout
+- Use @swc/wasm instead of Babel in the browser (?)
+- Only pass required deps to CodeSandbox
+- How to load npm dependencies more efficiently
+- Clean up: remove old code
+- Clean up: refactorings
 
 ## Why not just `@rspress/plugin-playground`
 
@@ -21,7 +27,7 @@ The original `@rspress/plugin-playground` doesn't handle local imports ([source]
 The original `@rspress/plugin-playground` [explicitly recommends](https://rspress.dev/plugin/official-plugins/playground#internal-components) using .js or .jsx to avoid type errors in the editor. They use Monaco editor (which powers VSCode), and it shows type errors thinking that packages are not installed. It is likely trying to do too much for our needs.
 
 ## To Do
-- [ ] Add links
+- Add links
 
 Thus, editor from Sandpack (wrapper around CodeMirror) is being used.  Sandpack also provides convenient context provider and hooks to consume it. Plus, we have a button to open demo in Codesandbox.
 
