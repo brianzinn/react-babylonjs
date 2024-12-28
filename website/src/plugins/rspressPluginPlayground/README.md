@@ -4,12 +4,11 @@ Forked version of [@rspress/plugin-playground](https://github.com/web-infra-dev/
 
 ## To Do
 
-- [ ] Check static assets in Codesandbox (remote one)
-- [ ] Use @swc/wasm instead of Babel in the browser (?)
-- [ ] How to load npm dependencies more efficiently
 - [ ] Review Preview Tabs composition
   - can we show either TS or JS in the playground?
   - if yes, we may not need any other tabs
+- [ ] Use @swc/wasm instead of Babel in the browser (?)
+- [ ] How to load npm dependencies more efficiently
 
 ## Why not just `@rspress/plugin-playground`
 

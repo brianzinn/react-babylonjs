@@ -10,14 +10,14 @@ export const PlaygroundContainer = (props: PlaygroundProps) => {
   const { ref, toggle, fullscreen } = useFullscreen()
 
   return (
-    <div className={'playgroundContainer'}>
+    <div className="playgroundContainer">
       <div className="playgroundActions" style={{ height: actionsHeight }}>
         <ActionIcon title="Enter fullscreen" onClick={toggle}>
           <IconMaximize />
         </ActionIcon>
       </div>
 
-      <div ref={ref}>
+      <div style={{ maxWidth: '100%' }} ref={ref}>
         <Playground {...props} height={fullscreen ? '100dvh' : '400px'} />
       </div>
     </div>
