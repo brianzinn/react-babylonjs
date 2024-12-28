@@ -13,6 +13,5 @@ export const dependencies: SandpackSetup['dependencies'] = {
 
 export const defaultDependencies: SandpackSetup['dependencies'] = {
   '@babylonjs/core': '7.41.1',
-  bootstrap: '5.1.3',
   'react-babylonjs': '3.2.2',
 }
