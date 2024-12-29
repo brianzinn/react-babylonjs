@@ -10,7 +10,8 @@ import { parseImportsTraverse } from './utils/parseImportsTraverse'
 import { _skipForTesting } from './utils/_skipForTesting'
 import { prepareFileNameWithExt } from './utils/getImport'
 
-export let routeMeta: RouteMeta[]
+let routeMeta: RouteMeta[]
+const filesByPath: Record<string, Record<string, string>> = {}
 
 /**
  * The plugin is used to preview component.
@@ -18,6 +19,7 @@ export let routeMeta: RouteMeta[]
 export function pluginPlayground(): RspressPlugin {
   const playgroundVirtualModule = new RspackVirtualModulePlugin({})
   const getRouteMeta = () => routeMeta
+  const getFilesByPath = () => filesByPath
 
   return {
     name: '@rspress/plugin-playground',
@@ -65,6 +67,7 @@ export function pluginPlayground(): RspressPlugin {
               })
 
               Object.assign(importPaths, res.imports)
+              filesByPath[demoImportPath] = res.files
 
               // make local imports available as virtual modules
               for (const [importPath, sourceCode] of Object.entries(res.localImportSources)) {
@@ -114,7 +117,7 @@ export function pluginPlayground(): RspressPlugin {
       // https://rspress.dev/api/config/config-build#markdownglobalcomponents
       mdxRs: false,
       // @ts-expect-error: Plugin typings are weird
-      remarkPlugins: [[remarkPlugin, { getRouteMeta }]],
+      remarkPlugins: [[remarkPlugin, { getRouteMeta, getFilesByPath }]],
       globalComponents: [path.join(__dirname, '../web/Playground')],
     },
 

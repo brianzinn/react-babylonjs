@@ -10,13 +10,18 @@ import { _skipForTesting } from './utils/_skipForTesting'
 
 interface RemarkPluginProps {
   getRouteMeta: () => RouteMeta[]
+  getFilesByPath: () => Record<string, Record<string, string>>
 }
 
 /**
  * remark plugin to transform code to demo
  */
-export const remarkPlugin: Plugin<[RemarkPluginProps], Root> = ({ getRouteMeta }) => {
+export const remarkPlugin: Plugin<[RemarkPluginProps], Root> = ({
+  getRouteMeta,
+  getFilesByPath,
+}) => {
   const routeMeta = getRouteMeta()
+  const filesByPath = getFilesByPath()
 
   return (tree, vfile) => {
     // for testing
@@ -32,36 +37,27 @@ export const remarkPlugin: Plugin<[RemarkPluginProps], Root> = ({ getRouteMeta }
 
     // 1. External demo , use <code src="foo" /> to declare demo
     visit(tree, 'mdxJsxFlowElement', (node: any) => {
-      if (node.name === 'code') {
-        const demoImportPath = getNodeAttribute(node, 'src')
+      if (node.name !== 'code') return
 
-        if (!demoImportPath) {
-          return
-        }
+      const demoImportPath = getNodeAttribute(node, 'src')
 
-        const demoFilePath = path.join(path.dirname(route.absolutePath), demoImportPath)
+      if (!demoImportPath) return
 
-        if (!fs.existsSync(demoFilePath)) {
-          return
-        }
+      const files = filesByPath[demoImportPath]
 
-        const res = parseImportsTraverse({
-          importPath: demoImportPath,
-          dirname: path.dirname(route.absolutePath),
-        })
+      if (!files) return
 
-        Object.assign(node, {
-          type: 'mdxJsxFlowElement',
-          name: 'Playground',
-          attributes: [
-            {
-              type: 'mdxJsxAttribute',
-              name: 'files',
-              value: JSON.stringify(res.files),
-            },
-          ],
-        })
-      }
+      Object.assign(node, {
+        type: 'mdxJsxFlowElement',
+        name: 'Playground',
+        attributes: [
+          {
+            type: 'mdxJsxAttribute',
+            name: 'files',
+            value: JSON.stringify(files),
+          },
+        ],
+      })
     })
   }
 }
