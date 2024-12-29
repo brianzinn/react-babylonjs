@@ -6,7 +6,7 @@ import type { Root } from 'mdast'
 import { RouteMeta } from '@rspress/core'
 import { getNodeAttribute } from './utils/getNodeAttribute'
 import { parseImportsTraverse } from './utils/parseImportsTraverse'
-import { getMdxFromMarkdown } from '../utils/getMdxFromMarkdown'
+import { getMdxFromMarkdown } from '../../utils/getMdxFromMarkdown'
 import { _skipForTesting } from './utils/_skipForTesting'
 
 interface RemarkPluginProps {

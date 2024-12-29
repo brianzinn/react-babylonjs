@@ -1,7 +1,7 @@
 import './Preview.css'
 import { OpenInCodeSandboxButton, SandpackStack, useActiveCode } from '@codesandbox/sandpack-react'
 import { IconMaximize } from '@tabler/icons-react'
-import { Runner } from './Runner/Runner'
+import { Runner } from '../Runner/Runner'
 import { Button } from '../Button/Button'
 
 type PreviewProps = {
