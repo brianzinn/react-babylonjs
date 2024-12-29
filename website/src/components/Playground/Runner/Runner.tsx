@@ -1,6 +1,7 @@
 import './Runner.css'
 import React, { Component, type HTMLAttributes } from 'react'
 import { transform } from '@babel/standalone'
+import type { TransformOptions } from '@babel/core'
 import getImport from '_playground_virtual_imports'
 import { babelPluginTransformImports } from './helpers/babelPluginTransformImports'
 import { babelPresets, GET_IMPORT } from './helpers/constants'
@@ -15,6 +16,12 @@ interface RunnerState {
 }
 
 const DEBOUNCE_TIME = 800
+
+const babelTransformOptions: TransformOptions = {
+  presets: babelPresets,
+  comments: false,
+  plugins: [babelPluginTransformImports()],
+}
 
 class Runner extends Component<RunnerProps, RunnerState> {
   static getDerivedStateFromError(error: Error) {
@@ -51,11 +58,7 @@ class Runner extends Component<RunnerProps, RunnerState> {
   async doCompile(targetCode: string) {
     console.log({ targetCode })
     try {
-      const result = transform(targetCode, {
-        presets: babelPresets,
-        comments: false,
-        plugins: [babelPluginTransformImports()],
-      })
+      const result = transform(targetCode, babelTransformOptions)
 
       // Code has been updated
       if (targetCode !== this.props.code || !result?.code) {
@@ -63,13 +66,13 @@ class Runner extends Component<RunnerProps, RunnerState> {
       }
 
       const runExports: any = {}
-      // eslint-disable-next-line @typescript-eslint/no-implied-eval, no-new-func
-      console.log({ resultCode: result.code })
       const func = new Function(GET_IMPORT, 'exports', result.code)
       func(getImport, runExports)
-      console.log({ 'runExports.default': runExports.default })
 
-      console.log({ func: func.toString() })
+      console.log('babelResult', result.code)
+      console.log('func', func.toString())
+      // console.log({ runExports })
+
       if (runExports.default) {
         this.setState({
           error: undefined,
