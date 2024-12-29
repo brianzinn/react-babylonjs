@@ -3,7 +3,6 @@
 Forked version of [@rspress/plugin-playground](https://github.com/web-infra-dev/rspress/tree/main/packages/plugin-playground) ([docs](https://rspress.dev/plugin/official-plugins/playground)). Replaced its editor, refactored and adjusted to meed our needs.
 
 ## To Do
-- Use @swc/wasm instead of Babel in the browser (?)
 - Only pass required deps to CodeSandbox
 - How to load npm dependencies more efficiently
 - Clean up: remove old code

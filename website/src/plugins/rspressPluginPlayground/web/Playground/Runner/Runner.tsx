@@ -70,8 +70,8 @@ class Runner extends Component<RunnerProps, RunnerState> {
       const func = new Function(GET_IMPORT, 'exports', result.code)
       func(getImport, runExports)
 
-      console.log('babelResult', result.code)
-      console.log('func', func.toString())
+      // console.log('babelResult', result.code)
+      // console.log('func', func.toString())
       // console.log({ runExports })
 
       if (runExports.default) {
