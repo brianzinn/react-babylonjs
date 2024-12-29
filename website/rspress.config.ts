@@ -32,4 +32,15 @@ export default defineConfig({
       },
     ],
   },
+
+  builderConfig: {
+    performance: process.env.BUNDLE_ANALYZE
+      ? {
+          bundleAnalyze: {
+            analyzerMode: 'static',
+            openAnalyzer: true,
+          },
+        }
+      : {},
+  },
 })
