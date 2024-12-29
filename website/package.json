@@ -5,7 +5,8 @@
   "scripts": {
     "build": "rspress build",
     "dev": "rspress dev --port 5173",
-    "preview": "rspress preview"
+    "preview": "rspress preview",
+    "build:analyze": "BUNDLE_ANALYZE=true yarn build"
   },
   "dependencies": {
     "@codesandbox/sandpack-react": "^2.19.10",
