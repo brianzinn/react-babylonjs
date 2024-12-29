@@ -10,7 +10,6 @@ import { defaultDependencies, dependencies } from './dependencies'
 
 export interface PlaygroundProps {
   files: string | SandpackFiles
-  height?: string
 }
 
 // Tested self-hosted CS bundler (https://sandpack.codesandbox.io/docs/guides/hosting-the-bundler)
@@ -27,7 +26,7 @@ export const Playground = (props: PlaygroundProps) => {
   const deps = { ...dependencies, ...defaultDependencies }
   const files: SandpackFiles =
     typeof props.files === 'string' ? JSON.parse(props.files) : props.files
-  const firstFileName = Object.keys(props.files)[0]
+  const firstFileName = Object.keys(files)[0]
 
   const regularHeight = isSmallScreen ? '600px' : '400px'
 
