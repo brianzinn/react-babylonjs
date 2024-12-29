@@ -3,8 +3,9 @@ import React, { Component, type HTMLAttributes } from 'react'
 import { transform } from '@babel/standalone'
 import type { TransformOptions } from '@babel/core'
 import getImport from '_playground_virtual_imports'
-import { babelPluginTransformImports } from './helpers/babelPluginTransformImports'
-import { babelPresets, GET_IMPORT } from './helpers/constants'
+import { babelPresets } from '../../../constants/babelPresets'
+import { babelPluginTransformImports } from './babelPluginTransformImports'
+import { GET_IMPORT } from './constants'
 
 interface RunnerProps extends HTMLAttributes<HTMLDivElement> {
   code: string

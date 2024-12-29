@@ -5,7 +5,7 @@ import type { RouteMeta, RspressPlugin } from '@rspress/core'
 import { RspackVirtualModulePlugin } from 'rspack-plugin-virtual-module'
 import { remarkPlugin } from './remarkPlugin'
 import { getNodeAttribute } from './utils/getNodeAttribute'
-import { getMdxFromMarkdown } from '../utils/getMdxFromMarkdown'
+import { getMdxFromMarkdown } from '../../utils/getMdxFromMarkdown'
 import { parseImportsTraverse } from './utils/parseImportsTraverse'
 import { _skipForTesting } from './utils/_skipForTesting'
 import { prepareFileNameWithExt } from './utils/getImport'
@@ -115,9 +115,9 @@ export function pluginPlayground(): RspressPlugin {
       mdxRs: false,
       // @ts-expect-error: Plugin typings are weird
       remarkPlugins: [[remarkPlugin, { getRouteMeta }]],
-      globalComponents: [path.join(__dirname, '../../components/Playground')],
+      globalComponents: [path.join(__dirname, '../web/Playground')],
     },
 
-    globalStyles: path.join(__dirname, '../../styles/playgroundGlobal.css'),
+    globalStyles: path.join(__dirname, '../static/playgroundGlobal.css'),
   }
 }

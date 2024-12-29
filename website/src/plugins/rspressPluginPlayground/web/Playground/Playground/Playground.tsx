@@ -1,12 +1,12 @@
 import './Playground.css'
 import React from 'react'
-import { SandpackProvider, SandpackCodeEditor, SandpackFiles } from '@codesandbox/sandpack-react'
-import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels'
 import { useDark } from 'rspress/runtime'
-import { Preview } from './Preview'
-import { defaultFiles } from './constants/defaultFiles'
-import { defaultDependencies, dependencies } from './constants/dependencies'
 import { useFullscreen, useMediaQuery } from '@mantine/hooks'
+import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels'
+import { SandpackProvider, SandpackCodeEditor, SandpackFiles } from '@codesandbox/sandpack-react'
+import { Preview } from '../Preview/Preview'
+import { defaultFiles } from './defaultFiles'
+import { defaultDependencies, dependencies } from './dependencies'
 
 export interface PlaygroundProps {
   files: string | SandpackFiles

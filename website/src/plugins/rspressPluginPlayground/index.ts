@@ -1,1 +1,1 @@
-export { pluginPlayground } from './pluginPlayground'
+export { pluginPlayground } from './cli/pluginPlayground'
