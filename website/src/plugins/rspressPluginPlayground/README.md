@@ -3,13 +3,15 @@
 Forked version of [@rspress/plugin-playground](https://github.com/web-infra-dev/rspress/tree/main/packages/plugin-playground) ([docs](https://rspress.dev/plugin/official-plugins/playground)). Replaced its editor, refactored and adjusted to meed our needs.
 
 ## To Do
-
-- See if swc can turn tsx into jsx instead of ts transpiler
-  - try to maintain new lines and formatting
 - Use @swc/wasm instead of Babel in the browser (?)
 - Only pass required deps to CodeSandbox
 - How to load npm dependencies more efficiently
 - Clean up: remove old code
+- Keep new lines in JSX after running transpileModule
+  - Try with eslint: https://eslint.org/docs/latest/integrate/integration-tutorial
+    - rule:
+      - https://eslint.style/rules/js/padding-line-between-statements
+      - https://eslint.org/docs/latest/rules/padding-line-between-statements
 - Clean up: refactorings
 
 ## Why not just `@rspress/plugin-playground`

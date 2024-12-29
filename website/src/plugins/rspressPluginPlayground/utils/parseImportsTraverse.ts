@@ -1,10 +1,7 @@
 import path from 'node:path'
-import fs from 'node:fs'
 import { parseSync } from '@swc/core'
-import { getCodeSnippets } from './getCodeSnippets'
+import { getSourcesAndFiles } from './getSourcesAndFiles'
 import { getPathWithExt, localImportRegex } from './getImport'
-import { transformAssetPaths } from './transformAssetPaths'
-import { APP_FILE_NAME } from '../../../constants/files'
 
 export const parseImportsTraverse = (params: { importPath: string; dirname: string }) => {
   const { importPath, dirname } = params
@@ -12,21 +9,9 @@ export const parseImportsTraverse = (params: { importPath: string; dirname: stri
   const filePath = getPathWithExt(importPath)
   const resolvedPath = path.join(dirname, filePath)
 
-  let sourceTsx = ''
+  const { sources, files } = getSourcesAndFiles({ resolvedPath, importPath })
 
-  const files: Record<string, string> = {}
-
-  try {
-    const sourceBase = fs.readFileSync(resolvedPath, { encoding: 'utf8' })
-
-    sourceTsx = transformAssetPaths(sourceBase)
-    files[`/${APP_FILE_NAME}.tsx`] = sourceTsx
-  } catch {
-    throw new Error(`Could not find file at "${resolvedPath}".
-      Make sure you have a file named "${importPath}.tsx"`)
-  }
-
-  const parsed = parseSync(sourceTsx, {
+  const parsed = parseSync(sources.tsx, {
     target: 'esnext',
     syntax: 'typescript',
     tsx: true,
@@ -43,21 +28,16 @@ export const parseImportsTraverse = (params: { importPath: string; dirname: stri
     if (localImportRegex.test(importPath)) {
       const nested = parseImportsTraverse({ importPath, dirname })
 
-      localImportSources[importPath] = nested.sourceTsx
+      localImportSources[importPath] = nested.sources.tsx
     } else {
       imports[importPath] = importPath
     }
   }
 
-  const codeSnippets = getCodeSnippets(sourceTsx)
-
-  files['/JS.jsx'] = codeSnippets.sourceJsx
-
   return {
     files,
     imports,
-    sourceTsx,
-    codeSnippets,
+    sources,
     localImportSources,
   }
 }
