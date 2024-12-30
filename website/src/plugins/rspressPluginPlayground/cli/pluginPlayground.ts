@@ -6,7 +6,7 @@ import { RspackVirtualModulePlugin } from 'rspack-plugin-virtual-module'
 import { remarkPlugin } from './remarkPlugin'
 import { getNodeAttribute } from './utils/getNodeAttribute'
 import { getMdxFromMarkdown } from '../../utils/getMdxFromMarkdown'
-import { parseImportsTraverse } from './utils/parseImportsTraverse'
+import { processDemoCode } from './utils/processDemoCode'
 import { _skipForTesting } from './utils/_skipForTesting'
 import { prepareFileNameWithExt } from './utils/getImport'
 
@@ -61,7 +61,7 @@ export function pluginPlayground(): RspressPlugin {
                 return
               }
 
-              const res = parseImportsTraverse({
+              const res = processDemoCode({
                 importPath: demoImportPath,
                 dirname: path.dirname(route.absolutePath),
               })

@@ -1,11 +1,9 @@
 import path from 'node:path'
 import { visit } from 'unist-util-visit'
-import fs from 'node:fs'
 import type { Plugin } from 'unified'
 import type { Root } from 'mdast'
 import { RouteMeta } from '@rspress/core'
 import { getNodeAttribute } from './utils/getNodeAttribute'
-import { parseImportsTraverse } from './utils/parseImportsTraverse'
 import { _skipForTesting } from './utils/_skipForTesting'
 
 interface RemarkPluginProps {
@@ -41,11 +39,9 @@ export const remarkPlugin: Plugin<[RemarkPluginProps], Root> = ({
 
       const demoImportPath = getNodeAttribute(node, 'src')
 
-      if (!demoImportPath) return
+      if (!demoImportPath || !filesByPath[demoImportPath]) return
 
       const files = filesByPath[demoImportPath]
-
-      if (!files) return
 
       Object.assign(node, {
         type: 'mdxJsxFlowElement',

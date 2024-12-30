@@ -3,7 +3,7 @@ import { parseSync } from '@swc/core'
 import { getSourcesAndFiles } from './getSourcesAndFiles'
 import { getPathWithExt, localImportRegex } from './getImport'
 
-export const parseImportsTraverse = (params: { importPath: string; dirname: string }) => {
+export const processDemoCode = (params: { importPath: string; dirname: string }) => {
   const { importPath, dirname } = params
 
   const filePath = getPathWithExt(importPath)
@@ -26,7 +26,7 @@ export const parseImportsTraverse = (params: { importPath: string; dirname: stri
     const importPath = statement.source.value
 
     if (localImportRegex.test(importPath)) {
-      const nested = parseImportsTraverse({ importPath, dirname })
+      const nested = processDemoCode({ importPath, dirname })
 
       localImportSources[importPath] = nested.sources.tsx
     } else {
