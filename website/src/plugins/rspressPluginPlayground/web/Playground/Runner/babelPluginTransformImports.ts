@@ -20,9 +20,10 @@ import { PluginItem } from '@babel/core'
  * through the RspackVirtualModulePlugin plugin
  */
 export const babelPluginTransformImports = (): PluginItem => {
-  let hasReactImported = false
-
   return {
+    pre() {
+      this.hasReactImported = false
+    },
     visitor: {
       ImportDeclaration(path) {
         const pkg = path.node.source.value
@@ -32,7 +33,7 @@ export const babelPluginTransformImports = (): PluginItem => {
 
         for (const specifier of path.node.specifiers) {
           if (specifier.local.name === 'React') {
-            hasReactImported = true
+            this.hasReactImported = true
           }
           // import X from 'foo'
           if (specifier.type === 'ImportDefaultSpecifier') {
@@ -66,7 +67,7 @@ export const babelPluginTransformImports = (): PluginItem => {
     },
     post(file) {
       // Auto import React
-      if (!hasReactImported) {
+      if (!this.hasReactImported) {
         file.ast.program.body.unshift(
           createVariableDeclaration('React', createGetImport('react', true))
         )
