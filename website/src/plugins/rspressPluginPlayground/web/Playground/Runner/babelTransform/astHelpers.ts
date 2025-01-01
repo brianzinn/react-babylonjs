@@ -6,7 +6,7 @@ import type {
   ObjectProperty,
   VariableDeclaration,
 } from '@babel/types'
-import { GET_IMPORT_FUNC_NAME } from '../stringConstants'
+import { GET_IMPORT_FUNC_NAME } from '../constants'
 
 export function createVariableDeclaration(
   id: string | ObjectPattern,

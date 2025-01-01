@@ -1,7 +1,7 @@
 import getImport from '_playground_virtual_imports'
-import { GET_IMPORT_FUNC_NAME } from '../../../constants/stringConstants'
+import { GET_IMPORT_FUNC_NAME } from './constants'
 
-export const codeStringToComponent = (transformedCode: string) => {
+export const moduleStringToComponent = (transformedCode: string) => {
   const runExports: Record<'default', React.FC | null> = { default: null }
 
   const func = new Function(GET_IMPORT_FUNC_NAME, 'exports', transformedCode)

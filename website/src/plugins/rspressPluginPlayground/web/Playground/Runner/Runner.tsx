@@ -1,7 +1,7 @@
 import './Runner.css'
 import React, { useEffect, useRef, useState } from 'react'
-import { babelTransform } from '../../../constants/babelTransform'
-import { codeStringToComponent } from './codeStringToComponent'
+import { babelTransform } from './babelTransform'
+import { moduleStringToComponent } from './moduleStringToComponent'
 
 interface RunnerProps {
   code: string
@@ -24,7 +24,7 @@ export const Runner = (props: RunnerProps) => {
         return
       }
 
-      const defaultExport = codeStringToComponent(transformedCode)?.default
+      const defaultExport = moduleStringToComponent(transformedCode)?.default
       // console.log(component?.toString())
 
       if (defaultExport) {
