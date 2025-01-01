@@ -1,11 +1,11 @@
 import './Runner.css'
-import React, { useEffect, useRef, useState, type HTMLAttributes } from 'react'
-import getImport from '_playground_virtual_imports'
-import { GET_IMPORT } from './constants'
-import { babelTransform } from './babelTransform'
+import React, { useEffect, useRef, useState } from 'react'
+import { babelTransform } from '../../../constants/babelTransform'
+import { codeStringToComponent } from './codeStringToComponent'
 
-interface RunnerProps extends HTMLAttributes<HTMLDivElement> {
+interface RunnerProps {
   code: string
+  className?: string
 }
 
 const DEBOUNCE_TIME = 800
@@ -18,33 +18,27 @@ export const Runner = (props: RunnerProps) => {
 
   function doCompile(targetCode: string) {
     try {
-      const result = babelTransform(targetCode)
+      const transformedCode = babelTransform(targetCode)
 
-      // Code has been updated
-      if (targetCode !== props.code || !result?.code) {
+      if (targetCode !== props.code || !transformedCode) {
         return
       }
 
-      const runExports: any = {}
-      const func = new Function(GET_IMPORT, 'exports', result.code)
-      func(getImport, runExports)
+      const defaultExport = codeStringToComponent(transformedCode)?.default
+      // console.log(component?.toString())
 
-      // console.log('babelResult', result.code)
-      // console.log('func', func.toString())
-      // console.log({ runExports })
-
-      if (runExports.default) {
+      if (defaultExport) {
         setError(undefined)
-        setComponent(React.createElement(runExports.default))
-        return
+        setComponent(React.createElement(defaultExport))
+      } else {
+        setError(new Error('No default export'))
       }
-
-      setError(new Error('No default export'))
     } catch (e) {
       // Code has been updated
       if (targetCode !== props.code) {
         return
       }
+
       console.error(e)
       setError(e as Error)
     }
@@ -62,10 +56,8 @@ export const Runner = (props: RunnerProps) => {
     }, DEBOUNCE_TIME)
   }, [props.code])
 
-  const { className = '', code, ...rest } = props
-
   return (
-    <div className={`playground-runner ${className}`} {...rest}>
+    <div className={`playground-runner ${props.className ?? ''}`}>
       {component}
       {error && <pre className="playground-error">{error.message}</pre>}
     </div>
