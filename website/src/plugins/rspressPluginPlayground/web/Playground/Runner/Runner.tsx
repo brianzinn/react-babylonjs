@@ -1,11 +1,8 @@
 import './Runner.css'
 import React, { useEffect, useRef, useState, type HTMLAttributes } from 'react'
-import { transform } from '@babel/standalone'
-import type { TransformOptions } from '@babel/core'
 import getImport from '_playground_virtual_imports'
-import { babelPluginTransformImports } from './babelPluginTransformImports'
 import { GET_IMPORT } from './constants'
-import { babelPresets } from '../../../constants/babel'
+import { babelTransform } from './babelTransform'
 
 interface RunnerProps extends HTMLAttributes<HTMLDivElement> {
   code: string
@@ -13,22 +10,15 @@ interface RunnerProps extends HTMLAttributes<HTMLDivElement> {
 
 const DEBOUNCE_TIME = 800
 
-const babelTransformOptions: TransformOptions = {
-  presets: babelPresets,
-  comments: false,
-  plugins: [babelPluginTransformImports()],
-}
-
 export const Runner = (props: RunnerProps) => {
   const [error, setError] = useState<Error | undefined>()
-  const [comp, setComp] = useState<React.ReactNode | null>(null)
+  const [component, setComponent] = useState<React.ReactNode | null>(null)
 
-  const timer = useRef<NodeJS.Timeout | null>(null)
+  const waitTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
-  async function doCompile(targetCode: string) {
-    console.log({ targetCode })
+  function doCompile(targetCode: string) {
     try {
-      const result = transform(targetCode, babelTransformOptions)
+      const result = babelTransform(targetCode)
 
       // Code has been updated
       if (targetCode !== props.code || !result?.code) {
@@ -45,7 +35,7 @@ export const Runner = (props: RunnerProps) => {
 
       if (runExports.default) {
         setError(undefined)
-        setComp(React.createElement(runExports.default))
+        setComponent(React.createElement(runExports.default))
         return
       }
 
@@ -60,30 +50,23 @@ export const Runner = (props: RunnerProps) => {
     }
   }
 
-  function waitCompile(targetCode: string) {
-    if (timer.current) {
-      clearTimeout(timer.current)
+  useEffect(() => {
+    if (waitTimeoutRef.current) {
+      clearTimeout(waitTimeoutRef.current)
     }
 
-    timer.current = setTimeout(() => {
-      timer.current = null
-      doCompile(targetCode)
+    waitTimeoutRef.current = setTimeout(() => {
+      waitTimeoutRef.current = null
+
+      doCompile(props.code)
     }, DEBOUNCE_TIME)
-  }
-
-  useEffect(() => {
-    doCompile(props.code)
-  }, [])
-
-  useEffect(() => {
-    waitCompile(props.code)
   }, [props.code])
 
   const { className = '', code, ...rest } = props
 
   return (
     <div className={`playground-runner ${className}`} {...rest}>
-      {comp}
+      {component}
       {error && <pre className="playground-error">{error.message}</pre>}
     </div>
   )

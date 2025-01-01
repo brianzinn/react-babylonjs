@@ -110,6 +110,17 @@ export function pluginPlayground(): RspressPlugin {
           plugins: [playgroundVirtualModule],
         },
       },
+      html: {
+        tags: [
+          {
+            tag: 'script',
+            head: true,
+            attrs: {
+              src: 'https://unpkg.com/@babel/standalone/babel.min.js',
+            },
+          },
+        ],
+      },
     },
 
     markdown: {
