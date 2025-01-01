@@ -8,7 +8,6 @@ import {
   transpileModule,
 } from 'typescript'
 import { transformAssetPaths } from './transformAssetPaths'
-import { APP_FILE_NAME } from '../../shared/stringConstants'
 
 const TRANSPILE_OPTIONS: TranspileOptions = {
   reportDiagnostics: false,
@@ -33,7 +32,7 @@ export const getSourcesAndFiles = (params: { resolvedPath: string; importPath: s
     sources.tsx = transformAssetPaths(sourceTsxBase)
     sources.jsx = transpileModule(sources.tsx, TRANSPILE_OPTIONS).outputText
 
-    files[`/${APP_FILE_NAME}.tsx`] = sources.tsx
+    files['/App.tsx'] = sources.tsx
     files['/JS.jsx'] = sources.jsx
   } catch {
     throw new Error(`Could not find file at "${resolvedPath}".
