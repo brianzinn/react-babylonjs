@@ -5,7 +5,6 @@ import { useFullscreen, useMediaQuery } from '@mantine/hooks'
 import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels'
 import { SandpackProvider, SandpackCodeEditor, SandpackFiles } from '@codesandbox/sandpack-react'
 import { Preview } from '../Preview/Preview'
-import { defaultFiles } from './defaultFiles'
 import { getDependencies } from './dependencies'
 
 export interface PlaygroundProps {
@@ -42,7 +41,7 @@ export const Playground = (props: PlaygroundProps) => {
       <SandpackProvider
         template="react-ts"
         theme={theme}
-        files={{ ...files, ...defaultFiles }}
+        files={files}
         customSetup={{ dependencies }}
         options={{ activeFile: firstFileName }}
       >
