@@ -17,7 +17,7 @@ export const processDemoCode = (params: { importPath: string; dirname: string })
     tsx: true,
   })
 
-  const imports: Record<string, string> = {}
+  const importPaths: Record<string, string> = {}
   const localImportSources: Record<string, string> = {}
 
   for (const statement of parsed.body) {
@@ -30,14 +30,14 @@ export const processDemoCode = (params: { importPath: string; dirname: string })
 
       localImportSources[importPath] = nested.sources.tsx
     } else {
-      imports[importPath] = importPath
+      importPaths[importPath] = importPath
     }
   }
 
   return {
     files,
-    imports,
     sources,
+    importPaths,
     localImportSources,
   }
 }

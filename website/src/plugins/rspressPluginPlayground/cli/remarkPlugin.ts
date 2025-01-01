@@ -5,10 +5,11 @@ import type { Root } from 'mdast'
 import { RouteMeta } from '@rspress/core'
 import { getNodeAttribute } from './utils/getNodeAttribute'
 import { _skipForTesting } from './utils/_skipForTesting'
+import { DemoDataByPath } from './pluginPlayground'
 
 interface RemarkPluginProps {
   getRouteMeta: () => RouteMeta[]
-  getFilesByPath: () => Record<string, Record<string, string>>
+  getDemoDataByPath: () => DemoDataByPath
 }
 
 /**
@@ -16,10 +17,10 @@ interface RemarkPluginProps {
  */
 export const remarkPlugin: Plugin<[RemarkPluginProps], Root> = ({
   getRouteMeta,
-  getFilesByPath,
+  getDemoDataByPath,
 }) => {
   const routeMeta = getRouteMeta()
-  const filesByPath = getFilesByPath()
+  const demoDataByPath = getDemoDataByPath()
 
   return (tree, vfile) => {
     // for testing
@@ -39,9 +40,9 @@ export const remarkPlugin: Plugin<[RemarkPluginProps], Root> = ({
 
       const demoImportPath = getNodeAttribute(node, 'src')
 
-      if (!demoImportPath || !filesByPath[demoImportPath]) return
+      if (!demoImportPath || !demoDataByPath[demoImportPath]) return
 
-      const files = filesByPath[demoImportPath]
+      const { files, importPaths } = demoDataByPath[demoImportPath]
 
       Object.assign(node, {
         type: 'mdxJsxFlowElement',
@@ -51,6 +52,11 @@ export const remarkPlugin: Plugin<[RemarkPluginProps], Root> = ({
             type: 'mdxJsxAttribute',
             name: 'files',
             value: JSON.stringify(files),
+          },
+          {
+            type: 'mdxJsxAttribute',
+            name: 'importPaths',
+            value: JSON.stringify(importPaths),
           },
         ],
       })

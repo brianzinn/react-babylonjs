@@ -11,7 +11,16 @@ import { _skipForTesting } from './utils/_skipForTesting'
 import { prepareFileNameWithExt } from './utils/getImport'
 
 let routeMeta: RouteMeta[]
-const filesByPath: Record<string, Record<string, string>> = {}
+
+export type DemoDataByPath = Record<
+  string,
+  {
+    files: Record<string, string>
+    importPaths: string[]
+  }
+>
+
+const demoDataByPath: DemoDataByPath = {}
 
 /**
  * The plugin is used to preview component.
@@ -19,7 +28,7 @@ const filesByPath: Record<string, Record<string, string>> = {}
 export function pluginPlayground(): RspressPlugin {
   const playgroundVirtualModule = new RspackVirtualModulePlugin({})
   const getRouteMeta = () => routeMeta
-  const getFilesByPath = () => filesByPath
+  const getDemoDataByPath = () => demoDataByPath
 
   return {
     name: '@rspress/plugin-playground',
@@ -61,16 +70,19 @@ export function pluginPlayground(): RspressPlugin {
                 return
               }
 
-              const res = processDemoCode({
+              const demo = processDemoCode({
                 importPath: demoImportPath,
                 dirname: path.dirname(route.absolutePath),
               })
 
-              Object.assign(importPaths, res.imports)
-              filesByPath[demoImportPath] = res.files
+              Object.assign(importPaths, demo.importPaths)
+              demoDataByPath[demoImportPath] = {
+                files: demo.files,
+                importPaths: Object.keys(demo.importPaths),
+              }
 
               // make local imports available as virtual modules
-              for (const [importPath, sourceCode] of Object.entries(res.localImportSources)) {
+              for (const [importPath, sourceCode] of Object.entries(demo.localImportSources)) {
                 const fileNameWithExt = prepareFileNameWithExt(importPath)
 
                 importPaths[fileNameWithExt] = fileNameWithExt
@@ -85,15 +97,19 @@ export function pluginPlayground(): RspressPlugin {
         }
       }
 
-      const importKeys = Object.keys(importPaths)
+      const importModuleNames = Object.keys(importPaths)
 
       const getImportString = fs.readFileSync(path.join(__dirname, './utils/getImport.js'), 'utf-8')
 
       const playgroundVirtualImportsCode = [
         getImportString,
-        ...importKeys.map((x, index) => `import * as i_${index} from '${x}';`),
+        ...importModuleNames.map(
+          (moduleName, index) => `import * as i_${index} from '${moduleName}';`
+        ),
         '\n',
-        ...importKeys.map((x, index) => `imports.set('${x}', i_${index});`),
+        ...importModuleNames.map(
+          (moduleName, index) => `imports.set('${moduleName}', i_${index});`
+        ),
       ].join('\n')
 
       console.log({ getImport: playgroundVirtualImportsCode })
@@ -128,7 +144,7 @@ export function pluginPlayground(): RspressPlugin {
       // https://rspress.dev/api/config/config-build#markdownglobalcomponents
       mdxRs: false,
       // @ts-expect-error: Plugin typings are weird
-      remarkPlugins: [[remarkPlugin, { getRouteMeta, getFilesByPath }]],
+      remarkPlugins: [[remarkPlugin, { getRouteMeta, getDemoDataByPath }]],
       globalComponents: [path.join(__dirname, '../web/Playground')],
     },
 

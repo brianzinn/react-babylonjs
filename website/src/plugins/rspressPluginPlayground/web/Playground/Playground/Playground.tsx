@@ -6,10 +6,11 @@ import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels'
 import { SandpackProvider, SandpackCodeEditor, SandpackFiles } from '@codesandbox/sandpack-react'
 import { Preview } from '../Preview/Preview'
 import { defaultFiles } from './defaultFiles'
-import { defaultDependencies, dependencies } from './dependencies'
+import { getDependencies } from './dependencies'
 
 export interface PlaygroundProps {
   files: string | SandpackFiles
+  importPaths: string | string[]
 }
 
 // Tested self-hosted CS bundler (https://sandpack.codesandbox.io/docs/guides/hosting-the-bundler)
@@ -23,9 +24,9 @@ export const Playground = (props: PlaygroundProps) => {
 
   const theme = isDarkTheme ? 'dark' : 'light'
 
-  const deps = { ...dependencies, ...defaultDependencies }
   const files: SandpackFiles =
     typeof props.files === 'string' ? JSON.parse(props.files) : props.files
+
   const firstFileName = Object.keys(files)[0]
 
   const regularHeight = isSmallScreen ? '600px' : '400px'
@@ -34,13 +35,15 @@ export const Playground = (props: PlaygroundProps) => {
     height: fullscreen ? '100dvh' : regularHeight,
   } as React.CSSProperties
 
+  const dependencies = getDependencies(props.importPaths)
+
   return (
     <div style={{ maxWidth: '100%' }} ref={fullScreenRef}>
       <SandpackProvider
         template="react-ts"
         theme={theme}
         files={{ ...files, ...defaultFiles }}
-        customSetup={{ dependencies: deps }}
+        customSetup={{ dependencies }}
         options={{ activeFile: firstFileName }}
       >
         <div className="playground-layout" style={layoutStyle}>
