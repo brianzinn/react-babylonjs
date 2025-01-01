@@ -1,4 +1,4 @@
-import { APP_FILE_NAME } from '../../../constants/stringConstants'
+import { APP_FILE_NAME } from '../../../shared/stringConstants'
 
 export const defaultFiles = {
   [`/index.tsx`]: {

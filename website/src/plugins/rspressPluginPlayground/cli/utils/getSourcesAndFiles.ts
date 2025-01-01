@@ -8,7 +8,7 @@ import {
   transpileModule,
 } from 'typescript'
 import { transformAssetPaths } from './transformAssetPaths'
-import { APP_FILE_NAME } from '../../constants/stringConstants'
+import { APP_FILE_NAME } from '../../shared/stringConstants'
 
 const TRANSPILE_OPTIONS: TranspileOptions = {
   reportDiagnostics: false,
