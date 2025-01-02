@@ -3,7 +3,6 @@
 Forked version of [@rspress/plugin-playground](https://github.com/web-infra-dev/rspress/tree/main/packages/plugin-playground) ([docs](https://rspress.dev/plugin/official-plugins/playground)). Replaced its editor, refactored and adjusted to meed our needs.
 
 ## To Do
-- Highlight resize handle on hover (see VSCode)
 - Keep new lines in JSX after running transpileModule
   - Try with eslint: https://eslint.org/docs/latest/integrate/integration-tutorial
     - rule:
