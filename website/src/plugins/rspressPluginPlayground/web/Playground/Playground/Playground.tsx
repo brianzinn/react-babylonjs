@@ -57,7 +57,11 @@ export const Playground = (props: PlaygroundProps) => {
             <PanelResizeHandle className="resize-handle" hitAreaMargins={{ coarse: 0, fine: 0 }} />
 
             <Panel className="resizable-panel" defaultSize={40}>
-              <Preview toggleFullscreen={toggleFullscreen} className="sandpack-stack" />
+              <Preview
+                fullscreen={fullscreen}
+                toggleFullscreen={toggleFullscreen}
+                className="sandpack-stack"
+              />
             </Panel>
           </PanelGroup>
         </div>
