@@ -10,3 +10,24 @@
 .resizable-panel {
   overflow: auto;
 }
+
+.resize-handle {
+  --handle-width: 4px;
+
+  height: 100%;
+  width: var(--handle-width);
+
+  &[data-panel-group-direction='vertical'] {
+    width: 100%;
+    height: var(--handle-width);
+  }
+
+  pointer-events: none;
+
+  background-color: transparent;
+  transition: background-color 0.1s ease-out;
+
+  &[data-resize-handle-state='hover'] {
+    background-color: #007fd4;
+  }
+}
