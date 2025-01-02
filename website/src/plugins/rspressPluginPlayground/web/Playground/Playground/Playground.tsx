@@ -54,7 +54,7 @@ export const Playground = (props: PlaygroundProps) => {
               <SandpackCodeEditor showRunButton={false} className="sandpack-stack" />
             </Panel>
 
-            <PanelResizeHandle />
+            <PanelResizeHandle className="resize-handle" hitAreaMargins={{ coarse: 0, fine: 0 }} />
 
             <Panel className="resizable-panel" defaultSize={40}>
               <Preview toggleFullscreen={toggleFullscreen} className="sandpack-stack" />
