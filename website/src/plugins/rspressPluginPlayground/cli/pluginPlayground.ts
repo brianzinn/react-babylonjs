@@ -35,7 +35,9 @@ export function pluginPlayground(): RspressPlugin {
 
     config(config) {
       config.markdown = config.markdown || {}
-      // disable Rust compiler to use markdown plugins
+      // disable Rust compiler to use
+      // markdown.remarkPlugins and markdown.globalComponents
+      // https://rspress.dev/api/config/config-build#markdownglobalcomponents
       config.markdown.mdxRs = false
 
       return config
@@ -144,10 +146,6 @@ export function pluginPlayground(): RspressPlugin {
     },
 
     markdown: {
-      // per docs, disabling mdxRs when configuring globalComponents
-      // https://rspress.dev/api/config/config-build#markdownglobalcomponents
-      mdxRs: false,
-      // @ts-expect-error: Plugin typings are weird
       remarkPlugins: [[remarkPlugin, { getRouteMeta, getDemoDataByPath }]],
       globalComponents: [path.join(__dirname, '../web/Playground')],
     },
