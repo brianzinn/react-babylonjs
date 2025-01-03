@@ -5,7 +5,7 @@ import type { RouteMeta, RspressPlugin } from '@rspress/core'
 import { RspackVirtualModulePlugin } from 'rspack-plugin-virtual-module'
 import { remarkPlugin } from './remarkPlugin'
 import { getNodeAttribute } from './utils/getNodeAttribute'
-import { getMdxFromMarkdown } from '../../utils/getMdxFromMarkdown'
+import { getMdxFromMarkdown } from './utils/getMdxFromMarkdown'
 import { processDemoCode } from './utils/processDemoCode'
 import { _skipForTesting } from './utils/_skipForTesting'
 import { prepareFileNameWithExt } from './utils/getImport'
@@ -41,7 +41,7 @@ export function pluginPlayground(): RspressPlugin {
       return config
     },
 
-    routeGenerated(routes: RouteMeta[]) {
+    async routeGenerated(routes: RouteMeta[]) {
       routeMeta = routes
 
       const importPaths: Record<string, string> = { react: 'react' }
@@ -62,35 +62,39 @@ export function pluginPlayground(): RspressPlugin {
           const mdxSource = fs.readFileSync(route.absolutePath, 'utf-8')
           const mdxAst = getMdxFromMarkdown(mdxSource)
 
-          visit(mdxAst, 'mdxJsxFlowElement', (node: any) => {
+          const codeNodes: string[] = []
+
+          visit(mdxAst, 'mdxJsxFlowElement', (node) => {
             if (node.name === 'code') {
               const demoImportPath = getNodeAttribute(node, 'src')
 
-              if (!demoImportPath) {
-                return
-              }
-
-              const demo = processDemoCode({
-                importPath: demoImportPath,
-                dirname: path.dirname(route.absolutePath),
-              })
-
-              Object.assign(importPaths, demo.importPaths)
-              demoDataByPath[demoImportPath] = {
-                files: demo.files,
-                importPaths: Object.keys(demo.importPaths),
-              }
-
-              // make local imports available as virtual modules
-              for (const [importPath, sourceCode] of Object.entries(demo.localImportSources)) {
-                const fileNameWithExt = prepareFileNameWithExt(importPath)
-
-                importPaths[fileNameWithExt] = fileNameWithExt
-
-                playgroundVirtualModule.writeModule(fileNameWithExt, sourceCode)
+              if (demoImportPath) {
+                codeNodes.push(demoImportPath)
               }
             }
           })
+
+          for (const demoImportPath of codeNodes) {
+            const demo = await processDemoCode({
+              importPath: demoImportPath,
+              dirname: path.dirname(route.absolutePath),
+            })
+
+            Object.assign(importPaths, demo.importPaths)
+            demoDataByPath[demoImportPath] = {
+              files: demo.files,
+              importPaths: Object.keys(demo.importPaths),
+            }
+
+            // make local imports available as virtual modules
+            for (const [importPath, sourceCode] of Object.entries(demo.localImportSources)) {
+              const fileNameWithExt = prepareFileNameWithExt(importPath)
+
+              importPaths[fileNameWithExt] = fileNameWithExt
+
+              playgroundVirtualModule.writeModule(fileNameWithExt, sourceCode)
+            }
+          }
         } catch (e) {
           console.error(e)
           throw e
@@ -112,7 +116,7 @@ export function pluginPlayground(): RspressPlugin {
         ),
       ].join('\n')
 
-      console.log({ getImport: playgroundVirtualImportsCode })
+      // console.log({ getImport: playgroundVirtualImportsCode })
 
       playgroundVirtualModule.writeModule(
         '_playground_virtual_imports',

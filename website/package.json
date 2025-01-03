@@ -16,10 +16,13 @@
     "rspress": "1.36.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/plugin-syntax-jsx": "^7.25.9",
     "@mdx-js/mdx": "^3.1.0",
     "@swc/core": "^1.10.1",
     "@types/babel__standalone": "^7.1.9",
     "@types/node": "^18.11.17",
+    "prettier": "^3.4.2",
     "rspack-plugin-virtual-module": "0.1.13",
     "typescript": "^5.7.2",
     "unist-util-visit": "^5.0.0"
