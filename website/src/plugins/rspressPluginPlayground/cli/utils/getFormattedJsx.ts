@@ -1,24 +1,5 @@
-import { transformSync } from '@babel/core'
 import prettier from 'prettier'
-
-const babelTransform = (code: string) => {
-  const result = transformSync(code, {
-    retainLines: true,
-    // plugin-syntax-jsx allows to read JSX without transforming it
-    plugins: ['@babel/plugin-syntax-jsx'],
-    presets: [
-      [
-        '@babel/preset-typescript',
-        {
-          allExtensions: true,
-          isTSX: true,
-        },
-      ],
-    ],
-  })
-
-  return result?.code ?? ''
-}
+import { tsxToJsx } from './babel'
 
 const formatCode = async (code: string, filePath: string) => {
   const fallbackConfig: prettier.Options = {
@@ -38,7 +19,7 @@ const formatCode = async (code: string, filePath: string) => {
 }
 
 const getFormattedJsx = async (code: string, filePath: string) => {
-  const jsx = babelTransform(code)
+  const jsx = tsxToJsx(code)
 
   return await formatCode(jsx, filePath)
 }
