@@ -3,13 +3,13 @@ import { parseSync } from '@swc/core'
 import { getSourcesAndFiles } from './getSourcesAndFiles'
 import { getPathWithExt, localImportRegex } from './getImport'
 
-export const processDemoCode = (params: { importPath: string; dirname: string }) => {
+export const processDemoCode = async (params: { importPath: string; dirname: string }) => {
   const { importPath, dirname } = params
 
   const filePath = getPathWithExt(importPath)
   const resolvedPath = path.join(dirname, filePath)
 
-  const { sources, files } = getSourcesAndFiles({ resolvedPath, importPath })
+  const { sources, files } = await getSourcesAndFiles({ resolvedPath, importPath })
 
   const parsed = parseSync(sources.tsx, {
     target: 'esnext',
@@ -26,7 +26,7 @@ export const processDemoCode = (params: { importPath: string; dirname: string })
     const importPath = statement.source.value
 
     if (localImportRegex.test(importPath)) {
-      const nested = processDemoCode({ importPath, dirname })
+      const nested = await processDemoCode({ importPath, dirname })
 
       localImportSources[importPath] = nested.sources.tsx
     } else {
