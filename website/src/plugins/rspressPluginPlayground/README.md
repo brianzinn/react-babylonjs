@@ -3,6 +3,7 @@
 Forked version of [@rspress/plugin-playground](https://github.com/web-infra-dev/rspress/tree/main/packages/plugin-playground) ([docs](https://rspress.dev/plugin/official-plugins/playground)). Replaced its editor, refactored and adjusted to meed our needs.
 
 ## To Do
+- Local imports don't work in codesandbox
 - Clean up: remove old code
 - Clean up: refactorings
 
