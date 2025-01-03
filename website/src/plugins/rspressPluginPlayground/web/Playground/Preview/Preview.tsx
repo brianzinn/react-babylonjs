@@ -39,7 +39,7 @@ function FullscreenToggleButton({ onClick, fullscreen }: FullscreenToggleButtonP
         </>
       ) : (
         <>
-          <IconMaximize /> Enter fullscreen
+          <IconMaximize /> Fullscreen
         </>
       )}
     </Button>
