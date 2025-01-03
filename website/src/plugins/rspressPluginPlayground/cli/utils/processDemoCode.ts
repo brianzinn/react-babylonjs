@@ -1,7 +1,7 @@
 import path from 'node:path'
-import { parseSync } from '@swc/core'
 import { getSourcesAndFiles } from './getSourcesAndFiles'
 import { getPathWithExt, localImportRegex } from './getImport'
+import { getAstBody } from './babel'
 
 export const processDemoCode = async (params: { importPath: string; dirname: string }) => {
   const { importPath, dirname } = params
@@ -11,16 +11,11 @@ export const processDemoCode = async (params: { importPath: string; dirname: str
 
   const { sources, files } = await getSourcesAndFiles({ resolvedPath, importPath })
 
-  const parsed = parseSync(sources.tsx, {
-    target: 'esnext',
-    syntax: 'typescript',
-    tsx: true,
-  })
-
   const importPaths: Record<string, string> = {}
   const localImportSources: Record<string, string> = {}
 
-  for (const statement of parsed.body) {
+  const astBody = getAstBody(sources.tsx)
+  for (const statement of astBody) {
     if (statement.type !== 'ImportDeclaration') continue
 
     const importPath = statement.source.value
