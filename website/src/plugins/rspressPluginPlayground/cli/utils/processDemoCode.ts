@@ -11,7 +11,7 @@ export const processDemoCode = async (params: { importPath: string; dirname: str
 
   const { sources, files } = await getSourcesAndFiles({ resolvedPath, importPath })
 
-  const importPaths: Record<string, string> = {}
+  const imports: Record<string, string> = {}
   const localImportSources: Record<string, string> = {}
 
   const astBody = getAstBody(sources.tsx)
@@ -25,14 +25,14 @@ export const processDemoCode = async (params: { importPath: string; dirname: str
 
       localImportSources[importPath] = nested.sources.tsx
     } else {
-      importPaths[importPath] = importPath
+      imports[importPath] = importPath
     }
   }
 
   return {
     files,
     sources,
-    importPaths,
+    imports,
     localImportSources,
   }
 }
