@@ -16,7 +16,7 @@ export type DemoDataByPath = Record<
   string,
   {
     files: Record<string, string>
-    importPaths: string[]
+    imports: string[]
   }
 >
 
@@ -46,7 +46,7 @@ export function pluginPlayground(): RspressPlugin {
     async routeGenerated(routes: RouteMeta[]) {
       routeMeta = routes
 
-      const importPaths: Record<string, string> = { react: 'react' }
+      const imports: Record<string, string> = { react: 'react' }
 
       // Scan all files, and generate virtual modules
       // that make imports in demo files available in runtime
@@ -81,17 +81,17 @@ export function pluginPlayground(): RspressPlugin {
               dirname: path.dirname(route.absolutePath),
             })
 
-            Object.assign(importPaths, demo.importPaths)
+            Object.assign(imports, demo.imports)
             demoDataByPath[demoImportPath] = {
               files: demo.files,
-              importPaths: Object.keys(demo.importPaths),
+              imports: Object.keys(demo.imports),
             }
 
             // make local imports available as virtual modules
             for (const [importPath, sourceCode] of Object.entries(demo.localImportSources)) {
               const fileNameWithExt = prepareFileNameWithExt(importPath)
 
-              importPaths[fileNameWithExt] = fileNameWithExt
+              imports[fileNameWithExt] = fileNameWithExt
 
               playgroundVirtualModule.writeModule(fileNameWithExt, sourceCode)
             }
@@ -102,7 +102,7 @@ export function pluginPlayground(): RspressPlugin {
         }
       }
 
-      const importModuleNames = Object.keys(importPaths)
+      const importModuleNames = Object.keys(imports)
 
       const getImportString = fs.readFileSync(path.join(__dirname, './utils/getImport.js'), 'utf-8')
 

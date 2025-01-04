@@ -9,7 +9,7 @@ import { getDependencies } from './dependencies'
 
 export interface PlaygroundProps {
   files: string | SandpackFiles
-  importPaths: string | string[]
+  imports: string | string[]
 }
 
 // Tested self-hosted CS bundler (https://sandpack.codesandbox.io/docs/guides/hosting-the-bundler)
@@ -34,7 +34,7 @@ export const Playground = (props: PlaygroundProps) => {
     height: fullscreen ? '100dvh' : regularHeight,
   } as React.CSSProperties
 
-  const dependencies = getDependencies(props.importPaths)
+  const dependencies = getDependencies(props.imports)
 
   return (
     <div style={{ maxWidth: '100%' }} ref={fullScreenRef}>
