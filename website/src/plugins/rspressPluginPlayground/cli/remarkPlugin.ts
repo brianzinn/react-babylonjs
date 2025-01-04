@@ -23,8 +23,7 @@ export const remarkPlugin: Plugin<[RemarkPluginProps], Root> = ({
   const demoDataByPath = getDemoDataByPath()
 
   return (tree, vfile) => {
-    // for testing
-    // if (_skipForTesting(vfile.path)) return
+    if (_skipForTesting(vfile.path)) return
 
     const route = routeMeta.find(
       (meta) => path.resolve(meta.absolutePath) === path.resolve(vfile.path || vfile.history[0])

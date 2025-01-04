@@ -51,8 +51,7 @@ export function pluginPlayground(): RspressPlugin {
       // Scan all files, and generate virtual modules
       // that make imports in demo files available in runtime
       for (const route of routes) {
-        // for testing
-        // if (_skipForTesting(route.absolutePath)) continue
+        if (_skipForTesting(route.absolutePath)) continue
 
         const isMdxFile = /\.mdx$/.test(route.absolutePath)
 
