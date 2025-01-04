@@ -26,7 +26,7 @@ export const Playground = (props: PlaygroundProps) => {
   const files: SandpackFiles =
     typeof props.files === 'string' ? JSON.parse(props.files) : props.files
 
-  const firstFileName = Object.keys(files)[0]
+  const appFileName = Object.keys(files).find((fileName) => fileName.includes('App'))
 
   const regularHeight = isSmallScreen ? '600px' : '400px'
 
@@ -43,7 +43,7 @@ export const Playground = (props: PlaygroundProps) => {
         theme={theme}
         files={files}
         customSetup={{ dependencies }}
-        options={{ activeFile: firstFileName }}
+        options={{ activeFile: appFileName }}
       >
         <div className="playground-layout" style={layoutStyle}>
           <PanelGroup

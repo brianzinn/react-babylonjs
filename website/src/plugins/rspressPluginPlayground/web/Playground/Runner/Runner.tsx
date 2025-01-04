@@ -1,10 +1,10 @@
 import './Runner.css'
 import React, { useEffect, useRef, useState } from 'react'
+import { useActiveCode } from '@codesandbox/sandpack-react'
 import { babelTransform } from './babelTransform'
 import { moduleStringToComponent } from './moduleStringToComponent'
 
 interface RunnerProps {
-  code: string
   className?: string
 }
 
@@ -14,13 +14,13 @@ export const Runner = (props: RunnerProps) => {
   const [error, setError] = useState<Error | undefined>()
   const [component, setComponent] = useState<React.ReactNode | null>(null)
 
-  const waitTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const { code } = useActiveCode()
 
   function doCompile(targetCode: string) {
     try {
       const transformedCode = babelTransform(targetCode)
 
-      if (targetCode !== props.code || !transformedCode) {
+      if (!transformedCode) {
         return
       }
 
@@ -34,15 +34,12 @@ export const Runner = (props: RunnerProps) => {
         setError(new Error('No default export'))
       }
     } catch (e) {
-      // Code has been updated
-      if (targetCode !== props.code) {
-        return
-      }
-
       console.error(e)
       setError(e as Error)
     }
   }
+
+  const waitTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
     if (waitTimeoutRef.current) {
@@ -52,9 +49,9 @@ export const Runner = (props: RunnerProps) => {
     waitTimeoutRef.current = setTimeout(() => {
       waitTimeoutRef.current = null
 
-      doCompile(props.code)
+      doCompile(code)
     }, DEBOUNCE_TIME)
-  }, [props.code])
+  }, [code])
 
   return (
     <div className={`playground-runner ${props.className ?? ''}`}>
