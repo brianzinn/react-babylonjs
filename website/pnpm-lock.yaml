@@ -73,9 +73,6 @@ devDependencies:
   '@rspress/core':
     specifier: 1.36.0
     version: 1.36.0(webpack@5.97.1)
-  '@sinclair/esbuild-wasm-resolve':
-    specifier: ^0.8.1
-    version: 0.8.1
   '@types/babel__standalone':
     specifier: ^7.1.9
     version: 7.1.9
@@ -1177,12 +1174,6 @@ packages:
       domhandler: 5.0.3
       selderee: 0.11.0
 
-  /@sinclair/esbuild-wasm-resolve@0.8.1:
-    resolution: {integrity: sha512-rQpDAxyJFg6uwJ4KwcyNcde72FST2TaqRz0qnu2y3v0iOBpxMJFrhoAdeBYd8cflEMP6i8QGJLEMjaqIm6gUmg==}
-    dependencies:
-      esbuild-wasm: 0.14.54
-    dev: true
-
   /@stitches/core@1.2.8:
     resolution: {integrity: sha512-Gfkvwk9o9kE9r9XNBmJRfV8zONvXThnm1tcuojL04Uy5uRyqg93DC83lDebl0rocZCfKSjUv+fWYtMQmEDJldg==}
     dev: false
@@ -2134,12 +2125,6 @@ packages:
       d: 1.0.2
       ext: 1.7.0
     dev: false
-
-  /esbuild-wasm@0.14.54:
-    resolution: {integrity: sha512-Lk1Rq6mnHCIgYpUGQGsJn1dgW26w5uV0KYTl6CdoixSF4hD4v8Nyyxmhrqo4lUkV8AQoWLVfIBWYo7l+JTPl9g==}
-    engines: {node: '>=12'}
-    hasBin: true
-    dev: true
 
   /esbuild-wasm@0.24.2:
     resolution: {integrity: sha512-03/7Z1gD+ohDnScFztvI4XddTAbKVmMEzCvvkBpQdWKEXJ+73dTyeNrmdxP1Q0zpDMFjzUJwtK4rLjqwiHbzkw==}
