@@ -34,6 +34,7 @@ export const Playground = (props: PlaygroundProps) => {
     height: fullscreen ? '100dvh' : regularHeight,
   } as React.CSSProperties
 
+  // TODO: review this. We can get package.json at build time, and extract deps from it
   const dependencies = getDependencies(props.imports)
 
   return (
