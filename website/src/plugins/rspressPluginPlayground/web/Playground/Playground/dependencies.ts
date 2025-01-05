@@ -19,8 +19,8 @@ const defaultCodesandboxDependencies = ['react']
 const depNames = Object.keys(dependencies)
 
 // only include required dependencies for Codesandbox
-export const getDependencies = (importPaths: PlaygroundProps['importPaths']) => {
-  const paths: string[] = typeof importPaths === 'string' ? JSON.parse(importPaths) : importPaths
+export const getDependencies = (imports: PlaygroundProps['imports']) => {
+  const paths: string[] = typeof imports === 'string' ? JSON.parse(imports) : imports
 
   const deps = paths.reduce<Record<string, string>>(
     (acc, importPath) => {
@@ -31,7 +31,7 @@ export const getDependencies = (importPaths: PlaygroundProps['importPaths']) => 
       } else {
         if (!defaultCodesandboxDependencies.includes(importPath)) {
           console.warn(
-            `Could resolve dependency for ${importPath}. Check the list of dependencies.`
+            `Couldn't resolve dependency for ${importPath}. Check the list of dependencies.`
           )
         }
       }

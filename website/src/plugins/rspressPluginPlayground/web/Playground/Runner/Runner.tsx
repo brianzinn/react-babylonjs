@@ -2,7 +2,6 @@ import './Runner.css'
 import React, { useEffect, useRef, useState } from 'react'
 import { useActiveCode } from '@codesandbox/sandpack-react'
 import { babelTransform } from './babelTransform'
-import { moduleStringToComponent } from './moduleStringToComponent'
 
 interface RunnerProps {
   className?: string
@@ -19,14 +18,7 @@ export const Runner = (props: RunnerProps) => {
   function doCompile(targetCode: string) {
     try {
       const start = performance.now()
-      const transformedCode = babelTransform(targetCode)
-
-      if (!transformedCode) {
-        return
-      }
-
-      const defaultExport = moduleStringToComponent(transformedCode)?.default
-      // console.log(component?.toString())
+      const component = babelTransform(targetCode)
       const end = performance.now()
 
       console.info(
@@ -35,9 +27,9 @@ export const Runner = (props: RunnerProps) => {
         'background: #15889f; padding: 6px; color: white; font-size: 0.8rem; font-weight: bold'
       )
 
-      if (defaultExport) {
+      if (component) {
         setError(undefined)
-        setComponent(React.createElement(defaultExport))
+        setComponent(React.createElement(component))
       } else {
         setError(new Error('No default export'))
       }

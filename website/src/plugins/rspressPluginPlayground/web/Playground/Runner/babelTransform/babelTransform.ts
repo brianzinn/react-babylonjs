@@ -1,6 +1,7 @@
 import { type TransformOptions } from '@babel/core'
 import type babel from '@babel/standalone'
 import { babelPluginTransformImports } from './babelPluginTransformImports'
+import { moduleStringToComponent } from '../moduleStringToComponent'
 
 type Babel = typeof babel
 
@@ -29,7 +30,9 @@ const babelTransform = (targetCode: string) => {
   const transformOptions = getBabelConfig(window.Babel.availablePresets)
   const transformResult = window.Babel.transform(targetCode, transformOptions)
 
-  return transformResult.code
+  if (transformResult.code) {
+    return moduleStringToComponent(transformResult.code)?.default
+  }
 }
 
 export { getBabelConfig, babelTransform }

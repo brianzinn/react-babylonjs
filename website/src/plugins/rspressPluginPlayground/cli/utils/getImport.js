@@ -13,21 +13,23 @@ export const prepareFileNameWithExt = (importPath) => {
 
 const imports = new Map()
 
-function getImport(importName, getDefault) {
+function getImport(importName, isDefault = true) {
   let name = importName
 
   if (localImportRegex.test(name)) {
     name = prepareFileNameWithExt(name)
   }
 
-  if (!imports.has(name)) {
-    throw new Error('Module ' + name + ' not found')
-  }
   const result = imports.get(name)
-  if (getDefault && typeof result === 'object') {
-    return result.default || result
+
+  if (!result) {
+    throw new Error(
+      `${isDefault ? 'Default module' : 'Module'} ${name} not found in imports. Available keys:
+      ${JSON.stringify(Array.from(imports.keys()))}`
+    )
   }
-  return result
+
+  return isDefault && result?.default ? result.default : result
 }
 
 export { imports }
