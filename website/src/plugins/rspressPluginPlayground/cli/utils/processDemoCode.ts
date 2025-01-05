@@ -1,6 +1,6 @@
 import path from 'node:path'
 import { getSourcesAndFiles } from './getSourcesAndFiles'
-import { getPathWithExt, localImportRegex } from './getImport'
+import { getPathWithExt, localImportRegex, prepareFileNameWithExt } from './getImport'
 import { getAstBody } from './babel'
 
 export const processDemoCode = async (params: { importPath: string; dirname: string }) => {
@@ -23,16 +23,23 @@ export const processDemoCode = async (params: { importPath: string; dirname: str
     if (localImportRegex.test(importPath)) {
       const nested = await processDemoCode({ importPath, dirname })
 
-      localImportSources[importPath] = nested.sources.tsx
+      const nestedMainFile = nested.files['App.tsx']
+      const nestedFileCode =
+        typeof nestedMainFile === 'string' ? nestedMainFile : nestedMainFile.code
+
+      const fileNameWithExt = prepareFileNameWithExt(importPath)
+
+      localImportSources[fileNameWithExt] = nestedFileCode
+
+      files[fileNameWithExt] = {
+        code: nestedFileCode,
+        hidden: true,
+        readOnly: true,
+      }
     } else {
       imports[importPath] = importPath
     }
   }
 
-  return {
-    files,
-    sources,
-    imports,
-    localImportSources,
-  }
+  return { files, imports, localImportSources }
 }

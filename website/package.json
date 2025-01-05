@@ -21,7 +21,6 @@
     "@babel/core": "^7.26.0",
     "@babel/plugin-syntax-jsx": "^7.25.9",
     "@babel/preset-typescript": "^7.26.0",
-    "@rsbuild/plugin-node-polyfill": "^1.2.0",
     "@rspress/core": "1.36.0",
     "@types/babel__standalone": "^7.1.9",
     "@types/node": "^18.11.17",

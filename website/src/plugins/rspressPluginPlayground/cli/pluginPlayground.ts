@@ -1,6 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { visit } from 'unist-util-visit'
+import { SandpackFiles } from '@codesandbox/sandpack-react'
 import type { RouteMeta, RspressPlugin } from '@rspress/core'
 import { RspackVirtualModulePlugin } from 'rspack-plugin-virtual-module'
 import { remarkPlugin } from './remarkPlugin'
@@ -8,14 +9,13 @@ import { getNodeAttribute } from './utils/getNodeAttribute'
 import { getMdxFromMarkdown } from './utils/getMdxFromMarkdown'
 import { processDemoCode } from './utils/processDemoCode'
 import { _skipForTesting } from './utils/_skipForTesting'
-import { prepareFileNameWithExt } from './utils/getImport'
 
 let routeMeta: RouteMeta[]
 
 export type DemoDataByPath = Record<
   string,
   {
-    files: Record<string, string>
+    files: SandpackFiles
     imports: string[]
   }
 >
@@ -88,9 +88,7 @@ export function pluginPlayground(): RspressPlugin {
             }
 
             // make local imports available as virtual modules
-            for (const [importPath, sourceCode] of Object.entries(demo.localImportSources)) {
-              const fileNameWithExt = prepareFileNameWithExt(importPath)
-
+            for (const [fileNameWithExt, sourceCode] of Object.entries(demo.localImportSources)) {
               imports[fileNameWithExt] = fileNameWithExt
 
               playgroundVirtualModule.writeModule(fileNameWithExt, sourceCode)
