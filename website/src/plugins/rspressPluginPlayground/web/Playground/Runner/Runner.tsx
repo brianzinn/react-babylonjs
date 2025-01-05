@@ -1,6 +1,6 @@
 import './Runner.css'
 import React, { useEffect, useRef, useState } from 'react'
-import { useSandpack } from '@codesandbox/sandpack-react'
+import { useActiveCode } from '@codesandbox/sandpack-react'
 import { babelTransform } from './babelTransform'
 import { moduleStringToComponent } from './moduleStringToComponent'
 
@@ -14,10 +14,7 @@ export const Runner = (props: RunnerProps) => {
   const [error, setError] = useState<Error | undefined>()
   const [component, setComponent] = useState<React.ReactNode | null>(null)
 
-  const { sandpack } = useSandpack()
-  const { files, visibleFilesFromProps } = sandpack
-  const appFileName = visibleFilesFromProps.find((fileName) => fileName.includes('App'))
-  const code = appFileName && files[appFileName] ? files[appFileName]?.code : ''
+  const { code } = useActiveCode()
 
   function doCompile(targetCode: string) {
     try {
