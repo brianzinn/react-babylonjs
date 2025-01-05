@@ -18,6 +18,7 @@ export const Runner = (props: RunnerProps) => {
 
   function doCompile(targetCode: string) {
     try {
+      const start = performance.now()
       const transformedCode = babelTransform(targetCode)
 
       if (!transformedCode) {
@@ -26,6 +27,13 @@ export const Runner = (props: RunnerProps) => {
 
       const defaultExport = moduleStringToComponent(transformedCode)?.default
       // console.log(component?.toString())
+      const end = performance.now()
+
+      console.info(
+        `%cBabel took: %c${Math.round(end - start)}ms`,
+        'background: #15889f; padding: 6px; color: white;',
+        'background: #15889f; padding: 6px; color: white; font-size: 0.8rem; font-weight: bold'
+      )
 
       if (defaultExport) {
         setError(undefined)
