@@ -85,9 +85,6 @@ devDependencies:
   '@types/react-dom':
     specifier: '18'
     version: 18.3.5(@types/react@18.3.18)
-  esbuild-wasm:
-    specifier: ^0.24.2
-    version: 0.24.2
   mdast-util-from-markdown:
     specifier: ^2.0.2
     version: 2.0.2
@@ -2125,12 +2122,6 @@ packages:
       d: 1.0.2
       ext: 1.7.0
     dev: false
-
-  /esbuild-wasm@0.24.2:
-    resolution: {integrity: sha512-03/7Z1gD+ohDnScFztvI4XddTAbKVmMEzCvvkBpQdWKEXJ+73dTyeNrmdxP1Q0zpDMFjzUJwtK4rLjqwiHbzkw==}
-    engines: {node: '>=18'}
-    hasBin: true
-    dev: true
 
   /escalade@3.2.0:
     resolution: {integrity: sha512-WUj2qlxaQtO4g6Pq5c29GTcWGDyd8itL8zTlipgECz3JesAiiOKotd8JU6otB3PACgG6xkJUyVhboMS+bje/jA==}
