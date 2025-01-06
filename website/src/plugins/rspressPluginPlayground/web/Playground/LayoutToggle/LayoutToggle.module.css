@@ -1,0 +1,16 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+
+  :first-child {
+    border-radius: 6px 0 0 6px;
+  }
+
+  :not(:first-child):not(:last-child) {
+    border-radius: 0px;
+  }
+
+  :last-child {
+    border-radius: 0 6px 6px 0;
+  }
+}

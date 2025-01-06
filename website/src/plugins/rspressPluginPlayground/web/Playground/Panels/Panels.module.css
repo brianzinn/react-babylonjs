@@ -1,24 +1,19 @@
-.playground-layout {
-  display: flex;
-  border: 1px solid var(--sp-colors-surface2);
-  flex-direction: column;
-}
-
-.sandpack-stack {
+.sandpackStack {
   height: 100%;
 }
 
-.resizable-panel {
+.resizePanel {
   overflow: auto;
 }
 
-.resize-handle {
+.resizeHandle {
   --handle-width: 8px;
   --handle-offset: calc(var(--handle-width) / 4);
 
   height: 100%;
   width: var(--handle-width);
   position: relative;
+  background-color: var(--sp-colors-surface1);
 
   &::after {
     content: '';

@@ -1,17 +1,16 @@
-import './Playground.css'
 import React from 'react'
 import { useDark } from 'rspress/runtime'
 import { useFullscreen, useMediaQuery } from '@mantine/hooks'
-import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels'
-import {
-  SandpackProvider,
-  SandpackCodeEditor,
-  SandpackFiles,
-  SandpackStack,
-} from '@codesandbox/sandpack-react'
-import { getDependencies } from './dependencies'
-import { Runner } from '../Runner/Runner'
+import { SandpackProvider, SandpackFiles } from '@codesandbox/sandpack-react'
+import { Panels } from '../Panels/Panels'
 import { ControlPanel } from '../ControlPanel/ControlPanel'
+import { getDependencies } from './dependencies'
+
+export enum PanelsLayout {
+  Editor = 'Editor',
+  Preview = 'Preview',
+  Split = 'Split',
+}
 
 export interface PlaygroundProps {
   files: string | SandpackFiles
@@ -24,8 +23,11 @@ export interface PlaygroundProps {
 
 export const Playground = (props: PlaygroundProps) => {
   const isDarkTheme = useDark()
-  const isVerticalLayout = useMediaQuery('(max-width: 768px)')
-  const { ref: fullScreenRef, toggle: toggleFullscreen, fullscreen } = useFullscreen()
+  const fullscreen = useFullscreen()
+  const isVertical = useMediaQuery('(max-width: 768px)')
+
+  const [layout, setLayout] = React.useState<PanelsLayout>(PanelsLayout.Preview)
+  const isPreview = layout === PanelsLayout.Preview
 
   const theme = isDarkTheme ? 'dark' : 'light'
 
@@ -34,25 +36,21 @@ export const Playground = (props: PlaygroundProps) => {
 
   const appFileName = Object.keys(files).find((fileName) => fileName.includes('App'))
 
-  const regularHeight = isVerticalLayout ? '600px' : '400px'
+  const verticalHeight = isPreview ? '400px' : '600px'
+  const height = isVertical ? verticalHeight : '400px'
 
   const layoutStyle = {
-    height: fullscreen ? '100dvh' : regularHeight,
+    height: fullscreen.fullscreen ? '100dvh' : height,
+    display: 'flex',
+    flexDirection: 'column',
+    border: '1px solid var(--sp-colors-surface2)',
   } as React.CSSProperties
 
   // TODO: review this. We can get package.json at build time, and extract deps from it
   const dependencies = getDependencies(props.imports)
 
-  const editor = <SandpackCodeEditor showRunButton={false} className="sandpack-stack" />
-
-  const preview = (
-    <SandpackStack className="sandpack-stack">
-      <Runner />
-    </SandpackStack>
-  )
-
   return (
-    <div style={{ maxWidth: '100%' }} ref={fullScreenRef}>
+    <div style={{ maxWidth: '100%' }} ref={fullscreen.ref}>
       <SandpackProvider
         template="react-ts"
         theme={theme}
@@ -60,23 +58,15 @@ export const Playground = (props: PlaygroundProps) => {
         customSetup={{ dependencies }}
         options={{ activeFile: appFileName }}
       >
-        <div className="playground-layout" style={layoutStyle}>
-          <ControlPanel toggleFullscreen={toggleFullscreen} fullscreen={fullscreen} />
+        <div style={layoutStyle}>
+          <ControlPanel
+            layout={layout}
+            setLayout={setLayout}
+            toggleFullscreen={fullscreen.toggle}
+            fullscreen={fullscreen.fullscreen}
+          />
 
-          <PanelGroup
-            direction={isVerticalLayout ? 'vertical' : 'horizontal'}
-            autoSaveId="react-babylonjs-playground-panels"
-          >
-            <Panel className="resizable-panel" defaultSize={50}>
-              {isVerticalLayout ? preview : editor}
-            </Panel>
-
-            <PanelResizeHandle className="resize-handle" hitAreaMargins={{ coarse: 0, fine: 0 }} />
-
-            <Panel className="resizable-panel" defaultSize={50}>
-              {isVerticalLayout ? editor : preview}
-            </Panel>
-          </PanelGroup>
+          <Panels layout={layout} isVertical={isVertical} />
         </div>
 
         {/* Testing */}
