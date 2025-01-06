@@ -20,7 +20,6 @@ export const getSourcesAndFiles = async (params: { resolvedPath: string; importP
   sources.jsx = await getFormattedJsx(sources.tsx, resolvedPath)
 
   files['App.tsx'] = sources.tsx
-  files['JS.jsx'] = sources.jsx
 
   return { sources, files }
 }
