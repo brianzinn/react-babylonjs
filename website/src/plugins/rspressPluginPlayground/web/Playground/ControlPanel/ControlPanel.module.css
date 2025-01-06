@@ -1,17 +1,15 @@
 .wrapper {
   display: flex;
   gap: 16px;
-  /* flex-wrap: wrap; */
+  padding: 8px;
+
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-
-  padding: 8px;
 }
 
 .section {
   display: flex;
   gap: 8px;
-  /* flex-wrap: wrap; */
   align-items: center;
-  /* justify-content: space-between; */
 }
