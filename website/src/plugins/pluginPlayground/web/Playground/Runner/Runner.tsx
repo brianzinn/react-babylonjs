@@ -1,7 +1,7 @@
-import './Runner.css'
 import React, { useEffect, useRef, useState } from 'react'
 import { useSandpack } from '@codesandbox/sandpack-react'
 import { rollupBrowser } from './rollup/rollupBrowser'
+import styles from './Runner.module.css'
 
 interface RunnerProps {
   className?: string
@@ -30,7 +30,7 @@ export const Runner = (props: RunnerProps) => {
       const end = performance.now()
 
       console.info(
-        `%cRollup+Babel took: %c${Math.round(end - start)}ms`,
+        `%cTranspilation took: %c${Math.round(end - start)}ms`,
         'background: #15889f; padding: 6px; color: white;',
         'background: #15889f; padding: 6px; color: white; font-size: 0.8rem; font-weight: bold'
       )
@@ -62,9 +62,9 @@ export const Runner = (props: RunnerProps) => {
   }, [files])
 
   return (
-    <div className={`playground-runner ${props.className ?? ''}`}>
+    <div className={`${styles.runner} ${props.className ?? ''}`}>
       {component}
-      {error && <pre className="playground-error">{error.message}</pre>}
+      {error && <pre className={styles.error}>{error.message}</pre>}
     </div>
   )
 }
