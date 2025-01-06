@@ -10,9 +10,9 @@ hero:
       text: Quick Start
       link: /guide/quickstart
 
-    - theme: alt
-      text: GitHub
-      link: https://github.com/brianzinn/react-babylonjs
+    - theme: brand
+      text: Examples
+      link: /examples/overview
 
 features:
   - title: Use React
