@@ -3,6 +3,7 @@
 Forked version of [@rspress/plugin-playground](https://github.com/web-infra-dev/rspress/tree/main/packages/plugin-playground) ([docs](https://rspress.dev/plugin/official-plugins/playground)). Replaced its editor, refactored and adjusted to meed our needs.
 
 ## To Do
+
 - Local imports don't work in codesandbox
 - Clean up: remove old code
 - Clean up: refactorings
@@ -18,9 +19,10 @@ The original `@rspress/plugin-playground` doesn't handle local imports ([source]
 The original `@rspress/plugin-playground` [explicitly recommends](https://rspress.dev/plugin/official-plugins/playground#internal-components) using .js or .jsx to avoid type errors in the editor. They use Monaco editor (which powers VSCode), and it shows type errors thinking that packages are not installed. It is likely trying to do too much for our needs.
 
 ## To Do
+
 - Add links
 
-Thus, editor from Sandpack (wrapper around CodeMirror) is being used.  Sandpack also provides convenient context provider and hooks to consume it. Plus, we have a button to open demo in Codesandbox.
+Thus, editor from Sandpack (wrapper around CodeMirror) is being used. Sandpack also provides convenient context provider and hooks to consume it. Plus, we have a button to open demo in Codesandbox.
 
 ## Why not Sandpack for preview
 

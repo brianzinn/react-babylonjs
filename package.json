@@ -5,7 +5,8 @@
     "packages": [
       "devtool/*",
       "packages/react-babylonjs",
-      "packages/static"
+      "packages/static",
+      "website"
     ]
   },
   "scripts": {
@@ -13,7 +14,8 @@
     "test": "yarn workspaces run test",
     "lint": "yarn workspaces run lint",
     "lint:fix": "yarn workspaces run lint:fix",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "start-docs": "yarn workspace @react-babylonjs/website dev"
   },
   "devDependencies": {
     "@parcel/packager-ts": "^2.2.0",
