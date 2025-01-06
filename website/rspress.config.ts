@@ -9,6 +9,10 @@ export default defineConfig({
 
   title: 'React Babylonjs',
 
+  logo: '/logo.png',
+  icon: '/logo.png',
+  logoText: 'React Babylonjs',
+
   markdown: {
     checkDeadLinks: true,
     defaultWrapCode: true,
