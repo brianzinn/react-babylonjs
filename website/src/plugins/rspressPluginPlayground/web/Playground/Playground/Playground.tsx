@@ -3,9 +3,15 @@ import React from 'react'
 import { useDark } from 'rspress/runtime'
 import { useFullscreen, useMediaQuery } from '@mantine/hooks'
 import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels'
-import { SandpackProvider, SandpackCodeEditor, SandpackFiles } from '@codesandbox/sandpack-react'
-import { Preview } from '../Preview/Preview'
+import {
+  SandpackProvider,
+  SandpackCodeEditor,
+  SandpackFiles,
+  SandpackStack,
+} from '@codesandbox/sandpack-react'
 import { getDependencies } from './dependencies'
+import { Runner } from '../Runner/Runner'
+import { ControlPanel } from '../ControlPanel/ControlPanel'
 
 export interface PlaygroundProps {
   files: string | SandpackFiles
@@ -38,12 +44,11 @@ export const Playground = (props: PlaygroundProps) => {
   const dependencies = getDependencies(props.imports)
 
   const editor = <SandpackCodeEditor showRunButton={false} className="sandpack-stack" />
+
   const preview = (
-    <Preview
-      fullscreen={fullscreen}
-      toggleFullscreen={toggleFullscreen}
-      className="sandpack-stack"
-    />
+    <SandpackStack className="sandpack-stack">
+      <Runner />
+    </SandpackStack>
   )
 
   return (
@@ -56,6 +61,8 @@ export const Playground = (props: PlaygroundProps) => {
         options={{ activeFile: appFileName }}
       >
         <div className="playground-layout" style={layoutStyle}>
+          <ControlPanel toggleFullscreen={toggleFullscreen} fullscreen={fullscreen} />
+
           <PanelGroup
             direction={isVerticalLayout ? 'vertical' : 'horizontal'}
             autoSaveId="react-babylonjs-playground-panels"

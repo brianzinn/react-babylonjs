@@ -1,6 +1,7 @@
 .playground-layout {
   display: flex;
   border: 1px solid var(--sp-colors-surface2);
+  flex-direction: column;
 }
 
 .sandpack-stack {
