@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import { Button } from '../Button/Button'
 import { PanelsLayout } from '../Playground/Playground'
 import styles from './ToggleButton.module.css'
@@ -9,7 +10,7 @@ type ToggleButtonProps = {
 }
 
 export const ToggleButton = ({ value, isActive, setLayout }: ToggleButtonProps) => {
-  const className = isActive ? styles.isActive : ''
+  const className = clsx({ [styles.isActive]: isActive })
 
   return (
     <Button className={className} onClick={() => setLayout(value)}>

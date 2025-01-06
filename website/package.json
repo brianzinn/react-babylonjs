@@ -27,6 +27,7 @@
     "@types/node": "^18.11.17",
     "@types/react": "18",
     "@types/react-dom": "18",
+    "clsx": "^2.1.1",
     "mdast-util-from-markdown": "^2.0.2",
     "mdast-util-mdx": "^3.0.0",
     "micromark-extension-mdxjs": "^3.0.0",
