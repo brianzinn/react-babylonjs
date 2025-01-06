@@ -18,7 +18,7 @@ export interface PlaygroundProps {
 
 export const Playground = (props: PlaygroundProps) => {
   const isDarkTheme = useDark()
-  const isSmallScreen = useMediaQuery('(max-width: 768px)')
+  const isVerticalLayout = useMediaQuery('(max-width: 768px)')
   const { ref: fullScreenRef, toggle: toggleFullscreen, fullscreen } = useFullscreen()
 
   const theme = isDarkTheme ? 'dark' : 'light'
@@ -28,7 +28,7 @@ export const Playground = (props: PlaygroundProps) => {
 
   const appFileName = Object.keys(files).find((fileName) => fileName.includes('App'))
 
-  const regularHeight = isSmallScreen ? '600px' : '400px'
+  const regularHeight = isVerticalLayout ? '600px' : '400px'
 
   const layoutStyle = {
     height: fullscreen ? '100dvh' : regularHeight,
@@ -36,6 +36,15 @@ export const Playground = (props: PlaygroundProps) => {
 
   // TODO: review this. We can get package.json at build time, and extract deps from it
   const dependencies = getDependencies(props.imports)
+
+  const editor = <SandpackCodeEditor showRunButton={false} className="sandpack-stack" />
+  const preview = (
+    <Preview
+      fullscreen={fullscreen}
+      toggleFullscreen={toggleFullscreen}
+      className="sandpack-stack"
+    />
+  )
 
   return (
     <div style={{ maxWidth: '100%' }} ref={fullScreenRef}>
@@ -48,21 +57,17 @@ export const Playground = (props: PlaygroundProps) => {
       >
         <div className="playground-layout" style={layoutStyle}>
           <PanelGroup
-            direction={isSmallScreen ? 'vertical' : 'horizontal'}
+            direction={isVerticalLayout ? 'vertical' : 'horizontal'}
             autoSaveId="react-babylonjs-playground-panels"
           >
-            <Panel className="resizable-panel" defaultSize={60}>
-              <SandpackCodeEditor showRunButton={false} className="sandpack-stack" />
+            <Panel className="resizable-panel" defaultSize={50}>
+              {isVerticalLayout ? preview : editor}
             </Panel>
 
             <PanelResizeHandle className="resize-handle" hitAreaMargins={{ coarse: 0, fine: 0 }} />
 
-            <Panel className="resizable-panel" defaultSize={40}>
-              <Preview
-                fullscreen={fullscreen}
-                toggleFullscreen={toggleFullscreen}
-                className="sandpack-stack"
-              />
+            <Panel className="resizable-panel" defaultSize={50}>
+              {isVerticalLayout ? editor : preview}
             </Panel>
           </PanelGroup>
         </div>
