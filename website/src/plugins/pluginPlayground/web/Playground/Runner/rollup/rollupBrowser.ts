@@ -1,7 +1,7 @@
 import { Plugin, rollup } from '@rollup/browser'
 import getImport from '_playground_virtual_imports'
 import type babel from '@babel/standalone'
-import { prepareFileNameWithExt } from '@/src/plugins/rspressPluginPlayground/cli/utils/getImport'
+import { prepareFileNameWithExt } from '@/src/plugins/pluginPlayground/cli/utils/getImport'
 import { GET_IMPORT_FUNC_NAME } from '../constants'
 
 type Files = Record<string, string>
