@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useSandpack } from '@codesandbox/sandpack-react'
+import clsx from 'clsx'
 import { rollupBrowser } from './rollup/rollupBrowser'
 import styles from './Runner.module.css'
 
@@ -62,7 +63,7 @@ export const Runner = (props: RunnerProps) => {
   }, [files])
 
   return (
-    <div className={`${styles.runner} ${props.className ?? ''}`}>
+    <div className={clsx(styles.runner, props.className)}>
       {component}
       {error && <pre className={styles.error}>{error.message}</pre>}
     </div>
