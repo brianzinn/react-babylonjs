@@ -136,11 +136,9 @@ export function pluginPlayground(): RspressPlugin {
     },
 
     markdown: {
-      // @ts-expect-error: plugin types are weird
+      // // @ts-expect-error: plugin types are weird
       remarkPlugins: [[remarkPlugin, { getRouteMeta, getDemoDataByPath }]],
       globalComponents: [path.join(__dirname, '../web/Playground')],
     },
-
-    globalStyles: path.join(__dirname, '../static/playgroundGlobal.css'),
   }
 }

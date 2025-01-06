@@ -1,3 +1,4 @@
+import './global.css'
 import React from 'react'
 import { useDark } from 'rspress/runtime'
 import { useFullscreen, useMediaQuery } from '@mantine/hooks'
@@ -16,10 +17,6 @@ export interface PlaygroundProps {
   files: string | SandpackFiles
   imports: string | string[]
 }
-
-// Tested self-hosted CS bundler (https://sandpack.codesandbox.io/docs/guides/hosting-the-bundler)
-// Turned out even slower than the default one
-// const SELF_HOSTED_BUNDLER_URL = 'https://steady-pegasus-0a8447.netlify.app/'
 
 export const Playground = (props: PlaygroundProps) => {
   const isDarkTheme = useDark()
