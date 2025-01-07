@@ -1,5 +1,6 @@
 import clsx from 'clsx'
-import React, { useEffect, useRef, useState } from 'react'
+import React from 'react'
+import { useDebouncedCallback } from '@mantine/hooks'
 import { useSandpack } from '@codesandbox/sandpack-react'
 import { getComponentFromCode } from './compiler'
 import styles from './Runner.module.css'
@@ -11,14 +12,15 @@ interface RunnerProps {
 const DEBOUNCE_TIME = 800
 
 export const Runner = (props: RunnerProps) => {
-  const [error, setError] = useState<Error | undefined>()
-  const [component, setComponent] = useState<React.ReactNode | null>(null)
+  const [error, setError] = React.useState<Error | undefined>()
+  const [component, setComponent] = React.useState<React.ReactNode | null>(null)
 
   const {
     sandpack: { files, visibleFilesFromProps },
   } = useSandpack()
 
-  async function doCompile() {
+  async function compile() {
+    console.info('compiling')
     try {
       const visibleFiles = visibleFilesFromProps.reduce<Record<string, string>>((acc, fileName) => {
         acc[fileName] = files[fileName].code
@@ -45,18 +47,10 @@ export const Runner = (props: RunnerProps) => {
     }
   }
 
-  const waitTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const debouncedCompile = useDebouncedCallback(compile, DEBOUNCE_TIME)
 
-  useEffect(() => {
-    if (waitTimeoutRef.current) {
-      clearTimeout(waitTimeoutRef.current)
-    }
-
-    waitTimeoutRef.current = setTimeout(() => {
-      waitTimeoutRef.current = null
-
-      doCompile()
-    }, DEBOUNCE_TIME)
+  React.useEffect(() => {
+    debouncedCompile()
   }, [files])
 
   return (
