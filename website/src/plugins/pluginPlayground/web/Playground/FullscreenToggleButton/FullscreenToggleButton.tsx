@@ -1,5 +1,5 @@
 import { IconMaximize, IconMinimize } from '@tabler/icons-react'
-import { Button } from '../Button/Button'
+import { RoundedButton } from '@codesandbox/sandpack-react'
 
 type FullscreenToggleButtonProps = {
   onClick: () => void
@@ -7,17 +7,12 @@ type FullscreenToggleButtonProps = {
 }
 
 export const FullscreenToggleButton = ({ onClick, fullscreen }: FullscreenToggleButtonProps) => {
+  const Icon = fullscreen ? IconMinimize : IconMaximize
+  const text = fullscreen ? 'Exit fullscreen' : 'Fullscreen'
+
   return (
-    <Button title="Fullscreen toggle" onClick={onClick}>
-      {fullscreen ? (
-        <>
-          <IconMinimize /> Exit fullscreen
-        </>
-      ) : (
-        <>
-          <IconMaximize /> Fullscreen
-        </>
-      )}
-    </Button>
+    <RoundedButton title="Fullscreen toggle" onClick={onClick}>
+      <Icon /> <span>{text}</span>
+    </RoundedButton>
   )
 }
