@@ -1,9 +1,10 @@
 import { visit } from 'unist-util-visit'
 import type { Plugin } from 'unified'
 import type { Root } from 'mdast'
-import { getNodeAttribute } from './utils/getNodeAttribute'
-import { _skipForTesting } from './utils/_skipForTesting'
+import { getMdxJsxAttribute } from './helpers/getMdxJsxAttribute'
+import { _skipForTesting } from './helpers/_skipForTesting'
 import { DemoDataByPath } from './pluginPlayground'
+import { MdxJsxFlowElement } from 'mdast-util-mdx'
 
 interface RemarkPluginProps {
   getDemoDataByPath: () => DemoDataByPath
@@ -20,14 +21,16 @@ export const remarkPlugin: Plugin<[RemarkPluginProps], Root> = ({ getDemoDataByP
 
     // Transform <code src="./Component.tsx" />
     // into <Playground files={files} dependencies={dependencies} />
-    visit(tree, 'mdxJsxFlowElement', (node: any) => {
+    visit(tree, 'mdxJsxFlowElement', (node: MdxJsxFlowElement) => {
       if (node.name !== 'code') return
 
-      const demoImportPath = getNodeAttribute(node, 'src')
+      const importPath = getMdxJsxAttribute(node, 'src')
 
-      if (!demoImportPath || !demoDataByPath[demoImportPath]) return
+      if (typeof importPath !== 'string' || !demoDataByPath[importPath]) {
+        return
+      }
 
-      const { files, dependencies } = demoDataByPath[demoImportPath]
+      const { files, dependencies } = demoDataByPath[importPath]
 
       Object.assign(node, {
         type: 'mdxJsxFlowElement',

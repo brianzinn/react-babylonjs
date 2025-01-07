@@ -5,12 +5,12 @@ import { SandpackFiles } from '@codesandbox/sandpack-react'
 import type { RspressPlugin } from '@rspress/shared'
 import { RspackVirtualModulePlugin } from 'rspack-plugin-virtual-module'
 import { remarkPlugin } from './remarkPlugin'
-import { getNodeAttribute } from './utils/getNodeAttribute'
-import { getMdxFromMarkdown } from './utils/getMdxFromMarkdown'
-import { processDemoCode } from './utils/processDemoCode'
-import { _skipForTesting } from './utils/_skipForTesting'
-import { getDemoDependencies, getPackageJsonDependencies } from './utils/getDependencies'
-import { getVirtualModulesCode } from './utils/getVirtualModulesCode'
+import { getMdxJsxAttribute } from './helpers/getMdxJsxAttribute'
+import { getMdxFromMarkdownString } from './helpers/getMdxFromMarkdownString'
+import { getFilesAndImports } from './helpers/getFilesAndImports'
+import { _skipForTesting } from './helpers/_skipForTesting'
+import { getDemoDependencies, getPackageJsonDependencies } from './helpers/getDependencies'
+import { getVirtualModulesCode } from './helpers/getVirtualModulesCode'
 
 export type DemoDataByPath = Record<
   string,
@@ -57,22 +57,22 @@ export function pluginPlayground(): RspressPlugin {
 
         try {
           const mdxSource = fs.readFileSync(route.absolutePath, 'utf-8')
-          const mdxAst = getMdxFromMarkdown(mdxSource)
+          const mdxAst = getMdxFromMarkdownString(mdxSource)
 
           const demoImportPaths: string[] = []
 
           visit(mdxAst, 'mdxJsxFlowElement', (node) => {
             if (node.name === 'code') {
-              const importPath = getNodeAttribute(node, 'src')
+              const importPath = getMdxJsxAttribute(node, 'src')
 
-              if (importPath) {
+              if (typeof importPath === 'string') {
                 demoImportPaths.push(importPath)
               }
             }
           })
 
           for (const importPath of demoImportPaths) {
-            const demo = await processDemoCode({
+            const demo = await getFilesAndImports({
               importPath,
               dirname: path.dirname(route.absolutePath),
             })
