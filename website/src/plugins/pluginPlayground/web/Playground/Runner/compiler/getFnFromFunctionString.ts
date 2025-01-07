@@ -1,4 +1,4 @@
-import getImport from '_playground_virtual_imports'
+import getImport from '_playground_virtual_modules'
 
 const GET_IMPORT_FN = '__get_import'
 

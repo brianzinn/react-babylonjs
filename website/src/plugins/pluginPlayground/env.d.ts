@@ -5,7 +5,7 @@ declare module '*.module.css' {
   export default classes
 }
 
-declare module '_playground_virtual_imports' {
+declare module '_playground_virtual_modules' {
   const getImport: (name: string) => void
 
   export default getImport

@@ -10,6 +10,7 @@ import { getMdxFromMarkdown } from './utils/getMdxFromMarkdown'
 import { processDemoCode } from './utils/processDemoCode'
 import { _skipForTesting } from './utils/_skipForTesting'
 import { getDemoDependencies, getPackageJsonDependencies } from './utils/getDependencies'
+import { getVirtualModulesCode } from './utils/getVirtualModulesCode'
 
 let routeMeta: RouteMeta[]
 
@@ -47,7 +48,7 @@ export function pluginPlayground(): RspressPlugin {
     async routeGenerated(routes: RouteMeta[]) {
       routeMeta = routes
 
-      const imports: Record<string, string> = { react: 'react' }
+      const allImports: Record<string, string> = { react: 'react' }
       const packageJsonDependencies = await getPackageJsonDependencies()
 
       // Scan all files, and generate virtual modules
@@ -57,36 +58,40 @@ export function pluginPlayground(): RspressPlugin {
 
         const isMdxFile = /\.mdx$/.test(route.absolutePath)
 
-        if (!isMdxFile) {
-          continue
-        }
+        if (!isMdxFile) continue
 
         try {
           const mdxSource = fs.readFileSync(route.absolutePath, 'utf-8')
           const mdxAst = getMdxFromMarkdown(mdxSource)
 
-          const codeNodes: string[] = []
+          const demoImportPaths: string[] = []
 
           visit(mdxAst, 'mdxJsxFlowElement', (node) => {
             if (node.name === 'code') {
-              const demoImportPath = getNodeAttribute(node, 'src')
+              const importPath = getNodeAttribute(node, 'src')
 
-              if (demoImportPath) {
-                codeNodes.push(demoImportPath)
+              if (importPath) {
+                demoImportPaths.push(importPath)
               }
             }
           })
 
-          for (const demoImportPath of codeNodes) {
+          for (const importPath of demoImportPaths) {
             const demo = await processDemoCode({
-              importPath: demoImportPath,
+              importPath,
               dirname: path.dirname(route.absolutePath),
             })
 
-            Object.assign(imports, demo.imports)
-            demoDataByPath[demoImportPath] = {
+            Object.assign(allImports, demo.imports)
+
+            const dependencies = getDemoDependencies(
+              Object.keys(demo.imports),
+              packageJsonDependencies
+            )
+
+            demoDataByPath[importPath] = {
+              dependencies,
               files: demo.files,
-              dependencies: getDemoDependencies(Object.keys(demo.imports), packageJsonDependencies),
             }
           }
         } catch (e) {
@@ -95,26 +100,11 @@ export function pluginPlayground(): RspressPlugin {
         }
       }
 
-      const importModuleNames = Object.keys(imports)
-
-      const getImportString = fs.readFileSync(path.join(__dirname, './utils/getImport.js'), 'utf-8')
-
-      const playgroundVirtualImportsCode = [
-        getImportString,
-        ...importModuleNames.map(
-          (moduleName, index) => `import * as i_${index} from '${moduleName}';`
-        ),
-        '\n',
-        ...importModuleNames.map(
-          (moduleName, index) => `imports.set('${moduleName}', i_${index});`
-        ),
-      ].join('\n')
-
-      // console.log({ getImport: playgroundVirtualImportsCode })
+      const playgroundVirtualModulesCode = getVirtualModulesCode(allImports)
 
       playgroundVirtualModule.writeModule(
-        '_playground_virtual_imports',
-        playgroundVirtualImportsCode
+        '_playground_virtual_modules',
+        playgroundVirtualModulesCode
       )
     },
 
