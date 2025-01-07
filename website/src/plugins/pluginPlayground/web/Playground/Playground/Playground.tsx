@@ -1,7 +1,7 @@
 import './global.css'
 import React from 'react'
 import { useDark } from 'rspress/runtime'
-import { useFullscreen, useMediaQuery } from '@mantine/hooks'
+import { useFullscreen, useLocalStorage, useMediaQuery } from '@mantine/hooks'
 import { SandpackProvider, SandpackFiles } from '@codesandbox/sandpack-react'
 import { Panels } from '../Panels/Panels'
 import { ControlPanel } from '../ControlPanel/ControlPanel'
@@ -18,7 +18,10 @@ export const Playground = (props: PlaygroundProps) => {
   const fullscreen = useFullscreen()
   const isVertical = useMediaQuery('(max-width: 768px)')
 
-  const [layout, setLayout] = React.useState<PanelsLayout>(PanelsLayout.Preview)
+  const [layout, setLayout] = useLocalStorage({
+    key: 'react-babylonjs-playground-layout',
+    defaultValue: PanelsLayout.Preview,
+  })
 
   const theme = isDarkTheme ? 'dark' : 'light'
   const isPreview = layout === PanelsLayout.Preview
