@@ -1,39 +1,25 @@
-import path from 'node:path'
 import { visit } from 'unist-util-visit'
 import type { Plugin } from 'unified'
 import type { Root } from 'mdast'
-import { RouteMeta } from '@rspress/shared'
 import { getNodeAttribute } from './utils/getNodeAttribute'
 import { _skipForTesting } from './utils/_skipForTesting'
 import { DemoDataByPath } from './pluginPlayground'
 
 interface RemarkPluginProps {
-  getRouteMeta: () => RouteMeta[]
   getDemoDataByPath: () => DemoDataByPath
 }
 
 /**
- * remark plugin to transform code to demo
+ * remark plugin to inject Playground into MDX
  */
-export const remarkPlugin: Plugin<[RemarkPluginProps], Root> = ({
-  getRouteMeta,
-  getDemoDataByPath,
-}) => {
-  const routeMeta = getRouteMeta()
+export const remarkPlugin: Plugin<[RemarkPluginProps], Root> = ({ getDemoDataByPath }) => {
   const demoDataByPath = getDemoDataByPath()
 
   return (tree, vfile) => {
     if (_skipForTesting(vfile.path)) return
 
-    const route = routeMeta.find(
-      (meta) => path.resolve(meta.absolutePath) === path.resolve(vfile.path || vfile.history[0])
-    )
-
-    if (!route) {
-      return
-    }
-
-    // 1. External demo , use <code src="foo" /> to declare demo
+    // Transform <code src="./Component.tsx" />
+    // into <Playground files={files} dependencies={dependencies} />
     visit(tree, 'mdxJsxFlowElement', (node: any) => {
       if (node.name !== 'code') return
 
