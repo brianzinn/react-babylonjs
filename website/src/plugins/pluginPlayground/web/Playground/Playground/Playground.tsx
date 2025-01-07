@@ -58,8 +58,8 @@ export const Playground = (props: PlaygroundProps) => {
           <ControlPanel
             layout={layout}
             setLayout={setLayout}
-            toggleFullscreen={fullscreen.toggle}
             fullscreen={fullscreen.fullscreen}
+            toggleFullscreen={fullscreen.toggle}
           />
 
           <Panels layout={layout} isVertical={isVertical} />

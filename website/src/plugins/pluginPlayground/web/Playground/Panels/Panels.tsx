@@ -1,3 +1,4 @@
+import { ErrorBoundary } from 'react-error-boundary'
 import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels'
 import { SandpackCodeEditor, SandpackStack } from '@codesandbox/sandpack-react'
 import { Runner } from '../Runner/Runner'
@@ -16,7 +17,9 @@ export const Panels = (props: PanelsProps) => {
 
   const preview = (
     <SandpackStack className={styles.sandpackStack}>
-      <Runner />
+      <ErrorBoundary fallback={<div>Something is wrong. Check the code in editor</div>}>
+        <Runner />
+      </ErrorBoundary>
     </SandpackStack>
   )
 
