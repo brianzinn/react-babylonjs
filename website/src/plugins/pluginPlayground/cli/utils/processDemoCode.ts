@@ -1,20 +1,18 @@
 import path from 'node:path'
 import { ENTRY_FILE_NAME } from '../../shared/constants'
-import { getSourcesAndFiles } from './getSourcesAndFiles'
 import { getPathWithExt, isRelativeImport, prepareFileNameWithExt } from '../../shared/files'
-import { getAstBody } from './babel'
+import { getSourcesAndFiles } from './getSourcesAndFiles'
 
 export const processDemoCode = async (params: { importPath: string; dirname: string }) => {
   const { importPath, dirname } = params
 
-  const filePath = getPathWithExt(importPath)
-  const resolvedPath = path.join(dirname, filePath)
+  const resolvedPath = path.join(dirname, getPathWithExt(importPath))
 
-  const { sources, files } = await getSourcesAndFiles({ resolvedPath, importPath })
+  const { files, astBody } = await getSourcesAndFiles({ resolvedPath, importPath })
 
   const imports: Record<string, string> = {}
 
-  const astBody = getAstBody(sources.tsx)
+  // Could this be done through Babel plugins in transformTsxToJsx?
   for (const statement of astBody) {
     if (statement.type !== 'ImportDeclaration') continue
 
@@ -25,6 +23,7 @@ export const processDemoCode = async (params: { importPath: string; dirname: str
 
       files[prepareFileNameWithExt(importPath)] = nested.files[`${ENTRY_FILE_NAME}.tsx`]
     } else {
+      // external modules will be resolved through _playground_virtual_modules
       imports[importPath] = importPath
     }
   }
