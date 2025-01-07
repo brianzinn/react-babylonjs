@@ -2,10 +2,6 @@
   height: 100%;
 }
 
-.resizePanel {
-  overflow: auto;
-}
-
 .resizeHandle {
   --handle-width: 8px;
   --handle-inset: calc(var(--handle-width) / 4);
@@ -19,6 +15,7 @@
     content: '';
     position: absolute;
     inset: 0 var(--handle-inset);
+    border: 1px solid var(--sp-colors-surface2);
     transition: background-color 0.1s ease-out;
   }
 
