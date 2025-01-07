@@ -3,9 +3,9 @@ import { SandpackFiles } from '@codesandbox/sandpack-react'
 import { ENTRY_FILE_NAME } from '../../shared/constants'
 import { transformAssetPaths } from './transformAssetPaths'
 import { formatCode } from './formatCode'
-import { transformTsxToJsx } from './babel'
+import { transformTsxToJsx } from './transformTsxToJsx'
 
-export const getSourcesAndFiles = async (params: { resolvedPath: string; importPath: string }) => {
+export const getFiles = async (params: { resolvedPath: string; importPath: string }) => {
   const { resolvedPath, importPath } = params
 
   const sources: Record<string, string> = {}

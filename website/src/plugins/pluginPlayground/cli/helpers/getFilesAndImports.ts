@@ -1,14 +1,14 @@
 import path from 'node:path'
 import { ENTRY_FILE_NAME } from '../../shared/constants'
 import { getPathWithExt, isRelativeImport, prepareFileNameWithExt } from '../../shared/files'
-import { getSourcesAndFiles } from './getSourcesAndFiles'
+import { getFiles } from './getFiles'
 
-export const processDemoCode = async (params: { importPath: string; dirname: string }) => {
+export const getFilesAndImports = async (params: { importPath: string; dirname: string }) => {
   const { importPath, dirname } = params
 
   const resolvedPath = path.join(dirname, getPathWithExt(importPath))
 
-  const { files, astBody } = await getSourcesAndFiles({ resolvedPath, importPath })
+  const { files, astBody } = await getFiles({ resolvedPath, importPath })
 
   const imports: Record<string, string> = {}
 
@@ -19,7 +19,7 @@ export const processDemoCode = async (params: { importPath: string; dirname: str
     const importPath = statement.source.value
 
     if (isRelativeImport(importPath)) {
-      const nested = await processDemoCode({ importPath, dirname })
+      const nested = await getFilesAndImports({ importPath, dirname })
 
       files[prepareFileNameWithExt(importPath)] = nested.files[`${ENTRY_FILE_NAME}.tsx`]
     } else {
