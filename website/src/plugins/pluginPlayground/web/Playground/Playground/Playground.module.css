@@ -1,0 +1,27 @@
+.wrapper {
+  /* padding-bottom: 16px; */
+  border: 1px solid var(--sp-colors-surface2);
+  background-color: var(--sp-colors-surface1);
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+
+  &.fullscreen {
+    height: 100dvh;
+    overflow: auto;
+  }
+}
+
+.panels {
+  height: 400px;
+
+  &.fullscreen {
+    flex-grow: 1;
+  }
+
+  &.vertical:not(&.singlePanel, &.fullscreen) {
+    height: 600px;
+  }
+}

@@ -36,15 +36,11 @@ export const Panels = (props: PanelsProps) => {
       direction={isVertical ? 'vertical' : 'horizontal'}
       autoSaveId="react-babylonjs-playground"
     >
-      <Panel className={styles.resizePanel} defaultSize={50}>
-        {isVertical ? preview : editor}
-      </Panel>
+      <Panel defaultSize={50}>{isVertical ? preview : editor}</Panel>
 
       <PanelResizeHandle className={styles.resizeHandle} hitAreaMargins={{ coarse: 0, fine: 0 }} />
 
-      <Panel className={styles.resizePanel} defaultSize={50}>
-        {isVertical ? editor : preview}
-      </Panel>
+      <Panel defaultSize={50}>{isVertical ? editor : preview}</Panel>
     </PanelGroup>
   )
 }

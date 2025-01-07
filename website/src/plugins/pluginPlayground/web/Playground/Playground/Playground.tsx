@@ -1,25 +1,26 @@
 import './global.css'
-import React from 'react'
+import clsx from 'clsx'
 import { useDark } from 'rspress/runtime'
 import { useFullscreen, useLocalStorage, useMediaQuery } from '@mantine/hooks'
 import { SandpackProvider, SandpackFiles } from '@codesandbox/sandpack-react'
 import { Panels } from '../Panels/Panels'
 import { ControlPanel } from '../ControlPanel/ControlPanel'
 import { PanelsLayout } from '../constants'
+import styles from './Playground.module.css'
 
 export interface PlaygroundProps {
   files: string | SandpackFiles
   dependencies: string | Record<string, string>
 }
 
-// props come JSON.stringified to pass around code snippets,
-// and not to break mdx markup
+// props come JSON.stringified at build time
+// (to pass around code snippets, and not to break mdx markup)
 const parseProp = <T extends PlaygroundProps[keyof PlaygroundProps]>(prop: string | T) =>
   typeof prop === 'string' ? (JSON.parse(prop) as T) : prop
 
 export const Playground = (props: PlaygroundProps) => {
   const isDarkTheme = useDark()
-  const fullscreen = useFullscreen()
+  const fullscreenProps = useFullscreen()
   const isVertical = useMediaQuery('(max-width: 768px)')
 
   const [layout, setLayout] = useLocalStorage({
@@ -28,25 +29,24 @@ export const Playground = (props: PlaygroundProps) => {
   })
 
   const theme = isDarkTheme ? 'dark' : 'light'
-  const isPreview = layout === PanelsLayout.Preview
 
   const files = parseProp(props.files)
   const dependencies = parseProp(props.dependencies)
 
   const appFileName = Object.keys(files).find((fileName) => fileName.includes('App'))
 
-  const verticalHeight = isPreview ? '400px' : '600px'
-  const height = isVertical ? verticalHeight : '400px'
+  const panelsClass = clsx(styles.panels, {
+    [styles.vertical]: isVertical,
+    [styles.fullscreen]: fullscreenProps.fullscreen,
+    [styles.singlePanel]: layout !== PanelsLayout.Split,
+  })
 
-  const layoutStyle = {
-    height: fullscreen.fullscreen ? '100dvh' : height,
-    display: 'flex',
-    flexDirection: 'column',
-    border: '1px solid var(--sp-colors-surface2)',
-  } as React.CSSProperties
+  const layoutClass = clsx(styles.layout, {
+    [styles.fullscreen]: fullscreenProps.fullscreen,
+  })
 
   return (
-    <div style={{ maxWidth: '100%' }} ref={fullscreen.ref}>
+    <div className={styles.wrapper} ref={fullscreenProps.ref}>
       <SandpackProvider
         template="react-ts"
         theme={theme}
@@ -54,15 +54,17 @@ export const Playground = (props: PlaygroundProps) => {
         customSetup={{ dependencies }}
         options={{ activeFile: appFileName }}
       >
-        <div style={layoutStyle}>
+        <div className={layoutClass}>
           <ControlPanel
             layout={layout}
             setLayout={setLayout}
-            fullscreen={fullscreen.fullscreen}
-            toggleFullscreen={fullscreen.toggle}
+            fullscreen={fullscreenProps.fullscreen}
+            toggleFullscreen={fullscreenProps.toggle}
           />
 
-          <Panels layout={layout} isVertical={isVertical} />
+          <div className={panelsClass}>
+            <Panels layout={layout} isVertical={isVertical} />
+          </div>
         </div>
       </SandpackProvider>
     </div>
