@@ -2,7 +2,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { visit } from 'unist-util-visit'
 import { SandpackFiles } from '@codesandbox/sandpack-react'
-import type { RouteMeta, RspressPlugin } from '@rspress/shared'
+import type { RspressPlugin } from '@rspress/shared'
 import { RspackVirtualModulePlugin } from 'rspack-plugin-virtual-module'
 import { remarkPlugin } from './remarkPlugin'
 import { getNodeAttribute } from './utils/getNodeAttribute'
@@ -11,8 +11,6 @@ import { processDemoCode } from './utils/processDemoCode'
 import { _skipForTesting } from './utils/_skipForTesting'
 import { getDemoDependencies, getPackageJsonDependencies } from './utils/getDependencies'
 import { getVirtualModulesCode } from './utils/getVirtualModulesCode'
-
-let routeMeta: RouteMeta[]
 
 export type DemoDataByPath = Record<
   string,
@@ -29,7 +27,6 @@ const demoDataByPath: DemoDataByPath = {}
  */
 export function pluginPlayground(): RspressPlugin {
   const playgroundVirtualModule = new RspackVirtualModulePlugin({})
-  const getRouteMeta = () => routeMeta
   const getDemoDataByPath = () => demoDataByPath
 
   return {
@@ -45,9 +42,7 @@ export function pluginPlayground(): RspressPlugin {
       return config
     },
 
-    async routeGenerated(routes: RouteMeta[]) {
-      routeMeta = routes
-
+    async routeGenerated(routes) {
       const allImports: Record<string, string> = { react: 'react' }
       const packageJsonDependencies = await getPackageJsonDependencies()
 
@@ -128,8 +123,7 @@ export function pluginPlayground(): RspressPlugin {
     },
 
     markdown: {
-      // // @ts-expect-error: plugin types are weird
-      remarkPlugins: [[remarkPlugin, { getRouteMeta, getDemoDataByPath }]],
+      remarkPlugins: [[remarkPlugin, { getDemoDataByPath }]],
       globalComponents: [path.join(__dirname, '../web/Playground')],
     },
   }
