@@ -1,17 +1,12 @@
-import clsx from 'clsx'
 import React from 'react'
 import { useDebouncedCallback } from '@mantine/hooks'
 import { useSandpack } from '@codesandbox/sandpack-react'
 import { getComponentFromCode } from './compiler'
 import styles from './Runner.module.css'
 
-interface RunnerProps {
-  className?: string
-}
-
 const DEBOUNCE_TIME = 800
 
-export const Runner = (props: RunnerProps) => {
+const _Runner = () => {
   const [error, setError] = React.useState<Error | undefined>()
   const [component, setComponent] = React.useState<React.ReactNode | null>(null)
 
@@ -19,44 +14,56 @@ export const Runner = (props: RunnerProps) => {
     sandpack: { files, visibleFilesFromProps },
   } = useSandpack()
 
-  async function compile() {
-    console.info('compiling')
-    try {
-      const visibleFiles = visibleFilesFromProps.reduce<Record<string, string>>((acc, fileName) => {
-        acc[fileName] = files[fileName].code
+  const compile = React.useCallback(
+    async (files: Record<string, string>) => {
+      console.info('compiling')
 
-        return acc
-      }, {})
+      try {
+        const start = performance.now()
+        const component = await getComponentFromCode(files)
+        const end = performance.now()
 
-      const start = performance.now()
-      const component = await getComponentFromCode(visibleFiles)
-      const end = performance.now()
+        console.info(
+          `%c${Math.round(end - start)}ms to transpile`,
+          'background: #15889f; padding: 6px; color: white;'
+        )
 
-      console.info(
-        `%c${Math.round(end - start)}ms to transpile`,
-        'background: #15889f; padding: 6px; color: white;'
-      )
-
-      if (component) {
-        setError(undefined)
-        setComponent(React.createElement(component))
+        if (component) {
+          setError(undefined)
+          setComponent(React.createElement(component))
+        }
+      } catch (e) {
+        console.error(e)
+        setError(e as Error)
       }
-    } catch (e) {
-      console.error(e)
-      setError(e as Error)
-    }
-  }
+    },
+    [setComponent, setError]
+  )
 
   const debouncedCompile = useDebouncedCallback(compile, DEBOUNCE_TIME)
 
+  const visibleFiles = React.useMemo(
+    () =>
+      visibleFilesFromProps.reduce<Record<string, string>>((acc, fileName) => {
+        acc[fileName] = files[fileName].code
+
+        return acc
+      }, {}),
+    []
+  )
+
   React.useEffect(() => {
-    debouncedCompile()
-  }, [files])
+    console.log('effect')
+
+    debouncedCompile(visibleFiles)
+  }, [visibleFiles, debouncedCompile])
 
   return (
-    <div className={clsx(styles.runner, props.className)}>
+    <div className={styles.runner}>
       {component}
       {error && <pre className={styles.error}>{error.message}</pre>}
     </div>
   )
 }
+
+export const Runner = React.memo(_Runner)
