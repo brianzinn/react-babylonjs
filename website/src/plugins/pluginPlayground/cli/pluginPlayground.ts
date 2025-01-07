@@ -9,6 +9,7 @@ import { getNodeAttribute } from './utils/getNodeAttribute'
 import { getMdxFromMarkdown } from './utils/getMdxFromMarkdown'
 import { processDemoCode } from './utils/processDemoCode'
 import { _skipForTesting } from './utils/_skipForTesting'
+import { getDemoDependencies, getPackageJsonDependencies } from './utils/getDependencies'
 
 let routeMeta: RouteMeta[]
 
@@ -16,7 +17,7 @@ export type DemoDataByPath = Record<
   string,
   {
     files: SandpackFiles
-    imports: string[]
+    dependencies: Record<string, string>
   }
 >
 
@@ -47,6 +48,7 @@ export function pluginPlayground(): RspressPlugin {
       routeMeta = routes
 
       const imports: Record<string, string> = { react: 'react' }
+      const packageJsonDependencies = await getPackageJsonDependencies()
 
       // Scan all files, and generate virtual modules
       // that make imports in demo files available in runtime
@@ -84,7 +86,7 @@ export function pluginPlayground(): RspressPlugin {
             Object.assign(imports, demo.imports)
             demoDataByPath[demoImportPath] = {
               files: demo.files,
-              imports: Object.keys(demo.imports),
+              dependencies: getDemoDependencies(Object.keys(demo.imports), packageJsonDependencies),
             }
           }
         } catch (e) {

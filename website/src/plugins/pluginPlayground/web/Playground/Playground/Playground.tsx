@@ -5,13 +5,17 @@ import { useFullscreen, useLocalStorage, useMediaQuery } from '@mantine/hooks'
 import { SandpackProvider, SandpackFiles } from '@codesandbox/sandpack-react'
 import { Panels } from '../Panels/Panels'
 import { ControlPanel } from '../ControlPanel/ControlPanel'
-import { getDependencies } from './dependencies'
 import { PanelsLayout } from '../constants'
 
 export interface PlaygroundProps {
   files: string | SandpackFiles
-  imports: string | string[]
+  dependencies: string | Record<string, string>
 }
+
+// props come JSON.stringified to pass around code snippets,
+// and not to break mdx markup
+const parseProp = <T extends PlaygroundProps[keyof PlaygroundProps]>(prop: string | T) =>
+  typeof prop === 'string' ? (JSON.parse(prop) as T) : prop
 
 export const Playground = (props: PlaygroundProps) => {
   const isDarkTheme = useDark()
@@ -26,8 +30,8 @@ export const Playground = (props: PlaygroundProps) => {
   const theme = isDarkTheme ? 'dark' : 'light'
   const isPreview = layout === PanelsLayout.Preview
 
-  const files: SandpackFiles =
-    typeof props.files === 'string' ? JSON.parse(props.files) : props.files
+  const files = parseProp(props.files)
+  const dependencies = parseProp(props.dependencies)
 
   const appFileName = Object.keys(files).find((fileName) => fileName.includes('App'))
 
@@ -40,9 +44,6 @@ export const Playground = (props: PlaygroundProps) => {
     flexDirection: 'column',
     border: '1px solid var(--sp-colors-surface2)',
   } as React.CSSProperties
-
-  // TODO: review this. We can get package.json at build time, and extract deps from it
-  const dependencies = getDependencies(props.imports)
 
   return (
     <div style={{ maxWidth: '100%' }} ref={fullscreen.ref}>
