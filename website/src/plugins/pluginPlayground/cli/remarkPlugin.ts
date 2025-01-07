@@ -41,7 +41,7 @@ export const remarkPlugin: Plugin<[RemarkPluginProps], Root> = ({
 
       if (!demoImportPath || !demoDataByPath[demoImportPath]) return
 
-      const { files, imports } = demoDataByPath[demoImportPath]
+      const { files, dependencies } = demoDataByPath[demoImportPath]
 
       Object.assign(node, {
         type: 'mdxJsxFlowElement',
@@ -54,8 +54,8 @@ export const remarkPlugin: Plugin<[RemarkPluginProps], Root> = ({
           },
           {
             type: 'mdxJsxAttribute',
-            name: 'imports',
-            value: JSON.stringify(imports),
+            name: 'dependencies',
+            value: JSON.stringify(dependencies),
           },
         ],
       })
