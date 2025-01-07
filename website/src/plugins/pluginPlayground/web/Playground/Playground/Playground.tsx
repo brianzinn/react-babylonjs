@@ -6,12 +6,7 @@ import { SandpackProvider, SandpackFiles } from '@codesandbox/sandpack-react'
 import { Panels } from '../Panels/Panels'
 import { ControlPanel } from '../ControlPanel/ControlPanel'
 import { getDependencies } from './dependencies'
-
-export enum PanelsLayout {
-  Editor = 'Editor',
-  Preview = 'Preview',
-  Split = 'Split',
-}
+import { PanelsLayout } from '../constants'
 
 export interface PlaygroundProps {
   files: string | SandpackFiles
@@ -24,9 +19,9 @@ export const Playground = (props: PlaygroundProps) => {
   const isVertical = useMediaQuery('(max-width: 768px)')
 
   const [layout, setLayout] = React.useState<PanelsLayout>(PanelsLayout.Preview)
-  const isPreview = layout === PanelsLayout.Preview
 
   const theme = isDarkTheme ? 'dark' : 'light'
+  const isPreview = layout === PanelsLayout.Preview
 
   const files: SandpackFiles =
     typeof props.files === 'string' ? JSON.parse(props.files) : props.files
@@ -65,13 +60,6 @@ export const Playground = (props: PlaygroundProps) => {
 
           <Panels layout={layout} isVertical={isVertical} />
         </div>
-
-        {/* Testing */}
-        {/* <br />
-        <SandpackLayout>
-          <SandpackCodeEditor />
-          <SandpackPreview />
-        </SandpackLayout> */}
       </SandpackProvider>
     </div>
   )

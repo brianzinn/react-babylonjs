@@ -2,7 +2,7 @@ import { OpenInCodeSandboxButton } from '@codesandbox/sandpack-react'
 import { FullscreenToggleButton } from '../FullscreenToggleButton/FullscreenToggleButton'
 import styles from './ControlPanel.module.css'
 import { LayoutToggle } from '../LayoutToggle/LayoutToggle'
-import { PanelsLayout } from '../Playground/Playground'
+import { PanelsLayout } from '../constants'
 
 type ControlPanelProps = {
   layout: PanelsLayout

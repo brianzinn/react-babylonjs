@@ -1,6 +1,6 @@
 import clsx from 'clsx'
-import { Button } from '../Button/Button'
-import { PanelsLayout } from '../Playground/Playground'
+import { RoundedButton } from '@codesandbox/sandpack-react'
+import { PanelsLayout } from '../constants'
 import styles from './ToggleButton.module.css'
 
 type ToggleButtonProps = {
@@ -10,11 +10,11 @@ type ToggleButtonProps = {
 }
 
 export const ToggleButton = ({ value, isActive, setLayout }: ToggleButtonProps) => {
-  const className = clsx({ [styles.isActive]: isActive })
+  const className = clsx(styles.button, { [styles.isActive]: isActive })
 
   return (
-    <Button className={className} onClick={() => setLayout(value)}>
+    <RoundedButton className={className} onClick={() => setLayout(value)}>
       {value}
-    </Button>
+    </RoundedButton>
   )
 }

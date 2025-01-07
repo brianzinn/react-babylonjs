@@ -1,4 +1,4 @@
-import { PanelsLayout } from '../Playground/Playground'
+import { PanelsLayout } from '../constants'
 import { ToggleButton } from './ToggleButton'
 import styles from './LayoutToggle.module.css'
 
@@ -18,9 +18,9 @@ export const LayoutToggle = (props: LayoutToggleProps) => {
         isActive={layout === PanelsLayout.Preview}
       />
       <ToggleButton
-        value={PanelsLayout.Editor}
+        value={PanelsLayout.Code}
         setLayout={setLayout}
-        isActive={layout === PanelsLayout.Editor}
+        isActive={layout === PanelsLayout.Code}
       />
       <ToggleButton
         value={PanelsLayout.Split}

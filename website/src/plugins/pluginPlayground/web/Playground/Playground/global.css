@@ -1,3 +1,16 @@
+/* Style overrides for Sandpack components */
+.sp-button.sp-button.sp-button.sp-button {
+  padding: 4px 8px;
+
+  form {
+    position: absolute;
+  }
+
+  &:focus-visible {
+    outline: revert;
+  }
+}
+
 /* Styles used in docs/examples/*.tsx (demo code) files */
 .m-2 {
   margin: 6px 12px;

@@ -1,7 +1,7 @@
 import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels'
 import { SandpackCodeEditor, SandpackStack } from '@codesandbox/sandpack-react'
 import { Runner } from '../Runner/Runner'
-import { PanelsLayout } from '../Playground/Playground'
+import { PanelsLayout } from '../constants'
 import styles from './Panels.module.css'
 
 type PanelsProps = {
@@ -24,14 +24,14 @@ export const Panels = (props: PanelsProps) => {
     return preview
   }
 
-  if (layout === PanelsLayout.Editor) {
+  if (layout === PanelsLayout.Code) {
     return editor
   }
 
   return (
     <PanelGroup
       direction={isVertical ? 'vertical' : 'horizontal'}
-      autoSaveId="react-babylonjs-playground-panels"
+      autoSaveId="react-babylonjs-playground"
     >
       <Panel className={styles.resizePanel} defaultSize={50}>
         {isVertical ? preview : editor}

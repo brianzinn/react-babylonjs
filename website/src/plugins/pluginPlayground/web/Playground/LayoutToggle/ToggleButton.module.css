@@ -1,10 +1,13 @@
-.isActive.isActive.isActive.isActive {
-  color: var(--sp-colors-hover);
-  /* color: var(--sp-colors-accent); */
-  background-color: var(--sp-colors-surface3);
-  border: 1px solid var(--sp-colors-base);
+.button.button.button.button {
+  width: unset;
 
-  &:hover {
-    background-color: var(--sp-colors-surface2);
+  &.isActive {
+    color: var(--sp-colors-hover);
+    background-color: var(--sp-colors-surface3);
+    border: 1px solid var(--sp-colors-base);
+
+    &:hover {
+      background-color: var(--sp-colors-surface2);
+    }
   }
 }
