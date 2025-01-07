@@ -1,28 +1,19 @@
 import { Plugin, rollup } from '@rollup/browser'
-import { prepareFileNameWithExt } from '@/src/plugins/pluginPlayground/cli/utils/getImport'
-import { Files } from './getComponentFromCode'
+import { ENTRY_FILE_NAME } from '../../../../shared/constants'
+import { isRelativeImport, prepareFileNameWithExt } from '../../../../shared/files'
+import { Files } from './getComponentFromFiles'
 
-export const getBundledCode = async ({
-  entryFilename,
-  files,
-}: {
-  entryFilename?: string
-  files: Files
-}) => {
+export const getBundledCode = async ({ files }: { files: Files }) => {
+  const entryFilename = Object.keys(files).find((name) => name.includes(ENTRY_FILE_NAME))
+
   const bundle = await rollup({
     input: entryFilename,
-    plugins: [
-      loaderPlugin(files),
-      {
-        name: 'test-transform',
-        transform(code, id) {
-          // console.log({ code, id })
-          return code
-        },
-      },
-    ],
-    // regexp to match non-local imports, ie. it does not start with . or /
-    external: /^[^(.|/)]/,
+    plugins: [loaderPlugin(files)],
+    external: (source) => {
+      const isLocal = isRelativeImport(source) || files[source]
+
+      return !isLocal
+    },
   })
 
   const { output } = await bundle.generate({
@@ -33,21 +24,23 @@ export const getBundledCode = async ({
     plugins: [],
   })
 
-  const bundledCodeString = output[0].code
-  // console.log({ bundledCodeString })
+  const bundledCode = output[0].code
 
-  return bundledCodeString
+  return bundledCode
 }
 
+// Based off of https://rollupjs.org/faqs/#how-do-i-run-rollup-itself-in-a-browser
+// Resolve and load modules to be bundled
 function loaderPlugin(files: Files): Plugin {
   return {
-    name: 'loader',
-    resolveId(source, importer, options) {
+    name: 'in-memory-loader',
+    resolveId(source) {
       if (files.hasOwnProperty(source)) {
         return source
       }
 
-      if (source.startsWith('.')) {
+      // resolve file name from the relative import
+      if (isRelativeImport(source)) {
         const fileName = `/${prepareFileNameWithExt(source)}`
 
         if (files.hasOwnProperty(fileName)) {
@@ -55,11 +48,12 @@ function loaderPlugin(files: Files): Plugin {
         }
       }
 
-      return source
+      return null
     },
-    load(id) {
-      if (files.hasOwnProperty(id)) {
-        return files[id]
+    load(fileName) {
+      // use fileName resolved above to load its code for bundling
+      if (files.hasOwnProperty(fileName)) {
+        return files[fileName]
       }
     },
   }

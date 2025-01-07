@@ -1,1 +1,1 @@
-export { getComponentFromCode } from './getComponentFromCode'
+export { getComponentFromFiles } from './getComponentFromFiles'

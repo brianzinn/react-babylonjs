@@ -6,6 +6,7 @@ declare module '*.module.css' {
 }
 
 declare module '_playground_virtual_imports' {
-  const getImport: (name: string, getDefault?: boolean) => void
+  const getImport: (name: string) => void
+
   export default getImport
 }
