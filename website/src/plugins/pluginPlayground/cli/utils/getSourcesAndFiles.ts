@@ -2,7 +2,8 @@ import fs from 'node:fs'
 import { SandpackFiles } from '@codesandbox/sandpack-react'
 import { ENTRY_FILE_NAME } from '../../shared/constants'
 import { transformAssetPaths } from './transformAssetPaths'
-import { getFormattedJsx } from './getFormattedJsx'
+import { formatCode } from './formatCode'
+import { transformTsxToJsx } from './babel'
 
 export const getSourcesAndFiles = async (params: { resolvedPath: string; importPath: string }) => {
   const { resolvedPath, importPath } = params
@@ -18,9 +19,15 @@ export const getSourcesAndFiles = async (params: { resolvedPath: string; importP
   }
 
   sources.tsx = transformAssetPaths(sources.tsx)
-  sources.jsx = await getFormattedJsx(sources.tsx, resolvedPath)
+
+  const transformResult = transformTsxToJsx(sources.tsx)
+  if (transformResult?.code) {
+    sources.jsx = await formatCode(transformResult.code, resolvedPath)
+  }
 
   files[`${ENTRY_FILE_NAME}.tsx`] = sources.tsx
 
-  return { sources, files }
+  const astBody = transformResult?.ast?.program.body ?? []
+
+  return { files, astBody }
 }

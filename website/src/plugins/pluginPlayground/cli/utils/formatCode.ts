@@ -1,5 +1,4 @@
 import prettier from 'prettier'
-import { tsxToJsx } from './babel'
 
 const formatCode = async (code: string, filePath: string) => {
   const fallbackConfig: prettier.Options = {
@@ -18,10 +17,4 @@ const formatCode = async (code: string, filePath: string) => {
   return result
 }
 
-const getFormattedJsx = async (code: string, filePath: string) => {
-  const jsx = tsxToJsx(code)
-
-  return await formatCode(jsx, filePath)
-}
-
-export { getFormattedJsx }
+export { formatCode }
