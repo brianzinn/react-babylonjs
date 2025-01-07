@@ -24,8 +24,9 @@ function getImport(importName, isDefault = true) {
 
   if (!result) {
     throw new Error(
-      `${isDefault ? 'Default module' : 'Module'} ${name} not found in imports. Available keys:
-      ${JSON.stringify(Array.from(imports.keys()))}`
+      `Can't find module ${name}.\n\nImports are resolved at build time, and can't be loaded at runtime.\n\nAvailable imports:\n${Array.from(
+        imports.keys()
+      ).join('\n')}`
     )
   }
 

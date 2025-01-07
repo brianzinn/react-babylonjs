@@ -1,7 +1,7 @@
+import clsx from 'clsx'
 import React, { useEffect, useRef, useState } from 'react'
 import { useSandpack } from '@codesandbox/sandpack-react'
-import clsx from 'clsx'
-import { rollupBrowser } from './rollup/rollupBrowser'
+import { getComponentFromCode } from './compiler'
 import styles from './Runner.module.css'
 
 interface RunnerProps {
@@ -27,20 +27,17 @@ export const Runner = (props: RunnerProps) => {
       }, {})
 
       const start = performance.now()
-      const component = await rollupBrowser(visibleFiles)
+      const component = await getComponentFromCode(visibleFiles)
       const end = performance.now()
 
       console.info(
-        `%cTranspilation took: %c${Math.round(end - start)}ms`,
-        'background: #15889f; padding: 6px; color: white;',
-        'background: #15889f; padding: 6px; color: white; font-size: 0.8rem; font-weight: bold'
+        `%c${Math.round(end - start)}ms to transpile`,
+        'background: #15889f; padding: 6px; color: white;'
       )
 
       if (component) {
         setError(undefined)
         setComponent(React.createElement(component))
-      } else {
-        setError(new Error('No default export'))
       }
     } catch (e) {
       console.error(e)
