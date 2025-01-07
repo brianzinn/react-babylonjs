@@ -3,6 +3,7 @@ import clsx from 'clsx'
 import { useDark } from 'rspress/runtime'
 import { useFullscreen, useLocalStorage, useMediaQuery } from '@mantine/hooks'
 import { SandpackProvider, SandpackFiles } from '@codesandbox/sandpack-react'
+import { ENTRY_FILE_NAME } from '../../../shared/constants'
 import { Panels } from '../Panels/Panels'
 import { ControlPanel } from '../ControlPanel/ControlPanel'
 import { PanelsLayout } from '../constants'
@@ -33,7 +34,7 @@ export const Playground = (props: PlaygroundProps) => {
   const files = parseProp(props.files)
   const dependencies = parseProp(props.dependencies)
 
-  const appFileName = Object.keys(files).find((fileName) => fileName.includes('App'))
+  const appFileName = Object.keys(files).find((fileName) => fileName.includes(ENTRY_FILE_NAME))
 
   const panelsClass = clsx(styles.panels, {
     [styles.vertical]: isVertical,

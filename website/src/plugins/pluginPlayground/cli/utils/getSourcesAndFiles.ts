@@ -1,5 +1,6 @@
 import fs from 'node:fs'
 import { SandpackFiles } from '@codesandbox/sandpack-react'
+import { ENTRY_FILE_NAME } from '../../shared/constants'
 import { transformAssetPaths } from './transformAssetPaths'
 import { getFormattedJsx } from './getFormattedJsx'
 
@@ -19,7 +20,7 @@ export const getSourcesAndFiles = async (params: { resolvedPath: string; importP
   sources.tsx = transformAssetPaths(sources.tsx)
   sources.jsx = await getFormattedJsx(sources.tsx, resolvedPath)
 
-  files['App.tsx'] = sources.tsx
+  files[`${ENTRY_FILE_NAME}.tsx`] = sources.tsx
 
   return { sources, files }
 }

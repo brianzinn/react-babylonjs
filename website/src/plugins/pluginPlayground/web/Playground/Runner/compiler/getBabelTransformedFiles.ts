@@ -1,5 +1,5 @@
 import type babel from '@babel/standalone'
-import { Files } from './getComponentFromCode'
+import { Files } from './getComponentFromFiles'
 
 type Babel = typeof babel
 
@@ -15,17 +15,15 @@ export function getBabelTransformedFiles(files: Files) {
   return Object.keys(files).reduce<Files>((acc, fileName) => {
     const code = files[fileName]
 
-    const transformResult = window.Babel.transform(code, {
+    const fileResult = window.Babel.transform(code, {
       presets: [
         [window.Babel.availablePresets.react, { pure: false }],
         [window.Babel.availablePresets.typescript, { allExtensions: true, isTSX: true }],
       ],
     })
 
-    const transformedCode = transformResult?.code
-
-    if (transformedCode) {
-      acc[fileName] = transformedCode
+    if (fileResult?.code) {
+      acc[fileName] = fileResult.code
     }
 
     return acc

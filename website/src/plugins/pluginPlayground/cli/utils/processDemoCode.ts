@@ -1,6 +1,7 @@
 import path from 'node:path'
+import { ENTRY_FILE_NAME } from '../../shared/constants'
 import { getSourcesAndFiles } from './getSourcesAndFiles'
-import { getPathWithExt, localImportRegex, prepareFileNameWithExt } from './getImport'
+import { getPathWithExt, isRelativeImport, prepareFileNameWithExt } from '../../shared/files'
 import { getAstBody } from './babel'
 
 export const processDemoCode = async (params: { importPath: string; dirname: string }) => {
@@ -19,10 +20,10 @@ export const processDemoCode = async (params: { importPath: string; dirname: str
 
     const importPath = statement.source.value
 
-    if (localImportRegex.test(importPath)) {
+    if (isRelativeImport(importPath)) {
       const nested = await processDemoCode({ importPath, dirname })
 
-      files[prepareFileNameWithExt(importPath)] = nested.files['App.tsx']
+      files[prepareFileNameWithExt(importPath)] = nested.files[`${ENTRY_FILE_NAME}.tsx`]
     } else {
       imports[importPath] = importPath
     }

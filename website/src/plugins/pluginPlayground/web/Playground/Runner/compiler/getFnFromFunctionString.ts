@@ -1,36 +1,71 @@
 import getImport from '_playground_virtual_imports'
-import { GET_IMPORT_FUNC_NAME } from '../constants'
 
-enum ExportType {
-  ModuleExports = 'module.exports',
-  ExportsDefault = 'exports.default',
+const GET_IMPORT_FN = '__get_import'
+
+type ExportObject = 'module' | 'exports'
+type ExportProperty = 'exports' | 'default'
+
+export function getComponentFnFromCodeString(code: string) {
+  /**
+   * In CommonJS default export is either of the two forms:
+   * - `module.exports = Component`
+   * - `exports.default = Component`
+   *
+   * We will plug in our `exportObject` into the function
+   * to get the default exported componentFn assigned to it.
+   */
+  const exportObject: {
+    [Prop in ExportProperty]?: React.FC
+  } = {}
+
+  const [OBJECT_NAME, ASSIGN_TO_PROP] = resolveExportType(code)
+
+  const fnArgNames = [GET_IMPORT_FN, OBJECT_NAME] as const
+  const fnCode = replaceRequireWithGetImport(code)
+
+  const func = new Function(...fnArgNames, fnCode) as (
+    getImportFn: typeof getImport,
+    exportsObj: typeof exportObject
+  ) => void
+
+  /**
+   * After this call:
+   * - `getImport` would resolve external module imports
+   * - `exportObject` would be `{ [ExportProperty]: componentFn }`
+   *
+   * Thus, we can grab the componentFn from `exportObject`
+   */
+  func(getImport, exportObject)
+
+  const componentFn = exportObject[ASSIGN_TO_PROP]
+
+  return componentFn
+}
+
+function resolveExportType(code: string): [ExportObject, ExportProperty] {
+  if (code.includes('module.exports')) {
+    return ['module', 'exports']
+  } else if (code.includes('exports.default')) {
+    return ['exports', 'default']
+  } else {
+    throw new Error(`Missing default export in the file`)
+  }
 }
 
 /**
- * In CommonJS default export is either of the two:
- * - `module.exports = MainComponent`
- * - `exports.default = MainComponent`
+ * Replaces `require('module')` with `__get_import('module')`
+ * to later call `getImport` that resolves external modules.
  *
- * We plug in our `stubObject` that mimics that form to get the exported component assigned to it
+ * This might better be done with a proper AST traversal,
+ * but let's just say we are following the KISS principle here
+ * (if we can say that after all of the above)
  */
-export function getFnFromFunctionString(fnString: string) {
-  let exportType
+function replaceRequireWithGetImport(code: string) {
+  let fnString = code.replaceAll('require(', `${GET_IMPORT_FN}(`)
 
-  if (fnString.includes(ExportType.ModuleExports)) {
-    exportType = ExportType.ModuleExports
-  } else if (fnString.includes(ExportType.ExportsDefault)) {
-    exportType = ExportType.ExportsDefault
-  } else {
-    return
+  if (!fnString.includes('const React =')) {
+    fnString = `const React = ${GET_IMPORT_FN}('react');\n${fnString}`
   }
 
-  const [OBJECT_NAME, ASSIGN_TO_PROP] = exportType.split('.')
-
-  const func = new Function(GET_IMPORT_FUNC_NAME, OBJECT_NAME, fnString)
-
-  let stubObject: Record<string, React.FC> = {}
-
-  func(getImport, stubObject)
-
-  return stubObject[ASSIGN_TO_PROP]
+  return fnString
 }

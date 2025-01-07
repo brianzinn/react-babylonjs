@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDebouncedCallback } from '@mantine/hooks'
 import { useSandpack } from '@codesandbox/sandpack-react'
-import { getComponentFromCode } from './compiler'
+import { getComponentFromFiles } from './compiler'
 import styles from './Runner.module.css'
 
 const DEBOUNCE_TIME = 800
@@ -16,11 +16,9 @@ const _Runner = () => {
 
   const compile = React.useCallback(
     async (files: Record<string, string>) => {
-      console.info('compiling')
-
       try {
         const start = performance.now()
-        const component = await getComponentFromCode(files)
+        const component = await getComponentFromFiles(files)
         const end = performance.now()
 
         console.info(
@@ -53,8 +51,6 @@ const _Runner = () => {
   )
 
   React.useEffect(() => {
-    console.log('effect')
-
     debouncedCompile(visibleFiles)
   }, [visibleFiles, debouncedCompile])
 
