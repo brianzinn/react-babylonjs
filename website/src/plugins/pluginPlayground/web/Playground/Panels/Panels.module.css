@@ -15,7 +15,7 @@
     content: '';
     position: absolute;
     inset: 0 var(--handle-inset);
-    border: 1px solid var(--sp-colors-surface2);
+    border: var(--border);
     transition: background-color 0.1s ease-out;
   }
 
