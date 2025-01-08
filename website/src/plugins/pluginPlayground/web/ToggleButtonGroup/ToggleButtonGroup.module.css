@@ -1,0 +1,30 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+
+  /* Style overrides for Sandpack component */
+  .button.button.button {
+    --border-radius: 6px;
+
+    width: unset;
+    border-radius: 0px;
+
+    &:first-of-type {
+      border-radius: var(--border-radius) 0 0 var(--border-radius);
+    }
+
+    &:last-of-type {
+      border-radius: 0 var(--border-radius) var(--border-radius) 0;
+    }
+
+    &.isActive {
+      color: var(--sp-colors-hover);
+      background-color: var(--sp-colors-surface3);
+      border: 1px solid var(--sp-colors-base);
+
+      &:hover {
+        background-color: var(--sp-colors-surface2);
+      }
+    }
+  }
+}
