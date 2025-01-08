@@ -11,7 +11,7 @@ interface RemarkPluginProps {
 }
 
 /**
- * remark plugin to inject Playground into MDX
+ * Inject <Playground /> into MDX
  */
 export const remarkPlugin: Plugin<[RemarkPluginProps], Root> = ({ getDemoDataByPath }) => {
   const demoDataByPath = getDemoDataByPath()

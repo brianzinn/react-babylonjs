@@ -5,6 +5,9 @@ import { transformAssetPaths } from './transformAssetPaths'
 import { formatCode } from './formatCode'
 import { transformTsxToJsx } from './transformTsxToJsx'
 
+/**
+ * Create files object for Sandpack
+ */
 export const getFiles = async (params: { resolvedPath: string; importPath: string }) => {
   const { resolvedPath, importPath } = params
 
