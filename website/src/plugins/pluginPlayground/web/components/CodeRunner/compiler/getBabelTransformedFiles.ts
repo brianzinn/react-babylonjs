@@ -1,6 +1,6 @@
 import type babel from '@babel/standalone'
 import { TransformOptions } from '@babel/core'
-import { Language } from '../../../shared/constants'
+import { Language } from '@pluginPlayground/shared/constants'
 import { Files } from './compileComponentFromFiles'
 
 type Babel = typeof babel

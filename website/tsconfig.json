@@ -16,7 +16,8 @@
 
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "@pluginPlayground/*": ["./src/plugins/pluginPlayground/*"]
     }
   },
   "include": ["docs", "src", "theme", "rspress.config.ts"],

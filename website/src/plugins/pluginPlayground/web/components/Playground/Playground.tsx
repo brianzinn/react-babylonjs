@@ -3,13 +3,13 @@ import clsx from 'clsx'
 import { useDark } from 'rspress/runtime'
 import { useFullscreen } from '@mantine/hooks'
 import { SandpackProvider } from '@codesandbox/sandpack-react'
-import { PlaygroundProps } from '../../shared/types'
-import { EntryFiles } from '../../shared/constants'
+import { PlaygroundProps } from '@pluginPlayground/shared/types'
+import { EntryFiles } from '@pluginPlayground/shared/constants'
 import { Panels } from '../Panels/Panels'
 import { ControlPanel } from '../ControlPanel/ControlPanel'
-import { PanelsLayout } from '../constants'
-import { useIsVertical } from '../hooks/misc'
-import { useLocalStorageLanguage, useLocalStorageLayout } from '../hooks/localStorage'
+import { PanelsLayout } from '../../constants'
+import { useIsVertical } from '../../hooks/misc'
+import { useLocalStorageLanguage, useLocalStorageLayout } from '../../hooks/localStorage'
 import { useFilesState } from './useFilesState'
 import styles from './Playground.module.css'
 
@@ -19,10 +19,11 @@ type PlaygroundStringifiedProps = {
 
 export const Playground = (props: PlaygroundStringifiedProps) => {
   const isDarkTheme = useDark()
+  const isVertical = useIsVertical()
   const fullscreenProps = useFullscreen()
+
   const [layout] = useLocalStorageLayout()
   const [language] = useLocalStorageLanguage()
-  const isVertical = useIsVertical()
 
   const parsedProps = parseProps(props)
 

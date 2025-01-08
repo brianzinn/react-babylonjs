@@ -1,4 +1,4 @@
-import { Language } from '../../../shared/constants'
+import { Language } from '@pluginPlayground/shared/constants'
 import { getRollupBundledCode } from './getRollupBundledCode'
 import { getBabelTransformedFiles } from './getBabelTransformedFiles'
 import { getComponentFnFromCodeString } from './getFnFromFunctionString'

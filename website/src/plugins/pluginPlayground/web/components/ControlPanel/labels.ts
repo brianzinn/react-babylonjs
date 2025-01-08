@@ -1,4 +1,4 @@
-import { Language } from '../../shared/constants'
+import { Language } from '@pluginPlayground/shared/constants'
 
 export const LanguageLabels = [
   { value: Language.tsx, label: 'TS' },

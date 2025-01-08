@@ -136,7 +136,7 @@ export function pluginPlayground(): RspressPlugin {
       // Perhaps we can move this to `remarkPlugin`
       // to add it only when there's <code src"" />
       // Not sure how `globalComponents` works, actually
-      globalComponents: [path.join(__dirname, '../web/Playground')],
+      globalComponents: [path.join(__dirname, '../web/components/Playground')],
     },
   }
 }
