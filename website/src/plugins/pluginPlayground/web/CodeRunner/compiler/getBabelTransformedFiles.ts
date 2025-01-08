@@ -1,4 +1,6 @@
 import type babel from '@babel/standalone'
+import { TransformOptions } from '@babel/core'
+import { Language } from '../../../shared/constants'
 import { Files } from './compileComponentFromFiles'
 
 type Babel = typeof babel
@@ -11,16 +13,24 @@ declare global {
   }
 }
 
-export function getBabelTransformedFiles(files: Files) {
+type GetBabelTransformedFiles = {
+  files: Files
+  language: Language
+}
+
+export function getBabelTransformedFiles({ files, language }: GetBabelTransformedFiles) {
+  const { availablePresets, transform } = window.Babel
+
+  const presets: TransformOptions['presets'] = [[availablePresets.react, { pure: false }]]
+
+  if (language === Language.tsx) {
+    presets.push([availablePresets.typescript, { allExtensions: true, isTSX: true }])
+  }
+
   return Object.keys(files).reduce<Files>((acc, fileName) => {
     const code = files[fileName]
 
-    const fileResult = window.Babel.transform(code, {
-      presets: [
-        [window.Babel.availablePresets.react, { pure: false }],
-        [window.Babel.availablePresets.typescript, { allExtensions: true, isTSX: true }],
-      ],
-    })
+    const fileResult = transform(code, { presets })
 
     if (fileResult?.code) {
       acc[fileName] = fileResult.code

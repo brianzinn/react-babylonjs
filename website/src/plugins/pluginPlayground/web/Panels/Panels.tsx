@@ -2,15 +2,13 @@ import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels'
 import { SandpackCodeEditor, SandpackStack } from '@codesandbox/sandpack-react'
 import { Preview } from '../Preview/Preview'
 import { PanelsLayout } from '../constants'
+import { useIsVertical } from '../hooks/misc'
+import { useLocalStorageLayout } from '../hooks/localStorage'
 import styles from './Panels.module.css'
 
-type PanelsProps = {
-  isVertical?: boolean
-  layout: PanelsLayout
-}
-
-export const Panels = (props: PanelsProps) => {
-  const { layout, isVertical } = props
+export const Panels = () => {
+  const isVertical = useIsVertical()
+  const [layout] = useLocalStorageLayout()
 
   const editor = <SandpackCodeEditor showRunButton={false} className={styles.sandpackStack} />
 

@@ -28,7 +28,8 @@
     }
   }
 
-  &[data-resize-handle-state='hover']::after {
+  &[data-resize-handle-state='hover']::after,
+  &[data-resize-handle-state='drag']::after {
     background-color: #007fd4;
   }
 }

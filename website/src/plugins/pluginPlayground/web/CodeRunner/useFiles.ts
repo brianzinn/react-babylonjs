@@ -9,7 +9,7 @@ export const useFiles = () => {
   const visibleFiles = useMemo(
     () =>
       visibleFilesFromProps.reduce<Record<string, string>>((acc, fileName) => {
-        acc[fileName] = files[fileName].code
+        acc[fileName] = files[fileName]?.code
 
         return acc
       }, {}),

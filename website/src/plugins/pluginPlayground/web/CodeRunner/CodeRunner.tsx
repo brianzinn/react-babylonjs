@@ -1,7 +1,9 @@
 import { createElement, ReactNode, useState } from 'react'
 import { useDebouncedCallback, useShallowEffect } from '@mantine/hooks'
+import { Language } from '../../shared/constants'
 import { compileComponentFromFiles } from './compiler'
 import { useFiles } from './useFiles'
+import { useLocalStorageLanguage } from '../hooks/localStorage'
 
 const DEBOUNCE_TIME = 500
 
@@ -12,14 +14,17 @@ type CodeRunnerProps = {
 export const CodeRunner = ({ onError }: CodeRunnerProps) => {
   const [component, setComponent] = useState<ReactNode | null>(null)
 
-  const getComponent = async (files: Record<string, string>) => {
+  const [language] = useLocalStorageLanguage()
+
+  const getComponent = async (files: Record<string, string>, language: Language) => {
     try {
       const start = performance.now()
-      const component = await compileComponentFromFiles(files)
+      const component = await compileComponentFromFiles(files, language)
       const end = performance.now()
 
+      const diff = Math.round(end - start)
       console.info(
-        `%c${Math.round(end - start)}ms to transpile`,
+        `%cTranspiled ${language.toUpperCase()} in ${diff}ms`,
         'background: #15889f; padding: 6px; color: white;'
       )
 
@@ -37,8 +42,8 @@ export const CodeRunner = ({ onError }: CodeRunnerProps) => {
   const getComponentDebounced = useDebouncedCallback(getComponent, DEBOUNCE_TIME)
 
   useShallowEffect(() => {
-    getComponentDebounced(files)
-  }, [getComponentDebounced, files])
+    getComponentDebounced(files, language)
+  }, [getComponentDebounced, files, language])
 
   return component
 }

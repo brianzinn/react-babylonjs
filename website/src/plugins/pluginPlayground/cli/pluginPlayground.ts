@@ -1,9 +1,9 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { visit } from 'unist-util-visit'
-import { SandpackFiles } from '@codesandbox/sandpack-react'
 import type { RspressPlugin } from '@rspress/shared'
 import { RspackVirtualModulePlugin } from 'rspack-plugin-virtual-module'
+import { PlaygroundProps } from '../shared/types'
 import { remarkPlugin } from './remarkPlugin'
 import { getMdxJsxAttribute } from './helpers/getMdxJsxAttribute'
 import { getMdxFromMarkdownString } from './helpers/getMdxFromMarkdownString'
@@ -12,13 +12,7 @@ import { _skipForTesting } from './helpers/_skipForTesting'
 import { getDemoDependencies, getPackageJsonDependencies } from './helpers/getDependencies'
 import { getVirtualModulesCode } from './helpers/getVirtualModulesCode'
 
-export type DemoDataByPath = Record<
-  string,
-  {
-    files: SandpackFiles
-    dependencies: Record<string, string>
-  }
->
+export type DemoDataByPath = Record<string, PlaygroundProps>
 
 const demoDataByPath: DemoDataByPath = {}
 

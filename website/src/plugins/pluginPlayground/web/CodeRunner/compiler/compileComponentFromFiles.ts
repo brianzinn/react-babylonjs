@@ -1,18 +1,21 @@
-import { getBundledCode } from './getBundledCode'
+import { Language } from '../../../shared/constants'
+import { getRollupBundledCode } from './getRollupBundledCode'
 import { getBabelTransformedFiles } from './getBabelTransformedFiles'
 import { getComponentFnFromCodeString } from './getFnFromFunctionString'
 
 export type Files = Record<string, string>
 
-export const compileComponentFromFiles = async (files: Files) => {
+export const compileComponentFromFiles = async (files: Files, language: Language) => {
   if (!window.Babel) return
 
-  // Rollup can't handle TSX, and its typescript plugin doesn't work in the browser.
-  // Using @babel/standalone to transform TSX into JS
-  const babelTransformedFiles = getBabelTransformedFiles(files)
+  // Rollup requires plugins to handle JSX/TSX,
+  // but they don't work in the browser.
+  // Using @babel/standalone to transform JSX/TSX into JS
+  const babelTransformedFiles = getBabelTransformedFiles({ files, language })
 
   // Bundle files into a single chunk
-  const bundledCode = await getBundledCode({
+  const bundledCode = await getRollupBundledCode({
+    language,
     files: babelTransformedFiles,
   })
 
