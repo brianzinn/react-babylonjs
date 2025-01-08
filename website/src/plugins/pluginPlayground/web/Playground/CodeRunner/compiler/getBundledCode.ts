@@ -1,7 +1,7 @@
 import { Plugin, rollup } from '@rollup/browser'
 import { ENTRY_FILE_NAME } from '../../../../shared/constants'
 import { isRelativeImport, prepareFileNameWithExt } from '../../../../shared/pathHelpers'
-import { Files } from './getComponentFromFiles'
+import { Files } from './compileComponentFromFiles'
 
 export const getBundledCode = async ({ files }: { files: Files }) => {
   const entryFilename = Object.keys(files).find((name) => name.includes(ENTRY_FILE_NAME))
@@ -19,6 +19,7 @@ export const getBundledCode = async ({ files }: { files: Files }) => {
   const { output } = await bundle.generate({
     compact: false,
     strict: false,
+    exports: 'named',
     format: 'commonjs',
     generatedCode: 'es2015',
     plugins: [],
