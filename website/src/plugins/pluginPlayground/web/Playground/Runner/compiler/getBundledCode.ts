@@ -1,6 +1,6 @@
 import { Plugin, rollup } from '@rollup/browser'
 import { ENTRY_FILE_NAME } from '../../../../shared/constants'
-import { isRelativeImport, prepareFileNameWithExt } from '../../../../shared/files'
+import { isRelativeImport, prepareFileNameWithExt } from '../../../../shared/pathHelpers'
 import { Files } from './getComponentFromFiles'
 
 export const getBundledCode = async ({ files }: { files: Files }) => {

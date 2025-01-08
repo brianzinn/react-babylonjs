@@ -14,11 +14,6 @@ export interface PlaygroundProps {
   dependencies: string | Record<string, string>
 }
 
-// props come JSON.stringified at build time
-// (to pass around code snippets, and not to break mdx markup)
-const parseProp = <T extends PlaygroundProps[keyof PlaygroundProps]>(prop: string | T) =>
-  typeof prop === 'string' ? (JSON.parse(prop) as T) : prop
-
 export const Playground = (props: PlaygroundProps) => {
   const isDarkTheme = useDark()
   const fullscreenProps = useFullscreen()
@@ -39,7 +34,7 @@ export const Playground = (props: PlaygroundProps) => {
   const panelsClass = clsx(styles.panels, {
     [styles.vertical]: isVertical,
     [styles.fullscreen]: fullscreenProps.fullscreen,
-    [styles.singlePanel]: layout !== PanelsLayout.Split,
+    [styles.singlePanel]: layout !== PanelsLayout.SplitView,
   })
 
   const layoutClass = clsx(styles.layout, {
@@ -71,3 +66,13 @@ export const Playground = (props: PlaygroundProps) => {
     </div>
   )
 }
+
+/**
+ * Parse props, as they come JSON.stringified.
+ * Without stringification passing object types as props in MDX tend to break things.
+ */
+function parseProp<T extends PlaygroundProp>(prop: string | T) {
+  return typeof prop === 'string' ? (JSON.parse(prop) as T) : prop
+}
+
+type PlaygroundProp = PlaygroundProps[keyof PlaygroundProps]

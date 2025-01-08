@@ -23,9 +23,9 @@ export const LayoutToggle = (props: LayoutToggleProps) => {
         isActive={layout === PanelsLayout.Code}
       />
       <ToggleButton
-        value={PanelsLayout.Split}
+        value={PanelsLayout.SplitView}
         setLayout={setLayout}
-        isActive={layout === PanelsLayout.Split}
+        isActive={layout === PanelsLayout.SplitView}
       />
     </div>
   )

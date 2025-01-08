@@ -1,6 +1,6 @@
 import path from 'node:path'
 import { ENTRY_FILE_NAME } from '../../shared/constants'
-import { getPathWithExt, isRelativeImport, prepareFileNameWithExt } from '../../shared/files'
+import { getPathWithExt, isRelativeImport, prepareFileNameWithExt } from '../../shared/pathHelpers'
 import { getFiles } from './getFiles'
 
 export const getFilesAndImports = async (params: { importPath: string; dirname: string }) => {
