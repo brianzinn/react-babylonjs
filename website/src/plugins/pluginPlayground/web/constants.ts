@@ -3,3 +3,8 @@ export enum PanelsLayout {
   Code = 'Code',
   SplitView = 'Split view',
 }
+
+export enum LocalStorage {
+  layout = 'react-babylonjs-playground-layout',
+  language = 'react-babylonjs-playground-language',
+}

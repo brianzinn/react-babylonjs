@@ -1,35 +1,32 @@
 import './global.css'
 import clsx from 'clsx'
 import { useDark } from 'rspress/runtime'
-import { useFullscreen, useLocalStorage, useMediaQuery } from '@mantine/hooks'
-import { SandpackProvider, SandpackFiles } from '@codesandbox/sandpack-react'
-import { ENTRY_FILE_NAME } from '../../shared/constants'
+import { useFullscreen } from '@mantine/hooks'
+import { SandpackProvider } from '@codesandbox/sandpack-react'
+import { PlaygroundProps } from '../../shared/types'
+import { EntryFiles } from '../../shared/constants'
 import { Panels } from '../Panels/Panels'
 import { ControlPanel } from '../ControlPanel/ControlPanel'
 import { PanelsLayout } from '../constants'
+import { useIsVertical } from '../hooks/misc'
+import { useLocalStorageLanguage, useLocalStorageLayout } from '../hooks/localStorage'
+import { useFilesState } from './useFilesState'
 import styles from './Playground.module.css'
 
-export interface PlaygroundProps {
-  files: string | SandpackFiles
-  dependencies: string | Record<string, string>
+type PlaygroundStringifiedProps = {
+  [Key in keyof PlaygroundProps]: string
 }
 
-export const Playground = (props: PlaygroundProps) => {
+export const Playground = (props: PlaygroundStringifiedProps) => {
   const isDarkTheme = useDark()
   const fullscreenProps = useFullscreen()
-  const isVertical = useMediaQuery('(max-width: 768px)')
+  const [layout] = useLocalStorageLayout()
+  const [language] = useLocalStorageLanguage()
+  const isVertical = useIsVertical()
 
-  const [layout, setLayout] = useLocalStorage({
-    key: 'react-babylonjs-playground-layout',
-    defaultValue: PanelsLayout.Preview,
-  })
+  const parsedProps = parseProps(props)
 
-  const theme = isDarkTheme ? 'dark' : 'light'
-
-  const files = parseProp(props.files)
-  const dependencies = parseProp(props.dependencies)
-
-  const appFileName = Object.keys(files).find((fileName) => fileName.includes(ENTRY_FILE_NAME))
+  const { files, onChangeLanguage } = useFilesState(parsedProps)
 
   const panelsClass = clsx(styles.panels, {
     [styles.vertical]: isVertical,
@@ -44,22 +41,23 @@ export const Playground = (props: PlaygroundProps) => {
   return (
     <div className={styles.wrapper} ref={fullscreenProps.ref}>
       <SandpackProvider
-        template="react-ts"
-        theme={theme}
         files={files}
-        customSetup={{ dependencies }}
-        options={{ activeFile: appFileName }}
+        // `react(-ts)` is a CRA template
+        // seems to launch faster than `vite-react(-ts)`
+        template={'react-ts'}
+        theme={isDarkTheme ? 'dark' : 'light'}
+        customSetup={{ dependencies: parsedProps.dependencies }}
+        options={{ activeFile: EntryFiles[language] }}
       >
         <div className={layoutClass}>
           <ControlPanel
-            layout={layout}
-            setLayout={setLayout}
+            onChangeLanguage={onChangeLanguage}
             fullscreen={fullscreenProps.fullscreen}
             toggleFullscreen={fullscreenProps.toggle}
           />
 
           <div className={panelsClass}>
-            <Panels layout={layout} isVertical={isVertical} />
+            <Panels />
           </div>
         </div>
       </SandpackProvider>
@@ -71,8 +69,10 @@ export const Playground = (props: PlaygroundProps) => {
  * Parse props, as they come JSON.stringified.
  * Without stringification passing object types as props in MDX tend to break things.
  */
-function parseProp<T extends PlaygroundProp>(prop: string | T) {
-  return typeof prop === 'string' ? (JSON.parse(prop) as T) : prop
+function parseProps(props: PlaygroundStringifiedProps): PlaygroundProps {
+  return Object.fromEntries(
+    Object.entries(props).map(([key, value]) => {
+      return [key, JSON.parse(value)]
+    })
+  ) as PlaygroundProps
 }
-
-type PlaygroundProp = PlaygroundProps[keyof PlaygroundProps]

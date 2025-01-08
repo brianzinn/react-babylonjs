@@ -1,6 +1,6 @@
 import fs from 'node:fs'
-import { SandpackFiles } from '@codesandbox/sandpack-react'
-import { ENTRY_FILE_NAME } from '../../shared/constants'
+import { EntryFiles, Language } from '../../shared/constants'
+import { PlaygroundProps } from '../../shared/types'
 import { transformAssetPaths } from './transformAssetPaths'
 import { formatCode } from './formatCode'
 import { transformTsxToJsx } from './transformTsxToJsx'
@@ -11,26 +11,31 @@ import { transformTsxToJsx } from './transformTsxToJsx'
 export const getFiles = async (params: { resolvedPath: string; importPath: string }) => {
   const { resolvedPath, importPath } = params
 
-  const sources: Record<string, string> = {}
-  const files: SandpackFiles = {}
+  const files: PlaygroundProps['files'] = {
+    [Language.tsx]: {},
+    [Language.jsx]: {},
+  }
 
+  let tsxCode
   try {
-    sources.tsx = fs.readFileSync(resolvedPath, { encoding: 'utf8' })
+    tsxCode = transformAssetPaths(
+      fs.readFileSync(resolvedPath, {
+        encoding: 'utf8',
+      })
+    )
   } catch {
     throw new Error(`Could not find file at "${resolvedPath}".
       Make sure you have a file named "${importPath}.tsx"`)
   }
 
-  sources.tsx = transformAssetPaths(sources.tsx)
+  const tsxToJsxResult = transformTsxToJsx(tsxCode)
+  const astBody = tsxToJsxResult?.ast?.program.body ?? []
 
-  const transformResult = transformTsxToJsx(sources.tsx)
-  if (transformResult?.code) {
-    sources.jsx = await formatCode(transformResult.code, resolvedPath)
+  if (tsxToJsxResult?.code) {
+    files.jsx[EntryFiles.jsx] = await formatCode(tsxToJsxResult.code, resolvedPath)
   }
 
-  files[`${ENTRY_FILE_NAME}.tsx`] = sources.tsx
-
-  const astBody = transformResult?.ast?.program.body ?? []
+  files.tsx[EntryFiles.tsx] = tsxCode
 
   return { files, astBody }
 }

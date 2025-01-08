@@ -1,12 +1,12 @@
 import path from 'node:path'
-import { ENTRY_FILE_NAME } from '../../shared/constants'
+import { EntryFiles, Language } from '../../shared/constants'
 import { getPathWithExt, isRelativeImport, prepareFileNameWithExt } from '../../shared/pathHelpers'
 import { getFiles } from './getFiles'
 
 export const getFilesAndImports = async (params: { importPath: string; dirname: string }) => {
   const { importPath, dirname } = params
 
-  const resolvedPath = path.join(dirname, getPathWithExt(importPath))
+  const resolvedPath = path.join(dirname, getPathWithExt(importPath, Language.tsx))
 
   const { files, astBody } = await getFiles({ resolvedPath, importPath })
 
@@ -22,7 +22,11 @@ export const getFilesAndImports = async (params: { importPath: string; dirname: 
       // Make relative imports available in the code editor
       const nested = await getFilesAndImports({ importPath, dirname })
 
-      files[prepareFileNameWithExt(importPath)] = nested.files[`${ENTRY_FILE_NAME}.tsx`]
+      files[Language.tsx][prepareFileNameWithExt(importPath, Language.tsx)] =
+        nested.files[Language.tsx][EntryFiles.tsx]
+
+      files[Language.jsx][prepareFileNameWithExt(importPath, Language.jsx)] =
+        nested.files[Language.jsx][EntryFiles.jsx]
     } else {
       // external modules will be resolved through _playground_virtual_modules
       imports[importPath] = importPath

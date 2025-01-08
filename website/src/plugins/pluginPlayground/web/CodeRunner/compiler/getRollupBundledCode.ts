@@ -1,14 +1,19 @@
 import { Plugin, rollup } from '@rollup/browser'
-import { ENTRY_FILE_NAME } from '../../../shared/constants'
+import { ENTRY_FILE_BASE, Language } from '../../../shared/constants'
 import { isRelativeImport, prepareFileNameWithExt } from '../../../shared/pathHelpers'
 import { Files } from './compileComponentFromFiles'
 
-export const getBundledCode = async ({ files }: { files: Files }) => {
-  const entryFilename = Object.keys(files).find((name) => name.includes(ENTRY_FILE_NAME))
+type GetBundledCode = {
+  files: Files
+  language: Language
+}
+
+export const getRollupBundledCode = async ({ files, language }: GetBundledCode) => {
+  const entryFilename = Object.keys(files).find((name) => name.includes(ENTRY_FILE_BASE))
 
   const bundle = await rollup({
     input: entryFilename,
-    plugins: [loaderPlugin(files)],
+    plugins: [loaderPlugin(files, language)],
     external: (source) => {
       const isLocal = isRelativeImport(source) || files[source]
 
@@ -32,7 +37,7 @@ export const getBundledCode = async ({ files }: { files: Files }) => {
 
 // Based off of https://rollupjs.org/faqs/#how-do-i-run-rollup-itself-in-a-browser
 // Resolve and load modules to be bundled
-function loaderPlugin(files: Files): Plugin {
+function loaderPlugin(files: Files, language: Language): Plugin {
   return {
     name: 'in-memory-loader',
     resolveId(source) {
@@ -42,7 +47,7 @@ function loaderPlugin(files: Files): Plugin {
 
       // resolve file name from the relative import
       if (isRelativeImport(source)) {
-        const fileName = `/${prepareFileNameWithExt(source)}`
+        const fileName = `/${prepareFileNameWithExt(source, language)}`
 
         if (files.hasOwnProperty(fileName)) {
           return fileName
