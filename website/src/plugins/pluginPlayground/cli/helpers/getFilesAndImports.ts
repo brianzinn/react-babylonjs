@@ -19,6 +19,7 @@ export const getFilesAndImports = async (params: { importPath: string; dirname: 
     const importPath = statement.source.value
 
     if (isRelativeImport(importPath)) {
+      // Make relative imports available in the code editor
       const nested = await getFilesAndImports({ importPath, dirname })
 
       files[prepareFileNameWithExt(importPath)] = nested.files[`${ENTRY_FILE_NAME}.tsx`]

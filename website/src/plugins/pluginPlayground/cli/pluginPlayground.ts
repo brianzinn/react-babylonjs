@@ -23,7 +23,14 @@ export type DemoDataByPath = Record<
 const demoDataByPath: DemoDataByPath = {}
 
 /**
- * The plugin is used to preview component.
+ * Scan all files and:
+ * - find nodes of the type `<code src='./path/to/Component.tsx' >`
+ * - resolve the file content from the `src` attribute
+ * - resolve relative imports inside that file
+ * - resolve imported npm modules and inject a getImport getter as a virtual module, which make them available in browser
+ * - create `files` and `dependencies` objects for each demo
+ * - Through `remarkPlugin`, replace `<code src='./path/to/Component.tsx' >`
+ * with `<Playground files={files} dependencies={dependencies} />`
  */
 export function pluginPlayground(): RspressPlugin {
   const playgroundVirtualModule = new RspackVirtualModulePlugin({})
@@ -43,13 +50,15 @@ export function pluginPlayground(): RspressPlugin {
     },
 
     async routeGenerated(routes) {
+      // Collect all imports to make them available in browser through
+      // the `getImport` getter, injected as a virtual module
       const allImports: Record<string, string> = { react: 'react' }
       const packageJsonDependencies = await getPackageJsonDependencies()
 
-      // Scan all files, and generate virtual modules
-      // that make imports in demo files available in runtime
+      // Scan all MDX files
       for (const route of routes) {
-        if (_skipForTesting(route.absolutePath)) continue
+        // for testing purposes
+        // if (_skipForTesting(route.absolutePath)) continue
 
         const isMdxFile = /\.mdx$/.test(route.absolutePath)
 
@@ -61,6 +70,9 @@ export function pluginPlayground(): RspressPlugin {
 
           const demoImportPaths: string[] = []
 
+          // Find files containing demo markup `<code src='./path/to/Demo.tsx' >`,
+          // and collect import paths in `demoImportPaths`.
+          // Eg: `demoImportPaths.push(['./path/to/Demo.tsx', ...])`
           visit(mdxAst, 'mdxJsxFlowElement', (node) => {
             if (node.name === 'code') {
               const importPath = getMdxJsxAttribute(node, 'src')
@@ -71,6 +83,8 @@ export function pluginPlayground(): RspressPlugin {
             }
           })
 
+          // Create files and dependencies objects for each demo
+          // These will be passed as props to Playground component
           for (const importPath of demoImportPaths) {
             const demo = await getFilesAndImports({
               importPath,
@@ -95,11 +109,9 @@ export function pluginPlayground(): RspressPlugin {
         }
       }
 
-      const playgroundVirtualModulesCode = getVirtualModulesCode(allImports)
-
       playgroundVirtualModule.writeModule(
         '_playground_virtual_modules',
-        playgroundVirtualModulesCode
+        getVirtualModulesCode(allImports)
       )
     },
 
@@ -112,6 +124,7 @@ export function pluginPlayground(): RspressPlugin {
       html: {
         tags: [
           {
+            // Babel is quite heavy, so we load it as a script tag
             tag: 'script',
             head: true,
             attrs: {
@@ -126,6 +139,9 @@ export function pluginPlayground(): RspressPlugin {
 
     markdown: {
       remarkPlugins: [[remarkPlugin, { getDemoDataByPath }]],
+      // Perhaps we can move this to `remarkPlugin`
+      // to add it only when there's <code src"" />
+      // Not sure how `globalComponents` works, actually
       globalComponents: [path.join(__dirname, '../web/Playground')],
     },
   }

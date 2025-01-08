@@ -14,6 +14,8 @@ export const getPackageJsonDependencies = async () => {
 // always include peerDeps of react-babylonjs
 const alwaysIncludedDeps = ['@babylonjs/core', '@babylonjs/gui']
 
+/**
+ * get dependencies for a specific demo, to avoid passing all deps to Sandbox  */
 export const getDemoDependencies = (
   moduleImports: string[],
   packageJsonDependencies: Record<string, string>
