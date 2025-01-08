@@ -1,5 +1,5 @@
 import { PanelsLayout } from '../constants'
-import { ToggleButton } from './ToggleButton'
+import { ToggleButton } from '../ToggleButton/ToggleButton'
 import styles from './LayoutToggle.module.css'
 
 type LayoutToggleProps = {
