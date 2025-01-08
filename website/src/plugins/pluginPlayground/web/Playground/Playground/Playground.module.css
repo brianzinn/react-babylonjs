@@ -1,5 +1,4 @@
 .wrapper {
-  /* padding-bottom: 16px; */
   border: 1px solid var(--sp-colors-surface2);
   background-color: var(--sp-colors-surface1);
 }

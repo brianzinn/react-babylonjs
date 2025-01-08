@@ -1,4 +1,4 @@
-// starts with ./ or ../
+/** starting with ./ or ../  */
 const relativeImportRegex = /^\.{1,2}\//
 
 export const isRelativeImport = (importPath: string) => relativeImportRegex.test(importPath)
