@@ -1,8 +1,8 @@
 import { OpenInCodeSandboxButton } from '@codesandbox/sandpack-react'
 import { FullscreenToggleButton } from '../FullscreenToggleButton/FullscreenToggleButton'
 import styles from './ControlPanel.module.css'
-import { LayoutToggle } from '../LayoutToggle/LayoutToggle'
 import { PanelsLayout } from '../constants'
+import { ToggleButtonGroup } from '../ToggleButtonGroup/ToggleButtonGroup'
 
 type ControlPanelProps = {
   layout: PanelsLayout
@@ -17,7 +17,11 @@ export const ControlPanel = (props: ControlPanelProps) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.section}>
-        <LayoutToggle layout={layout} setLayout={setLayout} />
+        <ToggleButtonGroup
+          values={Object.values(PanelsLayout)}
+          activeValue={layout}
+          setValue={setLayout}
+        />
       </div>
 
       <div className={styles.section}>
