@@ -1,5 +1,5 @@
 import type babel from '@babel/standalone'
-import { Files } from './getComponentFromFiles'
+import { Files } from './compileComponentFromFiles'
 
 type Babel = typeof babel
 

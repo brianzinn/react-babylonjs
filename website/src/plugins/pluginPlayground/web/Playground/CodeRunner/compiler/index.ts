@@ -1,0 +1,1 @@
+export { compileComponentFromFiles } from './compileComponentFromFiles'
