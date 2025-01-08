@@ -1,9 +1,9 @@
 import { createElement, ReactNode, useState } from 'react'
 import { useDebouncedCallback, useShallowEffect } from '@mantine/hooks'
-import { Language } from '../../shared/constants'
+import { Language } from '@pluginPlayground/shared/constants'
+import { useLocalStorageLanguage } from '../../hooks/localStorage'
 import { compileComponentFromFiles } from './compiler'
-import { useFiles } from './useFiles'
-import { useLocalStorageLanguage } from '../hooks/localStorage'
+import { useVisibleFiles } from './useVisibleFiles'
 
 const DEBOUNCE_TIME = 500
 
@@ -38,7 +38,7 @@ export const CodeRunner = ({ onError }: CodeRunnerProps) => {
     }
   }
 
-  const files = useFiles()
+  const files = useVisibleFiles()
   const getComponentDebounced = useDebouncedCallback(getComponent, DEBOUNCE_TIME)
 
   useShallowEffect(() => {

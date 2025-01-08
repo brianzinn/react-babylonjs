@@ -1,6 +1,9 @@
 import { Plugin, rollup } from '@rollup/browser'
-import { ENTRY_FILE_BASE, Language } from '../../../shared/constants'
-import { isRelativeImport, prepareFileNameWithExt } from '../../../shared/pathHelpers'
+import { Language, ENTRY_FILE_BASE } from '@pluginPlayground/shared/constants'
+import {
+  isRelativeImport,
+  prepareFileNameWithExt,
+} from '@/src/plugins/pluginPlayground/shared/pathHelpers'
 import { Files } from './compileComponentFromFiles'
 
 type GetBundledCode = {

@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { useSandpack } from '@codesandbox/sandpack-react'
 
-export const useFiles = () => {
+export const useVisibleFiles = () => {
   const {
     sandpack: { files, visibleFilesFromProps },
   } = useSandpack()

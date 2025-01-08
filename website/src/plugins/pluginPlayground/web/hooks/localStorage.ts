@@ -1,6 +1,6 @@
 import { useLocalStorage } from '@mantine/hooks'
 import { LocalStorage, PanelsLayout } from '../constants'
-import { Language } from '../../shared/constants'
+import { Language } from '@pluginPlayground/shared/constants'
 
 export const useLocalStorageLayout = () => {
   return useLocalStorage({

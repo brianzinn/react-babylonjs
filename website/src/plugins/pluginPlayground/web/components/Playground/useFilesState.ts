@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { SandpackState, SandpackFiles } from '@codesandbox/sandpack-react'
-import { Language } from '../../shared/constants'
-import { PlaygroundProps } from '../../shared/types'
-import { useLocalStorageLanguage } from '../hooks/localStorage'
+import { Language } from '@pluginPlayground/shared/constants'
+import { PlaygroundProps } from '@pluginPlayground/shared/types'
+import { useLocalStorageLanguage } from '../../hooks/localStorage'
 
 export const useFilesState = (props: PlaygroundProps) => {
   const [language] = useLocalStorageLanguage()

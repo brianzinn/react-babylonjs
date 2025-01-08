@@ -1,9 +1,9 @@
 import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels'
 import { SandpackCodeEditor, SandpackStack } from '@codesandbox/sandpack-react'
 import { Preview } from '../Preview/Preview'
-import { PanelsLayout } from '../constants'
-import { useIsVertical } from '../hooks/misc'
-import { useLocalStorageLayout } from '../hooks/localStorage'
+import { PanelsLayout } from '../../constants'
+import { useIsVertical } from '../../hooks/misc'
+import { useLocalStorageLayout } from '../../hooks/localStorage'
 import styles from './Panels.module.css'
 
 export const Panels = () => {
