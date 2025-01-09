@@ -3,9 +3,7 @@
   "private": true,
   "workspaces": {
     "packages": [
-      "devtool/*",
-      "packages/react-babylonjs",
-      "packages/static"
+      "packages/react-babylonjs"
     ]
   },
   "scripts": {
@@ -14,7 +12,7 @@
     "lint": "yarn workspaces run lint",
     "lint:fix": "yarn workspaces run lint:fix",
     "prepare": "husky install",
-    "start-docs": "cd ./website && yarn dev"
+    "start-docs": "cd ./website && yarn && yarn dev"
   },
   "devDependencies": {
     "@parcel/packager-ts": "^2.2.0",
