@@ -13,15 +13,3 @@
     overflow: auto;
   }
 }
-
-.panels {
-  height: 400px;
-
-  &.fullscreen {
-    flex-grow: 1;
-  }
-
-  &.vertical:not(&.singlePanel, &.fullscreen) {
-    height: 600px;
-  }
-}

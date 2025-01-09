@@ -1,9 +1,9 @@
 import { useSandpack, SandpackState, OpenInCodeSandboxButton } from '@codesandbox/sandpack-react'
 import { Language } from '@pluginPlayground/shared/constants'
-import { PanelsLayout } from '../../constants'
+import { View } from '../../constants'
 import { ToggleButtonGroup } from '../ToggleButtonGroup/ToggleButtonGroup'
 import { FullscreenToggleButton } from '../FullscreenToggleButton/FullscreenToggleButton'
-import { useLocalStorageLanguage, useLocalStorageLayout } from '../../hooks/localStorage'
+import { useLocalStorageLanguage, useLocalStorageView } from '../../hooks/localStorage'
 import { useIsVertical } from '../../hooks/misc'
 import { LanguageLabels } from './labels'
 import styles from './ControlPanel.module.css'
@@ -17,7 +17,7 @@ type ControlPanelProps = {
 export const ControlPanel = (props: ControlPanelProps) => {
   const { fullscreen, toggleFullscreen, onChangeLanguage } = props
 
-  const [layout, setLayout] = useLocalStorageLayout()
+  const [view, setView] = useLocalStorageView()
   const [language, setLanguage] = useLocalStorageLanguage()
   const isVertical = useIsVertical()
 
@@ -32,11 +32,7 @@ export const ControlPanel = (props: ControlPanelProps) => {
 
   return (
     <div className={styles.wrapper}>
-      <ToggleButtonGroup
-        values={Object.values(PanelsLayout)}
-        activeValue={layout}
-        setValue={setLayout}
-      />
+      <ToggleButtonGroup values={Object.values(View)} activeValue={view} setValue={setView} />
 
       <ToggleButtonGroup
         values={LanguageLabels}
