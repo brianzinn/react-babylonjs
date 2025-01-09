@@ -4,7 +4,7 @@ import { useDark } from 'rspress/runtime'
 import { useFullscreen } from '@mantine/hooks'
 import { SandpackProvider } from '@codesandbox/sandpack-react'
 import { PlaygroundProps } from '@pluginPlayground/shared/types'
-import { EntryFiles } from '@pluginPlayground/shared/constants'
+import { EntryFiles, Language } from '@pluginPlayground/shared/constants'
 import { Panels } from '../Panels/Panels'
 import { ControlPanel } from '../ControlPanel/ControlPanel'
 import { useLocalStorageLanguage } from '../../hooks/localStorage'
@@ -34,7 +34,7 @@ export const Playground = (props: PlaygroundStringifiedProps) => {
         files={files}
         // `react(-ts)` is a CRA template
         // seems to launch faster than `vite-react(-ts)`
-        template={'react-ts'}
+        template={language === Language.tsx ? 'react-ts' : 'react'}
         theme={isDarkTheme ? 'dark' : 'light'}
         customSetup={{ dependencies: parsedProps.dependencies }}
         options={{ activeFile: EntryFiles[language] }}
