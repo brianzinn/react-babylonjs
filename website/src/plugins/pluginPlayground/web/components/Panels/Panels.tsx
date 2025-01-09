@@ -3,17 +3,20 @@ import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels'
 import { SandpackCodeEditor, SandpackStack } from '@codesandbox/sandpack-react'
 import { Preview } from '../Preview/Preview'
 import { View } from '../../constants'
-import { useIsVertical } from '../../hooks/misc'
 import { useLocalStorageView } from '../../hooks/localStorage'
 import styles from './Panels.module.css'
 
-export const Panels = ({ fullHeight: fullHight }: { fullHeight: boolean }) => {
-  const isVertical = useIsVertical()
+type PanelsProps = {
+  fullHeight: boolean
+  isVertical: boolean
+}
+
+export const Panels = ({ fullHeight, isVertical }: PanelsProps) => {
   const [view] = useLocalStorageView()
 
   const wrapperClass = clsx(styles.wrapper, {
     [styles.vertical]: isVertical,
-    [styles.fullHeight]: fullHight,
+    [styles.fullHeight]: fullHeight,
     [styles.singlePanel]: view !== View.Split,
   })
 

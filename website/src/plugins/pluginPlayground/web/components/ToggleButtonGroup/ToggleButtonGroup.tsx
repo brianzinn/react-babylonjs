@@ -3,7 +3,7 @@ import { RoundedButton } from '@codesandbox/sandpack-react'
 import styles from './ToggleButtonGroup.module.css'
 
 type ToggleButtonGroupProps<T> = {
-  values: T[] | { value: T; label: string }[]
+  values: { value: T; label: React.ReactNode }[]
   activeValue: T
   setValue: (value: T) => void
 }

@@ -4,17 +4,20 @@
 
   /* Style overrides for Sandpack component */
   .button.button.button {
-    --border-radius: 6px;
-
     width: unset;
-    border-radius: 0px;
 
     &:first-of-type {
-      border-radius: var(--border-radius) 0 0 var(--border-radius);
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    &:not(&:first-of-type, &:last-of-type) {
+      border-radius: 0;
     }
 
     &:last-of-type {
-      border-radius: 0 var(--border-radius) var(--border-radius) 0;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
     }
 
     &.isActive {

@@ -13,4 +13,11 @@
   display: flex;
   gap: 8px;
   align-items: center;
+
+  &.smallScreen {
+    /* This Sandpack button doesn't accept className */
+    button[title='Open in CodeSandbox'] span {
+      display: none;
+    }
+  }
 }
