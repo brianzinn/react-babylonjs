@@ -34,11 +34,13 @@ export const ControlPanel = (props: ControlPanelProps) => {
     <div className={styles.wrapper}>
       <ToggleButtonGroup values={Object.values(View)} activeValue={view} setValue={setView} />
 
-      <ToggleButtonGroup
-        values={LanguageLabels}
-        activeValue={language}
-        setValue={handleSetLanguage}
-      />
+      {view !== View.Preview && (
+        <ToggleButtonGroup
+          values={LanguageLabels}
+          activeValue={language}
+          setValue={handleSetLanguage}
+        />
+      )}
 
       {!isVertical && (
         <div className={styles.section}>
