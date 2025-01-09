@@ -1,41 +1,53 @@
+import clsx from 'clsx'
 import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels'
 import { SandpackCodeEditor, SandpackStack } from '@codesandbox/sandpack-react'
 import { Preview } from '../Preview/Preview'
-import { PanelsLayout } from '../../constants'
+import { View } from '../../constants'
 import { useIsVertical } from '../../hooks/misc'
-import { useLocalStorageLayout } from '../../hooks/localStorage'
+import { useLocalStorageView } from '../../hooks/localStorage'
 import styles from './Panels.module.css'
 
-export const Panels = () => {
+export const Panels = ({ isFullscreen }: { isFullscreen: boolean }) => {
   const isVertical = useIsVertical()
-  const [layout] = useLocalStorageLayout()
+  const [view] = useLocalStorageView()
 
-  const editor = <SandpackCodeEditor showRunButton={false} className={styles.sandpackStack} />
+  const wrapperClass = clsx(styles.wrapper, {
+    [styles.vertical]: isVertical,
+    [styles.fullscreen]: isFullscreen,
+    [styles.singlePanel]: view !== View.Split,
+  })
 
-  const preview = (
-    <SandpackStack className={styles.sandpackStack}>
-      <Preview />
-    </SandpackStack>
-  )
-
-  if (layout === PanelsLayout.Preview) {
-    return preview
-  }
-
-  if (layout === PanelsLayout.Code) {
-    return editor
-  }
+  const getHiddenClass = (isHidden: boolean) => clsx({ [styles.hiddenPanel]: isHidden })
 
   return (
-    <PanelGroup
-      direction={isVertical ? 'vertical' : 'horizontal'}
-      autoSaveId="react-babylonjs-playground"
-    >
-      <Panel defaultSize={50}>{isVertical ? preview : editor}</Panel>
+    <div className={wrapperClass}>
+      <PanelGroup
+        style={{ flexDirection: isVertical ? 'column-reverse' : 'row' }}
+        direction={isVertical ? 'vertical' : 'horizontal'}
+        autoSaveId="react-babylonjs-playground"
+      >
+        <Panel
+          id="editor"
+          defaultSize={50}
+          order={isVertical ? 1 : 0}
+          className={getHiddenClass(view === View.Preview)}
+        >
+          <SandpackCodeEditor showRunButton={false} className={styles.sandpackStack} />
+        </Panel>
 
-      <PanelResizeHandle className={styles.resizeHandle} hitAreaMargins={{ coarse: 0, fine: 0 }} />
+        {view === View.Split && <PanelResizeHandle className={styles.resizeHandle} />}
 
-      <Panel defaultSize={50}>{isVertical ? editor : preview}</Panel>
-    </PanelGroup>
+        <Panel
+          id="preview"
+          defaultSize={50}
+          order={isVertical ? 0 : 1}
+          className={getHiddenClass(view === View.Code)}
+        >
+          <SandpackStack className={styles.sandpackStack}>
+            <Preview />
+          </SandpackStack>
+        </Panel>
+      </PanelGroup>
+    </div>
   )
 }

@@ -7,9 +7,7 @@ import { PlaygroundProps } from '@pluginPlayground/shared/types'
 import { EntryFiles } from '@pluginPlayground/shared/constants'
 import { Panels } from '../Panels/Panels'
 import { ControlPanel } from '../ControlPanel/ControlPanel'
-import { PanelsLayout } from '../../constants'
-import { useIsVertical } from '../../hooks/misc'
-import { useLocalStorageLanguage, useLocalStorageLayout } from '../../hooks/localStorage'
+import { useLocalStorageLanguage } from '../../hooks/localStorage'
 import { useFilesState } from './useFilesState'
 import styles from './Playground.module.css'
 
@@ -19,21 +17,12 @@ type PlaygroundStringifiedProps = {
 
 export const Playground = (props: PlaygroundStringifiedProps) => {
   const isDarkTheme = useDark()
-  const isVertical = useIsVertical()
   const fullscreenProps = useFullscreen()
-
-  const [layout] = useLocalStorageLayout()
   const [language] = useLocalStorageLanguage()
 
   const parsedProps = parseProps(props)
 
   const { files, onChangeLanguage } = useFilesState(parsedProps)
-
-  const panelsClass = clsx(styles.panels, {
-    [styles.vertical]: isVertical,
-    [styles.fullscreen]: fullscreenProps.fullscreen,
-    [styles.singlePanel]: layout !== PanelsLayout.SplitView,
-  })
 
   const layoutClass = clsx(styles.layout, {
     [styles.fullscreen]: fullscreenProps.fullscreen,
@@ -57,9 +46,7 @@ export const Playground = (props: PlaygroundStringifiedProps) => {
             toggleFullscreen={fullscreenProps.toggle}
           />
 
-          <div className={panelsClass}>
-            <Panels />
-          </div>
+          <Panels isFullscreen={fullscreenProps.fullscreen} />
         </div>
       </SandpackProvider>
     </div>
