@@ -1,6 +1,8 @@
 /* Style overrides for Sandpack components */
 .sp-button.sp-button.sp-button.sp-button {
   padding: 4px 8px;
+  border-radius: 6px;
+  width: unset;
 
   form {
     position: absolute;

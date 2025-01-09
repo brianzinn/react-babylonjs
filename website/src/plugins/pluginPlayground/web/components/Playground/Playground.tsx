@@ -1,7 +1,7 @@
 import './global.css'
 import clsx from 'clsx'
 import { useDark } from 'rspress/runtime'
-import { useFullscreen } from '@mantine/hooks'
+import { useElementSize, useFullscreen, useMergedRef } from '@mantine/hooks'
 import { SandpackProvider } from '@codesandbox/sandpack-react'
 import { PlaygroundProps } from '@pluginPlayground/shared/types'
 import { EntryFiles, Language } from '@pluginPlayground/shared/constants'
@@ -20,6 +20,11 @@ export const Playground = (props: PlaygroundStringifiedProps) => {
   const fullscreenProps = useFullscreen()
   const [language] = useLocalStorageLanguage()
 
+  const wrapperSize = useElementSize()
+  const smallScreen = wrapperSize.width < 550
+
+  const wrapperRef = useMergedRef(fullscreenProps.ref, wrapperSize.ref)
+
   const parsedProps = parseProps(props)
 
   const { files, onChangeLanguage } = useFilesState(parsedProps)
@@ -32,7 +37,7 @@ export const Playground = (props: PlaygroundStringifiedProps) => {
   const fullHeightPanels = Boolean(fullscreenProps.fullscreen || parsedProps.fullHeight)
 
   return (
-    <div className={styles.wrapper} ref={fullscreenProps.ref}>
+    <div className={styles.wrapper} ref={wrapperRef}>
       <SandpackProvider
         files={files}
         // `react(-ts)` is a CRA template
@@ -44,12 +49,13 @@ export const Playground = (props: PlaygroundStringifiedProps) => {
       >
         <div className={layoutClass}>
           <ControlPanel
+            smallScreen={smallScreen}
             onChangeLanguage={onChangeLanguage}
             fullscreen={fullscreenProps.fullscreen}
             toggleFullscreen={fullscreenProps.toggle}
           />
 
-          <Panels fullHeight={fullHeightPanels} />
+          <Panels isVertical={smallScreen} fullHeight={fullHeightPanels} />
         </div>
       </SandpackProvider>
     </div>
