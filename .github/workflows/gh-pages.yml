@@ -21,6 +21,9 @@ jobs:
   # Build job
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./website
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -35,12 +38,9 @@ jobs:
         uses: actions/configure-pages@v5
       - name: Install dependencies
         run: yarn install
-      - name: Build react-babylonjs
-        run: |
-          yarn workspace react-babylonjs build
       - name: Build website
         run: |
-          yarn workspace @react-babylonjs/website build
+          yarn build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
