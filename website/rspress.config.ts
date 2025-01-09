@@ -3,8 +3,7 @@ import { defineConfig } from 'rspress/config'
 import { pluginPlayground } from './src/plugins/pluginPlayground'
 
 export default defineConfig({
-  // TODO: uncomment to restore deploy to GH Pages
-  // base: '/react-babylonjs/',
+  base: '/react-babylonjs/',
   root: path.join(__dirname, 'docs'),
   outDir: 'build',
 
