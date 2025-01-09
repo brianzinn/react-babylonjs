@@ -7,13 +7,13 @@ import { useIsVertical } from '../../hooks/misc'
 import { useLocalStorageView } from '../../hooks/localStorage'
 import styles from './Panels.module.css'
 
-export const Panels = ({ isFullscreen }: { isFullscreen: boolean }) => {
+export const Panels = ({ fullHeight: fullHight }: { fullHeight: boolean }) => {
   const isVertical = useIsVertical()
   const [view] = useLocalStorageView()
 
   const wrapperClass = clsx(styles.wrapper, {
     [styles.vertical]: isVertical,
-    [styles.fullscreen]: isFullscreen,
+    [styles.fullHeight]: fullHight,
     [styles.singlePanel]: view !== View.Split,
   })
 

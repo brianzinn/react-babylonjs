@@ -12,4 +12,8 @@
     height: 100dvh;
     overflow: auto;
   }
+
+  &.fullHeight {
+    height: calc(100dvh - var(--rp-nav-height));
+  }
 }

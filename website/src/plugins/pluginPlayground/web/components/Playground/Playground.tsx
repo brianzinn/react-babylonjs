@@ -26,7 +26,10 @@ export const Playground = (props: PlaygroundStringifiedProps) => {
 
   const layoutClass = clsx(styles.layout, {
     [styles.fullscreen]: fullscreenProps.fullscreen,
+    [styles.fullHeight]: parsedProps.fullHeight,
   })
+
+  const fullHeightPanels = Boolean(fullscreenProps.fullscreen || parsedProps.fullHeight)
 
   return (
     <div className={styles.wrapper} ref={fullscreenProps.ref}>
@@ -46,7 +49,7 @@ export const Playground = (props: PlaygroundStringifiedProps) => {
             toggleFullscreen={fullscreenProps.toggle}
           />
 
-          <Panels isFullscreen={fullscreenProps.fullscreen} />
+          <Panels fullHeight={fullHeightPanels} />
         </div>
       </SandpackProvider>
     </div>

@@ -1,11 +1,11 @@
 .wrapper {
   height: 400px;
 
-  &.fullscreen {
+  &.fullHeight {
     flex-grow: 1;
   }
 
-  &.vertical:not(&.singlePanel, &.fullscreen) {
+  &.vertical:not(&.singlePanel, &.fullHeight) {
     height: 600px;
   }
 }

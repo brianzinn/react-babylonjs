@@ -8,5 +8,10 @@
     "text": "Examples",
     "link": "/examples",
     "activeMatch": "/examples"
+  },
+  {
+    "text": "Playground",
+    "link": "/playground",
+    "activeMatch": "/playground"
   }
 ]
