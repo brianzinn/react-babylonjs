@@ -15,7 +15,7 @@
     "react": "18",
     "react-dom": "18",
     "react-resizable-panels": "^2.1.7",
-    "rspress": "1.36.0"
+    "rspress": "1.39.4"
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",
