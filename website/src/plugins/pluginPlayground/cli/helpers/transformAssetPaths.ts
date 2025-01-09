@@ -1,12 +1,12 @@
 const PREFIX =
-  'https://raw.githubusercontent.com/brianzinn/react-babylonjs/refs/heads/master/packages/static/static'
+  'https://raw.githubusercontent.com/brianzinn/react-babylonjs/refs/heads/master/website/docs/public'
 
-// Claude made this up :)
 /**
- * Replaces `/assets/` with a PREFIX.
- * This is to make assets available remotely (in Sandbox)
+ * Replace local paths for `/assets/` with remote ones.
+ * This is to make assets available in Sandbox
  */
 export function transformAssetPaths(input: string) {
+  // Claude made this up :)
   // Matches paths starting with /assets/ in various contexts
   // Captures the quotes/backticks and the path separately
   const assetPathRegex = /(['"`])(\/assets\/[^'"`\s)}\]>]+)(['"`])/g
