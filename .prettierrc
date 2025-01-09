@@ -3,5 +3,14 @@
   "singleQuote": true,
   "tabWidth": 2,
   "trailingComma": "es5",
-  "semi": false
+  "semi": false,
+  "overrides": [
+    {
+      "files": ["*.md", "*.mdx"],
+      "options": {
+        "printWidth": 80,
+        "proseWrap": "always"
+      }
+    }
+  ]
 }
