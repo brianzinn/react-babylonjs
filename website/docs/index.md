@@ -12,7 +12,7 @@ hero:
 
     - theme: brand
       text: Examples
-      link: /examples/overview
+      link: /examples
 
 features:
   - title: Use React
