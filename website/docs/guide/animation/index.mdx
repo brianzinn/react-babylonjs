@@ -100,18 +100,11 @@ const RotatingBox: FC = () => {
   useBeforeRender(() => {
     setY((oldY) => oldY + 0.1)
   })
-  return (
-    <box
-      name="box"
-      size={2}
-      position={new Vector3(0, 1, 0)}
-      rotation={new Vector3(0, y, 0)}
-    />
-  )
+  return <box name="box" size={2} position={new Vector3(0, 1, 0)} rotation={new Vector3(0, y, 0)} />
 }
 ```
 
-<code src="./BasicScene.tsx" />
+<code src="./RotatingBox.tsx" />
 
 ## Using real-world timing in animations
 
