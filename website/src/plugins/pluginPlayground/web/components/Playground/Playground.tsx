@@ -29,7 +29,7 @@ export const Playground = (props: PlaygroundStringifiedProps) => {
 
   const { files, onChangeLanguage } = useFilesState(parsedProps)
 
-  const layoutClass = clsx(styles.layout, {
+  const wrapperClass = clsx(styles.wrapper, {
     [styles.fullscreen]: fullscreenProps.fullscreen,
     [styles.fullHeight]: parsedProps.fullHeight,
   })
@@ -37,7 +37,7 @@ export const Playground = (props: PlaygroundStringifiedProps) => {
   const fullHeightPanels = Boolean(fullscreenProps.fullscreen || parsedProps.fullHeight)
 
   return (
-    <div className={styles.wrapper} ref={wrapperRef}>
+    <div className={wrapperClass} ref={wrapperRef}>
       <SandpackProvider
         files={files}
         // `react(-ts)` is a CRA template
@@ -46,8 +46,9 @@ export const Playground = (props: PlaygroundStringifiedProps) => {
         theme={isDarkTheme ? 'dark' : 'light'}
         customSetup={{ dependencies: parsedProps.dependencies }}
         options={{ activeFile: EntryFiles[language] }}
+        className={styles.sandpackProvider}
       >
-        <div className={layoutClass}>
+        <div className={styles.layout}>
           <ControlPanel
             smallScreen={smallScreen}
             onChangeLanguage={onChangeLanguage}

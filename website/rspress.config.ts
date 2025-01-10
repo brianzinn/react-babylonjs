@@ -35,6 +35,14 @@ export default defineConfig({
   },
 
   builderConfig: {
+    output: {
+      cssModules: {
+        localIdentName:
+          process.env.NODE_ENV === 'development'
+            ? '[folder]__[local]-[hash:base64:6]'
+            : '[local]-[hash:base64:6]',
+      },
+    },
     performance: process.env.BUNDLE_ANALYZE
       ? {
           bundleAnalyze: {
