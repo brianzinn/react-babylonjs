@@ -10,3 +10,9 @@ declare module '_playground_virtual_modules' {
 
   export default getImport
 }
+
+declare module '_playground_virtual_types' {
+  const typeDeclarations: Record<string, string>
+
+  export default typeDeclarations
+}

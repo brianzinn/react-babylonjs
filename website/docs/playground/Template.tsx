@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import React, { FC } from 'react'
 import { Scene, Engine } from 'react-babylonjs'
 import { Vector3 } from '@babylonjs/core/Maths/math.vector'
 

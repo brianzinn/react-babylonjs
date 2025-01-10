@@ -36,9 +36,9 @@ export const remarkPlugin: Plugin<[RemarkPluginProps], Root> = ({ getDemoDataByP
         ['dependencies', JSON.stringify(dependencies)],
       ]
 
-      const fullHeight = getMdxJsxAttribute(node, 'fullHeight')
-      if (fullHeight !== undefined) {
-        attributes.push(['fullHeight', 'true'])
+      const standalone = getMdxJsxAttribute(node, 'standalone')
+      if (standalone !== undefined) {
+        attributes.push(['standalone', 'true'])
       }
 
       Object.assign(node, {

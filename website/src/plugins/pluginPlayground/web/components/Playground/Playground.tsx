@@ -21,7 +21,7 @@ export const Playground = (props: PlaygroundStringifiedProps) => {
   const [language] = useLocalStorageLanguage()
 
   const wrapperSize = useElementSize()
-  const smallScreen = wrapperSize.width < 550
+  const smallScreen = wrapperSize.width < 580
 
   const wrapperRef = useMergedRef(fullscreenProps.ref, wrapperSize.ref)
 
@@ -31,10 +31,10 @@ export const Playground = (props: PlaygroundStringifiedProps) => {
 
   const wrapperClass = clsx(styles.wrapper, {
     [styles.fullscreen]: fullscreenProps.fullscreen,
-    [styles.fullHeight]: parsedProps.fullHeight,
+    [styles.fullHeight]: parsedProps.standalone,
   })
 
-  const fullHeightPanels = Boolean(fullscreenProps.fullscreen || parsedProps.fullHeight)
+  const fullHeightPanels = Boolean(fullscreenProps.fullscreen || parsedProps.standalone)
 
   return (
     <div className={wrapperClass} ref={wrapperRef}>
@@ -56,7 +56,11 @@ export const Playground = (props: PlaygroundStringifiedProps) => {
             toggleFullscreen={fullscreenProps.toggle}
           />
 
-          <Panels isVertical={smallScreen} fullHeight={fullHeightPanels} />
+          <Panels
+            isVertical={smallScreen}
+            fullHeight={fullHeightPanels}
+            standalone={parsedProps.standalone}
+          />
         </div>
       </SandpackProvider>
     </div>
