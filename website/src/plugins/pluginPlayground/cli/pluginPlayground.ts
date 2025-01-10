@@ -11,6 +11,7 @@ import { getFilesAndImports } from './helpers/getFilesAndImports'
 import { _skipForTesting } from './helpers/_skipForTesting'
 import { getDemoDependencies, getPackageJsonDependencies } from './helpers/getDependencies'
 import { getVirtualModulesCode } from './helpers/getVirtualModulesCode'
+import { getTypeDeclarationsMap } from './helpers/getTypeDeclarationsMap'
 
 export type DemoDataByPath = Record<string, PlaygroundProps>
 
@@ -107,6 +108,15 @@ export function pluginPlayground(): RspressPlugin {
         '_playground_virtual_modules',
         getVirtualModulesCode(allImports)
       )
+    },
+
+    // Add additional runtime modules
+    async addRuntimeModules(config, isProd) {
+      const typesMap = await getTypeDeclarationsMap()
+
+      return {
+        _playground_virtual_types: `export default ${JSON.stringify(typesMap)}`,
+      }
     },
 
     builderConfig: {

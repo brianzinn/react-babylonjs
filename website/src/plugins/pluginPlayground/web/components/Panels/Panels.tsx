@@ -5,13 +5,15 @@ import { Preview } from '../Preview/Preview'
 import { View } from '../../constants'
 import { useLocalStorageView } from '../../hooks/localStorage'
 import styles from './Panels.module.css'
+import { MonacoEditor } from '../MonacoEditor/MonacoEditor'
 
 type PanelsProps = {
+  standalone?: boolean
   fullHeight: boolean
   isVertical: boolean
 }
 
-export const Panels = ({ fullHeight, isVertical }: PanelsProps) => {
+export const Panels = ({ standalone, fullHeight, isVertical }: PanelsProps) => {
   const [view] = useLocalStorageView()
 
   const wrapperClass = clsx(styles.wrapper, {
@@ -35,7 +37,14 @@ export const Panels = ({ fullHeight, isVertical }: PanelsProps) => {
           order={isVertical ? 1 : 0}
           className={getHiddenClass(view === View.Preview)}
         >
-          <SandpackCodeEditor showRunButton={false} className={styles.sandpackStack} />
+          {standalone ? (
+            <SandpackStack className={styles.sandpackStack}>
+              <MonacoEditor />
+            </SandpackStack>
+          ) : (
+            // Monaco wouldn't handle multiple files yet, and is heavier overall. Using CodeMirror for demos for now
+            <SandpackCodeEditor showRunButton={false} className={styles.sandpackStack} />
+          )}
         </Panel>
 
         {view === View.Split && <PanelResizeHandle className={styles.resizeHandle} />}
