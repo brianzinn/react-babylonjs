@@ -17,7 +17,7 @@ export const FullscreenToggleButton = ({
 
   return (
     <RoundedButton title="Fullscreen toggle" onClick={onClick}>
-      <Icon /> {!smallScreen && <span>{text}</span>}
+      <Icon /> {smallScreen ? null : <span>{text}</span>}
     </RoundedButton>
   )
 }

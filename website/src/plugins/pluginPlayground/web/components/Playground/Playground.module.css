@@ -2,11 +2,6 @@
   --border: 1px solid var(--sp-colors-surface2);
   border: var(--border);
   background-color: var(--sp-colors-surface1);
-}
-
-.layout {
-  display: flex;
-  flex-direction: column;
 
   &.fullHeight {
     height: calc(100dvh - var(--rp-nav-height));
@@ -16,4 +11,14 @@
     height: 100dvh;
     overflow: auto;
   }
+}
+
+.sandpackProvider.sandpackProvider {
+  height: 100%;
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
