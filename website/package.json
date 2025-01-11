@@ -45,6 +45,5 @@
     "rspack-plugin-virtual-module": "0.1.13",
     "typescript": "^5.7.2",
     "unist-util-visit": "^5.0.0"
-  },
-  "packageManager": "yarn@1.22.22"
+  }
 }
