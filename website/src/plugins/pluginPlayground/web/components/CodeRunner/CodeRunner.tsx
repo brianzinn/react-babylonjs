@@ -3,15 +3,15 @@ import { useDebouncedCallback, useShallowEffect } from '@mantine/hooks'
 import { Language } from '@pluginPlayground/shared/constants'
 import { useLocalStorageLanguage } from '../../hooks/localStorage'
 import { compileComponentFromFiles } from './compiler'
-import { useVisibleFiles } from './useVisibleFiles'
 
 const DEBOUNCE_TIME = 500
 
 type CodeRunnerProps = {
-  onError: (error: Error | undefined) => void
+  files: Record<string, string>
+  setError: (error: Error | undefined) => void
 }
 
-export const CodeRunner = ({ onError }: CodeRunnerProps) => {
+export const CodeRunner = ({ files, setError }: CodeRunnerProps) => {
   const [component, setComponent] = useState<ReactNode | null>(null)
 
   const [language] = useLocalStorageLanguage()
@@ -29,16 +29,15 @@ export const CodeRunner = ({ onError }: CodeRunnerProps) => {
       )
 
       if (component) {
-        onError(undefined)
+        setError(undefined)
         setComponent(createElement(component))
       }
     } catch (e) {
       console.error(e)
-      onError(e as Error)
+      setError(e as Error)
     }
   }
 
-  const files = useVisibleFiles()
   const getComponentDebounced = useDebouncedCallback(getComponent, DEBOUNCE_TIME)
 
   useShallowEffect(() => {
