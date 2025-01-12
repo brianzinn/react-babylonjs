@@ -1,0 +1,11 @@
+.cm-theme {
+  height: 100%;
+
+  .cm-editor {
+    height: 100%;
+  }
+
+  .cm-content {
+    padding: 8px 6px;
+  }
+}

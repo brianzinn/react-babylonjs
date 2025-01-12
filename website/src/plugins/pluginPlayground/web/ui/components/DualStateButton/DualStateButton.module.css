@@ -1,0 +1,37 @@
+.button {
+  display: grid;
+  align-content: center;
+  grid-template-areas: 'stack';
+
+  .normal,
+  .altered {
+    grid-area: stack;
+
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    > svg {
+      margin: 0;
+    }
+  }
+
+  .altered {
+    visibility: hidden;
+  }
+
+  &.isAltered {
+    .normal {
+      visibility: hidden;
+    }
+    .altered {
+      visibility: visible;
+    }
+  }
+}
+
+[data-icon-buttons='true'] {
+  .text {
+    display: none;
+  }
+}

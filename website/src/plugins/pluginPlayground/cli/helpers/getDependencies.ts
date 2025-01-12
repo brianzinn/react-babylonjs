@@ -21,7 +21,7 @@ export const getDemoDependencies = (
   packageJsonDependencies: Record<string, string>
 ) => {
   const depNames = Object.keys(packageJsonDependencies)
-  const allImports = moduleImports.concat(alwaysIncludedDeps)
+  const allImports = alwaysIncludedDeps.concat(moduleImports)
 
   const demoDependencies = allImports.reduce<Record<string, string>>((acc, importPath) => {
     if (packageJsonDependencies[importPath]) {

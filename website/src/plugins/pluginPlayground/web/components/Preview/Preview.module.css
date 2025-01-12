@@ -1,9 +1,0 @@
-.wrapper {
-  position: relative;
-  padding-block: 12px;
-  height: 100%;
-
-  canvas {
-    outline: none;
-  }
-}

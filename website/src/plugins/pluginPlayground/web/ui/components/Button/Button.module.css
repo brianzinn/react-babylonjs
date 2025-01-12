@@ -1,0 +1,63 @@
+.button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  font-weight: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  margin: 0;
+  text-transform: none;
+  appearance: none;
+  font-size: inherit;
+  font-family: inherit;
+
+  cursor: pointer;
+  text-decoration: none;
+  box-sizing: border-box;
+  height: 28px;
+  width: unset;
+  border-radius: 6px;
+  padding: 4px 8px;
+
+  color: var(--sp-colors-clickable);
+  background-color: var(--sp-colors-surface2);
+  border: 1px solid var(--sp-colors-surface3);
+
+  &:disabled {
+    color: var(--sp-colors-disabled);
+  }
+
+  &:focus,
+  &:focus-visible {
+    outline: revert;
+  }
+
+  &:hover:not(:disabled, [data-active='true']) {
+    color: var(--sp-colors-hover);
+    background-color: var(--sp-colors-surface3);
+  }
+
+  &[data-active='true'] {
+    color: var(--sp-colors-accent);
+    background-color: var(--sp-colors-surface3);
+    border: 1px solid var(--sp-colors-base);
+
+    &:hover {
+      background-color: var(--sp-colors-surface2);
+    }
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+    min-width: 16px;
+    margin: auto;
+  }
+}
+
+[data-icon-buttons='true'] {
+  .text {
+    display: none;
+  }
+}

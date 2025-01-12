@@ -1,4 +1,4 @@
-import { TransformOptions, transformSync } from '@babel/core'
+import { type TransformOptions, transformSync } from '@babel/core'
 
 const transformOptions: TransformOptions = {
   ast: true,

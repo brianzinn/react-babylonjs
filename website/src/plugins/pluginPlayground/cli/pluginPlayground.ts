@@ -1,17 +1,16 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import { visit } from 'unist-util-visit'
 import type { RspressPlugin } from '@rspress/shared'
 import { RspackVirtualModulePlugin } from 'rspack-plugin-virtual-module'
-import { PlaygroundProps } from '../shared/types'
-import { remarkPlugin } from './remarkPlugin'
-import { getMdxJsxAttribute } from './helpers/getMdxJsxAttribute'
-import { getMdxFromMarkdownString } from './helpers/getMdxFromMarkdownString'
-import { getFilesAndImports } from './helpers/getFilesAndImports'
-import { _skipForTesting } from './helpers/_skipForTesting'
+import { visit } from 'unist-util-visit'
+import type { PlaygroundProps } from '../shared/types'
 import { getDemoDependencies, getPackageJsonDependencies } from './helpers/getDependencies'
-import { getVirtualModulesCode } from './helpers/getVirtualModulesCode'
+import { getFilesAndImports } from './helpers/getFilesAndImports'
+import { getMdxFromMarkdownString } from './helpers/getMdxFromMarkdownString'
+import { getMdxJsxAttribute } from './helpers/getMdxJsxAttribute'
 import { getTypeDeclarationsMap } from './helpers/getTypeDeclarationsMap'
+import { getVirtualModulesCode } from './helpers/getVirtualModulesCode'
+import { remarkPlugin } from './remarkPlugin'
 
 export type DemoDataByPath = Record<string, PlaygroundProps>
 
@@ -146,7 +145,7 @@ export function pluginPlayground(): RspressPlugin {
       // Perhaps we can move this to `remarkPlugin`
       // to add it only when there's <code src"" />
       // Not sure how `globalComponents` works, actually
-      globalComponents: [path.join(__dirname, '../web/components/Playground')],
+      globalComponents: [path.join(__dirname, '../web/ui/playground')],
     },
   }
 }

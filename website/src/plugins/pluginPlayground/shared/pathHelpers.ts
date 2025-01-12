@@ -1,4 +1,4 @@
-import { Language } from './constants'
+import type { Language } from './constants'
 
 /** starting with ./ or ../  */
 const relativeImportRegex = /^\.{1,2}\//

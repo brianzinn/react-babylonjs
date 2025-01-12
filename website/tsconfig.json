@@ -13,6 +13,7 @@
     "moduleResolution": "bundler",
     "useDefineForClassFields": true,
     "allowImportingTsExtensions": true,
+    "noUnusedLocals": true,
 
     "baseUrl": ".",
     "paths": {
