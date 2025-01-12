@@ -1,10 +1,10 @@
-import { visit } from 'unist-util-visit'
-import type { Plugin } from 'unified'
 import type { Root } from 'mdast'
-import { getMdxJsxAttribute } from './helpers/getMdxJsxAttribute'
+import type { MdxJsxFlowElement } from 'mdast-util-mdx'
+import type { Plugin } from 'unified'
+import { visit } from 'unist-util-visit'
 import { _skipForTesting } from './helpers/_skipForTesting'
-import { DemoDataByPath } from './pluginPlayground'
-import { MdxJsxFlowElement } from 'mdast-util-mdx'
+import { getMdxJsxAttribute } from './helpers/getMdxJsxAttribute'
+import type { DemoDataByPath } from './pluginPlayground'
 
 interface RemarkPluginProps {
   getDemoDataByPath: () => DemoDataByPath
@@ -31,20 +31,14 @@ export const remarkPlugin: Plugin<[RemarkPluginProps], Root> = ({ getDemoDataByP
       }
 
       const { files, dependencies } = demoDataByPath[importPath]
-      const attributes: Array<[string, string]> = [
-        ['files', JSON.stringify(files)],
-        ['dependencies', JSON.stringify(dependencies)],
-      ]
-
-      const standalone = getMdxJsxAttribute(node, 'standalone')
-      if (standalone !== undefined) {
-        attributes.push(['standalone', 'true'])
-      }
 
       Object.assign(node, {
         type: 'mdxJsxFlowElement',
         name: 'Playground',
-        attributes: getMdxJsxAttributes(attributes),
+        attributes: getMdxJsxAttributes([
+          ['files', JSON.stringify(files)],
+          ['dependencies', JSON.stringify(dependencies)],
+        ]),
       })
     })
   }

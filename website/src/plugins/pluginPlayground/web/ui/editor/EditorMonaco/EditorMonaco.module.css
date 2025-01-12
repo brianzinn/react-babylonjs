@@ -1,0 +1,23 @@
+.wrapper {
+  height: 100%;
+  position: relative;
+}
+
+.loadingOverlay {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+  box-sizing: border-box;
+  background: var(--sp-colors-surface2);
+  padding: 10px;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  opacity: 0.7;
+}

@@ -1,0 +1,25 @@
+.wrapper {
+  position: relative;
+  padding-block: 12px;
+  height: 100%;
+
+  canvas {
+    outline: none;
+  }
+}
+
+.error {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+  box-sizing: border-box;
+  background: #a12027;
+  opacity: 0.86;
+  color: #fff;
+  padding: 10px;
+  overflow: auto;
+  font-size: 12px;
+}

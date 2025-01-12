@@ -1,5 +1,5 @@
-import path from 'node:path'
 import fsPromises from 'node:fs/promises'
+import path from 'node:path'
 
 type TypeDirEntry = {
   // Root directory of the module

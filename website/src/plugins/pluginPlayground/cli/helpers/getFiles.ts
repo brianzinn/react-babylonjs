@@ -1,8 +1,8 @@
 import fs from 'node:fs'
 import { EntryFiles, Language } from '../../shared/constants'
-import { PlaygroundProps } from '../../shared/types'
-import { transformAssetPaths } from './transformAssetPaths'
+import type { PlaygroundProps } from '../../shared/types'
 import { formatCode } from './formatCode'
+import { transformAssetPaths } from './transformAssetPaths'
 import { transformTsxToJsx } from './transformTsxToJsx'
 
 /**
@@ -16,7 +16,7 @@ export const getFiles = async (params: { resolvedPath: string; importPath: strin
     [Language.jsx]: {},
   }
 
-  let tsxCode
+  let tsxCode = ''
   try {
     tsxCode = transformAssetPaths(
       fs.readFileSync(resolvedPath, {

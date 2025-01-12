@@ -1,0 +1,16 @@
+.wrapper {
+  display: flex;
+  gap: 16px;
+  padding: 8px;
+  border-bottom: var(--border);
+
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.section {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
