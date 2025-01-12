@@ -40,6 +40,6 @@ function setTypescriptDefault(monaco: Monaco) {
   // ts.javascriptDefaults.setCompilerOptions(compilerOptions)
 
   Object.entries(typeDeclarations).forEach(([path, content]) => {
-    ts.typescriptDefaults.addExtraLib(content, path)
+    ts.typescriptDefaults.addExtraLib(content, `file:///${path}`)
   })
 }
