@@ -4,7 +4,7 @@ import { useSearchParams } from 'rspress/runtime'
 import { SearchParams } from '../constants'
 import { createSnippet, updateSnippet } from '../db/crud'
 import { useFiles } from './useCurrentFiles'
-import { useLocalStorageGuid } from './localStorage'
+import { useLocalStorageGuid } from './useLocalStorageSettings'
 import { db } from '../db/db'
 import { PlaygroundProps } from '../../shared/types'
 import { useForkSnippet } from './useForkSnippet'
@@ -14,7 +14,7 @@ const DEBOUNCE_TIME = 1000
 export const useUpdateSnippet = () => {
   const { allFiles, language, activeFile } = useFiles()
   const [searchParams, setSearchParams] = useSearchParams()
-  const [authorGuid] = useLocalStorageGuid()
+  const { authorGuid } = useLocalStorageGuid()
 
   const updateOrForkSnippet = useUpdateOrForkSnippet()
 

@@ -1,6 +1,9 @@
 import { View } from '../../../constants'
-import { useLocalStorageLanguage, useLocalStorageView } from '../../../hooks/localStorage'
 import { useSnippetId } from '../../../hooks/location'
+import {
+  useLocalStorageLanguage,
+  useLocalStorageView,
+} from '../../../hooks/useLocalStorageSettings'
 import { ToggleButtonGroup } from '../../components/ToggleButtonGroup/ToggleButtonGroup'
 import { ButtonCopy } from '../ButtonCopy/ButtonCopy'
 import { ButtonCreateNew } from '../ButtonCreateNew/ButtonCreateNew'
@@ -15,8 +18,8 @@ export const ControlPanel = ({ fullscreen }: ControlPanelProps) => {
   const snippetId = useSnippetId()
   const wrapperEl = useWrapperEl()
 
-  const [view, setView] = useLocalStorageView()
-  const [language, setLanguage] = useLocalStorageLanguage()
+  const { view, setView } = useLocalStorageView()
+  const { language, setLanguage } = useLocalStorageLanguage()
 
   return (
     <div className={styles.wrapper} ref={wrapperEl.ref} data-icon-buttons={wrapperEl.isTight}>

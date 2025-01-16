@@ -2,7 +2,7 @@ import type { FilesEntry } from '@/src/plugins/pluginPlayground/shared/types'
 import { useDebouncedCallback } from '@mantine/hooks'
 import type { Language } from '@pluginPlayground/shared/constants'
 import { type ReactNode, createElement, useEffect, useState } from 'react'
-import { useLocalStorageLanguage } from '../../../hooks/localStorage'
+import { useLocalStorageLanguage } from '../../../hooks/useLocalStorageSettings'
 import { compileComponentFromFiles } from './compiler'
 
 const DEBOUNCE_TIME = 500
@@ -13,7 +13,7 @@ type CodeRunnerProps = {
 }
 
 export const CodeRunner = ({ files, setError }: CodeRunnerProps) => {
-  const [language] = useLocalStorageLanguage()
+  const { language } = useLocalStorageLanguage()
   const [component, setComponent] = useState<ReactNode | null>(null)
 
   const getComponent = async (files: FilesEntry, language: Language) => {

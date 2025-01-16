@@ -2,8 +2,8 @@ import { useElementSize } from '@mantine/hooks'
 import clsx from 'clsx'
 import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels'
 import { View } from '../../../constants'
-import { useLocalStorageView } from '../../../hooks/localStorage'
 import { useIsPlaygroundPage } from '../../../hooks/location'
+import { useLocalStorageView } from '../../../hooks/useLocalStorageSettings'
 import { EditorCodeMirror } from '../../editor/EditorCodeMirror/EditorCodeMirror'
 import { EditorMonaco } from '../../editor/EditorMonaco/EditorMonaco'
 import { FileTabs } from '../../editor/FileTabs/FileTabs'
@@ -17,7 +17,7 @@ export const ResizablePanels = () => {
   const wrapperSize = useElementSize()
   const isVertical = wrapperSize.width < SMALL_THRESHOLD
 
-  const [view] = useLocalStorageView()
+  const { view } = useLocalStorageView()
 
   const wrapperClass = clsx(styles.wrapper, {
     [styles.vertical]: isVertical,

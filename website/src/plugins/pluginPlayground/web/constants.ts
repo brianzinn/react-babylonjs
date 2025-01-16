@@ -5,6 +5,7 @@ export enum View {
 }
 
 export enum LocalStorage {
+  Settings = 'react-babylonjs-playground-settings',
   View = 'react-babylonjs-playground-view',
   Language = 'react-babylonjs-playground-language',
   Guid = 'react-babylonjs-playground-guid',
