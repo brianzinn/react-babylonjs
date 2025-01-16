@@ -1,11 +1,11 @@
 import { useCallback } from 'react'
 import type { FilesEntry } from '../../shared/types'
 import { useFilesContext } from '../context/Files'
-import { useLocalStorageLanguage } from './localStorage'
+import { useLocalStorageLanguage } from './useLocalStorageSettings'
 
 export const useFiles = () => {
   const { files, updateFiles, activeFile, setActiveFile } = useFilesContext()
-  const [language] = useLocalStorageLanguage()
+  const { language } = useLocalStorageLanguage()
 
   const currentFiles = files[language]
 

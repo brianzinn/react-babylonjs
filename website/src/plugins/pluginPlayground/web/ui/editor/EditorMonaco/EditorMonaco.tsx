@@ -1,8 +1,8 @@
 import Editor from '@monaco-editor/react'
 import { useDark } from '@rspress/core/runtime'
 import { useState } from 'react'
-import { useLocalStorageLanguage } from '../../../hooks/localStorage'
 import { useActiveCode } from '../../../hooks/useActiveCode'
+import { useLocalStorageLanguage } from '../../../hooks/useLocalStorageSettings'
 import { useQuerySnippetOnce } from '../../../hooks/useQuerySnippetOnce'
 import { useUpdateSnippet } from '../../../hooks/useUpdateSnippet'
 import { MonacoLanguage, MonacoTheme } from './constants'
@@ -17,7 +17,7 @@ export function EditorMonaco() {
   const [loading, setLoading] = useState(false)
   const theme = useDark() ? MonacoTheme.Dark : MonacoTheme.Light
 
-  const [language] = useLocalStorageLanguage()
+  const { language } = useLocalStorageLanguage()
   const { code, updateCode } = useActiveCode()
 
   useQuerySnippetOnce(setLoading)

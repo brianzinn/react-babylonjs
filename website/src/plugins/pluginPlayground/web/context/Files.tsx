@@ -2,7 +2,7 @@ import { toMerged } from 'es-toolkit'
 import { createContext, useCallback, useContext, useEffect, useState } from 'react'
 import { EntryFiles } from '../../shared/constants'
 import type { PlaygroundProps } from '../../shared/types'
-import { useLocalStorageLanguage } from '../hooks/localStorage'
+import { useLocalStorageLanguage } from '../hooks/useLocalStorageSettings'
 
 type Files = PlaygroundProps['files']
 
@@ -36,7 +36,7 @@ function FilesProvider({ initialValue, children }: FilesProviderProps) {
     setFiles(initialValue.files)
   }, [initialValue.files])
 
-  const [language] = useLocalStorageLanguage()
+  const { language } = useLocalStorageLanguage()
   const [activeFile, setActiveFile] = useState(EntryFiles[language])
 
   useEffect(() => {
