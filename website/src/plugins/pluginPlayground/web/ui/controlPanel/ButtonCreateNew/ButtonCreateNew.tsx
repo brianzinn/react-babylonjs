@@ -1,27 +1,17 @@
 import { IconFile } from '@tabler/icons-react'
-import { useSearchParams } from 'rspress/runtime'
-import { SearchParams } from '../../../constants'
-import { useFilesContext } from '../../../context/Files'
 import { useSnippetId } from '../../../hooks/location'
 import { Button } from '../../components/Button/Button'
+import { useResetSnippet } from '../../../hooks/useResetSnippet'
 
 export const ButtonCreateNew = () => {
   const snippetId = useSnippetId()
-  const [searchParams, setSearchParams] = useSearchParams()
-
-  const { setInitialFiles } = useFilesContext()
+  const handleReset = useResetSnippet()
 
   const onClick = () => {
     const confirmed = confirm('Are you sure you want to create a new playground?')
 
     if (confirmed) {
-      const params = searchParams
-
-      params.delete(SearchParams.SnippetId)
-      params.delete(SearchParams.ForkedFromId)
-
-      setSearchParams(params)
-      setInitialFiles()
+      handleReset()
     }
   }
 

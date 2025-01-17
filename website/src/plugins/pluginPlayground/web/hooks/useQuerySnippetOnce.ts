@@ -3,9 +3,17 @@ import type { PlaygroundProps } from '../../shared/types'
 import { useFilesContext } from '../context/Files'
 import { db } from '../db/db'
 import { useSnippetId } from './location'
+import { useResetSnippet } from './useResetSnippet'
 
 export const useQuerySnippetOnce = (setLoading: (value: boolean) => void) => {
   const snippetId = useSnippetId()
+  const resetSnippet = useResetSnippet()
+
+  const handleReset = () => {
+    resetSnippet()
+    setLoading(false)
+  }
+
   const { setFiles } = useFilesContext()
 
   useEffect(() => {
@@ -17,15 +25,22 @@ export const useQuerySnippetOnce = (setLoading: (value: boolean) => void) => {
 
     setLoading(true)
 
-    db.queryOnce(query).then((response) => {
-      const snippet = response.data.files[0]
+    db.queryOnce(query)
+      .then((response) => {
+        const snippet = response.data.files[0]
 
-      if (!snippet) return
+        if (!snippet) {
+          handleReset()
+          return
+        }
 
-      const files = JSON.parse(snippet.filesJson) as PlaygroundProps['files']
+        const files = JSON.parse(snippet.filesJson) as PlaygroundProps['files']
 
-      setFiles(files)
-      setLoading(false)
-    })
+        setFiles(files)
+        setLoading(false)
+      })
+      .catch(() => {
+        handleReset()
+      })
   }, [])
 }
