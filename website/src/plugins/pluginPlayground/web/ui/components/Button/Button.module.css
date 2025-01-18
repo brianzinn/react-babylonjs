@@ -25,6 +25,7 @@
   border: 1px solid var(--sp-colors-surface3);
 
   &:disabled {
+    cursor: default;
     color: var(--sp-colors-disabled);
   }
 

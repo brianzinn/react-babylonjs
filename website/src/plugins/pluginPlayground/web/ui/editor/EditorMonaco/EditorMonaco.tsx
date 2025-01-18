@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useActiveCode } from '../../../hooks/useActiveCode'
 import { useLocalStorageLanguage } from '../../../hooks/useLocalStorageSettings'
 import { useQuerySnippetOnce } from '../../../hooks/useQuerySnippetOnce'
-import { useUpdateSnippet } from '../../../hooks/useUpdateSnippet'
+// import { useUpdateSnippet } from '../../../hooks/useUpdateSnippet'
 import { MonacoLanguage, MonacoTheme } from './constants'
 import styles from './EditorMonaco.module.css'
 import { initMonacoEditor } from './initMonacoEditor'
@@ -21,7 +21,7 @@ export function EditorMonaco() {
   const { code, updateCode } = useActiveCode()
 
   useQuerySnippetOnce(setLoading)
-  const saveToDb = useUpdateSnippet()
+  // const saveToDb = useUpdateSnippet()
 
   return (
     <div className={styles.wrapper}>
@@ -32,7 +32,7 @@ export function EditorMonaco() {
         value={code}
         onChange={(code = '') => {
           updateCode(code)
-          saveToDb(code)
+          // saveToDb(code)
         }}
         language={MonacoLanguage[language]}
         options={{

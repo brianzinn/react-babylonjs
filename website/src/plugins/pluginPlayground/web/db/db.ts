@@ -9,7 +9,6 @@ const schema = i.schema({
     files: i.entity({
       snippetId: i.string().unique().indexed(),
       filesJson: i.json(),
-      authorGuid: i.string(),
       forkedFromId: i.string(),
 
       createdAt: i.date(),

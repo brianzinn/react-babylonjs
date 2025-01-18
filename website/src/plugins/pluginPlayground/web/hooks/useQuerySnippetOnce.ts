@@ -14,7 +14,7 @@ export const useQuerySnippetOnce = (setLoading: (value: boolean) => void) => {
     setLoading(false)
   }
 
-  const { setFiles } = useFilesContext()
+  const { setFiles, setLastSavedFiles } = useFilesContext()
 
   useEffect(() => {
     if (!snippetId) return
@@ -37,6 +37,7 @@ export const useQuerySnippetOnce = (setLoading: (value: boolean) => void) => {
         const files = JSON.parse(snippet.filesJson) as PlaygroundProps['files']
 
         setFiles(files)
+        setLastSavedFiles(files)
         setLoading(false)
       })
       .catch(() => {

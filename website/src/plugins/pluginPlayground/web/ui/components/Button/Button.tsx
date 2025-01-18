@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import styles from './Button.module.css'
 
-type ButtonProps = React.DetailedHTMLProps<
+export type ButtonProps = React.DetailedHTMLProps<
   React.ButtonHTMLAttributes<HTMLButtonElement>,
   HTMLButtonElement
 > & {

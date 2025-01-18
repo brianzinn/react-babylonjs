@@ -4,20 +4,17 @@ import { db } from './db'
 import { makeId } from '../utils/makeId'
 
 type CreateSnippetParams = {
-  snippetId?: string
   forkedFromId?: string
-  authorGuid: string
   files: PlaygroundProps['files']
 }
 
 export function createSnippet(params: CreateSnippetParams) {
-  const { forkedFromId, authorGuid, files } = params
-  const snippetId = params.snippetId ?? makeId()
+  const { forkedFromId, files } = params
+  const snippetId = makeId()
 
   db.transact(
     db.tx.files[id()].update({
       snippetId,
-      authorGuid,
       forkedFromId,
       filesJson: JSON.stringify(files),
       createdAt: new Date().toISOString(),

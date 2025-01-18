@@ -6,7 +6,7 @@ export const useWrapperEl = () => {
   const isPlaygroundPage = useIsPlaygroundPage()
   const snippetId = useSnippetId()
 
-  const NARROW_THRESHOLD = isPlaygroundPage && snippetId ? 760 : 450
+  const NARROW_THRESHOLD = isPlaygroundPage && snippetId ? 850 : 650
   const isTight = element.width < NARROW_THRESHOLD
 
   return { isTight, ref: element.ref }
