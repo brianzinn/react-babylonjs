@@ -1,0 +1,7 @@
+.button {
+  position: relative;
+
+  form {
+    position: absolute;
+  }
+}

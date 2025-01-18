@@ -1,12 +1,10 @@
 type GetViteTemplateFiles = {
   appFileName: string
-  dependencies: Record<string, string>
 }
 
-export const getViteTemplateFiles = ({ dependencies, appFileName }: GetViteTemplateFiles) => ({
-  'package.json': getPackageJson(dependencies),
-
-  'index.html': `<!doctype html>
+export const getViteTemplateFiles = ({ appFileName }: GetViteTemplateFiles) => {
+  return {
+    'index.html': `<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -19,7 +17,7 @@ export const getViteTemplateFiles = ({ dependencies, appFileName }: GetViteTempl
   </body>
 </html>`,
 
-  'main.tsx': `import { StrictMode } from 'react'
+    'main.tsx': `import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './${appFileName}'
 
@@ -33,7 +31,7 @@ if (rootEl) {
   )
 }`,
 
-  'vite.config.ts': `import { defineConfig } from 'vite'
+    'vite.config.ts': `import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
@@ -41,7 +39,7 @@ export default defineConfig({
   plugins: [react()],
 })`,
 
-  'tsconfig.json': `{
+    'tsconfig.json': `{
   "compilerOptions": {
     "lib": ["DOM", "ES2020"],
     "jsx": "react-jsx",
@@ -64,32 +62,5 @@ export default defineConfig({
   },
   "include": ["src"]
 }`,
-})
-
-function getPackageJson(dependencies: GetViteTemplateFiles['dependencies']) {
-  const content = {
-    name: 'react-babylonjs-starter',
-    private: true,
-    version: '1.0.0',
-    scripts: {
-      dev: 'vite',
-      build: 'vite build',
-      preview: 'vite preview',
-    },
-    dependencies: {
-      react: '18',
-      'react-dom': '18',
-      ...dependencies,
-    },
-    devDependencies: {
-      '@types/react': '18',
-      '@types/react-dom': '18',
-      '@vitejs/plugin-react': '^4.3.4',
-      globals: '^15.14.0',
-      typescript: '^5.7.2',
-      vite: '^6.0.7',
-    },
   }
-
-  return JSON.stringify(content, null, 2)
 }

@@ -9,6 +9,7 @@ import { ButtonCopy } from '../ButtonCopy/ButtonCopy'
 import { ButtonCreateNew } from '../ButtonCreateNew/ButtonCreateNew'
 import { ButtonFork } from '../ButtonFork/ButtonFork'
 import { ButtonFullscreen } from '../ButtonFullscreen/ButtonFullscreen'
+import { ButtonSandbox } from '../ButtonSandbox/ButtonSandbox'
 import styles from './ControlPanel.module.css'
 import { LanguageValues, getViewValues } from './labels'
 import { ControlPanelProps } from './types'
@@ -47,7 +48,7 @@ export const ControlPanel = ({ fullscreen }: ControlPanelProps) => {
             <ButtonCreateNew />
           </>
         )}
-        <ButtonFullscreen fullscreen={fullscreen} />
+        <ButtonSandbox />
       </div>
     </div>
   )
