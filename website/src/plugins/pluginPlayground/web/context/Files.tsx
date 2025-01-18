@@ -10,6 +10,11 @@ type FilesContextValue = {
   files: Files
   setFiles: React.Dispatch<React.SetStateAction<Files>>
   updateFiles: (update: Partial<Files>) => void
+
+  lastSavedFiles: Files
+  setLastSavedFiles: React.Dispatch<React.SetStateAction<Files>>
+
+  initialFiles: Files
   setInitialFiles: () => void
 
   activeFile: string
@@ -27,6 +32,7 @@ type FilesProviderProps = {
 
 function FilesProvider({ initialValue, children }: FilesProviderProps) {
   const [files, setFiles] = useState(initialValue.files)
+  const [lastSavedFiles, setLastSavedFiles] = useState(initialValue.files)
 
   const updateFiles = useCallback((update: Partial<Files>) => {
     setFiles((prevFiles) => toMerged(prevFiles, update))
@@ -53,6 +59,11 @@ function FilesProvider({ initialValue, children }: FilesProviderProps) {
         files,
         setFiles,
         updateFiles,
+
+        lastSavedFiles,
+        setLastSavedFiles,
+
+        initialFiles: initialValue.files,
         setInitialFiles,
 
         activeFile,

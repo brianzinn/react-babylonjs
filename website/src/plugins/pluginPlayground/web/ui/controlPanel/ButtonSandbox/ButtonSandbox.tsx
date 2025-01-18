@@ -26,7 +26,7 @@ export const ButtonSandbox = () => {
     >
       <UnstyledOpenInCodeSandboxButton className={classes}>
         <IconExternalLink />
-        <span>CodeSandbox</span>
+        <span className={baseButtonStyles.text}>Sandbox</span>
       </UnstyledOpenInCodeSandboxButton>
     </SandpackProvider>
   )

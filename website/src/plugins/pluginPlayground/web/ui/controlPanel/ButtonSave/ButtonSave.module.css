@@ -1,0 +1,5 @@
+.hasChanges,
+.hasChanges:hover:not(:disabled) {
+  font-weight: bold;
+  color: var(--rp-container-warning-text);
+}

@@ -6,16 +6,11 @@ import { createSnippet } from '../db/crud'
 export function useForkSnippet() {
   const [, setSearchParams] = useSearchParams()
 
-  return (params: {
-    forkedFromId: string
-    authorGuid: string
-    files: PlaygroundProps['files']
-  }) => {
-    const { forkedFromId, authorGuid, files } = params
+  return (params: { forkedFromId: string; files: PlaygroundProps['files'] }) => {
+    const { forkedFromId, files } = params
 
     const newSnippetId = createSnippet({
       files,
-      authorGuid,
       forkedFromId,
     })
 

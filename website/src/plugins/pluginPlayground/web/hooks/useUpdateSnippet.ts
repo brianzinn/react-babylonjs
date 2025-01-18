@@ -2,20 +2,20 @@ import { useDebouncedCallback } from '@mantine/hooks'
 import { toMerged } from 'es-toolkit'
 import { useSearchParams } from 'rspress/runtime'
 import { SearchParams } from '../constants'
-import { createSnippet, updateSnippet } from '../db/crud'
+import { updateSnippet } from '../db/crud'
 import { useFiles } from './useCurrentFiles'
-import { useLocalStorageGuid } from './useLocalStorageSettings'
 import { db } from '../db/db'
 import { PlaygroundProps } from '../../shared/types'
 import { useForkSnippet } from './useForkSnippet'
+import { useCreateSnippet } from './useCreateSnippet'
 
 const DEBOUNCE_TIME = 1000
 
 export const useUpdateSnippet = () => {
   const { allFiles, language, activeFile } = useFiles()
-  const [searchParams, setSearchParams] = useSearchParams()
-  const { authorGuid } = useLocalStorageGuid()
+  const [searchParams] = useSearchParams()
 
+  const createSnippet = useCreateSnippet()
   const updateOrForkSnippet = useUpdateOrForkSnippet()
 
   return useDebouncedCallback((fileContent: string) => {
@@ -28,10 +28,9 @@ export const useUpdateSnippet = () => {
     })
 
     if (snippetId) {
-      updateOrForkSnippet({ snippetId, authorGuid, files })
+      updateOrForkSnippet({ snippetId, files })
     } else {
-      const newSnippetId = createSnippet({ authorGuid, files })
-      setSearchParams({ [SearchParams.SnippetId]: newSnippetId })
+      createSnippet({ files })
     }
 
     return
@@ -41,8 +40,8 @@ export const useUpdateSnippet = () => {
 function useUpdateOrForkSnippet() {
   const forkSnippet = useForkSnippet()
 
-  return (params: { snippetId: string; authorGuid: string; files: PlaygroundProps['files'] }) => {
-    const { snippetId, authorGuid, files } = params
+  return (params: { snippetId: string; files: PlaygroundProps['files'] }) => {
+    const { snippetId, files } = params
 
     const query = {
       files: { $: { where: { snippetId } } },
@@ -53,10 +52,11 @@ function useUpdateOrForkSnippet() {
 
       if (!snippet) return
 
-      if (snippet.authorGuid === authorGuid) {
+      // TODO: review later
+      if (false /* snippet.authorGuid === authorGuid */) {
         updateSnippet({ snippetId, files })
       } else {
-        forkSnippet({ files, authorGuid, forkedFromId: snippetId })
+        forkSnippet({ files, forkedFromId: snippetId })
       }
     })
   }
