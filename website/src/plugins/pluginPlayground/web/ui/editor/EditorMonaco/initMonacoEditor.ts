@@ -4,22 +4,26 @@ import typeDeclarations from '_playground_virtual_types'
 import { createHighlighter } from 'shiki'
 import { MonacoTheme } from './constants'
 
-const highlighter = await createHighlighter({
-  themes: [MonacoTheme.Dark, MonacoTheme.Light],
-  langs: ['javascript', 'typescript'],
-})
-
 const DEFAULT_MONACO_URL = 'https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs'
 
-export function initMonacoEditor() {
+export async function initMonacoEditor() {
   loader.config({
     paths: { vs: DEFAULT_MONACO_URL },
   })
 
-  loader.init().then((monaco) => {
-    shikiToMonaco(highlighter, monaco)
-    setTypescriptDefault(monaco)
+  const monaco = await loader.init()
+
+  // Register the languageIds first. Only registered languages will be highlighted.
+  monaco.languages.register({ id: 'jsx' })
+  monaco.languages.register({ id: 'tsx' })
+
+  const highlighter = await createHighlighter({
+    themes: [MonacoTheme.Dark, MonacoTheme.Light],
+    langs: ['javascript', 'typescript', 'jsx', 'tsx'],
   })
+
+  shikiToMonaco(highlighter, monaco)
+  setTypescriptDefault(monaco)
 }
 
 function setTypescriptDefault(monaco: Monaco) {

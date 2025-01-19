@@ -1,0 +1,18 @@
+---
+title: 'Pipeline'
+---
+
+Easily alter the rendering pipeline declaratively:
+
+```tsx
+<defaultRenderingPipeline hdr chromaticAberrationEnabled grainEnabled>
+  <chromaticAberrationPostProcess
+    assignFrom="chromaticAberration"
+    aberrationAmount={-100}
+    radialIntensity={0.2}
+  />
+  <grainPostProcess assignFrom="grain" intensity={20} />
+</defaultRenderingPipeline>
+```
+
+<code src="./pipeline/Pipeline.tsx" />

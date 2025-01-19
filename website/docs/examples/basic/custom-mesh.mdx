@@ -1,0 +1,27 @@
+---
+title: 'Custom Mesh'
+---
+
+We're not just limited to basic shapes here, but the real purpose of this
+example is to highlight 2 custom properties:
+
+```tsx
+<mesh name="mesh" fromInstance={customMesh} disposeInstanceOnUnmount>
+  ...
+</mesh>
+```
+
+When you supply a `fromInstance` prop then the renderer will substibute what you
+provide instead of "newing up" that object for you. You can do this with
+Cameras, Textures, etc. Property changes will flow to that instance as usual.
+
+The renderer will not dispose of this instance when it unmounts the Component,
+but you can opt-in by specifying that you would like that done on your behalf.
+In our case it's a bit simple - we could have in a useEffect disposed the mesh,
+but in some cases you may have something like a texture map that you want
+re-used and whenever you use `fromInstance` the renderer will assume you are
+managing the lifecycle of that object unless you request automatic disposal with
+`disposeInstanceOnUnmount` (which is the same as
+`disposeInstanceOnUnmount={true}`)
+
+<code src="./custom-mesh/CustomMesh.tsx" />

@@ -1,10 +1,11 @@
 [
   "quickstart",
   "overview",
-  "react-cra/index",
-  "react-with-imperative-babylonjs/index",
-  "react-with-declarative-babylonjs/index",
-  "animation/index",
-  "adding-interaction-and-color/index",
-  "adding-shadows/index"
+  "react-cra",
+  "react-with-imperative-babylonjs",
+  "react-with-declarative-babylonjs",
+  "animation",
+  "adding-interaction-and-color",
+  "adding-shadows",
+  "api"
 ]

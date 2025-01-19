@@ -1,7 +1,7 @@
 import { type InstaQLEntity, i, init } from '@instantdb/react'
 
 // ID for app: react-babylonjs
-const APP_ID = '273798ee-5893-4d64-a0bb-a8120ac78862'
+const APP_ID = '6682b6ca-ec89-40a7-857e-2990d58368d4'
 
 const schema = i.schema({
   entities: {

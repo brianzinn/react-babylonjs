@@ -19,10 +19,9 @@
     "collapsed": true
   },
   {
-    "type": "dir",
+    "type": "file",
     "name": "materials",
-    "label": "Materials",
-    "collapsed": true
+    "label": "Dynamic Register"
   },
   {
     "type": "dir",
@@ -31,16 +30,14 @@
     "collapsed": true
   },
   {
-    "type": "dir",
+    "type": "file",
     "name": "sprites",
-    "label": "Sprites",
-    "collapsed": true
+    "label": "Sprites"
   },
   {
-    "type": "dir",
+    "type": "file",
     "name": "physics",
-    "label": "Physics",
-    "collapsed": true
+    "label": "Physics"
   },
   {
     "type": "dir",
@@ -67,9 +64,8 @@
     "collapsed": true
   },
   {
-    "type": "dir",
+    "type": "file",
     "name": "vr",
-    "label": "VR",
-    "collapsed": true
+    "label": "VR"
   }
 ]

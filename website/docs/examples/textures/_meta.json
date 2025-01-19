@@ -1,7 +1,1 @@
-[
-  "procedural-fire/index",
-  "fresnel-parameters/index",
-  "image-textures/index",
-  "pbr/index",
-  "pbr-configuration/index"
-]
+["procedural-fire", "fresnel-parameters", "image-textures", "pbr", "pbr-configuration"]
