@@ -1,0 +1,48 @@
+# Adding More Interaction and Color
+
+Let's take a look at how to spice up this scene a bit, so that it has some color
+and user interaction (hover and click).
+
+Here's the standard imperative way to add color to a box. There are many
+materials and different color properties (diffuse, emissive, etc)
+
+```tsx
+import { Color3, MeshBuilder, StandardMaterial } from '@babylonjs/core'
+
+const box = MeshBuilder.CreateBox('box', { size: 2 }, scene)
+const material = new StandardMaterial('material', scene)
+material.diffuseColor = Color3.Yellow()
+material.specularColor = Color3.Black()
+box.material = material
+```
+
+```tsx
+<box name="box" size={2}>
+  <standardMaterial name="material" diffuseColor={Color3.Yellow()} specularColor={Color3.Black()} />
+</box>
+```
+
+If you have followed the other guides the declarative should be obvious. The
+main thing to note is that the material is automatically assigned. When the
+material is created is walks down the tree graph and assigns itself to the first
+mesh it finds. You can also put Texture objects as children of the
+`<standardMaterial .. />` there is more on that later.
+
+<code src="./adding-interaction-and-color/Colorful.tsx" />
+
+# Adding interactions
+
+We'll do that with hooks for hover (useHover) and click (useClick).
+
+Basically both of those hooks are pretty self explanatory in the sense that they
+have a callback methods:
+
+1. useClick: has a single callback for when a click occurs
+2. useHover: callbacks for for hovering `over` and `out` events.
+
+If you don't pass in a `Ref` then one will be created for you (and you can use
+that in the object). The easiest way though is to use a `useRef` and pass it
+through to each hook - check the code below demonstrates that way to flow the
+ref through.
+
+<code src="./adding-interaction-and-color/AddingInteractions.tsx" />

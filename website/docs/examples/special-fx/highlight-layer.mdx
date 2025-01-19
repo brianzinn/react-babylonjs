@@ -1,0 +1,16 @@
+---
+title: 'Highlight Layer'
+---
+
+There is currently no declarative way to have `addMesh` called on your behalf,
+but you can do so by capturing the references:
+
+```tsx
+useEffect(() => {
+  if (highlightLayerEL.current && sphereRef.current) {
+    highlightLayerEL.current.addMesh(sphereRef.current, Color3.Green())
+  }
+}, [sphereRef, highlightLayerEL])
+```
+
+<code src="./highlight-layer/HighlightLayer.tsx" />

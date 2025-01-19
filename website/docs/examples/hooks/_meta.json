@@ -1,1 +1,1 @@
-["context/index", "scene-engine/index", "asset-manager/index", "click/index", "hover/index"]
+["context", "scene-engine", "asset-manager", "click", "hover"]

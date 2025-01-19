@@ -1,0 +1,16 @@
+---
+title: 'Create Portal'
+---
+
+Convenience method to call the reconciler `createPortal`.
+
+```tsx
+createPortal(
+  <box position={new Vector3(0, 1, 0)}>
+    <standardMaterial diffuseColor={Color3.Blue()} specularColor={Color3.Black()} />
+  </box>,
+  transformNodeRef.current
+)
+```
+
+<code src="./create-portal/CreatePortal.tsx" />
