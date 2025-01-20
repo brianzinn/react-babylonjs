@@ -1,29 +1,25 @@
 import { type Monaco, loader } from '@monaco-editor/react'
-import { shikiToMonaco } from '@shikijs/monaco'
 import typeDeclarations from '_playground_virtual_types'
 import { createHighlighter } from 'shiki'
 import { MonacoTheme } from './constants'
+import { shikiToMonaco } from './shikiToMonaco'
+
+const highlighter = await createHighlighter({
+  themes: [MonacoTheme.Dark, MonacoTheme.Light],
+  langs: ['javascript', 'typescript', 'tsx', 'jsx'],
+})
 
 const DEFAULT_MONACO_URL = 'https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs'
 
-export async function initMonacoEditor() {
+export function initMonacoEditor() {
   loader.config({
     paths: { vs: DEFAULT_MONACO_URL },
   })
 
-  const monaco = await loader.init()
-
-  // Register the languageIds first. Only registered languages will be highlighted.
-  monaco.languages.register({ id: 'jsx' })
-  monaco.languages.register({ id: 'tsx' })
-
-  const highlighter = await createHighlighter({
-    themes: [MonacoTheme.Dark, MonacoTheme.Light],
-    langs: ['javascript', 'typescript', 'jsx', 'tsx'],
+  loader.init().then((monaco) => {
+    shikiToMonaco(highlighter, monaco)
+    setTypescriptDefault(monaco)
   })
-
-  shikiToMonaco(highlighter, monaco)
-  setTypescriptDefault(monaco)
 }
 
 function setTypescriptDefault(monaco: Monaco) {
