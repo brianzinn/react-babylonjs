@@ -18,11 +18,11 @@ export function initMonacoEditor() {
 
   loader.init().then((monaco) => {
     shikiToMonaco(highlighter, monaco)
-    setTypescriptDefault(monaco)
+    setJsTsDefaults(monaco)
   })
 }
 
-function setTypescriptDefault(monaco: Monaco) {
+function setJsTsDefaults(monaco: Monaco) {
   const ts = monaco.languages.typescript
 
   const compilerOptions = {
@@ -37,10 +37,13 @@ function setTypescriptDefault(monaco: Monaco) {
   // })
 
   ts.typescriptDefaults.setCompilerOptions(compilerOptions)
+  ts.javascriptDefaults.setCompilerOptions(compilerOptions)
+
   const dtsEntries = Object.entries(typeDeclarations)
   // ts.javascriptDefaults.setCompilerOptions(compilerOptions)
 
   for (const [path, content] of dtsEntries) {
     ts.typescriptDefaults.addExtraLib(content, `file:///${path}`)
+    ts.javascriptDefaults.addExtraLib(content, `file:///${path}`)
   }
 }
