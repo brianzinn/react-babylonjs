@@ -1,12 +1,13 @@
 import { type Monaco, loader } from '@monaco-editor/react'
+import { shikiToMonaco } from '@shikijs/monaco'
 import typeDeclarations from '_playground_virtual_types'
 import { createHighlighter } from 'shiki'
 import { MonacoTheme } from './constants'
-import { shikiToMonaco } from './shikiToMonaco'
 
 const highlighter = await createHighlighter({
   themes: [MonacoTheme.Dark, MonacoTheme.Light],
   langs: ['javascript', 'typescript', 'tsx', 'jsx'],
+  langAlias: { typescript: 'tsx', javascript: 'jsx' },
 })
 
 const DEFAULT_MONACO_URL = 'https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs'
@@ -40,7 +41,6 @@ function setJsTsDefaults(monaco: Monaco) {
   ts.javascriptDefaults.setCompilerOptions(compilerOptions)
 
   const dtsEntries = Object.entries(typeDeclarations)
-  // ts.javascriptDefaults.setCompilerOptions(compilerOptions)
 
   for (const [path, content] of dtsEntries) {
     ts.typescriptDefaults.addExtraLib(content, `file:///${path}`)
