@@ -4,6 +4,7 @@ import {
   useLocalStorageLanguage,
   useLocalStorageView,
 } from '../../../hooks/useLocalStorageSettings'
+import { useIsPlaygroundPage } from '../../../hooks/location'
 import { ToggleButtonGroup } from '../../components/ToggleButtonGroup/ToggleButtonGroup'
 import { ButtonCopyLink } from '../ButtonCopyLink/ButtonCopyLink'
 import { ButtonCreateNew } from '../ButtonCreateNew/ButtonCreateNew'
@@ -18,6 +19,7 @@ import { useWrapperEl } from './useWrapperEl'
 
 export const ControlPanel = ({ fullscreen }: ControlPanelProps) => {
   const wrapperEl = useWrapperEl()
+  const isPlaygroundPage = useIsPlaygroundPage()
 
   const [searchParams] = useSearchParams()
   const snippetId = searchParams.get(SearchParams.SnippetId)
@@ -42,8 +44,8 @@ export const ControlPanel = ({ fullscreen }: ControlPanelProps) => {
       )}
 
       <div className={styles.section}>
-        <ButtonSave forkedFromId={forkedFromId} />
-        {snippetId && (
+        {isPlaygroundPage && <ButtonSave forkedFromId={forkedFromId} />}
+        {isPlaygroundPage && snippetId && (
           <>
             <ButtonFork snippetId={snippetId} />
             <ButtonCopyLink />
