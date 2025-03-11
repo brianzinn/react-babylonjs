@@ -247,7 +247,7 @@ const useAssetManagerWithCache = (): ((
       }
 
       const taskPromise =
-        tasks.length === cachedTasks.length
+        tasks?.length === cachedTasks?.length
           ? new Promise<AssetManagerResult>((resolve) =>
               resolve(createResultFromTasks(cachedTasks))
             )

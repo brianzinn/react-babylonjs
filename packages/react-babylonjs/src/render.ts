@@ -1,6 +1,7 @@
 import { ReactElement, version } from 'react'
 import Reconciler, { FiberRoot, Reconciler as ReconcilerType } from 'react-reconciler'
 import ReactBabylonJSHostConfig, { Container } from './ReactBabylonJSHostConfig'
+import { ConcurrentRoot } from 'react-reconciler/constants'
 
 export const roots = new Map<Container, FiberRoot>()
 
@@ -58,6 +59,21 @@ export function createReconciler(rendererOptions: RendererOptions): ReconcilerIn
   const reconciler: ReconcilerType<Container, any, any, any, any> =
     rendererOptions.usePrimary === true ? ReconcilerPrimary : ReconcilerSecondary
 
+  // Add a polyfill for resolveUpdatePriority if it doesn't exist
+  if (reconciler && typeof (reconciler as any).resolveUpdatePriority !== 'function') {
+    ;(reconciler as any).resolveUpdatePriority = (
+      priorityLevel: any,
+      currentUpdatePriority: any
+    ) => {
+      // Use highest priority between the two
+      return currentUpdatePriority === undefined
+        ? priorityLevel
+        : currentUpdatePriority > priorityLevel
+        ? currentUpdatePriority
+        : priorityLevel
+    }
+  }
+
   function render(
     element: ReactElement | null,
     container: Container,
@@ -66,33 +82,70 @@ export function createReconciler(rendererOptions: RendererOptions): ReconcilerIn
   ): any {
     let root = roots.get(container)
     if (!root) {
-      // https://github.com/facebook/react/blob/master/packages/react-test-renderer/src/ReactTestRenderer.js#L449
-      root = (reconciler as any).createContainer(
-        container,
-        false /* isConcurrent */,
-        false /* hydrate */
-      ) as FiberRoot
+      try {
+        // React 19 changed the createContainer API
+        console.log('React 19 createContainer API')
+        root = reconciler.createContainer(
+          container,
+          ConcurrentRoot, // tag
+          null, // hydrationCallbacks
+          false, // isStrictMode
+          null, // concurrentUpdatesByDefaultOverride
+          '', // identifierPrefix
+          (err: any) => console.log(err), // onUncaughtError
+          // (err: any) => console.log(err), // onCaughtError
+          // (err: any) => console.log(err), // onRecoverableError
+          null // transitionCallbacks
+        ) as FiberRoot
+      } catch (error) {
+        // Fallback to older API if new one fails
+        console.warn('Falling back to legacy createContainer API', error)
+        root = (reconciler as any).createContainer(
+          container,
+          false /* isConcurrent */,
+          false /* hydrate */
+        ) as FiberRoot
+      }
+
       roots.set(container, root)
 
-      reconciler.injectIntoDevTools({
-        findFiberByHostInstance: (reconciler as any).findFiberByHostInstance,
-        bundleType: process.env.NODE_ENV === 'prod' ? 1 : 0,
-        version,
-        rendererPackageName: 'react-babylonjs',
-      })
+      if (typeof (reconciler as any).injectIntoDevTools === 'function') {
+        try {
+          reconciler.injectIntoDevTools({
+            bundleType: process.env.NODE_ENV === 'production' ? 1 : 0,
+            version,
+            rendererPackageName: 'react-babylonjs',
+            findFiberByHostInstance: (reconciler as any).findFiberByHostInstance || null,
+          })
+        } catch (e) {
+          console.warn('Could not inject into DevTools:', e)
+        }
+      }
     }
 
-    reconciler.updateContainer(element, root, parentComponent, callback)
+    try {
+      // The updateContainer call might have changed in React 19
+      reconciler.updateContainer(element, root, parentComponent, callback)
+    } catch (error) {
+      console.error('Error updating container:', error)
+      // You might need to implement a fallback strategy here
+    }
 
     return reconciler.getPublicRootInstance(root)
   }
 
   function unmount(container: Container): void {
-    const root = roots.get(container)!
-    reconciler.updateContainer(null, root, null, () => {
-      /* ignored */
-    })
-    roots.delete(container)
+    const root = roots.get(container)
+    if (root) {
+      try {
+        reconciler.updateContainer(null, root, null, () => {
+          /* ignored */
+        })
+      } catch (e) {
+        console.error('Error unmounting container:', e)
+      }
+      roots.delete(container)
+    }
   }
 
   return {

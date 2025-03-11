@@ -494,7 +494,7 @@ export type BabylonNode<T> = {
 }
 
 declare global {
-  namespace JSX {
+  namespace React.JSX {
     interface IntrinsicElements {
       node: FiberNodeProps & FiberNodePropsCtor & BabylonNode<BabylonjsCoreNode>
       transformNode: FiberTransformNodeProps &

@@ -19,7 +19,7 @@ type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 export function withEngineCanvasContext<
   P extends { engineCanvasContext: EngineCanvasContextType },
   R = Omit<P, 'engineCanvasContext'>
->(Component: React.ComponentClass<P> | React.FunctionComponent<P>): React.FunctionComponent<R> {
+>(Component: React.ComponentClass<P> | React.FC<P>): React.FC<R> {
   return function BoundComponent(props: R) {
     return (
       <EngineCanvasContext.Consumer>

@@ -2038,7 +2038,7 @@ const generateCode = async () => {
   })
 
   const jsxNamespace = globalNamespace.addModule({
-    name: 'JSX',
+    name: 'React.JSX',
   })
 
   INTRINSIC_ELEMENTS = jsxNamespace.addInterface({
