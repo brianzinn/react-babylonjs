@@ -250,6 +250,18 @@ const ReactBabylonJSHostConfig: HostConfig<
 > & {
   // TODO: see if still needed (compare typings 28.0)
   now: () => number
+  // New types for react 19. Todo figure out the correct types.
+  resolveUpdatePriority: (args: any) => void
+  getCurrentUpdatePriority: () => number
+  setCurrentUpdatePriority: (newPriority: number) => void
+  onUncaughtError: (error: Error) => void
+  maySuspendCommit: () => boolean
+  shouldSuspend: () => boolean
+  preloadInstance: (args: any) => void
+  startSuspendingCommit: () => void
+  waitForCommitToBeReady: () => void
+  finishedWork: (args: any) => void
+  suspendInstance: (args: any) => void
 } = {
   // This has the reconciler include in call chain ie: appendChild, removeChild
   get supportsMutation(): boolean {
@@ -787,14 +799,20 @@ const ReactBabylonJSHostConfig: HostConfig<
     updatePayload: UpdatePayload,
     type: string /* old, new props and instance handle are extra ignored params */
   ) {
-    if (updatePayload !== null) {
-      updatePayload.forEach((update: PropertyUpdate) => {
+    if (updatePayload !== null && !!type) {
+      if (Array.isArray(updatePayload)) {
+        updatePayload.forEach((update: PropertyUpdate) => {
+          if (instance && update) {
+            applyUpdateToInstance(instance, update)
+          } else {
+            // console.warn("skipped applying update to missing instance...", update, type);
+          }
+        })
+      } else {
         if (instance) {
-          applyUpdateToInstance(instance, update)
-        } else {
-          // console.warn("skipped applying update to missing instance...", update, type);
+          applyUpdateToInstance(instance, updatePayload)
         }
-      })
+      }
     }
   },
 
@@ -833,6 +851,52 @@ const ReactBabylonJSHostConfig: HostConfig<
   },
   prepareScopeUpdate: (scopeInstance: any, instance: any) => {
     /* empty */
+  },
+
+  resolveUpdatePriority(eventType) {
+    // Map event types to priorities
+    return getEventPriority()
+  },
+
+  getCurrentUpdatePriority() {
+    // Return the current priority
+    return DefaultEventPriority
+  },
+
+  setCurrentUpdatePriority(newPriority) {
+    // Store the new priority if needed
+  },
+
+  onUncaughtError(error) {
+    console.error('Uncaught error in react-babylonjs:', error)
+  },
+
+  maySuspendCommit() {
+    return true
+  },
+
+  shouldSuspend() {
+    return true
+  },
+
+  preloadInstance(instance) {
+    // No-op
+  },
+
+  startSuspendingCommit() {
+    // No-op
+  },
+
+  waitForCommitToBeReady() {
+    // No-op
+    return null
+  },
+
+  finishedWork(rootContainer) {
+    // No-op
+  },
+  suspendInstance() {
+    // No-op
   },
 }
 

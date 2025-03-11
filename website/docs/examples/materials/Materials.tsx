@@ -85,7 +85,7 @@ class FiberGridMaterial {
   }
 }
 declare global {
-  namespace JSX {
+  namespace React.JSX {
     interface IntrinsicElements {
       gridMaterial: FiberGridMaterialProps & FiberPushMaterialPropsCtor & BabylonNode<GridMaterial>
     }

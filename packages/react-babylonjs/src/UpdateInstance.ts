@@ -125,7 +125,7 @@ export const applyInitialPropsToCreatedInstance = (
     }
   })
 
-  if (initPayload.length > 0) {
+  if (initPayload?.length > 0) {
     initPayload.forEach((update) => {
       applyUpdateToInstance(createdInstance, update)
     })
