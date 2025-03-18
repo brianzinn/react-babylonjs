@@ -794,25 +794,76 @@ const ReactBabylonJSHostConfig: HostConfig<
     }
   },
 
+  /*   uploadPayload is removed from commitUpdate in new version
+    https://www.npmjs.com/package/react-reconciler 
+   but type definitions doesn't seem to be updated. */
+  // @ts-expect-error types are not updated
   commitUpdate(
     instance: HostCreatedInstance<any>,
-    updatePayload: UpdatePayload,
-    type: string /* old, new props and instance handle are extra ignored params */
+    type: string,
+    prevProps: Record<string, any>,
+    nextProps: Record<string, any>
   ) {
-    if (updatePayload !== null && !!type) {
-      if (Array.isArray(updatePayload)) {
-        updatePayload.forEach((update: PropertyUpdate) => {
-          if (instance && update) {
-            applyUpdateToInstance(instance, update)
-          } else {
-            // console.warn("skipped applying update to missing instance...", update, type);
-          }
-        })
-      } else {
-        if (instance) {
-          applyUpdateToInstance(instance, updatePayload)
-        }
+    const updatePayload: PropertyUpdate[] = []
+
+    const allKeys: string[] = []
+    const keyMap: Record<string, boolean> = {}
+
+    for (const key in prevProps) {
+      if (!keyMap[key]) {
+        allKeys.push(key)
+        keyMap[key] = true
       }
+    }
+
+    for (const key in nextProps) {
+      if (!keyMap[key]) {
+        allKeys.push(key)
+        keyMap[key] = true
+      }
+    }
+
+    for (const key of allKeys) {
+      // Skip internal React properties (starts with '__')
+      if (key.startsWith('__')) continue
+
+      const prevValue = prevProps[key]
+      const nextValue = nextProps[key]
+
+      if (prevValue !== nextValue) {
+        let changeType: PropChangeType
+
+        if (
+          typeof nextValue === 'number' ||
+          typeof nextValue === 'string' ||
+          typeof nextValue === 'boolean' ||
+          nextValue === null ||
+          nextValue === undefined
+        ) {
+          changeType = PropChangeType.Primitive
+        } else if (Array.isArray(nextValue) && nextValue.every((v) => typeof v === 'number')) {
+          changeType = PropChangeType.NumericArray
+        } else {
+          changeType = PropChangeType.Primitive
+        }
+
+        updatePayload.push({
+          propertyName: key,
+          value: nextValue,
+          changeType,
+          isSetAccessor: false,
+          target: undefined,
+        })
+      }
+    }
+
+    // Apply updates using your existing logic
+    if (updatePayload.length > 0 && !!type) {
+      updatePayload.forEach((update: PropertyUpdate) => {
+        if (instance && update) {
+          applyUpdateToInstance(instance, update)
+        }
+      })
     }
   },
 
