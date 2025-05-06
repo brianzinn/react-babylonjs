@@ -8,6 +8,12 @@ Babylon.js API is mostly covered declaratively thanks to code generation and
 even custom props allow you to declaratively add shadows, physics, 3D models,
 attach 2D/3D UI to meshes, etc.
 
+**NOTE:** for the time being React 19 works with newest and @latest versions.
+For older React versions, you will need to use 3.2.2 (ie:
+`yarn add react-babylonjs@3.2.2`). Hope next version will support both. I tried
+to stay away from a major bump due to the ephemeral nature of this change.
+Thanks for your patience.
+
 Fully supports hooks. Full support for TypeScript with auto-completion on
 elements and compile time checks. Context API and hooks provide easy access to
 Scene/Engine/Canvas.
@@ -78,30 +84,28 @@ const EngineScreen: FunctionComponent<ViewProps> = (props: ViewProps) => {
 - [seacloud9](https://github.com/seacloud9) for adding
   [storybook](https://brianzinn.github.io/react-babylonjs/),
   [GSAP demo](https://brianzinn.github.io/react-babylonjs/?path=/story/integrations--gsap-timeline),
-  [dynamic terrain](https://brianzinn.github.io/react-babylonjs/?path=/story/babylon-basic--dynamic-terrain)
+  [dynamic terrain](https://brianzinn.github.io/react-babylonjs/examples/basic/dynamic-terrain)
   (extension) &
   [PIXI demo](https://brianzinn.github.io/react-babylonjs/?path=/story/integrations--pixi-story).
-- [hookex](https://github.com/hookex) has made the largest contribution :)
+- [hookex](https://github.com/hookex) has made the largest contribution :smiley:
   Proper texture handling
-  [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/textures--image-texture),
+  [demo](https://brianzinn.github.io/react-babylonjs/examples/textures/image-textures),
   Node parenting,
-  [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/babylon-basic--transform-node)
+  [demo](https://brianzinn.github.io/react-babylonjs/examples/basic/transform-node)
   Full Screen GUI
-  [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/gui--gui-full-screen),
+  [demo](https://brianzinn.github.io/react-babylonjs/examples/gui/gui-demo),
   Effect Layers
-  [glow demo](https://brianzinn.github.io/react-babylonjs/?path=/story/special-fx--glow-layer),
+  [glow demo](https://brianzinn.github.io/react-babylonjs/examples/special-fx/glow-layer),
   behaviors
-  [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/behaviors--pointer-drag-behavior),
+  [demo](https://brianzinn.github.io/react-babylonjs/examples/behaviors/pointer-drag),
   useHover & useClick hooks
-  [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/hooks--use-hover-event)
-  and react-spring integration
-  [demo](https://brianzinn.github.io/react-babylonjs/?path=/story/integrations--react-spring).
-  Author of `react-babylon-spring` -
+  [demo](https://brianzinn.github.io/react-babylonjs/examples/hooks/hover) and
+  react-spring integration as author of `react-babylon-spring` -
   https://github.com/hookex/react-babylon-spring.
 - [dennemark](https://github.com/dennemark) add support for
   `CascadedShadowGenerator`, `createPortal` and `Html` (project HTML in scene -
   ported from `drei`). Also, stories for
-  [Snippet Material](https://brianzinn.github.io/react-babylonjs/?path=/story/babylon-basic--snippet-material)
+  [Snippet Material](https://brianzinn.github.io/react-babylonjs/examples/basic/snippet-material)
   and
   ["tunnel" zustand integration](https://brianzinn.github.io/react-babylonjs/?path=/story/integrations--zustand-tunnel).
   Added `RenderOnDemand` to customize render loops.
@@ -122,6 +126,7 @@ const EngineScreen: FunctionComponent<ViewProps> = (props: ViewProps) => {
   mobile experience. Also, the amazing
   [Playground](https://brianzinn.github.io/react-babylonjs/playground) was added
   including saved and sharable snippets/forking!
+- [Baris Ozcetin](https://github.com/barisozcetin) add React 19 support
 
 > Thanks also to all the people who have contributed with
 > issues/questions/discussions. All the great ideas and requests are why this

@@ -1,6 +1,6 @@
 {
   "name": "react-babylonjs",
-  "version": "3.2.2",
+  "version": "3.2.3",
   "description": "React for Babylon.js",
   "homepage": "https://brianzinn.github.io/react-babylonjs/",
   "keywords": [
@@ -23,7 +23,7 @@
   "author": "Brian Zinn <github@wakeskate.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/brianzinn/react-babylonjs/"
+    "url": "git+https://github.com/brianzinn/react-babylonjs.git"
   },
   "license": "MIT",
   "engines": {
@@ -86,10 +86,10 @@
     "typescript": "^4.8.3"
   },
   "peerDependencies": {
-    "@babylonjs/core": "5.x || 6.x || 7.x",
-    "@babylonjs/gui": "5.x || 6.x || 7.x",
-    "react": ">=18",
-    "react-dom": ">=18"
+    "@babylonjs/core": "5.x || 6.x || 7.x || 8.x",
+    "@babylonjs/gui": "5.x || 6.x || 7.x || 8.x",
+    "react": ">=19",
+    "react-dom": ">=19"
   },
   "dependencies": {
     "react-reconciler": "^0.31.0"
