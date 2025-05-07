@@ -1,8 +1,8 @@
 import { ReactElement, version } from 'react'
 import Reconciler, { FiberRoot, Reconciler as ReconcilerType } from 'react-reconciler'
 import ReactBabylonJSHostConfig, { Container } from './ReactBabylonJSHostConfig'
-import { ConcurrentRoot } from 'react-reconciler/constants'
-
+// import { ConcurrentRoot } from 'react-reconciler/constants'
+const ConcurrentRoot = 1
 export const roots = new Map<Container, FiberRoot>()
 
 export type RendererOptions = {

@@ -5,11 +5,11 @@ import { Nullable } from '@babylonjs/core/types.js'
 import { ValueAndUnit } from '@babylonjs/gui/2D/valueAndUnit.js'
 
 import ReactReconciler, { Fiber, HostConfig } from 'react-reconciler'
-import {
-  DiscreteEventPriority,
-  ContinuousEventPriority,
-  DefaultEventPriority,
-} from 'react-reconciler/constants.js'
+// import {
+//   DiscreteEventPriority,
+//   ContinuousEventPriority,
+//   DefaultEventPriority,
+// } from 'react-reconciler/constants.js'
 
 import { CreationType, GeneratedParameter } from './codeGenerationDescriptors'
 import { CreatedInstance, CreatedInstanceMetadata } from './CreatedInstance'
@@ -47,10 +47,10 @@ type HostContext = Container
 type TimeoutHandle = number | undefined
 type NoTimeout = number
 
-// TODO: get from react-reconciler directly via import - /constants in typings, but not in NPM.
-// const DiscreteEventPriority = 0b0000000000000000000000000000001;
-// const ContinuousEventPriority = 0b0000000000000000000000000000100;
-// const DefaultEventPriority = 0b0000000000000000000000000010000;
+// NOTE: importing from react-reconciler directly was causing some issues with next.js (https://github.com/brianzinn/react-babylonjs/issues/358)
+const DiscreteEventPriority = 0b0000000000000000000000000000001
+const ContinuousEventPriority = 0b0000000000000000000000000000100
+const DefaultEventPriority = 0b0000000000000000000000000010000
 
 // https://github.com/facebook/react/tree/main/packages/react-reconciler#getcurrenteventpriority
 // https://github.com/facebook/react/blob/main/packages/react-dom/src/events/ReactDOMEventListener.js#L410
