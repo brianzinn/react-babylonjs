@@ -14,6 +14,14 @@ For older React versions, you will need to use 3.2.2 (ie:
 to stay away from a major bump due to the ephemeral nature of this change.
 Thanks for your patience.
 
+## install
+```bash
+npm i react-babylonjs
+```
+```bash
+yarn add react-babylonjs
+```
+
 Fully supports hooks. Full support for TypeScript with auto-completion on
 elements and compile time checks. Context API and hooks provide easy access to
 Scene/Engine/Canvas.
