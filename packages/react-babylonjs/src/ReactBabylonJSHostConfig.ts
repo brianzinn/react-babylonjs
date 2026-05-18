@@ -923,11 +923,11 @@ const ReactBabylonJSHostConfig: HostConfig<
   },
 
   maySuspendCommit() {
-    return true
+    return false
   },
 
   shouldSuspend() {
-    return true
+    return false
   },
 
   preloadInstance(instance) {
