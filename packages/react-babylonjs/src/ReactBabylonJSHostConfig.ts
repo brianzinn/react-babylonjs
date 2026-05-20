@@ -256,7 +256,6 @@ const ReactBabylonJSHostConfig: HostConfig<
   setCurrentUpdatePriority: (newPriority: number) => void
   onUncaughtError: (error: Error) => void
   maySuspendCommit: () => boolean
-  shouldSuspend: () => boolean
   preloadInstance: (args: any) => void
   startSuspendingCommit: () => void
   waitForCommitToBeReady: () => void
@@ -923,10 +922,6 @@ const ReactBabylonJSHostConfig: HostConfig<
   },
 
   maySuspendCommit() {
-    return false
-  },
-
-  shouldSuspend() {
     return false
   },
 
