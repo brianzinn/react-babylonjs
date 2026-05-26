@@ -366,10 +366,8 @@ import {
   StereoscopicInterlacePostProcessI as BabylonjsCoreStereoscopicInterlacePostProcessI,
 } from '@babylonjs/core/PostProcesses/stereoscopicInterlacePostProcess.js'
 import { SubSurfaceScatteringPostProcess as BabylonjsCoreSubSurfaceScatteringPostProcess } from '@babylonjs/core/PostProcesses/subSurfaceScatteringPostProcess.js'
-import {
-  TonemappingOperator as BabylonjsCoreTonemappingOperator,
-  TonemapPostProcess as BabylonjsCoreTonemapPostProcess,
-} from '@babylonjs/core/PostProcesses/tonemapPostProcess.js'
+import { TonemappingOperator as BabylonjsCoreTonemappingOperator } from '@babylonjs/core/PostProcesses/thinTonemapPostProcess.js'
+import { TonemapPostProcess as BabylonjsCoreTonemapPostProcess } from '@babylonjs/core/PostProcesses/tonemapPostProcess.js'
 import { VolumetricLightScatteringPostProcess as BabylonjsCoreVolumetricLightScatteringPostProcess } from '@babylonjs/core/PostProcesses/volumetricLightScatteringPostProcess.js'
 import { VRDistortionCorrectionPostProcess as BabylonjsCoreVRDistortionCorrectionPostProcess } from '@babylonjs/core/PostProcesses/vrDistortionCorrectionPostProcess.js'
 import { VRMultiviewToSingleviewPostProcess as BabylonjsCoreVRMultiviewToSingleviewPostProcess } from '@babylonjs/core/PostProcesses/vrMultiviewToSingleviewPostProcess.js'

@@ -11,6 +11,10 @@ on:
         description: 'Added to end of commit message and annotated git tag'
         required: true
         default: ' ()'
+      distTag:
+        description: 'npm dist-tag to publish under (latest for current major, r18 for the React 18 line, etc.)'
+        required: true
+        default: 'latest'
 # push:
 #    branches: [ master ]
 # NOTE: workspaces have a bunch of issues with npm version!  'npm version' doesn't add a commit + tag :(
@@ -54,7 +58,7 @@ jobs:
           GREN_GITHUB_TOKEN: ${{ secrets.GREN_GITHUB_TOKEN }}
       - name: publish npm
         working-directory: ./packages/react-babylonjs
-        run: npm publish --access public
+        run: npm publish --access public --tag ${{ github.event.inputs.distTag }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: publish to coveralls.io
