@@ -68,7 +68,6 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-react-hooks": "^4.4.0",
     "esm": "^3.2.25",
-    "github-release-notes": "0.17.2",
     "lodash.camelcase": "^4.3.0",
     "mocha": "^10.4.0",
     "prettier": "^2.6.1",
