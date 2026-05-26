@@ -56,7 +56,8 @@ const DefaultEventPriority = 0b0000000000000000000000000010000
 // https://github.com/facebook/react/blob/main/packages/react-dom/src/events/ReactDOMEventListener.js#L410
 function getEventPriority(): number {
   // https://developer.mozilla.org/en-US/docs/Web/API/Window/event
-  const domEventName = window?.event?.type
+  // typeof guard because optional chaining doesn't save us from ReferenceError on undeclared `window` (Node/SSR)
+  const domEventName = typeof window !== 'undefined' ? window.event?.type : undefined
   switch (domEventName /* : DOMEventName */) {
     case 'click':
     case 'contextmenu':
