@@ -228,20 +228,26 @@ describe(' > Reconciler/Render tests', function testSuite() {
     const result = await doRender(reconciler, sceneGraph, container)
     assert.strictEqual(result, true, 'render callback should have returned true')
 
-    assert.ok(container.scene !== null, 'scene should be non-null')
-    const box: AbstractMesh | undefined = container.scene.meshes.find((m) => m.name === 'box')
-    assert.ok(
-      box !== undefined,
-      `box should be found: '${container.scene.meshes.map((m) => m.name).join(',')}'`
-    )
+    const { scene } = container
+    if (scene === null) {
+      throw new Error('scene should be non-null')
+    }
+    const box: AbstractMesh | undefined = scene.meshes.find((m) => m.name === 'box')
+    if (box === undefined) {
+      throw new Error(`box should be found: '${scene.meshes.map((m) => m.name).join(',')}'`)
+    }
 
-    const effectLayers: EffectLayer[] = container.scene.effectLayers
+    const effectLayers: EffectLayer[] = scene.effectLayers
     assert.strictEqual(1, effectLayers.length, 'glow layer should be part of scene')
     assert.ok(effectLayers[0] instanceof GlowLayer)
 
     const glowLayer: GlowLayer = effectLayers[0] as GlowLayer
     assert.ok(glowLayer.hasMesh(box))
-    assert.strictEqual((glowLayer as any)._includedOnlyMeshes.length, 1)
-    assert.strictEqual((glowLayer as any)._includedOnlyMeshes[0], box.uniqueId)
+    // Babylon's thin-effect refactor moved _includedOnlyMeshes from GlowLayer to _thinEffectLayer
+    const includedOnly: number[] =
+      (glowLayer as any)._thinEffectLayer?._includedOnlyMeshes ??
+      (glowLayer as any)._includedOnlyMeshes
+    assert.strictEqual(includedOnly.length, 1)
+    assert.strictEqual(includedOnly[0], box.uniqueId)
   })
 })
