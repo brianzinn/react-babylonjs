@@ -54,7 +54,7 @@ jobs:
           GREN_GITHUB_TOKEN: ${{ secrets.GREN_GITHUB_TOKEN }}
       - name: publish npm
         working-directory: ./packages/react-babylonjs
-        run: npm publish --access public
+        run: npm publish --access public --tag r18
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: publish to coveralls.io
