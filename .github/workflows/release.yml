@@ -19,6 +19,9 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
     steps:
       - uses: actions/checkout@v4
       - run: |
@@ -53,8 +56,6 @@ jobs:
       - name: publish npm
         working-directory: ./packages/react-babylonjs
         run: npm publish --access public --tag r18
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: publish to coveralls.io
         uses: coverallsapp/github-action@v2
         with:
