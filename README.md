@@ -8,11 +8,9 @@ Babylon.js API is mostly covered declaratively thanks to code generation and
 even custom props allow you to declaratively add shadows, physics, 3D models,
 attach 2D/3D UI to meshes, etc.
 
-**NOTE:** for the time being React 19 works with newest and @latest versions.
-For older React versions, you will need to use 3.2.2 (ie:
-`yarn add react-babylonjs@3.2.2`). Hope next version will support both. I tried
-to stay away from a major bump due to the ephemeral nature of this change.
-Thanks for your patience.
+**NOTE:** `react-babylonjs@4` requires React 19.
+For older React versions (React < 19), install from the maintained 3.x line:
+`yarn add react-babylonjs@^3` (tracked on the `r18` branch).
 
 ## install
 ```bash
