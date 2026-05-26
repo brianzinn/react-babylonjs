@@ -51,7 +51,7 @@
     "monaco-editor": "^0.52.2",
     "nanoid": "^5.0.9",
     "prettier": "^3.4.2",
-    "react-babylonjs": "3.2.2",
+    "react-babylonjs": "*",
     "react-error-boundary": "^5.0.0",
     "rspack-plugin-virtual-module": "0.1.13",
     "shiki": "^1.26.1",
