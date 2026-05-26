@@ -1,6 +1,6 @@
 {
   "name": "react-babylonjs",
-  "version": "3.2.2",
+  "version": "3.3.0",
   "description": "React for Babylon.js",
   "homepage": "https://brianzinn.github.io/react-babylonjs/",
   "keywords": [
@@ -88,8 +88,8 @@
   "peerDependencies": {
     "@babylonjs/core": "5.x || 6.x || 7.x",
     "@babylonjs/gui": "5.x || 6.x || 7.x",
-    "react": ">=18",
-    "react-dom": ">=18"
+    "react": "^18",
+    "react-dom": "^18"
   },
   "dependencies": {
     "react-reconciler": "^0.27.0"
