@@ -10,7 +10,6 @@ tools
 .eslintrc
 .gitattributes
 .gitignore
-.grenrc.json
 .nyc_output
 .nycrc.json
 .travis.yml

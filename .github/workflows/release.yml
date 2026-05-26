@@ -20,23 +20,20 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - run: |
-          git config user.name "Brian Zinn"
-          git config user.email "github@wakeskate.com"
-      - uses: actions/setup-node@v3
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - uses: actions/setup-node@v4
         with:
-          node-version: '18.x'
+          node-version: '24.x'
           registry-url: 'https://registry.npmjs.org'
-          scope: brianzinn
       - name: install deps
-        # npm ci
-        run: |
-          npm install --legacy-peer-deps
+        run: yarn install --frozen-lockfile
       - name: build test coverage
         run: |
-          npm run build -w packages/react-babylonjs
-          npm run test:coverage -w packages/react-babylonjs
+          yarn workspace react-babylonjs build
+          yarn workspace react-babylonjs test:coverage
       - name: version-changelog-commit
         run: |
           npm version ${{ github.event.inputs.npmVersion }} -w packages/react-babylonjs
@@ -48,17 +45,18 @@ jobs:
           git tag -a v${PACKAGE_VERSION} -m "version ${PACKAGE_VERSION}"
           git push --follow-tags
           git status
-          sleep 1m
-          ./node_modules/.bin/gren release --tags=v${PACKAGE_VERSION}
+          echo "PACKAGE_VERSION=${PACKAGE_VERSION}" >> $GITHUB_ENV
+      - name: create github release
         env:
-          GREN_GITHUB_TOKEN: ${{ secrets.GREN_GITHUB_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create v${PACKAGE_VERSION} --generate-notes --title "v${PACKAGE_VERSION}"
       - name: publish npm
         working-directory: ./packages/react-babylonjs
         run: npm publish --access public --tag r18
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: publish to coveralls.io
-        uses: coverallsapp/github-action@v1.1.2
+        uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ github.token }}
           path-to-lcov: ./packages/react-babylonjs/coverage/lcov.info
