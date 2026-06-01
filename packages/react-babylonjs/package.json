@@ -15,7 +15,7 @@
   "main": "dist/react-babylonjs.js",
   "module": "dist/react-babylonjs.js",
   "esnext": "dist/react-babylonjs.js",
-  "typings": "dist/react-babylonjs.d.ts",
+  "typings": "dist/types/react-babylonjs.d.ts",
   "type": "module",
   "files": [
     "dist"
