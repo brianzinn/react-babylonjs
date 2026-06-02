@@ -825,7 +825,10 @@ const ReactBabylonJSHostConfig: HostConfig<
 
     for (const key of allKeys) {
       // Skip internal React properties (starts with '__')
-      if (key.startsWith('__')) continue
+      // `children` is owned by the reconciler (appendChild/removeChild),
+      // never a settable host property. Writing it onto e.g. a GUI Container
+      // (whose `children` is getter-only) throws. See #361.
+      if (key.startsWith('__') || key === 'children') continue
 
       const prevValue = prevProps[key]
       const nextValue = nextProps[key]
