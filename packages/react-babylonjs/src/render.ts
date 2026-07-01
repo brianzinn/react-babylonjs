@@ -33,6 +33,38 @@ const ReconcilerPrimary: ReconcilerType<Container, any, any, any, any> = Reconci
 })
 
 /**
+ * Registers a reconciler with React DevTools exactly once per reconciler
+ * instance. Without this guard, injectIntoDevTools was being called again
+ * every time a root was (re)created - e.g. unmounting/remounting a <Scene>
+ * by changing its `key` - which re-registers the renderer with the global
+ * `__REACT_DEVTOOLS_GLOBAL_HOOK__` on every remount.
+ */
+function injectDevToolsOnce(reconciler: ReconcilerType<Container, any, any, any, any>): void {
+  if ((reconciler as any).__rbjsDevToolsInjected === true) {
+    return
+  }
+
+  if (typeof (reconciler as any).injectIntoDevTools !== 'function') {
+    return
+  }
+
+  try {
+    reconciler.injectIntoDevTools({
+      bundleType: process.env.NODE_ENV === 'production' ? 1 : 0,
+      version,
+      rendererPackageName: 'react-babylonjs',
+      findFiberByHostInstance: (reconciler as any).findFiberByHostInstance || null,
+    })
+  } catch (e) {
+    console.warn('Could not inject into DevTools:', e)
+  } finally {
+    // Mark as injected even on failure - retrying on every render for a
+    // permanently failing injectIntoDevTools call is not useful.
+    ;(reconciler as any).__rbjsDevToolsInjected = true
+  }
+}
+
+/**
  * This is a work in progress in experimental state.
  */
 export function createPortal(
@@ -108,20 +140,9 @@ export function createReconciler(rendererOptions: RendererOptions): ReconcilerIn
       }
 
       roots.set(container, root)
-
-      if (typeof (reconciler as any).injectIntoDevTools === 'function') {
-        try {
-          reconciler.injectIntoDevTools({
-            bundleType: process.env.NODE_ENV === 'production' ? 1 : 0,
-            version,
-            rendererPackageName: 'react-babylonjs',
-            findFiberByHostInstance: (reconciler as any).findFiberByHostInstance || null,
-          })
-        } catch (e) {
-          console.warn('Could not inject into DevTools:', e)
-        }
-      }
     }
+
+    injectDevToolsOnce(reconciler)
 
     try {
       // The updateContainer call might have changed in React 19
